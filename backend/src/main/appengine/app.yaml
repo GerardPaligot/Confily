@@ -1,0 +1,4 @@
+runtime: java11
+entrypoint: 'java -jar backend-all.jar'
+env_variables:
+  IS_APPENGINE: 'true'
