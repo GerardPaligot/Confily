@@ -40,9 +40,11 @@ interface Database {
 }
 
 infix fun <R> String.whereEquals(that: R): WhereOperation.WhereEquals<R> = WhereOperation.WhereEquals(this, that)
+infix fun <R> String.whereNotEquals(that: R): WhereOperation.WhereNotEquals<R> = WhereOperation.WhereNotEquals(this, that)
 infix fun <R> String.whereIn(that: List<R>): WhereOperation.WhereIn<R> = WhereOperation.WhereIn(this, that)
 sealed class WhereOperation(val left: String) {
     class WhereEquals<R>(left: String, val right: R) : WhereOperation(left)
+    class WhereNotEquals<R>(left: String, val right: R) : WhereOperation(left)
     class WhereIn<R>(left: String, val right: List<R>) : WhereOperation(left)
 }
 

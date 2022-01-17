@@ -5,10 +5,9 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Partner(
-  val id: String,
   val name: String,
-  val url: String,
-  @SerialName("picture_url")
-  val pictureUrl: String,
-  val type: String
+  @SerialName("logo_url")
+  val logoUrl: String,
+  @SerialName("site_url")
+  val siteUrl: String?
 )

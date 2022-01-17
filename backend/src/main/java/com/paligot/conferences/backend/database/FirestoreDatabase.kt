@@ -60,6 +60,7 @@ class FirestoreDatabase(
                 val requester = if (query == null) collRef else query!!
                 query = when (it) {
                     is WhereOperation.WhereEquals<*> -> requester.whereEqualTo(it.left, it.right)
+                    is WhereOperation.WhereNotEquals<*> -> requester.whereNotEqualTo(it.left, it.right)
                     is WhereOperation.WhereIn<*> -> requester.whereIn(it.left, it.right)
                 }
             }
@@ -82,6 +83,7 @@ class FirestoreDatabase(
                 val requester = if (query == null) collRef else query!!
                 query = when (it) {
                     is WhereOperation.WhereEquals<*> -> requester.whereEqualTo(it.left, it.right)
+                    is WhereOperation.WhereNotEquals<*> -> requester.whereNotEqualTo(it.left, it.right)
                     is WhereOperation.WhereIn<*> -> requester.whereIn(it.left, it.right)
                 }
             }

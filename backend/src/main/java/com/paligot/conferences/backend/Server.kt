@@ -8,6 +8,7 @@ import com.paligot.conferences.backend.events.EventDao
 import com.paligot.conferences.backend.events.convertToDb
 import com.paligot.conferences.backend.events.registerEventRoutes
 import com.paligot.conferences.backend.network.ConferenceHallApi
+import com.paligot.conferences.backend.partners.PartnerDao
 import com.paligot.conferences.backend.schedulers.ScheduleItemDao
 import com.paligot.conferences.backend.schedulers.registerSchedulersRoutes
 import com.paligot.conferences.backend.speakers.SpeakerDao
@@ -73,6 +74,16 @@ fun main() {
             )
         )
     )
+    val partnerDao = PartnerDao(
+        Database.Factory.create(
+            DatabaseType.FirestoreDb(
+                firestore = firestore,
+                projectName = projectName,
+                collectionName = "companies",
+                dispatcher = Dispatchers.IO
+            )
+        )
+    )
 
     embeddedServer(Netty, 8080) {
         install(ContentNegotiation) {
@@ -91,7 +102,7 @@ fun main() {
                 call.respond(HttpStatusCode.Created, event)
             }
             route("/events/{eventId}") {
-                registerEventRoutes(eventDao, speakerDao, talkDao, scheduleItemDao)
+                registerEventRoutes(eventDao, speakerDao, talkDao, scheduleItemDao, partnerDao)
                 registerSpeakersRoutes(speakerDao)
                 registerTalksRoutes(speakerDao, talkDao)
                 registerSchedulersRoutes(talkDao, speakerDao, scheduleItemDao)
