@@ -2,7 +2,6 @@ package com.paligot.conferences.android.components.talks
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -15,7 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.guru.fontawesomecomposelib.FaIcon
 import com.guru.fontawesomecomposelib.FaIcons
-import com.paligot.conferences.android.theme.ConferenceTheme
+import com.paligot.conferences.android.theme.Conferences4HallTheme
 
 @Composable
 fun Room(
@@ -37,7 +36,7 @@ fun Room(
 @Preview
 @Composable
 fun RoomPreview() {
-    ConferenceTheme {
+    Conferences4HallTheme {
         Room("Stage 2")
     }
 }

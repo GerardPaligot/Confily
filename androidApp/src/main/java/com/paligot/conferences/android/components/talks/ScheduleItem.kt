@@ -9,7 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.paligot.conferences.android.theme.ConferenceTheme
+import com.paligot.conferences.android.theme.Conferences4HallTheme
 
 @Composable
 fun ScheduleItem(
@@ -42,7 +42,7 @@ fun ScheduleItem(
 @Preview
 @Composable
 fun ScheduleItemPreview() {
-    ConferenceTheme {
+    Conferences4HallTheme {
         ScheduleItem(time = "10:00", talks = arrayListOf(talkItem, talkItem)) {}
     }
 }

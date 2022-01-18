@@ -40,5 +40,4 @@ data class Event(
   val faqLink: String?,
   @SerialName("code_of_conduct_link")
   val codeOfConductLink: String?,
-
 )

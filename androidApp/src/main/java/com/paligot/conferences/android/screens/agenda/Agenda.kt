@@ -3,6 +3,7 @@ package com.paligot.conferences.android.screens.agenda
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Scaffold
@@ -13,11 +14,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.paligot.conferences.android.components.appbars.BottomAppBar
+import com.paligot.conferences.android.components.appbars.ItemSelected
 import com.paligot.conferences.android.components.appbars.TopAppBar
 import com.paligot.conferences.android.components.talks.ScheduleItem
 import com.paligot.conferences.android.components.talks.TalkItemUi
 import com.paligot.conferences.android.components.talks.talkItem
-import com.paligot.conferences.android.theme.ConferenceTheme
+import com.paligot.conferences.android.theme.Conferences4HallTheme
 import com.paligot.conferences.repositories.AgendaRepository
 
 data class AgendaUi(val talks: Map<String, List<TalkItemUi>>)
@@ -26,7 +29,8 @@ data class AgendaUi(val talks: Map<String, List<TalkItemUi>>)
 fun AgendaVM(
   agendaRepository: AgendaRepository,
   modifier: Modifier = Modifier,
-  onTalkClicked: (id: String) -> Unit
+  onTalkClicked: (id: String) -> Unit,
+  onNavigationClick: (item: ItemSelected) -> Unit
 ) {
   val viewModel: AgendaViewModel = viewModel(
     factory = AgendaViewModel.Factory.create(agendaRepository)
@@ -38,7 +42,8 @@ fun AgendaVM(
     is AgendaUiState.Success -> Agenda(
       agenda = (uiState.value as AgendaUiState.Success).agenda,
       modifier = modifier,
-      onTalkClicked = onTalkClicked
+      onTalkClicked = onTalkClicked,
+      onNavigationClick = onNavigationClick
     )
   }
 }
@@ -48,13 +53,16 @@ fun AgendaVM(
 fun Agenda(
   agenda: AgendaUi,
   modifier: Modifier = Modifier,
-  onTalkClicked: (id: String) -> Unit
+  onTalkClicked: (id: String) -> Unit,
+  onNavigationClick: (item: ItemSelected) -> Unit
 ) {
   Scaffold(
     modifier = modifier,
     topBar = { TopAppBar(title = "Agenda") },
+    bottomBar = { BottomAppBar(selected = ItemSelected.Agenda, onClick = onNavigationClick) },
     content = {
       LazyColumn(
+        modifier = Modifier.padding(it),
         contentPadding = PaddingValues(vertical = 4.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
       ) {
@@ -69,7 +77,7 @@ fun Agenda(
 @Preview
 @Composable
 fun AgendaPreview() {
-  ConferenceTheme {
+  Conferences4HallTheme {
     Agenda(
       agenda = AgendaUi(
         talks = mapOf(
@@ -81,7 +89,8 @@ fun AgendaPreview() {
           "15:00" to arrayListOf(talkItem, talkItem),
         ),
       ),
-      onTalkClicked = {}
+      onTalkClicked = {},
+      onNavigationClick = {}
     )
   }
 }

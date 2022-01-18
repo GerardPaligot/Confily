@@ -16,7 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.paligot.conferences.android.components.speakers.SpeakerItemUi
 import com.paligot.conferences.android.components.speakers.speakerItem
-import com.paligot.conferences.android.theme.ConferenceTheme
+import com.paligot.conferences.android.theme.Conferences4HallTheme
 
 data class TalkUi(
     val title: String,
@@ -67,7 +67,7 @@ fun TalkSection(
 @Preview
 @Composable
 fun TalkSectionPreview() {
-    ConferenceTheme {
+    Conferences4HallTheme {
         TalkSection(talk = talk)
     }
 }

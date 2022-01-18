@@ -21,7 +21,7 @@ import com.paligot.conferences.android.components.speakers.SpeakerItem
 import com.paligot.conferences.android.components.talks.TalkSection
 import com.paligot.conferences.android.components.talks.TalkUi
 import com.paligot.conferences.android.components.talks.talk
-import com.paligot.conferences.android.theme.ConferenceTheme
+import com.paligot.conferences.android.theme.Conferences4HallTheme
 import com.paligot.conferences.repositories.AgendaRepository
 
 @Composable
@@ -95,7 +95,7 @@ fun ScheduleDetail(
 @Preview
 @Composable
 fun TalkDetailPreview() {
-    ConferenceTheme {
+    Conferences4HallTheme {
         ScheduleDetail(
             talk = talk,
             onBackClicked = {},

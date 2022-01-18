@@ -25,7 +25,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.paligot.conferences.android.theme.ConferenceTheme
+import com.paligot.conferences.android.theme.Conferences4HallTheme
 
 data class SpeakerItemUi(
     val id: String,
@@ -94,7 +94,7 @@ fun SpeakerItem(
 @Preview
 @Composable
 fun SpeakerItemPreview() {
-    ConferenceTheme {
+    Conferences4HallTheme {
         SpeakerBox(onClick = {}) {
             SpeakerItem(speakerUi = speakerItem)
         }

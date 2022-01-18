@@ -1,7 +1,6 @@
 package com.paligot.conferences.android.components.speakers
 
 import android.graphics.Color
-import android.graphics.ColorFilter
 import android.graphics.drawable.ColorDrawable
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.shape.CircleShape
@@ -12,7 +11,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.rememberImagePainter
-import com.paligot.conferences.android.theme.ConferenceTheme
+import com.paligot.conferences.android.theme.Conferences4HallTheme
 
 @Composable
 fun SpeakerAvatar(
@@ -38,7 +37,7 @@ fun SpeakerAvatar(
 @Preview
 @Composable
 fun SpeakerAvatarPreview() {
-  ConferenceTheme {
+  Conferences4HallTheme {
     SpeakerAvatar(speaker.url, contentDescription = null)
   }
 }

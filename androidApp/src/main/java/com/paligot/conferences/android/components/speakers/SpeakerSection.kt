@@ -12,7 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.paligot.conferences.android.theme.ConferenceTheme
+import com.paligot.conferences.android.theme.Conferences4HallTheme
 
 data class SpeakerUi(
     val url: String,
@@ -72,7 +72,7 @@ fun SpeakerSection(
 @Preview
 @Composable
 fun SpeakerSectionPreview() {
-    ConferenceTheme {
+    Conferences4HallTheme {
         SpeakerSection(
             speaker = speaker,
             onTwitterClick = {},

@@ -16,7 +16,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.paligot.conferences.android.components.appbars.AppBarIcons
-import com.paligot.conferences.android.theme.ConferenceTheme
+import com.paligot.conferences.android.theme.Conferences4HallTheme
 
 @Composable
 fun SpeakerHeader(
@@ -31,7 +31,7 @@ fun SpeakerHeader(
 ) {
     Box(modifier = modifier.fillMaxWidth()) {
         Column(
-            modifier = modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(Modifier.height(16.dp))
@@ -52,7 +52,7 @@ fun SpeakerHeader(
 @Preview
 @Composable
 fun SpeakerHeaderPreview() {
-    ConferenceTheme {
+    Conferences4HallTheme {
         SpeakerHeader(
             url = speaker.url,
             name = speaker.name,

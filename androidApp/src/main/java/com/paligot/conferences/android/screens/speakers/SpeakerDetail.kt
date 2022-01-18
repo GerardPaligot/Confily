@@ -11,12 +11,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.paligot.conferences.android.components.appbars.TopAppBar
 import com.paligot.conferences.android.components.speakers.SpeakerHeader
 import com.paligot.conferences.android.components.speakers.SpeakerSection
 import com.paligot.conferences.android.components.speakers.SpeakerUi
 import com.paligot.conferences.android.components.speakers.speaker
-import com.paligot.conferences.android.theme.ConferenceTheme
+import com.paligot.conferences.android.theme.Conferences4HallTheme
 import com.paligot.conferences.repositories.AgendaRepository
 
 @Composable
@@ -83,7 +82,7 @@ fun SpeakerDetail(
 @Preview
 @Composable
 fun SpeakerListPreview() {
-  ConferenceTheme {
+  Conferences4HallTheme {
     SpeakerDetail(
       speaker = speaker,
       onTwitterClick = {},

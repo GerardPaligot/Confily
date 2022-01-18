@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
-import com.paligot.conferences.android.theme.ConferenceTheme
+import com.paligot.conferences.android.theme.Conferences4HallTheme
 
 @Composable
 fun Time(
@@ -27,7 +27,7 @@ fun Time(
 @Preview
 @Composable
 fun TimePreview() {
-    ConferenceTheme {
+    Conferences4HallTheme {
         Time(time = "10:00")
     }
 }

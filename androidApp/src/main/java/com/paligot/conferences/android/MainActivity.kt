@@ -11,10 +11,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.paligot.conferences.android.components.appbars.ItemSelected
 import com.paligot.conferences.android.screens.agenda.AgendaVM
+import com.paligot.conferences.android.screens.event.EventVM
 import com.paligot.conferences.android.screens.schedule.ScheduleDetailVM
 import com.paligot.conferences.android.screens.speakers.SpeakerDetailVM
-import com.paligot.conferences.android.theme.ConferenceTheme
+import com.paligot.conferences.android.theme.Conferences4HallTheme
 import com.paligot.conferences.network.ConferenceApi
 import com.paligot.conferences.repositories.AgendaRepository
 
@@ -23,13 +25,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         // val baseUrl = "http://10.0.2.2:8080"
         val baseUrl = "https://cms4partners-ce427.nw.r.appspot.com"
+        val eventId = "AFtTtSMq1NY4tnK2gMg1"
         val repository = AgendaRepository.Factory.create(
             ConferenceApi.Factory.create(
-                baseUrl = baseUrl, eventId = "AFtTtSMq1NY4tnK2gMg1", enableNetworkLogs = BuildConfig.DEBUG
+                baseUrl = baseUrl, eventId = eventId, enableNetworkLogs = BuildConfig.DEBUG
             )
         )
         setContent {
-            ConferenceTheme {
+            Conferences4HallTheme {
                 val systemUiController = rememberSystemUiController()
                 val useDarkIcons = MaterialTheme.colors.isLight
                 val statusBarColor = MaterialTheme.colors.primary
@@ -41,9 +44,16 @@ class MainActivity : AppCompatActivity() {
                 val navController = rememberNavController()
                 NavHost(navController = navController, startDestination = "agenda") {
                     composable("agenda") {
-                        AgendaVM(agendaRepository = repository, onTalkClicked = {
-                            navController.navigate("schedules/$it")
-                        })
+                        AgendaVM(agendaRepository = repository,
+                            onTalkClicked = {
+                                navController.navigate("schedules/$it")
+                            },
+                            onNavigationClick = {
+                                if (it == ItemSelected.Event) navController.navigate("events/$eventId") {
+                                    popUpTo("agenda")
+                                }
+                            }
+                        )
                     }
                     composable(
                         route = "schedules/{scheduleId}",
@@ -69,6 +79,23 @@ class MainActivity : AppCompatActivity() {
                             onBackClicked = {
                                 navController.popBackStack()
                             })
+                    }
+                    composable(
+                        route = "events/{eventId}",
+                        arguments = listOf(navArgument("eventId") { type = NavType.StringType })
+                    ) {
+                        EventVM(agendaRepository = repository,
+                            onFaqClick = {},
+                            onCoCClick = {},
+                            onTwitterClick = {},
+                            onLinkedInClick = {},
+                            onPartnerClick = {},
+                            onNavigationClick = {
+                                if (it == ItemSelected.Agenda) navController.navigate("agenda") {
+                                    popUpTo("agenda") { inclusive = true }
+                                }
+                            }
+                        )
                     }
                 }
             }

@@ -4,7 +4,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 
 @Composable
-fun ConferenceTheme(
+fun Conferences4HallTheme(
     content: @Composable () -> Unit
 ) {
     MaterialTheme(

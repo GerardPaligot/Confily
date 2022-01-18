@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.paligot.conferences.android.theme.ConferenceTheme
+import com.paligot.conferences.android.theme.Conferences4HallTheme
 
 @Composable
 fun TopAppBar(
@@ -32,7 +32,7 @@ internal fun (@Composable AppBarIcons.() -> Unit)?.takeOrNull(): (@Composable ()
 @Preview
 @Composable
 fun TopAppBarPeview() {
-  ConferenceTheme {
+  Conferences4HallTheme {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
       TopAppBar(
         title = "Speakers"

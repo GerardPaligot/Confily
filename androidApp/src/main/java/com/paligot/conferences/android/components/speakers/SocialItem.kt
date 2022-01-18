@@ -23,7 +23,8 @@ import androidx.compose.ui.unit.dp
 import com.guru.fontawesomecomposelib.FaIcon
 import com.guru.fontawesomecomposelib.FaIconType
 import com.guru.fontawesomecomposelib.FaIcons
-import com.paligot.conferences.android.theme.ConferenceTheme
+import com.paligot.conferences.android.screens.event.event
+import com.paligot.conferences.android.theme.Conferences4HallTheme
 
 object Socials {
   @Composable
@@ -61,6 +62,28 @@ object Socials {
     SocialItem(
       text = text,
       icon = FaIcons.Github,
+      modifier = modifier,
+      style = style,
+      color = color,
+      interactionSource = interactionSource,
+      indication = indication,
+      onClick = onClick
+    )
+  }
+
+  @Composable
+  fun LinkedIn(
+    text: String,
+    modifier: Modifier = Modifier,
+    style: TextStyle = MaterialTheme.typography.caption,
+    color: Color = MaterialTheme.colors.onBackground,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    indication: Indication = rememberRipple(),
+    onClick: () -> Unit
+  ) {
+    SocialItem(
+      text = text,
+      icon = FaIcons.Linkedin,
       modifier = modifier,
       style = style,
       color = color,
@@ -109,7 +132,7 @@ internal fun SocialItem(
 @Preview
 @Composable
 fun SocialItemPreview() {
-  ConferenceTheme {
+  Conferences4HallTheme {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
       Socials.Twitter(
         text = speaker.twitter!!,
@@ -117,6 +140,10 @@ fun SocialItemPreview() {
       )
       Socials.GitHub(
         text = speaker.github!!,
+        onClick = {}
+      )
+      Socials.LinkedIn(
+        text = event.eventInfo.linkedin!!,
         onClick = {}
       )
     }

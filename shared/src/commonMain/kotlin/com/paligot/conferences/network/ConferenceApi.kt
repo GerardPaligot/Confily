@@ -2,6 +2,7 @@ package com.paligot.conferences.network
 
 import com.paligot.conferences.Platform
 import com.paligot.conferences.models.Agenda
+import com.paligot.conferences.models.Event
 import com.paligot.conferences.models.ScheduleItem
 import com.paligot.conferences.models.Speaker
 import com.paligot.conferences.models.Talk
@@ -16,6 +17,7 @@ import kotlinx.serialization.json.Json
 class ConferenceApi(
     private val client: HttpClient, private val baseUrl: String, private val eventId: String
 ) {
+    suspend fun fetchEvent() = client.get("$baseUrl/events/$eventId").body<Event>()
     suspend fun fetchAgenda() = client.get("$baseUrl/events/$eventId/agenda").body<Agenda>()
     suspend fun fetchSpeaker(speakerId: String) = client.get("$baseUrl/events/$eventId/speakers/$speakerId").body<Speaker>()
     suspend fun fetchTalk(talkId: String) = client.get("$baseUrl/events/$eventId/talks/$talkId").body<Talk>()
