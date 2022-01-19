@@ -1,14 +1,8 @@
 package com.paligot.conferences.android.screens.event
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Scaffold
@@ -20,9 +14,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.paligot.conferences.android.R
-import com.paligot.conferences.android.components.appbars.BottomAppBar
-import com.paligot.conferences.android.components.appbars.ItemSelected
-import com.paligot.conferences.android.components.appbars.TopAppBar
 import com.paligot.conferences.android.components.events.*
 import com.paligot.conferences.android.theme.Conferences4HallTheme
 import com.paligot.conferences.repositories.AgendaRepository
@@ -68,8 +59,7 @@ fun EventVM(
     onCoCClick: (url: String) -> Unit,
     onTwitterClick: (url: String) -> Unit,
     onLinkedInClick: (url: String) -> Unit,
-    onPartnerClick: (siteUrl: String) -> Unit,
-    onNavigationClick: (item: ItemSelected) -> Unit
+    onPartnerClick: (siteUrl: String) -> Unit
 ) {
     val viewModel: EventViewModel = viewModel(
         factory = EventViewModel.Factory.create(agendaRepository)
@@ -85,13 +75,11 @@ fun EventVM(
             onCoCClick = onCoCClick,
             onTwitterClick = onTwitterClick,
             onLinkedInClick = onLinkedInClick,
-            onPartnerClick = onPartnerClick,
-            onNavigationClick = onNavigationClick
+            onPartnerClick = onPartnerClick
         )
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun Event(
     event: EventUi,
@@ -100,43 +88,35 @@ fun Event(
     onCoCClick: (url: String) -> Unit,
     onTwitterClick: (url: String) -> Unit,
     onLinkedInClick: (url: String) -> Unit,
-    onPartnerClick: (siteUrl: String) -> Unit,
-    onNavigationClick: (item: ItemSelected) -> Unit
+    onPartnerClick: (siteUrl: String) -> Unit
 ) {
-    Scaffold(
-        modifier = modifier,
-        topBar = { TopAppBar(title = "${event.eventInfo.name} Edition") },
-        bottomBar = { BottomAppBar(selected = ItemSelected.Event, onClick = onNavigationClick) },
-        content = {
-            LazyColumn(
-                modifier = Modifier.padding(it).padding(horizontal = 8.dp),
-                contentPadding = PaddingValues(vertical = 4.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-            ) {
-                item {
-                    EventSection(
-                        eventInfo = event.eventInfo,
-                        onFaqClick = onFaqClick,
-                        onCoCClick = onCoCClick,
-                        onTwitterClick = onTwitterClick,
-                        onLinkedInClick = onLinkedInClick
-                    )
-                }
-                item { PartnerDivider(title = "Gold") }
-                items(event.partners.golds.chunked(3)) {
-                    PartnerRow(partners = it, onPartnerClick = onPartnerClick)
-                }
-                item { PartnerDivider(title = "Silver") }
-                items(event.partners.silvers.chunked(3)) {
-                    PartnerRow(partners = it, onPartnerClick = onPartnerClick)
-                }
-                item { PartnerDivider(title = "Bronze") }
-                items(event.partners.bronzes.chunked(3)) {
-                    PartnerRow(partners = it, onPartnerClick = onPartnerClick)
-                }
-            }
+    LazyColumn(
+        modifier = modifier.padding(horizontal = 8.dp),
+        contentPadding = PaddingValues(vertical = 4.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        item {
+            EventSection(
+                eventInfo = event.eventInfo,
+                onFaqClick = onFaqClick,
+                onCoCClick = onCoCClick,
+                onTwitterClick = onTwitterClick,
+                onLinkedInClick = onLinkedInClick
+            )
         }
-    )
+        item { PartnerDivider(title = "Gold") }
+        items(event.partners.golds.chunked(3)) {
+            PartnerRow(partners = it, onPartnerClick = onPartnerClick)
+        }
+        item { PartnerDivider(title = "Silver") }
+        items(event.partners.silvers.chunked(3)) {
+            PartnerRow(partners = it, onPartnerClick = onPartnerClick)
+        }
+        item { PartnerDivider(title = "Bronze") }
+        items(event.partners.bronzes.chunked(3)) {
+            PartnerRow(partners = it, onPartnerClick = onPartnerClick)
+        }
+    }
 }
 
 @Preview
@@ -150,8 +130,7 @@ fun Eventreview() {
                 onCoCClick = {},
                 onTwitterClick = {},
                 onLinkedInClick = {},
-                onPartnerClick = {},
-                onNavigationClick = {}
+                onPartnerClick = {}
             )
         }
     }

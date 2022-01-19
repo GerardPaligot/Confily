@@ -11,9 +11,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.paligot.conferences.android.components.appbars.ItemSelected
-import com.paligot.conferences.android.screens.agenda.AgendaVM
-import com.paligot.conferences.android.screens.event.EventVM
+import com.paligot.conferences.android.screens.home.Home
 import com.paligot.conferences.android.screens.schedule.ScheduleDetailVM
 import com.paligot.conferences.android.screens.speakers.SpeakerDetailVM
 import com.paligot.conferences.android.theme.Conferences4HallTheme
@@ -42,58 +40,46 @@ class MainActivity : AppCompatActivity() {
                     systemUiController.setNavigationBarColor(color = navBarColor, darkIcons = useDarkIcons)
                 }
                 val navController = rememberNavController()
-                NavHost(navController = navController, startDestination = "agenda") {
-                    composable("agenda") {
-                        AgendaVM(agendaRepository = repository,
+                NavHost(navController = navController, startDestination = "home") {
+                    composable(route = "home") {
+                        Home(
+                            repository = repository,
                             onTalkClicked = {
                                 navController.navigate("schedules/$it")
                             },
-                            onNavigationClick = {
-                                if (it == ItemSelected.Event) navController.navigate("events/$eventId") {
-                                    popUpTo("agenda")
-                                }
-                            }
+                            onFaqClick = {},
+                            onCoCClick = {},
+                            onTwitterClick = {},
+                            onLinkedInClick = {},
+                            onPartnerClick = {}
                         )
                     }
                     composable(
                         route = "schedules/{scheduleId}",
                         arguments = listOf(navArgument("scheduleId") { type = NavType.StringType })
                     ) {
-                        ScheduleDetailVM(scheduleId = it.arguments?.getString("scheduleId")!!,
+                        ScheduleDetailVM(
+                            scheduleId = it.arguments?.getString("scheduleId")!!,
                             agendaRepository = repository,
                             onBackClicked = {
                                 navController.popBackStack()
                             },
                             onSpeakerClicked = {
                                 navController.navigate("speakers/$it")
-                            })
+                            }
+                        )
                     }
                     composable(
                         route = "speakers/{speakerId}",
                         arguments = listOf(navArgument("speakerId") { type = NavType.StringType })
                     ) {
-                        SpeakerDetailVM(speakerId = it.arguments?.getString("speakerId")!!,
+                        SpeakerDetailVM(
+                            speakerId = it.arguments?.getString("speakerId")!!,
                             agendaRepository = repository,
                             onTwitterClick = {},
                             onGitHubClick = {},
                             onBackClicked = {
                                 navController.popBackStack()
-                            })
-                    }
-                    composable(
-                        route = "events/{eventId}",
-                        arguments = listOf(navArgument("eventId") { type = NavType.StringType })
-                    ) {
-                        EventVM(agendaRepository = repository,
-                            onFaqClick = {},
-                            onCoCClick = {},
-                            onTwitterClick = {},
-                            onLinkedInClick = {},
-                            onPartnerClick = {},
-                            onNavigationClick = {
-                                if (it == ItemSelected.Agenda) navController.navigate("agenda") {
-                                    popUpTo("agenda") { inclusive = true }
-                                }
                             }
                         )
                     }
