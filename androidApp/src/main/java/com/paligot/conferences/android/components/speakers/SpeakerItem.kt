@@ -26,13 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.paligot.conferences.android.theme.Conferences4HallTheme
-
-data class SpeakerItemUi(
-    val id: String,
-    val name: String,
-    val company: String,
-    val url: String
-)
+import com.paligot.conferences.repositories.SpeakerItemUi
 
 val speakerItem = SpeakerItemUi(
     id = "1",

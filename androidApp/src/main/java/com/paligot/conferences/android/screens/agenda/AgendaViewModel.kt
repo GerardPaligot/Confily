@@ -3,8 +3,8 @@ package com.paligot.conferences.android.screens.agenda
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.paligot.conferences.android.screens.convertToModelUi
 import com.paligot.conferences.repositories.AgendaRepository
+import com.paligot.conferences.repositories.AgendaUi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -24,7 +24,13 @@ class AgendaViewModel(
     init {
         viewModelScope.launch {
             try {
-                _uiState.value = AgendaUiState.Success(repository.agenda().convertToModelUi())
+                repository.fetchAndStoreAgenda()
+            } catch (ignored: Throwable) {
+            }
+            try {
+                repository.agenda().collect {
+                    _uiState.value = AgendaUiState.Success(it)
+                }
             } catch (ignore: Throwable) {
                 _uiState.value = AgendaUiState.Failure(ignore)
             }

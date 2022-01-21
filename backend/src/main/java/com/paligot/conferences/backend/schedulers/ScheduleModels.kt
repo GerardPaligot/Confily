@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 data class ScheduleDb(
   val time: String = "",
-  val room: String? = null,
+  val room: String,
   val talkId: String? = null
 ) {
   val id: String = talkId ?: "${time}-pause"
@@ -14,7 +14,7 @@ data class ScheduleDb(
 @Serializable
 data class ScheduleInput(
   val time: String,
-  val room: String? = null,
+  val room: String,
   @SerialName("talk_id")
   val talkId: String? = null
 )

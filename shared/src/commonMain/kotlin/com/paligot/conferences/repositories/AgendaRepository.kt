@@ -1,28 +1,51 @@
 package com.paligot.conferences.repositories
 
-import com.paligot.conferences.models.Agenda
-import com.paligot.conferences.models.Event
-import com.paligot.conferences.models.ScheduleItem
-import com.paligot.conferences.models.Speaker
-import com.paligot.conferences.models.Talk
+import com.paligot.conferences.database.EventDao
+import com.paligot.conferences.database.ScheduleDao
+import com.paligot.conferences.database.SpeakerDao
+import com.paligot.conferences.database.TalkDao
 import com.paligot.conferences.network.ConferenceApi
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.transform
 
 interface AgendaRepository {
-    suspend fun event(): Event
-    suspend fun agenda(): Agenda
-    suspend fun talk(talkId: String): Talk
-    suspend fun scheduleItem(scheduleId: String): ScheduleItem
-    suspend fun speaker(speakerId: String): Speaker
+    suspend fun fetchAndStoreAgenda()
+    suspend fun event(): EventUi
+    suspend fun agenda(): Flow<AgendaUi>
+    suspend fun scheduleItem(scheduleId: String): TalkUi
+    suspend fun speaker(speakerId: String): SpeakerUi
 
     object Factory {
-        fun create(api: ConferenceApi): AgendaRepository = AgendaRepositoryImpl(api)
+        fun create(
+            api: ConferenceApi,
+            scheduleDao: ScheduleDao,
+            speakerDao: SpeakerDao,
+            talkDao: TalkDao,
+            eventDao: EventDao
+        ): AgendaRepository = AgendaRepositoryImpl(api, scheduleDao, speakerDao, talkDao, eventDao)
     }
 }
 
-class AgendaRepositoryImpl(private val api: ConferenceApi) : AgendaRepository {
-    override suspend fun event(): Event = api.fetchEvent()
-    override suspend fun agenda(): Agenda = api.fetchAgenda()
-    override suspend fun talk(talkId: String): Talk = api.fetchTalk(talkId)
-    override suspend fun scheduleItem(scheduleId: String): ScheduleItem = api.fetchSchedule(scheduleId)
-    override suspend fun speaker(speakerId: String): Speaker = api.fetchSpeaker(speakerId)
+class AgendaRepositoryImpl(
+    private val api: ConferenceApi,
+    private val scheduleDao: ScheduleDao,
+    private val speakerDao: SpeakerDao,
+    private val talkDao: TalkDao,
+    private val eventDao: EventDao
+) : AgendaRepository {
+    override suspend fun fetchAndStoreAgenda() {
+        val agenda = api.fetchAgenda()
+        agenda.talks.values.forEach { schedules ->
+            scheduleDao.insertSchedules(schedules)
+        }
+        eventDao.insertEvent(api.fetchEvent())
+    }
+
+    override suspend fun event(): EventUi = eventDao.fetchEvent()
+    override suspend fun agenda(): Flow<AgendaUi> = scheduleDao.fetchSchedules().transform { talks ->
+        emit(AgendaUi(talks = talks.groupBy { it.time }))
+    }
+
+    override suspend fun scheduleItem(scheduleId: String): TalkUi = talkDao.fetchTalk(scheduleId)
+    override suspend fun speaker(speakerId: String): SpeakerUi = speakerDao.fetchSpeaker(speakerId)
 }

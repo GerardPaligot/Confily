@@ -13,17 +13,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.paligot.conferences.android.theme.Conferences4HallTheme
-
-data class SpeakerUi(
-    val url: String,
-    val name: String,
-    val company: String,
-    val bio: String,
-    val twitter: String?,
-    val twitterUrl: String?,
-    val github: String?,
-    val githubUrl: String?
-)
+import com.paligot.conferences.repositories.SpeakerUi
 
 val speaker = SpeakerUi(
     url = "https://pbs.twimg.com/profile_images/1465658195767136257/zdYQWsTj_400x400.jpg",

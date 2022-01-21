@@ -13,10 +13,10 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.paligot.conferences.android.components.speakers.SpeakerHeader
 import com.paligot.conferences.android.components.speakers.SpeakerSection
-import com.paligot.conferences.android.components.speakers.SpeakerUi
 import com.paligot.conferences.android.components.speakers.speaker
 import com.paligot.conferences.android.theme.Conferences4HallTheme
 import com.paligot.conferences.repositories.AgendaRepository
+import com.paligot.conferences.repositories.SpeakerUi
 
 @Composable
 fun SpeakerDetailVM(

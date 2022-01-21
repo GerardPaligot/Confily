@@ -3,8 +3,8 @@ package com.paligot.conferences.android.screens.event
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.paligot.conferences.android.screens.convertToModelUi
 import com.paligot.conferences.repositories.AgendaRepository
+import com.paligot.conferences.repositories.EventUi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -22,7 +22,7 @@ class EventViewModel(private val repository: AgendaRepository) : ViewModel() {
     init {
         viewModelScope.launch {
             try {
-                _uiState.value = EventUiState.Success(repository.event().convertToModelUi())
+                _uiState.value = EventUiState.Success(repository.event())
             } catch (ignore: Throwable) {
                 _uiState.value = EventUiState.Failure(ignore)
             }

@@ -41,9 +41,9 @@ fun Home(
     onTalkClicked: (id: String) -> Unit,
     onFaqClick: (url: String) -> Unit,
     onCoCClick: (url: String) -> Unit,
-    onTwitterClick: (url: String) -> Unit,
-    onLinkedInClick: (url: String) -> Unit,
-    onPartnerClick: (siteUrl: String) -> Unit,
+    onTwitterClick: (url: String?) -> Unit,
+    onLinkedInClick: (url: String?) -> Unit,
+    onPartnerClick: (siteUrl: String?) -> Unit,
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination

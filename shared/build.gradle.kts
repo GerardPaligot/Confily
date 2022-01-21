@@ -2,10 +2,13 @@ plugins {
     kotlin("multiplatform")
     id("com.android.library")
     id("kotlinx-serialization")
+    id("com.squareup.sqldelight")
 }
 
 val kotlinVersion: String by project
 val ktorVersion: String by project
+val sqldelightVersion: String by project
+val datetimeVersion: String by project
 kotlin {
     android()
     
@@ -31,6 +34,11 @@ kotlin {
                 implementation("io.ktor:ktor-client-serialization:$ktorVersion")
                 implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
+
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:$datetimeVersion")
+
+                implementation("com.squareup.sqldelight:runtime:${sqldelightVersion}")
+                implementation("com.squareup.sqldelight:coroutines-extensions:${sqldelightVersion}")
             }
         }
         val commonTest by getting {
@@ -42,6 +50,7 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation("io.ktor:ktor-client-android:$ktorVersion")
+                implementation("com.squareup.sqldelight:android-driver:${sqldelightVersion}")
             }
         }
         val androidTest by getting {
@@ -59,6 +68,7 @@ kotlin {
             iosArm64Main.dependsOn(this)
             dependencies {
                 implementation("io.ktor:ktor-client-ios:$ktorVersion")
+                implementation("com.squareup.sqldelight:native-driver:${sqldelightVersion}")
             }
             //iosSimulatorArm64Main.dependsOn(this)
         }
@@ -71,6 +81,13 @@ kotlin {
             iosArm64Test.dependsOn(this)
             //iosSimulatorArm64Test.dependsOn(this)
         }
+    }
+}
+
+sqldelight {
+    database("Conferences4HallDatabase") {
+        packageName = "com.paligot.conferences.db"
+        sourceFolders = listOf("sqldelight")
     }
 }
 

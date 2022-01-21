@@ -1,0 +1,38 @@
+CREATE TABLE Talk(
+id TEXT NOT NULL PRIMARY KEY,
+title TEXT NOT NULL,
+date TEXT NOT NULL,
+room TEXT NOT NULL,
+level TEXT,
+abstract TEXT NOT NULL,
+category TEXT NOT NULL,
+format TEXT NOT NULL,
+open_feedback TEXT
+);
+
+CREATE TABLE TalkWithSpeakers(
+id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+speaker_id TEXT NOT NULL,
+talk_id TEXT NOT NULL,
+FOREIGN KEY (speaker_id) REFERENCES Talk(id),
+FOREIGN KEY (talk_id) REFERENCES Speaker(id)
+);
+
+insertTalk:
+INSERT OR REPLACE INTO Talk(
+id, title, date, room, level, abstract, category, format, open_feedback
+) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+selectTalks:
+SELECT * FROM Talk WHERE id IN ?;
+
+selectTalk:
+SELECT * FROM Talk WHERE id == ?;
+
+insertTalkWithSpeaker:
+INSERT OR REPLACE INTO TalkWithSpeakers(
+speaker_id, talk_id
+) VALUES (?, ?);
+
+selectTalkWithSpeakersByTalkId:
+SELECT * FROM TalkWithSpeakers WHERE talk_id == ?;

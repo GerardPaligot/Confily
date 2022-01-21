@@ -1,0 +1,20 @@
+CREATE TABLE Speaker(
+id TEXT NOT NULL PRIMARY KEY,
+display_name TEXT NOT NULL,
+bio TEXT NOT NULL,
+company TEXT,
+photo_url TEXT NOT NULL ,
+twitter TEXT,
+github TEXT
+);
+
+insertSpeaker:
+INSERT OR REPLACE INTO Speaker(
+id, display_name, bio, company, photo_url, twitter, github
+) VALUES (?,?,?,?, ?, ?, ?);
+
+selectSpeaker:
+SELECT * FROM Speaker WHERE id == ?;
+
+selectSpeakers:
+SELECT * FROM Speaker WHERE id IN ?;

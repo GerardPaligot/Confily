@@ -23,16 +23,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.paligot.conferences.android.theme.Conferences4HallTheme
-
-data class TalkItemUi(
-    val id: String,
-    val room: String,
-    val title: String,
-    val speakers: List<String>
-)
+import com.paligot.conferences.repositories.TalkItemUi
 
 val talkItem = TalkItemUi(
     id = "7TTU2GNH3fOu76Q5MrxNkV3ry7l1",
+    time = "10:00",
     room = "Salle 700",
     title = "L’intelligence artificielle au secours de l’accessibilité",
     speakers = arrayListOf("Guillaume Laforge", "Aurélie Vache")

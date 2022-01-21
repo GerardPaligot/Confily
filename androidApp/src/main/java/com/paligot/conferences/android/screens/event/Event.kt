@@ -17,22 +17,12 @@ import com.paligot.conferences.android.R
 import com.paligot.conferences.android.components.events.*
 import com.paligot.conferences.android.theme.Conferences4HallTheme
 import com.paligot.conferences.repositories.AgendaRepository
-
-data class EventUi(
-    val eventInfo: EventInfoUi,
-    val partners: PartnerGroupsUi
-)
-
-data class PartnerGroupsUi(
-    val golds: List<PartnerItemUi>,
-    val silvers: List<PartnerItemUi>,
-    val bronzes: List<PartnerItemUi>,
-    val others: List<PartnerItemUi>,
-)
+import com.paligot.conferences.repositories.EventInfoUi
+import com.paligot.conferences.repositories.EventUi
+import com.paligot.conferences.repositories.PartnerGroupsUi
 
 val event = EventUi(
     eventInfo = EventInfoUi(
-        logo = R.drawable.ic_launcher_foreground,
         name = "Devfest Lille",
         address = "Kinepolis, Rue du Château d'Isenghien, Lille, France",
         date = "9 Juin 2019",
@@ -57,9 +47,9 @@ fun EventVM(
     modifier: Modifier = Modifier,
     onFaqClick: (url: String) -> Unit,
     onCoCClick: (url: String) -> Unit,
-    onTwitterClick: (url: String) -> Unit,
-    onLinkedInClick: (url: String) -> Unit,
-    onPartnerClick: (siteUrl: String) -> Unit
+    onTwitterClick: (url: String?) -> Unit,
+    onLinkedInClick: (url: String?) -> Unit,
+    onPartnerClick: (siteUrl: String?) -> Unit
 ) {
     val viewModel: EventViewModel = viewModel(
         factory = EventViewModel.Factory.create(agendaRepository)
@@ -86,9 +76,9 @@ fun Event(
     modifier: Modifier = Modifier,
     onFaqClick: (url: String) -> Unit,
     onCoCClick: (url: String) -> Unit,
-    onTwitterClick: (url: String) -> Unit,
-    onLinkedInClick: (url: String) -> Unit,
-    onPartnerClick: (siteUrl: String) -> Unit
+    onTwitterClick: (url: String?) -> Unit,
+    onLinkedInClick: (url: String?) -> Unit,
+    onPartnerClick: (siteUrl: String?) -> Unit
 ) {
     LazyColumn(
         modifier = modifier.padding(horizontal = 8.dp),

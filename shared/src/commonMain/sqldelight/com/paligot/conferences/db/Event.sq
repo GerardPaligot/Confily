@@ -1,0 +1,36 @@
+CREATE TABLE Event (
+id TEXT NOT NULL PRIMARY KEY,
+name TEXT NOT NULL,
+address TEXT NOT NULL,
+date TEXT NOT NULL,
+twitter TEXT,
+twitter_url TEXT,
+linkedin TEXT,
+linkedin_url TEXT,
+faq_url TEXT NOT NULL,
+coc_url TEXT NOT NULL
+);
+
+CREATE TABLE Partner(
+name TEXT NOT NULL PRIMARY KEY,
+event_id TEXT NOT NULL,
+type TEXT NOT NULL,
+logo_url TEXT NOT NULL,
+site_url TEXT
+);
+
+insertEvent:
+INSERT OR REPLACE INTO Event(
+id, name, address, date, twitter, twitter_url, linkedin, linkedin_url, faq_url, coc_url
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+selectEvent:
+SELECT * FROM Event WHERE id == ?;
+
+insertPartner:
+INSERT OR REPLACE INTO Partner(
+name, event_id, type, logo_url, site_url
+) VALUES (?,?,?,?,?);
+
+selectPartners:
+SELECT * FROM Partner WHERE type == ? AND event_id == ?;

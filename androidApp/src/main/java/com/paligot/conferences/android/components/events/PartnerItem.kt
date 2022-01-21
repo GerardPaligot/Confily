@@ -18,12 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.paligot.conferences.android.theme.Conferences4HallTheme
-
-data class PartnerItemUi(
-    val logoUrl: String,
-    val siteUrl: String,
-    val name: String
-)
+import com.paligot.conferences.repositories.PartnerItemUi
 
 val partnerUi = PartnerItemUi(
     logoUrl = "https://pbs.twimg.com/profile_images/1483539472574816261/mi3QaL7u_400x400.png",
@@ -38,7 +33,7 @@ fun PartnerItem(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     indication: Indication = rememberRipple(),
     contentScale: ContentScale = ContentScale.FillHeight,
-    onClick: (siteUrl: String) -> Unit
+    onClick: (siteUrl: String?) -> Unit
 ) {
     Image(
         painter = rememberImagePainter(partnerUi.logoUrl, builder = {

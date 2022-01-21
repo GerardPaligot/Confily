@@ -3,9 +3,8 @@ package com.paligot.conferences.android.screens.speakers
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.paligot.conferences.android.components.speakers.SpeakerUi
-import com.paligot.conferences.android.screens.convertToModelUi
 import com.paligot.conferences.repositories.AgendaRepository
+import com.paligot.conferences.repositories.SpeakerUi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -26,7 +25,7 @@ class SpeakerViewModel(
     init {
         viewModelScope.launch {
             try {
-                _uiState.value = SpeakerUiState.Success(repository.speaker(speakerId).convertToModelUi())
+                _uiState.value = SpeakerUiState.Success(repository.speaker(speakerId))
             } catch (ignore: Throwable) {
                 _uiState.value = SpeakerUiState.Failure(ignore)
             }

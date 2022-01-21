@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.paligot.conferences.android.theme.Conferences4HallTheme
+import com.paligot.conferences.repositories.TalkItemUi
 
 @Composable
 fun ScheduleItem(

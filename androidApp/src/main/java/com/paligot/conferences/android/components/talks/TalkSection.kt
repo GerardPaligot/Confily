@@ -14,18 +14,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.paligot.conferences.android.components.speakers.SpeakerItemUi
 import com.paligot.conferences.android.components.speakers.speakerItem
 import com.paligot.conferences.android.theme.Conferences4HallTheme
-
-data class TalkUi(
-    val title: String,
-    val date: String,
-    val room: String,
-    val level: String?,
-    val abstract: String,
-    val speakers: List<SpeakerItemUi>
-)
+import com.paligot.conferences.repositories.TalkUi
 
 val talk = TalkUi(
     title = "L’intelligence artificielle au secours de l’accessibilité ",
@@ -48,10 +39,10 @@ fun TalkSection(
         Spacer(modifier = Modifier.height(8.dp))
         Text(text = talk.title, color = color, style = titleTextStyle)
         Spacer(modifier = Modifier.height(8.dp))
-        Text(text = "Talk at ${talk.date}", color = color, style = bodyTextStyle)
+        Text(text = talk.date, color = color, style = bodyTextStyle)
         Room(room = talk.room, color = color, style = bodyTextStyle)
         talk.level?.let {
-            Text(text = talk.level, color = color, style = bodyTextStyle)
+            Text(text = it, color = color, style = bodyTextStyle)
         }
         Spacer(modifier = Modifier.height(8.dp))
         CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {

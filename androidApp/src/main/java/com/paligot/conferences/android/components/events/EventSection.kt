@@ -1,6 +1,5 @@
 package com.paligot.conferences.android.components.events
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
@@ -15,23 +14,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.paligot.conferences.android.R
 import com.paligot.conferences.android.components.speakers.Socials
 import com.paligot.conferences.android.screens.event.event
 import com.paligot.conferences.android.theme.Conferences4HallTheme
-
-data class EventInfoUi(
-    @DrawableRes
-    val logo: Int,
-    val name: String,
-    val address: String,
-    val date: String,
-    val twitter: String?,
-    val twitterUrl: String?,
-    val linkedin: String?,
-    val linkedinUrl: String?,
-    val faqLink: String,
-    val codeOfConductLink: String,
-)
+import com.paligot.conferences.repositories.EventInfoUi
 
 @Composable
 fun EventSection(
@@ -42,8 +29,8 @@ fun EventSection(
     color: Color = MaterialTheme.colors.onBackground,
     onFaqClick: (url: String) -> Unit,
     onCoCClick: (url: String) -> Unit,
-    onTwitterClick: (url: String) -> Unit,
-    onLinkedInClick: (url: String) -> Unit,
+    onTwitterClick: (url: String?) -> Unit,
+    onLinkedInClick: (url: String?) -> Unit,
 ) {
     Column(
         modifier = modifier,
@@ -55,7 +42,7 @@ fun EventSection(
         ) {
             Spacer(Modifier.height(16.dp))
             Image(
-                painter = painterResource(eventInfo.logo),
+                painter = painterResource(R.drawable.ic_launcher_foreground),
                 contentDescription = null,
                 modifier = Modifier.size(96.dp)
             )

@@ -12,13 +12,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.paligot.conferences.android.screens.event.event
 import com.paligot.conferences.android.theme.Conferences4HallTheme
+import com.paligot.conferences.repositories.PartnerItemUi
 
 @Composable
 fun PartnerRow(
     partners: List<PartnerItemUi>,
     modifier: Modifier = Modifier,
     maxItems: Int = 3,
-    onPartnerClick: (siteUrl: String) -> Unit,
+    onPartnerClick: (siteUrl: String?) -> Unit,
 ) {
     BoxWithConstraints(modifier = modifier.fillMaxWidth()) {
         val width = (this.maxWidth - (8.dp * (maxItems - 1))) / maxItems

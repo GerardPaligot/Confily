@@ -12,12 +12,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.paligot.conferences.android.components.talks.ScheduleItem
-import com.paligot.conferences.android.components.talks.TalkItemUi
 import com.paligot.conferences.android.components.talks.talkItem
 import com.paligot.conferences.android.theme.Conferences4HallTheme
 import com.paligot.conferences.repositories.AgendaRepository
-
-data class AgendaUi(val talks: Map<String, List<TalkItemUi>>)
+import com.paligot.conferences.repositories.AgendaUi
+import com.paligot.conferences.repositories.TalkItemUi
 
 @Composable
 fun AgendaVM(
