@@ -21,7 +21,8 @@ data class EventDb(
     val twitterUrl: String? = null,
     val linkedinUrl: String? = null,
     val faqLink: String? = null,
-    val codeOfConductLink: String? = null
+    val codeOfConductLink: String? = null,
+    val updatedAt: Long = System.currentTimeMillis()
 )
 
 @Serializable
@@ -50,5 +51,7 @@ data class EventInput(
     @SerialName("faq_link")
     val faqLink: String,
     @SerialName("code_of_conduct_link")
-    val codeOfConductLink: String
+    val codeOfConductLink: String,
+    @SerialName("update_at")
+    val updatedAt: Long = System.currentTimeMillis()
 )

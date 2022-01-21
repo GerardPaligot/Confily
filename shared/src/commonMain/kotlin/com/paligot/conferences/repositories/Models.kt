@@ -7,7 +7,8 @@ data class TalkItemUi(
     val time: String,
     val room: String,
     val title: String,
-    val speakers: List<String>
+    val speakers: List<String>,
+    val isFavorite: Boolean
 )
 
 data class TalkUi(

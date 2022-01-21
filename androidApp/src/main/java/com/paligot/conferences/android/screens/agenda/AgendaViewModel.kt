@@ -37,6 +37,10 @@ class AgendaViewModel(
         }
     }
 
+    fun markAsFavorite(scheduleId: String, isFavorite: Boolean) = viewModelScope.launch {
+        repository.markAsRead(scheduleId, isFavorite)
+    }
+
     object Factory {
         fun create(repository: AgendaRepository) = object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {

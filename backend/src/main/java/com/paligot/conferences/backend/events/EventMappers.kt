@@ -48,7 +48,8 @@ fun EventDb.convertToModel(
     twitterUrl = this.twitterUrl,
     linkedinUrl = this.linkedinUrl,
     faqLink = this.faqLink,
-    codeOfConductLink = this.codeOfConductLink
+    codeOfConductLink = this.codeOfConductLink,
+    updatedAt = this.updatedAt
 )
 
 fun EventInput.convertToDb(eventId: String) = EventDb(
@@ -67,5 +68,6 @@ fun EventInput.convertToDb(eventId: String) = EventDb(
     twitterUrl = this.twitterUrl,
     linkedinUrl = this.linkedinUrl,
     faqLink = this.faqLink,
-    codeOfConductLink = this.codeOfConductLink
+    codeOfConductLink = this.codeOfConductLink,
+    updatedAt = this.updatedAt
 )

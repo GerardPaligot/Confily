@@ -9,11 +9,15 @@ import kotlinx.coroutines.flow.Flow
 
 class ScheduleDao(private val db: Conferences4HallDatabase, private val eventId: String) {
     fun fetchSchedules(): Flow<List<TalkItemUi>> =
-        db.agendaQueries.selectScheduleItems(eventId) { id, _, time, room, title, speakers ->
-            TalkItemUi(id = id, room = room, time = time, title = title, speakers = speakers)
+        db.agendaQueries.selectScheduleItems(eventId) { id, _, time, room, title, speakers, is_favorite ->
+            TalkItemUi(id = id, room = room, time = time, title = title, speakers = speakers, isFavorite = is_favorite)
         }.asFlow().mapToList()
 
-    fun insertSchedules(schedules: List<ScheduleItem>) = db.transaction {
+    fun markAsFavorite(scheduleId: String, isFavorite: Boolean) {
+        db.agendaQueries.markAsFavorite(isFavorite, scheduleId)
+    }
+
+    fun insertOrUpdateSchedules(schedules: List<ScheduleItem>, isUpdate: Boolean) = db.transaction {
         schedules.forEach { schedule ->
             if (schedule.talk != null) {
                 val talk = schedule.convertToModelDb()
@@ -42,14 +46,26 @@ class ScheduleDao(private val db: Conferences4HallDatabase, private val eventId:
                     db.talkQueries.insertTalkWithSpeaker(speaker_id = it.id, talk_id = talk.id)
                 }
             }
-            db.agendaQueries.insertSchedule(
-                id = schedule.id,
-                event_id = eventId,
-                time = schedule.time,
-                room = schedule.room,
-                title = schedule.talk?.title ?: "Pause",
-                speakers = schedule.talk?.speakers?.map { it.displayName } ?: emptyList()
-            )
+            if (isUpdate) {
+                db.agendaQueries.updateSchedule(
+                    event_id = eventId,
+                    time = schedule.time,
+                    room = schedule.room,
+                    title = schedule.talk?.title ?: "Pause",
+                    speakers = schedule.talk?.speakers?.map { it.displayName } ?: emptyList(),
+                    id = schedule.id
+                )
+            } else {
+                db.agendaQueries.insertSchedule(
+                    id = schedule.id,
+                    event_id = eventId,
+                    time = schedule.time,
+                    room = schedule.room,
+                    title = schedule.talk?.title ?: "Pause",
+                    speakers = schedule.talk?.speakers?.map { it.displayName } ?: emptyList(),
+                    is_favorite = false
+                )
+            }
         }
     }
 }

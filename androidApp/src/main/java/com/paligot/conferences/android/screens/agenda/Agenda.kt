@@ -22,7 +22,7 @@ import com.paligot.conferences.repositories.TalkItemUi
 fun AgendaVM(
     agendaRepository: AgendaRepository,
     modifier: Modifier = Modifier,
-    onTalkClicked: (id: String) -> Unit
+    onTalkClicked: (id: String) -> Unit,
 ) {
     val viewModel: AgendaViewModel = viewModel(
         factory = AgendaViewModel.Factory.create(agendaRepository)
@@ -34,7 +34,10 @@ fun AgendaVM(
         is AgendaUiState.Success -> Agenda(
             agenda = (uiState.value as AgendaUiState.Success).agenda,
             modifier = modifier,
-            onTalkClicked = onTalkClicked
+            onTalkClicked = onTalkClicked,
+            onFavoriteClicked = { id, isFavorite ->
+                viewModel.markAsFavorite(id, isFavorite)
+            }
         )
     }
 }
@@ -44,6 +47,7 @@ fun Agenda(
     agenda: AgendaUi,
     modifier: Modifier = Modifier,
     onTalkClicked: (id: String) -> Unit,
+    onFavoriteClicked: (id: String, isFavorite: Boolean) -> Unit
 ) {
     LazyColumn(
         modifier = modifier,
@@ -51,7 +55,12 @@ fun Agenda(
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         items(agenda.talks.keys.toList()) {
-            ScheduleItem(time = it, talks = agenda.talks[it]!!, onTalkClicked = onTalkClicked)
+            ScheduleItem(
+                time = it,
+                talks = agenda.talks[it]!!,
+                onTalkClicked = onTalkClicked,
+                onFavoriteClicked = onFavoriteClicked
+            )
         }
     }
 }
@@ -71,7 +80,8 @@ fun AgendaPreview() {
                     "15:00" to arrayListOf(talkItem, talkItem),
                 ),
             ),
-            onTalkClicked = {}
+            onTalkClicked = {},
+            onFavoriteClicked = { _, _ -> }
         )
     }
 }

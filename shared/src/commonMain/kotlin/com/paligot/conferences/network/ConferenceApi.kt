@@ -3,9 +3,6 @@ package com.paligot.conferences.network
 import com.paligot.conferences.Platform
 import com.paligot.conferences.models.Agenda
 import com.paligot.conferences.models.Event
-import com.paligot.conferences.models.ScheduleItem
-import com.paligot.conferences.models.Speaker
-import com.paligot.conferences.models.Talk
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.plugins.*
@@ -19,8 +16,6 @@ class ConferenceApi(
 ) {
     suspend fun fetchEvent() = client.get("$baseUrl/events/$eventId").body<Event>()
     suspend fun fetchAgenda() = client.get("$baseUrl/events/$eventId/agenda").body<Agenda>()
-    suspend fun fetchSpeaker(speakerId: String) = client.get("$baseUrl/events/$eventId/speakers/$speakerId").body<Speaker>()
-    suspend fun fetchSchedule(scheduleId: String) = client.get("$baseUrl/events/$eventId/schedulers/$scheduleId").body<ScheduleItem>()
 
     object Factory {
         fun create(baseUrl: String, eventId: String, enableNetworkLogs: Boolean): ConferenceApi =

@@ -8,7 +8,8 @@ twitter_url TEXT,
 linkedin TEXT,
 linkedin_url TEXT,
 faq_url TEXT NOT NULL,
-coc_url TEXT NOT NULL
+coc_url TEXT NOT NULL,
+updated_at INTEGER NOT NULL
 );
 
 CREATE TABLE Partner(
@@ -21,11 +22,14 @@ site_url TEXT
 
 insertEvent:
 INSERT OR REPLACE INTO Event(
-id, name, address, date, twitter, twitter_url, linkedin, linkedin_url, faq_url, coc_url
-) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+id, name, address, date, twitter, twitter_url, linkedin, linkedin_url, faq_url, coc_url, updated_at
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
 
 selectEvent:
 SELECT * FROM Event WHERE id == ?;
+
+selectUpdatedAt:
+SELECT updated_at FROM Event WHERE id == ?;
 
 insertPartner:
 INSERT OR REPLACE INTO Partner(

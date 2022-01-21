@@ -1,5 +1,6 @@
 package com.paligot.conferences.backend.talks
 
+import com.paligot.conferences.backend.events.EventDao
 import com.paligot.conferences.backend.speakers.SpeakerDao
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -10,7 +11,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 
 fun Route.registerTalksRoutes(
-    speakerDao: SpeakerDao, talkDao: TalkDao
+    eventDao: EventDao, speakerDao: SpeakerDao, talkDao: TalkDao
 ) {
     get("/talks") {
         val eventId = call.parameters["eventId"]!!
@@ -27,6 +28,7 @@ fun Route.registerTalksRoutes(
             call.respond(HttpStatusCode.NotFound, "Talk $talkId Not Found")
             return@get
         }
+        eventDao.updateUpdatedAt(eventId)
         call.respond(
             HttpStatusCode.OK, talk.convertToModel(speakerDao.getByIds(eventId, *talk.speakerIds.toTypedArray()))
         )
@@ -36,6 +38,7 @@ fun Route.registerTalksRoutes(
         val talk = call.receive<TalkInput>()
         val talkDb = talk.convertToDb()
         val id = talkDao.createOrUpdate(eventId, talkDb)
+        eventDao.updateUpdatedAt(eventId)
         call.respond(HttpStatusCode.Created, id)
     }
     put("/talks/{id}") {
@@ -43,6 +46,7 @@ fun Route.registerTalksRoutes(
         val talkId = call.parameters["id"]!!
         val talk = call.receive<TalkInput>()
         talkDao.createOrUpdate(eventId, talk.convertToDb(id = talkId))
+        eventDao.updateUpdatedAt(eventId)
         call.respond(HttpStatusCode.OK, talkId)
     }
 }

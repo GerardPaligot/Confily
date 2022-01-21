@@ -41,7 +41,8 @@ fun com.paligot.conferences.models.Event.convertToModelDb(): Event = Event(
     linkedin = this.name,
     linkedin_url = this.linkedinUrl,
     faq_url = this.faqLink!!,
-    coc_url = this.codeOfConductLink!!
+    coc_url = this.codeOfConductLink!!,
+    updated_at = this.updatedAt
 )
 
 fun getDate(from: String, to: String): String {

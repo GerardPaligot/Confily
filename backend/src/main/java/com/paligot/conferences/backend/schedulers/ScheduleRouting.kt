@@ -1,5 +1,6 @@
 package com.paligot.conferences.backend.schedulers
 
+import com.paligot.conferences.backend.events.EventDao
 import com.paligot.conferences.backend.speakers.SpeakerDao
 import com.paligot.conferences.backend.talks.TalkDao
 import com.paligot.conferences.backend.talks.convertToModel
@@ -10,6 +11,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
 fun Route.registerSchedulersRoutes(
+    eventDao: EventDao,
     talkDao: TalkDao,
     speakerDao: SpeakerDao,
     scheduleItemDao: ScheduleItemDao
@@ -20,6 +22,7 @@ fun Route.registerSchedulersRoutes(
         if (schedule.talkId == null) {
             val scheduleItem = schedule.convertToDb()
             scheduleItemDao.createOrUpdate(eventId, scheduleItem)
+            eventDao.updateUpdatedAt(eventId)
             call.respond(HttpStatusCode.Created, scheduleItem.id)
         } else {
             val talk = talkDao.get(eventId, schedule.talkId)
@@ -29,6 +32,7 @@ fun Route.registerSchedulersRoutes(
             }
             val scheduleItem = schedule.convertToDb(talk.id)
             scheduleItemDao.createOrUpdate(eventId, scheduleItem)
+            eventDao.updateUpdatedAt(eventId)
             call.respond(HttpStatusCode.Created, scheduleItem.id)
         }
     }
@@ -49,12 +53,14 @@ fun Route.registerSchedulersRoutes(
             val speakers = speakerDao.getByIds(eventId, *talkDb.speakerIds.toTypedArray())
             talkDb.convertToModel(speakers)
         } else null
+        eventDao.updateUpdatedAt(eventId)
         call.respond(HttpStatusCode.OK, scheduleItem.convertToModel(talk))
     }
     delete("/schedulers/{id}") {
         val eventId = call.parameters["eventId"]!!
         val id = call.parameters["id"]!!
         scheduleItemDao.delete(eventId, id)
+        eventDao.updateUpdatedAt(eventId)
         call.respond(HttpStatusCode.NoContent, "No Content")
     }
 }

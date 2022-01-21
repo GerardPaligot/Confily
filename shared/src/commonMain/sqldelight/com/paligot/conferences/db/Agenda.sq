@@ -6,13 +6,20 @@ event_id TEXT NOT NULL,
 time TEXT NOT NULL,
 room TEXT NOT NULL,
 title TEXT NOT NULL,
-speakers TEXT AS List<String> NOT NULL
+speakers TEXT AS List<String> NOT NULL,
+is_favorite INTEGER AS Boolean NOT NULL DEFAULT 0
 );
 
 insertSchedule:
 INSERT OR REPLACE INTO Schedule(
-id, event_id, time, room, title, speakers
-) VALUES (?,?,?,?, ?, ?);
+id, event_id, time, room, title, speakers, is_favorite
+) VALUES (?,?,?,?, ?, ?, ?);
+
+updateSchedule:
+UPDATE Schedule SET event_id = ?, time = ?, room = ?, title = ?, speakers = ? WHERE id == ?;
+
+markAsFavorite:
+UPDATE Schedule SET is_favorite = ? WHERE id == ?;
 
 selectScheduleItems:
 SELECT * FROM Schedule WHERE event_id == ? ORDER BY time;

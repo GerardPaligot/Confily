@@ -69,7 +69,7 @@ fun Home(
             composable(Screen.Agenda.route) {
                 AgendaVM(
                     agendaRepository = repository,
-                    onTalkClicked = onTalkClicked
+                    onTalkClicked = onTalkClicked,
                 )
             }
             composable(Screen.Event.route) {

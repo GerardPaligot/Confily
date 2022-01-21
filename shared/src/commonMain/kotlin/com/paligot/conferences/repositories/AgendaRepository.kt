@@ -12,6 +12,7 @@ interface AgendaRepository {
     suspend fun fetchAndStoreAgenda()
     suspend fun event(): EventUi
     suspend fun agenda(): Flow<AgendaUi>
+    suspend fun markAsRead(scheduleId: String, isFavorite: Boolean)
     suspend fun scheduleItem(scheduleId: String): TalkUi
     suspend fun speaker(speakerId: String): SpeakerUi
 
@@ -34,17 +35,24 @@ class AgendaRepositoryImpl(
     private val eventDao: EventDao
 ) : AgendaRepository {
     override suspend fun fetchAndStoreAgenda() {
+        val event = api.fetchEvent()
+        val lastUpdate = eventDao.lastUpdate()
+        if (event.updatedAt == lastUpdate) return
+        val isUpdate = event.updatedAt > lastUpdate
         val agenda = api.fetchAgenda()
         agenda.talks.values.forEach { schedules ->
-            scheduleDao.insertSchedules(schedules)
+            scheduleDao.insertOrUpdateSchedules(schedules, isUpdate)
         }
-        eventDao.insertEvent(api.fetchEvent())
+        eventDao.insertEvent(event)
     }
 
     override suspend fun event(): EventUi = eventDao.fetchEvent()
     override suspend fun agenda(): Flow<AgendaUi> = scheduleDao.fetchSchedules().transform { talks ->
         emit(AgendaUi(talks = talks.groupBy { it.time }))
     }
+
+    override suspend fun markAsRead(scheduleId: String, isFavorite: Boolean) =
+        scheduleDao.markAsFavorite(scheduleId, isFavorite)
 
     override suspend fun scheduleItem(scheduleId: String): TalkUi = talkDao.fetchTalk(scheduleId)
     override suspend fun speaker(speakerId: String): SpeakerUi = speakerDao.fetchSpeaker(speakerId)

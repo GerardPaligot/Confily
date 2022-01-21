@@ -103,9 +103,9 @@ fun main() {
             }
             route("/events/{eventId}") {
                 registerEventRoutes(eventDao, speakerDao, talkDao, scheduleItemDao, partnerDao)
-                registerSpeakersRoutes(speakerDao)
-                registerTalksRoutes(speakerDao, talkDao)
-                registerSchedulersRoutes(talkDao, speakerDao, scheduleItemDao)
+                registerSpeakersRoutes(eventDao, speakerDao)
+                registerTalksRoutes(eventDao, speakerDao, talkDao)
+                registerSchedulersRoutes(eventDao, talkDao, speakerDao, scheduleItemDao)
             }
         }
     }.start(wait = true)

@@ -28,6 +28,9 @@ Now, you can start to interact with the backend.
 ## Deploy in GCP
 
 ```bash
-gcloud init  # If you are not yet logged
+# If you are not yet logged
+gcloud auth login
+gcloud config set project $PROJECT_ID
+# Deploy in production
 ./gradlew :backend:appengineDeploy
 ```

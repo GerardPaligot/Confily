@@ -17,7 +17,8 @@ fun ScheduleItem(
     time: String,
     talks: List<TalkItemUi>,
     modifier: Modifier = Modifier,
-    onTalkClicked: (id: String) -> Unit
+    onTalkClicked: (id: String) -> Unit,
+    onFavoriteClicked: (id: String, isFavorite: Boolean) -> Unit
 ) {
     val timeSpace = 55.dp
     Box(modifier = modifier) {
@@ -32,7 +33,8 @@ fun ScheduleItem(
                 TalkBox(onClick = { onTalkClicked(it.id) }) {
                     TalkItem(
                         talk = it,
-                        modifier = Modifier.padding(start = timeSpace)
+                        modifier = Modifier.padding(start = timeSpace),
+                        onFavoriteClicked = onFavoriteClicked
                     )
                 }
             }
@@ -44,6 +46,11 @@ fun ScheduleItem(
 @Composable
 fun ScheduleItemPreview() {
     Conferences4HallTheme {
-        ScheduleItem(time = "10:00", talks = arrayListOf(talkItem, talkItem)) {}
+        ScheduleItem(
+            time = "10:00",
+            talks = arrayListOf(talkItem, talkItem),
+            onTalkClicked = {},
+            onFavoriteClicked = { _, _ -> }
+        )
     }
 }

@@ -33,11 +33,6 @@ fun Route.registerEventRoutes(
             return@get
         }
         val year = event.startDate.split("-")[0]
-        println("*******************")
-        println("*******************")
-        println("*******************")
-        println("*******************")
-        println(year)
         call.respond(HttpStatusCode.OK, event.convertToModel(
             golds = partnerDao.listValidated(year, Sponsorship.Gold),
             silvers = partnerDao.listValidated(year, Sponsorship.Silver),

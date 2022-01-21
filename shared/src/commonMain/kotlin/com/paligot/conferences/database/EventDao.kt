@@ -10,7 +10,7 @@ import com.paligot.conferences.repositories.PartnerItemUi
 class EventDao(private val db: Conferences4HallDatabase, private val eventId: String) {
     private val eventMapper = { _: String, name: String, address: String, date: String, twitter: String?,
                                 twitter_url: String?, linkedin: String?, linkedin_url: String?, faq_url: String,
-                                coc_url: String ->
+                                coc_url: String, _: Long ->
         EventInfoUi(
             name = name,
             address = address,
@@ -44,6 +44,12 @@ class EventDao(private val db: Conferences4HallDatabase, private val eventId: St
         )
     }
 
+    fun lastUpdate(): Long = try {
+        db.eventQueries.selectUpdatedAt(eventId).executeAsOne()
+    } catch(ignored: Throwable) {
+        0L
+    }
+
     fun insertEvent(event: Event) = db.transaction {
         val eventDb = event.convertToModelDb()
         db.eventQueries.insertEvent(
@@ -56,7 +62,8 @@ class EventDao(private val db: Conferences4HallDatabase, private val eventId: St
             linkedin = eventDb.linkedin,
             linkedin_url = eventDb.linkedin_url,
             faq_url = eventDb.faq_url,
-            coc_url = eventDb.coc_url
+            coc_url = eventDb.coc_url,
+            updated_at = eventDb.updated_at
         )
         event.partners.golds.forEach {
             db.eventQueries.insertPartner(it.name, event.id, type = "gold", it.logoUrl, it.siteUrl)

@@ -6,16 +6,25 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ContentAlpha
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.LocalContentAlpha
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.outlined.Favorite
+import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
@@ -30,7 +39,8 @@ val talkItem = TalkItemUi(
     time = "10:00",
     room = "Salle 700",
     title = "L’intelligence artificielle au secours de l’accessibilité",
-    speakers = arrayListOf("Guillaume Laforge", "Aurélie Vache")
+    speakers = arrayListOf("Guillaume Laforge", "Aurélie Vache"),
+    isFavorite = false
 )
 
 @Composable
@@ -62,30 +72,42 @@ fun TalkItem(
     roomTextStyle: TextStyle = MaterialTheme.typography.caption,
     subtitleColor: Color = MaterialTheme.colors.onBackground,
     subtitleTextStyle: TextStyle = MaterialTheme.typography.body2,
+    favoriteColor: Color = if (talk.isFavorite) MaterialTheme.colors.primaryVariant else MaterialTheme.colors.onBackground,
+    onFavoriteClicked: (id: String, isFavorite: Boolean) -> Unit
 ) {
-    Column(modifier = modifier.fillMaxWidth()) {
-        Text(
-            text = talk.title,
-            color = titleColor,
-            style = titleTextStyle,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(end = 8.dp)
-        )
-        CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-            val roomColored = roomColor.copy(alpha = LocalContentAlpha.current)
-            Room(
-                room = talk.room,
-                modifier = Modifier.fillMaxWidth(),
-                color = roomColored,
-                style = roomTextStyle
-            )
-            val speakerColored = subtitleColor.copy(alpha = LocalContentAlpha.current)
+    Row(
+        modifier = modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Column(modifier = Modifier.weight(1f)) {
             Text(
-                text = talk.speakers.joinToString(", ") { it },
-                style = subtitleTextStyle,
-                color = speakerColored,
-                modifier = Modifier.fillMaxWidth()
+                text = talk.title,
+                color = titleColor,
+                style = titleTextStyle,
+            )
+            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+                val roomColored = roomColor.copy(alpha = LocalContentAlpha.current)
+                Room(
+                    room = talk.room,
+                    color = roomColored,
+                    style = roomTextStyle
+                )
+                val speakerColored = subtitleColor.copy(alpha = LocalContentAlpha.current)
+                Text(
+                    text = talk.speakers.joinToString(", ") { it },
+                    style = subtitleTextStyle,
+                    color = speakerColored,
+                )
+            }
+        }
+        IconButton(
+            onClick = { onFavoriteClicked(talk.id, !talk.isFavorite) },
+            modifier = Modifier.padding(end = 4.dp)
+        ) {
+            Icon(
+                imageVector = Icons.Outlined.Star,
+                contentDescription = "Add talk in favorite",
+                tint = favoriteColor
             )
         }
     }
@@ -95,8 +117,10 @@ fun TalkItem(
 @Composable
 fun TalkItemPreview() {
     Conferences4HallTheme {
-        TalkBox(onClick = {}) {
-            TalkItem(talk = talkItem)
+        Scaffold {
+            TalkBox(onClick = {}) {
+                TalkItem(talk = talkItem) { _, _ -> }
+            }
         }
     }
 }
