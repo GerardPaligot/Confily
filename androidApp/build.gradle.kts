@@ -3,6 +3,7 @@ plugins {
     kotlin("android")
 }
 
+val composeVersion: String by project
 android {
     compileSdk = 31
     defaultConfig {
@@ -18,7 +19,7 @@ android {
         }
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.1.0-rc01"
+        kotlinCompilerExtensionVersion = composeVersion
     }
     buildFeatures {
         compose = true
@@ -29,7 +30,6 @@ repositories {
     maven(uri("https://jitpack.io"))
 }
 
-val composeVersion: String by project
 dependencies {
     implementation(project(":shared"))
     implementation("com.google.android.material:material:1.4.0")

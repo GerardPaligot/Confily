@@ -6,6 +6,7 @@ plugins {
 }
 
 val kotlinVersion: String by project
+val kotlinCoroutinesVersion: String by project
 val ktorVersion: String by project
 val sqldelightVersion: String by project
 val datetimeVersion: String by project
@@ -26,7 +27,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(project(":models"))
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinVersion")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutinesVersion")
 
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
                 implementation("io.ktor:ktor-client-json:$ktorVersion")
@@ -37,8 +38,8 @@ kotlin {
 
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:$datetimeVersion")
 
-                implementation("com.squareup.sqldelight:runtime:${sqldelightVersion}")
-                implementation("com.squareup.sqldelight:coroutines-extensions:${sqldelightVersion}")
+                implementation("com.squareup.sqldelight:runtime:$sqldelightVersion")
+                implementation("com.squareup.sqldelight:coroutines-extensions:$sqldelightVersion")
             }
         }
         val commonTest by getting {
