@@ -17,7 +17,8 @@ class ScheduleDao(private val db: Conferences4HallDatabase, private val eventId:
         db.agendaQueries.markAsFavorite(isFavorite, scheduleId)
     }
 
-    fun insertOrUpdateSchedules(schedules: List<ScheduleItem>, isUpdate: Boolean) = db.transaction {
+    fun insertOrUpdateSchedules(eventId: String, schedules: List<ScheduleItem>) = db.transaction {
+        val schedulesCached = db.agendaQueries.selectScheduleItems(eventId).executeAsList()
         schedules.forEach { schedule ->
             if (schedule.talk != null) {
                 val talk = schedule.convertToModelDb()
@@ -46,16 +47,8 @@ class ScheduleDao(private val db: Conferences4HallDatabase, private val eventId:
                     db.talkQueries.insertTalkWithSpeaker(speaker_id = it.id, talk_id = talk.id)
                 }
             }
-            if (isUpdate) {
-                db.agendaQueries.updateSchedule(
-                    event_id = eventId,
-                    time = schedule.time,
-                    room = schedule.room,
-                    title = schedule.talk?.title ?: "Pause",
-                    speakers = schedule.talk?.speakers?.map { it.displayName } ?: emptyList(),
-                    id = schedule.id
-                )
-            } else {
+            val cached = schedulesCached.find { it.id == schedule.id }
+            if (cached == null) {
                 db.agendaQueries.insertSchedule(
                     id = schedule.id,
                     event_id = eventId,
@@ -64,6 +57,15 @@ class ScheduleDao(private val db: Conferences4HallDatabase, private val eventId:
                     title = schedule.talk?.title ?: "Pause",
                     speakers = schedule.talk?.speakers?.map { it.displayName } ?: emptyList(),
                     is_favorite = false
+                )
+            } else {
+                db.agendaQueries.updateSchedule(
+                    event_id = eventId,
+                    time = schedule.time,
+                    room = schedule.room,
+                    title = schedule.talk?.title ?: "Pause",
+                    speakers = schedule.talk?.speakers?.map { it.displayName } ?: emptyList(),
+                    id = schedule.id
                 )
             }
         }

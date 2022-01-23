@@ -15,11 +15,11 @@ import com.paligot.conferences.android.screens.home.Home
 import com.paligot.conferences.android.screens.schedule.ScheduleDetailVM
 import com.paligot.conferences.android.screens.speakers.SpeakerDetailVM
 import com.paligot.conferences.android.theme.Conferences4HallTheme
+import com.paligot.conferences.database.DatabaseWrapper
 import com.paligot.conferences.database.EventDao
 import com.paligot.conferences.database.ScheduleDao
 import com.paligot.conferences.database.SpeakerDao
 import com.paligot.conferences.database.TalkDao
-import com.paligot.conferences.database.createDb
 import com.paligot.conferences.network.ConferenceApi
 import com.paligot.conferences.repositories.AgendaRepository
 
@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         // val baseUrl = "http://10.0.2.2:8080"
         val baseUrl = "https://cms4partners-ce427.nw.r.appspot.com"
         val eventId = "AFtTtSMq1NY4tnK2gMg1"
-        val db = createDb()
+        val db = DatabaseWrapper(context = this).createDb()
         val repository = AgendaRepository.Factory.create(
             api = ConferenceApi.Factory.create(
                 baseUrl = baseUrl, eventId = eventId, enableNetworkLogs = BuildConfig.DEBUG

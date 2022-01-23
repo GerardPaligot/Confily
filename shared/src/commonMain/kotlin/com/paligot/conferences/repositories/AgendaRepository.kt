@@ -36,12 +36,9 @@ class AgendaRepositoryImpl(
 ) : AgendaRepository {
     override suspend fun fetchAndStoreAgenda() {
         val event = api.fetchEvent()
-        val lastUpdate = eventDao.lastUpdate()
-        if (event.updatedAt == lastUpdate) return
-        val isUpdate = event.updatedAt > lastUpdate
         val agenda = api.fetchAgenda()
         agenda.talks.values.forEach { schedules ->
-            scheduleDao.insertOrUpdateSchedules(schedules, isUpdate)
+            scheduleDao.insertOrUpdateSchedules(event.id, schedules)
         }
         eventDao.insertEvent(event)
     }
