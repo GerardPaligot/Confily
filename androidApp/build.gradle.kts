@@ -1,9 +1,9 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    id("org.jetbrains.compose") version "1.0.1"
 }
 
-val composeVersion: String by project
 android {
     compileSdk = 31
     defaultConfig {
@@ -18,12 +18,6 @@ android {
             isMinifyEnabled = false
         }
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion = composeVersion
-    }
-    buildFeatures {
-        compose = true
-    }
 }
 
 repositories {
@@ -32,15 +26,15 @@ repositories {
 
 dependencies {
     implementation(project(":shared"))
-    implementation("com.google.android.material:material:1.4.0")
-    implementation("androidx.appcompat:appcompat:1.4.0")
+    implementation("com.google.android.material:material:1.5.0")
+    implementation("androidx.appcompat:appcompat:1.4.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")
     implementation("androidx.activity:activity-compose:1.4.0")
     implementation("io.coil-kt:coil-compose:1.4.0")
     implementation("com.github.Gurupreet:FontAwesomeCompose:1.0.0")
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.22.0-rc")
     implementation("androidx.navigation:navigation-compose:2.4.0-rc01")
-    implementation("androidx.compose.material:material:$composeVersion")
-    implementation("androidx.compose.material:material-icons-extended:$composeVersion")
-    implementation("androidx.compose.ui:ui-tooling:$composeVersion")
+    implementation(compose.material)
+    implementation(compose.materialIconsExtended)
+    implementation(compose.uiTooling)
 }
