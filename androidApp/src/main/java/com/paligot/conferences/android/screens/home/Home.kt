@@ -2,35 +2,21 @@ package com.paligot.conferences.android.screens.home
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Event
-import androidx.compose.material.icons.filled.LocalActivity
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.paligot.conferences.android.components.appbars.BottomAppBar
-import com.paligot.conferences.android.components.appbars.TopAppBar
 import com.paligot.conferences.android.screens.agenda.AgendaVM
 import com.paligot.conferences.android.screens.event.EventVM
 import com.paligot.conferences.repositories.AgendaRepository
-
-sealed class Screen(val route: String, val title: String, val imageVector: ImageVector) {
-    object Agenda : Screen(route = "agenda", title = "Agenda", imageVector = Icons.Filled.Event)
-    object Event : Screen(route = "event", title = "Event Info", imageVector = Icons.Filled.LocalActivity)
-}
-
-internal fun String.getScreen(): Screen = when (this) {
-    Screen.Agenda.route -> Screen.Agenda
-    Screen.Event.route -> Screen.Event
-    else -> TODO()
-}
+import com.paligot.conferences.ui.components.appbars.BottomAppBar
+import com.paligot.conferences.ui.components.appbars.TopAppBar
+import com.paligot.conferences.ui.screens.Screen
 
 @Composable
 fun Home(
@@ -84,4 +70,10 @@ fun Home(
             }
         }
     }
+}
+
+internal fun String.getScreen(): Screen = when (this) {
+    Screen.Agenda.route -> Screen.Agenda
+    Screen.Event.route -> Screen.Event
+    else -> TODO()
 }

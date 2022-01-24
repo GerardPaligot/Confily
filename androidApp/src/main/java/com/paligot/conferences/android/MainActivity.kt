@@ -14,7 +14,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.paligot.conferences.android.screens.home.Home
 import com.paligot.conferences.android.screens.schedule.ScheduleDetailVM
 import com.paligot.conferences.android.screens.speakers.SpeakerDetailVM
-import com.paligot.conferences.android.theme.Conferences4HallTheme
+import com.paligot.conferences.ui.theme.Conferences4HallTheme
 import com.paligot.conferences.database.DatabaseWrapper
 import com.paligot.conferences.database.EventDao
 import com.paligot.conferences.database.ScheduleDao
