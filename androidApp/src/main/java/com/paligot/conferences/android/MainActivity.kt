@@ -14,7 +14,6 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.paligot.conferences.android.screens.home.Home
 import com.paligot.conferences.android.screens.schedule.ScheduleDetailVM
 import com.paligot.conferences.android.screens.speakers.SpeakerDetailVM
-import com.paligot.conferences.ui.theme.Conferences4HallTheme
 import com.paligot.conferences.database.DatabaseWrapper
 import com.paligot.conferences.database.EventDao
 import com.paligot.conferences.database.ScheduleDao
@@ -22,6 +21,8 @@ import com.paligot.conferences.database.SpeakerDao
 import com.paligot.conferences.database.TalkDao
 import com.paligot.conferences.network.ConferenceApi
 import com.paligot.conferences.repositories.AgendaRepository
+import com.paligot.conferences.ui.theme.Conferences4HallTheme
+
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,11 +58,17 @@ class MainActivity : AppCompatActivity() {
                             onTalkClicked = {
                                 navController.navigate("schedules/$it")
                             },
-                            onFaqClick = {},
-                            onCoCClick = {},
-                            onTwitterClick = {},
-                            onLinkedInClick = {},
-                            onPartnerClick = {}
+                            onFaqClick = { launchUrl(it) },
+                            onCoCClick = { launchUrl(it) },
+                            onTwitterClick = {
+                                it?.let { launchUrl(it) }
+                            },
+                            onLinkedInClick = {
+                                it?.let { launchUrl(it) }
+                            },
+                            onPartnerClick = {
+                                it?.let { launchUrl(it) }
+                            }
                         )
                     }
                     composable(
@@ -86,8 +93,8 @@ class MainActivity : AppCompatActivity() {
                         SpeakerDetailVM(
                             speakerId = it.arguments?.getString("speakerId")!!,
                             agendaRepository = repository,
-                            onTwitterClick = {},
-                            onGitHubClick = {},
+                            onTwitterClick = { launchUrl(it) },
+                            onGitHubClick = { launchUrl(it) },
                             onBackClicked = {
                                 navController.popBackStack()
                             }

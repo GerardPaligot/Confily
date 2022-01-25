@@ -56,13 +56,13 @@ fun EventSection(
                 eventInfo.twitter?.let {
                     Socials.Twitter(
                         text = it,
-                        onClick = { eventInfo.twitter.let(onTwitterClick) }
+                        onClick = { eventInfo.twitterUrl.let(onTwitterClick) }
                     )
                 }
                 eventInfo.linkedin?.let {
                     Socials.LinkedIn(
                         text = it,
-                        onClick = { eventInfo.linkedin.let(onLinkedInClick) }
+                        onClick = { eventInfo.linkedinUrl.let(onLinkedInClick) }
                     )
                 }
             }
