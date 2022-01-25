@@ -4,6 +4,7 @@ plugins {
     id("org.jetbrains.compose") version "1.0.1"
 }
 
+val composeVersion: String by project
 android {
     compileSdk = 31
     defaultConfig {
@@ -13,10 +14,19 @@ android {
         versionCode = 1
         versionName = "1.0"
     }
+
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
         }
+    }
+
+    buildFeatures {
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = composeVersion
     }
 }
 
@@ -33,7 +43,7 @@ dependencies {
     implementation("androidx.activity:activity-compose:1.4.0")
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.22.0-rc")
     implementation("androidx.navigation:navigation-compose:2.4.0-rc01")
-    implementation(compose.material)
-    implementation(compose.materialIconsExtended)
-    implementation(compose.uiTooling)
+    implementation("androidx.compose.material:material:$composeVersion")
+    implementation("androidx.compose.material:material-icons-extended:$composeVersion")
+    implementation("androidx.compose.ui:ui-tooling:$composeVersion")
 }

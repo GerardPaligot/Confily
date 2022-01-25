@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -40,19 +41,21 @@ fun Agenda(
 @Composable
 fun AgendaPreview() {
     Conferences4HallTheme {
-        Agenda(
-            agenda = AgendaUi(
-                talks = mapOf(
-                    "10:00" to arrayListOf(talkItem, talkItem),
-                    "11:00" to arrayListOf(talkItem, talkItem),
-                    "12:00" to arrayListOf(talkItem, talkItem),
-                    "13:00" to arrayListOf(talkItem, talkItem),
-                    "14:00" to arrayListOf(talkItem, talkItem),
-                    "15:00" to arrayListOf(talkItem, talkItem),
+        Scaffold {
+            Agenda(
+                agenda = AgendaUi(
+                    talks = mapOf(
+                        "10:00" to arrayListOf(talkItem, talkItem),
+                        "11:00" to arrayListOf(talkItem, talkItem),
+                        "12:00" to arrayListOf(talkItem, talkItem),
+                        "13:00" to arrayListOf(talkItem, talkItem),
+                        "14:00" to arrayListOf(talkItem, talkItem),
+                        "15:00" to arrayListOf(talkItem, talkItem),
+                    ),
                 ),
-            ),
-            onTalkClicked = {},
-            onFavoriteClicked = { _, _ -> }
-        )
+                onTalkClicked = {},
+                onFavoriteClicked = { _, _ -> }
+            )
+        }
     }
 }
