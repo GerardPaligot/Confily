@@ -5,6 +5,7 @@ plugins {
 }
 
 val composeVersion: String by project
+val settingsVersion: String by project
 android {
     compileSdk = 31
     defaultConfig {
@@ -37,13 +38,20 @@ repositories {
 dependencies {
     implementation(project(":ui"))
     implementation(project(":shared"))
+    implementation("com.russhwolf:multiplatform-settings:$settingsVersion")
     implementation("com.google.android.material:material:1.5.0")
     implementation("androidx.appcompat:appcompat:1.4.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")
     implementation("androidx.activity:activity-compose:1.4.0")
+    implementation("androidx.navigation:navigation-compose:2.4.0")
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.22.0-rc")
-    implementation("androidx.navigation:navigation-compose:2.4.0-rc01")
+    implementation("com.google.accompanist:accompanist-permissions:0.24.1-alpha")
     implementation("androidx.compose.material:material:$composeVersion")
     implementation("androidx.compose.material:material-icons-extended:$composeVersion")
     implementation("androidx.compose.ui:ui-tooling:$composeVersion")
+
+    implementation("com.google.mlkit:barcode-scanning:17.0.2")
+    implementation("androidx.camera:camera-camera2:1.1.0-beta01")
+    implementation("androidx.camera:camera-lifecycle:1.1.0-beta01")
+    implementation("androidx.camera:camera-view:1.1.0-beta01")
 }

@@ -67,3 +67,10 @@ data class PartnerItemUi(
     val siteUrl: String?,
     val name: String
 )
+
+data class UserProfileUi(
+    val email: String,
+    val hasQrCode: Boolean,
+    val showQrCode: Boolean,
+    val emails: List<String> = emptyList()
+)

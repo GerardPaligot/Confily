@@ -34,7 +34,10 @@ dependencies {
 
     implementation("ch.qos.logback:logback-classic:1.2.3")
 
+    implementation("com.google.zxing:javase:3.4.1")
+    implementation("com.google.zxing:core:3.4.1")
     implementation("com.google.cloud:google-cloud-firestore:3.0.9")
+    implementation("com.google.cloud:google-cloud-storage:2.3.0")
 }
 
 appengine {

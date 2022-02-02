@@ -13,14 +13,18 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.paligot.conferences.android.screens.agenda.AgendaVM
 import com.paligot.conferences.android.screens.event.EventVM
+import com.paligot.conferences.android.screens.users.NetworkingVM
 import com.paligot.conferences.repositories.AgendaRepository
+import com.paligot.conferences.repositories.UserRepository
+import com.paligot.conferences.ui.components.appbars.ActionItemId
 import com.paligot.conferences.ui.components.appbars.BottomAppBar
 import com.paligot.conferences.ui.components.appbars.TopAppBar
 import com.paligot.conferences.ui.screens.Screen
 
 @Composable
 fun Home(
-    repository: AgendaRepository,
+    agendaRepository: AgendaRepository,
+    userRepository: UserRepository,
     modifier: Modifier = Modifier,
     startDestination: Screen = Screen.Agenda,
     navController: NavHostController = rememberNavController(),
@@ -30,12 +34,23 @@ fun Home(
     onTwitterClick: (url: String?) -> Unit,
     onLinkedInClick: (url: String?) -> Unit,
     onPartnerClick: (siteUrl: String?) -> Unit,
+    onScannerClicked: () -> Unit
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
     val screen = currentDestination?.route?.getScreen() ?: startDestination
     Scaffold(
-        topBar = { TopAppBar(title = screen.title) },
+        topBar = {
+            TopAppBar(
+                title = screen.title,
+                actions = screen.actions,
+                onActionClicked = {
+                    when (it) {
+                        ActionItemId.QrCodeActionItem -> onScannerClicked()
+                    }
+                }
+            )
+        },
         bottomBar = {
             BottomAppBar(
                 selected = screen,
@@ -54,13 +69,16 @@ fun Home(
         NavHost(navController, startDestination = Screen.Agenda.route, modifier = modifier.padding(it)) {
             composable(Screen.Agenda.route) {
                 AgendaVM(
-                    agendaRepository = repository,
+                    agendaRepository = agendaRepository,
                     onTalkClicked = onTalkClicked,
                 )
             }
+            composable(Screen.Networking.route) {
+                NetworkingVM(userRepository = userRepository)
+            }
             composable(Screen.Event.route) {
                 EventVM(
-                    agendaRepository = repository,
+                    agendaRepository = agendaRepository,
                     onFaqClick = onFaqClick,
                     onCoCClick = onCoCClick,
                     onTwitterClick = onTwitterClick,
@@ -75,5 +93,6 @@ fun Home(
 internal fun String.getScreen(): Screen = when (this) {
     Screen.Agenda.route -> Screen.Agenda
     Screen.Event.route -> Screen.Event
+    Screen.Networking.route -> Screen.Networking
     else -> TODO()
 }

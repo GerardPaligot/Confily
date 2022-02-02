@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.paligot.conferences.repositories.TalkItemUi
+import com.paligot.conferences.ui.components.utils.Container
 import com.paligot.conferences.ui.theme.Conferences4HallTheme
 
 @Composable
@@ -30,7 +31,7 @@ fun ScheduleItem(
         }
         Column {
             talks.forEach {
-                TalkBox(onClick = { onTalkClicked(it.id) }) {
+                Container(onClick = { onTalkClicked(it.id) }) {
                     TalkItem(
                         talk = it,
                         modifier = Modifier.padding(start = timeSpace),

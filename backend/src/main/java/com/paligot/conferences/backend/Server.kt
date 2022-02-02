@@ -2,6 +2,7 @@ package com.paligot.conferences.backend
 
 import com.google.auth.oauth2.GoogleCredentials
 import com.google.cloud.firestore.FirestoreOptions
+import com.google.cloud.storage.StorageOptions
 import com.paligot.conferences.backend.database.Database
 import com.paligot.conferences.backend.database.DatabaseType
 import com.paligot.conferences.backend.events.EventDao
@@ -14,9 +15,12 @@ import com.paligot.conferences.backend.schedulers.registerSchedulersRoutes
 import com.paligot.conferences.backend.speakers.SpeakerDao
 import com.paligot.conferences.backend.speakers.convertToDb
 import com.paligot.conferences.backend.speakers.registerSpeakersRoutes
+import com.paligot.conferences.backend.storage.Storage
 import com.paligot.conferences.backend.talks.TalkDao
 import com.paligot.conferences.backend.talks.convertToDb
 import com.paligot.conferences.backend.talks.registerTalksRoutes
+import com.paligot.conferences.backend.users.UserDao
+import com.paligot.conferences.backend.users.registerUserRoutes
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
@@ -28,15 +32,22 @@ import io.ktor.server.routing.*
 import kotlinx.coroutines.Dispatchers
 
 fun main() {
+    val gcpProjectId = "cms4partners-ce427"
+    val projectName = "conferences4hall"
+    val isAppEngine = System.getenv("IS_APPENGINE") == "true"
     val firestore = FirestoreOptions.getDefaultInstance().toBuilder().run {
-        if (System.getenv("IS_APPENGINE") != "true") {
+        if (!isAppEngine) {
             setEmulatorHost("localhost:8081")
         }
-        setProjectId("cms4partners-ce427")
+        setProjectId(gcpProjectId)
         setCredentials(GoogleCredentials.getApplicationDefault())
         build()
     }.service
-    val projectName = "conferences4hall"
+    val storage = StorageOptions.getDefaultInstance().toBuilder().run {
+        setProjectId(gcpProjectId)
+        setCredentials(GoogleCredentials.getApplicationDefault())
+        build()
+    }.service
     val speakerDao = SpeakerDao(
         Database.Factory.create(
             DatabaseType.FirestoreDb(
@@ -84,6 +95,13 @@ fun main() {
             )
         )
     )
+    val userDao = UserDao(
+        Storage.Factory.create(
+            storage = storage,
+            bucketName = projectName,
+            isAppEngine = isAppEngine
+        )
+    )
 
     embeddedServer(Netty, 8080) {
         install(ContentNegotiation) {
@@ -106,6 +124,7 @@ fun main() {
                 registerSpeakersRoutes(eventDao, speakerDao)
                 registerTalksRoutes(eventDao, speakerDao, talkDao)
                 registerSchedulersRoutes(eventDao, talkDao, speakerDao, scheduleItemDao)
+                registerUserRoutes(userDao, eventDao)
             }
         }
     }.start(wait = true)

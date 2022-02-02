@@ -10,6 +10,7 @@ val kotlinCoroutinesVersion: String by project
 val ktorVersion: String by project
 val sqldelightVersion: String by project
 val datetimeVersion: String by project
+val settingsVersion: String by project
 kotlin {
     android()
     
@@ -40,6 +41,7 @@ kotlin {
 
                 implementation("com.squareup.sqldelight:runtime:$sqldelightVersion")
                 implementation("com.squareup.sqldelight:coroutines-extensions:$sqldelightVersion")
+                implementation("com.russhwolf:multiplatform-settings:$settingsVersion")
             }
         }
         val commonTest by getting {

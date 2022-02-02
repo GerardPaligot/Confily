@@ -1,5 +1,6 @@
 package com.paligot.conferences.android
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +13,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.paligot.conferences.android.screens.home.Home
+import com.paligot.conferences.android.screens.scanner.QrCodeScannerVm
 import com.paligot.conferences.android.screens.schedule.ScheduleDetailVM
 import com.paligot.conferences.android.screens.speakers.SpeakerDetailVM
 import com.paligot.conferences.database.DatabaseWrapper
@@ -19,9 +21,12 @@ import com.paligot.conferences.database.EventDao
 import com.paligot.conferences.database.ScheduleDao
 import com.paligot.conferences.database.SpeakerDao
 import com.paligot.conferences.database.TalkDao
+import com.paligot.conferences.database.UserDao
 import com.paligot.conferences.network.ConferenceApi
 import com.paligot.conferences.repositories.AgendaRepository
+import com.paligot.conferences.repositories.UserRepository
 import com.paligot.conferences.ui.theme.Conferences4HallTheme
+import com.russhwolf.settings.AndroidSettings
 
 
 class MainActivity : AppCompatActivity() {
@@ -31,14 +36,23 @@ class MainActivity : AppCompatActivity() {
         val baseUrl = "https://cms4partners-ce427.nw.r.appspot.com"
         val eventId = "AFtTtSMq1NY4tnK2gMg1"
         val db = DatabaseWrapper(context = this).createDb()
-        val repository = AgendaRepository.Factory.create(
-            api = ConferenceApi.Factory.create(
-                baseUrl = baseUrl, eventId = eventId, enableNetworkLogs = BuildConfig.DEBUG
-            ),
+        val api = ConferenceApi.Factory.create(
+            baseUrl = baseUrl, eventId = eventId, enableNetworkLogs = BuildConfig.DEBUG
+        )
+        val agendaRepository = AgendaRepository.Factory.create(
+            api = api,
             scheduleDao = ScheduleDao(db, eventId),
             speakerDao = SpeakerDao(db),
             talkDao = TalkDao(db),
             eventDao = EventDao(db, eventId)
+        )
+        val userRepository = UserRepository.Factory.create(
+            api = api,
+            userDao = UserDao(
+                db = db,
+                settings = AndroidSettings(getSharedPreferences(eventId, Context.MODE_PRIVATE)),
+                eventId = eventId
+            )
         )
         setContent {
             Conferences4HallTheme {
@@ -54,7 +68,8 @@ class MainActivity : AppCompatActivity() {
                 NavHost(navController = navController, startDestination = "home") {
                     composable(route = "home") {
                         Home(
-                            repository = repository,
+                            agendaRepository = agendaRepository,
+                            userRepository = userRepository,
                             onTalkClicked = {
                                 navController.navigate("schedules/$it")
                             },
@@ -68,6 +83,9 @@ class MainActivity : AppCompatActivity() {
                             },
                             onPartnerClick = {
                                 it?.let { launchUrl(it) }
+                            },
+                            onScannerClicked = {
+                                navController.navigate("scanner")
                             }
                         )
                     }
@@ -77,7 +95,7 @@ class MainActivity : AppCompatActivity() {
                     ) {
                         ScheduleDetailVM(
                             scheduleId = it.arguments?.getString("scheduleId")!!,
-                            agendaRepository = repository,
+                            agendaRepository = agendaRepository,
                             onBackClicked = {
                                 navController.popBackStack()
                             },
@@ -92,9 +110,20 @@ class MainActivity : AppCompatActivity() {
                     ) {
                         SpeakerDetailVM(
                             speakerId = it.arguments?.getString("speakerId")!!,
-                            agendaRepository = repository,
+                            agendaRepository = agendaRepository,
                             onTwitterClick = { launchUrl(it) },
                             onGitHubClick = { launchUrl(it) },
+                            onBackClicked = {
+                                navController.popBackStack()
+                            }
+                        )
+                    }
+                    composable(
+                        route = "scanner"
+                    ) {
+                        QrCodeScannerVm(
+                            userRepository = userRepository,
+                            navigateToSettingsScreen = {},
                             onBackClicked = {
                                 navController.popBackStack()
                             }

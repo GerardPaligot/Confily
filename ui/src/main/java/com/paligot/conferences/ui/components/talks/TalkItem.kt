@@ -1,10 +1,5 @@
 package com.paligot.conferences.ui.components.talks
 
-import androidx.compose.foundation.Indication
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,18 +13,16 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Star
-import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.paligot.conferences.repositories.TalkItemUi
+import com.paligot.conferences.ui.components.utils.Container
 import com.paligot.conferences.ui.theme.Conferences4HallTheme
 
 val talkItem = TalkItemUi(
@@ -40,25 +33,6 @@ val talkItem = TalkItemUi(
     speakers = arrayListOf("Guillaume Laforge", "Aurélie Vache"),
     isFavorite = false
 )
-
-@Composable
-fun TalkBox(
-    modifier: Modifier = Modifier,
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    indication: Indication = rememberRipple(),
-    onClick: () -> Unit,
-    content: @Composable BoxScope.() -> Unit
-) {
-    Box(
-        modifier = modifier.clickable(
-            interactionSource = interactionSource,
-            indication = indication,
-            onClick = onClick,
-            role = Role.Button
-        ),
-        content = content
-    )
-}
 
 @Composable
 fun TalkItem(
@@ -116,7 +90,7 @@ fun TalkItem(
 fun TalkItemPreview() {
     Conferences4HallTheme {
         Scaffold {
-            TalkBox(onClick = {}) {
+            Container(onClick = {}) {
                 TalkItem(talk = talkItem) { _, _ -> }
             }
         }
