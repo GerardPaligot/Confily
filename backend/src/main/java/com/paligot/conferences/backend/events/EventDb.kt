@@ -11,6 +11,7 @@ data class EventAddressDb(
 
 data class EventDb(
     val id: String = "",
+    val apiKey: String = "",
     val name: String = "",
     val address: EventAddressDb = EventAddressDb(),
     val startDate: String = "",

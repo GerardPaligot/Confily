@@ -38,13 +38,14 @@ fun Route.registerEventRoutes(
     }
     put {
         val eventId = call.parameters["eventId"]!!
+        eventDao.getVerified(eventId, call.request.headers["api_key"])
         val input = call.receiveValidated<EventInput>()
-        eventDao.createOrUpdate(input.convertToDb(eventId))
+        eventDao.createOrUpdate(input.convertToDb(eventId, call.request.headers["api_key"]!!))
         call.respond(HttpStatusCode.OK, eventId)
     }
     get("agenda") {
         val eventId = call.parameters["eventId"]!!
-        eventDao.get(eventId)  ?: throw NotFoundException("Event $eventId Not Found")
+        eventDao.getVerified(eventId, call.request.headers["api_key"])
         val schedules = scheduleItemDao.getAll(eventId).groupBy { it.time }.entries.map {
             async {
                 val scheduleItems = it.value.map {

@@ -24,6 +24,7 @@ fun Route.registerSpeakersRoutes(
     }
     post("/speakers") {
         val eventId = call.parameters["eventId"]!!
+        eventDao.getVerified(eventId, call.request.headers["api_key"])
         val speaker = call.receiveValidated<SpeakerInput>()
         val speakerDb = speaker.convertToDb()
         val id = speakerDao.createOrUpdate(eventId, speakerDb)
@@ -33,6 +34,7 @@ fun Route.registerSpeakersRoutes(
     put("/speakers/{id}") {
         val id = call.parameters["id"]!!
         val eventId = call.parameters["eventId"]!!
+        eventDao.getVerified(eventId, call.request.headers["api_key"])
         val speaker = call.receiveValidated<SpeakerInput>()
         val speakerDb = speaker.convertToDb(id)
         eventDao.updateUpdatedAt(eventId)

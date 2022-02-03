@@ -20,6 +20,7 @@ fun Route.registerSchedulersRoutes(
 ) {
     post("/schedulers") {
         val eventId = call.parameters["eventId"]!!
+        eventDao.getVerified(eventId, call.request.headers["api_key"])
         val schedule = call.receiveValidated<ScheduleInput>()
         if (schedule.talkId == null) {
             val scheduleItem = schedule.convertToDb()
@@ -50,6 +51,7 @@ fun Route.registerSchedulersRoutes(
     }
     delete("/schedulers/{id}") {
         val eventId = call.parameters["eventId"]!!
+        eventDao.getVerified(eventId, call.request.headers["api_key"])
         val id = call.parameters["id"]!!
         scheduleItemDao.delete(eventId, id)
         eventDao.updateUpdatedAt(eventId)

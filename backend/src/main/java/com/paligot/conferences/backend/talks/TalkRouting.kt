@@ -33,6 +33,7 @@ fun Route.registerTalksRoutes(
     }
     post("/talks") {
         val eventId = call.parameters["eventId"]!!
+        eventDao.getVerified(eventId, call.request.headers["api_key"])
         val talk = call.receiveValidated<TalkInput>()
         val talkDb = talk.convertToDb()
         val id = talkDao.createOrUpdate(eventId, talkDb)
@@ -41,6 +42,7 @@ fun Route.registerTalksRoutes(
     }
     put("/talks/{id}") {
         val eventId = call.parameters["eventId"]!!
+        eventDao.getVerified(eventId, call.request.headers["api_key"])
         val talkId = call.parameters["id"]!!
         val talk = call.receiveValidated<TalkInput>()
         talkDao.createOrUpdate(eventId, talk.convertToDb(id = talkId))

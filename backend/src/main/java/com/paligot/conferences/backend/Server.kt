@@ -117,6 +117,9 @@ fun main() {
             exception<NotFoundException> { call, cause ->
                 call.respond(HttpStatusCode.NotFound, cause.message ?: "")
             }
+            exception<NotAuthorized> { call, _ ->
+                call.respond(HttpStatusCode.Unauthorized, "Your api key isn't the good one")
+            }
         }
         routing {
             post("conference-hall/{eventId}/import") {
@@ -127,7 +130,7 @@ fun main() {
                 val event = conferenceHallApi.fetchEvent(eventId)
                 speakerDao.insertAll(eventId, event.speakers.map { it.convertToDb() })
                 talkDao.insertAll(eventId, event.talks.map { it.convertToDb(event.categories, event.formats) })
-                eventDao.createOrUpdate(event.convertToDb(eventId))
+                eventDao.createOrUpdate(event.convertToDb(eventId, apiKey))
                 call.respond(HttpStatusCode.Created, event)
             }
             route("/events/{eventId}") {
@@ -141,6 +144,7 @@ fun main() {
     }.start(wait = true)
 }
 
+object NotAuthorized: Throwable()
 class NotFoundException(message: String): Throwable(message)
 
 suspend inline fun <reified T : Validator> ApplicationCall.receiveValidated(): T {

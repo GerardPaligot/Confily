@@ -1,6 +1,5 @@
 package com.paligot.conferences.backend.users
 
-import com.paligot.conferences.backend.NotFoundException
 import com.paligot.conferences.backend.events.EventDao
 import com.paligot.conferences.backend.receiveValidated
 import com.paligot.conferences.models.inputs.UserEmailInput
@@ -15,7 +14,7 @@ fun Route.registerUserRoutes(
 ) {
     post("users/qrcode") {
         val eventId = call.parameters["eventId"]!!
-        eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
+        eventDao.getVerified(eventId, call.request.headers["api_key"])
         val input = call.receiveValidated<UserEmailInput>()
         val upload = userDao.saveQrCode(eventId, input.email)
         call.respond(HttpStatusCode.Created, upload.convertToModel())
