@@ -21,12 +21,15 @@ import com.paligot.conferences.backend.talks.convertToDb
 import com.paligot.conferences.backend.talks.registerTalksRoutes
 import com.paligot.conferences.backend.users.UserDao
 import com.paligot.conferences.backend.users.registerUserRoutes
+import com.paligot.conferences.models.inputs.Validator
+import com.paligot.conferences.models.inputs.ValidatorException
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import io.ktor.server.plugins.*
+import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.coroutines.Dispatchers
@@ -107,6 +110,14 @@ fun main() {
         install(ContentNegotiation) {
             json()
         }
+        install(StatusPages) {
+            exception<ValidatorException> { call, cause ->
+                call.respond(HttpStatusCode.BadRequest, cause.errors)
+            }
+            exception<NotFoundException> { call, cause ->
+                call.respond(HttpStatusCode.NotFound, cause.message ?: "")
+            }
+        }
         routing {
             post("conference-hall/{eventId}/import") {
                 val apiKey = call.request.headers["api_key"]
@@ -128,4 +139,13 @@ fun main() {
             }
         }
     }.start(wait = true)
+}
+
+class NotFoundException(message: String): Throwable(message)
+
+suspend inline fun <reified T : Validator> ApplicationCall.receiveValidated(): T {
+    val input = receive<T>()
+    val errors = input.validate()
+    if (errors.isNotEmpty()) throw ValidatorException(errors)
+    return input
 }

@@ -5,6 +5,7 @@ import com.paligot.conferences.backend.network.Format
 import com.paligot.conferences.backend.speakers.SpeakerDb
 import com.paligot.conferences.backend.speakers.convertToModel
 import com.paligot.conferences.models.Talk
+import com.paligot.conferences.models.inputs.TalkInput
 
 fun com.paligot.conferences.backend.network.Talk.convertToDb(
   categories: List<Category>,

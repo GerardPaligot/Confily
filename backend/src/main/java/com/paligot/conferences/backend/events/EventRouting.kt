@@ -1,22 +1,22 @@
 package com.paligot.conferences.backend.events
 
+import com.paligot.conferences.backend.NotFoundException
 import com.paligot.conferences.backend.partners.PartnerDao
 import com.paligot.conferences.backend.partners.Sponsorship
+import com.paligot.conferences.backend.receiveValidated
 import com.paligot.conferences.backend.schedulers.ScheduleItemDao
 import com.paligot.conferences.backend.schedulers.convertToModel
 import com.paligot.conferences.backend.speakers.SpeakerDao
 import com.paligot.conferences.backend.talks.TalkDao
 import com.paligot.conferences.backend.talks.convertToModel
 import com.paligot.conferences.models.Agenda
+import com.paligot.conferences.models.inputs.EventInput
 import io.ktor.http.*
 import io.ktor.server.application.*
-import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
-import java.text.SimpleDateFormat
-import java.util.*
 
 fun Route.registerEventRoutes(
     eventDao: EventDao,
@@ -27,11 +27,7 @@ fun Route.registerEventRoutes(
 ) {
     get {
         val eventId = call.parameters["eventId"]!!
-        val event = eventDao.get(eventId)
-        if (event == null) {
-            call.respond(HttpStatusCode.NotFound, "Event $eventId Not Found")
-            return@get
-        }
+        val event = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
         val year = event.startDate.split("-")[0]
         call.respond(HttpStatusCode.OK, event.convertToModel(
             golds = partnerDao.listValidated(year, Sponsorship.Gold),
@@ -42,17 +38,13 @@ fun Route.registerEventRoutes(
     }
     put {
         val eventId = call.parameters["eventId"]!!
-        val input = call.receive<EventInput>()
+        val input = call.receiveValidated<EventInput>()
         eventDao.createOrUpdate(input.convertToDb(eventId))
         call.respond(HttpStatusCode.OK, eventId)
     }
     get("agenda") {
         val eventId = call.parameters["eventId"]!!
-        val event = eventDao.get(eventId)
-        if (event == null) {
-            call.respond(HttpStatusCode.NotFound, "Event $eventId Not Found")
-            return@get
-        }
+        eventDao.get(eventId)  ?: throw NotFoundException("Event $eventId Not Found")
         val schedules = scheduleItemDao.getAll(eventId).groupBy { it.time }.entries.map {
             async {
                 val scheduleItems = it.value.map {

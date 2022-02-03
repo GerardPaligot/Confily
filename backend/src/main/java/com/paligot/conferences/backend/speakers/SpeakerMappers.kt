@@ -1,8 +1,7 @@
 package com.paligot.conferences.backend.speakers
 
-import com.paligot.conferences.backend.schedulers.ScheduleDb
-import com.paligot.conferences.backend.schedulers.ScheduleInput
 import com.paligot.conferences.models.Speaker
+import com.paligot.conferences.models.inputs.SpeakerInput
 
 fun com.paligot.conferences.backend.network.Speaker.convertToDb(): SpeakerDb = SpeakerDb(
   id = this.uid,

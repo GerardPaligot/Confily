@@ -5,6 +5,7 @@ import com.paligot.conferences.backend.partners.PartnerDb
 import com.paligot.conferences.backend.partners.convertToModel
 import com.paligot.conferences.models.EventAddress
 import com.paligot.conferences.models.EventPartners
+import com.paligot.conferences.models.inputs.EventInput
 
 fun Event.convertToDb(id: String) = EventDb(
     id = id,

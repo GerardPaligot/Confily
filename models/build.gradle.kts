@@ -11,6 +11,7 @@ tasks.withType<KotlinCompile> {
 }
 
 val ktorVersion: String by project
+val datetimeVersion: String by project
 kotlin {
     android()
     jvm()
@@ -30,6 +31,7 @@ kotlin {
             dependencies {
                 implementation("io.ktor:ktor-client-serialization:$ktorVersion")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:$datetimeVersion")
             }
         }
         val androidMain by getting

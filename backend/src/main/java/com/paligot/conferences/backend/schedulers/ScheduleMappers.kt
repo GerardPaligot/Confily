@@ -2,6 +2,7 @@ package com.paligot.conferences.backend.schedulers
 
 import com.paligot.conferences.models.ScheduleItem
 import com.paligot.conferences.models.Talk
+import com.paligot.conferences.models.inputs.ScheduleInput
 
 fun ScheduleDb.convertToModel(talk: Talk?) = ScheduleItem(
   id = this.id,

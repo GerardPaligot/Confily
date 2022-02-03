@@ -1,29 +1,8 @@
-package com.paligot.conferences.backend.events
+package com.paligot.conferences.models.inputs
 
+import kotlinx.datetime.Clock
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-
-data class EventAddressDb(
-    val address: String = "",
-    val country: String = "",
-    val countryCode: String = "",
-    val city: String = "",
-    val lat: Double = 0.0,
-    val lng: Double = 0.0
-)
-
-data class EventDb(
-    val id: String = "",
-    val name: String = "",
-    val address: EventAddressDb = EventAddressDb(),
-    val startDate: String = "",
-    val endDate: String = "",
-    val twitterUrl: String? = null,
-    val linkedinUrl: String? = null,
-    val faqLink: String? = null,
-    val codeOfConductLink: String? = null,
-    val updatedAt: Long = System.currentTimeMillis()
-)
 
 @Serializable
 data class EventAddressInput(
@@ -34,7 +13,14 @@ data class EventAddressInput(
     val city: String,
     val lat: Double,
     val lng: Double
-)
+): Validator {
+    override fun validate(): List<String> {
+        val errors = arrayListOf<String>()
+        if (lat <= 0) errors.add("Your latitude should be positive")
+        if (lng <= 0) errors.add("Your longitude should be positive")
+        return errors
+    }
+}
 
 @Serializable
 data class EventInput(
@@ -53,5 +39,13 @@ data class EventInput(
     @SerialName("code_of_conduct_link")
     val codeOfConductLink: String,
     @SerialName("update_at")
-    val updatedAt: Long = System.currentTimeMillis()
-)
+    val updatedAt: Long = Clock.System.now().epochSeconds
+): Validator {
+    override fun validate(): List<String> {
+        val errors = arrayListOf<String>()
+        if (twitterUrl?.contains("twitter.com") == false) errors.add("Your twitter url is malformed")
+        if (linkedinUrl?.contains("linkedin.com") == false) errors.add("Your linkedin url is malformed")
+        errors.addAll(address.validate())
+        return errors
+    }
+}
