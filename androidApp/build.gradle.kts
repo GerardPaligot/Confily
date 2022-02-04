@@ -39,6 +39,7 @@ dependencies {
     implementation(project(":ui"))
     implementation(project(":shared"))
     implementation("com.russhwolf:multiplatform-settings:$settingsVersion")
+    implementation("androidx.browser:browser:1.4.0")
     implementation("com.google.android.material:material:1.5.0")
     implementation("androidx.appcompat:appcompat:1.4.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")

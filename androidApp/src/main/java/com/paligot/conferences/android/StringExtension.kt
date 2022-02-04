@@ -1,10 +1,10 @@
 package com.paligot.conferences.android
 
 import android.app.Activity
-import android.content.Intent
 import android.net.Uri
+import androidx.browser.customtabs.CustomTabsIntent
 
 fun Activity.launchUrl(url: String) {
-    val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-    startActivity(browserIntent)
+    val customTabsIntent = CustomTabsIntent.Builder().build()
+    customTabsIntent.launchUrl(this, Uri.parse(url));
 }
