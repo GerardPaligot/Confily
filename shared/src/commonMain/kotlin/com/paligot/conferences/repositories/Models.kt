@@ -1,5 +1,7 @@
 package com.paligot.conferences.repositories
 
+import com.paligot.conferences.Image
+
 data class AgendaUi(val talks: Map<String, List<TalkItemUi>>)
 
 data class TalkItemUi(
@@ -72,5 +74,6 @@ data class UserProfileUi(
     val email: String,
     val hasQrCode: Boolean,
     val showQrCode: Boolean,
-    val emails: List<String> = emptyList()
+    val emails: List<String> = emptyList(),
+    val qrcode: Image?
 )

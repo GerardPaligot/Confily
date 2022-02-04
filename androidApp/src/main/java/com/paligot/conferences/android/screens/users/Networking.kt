@@ -22,7 +22,6 @@ fun NetworkingVM(
         is ProfileUiState.Failure -> Text("Something wrong happened")
         is ProfileUiState.Success -> Networking(
             profileUi = (uiState.value as ProfileUiState.Success).profile,
-            imageBitmap = (uiState.value as ProfileUiState.Success).imageBitmap,
             modifier = modifier,
             onValueChanged = {
                 viewModel.emailChanged(it)

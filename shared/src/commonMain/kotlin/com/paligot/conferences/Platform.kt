@@ -6,3 +6,6 @@ expect class Platform() {
     val platform: String
     val engine: HttpClientEngine
 }
+
+expect class Image
+expect fun ByteArray.toNativeImage(): Image

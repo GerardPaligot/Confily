@@ -9,7 +9,7 @@ import androidx.compose.material.Divider
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.paligot.conferences.repositories.UserProfileUi
@@ -21,7 +21,6 @@ import com.paligot.conferences.ui.theme.Conferences4HallTheme
 @Composable
 fun Networking(
     profileUi: UserProfileUi,
-    imageBitmap: ImageBitmap?,
     modifier: Modifier = Modifier,
     onValueChanged: (String) -> Unit,
     onValidation: () -> Unit,
@@ -50,10 +49,10 @@ fun Networking(
             }
         }
     }
-    if (profileUi.showQrCode && imageBitmap != null) {
+    if (profileUi.showQrCode && profileUi.qrcode != null) {
         QrCodeDialog(
             email = profileUi.email,
-            imageBitmap = imageBitmap,
+            imageBitmap = profileUi.qrcode!!.asImageBitmap(),
             onDismissRequest = onDismissRequest
         )
     }
@@ -69,7 +68,8 @@ val fakeProfileUi = UserProfileUi(
         "gerard@gdglille.org",
         "gerard@gdglille.org",
         "gerard@gdglille.org",
-    )
+    ),
+    qrcode = null
 )
 
 @Preview
@@ -79,7 +79,6 @@ fun NetworkingPreview() {
         Scaffold {
             Networking(
                 profileUi = fakeProfileUi,
-                imageBitmap = ImageBitmap(1, 1),
                 onValueChanged = {},
                 onValidation = {},
                 onQrCodeClicked = {},

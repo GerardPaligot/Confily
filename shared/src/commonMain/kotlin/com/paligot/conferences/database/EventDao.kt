@@ -44,12 +44,6 @@ class EventDao(private val db: Conferences4HallDatabase, private val eventId: St
         )
     }
 
-    fun lastUpdate(): Long = try {
-        db.eventQueries.selectUpdatedAt(eventId).executeAsOne()
-    } catch(ignored: Throwable) {
-        0L
-    }
-
     fun insertEvent(event: Event) = db.transaction {
         val eventDb = event.convertToModelDb()
         db.eventQueries.insertEvent(

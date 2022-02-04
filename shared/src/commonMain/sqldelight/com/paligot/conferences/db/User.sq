@@ -1,6 +1,6 @@
 CREATE TABLE User(
 email TEXT NOT NULL PRIMARY KEY,
-qrcode BLOB
+qrcode BLOB NOT NULL
 );
 
 CREATE TABLE Networking(

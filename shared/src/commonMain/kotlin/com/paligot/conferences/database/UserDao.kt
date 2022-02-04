@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.datetime.Clock
 
 class UserDao(private val db: Conferences4HallDatabase, private val settings: Settings, private val eventId: String) {
-    fun fetchQrCode(email: String): ByteArray? = db.userQueries.selectQrCode(email).executeAsOneOrNull()?.qrcode
+    fun fetchQrCode(email: String): ByteArray? = db.userQueries.selectQrCode(email).executeAsOneOrNull()
     fun insertUser(email: String, image: ByteArray) {
         db.userQueries.insertUser(email, image)
         settings["EMAIL"] = email
