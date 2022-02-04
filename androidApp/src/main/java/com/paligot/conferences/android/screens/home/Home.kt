@@ -47,6 +47,7 @@ fun Home(
                 onActionClicked = {
                     when (it) {
                         ActionItemId.QrCodeActionItem -> onScannerClicked()
+                        else -> TODO()
                     }
                 }
             )

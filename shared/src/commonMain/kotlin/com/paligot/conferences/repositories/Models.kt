@@ -26,7 +26,8 @@ data class SpeakerItemUi(
     val id: String,
     val name: String,
     val company: String,
-    val url: String
+    val url: String,
+    val twitter: String?
 )
 
 data class SpeakerUi(

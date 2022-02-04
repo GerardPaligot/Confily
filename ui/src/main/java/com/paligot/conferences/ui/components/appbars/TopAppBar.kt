@@ -47,6 +47,7 @@ open class ActionItem(
 
 sealed class ActionItemId {
     object QrCodeActionItem: ActionItemId()
+    object ShareActionItem: ActionItemId()
 }
 
 internal fun (@Composable AppBarIcons.() -> Unit)?.takeOrNull(): (@Composable () -> Unit)? {

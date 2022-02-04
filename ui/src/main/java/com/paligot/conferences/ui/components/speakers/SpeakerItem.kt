@@ -32,7 +32,8 @@ val speakerItem = SpeakerItemUi(
     id = "1",
     name = "Gérard Paligot",
     company = "Decathlon",
-    url = "https://pbs.twimg.com/profile_images/1465658195767136257/zdYQWsTj_400x400.jpg"
+    url = "https://pbs.twimg.com/profile_images/1465658195767136257/zdYQWsTj_400x400.jpg",
+    twitter = null
 )
 
 @Composable

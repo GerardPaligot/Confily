@@ -1,6 +1,7 @@
 package com.paligot.conferences.android
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
@@ -34,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         // val baseUrl = "http://10.0.2.2:8080"
         val baseUrl = "https://cms4partners-ce427.nw.r.appspot.com"
-        val eventId = "vzbfowsExm54SrWLtxA5"
+        val eventId = "AFtTtSMq1NY4tnK2gMg1" // vzbfowsExm54SrWLtxA5
         val db = DatabaseWrapper(context = this).createDb()
         val api = ConferenceApi.Factory.create(
             baseUrl = baseUrl, eventId = eventId, enableNetworkLogs = BuildConfig.DEBUG
@@ -101,6 +102,15 @@ class MainActivity : AppCompatActivity() {
                             },
                             onSpeakerClicked = {
                                 navController.navigate("speakers/$it")
+                            },
+                            onShareClicked = { text ->
+                                val sendIntent: Intent = Intent().apply {
+                                    action = Intent.ACTION_SEND
+                                    putExtra(Intent.EXTRA_TEXT, text)
+                                    type = "text/plain"
+                                }
+                                val shareIntent = Intent.createChooser(sendIntent, null)
+                                startActivity(shareIntent)
                             }
                         )
                     }

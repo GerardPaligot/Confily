@@ -14,7 +14,8 @@ fun ScheduleDetailVM(
     agendaRepository: AgendaRepository,
     modifier: Modifier = Modifier,
     onBackClicked: () -> Unit,
-    onSpeakerClicked: (id: String) -> Unit
+    onSpeakerClicked: (id: String) -> Unit,
+    onShareClicked: (text: String) -> Unit
 ) {
     val viewModel: ScheduleItemViewModel = viewModel(
         factory = ScheduleItemViewModel.Factory.create(scheduleId, agendaRepository)
@@ -27,7 +28,8 @@ fun ScheduleDetailVM(
             talk = (uiState.value as ScheduleUiState.Success).talk,
             modifier = modifier,
             onBackClicked = onBackClicked,
-            onSpeakerClicked = onSpeakerClicked
+            onSpeakerClicked = onSpeakerClicked,
+            onShareClicked = onShareClicked
         )
     }
 }

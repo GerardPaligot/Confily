@@ -20,7 +20,8 @@ class TalkDao(private val db: Conferences4HallDatabase) {
                     id = it.id,
                     name = it.display_name,
                     company = it.company ?: "",
-                    url = it.photo_url
+                    url = it.photo_url,
+                    twitter = it.twitter?.split("twitter.com/")?.get(1)
                 )
             }
         )
