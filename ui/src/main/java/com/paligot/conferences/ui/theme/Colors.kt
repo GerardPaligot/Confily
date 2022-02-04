@@ -20,8 +20,8 @@ val darkColors = lightColors(
     onSecondary = ColorPalette.black,
     background = ColorPalette.black,
     onBackground = ColorPalette.white,
-    surface = ColorPalette.black,
-    onSurface = ColorPalette.white,
+    surface = ColorPalette.white,
+    onSurface = ColorPalette.black,
     error = ColorPalette.red,
     onError = ColorPalette.white,
 )

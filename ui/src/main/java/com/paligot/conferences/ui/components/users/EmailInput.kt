@@ -12,6 +12,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.QrCode
 import androidx.compose.material.icons.filled.Save
@@ -19,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,6 +37,7 @@ fun EmailInput(
     onValidation: () -> Unit,
     onQrCodeClicked: () -> Unit
 ) {
+    val focusManager = LocalFocusManager.current
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
@@ -45,6 +48,7 @@ fun EmailInput(
             onValueChange = onValueChanged,
             label = { Text("Your email address") },
             keyboardActions = KeyboardActions(onDone = {
+                focusManager.clearFocus()
                 onValidation()
             }),
             keyboardOptions = KeyboardOptions(
@@ -54,9 +58,16 @@ fun EmailInput(
             singleLine = true,
             maxLines = 1,
             modifier = Modifier.fillMaxWidth().weight(1f),
-            shape = CircleShape
+            shape = CircleShape,
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                unfocusedBorderColor = contentColor,
+                unfocusedLabelColor = contentColor
+            )
         )
-        IconButton(onClick = { onValidation() }) {
+        IconButton(onClick = {
+            focusManager.clearFocus()
+            onValidation()
+        }) {
             Icon(
                 imageVector = Icons.Filled.Save,
                 contentDescription = "Save email to generate qrcode",

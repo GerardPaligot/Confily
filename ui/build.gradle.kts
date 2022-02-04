@@ -4,6 +4,7 @@ plugins {
 }
 
 val composeVersion: String by project
+val coilVersion: String by project
 android {
     compileSdk = 31
 
@@ -23,7 +24,8 @@ android {
 
 dependencies {
     implementation(project(":shared"))
-    implementation("io.coil-kt:coil-compose:1.4.0")
+    implementation("io.coil-kt:coil-compose:$coilVersion")
+    implementation("io.coil-kt:coil-svg:$coilVersion")
     implementation("br.com.devsrsouza.compose.icons.android:font-awesome:1.0.0")
     implementation("androidx.compose.material:material:$composeVersion")
     implementation("androidx.compose.material:material-icons-extended:$composeVersion")
