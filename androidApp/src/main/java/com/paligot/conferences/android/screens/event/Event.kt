@@ -24,7 +24,17 @@ fun EventVM(
     )
     val uiState = viewModel.uiState.collectAsState()
     when (uiState.value) {
-        is EventUiState.Loading -> Text("Loading...")
+        is EventUiState.Loading -> Event(
+            logo = R.drawable.ic_launcher_foreground,
+            event = (uiState.value as EventUiState.Loading).event,
+            modifier = modifier,
+            isLoading = true,
+            onFaqClick = {},
+            onCoCClick = {},
+            onTwitterClick = {},
+            onLinkedInClick = {},
+            onPartnerClick = {}
+        )
         is EventUiState.Failure -> Text("Something wrong happened")
         is EventUiState.Success -> Event(
             logo = R.drawable.ic_launcher_foreground,

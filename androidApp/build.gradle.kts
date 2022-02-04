@@ -5,6 +5,7 @@ plugins {
 }
 
 val composeVersion: String by project
+val accompanistVersion: String by project
 val settingsVersion: String by project
 android {
     compileSdk = 31
@@ -45,8 +46,8 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")
     implementation("androidx.activity:activity-compose:1.4.0")
     implementation("androidx.navigation:navigation-compose:2.4.0")
-    implementation("com.google.accompanist:accompanist-systemuicontroller:0.22.0-rc")
-    implementation("com.google.accompanist:accompanist-permissions:0.24.1-alpha")
+    implementation("com.google.accompanist:accompanist-systemuicontroller:$accompanistVersion")
+    implementation("com.google.accompanist:accompanist-permissions:$accompanistVersion")
     implementation("androidx.compose.material:material:$composeVersion")
     implementation("androidx.compose.material:material-icons-extended:$composeVersion")
     implementation("androidx.compose.ui:ui-tooling:$composeVersion")

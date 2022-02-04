@@ -23,7 +23,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.paligot.conferences.ui.screens.event
+import com.paligot.conferences.ui.screens.fakeEvent
 import com.paligot.conferences.ui.theme.Conferences4HallTheme
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Brands
@@ -154,7 +154,7 @@ fun SocialItemPreview() {
                 onClick = {}
             )
             Socials.LinkedIn(
-                text = event.eventInfo.linkedin!!,
+                text = fakeEvent.eventInfo.linkedin!!,
                 onClick = {}
             )
         }

@@ -16,7 +16,7 @@ import com.paligot.conferences.ui.components.events.PartnerDivider
 import com.paligot.conferences.ui.components.events.PartnerRow
 import com.paligot.conferences.ui.components.events.partnerUi
 
-val event = EventUi(
+val fakeEvent = EventUi(
     eventInfo = EventInfoUi(
         name = "Devfest Lille",
         address = "Kinepolis, Rue du Château d'Isenghien, Lille, France",
@@ -29,9 +29,9 @@ val event = EventUi(
         codeOfConductLink = "https://devfest.gdglille.org/code-conduite/"
     ),
     partners = PartnerGroupsUi(
-        golds = arrayListOf(partnerUi),
-        silvers = arrayListOf(partnerUi, partnerUi, partnerUi, partnerUi),
-        bronzes = arrayListOf(partnerUi),
+        golds = arrayListOf(partnerUi, partnerUi, partnerUi),
+        silvers = arrayListOf(partnerUi, partnerUi, partnerUi),
+        bronzes = arrayListOf(partnerUi, partnerUi, partnerUi),
         others = emptyList()
     )
 )
@@ -41,6 +41,7 @@ fun Event(
     logo: Int,
     event: EventUi,
     modifier: Modifier = Modifier,
+    isLoading: Boolean = false,
     onFaqClick: (url: String) -> Unit,
     onCoCClick: (url: String) -> Unit,
     onTwitterClick: (url: String?) -> Unit,
@@ -56,6 +57,7 @@ fun Event(
             EventSection(
                 logo = logo,
                 eventInfo = event.eventInfo,
+                isLoading = isLoading,
                 onFaqClick = onFaqClick,
                 onCoCClick = onCoCClick,
                 onTwitterClick = onTwitterClick,
@@ -64,15 +66,15 @@ fun Event(
         }
         item { PartnerDivider(title = "Gold") }
         items(event.partners.golds.chunked(3)) {
-            PartnerRow(partners = it, onPartnerClick = onPartnerClick)
+            PartnerRow(partners = it, onPartnerClick = onPartnerClick, isLoading = isLoading)
         }
         item { PartnerDivider(title = "Silver") }
         items(event.partners.silvers.chunked(3)) {
-            PartnerRow(partners = it, onPartnerClick = onPartnerClick)
+            PartnerRow(partners = it, onPartnerClick = onPartnerClick, isLoading = isLoading)
         }
         item { PartnerDivider(title = "Bronze") }
         items(event.partners.bronzes.chunked(3)) {
-            PartnerRow(partners = it, onPartnerClick = onPartnerClick)
+            PartnerRow(partners = it, onPartnerClick = onPartnerClick, isLoading = isLoading)
         }
     }
 }

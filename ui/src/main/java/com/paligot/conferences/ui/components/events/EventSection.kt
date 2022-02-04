@@ -20,12 +20,14 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import com.paligot.conferences.repositories.EventInfoUi
 import com.paligot.conferences.ui.components.speakers.Socials
+import com.paligot.conferences.ui.theme.placeholder
 
 @Composable
 fun EventSection(
     logo: Int,
     eventInfo: EventInfoUi,
     modifier: Modifier = Modifier,
+    isLoading: Boolean = false,
     titleTextStyle: TextStyle = MaterialTheme.typography.h6,
     subtitleTextStyle: TextStyle = MaterialTheme.typography.subtitle2,
     color: Color = MaterialTheme.colors.onBackground,
@@ -48,26 +50,43 @@ fun EventSection(
                 contentDescription = null,
                 modifier = Modifier.size(96.dp)
             )
-            Text(text = eventInfo.name, style = titleTextStyle, color = color)
-            Text(text = eventInfo.date, style = subtitleTextStyle, color = color)
+            Text(
+                text = eventInfo.name,
+                style = titleTextStyle,
+                color = color,
+                modifier = Modifier.placeholder(visible = isLoading)
+            )
+            Text(
+                text = eventInfo.date,
+                style = subtitleTextStyle,
+                color = color,
+                modifier = Modifier.placeholder(visible = isLoading)
+            )
         }
         if (eventInfo.twitter != null || eventInfo.linkedin != null) {
             Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                 eventInfo.twitter?.let {
                     Socials.Twitter(
                         text = it,
-                        onClick = { eventInfo.twitterUrl.let(onTwitterClick) }
+                        onClick = { eventInfo.twitterUrl.let(onTwitterClick) },
+                        modifier = Modifier.placeholder(visible = isLoading)
                     )
                 }
                 eventInfo.linkedin?.let {
                     Socials.LinkedIn(
                         text = it,
-                        onClick = { eventInfo.linkedinUrl.let(onLinkedInClick) }
+                        onClick = { eventInfo.linkedinUrl.let(onLinkedInClick) },
+                        modifier = Modifier.placeholder(visible = isLoading)
                     )
                 }
             }
         }
-        Text(text = eventInfo.address, style = subtitleTextStyle, color = color)
+        Text(
+            text = eventInfo.address,
+            style = subtitleTextStyle,
+            color = color,
+            modifier = Modifier.placeholder(visible = isLoading)
+        )
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             Button(
                 onClick = { onFaqClick(eventInfo.faqLink) },

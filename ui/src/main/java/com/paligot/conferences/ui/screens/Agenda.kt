@@ -18,6 +18,7 @@ import com.paligot.conferences.ui.theme.Conferences4HallTheme
 fun Agenda(
     agenda: AgendaUi,
     modifier: Modifier = Modifier,
+    isLoading: Boolean = false,
     onTalkClicked: (id: String) -> Unit,
     onFavoriteClicked: (id: String, isFavorite: Boolean) -> Unit
 ) {
@@ -30,6 +31,7 @@ fun Agenda(
             ScheduleItem(
                 time = it,
                 talks = agenda.talks[it]!!,
+                isLoading = isLoading,
                 onTalkClicked = onTalkClicked,
                 onFavoriteClicked = onFavoriteClicked
             )
@@ -37,22 +39,21 @@ fun Agenda(
     }
 }
 
+val fakeAgendaUi = AgendaUi(
+    talks = mapOf(
+        "10:00" to arrayListOf(talkItem, talkItem),
+        "11:00" to arrayListOf(talkItem, talkItem),
+        "12:00" to arrayListOf(talkItem, talkItem),
+    ),
+)
+
 @Preview
 @Composable
 fun AgendaPreview() {
     Conferences4HallTheme {
         Scaffold {
             Agenda(
-                agenda = AgendaUi(
-                    talks = mapOf(
-                        "10:00" to arrayListOf(talkItem, talkItem),
-                        "11:00" to arrayListOf(talkItem, talkItem),
-                        "12:00" to arrayListOf(talkItem, talkItem),
-                        "13:00" to arrayListOf(talkItem, talkItem),
-                        "14:00" to arrayListOf(talkItem, talkItem),
-                        "15:00" to arrayListOf(talkItem, talkItem),
-                    ),
-                ),
+                agenda = fakeAgendaUi,
                 onTalkClicked = {},
                 onFavoriteClicked = { _, _ -> }
             )

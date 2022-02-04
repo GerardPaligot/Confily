@@ -19,7 +19,13 @@ fun AgendaVM(
     )
     val uiState = viewModel.uiState.collectAsState()
     when (uiState.value) {
-        is AgendaUiState.Loading -> Text("Loading...")
+        is AgendaUiState.Loading -> Agenda(
+            agenda = (uiState.value as AgendaUiState.Loading).agenda,
+            modifier = modifier,
+            isLoading = true,
+            onTalkClicked = {},
+            onFavoriteClicked = { _, _ -> }
+        )
         is AgendaUiState.Failure -> Text("Something wrong happened")
         is AgendaUiState.Success -> Agenda(
             agenda = (uiState.value as AgendaUiState.Success).agenda,

@@ -11,13 +11,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.paligot.conferences.repositories.PartnerItemUi
-import com.paligot.conferences.ui.screens.event
+import com.paligot.conferences.ui.screens.fakeEvent
 import com.paligot.conferences.ui.theme.Conferences4HallTheme
 
 @Composable
 fun PartnerRow(
     partners: List<PartnerItemUi>,
     modifier: Modifier = Modifier,
+    isLoading: Boolean = false,
     maxItems: Int = 3,
     onPartnerClick: (siteUrl: String?) -> Unit,
 ) {
@@ -28,6 +29,7 @@ fun PartnerRow(
                 PartnerItem(
                     partnerUi = it,
                     modifier = Modifier.width(width).aspectRatio(1f),
+                    isLoading = isLoading,
                     onClick = onPartnerClick
                 )
             }
@@ -40,7 +42,7 @@ fun PartnerRow(
 fun Eventreview() {
     Conferences4HallTheme {
         PartnerRow(
-            partners = event.partners.silvers.chunked(3)[0],
+            partners = fakeEvent.partners.silvers.chunked(3)[0],
             onPartnerClick = {}
         )
     }

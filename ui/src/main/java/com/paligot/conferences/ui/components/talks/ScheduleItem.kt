@@ -13,12 +13,14 @@ import androidx.compose.ui.unit.dp
 import com.paligot.conferences.repositories.TalkItemUi
 import com.paligot.conferences.ui.components.utils.Container
 import com.paligot.conferences.ui.theme.Conferences4HallTheme
+import com.paligot.conferences.ui.theme.placeholder
 
 @Composable
 fun ScheduleItem(
     time: String,
     talks: List<TalkItemUi>,
     modifier: Modifier = Modifier,
+    isLoading: Boolean = false,
     onTalkClicked: (id: String) -> Unit,
     onFavoriteClicked: (id: String, isFavorite: Boolean) -> Unit
 ) {
@@ -28,14 +30,14 @@ fun ScheduleItem(
             modifier = Modifier.width(timeSpace),
             contentAlignment = Alignment.Center
         ) {
-            Time(time = time, modifier = Modifier)
+            Time(time = time, modifier = Modifier.placeholder(visible = isLoading))
         }
         Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
             talks.forEach {
                 Container(onClick = { onTalkClicked(it.id) }) {
                     TalkItem(
                         talk = it,
-                        modifier = Modifier.padding(start = timeSpace),
+                        modifier = Modifier.padding(start = timeSpace).placeholder(visible = isLoading),
                         onFavoriteClicked = onFavoriteClicked
                     )
                 }

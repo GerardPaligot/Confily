@@ -5,12 +5,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.paligot.conferences.repositories.AgendaRepository
 import com.paligot.conferences.repositories.AgendaUi
+import com.paligot.conferences.ui.screens.fakeAgendaUi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 sealed class AgendaUiState {
-    object Loading : AgendaUiState()
+    data class Loading(val agenda: AgendaUi) : AgendaUiState()
     data class Success(val agenda: AgendaUi) : AgendaUiState()
     data class Failure(val throwable: Throwable) : AgendaUiState()
 }
@@ -18,7 +19,7 @@ sealed class AgendaUiState {
 class AgendaViewModel(
     private val repository: AgendaRepository,
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow<AgendaUiState>(AgendaUiState.Loading)
+    private val _uiState = MutableStateFlow<AgendaUiState>(AgendaUiState.Loading(fakeAgendaUi))
     val uiState: StateFlow<AgendaUiState> = _uiState
 
     init {

@@ -1,11 +1,8 @@
 package com.paligot.conferences.ui.components.events
 
-import android.graphics.Color as AndroidColor
 import android.graphics.drawable.ColorDrawable
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.Indication
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.ExperimentalMaterialApi
@@ -27,6 +24,8 @@ import coil.compose.rememberImagePainter
 import coil.decode.SvgDecoder
 import com.paligot.conferences.repositories.PartnerItemUi
 import com.paligot.conferences.ui.theme.Conferences4HallTheme
+import com.paligot.conferences.ui.theme.placeholder
+import android.graphics.Color as AndroidColor
 
 val partnerUi = PartnerItemUi(
     logoUrl = "https://pbs.twimg.com/profile_images/1483539472574816261/mi3QaL7u_400x400.png",
@@ -39,6 +38,7 @@ val partnerUi = PartnerItemUi(
 fun PartnerItem(
     partnerUi: PartnerItemUi,
     modifier: Modifier = Modifier,
+    isLoading: Boolean = false,
     backgroundColor: Color = MaterialTheme.colors.surface,
     shape: Shape = MaterialTheme.shapes.medium,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
@@ -52,7 +52,7 @@ fun PartnerItem(
         }
         .build()
     Surface(
-        modifier = modifier,
+        modifier = modifier.placeholder(visible = isLoading),
         role = Role.Button,
         indication = indication,
         interactionSource = interactionSource,
