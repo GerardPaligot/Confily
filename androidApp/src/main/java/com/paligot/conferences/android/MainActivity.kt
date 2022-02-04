@@ -87,6 +87,13 @@ class MainActivity : AppCompatActivity() {
                             },
                             onScannerClicked = {
                                 navController.navigate("scanner")
+                            },
+                            onReportClicked = {
+                                val intent = Intent(Intent.ACTION_SEND)
+                                intent.putExtra(Intent.EXTRA_EMAIL, arrayOf<String>("contact@gdglille.org"))
+                                intent.putExtra(Intent.EXTRA_SUBJECT, "Report from Devfest Lille App")
+                                intent.type = "message/rfc822"
+                                startActivity(Intent.createChooser(intent, "Choose an Email client :"))
                             }
                         )
                     }

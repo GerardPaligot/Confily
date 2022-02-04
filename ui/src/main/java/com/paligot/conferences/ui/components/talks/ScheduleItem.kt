@@ -1,5 +1,6 @@
 package com.paligot.conferences.ui.components.talks
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -29,7 +30,7 @@ fun ScheduleItem(
         ) {
             Time(time = time, modifier = Modifier)
         }
-        Column {
+        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
             talks.forEach {
                 Container(onClick = { onTalkClicked(it.id) }) {
                     TalkItem(

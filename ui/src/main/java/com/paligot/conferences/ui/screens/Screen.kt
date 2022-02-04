@@ -5,6 +5,7 @@ import androidx.compose.material.icons.filled.Event
 import androidx.compose.material.icons.filled.Group
 import androidx.compose.material.icons.filled.LocalActivity
 import androidx.compose.material.icons.filled.QrCodeScanner
+import androidx.compose.material.icons.filled.Report
 import androidx.compose.material.icons.outlined.Event
 import androidx.compose.material.icons.outlined.Group
 import androidx.compose.material.icons.outlined.LocalActivity
@@ -46,6 +47,13 @@ sealed class Screen(
         route = "event",
         title = "Event Info",
         imageVectorFilled = Icons.Filled.LocalActivity,
-        imageVectorOutlined = Icons.Outlined.LocalActivity
+        imageVectorOutlined = Icons.Outlined.LocalActivity,
+        actions = arrayListOf(
+            ActionItem(
+                icon = Icons.Default.Report,
+                contentDescription = "Report something to organizers",
+                id = ActionItemId.ReportActionItem
+            )
+        )
     )
 }
