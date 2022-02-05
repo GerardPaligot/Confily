@@ -11,12 +11,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import com.paligot.conferences.ui.theme.Conferences4HallTheme
+import com.paligot.conferences.ui.theme.onPrimarySurface
 
 object AppBarIcons {
     @Composable
     fun Back(
         modifier: Modifier = Modifier,
-        color: Color = MaterialTheme.colors.onPrimary,
+        color: Color = MaterialTheme.colors.onPrimarySurface,
         onClick: () -> Unit
     ) {
         AppBarIcon(
@@ -34,7 +35,7 @@ internal fun AppBarIcon(
     imageVector: ImageVector,
     contentDescription: String?,
     modifier: Modifier = Modifier,
-    color: Color = MaterialTheme.colors.onPrimary,
+    color: Color = MaterialTheme.colors.onPrimarySurface,
     onClick: () -> Unit
 ) {
     IconButton(

@@ -12,6 +12,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Grade
 import androidx.compose.material.icons.outlined.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -44,7 +45,7 @@ fun TalkItem(
     roomTextStyle: TextStyle = MaterialTheme.typography.caption,
     subtitleColor: Color = MaterialTheme.colors.onBackground,
     subtitleTextStyle: TextStyle = MaterialTheme.typography.body2,
-    favoriteColor: Color = if (talk.isFavorite) MaterialTheme.colors.primaryVariant else MaterialTheme.colors.onBackground,
+    favoriteColor: Color = if (talk.isFavorite) MaterialTheme.colors.secondary else MaterialTheme.colors.onBackground,
     onFavoriteClicked: (id: String, isFavorite: Boolean) -> Unit
 ) {
     Row(
@@ -77,8 +78,8 @@ fun TalkItem(
             modifier = Modifier.padding(end = 4.dp)
         ) {
             Icon(
-                imageVector = Icons.Outlined.Star,
-                contentDescription = "Add talk in favorite",
+                imageVector = if (talk.isFavorite) Icons.Outlined.Star else Icons.Outlined.Grade,
+                contentDescription = if (talk.isFavorite) "Remove talk from favorites" else "Add talk in favorite",
                 tint = favoriteColor
             )
         }

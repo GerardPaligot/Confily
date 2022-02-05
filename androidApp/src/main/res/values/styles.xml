@@ -1,10 +1,10 @@
 <resources>
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/pink</item>
-        <item name="colorPrimaryDark">@color/pink</item>
-        <item name="android:windowBackground">@color/black</item>
-        <item name="android:navigationBarColor">@color/black</item>
+        <item name="colorPrimary">@color/blue</item>
+        <item name="colorPrimaryDark">@color/blue</item>
+        <item name="android:windowBackground">@color/grey50</item>
+        <item name="android:navigationBarColor">@color/blue</item>
         <item name="isLightTheme">true</item>
     </style>
 

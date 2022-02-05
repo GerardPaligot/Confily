@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.primarySurface
 import androidx.compose.runtime.SideEffect
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -59,10 +60,9 @@ class MainActivity : AppCompatActivity() {
             Conferences4HallTheme {
                 val systemUiController = rememberSystemUiController()
                 val useDarkIcons = MaterialTheme.colors.isLight
-                val statusBarColor = MaterialTheme.colors.primary
-                val navBarColor = MaterialTheme.colors.background
+                val navBarColor = MaterialTheme.colors.primarySurface
                 SideEffect {
-                    systemUiController.setSystemBarsColor(color = statusBarColor, darkIcons = useDarkIcons)
+                    systemUiController.setSystemBarsColor(color = navBarColor, darkIcons = useDarkIcons)
                     systemUiController.setNavigationBarColor(color = navBarColor, darkIcons = useDarkIcons)
                 }
                 val navController = rememberNavController()
@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity() {
                             },
                             onReportClicked = {
                                 val intent = Intent(Intent.ACTION_SEND)
-                                intent.putExtra(Intent.EXTRA_EMAIL, arrayOf<String>("contact@gdglille.org"))
+                                intent.putExtra(Intent.EXTRA_EMAIL, arrayOf("contact@gdglille.org"))
                                 intent.putExtra(Intent.EXTRA_SUBJECT, "Report from Devfest Lille App")
                                 intent.type = "message/rfc822"
                                 startActivity(Intent.createChooser(intent, "Choose an Email client :"))
