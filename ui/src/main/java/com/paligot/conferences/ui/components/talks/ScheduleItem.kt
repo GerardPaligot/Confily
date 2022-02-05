@@ -34,7 +34,7 @@ fun ScheduleItem(
         }
         Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
             talks.forEach {
-                Container(onClick = { onTalkClicked(it.id) }) {
+                Container(onClick = { onTalkClicked(it.id) }, enabled = !isLoading) {
                     TalkItem(
                         talk = it,
                         modifier = Modifier.padding(start = timeSpace).placeholder(visible = isLoading),

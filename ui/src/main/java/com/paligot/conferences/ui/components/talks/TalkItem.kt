@@ -23,7 +23,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.paligot.conferences.repositories.TalkItemUi
-import com.paligot.conferences.ui.components.utils.Container
 import com.paligot.conferences.ui.theme.Conferences4HallTheme
 
 val talkItem = TalkItemUi(
@@ -91,9 +90,7 @@ fun TalkItem(
 fun TalkItemPreview() {
     Conferences4HallTheme {
         Scaffold {
-            Container(onClick = {}) {
-                TalkItem(talk = talkItem) { _, _ -> }
-            }
+            TalkItem(talk = talkItem) { _, _ -> }
         }
     }
 }

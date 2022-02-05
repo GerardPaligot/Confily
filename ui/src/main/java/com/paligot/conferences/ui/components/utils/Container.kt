@@ -14,6 +14,7 @@ import androidx.compose.ui.semantics.Role
 @Composable
 fun Container(
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     indication: Indication = rememberRipple(),
     onClick: () -> Unit,
@@ -23,6 +24,7 @@ fun Container(
         modifier = modifier.clickable(
             interactionSource = interactionSource,
             indication = indication,
+            enabled = enabled,
             onClick = onClick,
             role = Role.Button
         ),

@@ -14,7 +14,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.paligot.conferences.ui.components.utils.Container
 import com.paligot.conferences.ui.theme.Conferences4HallTheme
 
 @Composable
@@ -40,27 +39,21 @@ fun EmailItemPreview() {
         Scaffold {
             LazyColumn() {
                 item {
-                    Container(onClick = {}) {
-                        EmailItem(
-                            email = "gerard@gdglille.org"
-                        )
-                    }
+                    EmailItem(
+                        email = "gerard@gdglille.org"
+                    )
                     Divider(color = MaterialTheme.colors.onBackground)
                 }
                 item {
-                    Container(onClick = {}) {
-                        EmailItem(
-                            email = "gerard@gdglille.org"
-                        )
-                    }
+                    EmailItem(
+                        email = "gerard@gdglille.org"
+                    )
                     Divider(color = MaterialTheme.colors.onBackground)
                 }
                 item {
-                    Container(onClick = {}) {
-                        EmailItem(
-                            email = "gerard@gdglille.org"
-                        )
-                    }
+                    EmailItem(
+                        email = "gerard@gdglille.org"
+                    )
                 }
             }
         }
