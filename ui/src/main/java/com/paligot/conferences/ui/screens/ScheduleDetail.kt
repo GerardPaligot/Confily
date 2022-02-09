@@ -14,14 +14,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.paligot.conferences.repositories.TalkUi
+import com.paligot.conferences.models.TalkUi
 import com.paligot.conferences.ui.components.appbars.ActionItem
 import com.paligot.conferences.ui.components.appbars.ActionItemId
 import com.paligot.conferences.ui.components.appbars.TopAppBar
 import com.paligot.conferences.ui.components.speakers.SpeakerBox
 import com.paligot.conferences.ui.components.speakers.SpeakerItem
 import com.paligot.conferences.ui.components.talks.TalkSection
-import com.paligot.conferences.ui.components.talks.talk
 import com.paligot.conferences.ui.theme.Conferences4HallTheme
 
 @Composable
@@ -93,7 +92,7 @@ fun ScheduleDetail(
 fun TalkDetailPreview() {
     Conferences4HallTheme {
         ScheduleDetail(
-            talk = talk,
+            talk = TalkUi.fake,
             onBackClicked = {},
             onSpeakerClicked = {},
             onShareClicked = {}

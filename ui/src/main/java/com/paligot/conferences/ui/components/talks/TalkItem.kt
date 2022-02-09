@@ -22,17 +22,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.paligot.conferences.repositories.TalkItemUi
+import com.paligot.conferences.models.TalkItemUi
 import com.paligot.conferences.ui.theme.Conferences4HallTheme
-
-val talkItem = TalkItemUi(
-    id = "7TTU2GNH3fOu76Q5MrxNkV3ry7l1",
-    time = "10:00",
-    room = "Salle 700",
-    title = "L’intelligence artificielle au secours de l’accessibilité",
-    speakers = arrayListOf("Guillaume Laforge", "Aurélie Vache"),
-    isFavorite = false
-)
 
 @Composable
 fun TalkItem(
@@ -90,7 +81,7 @@ fun TalkItem(
 fun TalkItemPreview() {
     Conferences4HallTheme {
         Scaffold {
-            TalkItem(talk = talkItem) { _, _ -> }
+            TalkItem(talk = TalkItemUi.fake) { _, _ -> }
         }
     }
 }

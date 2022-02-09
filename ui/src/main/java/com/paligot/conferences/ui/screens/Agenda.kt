@@ -9,9 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.paligot.conferences.repositories.AgendaUi
+import com.paligot.conferences.models.AgendaUi
 import com.paligot.conferences.ui.components.talks.ScheduleItem
-import com.paligot.conferences.ui.components.talks.talkItem
 import com.paligot.conferences.ui.theme.Conferences4HallTheme
 
 @Composable
@@ -39,21 +38,13 @@ fun Agenda(
     }
 }
 
-val fakeAgendaUi = AgendaUi(
-    talks = mapOf(
-        "10:00" to arrayListOf(talkItem, talkItem),
-        "11:00" to arrayListOf(talkItem, talkItem),
-        "12:00" to arrayListOf(talkItem, talkItem),
-    ),
-)
-
 @Preview
 @Composable
 fun AgendaPreview() {
     Conferences4HallTheme {
         Scaffold {
             Agenda(
-                agenda = fakeAgendaUi,
+                agenda = AgendaUi.fake,
                 onTalkClicked = {},
                 onFavoriteClicked = { _, _ -> }
             )

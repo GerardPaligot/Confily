@@ -3,7 +3,7 @@ package com.paligot.conferences.android.screens.users
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.paligot.conferences.repositories.UserProfileUi
+import com.paligot.conferences.models.UserProfileUi
 import com.paligot.conferences.repositories.UserRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

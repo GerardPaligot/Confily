@@ -8,33 +8,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.paligot.conferences.repositories.EventInfoUi
-import com.paligot.conferences.repositories.EventUi
-import com.paligot.conferences.repositories.PartnerGroupsUi
+import com.paligot.conferences.models.EventUi
 import com.paligot.conferences.ui.components.events.EventSection
 import com.paligot.conferences.ui.components.events.PartnerDivider
 import com.paligot.conferences.ui.components.events.PartnerRow
-import com.paligot.conferences.ui.components.events.partnerUi
-
-val fakeEvent = EventUi(
-    eventInfo = EventInfoUi(
-        name = "Devfest Lille",
-        address = "Kinepolis, Rue du Château d'Isenghien, Lille, France",
-        date = "9 Juin 2019",
-        twitter = "DevfestLille",
-        twitterUrl = "https://twitter.com/DevfestLille",
-        linkedin = "DevfestLille",
-        linkedinUrl = "https://www.linkedin.com/company/18372659/",
-        faqLink = "https://devfest.gdglille.org/faq/",
-        codeOfConductLink = "https://devfest.gdglille.org/code-conduite/"
-    ),
-    partners = PartnerGroupsUi(
-        golds = arrayListOf(partnerUi, partnerUi, partnerUi),
-        silvers = arrayListOf(partnerUi, partnerUi, partnerUi),
-        bronzes = arrayListOf(partnerUi, partnerUi, partnerUi),
-        others = emptyList()
-    )
-)
 
 @Composable
 fun Event(

@@ -42,6 +42,8 @@ kotlin {
                 implementation("com.squareup.sqldelight:runtime:$sqldelightVersion")
                 implementation("com.squareup.sqldelight:coroutines-extensions:$sqldelightVersion")
                 implementation("com.russhwolf:multiplatform-settings:$settingsVersion")
+
+                implementation("co.touchlab:kermit:1.0.0")
             }
         }
         val commonTest by getting {

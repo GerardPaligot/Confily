@@ -10,8 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.paligot.conferences.repositories.PartnerItemUi
-import com.paligot.conferences.ui.screens.fakeEvent
+import com.paligot.conferences.models.EventUi
+import com.paligot.conferences.models.PartnerItemUi
 import com.paligot.conferences.ui.theme.Conferences4HallTheme
 
 @Composable
@@ -42,7 +42,7 @@ fun PartnerRow(
 fun Eventreview() {
     Conferences4HallTheme {
         PartnerRow(
-            partners = fakeEvent.partners.silvers.chunked(3)[0],
+            partners = EventUi.fake.partners.silvers.chunked(3)[0],
             onPartnerClick = {}
         )
     }

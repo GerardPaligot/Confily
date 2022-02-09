@@ -25,7 +25,7 @@ class ConferenceApi(
         setBody(UserEmailInput(email))
     }.body<EmailQrCode>()
 
-    object Factory {
+    companion object {
         fun create(baseUrl: String, eventId: String, enableNetworkLogs: Boolean): ConferenceApi =
             ConferenceApi(baseUrl = baseUrl, eventId = eventId, client = HttpClient(Platform().engine) {
                 install(ContentNegotiation) {

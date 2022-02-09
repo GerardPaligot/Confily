@@ -1,7 +1,7 @@
 package com.paligot.conferences.database
 
 import com.paligot.conferences.db.Conferences4HallDatabase
-import com.paligot.conferences.repositories.SpeakerUi
+import com.paligot.conferences.models.SpeakerUi
 
 class SpeakerDao(private val db: Conferences4HallDatabase) {
     private val mapper =

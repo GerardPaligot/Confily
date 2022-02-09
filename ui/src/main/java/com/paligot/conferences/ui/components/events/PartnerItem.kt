@@ -22,16 +22,10 @@ import androidx.compose.ui.unit.dp
 import coil.ImageLoader
 import coil.compose.rememberImagePainter
 import coil.decode.SvgDecoder
-import com.paligot.conferences.repositories.PartnerItemUi
+import com.paligot.conferences.models.PartnerItemUi
 import com.paligot.conferences.ui.theme.Conferences4HallTheme
 import com.paligot.conferences.ui.theme.placeholder
 import android.graphics.Color as AndroidColor
-
-val partnerUi = PartnerItemUi(
-    logoUrl = "https://pbs.twimg.com/profile_images/1483539472574816261/mi3QaL7u_400x400.png",
-    siteUrl = "https://devfest.gdglille.org/",
-    name = "Devfest"
-)
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -83,7 +77,7 @@ fun PartnerItem(
 fun PartnerItemPreview() {
     Conferences4HallTheme {
         PartnerItem(
-            partnerUi = partnerUi,
+            partnerUi = PartnerItemUi.fake,
             modifier = Modifier.size(200.dp),
             onClick = {}
         )

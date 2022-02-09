@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         val baseUrl = "https://cms4partners-ce427.nw.r.appspot.com"
         val eventId = "AFtTtSMq1NY4tnK2gMg1" // vzbfowsExm54SrWLtxA5
         val db = DatabaseWrapper(context = this).createDb()
-        val api = ConferenceApi.Factory.create(
+        val api = ConferenceApi.create(
             baseUrl = baseUrl, eventId = eventId, enableNetworkLogs = BuildConfig.DEBUG
         )
         val agendaRepository = AgendaRepository.Factory.create(

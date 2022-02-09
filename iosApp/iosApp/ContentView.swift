@@ -2,15 +2,15 @@ import SwiftUI
 import shared
 
 struct ContentView: View {
-	let greet = Greeting().greeting()
+    var agendaRepository: AgendaRepository
 
 	var body: some View {
-		Text(greet)
-	}
-}
-
-struct ContentView_Previews: PreviewProvider {
-	static var previews: some View {
-		ContentView()
+        NavigationView {
+            AgendaVM(
+                viewModel: AgendaViewModel(repository: agendaRepository),
+                onTalkClicked: { String in }
+            )
+                .navigationBarTitle(Text("Agenda"))
+        }
 	}
 }

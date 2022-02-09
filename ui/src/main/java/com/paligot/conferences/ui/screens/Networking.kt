@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.paligot.conferences.repositories.UserProfileUi
+import com.paligot.conferences.models.UserProfileUi
 import com.paligot.conferences.ui.components.users.EmailInput
 import com.paligot.conferences.ui.components.users.EmailItem
 import com.paligot.conferences.ui.components.users.QrCodeDialog
@@ -58,27 +58,13 @@ fun Networking(
     }
 }
 
-val fakeProfileUi = UserProfileUi(
-    email = "email@fake.com",
-    hasQrCode = true,
-    showQrCode = false,
-    emails = arrayListOf(
-        "gerard@gdglille.org",
-        "gerard@gdglille.org",
-        "gerard@gdglille.org",
-        "gerard@gdglille.org",
-        "gerard@gdglille.org",
-    ),
-    qrcode = null
-)
-
 @Preview
 @Composable
 fun NetworkingPreview() {
     Conferences4HallTheme {
         Scaffold {
             Networking(
-                profileUi = fakeProfileUi,
+                profileUi = UserProfileUi.fake,
                 onValueChanged = {},
                 onValidation = {},
                 onQrCodeClicked = {},

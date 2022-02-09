@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.paligot.conferences.repositories.SpeakerUi
+import com.paligot.conferences.models.SpeakerUi
 import com.paligot.conferences.ui.components.speakers.SpeakerHeader
 import com.paligot.conferences.ui.components.speakers.SpeakerSection
 import com.paligot.conferences.ui.components.speakers.speaker

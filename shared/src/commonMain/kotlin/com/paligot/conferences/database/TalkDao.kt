@@ -1,8 +1,8 @@
 package com.paligot.conferences.database
 
 import com.paligot.conferences.db.Conferences4HallDatabase
-import com.paligot.conferences.repositories.SpeakerItemUi
-import com.paligot.conferences.repositories.TalkUi
+import com.paligot.conferences.models.SpeakerItemUi
+import com.paligot.conferences.models.TalkUi
 
 class TalkDao(private val db: Conferences4HallDatabase) {
     fun fetchTalk(talkId: String): TalkUi = db.talkQueries.transactionWithResult {

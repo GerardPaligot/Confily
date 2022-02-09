@@ -18,7 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import com.paligot.conferences.repositories.EventInfoUi
+import com.paligot.conferences.models.EventInfoUi
 import com.paligot.conferences.ui.components.speakers.Socials
 import com.paligot.conferences.ui.theme.placeholder
 

@@ -2,10 +2,10 @@ package com.paligot.conferences.database
 
 import com.paligot.conferences.db.Conferences4HallDatabase
 import com.paligot.conferences.models.Event
-import com.paligot.conferences.repositories.EventInfoUi
-import com.paligot.conferences.repositories.EventUi
-import com.paligot.conferences.repositories.PartnerGroupsUi
-import com.paligot.conferences.repositories.PartnerItemUi
+import com.paligot.conferences.models.EventInfoUi
+import com.paligot.conferences.models.EventUi
+import com.paligot.conferences.models.PartnerGroupsUi
+import com.paligot.conferences.models.PartnerItemUi
 
 class EventDao(private val db: Conferences4HallDatabase, private val eventId: String) {
     private val eventMapper = { _: String, name: String, address: String, date: String, twitter: String?,

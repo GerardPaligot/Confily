@@ -10,7 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.paligot.conferences.repositories.TalkItemUi
+import com.paligot.conferences.models.TalkItemUi
 import com.paligot.conferences.ui.components.utils.Container
 import com.paligot.conferences.ui.theme.Conferences4HallTheme
 import com.paligot.conferences.ui.theme.placeholder
@@ -52,7 +52,7 @@ fun ScheduleItemPreview() {
     Conferences4HallTheme {
         ScheduleItem(
             time = "10:00",
-            talks = arrayListOf(talkItem, talkItem),
+            talks = arrayListOf(TalkItemUi.fake, TalkItemUi.fake),
             onTalkClicked = {},
             onFavoriteClicked = { _, _ -> }
         )

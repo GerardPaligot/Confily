@@ -15,10 +15,10 @@ actual class Platform actual constructor() {
 }
 
 actual typealias Image = UIImage
-actual fun ByteArray.toNativeImage(): Image =
-    memScoped {
-        toCValues()
-            .ptr
-            .let { NSData.dataWithBytes(it, size.toULong()) }
-            .let { UIImage.imageWithData(it) }
-    }
+
+actual fun ByteArray.toNativeImage(): Image = memScoped {
+    toCValues()
+        .ptr
+        .let { NSData.dataWithBytes(it, size.toULong()) }
+        .let { UIImage.imageWithData(it) }!!
+}

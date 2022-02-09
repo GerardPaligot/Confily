@@ -25,16 +25,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.paligot.conferences.repositories.SpeakerItemUi
+import com.paligot.conferences.models.SpeakerItemUi
 import com.paligot.conferences.ui.theme.Conferences4HallTheme
-
-val speakerItem = SpeakerItemUi(
-    id = "1",
-    name = "Gérard Paligot",
-    company = "Decathlon",
-    url = "https://pbs.twimg.com/profile_images/1465658195767136257/zdYQWsTj_400x400.jpg",
-    twitter = null
-)
 
 @Composable
 fun SpeakerBox(
@@ -91,7 +83,7 @@ fun SpeakerItem(
 fun SpeakerItemPreview() {
     Conferences4HallTheme {
         SpeakerBox(onClick = {}) {
-            SpeakerItem(speakerUi = speakerItem)
+            SpeakerItem(speakerUi = SpeakerItemUi.fake)
         }
     }
 }

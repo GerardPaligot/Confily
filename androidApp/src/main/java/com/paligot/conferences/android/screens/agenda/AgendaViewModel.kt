@@ -4,8 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.paligot.conferences.repositories.AgendaRepository
-import com.paligot.conferences.repositories.AgendaUi
-import com.paligot.conferences.ui.screens.fakeAgendaUi
+import com.paligot.conferences.models.AgendaUi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -19,7 +18,7 @@ sealed class AgendaUiState {
 class AgendaViewModel(
     private val repository: AgendaRepository,
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow<AgendaUiState>(AgendaUiState.Loading(fakeAgendaUi))
+    private val _uiState = MutableStateFlow<AgendaUiState>(AgendaUiState.Loading(AgendaUi.fake))
     val uiState: StateFlow<AgendaUiState> = _uiState
 
     init {
@@ -44,9 +43,8 @@ class AgendaViewModel(
 
     object Factory {
         fun create(repository: AgendaRepository) = object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                @Suppress("UNCHECKED_CAST") return AgendaViewModel(repository = repository) as T
-            }
+            override fun <T : ViewModel> create(modelClass: Class<T>): T =
+                AgendaViewModel(repository = repository) as T
         }
     }
 }

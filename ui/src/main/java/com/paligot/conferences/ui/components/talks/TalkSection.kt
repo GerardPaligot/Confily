@@ -14,18 +14,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.paligot.conferences.repositories.TalkUi
-import com.paligot.conferences.ui.components.speakers.speakerItem
+import com.paligot.conferences.models.TalkUi
 import com.paligot.conferences.ui.theme.Conferences4HallTheme
-
-val talk = TalkUi(
-    title = "L’intelligence artificielle au secours de l’accessibilité ",
-    date = "12:00",
-    room = "Stage 1",
-    level = "Beginner",
-    abstract = "Votre logiciel hang, vous ne savez pas pourquoi ? Ou votre application préférée ne\\nlit pas sa configuration et vous ne savez pas pourquoi ?\\n\\nIl existe beaucoup d'outils fournis avec Linux. Pourtant beaucoup de développeurs\\nne les connaissent pas ou ne les utilisent pas.\\n\\nA travers une série de cas d'utilisation, nous verrons comment utiliser tout ces\\noutils: grep, find, xargs, strace, tcpdump, lsof",
-    speakers = arrayListOf(speakerItem, speakerItem)
-)
 
 @Composable
 fun TalkSection(
@@ -59,6 +49,6 @@ fun TalkSection(
 @Composable
 fun TalkSectionPreview() {
     Conferences4HallTheme {
-        TalkSection(talk = talk)
+        TalkSection(talk = TalkUi.fake)
     }
 }

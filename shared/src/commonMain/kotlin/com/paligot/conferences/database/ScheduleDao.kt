@@ -2,7 +2,7 @@ package com.paligot.conferences.database
 
 import com.paligot.conferences.db.Conferences4HallDatabase
 import com.paligot.conferences.models.ScheduleItem
-import com.paligot.conferences.repositories.TalkItemUi
+import com.paligot.conferences.models.TalkItemUi
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
 import kotlinx.coroutines.flow.Flow
