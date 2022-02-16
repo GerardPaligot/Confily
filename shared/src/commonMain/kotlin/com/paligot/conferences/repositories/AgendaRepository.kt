@@ -48,11 +48,8 @@ class AgendaRepositoryImpl(
     private val eventDao: EventDao
 ) : AgendaRepository {
     override suspend fun fetchAndStoreAgenda() {
-        Logger.d { "Fetch And Store Agenda" }
         val event = api.fetchEvent()
-        Logger.d { "Event $event" }
         val agenda = api.fetchAgenda()
-        Logger.d { "Agenda $agenda" }
         agenda.talks.values.forEach { schedules ->
             scheduleDao.insertOrUpdateSchedules(event.id, schedules)
         }
@@ -73,12 +70,8 @@ class AgendaRepositoryImpl(
     private val coroutineScope: CoroutineScope = MainScope()
     var agendaJob: Job? = null
     override fun startCollectAgenda(success: (AgendaUi) -> Unit) {
-        Logger.d { "Start collect agenda" }
         agendaJob = coroutineScope.launch {
-            Logger.d { "Launch coroutine scope" }
             agenda().collect {
-                Logger.d { "Collecting agenda" }
-                Logger.d { "$it" }
                 success(it)
             }
         }

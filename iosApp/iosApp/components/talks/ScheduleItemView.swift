@@ -9,28 +9,28 @@
 import SwiftUI
 import shared
 
-struct ScheduleItemView: View {
-    var time: String
-    var talks: [TalkItemUi]
-    var onTalkClicked: (_: String) -> ()
-    var onFavoriteClicked: (_: String, _: Bool) -> ()
+struct ScheduleItemView<TalkItem: View>: View {
+    let time: String
+    let talks: [TalkItemUi]
+    let talkItem: (TalkItemUi) -> TalkItem
+
+    init(time: String, talks: [TalkItemUi], @ViewBuilder talkItem: @escaping (TalkItemUi) -> TalkItem) {
+        self.time = time
+        self.talks = talks
+        self.talkItem = talkItem
+    }
     
     var body: some View {
-        let timeSpace = 55.0
+        let space = 55.0
         ZStack(alignment: .topLeading) {
             Text(time)
                 .font(.body)
                 .foregroundColor(Color.c4hSecondary)
-                .frame(width: timeSpace, alignment: .center)
+                .frame(width: space, alignment: .center)
             VStack(spacing: 4.0) {
                 ForEach(talks, id: \.id) { talk in
-                    ZStack {
-                        TalkItemView(
-                            talk: talk,
-                            onFavoriteClicked: onFavoriteClicked)
-                            .padding(.leading, timeSpace)
-                    }
-                    .onTapGesture { onTalkClicked(talk.id) }
+                    self.talkItem(talk)
+                        .padding(.leading, space)
                 }
             }
         }
@@ -45,8 +45,12 @@ struct ScheduleItemView_Previews: PreviewProvider {
                 TalkItemUi.companion.fake,
                 TalkItemUi.companion.fake
             ],
-            onTalkClicked: { String in },
-            onFavoriteClicked: { String, Bool in }
+            talkItem: { talk in
+                TalkItemView(
+                    talk: talk,
+                    onFavoriteClicked: { String, Bool in }
+                )
+            }
         )
     }
 }

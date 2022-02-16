@@ -24,8 +24,6 @@ class AgendaViewModel: ObservableObject {
     @Published var uiState: AgendaUiState = AgendaUiState.loading
     
     func fetchAgenda() {
-        repository.fetchAndStoreAgenda { void, error in
-        }
         repository.startCollectAgenda(success: { agenda in
             self.uiState = AgendaUiState.success(agenda)
         })

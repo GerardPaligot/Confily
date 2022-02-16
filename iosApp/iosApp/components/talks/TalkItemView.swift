@@ -37,10 +37,13 @@ struct TalkItemView: View {
             .frame(maxWidth: .infinity, alignment: .topLeading)
             let iconName = talk.isFavorite ? "star.fill" : "star"
             let iconColor = talk.isFavorite ? Color.c4hSecondary : Color.c4hOnBackground
-            Image(systemName: iconName)
-                .foregroundColor(iconColor)
-                .padding()
-                .onTapGesture { onFavoriteClicked(talk.id, !talk.isFavorite) }
+            Button {
+                onFavoriteClicked(talk.id, !talk.isFavorite)
+            } label: {
+                Image(systemName: iconName)
+                    .foregroundColor(iconColor)
+                    .padding()
+            }
         }
     }
 }

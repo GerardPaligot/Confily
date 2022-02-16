@@ -9,10 +9,14 @@
 import SwiftUI
 import shared
 
-struct Agenda: View {
-    var agenda: AgendaUi
-    var onTalkClicked: (_: String) -> ()
-    var onFavoriteClicked: (_: String, _: Bool) -> ()
+struct Agenda<TalkItem: View>: View {
+    let agenda: AgendaUi
+    let talkItem: (TalkItemUi) -> TalkItem
+    
+    init(agenda: AgendaUi, @ViewBuilder talkItem: @escaping (TalkItemUi) -> TalkItem) {
+        self.agenda = agenda
+        self.talkItem = talkItem
+    }
 
     var body: some View {
         ScrollView {
@@ -21,8 +25,7 @@ struct Agenda: View {
                     ScheduleItemView(
                         time: time,
                         talks: agenda.talks[time]!,
-                        onTalkClicked: onTalkClicked,
-                        onFavoriteClicked: onFavoriteClicked
+                        talkItem: self.talkItem
                     )
                 }
             }
@@ -34,8 +37,12 @@ struct Agenda_Previews: PreviewProvider {
     static var previews: some View {
         Agenda(
             agenda: AgendaUi.companion.fake,
-            onTalkClicked: { String in },
-            onFavoriteClicked: { String, Bool in }
+            talkItem: { talk in
+                TalkItemView(
+                    talk: talk,
+                    onFavoriteClicked: { String, Bool in }
+                )
+            }
         )
     }
 }

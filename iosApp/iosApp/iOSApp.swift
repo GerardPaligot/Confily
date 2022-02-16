@@ -17,7 +17,7 @@ struct iOSApp: App {
             eventDao: EventDao(db: db, eventId: eventId)
         )
 		WindowGroup {
-			ContentView(agendaRepository: agendaRepository)
+			AppView(agendaRepository: agendaRepository)
 		}
 	}
 }
