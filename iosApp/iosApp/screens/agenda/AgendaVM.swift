@@ -37,7 +37,9 @@ struct AgendaVM: View {
                                     ScheduleDetailVM(
                                         agendaRepository: self.agendaRepository,
                                         scheduleId: talk.id,
-                                        speakerAction: { String in }
+                                        speakerItem: { speaker in
+                                            SpeakerItemNavigation(agendaRepository: agendaRepository, speaker: speaker)
+                                        }
                                     )
                                 } label: {
                                     EmptyView()

@@ -24,6 +24,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.paligot.conferences.models.EventUi
+import com.paligot.conferences.models.SpeakerUi
 import com.paligot.conferences.ui.theme.Conferences4HallTheme
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Brands
@@ -146,11 +147,11 @@ fun SocialItemPreview() {
     Conferences4HallTheme {
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Socials.Twitter(
-                text = speaker.twitter!!,
+                text = SpeakerUi.fake.twitter!!,
                 onClick = {}
             )
             Socials.GitHub(
-                text = speaker.github!!,
+                text = SpeakerUi.fake.github!!,
                 onClick = {}
             )
             Socials.LinkedIn(

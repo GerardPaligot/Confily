@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.paligot.conferences.models.SpeakerUi
 import com.paligot.conferences.ui.components.appbars.AppBarIcons
 import com.paligot.conferences.ui.theme.Conferences4HallTheme
 
@@ -54,9 +55,9 @@ fun SpeakerHeader(
 fun SpeakerHeaderPreview() {
     Conferences4HallTheme {
         SpeakerHeader(
-            url = speaker.url,
-            name = speaker.name,
-            company = speaker.company,
+            url = SpeakerUi.fake.url,
+            name = SpeakerUi.fake.name,
+            company = SpeakerUi.fake.company,
             onBackClicked = {}
         )
     }

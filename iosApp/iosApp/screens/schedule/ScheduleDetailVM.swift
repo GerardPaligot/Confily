@@ -9,15 +9,15 @@
 import SwiftUI
 import shared
 
-struct ScheduleDetailVM: View {
+struct ScheduleDetailVM<SpeakerItem: View>: View {
     @ObservedObject var viewModel: ScheduleItemViewModel
     let scheduleId: String
-    let onSpeakerClicked: (_: String) -> ()
+    let speakerItem: (SpeakerItemUi) -> SpeakerItem
     
-    init(agendaRepository: AgendaRepository, scheduleId: String, speakerAction: @escaping (_: String) -> ()) {
+    init(agendaRepository: AgendaRepository, scheduleId: String, @ViewBuilder speakerItem: @escaping (SpeakerItemUi) -> SpeakerItem) {
         self.viewModel = ScheduleItemViewModel(repository: agendaRepository)
         self.scheduleId = scheduleId
-        self.onSpeakerClicked = speakerAction
+        self.speakerItem = speakerItem
     }
 
     var body: some View {
@@ -27,7 +27,7 @@ struct ScheduleDetailVM: View {
                 case .success(let talkUi):
                     ScheduleDetail(
                         talkUi: talkUi,
-                        onSpeakerClicked: onSpeakerClicked
+                        speakerItem: speakerItem
                     )
                 case .failure(_):
                     Text("Something wrong happened")

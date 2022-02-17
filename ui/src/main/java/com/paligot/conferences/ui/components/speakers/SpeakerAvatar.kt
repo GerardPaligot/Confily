@@ -11,6 +11,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.rememberImagePainter
+import com.paligot.conferences.models.SpeakerUi
 import com.paligot.conferences.ui.theme.Conferences4HallTheme
 
 @Composable
@@ -38,6 +39,6 @@ fun SpeakerAvatar(
 @Composable
 fun SpeakerAvatarPreview() {
     Conferences4HallTheme {
-        SpeakerAvatar(speaker.url, contentDescription = null)
+        SpeakerAvatar(SpeakerUi.fake.url, contentDescription = null)
     }
 }

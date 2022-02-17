@@ -45,7 +45,6 @@ fun Route.registerEventRoutes(
     }
     get("agenda") {
         val eventId = call.parameters["eventId"]!!
-        eventDao.getVerified(eventId, call.request.headers["api_key"])
         val schedules = scheduleItemDao.getAll(eventId).groupBy { it.time }.entries.map {
             async {
                 val scheduleItems = it.value.map {

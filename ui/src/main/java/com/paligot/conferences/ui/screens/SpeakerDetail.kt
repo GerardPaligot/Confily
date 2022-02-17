@@ -11,7 +11,6 @@ import androidx.compose.ui.unit.dp
 import com.paligot.conferences.models.SpeakerUi
 import com.paligot.conferences.ui.components.speakers.SpeakerHeader
 import com.paligot.conferences.ui.components.speakers.SpeakerSection
-import com.paligot.conferences.ui.components.speakers.speaker
 import com.paligot.conferences.ui.theme.Conferences4HallTheme
 
 @Composable
@@ -54,7 +53,7 @@ fun SpeakerDetail(
 fun SpeakerListPreview() {
     Conferences4HallTheme {
         SpeakerDetail(
-            speaker = speaker,
+            speaker = SpeakerUi.fake,
             onTwitterClick = {},
             onGitHubClick = {},
             onBackClicked = {}

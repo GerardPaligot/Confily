@@ -17,14 +17,8 @@ struct SpeakerItemView: View {
     
     var body: some View {
         HStack(alignment: .center, spacing: 16) {
-            AsyncImageView(
-                url: URL(string: speakerUi.url)!,
-                placeholder: {
-                    Text("...")
-                }
-            )
+            SpeakerAvatarView(url: speakerUi.url)
                 .frame(width: 48, height: 48)
-                .clipShape(Circle())
             VStack(alignment: .leading) {
                 Text(speakerUi.name)
                     .foregroundColor(color)

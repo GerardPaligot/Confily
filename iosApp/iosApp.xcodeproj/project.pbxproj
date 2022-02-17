@@ -26,7 +26,14 @@
 		D55BE69527B53FBF00BCF03A /* EventSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55BE69427B53FBF00BCF03A /* EventSectionView.swift */; };
 		D55BE69727B5432900BCF03A /* SocialItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55BE69627B5432900BCF03A /* SocialItem.swift */; };
 		D55BE69927B54DB800BCF03A /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55BE69827B54DB800BCF03A /* ButtonView.swift */; };
+		D560788E27BE86D900D4012C /* SpeakerAvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D560788D27BE86D900D4012C /* SpeakerAvatarView.swift */; };
+		D560789027BE8B9500D4012C /* SpeakerSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D560788F27BE8B9500D4012C /* SpeakerSectionView.swift */; };
+		D560789327BE8E1400D4012C /* SpeakerDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = D560789227BE8E1400D4012C /* SpeakerDetail.swift */; };
+		D560789527BE8F4500D4012C /* SpeakerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D560789427BE8F4500D4012C /* SpeakerViewModel.swift */; };
+		D560789727BE906500D4012C /* SpeakerDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D560789627BE906500D4012C /* SpeakerDetailVM.swift */; };
+		D560789927BE965200D4012C /* SpeakerItemNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D560789827BE965200D4012C /* SpeakerItemNavigation.swift */; };
 		D562CF5E27BD9DCB00CF54AF /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D562CF5D27BD9DCB00CF54AF /* AppViewModel.swift */; };
+		D562CF6027BDAD7800CF54AF /* SpeakerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D562CF5F27BDAD7800CF54AF /* SpeakerHeaderView.swift */; };
 		D57028AA27B550BF008EF4AD /* PartnerDividerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57028A927B550BF008EF4AD /* PartnerDividerView.swift */; };
 		D57028AD27B5535F008EF4AD /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57028AC27B5535F008EF4AD /* Event.swift */; };
 		D58F1D4F27AFF40A00FB59C7 /* TalkItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58F1D4E27AFF40A00FB59C7 /* TalkItemView.swift */; };
@@ -72,7 +79,14 @@
 		D55BE69427B53FBF00BCF03A /* EventSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSectionView.swift; sourceTree = "<group>"; };
 		D55BE69627B5432900BCF03A /* SocialItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialItem.swift; sourceTree = "<group>"; };
 		D55BE69827B54DB800BCF03A /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
+		D560788D27BE86D900D4012C /* SpeakerAvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakerAvatarView.swift; sourceTree = "<group>"; };
+		D560788F27BE8B9500D4012C /* SpeakerSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakerSectionView.swift; sourceTree = "<group>"; };
+		D560789227BE8E1400D4012C /* SpeakerDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakerDetail.swift; sourceTree = "<group>"; };
+		D560789427BE8F4500D4012C /* SpeakerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakerViewModel.swift; sourceTree = "<group>"; };
+		D560789627BE906500D4012C /* SpeakerDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakerDetailVM.swift; sourceTree = "<group>"; };
+		D560789827BE965200D4012C /* SpeakerItemNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakerItemNavigation.swift; sourceTree = "<group>"; };
 		D562CF5D27BD9DCB00CF54AF /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
+		D562CF5F27BDAD7800CF54AF /* SpeakerHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakerHeaderView.swift; sourceTree = "<group>"; };
 		D57028A927B550BF008EF4AD /* PartnerDividerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnerDividerView.swift; sourceTree = "<group>"; };
 		D57028AC27B5535F008EF4AD /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		D58F1D4E27AFF40A00FB59C7 /* TalkItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkItemView.swift; sourceTree = "<group>"; };
@@ -156,6 +170,7 @@
 		D50A458D27B0819A00C9A43C /* screens */ = {
 			isa = PBXGroup;
 			children = (
+				D560789127BE8DED00D4012C /* speaker */,
 				D562CF5C27BD9D9200CF54AF /* app */,
 				D524D73A27BBFBA60078DF0D /* schedule */,
 				D57028AB27B55345008EF4AD /* event */,
@@ -168,6 +183,10 @@
 			isa = PBXGroup;
 			children = (
 				D524D72D27BBF0DB0078DF0D /* SpeakerItemView.swift */,
+				D562CF5F27BDAD7800CF54AF /* SpeakerHeaderView.swift */,
+				D560788D27BE86D900D4012C /* SpeakerAvatarView.swift */,
+				D560788F27BE8B9500D4012C /* SpeakerSectionView.swift */,
+				D560789827BE965200D4012C /* SpeakerItemNavigation.swift */,
 			);
 			path = speakers;
 			sourceTree = "<group>";
@@ -201,6 +220,16 @@
 				D57028A927B550BF008EF4AD /* PartnerDividerView.swift */,
 			);
 			path = events;
+			sourceTree = "<group>";
+		};
+		D560789127BE8DED00D4012C /* speaker */ = {
+			isa = PBXGroup;
+			children = (
+				D560789227BE8E1400D4012C /* SpeakerDetail.swift */,
+				D560789427BE8F4500D4012C /* SpeakerViewModel.swift */,
+				D560789627BE906500D4012C /* SpeakerDetailVM.swift */,
+			);
+			path = speaker;
 			sourceTree = "<group>";
 		};
 		D562CF5C27BD9D9200CF54AF /* app */ = {
@@ -343,12 +372,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D560789927BE965200D4012C /* SpeakerItemNavigation.swift in Sources */,
 				D562CF5E27BD9DCB00CF54AF /* AppViewModel.swift in Sources */,
+				D560789327BE8E1400D4012C /* SpeakerDetail.swift in Sources */,
 				D524D72E27BBF0DB0078DF0D /* SpeakerItemView.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
+				D560788E27BE86D900D4012C /* SpeakerAvatarView.swift in Sources */,
 				D50A458F27B081B600C9A43C /* Agenda.swift in Sources */,
 				D5D6166C27B15C7400C59EC9 /* AgendaViewModel.swift in Sources */,
 				D524D74027BC00FF0078DF0D /* ScheduleDetailVM.swift in Sources */,
+				D560789727BE906500D4012C /* SpeakerDetailVM.swift in Sources */,
 				D50A458B27B0789B00C9A43C /* ScheduleItemView.swift in Sources */,
 				D5309CB227B1CD88001A4F9A /* AgendaVM.swift in Sources */,
 				D59EFCB827B5AD42000AADCF /* EventViewModel.swift in Sources */,
@@ -356,7 +389,9 @@
 				D55BE69727B5432900BCF03A /* SocialItem.swift in Sources */,
 				D524D73C27BBFC530078DF0D /* ScheduleDetail.swift in Sources */,
 				D55BE69927B54DB800BCF03A /* ButtonView.swift in Sources */,
+				D560789027BE8B9500D4012C /* SpeakerSectionView.swift in Sources */,
 				D524D73E27BBFFF30078DF0D /* ScheduleItemViewModel.swift in Sources */,
+				D560789527BE8F4500D4012C /* SpeakerViewModel.swift in Sources */,
 				D58F1D5427B0057300FB59C7 /* Color.swift in Sources */,
 				D524D73627BBF5670078DF0D /* ImageCache.swift in Sources */,
 				D58F1D4F27AFF40A00FB59C7 /* TalkItemView.swift in Sources */,
@@ -366,6 +401,7 @@
 				D524D73227BBF3000078DF0D /* ImageLoader.swift in Sources */,
 				D524D73427BBF34C0078DF0D /* AsyncImageView.swift in Sources */,
 				D59EFCBA27B5AE25000AADCF /* EventVM.swift in Sources */,
+				D562CF6027BDAD7800CF54AF /* SpeakerHeaderView.swift in Sources */,
 				7555FF83242A565900829871 /* AppView.swift in Sources */,
 				D57028AD27B5535F008EF4AD /* Event.swift in Sources */,
 			);

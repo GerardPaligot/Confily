@@ -15,17 +15,6 @@ import androidx.compose.ui.unit.dp
 import com.paligot.conferences.models.SpeakerUi
 import com.paligot.conferences.ui.theme.Conferences4HallTheme
 
-val speaker = SpeakerUi(
-    url = "https://pbs.twimg.com/profile_images/1465658195767136257/zdYQWsTj_400x400.jpg",
-    name = "Gérard Paligot",
-    company = "Decathlon",
-    bio = "Father and husband // Software Staff Engineer at Decathlon // Speaker // LAUG, FRAUG, GDGLille, DevfestLille organizer // Disney Fan!",
-    twitter = "GerardPaligot",
-    twitterUrl = "https://twitter.com/GerardPaligot",
-    github = "GerardPaligot",
-    githubUrl = "https://github.com/GerardPaligot"
-)
-
 @Composable
 fun SpeakerSection(
     speaker: SpeakerUi,
@@ -64,7 +53,7 @@ fun SpeakerSection(
 fun SpeakerSectionPreview() {
     Conferences4HallTheme {
         SpeakerSection(
-            speaker = speaker,
+            speaker = SpeakerUi.fake,
             onTwitterClick = {},
             onGitHubClick = {}
         )
