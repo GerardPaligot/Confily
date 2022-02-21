@@ -1,6 +1,5 @@
 package com.paligot.conferences.repositories
 
-import co.touchlab.kermit.Logger
 import com.paligot.conferences.database.EventDao
 import com.paligot.conferences.database.ScheduleDao
 import com.paligot.conferences.database.SpeakerDao

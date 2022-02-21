@@ -138,7 +138,7 @@ fun main() {
                 registerSpeakersRoutes(eventDao, speakerDao)
                 registerTalksRoutes(eventDao, speakerDao, talkDao)
                 registerSchedulersRoutes(eventDao, talkDao, speakerDao, scheduleItemDao)
-                registerUserRoutes(userDao, eventDao)
+                registerUserRoutes(userDao)
             }
         }
     }.start(wait = true)

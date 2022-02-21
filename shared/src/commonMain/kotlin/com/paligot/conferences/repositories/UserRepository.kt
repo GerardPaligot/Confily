@@ -4,13 +4,21 @@ import com.paligot.conferences.Image
 import com.paligot.conferences.database.UserDao
 import com.paligot.conferences.network.ConferenceApi
 import com.paligot.conferences.toNativeImage
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 
 interface UserRepository {
     suspend fun fetchEmailQrCode(): Pair<String, Image>?
     suspend fun fetchEmailQrCode(email: String): Image
     suspend fun fetchNetworking(): Flow<List<String>>
     suspend fun insertEmailNetworking(email: String)
+
+    // Kotlin/Native client
+    fun startCollectNetworking(success: (List<String>) -> Unit)
+    fun stopCollectNetworking()
 
     object Factory {
         fun create(api: ConferenceApi, userDao: UserDao): UserRepository = UserRepositoryImpl(api, userDao)
@@ -38,4 +46,18 @@ class UserRepositoryImpl(
 
     override suspend fun fetchNetworking(): Flow<List<String>> = userDao.fetchNetworking()
     override suspend fun insertEmailNetworking(email: String) = userDao.insertEmailNetworking(email)
+
+    private val coroutineScope: CoroutineScope = MainScope()
+    var agendaJob: Job? = null
+    override fun startCollectNetworking(success: (List<String>) -> Unit) {
+        agendaJob = coroutineScope.launch {
+            fetchNetworking().collect {
+                success(it)
+            }
+        }
+    }
+
+    override fun stopCollectNetworking() {
+        agendaJob?.cancel()
+    }
 }

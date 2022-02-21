@@ -21,6 +21,7 @@ kotlin {
     ).forEach {
         it.binaries.framework {
             baseName = "shared"
+            export("com.russhwolf:multiplatform-settings:$settingsVersion")
         }
     }
 
@@ -41,7 +42,7 @@ kotlin {
 
                 implementation("com.squareup.sqldelight:runtime:$sqldelightVersion")
                 implementation("com.squareup.sqldelight:coroutines-extensions:$sqldelightVersion")
-                implementation("com.russhwolf:multiplatform-settings:$settingsVersion")
+                api("com.russhwolf:multiplatform-settings:$settingsVersion")
 
                 implementation("co.touchlab:kermit:1.0.0")
             }

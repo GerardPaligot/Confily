@@ -16,8 +16,12 @@ struct iOSApp: App {
             talkDao: TalkDao(db: db),
             eventDao: EventDao(db: db, eventId: eventId)
         )
+        let userRepository = UserRepositoryImpl(
+            api: api,
+            userDao: UserDao(db: db, settings: AppleSettings(delegate: UserDefaults.standard), eventId: eventId)
+        )
 		WindowGroup {
-			AppView(agendaRepository: agendaRepository)
+			AppView(agendaRepository: agendaRepository, userRepository: userRepository)
 		}
 	}
 }
