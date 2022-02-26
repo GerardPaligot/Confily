@@ -14,6 +14,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.paligot.conferences.android.data.QrCodeGeneratorAndroid
 import com.paligot.conferences.android.screens.home.Home
 import com.paligot.conferences.android.screens.scanner.QrCodeScannerVm
 import com.paligot.conferences.android.screens.schedule.ScheduleDetailVM
@@ -49,12 +50,12 @@ class MainActivity : AppCompatActivity() {
             eventDao = EventDao(db, eventId)
         )
         val userRepository = UserRepository.Factory.create(
-            api = api,
             userDao = UserDao(
                 db = db,
                 settings = AndroidSettings(getSharedPreferences(eventId, Context.MODE_PRIVATE)),
                 eventId = eventId
-            )
+            ),
+            qrCodeGenerator = QrCodeGeneratorAndroid()
         )
         setContent {
             Conferences4HallTheme {

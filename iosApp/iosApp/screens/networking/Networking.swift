@@ -10,7 +10,7 @@ import SwiftUI
 import shared
 
 struct Networking: View {
-    var userProfile: UserProfileUi
+    var networkingUi: NetworkingUi
     var onValidation: (String) -> ()
     var onQrCodeClicked: () -> ()
 
@@ -18,20 +18,20 @@ struct Networking: View {
         ScrollView {
             LazyVStack(spacing: 10) {
                 EmailInputView(
-                    value: userProfile.email,
-                    hasQrCode: userProfile.hasQrCode,
+                    value: networkingUi.email,
+                    hasQrCode: networkingUi.hasQrCode,
                     onValidation: onValidation,
                     onQrCodeClicked: onQrCodeClicked
                 )
-                ForEach(userProfile.emails, id: \.self) { email in
+                ForEach(networkingUi.emails, id: \.self) { email in
                     Text(email)
                         .padding()
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
             }
         }
-        .sheet(isPresented: Binding.constant(userProfile.showQrCode)) {
-            if let uiImage = userProfile.qrcode {
+        .sheet(isPresented: Binding.constant(networkingUi.showQrCode)) {
+            if let uiImage = networkingUi.qrcode {
                 Image(uiImage: uiImage)
             }
         }
@@ -41,7 +41,7 @@ struct Networking: View {
 struct Networking_Previews: PreviewProvider {
     static var previews: some View {
         Networking(
-            userProfile: UserProfileUi.companion.fake,
+            networkingUi: NetworkingUi.companion.fake,
             onValidation: { String in },
             onQrCodeClicked: {}
         )

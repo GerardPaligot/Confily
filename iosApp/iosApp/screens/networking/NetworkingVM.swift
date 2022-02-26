@@ -11,12 +11,12 @@ import CodeScanner
 import shared
 
 struct NetworkingVM: View {
-    @ObservedObject var viewModel: UserProfileViewModel
+    @ObservedObject var viewModel: NetworkingViewModel
     @State private var isPresentingScanner = false
     @State private var scannedCode: String?
     
     init(userRepository: UserRepository) {
-        self.viewModel = UserProfileViewModel(repository: userRepository)
+        self.viewModel = NetworkingViewModel(repository: userRepository)
     }
     
     var body: some View {
@@ -24,9 +24,9 @@ struct NetworkingVM: View {
         NavigationView {
             Group {
                 switch uiState {
-                    case .success(let userProfileUi):
+                    case .success(let networkingUi):
                     Networking(
-                        userProfile: userProfileUi,
+                        networkingUi: networkingUi,
                         onValidation: { email in
                             viewModel.fetchNewEmailQrCode(email: email)
                         },

@@ -2,50 +2,58 @@ package com.paligot.conferences.repositories
 
 import com.paligot.conferences.Image
 import com.paligot.conferences.database.UserDao
-import com.paligot.conferences.network.ConferenceApi
-import com.paligot.conferences.toNativeImage
+import com.paligot.conferences.models.UserNetworkingUi
+import com.paligot.conferences.models.UserProfileUi
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 interface UserRepository {
-    suspend fun fetchEmailQrCode(): Pair<String, Image>?
-    suspend fun fetchEmailQrCode(email: String): Image
+    suspend fun fetchProfile(): UserProfileUi?
+    suspend fun fetchProfile(email: String, firstName: String, lastName: String, company: String): UserProfileUi
     suspend fun fetchNetworking(): Flow<List<String>>
-    suspend fun insertEmailNetworking(email: String)
+    suspend fun insertNetworkingProfile(text: String)
 
     // Kotlin/Native client
     fun startCollectNetworking(success: (List<String>) -> Unit)
     fun stopCollectNetworking()
 
     object Factory {
-        fun create(api: ConferenceApi, userDao: UserDao): UserRepository = UserRepositoryImpl(api, userDao)
+        fun create(userDao: UserDao, qrCodeGenerator: QrCodeGenerator): UserRepository = UserRepositoryImpl(userDao, qrCodeGenerator)
     }
 }
 
+interface QrCodeGenerator {
+    fun generate(text: String): Image
+}
+
 class UserRepositoryImpl(
-    private val api: ConferenceApi,
-    private val userDao: UserDao
+    private val userDao: UserDao,
+    private val qrCodeGenerator: QrCodeGenerator
 ) : UserRepository {
-    override suspend fun fetchEmailQrCode(): Pair<String, Image>? {
+    override suspend fun fetchProfile(): UserProfileUi? {
         val email = userDao.fetchLastEmail() ?: return null
-        val qrcode = userDao.fetchQrCode(email) ?: return null
-        return email to qrcode.toNativeImage()
+        return userDao.fetchUser(email)
     }
 
-    override suspend fun fetchEmailQrCode(email: String): Image {
-        val qrcode = userDao.fetchQrCode(email)
-        if (qrcode != null) return qrcode.toNativeImage()
-        val qrcodeUrl = api.saveEmailQrCode(email)
-        val image = api.fetchImage(qrcodeUrl.url)
-        userDao.insertUser(email, image)
-        return image.toNativeImage()
+    override suspend fun fetchProfile(email: String, firstName: String, lastName: String, company: String): UserProfileUi {
+        val userProfile = userDao.fetchUser(email)
+        if (userProfile != null) return userProfile
+        val qrCode = qrCodeGenerator.generate(Json.encodeToString(UserNetworkingUi(email, firstName, lastName, company)))
+        val newUserProfile = UserProfileUi(email, firstName, lastName, company, qrCode)
+        userDao.insertUser(newUserProfile)
+        return newUserProfile
     }
 
-    override suspend fun fetchNetworking(): Flow<List<String>> = userDao.fetchNetworking()
-    override suspend fun insertEmailNetworking(email: String) = userDao.insertEmailNetworking(email)
+    override suspend fun fetchNetworking(): Flow<List<String>> = userDao.fetchNetworking().map { it.map { it.email } }
+    override suspend fun insertNetworkingProfile(text: String) =
+        userDao.insertEmailNetworking(Json.decodeFromString(text))
 
     private val coroutineScope: CoroutineScope = MainScope()
     var agendaJob: Job? = null

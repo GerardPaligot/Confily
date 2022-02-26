@@ -1,10 +1,16 @@
 CREATE TABLE User(
 email TEXT NOT NULL PRIMARY KEY,
+firstname TEXT NOT NULL,
+lastname TEXT NOT NULL,
+company TEXT,
 qrcode BLOB NOT NULL
 );
 
 CREATE TABLE Networking(
 email TEXT NOT NULL PRIMARY KEY,
+firstname TEXT NOT NULL,
+lastname TEXT NOT NULL,
+company TEXT,
 event_id TEXT NOT NULL,
 created_at INTEGER NOT NULL
 );
@@ -12,15 +18,18 @@ created_at INTEGER NOT NULL
 selectQrCode:
 SELECT qrcode FROM User WHERE email == ?;
 
+selectUser:
+SELECT * FROM User WHERE email == ?;
+
 insertUser:
 INSERT OR REPLACE INTO User(
-email, qrcode
-) VALUES(?, ?);
+email, firstname, lastname, company, qrcode
+) VALUES(?, ?, ?, ?, ?);
 
 selectAll:
 SELECT * FROM Networking WHERE event_id = ? ORDER BY created_at DESC;
 
 insertNetwork:
 INSERT OR REPLACE INTO Networking(
-email, event_id, created_at
-) VALUES (?, ?, ?);
+email, firstname, lastname, company, event_id, created_at
+) VALUES (?, ?, ?, ?, ?, ?);

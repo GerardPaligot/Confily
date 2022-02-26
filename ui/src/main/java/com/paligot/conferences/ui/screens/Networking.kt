@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.paligot.conferences.models.UserProfileUi
+import com.paligot.conferences.models.NetworkingUi
 import com.paligot.conferences.ui.components.users.EmailInput
 import com.paligot.conferences.ui.components.users.EmailItem
 import com.paligot.conferences.ui.components.users.QrCodeDialog
@@ -20,7 +20,7 @@ import com.paligot.conferences.ui.theme.Conferences4HallTheme
 
 @Composable
 fun Networking(
-    profileUi: UserProfileUi,
+    profileUi: NetworkingUi,
     modifier: Modifier = Modifier,
     onValueChanged: (String) -> Unit,
     onValidation: () -> Unit,
@@ -64,7 +64,7 @@ fun NetworkingPreview() {
     Conferences4HallTheme {
         Scaffold {
             Networking(
-                profileUi = UserProfileUi.fake,
+                profileUi = NetworkingUi.fake,
                 onValueChanged = {},
                 onValidation = {},
                 onQrCodeClicked = {},

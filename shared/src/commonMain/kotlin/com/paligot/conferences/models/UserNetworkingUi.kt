@@ -1,11 +1,11 @@
 package com.paligot.conferences.models
 
-import com.paligot.conferences.Image
+import kotlinx.serialization.Serializable
 
-data class UserProfileUi(
+@Serializable
+data class UserNetworkingUi(
     val email: String,
     val firstName: String,
     val lastName: String,
-    val company: String,
-    val qrCode: Image
+    val company: String
 )

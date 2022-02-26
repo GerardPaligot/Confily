@@ -9,3 +9,4 @@ expect class Platform() {
 
 expect class Image
 expect fun ByteArray.toNativeImage(): Image
+expect fun Image.toByteArray(): ByteArray

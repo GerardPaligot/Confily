@@ -7,8 +7,8 @@ import com.paligot.conferences.repositories.UserRepository
 import kotlinx.coroutines.launch
 
 class QrCodeScannerViewModel(private val userRepository: UserRepository) : ViewModel() {
-    fun saveEmailNetworking(email: String) = viewModelScope.launch {
-        userRepository.insertEmailNetworking(email)
+    fun saveNetworkingProfile(text: String) = viewModelScope.launch {
+        userRepository.insertNetworkingProfile(text)
     }
 
     object Factory {

@@ -11,11 +11,11 @@ import shared
 
 enum UserProfileUiState {
     case loading
-    case success(UserProfileUi)
+    case success(NetworkingUi)
     case failure(Error)
 }
 
-class UserProfileViewModel: ObservableObject {
+class NetworkingViewModel: ObservableObject {
     let repository: UserRepository
 
     init(repository: UserRepository) {
@@ -25,30 +25,30 @@ class UserProfileViewModel: ObservableObject {
     @Published var uiState: UserProfileUiState = UserProfileUiState.loading
     
     func fetchEmailQrCode() {
-        repository.fetchEmailQrCode { image, error in
+        repository.fetchProfile { userProfileUi, error in
             self.uiState = .success(
-                UserProfileUi(
-                    email: (image?.first ?? "") as String,
-                    hasQrCode: image?.second != nil,
+                NetworkingUi(
+                    email: (userProfileUi?.email ?? "") as String,
+                    hasQrCode: userProfileUi?.qrCode != nil,
                     showQrCode: false,
                     emails: [],
-                    qrcode: image?.second
+                    qrcode: userProfileUi?.qrCode
                 )
             )
         }
     }
     
     func fetchNewEmailQrCode(email: String) {
-        if case .success(let userProfileUi) = uiState {
+        if case .success(let networkingUi) = uiState {
             if (email == "") { return }
-            repository.fetchEmailQrCode(email: email) { image, error in
-                if (image != nil) {
-                    self.uiState = .success(userProfileUi.doCopy(
+            repository.fetchProfile(email: email, firstName: "", lastName: "", company: "") { userProfileUi, error in
+                if (userProfileUi != nil) {
+                    self.uiState = .success(networkingUi.doCopy(
                         email: email,
                         hasQrCode: true,
                         showQrCode: false,
-                        emails: userProfileUi.emails,
-                        qrcode: image
+                        emails: networkingUi.emails,
+                        qrcode: userProfileUi!.qrCode
                     ))
                 } else {
                     self.uiState = .failure(error!)

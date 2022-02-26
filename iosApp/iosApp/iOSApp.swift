@@ -17,8 +17,8 @@ struct iOSApp: App {
             eventDao: EventDao(db: db, eventId: eventId)
         )
         let userRepository = UserRepositoryImpl(
-            api: api,
-            userDao: UserDao(db: db, settings: AppleSettings(delegate: UserDefaults.standard), eventId: eventId)
+            userDao: UserDao(db: db, settings: AppleSettings(delegate: UserDefaults.standard), eventId: eventId),
+            qrCodeGenerator: QrCodeGeneratoriOS()
         )
 		WindowGroup {
 			AppView(agendaRepository: agendaRepository, userRepository: userRepository)

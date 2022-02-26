@@ -3,7 +3,7 @@ package com.paligot.conferences.android.screens.users
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.paligot.conferences.models.UserProfileUi
+import com.paligot.conferences.models.NetworkingUi
 import com.paligot.conferences.repositories.UserRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 
 sealed class ProfileUiState {
     object Loading : ProfileUiState()
-    data class Success(val profile: UserProfileUi) : ProfileUiState()
+    data class Success(val profile: NetworkingUi) : ProfileUiState()
     data class Failure(val throwable: Throwable) : ProfileUiState()
 }
 
@@ -23,13 +23,13 @@ class UserProfileViewModel(
 
     init {
         viewModelScope.launch {
-            val image = userRepository.fetchEmailQrCode()
+            val profile = userRepository.fetchProfile()
             _uiState.value = ProfileUiState.Success(
-                profile = UserProfileUi(
-                    email = image?.first ?: "",
-                    hasQrCode = image?.second != null,
+                profile = NetworkingUi(
+                    email = profile?.email ?: "",
+                    hasQrCode = profile?.qrCode != null,
                     showQrCode = false,
-                    qrcode = image?.second
+                    qrcode = profile?.qrCode
                 )
             )
             userRepository.fetchNetworking().collect {
@@ -52,13 +52,13 @@ class UserProfileViewModel(
         if (_uiState.value !is ProfileUiState.Success) return@launch
         val email = (_uiState.value as ProfileUiState.Success).profile.email
         if (email == "") return@launch
-        val image = userRepository.fetchEmailQrCode(email)
+        val image = userRepository.fetchProfile(email, "", "", "")
         _uiState.value = ProfileUiState.Success(
             profile = (_uiState.value as ProfileUiState.Success).profile.copy(
                 email = email,
                 hasQrCode = true,
                 showQrCode = false,
-                qrcode = image
+                qrcode = image.qrCode
             )
         )
     }

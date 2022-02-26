@@ -15,7 +15,7 @@
 		D50A458B27B0789B00C9A43C /* ScheduleItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50A458A27B0789B00C9A43C /* ScheduleItemView.swift */; };
 		D50A458F27B081B600C9A43C /* Agenda.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50A458E27B081B600C9A43C /* Agenda.swift */; };
 		D50E9B0327C12AE400B7B9B9 /* NetworkingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9B0227C12AE400B7B9B9 /* NetworkingVM.swift */; };
-		D50E9B0527C12AF000B7B9B9 /* UserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9B0427C12AF000B7B9B9 /* UserProfileViewModel.swift */; };
+		D50E9B0527C12AF000B7B9B9 /* NetworkingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9B0427C12AF000B7B9B9 /* NetworkingViewModel.swift */; };
 		D524D72C27BBEC6F0078DF0D /* TalkSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D524D72B27BBEC6F0078DF0D /* TalkSectionView.swift */; };
 		D524D72E27BBF0DB0078DF0D /* SpeakerItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D524D72D27BBF0DB0078DF0D /* SpeakerItemView.swift */; };
 		D524D73227BBF3000078DF0D /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D524D73127BBF3000078DF0D /* ImageLoader.swift */; };
@@ -47,6 +47,7 @@
 		D59EFCB827B5AD42000AADCF /* EventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59EFCB727B5AD42000AADCF /* EventViewModel.swift */; };
 		D59EFCBA27B5AE25000AADCF /* EventVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59EFCB927B5AE25000AADCF /* EventVM.swift */; };
 		D5D6166C27B15C7400C59EC9 /* AgendaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D6166B27B15C7400C59EC9 /* AgendaViewModel.swift */; };
+		D5F324A327C6E2DE007CA4C1 /* QrCodeGeneratoriOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F324A227C6E2DE007CA4C1 /* QrCodeGeneratoriOS.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -73,7 +74,7 @@
 		D50A458A27B0789B00C9A43C /* ScheduleItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleItemView.swift; sourceTree = "<group>"; };
 		D50A458E27B081B600C9A43C /* Agenda.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Agenda.swift; sourceTree = "<group>"; };
 		D50E9B0227C12AE400B7B9B9 /* NetworkingVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingVM.swift; sourceTree = "<group>"; };
-		D50E9B0427C12AF000B7B9B9 /* UserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewModel.swift; sourceTree = "<group>"; };
+		D50E9B0427C12AF000B7B9B9 /* NetworkingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingViewModel.swift; sourceTree = "<group>"; };
 		D524D72B27BBEC6F0078DF0D /* TalkSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkSectionView.swift; sourceTree = "<group>"; };
 		D524D72D27BBF0DB0078DF0D /* SpeakerItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakerItemView.swift; sourceTree = "<group>"; };
 		D524D73127BBF3000078DF0D /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
@@ -104,6 +105,7 @@
 		D59EFCB727B5AD42000AADCF /* EventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewModel.swift; sourceTree = "<group>"; };
 		D59EFCB927B5AE25000AADCF /* EventVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventVM.swift; sourceTree = "<group>"; };
 		D5D6166B27B15C7400C59EC9 /* AgendaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaViewModel.swift; sourceTree = "<group>"; };
+		D5F324A227C6E2DE007CA4C1 /* QrCodeGeneratoriOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QrCodeGeneratoriOS.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +148,7 @@
 		7555FF7D242A565900829871 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
+				D5F324A127C6E2C6007CA4C1 /* data */,
 				D50A458C27B0818F00C9A43C /* components */,
 				D50A458D27B0819A00C9A43C /* screens */,
 				D58F1D5227B0054E00FB59C7 /* theming */,
@@ -178,7 +181,7 @@
 			children = (
 				D5768D5F27C11E2A00FB081C /* Networking.swift */,
 				D50E9B0227C12AE400B7B9B9 /* NetworkingVM.swift */,
-				D50E9B0427C12AF000B7B9B9 /* UserProfileViewModel.swift */,
+				D50E9B0427C12AF000B7B9B9 /* NetworkingViewModel.swift */,
 			);
 			path = networking;
 			sourceTree = "<group>";
@@ -309,6 +312,14 @@
 			path = agenda;
 			sourceTree = "<group>";
 		};
+		D5F324A127C6E2C6007CA4C1 /* data */ = {
+			isa = PBXGroup;
+			children = (
+				D5F324A227C6E2DE007CA4C1 /* QrCodeGeneratoriOS.swift */,
+			);
+			path = data;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -420,13 +431,14 @@
 				D5D6166C27B15C7400C59EC9 /* AgendaViewModel.swift in Sources */,
 				D524D74027BC00FF0078DF0D /* ScheduleDetailVM.swift in Sources */,
 				D560789727BE906500D4012C /* SpeakerDetailVM.swift in Sources */,
-				D50E9B0527C12AF000B7B9B9 /* UserProfileViewModel.swift in Sources */,
+				D50E9B0527C12AF000B7B9B9 /* NetworkingViewModel.swift in Sources */,
 				D50A458B27B0789B00C9A43C /* ScheduleItemView.swift in Sources */,
 				D5309CB227B1CD88001A4F9A /* AgendaVM.swift in Sources */,
 				D59EFCB827B5AD42000AADCF /* EventViewModel.swift in Sources */,
 				D524D73827BBF6030078DF0D /* ImageCacheKey.swift in Sources */,
 				D55BE69727B5432900BCF03A /* SocialItem.swift in Sources */,
 				D524D73C27BBFC530078DF0D /* ScheduleDetail.swift in Sources */,
+				D5F324A327C6E2DE007CA4C1 /* QrCodeGeneratoriOS.swift in Sources */,
 				D55BE69927B54DB800BCF03A /* ButtonView.swift in Sources */,
 				D560789027BE8B9500D4012C /* SpeakerSectionView.swift in Sources */,
 				D524D73E27BBFFF30078DF0D /* ScheduleItemViewModel.swift in Sources */,

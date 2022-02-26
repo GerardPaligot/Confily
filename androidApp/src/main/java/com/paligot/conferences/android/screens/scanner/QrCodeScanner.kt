@@ -22,7 +22,7 @@ fun QrCodeScannerVm(
         navigateToSettingsScreen = navigateToSettingsScreen,
         onRefusePermissionClicked = onBackClicked,
         onQrCodeDetected = {
-            viewModel.saveEmailNetworking(email = it.first())
+            viewModel.saveNetworkingProfile(text = it.first())
             onBackClicked()
         },
         onBackClicked = onBackClicked
