@@ -35,6 +35,7 @@ fun Home(
     onLinkedInClick: (url: String?) -> Unit,
     onPartnerClick: (siteUrl: String?) -> Unit,
     onScannerClicked: () -> Unit,
+    onQrCodeClicked: () -> Unit,
     onReportClicked: () -> Unit
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -47,7 +48,8 @@ fun Home(
                 actions = screen.actions,
                 onActionClicked = {
                     when (it) {
-                        ActionItemId.QrCodeActionItem -> onScannerClicked()
+                        ActionItemId.QrCodeScannerActionItem -> onScannerClicked()
+                        ActionItemId.QrCodeActionItem -> onQrCodeClicked()
                         ActionItemId.ReportActionItem -> onReportClicked()
                         else -> TODO()
                     }

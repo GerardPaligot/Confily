@@ -46,6 +46,7 @@ open class ActionItem(
 )
 
 sealed class ActionItemId {
+    object QrCodeScannerActionItem: ActionItemId()
     object QrCodeActionItem: ActionItemId()
     object ShareActionItem: ActionItemId()
     object ReportActionItem: ActionItemId()
@@ -77,7 +78,7 @@ fun TopAppBarPeview() {
                     ActionItem(
                         icon = Icons.Filled.QrCodeScanner,
                         contentDescription = "Scan QrCode",
-                        id = ActionItemId.QrCodeActionItem
+                        id = ActionItemId.QrCodeScannerActionItem
                     )
                 )
             )

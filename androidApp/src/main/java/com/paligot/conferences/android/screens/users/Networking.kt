@@ -13,28 +13,16 @@ fun NetworkingVM(
     userRepository: UserRepository,
     modifier: Modifier = Modifier
 ) {
-    val viewModel: UserProfileViewModel = viewModel(
-        factory = UserProfileViewModel.Factory.create(userRepository)
+    val viewModel: NetworkingViewModel = viewModel(
+        factory = NetworkingViewModel.Factory.create(userRepository)
     )
     val uiState = viewModel.uiState.collectAsState()
     when (uiState.value) {
-        is ProfileUiState.Loading -> Text("Loading...")
-        is ProfileUiState.Failure -> Text("Something wrong happened")
-        is ProfileUiState.Success -> Networking(
-            profileUi = (uiState.value as ProfileUiState.Success).profile,
-            modifier = modifier,
-            onValueChanged = {
-                viewModel.emailChanged(it)
-            },
-            onValidation = {
-                viewModel.fetchNewEmailQrCode()
-            },
-            onQrCodeClicked = {
-                viewModel.displayQrCode()
-            },
-            onDismissRequest = {
-                viewModel.closeQrCode()
-            }
+        is NetworkingUiState.Loading -> Text("Loading...")
+        is NetworkingUiState.Failure -> Text("Something wrong happened")
+        is NetworkingUiState.Success -> Networking(
+            emails = (uiState.value as NetworkingUiState.Success).emails,
+            modifier = modifier
         )
     }
 }

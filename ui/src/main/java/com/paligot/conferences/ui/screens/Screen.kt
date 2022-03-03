@@ -4,6 +4,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Event
 import androidx.compose.material.icons.filled.Group
 import androidx.compose.material.icons.filled.LocalActivity
+import androidx.compose.material.icons.filled.QrCode
 import androidx.compose.material.icons.filled.QrCodeScanner
 import androidx.compose.material.icons.filled.Report
 import androidx.compose.material.icons.outlined.Event
@@ -38,6 +39,11 @@ sealed class Screen(
             ActionItem(
                 icon = Icons.Filled.QrCodeScanner,
                 contentDescription = "QrCode scanner",
+                id = ActionItemId.QrCodeScannerActionItem
+            ),
+            ActionItem(
+                icon = Icons.Filled.QrCode,
+                contentDescription = "QrCode Generator",
                 id = ActionItemId.QrCodeActionItem
             )
         )

@@ -8,6 +8,8 @@
 
 import Foundation
 import shared
+import CoreImage
+import SwiftUI
 
 enum UserProfileUiState {
     case loading
@@ -24,31 +26,27 @@ class NetworkingViewModel: ObservableObject {
     
     @Published var uiState: UserProfileUiState = UserProfileUiState.loading
     
-    func fetchEmailQrCode() {
+    func fetchProfile() {
         repository.fetchProfile { userProfileUi, error in
             self.uiState = .success(
                 NetworkingUi(
-                    email: (userProfileUi?.email ?? "") as String,
-                    hasQrCode: userProfileUi?.qrCode != nil,
+                    userProfileUi: userProfileUi ?? UserProfileUi(email: "", firstName: "", lastName: "", company: "", qrCode: nil),
                     showQrCode: false,
-                    emails: [],
-                    qrcode: userProfileUi?.qrCode
+                    emails: []
                 )
             )
         }
     }
     
-    func fetchNewEmailQrCode(email: String) {
+    func fetchProfile(email: String, firstName: String, lastName: String, company: String) {
         if case .success(let networkingUi) = uiState {
             if (email == "") { return }
-            repository.fetchProfile(email: email, firstName: "", lastName: "", company: "") { userProfileUi, error in
+            repository.saveProfile(email: email, firstName: firstName, lastName: lastName, company: company) { userProfileUi, error in
                 if (userProfileUi != nil) {
                     self.uiState = .success(networkingUi.doCopy(
-                        email: email,
-                        hasQrCode: true,
-                        showQrCode: false,
-                        emails: networkingUi.emails,
-                        qrcode: userProfileUi!.qrCode
+                        userProfileUi: userProfileUi!,
+                        showQrCode: true,
+                        emails: networkingUi.emails
                     ))
                 } else {
                     self.uiState = .failure(error!)
@@ -58,27 +56,34 @@ class NetworkingViewModel: ObservableObject {
     }
     
     func displayQrCode() {
-        if case .success(let userProfileUi) = uiState {
-            if (userProfileUi.qrcode == nil) { return }
-            self.uiState = .success(userProfileUi.doCopy(
-                email: userProfileUi.email,
-                hasQrCode: true,
-                showQrCode: true,
-                emails: userProfileUi.emails,
-                qrcode: userProfileUi.qrcode)
+        if case .success(let networkingUi) = uiState {
+            self.uiState = .success(networkingUi.doCopy(
+                    userProfileUi: networkingUi.userProfileUi,
+                    showQrCode: true,
+                    emails: networkingUi.emails
+                )
             )
+        }
+    }
+    
+    func closeQrCode() {
+        if case .success(let networkingUi) = uiState {
+            self.uiState = .success(networkingUi.doCopy(
+                userProfileUi: networkingUi.userProfileUi,
+                showQrCode: false,
+                emails: networkingUi.emails
+            ))
         }
     }
     
     func fetchNetworking() {
         repository.startCollectNetworking(success: { emails in
-            if case .success(let userProfileUi) = self.uiState {
-                self.uiState = .success(userProfileUi.doCopy(
-                    email: userProfileUi.email,
-                    hasQrCode: userProfileUi.hasQrCode,
-                    showQrCode: userProfileUi.showQrCode,
-                    emails: emails,
-                    qrcode: userProfileUi.qrcode)
+            if case .success(let networkingUi) = self.uiState {
+                self.uiState = .success(networkingUi.doCopy(
+                        userProfileUi: networkingUi.userProfileUi,
+                        showQrCode: networkingUi.showQrCode,
+                        emails: emails
+                    )
                 )
             }
         })

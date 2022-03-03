@@ -26,7 +26,7 @@ class UserDao(private val db: Conferences4HallDatabase, private val settings: Se
         }).executeAsOneOrNull()
 
     fun insertUser(user: UserProfileUi) {
-        db.userQueries.insertUser(user.email, user.firstName, user.lastName, user.company, user.qrCode.toByteArray())
+        db.userQueries.insertUser(user.email, user.firstName, user.lastName, user.company, user.qrCode!!.toByteArray())
         settings["EMAIL"] = user.email
     }
 

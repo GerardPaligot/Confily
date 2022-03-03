@@ -2,59 +2,34 @@ package com.paligot.conferences.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Divider
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.paligot.conferences.models.NetworkingUi
-import com.paligot.conferences.ui.components.users.EmailInput
 import com.paligot.conferences.ui.components.users.EmailItem
-import com.paligot.conferences.ui.components.users.QrCodeDialog
 import com.paligot.conferences.ui.theme.Conferences4HallTheme
 
 @Composable
 fun Networking(
-    profileUi: NetworkingUi,
-    modifier: Modifier = Modifier,
-    onValueChanged: (String) -> Unit,
-    onValidation: () -> Unit,
-    onQrCodeClicked: () -> Unit,
-    onDismissRequest: () -> Unit
+    emails: List<String>,
+    modifier: Modifier = Modifier
 ) {
     LazyColumn(
         modifier = modifier,
         contentPadding = PaddingValues(vertical = 4.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        item {
-            EmailInput(
-                value = profileUi.email,
-                hasQrCode = profileUi.hasQrCode,
-                modifier = Modifier.padding(horizontal = 8.dp),
-                onValueChanged = onValueChanged,
-                onValidation = onValidation,
-                onQrCodeClicked = onQrCodeClicked
-            )
-        }
-        itemsIndexed(profileUi.emails) { index, email ->
+        itemsIndexed(emails) { index, email ->
             EmailItem(email = email)
-            if (index < profileUi.emails.size - 1) {
+            if (index < emails.size - 1) {
                 Divider()
             }
         }
-    }
-    if (profileUi.showQrCode && profileUi.qrcode != null) {
-        QrCodeDialog(
-            email = profileUi.email,
-            imageBitmap = profileUi.qrcode!!.asImageBitmap(),
-            onDismissRequest = onDismissRequest
-        )
     }
 }
 
@@ -63,13 +38,7 @@ fun Networking(
 fun NetworkingPreview() {
     Conferences4HallTheme {
         Scaffold {
-            Networking(
-                profileUi = NetworkingUi.fake,
-                onValueChanged = {},
-                onValidation = {},
-                onQrCodeClicked = {},
-                onDismissRequest = {}
-            )
+            Networking(emails = NetworkingUi.fake.emails)
         }
     }
 }

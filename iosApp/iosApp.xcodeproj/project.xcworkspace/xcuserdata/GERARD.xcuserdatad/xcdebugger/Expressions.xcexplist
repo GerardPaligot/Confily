@@ -5,5 +5,13 @@
       <ContextState
          contextName = "closure #2 in AgendaViewModel.fetchAgenda():AgendaViewModel.swift">
       </ContextState>
+      <ContextState
+         contextName = "closure #1 in NetworkingViewModel.fetchProfile(email:firstName:lastName:company:):NetworkingViewModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "(SharedUserProfileUi?)userProfileUi">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
    </ContextStates>
 </VariablesViewState>

@@ -60,7 +60,7 @@ fun ScheduleDetail(
         },
         content = {
             val contentPadding = 8.dp
-            LazyColumn(modifier = Modifier.fillMaxWidth()) {
+            LazyColumn(modifier = Modifier.fillMaxWidth(), contentPadding = it) {
                 item {
                     TalkSection(
                         talk = talk,

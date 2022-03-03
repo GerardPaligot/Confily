@@ -16,7 +16,7 @@ import kotlinx.serialization.json.Json
 
 interface UserRepository {
     suspend fun fetchProfile(): UserProfileUi?
-    suspend fun fetchProfile(email: String, firstName: String, lastName: String, company: String): UserProfileUi
+    suspend fun saveProfile(email: String, firstName: String, lastName: String, company: String): UserProfileUi
     suspend fun fetchNetworking(): Flow<List<String>>
     suspend fun insertNetworkingProfile(text: String)
 
@@ -42,13 +42,11 @@ class UserRepositoryImpl(
         return userDao.fetchUser(email)
     }
 
-    override suspend fun fetchProfile(email: String, firstName: String, lastName: String, company: String): UserProfileUi {
-        val userProfile = userDao.fetchUser(email)
-        if (userProfile != null) return userProfile
+    override suspend fun saveProfile(email: String, firstName: String, lastName: String, company: String): UserProfileUi {
         val qrCode = qrCodeGenerator.generate(Json.encodeToString(UserNetworkingUi(email, firstName, lastName, company)))
-        val newUserProfile = UserProfileUi(email, firstName, lastName, company, qrCode)
-        userDao.insertUser(newUserProfile)
-        return newUserProfile
+        val profile = UserProfileUi(email, firstName, lastName, company, qrCode)
+        userDao.insertUser(profile)
+        return profile
     }
 
     override suspend fun fetchNetworking(): Flow<List<String>> = userDao.fetchNetworking().map { it.map { it.email } }

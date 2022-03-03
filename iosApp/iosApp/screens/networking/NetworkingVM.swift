@@ -27,11 +27,11 @@ struct NetworkingVM: View {
                     case .success(let networkingUi):
                     Networking(
                         networkingUi: networkingUi,
-                        onValidation: { email in
-                            viewModel.fetchNewEmailQrCode(email: email)
+                        onValidation: { email, firstName, lastName, company in
+                            viewModel.fetchProfile(email: email, firstName: firstName, lastName: lastName, company: company)
                         },
-                        onQrCodeClicked: {
-                            viewModel.displayQrCode()
+                        onDismissProfileSheet: {
+                            viewModel.closeQrCode()
                         }
                     )
                     case .failure(_):
@@ -43,11 +43,18 @@ struct NetworkingVM: View {
             .navigationTitle(Text("Networking"))
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarItems(trailing:
-                Button(action: {
-                    isPresentingScanner = true
-                }, label: {
-                    Image(systemName: "qrcode.viewfinder")
-                })
+                HStack {
+                    Button(action: {
+                        isPresentingScanner = true
+                    }, label: {
+                        Image(systemName: "qrcode.viewfinder")
+                    })
+                    Button(action: {
+                        viewModel.displayQrCode()
+                    }, label: {
+                        Image(systemName: "qrcode")
+                    })
+                }
             )
             .sheet(isPresented: $isPresentingScanner) {
                 CodeScannerView(codeTypes: [.qr]) { response in
@@ -58,7 +65,7 @@ struct NetworkingVM: View {
                 }
             }
             .onAppear {
-                viewModel.fetchEmailQrCode()
+                viewModel.fetchProfile()
             }
         }
         .onAppear {

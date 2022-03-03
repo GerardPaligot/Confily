@@ -12,7 +12,7 @@ import shared
 
 class QrCodeGeneratoriOS: QrCodeGenerator {
     func generate(text: String) -> UIImage {
-        let data = text.data(using: String.Encoding.ascii)
+        let data = text.data(using: String.Encoding.utf8)
         let qrFilter = CIFilter(name: "CIQRCodeGenerator")!
         qrFilter.setValue(data, forKey: "inputMessage")
         let qrImage = qrFilter.outputImage!

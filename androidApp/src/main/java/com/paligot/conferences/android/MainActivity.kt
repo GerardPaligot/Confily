@@ -16,6 +16,7 @@ import androidx.navigation.navArgument
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.paligot.conferences.android.data.QrCodeGeneratorAndroid
 import com.paligot.conferences.android.screens.home.Home
+import com.paligot.conferences.android.screens.profile.ProfileInputVM
 import com.paligot.conferences.android.screens.scanner.QrCodeScannerVm
 import com.paligot.conferences.android.screens.schedule.ScheduleDetailVM
 import com.paligot.conferences.android.screens.speakers.SpeakerDetailVM
@@ -89,6 +90,9 @@ class MainActivity : AppCompatActivity() {
                             onScannerClicked = {
                                 navController.navigate("scanner")
                             },
+                            onQrCodeClicked = {
+                                navController.navigate("profile")
+                            },
                             onReportClicked = {
                                 val intent = Intent(Intent.ACTION_SEND)
                                 intent.putExtra(Intent.EXTRA_EMAIL, arrayOf("contact@gdglille.org"))
@@ -142,6 +146,16 @@ class MainActivity : AppCompatActivity() {
                         QrCodeScannerVm(
                             userRepository = userRepository,
                             navigateToSettingsScreen = {},
+                            onBackClicked = {
+                                navController.popBackStack()
+                            }
+                        )
+                    }
+                    composable(
+                        route = "profile"
+                    ) {
+                        ProfileInputVM(
+                            userRepository = userRepository,
                             onBackClicked = {
                                 navController.popBackStack()
                             }
