@@ -11,12 +11,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.paligot.conferences.models.NetworkingUi
-import com.paligot.conferences.ui.components.users.EmailItem
+import com.paligot.conferences.models.UserNetworkingUi
+import com.paligot.conferences.ui.components.users.UserItem
 import com.paligot.conferences.ui.theme.Conferences4HallTheme
 
 @Composable
 fun Networking(
-    emails: List<String>,
+    users: List<UserNetworkingUi>,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
@@ -24,9 +25,9 @@ fun Networking(
         contentPadding = PaddingValues(vertical = 4.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        itemsIndexed(emails) { index, email ->
-            EmailItem(email = email)
-            if (index < emails.size - 1) {
+        itemsIndexed(users) { index, user ->
+            UserItem(user = user)
+            if (index < users.size - 1) {
                 Divider()
             }
         }
@@ -38,7 +39,7 @@ fun Networking(
 fun NetworkingPreview() {
     Conferences4HallTheme {
         Scaffold {
-            Networking(emails = NetworkingUi.fake.emails)
+            Networking(users = NetworkingUi.fake.users)
         }
     }
 }

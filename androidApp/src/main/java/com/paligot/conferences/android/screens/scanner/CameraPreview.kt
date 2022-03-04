@@ -19,12 +19,13 @@ import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.barcode.common.Barcode
 import com.google.mlkit.vision.common.InputImage
+import com.paligot.conferences.models.UserNetworkingUi
 
 @SuppressLint("UnsafeOptInUsageError")
 @Composable
 fun CameraPreview(
     modifier: Modifier = Modifier,
-    onQrCodeDetected: (List<String>) -> Unit
+    onQrCodeDetected: (List<UserNetworkingUi>) -> Unit
 ) {
     val lifecycleOwner = LocalLifecycleOwner.current
     val context = LocalContext.current
@@ -56,8 +57,14 @@ fun CameraPreview(
                     val inputImage = InputImage.fromMediaImage(imageProxy.image!!, imageProxy.imageInfo.rotationDegrees)
                     scanner.process(inputImage)
                         .addOnSuccessListener { barcodes ->
-                            if (barcodes.isNotEmpty() && !qrCodeDetected.value) {
-                                onQrCodeDetected(barcodes.filter { it.rawValue != null }.map { it.rawValue!! })
+                            val filtered = barcodes.filter { it.contactInfo != null }
+                            if (filtered.isNotEmpty() && !qrCodeDetected.value) {
+                                onQrCodeDetected(filtered.map { UserNetworkingUi(
+                                    email = it.contactInfo?.emails?.first()?.address ?: "",
+                                    firstName = it.contactInfo?.name?.first ?: "",
+                                    lastName = it.contactInfo?.name?.last ?: "",
+                                    company = it.contactInfo?.organization ?: ""
+                                ) })
                                 qrCodeDetected.value = !qrCodeDetected.value
                             }
                         }

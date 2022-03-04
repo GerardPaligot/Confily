@@ -4,24 +4,21 @@ import com.paligot.conferences.Image
 import com.paligot.conferences.database.UserDao
 import com.paligot.conferences.models.UserNetworkingUi
 import com.paligot.conferences.models.UserProfileUi
+import com.paligot.conferences.vcard.encodeToString
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 
 interface UserRepository {
     suspend fun fetchProfile(): UserProfileUi?
     suspend fun saveProfile(email: String, firstName: String, lastName: String, company: String): UserProfileUi
-    suspend fun fetchNetworking(): Flow<List<String>>
-    suspend fun insertNetworkingProfile(text: String)
+    suspend fun fetchNetworking(): Flow<List<UserNetworkingUi>>
+    suspend fun insertNetworkingProfile(user: UserNetworkingUi)
 
     // Kotlin/Native client
-    fun startCollectNetworking(success: (List<String>) -> Unit)
+    fun startCollectNetworking(success: (List<UserNetworkingUi>) -> Unit)
     fun stopCollectNetworking()
 
     object Factory {
@@ -43,19 +40,19 @@ class UserRepositoryImpl(
     }
 
     override suspend fun saveProfile(email: String, firstName: String, lastName: String, company: String): UserProfileUi {
-        val qrCode = qrCodeGenerator.generate(Json.encodeToString(UserNetworkingUi(email, firstName, lastName, company)))
+        val qrCode = qrCodeGenerator.generate(UserNetworkingUi(email, firstName, lastName, company).encodeToString())
         val profile = UserProfileUi(email, firstName, lastName, company, qrCode)
         userDao.insertUser(profile)
         return profile
     }
 
-    override suspend fun fetchNetworking(): Flow<List<String>> = userDao.fetchNetworking().map { it.map { it.email } }
-    override suspend fun insertNetworkingProfile(text: String) =
-        userDao.insertEmailNetworking(Json.decodeFromString(text))
+    override suspend fun fetchNetworking(): Flow<List<UserNetworkingUi>> = userDao.fetchNetworking()
+    override suspend fun insertNetworkingProfile(user: UserNetworkingUi) =
+        userDao.insertEmailNetworking(user)
 
     private val coroutineScope: CoroutineScope = MainScope()
     var agendaJob: Job? = null
-    override fun startCollectNetworking(success: (List<String>) -> Unit) {
+    override fun startCollectNetworking(success: (List<UserNetworkingUi>) -> Unit) {
         agendaJob = coroutineScope.launch {
             fetchNetworking().collect {
                 success(it)

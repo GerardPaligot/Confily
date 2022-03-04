@@ -10,6 +10,7 @@ import Foundation
 import shared
 import CoreImage
 import SwiftUI
+import Contacts
 
 enum UserProfileUiState {
     case loading
@@ -32,7 +33,7 @@ class NetworkingViewModel: ObservableObject {
                 NetworkingUi(
                     userProfileUi: userProfileUi ?? UserProfileUi(email: "", firstName: "", lastName: "", company: "", qrCode: nil),
                     showQrCode: false,
-                    emails: []
+                    users: []
                 )
             )
         }
@@ -46,11 +47,31 @@ class NetworkingViewModel: ObservableObject {
                     self.uiState = .success(networkingUi.doCopy(
                         userProfileUi: userProfileUi!,
                         showQrCode: true,
-                        emails: networkingUi.emails
+                        users: networkingUi.users
                     ))
                 } else {
                     self.uiState = .failure(error!)
                 }
+            }
+        }
+    }
+    
+    func saveNetworkingProfile(text: String) {
+        if let data = text.data(using: .unicode) {
+            do {
+                let contacts = try CNContactVCardSerialization.contacts(with: data)
+                let contact = contacts.first
+                let user = UserNetworkingUi(
+                    email: (contact?.emailAddresses.first?.value ?? "") as String,
+                    firstName: contact?.givenName ?? "",
+                    lastName: contact?.familyName ?? "",
+                    company: contact?.organizationName ?? ""
+                )
+                print(user)
+                repository.insertNetworkingProfile(user: user) { _, _ in
+                }
+            } catch {
+                // ignored
             }
         }
     }
@@ -60,7 +81,7 @@ class NetworkingViewModel: ObservableObject {
             self.uiState = .success(networkingUi.doCopy(
                     userProfileUi: networkingUi.userProfileUi,
                     showQrCode: true,
-                    emails: networkingUi.emails
+                    users: networkingUi.users
                 )
             )
         }
@@ -71,18 +92,18 @@ class NetworkingViewModel: ObservableObject {
             self.uiState = .success(networkingUi.doCopy(
                 userProfileUi: networkingUi.userProfileUi,
                 showQrCode: false,
-                emails: networkingUi.emails
+                users: networkingUi.users
             ))
         }
     }
     
     func fetchNetworking() {
-        repository.startCollectNetworking(success: { emails in
+        repository.startCollectNetworking(success: { users in
             if case .success(let networkingUi) = self.uiState {
                 self.uiState = .success(networkingUi.doCopy(
                         userProfileUi: networkingUi.userProfileUi,
                         showQrCode: networkingUi.showQrCode,
-                        emails: emails
+                        users: users
                     )
                 )
             }

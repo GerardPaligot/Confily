@@ -46,6 +46,7 @@
 		D58F1D5427B0057300FB59C7 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58F1D5327B0057300FB59C7 /* Color.swift */; };
 		D59EFCB827B5AD42000AADCF /* EventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59EFCB727B5AD42000AADCF /* EventViewModel.swift */; };
 		D59EFCBA27B5AE25000AADCF /* EventVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59EFCB927B5AE25000AADCF /* EventVM.swift */; };
+		D5AE1BE727D18B7E005849B4 /* UserItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5AE1BE627D18B7E005849B4 /* UserItemView.swift */; };
 		D5D6166C27B15C7400C59EC9 /* AgendaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D6166B27B15C7400C59EC9 /* AgendaViewModel.swift */; };
 		D5F324A327C6E2DE007CA4C1 /* QrCodeGeneratoriOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F324A227C6E2DE007CA4C1 /* QrCodeGeneratoriOS.swift */; };
 /* End PBXBuildFile section */
@@ -104,6 +105,7 @@
 		D58F1D5327B0057300FB59C7 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		D59EFCB727B5AD42000AADCF /* EventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewModel.swift; sourceTree = "<group>"; };
 		D59EFCB927B5AE25000AADCF /* EventVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventVM.swift; sourceTree = "<group>"; };
+		D5AE1BE627D18B7E005849B4 /* UserItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserItemView.swift; sourceTree = "<group>"; };
 		D5D6166B27B15C7400C59EC9 /* AgendaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaViewModel.swift; sourceTree = "<group>"; };
 		D5F324A227C6E2DE007CA4C1 /* QrCodeGeneratoriOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QrCodeGeneratoriOS.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -172,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				D501315927C038BB001B48A5 /* ProfileInputView.swift */,
+				D5AE1BE627D18B7E005849B4 /* UserItemView.swift */,
 			);
 			path = users;
 			sourceTree = "<group>";
@@ -423,6 +426,7 @@
 				D562CF5E27BD9DCB00CF54AF /* AppViewModel.swift in Sources */,
 				D560789327BE8E1400D4012C /* SpeakerDetail.swift in Sources */,
 				D50E9B0327C12AE400B7B9B9 /* NetworkingVM.swift in Sources */,
+				D5AE1BE727D18B7E005849B4 /* UserItemView.swift in Sources */,
 				D524D72E27BBF0DB0078DF0D /* SpeakerItemView.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				D560788E27BE86D900D4012C /* SpeakerAvatarView.swift in Sources */,
@@ -584,9 +588,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
+				DEVELOPMENT_TEAM = DU6582MPLT;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)";
 				INFOPLIST_FILE = iosApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -596,7 +602,7 @@
 					"-framework",
 					shared,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = orgIdentifier.iosApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.paligot.conferences4hall;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -609,9 +615,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
+				DEVELOPMENT_TEAM = DU6582MPLT;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)";
 				INFOPLIST_FILE = iosApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -621,7 +629,7 @@
 					"-framework",
 					shared,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = orgIdentifier.iosApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.paligot.conferences4hall;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

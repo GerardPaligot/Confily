@@ -16,11 +16,11 @@ struct Networking: View {
 
     var body: some View {
         Group {
-            if (networkingUi.emails.count > 0) {
+            if (networkingUi.users.count > 0) {
                 ScrollView {
                     LazyVStack(spacing: 10) {
-                        ForEach(networkingUi.emails, id: \.self) { email in
-                            Text(email)
+                        ForEach(networkingUi.users, id: \.self) { user in
+                            UserItemView(user: user)
                                 .padding()
                                 .frame(maxWidth: .infinity, alignment: .leading)
                         }

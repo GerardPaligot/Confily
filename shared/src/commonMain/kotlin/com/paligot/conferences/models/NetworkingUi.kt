@@ -3,18 +3,43 @@ package com.paligot.conferences.models
 data class NetworkingUi(
     val userProfileUi: UserProfileUi,
     val showQrCode: Boolean,
-    val emails: List<String> = emptyList(),
+    val users: List<UserNetworkingUi> = emptyList(),
 ) {
     companion object {
         val fake = NetworkingUi(
             userProfileUi = UserProfileUi.fake,
             showQrCode = false,
-            emails = arrayListOf(
-                "gerard@gdglille.org",
-                "gerard@gdglille.org",
-                "gerard@gdglille.org",
-                "gerard@gdglille.org",
-                "gerard@gdglille.org",
+            users = arrayListOf(
+                UserNetworkingUi(
+                    email = "gerard@gdglille.org",
+                    firstName = "Gérard",
+                    lastName = "Paligot",
+                    company = "Decathlon"
+                ),
+                UserNetworkingUi(
+                    email = "gerard@gdglille.org",
+                    firstName = "Gérard",
+                    lastName = "Paligot",
+                    company = "Decathlon"
+                ),
+                UserNetworkingUi(
+                    email = "gerard@gdglille.org",
+                    firstName = "Gérard",
+                    lastName = "Paligot",
+                    company = "Decathlon"
+                ),
+                UserNetworkingUi(
+                    email = "gerard@gdglille.org",
+                    firstName = "Gérard",
+                    lastName = "Paligot",
+                    company = "Decathlon"
+                ),
+                UserNetworkingUi(
+                    email = "gerard@gdglille.org",
+                    firstName = "Gérard",
+                    lastName = "Paligot",
+                    company = "Decathlon"
+                ),
             ),
         )
     }

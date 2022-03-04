@@ -13,7 +13,6 @@ import shared
 struct NetworkingVM: View {
     @ObservedObject var viewModel: NetworkingViewModel
     @State private var isPresentingScanner = false
-    @State private var scannedCode: String?
     
     init(userRepository: UserRepository) {
         self.viewModel = NetworkingViewModel(repository: userRepository)
@@ -59,7 +58,7 @@ struct NetworkingVM: View {
             .sheet(isPresented: $isPresentingScanner) {
                 CodeScannerView(codeTypes: [.qr]) { response in
                     if case let .success(result) = response {
-                        scannedCode = result.string
+                        viewModel.saveNetworkingProfile(text: result.string)
                         isPresentingScanner = false
                     }
                 }

@@ -4,6 +4,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.paligot.conferences.models.UserNetworkingUi
 import com.paligot.conferences.repositories.UserRepository
 import com.paligot.conferences.ui.components.appbars.TopAppBar
 
@@ -22,7 +23,7 @@ fun QrCodeScannerVm(
         navigateToSettingsScreen = navigateToSettingsScreen,
         onRefusePermissionClicked = onBackClicked,
         onQrCodeDetected = {
-            viewModel.saveNetworkingProfile(text = it.first())
+            viewModel.saveNetworkingProfile(user = it.first())
             onBackClicked()
         },
         onBackClicked = onBackClicked
@@ -34,7 +35,7 @@ fun QrCodeScanner(
     modifier: Modifier = Modifier,
     navigateToSettingsScreen: () -> Unit,
     onRefusePermissionClicked: () -> Unit,
-    onQrCodeDetected: (List<String>) -> Unit,
+    onQrCodeDetected: (List<UserNetworkingUi>) -> Unit,
     onBackClicked: () -> Unit,
 ) {
     Scaffold(

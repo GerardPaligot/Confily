@@ -21,7 +21,7 @@ fun NetworkingVM(
         is NetworkingUiState.Loading -> Text("Loading...")
         is NetworkingUiState.Failure -> Text("Something wrong happened")
         is NetworkingUiState.Success -> Networking(
-            emails = (uiState.value as NetworkingUiState.Success).emails,
+            users = (uiState.value as NetworkingUiState.Success).users,
             modifier = modifier
         )
     }
