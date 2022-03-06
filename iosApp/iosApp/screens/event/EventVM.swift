@@ -11,6 +11,7 @@ import shared
 
 struct EventVM: View {
     @ObservedObject var viewModel: EventViewModel
+    @Environment(\.openURL) var openURL
     
     init(agendaRepository: AgendaRepository) {
         self.viewModel = EventViewModel(repository: agendaRepository)
@@ -24,10 +25,18 @@ struct EventVM: View {
                     case .success(let eventUi):
                         Event(
                             event: eventUi,
-                            onFaqClicked: { String in },
-                            onCoCClicked: { String in },
-                            onTwitterClicked: { String in },
-                            onLinkedInClicked: { String in }
+                            onFaqClicked: { url in
+                                if let url2 = URL(string: url) { openURL(url2) }
+                            },
+                            onCoCClicked: { url in
+                                if let url2 = URL(string: url) { openURL(url2) }
+                            },
+                            onTwitterClicked: { url in
+                                if let url2 = URL(string: url) { openURL(url2) }
+                            },
+                            onLinkedInClicked: { url in
+                                if let url2 = URL(string: url) { openURL(url2) }
+                            }
                         )
                     case .failure(_):
                         Text("Something wrong happened")
