@@ -1,6 +1,5 @@
 package com.paligot.conferences.backend.speakers
 
-import com.paligot.conferences.backend.NotFoundException
 import com.paligot.conferences.backend.events.EventDao
 import com.paligot.conferences.backend.receiveValidated
 import com.paligot.conferences.models.inputs.SpeakerInput
@@ -12,32 +11,28 @@ import io.ktor.server.routing.*
 fun Route.registerSpeakersRoutes(
     eventDao: EventDao, speakerDao: SpeakerDao
 ) {
+    val repository = SpeakerRepository(eventDao, speakerDao)
+
     get("/speakers") {
         val eventId = call.parameters["eventId"]!!
-        call.respond(HttpStatusCode.OK, speakerDao.getAll(eventId).map { it.convertToModel() })
+        call.respond(HttpStatusCode.OK, repository.list(eventId))
     }
     get("/speakers/{id}") {
-        val id = call.parameters["id"]!!
         val eventId = call.parameters["eventId"]!!
-        val speaker = speakerDao.get(eventId, id) ?: throw NotFoundException("Speaker with $id is not found")
-        call.respond(HttpStatusCode.OK, speaker.convertToModel())
+        val speakerId = call.parameters["id"]!!
+        call.respond(HttpStatusCode.OK, repository.get(eventId, speakerId))
     }
     post("/speakers") {
         val eventId = call.parameters["eventId"]!!
-        eventDao.getVerified(eventId, call.request.headers["api_key"])
+        val apiKey = call.request.headers["api_key"]!!
         val speaker = call.receiveValidated<SpeakerInput>()
-        val speakerDb = speaker.convertToDb()
-        val id = speakerDao.createOrUpdate(eventId, speakerDb)
-        eventDao.updateUpdatedAt(eventId)
-        call.respond(HttpStatusCode.Created, id)
+        call.respond(HttpStatusCode.Created, repository.create(eventId, apiKey, speaker))
     }
     put("/speakers/{id}") {
-        val id = call.parameters["id"]!!
         val eventId = call.parameters["eventId"]!!
-        eventDao.getVerified(eventId, call.request.headers["api_key"])
+        val apiKey = call.request.headers["api_key"]!!
+        val speakerId = call.parameters["id"]!!
         val speaker = call.receiveValidated<SpeakerInput>()
-        val speakerDb = speaker.convertToDb(id)
-        eventDao.updateUpdatedAt(eventId)
-        call.respond(HttpStatusCode.OK, speakerDao.createOrUpdate(eventId, speakerDb))
+        call.respond(HttpStatusCode.OK, repository.update(eventId, apiKey, speakerId, speaker))
     }
 }

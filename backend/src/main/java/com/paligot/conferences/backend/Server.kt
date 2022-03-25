@@ -3,21 +3,18 @@ package com.paligot.conferences.backend
 import com.google.auth.oauth2.GoogleCredentials
 import com.google.cloud.firestore.FirestoreOptions
 import com.google.cloud.storage.StorageOptions
+import com.paligot.conferences.backend.conferencehall.registerConferenceHallRoutes
 import com.paligot.conferences.backend.database.Database
 import com.paligot.conferences.backend.database.DatabaseType
 import com.paligot.conferences.backend.events.EventDao
-import com.paligot.conferences.backend.events.convertToDb
 import com.paligot.conferences.backend.events.registerEventRoutes
-import com.paligot.conferences.backend.network.ConferenceHallApi
 import com.paligot.conferences.backend.partners.PartnerDao
 import com.paligot.conferences.backend.schedulers.ScheduleItemDao
 import com.paligot.conferences.backend.schedulers.registerSchedulersRoutes
 import com.paligot.conferences.backend.speakers.SpeakerDao
-import com.paligot.conferences.backend.speakers.convertToDb
 import com.paligot.conferences.backend.speakers.registerSpeakersRoutes
 import com.paligot.conferences.backend.storage.Storage
 import com.paligot.conferences.backend.talks.TalkDao
-import com.paligot.conferences.backend.talks.convertToDb
 import com.paligot.conferences.backend.talks.registerTalksRoutes
 import com.paligot.conferences.models.inputs.Validator
 import com.paligot.conferences.models.inputs.ValidatorException
@@ -31,8 +28,6 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
 
 fun main() {
     val gcpProjectId = "cms4partners-ce427"
@@ -120,31 +115,7 @@ fun main() {
             }
         }
         routing {
-            post("conference-hall/{eventId}/import") {
-                val apiKey = call.request.headers["api_key"]
-                val eventId = call.parameters["eventId"]!!
-                require(apiKey != null) { "api_key header is required" }
-                val conferenceHallApi = ConferenceHallApi.Factory.create(apiKey = apiKey, enableNetworkLogs = true)
-                val event = conferenceHallApi.fetchEvent(eventId)
-                val speakersAvatar = event.speakers
-                    .map {
-                        async {
-                            try {
-                                val avatar = conferenceHallApi.fetchSpeakerAvatar(it.photoURL)
-                                val bucketItem = speakerDao.saveProfile(eventId, it.uid, avatar)
-                                it.uid to bucketItem.url
-                            } catch (error: Throwable) {
-                                it.uid to ""
-                            }
-                        }
-                    }
-                    .awaitAll()
-                    .associate { it }
-                speakerDao.insertAll(eventId, event.speakers.map { it.convertToDb(speakersAvatar[it.uid] ?: "") })
-                talkDao.insertAll(eventId, event.talks.map { it.convertToDb(event.categories, event.formats) })
-                eventDao.createOrUpdate(event.convertToDb(eventId, apiKey))
-                call.respond(HttpStatusCode.Created, event)
-            }
+            registerConferenceHallRoutes(eventDao, speakerDao, talkDao)
             route("/events/{eventId}") {
                 registerEventRoutes(eventDao, speakerDao, talkDao, scheduleItemDao, partnerDao)
                 registerSpeakersRoutes(eventDao, speakerDao)

@@ -1,11 +1,9 @@
 package com.paligot.conferences.backend.schedulers
 
-import com.paligot.conferences.backend.NotFoundException
 import com.paligot.conferences.backend.events.EventDao
 import com.paligot.conferences.backend.receiveValidated
 import com.paligot.conferences.backend.speakers.SpeakerDao
 import com.paligot.conferences.backend.talks.TalkDao
-import com.paligot.conferences.backend.talks.convertToModel
 import com.paligot.conferences.models.inputs.ScheduleInput
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -18,43 +16,24 @@ fun Route.registerSchedulersRoutes(
     speakerDao: SpeakerDao,
     scheduleItemDao: ScheduleItemDao
 ) {
+    val repository = ScheduleRepository(eventDao, talkDao, speakerDao, scheduleItemDao)
+
     post("/schedulers") {
         val eventId = call.parameters["eventId"]!!
-        eventDao.getVerified(eventId, call.request.headers["api_key"])
+        val apiKey = call.request.headers["api_key"]!!
         val schedule = call.receiveValidated<ScheduleInput>()
-        if (schedule.talkId == null) {
-            val scheduleItem = schedule.convertToDb()
-            scheduleItemDao.createOrUpdate(eventId, scheduleItem)
-            eventDao.updateUpdatedAt(eventId)
-            call.respond(HttpStatusCode.Created, scheduleItem.id)
-        } else {
-            val talk = talkDao.get(eventId, schedule.talkId!!)
-                ?: throw NotFoundException("Talk ${schedule.talkId} not found")
-            val scheduleItem = schedule.convertToDb(talk.id)
-            scheduleItemDao.createOrUpdate(eventId, scheduleItem)
-            eventDao.updateUpdatedAt(eventId)
-            call.respond(HttpStatusCode.Created, scheduleItem.id)
-        }
+        call.respond(HttpStatusCode.Created, repository.create(eventId, apiKey, schedule))
     }
     get("/schedulers/{id}") {
-        val id = call.parameters["id"]!!
         val eventId = call.parameters["eventId"]!!
-        val scheduleItem = scheduleItemDao.get(eventId, id) ?: throw NotFoundException("Schedule item $id not found")
-        val talk = if (scheduleItem.talkId != null) {
-            val talkDb = talkDao.get(eventId, scheduleItem.talkId)
-                ?: throw NotFoundException("Talk ${scheduleItem.talkId} not found")
-            val speakers = speakerDao.getByIds(eventId, *talkDb.speakerIds.toTypedArray())
-            talkDb.convertToModel(speakers)
-        } else null
-        eventDao.updateUpdatedAt(eventId)
-        call.respond(HttpStatusCode.OK, scheduleItem.convertToModel(talk))
+        val scheduleId = call.parameters["id"]!!
+        call.respond(HttpStatusCode.OK, repository.get(eventId, scheduleId))
     }
     delete("/schedulers/{id}") {
         val eventId = call.parameters["eventId"]!!
-        eventDao.getVerified(eventId, call.request.headers["api_key"])
-        val id = call.parameters["id"]!!
-        scheduleItemDao.delete(eventId, id)
-        eventDao.updateUpdatedAt(eventId)
+        val apiKey = call.request.headers["api_key"]!!
+        val scheduleId = call.parameters["id"]!!
+        repository.delete(eventId, apiKey, scheduleId)
         call.respond(HttpStatusCode.NoContent, "No Content")
     }
 }
