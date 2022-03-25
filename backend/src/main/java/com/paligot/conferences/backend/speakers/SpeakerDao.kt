@@ -5,11 +5,12 @@ import com.paligot.conferences.backend.database.get
 import com.paligot.conferences.backend.database.getAll
 import com.paligot.conferences.backend.database.query
 import com.paligot.conferences.backend.database.whereIn
+import com.paligot.conferences.backend.storage.Storage
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 
-class SpeakerDao(private val database: Database) {
+class SpeakerDao(private val database: Database, private val storage: Storage) {
     suspend fun get(eventId: String, id: String): SpeakerDb? = database.get(eventId, id)
 
     suspend fun getByIds(eventId: String, vararg ids: String): List<SpeakerDb> =
@@ -30,4 +31,9 @@ class SpeakerDao(private val database: Database) {
         else database.update(eventId, speaker.id, speaker)
         return@coroutineScope speaker.id
     }
+
+    suspend fun saveProfile(eventId: String, id: String, content: ByteArray) = storage.upload(
+        filename = "$eventId/speakers/$id.png",
+        content = content
+    )
 }

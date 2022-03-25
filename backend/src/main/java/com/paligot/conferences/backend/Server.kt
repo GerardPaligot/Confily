@@ -33,6 +33,8 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 
 fun main() {
     val gcpProjectId = "cms4partners-ce427"
@@ -59,6 +61,11 @@ fun main() {
                 collectionName = "speakers",
                 dispatcher = Dispatchers.IO
             )
+        ),
+        Storage.Factory.create(
+            storage = storage,
+            bucketName = projectName,
+            isAppEngine = isAppEngine
         )
     )
     val talkDao = TalkDao(
@@ -128,7 +135,21 @@ fun main() {
                 require(apiKey != null) { "api_key header is required" }
                 val conferenceHallApi = ConferenceHallApi.Factory.create(apiKey = apiKey, enableNetworkLogs = true)
                 val event = conferenceHallApi.fetchEvent(eventId)
-                speakerDao.insertAll(eventId, event.speakers.map { it.convertToDb() })
+                val speakersAvatar = event.speakers
+                    .map {
+                        async {
+                            try {
+                                val avatar = conferenceHallApi.fetchSpeakerAvatar(it.photoURL)
+                                val bucketItem = speakerDao.saveProfile(eventId, it.uid, avatar)
+                                it.uid to bucketItem.url
+                            } catch (error: Throwable) {
+                                it.uid to ""
+                            }
+                        }
+                    }
+                    .awaitAll()
+                    .associate { it }
+                speakerDao.insertAll(eventId, event.speakers.map { it.convertToDb(speakersAvatar[it.uid] ?: "") })
                 talkDao.insertAll(eventId, event.talks.map { it.convertToDb(event.categories, event.formats) })
                 eventDao.createOrUpdate(event.convertToDb(eventId, apiKey))
                 call.respond(HttpStatusCode.Created, event)
@@ -144,8 +165,8 @@ fun main() {
     }.start(wait = true)
 }
 
-object NotAuthorized: Throwable()
-class NotFoundException(message: String): Throwable(message)
+object NotAuthorized : Throwable()
+class NotFoundException(message: String) : Throwable(message)
 
 suspend inline fun <reified T : Validator> ApplicationCall.receiveValidated(): T {
     val input = receive<T>()

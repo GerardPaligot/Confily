@@ -3,8 +3,8 @@ package com.paligot.conferences.android.screens.event
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.paligot.conferences.repositories.AgendaRepository
 import com.paligot.conferences.models.EventUi
+import com.paligot.conferences.repositories.AgendaRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

@@ -14,6 +14,8 @@ class ConferenceHallApi(
   private val apiKey: String,
   private val baseUrl: String = "https://conference-hall.io/api"
 ) {
+  suspend fun fetchSpeakerAvatar(url: String) = client.get(url).body<ByteArray>()
+
   suspend fun fetchEvent(eventId: String) =
     client.get("$baseUrl/v1/event/$eventId?key=$apiKey&state=confirmed").body<Event>()
 

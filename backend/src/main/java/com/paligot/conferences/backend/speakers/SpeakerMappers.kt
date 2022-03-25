@@ -3,12 +3,12 @@ package com.paligot.conferences.backend.speakers
 import com.paligot.conferences.models.Speaker
 import com.paligot.conferences.models.inputs.SpeakerInput
 
-fun com.paligot.conferences.backend.network.Speaker.convertToDb(): SpeakerDb = SpeakerDb(
+fun com.paligot.conferences.backend.network.Speaker.convertToDb(url: String): SpeakerDb = SpeakerDb(
   id = this.uid,
   displayName = this.displayName,
   bio = this.bio ?: "",
   company = this.company,
-  photoUrl = this.photoURL,
+  photoUrl = url,
   twitter = null,
   github = null
 )
