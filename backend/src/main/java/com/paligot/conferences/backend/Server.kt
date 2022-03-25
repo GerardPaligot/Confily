@@ -19,8 +19,6 @@ import com.paligot.conferences.backend.storage.Storage
 import com.paligot.conferences.backend.talks.TalkDao
 import com.paligot.conferences.backend.talks.convertToDb
 import com.paligot.conferences.backend.talks.registerTalksRoutes
-import com.paligot.conferences.backend.users.UserDao
-import com.paligot.conferences.backend.users.registerUserRoutes
 import com.paligot.conferences.models.inputs.Validator
 import com.paligot.conferences.models.inputs.ValidatorException
 import io.ktor.http.*
@@ -105,13 +103,6 @@ fun main() {
             )
         )
     )
-    val userDao = UserDao(
-        Storage.Factory.create(
-            storage = storage,
-            bucketName = projectName,
-            isAppEngine = isAppEngine
-        )
-    )
 
     embeddedServer(Netty, 8080) {
         install(ContentNegotiation) {
@@ -159,7 +150,6 @@ fun main() {
                 registerSpeakersRoutes(eventDao, speakerDao)
                 registerTalksRoutes(eventDao, speakerDao, talkDao)
                 registerSchedulersRoutes(eventDao, talkDao, speakerDao, scheduleItemDao)
-                registerUserRoutes(userDao)
             }
         }
     }.start(wait = true)
