@@ -19,12 +19,13 @@ class ConferenceHallRepository(
 ) {
     suspend fun import(eventId: String, apiKey: String) = coroutineScope {
         val event = api.fetchEvent(eventId)
+        val year = event.conferenceDates.start.split("-")[0]
         val speakersAvatar = event.speakers
             .map {
                 async {
                     try {
                         val avatar = api.fetchSpeakerAvatar(it.photoURL)
-                        val bucketItem = speakerDao.saveProfile(eventId, it.uid, avatar)
+                        val bucketItem = speakerDao.saveProfile(year, it.uid, avatar)
                         it.uid to bucketItem.url
                     } catch (error: Throwable) {
                         it.uid to ""
@@ -33,9 +34,9 @@ class ConferenceHallRepository(
             }
             .awaitAll()
             .associate { it }
-        speakerDao.insertAll(eventId, event.speakers.map { it.convertToDb(speakersAvatar[it.uid] ?: "") })
-        talkDao.insertAll(eventId, event.talks.map { it.convertToDb(event.categories, event.formats) })
-        eventDao.createOrUpdate(event.convertToDb(eventId, apiKey))
+        speakerDao.insertAll(year, event.speakers.map { it.convertToDb(speakersAvatar[it.uid] ?: "") })
+        talkDao.insertAll(year, event.talks.map { it.convertToDb(event.categories, event.formats) })
+        eventDao.createOrUpdate(event.convertToDb(year, eventId, apiKey))
         return@coroutineScope event
     }
 }

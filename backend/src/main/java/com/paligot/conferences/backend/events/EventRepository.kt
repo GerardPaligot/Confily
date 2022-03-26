@@ -23,18 +23,17 @@ class EventRepository(
 ) {
     suspend fun list(eventId: String) = coroutineScope {
         val event = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
-        val year = event.startDate.split("-")[0]
         return@coroutineScope event.convertToModel(
-            golds = partnerDao.listValidated(year, Sponsorship.Gold),
-            silvers = partnerDao.listValidated(year, Sponsorship.Silver),
-            bronzes = partnerDao.listValidated(year, Sponsorship.Bronze),
+            golds = partnerDao.listValidated(event.year, Sponsorship.Gold),
+            silvers = partnerDao.listValidated(event.year, Sponsorship.Silver),
+            bronzes = partnerDao.listValidated(event.year, Sponsorship.Bronze),
             others = emptyList()
         )
     }
 
     suspend fun update(eventId: String, apiKey: String, eventInput: EventInput) = coroutineScope {
-        eventDao.getVerified(eventId, apiKey)
-        eventDao.createOrUpdate(eventInput.convertToDb(eventId, apiKey))
+        val event = eventDao.getVerified(eventId, apiKey)
+        eventDao.createOrUpdate(eventInput.convertToDb(event, apiKey))
         return@coroutineScope eventId
     }
 

@@ -10,7 +10,8 @@ data class EventAddressDb(
 )
 
 data class EventDb(
-    val id: String = "",
+    val year: String = "",
+    val conferenceHallId: String = "",
     val apiKey: String = "",
     val name: String = "",
     val address: EventAddressDb = EventAddressDb(),

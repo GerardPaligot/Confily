@@ -7,8 +7,9 @@ import com.paligot.conferences.models.EventAddress
 import com.paligot.conferences.models.EventPartners
 import com.paligot.conferences.models.inputs.EventInput
 
-fun Event.convertToDb(id: String, apiKey: String) = EventDb(
-    id = id,
+fun Event.convertToDb(year: String, eventId: String, apiKey: String) = EventDb(
+    year = year,
+    conferenceHallId = eventId,
     apiKey = apiKey,
     name = this.name,
     address = EventAddressDb(
@@ -29,7 +30,7 @@ fun EventDb.convertToModel(
     bronzes: List<PartnerDb>,
     others: List<PartnerDb>
 ) = com.paligot.conferences.models.Event(
-    id = this.id,
+    id = this.year,
     name = this.name,
     address = EventAddress(
         address = this.address.address,
@@ -54,8 +55,9 @@ fun EventDb.convertToModel(
     updatedAt = this.updatedAt
 )
 
-fun EventInput.convertToDb(eventId: String, apiKey: String) = EventDb(
-    id = eventId,
+fun EventInput.convertToDb(event: EventDb, apiKey: String) = EventDb(
+    year = event.year,
+    conferenceHallId = event.conferenceHallId,
     apiKey = apiKey,
     name = this.name,
     address = EventAddressDb(
