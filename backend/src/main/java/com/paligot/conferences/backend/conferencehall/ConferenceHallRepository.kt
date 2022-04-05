@@ -18,25 +18,30 @@ class ConferenceHallRepository(
     private val talkDao: TalkDao
 ) {
     suspend fun import(eventId: String, apiKey: String) = coroutineScope {
-        val event = api.fetchEvent(eventId)
-        val year = event.conferenceDates.start.split("-")[0]
-        val speakersAvatar = event.speakers
+        val eventAccepted = api.fetchEventAccepted(eventId)
+        val eventConfirmed = api.fetchEventConfirmed(eventId)
+        val year = eventAccepted.conferenceDates.start.split("-")[0]
+        val speakers = eventAccepted.speakers + eventConfirmed.speakers
+        val talks = eventAccepted.talks + eventConfirmed.talks
+        val speakersAvatar = speakers
+            .filter { speaker -> speaker.photoURL != null }
             .map {
                 async {
                     try {
-                        val avatar = api.fetchSpeakerAvatar(it.photoURL)
+                        val avatar = api.fetchSpeakerAvatar(it.photoURL!!)
                         val bucketItem = speakerDao.saveProfile(year, it.uid, avatar)
                         it.uid to bucketItem.url
                     } catch (error: Throwable) {
+                        println(error)
                         it.uid to ""
                     }
                 }
             }
             .awaitAll()
             .associate { it }
-        speakerDao.insertAll(year, event.speakers.map { it.convertToDb(speakersAvatar[it.uid] ?: "") })
-        talkDao.insertAll(year, event.talks.map { it.convertToDb(event.categories, event.formats) })
-        eventDao.createOrUpdate(event.convertToDb(year, eventId, apiKey))
-        return@coroutineScope event
+        speakerDao.insertAll(year, speakers.map { it.convertToDb(speakersAvatar[it.uid] ?: "") })
+        talkDao.insertAll(year, talks.map { it.convertToDb(eventAccepted.categories, eventAccepted.formats) })
+        eventDao.createOrUpdate(eventAccepted.convertToDb(year, eventId, apiKey))
+        return@coroutineScope eventAccepted
     }
 }

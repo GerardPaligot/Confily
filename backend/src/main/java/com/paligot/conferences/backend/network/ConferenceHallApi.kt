@@ -16,8 +16,10 @@ class ConferenceHallApi(
 ) {
   suspend fun fetchSpeakerAvatar(url: String) = client.get(url).body<ByteArray>()
 
-  suspend fun fetchEvent(eventId: String) =
+  suspend fun fetchEventConfirmed(eventId: String) =
     client.get("$baseUrl/v1/event/$eventId?key=$apiKey&state=confirmed").body<Event>()
+  suspend fun fetchEventAccepted(eventId: String) =
+    client.get("$baseUrl/v1/event/$eventId?key=$apiKey&state=accepted").body<Event>()
 
   object Factory {
     fun create(apiKey: String, enableNetworkLogs: Boolean): ConferenceHallApi =
