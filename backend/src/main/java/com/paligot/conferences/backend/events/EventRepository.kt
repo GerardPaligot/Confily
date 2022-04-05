@@ -51,7 +51,7 @@ class EventRepository(
                         }
                     }
                 }.awaitAll()
-                return@async it.key to scheduleItems
+                return@async it.key to scheduleItems.sortedBy { it.room }
             }
         }.awaitAll().associate { it }.toSortedMap()
         return@coroutineScope Agenda(talks = schedules)

@@ -57,7 +57,7 @@ class AgendaRepositoryImpl(
 
     override suspend fun event(): EventUi = eventDao.fetchEvent()
     override suspend fun agenda(): Flow<AgendaUi> = scheduleDao.fetchSchedules().transform { talks ->
-        emit(AgendaUi(talks = talks.groupBy { it.time }))
+        emit(AgendaUi(talks = talks.groupBy { it.time }.mapValues { entry -> entry.value.sortedBy { it.room } }))
     }
 
     override suspend fun markAsRead(scheduleId: String, isFavorite: Boolean) =
