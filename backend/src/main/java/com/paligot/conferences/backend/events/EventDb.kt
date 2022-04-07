@@ -1,5 +1,8 @@
 package com.paligot.conferences.backend.events
 
+import java.text.DecimalFormat
+import java.time.LocalDateTime
+
 data class EventAddressDb(
     val address: String = "",
     val country: String = "",
@@ -12,6 +15,7 @@ data class EventAddressDb(
 data class EventDb(
     val year: String = "",
     val conferenceHallId: String = "",
+    val openFeedbackId: String? = null,
     val apiKey: String = "",
     val name: String = "",
     val address: EventAddressDb = EventAddressDb(),
@@ -23,3 +27,15 @@ data class EventDb(
     val codeOfConductLink: String? = null,
     val updatedAt: Long = System.currentTimeMillis()
 )
+
+fun EventDb.openFeedbackUrl(): String? {
+    if (this.openFeedbackId == null) return null
+    return try {
+        val startDate = LocalDateTime.parse(this.startDate.dropLast(1))
+        val formatter = DecimalFormat("00")
+        val dateFormatted = "${startDate.year}-${formatter.format(startDate.monthValue)}-${formatter.format(startDate.dayOfMonth)}"
+        "https://openfeedback.io/${this.openFeedbackId}/$dateFormatted"
+    } catch (ignored: Throwable) {
+        null
+    }
+}

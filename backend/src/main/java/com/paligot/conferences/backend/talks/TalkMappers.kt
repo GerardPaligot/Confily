@@ -1,5 +1,7 @@
 package com.paligot.conferences.backend.talks
 
+import com.paligot.conferences.backend.events.EventDb
+import com.paligot.conferences.backend.events.openFeedbackUrl
 import com.paligot.conferences.backend.network.Category
 import com.paligot.conferences.backend.network.Format
 import com.paligot.conferences.backend.speakers.SpeakerDb
@@ -17,11 +19,10 @@ fun com.paligot.conferences.backend.network.Talk.convertToDb(
   abstract = this.abstract,
   category = categories.find { it.id == this.categories }?.name ?: error("Category not found for ${this.id} talk"),
   format = formats.find { it.id == this.formats }?.name ?: error("Format not found for ${this.id} talk"),
-  speakerIds = this.speakers,
-  openFeedback = null
+  speakerIds = this.speakers
 )
 
-fun TalkDb.convertToModel(speakers: List<SpeakerDb>): Talk = Talk(
+fun TalkDb.convertToModel(speakers: List<SpeakerDb>, eventDb: EventDb): Talk = Talk(
   id = this.id,
   title = this.title,
   level = this.level,
@@ -29,7 +30,7 @@ fun TalkDb.convertToModel(speakers: List<SpeakerDb>): Talk = Talk(
   category = this.category,
   format = this.format,
   speakers = speakers.filter { this.speakerIds.contains(it.id) }.map { it.convertToModel() },
-  openFeedback = this.openFeedback
+  openFeedback = eventDb.openFeedbackUrl()?.let { "$it/$id" } ?: run { null }
 )
 
 fun TalkInput.convertToDb(id: String? = null): TalkDb = TalkDb(
@@ -39,6 +40,5 @@ fun TalkInput.convertToDb(id: String? = null): TalkDb = TalkDb(
   abstract = this.abstract,
   category = this.category,
   format = this.format,
-  speakerIds = this.speakerIds,
-  openFeedback = this.openFeedback
+  speakerIds = this.speakerIds
 )

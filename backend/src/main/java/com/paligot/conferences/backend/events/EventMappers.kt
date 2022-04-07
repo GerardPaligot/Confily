@@ -55,9 +55,10 @@ fun EventDb.convertToModel(
     updatedAt = this.updatedAt
 )
 
-fun EventInput.convertToDb(event: EventDb, apiKey: String) = EventDb(
+fun EventInput.convertToDb(event: EventDb, openFeedbackId: String?, apiKey: String) = EventDb(
     year = event.year,
     conferenceHallId = event.conferenceHallId,
+    openFeedbackId = openFeedbackId ?: event.openFeedbackId,
     apiKey = apiKey,
     name = this.name,
     address = EventAddressDb(

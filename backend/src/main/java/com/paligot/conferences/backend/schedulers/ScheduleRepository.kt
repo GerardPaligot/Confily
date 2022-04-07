@@ -33,13 +33,14 @@ class ScheduleRepository(
     }
 
     suspend fun get(eventId: String, scheduleId: String) = coroutineScope {
+        val eventDb = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
         val scheduleItem = scheduleItemDao.get(eventId, scheduleId)
             ?: throw NotFoundException("Schedule item $scheduleId not found")
         val talk = if (scheduleItem.talkId != null) {
             val talkDb = talkDao.get(eventId, scheduleItem.talkId)
                 ?: throw NotFoundException("Talk ${scheduleItem.talkId} not found")
             val speakers = speakerDao.getByIds(eventId, *talkDb.speakerIds.toTypedArray())
-            talkDb.convertToModel(speakers)
+            talkDb.convertToModel(speakers, eventDb)
         } else null
         eventDao.updateUpdatedAt(eventId)
         return@coroutineScope scheduleItem.convertToModel(talk)

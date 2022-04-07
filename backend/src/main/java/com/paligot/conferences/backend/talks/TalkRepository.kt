@@ -14,10 +14,11 @@ class TalkRepository(
     private val talkDao: TalkDao
 ) {
     suspend fun list(eventId: String) = coroutineScope {
+        val eventDb = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
         val talks = talkDao.getAll(eventId)
         val asyncItems = talks.map {
             async {
-                it.convertToModel(speakerDao.getByIds(eventId, *it.speakerIds.toTypedArray()))
+                it.convertToModel(speakerDao.getByIds(eventId, *it.speakerIds.toTypedArray()), eventDb)
             }
         }
         return@coroutineScope asyncItems.awaitAll()
@@ -32,9 +33,10 @@ class TalkRepository(
     }
 
     suspend fun get(eventId: String, talkId: String) = coroutineScope {
+        val eventDb = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
         val talk = talkDao.get(eventId, talkId) ?: throw NotFoundException("Talk $talkId Not Found")
         eventDao.updateUpdatedAt(eventId)
-        return@coroutineScope talk.convertToModel(speakerDao.getByIds(eventId, *talk.speakerIds.toTypedArray()))
+        return@coroutineScope talk.convertToModel(speakerDao.getByIds(eventId, *talk.speakerIds.toTypedArray()), eventDb)
     }
 
     suspend fun update(eventId: String, apiKey: String, talkId: String, talkInput: TalkInput) = coroutineScope {

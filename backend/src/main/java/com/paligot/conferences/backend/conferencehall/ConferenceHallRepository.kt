@@ -32,7 +32,6 @@ class ConferenceHallRepository(
                         val bucketItem = speakerDao.saveProfile(year, it.uid, avatar)
                         it.uid to bucketItem.url
                     } catch (error: Throwable) {
-                        println(error)
                         it.uid to ""
                     }
                 }

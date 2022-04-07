@@ -38,11 +38,12 @@ class EventRepository(
 
     suspend fun update(eventId: String, apiKey: String, eventInput: EventInput) = coroutineScope {
         val event = eventDao.getVerified(eventId, apiKey)
-        eventDao.createOrUpdate(eventInput.convertToDb(event, apiKey))
+        eventDao.createOrUpdate(eventInput.convertToDb(event, eventInput.openFeedbackId, apiKey))
         return@coroutineScope eventId
     }
 
     suspend fun agenda(eventId: String) = coroutineScope {
+        val eventDb = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
         val schedules = scheduleItemDao.getAll(eventId).groupBy { it.time }.entries.map {
             async {
                 val scheduleItems = it.value.map {
@@ -51,7 +52,7 @@ class EventRepository(
                         else {
                             val talk = talkDao.get(eventId, it.talkId) ?: return@async it.convertToModel(null)
                             it.convertToModel(
-                                talk.convertToModel(speakerDao.getByIds(eventId, *talk.speakerIds.toTypedArray()))
+                                talk.convertToModel(speakerDao.getByIds(eventId, *talk.speakerIds.toTypedArray()), eventDb)
                             )
                         }
                     }
