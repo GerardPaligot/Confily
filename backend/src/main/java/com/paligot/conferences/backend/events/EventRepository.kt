@@ -9,10 +9,15 @@ import com.paligot.conferences.backend.speakers.SpeakerDao
 import com.paligot.conferences.backend.talks.TalkDao
 import com.paligot.conferences.backend.talks.convertToModel
 import com.paligot.conferences.models.Agenda
+import com.paligot.conferences.models.OpenFeedback
+import com.paligot.conferences.models.SessionOF
+import com.paligot.conferences.models.SocialOF
+import com.paligot.conferences.models.SpeakerOF
 import com.paligot.conferences.models.inputs.EventInput
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
+import java.time.LocalDateTime
 
 class EventRepository(
     private val eventDao: EventDao,
@@ -55,5 +60,49 @@ class EventRepository(
             }
         }.awaitAll().associate { it }.toSortedMap()
         return@coroutineScope Agenda(talks = schedules)
+    }
+
+    suspend fun openFeedback(eventId: String) = coroutineScope {
+        val event = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
+        val startDate = LocalDateTime.parse(event.startDate.dropLast(1))
+        val agenda = agenda(eventId)
+        val talks = agenda.talks.values.flatten().filter { it.talk != null }
+        val asyncSessions = async {
+            talks.map {
+                val (hour, minute) = it.time.split(":")
+                val startTime = startDate.withHour(hour.toInt()).withMinute(minute.toInt())
+                val endTime = when(it.talk!!.format) {
+                    "Conférence" -> startTime.plusMinutes(50)
+                    "Quickie" -> startTime.plusMinutes(20)
+                    else -> TODO("Conference format not implemented")
+                }
+                SessionOF(
+                    id = it.id,
+                    title = it.talk!!.title,
+                    trackTitle = it.room,
+                    speakers = it.talk!!.speakers.map { speaker -> speaker.id },
+                    startTime = "$startTime:00+02:00",
+                    endTime = "$endTime:00+02:00",
+                    tags = arrayListOf(it.talk!!.category)
+                )
+            }
+        }
+        val asyncSpeakers = async {
+            talks.map { it.talk!!.speakers }.flatten().map {
+                val socials = arrayListOf<SocialOF>()
+                it.github?.let { github -> socials.add(SocialOF(name = "github", link = github)) }
+                it.twitter?.let { twitter -> socials.add(SocialOF(name = "twitter", link = twitter)) }
+                SpeakerOF(
+                    id = it.id,
+                    name = it.displayName,
+                    photoUrl = it.photoUrl,
+                    socials = socials
+                )
+            }
+        }
+        return@coroutineScope OpenFeedback(
+            sessions = asyncSessions.await().associateBy { it.id },
+            speakers = asyncSpeakers.await().associateBy { it.id }
+        )
     }
 }

@@ -34,4 +34,8 @@ fun Route.registerEventRoutes(
         val eventId = call.parameters["eventId"]!!
         call.respond(HttpStatusCode.OK, repository.agenda(eventId))
     }
+    get("openfeedback") {
+        val eventId = call.parameters["eventId"]!!
+        call.respond(HttpStatusCode.OK, repository.openFeedback(eventId))
+    }
 }

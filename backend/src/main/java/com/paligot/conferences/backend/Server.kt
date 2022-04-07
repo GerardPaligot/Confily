@@ -100,6 +100,9 @@ fun main() {
     )
 
     embeddedServer(Netty, 8080) {
+        install(CORS) {
+            anyHost()
+        }
         install(ContentNegotiation) {
             json()
         }
