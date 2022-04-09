@@ -13,9 +13,5 @@ data class TalkInput(
   @SerialName("speaker_ids")
   val speakerIds: List<String> = emptyList()
 ): Validator {
-  override fun validate(): List<String> {
-    val errors = arrayListOf<String>()
-    if (speakerIds.isEmpty()) errors.add("You can't create a talk without speakers")
-    return errors
-  }
+  override fun validate(): List<String> = emptyList()
 }

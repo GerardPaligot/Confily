@@ -14,7 +14,11 @@ class SpeakerDao(private val database: Database, private val storage: Storage) {
     suspend fun get(eventId: String, id: String): SpeakerDb? = database.get(eventId, id)
 
     suspend fun getByIds(eventId: String, vararg ids: String): List<SpeakerDb> =
-        database.query(eventId, "id".whereIn(ids.toList()))
+        try {
+            database.query(eventId, "id".whereIn(ids.toList()))
+        } catch (ignored: Throwable) {
+            emptyList()
+        }
 
     suspend fun getAll(eventId: String): List<SpeakerDb> = database.getAll(eventId)
 
