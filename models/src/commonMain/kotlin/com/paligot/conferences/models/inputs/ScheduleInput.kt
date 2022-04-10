@@ -5,15 +5,18 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ScheduleInput(
-  val time: String,
+  val startTime: String,
+  val endTime: String? = null,
   val room: String,
   @SerialName("talk_id")
   val talkId: String? = null
 ): Validator {
   override fun validate(): List<String> {
     val errors = arrayListOf<String>()
-    val timePattern = "[0-9]{2}:[0-9]{2}"
-    if (!time.matches(Regex(timePattern))) errors.add("Your time should be formatted with this regex $timePattern")
+    val timePattern = "(\\d{4}-\\d{2}-\\d{2})[A-Z]+(\\d{2}:\\d{2}:\\d{2}).[0-9]{3}"
+    if (!startTime.matches(Regex(timePattern))) errors.add("Your start time should be formatted with this regex $timePattern")
+    if (endTime != null && !endTime.matches(Regex(timePattern))) errors.add("Your end time should be formatted with this regex $timePattern")
+    if (talkId == null && endTime == null) errors.add("You must give the end time when the schedule is a pause")
     return errors
   }
 }

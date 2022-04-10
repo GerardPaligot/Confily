@@ -21,6 +21,7 @@ data class EventDb(
     val address: EventAddressDb = EventAddressDb(),
     val startDate: String = "",
     val endDate: String = "",
+    val formats: Map<String, Int> = emptyMap(),
     val twitterUrl: String? = null,
     val linkedinUrl: String? = null,
     val faqLink: String? = null,

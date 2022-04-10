@@ -30,6 +30,7 @@ data class EventInput(
     val startDate: String,
     @SerialName("end_date")
     val endDate: String,
+    val formats: Map<String, Int> = emptyMap(),
     @SerialName("twitter_url")
     val twitterUrl: String?,
     @SerialName("linkedin_url")
@@ -48,6 +49,9 @@ data class EventInput(
         if (twitterUrl?.contains("twitter.com") == false) errors.add("Your twitter url is malformed")
         if (linkedinUrl?.contains("linkedin.com") == false) errors.add("Your linkedin url is malformed")
         errors.addAll(address.validate())
+        formats.values.forEach {
+            if (it <= 0) errors.add("The time can't be null or negative")
+        }
         return errors
     }
 }

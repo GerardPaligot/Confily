@@ -52,7 +52,7 @@ class ScheduleDao(private val db: Conferences4HallDatabase, private val eventId:
                 db.agendaQueries.insertSchedule(
                     id = schedule.id,
                     event_id = eventId,
-                    time = schedule.time,
+                    time = schedule.startTime,
                     room = schedule.room,
                     title = schedule.talk?.title ?: "Pause",
                     speakers = schedule.talk?.speakers?.map { it.displayName } ?: emptyList(),
@@ -61,7 +61,7 @@ class ScheduleDao(private val db: Conferences4HallDatabase, private val eventId:
             } else {
                 db.agendaQueries.updateSchedule(
                     event_id = eventId,
-                    time = schedule.time,
+                    time = schedule.startTime,
                     room = schedule.room,
                     title = schedule.talk?.title ?: "Pause",
                     speakers = schedule.talk?.speakers?.map { it.displayName } ?: emptyList(),

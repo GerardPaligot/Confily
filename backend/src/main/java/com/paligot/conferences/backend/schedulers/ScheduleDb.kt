@@ -1,9 +1,10 @@
 package com.paligot.conferences.backend.schedulers
 
 data class ScheduleDb(
-  val time: String = "",
+  val startTime: String = "",
+  val endTime: String = "",
   val room: String = "",
   val talkId: String? = null
 ) {
-  val id: String = talkId ?: "${time}-pause"
+  val id: String = talkId ?: "${startTime}-pause"
 }

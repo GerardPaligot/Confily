@@ -1,6 +1,8 @@
 package com.paligot.conferences.backend.events
 
 import com.paligot.conferences.backend.NotFoundException
+import com.paligot.conferences.backend.date.FormatterPattern
+import com.paligot.conferences.backend.date.format
 import com.paligot.conferences.backend.partners.PartnerDao
 import com.paligot.conferences.backend.partners.Sponsorship
 import com.paligot.conferences.backend.schedulers.ScheduleItemDao
@@ -44,7 +46,7 @@ class EventRepository(
 
     suspend fun agenda(eventId: String) = coroutineScope {
         val eventDb = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
-        val schedules = scheduleItemDao.getAll(eventId).groupBy { it.time }.entries.map {
+        val schedules = scheduleItemDao.getAll(eventId).groupBy { it.startTime }.entries.map {
             async {
                 val scheduleItems = it.value.map {
                     async {
@@ -57,33 +59,25 @@ class EventRepository(
                         }
                     }
                 }.awaitAll()
-                return@async it.key to scheduleItems.sortedBy { it.room }
+                val key = LocalDateTime.parse(it.key).format(FormatterPattern.HoursMinutes)
+                return@async key to scheduleItems.sortedBy { it.room }
             }
         }.awaitAll().associate { it }.toSortedMap()
         return@coroutineScope Agenda(talks = schedules)
     }
 
     suspend fun openFeedback(eventId: String) = coroutineScope {
-        val event = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
-        val startDate = LocalDateTime.parse(event.startDate.dropLast(1))
         val agenda = agenda(eventId)
         val talks = agenda.talks.values.flatten().filter { it.talk != null }
         val asyncSessions = async {
             talks.map {
-                val (hour, minute) = it.time.split(":")
-                val startTime = startDate.withHour(hour.toInt()).withMinute(minute.toInt())
-                val endTime = when(it.talk!!.format) {
-                    "Conférence" -> startTime.plusMinutes(50)
-                    "Quickie" -> startTime.plusMinutes(20)
-                    else -> TODO("Conference format not implemented")
-                }
                 SessionOF(
                     id = it.id,
                     title = it.talk!!.title,
                     trackTitle = it.room,
                     speakers = it.talk!!.speakers.map { speaker -> speaker.id },
-                    startTime = "$startTime:00+02:00",
-                    endTime = "$endTime:00+02:00",
+                    startTime = "${LocalDateTime.parse(it.startTime).format(FormatterPattern.SimplifiedIso)}+02:00",
+                    endTime = "${LocalDateTime.parse(it.endTime).format(FormatterPattern.SimplifiedIso)}+02:00",
                     tags = arrayListOf(it.talk!!.category)
                 )
             }

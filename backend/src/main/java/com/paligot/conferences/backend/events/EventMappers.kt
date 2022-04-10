@@ -71,6 +71,7 @@ fun EventInput.convertToDb(event: EventDb, openFeedbackId: String?, apiKey: Stri
     ),
     startDate = this.startDate,
     endDate = this.endDate,
+    formats = this.formats,
     twitterUrl = this.twitterUrl,
     linkedinUrl = this.linkedinUrl,
     faqLink = this.faqLink,
