@@ -63,15 +63,17 @@ fun TalkItem(
                 )
             }
         }
-        IconButton(
-            onClick = { onFavoriteClicked(talk.id, !talk.isFavorite) },
-            modifier = Modifier.padding(end = 4.dp)
-        ) {
-            Icon(
-                imageVector = if (talk.isFavorite) Icons.Outlined.Star else Icons.Outlined.Grade,
-                contentDescription = if (talk.isFavorite) "Remove talk from favorites" else "Add talk in favorite",
-                tint = favoriteColor
-            )
+        if (!talk.isPause) {
+            IconButton(
+                onClick = { onFavoriteClicked(talk.id, !talk.isFavorite) },
+                modifier = Modifier.padding(end = 4.dp)
+            ) {
+                Icon(
+                    imageVector = if (talk.isFavorite) Icons.Outlined.Star else Icons.Outlined.Grade,
+                    contentDescription = if (talk.isFavorite) "Remove talk from favorites" else "Add talk in favorite",
+                    tint = favoriteColor
+                )
+            }
         }
     }
 }
@@ -82,6 +84,16 @@ fun TalkItemPreview() {
     Conferences4HallTheme {
         Scaffold {
             TalkItem(talk = TalkItemUi.fake) { _, _ -> }
+        }
+    }
+}
+
+@Preview
+@Composable
+fun TalkItemPausePreview() {
+    Conferences4HallTheme {
+        Scaffold {
+            TalkItem(talk = TalkItemUi.fakePause) { _, _ -> }
         }
     }
 }

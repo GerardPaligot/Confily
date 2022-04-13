@@ -52,7 +52,7 @@ class ScheduleDao(private val db: Conferences4HallDatabase, private val eventId:
                 db.agendaQueries.insertSchedule(
                     id = schedule.id,
                     event_id = eventId,
-                    time = schedule.startTime,
+                    time = schedule.time,
                     room = schedule.room,
                     title = schedule.talk?.title ?: "Pause",
                     speakers = schedule.talk?.speakers?.map { it.displayName } ?: emptyList(),
