@@ -7,6 +7,10 @@ expect class Platform() {
     val engine: HttpClientEngine
 }
 
+expect class DecimalFormat() {
+    fun format(number: Int): String
+}
+
 expect class Image
 expect fun ByteArray.toNativeImage(): Image
 expect fun Image.toByteArray(): ByteArray

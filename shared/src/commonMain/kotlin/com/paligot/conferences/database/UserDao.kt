@@ -1,7 +1,6 @@
 package com.paligot.conferences.database
 
 import com.paligot.conferences.db.Conferences4HallDatabase
-import com.paligot.conferences.db.User
 import com.paligot.conferences.models.UserNetworkingUi
 import com.paligot.conferences.models.UserProfileUi
 import com.paligot.conferences.toByteArray

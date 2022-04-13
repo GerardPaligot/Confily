@@ -7,6 +7,8 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.toCValues
 import kotlinx.cinterop.usePinned
 import platform.Foundation.NSData
+import platform.Foundation.NSNumber
+import platform.Foundation.NSNumberFormatter
 import platform.Foundation.dataWithBytes
 import platform.UIKit.UIDevice
 import platform.UIKit.UIImage
@@ -16,6 +18,17 @@ import platform.posix.memcpy
 actual class Platform actual constructor() {
     actual val platform: String = UIDevice.currentDevice.systemName() + " " + UIDevice.currentDevice.systemVersion
     actual val engine: HttpClientEngine = Darwin.create()
+}
+
+actual class DecimalFormat {
+    actual fun format(number: Int): String {
+        val formatter = NSNumberFormatter()
+        formatter.minimumFractionDigits = 0u
+        formatter.maximumFractionDigits = 2u
+        formatter.numberStyle = 1u
+        formatter.minimumIntegerDigits = 2u
+        return formatter.stringFromNumber(NSNumber(number))!!
+    }
 }
 
 actual typealias Image = UIImage

@@ -11,6 +11,17 @@ actual class Platform actual constructor() {
     actual val engine: HttpClientEngine = Android.create()
 }
 
+actual class DecimalFormat {
+    actual fun format(number: Int): String {
+        val formatter = java.text.DecimalFormat()
+        formatter.minimumIntegerDigits = 2
+        formatter.isGroupingUsed = false
+        formatter.maximumFractionDigits = 2
+        formatter.isDecimalSeparatorAlwaysShown = false
+        return formatter.format(number)
+    }
+}
+
 actual typealias Image = Bitmap
 actual fun ByteArray.toNativeImage(): Image = BitmapFactory.decodeByteArray(this, 0, this.size)
 actual fun Image.toByteArray(): ByteArray {

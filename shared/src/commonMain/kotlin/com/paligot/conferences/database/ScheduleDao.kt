@@ -1,16 +1,25 @@
 package com.paligot.conferences.database
 
 import com.paligot.conferences.db.Conferences4HallDatabase
+import com.paligot.conferences.extensions.formatHoursMinutes
 import com.paligot.conferences.models.ScheduleItem
 import com.paligot.conferences.models.TalkItemUi
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
 import kotlinx.coroutines.flow.Flow
+import kotlinx.datetime.toLocalDateTime
 
 class ScheduleDao(private val db: Conferences4HallDatabase, private val eventId: String) {
     fun fetchSchedules(): Flow<List<TalkItemUi>> =
-        db.agendaQueries.selectScheduleItems(eventId) { id, _, time, room, title, speakers, is_favorite ->
-            TalkItemUi(id = id, room = room, time = time, title = title, speakers = speakers, isFavorite = is_favorite)
+        db.agendaQueries.selectScheduleItems(eventId) { id, _, startTime, _, room, title, speakers, is_favorite ->
+            TalkItemUi(
+                id = id,
+                room = room,
+                time = startTime.toLocalDateTime().formatHoursMinutes(),
+                title = title,
+                speakers = speakers,
+                isFavorite = is_favorite
+            )
         }.asFlow().mapToList()
 
     fun markAsFavorite(scheduleId: String, isFavorite: Boolean) {
@@ -52,7 +61,8 @@ class ScheduleDao(private val db: Conferences4HallDatabase, private val eventId:
                 db.agendaQueries.insertSchedule(
                     id = schedule.id,
                     event_id = eventId,
-                    time = schedule.time,
+                    start_time = schedule.startTime,
+                    end_time = schedule.endTime,
                     room = schedule.room,
                     title = schedule.talk?.title ?: "Pause",
                     speakers = schedule.talk?.speakers?.map { it.displayName } ?: emptyList(),
@@ -61,7 +71,8 @@ class ScheduleDao(private val db: Conferences4HallDatabase, private val eventId:
             } else {
                 db.agendaQueries.updateSchedule(
                     event_id = eventId,
-                    time = schedule.startTime,
+                    start_time = schedule.startTime,
+                    end_time = schedule.endTime,
                     room = schedule.room,
                     title = schedule.talk?.title ?: "Pause",
                     speakers = schedule.talk?.speakers?.map { it.displayName } ?: emptyList(),
