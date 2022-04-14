@@ -11,6 +11,7 @@ data class Talk(
   val abstract: String,
   val category: String,
   val format: String,
+  val language: String,
   val speakers: List<Speaker>,
   @SerialName("open_feedback")
   val openFeedback: String?

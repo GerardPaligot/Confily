@@ -10,6 +10,7 @@ data class TalkInput(
   val abstract: String = "",
   val category: String = "",
   val format: String = "",
+  val language: String = "",
   @SerialName("speaker_ids")
   val speakerIds: List<String> = emptyList()
 ): Validator {

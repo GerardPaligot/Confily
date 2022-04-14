@@ -7,5 +7,6 @@ data class TalkDb(
   val abstract: String = "",
   val category: String = "",
   val format: String = "",
+  val language: String = "",
   val speakerIds: List<String> = emptyList()
 )
