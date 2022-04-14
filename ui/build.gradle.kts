@@ -29,6 +29,7 @@ dependencies {
     implementation("io.coil-kt:coil-svg:$coilVersion")
     implementation("com.google.accompanist:accompanist-placeholder-material:$accompanistVersion")
     implementation("br.com.devsrsouza.compose.icons.android:font-awesome:1.0.0")
+    implementation("com.github.jeziellago:compose-markdown:0.2.9")
     implementation("androidx.compose.material:material:$composeVersion")
     implementation("androidx.compose.material:material-icons-extended:$composeVersion")
     implementation("androidx.compose.ui:ui-tooling:$composeVersion")

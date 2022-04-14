@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.paligot.conferences.models.TalkUi
 import com.paligot.conferences.ui.theme.Conferences4HallTheme
+import dev.jeziellago.compose.markdowntext.MarkdownText
 
 @Composable
 fun TalkSection(
@@ -36,8 +37,8 @@ fun TalkSection(
         }
         Spacer(modifier = Modifier.height(8.dp))
         CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-            Text(
-                text = talk.abstract,
+            MarkdownText(
+                markdown = talk.abstract,
                 color = color.copy(LocalContentAlpha.current),
                 style = bodyTextStyle
             )

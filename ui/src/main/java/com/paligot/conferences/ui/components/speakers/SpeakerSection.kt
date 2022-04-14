@@ -14,6 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.paligot.conferences.models.SpeakerUi
 import com.paligot.conferences.ui.theme.Conferences4HallTheme
+import dev.jeziellago.compose.markdowntext.MarkdownText
 
 @Composable
 fun SpeakerSection(
@@ -44,7 +45,11 @@ fun SpeakerSection(
                 }
             }
         }
-        Text(text = speaker.bio, style = bodyTextStyle, color = color)
+        MarkdownText(
+            markdown = speaker.bio,
+            color = color,
+            style = bodyTextStyle
+        )
     }
 }
 
