@@ -1,9 +1,9 @@
 package com.paligot.conferences.ui.components.events
 
-import android.graphics.drawable.ColorDrawable
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.Indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
@@ -14,18 +14,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.ImageLoader
-import coil.compose.rememberImagePainter
+import coil.compose.rememberAsyncImagePainter
 import coil.decode.SvgDecoder
 import com.paligot.conferences.models.PartnerItemUi
 import com.paligot.conferences.ui.theme.Conferences4HallTheme
 import com.paligot.conferences.ui.theme.placeholder
-import android.graphics.Color as AndroidColor
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -41,8 +41,8 @@ fun PartnerItem(
     onClick: (siteUrl: String?) -> Unit
 ) {
     val imageLoader = ImageLoader.Builder(LocalContext.current)
-        .componentRegistry {
-            add(SvgDecoder(LocalContext.current))
+        .components {
+            add(SvgDecoder.Factory())
         }
         .build()
     Surface(
@@ -55,19 +55,14 @@ fun PartnerItem(
         onClick = { onClick(partnerUi.siteUrl) },
     ) {
         Image(
-            painter = rememberImagePainter(partnerUi.logoUrl,
-                builder = {
-                    val r = MaterialTheme.colors.primary.red
-                    val g = MaterialTheme.colors.primary.green
-                    val b = MaterialTheme.colors.primary.blue
-                    val color = AndroidColor.rgb((r * 100).toInt(), (g * 100).toInt(), (b * 100).toInt())
-                    this.placeholder(ColorDrawable(color))
-                },
+            painter = rememberAsyncImagePainter(
+                model = partnerUi.logoUrl,
+                placeholder = ColorPainter(backgroundColor),
                 imageLoader = imageLoader
             ),
             contentDescription = partnerUi.name,
-            modifier = modifier,
-            contentScale = contentScale
+            contentScale = contentScale,
+            modifier = Modifier.padding(8.dp)
         )
     }
 }

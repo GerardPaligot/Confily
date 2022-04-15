@@ -1,16 +1,15 @@
 package com.paligot.conferences.ui.components.speakers
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
-import coil.compose.rememberImagePainter
+import coil.compose.rememberAsyncImagePainter
 import com.paligot.conferences.models.SpeakerUi
 import com.paligot.conferences.ui.theme.Conferences4HallTheme
 
@@ -22,13 +21,10 @@ fun SpeakerAvatar(
     contentScale: ContentScale = ContentScale.Crop
 ) {
     Image(
-        painter = rememberImagePainter(url, builder = {
-            val r = MaterialTheme.colors.primary.red
-            val g = MaterialTheme.colors.primary.green
-            val b = MaterialTheme.colors.primary.blue
-            val color = Color.rgb((r * 100).toInt(), (g * 100).toInt(), (b * 100).toInt())
-            this.placeholder(ColorDrawable(color))
-        }),
+        painter = rememberAsyncImagePainter(
+            model = url,
+            placeholder = ColorPainter(MaterialTheme.colors.primary)
+        ),
         contentDescription = contentDescription,
         modifier = modifier.clip(CircleShape),
         contentScale = contentScale
