@@ -14,9 +14,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.halilibo.richtext.markdown.Markdown
+import com.halilibo.richtext.ui.RichText
+import com.halilibo.richtext.ui.RichTextThemeIntegration
 import com.paligot.conferences.models.TalkUi
 import com.paligot.conferences.ui.theme.Conferences4HallTheme
-import dev.jeziellago.compose.markdowntext.MarkdownText
 
 @Composable
 fun TalkSection(
@@ -36,12 +38,19 @@ fun TalkSection(
             Text(text = it, color = color, style = bodyTextStyle)
         }
         Spacer(modifier = Modifier.height(8.dp))
-        CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-            MarkdownText(
-                markdown = talk.abstract,
-                color = color.copy(LocalContentAlpha.current),
-                style = bodyTextStyle
-            )
+        CompositionLocalProvider(
+            LocalContentAlpha provides ContentAlpha.medium
+        ) {
+            RichTextThemeIntegration(
+                textStyle = { bodyTextStyle },
+                ProvideTextStyle = null,
+                contentColor = { color.copy(LocalContentAlpha.current) },
+                ProvideContentColor = null,
+            ) {
+                RichText {
+                    Markdown(talk.abstract)
+                }
+            }
         }
     }
 }

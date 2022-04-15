@@ -5,16 +5,17 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.halilibo.richtext.markdown.Markdown
+import com.halilibo.richtext.ui.RichText
+import com.halilibo.richtext.ui.RichTextThemeIntegration
 import com.paligot.conferences.models.SpeakerUi
 import com.paligot.conferences.ui.theme.Conferences4HallTheme
-import dev.jeziellago.compose.markdowntext.MarkdownText
 
 @Composable
 fun SpeakerSection(
@@ -45,11 +46,16 @@ fun SpeakerSection(
                 }
             }
         }
-        MarkdownText(
-            markdown = speaker.bio,
-            color = color,
-            style = bodyTextStyle
-        )
+        RichTextThemeIntegration(
+            textStyle = { bodyTextStyle },
+            ProvideTextStyle = null,
+            contentColor = { color },
+            ProvideContentColor = null,
+        ) {
+            RichText {
+                Markdown(speaker.bio)
+            }
+        }
     }
 }
 
