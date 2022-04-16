@@ -4,7 +4,9 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.paligot.conferences.android.R
 import com.paligot.conferences.repositories.AgendaRepository
 import com.paligot.conferences.ui.screens.SpeakerDetail
 
@@ -22,8 +24,8 @@ fun SpeakerDetailVM(
     )
     val uiState = viewModel.uiState.collectAsState()
     when (uiState.value) {
-        is SpeakerUiState.Loading -> Text("Loading...")
-        is SpeakerUiState.Failure -> Text("Something wrong happened")
+        is SpeakerUiState.Loading -> Text(text = stringResource(id = R.string.text_loading))
+        is SpeakerUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
         is SpeakerUiState.Success -> SpeakerDetail(
             speaker = (uiState.value as SpeakerUiState.Success).speaker,
             modifier = modifier,

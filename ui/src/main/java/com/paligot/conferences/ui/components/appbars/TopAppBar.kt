@@ -10,8 +10,10 @@ import androidx.compose.material.icons.filled.QrCodeScanner
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.paligot.conferences.ui.R
 import com.paligot.conferences.ui.theme.Conferences4HallTheme
 
 @Composable
@@ -31,7 +33,9 @@ fun TopAppBar(
                 IconButton(onClick = { onActionClicked?.let { it(action.id) } }) {
                     Icon(
                         imageVector = action.icon,
-                        contentDescription = action.contentDescription
+                        contentDescription = action.contentDescription?.let {
+                            stringResource(id = it, action.formatArgs)
+                        } ?: run { null }
                     )
                 }
             }
@@ -40,9 +44,10 @@ fun TopAppBar(
 }
 
 open class ActionItem(
-    val icon: ImageVector,
-    val contentDescription: String?,
     val id: ActionItemId,
+    val icon: ImageVector,
+    val contentDescription: Int?,
+    val formatArgs: List<String> = emptyList()
 )
 
 sealed class ActionItemId {
@@ -77,7 +82,7 @@ fun TopAppBarPeview() {
                 actions = arrayListOf(
                     ActionItem(
                         icon = Icons.Filled.QrCodeScanner,
-                        contentDescription = "Scan QrCode",
+                        contentDescription = R.string.action_qrcode_scanner,
                         id = ActionItemId.QrCodeScannerActionItem
                     )
                 )

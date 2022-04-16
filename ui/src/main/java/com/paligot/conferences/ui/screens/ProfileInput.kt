@@ -3,7 +3,6 @@ package com.paligot.conferences.ui.screens
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -19,11 +18,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.paligot.conferences.models.UserProfileUi
+import com.paligot.conferences.ui.R
 import com.paligot.conferences.ui.components.appbars.TopAppBar
 import com.paligot.conferences.ui.theme.Conferences4HallTheme
 
@@ -43,7 +44,7 @@ fun ProfileInput(
         modifier = modifier,
         topBar = {
             TopAppBar(
-                title = "Create your profile",
+                title = stringResource(id = R.string.screen_profile),
                 navigationIcon = { Back(onClick = onBackClicked) }
             )
         },
@@ -59,7 +60,7 @@ fun ProfileInput(
                     BoxWithConstraints {
                         Image(
                             bitmap = profile.qrCode!!.asImageBitmap(),
-                            contentDescription = "Your qrcode to be scanned",
+                            contentDescription = stringResource(id = R.string.semantic_profile_qrcode),
                             modifier = Modifier.size(this.maxWidth * 2/3)
                         )
                     }
@@ -69,7 +70,7 @@ fun ProfileInput(
                 TextField(
                     value = profile.email,
                     onValueChange = { text -> onValueChanged(Field.Email, text) },
-                    label = { Text("Your email address*") },
+                    label = { Text(text = stringResource(id = R.string.input_email)) },
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Next,
                         keyboardType = KeyboardType.Email
@@ -83,7 +84,7 @@ fun ProfileInput(
                 TextField(
                     value = profile.firstName,
                     onValueChange = { text -> onValueChanged(Field.FirstName, text) },
-                    label = { Text("Your first name*") },
+                    label = { Text(text = stringResource(id = R.string.input_firstname)) },
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Next,
                         keyboardType = KeyboardType.Text
@@ -97,7 +98,7 @@ fun ProfileInput(
                 TextField(
                     value = profile.lastName,
                     onValueChange = { text -> onValueChanged(Field.LastName, text) },
-                    label = { Text("Your last name*") },
+                    label = { Text(text = stringResource(id = R.string.input_lastname)) },
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Next,
                         keyboardType = KeyboardType.Text
@@ -111,7 +112,7 @@ fun ProfileInput(
                 TextField(
                     value = profile.company,
                     onValueChange = { text -> onValueChanged(Field.Company, text) },
-                    label = { Text("Your company") },
+                    label = { Text(text = stringResource(id = R.string.input_company)) },
                     keyboardActions = KeyboardActions(onDone = {
                         focusManager.clearFocus()
                         onValidation()
@@ -132,7 +133,7 @@ fun ProfileInput(
                         onValidation()
                     },
                 ) {
-                    Text("Generate your QR code")
+                    Text(text = stringResource(id = R.string.action_generate_qrcode))
                 }
             }
         }

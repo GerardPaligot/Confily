@@ -3,7 +3,9 @@ package com.paligot.conferences.android.screens.scanner
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.paligot.conferences.android.R
 import com.paligot.conferences.models.UserNetworkingUi
 import com.paligot.conferences.repositories.UserRepository
 import com.paligot.conferences.ui.components.appbars.TopAppBar
@@ -42,7 +44,7 @@ fun QrCodeScanner(
         modifier = modifier,
         topBar = {
             TopAppBar(
-                title = "Qr Code Scanner",
+                title = stringResource(id = R.string.screen_qrcode_scanner),
                 navigationIcon = { Back(onClick = onBackClicked) }
             )
         },

@@ -4,7 +4,9 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.paligot.conferences.android.R
 import com.paligot.conferences.repositories.AgendaRepository
 import com.paligot.conferences.ui.screens.ScheduleDetail
 
@@ -22,8 +24,8 @@ fun ScheduleDetailVM(
     )
     val uiState = viewModel.uiState.collectAsState()
     when (uiState.value) {
-        is ScheduleUiState.Loading -> Text("Loading...")
-        is ScheduleUiState.Failure -> Text("Something wrong happened")
+        is ScheduleUiState.Loading -> Text(text = stringResource(id = R.string.text_loading))
+        is ScheduleUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
         is ScheduleUiState.Success -> ScheduleDetail(
             talk = (uiState.value as ScheduleUiState.Success).talk,
             modifier = modifier,

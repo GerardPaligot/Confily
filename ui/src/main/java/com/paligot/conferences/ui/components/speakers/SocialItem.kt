@@ -19,12 +19,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.paligot.conferences.models.EventUi
 import com.paligot.conferences.models.SpeakerUi
+import com.paligot.conferences.ui.R
 import com.paligot.conferences.ui.theme.Conferences4HallTheme
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Brands
@@ -46,7 +50,7 @@ object Socials {
         SocialItem(
             text = text,
             imageVector = FontAwesomeIcons.Brands.Twitter,
-            contentDescription = "Twitter of $text",
+            contentDescription = stringResource(id = R.string.semantic_twitter, text),
             modifier = modifier,
             style = style,
             color = color,
@@ -69,7 +73,7 @@ object Socials {
         SocialItem(
             text = text,
             imageVector = FontAwesomeIcons.Brands.Github,
-            contentDescription = "GitHub of $text",
+            contentDescription = stringResource(id = R.string.semantic_github, text),
             modifier = modifier,
             style = style,
             color = color,
@@ -92,7 +96,7 @@ object Socials {
         SocialItem(
             text = text,
             imageVector = FontAwesomeIcons.Brands.LinkedinIn,
-            contentDescription = "LinkedIn of $text",
+            contentDescription = stringResource(id = R.string.semantic_linkedin, text),
             modifier = modifier,
             style = style,
             color = color,
@@ -119,6 +123,11 @@ internal fun SocialItem(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         modifier = modifier
+            .semantics {
+                contentDescription?.let {
+                    this.contentDescription = contentDescription
+                }
+            }
             .clickable(
                 interactionSource = interactionSource,
                 indication = indication,
@@ -129,7 +138,7 @@ internal fun SocialItem(
     ) {
         Icon(
             imageVector = imageVector,
-            contentDescription = contentDescription,
+            contentDescription = null,
             tint = color,
             modifier = Modifier.size(24.dp)
         )

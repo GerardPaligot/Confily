@@ -7,8 +7,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.paligot.conferences.models.EventUi
+import com.paligot.conferences.ui.R
 import com.paligot.conferences.ui.components.events.EventSection
 import com.paligot.conferences.ui.components.events.PartnerDivider
 import com.paligot.conferences.ui.components.events.PartnerRow
@@ -41,15 +43,15 @@ fun Event(
                 onLinkedInClick = onLinkedInClick
             )
         }
-        item { PartnerDivider(title = "Gold") }
+        item { PartnerDivider(title = stringResource(id = R.string.title_gold)) }
         items(event.partners.golds.chunked(3)) {
             PartnerRow(partners = it, onPartnerClick = onPartnerClick, isLoading = isLoading)
         }
-        item { PartnerDivider(title = "Silver") }
+        item { PartnerDivider(title = stringResource(id = R.string.title_silver)) }
         items(event.partners.silvers.chunked(3)) {
             PartnerRow(partners = it, onPartnerClick = onPartnerClick, isLoading = isLoading)
         }
-        item { PartnerDivider(title = "Bronze") }
+        item { PartnerDivider(title = stringResource(id = R.string.title_bronze)) }
         items(event.partners.bronzes.chunked(3)) {
             PartnerRow(partners = it, onPartnerClick = onPartnerClick, isLoading = isLoading)
         }

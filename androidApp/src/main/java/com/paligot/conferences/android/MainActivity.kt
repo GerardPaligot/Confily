@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.primarySurface
 import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -69,6 +70,8 @@ class MainActivity : AppCompatActivity() {
                 val navController = rememberNavController()
                 NavHost(navController = navController, startDestination = "home") {
                     composable(route = "home") {
+                        val reportSubject = stringResource(id = R.string.text_report_subject)
+                        val reportAppTarget = stringResource(id = R.string.text_report_app_target)
                         Home(
                             agendaRepository = agendaRepository,
                             userRepository = userRepository,
@@ -95,9 +98,9 @@ class MainActivity : AppCompatActivity() {
                             onReportClicked = {
                                 val intent = Intent(Intent.ACTION_SEND)
                                 intent.putExtra(Intent.EXTRA_EMAIL, arrayOf("contact@gdglille.org"))
-                                intent.putExtra(Intent.EXTRA_SUBJECT, "Report from Devfest Lille App")
+                                intent.putExtra(Intent.EXTRA_SUBJECT, reportSubject)
                                 intent.type = "message/rfc822"
-                                startActivity(Intent.createChooser(intent, "Choose an Email client :"))
+                                startActivity(Intent.createChooser(intent, reportAppTarget))
                             }
                         )
                     }

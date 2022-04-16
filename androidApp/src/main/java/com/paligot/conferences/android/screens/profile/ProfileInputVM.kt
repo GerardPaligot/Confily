@@ -4,7 +4,9 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.paligot.conferences.android.R
 import com.paligot.conferences.repositories.UserRepository
 import com.paligot.conferences.ui.screens.ProfileInput
 
@@ -19,8 +21,8 @@ fun ProfileInputVM(
     )
     val uiState = viewModel.uiState.collectAsState()
     when (uiState.value) {
-        is ProfileInputUiState.Loading -> Text("Loading...")
-        is ProfileInputUiState.Failure -> Text("Something wrong happened")
+        is ProfileInputUiState.Loading -> Text(text = stringResource(id = R.string.text_loading))
+        is ProfileInputUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
         is ProfileInputUiState.Success -> ProfileInput(
             profile = (uiState.value as ProfileInputUiState.Success).profile,
             modifier = modifier,

@@ -9,7 +9,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.paligot.conferences.ui.R
 import com.paligot.conferences.ui.theme.Conferences4HallTheme
 import com.paligot.conferences.ui.theme.onPrimarySurface
 
@@ -22,7 +24,7 @@ object AppBarIcons {
     ) {
         AppBarIcon(
             imageVector = Icons.Filled.ArrowBack,
-            contentDescription = "Back",
+            contentDescription = stringResource(id = R.string.action_back),
             modifier = modifier,
             color = color,
             onClick = onClick

@@ -1,7 +1,8 @@
 CREATE TABLE Talk(
 id TEXT NOT NULL PRIMARY KEY,
 title TEXT NOT NULL,
-date TEXT NOT NULL,
+start_time TEXT NOT NULL,
+end_time TEXT NOT NULL,
 room TEXT NOT NULL,
 level TEXT,
 abstract TEXT NOT NULL,
@@ -20,8 +21,8 @@ FOREIGN KEY (talk_id) REFERENCES Speaker(id)
 
 insertTalk:
 INSERT OR REPLACE INTO Talk(
-id, title, date, room, level, abstract, category, format, open_feedback
-) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);
+id, title, start_time, end_time, room, level, abstract, category, format, open_feedback
+) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
 
 selectTalks:
 SELECT * FROM Talk WHERE id IN ?;

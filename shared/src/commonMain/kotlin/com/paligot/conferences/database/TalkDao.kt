@@ -13,7 +13,8 @@ class TalkDao(private val db: Conferences4HallDatabase) {
             title = talk.title,
             level = talk.level,
             abstract = talk.abstract_,
-            date = talk.date,
+            startTime = talk.start_time,
+            endTime = talk.end_time,
             room = talk.room,
             speakers = speakers.map {
                 SpeakerItemUi(

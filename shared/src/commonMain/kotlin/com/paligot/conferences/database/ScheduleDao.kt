@@ -34,7 +34,8 @@ class ScheduleDao(private val db: Conferences4HallDatabase, private val eventId:
                 db.talkQueries.insertTalk(
                     id = talk.id,
                     title = talk.title,
-                    date = talk.date,
+                    start_time = talk.start_time,
+                    end_time = talk.end_time,
                     room = talk.room,
                     level = talk.level,
                     abstract_ = talk.abstract_,

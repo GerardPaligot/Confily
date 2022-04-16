@@ -5,6 +5,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -44,7 +45,7 @@ fun Home(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = screen.title,
+                title = stringResource(id = screen.title),
                 actions = screen.actions,
                 onActionClicked = {
                     when (it) {

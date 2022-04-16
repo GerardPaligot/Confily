@@ -6,7 +6,9 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.paligot.conferences.ui.R
 import com.paligot.conferences.ui.screens.Screen
 import com.paligot.conferences.ui.theme.Conferences4HallTheme
 
@@ -25,10 +27,10 @@ fun BottomAppBar(
             icon = {
                 Icon(
                     imageVector = Screen.Agenda.imageVector(Screen.Agenda == selected),
-                    contentDescription = Screen.Agenda.title
+                    contentDescription = stringResource(id = Screen.Agenda.title)
                 )
             },
-            label = { Text("Agenda") },
+            label = { Text(text = stringResource(id = R.string.screen_agenda)) },
             alwaysShowLabel = true
         )
         BottomNavigationItem(
@@ -39,10 +41,10 @@ fun BottomAppBar(
             icon = {
                 Icon(
                     imageVector = Screen.Networking.imageVector(Screen.Networking == selected),
-                    contentDescription = Screen.Networking.title
+                    contentDescription = stringResource(id = Screen.Networking.title)
                 )
             },
-            label = { Text("Networking") },
+            label = { Text(text = stringResource(id = R.string.screen_networking)) },
             alwaysShowLabel = true
         )
         BottomNavigationItem(
@@ -53,10 +55,10 @@ fun BottomAppBar(
             icon = {
                 Icon(
                     imageVector = Screen.Event.imageVector(Screen.Event == selected),
-                    contentDescription = Screen.Event.title
+                    contentDescription = stringResource(id = Screen.Event.title)
                 )
             },
-            label = { Text("Event") },
+            label = { Text(text = stringResource(id = R.string.screen_event)) },
             alwaysShowLabel = true
         )
     }

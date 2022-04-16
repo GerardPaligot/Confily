@@ -12,9 +12,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.paligot.conferences.models.TalkUi
+import com.paligot.conferences.ui.R
 import com.paligot.conferences.ui.components.appbars.ActionItem
 import com.paligot.conferences.ui.components.appbars.ActionItemId
 import com.paligot.conferences.ui.components.appbars.TopAppBar
@@ -31,28 +33,28 @@ fun ScheduleDetail(
     onSpeakerClicked: (id: String) -> Unit,
     onShareClicked: (text: String) -> Unit
 ) {
+    val speakers = talk.speakers.joinToString(", ") { speaker ->
+        if (speaker.twitter == null) speaker.name
+        else "${speaker.name} (@${speaker.twitter})"
+    }
+    val textShared = stringResource(id = R.string.input_share_talk, talk.title, speakers)
     Scaffold(
         modifier = modifier,
         topBar = {
             TopAppBar(
-                title = "Talk Details",
+                title = stringResource(id = R.string.screen_schedule_detail),
                 navigationIcon = { Back(onClick = onBackClicked) },
                 actions = arrayListOf(
                     ActionItem(
+                        id = ActionItemId.ShareActionItem,
                         icon = Icons.Default.Share,
-                        contentDescription = "Share talk ${talk.title}",
-                        id = ActionItemId.ShareActionItem
+                        contentDescription = R.string.action_share_talk,
+                        formatArgs = arrayListOf(talk.title)
                     )
                 ),
                 onActionClicked = {
-                    val speakers = talk.speakers
-                        .map { speaker ->
-                            if (speaker.twitter == null) speaker.name
-                            else "${speaker.name} (@${speaker.twitter})"
-                        }
-                        .joinToString(", ")
                     when (it) {
-                        ActionItemId.ShareActionItem -> { onShareClicked("${talk.title} by $speakers") }
+                        ActionItemId.ShareActionItem -> { onShareClicked(textShared) }
                         else -> TODO()
                     }
                 }

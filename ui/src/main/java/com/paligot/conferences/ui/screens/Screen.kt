@@ -1,5 +1,6 @@
 package com.paligot.conferences.ui.screens
 
+import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Event
 import androidx.compose.material.icons.filled.Group
@@ -11,12 +12,13 @@ import androidx.compose.material.icons.outlined.Event
 import androidx.compose.material.icons.outlined.Group
 import androidx.compose.material.icons.outlined.LocalActivity
 import androidx.compose.ui.graphics.vector.ImageVector
+import com.paligot.conferences.ui.R
 import com.paligot.conferences.ui.components.appbars.ActionItem
 import com.paligot.conferences.ui.components.appbars.ActionItemId
 
 sealed class Screen(
     val route: String,
-    val title: String,
+    @StringRes val title: Int,
     val imageVectorFilled: ImageVector,
     val imageVectorOutlined: ImageVector,
     val actions: List<ActionItem> = emptyList()
@@ -25,25 +27,25 @@ sealed class Screen(
 
     object Agenda : Screen(
         route = "agenda",
-        title = "Agenda",
+        title = R.string.screen_agenda,
         imageVectorFilled = Icons.Filled.Event,
         imageVectorOutlined = Icons.Outlined.Event
     )
 
     object Networking : Screen(
         route = "networking",
-        title = "Networking",
+        title = R.string.screen_networking,
         imageVectorFilled = Icons.Filled.Group,
         imageVectorOutlined = Icons.Outlined.Group,
         actions = arrayListOf(
             ActionItem(
                 icon = Icons.Filled.QrCodeScanner,
-                contentDescription = "QrCode scanner",
+                contentDescription = R.string.action_qrcode_scanner,
                 id = ActionItemId.QrCodeScannerActionItem
             ),
             ActionItem(
                 icon = Icons.Filled.QrCode,
-                contentDescription = "QrCode Generator",
+                contentDescription = R.string.action_qrcode_generator,
                 id = ActionItemId.QrCodeActionItem
             )
         )
@@ -51,13 +53,13 @@ sealed class Screen(
 
     object Event : Screen(
         route = "event",
-        title = "Event Info",
+        title = R.string.screen_event,
         imageVectorFilled = Icons.Filled.LocalActivity,
         imageVectorOutlined = Icons.Outlined.LocalActivity,
         actions = arrayListOf(
             ActionItem(
                 icon = Icons.Default.Report,
-                contentDescription = "Report something to organizers",
+                contentDescription = R.string.action_report,
                 id = ActionItemId.ReportActionItem
             )
         )

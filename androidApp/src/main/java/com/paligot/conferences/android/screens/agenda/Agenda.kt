@@ -4,7 +4,9 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.paligot.conferences.android.R
 import com.paligot.conferences.repositories.AgendaRepository
 import com.paligot.conferences.ui.screens.Agenda
 
@@ -26,7 +28,7 @@ fun AgendaVM(
             onTalkClicked = {},
             onFavoriteClicked = { _, _ -> }
         )
-        is AgendaUiState.Failure -> Text("Something wrong happened")
+        is AgendaUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
         is AgendaUiState.Success -> Agenda(
             agenda = (uiState.value as AgendaUiState.Success).agenda,
             modifier = modifier,

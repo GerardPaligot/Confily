@@ -3,7 +3,6 @@ package com.paligot.conferences.database
 import com.paligot.conferences.db.Event
 import com.paligot.conferences.db.Speaker
 import com.paligot.conferences.db.Talk
-import com.paligot.conferences.extensions.formatHoursMinutes
 import com.paligot.conferences.models.ScheduleItem
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
@@ -23,7 +22,9 @@ fun com.paligot.conferences.models.Speaker.convertToModelDb(): Speaker = Speaker
 fun ScheduleItem.convertToModelDb(): Talk = Talk(
     id = this.id,
     title = this.talk!!.title,
-    date = "Talk from ${this.startTime.toLocalDateTime().formatHoursMinutes()} to ${this.endTime.toLocalDateTime().formatHoursMinutes()}",
+    // date = "Talk from ${this.startTime.toLocalDateTime().formatHoursMinutes()} to ${this.endTime.toLocalDateTime().formatHoursMinutes()}",
+    start_time = this.startTime,
+    end_time = this.endTime,
     room = this.room,
     level = this.talk!!.level,
     abstract_ = this.talk!!.abstract,

@@ -9,10 +9,12 @@ import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionRequired
 import com.google.accompanist.permissions.rememberPermissionState
+import com.paligot.conferences.android.R
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
@@ -26,27 +28,24 @@ fun FeatureThatRequiresCameraPermission(
         permissionState = cameraPermissionState,
         permissionNotGrantedContent = {
             Column {
-                Text("The camera is important to scan QR code. Please grant the permission.")
+                Text(text = stringResource(id = R.string.text_camera_permission_explaination))
                 Spacer(modifier = Modifier.height(8.dp))
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     Button(onClick = { cameraPermissionState.launchPermissionRequest() }) {
-                        Text("Ok")
+                        Text(text = stringResource(id = R.string.action_submit_accept))
                     }
                     Button(onClick = onRefusePermissionClicked) {
-                        Text("No")
+                        Text(text = stringResource(id = R.string.action_submit_deny))
                     }
                 }
             }
         },
         permissionNotAvailableContent = {
             Column {
-                Text(
-                    "Camera permission denied. See this FAQ with information about why we " +
-                            "need this permission. Please, grant us access on the Settings screen."
-                )
+                Text(text = stringResource(id = R.string.text_camera_permission_deny))
                 Spacer(modifier = Modifier.height(8.dp))
                 Button(onClick = navigateToSettingsScreen) {
-                    Text("Open Settings")
+                    Text(text = stringResource(id = R.string.action_system_settings))
                 }
             }
         },

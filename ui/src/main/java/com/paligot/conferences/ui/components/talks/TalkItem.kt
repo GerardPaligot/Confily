@@ -19,10 +19,12 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.paligot.conferences.models.TalkItemUi
+import com.paligot.conferences.ui.R
 import com.paligot.conferences.ui.theme.Conferences4HallTheme
 
 @Composable
@@ -70,7 +72,8 @@ fun TalkItem(
             ) {
                 Icon(
                     imageVector = if (talk.isFavorite) Icons.Outlined.Star else Icons.Outlined.Grade,
-                    contentDescription = if (talk.isFavorite) "Remove talk from favorites" else "Add talk in favorite",
+                    contentDescription = if (talk.isFavorite) stringResource(R.string.action_favorites_remove)
+                    else stringResource(R.string.action_favorites_add),
                     tint = favoriteColor
                 )
             }

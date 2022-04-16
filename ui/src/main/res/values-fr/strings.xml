@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="screen_agenda">Agenda</string>
+    <string name="screen_networking">Networking</string>
+    <string name="screen_event">Événement</string>
+    <string name="screen_schedule_detail">Détail d\'une session</string>
+    <string name="screen_profile">Création de ton profil</string>
+    <string name="screen_qrcode_scanner">Scan Qrcode</string>
+
+    <string name="title_gold">Gold</string>
+    <string name="title_silver">Silver</string>
+    <string name="title_bronze">Bronze</string>
+
+    <string name="text_loading">Chargement…</string>
+    <string name="text_error">Une erreur inconnue est survenue</string>
+    <string name="text_schedule_time">De %s à %s</string>
+    <string name="text_level_advanced">Avancé</string>
+    <string name="text_level_intermediate">Intermédiaire</string>
+    <string name="text_level_beginner">Débutant</string>
+    <string name="text_camera_permission_explaination">La caméra est important pour scanner des Qrcode. Pense à accepter la permission.</string>
+    <string name="text_camera_permission_deny">La permission pour la caméra a été refusée. Pense à donner l\'accès via les paramètres systèmes.</string>
+    <string name="text_report_subject">Report depuis l\'app Devfest Lille</string>
+    <string name="text_report_app_target">Choisissez une app pour envoyer un email:</string>
+
+    <string name="action_back">Retour</string>
+    <string name="action_share_talk">Partage la session %s</string>
+    <string name="action_qrcode_scanner">Scan de Qrcode</string>
+    <string name="action_qrcode_generator">Génère un Qrcode</string>
+    <string name="action_report">Reporter quelque chose aux organisateurs</string>
+    <string name="action_system_settings">Ouvre les préférences systèmes</string>
+    <string name="action_faq">FAQ</string>
+    <string name="action_coc">Code de Conduite</string>
+    <string name="action_favorites_remove">Retire la session de tes favoris</string>
+    <string name="action_favorites_add">Ajoute la session dans tes favoris</string>
+    <string name="action_generate_qrcode">Générer ton Qrcode</string>
+    <string name="action_submit_accept">Ok</string>
+    <string name="action_submit_deny">Non</string>
+
+    <string name="input_email">Ton adresse email*</string>
+    <string name="input_firstname">Ton prénom*</string>
+    <string name="input_lastname">Ton nom*</string>
+    <string name="input_company">Ton entreprise</string>
+    <string name="input_share_talk">%s par %s</string>
+
+    <string name="semantic_profile_qrcode">Ton Qrcode est affiché et prêt pour être scanné</string>
+    <string name="semantic_twitter">Twitter de %s</string>
+    <string name="semantic_github">GitHub de %s</string>
+    <string name="semantic_linkedin">LinkedIn de %s</string>
+</resources>

@@ -4,6 +4,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.paligot.conferences.android.R
 import com.paligot.conferences.repositories.AgendaRepository
@@ -35,7 +36,7 @@ fun EventVM(
             onLinkedInClick = {},
             onPartnerClick = {}
         )
-        is EventUiState.Failure -> Text("Something wrong happened")
+        is EventUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
         is EventUiState.Success -> Event(
             logo = R.drawable.ic_launcher_foreground,
             event = (uiState.value as EventUiState.Success).event,

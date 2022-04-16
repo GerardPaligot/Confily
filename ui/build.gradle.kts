@@ -6,6 +6,7 @@ plugins {
 val composeVersion: String by project
 val accompanistVersion: String by project
 val coilVersion: String by project
+val datetimeVersion: String by project
 android {
     compileSdk = 31
 
@@ -25,6 +26,7 @@ android {
 
 dependencies {
     implementation(project(":shared"))
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:$datetimeVersion")
     implementation("io.coil-kt:coil-compose:$coilVersion")
     implementation("io.coil-kt:coil-svg:$coilVersion")
     implementation("com.google.accompanist:accompanist-placeholder-material:$accompanistVersion")

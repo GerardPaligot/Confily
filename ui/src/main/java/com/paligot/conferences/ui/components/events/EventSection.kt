@@ -16,9 +16,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import com.paligot.conferences.models.EventInfoUi
+import com.paligot.conferences.ui.R
 import com.paligot.conferences.ui.components.speakers.Socials
 import com.paligot.conferences.ui.theme.placeholder
 
@@ -92,13 +94,13 @@ fun EventSection(
                 onClick = { onFaqClick(eventInfo.faqLink) },
                 modifier = Modifier.fillMaxWidth().weight(1f)
             ) {
-                Text("FAQ")
+                Text(text = stringResource(R.string.action_faq))
             }
             Button(
                 onClick = { onCoCClick(eventInfo.codeOfConductLink) },
                 modifier = Modifier.fillMaxWidth().weight(1f)
             ) {
-                Text("Code Of Conduct")
+                Text(text = stringResource(R.string.action_coc))
             }
         }
     }
