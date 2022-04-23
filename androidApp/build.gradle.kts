@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -10,16 +12,57 @@ val settingsVersion: String by project
 android {
     compileSdk = 31
     defaultConfig {
-        applicationId = "com.paligot.conferences.android"
+        applicationId = "org.gdglille.devfest.android"
         minSdk = 21
         targetSdk = 31
         versionCode = 1
         versionName = "1.0"
     }
 
+    val keystoreProps = project.file("keystore.properties")
+    signingConfigs {
+        val props = Properties()
+        if (keystoreProps.exists()) {
+            props.load(keystoreProps.reader())
+        }
+        create("release") {
+            keyAlias = props.getProperty("keyAlias")
+            keyPassword = props.getProperty("keyPassword")
+            storeFile = file("./keystore.release")
+            storePassword = props.getProperty("keyPassword")
+        }
+        getByName("debug") {
+            keyAlias = "debug"
+            keyPassword = "devfest"
+            storeFile = file("./keystore.debug")
+            storePassword = "devfest"
+        }
+    }
+
+    val appProps = project.file("app.properties")
     buildTypes {
+        val props = Properties()
+        if (appProps.exists()) {
+            props.load(appProps.reader())
+        }
         getByName("release") {
             isMinifyEnabled = false
+            buildConfigField("String", "BASE_URL", "\"${props.getProperty("BASE_URL")}\"")
+            buildConfigField("String", "EVENT_ID", "\"${props.getProperty("EVENT_ID")}\"")
+            buildConfigField("String", "CONTACT_MAIL", "\"${props.getProperty("CONTACT_MAIL")}\"")
+            buildConfigField("String", "OPENFEEDBACK_PROJECT_ID", "\"${props.getProperty("OPENFEEDBACK_PROJECT_ID")}\"")
+            buildConfigField("String", "FIREBASE_PROJECT_ID", "\"${props.getProperty("FIREBASE_PROJECT_ID")}\"")
+            buildConfigField("String", "FIREBASE_APP_ID", "\"${props.getProperty("FIREBASE_APP_ID")}\"")
+            buildConfigField("String", "FIREBASE_API_KEY", "\"${props.getProperty("FIREBASE_API_KEY")}\"")
+        }
+        getByName("debug") {
+            buildConfigField("String", "BASE_URL", "\"${props.getProperty("BASE_URL")}\"")
+            buildConfigField("String", "EVENT_ID", "\"${props.getProperty("EVENT_ID")}\"")
+            buildConfigField("String", "CONTACT_MAIL", "\"${props.getProperty("CONTACT_MAIL")}\"")
+            buildConfigField("String", "OPENFEEDBACK_PROJECT_ID", "\"${props.getProperty("OPENFEEDBACK_PROJECT_ID")}\"")
+            buildConfigField("String", "FIREBASE_PROJECT_ID", "\"${props.getProperty("FIREBASE_PROJECT_ID")}\"")
+            buildConfigField("String", "FIREBASE_APP_ID", "\"${props.getProperty("FIREBASE_APP_ID")}\"")
+            buildConfigField("String", "FIREBASE_API_KEY", "\"${props.getProperty("FIREBASE_API_KEY")}\"")
         }
     }
 
@@ -53,9 +96,11 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling:$composeVersion")
 
     implementation("com.google.mlkit:barcode-scanning:17.0.2")
-    implementation("androidx.camera:camera-camera2:1.1.0-beta01")
-    implementation("androidx.camera:camera-lifecycle:1.1.0-beta01")
-    implementation("androidx.camera:camera-view:1.1.0-beta01")
+    implementation("androidx.camera:camera-camera2:1.1.0-beta03")
+    implementation("androidx.camera:camera-lifecycle:1.1.0-beta03")
+    implementation("androidx.camera:camera-view:1.1.0-beta03")
+    // Required by AndroidX Camera but another dependency generate a conflict with Guava.
+    implementation("com.google.guava:guava:31.1-android")
 
     implementation("com.journeyapps:zxing-android-embedded:4.3.0") {
         isTransitive = false

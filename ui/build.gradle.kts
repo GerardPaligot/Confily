@@ -35,6 +35,7 @@ dependencies {
     implementation("androidx.compose.material:material:$composeVersion")
     implementation("androidx.compose.material:material-icons-extended:$composeVersion")
     implementation("androidx.compose.ui:ui-tooling:$composeVersion")
+    api("io.openfeedback:feedback-android-sdk-ui:0.0.8-SNAPSHOT")
     // Weird but necessary for the compose preview.
     debugImplementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
     debugImplementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")

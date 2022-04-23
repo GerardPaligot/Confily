@@ -92,7 +92,7 @@ kotlin {
 
 sqldelight {
     database("Conferences4HallDatabase") {
-        packageName = "com.paligot.conferences.db"
+        packageName = "org.gdglille.devfest.db"
         sourceFolders = listOf("sqldelight")
     }
 }

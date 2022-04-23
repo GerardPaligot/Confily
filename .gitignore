@@ -1,14 +1,30 @@
-*.iml
-.gradle
-/local.properties
-.idea
 .DS_Store
-/build
-*/build
-/captures
-.externalNativeBuild
-.cxx
+
+#Ant
+build.xml
 local.properties
+
+#Eclipse
+.project
+.classpath
+.settings
+
+#IntelliJ IDEA
+.idea
+*.iml
+*.ipr
+*.iws
+
+#Android Studio
+.gradle
+build/
+
+*.apk
+
+*/keystore.properties
+*/app.properties
+
+# Firebase instance
 firestore-debug.log
 firebase-debug.log
 ui-debug.log
