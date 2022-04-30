@@ -1,6 +1,11 @@
 package org.gdglille.devfest.android.screens
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
@@ -10,19 +15,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.gdglille.devfest.android.ui.R
+import io.openfeedback.android.OpenFeedbackConfig
+import io.openfeedback.android.components.OpenFeedback
+import io.openfeedback.android.components.rememberOpenFeedbackState
 import org.gdglille.devfest.android.components.appbars.ActionItem
 import org.gdglille.devfest.android.components.appbars.ActionItemId
 import org.gdglille.devfest.android.components.appbars.TopAppBar
 import org.gdglille.devfest.android.components.speakers.SpeakerBox
 import org.gdglille.devfest.android.components.speakers.SpeakerItem
+import org.gdglille.devfest.android.components.talks.OpenFeedbackNotStarted
 import org.gdglille.devfest.android.components.talks.TalkSection
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
-import io.openfeedback.android.OpenFeedbackConfig
-import io.openfeedback.android.components.OpenFeedback
-import io.openfeedback.android.components.rememberOpenFeedbackState
+import org.gdglille.devfest.android.ui.R
 import org.gdglille.devfest.models.TalkUi
-import java.util.Locale
+import java.util.*
 
 @Composable
 fun ScheduleDetail(
@@ -84,12 +90,16 @@ fun ScheduleDetail(
                         }
                     }
                 }
-                talk.openFeedbackSessionId?.let {
-                    item {
-                        Spacer(modifier = Modifier.height(8.dp))
+                item {
+                    Spacer(modifier = Modifier.height(8.dp))
+                    if (!talk.canGiveFeedback) {
+                        OpenFeedbackNotStarted(
+                            modifier = Modifier.padding(horizontal = contentPadding)
+                        )
+                    } else if (talk.openFeedbackSessionId != null) {
                         OpenFeedback(
                             openFeedbackState = openFeedbackState,
-                            sessionId = it,
+                            sessionId = talk.openFeedbackSessionId!!,
                             language = Locale.getDefault().language,
                             modifier = Modifier.padding(horizontal = contentPadding)
                         )

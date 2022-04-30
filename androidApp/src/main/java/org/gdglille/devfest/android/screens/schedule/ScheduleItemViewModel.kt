@@ -3,11 +3,11 @@ package org.gdglille.devfest.android.screens.schedule
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import org.gdglille.devfest.repositories.AgendaRepository
-import org.gdglille.devfest.models.TalkUi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import org.gdglille.devfest.models.TalkUi
+import org.gdglille.devfest.repositories.AgendaRepository
 
 sealed class ScheduleUiState {
     object Loading : ScheduleUiState()

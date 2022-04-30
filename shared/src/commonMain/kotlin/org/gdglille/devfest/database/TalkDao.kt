@@ -1,5 +1,8 @@
 package org.gdglille.devfest.database
 
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import org.gdglille.devfest.db.Conferences4HallDatabase
 import org.gdglille.devfest.models.SpeakerItemUi
 import org.gdglille.devfest.models.TalkUi
@@ -9,6 +12,8 @@ class TalkDao(private val db: Conferences4HallDatabase) {
         val talkWithSpeakers = db.talkQueries.selectTalkWithSpeakersByTalkId(talkId).executeAsList()
         val speakers = db.speakerQueries.selectSpeakers(talkWithSpeakers.map { it.speaker_id }).executeAsList()
         val talk = db.talkQueries.selectTalk(talkId).executeAsOne()
+        val now = Clock.System.now().toLocalDateTime(TimeZone.UTC)
+        val startTime = talk.start_time.toLocalDateTime()
         return@transactionWithResult TalkUi(
             title = talk.title,
             level = talk.level,
@@ -25,6 +30,7 @@ class TalkDao(private val db: Conferences4HallDatabase) {
                     twitter = it.twitter?.split("twitter.com/")?.get(1)
                 )
             },
+            canGiveFeedback = now > startTime,
             openFeedbackSessionId = talk.open_feedback
         )
     }

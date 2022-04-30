@@ -17,6 +17,7 @@
     <string name="text_level_advanced">Avancé</string>
     <string name="text_level_intermediate">Intermédiaire</string>
     <string name="text_level_beginner">Débutant</string>
+    <string name="text_openfeedback_not_started">Vous serez en mesure de donner un feedback quand la session aura démarrée !</string>
     <string name="text_camera_permission_explaination">La caméra est important pour scanner des Qrcode. Pense à accepter la permission.</string>
     <string name="text_camera_permission_deny">La permission pour la caméra a été refusée. Pense à donner l\'accès via les paramètres systèmes.</string>
     <string name="text_report_subject">Report depuis l\'app Devfest Lille</string>
