@@ -1,4 +1,4 @@
-import java.util.Properties
+import java.util.*
 
 plugins {
     id("com.android.application")
@@ -9,14 +9,17 @@ plugins {
 val composeVersion: String by project
 val accompanistVersion: String by project
 val settingsVersion: String by project
+val versionMajor = 0
+val versionMinor = 1
+val versionPatch = 0
 android {
     compileSdk = 31
     defaultConfig {
         applicationId = "org.gdglille.devfest.android"
         minSdk = 21
         targetSdk = 31
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = versionMajor * 1000 + versionMinor * 100 + versionPatch * 10
+        versionName = "${versionMajor}.${versionMinor}.${versionPatch}"
     }
 
     val keystoreProps = project.file("keystore.properties")
@@ -28,7 +31,7 @@ android {
         create("release") {
             keyAlias = props.getProperty("keyAlias")
             keyPassword = props.getProperty("keyPassword")
-            storeFile = file("./keystore.release")
+            storeFile = file("keystore.release")
             storePassword = props.getProperty("keyPassword")
         }
         getByName("debug") {
@@ -47,6 +50,7 @@ android {
         }
         getByName("release") {
             isMinifyEnabled = false
+            signingConfig = signingConfigs.getByName("release")
             buildConfigField("String", "BASE_URL", "\"${props.getProperty("BASE_URL")}\"")
             buildConfigField("String", "EVENT_ID", "\"${props.getProperty("EVENT_ID")}\"")
             buildConfigField("String", "CONTACT_MAIL", "\"${props.getProperty("CONTACT_MAIL")}\"")
