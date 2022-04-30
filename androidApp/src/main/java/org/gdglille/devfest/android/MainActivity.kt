@@ -1,6 +1,5 @@
 package org.gdglille.devfest.android
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
@@ -15,6 +14,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.russhwolf.settings.AndroidSettings
 import org.gdglille.devfest.android.data.QrCodeGeneratorAndroid
 import org.gdglille.devfest.android.screens.home.Home
 import org.gdglille.devfest.android.screens.profile.ProfileInputVM
@@ -22,10 +22,12 @@ import org.gdglille.devfest.android.screens.scanner.QrCodeScannerVm
 import org.gdglille.devfest.android.screens.schedule.ScheduleDetailVM
 import org.gdglille.devfest.android.screens.speakers.SpeakerDetailVM
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
-import com.russhwolf.settings.AndroidSettings
-import io.openfeedback.android.OpenFeedbackConfig
-import io.openfeedback.android.components.rememberOpenFeedbackState
-import org.gdglille.devfest.database.*
+import org.gdglille.devfest.database.DatabaseWrapper
+import org.gdglille.devfest.database.EventDao
+import org.gdglille.devfest.database.ScheduleDao
+import org.gdglille.devfest.database.SpeakerDao
+import org.gdglille.devfest.database.TalkDao
+import org.gdglille.devfest.database.UserDao
 import org.gdglille.devfest.network.ConferenceApi
 import org.gdglille.devfest.repositories.AgendaRepository
 import org.gdglille.devfest.repositories.UserRepository
@@ -55,16 +57,8 @@ class MainActivity : AppCompatActivity() {
             ),
             qrCodeGenerator = QrCodeGeneratorAndroid()
         )
+        val openFeedbackState = (application as MainApplication).openFeedbackConfig
         setContent {
-            val openFeedbackState = rememberOpenFeedbackState(
-                projectId = BuildConfig.OPENFEEDBACK_PROJECT_ID,
-                firebaseConfig = OpenFeedbackConfig.FirebaseConfig(
-                    projectId = BuildConfig.FIREBASE_PROJECT_ID,
-                    applicationId =  BuildConfig.APPLICATION_ID,
-                    apiKey = BuildConfig.FIREBASE_API_KEY,
-                    databaseUrl = "https://${BuildConfig.FIREBASE_PROJECT_ID}.firebaseio.com"
-                )
-            )
             Conferences4HallTheme {
                 val systemUiController = rememberSystemUiController()
                 val useDarkIcons = MaterialTheme.colors.isLight
