@@ -4,7 +4,7 @@ import shared
 @main
 struct iOSApp: App {
     let baseUrl = "https://cms4partners-ce427.nw.r.appspot.com"
-    let eventId = "AFtTtSMq1NY4tnK2gMg1"
+    let eventId = "2022"
     let db = DatabaseWrapper().createDb()
 
 	var body: some Scene {

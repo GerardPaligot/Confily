@@ -20,7 +20,7 @@ struct TalkSectionView: View {
             Text(talkUi.title)
                 .font(titleFont)
                 .padding(.top, 8)
-            Text(talkUi.date)
+            Text("From \(talkUi.startTime) to \(talkUi.endTime)")
                 .padding(.top, 8)
             Text(talkUi.room)
             if (talkUi.level != nil) {

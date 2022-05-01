@@ -37,11 +37,7 @@ fun TalkSection(
         Text(text = talk.title, color = color, style = titleTextStyle)
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = stringResource(
-                id = R.string.text_schedule_time,
-                talk.startTime.toLocalDateTime().formatHoursMinutes(),
-                talk.endTime.toLocalDateTime().formatHoursMinutes()
-            ),
+            text = stringResource(id = R.string.text_schedule_time, talk.startTime, talk.endTime),
             color = color,
             style = bodyTextStyle
         )
