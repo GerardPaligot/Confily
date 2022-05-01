@@ -37,8 +37,8 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling:$composeVersion")
     api("io.openfeedback:feedback-android-sdk-ui:0.0.8-SNAPSHOT")
     // Weird but necessary for the compose preview.
-    debugImplementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
-    debugImplementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")
+    debugImplementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.1")
+    debugImplementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1")
     debugImplementation("androidx.savedstate:savedstate-ktx:1.1.0")
     debugImplementation("androidx.core:core-ktx:1.7.0")
 }
