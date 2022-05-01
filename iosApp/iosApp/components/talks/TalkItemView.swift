@@ -35,14 +35,16 @@ struct TalkItemView: View {
                     .opacity(0.5)
             }
             .frame(maxWidth: .infinity, alignment: .topLeading)
-            let iconName = talk.isFavorite ? "star.fill" : "star"
-            let iconColor = talk.isFavorite ? Color.c4hSecondary : Color.c4hOnBackground
-            Button {
-                onFavoriteClicked(talk.id, !talk.isFavorite)
-            } label: {
-                Image(systemName: iconName)
-                    .foregroundColor(iconColor)
-                    .padding()
+            if (!talk.isPause) {
+                let iconName = talk.isFavorite ? "star.fill" : "star"
+                let iconColor = talk.isFavorite ? Color.c4hSecondary : Color.c4hOnBackground
+                Button {
+                    onFavoriteClicked(talk.id, !talk.isFavorite)
+                } label: {
+                    Image(systemName: iconName)
+                        .foregroundColor(iconColor)
+                        .padding()
+                }
             }
         }
     }

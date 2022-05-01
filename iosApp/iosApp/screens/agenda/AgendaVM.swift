@@ -33,16 +33,18 @@ struct AgendaVM: View {
                         Agenda(
                             agenda: agenda,
                             talkItem: { talk in
-                                NavigationLink(isActive: Binding.constant(self.navigationState == .talk(talk.id))) {
-                                    ScheduleDetailVM(
-                                        agendaRepository: self.agendaRepository,
-                                        scheduleId: talk.id,
-                                        speakerItem: { speaker in
-                                            SpeakerItemNavigation(agendaRepository: agendaRepository, speaker: speaker)
-                                        }
-                                    )
-                                } label: {
-                                    EmptyView()
+                                if (!talk.isPause) {
+                                    NavigationLink(isActive: Binding.constant(self.navigationState == .talk(talk.id))) {
+                                        ScheduleDetailVM(
+                                            agendaRepository: self.agendaRepository,
+                                            scheduleId: talk.id,
+                                            speakerItem: { speaker in
+                                                SpeakerItemNavigation(agendaRepository: agendaRepository, speaker: speaker)
+                                            }
+                                        )
+                                    } label: {
+                                        EmptyView()
+                                    }
                                 }
                                 TalkItemView(
                                     talk: talk,
