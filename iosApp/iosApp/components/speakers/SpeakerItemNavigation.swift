@@ -17,9 +17,7 @@ struct SpeakerItemNavigation: View {
         NavigationLink {
             SpeakerDetailVM(
                 agendaRepository: agendaRepository,
-                speakerId: speaker.id,
-                twitterAction: { String in },
-                githubAction: { String in }
+                speakerId: speaker.id
             )
         } label: {
             SpeakerItemView(speakerUi: speaker)

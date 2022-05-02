@@ -11,15 +11,12 @@ import shared
 
 struct SpeakerDetailVM: View {
     @ObservedObject var viewModel: SpeakerViewModel
+    @Environment(\.openURL) var openURL
     let speakerId: String
-    let onTwitterClicked: (_: String) -> ()
-    let onGitHubClicked: (_: String) -> ()
     
-    init(agendaRepository: AgendaRepository, speakerId: String, twitterAction: @escaping (_: String) -> (), githubAction: @escaping (_: String) -> ()) {
+    init(agendaRepository: AgendaRepository, speakerId: String) {
         self.viewModel = SpeakerViewModel(repository: agendaRepository)
         self.speakerId = speakerId
-        self.onTwitterClicked = twitterAction
-        self.onGitHubClicked = githubAction
     }
 
     var body: some View {
@@ -29,8 +26,12 @@ struct SpeakerDetailVM: View {
                 case .success(let speakerUi):
                     SpeakerDetail(
                         speaker: speakerUi,
-                        onTwitterClicked: onTwitterClicked,
-                        onGitHubClicked: onGitHubClicked
+                        onTwitterClicked: { url in
+                            if let url2 = URL(string: url) { openURL(url2) }
+                        },
+                        onGitHubClicked: { url in
+                            if let url2 = URL(string: url) { openURL(url2) }
+                        }
                     )
                 case .failure(_):
                     Text("textError")
