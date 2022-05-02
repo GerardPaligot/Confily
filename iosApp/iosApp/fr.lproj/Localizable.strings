@@ -32,4 +32,4 @@
 "inputFirstname" = "Ton prénom*";
 "inputLastname" = "Ton nom*";
 "inputCompany" = "Ton entreprise";
-"inputShareTalk" = "%s par %s";
+"inputShareTalk %@ %@" = "%@ par %@";

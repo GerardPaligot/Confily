@@ -33,4 +33,4 @@
 "inputFirstname" = "Your first name*";
 "inputLastname" = "Your last name*";
 "inputCompany" = "Your company";
-"inputShareTalk" = "%s by %s";
+"inputShareTalk %@ %@" = "%@ by %@";

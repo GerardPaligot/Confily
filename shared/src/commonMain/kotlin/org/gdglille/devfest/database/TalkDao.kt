@@ -31,6 +31,10 @@ class TalkDao(private val db: Conferences4HallDatabase) {
                     twitter = it.twitter?.split("twitter.com/")?.get(1)
                 )
             },
+            speakersSharing = speakers.joinToString(", ") { speaker ->
+                if (speaker.twitter == null) speaker.display_name
+                else "${speaker.display_name} (@${speaker.twitter})"
+            },
             canGiveFeedback = now > startTime,
             openFeedbackSessionId = talk.open_feedback
         )

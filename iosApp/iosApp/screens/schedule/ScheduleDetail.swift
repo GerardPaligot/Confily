@@ -10,6 +10,7 @@ import SwiftUI
 import shared
 
 struct ScheduleDetail<SpeakerItem: View>: View {
+    @State private var isShareSheetPresented = false
     let talkUi: TalkUi
     let speakerItem: (SpeakerItemUi) -> SpeakerItem
     
@@ -29,6 +30,18 @@ struct ScheduleDetail<SpeakerItem: View>: View {
                         .padding(.horizontal, 8)
                 }
             }
+        }
+        .navigationBarItems(trailing:
+            HStack {
+                Button(action: {
+                    isShareSheetPresented = true
+                }, label: {
+                    Image(systemName: "square.and.arrow.up")
+                })
+            }
+        )
+        .sheet(isPresented: $isShareSheetPresented) {
+            ShareSheetView(activityItems: [NSLocalizedString("inputShareTalk \(talkUi.title) \(talkUi.speakersSharing)", comment: "")])
         }
     }
 }

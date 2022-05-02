@@ -39,11 +39,7 @@ fun ScheduleDetail(
     onSpeakerClicked: (id: String) -> Unit,
     onShareClicked: (text: String) -> Unit
 ) {
-    val speakers = talk.speakers.joinToString(", ") { speaker ->
-        if (speaker.twitter == null) speaker.name
-        else "${speaker.name} (@${speaker.twitter})"
-    }
-    val textShared = stringResource(id = R.string.input_share_talk, talk.title, speakers)
+    val textShared = stringResource(id = R.string.input_share_talk, talk.title, talk.speakersSharing)
     Scaffold(
         modifier = modifier,
         topBar = {

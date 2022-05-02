@@ -48,6 +48,7 @@
 		D59EFCB827B5AD42000AADCF /* EventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59EFCB727B5AD42000AADCF /* EventViewModel.swift */; };
 		D59EFCBA27B5AE25000AADCF /* EventVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59EFCB927B5AE25000AADCF /* EventVM.swift */; };
 		D5AE1BE727D18B7E005849B4 /* UserItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5AE1BE627D18B7E005849B4 /* UserItemView.swift */; };
+		D5D5ABF5282071D2004E2F78 /* ShareSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D5ABF4282071D2004E2F78 /* ShareSheetView.swift */; };
 		D5D6166C27B15C7400C59EC9 /* AgendaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D6166B27B15C7400C59EC9 /* AgendaViewModel.swift */; };
 		D5F324A327C6E2DE007CA4C1 /* QrCodeGeneratoriOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F324A227C6E2DE007CA4C1 /* QrCodeGeneratoriOS.swift */; };
 /* End PBXBuildFile section */
@@ -109,6 +110,7 @@
 		D59EFCB927B5AE25000AADCF /* EventVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventVM.swift; sourceTree = "<group>"; };
 		D5AE1BE627D18B7E005849B4 /* UserItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserItemView.swift; sourceTree = "<group>"; };
 		D5D5ABF328207025004E2F78 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D5D5ABF4282071D2004E2F78 /* ShareSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetView.swift; sourceTree = "<group>"; };
 		D5D6166B27B15C7400C59EC9 /* AgendaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaViewModel.swift; sourceTree = "<group>"; };
 		D5F324A227C6E2DE007CA4C1 /* QrCodeGeneratoriOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QrCodeGeneratoriOS.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -202,6 +204,7 @@
 				D55BE69327B53F3900BCF03A /* events */,
 				D58F1D4D27AFF3D600FB59C7 /* talks */,
 				D55BE69627B5432900BCF03A /* SocialItem.swift */,
+				D5D5ABF4282071D2004E2F78 /* ShareSheetView.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -447,6 +450,7 @@
 				D59EFCB827B5AD42000AADCF /* EventViewModel.swift in Sources */,
 				D524D73827BBF6030078DF0D /* ImageCacheKey.swift in Sources */,
 				D55BE69727B5432900BCF03A /* SocialItem.swift in Sources */,
+				D5D5ABF5282071D2004E2F78 /* ShareSheetView.swift in Sources */,
 				D524D73C27BBFC530078DF0D /* ScheduleDetail.swift in Sources */,
 				D5F324A327C6E2DE007CA4C1 /* QrCodeGeneratoriOS.swift in Sources */,
 				D55BE69927B54DB800BCF03A /* ButtonView.swift in Sources */,
