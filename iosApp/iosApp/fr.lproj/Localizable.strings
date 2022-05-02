@@ -1,0 +1,35 @@
+/*
+  Localizable.strings
+  iosApp
+
+  Created by GERARD on 01/05/2022.
+  Copyright © 2022 orgName. All rights reserved.
+*/
+
+"screenAgenda" = "Agenda";
+"screenNetworking" = "Networking";
+"screenEvent" = "Événement";
+
+"titleGold" = "Gold";
+"titleSilver" = "Silver";
+"titleBronze" = "Bronze";
+
+"textLoading" = "Chargement…";
+"textError" = "Une erreur inconnue est survenue";
+"textScheduleTime %@ %@" = "De %@ à %@";
+"textLevelAdvanced" = "Avancé";
+"textLevelIntermediate" = "Intermédiaire";
+"textLevelBeginner" = "Débutant";
+"textOpenfeedbackNotStarted" = "Vous serez en mesure de donner un feedback quand la session aura démarrée !";
+"textReportSubject" = "Report depuis l'app Devfest Lille";
+"textNetworkingNoScan" = "Vous n'avez pas encore scanner de Qrcode";
+
+"actionFaq" = "FAQ";
+"actionCoc" = "Code de Conduite";
+"actionGenerateQrcode" = "Générer ton Qrcode";
+
+"inputEmail" = "Ton adresse email*";
+"inputFirstname" = "Ton prénom*";
+"inputLastname" = "Ton nom*";
+"inputCompany" = "Ton entreprise";
+"inputShareTalk" = "%s par %s";

@@ -16,17 +16,17 @@ struct AppView: View {
         TabView {
             AgendaVM(agendaRepository: agendaRepository)
                 .tabItem {
-                    Label("Agenda", systemImage: "calendar")
+                    Label("screenAgenda", systemImage: "calendar")
                 }
             
             NetworkingVM(userRepository: userRepository)
                 .tabItem {
-                    Label("Networking", systemImage: "person.2")
+                    Label("screenNetworking", systemImage: "person.2")
                 }
             
             EventVM(agendaRepository: agendaRepository)
                 .tabItem {
-                    Label("Event", systemImage: "ticket")
+                    Label("screenEvent", systemImage: "ticket")
                 }
         }
         .onAppear {

@@ -30,9 +30,9 @@ struct ScheduleDetailVM<SpeakerItem: View>: View {
                         speakerItem: speakerItem
                     )
                 case .failure(_):
-                    Text("Something wrong happened")
+                    Text("textError")
                 case .loading:
-                    Text("Loading")
+                    Text("textLoading")
             }
         }
         .onAppear {

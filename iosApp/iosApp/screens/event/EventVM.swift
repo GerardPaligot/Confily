@@ -39,15 +39,15 @@ struct EventVM: View {
                             }
                         )
                     case .failure(_):
-                        Text("Something wrong happened")
+                        Text("textError")
                     case .loading:
-                        Text("Loading")
+                        Text("textLoading")
                         .onAppear {
                             viewModel.fetchEvent()
                         }
                 }
             }
-            .navigationTitle(Text("Event Info"))
+            .navigationTitle(Text("screenEvent"))
             .navigationBarTitleDisplayMode(.inline)
         }
     }

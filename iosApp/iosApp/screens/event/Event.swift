@@ -26,9 +26,9 @@ struct Event: View {
                     onTwitterClicked: onTwitterClicked,
                     onLinkedInClicked: onLinkedInClicked
                 )
-                PartnerDividerView(text: "Gold")
-                PartnerDividerView(text: "Silver")
-                PartnerDividerView(text: "Bronze")
+                PartnerDividerView(text: NSLocalizedString("titleGold", comment: ""))
+                PartnerDividerView(text: NSLocalizedString("titleSilver", comment: ""))
+                PartnerDividerView(text: NSLocalizedString("titleBronze", comment: ""))
             }
             .padding(.horizontal, 4)
         }

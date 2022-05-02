@@ -27,7 +27,7 @@ struct Networking: View {
                     }
                 }
             } else {
-                Text("You didn't scan a QR code yet")
+                Text("textNetworkingNoScan")
             }
         }
         .sheet(isPresented: Binding.constant(networkingUi.showQrCode), onDismiss: {

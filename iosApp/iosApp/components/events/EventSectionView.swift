@@ -55,10 +55,10 @@ struct EventSectionView: View {
                 .foregroundColor(color)
                 .frame(maxWidth: .infinity, alignment: .leading)
             HStack {
-                ButtonView(text: "FAQ") {
+                ButtonView(text: NSLocalizedString("actionFaq", comment: "")) {
                     onFaqClicked(eventInfoUi.faqLink)
                 }
-                ButtonView(text: "CoC") {
+                ButtonView(text: NSLocalizedString("actionCoc", comment: "")) {
                     onCoCClicked(eventInfoUi.codeOfConductLink)
                 }
             }

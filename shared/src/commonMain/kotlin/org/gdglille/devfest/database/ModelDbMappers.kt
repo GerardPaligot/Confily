@@ -22,7 +22,6 @@ fun org.gdglille.devfest.models.Speaker.convertToModelDb(): Speaker = Speaker(
 fun ScheduleItem.convertToModelDb(): Talk = Talk(
     id = this.id,
     title = this.talk!!.title,
-    // date = "Talk from ${this.startTime.toLocalDateTime().formatHoursMinutes()} to ${this.endTime.toLocalDateTime().formatHoursMinutes()}",
     start_time = this.startTime,
     end_time = this.endTime,
     room = this.room,
@@ -37,7 +36,7 @@ fun org.gdglille.devfest.models.Event.convertToModelDb(): Event = Event(
     id = this.id,
     name = this.name,
     address = this.address.address,
-    date = getDate(this.startDate, this.endDate),
+    date = this.startDate.dropLast(1).toLocalDateTime().format(),
     twitter = this.twitterUrl?.split("twitter.com/")?.get(1),
     twitter_url = this.twitterUrl,
     linkedin = this.name,
@@ -47,13 +46,4 @@ fun org.gdglille.devfest.models.Event.convertToModelDb(): Event = Event(
     updated_at = this.updatedAt
 )
 
-fun getDate(from: String, to: String): String {
-    val fromDate = Instant.parse(from).toLocalDateTime(TimeZone.UTC)
-    val toDate = Instant.parse(to).toLocalDateTime(TimeZone.UTC)
-    if (from == to) {
-        return fromDate.format()
-    }
-    return "From ${fromDate.format()} to ${toDate.format()}"
-}
-
-fun LocalDateTime.format(): String = "${this.dayOfWeek.name} ${this.dayOfMonth}, ${this.month.name} ${this.year}"
+private fun LocalDateTime.format(): String = "${this.dayOfWeek.name} ${this.dayOfMonth}, ${this.month.name} ${this.year}"

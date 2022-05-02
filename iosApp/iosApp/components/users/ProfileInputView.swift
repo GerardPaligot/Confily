@@ -22,11 +22,11 @@ struct ProfileInputView: View {
         VStack {
             Form {
                 Section {
-                    TextField("Your email address*", text: $email)
+                    TextField("inputEmail", text: $email)
                         .keyboardType(.emailAddress)
-                    TextField("Your first name*", text: $firstName)
-                    TextField("Your last name*", text: $lastName)
-                    TextField("Your company", text: $company)
+                    TextField("inputFirstname", text: $firstName)
+                    TextField("inputLastname", text: $lastName)
+                    TextField("inputCompany", text: $company)
                 }
                 if let uiImage = qrCode {
                     Section {
@@ -36,7 +36,7 @@ struct ProfileInputView: View {
                     }
                 }
                 Section {
-                    Button("Create QRCode") {
+                    Button("actionGenerateQrcode") {
                         onValidation(email, firstName, lastName, company)
                     }
                 }

@@ -34,12 +34,12 @@ struct NetworkingVM: View {
                         }
                     )
                     case .failure(_):
-                        Text("Something wrong happened")
+                        Text("textError")
                     case .loading:
-                        Text("Loading")
+                        Text("textLoading")
                 }
             }
-            .navigationTitle(Text("Networking"))
+            .navigationTitle(Text("screenNetworking"))
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarItems(trailing:
                 HStack {

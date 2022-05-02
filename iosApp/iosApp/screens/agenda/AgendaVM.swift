@@ -67,7 +67,7 @@ struct AgendaVM: View {
                         )
                 }
             }
-            .navigationTitle(Text("Agenda"))
+            .navigationTitle(Text("screenAgenda"))
             .navigationBarTitleDisplayMode(.inline)
         }
         .onAppear {
