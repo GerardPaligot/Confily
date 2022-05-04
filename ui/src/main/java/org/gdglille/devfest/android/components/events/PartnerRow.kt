@@ -42,7 +42,7 @@ fun PartnerRow(
 fun Eventreview() {
     Conferences4HallTheme {
         PartnerRow(
-            partners = EventUi.fake.partners.silvers.chunked(3)[0],
+            partners = EventUi.fake.partners.silvers[0],
             onPartnerClick = {}
         )
     }

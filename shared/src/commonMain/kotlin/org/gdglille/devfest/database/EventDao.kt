@@ -32,10 +32,10 @@ class EventDao(private val db: Conferences4HallDatabase, private val eventId: St
         return@transactionWithResult EventUi(
             eventInfo = event,
             partners = PartnerGroupsUi(
-                golds = golds,
-                silvers = silvers,
-                bronzes = bronzes,
-                others = others
+                golds = golds.chunked(3),
+                silvers = silvers.chunked(3),
+                bronzes = bronzes.chunked(3),
+                others = others.chunked(3)
             )
         )
     }

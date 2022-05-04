@@ -1,11 +1,17 @@
 import SwiftUI
 import shared
+import SDWebImage
+import SDWebImageSVGCoder
 
 @main
 struct iOSApp: App {
     let baseUrl = "https://cms4partners-ce427.nw.r.appspot.com"
     let eventId = "2022"
     let db = DatabaseWrapper().createDb()
+    
+    init() {
+        SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
+    }
 
 	var body: some Scene {
         let api = ConferenceApi.companion.create(baseUrl: self.baseUrl, eventId: self.eventId, enableNetworkLogs: true)

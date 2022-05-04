@@ -42,12 +42,16 @@
 		D57028AA27B550BF008EF4AD /* PartnerDividerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57028A927B550BF008EF4AD /* PartnerDividerView.swift */; };
 		D57028AD27B5535F008EF4AD /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57028AC27B5535F008EF4AD /* Event.swift */; };
 		D5768D6027C11E2A00FB081C /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5768D5F27C11E2A00FB081C /* Networking.swift */; };
+		D5868A582823139E008EE6E3 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = D5868A572823139E008EE6E3 /* SDWebImageSwiftUI */; };
+		D5868A5B282313F2008EE6E3 /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = D5868A5A282313F2008EE6E3 /* SDWebImageSVGCoder */; };
 		D58F1D4F27AFF40A00FB59C7 /* TalkItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58F1D4E27AFF40A00FB59C7 /* TalkItemView.swift */; };
 		D58F1D5127B001CE00FB59C7 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D58F1D5027B001CE00FB59C7 /* Colors.xcassets */; };
 		D58F1D5427B0057300FB59C7 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58F1D5327B0057300FB59C7 /* Color.swift */; };
 		D59EFCB827B5AD42000AADCF /* EventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59EFCB727B5AD42000AADCF /* EventViewModel.swift */; };
 		D59EFCBA27B5AE25000AADCF /* EventVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59EFCB927B5AE25000AADCF /* EventVM.swift */; };
 		D5AE1BE727D18B7E005849B4 /* UserItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5AE1BE627D18B7E005849B4 /* UserItemView.swift */; };
+		D5CAA6512821BCC7005BB242 /* PartnerItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CAA6502821BCC7005BB242 /* PartnerItemView.swift */; };
+		D5CAA6532821C306005BB242 /* PartnerRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CAA6522821C306005BB242 /* PartnerRowView.swift */; };
 		D5D5ABF5282071D2004E2F78 /* ShareSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D5ABF4282071D2004E2F78 /* ShareSheetView.swift */; };
 		D5D6166C27B15C7400C59EC9 /* AgendaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D6166B27B15C7400C59EC9 /* AgendaViewModel.swift */; };
 		D5F324A327C6E2DE007CA4C1 /* QrCodeGeneratoriOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F324A227C6E2DE007CA4C1 /* QrCodeGeneratoriOS.swift */; };
@@ -109,6 +113,8 @@
 		D59EFCB727B5AD42000AADCF /* EventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewModel.swift; sourceTree = "<group>"; };
 		D59EFCB927B5AE25000AADCF /* EventVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventVM.swift; sourceTree = "<group>"; };
 		D5AE1BE627D18B7E005849B4 /* UserItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserItemView.swift; sourceTree = "<group>"; };
+		D5CAA6502821BCC7005BB242 /* PartnerItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnerItemView.swift; sourceTree = "<group>"; };
+		D5CAA6522821C306005BB242 /* PartnerRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnerRowView.swift; sourceTree = "<group>"; };
 		D5D5ABF328207025004E2F78 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D5D5ABF4282071D2004E2F78 /* ShareSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetView.swift; sourceTree = "<group>"; };
 		D5D6166B27B15C7400C59EC9 /* AgendaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaViewModel.swift; sourceTree = "<group>"; };
@@ -120,6 +126,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5868A5B282313F2008EE6E3 /* SDWebImageSVGCoder in Frameworks */,
+				D5868A582823139E008EE6E3 /* SDWebImageSwiftUI in Frameworks */,
 				D55B3BCB27BEF349006184D1 /* CodeScanner in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -261,6 +269,8 @@
 				D55BE69427B53FBF00BCF03A /* EventSectionView.swift */,
 				D55BE69827B54DB800BCF03A /* ButtonView.swift */,
 				D57028A927B550BF008EF4AD /* PartnerDividerView.swift */,
+				D5CAA6502821BCC7005BB242 /* PartnerItemView.swift */,
+				D5CAA6522821C306005BB242 /* PartnerRowView.swift */,
 			);
 			path = events;
 			sourceTree = "<group>";
@@ -350,6 +360,8 @@
 			name = iosApp;
 			packageProductDependencies = (
 				D55B3BCA27BEF349006184D1 /* CodeScanner */,
+				D5868A572823139E008EE6E3 /* SDWebImageSwiftUI */,
+				D5868A5A282313F2008EE6E3 /* SDWebImageSVGCoder */,
 			);
 			productName = iosApp;
 			productReference = 7555FF7B242A565900829871 /* iosApp.app */;
@@ -382,6 +394,8 @@
 			mainGroup = 7555FF72242A565900829871;
 			packageReferences = (
 				D55B3BC927BEF349006184D1 /* XCRemoteSwiftPackageReference "CodeScanner" */,
+				D5868A562823139E008EE6E3 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				D5868A59282313F2008EE6E3 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */,
 			);
 			productRefGroup = 7555FF7C242A565900829871 /* Products */;
 			projectDirPath = "";
@@ -437,6 +451,7 @@
 				D50E9B0327C12AE400B7B9B9 /* NetworkingVM.swift in Sources */,
 				D5AE1BE727D18B7E005849B4 /* UserItemView.swift in Sources */,
 				D524D72E27BBF0DB0078DF0D /* SpeakerItemView.swift in Sources */,
+				D5CAA6512821BCC7005BB242 /* PartnerItemView.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				D560788E27BE86D900D4012C /* SpeakerAvatarView.swift in Sources */,
 				D5768D6027C11E2A00FB081C /* Networking.swift in Sources */,
@@ -453,6 +468,7 @@
 				D5D5ABF5282071D2004E2F78 /* ShareSheetView.swift in Sources */,
 				D524D73C27BBFC530078DF0D /* ScheduleDetail.swift in Sources */,
 				D5F324A327C6E2DE007CA4C1 /* QrCodeGeneratoriOS.swift in Sources */,
+				D5CAA6532821C306005BB242 /* PartnerRowView.swift in Sources */,
 				D55BE69927B54DB800BCF03A /* ButtonView.swift in Sources */,
 				D560789027BE8B9500D4012C /* SpeakerSectionView.swift in Sources */,
 				D524D73E27BBFFF30078DF0D /* ScheduleItemViewModel.swift in Sources */,
@@ -692,6 +708,22 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		D5868A562823139E008EE6E3 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+		D5868A59282313F2008EE6E3 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSVGCoder";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -699,6 +731,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D55B3BC927BEF349006184D1 /* XCRemoteSwiftPackageReference "CodeScanner" */;
 			productName = CodeScanner;
+		};
+		D5868A572823139E008EE6E3 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D5868A562823139E008EE6E3 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
+		D5868A5A282313F2008EE6E3 /* SDWebImageSVGCoder */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D5868A59282313F2008EE6E3 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */;
+			productName = SDWebImageSVGCoder;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

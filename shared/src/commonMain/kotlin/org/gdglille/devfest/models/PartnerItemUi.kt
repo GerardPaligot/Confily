@@ -7,9 +7,9 @@ data class PartnerItemUi(
 ) {
     companion object {
         val fake = PartnerItemUi(
-            logoUrl = "https://pbs.twimg.com/profile_images/1483539472574816261/mi3QaL7u_400x400.png",
-            siteUrl = "https://devfest.gdglille.org/",
-            name = "Devfest"
+            logoUrl = "https://firebasestorage.googleapis.com/v0/b/cms4partners-ce427.appspot.com/o/logo%2Fxm6p87HGaZEU5MxuAgTe?alt=media&token=9689d847-ee5a-4edd-a9dc-bfa03af773be",
+            siteUrl = "https://sfeir.com",
+            name = "SFEIR"
         )
     }
 }

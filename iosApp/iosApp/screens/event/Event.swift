@@ -10,6 +10,7 @@ import SwiftUI
 import shared
 
 struct Event: View {
+    @Environment(\.openURL) var openURL
     var event: EventUi
     var onFaqClicked: (_: String) -> ()
     var onCoCClicked: (_: String) -> ()
@@ -17,20 +18,46 @@ struct Event: View {
     var onLinkedInClicked: (_: String) -> ()
 
     var body: some View {
-        ScrollView {
-            LazyVStack(spacing: 8) {
-                EventSectionView(
-                    eventInfoUi: event.eventInfo,
-                    onFaqClicked: onFaqClicked,
-                    onCoCClicked: onCoCClicked,
-                    onTwitterClicked: onTwitterClicked,
-                    onLinkedInClicked: onLinkedInClicked
-                )
-                PartnerDividerView(text: NSLocalizedString("titleGold", comment: ""))
-                PartnerDividerView(text: NSLocalizedString("titleSilver", comment: ""))
-                PartnerDividerView(text: NSLocalizedString("titleBronze", comment: ""))
+        GeometryReader { geometry in
+            let parentWidth = geometry.size.width
+            ScrollView {
+                LazyVStack(spacing: 8) {
+                    Section {
+                        EventSectionView(
+                            eventInfoUi: event.eventInfo,
+                            onFaqClicked: onFaqClicked,
+                            onCoCClicked: onCoCClicked,
+                            onTwitterClicked: onTwitterClicked,
+                            onLinkedInClicked: onLinkedInClicked
+                        )
+                    }
+                    Section {
+                        PartnerDividerView(text: NSLocalizedString("titleGold", comment: ""))
+                        ForEach(event.partners.golds, id: \.[0].name) { partners in
+                            PartnerRowView(partners: partners, parentWidth: parentWidth) { url in
+                                if let url2 = URL(string: url) { openURL(url2) }
+                            }
+                        }
+                    }
+                    Section {
+                        PartnerDividerView(text: NSLocalizedString("titleSilver", comment: ""))
+                        ForEach(event.partners.silvers, id: \.[0].name) { partners in
+                            PartnerRowView(partners: partners, parentWidth: parentWidth) { url in
+                                if let url2 = URL(string: url) { openURL(url2) }
+                            }
+                        }
+                    }
+                    Section {
+                        PartnerDividerView(text: NSLocalizedString("titleBronze", comment: ""))
+                        ForEach(event.partners.bronzes, id: \.[0].name) { partners in
+                            PartnerRowView(partners: partners, parentWidth: parentWidth) { url in
+                                if let url2 = URL(string: url) { openURL(url2) }
+                            }
+                        }
+                    }
+                }
+                .padding(.horizontal, 4)
             }
-            .padding(.horizontal, 4)
         }
     }
 }

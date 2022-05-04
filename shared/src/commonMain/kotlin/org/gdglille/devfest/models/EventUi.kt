@@ -18,9 +18,9 @@ data class EventUi(
                 codeOfConductLink = "https://devfest.gdglille.org/code-conduite/"
             ),
             partners = PartnerGroupsUi(
-                golds = arrayListOf(PartnerItemUi.fake, PartnerItemUi.fake, PartnerItemUi.fake),
-                silvers = arrayListOf(PartnerItemUi.fake, PartnerItemUi.fake, PartnerItemUi.fake),
-                bronzes = arrayListOf(PartnerItemUi.fake, PartnerItemUi.fake, PartnerItemUi.fake),
+                golds = arrayListOf(arrayListOf(PartnerItemUi.fake, PartnerItemUi.fake, PartnerItemUi.fake)),
+                silvers = arrayListOf(arrayListOf(PartnerItemUi.fake, PartnerItemUi.fake, PartnerItemUi.fake)),
+                bronzes = arrayListOf(arrayListOf(PartnerItemUi.fake, PartnerItemUi.fake, PartnerItemUi.fake)),
                 others = emptyList()
             )
         )

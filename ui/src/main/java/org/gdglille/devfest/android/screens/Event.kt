@@ -44,15 +44,15 @@ fun Event(
             )
         }
         item { PartnerDivider(title = stringResource(id = R.string.title_gold)) }
-        items(event.partners.golds.chunked(3)) {
+        items(event.partners.golds) {
             PartnerRow(partners = it, onPartnerClick = onPartnerClick, isLoading = isLoading)
         }
         item { PartnerDivider(title = stringResource(id = R.string.title_silver)) }
-        items(event.partners.silvers.chunked(3)) {
+        items(event.partners.silvers) {
             PartnerRow(partners = it, onPartnerClick = onPartnerClick, isLoading = isLoading)
         }
         item { PartnerDivider(title = stringResource(id = R.string.title_bronze)) }
-        items(event.partners.bronzes.chunked(3)) {
+        items(event.partners.bronzes) {
             PartnerRow(partners = it, onPartnerClick = onPartnerClick, isLoading = isLoading)
         }
     }
