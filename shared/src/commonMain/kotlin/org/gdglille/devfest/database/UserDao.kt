@@ -1,16 +1,16 @@
 package org.gdglille.devfest.database
 
-import org.gdglille.devfest.db.Conferences4HallDatabase
-import org.gdglille.devfest.models.UserNetworkingUi
-import org.gdglille.devfest.models.UserProfileUi
-import org.gdglille.devfest.toByteArray
-import org.gdglille.devfest.toNativeImage
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.set
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
 import kotlinx.coroutines.flow.Flow
 import kotlinx.datetime.Clock
+import org.gdglille.devfest.db.Conferences4HallDatabase
+import org.gdglille.devfest.models.UserNetworkingUi
+import org.gdglille.devfest.models.UserProfileUi
+import org.gdglille.devfest.toByteArray
+import org.gdglille.devfest.toNativeImage
 
 class UserDao(private val db: Conferences4HallDatabase, private val settings: Settings, private val eventId: String) {
     fun fetchUser(emailId: String): UserProfileUi? =
@@ -50,4 +50,6 @@ class UserDao(private val db: Conferences4HallDatabase, private val settings: Se
             eventId,
             Clock.System.now().epochSeconds
         )
+
+    fun deleteNetworking(email: String) = db.userQueries.deleteNetwork(email)
 }

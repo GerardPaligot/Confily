@@ -33,3 +33,6 @@ insertNetwork:
 INSERT OR REPLACE INTO Networking(
 email, firstname, lastname, company, event_id, created_at
 ) VALUES (?, ?, ?, ?, ?, ?);
+
+deleteNetwork:
+DELETE FROM Networking WHERE  email = ?;

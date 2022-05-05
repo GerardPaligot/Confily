@@ -1,21 +1,22 @@
 package org.gdglille.devfest.repositories
 
-import org.gdglille.devfest.Image
-import org.gdglille.devfest.database.UserDao
-import org.gdglille.devfest.models.UserNetworkingUi
-import org.gdglille.devfest.models.UserProfileUi
-import org.gdglille.devfest.vcard.encodeToString
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import org.gdglille.devfest.Image
+import org.gdglille.devfest.database.UserDao
+import org.gdglille.devfest.models.UserNetworkingUi
+import org.gdglille.devfest.models.UserProfileUi
+import org.gdglille.devfest.vcard.encodeToString
 
 interface UserRepository {
     suspend fun fetchProfile(): UserProfileUi?
     suspend fun saveProfile(email: String, firstName: String, lastName: String, company: String): UserProfileUi
     suspend fun fetchNetworking(): Flow<List<UserNetworkingUi>>
     suspend fun insertNetworkingProfile(user: UserNetworkingUi)
+    suspend fun deleteNetworkProfile(email: String)
 
     // Kotlin/Native client
     fun startCollectNetworking(success: (List<UserNetworkingUi>) -> Unit)
@@ -49,6 +50,7 @@ class UserRepositoryImpl(
     override suspend fun fetchNetworking(): Flow<List<UserNetworkingUi>> = userDao.fetchNetworking()
     override suspend fun insertNetworkingProfile(user: UserNetworkingUi) =
         userDao.insertEmailNetworking(user)
+    override suspend fun deleteNetworkProfile(email: String) = userDao.deleteNetworking(email)
 
     private val coroutineScope: CoroutineScope = MainScope()
     var agendaJob: Job? = null

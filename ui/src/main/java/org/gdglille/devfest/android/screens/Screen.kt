@@ -12,9 +12,9 @@ import androidx.compose.material.icons.outlined.Event
 import androidx.compose.material.icons.outlined.Group
 import androidx.compose.material.icons.outlined.LocalActivity
 import androidx.compose.ui.graphics.vector.ImageVector
-import org.gdglille.devfest.android.ui.R
 import org.gdglille.devfest.android.components.appbars.ActionItem
 import org.gdglille.devfest.android.components.appbars.ActionItemId
+import org.gdglille.devfest.android.ui.R
 
 sealed class Screen(
     val route: String,

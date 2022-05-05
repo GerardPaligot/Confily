@@ -22,6 +22,7 @@
     <string name="text_camera_permission_deny">La permission pour la caméra a été refusée. Pense à donner l\'accès via les paramètres systèmes.</string>
     <string name="text_report_subject">Report depuis l\'app Devfest Lille</string>
     <string name="text_report_app_target">Choisissez une app pour envoyer un email:</string>
+    <string name="text_networking_ask_to_delete">Es-tu sûr de vouloir supprimer %s de ta liste de networking ?</string>
 
     <string name="action_back">Retour</string>
     <string name="action_share_talk">Partage la session %s</string>

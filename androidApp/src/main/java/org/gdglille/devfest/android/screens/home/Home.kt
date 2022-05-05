@@ -12,15 +12,15 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import org.gdglille.devfest.android.components.appbars.ActionItemId
+import org.gdglille.devfest.android.components.appbars.BottomAppBar
+import org.gdglille.devfest.android.components.appbars.TopAppBar
+import org.gdglille.devfest.android.screens.Screen
 import org.gdglille.devfest.android.screens.agenda.AgendaVM
 import org.gdglille.devfest.android.screens.event.EventVM
 import org.gdglille.devfest.android.screens.users.NetworkingVM
 import org.gdglille.devfest.repositories.AgendaRepository
 import org.gdglille.devfest.repositories.UserRepository
-import org.gdglille.devfest.android.components.appbars.ActionItemId
-import org.gdglille.devfest.android.components.appbars.BottomAppBar
-import org.gdglille.devfest.android.components.appbars.TopAppBar
-import org.gdglille.devfest.android.screens.Screen
 
 @Composable
 fun Home(

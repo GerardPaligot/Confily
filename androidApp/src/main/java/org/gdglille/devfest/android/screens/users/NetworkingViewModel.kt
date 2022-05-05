@@ -36,6 +36,10 @@ class NetworkingViewModel(
         }
     }
 
+    fun deleteNetworking(email: String) = viewModelScope.launch {
+        userRepository.deleteNetworkProfile(email)
+    }
+
     object Factory {
         fun create(repository: UserRepository) = object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T =
