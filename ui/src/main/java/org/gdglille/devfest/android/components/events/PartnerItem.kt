@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import coil.ImageLoader
 import coil.compose.rememberAsyncImagePainter
 import coil.decode.SvgDecoder
+import org.gdglille.devfest.android.theme.ColorPalette
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.placeholder
 import org.gdglille.devfest.models.PartnerItemUi
@@ -30,7 +31,7 @@ fun PartnerItem(
     partnerUi: PartnerItemUi,
     modifier: Modifier = Modifier,
     isLoading: Boolean = false,
-    backgroundColor: Color = MaterialTheme.colors.surface,
+    backgroundColor: Color = ColorPalette.white,
     shape: Shape = MaterialTheme.shapes.medium,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     contentScale: ContentScale = ContentScale.Fit,

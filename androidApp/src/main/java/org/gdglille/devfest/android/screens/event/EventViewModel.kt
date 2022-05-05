@@ -24,7 +24,9 @@ class EventViewModel(private val repository: AgendaRepository) : ViewModel() {
     init {
         viewModelScope.launch {
             try {
-                _uiState.value = EventUiState.Success(repository.event())
+                repository.event().collect {
+                    _uiState.value = EventUiState.Success(it)
+                }
             } catch (error: Throwable) {
                 Firebase.crashlytics.recordException(error)
                 _uiState.value = EventUiState.Failure(error)

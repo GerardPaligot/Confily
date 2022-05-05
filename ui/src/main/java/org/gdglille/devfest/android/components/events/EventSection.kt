@@ -19,9 +19,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import org.gdglille.devfest.android.ui.R
 import org.gdglille.devfest.android.components.speakers.Socials
 import org.gdglille.devfest.android.theme.placeholder
+import org.gdglille.devfest.android.ui.R
 import org.gdglille.devfest.models.EventInfoUi
 
 @Composable
@@ -92,13 +92,13 @@ fun EventSection(
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             Button(
                 onClick = { onFaqClick(eventInfo.faqLink) },
-                modifier = Modifier.fillMaxWidth().weight(1f)
+                modifier = Modifier.fillMaxWidth().weight(1f).placeholder(visible = isLoading)
             ) {
                 Text(text = stringResource(R.string.action_faq))
             }
             Button(
                 onClick = { onCoCClick(eventInfo.codeOfConductLink) },
-                modifier = Modifier.fillMaxWidth().weight(1f)
+                modifier = Modifier.fillMaxWidth().weight(1f).placeholder(visible = isLoading)
             ) {
                 Text(text = stringResource(R.string.action_coc))
             }

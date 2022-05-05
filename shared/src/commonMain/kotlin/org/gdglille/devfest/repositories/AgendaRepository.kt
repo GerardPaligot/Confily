@@ -1,5 +1,11 @@
 package org.gdglille.devfest.repositories
 
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.transform
+import kotlinx.coroutines.launch
 import org.gdglille.devfest.database.EventDao
 import org.gdglille.devfest.database.ScheduleDao
 import org.gdglille.devfest.database.SpeakerDao
@@ -9,16 +15,10 @@ import org.gdglille.devfest.models.EventUi
 import org.gdglille.devfest.models.SpeakerUi
 import org.gdglille.devfest.models.TalkUi
 import org.gdglille.devfest.network.ConferenceApi
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.transform
-import kotlinx.coroutines.launch
 
 interface AgendaRepository {
     suspend fun fetchAndStoreAgenda()
-    suspend fun event(): EventUi
+    suspend fun event(): Flow<EventUi>
     suspend fun agenda(): Flow<AgendaUi>
     suspend fun markAsRead(scheduleId: String, isFavorite: Boolean)
     suspend fun scheduleItem(scheduleId: String): TalkUi
@@ -55,7 +55,7 @@ class AgendaRepositoryImpl(
         eventDao.insertEvent(event)
     }
 
-    override suspend fun event(): EventUi = eventDao.fetchEvent()
+    override suspend fun event(): Flow<EventUi> = eventDao.fetchEvent()
     override suspend fun agenda(): Flow<AgendaUi> = scheduleDao.fetchSchedules().transform { talks ->
         emit(AgendaUi(talks = talks.groupBy { it.time }.mapValues { entry -> entry.value.sortedBy { it.room } }))
     }
