@@ -3,11 +3,13 @@ package org.gdglille.devfest.android.screens.speakers
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import org.gdglille.devfest.repositories.AgendaRepository
-import org.gdglille.devfest.models.SpeakerUi
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import org.gdglille.devfest.models.SpeakerUi
+import org.gdglille.devfest.repositories.AgendaRepository
 
 sealed class SpeakerUiState {
     object Loading : SpeakerUiState()
@@ -26,8 +28,9 @@ class SpeakerViewModel(
         viewModelScope.launch {
             try {
                 _uiState.value = SpeakerUiState.Success(repository.speaker(speakerId))
-            } catch (ignore: Throwable) {
-                _uiState.value = SpeakerUiState.Failure(ignore)
+            } catch (error: Throwable) {
+                Firebase.crashlytics.recordException(error)
+                _uiState.value = SpeakerUiState.Failure(error)
             }
         }
     }

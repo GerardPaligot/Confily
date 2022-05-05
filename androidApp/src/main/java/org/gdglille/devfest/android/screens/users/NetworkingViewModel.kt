@@ -3,11 +3,13 @@ package org.gdglille.devfest.android.screens.users
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import org.gdglille.devfest.models.UserNetworkingUi
-import org.gdglille.devfest.repositories.UserRepository
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import org.gdglille.devfest.models.UserNetworkingUi
+import org.gdglille.devfest.repositories.UserRepository
 
 sealed class NetworkingUiState {
     object Loading : NetworkingUiState()
@@ -23,8 +25,13 @@ class NetworkingViewModel(
 
     init {
         viewModelScope.launch {
-            userRepository.fetchNetworking().collect {
-                _uiState.value = NetworkingUiState.Success(users = it)
+            try {
+                userRepository.fetchNetworking().collect {
+                    _uiState.value = NetworkingUiState.Success(users = it)
+                }
+            } catch (error: Throwable) {
+                Firebase.crashlytics.recordException(error)
+                _uiState.value = NetworkingUiState.Failure(throwable = error)
             }
         }
     }

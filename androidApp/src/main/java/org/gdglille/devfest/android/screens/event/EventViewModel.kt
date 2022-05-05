@@ -3,11 +3,13 @@ package org.gdglille.devfest.android.screens.event
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import org.gdglille.devfest.models.EventUi
-import org.gdglille.devfest.repositories.AgendaRepository
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import org.gdglille.devfest.models.EventUi
+import org.gdglille.devfest.repositories.AgendaRepository
 
 sealed class EventUiState {
     data class Loading(val event: EventUi) : EventUiState()
@@ -23,8 +25,9 @@ class EventViewModel(private val repository: AgendaRepository) : ViewModel() {
         viewModelScope.launch {
             try {
                 _uiState.value = EventUiState.Success(repository.event())
-            } catch (ignore: Throwable) {
-                _uiState.value = EventUiState.Failure(ignore)
+            } catch (error: Throwable) {
+                Firebase.crashlytics.recordException(error)
+                _uiState.value = EventUiState.Failure(error)
             }
         }
     }

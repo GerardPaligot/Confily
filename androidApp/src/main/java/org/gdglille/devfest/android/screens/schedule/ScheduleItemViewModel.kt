@@ -3,6 +3,8 @@ package org.gdglille.devfest.android.screens.schedule
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -26,8 +28,9 @@ class ScheduleItemViewModel(
         viewModelScope.launch {
             try {
                 _uiState.value = ScheduleUiState.Success(repository.scheduleItem(scheduleId))
-            } catch (ignore: Throwable) {
-                _uiState.value = ScheduleUiState.Failure(ignore)
+            } catch (error: Throwable) {
+                Firebase.crashlytics.recordException(error)
+                _uiState.value = ScheduleUiState.Failure(error)
             }
         }
     }

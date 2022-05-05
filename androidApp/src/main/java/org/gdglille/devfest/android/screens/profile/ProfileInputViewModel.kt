@@ -3,12 +3,14 @@ package org.gdglille.devfest.android.screens.profile
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import org.gdglille.devfest.models.UserProfileUi
-import org.gdglille.devfest.repositories.UserRepository
-import org.gdglille.devfest.android.screens.Field
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import org.gdglille.devfest.android.screens.Field
+import org.gdglille.devfest.models.UserProfileUi
+import org.gdglille.devfest.repositories.UserRepository
 
 sealed class ProfileInputUiState {
     object Loading : ProfileInputUiState()
@@ -24,16 +26,21 @@ class ProfileInputViewModel(
 
     init {
         viewModelScope.launch {
-            val profile = userRepository.fetchProfile()
-            _uiState.value = ProfileInputUiState.Success(
-                profile = profile ?: UserProfileUi(
-                    email = "",
-                    firstName = "",
-                    lastName = "",
-                    company = "",
-                    qrCode = null
+            try {
+                val profile = userRepository.fetchProfile()
+                _uiState.value = ProfileInputUiState.Success(
+                    profile = profile ?: UserProfileUi(
+                        email = "",
+                        firstName = "",
+                        lastName = "",
+                        company = "",
+                        qrCode = null
+                    )
                 )
-            )
+            } catch (error: Throwable) {
+                Firebase.crashlytics.recordException(error)
+                _uiState.value = ProfileInputUiState.Failure(error)
+            }
         }
     }
 

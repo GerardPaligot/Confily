@@ -9,10 +9,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import org.gdglille.devfest.android.ui.R
 import org.gdglille.devfest.android.components.events.EventSection
 import org.gdglille.devfest.android.components.events.PartnerDivider
 import org.gdglille.devfest.android.components.events.PartnerRow
+import org.gdglille.devfest.android.ui.R
 import org.gdglille.devfest.models.EventUi
 
 @Composable

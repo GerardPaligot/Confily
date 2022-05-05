@@ -4,6 +4,8 @@ plugins {
     id("com.android.application")
     kotlin("android")
     id("org.jetbrains.compose") version "1.0.1"
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 val composeVersion: String by project
@@ -98,6 +100,10 @@ dependencies {
     implementation("androidx.compose.material:material:$composeVersion")
     implementation("androidx.compose.material:material-icons-extended:$composeVersion")
     implementation("androidx.compose.ui:ui-tooling:$composeVersion")
+
+    implementation(platform("com.google.firebase:firebase-bom:29.3.1"))
+    implementation("com.google.firebase:firebase-crashlytics-ktx")
+    implementation("com.google.firebase:firebase-analytics-ktx")
 
     implementation("com.google.mlkit:barcode-scanning:17.0.2")
     implementation("androidx.camera:camera-camera2:1.1.0-beta03")
