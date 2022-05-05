@@ -32,7 +32,7 @@ fun ScheduleItem(
         ) {
             Time(time = time, modifier = Modifier.placeholder(visible = isLoading))
         }
-        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             talks.forEach {
                 Container(onClick = { onTalkClicked(it.id) }, enabled = !isLoading && !it.isPause) {
                     TalkItem(

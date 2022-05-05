@@ -25,7 +25,7 @@ fun Agenda(
     LazyColumn(
         modifier = modifier,
         contentPadding = PaddingValues(vertical = 4.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         items(agenda.talks.keys.toList()) {
             ScheduleItem(
