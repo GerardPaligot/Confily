@@ -22,6 +22,7 @@
     <string name="text_camera_permission_deny">Camera permission denied. Please, grant us access on the Settings screen.</string>
     <string name="text_report_subject">Report from Devfest Lille App</string>
     <string name="text_report_app_target">Choose an Email client:</string>
+    <string name="text_networking_empty">Scan a qrcode to add a profile in your networking list and create your own qrcode in your profile form</string>
     <string name="text_networking_ask_to_delete">Are you sure you want to delete %s of your networking list?</string>
 
     <string name="action_back">Back</string>
