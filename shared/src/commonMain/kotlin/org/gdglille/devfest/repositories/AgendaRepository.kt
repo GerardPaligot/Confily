@@ -4,6 +4,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.transform
 import kotlinx.coroutines.launch
 import org.gdglille.devfest.database.EventDao
@@ -25,8 +26,11 @@ interface AgendaRepository {
     suspend fun speaker(speakerId: String): SpeakerUi
 
     // Kotlin/Native client
-    fun startCollectAgenda(success: (AgendaUi) -> Unit)
+    fun startCollectAgenda(success: (AgendaUi) -> Unit, failure: (Throwable) -> Unit)
     fun stopCollectAgenda()
+
+    fun startCollectEvent(success: (EventUi) -> Unit, failure: (Throwable) -> Unit)
+    fun stopCollectEvent()
 
     object Factory {
         fun create(
@@ -67,16 +71,37 @@ class AgendaRepositoryImpl(
     override suspend fun speaker(speakerId: String): SpeakerUi = speakerDao.fetchSpeaker(speakerId)
 
     private val coroutineScope: CoroutineScope = MainScope()
-    var agendaJob: Job? = null
-    override fun startCollectAgenda(success: (AgendaUi) -> Unit) {
+    private var agendaJob: Job? = null
+    override fun startCollectAgenda(success: (AgendaUi) -> Unit, failure: (Throwable) -> Unit) {
         agendaJob = coroutineScope.launch {
-            agenda().collect {
-                success(it)
+            try {
+                agenda().collect {
+                    success(it)
+                }
+            } catch (throwable: Throwable) {
+                failure(throwable)
             }
         }
     }
 
     override fun stopCollectAgenda() {
         agendaJob?.cancel()
+    }
+
+    private var eventJob: Job? = null
+    override fun startCollectEvent(success: (EventUi) -> Unit, failure: (Throwable) -> Unit) {
+        eventJob = coroutineScope.launch {
+            try {
+                event().collect {
+                    success(it)
+                }
+            } catch (throwable: Throwable) {
+                failure(throwable)
+            }
+        }
+    }
+
+    override fun stopCollectEvent() {
+        eventJob?.cancel()
     }
 }

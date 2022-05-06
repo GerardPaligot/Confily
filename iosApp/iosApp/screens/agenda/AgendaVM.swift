@@ -60,6 +60,8 @@ struct AgendaVM: View {
                                     }
                             }
                         )
+                    case .failure:
+                        Text("textError")
                     case .loading:
                         Agenda(
                             agenda: AgendaUi(talks: [:]),

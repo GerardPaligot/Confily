@@ -12,6 +12,7 @@ import shared
 enum AgendaUiState {
     case loading
     case success(AgendaUi)
+    case failure
 }
 
 class AgendaViewModel: ObservableObject {
@@ -24,9 +25,14 @@ class AgendaViewModel: ObservableObject {
     @Published var uiState: AgendaUiState = AgendaUiState.loading
     
     func fetchAgenda() {
-        repository.startCollectAgenda(success: { agenda in
-            self.uiState = AgendaUiState.success(agenda)
-        })
+        repository.startCollectAgenda(
+            success: { agenda in
+                self.uiState = AgendaUiState.success(agenda)
+            },
+            failure: { throwable in
+                self.uiState = AgendaUiState.failure
+            }
+        )
     }
     
     func stop() {

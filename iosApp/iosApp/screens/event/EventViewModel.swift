@@ -12,7 +12,7 @@ import shared
 enum EventUiState {
     case loading
     case success(EventUi)
-    case failure(Error)
+    case failure
 }
 
 class EventViewModel: ObservableObject {
@@ -25,12 +25,13 @@ class EventViewModel: ObservableObject {
     @Published var uiState: EventUiState = EventUiState.loading
     
     func fetchEvent() {
-        repository.event { eventUi, error in
-            if (eventUi != nil) {
-                self.uiState = EventUiState.success(eventUi!)
-            } else {
-                self.uiState = EventUiState.failure(error!)
+        repository.startCollectEvent(
+            success: { event in
+                self.uiState = EventUiState.success(event)
+            },
+            failure: { throwable in
+                self.uiState = EventUiState.failure
             }
-        }
+        )
     }
 }

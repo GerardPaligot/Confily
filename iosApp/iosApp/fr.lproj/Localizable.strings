@@ -22,7 +22,7 @@
 "textLevelBeginner" = "Débutant";
 "textOpenfeedbackNotStarted" = "Vous serez en mesure de donner un feedback quand la session aura démarrée !";
 "textReportSubject" = "Report depuis l'app Devfest Lille";
-"textNetworkingNoScan" = "Vous n'avez pas encore scanner de Qrcode";
+"textNetworkingNoScan" = "Vous n'avez pas encore scanné de Qrcode";
 
 "actionFaq" = "FAQ";
 "actionCoc" = "Code de Conduite";

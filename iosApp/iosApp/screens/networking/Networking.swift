@@ -16,7 +16,9 @@ struct Networking: View {
 
     var body: some View {
         Group {
+            Text("Count \(networkingUi.users.count)")
             if (networkingUi.users.count > 0) {
+                Text("Count \(networkingUi.users[0].email)")
                 ScrollView {
                     LazyVStack(spacing: 10) {
                         ForEach(networkingUi.users, id: \.self) { user in
