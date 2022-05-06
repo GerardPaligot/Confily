@@ -58,8 +58,10 @@ struct NetworkingVM: View {
             .sheet(isPresented: $isPresentingScanner) {
                 CodeScannerView(codeTypes: [.qr]) { response in
                     if case let .success(result) = response {
-                        viewModel.saveNetworkingProfile(text: result.string)
-                        isPresentingScanner = false
+                        if (result.string != "") {
+                            viewModel.saveNetworkingProfile(text: result.string)
+                            isPresentingScanner = false
+                        }
                     }
                 }
             }
