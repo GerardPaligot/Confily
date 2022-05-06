@@ -51,8 +51,12 @@ android {
             props.load(appProps.reader())
         }
         getByName("release") {
-            isMinifyEnabled = false
-            signingConfig = signingConfigs.getByName("release")
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+            if (keystoreProps.exists()) {
+                signingConfig = signingConfigs.getByName("release")
+            }
             buildConfigField("String", "BASE_URL", "\"${props.getProperty("BASE_URL")}\"")
             buildConfigField("String", "EVENT_ID", "\"${props.getProperty("EVENT_ID")}\"")
             buildConfigField("String", "CONTACT_MAIL", "\"${props.getProperty("CONTACT_MAIL")}\"")
