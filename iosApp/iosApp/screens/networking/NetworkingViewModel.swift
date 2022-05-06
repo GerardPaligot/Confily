@@ -97,6 +97,10 @@ class NetworkingViewModel: ObservableObject {
         }
     }
     
+    func deleteNetworkProfile(email: String) {
+        repository.deleteNetworkProfile(email: email) { _, error in }
+    }
+    
     func fetchNetworking() {
         repository.startCollectNetworking(success: { users in
             if case .success(let networkingUi) = self.uiState {

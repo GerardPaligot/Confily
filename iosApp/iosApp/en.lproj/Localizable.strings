@@ -13,6 +13,7 @@
 "titleGold" = "Gold";
 "titleSilver" = "Silver";
 "titleBronze" = "Bronze";
+"titleNetworkProfile" = "Delete a profile";
 
 "textLoading" = "Loading…";
 "textError" = "Something wrong happened";
@@ -23,7 +24,8 @@
 "textOpenfeedbackNotStarted" = "You'll be able to give feedback when the session has started!";
 "textReportSubject" = "Report from Devfest Lille App";
 "textReportAppTarget" = "Choose an Email client:";
-"textNetworkingNoScan" = "You didn't scan a QR code yet";
+"textNetworkingNoScan" = "Scan a Qrcode to add a profile in your networking list\n\nAnd create your own Qrcode in your profile form";
+"textNetworkingAskToDelete %@ %@" = "Are you sure you want to delete %@ %@ from your networking space?";
 
 "actionFaq" = "FAQ";
 "actionCoc" = "Code Of Conduct";

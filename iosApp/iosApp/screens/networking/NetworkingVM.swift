@@ -31,6 +31,9 @@ struct NetworkingVM: View {
                         },
                         onDismissProfileSheet: {
                             viewModel.closeQrCode()
+                        },
+                        onNetworkDeleted: { email in
+                            viewModel.deleteNetworkProfile(email: email)
                         }
                     )
                     case .failure(_):
