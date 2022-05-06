@@ -14,7 +14,7 @@ struct iOSApp: App {
     }
 
 	var body: some Scene {
-        let api = ConferenceApi.companion.create(baseUrl: self.baseUrl, eventId: self.eventId, enableNetworkLogs: true)
+        let api = ConferenceApi.companion.create(baseUrl: self.baseUrl, eventId: self.eventId, enableNetworkLogs: isInDebugMode)
         let agendaRepository = AgendaRepositoryImpl(
             api: api,
             scheduleDao: ScheduleDao(db: db, eventId: eventId),
@@ -30,4 +30,12 @@ struct iOSApp: App {
 			AppView(agendaRepository: agendaRepository, userRepository: userRepository)
 		}
 	}
+    
+    var isInDebugMode: Bool {
+        #if DEBUG
+            return true
+        #else
+            return false
+        #endif
+    }
 }
