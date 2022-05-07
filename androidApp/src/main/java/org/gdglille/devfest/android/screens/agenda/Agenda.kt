@@ -4,6 +4,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import org.gdglille.devfest.android.R
@@ -16,8 +17,9 @@ fun AgendaVM(
     modifier: Modifier = Modifier,
     onTalkClicked: (id: String) -> Unit,
 ) {
+    val context = LocalContext.current
     val viewModel: AgendaViewModel = viewModel(
-        factory = AgendaViewModel.Factory.create(agendaRepository)
+        factory = AgendaViewModel.Factory.create(context, agendaRepository)
     )
     val uiState = viewModel.uiState.collectAsState()
     when (uiState.value) {
@@ -34,7 +36,7 @@ fun AgendaVM(
             modifier = modifier,
             onTalkClicked = onTalkClicked,
             onFavoriteClicked = { talkItem ->
-                viewModel.markAsFavorite(talkItem)
+                viewModel.markAsFavorite(context, talkItem)
             }
         )
     }

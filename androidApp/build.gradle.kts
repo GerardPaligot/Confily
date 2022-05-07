@@ -11,6 +11,7 @@ plugins {
 val composeVersion: String by project
 val accompanistVersion: String by project
 val settingsVersion: String by project
+val datetimeVersion: String by project
 val versionMajor = 0
 val versionMinor = 1
 val versionPatch = 5
@@ -104,6 +105,8 @@ dependencies {
     implementation("androidx.compose.material:material:$composeVersion")
     implementation("androidx.compose.material:material-icons-extended:$composeVersion")
     implementation("androidx.compose.ui:ui-tooling:$composeVersion")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:$datetimeVersion")
 
     implementation(platform("com.google.firebase:firebase-bom:29.3.1"))
     implementation("com.google.firebase:firebase-crashlytics-ktx")

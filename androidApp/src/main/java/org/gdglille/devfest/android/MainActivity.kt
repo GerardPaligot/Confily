@@ -1,5 +1,6 @@
 package org.gdglille.devfest.android
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
@@ -166,6 +167,15 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
+        }
+    }
+
+    companion object {
+        private const val ID = "schedule.id"
+
+        fun create(context: Context, id: String) = Intent(context, MainActivity::class.java).apply {
+            putExtra(ID, id)
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
     }
 }
