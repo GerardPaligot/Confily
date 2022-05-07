@@ -1,21 +1,23 @@
 package org.gdglille.devfest.database
 
-import org.gdglille.devfest.db.Conferences4HallDatabase
-import org.gdglille.devfest.extensions.formatHoursMinutes
-import org.gdglille.devfest.models.TalkItemUi
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
 import kotlinx.coroutines.flow.Flow
 import kotlinx.datetime.toLocalDateTime
+import org.gdglille.devfest.db.Conferences4HallDatabase
+import org.gdglille.devfest.extensions.formatHoursMinutes
 import org.gdglille.devfest.models.ScheduleItem
+import org.gdglille.devfest.models.TalkItemUi
 
 class ScheduleDao(private val db: Conferences4HallDatabase, private val eventId: String) {
     fun fetchSchedules(): Flow<List<TalkItemUi>> =
-        db.agendaQueries.selectScheduleItems(eventId) { id, _, startTime, _, room, title, speakers, is_favorite ->
+        db.agendaQueries.selectScheduleItems(eventId) { id, _, startTime, endTime, room, title, speakers, is_favorite ->
             TalkItemUi(
                 id = id,
                 room = room,
-                time = startTime.toLocalDateTime().formatHoursMinutes(),
+                slotTime = startTime.toLocalDateTime().formatHoursMinutes(),
+                startTime = startTime,
+                endTime = endTime,
                 title = title,
                 speakers = speakers,
                 isFavorite = is_favorite

@@ -24,8 +24,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.gdglille.devfest.android.ui.R
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
+import org.gdglille.devfest.android.ui.R
 import org.gdglille.devfest.models.TalkItemUi
 
 @Composable
@@ -39,7 +39,7 @@ fun TalkItem(
     subtitleColor: Color = MaterialTheme.colors.onBackground,
     subtitleTextStyle: TextStyle = MaterialTheme.typography.body2,
     favoriteColor: Color = if (talk.isFavorite) MaterialTheme.colors.secondary else MaterialTheme.colors.onBackground,
-    onFavoriteClicked: (id: String, isFavorite: Boolean) -> Unit
+    onFavoriteClicked: (TalkItemUi) -> Unit
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),
@@ -68,7 +68,7 @@ fun TalkItem(
         }
         if (!talk.isPause) {
             IconButton(
-                onClick = { onFavoriteClicked(talk.id, !talk.isFavorite) },
+                onClick = { onFavoriteClicked(talk) },
                 modifier = Modifier.padding(end = 4.dp)
             ) {
                 Icon(
@@ -88,7 +88,7 @@ fun TalkItem(
 fun TalkItemPreview() {
     Conferences4HallTheme {
         Scaffold {
-            TalkItem(talk = TalkItemUi.fake) { _, _ -> }
+            TalkItem(talk = TalkItemUi.fake) { }
         }
     }
 }
@@ -99,7 +99,7 @@ fun TalkItemPreview() {
 fun TalkItemPausePreview() {
     Conferences4HallTheme {
         Scaffold {
-            TalkItem(talk = TalkItemUi.fakePause) { _, _ -> }
+            TalkItem(talk = TalkItemUi.fakePause) { }
         }
     }
 }

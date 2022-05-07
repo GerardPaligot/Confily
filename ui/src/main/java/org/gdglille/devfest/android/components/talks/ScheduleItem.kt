@@ -22,7 +22,7 @@ fun ScheduleItem(
     modifier: Modifier = Modifier,
     isLoading: Boolean = false,
     onTalkClicked: (id: String) -> Unit,
-    onFavoriteClicked: (id: String, isFavorite: Boolean) -> Unit
+    onFavoriteClicked: (TalkItemUi) -> Unit
 ) {
     val timeSpace = 55.dp
     Box(modifier = modifier) {
@@ -54,7 +54,7 @@ fun ScheduleItemPreview() {
             time = "10:00",
             talks = arrayListOf(TalkItemUi.fake, TalkItemUi.fake),
             onTalkClicked = {},
-            onFavoriteClicked = { _, _ -> }
+            onFavoriteClicked = { }
         )
     }
 }

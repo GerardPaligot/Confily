@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.android.components.talks.ScheduleItem
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
 import org.gdglille.devfest.models.AgendaUi
+import org.gdglille.devfest.models.TalkItemUi
 
 @Composable
 fun Agenda(
@@ -20,7 +21,7 @@ fun Agenda(
     modifier: Modifier = Modifier,
     isLoading: Boolean = false,
     onTalkClicked: (id: String) -> Unit,
-    onFavoriteClicked: (id: String, isFavorite: Boolean) -> Unit
+    onFavoriteClicked: (TalkItemUi) -> Unit
 ) {
     LazyColumn(
         modifier = modifier,
@@ -48,7 +49,7 @@ fun AgendaPreview() {
             Agenda(
                 agenda = AgendaUi.fake,
                 onTalkClicked = {},
-                onFavoriteClicked = { _, _ -> }
+                onFavoriteClicked = { }
             )
         }
     }

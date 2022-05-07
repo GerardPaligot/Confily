@@ -7,8 +7,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import org.gdglille.devfest.android.R
-import org.gdglille.devfest.repositories.AgendaRepository
 import org.gdglille.devfest.android.screens.Agenda
+import org.gdglille.devfest.repositories.AgendaRepository
 
 @Composable
 fun AgendaVM(
@@ -26,15 +26,15 @@ fun AgendaVM(
             modifier = modifier,
             isLoading = true,
             onTalkClicked = {},
-            onFavoriteClicked = { _, _ -> }
+            onFavoriteClicked = { }
         )
         is AgendaUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
         is AgendaUiState.Success -> Agenda(
             agenda = (uiState.value as AgendaUiState.Success).agenda,
             modifier = modifier,
             onTalkClicked = onTalkClicked,
-            onFavoriteClicked = { id, isFavorite ->
-                viewModel.markAsFavorite(id, isFavorite)
+            onFavoriteClicked = { talkItem ->
+                viewModel.markAsFavorite(talkItem)
             }
         )
     }

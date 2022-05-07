@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.gdglille.devfest.models.AgendaUi
+import org.gdglille.devfest.models.TalkItemUi
 import org.gdglille.devfest.repositories.AgendaRepository
 import java.net.UnknownHostException
 
@@ -50,8 +51,8 @@ class AgendaViewModel(
         }
     }
 
-    fun markAsFavorite(scheduleId: String, isFavorite: Boolean) = viewModelScope.launch {
-        repository.markAsRead(scheduleId, isFavorite)
+    fun markAsFavorite(talkItem: TalkItemUi) = viewModelScope.launch {
+        repository.markAsRead(talkItem.id, !talkItem.isFavorite)
     }
 
     object Factory {
