@@ -23,7 +23,6 @@ import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
-import io.ktor.server.plugins.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.plugins.cors.routing.*
 import io.ktor.server.plugins.statuspages.*
@@ -31,6 +30,7 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.coroutines.Dispatchers
+import org.gdglille.devfest.backend.partners.registerPartnersRoutes
 
 fun main() {
     val gcpProjectId = "cms4partners-ce427"
@@ -127,6 +127,7 @@ fun main() {
                 registerSpeakersRoutes(eventDao, speakerDao)
                 registerTalksRoutes(eventDao, speakerDao, talkDao)
                 registerSchedulersRoutes(eventDao, talkDao, speakerDao, scheduleItemDao)
+                registerPartnersRoutes(eventDao, partnerDao)
             }
         }
     }.start(wait = true)

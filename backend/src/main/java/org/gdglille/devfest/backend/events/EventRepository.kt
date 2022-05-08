@@ -1,5 +1,8 @@
 package org.gdglille.devfest.backend.events
 
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 import org.gdglille.devfest.backend.NotFoundException
 import org.gdglille.devfest.backend.date.FormatterPattern
 import org.gdglille.devfest.backend.date.format
@@ -16,9 +19,6 @@ import org.gdglille.devfest.models.SessionOF
 import org.gdglille.devfest.models.SocialOF
 import org.gdglille.devfest.models.SpeakerOF
 import org.gdglille.devfest.models.inputs.EventInput
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.coroutineScope
 import java.time.LocalDateTime
 
 class EventRepository(
@@ -30,11 +30,12 @@ class EventRepository(
 ) {
     suspend fun list(eventId: String) = coroutineScope {
         val event = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
+        val partners = partnerDao.getAll(eventId)
         return@coroutineScope event.convertToModel(
-            golds = partnerDao.listValidated(event.year, Sponsorship.Gold),
-            silvers = partnerDao.listValidated(event.year, Sponsorship.Silver),
-            bronzes = partnerDao.listValidated(event.year, Sponsorship.Bronze),
-            others = emptyList()
+            golds = (partnerDao.listValidatedFromCms4Partners(event.year, Sponsorship.Gold) + partners.filter { it.sponsoring == Sponsorship.Gold.name }).sortedBy { it.creationDate },
+            silvers = (partnerDao.listValidatedFromCms4Partners(event.year, Sponsorship.Silver) + partners.filter { it.sponsoring == Sponsorship.Silver.name }).sortedBy { it.creationDate },
+            bronzes = (partnerDao.listValidatedFromCms4Partners(event.year, Sponsorship.Bronze) + partners.filter { it.sponsoring == Sponsorship.Bronze.name }).sortedBy { it.creationDate },
+            others = partners.filter { it.sponsoring == Sponsorship.Other.name }.sortedBy { it.creationDate }
         )
     }
 
