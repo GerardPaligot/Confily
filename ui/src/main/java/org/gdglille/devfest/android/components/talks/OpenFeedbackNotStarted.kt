@@ -18,7 +18,7 @@ import org.gdglille.devfest.android.ui.R
 fun OpenFeedbackNotStarted(
     modifier: Modifier = Modifier,
     color: Color = MaterialTheme.colors.onBackground,
-    style: TextStyle = MaterialTheme.typography.body1
+    style: TextStyle = MaterialTheme.typography.body2
 ) {
     Text(
         text = stringResource(R.string.text_openfeedback_not_started),

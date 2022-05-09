@@ -21,18 +21,18 @@ class AlarmReceiver : BroadcastReceiver() {
             setSmallIcon(R.drawable.ic_launcher_foreground)
             setContentTitle(title)
             setContentText(text)
+            setStyle(NotificationCompat.BigTextStyle().bigText(text))
             priority = NotificationCompat.PRIORITY_DEFAULT
-            setContentIntent(PendingIntent.getActivity(context, 0, MainActivity.create(context, id), 0))
+            setContentIntent(PendingIntent.getActivity(context, 0, MainActivity.create(context), 0))
             setAutoCancel(true)
         }
-
         val notificationManager: NotificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val importance = NotificationManager.IMPORTANCE_DEFAULT
             val channel = NotificationChannel(CHANNEL_ID, "Devfest Lille App", importance)
             notificationManager.createNotificationChannel(channel)
         }
-        notificationManager.notify(0, builder.build())
+        notificationManager.notify(id.hashCode(), builder.build())
     }
 
     companion object {

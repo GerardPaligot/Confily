@@ -10,6 +10,7 @@
     <string name="title_gold">Gold</string>
     <string name="title_silver">Silver</string>
     <string name="title_bronze">Bronze</string>
+    <string name="title_notif_reminder_talk">Talk dans 10 minutes en %s</string>
 
     <string name="text_loading">Chargement…</string>
     <string name="text_error">Une erreur inconnue est survenue</string>

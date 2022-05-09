@@ -22,6 +22,7 @@ import kotlinx.datetime.minus
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 import org.gdglille.devfest.android.AlarmReceiver
+import org.gdglille.devfest.android.R
 import org.gdglille.devfest.models.AgendaUi
 import org.gdglille.devfest.models.TalkItemUi
 import org.gdglille.devfest.repositories.AgendaRepository
@@ -69,9 +70,8 @@ class AgendaViewModel(
     fun markAsFavorite(context: Context, talkItem: TalkItemUi) = viewModelScope.launch {
         val isFavorite = !talkItem.isFavorite
         repository.markAsRead(talkItem.id, isFavorite)
-        val intent = AlarmReceiver.create(
-            context, talkItem.id, "Talk dans 10 minutes en ${talkItem.room.lowercase(Locale.getDefault())}", talkItem.title
-        )
+        val title = context.getString(R.string.title_notif_reminder_talk, talkItem.room.lowercase(Locale.getDefault()))
+        val intent = AlarmReceiver.create(context, talkItem.id, title, talkItem.title)
         val pendingIntent = PendingIntent.getBroadcast(
             context, talkItem.id.hashCode(), intent, PendingIntent.FLAG_UPDATE_CURRENT
         )

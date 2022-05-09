@@ -13,7 +13,7 @@ class TalkDao(private val db: Conferences4HallDatabase) {
         val talkWithSpeakers = db.talkQueries.selectTalkWithSpeakersByTalkId(talkId).executeAsList()
         val speakers = db.speakerQueries.selectSpeakers(talkWithSpeakers.map { it.speaker_id }).executeAsList()
         val talk = db.talkQueries.selectTalk(talkId).executeAsOne()
-        val now = Clock.System.now().toLocalDateTime(TimeZone.UTC)
+        val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
         val startTime = talk.start_time.toLocalDateTime()
         return@transactionWithResult TalkUi(
             title = talk.title,

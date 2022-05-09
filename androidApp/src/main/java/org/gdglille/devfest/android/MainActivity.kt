@@ -171,10 +171,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val ID = "schedule.id"
-
-        fun create(context: Context, id: String) = Intent(context, MainActivity::class.java).apply {
-            putExtra(ID, id)
+        fun create(context: Context) = Intent(context, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
     }
