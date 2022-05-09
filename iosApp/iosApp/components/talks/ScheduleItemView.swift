@@ -48,7 +48,7 @@ struct ScheduleItemView_Previews: PreviewProvider {
             talkItem: { talk in
                 TalkItemView(
                     talk: talk,
-                    onFavoriteClicked: { String, Bool in }
+                    onFavoriteClicked: { TalkItemUi in }
                 )
             }
         )

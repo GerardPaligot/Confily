@@ -48,8 +48,8 @@ struct AgendaVM: View {
                                 }
                                 TalkItemView(
                                     talk: talk,
-                                    onFavoriteClicked: { id, isFavorite in
-                                        viewModel.markAsFavorite(scheduleId: id, isFavorite: isFavorite)
+                                    onFavoriteClicked: { talkItem in
+                                        viewModel.markAsFavorite(talkItem: talkItem)
                                     }
                                 )
                                     .onTapGesture {

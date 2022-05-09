@@ -14,6 +14,8 @@
 "titleSilver" = "Silver";
 "titleBronze" = "Bronze";
 "titleNetworkProfile" = "Delete a profile";
+"titleNotifReminderTalk %@" = "Talk in 10 minutes in %@";
+"titleNotifReminderTalkSpeakers %@" = "By %@";
 
 "textLoading" = "Loading…";
 "textError" = "Something wrong happened";
