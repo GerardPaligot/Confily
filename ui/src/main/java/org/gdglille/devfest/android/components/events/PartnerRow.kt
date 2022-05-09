@@ -26,12 +26,14 @@ fun PartnerRow(
         val width = (this.maxWidth - (8.dp * (maxItems - 1))) / maxItems
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             partners.forEach {
-                PartnerItem(
-                    partnerUi = it,
-                    modifier = Modifier.width(width).aspectRatio(1f),
-                    isLoading = isLoading,
-                    onClick = onPartnerClick
-                )
+                Conferences4HallTheme(isDarkMode = false) {
+                    PartnerItem(
+                        partnerUi = it,
+                        modifier = Modifier.width(width).aspectRatio(1f),
+                        isLoading = isLoading,
+                        onClick = onPartnerClick
+                    )
+                }
             }
         }
     }

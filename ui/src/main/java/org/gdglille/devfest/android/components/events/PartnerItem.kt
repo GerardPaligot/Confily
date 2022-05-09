@@ -31,7 +31,7 @@ fun PartnerItem(
     partnerUi: PartnerItemUi,
     modifier: Modifier = Modifier,
     isLoading: Boolean = false,
-    backgroundColor: Color = ColorPalette.white,
+    backgroundColor: Color = MaterialTheme.colors.surface,
     shape: Shape = MaterialTheme.shapes.medium,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     contentScale: ContentScale = ContentScale.Fit,
