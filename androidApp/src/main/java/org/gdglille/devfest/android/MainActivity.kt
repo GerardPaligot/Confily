@@ -2,6 +2,7 @@ package org.gdglille.devfest.android
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
@@ -97,10 +98,10 @@ class MainActivity : AppCompatActivity() {
                                 navController.navigate("profile")
                             },
                             onReportClicked = {
-                                val intent = Intent(Intent.ACTION_SEND)
-                                intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(BuildConfig.CONTACT_MAIL))
-                                intent.putExtra(Intent.EXTRA_SUBJECT, reportSubject)
-                                intent.type = "message/rfc822"
+                                val intent = Intent(Intent.ACTION_SENDTO).apply {
+                                    data = Uri.parse("mailto:${BuildConfig.CONTACT_MAIL}")
+                                    putExtra(Intent.EXTRA_SUBJECT, reportSubject)
+                                }
                                 startActivity(Intent.createChooser(intent, reportAppTarget))
                             }
                         )
