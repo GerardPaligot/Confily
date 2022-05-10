@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
+import android.os.Build
 import android.os.SystemClock
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -72,9 +73,12 @@ class AgendaViewModel(
         repository.markAsRead(talkItem.id, isFavorite)
         val title = context.getString(R.string.title_notif_reminder_talk, talkItem.room.lowercase(Locale.getDefault()))
         val intent = AlarmReceiver.create(context, talkItem.id, title, talkItem.title)
-        val pendingIntent = PendingIntent.getBroadcast(
-            context, talkItem.id.hashCode(), intent, PendingIntent.FLAG_UPDATE_CURRENT
-        )
+        val flags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+        } else {
+            PendingIntent.FLAG_UPDATE_CURRENT
+        }
+        val pendingIntent = PendingIntent.getBroadcast(context, talkItem.id.hashCode(), intent, flags)
         if (isFavorite) {
             val time = talkItem.startTime
                 .toLocalDateTime()
