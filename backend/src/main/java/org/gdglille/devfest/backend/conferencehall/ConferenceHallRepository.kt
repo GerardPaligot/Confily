@@ -1,21 +1,21 @@
 package org.gdglille.devfest.backend.conferencehall
 
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.events.convertToDb
-import org.gdglille.devfest.backend.network.ConferenceHallApi
+import org.gdglille.devfest.backend.network.conferencehall.ConferenceHallApi
 import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.speakers.convertToDb
 import org.gdglille.devfest.backend.talks.TalkDao
 import org.gdglille.devfest.backend.talks.convertToDb
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.coroutineScope
 
 class ConferenceHallRepository(
-    private val api: ConferenceHallApi,
-    private val eventDao: EventDao,
-    private val speakerDao: SpeakerDao,
-    private val talkDao: TalkDao
+  private val api: ConferenceHallApi,
+  private val eventDao: EventDao,
+  private val speakerDao: SpeakerDao,
+  private val talkDao: TalkDao
 ) {
     suspend fun import(eventId: String, apiKey: String) = coroutineScope {
         val eventAccepted = api.fetchEventAccepted(eventId)

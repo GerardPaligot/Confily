@@ -12,10 +12,17 @@ data class EventAddressDb(
     val lng: Double = 0.0
 )
 
+data class BilletWebConfigurationDb(
+    val eventId: String = "",
+    val userId: String = "",
+    val apiKey: String = "",
+)
+
 data class EventDb(
     val year: String = "",
     val conferenceHallId: String = "",
     val openFeedbackId: String? = null,
+    val billetWebConfig: BilletWebConfigurationDb? = null,
     val apiKey: String = "",
     val name: String = "",
     val address: EventAddressDb = EventAddressDb(),

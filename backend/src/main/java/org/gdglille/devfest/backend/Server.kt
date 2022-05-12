@@ -3,21 +3,6 @@ package org.gdglille.devfest.backend
 import com.google.auth.oauth2.GoogleCredentials
 import com.google.cloud.firestore.FirestoreOptions
 import com.google.cloud.storage.StorageOptions
-import org.gdglille.devfest.backend.conferencehall.registerConferenceHallRoutes
-import org.gdglille.devfest.backend.database.Database
-import org.gdglille.devfest.backend.database.DatabaseType
-import org.gdglille.devfest.backend.events.EventDao
-import org.gdglille.devfest.backend.events.registerEventRoutes
-import org.gdglille.devfest.backend.partners.PartnerDao
-import org.gdglille.devfest.backend.schedulers.ScheduleItemDao
-import org.gdglille.devfest.backend.schedulers.registerSchedulersRoutes
-import org.gdglille.devfest.backend.speakers.SpeakerDao
-import org.gdglille.devfest.backend.speakers.registerSpeakersRoutes
-import org.gdglille.devfest.backend.storage.Storage
-import org.gdglille.devfest.backend.talks.TalkDao
-import org.gdglille.devfest.backend.talks.registerTalksRoutes
-import org.gdglille.devfest.models.inputs.Validator
-import org.gdglille.devfest.models.inputs.ValidatorException
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
@@ -30,7 +15,23 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.coroutines.Dispatchers
+import org.gdglille.devfest.backend.billetweb.registerBilletWebRoutes
+import org.gdglille.devfest.backend.conferencehall.registerConferenceHallRoutes
+import org.gdglille.devfest.backend.database.Database
+import org.gdglille.devfest.backend.database.DatabaseType
+import org.gdglille.devfest.backend.events.EventDao
+import org.gdglille.devfest.backend.events.registerEventRoutes
+import org.gdglille.devfest.backend.partners.PartnerDao
 import org.gdglille.devfest.backend.partners.registerPartnersRoutes
+import org.gdglille.devfest.backend.schedulers.ScheduleItemDao
+import org.gdglille.devfest.backend.schedulers.registerSchedulersRoutes
+import org.gdglille.devfest.backend.speakers.SpeakerDao
+import org.gdglille.devfest.backend.speakers.registerSpeakersRoutes
+import org.gdglille.devfest.backend.storage.Storage
+import org.gdglille.devfest.backend.talks.TalkDao
+import org.gdglille.devfest.backend.talks.registerTalksRoutes
+import org.gdglille.devfest.models.inputs.Validator
+import org.gdglille.devfest.models.inputs.ValidatorException
 
 fun main() {
     val gcpProjectId = "cms4partners-ce427"
@@ -116,6 +117,9 @@ fun main() {
             exception<NotFoundException> { call, cause ->
                 call.respond(HttpStatusCode.NotFound, cause.message ?: "")
             }
+            exception<NotAcceptableException> { call, cause ->
+                call.respond(HttpStatusCode.NotAcceptable, cause.message ?: "")
+            }
             exception<NotAuthorized> { call, _ ->
                 call.respond(HttpStatusCode.Unauthorized, "Your api key isn't the good one")
             }
@@ -128,6 +132,7 @@ fun main() {
                 registerTalksRoutes(eventDao, speakerDao, talkDao)
                 registerSchedulersRoutes(eventDao, talkDao, speakerDao, scheduleItemDao)
                 registerPartnersRoutes(eventDao, partnerDao)
+                registerBilletWebRoutes(eventDao)
             }
         }
     }.start(wait = true)
@@ -135,6 +140,7 @@ fun main() {
 
 object NotAuthorized : Throwable()
 class NotFoundException(message: String) : Throwable(message)
+class NotAcceptableException(message: String) : Throwable(message)
 
 suspend inline fun <reified T : Validator> ApplicationCall.receiveValidated(): T {
     val input = receive<T>()

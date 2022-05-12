@@ -22,10 +22,27 @@ data class EventAddressInput(
     }
 }
 
+
+@Serializable
+data class BilletWebConfigInput(
+    @SerialName("event_id")
+    val eventId: String,
+    @SerialName("user_id")
+    val userId: String,
+    @SerialName("api_key")
+    val apiKey: String
+): Validator {
+    override fun validate(): List<String> = emptyList()
+}
+
 @Serializable
 data class EventInput(
     val name: String,
     val address: EventAddressInput,
+    @SerialName("open_feedback_id")
+    val openFeedbackId: String?,
+    @SerialName("billet_web_config")
+    val billetWebConfig: BilletWebConfigInput?,
     @SerialName("start_date")
     val startDate: String,
     @SerialName("end_date")
@@ -39,8 +56,6 @@ data class EventInput(
     val faqLink: String,
     @SerialName("code_of_conduct_link")
     val codeOfConductLink: String,
-    @SerialName("open_feedback_id")
-    val openFeedbackId: String?,
     @SerialName("update_at")
     val updatedAt: Long = Clock.System.now().epochSeconds
 ): Validator {

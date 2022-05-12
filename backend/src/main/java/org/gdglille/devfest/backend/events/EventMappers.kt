@@ -1,10 +1,11 @@
 package org.gdglille.devfest.backend.events
 
-import org.gdglille.devfest.backend.network.Event
+import org.gdglille.devfest.backend.network.conferencehall.Event
 import org.gdglille.devfest.backend.partners.PartnerDb
 import org.gdglille.devfest.backend.partners.convertToModel
 import org.gdglille.devfest.models.EventAddress
 import org.gdglille.devfest.models.EventPartners
+import org.gdglille.devfest.models.inputs.BilletWebConfigInput
 import org.gdglille.devfest.models.inputs.EventInput
 
 fun Event.convertToDb(year: String, eventId: String, apiKey: String) = EventDb(
@@ -55,10 +56,17 @@ fun EventDb.convertToModel(
     updatedAt = this.updatedAt
 )
 
+fun BilletWebConfigInput.convertToDb() = BilletWebConfigurationDb(
+    eventId = eventId,
+    userId = userId,
+    apiKey = apiKey
+)
+
 fun EventInput.convertToDb(event: EventDb, openFeedbackId: String?, apiKey: String) = EventDb(
     year = event.year,
     conferenceHallId = event.conferenceHallId,
     openFeedbackId = openFeedbackId ?: event.openFeedbackId,
+    billetWebConfig = this.billetWebConfig?.convertToDb(),
     apiKey = apiKey,
     name = this.name,
     address = EventAddressDb(

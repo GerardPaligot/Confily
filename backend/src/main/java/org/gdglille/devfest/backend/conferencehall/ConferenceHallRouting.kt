@@ -1,13 +1,13 @@
 package org.gdglille.devfest.backend.conferencehall
 
-import org.gdglille.devfest.backend.events.EventDao
-import org.gdglille.devfest.backend.network.ConferenceHallApi
-import org.gdglille.devfest.backend.speakers.SpeakerDao
-import org.gdglille.devfest.backend.talks.TalkDao
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import org.gdglille.devfest.backend.events.EventDao
+import org.gdglille.devfest.backend.network.conferencehall.ConferenceHallApi
+import org.gdglille.devfest.backend.speakers.SpeakerDao
+import org.gdglille.devfest.backend.talks.TalkDao
 
 fun Route.registerConferenceHallRoutes(
     eventDao: EventDao,
