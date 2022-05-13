@@ -1,6 +1,9 @@
 package org.gdglille.devfest.repositories
 
+import com.russhwolf.settings.ExperimentalSettingsApi
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.Flow
@@ -18,6 +21,7 @@ import org.gdglille.devfest.network.ConferenceApi
 
 interface AgendaRepository {
     suspend fun fetchAndStoreAgenda()
+    suspend fun toggleFavoriteFiltering()
     suspend fun insertOrUpdateTicket(barcode: String)
     suspend fun event(): Flow<EventUi>
     suspend fun agenda(): Flow<AgendaUi>
@@ -32,6 +36,9 @@ interface AgendaRepository {
     fun startCollectEvent(success: (EventUi) -> Unit, failure: (Throwable) -> Unit)
     fun stopCollectEvent()
 
+    @FlowPreview
+    @ExperimentalSettingsApi
+    @ExperimentalCoroutinesApi
     object Factory {
         fun create(
             api: ConferenceApi,
@@ -44,6 +51,9 @@ interface AgendaRepository {
     }
 }
 
+@FlowPreview
+@ExperimentalSettingsApi
+@ExperimentalCoroutinesApi
 class AgendaRepositoryImpl(
     private val api: ConferenceApi,
     private val scheduleDao: ScheduleDao,
@@ -59,6 +69,10 @@ class AgendaRepositoryImpl(
             scheduleDao.insertOrUpdateSchedules(event.id, schedules)
         }
         eventDao.insertEvent(event)
+    }
+
+    override suspend fun toggleFavoriteFiltering() {
+        scheduleDao.toggleFavoriteFiltering()
     }
 
     override suspend fun insertOrUpdateTicket(barcode: String) {

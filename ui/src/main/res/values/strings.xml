@@ -31,6 +31,7 @@
 
     <string name="action_back">Back</string>
     <string name="action_share_talk">Share talk %s</string>
+    <string name="action_filtering_favorites">Only favorites schedules</string>
     <string name="action_qrcode_scanner">Qrcode scanner</string>
     <string name="action_ticket_qrcode_scanner">Ticket qrcode scanner</string>
     <string name="action_qrcode_generator">Qrcode generator</string>

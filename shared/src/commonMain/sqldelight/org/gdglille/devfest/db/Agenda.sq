@@ -24,3 +24,6 @@ UPDATE Schedule SET is_favorite = ? WHERE id == ?;
 
 selectScheduleItems:
 SELECT * FROM Schedule WHERE event_id == ? ORDER BY start_time;
+
+countScheduleItems:
+SELECT count(*) FROM Schedule WHERE event_id == ? AND is_favorite == ?;

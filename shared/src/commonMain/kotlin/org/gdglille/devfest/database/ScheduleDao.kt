@@ -1,31 +1,67 @@
 package org.gdglille.devfest.database
 
+import com.russhwolf.settings.ExperimentalSettingsApi
+import com.russhwolf.settings.ObservableSettings
+import com.russhwolf.settings.coroutines.getBooleanFlow
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flatMapMerge
+import kotlinx.coroutines.flow.map
 import kotlinx.datetime.toLocalDateTime
 import org.gdglille.devfest.db.Conferences4HallDatabase
 import org.gdglille.devfest.extensions.formatHoursMinutes
 import org.gdglille.devfest.models.ScheduleItem
 import org.gdglille.devfest.models.TalkItemUi
 
-class ScheduleDao(private val db: Conferences4HallDatabase, private val eventId: String) {
-    fun fetchSchedules(): Flow<List<TalkItemUi>> =
-        db.agendaQueries.selectScheduleItems(eventId) { id, _, startTime, endTime, room, title, speakers, is_favorite ->
-            TalkItemUi(
-                id = id,
-                room = room,
-                slotTime = startTime.toLocalDateTime().formatHoursMinutes(),
-                startTime = startTime,
-                endTime = endTime,
-                title = title,
-                speakers = speakers,
-                isFavorite = is_favorite
-            )
-        }.asFlow().mapToList()
+@FlowPreview
+@ExperimentalCoroutinesApi
+@ExperimentalSettingsApi
+class ScheduleDao(
+    private val db: Conferences4HallDatabase,
+    private val settings: ObservableSettings,
+    private val eventId: String
+) {
+    private val scheduleMapper = { id: String, _: String, startTime: String, endTime: String, room: String, title: String, speakers: List<String>, is_favorite: Boolean ->
+        TalkItemUi(
+            id = id,
+            room = room,
+            slotTime = startTime.toLocalDateTime().formatHoursMinutes(),
+            startTime = startTime,
+            endTime = endTime,
+            title = title,
+            speakers = speakers,
+            isFavorite = is_favorite
+        )
+    }
+    fun fetchSchedules(): Flow<List<TalkItemUi>> {
+        return settings.getBooleanFlow("ONLY_FAVORITES", false).flatMapMerge {
+            return@flatMapMerge db.agendaQueries.selectScheduleItems(eventId, scheduleMapper)
+                .asFlow()
+                .mapToList()
+                .map {
+                    val onlyFavorites = settings.getBoolean("ONLY_FAVORITES", false)
+                    if (onlyFavorites) it.filter { it.isFavorite == onlyFavorites }
+                    else it
+                }
+        }
+    }
 
-    fun markAsFavorite(scheduleId: String, isFavorite: Boolean) {
+    fun toggleFavoriteFiltering() {
+        val isFavorite = settings.getBoolean("ONLY_FAVORITES", false)
+        settings.putBoolean("ONLY_FAVORITES", !isFavorite)
+    }
+
+    fun markAsFavorite(scheduleId: String, isFavorite: Boolean) = db.transaction {
         db.agendaQueries.markAsFavorite(isFavorite, scheduleId)
+        if (isFavorite) return@transaction
+        val onlyFavorites = settings.getBoolean("ONLY_FAVORITES", false)
+        if (!onlyFavorites) return@transaction
+        val countFavorites = db.agendaQueries.countScheduleItems(eventId, true).executeAsOneOrNull()
+        if (countFavorites != null && countFavorites != 0L) return@transaction
+        settings.putBoolean("ONLY_FAVORITES", false)
     }
 
     fun insertOrUpdateSchedules(eventId: String, schedules: List<ScheduleItem>) = db.transaction {

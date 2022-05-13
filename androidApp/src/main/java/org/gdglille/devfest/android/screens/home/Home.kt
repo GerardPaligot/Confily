@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -40,6 +41,9 @@ fun Home(
     onQrCodeClicked: () -> Unit,
     onReportClicked: () -> Unit
 ) {
+    val viewModel: HomeViewModel = viewModel(
+        factory = HomeViewModel.Factory.create(agendaRepository)
+    )
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
     val screen = currentDestination?.route?.getScreen() ?: startDestination
@@ -54,6 +58,9 @@ fun Home(
                         ActionItemId.TicketQrCodeScannerActionItem -> onTicketScannerClicked()
                         ActionItemId.QrCodeActionItem -> onQrCodeClicked()
                         ActionItemId.ReportActionItem -> onReportClicked()
+                        ActionItemId.FavoriteSchedulesActionItem -> {
+                            viewModel.toggleFavoriteFiltering()
+                        }
                         else -> TODO()
                     }
                 }

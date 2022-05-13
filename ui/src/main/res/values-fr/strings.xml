@@ -31,6 +31,7 @@
 
     <string name="action_back">Retour</string>
     <string name="action_share_talk">Partage la session %s</string>
+    <string name="action_filtering_favorites">Seulement les talks favoris</string>
     <string name="action_qrcode_scanner">Scan de Qrcode</string>
     <string name="action_ticket_qrcode_scanner">Scan du qrcode du ticket</string>
     <string name="action_qrcode_generator">Génère un Qrcode</string>

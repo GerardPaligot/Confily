@@ -67,7 +67,6 @@ class NetworkingViewModel: ObservableObject {
                     lastName: contact?.familyName ?? "",
                     company: contact?.organizationName ?? ""
                 )
-                print(user)
                 repository.insertNetworkingProfile(user: user) { _, _ in
                 }
             } catch {

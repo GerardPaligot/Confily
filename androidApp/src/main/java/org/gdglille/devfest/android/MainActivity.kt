@@ -17,6 +17,9 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.russhwolf.settings.AndroidSettings
+import com.russhwolf.settings.ExperimentalSettingsApi
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import org.gdglille.devfest.android.data.QrCodeGeneratorAndroid
 import org.gdglille.devfest.android.screens.home.Home
 import org.gdglille.devfest.android.screens.profile.ProfileInputVM
@@ -36,6 +39,9 @@ import org.gdglille.devfest.repositories.AgendaRepository
 import org.gdglille.devfest.repositories.UserRepository
 
 
+@FlowPreview
+@ExperimentalSettingsApi
+@ExperimentalCoroutinesApi
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,20 +51,17 @@ class MainActivity : AppCompatActivity() {
         val api = ConferenceApi.create(
             baseUrl = baseUrl, eventId = eventId, enableNetworkLogs = BuildConfig.DEBUG
         )
+        val settings = AndroidSettings(getSharedPreferences(eventId, MODE_PRIVATE))
         val agendaRepository = AgendaRepository.Factory.create(
             api = api,
-            scheduleDao = ScheduleDao(db, eventId),
+            scheduleDao = ScheduleDao(db, settings, eventId),
             speakerDao = SpeakerDao(db),
             talkDao = TalkDao(db),
             eventDao = EventDao(db, eventId),
             qrCodeGenerator = QrCodeGeneratorAndroid()
         )
         val userRepository = UserRepository.Factory.create(
-            userDao = UserDao(
-                db = db,
-                settings = AndroidSettings(getSharedPreferences(eventId, MODE_PRIVATE)),
-                eventId = eventId
-            ),
+            userDao = UserDao(db = db, settings = settings, eventId = eventId),
             qrCodeGenerator = QrCodeGeneratorAndroid()
         )
         val openFeedbackState = (application as MainApplication).openFeedbackConfig

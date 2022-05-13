@@ -9,6 +9,7 @@ import androidx.compose.material.icons.filled.LocalActivity
 import androidx.compose.material.icons.filled.QrCode
 import androidx.compose.material.icons.filled.QrCodeScanner
 import androidx.compose.material.icons.filled.Report
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.Event
 import androidx.compose.material.icons.outlined.Group
 import androidx.compose.material.icons.outlined.LocalActivity
@@ -30,7 +31,14 @@ sealed class Screen(
         route = "agenda",
         title = R.string.screen_agenda,
         imageVectorFilled = Icons.Filled.Event,
-        imageVectorOutlined = Icons.Outlined.Event
+        imageVectorOutlined = Icons.Outlined.Event,
+        actions = arrayListOf(
+            ActionItem(
+                icon = Icons.Filled.Star,
+                contentDescription = R.string.action_filtering_favorites,
+                id = ActionItemId.FavoriteSchedulesActionItem
+            )
+        )
     )
 
     object Networking : Screen(
