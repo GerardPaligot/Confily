@@ -41,4 +41,6 @@ dependencies {
     debugImplementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1")
     debugImplementation("androidx.savedstate:savedstate-ktx:1.1.0")
     debugImplementation("androidx.core:core-ktx:1.7.0")
+    debugImplementation("androidx.customview:customview:1.2.0-alpha01")
+    debugImplementation("androidx.customview:customview-poolingcontainer:1.0.0-beta01")
 }

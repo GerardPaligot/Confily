@@ -25,6 +25,8 @@
     <string name="text_report_app_target">Choisissez une app pour envoyer un email</string>
     <string name="text_networking_empty">Scan un Qrcode pour ajouter un contact dans ta liste de networking\n\nEt crée ton Qrcode depuis le formulaire de ton profil</string>
     <string name="text_networking_ask_to_delete">Es-tu sûr de vouloir supprimer %s de ton espace de networking ?</string>
+    <string name="text_ticket_firstname">Prénom</string>
+    <string name="text_ticket_lastname">Nom</string>
 
     <string name="action_back">Retour</string>
     <string name="action_share_talk">Partage la session %s</string>
@@ -47,6 +49,7 @@
     <string name="input_share_talk">%s par %s</string>
 
     <string name="semantic_profile_qrcode">Ton Qrcode est affiché et prêt pour être scanné</string>
+    <string name="semantic_ticket_qrcode">Qrcode de ton ticket prêt à être scanné</string>
     <string name="semantic_twitter">Twitter de %s</string>
     <string name="semantic_github">GitHub de %s</string>
     <string name="semantic_linkedin">LinkedIn de %s</string>

@@ -25,6 +25,8 @@
     <string name="text_report_app_target">Choose an Email client</string>
     <string name="text_networking_empty">Scan a Qrcode to add a profile in your networking list\n\nAnd create your own Qrcode in your profile form</string>
     <string name="text_networking_ask_to_delete">Are you sure you want to delete %s from your networking space?</string>
+    <string name="text_ticket_firstname">First Name</string>
+    <string name="text_ticket_lastname">Last Name</string>
 
     <string name="action_back">Back</string>
     <string name="action_share_talk">Share talk %s</string>
@@ -47,6 +49,7 @@
     <string name="input_share_talk">%s by %s</string>
 
     <string name="semantic_profile_qrcode">Your qrcode is displayed and ready to be scanned</string>
+    <string name="semantic_ticket_qrcode">Qrcode of your ticket ready to be scanned</string>
     <string name="semantic_twitter">Twitter of %s</string>
     <string name="semantic_github">GitHub of %s</string>
     <string name="semantic_linkedin">LinkedIn of %s</string>

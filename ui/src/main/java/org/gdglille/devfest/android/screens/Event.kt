@@ -1,17 +1,22 @@
 package org.gdglille.devfest.android.screens
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.android.components.events.EventSection
 import org.gdglille.devfest.android.components.events.PartnerDivider
 import org.gdglille.devfest.android.components.events.PartnerRow
+import org.gdglille.devfest.android.components.tickets.Ticket
 import org.gdglille.devfest.android.ui.R
 import org.gdglille.devfest.models.EventUi
 
@@ -42,6 +47,19 @@ fun Event(
                 onTwitterClick = onTwitterClick,
                 onLinkedInClick = onLinkedInClick
             )
+        }
+        event.ticket?.let {
+            item {
+                BoxWithConstraints(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Ticket(
+                        ticket = it,
+                        modifier = Modifier.width(maxWidth * 3/4)
+                    )
+                }
+            }
         }
         item { PartnerDivider(title = stringResource(id = R.string.title_gold)) }
         items(event.partners.golds) {
