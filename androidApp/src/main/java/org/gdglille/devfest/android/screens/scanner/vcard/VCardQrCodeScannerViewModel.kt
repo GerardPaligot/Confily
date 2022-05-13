@@ -1,13 +1,13 @@
-package org.gdglille.devfest.android.screens.scanner
+package org.gdglille.devfest.android.screens.scanner.vcard
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import org.gdglille.devfest.models.UserNetworkingUi
 import org.gdglille.devfest.repositories.UserRepository
-import kotlinx.coroutines.launch
 
-class QrCodeScannerViewModel(private val userRepository: UserRepository) : ViewModel() {
+class VCardQrCodeScannerViewModel(private val userRepository: UserRepository) : ViewModel() {
     fun saveNetworkingProfile(user: UserNetworkingUi) = viewModelScope.launch {
         userRepository.insertNetworkingProfile(user)
     }
@@ -15,7 +15,7 @@ class QrCodeScannerViewModel(private val userRepository: UserRepository) : ViewM
     object Factory {
         fun create(userRepository: UserRepository) = object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T =
-                QrCodeScannerViewModel(userRepository = userRepository) as T
+                VCardQrCodeScannerViewModel(userRepository = userRepository) as T
         }
     }
 }

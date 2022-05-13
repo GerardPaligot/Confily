@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.screens.scanner
+package org.gdglille.devfest.android.screens.scanner.vcard
 
 import android.annotation.SuppressLint
 import androidx.camera.core.CameraSelector
@@ -23,7 +23,7 @@ import org.gdglille.devfest.models.UserNetworkingUi
 
 @SuppressLint("UnsafeOptInUsageError")
 @Composable
-fun CameraPreview(
+fun VCardCameraPreview(
     modifier: Modifier = Modifier,
     onQrCodeDetected: (List<UserNetworkingUi>) -> Unit
 ) {

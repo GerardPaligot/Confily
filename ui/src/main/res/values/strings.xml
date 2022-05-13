@@ -6,6 +6,7 @@
     <string name="screen_schedule_detail">Schedule Details</string>
     <string name="screen_profile">Create your profile</string>
     <string name="screen_qrcode_scanner">Qrcode Scanner</string>
+    <string name="screen_ticket_qrcode_scanner">Ticket Qrcode Scanner</string>
 
     <string name="title_gold">Gold</string>
     <string name="title_silver">Silver</string>
@@ -31,6 +32,7 @@
     <string name="action_back">Back</string>
     <string name="action_share_talk">Share talk %s</string>
     <string name="action_qrcode_scanner">Qrcode scanner</string>
+    <string name="action_ticket_qrcode_scanner">Ticket qrcode scanner</string>
     <string name="action_qrcode_generator">Qrcode generator</string>
     <string name="action_report">Report something to organizers</string>
     <string name="action_system_settings">Open System settings</string>

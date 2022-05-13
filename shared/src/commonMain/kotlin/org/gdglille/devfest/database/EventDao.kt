@@ -11,6 +11,7 @@ import org.gdglille.devfest.models.EventInfoUi
 import org.gdglille.devfest.models.EventUi
 import org.gdglille.devfest.models.PartnerGroupsUi
 import org.gdglille.devfest.models.PartnerItemUi
+import org.gdglille.devfest.models.TicketInfoUi
 import org.gdglille.devfest.models.TicketUi
 import org.gdglille.devfest.toByteArray
 import org.gdglille.devfest.toNativeImage
@@ -36,11 +37,15 @@ class EventDao(private val db: Conferences4HallDatabase, private val eventId: St
         PartnerItemUi(logoUrl = logo_url, siteUrl = site_url, name = name)
     }
 
-    private val ticketMapper = { _: String, ext_id: String, _: String, _: String, firstname: String, lastname: String, _: String, qrcode: ByteArray ->
+    private val ticketMapper = { _: String, ext_id: String?, _: String?, _: String?, firstname: String?, lastname: String?, _: String, qrcode: ByteArray ->
         TicketUi(
-            id = ext_id,
-            firstName = firstname,
-            lastName = lastname,
+            info = if (ext_id != null && firstname != null && lastname != null) {
+                TicketInfoUi(
+                    id = ext_id,
+                    firstName = firstname,
+                    lastName = lastname
+                )
+            } else null,
             qrCode = qrcode.toNativeImage()
         )
     }
@@ -97,14 +102,14 @@ class EventDao(private val db: Conferences4HallDatabase, private val eventId: St
         }
     }
 
-    fun updateTicket(qrCode: Image, attendee: Attendee) = db.ticketQueries.insertUser(
-        id = attendee.id,
-        ext_id = attendee.idExt,
+    fun updateTicket(qrCode: Image, barcode: String, attendee: Attendee?) = db.ticketQueries.insertUser(
+        id = attendee?.id,
+        ext_id = attendee?.idExt,
         event_id = eventId,
-        email = attendee.email,
-        firstname = attendee.firstname,
-        lastname = attendee.name,
-        barcode = attendee.barcode,
+        email = attendee?.email,
+        firstname = attendee?.firstname,
+        lastname = attendee?.name,
+        barcode = barcode,
         qrcode = qrCode.toByteArray()
     )
 }

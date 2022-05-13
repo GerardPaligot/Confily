@@ -62,9 +62,14 @@ class AgendaRepositoryImpl(
     }
 
     override suspend fun insertOrUpdateTicket(barcode: String) {
-        val attendee = api.fetchAttendee(barcode)
+        val attendee = try {
+            val attendee = api.fetchAttendee(barcode)
+            attendee
+        } catch (ignored: Throwable) {
+            null
+        }
         val qrCode = qrCodeGenerator.generate(barcode)
-        eventDao.updateTicket(qrCode, attendee)
+        eventDao.updateTicket(qrCode, barcode, attendee)
     }
 
     override suspend fun event(): Flow<EventUi> = eventDao.fetchEvent()

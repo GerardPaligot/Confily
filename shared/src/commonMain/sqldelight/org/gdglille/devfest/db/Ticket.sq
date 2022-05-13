@@ -1,10 +1,10 @@
 CREATE TABLE Ticket(
-id TEXT NOT NULL PRIMARY KEY,
-ext_id TEXT NOT NULL,
-event_id TEXT NOT NULL,
-email TEXT NOT NULL,
-firstname TEXT NOT NULL,
-lastname TEXT NOT NULL,
+event_id TEXT NOT NULL PRIMARY KEY,
+id TEXT,
+ext_id TEXT,
+email TEXT,
+firstname TEXT,
+lastname TEXT,
 barcode TEXT NOT NULL,
 qrcode BLOB NOT NULL
 );

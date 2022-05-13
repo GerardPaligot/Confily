@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.screens.scanner
+package org.gdglille.devfest.android.screens.scanner.vcard
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

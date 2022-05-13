@@ -36,6 +36,7 @@ fun Home(
     onLinkedInClick: (url: String?) -> Unit,
     onPartnerClick: (siteUrl: String?) -> Unit,
     onScannerClicked: () -> Unit,
+    onTicketScannerClicked: () -> Unit,
     onQrCodeClicked: () -> Unit,
     onReportClicked: () -> Unit
 ) {
@@ -49,7 +50,8 @@ fun Home(
                 actions = screen.actions,
                 onActionClicked = {
                     when (it) {
-                        ActionItemId.QrCodeScannerActionItem -> onScannerClicked()
+                        ActionItemId.VCardQrCodeScannerActionItem -> onScannerClicked()
+                        ActionItemId.TicketQrCodeScannerActionItem -> onTicketScannerClicked()
                         ActionItemId.QrCodeActionItem -> onQrCodeClicked()
                         ActionItemId.ReportActionItem -> onReportClicked()
                         else -> TODO()
@@ -70,7 +72,7 @@ fun Home(
                     }
                 }
             )
-        },
+        }
     ) {
         NavHost(navController, startDestination = Screen.Agenda.route, modifier = modifier.padding(it)) {
             composable(Screen.Agenda.route) {

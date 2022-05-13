@@ -28,13 +28,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import org.gdglille.devfest.Image
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
 import org.gdglille.devfest.android.ui.R
+import org.gdglille.devfest.models.TicketInfoUi
 import org.gdglille.devfest.models.TicketUi
 
 @Composable
-fun Ticket(
-  ticket: TicketUi,
+fun TicketDetailed(
+  ticket: TicketInfoUi,
+  qrCode: Image?,
   modifier: Modifier = Modifier,
   shape: Shape = RoundedCornerShape(16.dp),
   elevation: Dp = 8.dp
@@ -92,10 +95,10 @@ fun Ticket(
           textAlign = TextAlign.Center,
           fontWeight = FontWeight.Bold
         )
-        if (ticket.qrCode != null) {
+        if (qrCode != null) {
           BoxWithConstraints {
             Image(
-              bitmap = ticket.qrCode!!.asImageBitmap(),
+              bitmap = qrCode.asImageBitmap(),
               contentDescription = stringResource(id = R.string.semantic_ticket_qrcode),
               modifier = Modifier.size(this.maxWidth * 2/3)
             )
@@ -114,8 +117,9 @@ fun TicketPreview() {
       modifier = Modifier.fillMaxWidth(),
       contentAlignment = Alignment.Center
     ) {
-      Ticket(
-        ticket = TicketUi.fake,
+      TicketDetailed(
+        ticket = TicketUi.fake.info!!,
+        qrCode = TicketUi.fake.qrCode,
         modifier = Modifier.width(maxWidth * 3/4)
       )
     }
@@ -130,8 +134,9 @@ fun TicketPreviewLongText() {
       modifier = Modifier.fillMaxWidth(),
       contentAlignment = Alignment.Center
     ) {
-      Ticket(
-        ticket = TicketUi.fakeLongText,
+      TicketDetailed(
+        ticket = TicketUi.fake.info!!,
+        qrCode = TicketUi.fake.qrCode,
         modifier = Modifier.width(maxWidth * 3/4)
       )
     }

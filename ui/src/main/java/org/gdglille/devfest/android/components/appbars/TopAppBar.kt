@@ -51,7 +51,8 @@ open class ActionItem(
 )
 
 sealed class ActionItemId {
-    object QrCodeScannerActionItem: ActionItemId()
+    object VCardQrCodeScannerActionItem: ActionItemId()
+    object TicketQrCodeScannerActionItem: ActionItemId()
     object QrCodeActionItem: ActionItemId()
     object ShareActionItem: ActionItemId()
     object ReportActionItem: ActionItemId()
@@ -83,7 +84,7 @@ fun TopAppBarPeview() {
                     ActionItem(
                         icon = Icons.Filled.QrCodeScanner,
                         contentDescription = R.string.action_qrcode_scanner,
-                        id = ActionItemId.QrCodeScannerActionItem
+                        id = ActionItemId.VCardQrCodeScannerActionItem
                     )
                 )
             )

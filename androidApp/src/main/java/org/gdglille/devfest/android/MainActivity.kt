@@ -20,7 +20,8 @@ import com.russhwolf.settings.AndroidSettings
 import org.gdglille.devfest.android.data.QrCodeGeneratorAndroid
 import org.gdglille.devfest.android.screens.home.Home
 import org.gdglille.devfest.android.screens.profile.ProfileInputVM
-import org.gdglille.devfest.android.screens.scanner.QrCodeScannerVm
+import org.gdglille.devfest.android.screens.scanner.ticket.TicketQrCodeScannerVm
+import org.gdglille.devfest.android.screens.scanner.vcard.VCardQrCodeScannerVm
 import org.gdglille.devfest.android.screens.schedule.ScheduleDetailVM
 import org.gdglille.devfest.android.screens.speakers.SpeakerDetailVM
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
@@ -93,7 +94,10 @@ class MainActivity : AppCompatActivity() {
                                 it?.let { launchUrl(it) }
                             },
                             onScannerClicked = {
-                                navController.navigate("scanner")
+                                navController.navigate("scanner/vcard")
+                            },
+                            onTicketScannerClicked = {
+                                navController.navigate("scanner/ticket")
                             },
                             onQrCodeClicked = {
                                 navController.navigate("profile")
@@ -147,10 +151,21 @@ class MainActivity : AppCompatActivity() {
                         )
                     }
                     composable(
-                        route = "scanner"
+                        route = "scanner/vcard"
                     ) {
-                        QrCodeScannerVm(
+                        VCardQrCodeScannerVm(
                             userRepository = userRepository,
+                            navigateToSettingsScreen = {},
+                            onBackClicked = {
+                                navController.popBackStack()
+                            }
+                        )
+                    }
+                    composable(
+                        route = "scanner/ticket"
+                    ) {
+                        TicketQrCodeScannerVm(
+                            agendaRepository = agendaRepository,
                             navigateToSettingsScreen = {},
                             onBackClicked = {
                                 navController.popBackStack()

@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.screens.scanner
+package org.gdglille.devfest.android.screens.scanner.vcard
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
@@ -8,21 +8,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import org.gdglille.devfest.android.R
+import org.gdglille.devfest.android.components.appbars.TopAppBar
 import org.gdglille.devfest.models.UserNetworkingUi
 import org.gdglille.devfest.repositories.UserRepository
-import org.gdglille.devfest.android.components.appbars.TopAppBar
 
 @Composable
-fun QrCodeScannerVm(
+fun VCardQrCodeScannerVm(
     userRepository: UserRepository,
     modifier: Modifier = Modifier,
     navigateToSettingsScreen: () -> Unit,
     onBackClicked: () -> Unit,
 ) {
-    val viewModel: QrCodeScannerViewModel = viewModel(
-        factory = QrCodeScannerViewModel.Factory.create(userRepository)
+    val viewModel: VCardQrCodeScannerViewModel = viewModel(
+        factory = VCardQrCodeScannerViewModel.Factory.create(userRepository)
     )
-    QrCodeScanner(
+    VCardQrCodeScanner(
         modifier = modifier,
         navigateToSettingsScreen = navigateToSettingsScreen,
         onRefusePermissionClicked = onBackClicked,
@@ -35,7 +35,7 @@ fun QrCodeScannerVm(
 }
 
 @Composable
-fun QrCodeScanner(
+fun VCardQrCodeScanner(
     modifier: Modifier = Modifier,
     navigateToSettingsScreen: () -> Unit,
     onRefusePermissionClicked: () -> Unit,
@@ -56,7 +56,7 @@ fun QrCodeScanner(
                     navigateToSettingsScreen = navigateToSettingsScreen,
                     onRefusePermissionClicked = onRefusePermissionClicked,
                     content = {
-                        CameraPreview(onQrCodeDetected = onQrCodeDetected)
+                        VCardCameraPreview(onQrCodeDetected = onQrCodeDetected)
                     }
                 )
             }
