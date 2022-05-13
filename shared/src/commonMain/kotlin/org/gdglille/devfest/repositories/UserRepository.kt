@@ -36,8 +36,11 @@ class UserRepositoryImpl(
     private val qrCodeGenerator: QrCodeGenerator
 ) : UserRepository {
     override suspend fun fetchProfile(): UserProfileUi? {
-        val email = userDao.fetchLastEmail() ?: return null
-        return userDao.fetchUser(email)
+        val email = userDao.fetchLastEmail()
+        if (email != null) {
+            return userDao.fetchUser(email)
+        }
+        return userDao.fetchUserPreview()
     }
 
     override suspend fun saveProfile(email: String, firstName: String, lastName: String, company: String): UserProfileUi {
