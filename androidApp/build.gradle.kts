@@ -3,7 +3,6 @@ import java.util.*
 plugins {
     id("com.android.application")
     kotlin("android")
-    id("org.jetbrains.compose") version "1.0.1"
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
 }

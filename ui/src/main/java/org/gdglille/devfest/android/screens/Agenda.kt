@@ -1,6 +1,7 @@
 package org.gdglille.devfest.android.screens
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
@@ -15,6 +16,7 @@ import org.gdglille.devfest.android.theme.Conferences4HallTheme
 import org.gdglille.devfest.models.AgendaUi
 import org.gdglille.devfest.models.TalkItemUi
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun Agenda(
     agenda: AgendaUi,
@@ -28,13 +30,14 @@ fun Agenda(
         contentPadding = PaddingValues(vertical = 4.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        items(agenda.talks.keys.toList()) {
+        items(agenda.talks.keys.toList(), key = { it }) {
             ScheduleItem(
                 time = it,
                 talks = agenda.talks[it]!!,
                 isLoading = isLoading,
                 onTalkClicked = onTalkClicked,
-                onFavoriteClicked = onFavoriteClicked
+                onFavoriteClicked = onFavoriteClicked,
+                modifier = Modifier.animateItemPlacement()
             )
         }
     }
