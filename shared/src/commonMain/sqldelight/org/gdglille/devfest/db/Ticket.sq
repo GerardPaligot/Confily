@@ -1,0 +1,18 @@
+CREATE TABLE Ticket(
+id TEXT NOT NULL PRIMARY KEY,
+ext_id TEXT NOT NULL,
+event_id TEXT NOT NULL,
+email TEXT NOT NULL,
+firstname TEXT NOT NULL,
+lastname TEXT NOT NULL,
+barcode TEXT NOT NULL,
+qrcode BLOB NOT NULL
+);
+
+selectTicket:
+SELECT * FROM Ticket WHERE event_id == ?;
+
+insertUser:
+INSERT OR REPLACE INTO Ticket(
+id, ext_id, event_id, email, firstname, lastname, barcode, qrcode
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?);

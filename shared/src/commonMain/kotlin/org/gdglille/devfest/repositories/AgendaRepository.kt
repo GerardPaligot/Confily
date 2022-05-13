@@ -18,6 +18,7 @@ import org.gdglille.devfest.network.ConferenceApi
 
 interface AgendaRepository {
     suspend fun fetchAndStoreAgenda()
+    suspend fun insertOrUpdateTicket(barcode: String)
     suspend fun event(): Flow<EventUi>
     suspend fun agenda(): Flow<AgendaUi>
     suspend fun markAsRead(scheduleId: String, isFavorite: Boolean)
@@ -37,8 +38,9 @@ interface AgendaRepository {
             scheduleDao: ScheduleDao,
             speakerDao: SpeakerDao,
             talkDao: TalkDao,
-            eventDao: EventDao
-        ): AgendaRepository = AgendaRepositoryImpl(api, scheduleDao, speakerDao, talkDao, eventDao)
+            eventDao: EventDao,
+            qrCodeGenerator: QrCodeGenerator
+        ): AgendaRepository = AgendaRepositoryImpl(api, scheduleDao, speakerDao, talkDao, eventDao, qrCodeGenerator)
     }
 }
 
@@ -47,7 +49,8 @@ class AgendaRepositoryImpl(
     private val scheduleDao: ScheduleDao,
     private val speakerDao: SpeakerDao,
     private val talkDao: TalkDao,
-    private val eventDao: EventDao
+    private val eventDao: EventDao,
+    private val qrCodeGenerator: QrCodeGenerator
 ) : AgendaRepository {
     override suspend fun fetchAndStoreAgenda() {
         val event = api.fetchEvent()
@@ -56,6 +59,12 @@ class AgendaRepositoryImpl(
             scheduleDao.insertOrUpdateSchedules(event.id, schedules)
         }
         eventDao.insertEvent(event)
+    }
+
+    override suspend fun insertOrUpdateTicket(barcode: String) {
+        val attendee = api.fetchAttendee(barcode)
+        val qrCode = qrCodeGenerator.generate(barcode)
+        eventDao.updateTicket(qrCode, attendee)
     }
 
     override suspend fun event(): Flow<EventUi> = eventDao.fetchEvent()

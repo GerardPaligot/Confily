@@ -2,13 +2,18 @@ package org.gdglille.devfest.database
 
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.transform
+import kotlinx.coroutines.flow.combineTransform
+import org.gdglille.devfest.Image
 import org.gdglille.devfest.db.Conferences4HallDatabase
+import org.gdglille.devfest.models.Attendee
 import org.gdglille.devfest.models.Event
 import org.gdglille.devfest.models.EventInfoUi
 import org.gdglille.devfest.models.EventUi
 import org.gdglille.devfest.models.PartnerGroupsUi
 import org.gdglille.devfest.models.PartnerItemUi
+import org.gdglille.devfest.models.TicketUi
+import org.gdglille.devfest.toByteArray
+import org.gdglille.devfest.toNativeImage
 
 class EventDao(private val db: Conferences4HallDatabase, private val eventId: String) {
     private val eventMapper = { _: String, name: String, address: String, date: String, twitter: String?,
@@ -26,29 +31,41 @@ class EventDao(private val db: Conferences4HallDatabase, private val eventId: St
             codeOfConductLink = coc_url
         )
     }
+
     private val partnerMapper = { name: String, _: String, _: String, logo_url: String, site_url: String? ->
         PartnerItemUi(logoUrl = logo_url, siteUrl = site_url, name = name)
     }
 
+    private val ticketMapper = { _: String, ext_id: String, _: String, _: String, firstname: String, lastname: String, _: String, qrcode: ByteArray ->
+        TicketUi(
+            id = ext_id,
+            firstName = firstname,
+            lastName = lastname,
+            qrCode = qrcode.toNativeImage()
+        )
+    }
+
     fun fetchEvent(): Flow<EventUi> = db.transactionWithResult {
-        return@transactionWithResult db.eventQueries.selectEvent(eventId, eventMapper).asFlow().transform {
-            val eventInfo = it.executeAsOneOrNull() ?: return@transform
-            val golds = db.eventQueries.selectPartners("gold", eventId, partnerMapper).executeAsList()
-            val silvers = db.eventQueries.selectPartners("silver", eventId, partnerMapper).executeAsList()
-            val bronzes = db.eventQueries.selectPartners("bronze", eventId, partnerMapper).executeAsList()
-            val others = db.eventQueries.selectPartners("other", eventId, partnerMapper).executeAsList()
-            emit(
-                EventUi(
-                    eventInfo = eventInfo,
-                    partners = PartnerGroupsUi(
-                        golds = golds.chunked(3),
-                        silvers = silvers.chunked(3),
-                        bronzes = bronzes.chunked(3),
-                        others = others.chunked(3)
+        return@transactionWithResult db.eventQueries.selectEvent(eventId, eventMapper).asFlow()
+            .combineTransform(db.ticketQueries.selectTicket(eventId, ticketMapper).asFlow()) { event, ticket ->
+                val eventInfo = event.executeAsOneOrNull() ?: return@combineTransform
+                val golds = db.eventQueries.selectPartners("gold", eventId, partnerMapper).executeAsList()
+                val silvers = db.eventQueries.selectPartners("silver", eventId, partnerMapper).executeAsList()
+                val bronzes = db.eventQueries.selectPartners("bronze", eventId, partnerMapper).executeAsList()
+                val others = db.eventQueries.selectPartners("other", eventId, partnerMapper).executeAsList()
+                emit(
+                    EventUi(
+                        eventInfo = eventInfo,
+                        ticket = ticket.executeAsOneOrNull(),
+                        partners = PartnerGroupsUi(
+                            golds = golds.chunked(3),
+                            silvers = silvers.chunked(3),
+                            bronzes = bronzes.chunked(3),
+                            others = others.chunked(3)
+                        )
                     )
                 )
-            )
-        }
+            }
     }
 
     fun insertEvent(event: Event) = db.transaction {
@@ -79,4 +96,15 @@ class EventDao(private val db: Conferences4HallDatabase, private val eventId: St
             db.eventQueries.insertPartner(it.name, event.id, type = "other", it.logoUrl, it.siteUrl)
         }
     }
+
+    fun updateTicket(qrCode: Image, attendee: Attendee) = db.ticketQueries.insertUser(
+        id = attendee.id,
+        ext_id = attendee.idExt,
+        event_id = eventId,
+        email = attendee.email,
+        firstname = attendee.firstname,
+        lastname = attendee.name,
+        barcode = attendee.barcode,
+        qrcode = qrCode.toByteArray()
+    )
 }

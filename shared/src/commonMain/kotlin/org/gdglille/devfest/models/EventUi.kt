@@ -2,6 +2,7 @@ package org.gdglille.devfest.models
 
 data class EventUi(
     val eventInfo: EventInfoUi,
+    val ticket: TicketUi?,
     val partners: PartnerGroupsUi
 ) {
     companion object {
@@ -17,6 +18,7 @@ data class EventUi(
                 faqLink = "https://devfest.gdglille.org/faq/",
                 codeOfConductLink = "https://devfest.gdglille.org/code-conduite/"
             ),
+            ticket = TicketUi.fake,
             partners = PartnerGroupsUi(
                 golds = arrayListOf(arrayListOf(PartnerItemUi.fake, PartnerItemUi.fake, PartnerItemUi.fake)),
                 silvers = arrayListOf(arrayListOf(PartnerItemUi.fake, PartnerItemUi.fake, PartnerItemUi.fake)),

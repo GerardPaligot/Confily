@@ -49,7 +49,8 @@ class MainActivity : AppCompatActivity() {
             scheduleDao = ScheduleDao(db, eventId),
             speakerDao = SpeakerDao(db),
             talkDao = TalkDao(db),
-            eventDao = EventDao(db, eventId)
+            eventDao = EventDao(db, eventId),
+            qrCodeGenerator = QrCodeGeneratorAndroid()
         )
         val userRepository = UserRepository.Factory.create(
             userDao = UserDao(
