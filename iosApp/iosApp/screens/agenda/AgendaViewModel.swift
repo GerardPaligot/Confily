@@ -24,6 +24,11 @@ class AgendaViewModel: ObservableObject {
 
     @Published var uiState: AgendaUiState = AgendaUiState.loading
     
+    func toggleFavoriteFiltering() {
+        repository.toggleFavoriteFiltering { _, _ in
+        }
+    }
+    
     func fetchAgenda() {
         repository.startCollectAgenda(
             success: { agenda in

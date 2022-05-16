@@ -71,6 +71,15 @@ struct AgendaVM: View {
             }
             .navigationTitle(Text("screenAgenda"))
             .navigationBarTitleDisplayMode(.inline)
+            .navigationBarItems(trailing:
+                HStack {
+                    Button(action: {
+                        viewModel.toggleFavoriteFiltering()
+                    }, label: {
+                        Image(systemName: "line.3.horizontal.decrease.circle")
+                    })
+                }
+            )
         }
         .onAppear {
             viewModel.fetchAgenda()
