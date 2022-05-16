@@ -10,7 +10,6 @@ import SwiftUI
 import shared
 
 struct Networking: View {
-    @State private var showingAlert = false
     var networkingUi: NetworkingUi
     var onValidation: (String, String, String, String) -> ()
     var onDismissProfileSheet: () -> ()
@@ -22,23 +21,12 @@ struct Networking: View {
                 ScrollView {
                     LazyVStack(spacing: 10) {
                         ForEach(networkingUi.users, id: \.self) { user in
-                            Button {
-                                showingAlert = true
-                            } label: {
-                                UserItemView(user: user)
-                                    .padding()
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                            }
-                            .alert(isPresented: $showingAlert) {
-                                Alert(
-                                    title: Text("titleNetworkProfile"),
-                                    message: Text("textNetworkingAskToDelete \(user.firstName) \(user.lastName)"),
-                                    primaryButton: .cancel(),
-                                    secondaryButton: .default(Text("Ok"), action: {
-                                        onNetworkDeleted(user.email)
-                                    })
-                                )
-                            }
+                            UserItemView(
+                                user: user,
+                                onNetworkDeleted: onNetworkDeleted
+                            )
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         }
                     }
                 }
