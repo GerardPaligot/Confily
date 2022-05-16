@@ -15,15 +15,17 @@ struct iOSApp: App {
 
 	var body: some Scene {
         let api = ConferenceApi.companion.create(baseUrl: self.baseUrl, eventId: self.eventId, enableNetworkLogs: isInDebugMode)
+        let settings = AppleSettings(delegate: UserDefaults.standard)
         let agendaRepository = AgendaRepositoryImpl(
             api: api,
-            scheduleDao: ScheduleDao(db: db, eventId: eventId),
+            scheduleDao: ScheduleDao(db: db, settings: settings, eventId: eventId),
             speakerDao: SpeakerDao(db: db),
             talkDao: TalkDao(db: db),
-            eventDao: EventDao(db: db, eventId: eventId)
+            eventDao: EventDao(db: db, eventId: eventId),
+            qrCodeGenerator: QrCodeGeneratoriOS()
         )
         let userRepository = UserRepositoryImpl(
-            userDao: UserDao(db: db, settings: AppleSettings(delegate: UserDefaults.standard), eventId: eventId),
+            userDao: UserDao(db: db, settings: settings, eventId: eventId),
             qrCodeGenerator: QrCodeGeneratoriOS()
         )
 		WindowGroup {
