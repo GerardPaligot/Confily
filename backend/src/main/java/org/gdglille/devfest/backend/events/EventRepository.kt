@@ -32,10 +32,10 @@ class EventRepository(
         val event = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
         val partners = partnerDao.getAll(eventId)
         return@coroutineScope event.convertToModel(
-            golds = (partnerDao.listValidatedFromCms4Partners(event.year, Sponsorship.Gold) + partners.filter { it.sponsoring == Sponsorship.Gold.name }).sortedBy { it.creationDate },
-            silvers = (partnerDao.listValidatedFromCms4Partners(event.year, Sponsorship.Silver) + partners.filter { it.sponsoring == Sponsorship.Silver.name }).sortedBy { it.creationDate },
-            bronzes = (partnerDao.listValidatedFromCms4Partners(event.year, Sponsorship.Bronze) + partners.filter { it.sponsoring == Sponsorship.Bronze.name }).sortedBy { it.creationDate },
-            others = partners.filter { it.sponsoring == Sponsorship.Other.name }.sortedBy { it.creationDate }
+            golds = (partnerDao.listValidatedFromCms4Partners(event.year, Sponsorship.Gold) + partners.filter { it.sponsoring == Sponsorship.Gold.name }).sortedBy { it.name },
+            silvers = (partnerDao.listValidatedFromCms4Partners(event.year, Sponsorship.Silver) + partners.filter { it.sponsoring == Sponsorship.Silver.name }).sortedBy { it.name },
+            bronzes = (partnerDao.listValidatedFromCms4Partners(event.year, Sponsorship.Bronze) + partners.filter { it.sponsoring == Sponsorship.Bronze.name }).sortedBy { it.name },
+            others = partners.filter { it.sponsoring == Sponsorship.Other.name }.sortedBy { it.name }
         )
     }
 
