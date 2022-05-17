@@ -1,5 +1,6 @@
 import SwiftUI
 import shared
+import Firebase
 import SDWebImage
 import SDWebImageSVGCoder
 
@@ -10,6 +11,7 @@ struct iOSApp: App {
     let db = DatabaseWrapper().createDb()
     
     init() {
+        FirebaseApp.configure()
         SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
     }
 
