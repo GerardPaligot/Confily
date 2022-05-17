@@ -7,9 +7,11 @@
 //
 
 import SwiftUI
+import CodeScanner
 import shared
 
 struct EventVM: View {
+    @State private var isPresentingScanner = false
     @ObservedObject var viewModel: EventViewModel
     @Environment(\.openURL) var openURL
     
@@ -49,6 +51,25 @@ struct EventVM: View {
             }
             .navigationTitle(Text("screenEvent"))
             .navigationBarTitleDisplayMode(.inline)
+            .navigationBarItems(trailing:
+                HStack {
+                    Button(action: {
+                        isPresentingScanner = true
+                    }, label: {
+                        Image(systemName: "tag")
+                    })
+                }
+            )
+            .sheet(isPresented: $isPresentingScanner) {
+                CodeScannerView(codeTypes: [.qr]) { response in
+                    if case let .success(result) = response {
+                        if (result.string != "") {
+                            viewModel.saveTicket(barcode: result.string)
+                            isPresentingScanner = false
+                        }
+                    }
+                }
+            }
         }
     }
 }

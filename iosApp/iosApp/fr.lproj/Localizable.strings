@@ -27,6 +27,8 @@
 "textReportSubject" = "Report depuis l'app Devfest Lille";
 "textNetworkingNoScan" = "Scan un Qrcode pour ajouter un contact dans ta liste de networking\n\nEt crée ton Qrcode depuis le formulaire de ton profil";
 "textNetworkingAskToDelete %@ %@" = "Es-tu sûr de vouloir supprimer %@ %@ de ton espace de networking ?";
+"textTicketFirstname" = "Prénom";
+"textTicketLastname" = "Nom";
 
 "actionFaq" = "FAQ";
 "actionCoc" = "Code de Conduite";

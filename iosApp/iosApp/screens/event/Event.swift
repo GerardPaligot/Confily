@@ -31,6 +31,20 @@ struct Event: View {
                             onLinkedInClicked: onLinkedInClicked
                         )
                     }
+                    if (event.ticket != nil) {
+                        Section {
+                            if (event.ticket?.info != nil) {
+                                TicketDetailedView(
+                                    ticket: (event.ticket?.info)!,
+                                    qrCode: event.ticket!.qrCode
+                                )
+                                .padding()
+                            } else if (event.ticket?.qrCode != nil) {
+                                TicketQrCodeView(qrCode: (event.ticket?.qrCode)!)
+                                    .padding()
+                            }
+                        }
+                    }
                     Section {
                         PartnerDividerView(text: NSLocalizedString("titleGold", comment: ""))
                         ForEach(event.partners.golds, id: \.[0].name) { partners in

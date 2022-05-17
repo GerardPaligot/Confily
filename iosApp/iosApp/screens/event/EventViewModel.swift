@@ -34,4 +34,9 @@ class EventViewModel: ObservableObject {
             }
         )
     }
+    
+    func saveTicket(barcode: String) {
+        repository.insertOrUpdateTicket(barcode: barcode) { _, _ in
+        }
+    }
 }

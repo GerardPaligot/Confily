@@ -47,6 +47,8 @@
 		D58F1D4F27AFF40A00FB59C7 /* TalkItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58F1D4E27AFF40A00FB59C7 /* TalkItemView.swift */; };
 		D58F1D5127B001CE00FB59C7 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D58F1D5027B001CE00FB59C7 /* Colors.xcassets */; };
 		D58F1D5427B0057300FB59C7 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58F1D5327B0057300FB59C7 /* Color.swift */; };
+		D59944BE2833CDC900F59C1B /* TicketDetailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59944BD2833CDC900F59C1B /* TicketDetailedView.swift */; };
+		D59944C02833D45A00F59C1B /* TicketQrCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59944BF2833D45A00F59C1B /* TicketQrCodeView.swift */; };
 		D59EFCB827B5AD42000AADCF /* EventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59EFCB727B5AD42000AADCF /* EventViewModel.swift */; };
 		D59EFCBA27B5AE25000AADCF /* EventVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59EFCB927B5AE25000AADCF /* EventVM.swift */; };
 		D5AE1BE727D18B7E005849B4 /* UserItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5AE1BE627D18B7E005849B4 /* UserItemView.swift */; };
@@ -110,6 +112,8 @@
 		D58F1D4E27AFF40A00FB59C7 /* TalkItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkItemView.swift; sourceTree = "<group>"; };
 		D58F1D5027B001CE00FB59C7 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		D58F1D5327B0057300FB59C7 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		D59944BD2833CDC900F59C1B /* TicketDetailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketDetailedView.swift; sourceTree = "<group>"; };
+		D59944BF2833D45A00F59C1B /* TicketQrCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketQrCodeView.swift; sourceTree = "<group>"; };
 		D59EFCB727B5AD42000AADCF /* EventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewModel.swift; sourceTree = "<group>"; };
 		D59EFCB927B5AE25000AADCF /* EventVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventVM.swift; sourceTree = "<group>"; };
 		D5AE1BE627D18B7E005849B4 /* UserItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserItemView.swift; sourceTree = "<group>"; };
@@ -206,6 +210,7 @@
 		D50A458C27B0818F00C9A43C /* components */ = {
 			isa = PBXGroup;
 			children = (
+				D59944BC2833CCF800F59C1B /* tickets */,
 				D501315827C0389D001B48A5 /* users */,
 				D524D73027BBF2B80078DF0D /* image */,
 				D524D72F27BBF0E70078DF0D /* speakers */,
@@ -320,6 +325,15 @@
 				D58F1D5327B0057300FB59C7 /* Color.swift */,
 			);
 			path = theming;
+			sourceTree = "<group>";
+		};
+		D59944BC2833CCF800F59C1B /* tickets */ = {
+			isa = PBXGroup;
+			children = (
+				D59944BD2833CDC900F59C1B /* TicketDetailedView.swift */,
+				D59944BF2833D45A00F59C1B /* TicketQrCodeView.swift */,
+			);
+			path = tickets;
 			sourceTree = "<group>";
 		};
 		D5D6166A27B15C3C00C59EC9 /* agenda */ = {
@@ -445,6 +459,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D59944BE2833CDC900F59C1B /* TicketDetailedView.swift in Sources */,
 				D560789927BE965200D4012C /* SpeakerItemNavigation.swift in Sources */,
 				D562CF5E27BD9DCB00CF54AF /* AppViewModel.swift in Sources */,
 				D560789327BE8E1400D4012C /* SpeakerDetail.swift in Sources */,
@@ -468,6 +483,7 @@
 				D5D5ABF5282071D2004E2F78 /* ShareSheetView.swift in Sources */,
 				D524D73C27BBFC530078DF0D /* ScheduleDetail.swift in Sources */,
 				D5F324A327C6E2DE007CA4C1 /* QrCodeGeneratoriOS.swift in Sources */,
+				D59944C02833D45A00F59C1B /* TicketQrCodeView.swift in Sources */,
 				D5CAA6532821C306005BB242 /* PartnerRowView.swift in Sources */,
 				D55BE69927B54DB800BCF03A /* ButtonView.swift in Sources */,
 				D560789027BE8B9500D4012C /* SpeakerSectionView.swift in Sources */,
