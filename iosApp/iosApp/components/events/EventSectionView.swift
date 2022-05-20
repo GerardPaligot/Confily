@@ -37,6 +37,7 @@ struct EventSectionView: View {
                                 onTwitterClicked(eventInfoUi.twitterUrl!)
                             }
                         )
+                        .accessibility(label: Text(LocalizedStringKey("semanticTwitter \(eventInfoUi.twitter!)")))
                     }
                     if (eventInfoUi.linkedin != nil) {
                         SocialItem(
@@ -46,6 +47,7 @@ struct EventSectionView: View {
                                 onLinkedInClicked(eventInfoUi.linkedinUrl!)
                             }
                         )
+                        .accessibility(label: Text(LocalizedStringKey("semanticLinkedIn \(eventInfoUi.linkedin!)")))
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)

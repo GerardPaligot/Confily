@@ -43,3 +43,6 @@
 
 "semanticHHmm %@ %@" = "%@ hours %@ minutes";
 "semanticScheduleTime %@ %@ %@ %@" = "From %@ hours %@ minutes to %@ hours %@ minutes";
+"semanticTwitter %@" = "Twitter of %@";
+"semanticGitHub %@" = "GitHub of %@";
+"semanticLinkedIn %@" = "LinkedIn of %@";
