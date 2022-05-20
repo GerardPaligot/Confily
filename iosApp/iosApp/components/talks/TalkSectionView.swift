@@ -22,6 +22,7 @@ struct TalkSectionView: View {
                 .padding(.top, 8)
             Text("textScheduleTime \(talkUi.startTime) \(talkUi.endTime)")
                 .padding(.top, 8)
+                .accessibility(hidden: true)
             Text(talkUi.room)
             if (talkUi.level != nil) {
                 switch talkUi.level {
