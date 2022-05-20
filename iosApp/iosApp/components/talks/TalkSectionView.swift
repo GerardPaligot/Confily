@@ -23,7 +23,7 @@ struct TalkSectionView: View {
                     .padding(.top, 8)
                 Text("textScheduleTime \(talkUi.startTime) \(talkUi.endTime)")
                     .padding(.top, 8)
-                    .accessibility(hidden: true)
+                    .accessibility(label: Text(toSpelloutAccessibleTime(startTime: talkUi.startTime, endTime: talkUi.endTime)))
                 Text(talkUi.room)
                 if (talkUi.level != nil) {
                     switch talkUi.level {
@@ -43,6 +43,12 @@ struct TalkSectionView: View {
         .foregroundColor(color)
         .font(bodyFont)
     }
+}
+
+func toSpelloutAccessibleTime(startTime: String, endTime: String) -> String {
+    let startSplitted = startTime.split(separator: ":")
+    let endSplitted = endTime.split(separator: ":")
+    return NSLocalizedString("semanticScheduleTime \(startSplitted[0]) \(startSplitted[1]) \(endSplitted[0]) \(endSplitted[1])", comment: "")
 }
 
 struct TalkSectionView_Previews: PreviewProvider {

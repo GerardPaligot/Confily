@@ -42,3 +42,4 @@
 "inputShareTalk %@ %@" = "%@ by %@";
 
 "semanticHHmm %@ %@" = "%@ hours %@ minutes";
+"semanticScheduleTime %@ %@ %@ %@" = "From %@ hours %@ minutes to %@ hours %@ minutes";
