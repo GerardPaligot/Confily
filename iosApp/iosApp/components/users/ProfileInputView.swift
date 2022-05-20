@@ -37,6 +37,7 @@ struct ProfileInputView: View {
                 }
                 Section {
                     Button("actionGenerateQrcode") {
+                        UIApplication.shared.endEditing()
                         onValidation(email, firstName, lastName, company)
                     }
                 }

@@ -16,6 +16,7 @@
 		D50A458F27B081B600C9A43C /* Agenda.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50A458E27B081B600C9A43C /* Agenda.swift */; };
 		D50E9B0327C12AE400B7B9B9 /* NetworkingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9B0227C12AE400B7B9B9 /* NetworkingVM.swift */; };
 		D50E9B0527C12AF000B7B9B9 /* NetworkingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9B0427C12AF000B7B9B9 /* NetworkingViewModel.swift */; };
+		D51C2CD128383719006EED5D /* UIApplicationExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51C2CD028383719006EED5D /* UIApplicationExt.swift */; };
 		D524D72C27BBEC6F0078DF0D /* TalkSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D524D72B27BBEC6F0078DF0D /* TalkSectionView.swift */; };
 		D524D72E27BBF0DB0078DF0D /* SpeakerItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D524D72D27BBF0DB0078DF0D /* SpeakerItemView.swift */; };
 		D524D73227BBF3000078DF0D /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D524D73127BBF3000078DF0D /* ImageLoader.swift */; };
@@ -87,6 +88,7 @@
 		D50A458E27B081B600C9A43C /* Agenda.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Agenda.swift; sourceTree = "<group>"; };
 		D50E9B0227C12AE400B7B9B9 /* NetworkingVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingVM.swift; sourceTree = "<group>"; };
 		D50E9B0427C12AF000B7B9B9 /* NetworkingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingViewModel.swift; sourceTree = "<group>"; };
+		D51C2CD028383719006EED5D /* UIApplicationExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExt.swift; sourceTree = "<group>"; };
 		D524D72B27BBEC6F0078DF0D /* TalkSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkSectionView.swift; sourceTree = "<group>"; };
 		D524D72D27BBF0DB0078DF0D /* SpeakerItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakerItemView.swift; sourceTree = "<group>"; };
 		D524D73127BBF3000078DF0D /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 				D582B740283421DE009391C8 /* GoogleService-Info.plist */,
 				D5F324A127C6E2C6007CA4C1 /* data */,
 				D50A458C27B0818F00C9A43C /* components */,
+				D51C2CCF28383706006EED5D /* extensions */,
 				D50A458D27B0819A00C9A43C /* screens */,
 				D58F1D5227B0054E00FB59C7 /* theming */,
 				2152FB032600AC8F00CF470E /* iOSApp.swift */,
@@ -240,6 +243,14 @@
 				D5D6166A27B15C3C00C59EC9 /* agenda */,
 			);
 			path = screens;
+			sourceTree = "<group>";
+		};
+		D51C2CCF28383706006EED5D /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D51C2CD028383719006EED5D /* UIApplicationExt.swift */,
+			);
+			path = extensions;
 			sourceTree = "<group>";
 		};
 		D524D72F27BBF0E70078DF0D /* speakers */ = {
@@ -486,6 +497,7 @@
 				D524D74027BC00FF0078DF0D /* ScheduleDetailVM.swift in Sources */,
 				D560789727BE906500D4012C /* SpeakerDetailVM.swift in Sources */,
 				D50E9B0527C12AF000B7B9B9 /* NetworkingViewModel.swift in Sources */,
+				D51C2CD128383719006EED5D /* UIApplicationExt.swift in Sources */,
 				D50A458B27B0789B00C9A43C /* ScheduleItemView.swift in Sources */,
 				D5309CB227B1CD88001A4F9A /* AgendaVM.swift in Sources */,
 				D59EFCB827B5AD42000AADCF /* EventViewModel.swift in Sources */,
