@@ -40,3 +40,5 @@
 "inputLastname" = "Your last name*";
 "inputCompany" = "Your company";
 "inputShareTalk %@ %@" = "%@ by %@";
+
+"semanticHHmm %@ %@" = "%@ hours %@ minutes";

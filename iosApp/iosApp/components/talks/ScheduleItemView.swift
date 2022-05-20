@@ -21,9 +21,10 @@ struct ScheduleItemView<TalkItem: View>: View {
     }
     
     var body: some View {
-        let space = 55.0
+        let space = 60.0
         ZStack(alignment: .topLeading) {
             Text(time)
+                .accessibility(label: Text(toSpelloutAccessibleTime(time: time)))
                 .font(.body)
                 .foregroundColor(Color.c4hSecondary)
                 .frame(width: space, alignment: .center)
@@ -35,6 +36,11 @@ struct ScheduleItemView<TalkItem: View>: View {
             }
         }
     }
+}
+
+func toSpelloutAccessibleTime(time: String) -> String {
+    let timeSplitted = time.split(separator: ":")
+    return NSLocalizedString("semanticHHmm \(timeSplitted[0]) \(timeSplitted[1])", comment: "")
 }
 
 struct ScheduleItemView_Previews: PreviewProvider {

@@ -39,3 +39,5 @@
 "inputLastname" = "Ton nom*";
 "inputCompany" = "Ton entreprise";
 "inputShareTalk %@ %@" = "%@ par %@";
+
+"semanticHHmm %@ %@" = "%@ heures %@ minutes";
