@@ -56,7 +56,7 @@ class NetworkingViewModel: ObservableObject {
         }
     }
     
-    func saveNetworkingProfile(text: String) {
+    func saveNetworkingProfile(text: String, callback: @escaping (Bool) -> ()) {
         if let data = text.data(using: .unicode) {
             do {
                 let contacts = try CNContactVCardSerialization.contacts(with: data)
@@ -67,7 +67,12 @@ class NetworkingViewModel: ObservableObject {
                     lastName: contact?.familyName ?? "",
                     company: contact?.organizationName ?? ""
                 )
-                repository.insertNetworkingProfile(user: user) { _, _ in
+                repository.insertNetworkingProfile(user: user) { response, _ in
+                    if (response != nil) {
+                        callback(response! as! Bool)
+                    } else {
+                        callback(false)
+                    }
                 }
             } catch {
                 // ignored

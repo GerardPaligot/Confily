@@ -62,8 +62,11 @@ struct NetworkingVM: View {
                 CodeScannerView(codeTypes: [.qr]) { response in
                     if case let .success(result) = response {
                         if (result.string != "") {
-                            viewModel.saveNetworkingProfile(text: result.string)
-                            isPresentingScanner = false
+                            viewModel.saveNetworkingProfile(text: result.string) { hasInserted in
+                                if (hasInserted) {
+                                    isPresentingScanner = false
+                                }
+                            }
                         }
                     }
                 }

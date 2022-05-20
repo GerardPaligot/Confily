@@ -15,7 +15,7 @@ interface UserRepository {
     suspend fun fetchProfile(): UserProfileUi?
     suspend fun saveProfile(email: String, firstName: String, lastName: String, company: String): UserProfileUi
     suspend fun fetchNetworking(): Flow<List<UserNetworkingUi>>
-    suspend fun insertNetworkingProfile(user: UserNetworkingUi)
+    suspend fun insertNetworkingProfile(user: UserNetworkingUi): Boolean
     suspend fun deleteNetworkProfile(email: String)
 
     // Kotlin/Native client
@@ -51,8 +51,12 @@ class UserRepositoryImpl(
     }
 
     override suspend fun fetchNetworking(): Flow<List<UserNetworkingUi>> = userDao.fetchNetworking()
-    override suspend fun insertNetworkingProfile(user: UserNetworkingUi) =
+    override suspend fun insertNetworkingProfile(user: UserNetworkingUi): Boolean {
+        val hasRequiredFields = user.email != "" && user.lastName != "" && user.firstName != ""
+        if (!hasRequiredFields) return false
         userDao.insertEmailNetworking(user)
+        return true
+    }
     override suspend fun deleteNetworkProfile(email: String) = userDao.deleteNetworking(email)
 
     private val coroutineScope: CoroutineScope = MainScope()

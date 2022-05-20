@@ -29,6 +29,14 @@ fun FeatureThatRequiresCameraPermission(
         is PermissionStatus.Denied -> {
             if (cameraPermissionState.status.shouldShowRationale) {
                 Column {
+                    Text(text = stringResource(id = R.string.text_camera_permission_deny))
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Button(onClick = navigateToSettingsScreen) {
+                        Text(text = stringResource(id = R.string.action_system_settings))
+                    }
+                }
+            } else {
+                Column {
                     Text(text = stringResource(id = R.string.text_camera_permission_explaination))
                     Spacer(modifier = Modifier.height(8.dp))
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -38,14 +46,6 @@ fun FeatureThatRequiresCameraPermission(
                         Button(onClick = onRefusePermissionClicked) {
                             Text(text = stringResource(id = R.string.action_submit_deny))
                         }
-                    }
-                }
-            } else {
-                Column {
-                    Text(text = stringResource(id = R.string.text_camera_permission_deny))
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Button(onClick = navigateToSettingsScreen) {
-                        Text(text = stringResource(id = R.string.action_system_settings))
                     }
                 }
             }
