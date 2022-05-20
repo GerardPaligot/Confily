@@ -19,6 +19,7 @@ struct SpeakerItemView: View {
         HStack(alignment: .center, spacing: 16) {
             SpeakerAvatarView(url: speakerUi.url)
                 .frame(width: 48, height: 48)
+                .accessibility(hidden: true)
             VStack(alignment: .leading) {
                 Text(speakerUi.name)
                     .foregroundColor(color)
