@@ -15,7 +15,7 @@ struct PartnerItemView: View {
     var siteUrl: String
 
     var body: some View {
-        WebImage(
+        AnimatedImage(
             url: URL(string: logoUrl)!
         )
         .resizable()
