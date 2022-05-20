@@ -45,6 +45,7 @@ struct TalkItemView: View {
                         .foregroundColor(iconColor)
                         .padding()
                 }
+                .accessibilityAddTraits(talk.isFavorite ? [.isButton, .isSelected] : .isButton)
             }
         }
     }
