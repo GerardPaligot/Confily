@@ -24,6 +24,7 @@ struct PartnerRowView: View {
                     onPartnerClicked(partner.siteUrl!)
                 } label: {
                     PartnerItemView(
+                        name: partner.name,
                         logoUrl: partner.logoUrl,
                         siteUrl: partner.siteUrl!
                     )

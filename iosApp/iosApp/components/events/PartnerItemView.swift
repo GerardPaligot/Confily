@@ -11,6 +11,7 @@ import shared
 import SDWebImageSwiftUI
 
 struct PartnerItemView: View {
+    var name: String
     var logoUrl: String
     var siteUrl: String
 
@@ -21,12 +22,14 @@ struct PartnerItemView: View {
         .resizable()
         .scaledToFit()
         .padding()
+        .accessibilityLabel(name)
     }
 }
 
 struct PartnerItemView_Previews: PreviewProvider {
     static var previews: some View {
         PartnerItemView(
+            name: PartnerItemUi.companion.fake.name,
             logoUrl: PartnerItemUi.companion.fake.logoUrl,
             siteUrl: PartnerItemUi.companion.fake.siteUrl!
         )
