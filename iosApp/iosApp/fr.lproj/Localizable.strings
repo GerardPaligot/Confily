@@ -38,7 +38,7 @@
 "inputFirstname" = "Ton prénom*";
 "inputLastname" = "Ton nom*";
 "inputCompany" = "Ton entreprise";
-"inputShareTalk %@ %@" = "%@ par %@";
+"inputShareTalk" = "%@ par %@";
 
 "semanticHHmm %lld %lld" = "%lld heures %lld minutes";
 "semanticScheduleTime %lld %lld %lld %lld" = "De %lld heures %lld minutes à %lld heures %lld minutes";

@@ -41,7 +41,8 @@ struct ScheduleDetail<SpeakerItem: View>: View {
             }
         )
         .sheet(isPresented: $isShareSheetPresented) {
-            ShareSheetView(activityItems: [NSLocalizedString("inputShareTalk \(talkUi.title) \(talkUi.speakersSharing)", comment: "")])
+            let formatter = NSLocalizedString("inputShareTalk", comment: "")
+            ShareSheetView(activityItems: [String(format: formatter, talkUi.title, talkUi.speakersSharing)])
         }
     }
 }
