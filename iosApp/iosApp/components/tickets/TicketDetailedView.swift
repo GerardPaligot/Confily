@@ -22,11 +22,13 @@ struct TicketDetailedView: View {
                         Spacer().frame(width: .infinity)
                         Text(ticket.firstName)
                     }
+                    .accessibilityElement(children: .combine)
                     HStack {
                         Text("textTicketLastname")
                         Spacer().frame(width: .infinity)
                         Text(ticket.lastName)
                     }
+                    .accessibilityElement(children: .combine)
                 }
                 .padding()
                 Line()
@@ -34,10 +36,12 @@ struct TicketDetailedView: View {
                     .frame(height: 1)
                 VStack(spacing: 12) {
                     Text(ticket.id)
+                        .accessibilityLabel(LocalizedStringKey("semanticTicketId \(ticket.id)"))
                     if let uiImage = qrCode {
                         Image(uiImage: uiImage)
                             .resizable()
                             .frame(width: 250, height: 250, alignment: .center)
+                            .accessibilityLabel("semanticTicketQrcode")
                     }
                 }
                 .padding()

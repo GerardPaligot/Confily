@@ -45,3 +45,5 @@
 "semanticTwitter %@" = "Twitter de %@";
 "semanticGitHub %@" = "GitHub de %@";
 "semanticLinkedIn %@" = "LinkedIn de %@";
+"semanticTicketId %@" = "Identifiant de ton billet %@";
+"semanticTicketQrcode" = "Qrcode de ton ticket prêt à être scanné";

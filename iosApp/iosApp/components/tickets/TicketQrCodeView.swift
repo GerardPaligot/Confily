@@ -14,6 +14,7 @@ struct TicketQrCodeView: View {
     var body: some View {
         Image(uiImage: qrCode)
             .resizable()
+            .accessibilityLabel("semanticTicketQrcode")
             .frame(width: 250, height: 250, alignment: .center)
             .padding()
             .background(Color.c4hSurface)
