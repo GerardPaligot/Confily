@@ -33,6 +33,7 @@ struct Networking: View {
             } else {
                 Text("textNetworkingNoScan")
                     .multilineTextAlignment(.center)
+                    .padding(.horizontal, 30)
             }
         }
         .sheet(isPresented: Binding.constant(networkingUi.showQrCode), onDismiss: {
