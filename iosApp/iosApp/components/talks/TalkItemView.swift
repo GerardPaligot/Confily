@@ -35,6 +35,9 @@ struct TalkItemView: View {
                     .opacity(0.5)
             }
             .frame(maxWidth: .infinity, alignment: .topLeading)
+            .accessibilityElement(children: .combine)
+            .accessibilityAddTraits(!talk.isPause ? .isButton : [])
+            .accessibilityRemoveTraits(!talk.isPause ? .isStaticText : [])
             if (!talk.isPause) {
                 let iconName = talk.isFavorite ? "star.fill" : "star"
                 let iconColor = talk.isFavorite ? Color.c4hSecondary : Color.c4hOnBackground
