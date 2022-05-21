@@ -32,6 +32,9 @@ struct AgendaVM: View {
                     case .success(let agenda):
                         Agenda(
                             agenda: agenda,
+                            onFilteringClicked: {
+                                viewModel.toggleFavoriteFiltering()
+                            },
                             talkItem: { talk in
                                 if (!talk.isPause) {
                                     NavigationLink(isActive: Binding.constant(self.navigationState == .talk(talk.id))) {
@@ -65,22 +68,12 @@ struct AgendaVM: View {
                         Text("textError")
                     case .loading:
                         Agenda(
-                            agenda: AgendaUi(talks: [:]),
+                            agenda: AgendaUi(onlyFavorites: false, talks: [:]),
+                            onFilteringClicked: {},
                             talkItem: { talk in }
                         )
                 }
             }
-            .navigationTitle(Text("screenAgenda"))
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationBarItems(trailing:
-                HStack {
-                    Button(action: {
-                        viewModel.toggleFavoriteFiltering()
-                    }, label: {
-                        Image(systemName: "line.3.horizontal.decrease.circle")
-                    })
-                }
-            )
         }
         .onAppear {
             viewModel.fetchAgenda()

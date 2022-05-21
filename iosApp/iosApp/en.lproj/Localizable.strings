@@ -34,6 +34,7 @@
 "actionFaq" = "FAQ";
 "actionCoc" = "Code Of Conduct";
 "actionGenerateQrcode" = "Generate your QR code";
+"actionFilteringFavorites" = "Only favorites schedules";
 
 "inputEmail" = "Your email address*";
 "inputFirstname" = "Your first name*";

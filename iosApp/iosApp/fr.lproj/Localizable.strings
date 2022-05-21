@@ -33,6 +33,7 @@
 "actionFaq" = "FAQ";
 "actionCoc" = "Code de Conduite";
 "actionGenerateQrcode" = "Générer ton Qrcode";
+"actionFilteringFavorites" = "Seulement les conférences en favoris";
 
 "inputEmail" = "Ton adresse email*";
 "inputFirstname" = "Ton prénom*";

@@ -10,9 +10,11 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapMerge
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.transform
 import kotlinx.datetime.toLocalDateTime
 import org.gdglille.devfest.db.Conferences4HallDatabase
 import org.gdglille.devfest.extensions.formatHoursMinutes
+import org.gdglille.devfest.models.AgendaUi
 import org.gdglille.devfest.models.ScheduleItem
 import org.gdglille.devfest.models.TalkItemUi
 
@@ -36,17 +38,21 @@ class ScheduleDao(
             isFavorite = is_favorite
         )
     }
-    fun fetchSchedules(): Flow<List<TalkItemUi>> {
-        return settings.getBooleanFlow("ONLY_FAVORITES", false).flatMapMerge {
-            return@flatMapMerge db.agendaQueries.selectScheduleItems(eventId, scheduleMapper)
-                .asFlow()
-                .mapToList()
-                .map {
-                    val onlyFavorites = settings.getBoolean("ONLY_FAVORITES", false)
-                    if (onlyFavorites) it.filter { it.isFavorite == onlyFavorites }
-                    else it
-                }
-        }
+    fun fetchSchedules(): Flow<AgendaUi> {
+        return settings.getBooleanFlow("ONLY_FAVORITES", false)
+            .flatMapMerge {
+                return@flatMapMerge db.agendaQueries.selectScheduleItems(eventId, scheduleMapper)
+                    .asFlow()
+                    .mapToList()
+                    .map {
+                        val onlyFavorites = settings.getBoolean("ONLY_FAVORITES", false)
+                        val talks = if (onlyFavorites) it.filter { it.isFavorite == onlyFavorites } else it
+                        AgendaUi(
+                            onlyFavorites = onlyFavorites,
+                            talks = talks.groupBy { it.slotTime }.mapValues { entry -> entry.value.sortedBy { it.room } }
+                        )
+                    }
+            }
     }
 
     fun toggleFavoriteFiltering() {
