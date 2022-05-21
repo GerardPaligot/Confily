@@ -45,6 +45,7 @@ struct AgendaVM: View {
                                     } label: {
                                         EmptyView()
                                     }
+                                    .accessibility(hidden: true)
                                 }
                                 TalkItemView(
                                     talk: talk,
