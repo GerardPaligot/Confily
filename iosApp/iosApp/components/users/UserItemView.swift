@@ -32,6 +32,7 @@ struct UserItemView: View {
             .foregroundColor(color.opacity(0.74))
             .font(metaFont)
             .frame(maxWidth: .infinity, alignment: .leading)
+            .accessibilityElement(children: .combine)
 
             Button {
                 showingAlert = true
@@ -39,6 +40,7 @@ struct UserItemView: View {
                 Image(systemName: "trash")
                     .foregroundColor(Color.c4hOnBackground)
                     .padding()
+                    .accessibilityLabel("actionDeleteNetworkProfile")
             }
         }
         .alert(isPresented: $showingAlert) {

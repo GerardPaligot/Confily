@@ -51,11 +51,13 @@ struct NetworkingVM: View {
                     }, label: {
                         Image(systemName: "qrcode.viewfinder")
                     })
+                    .accessibilityLabel("actionQrcodeScanner")
                     Button(action: {
                         viewModel.displayQrCode()
                     }, label: {
                         Image(systemName: "qrcode")
                     })
+                    .accessibilityLabel("actionQrcodeGenerator")
                 }
             )
             .sheet(isPresented: $isPresentingScanner) {

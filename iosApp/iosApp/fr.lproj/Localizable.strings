@@ -34,6 +34,9 @@
 "actionCoc" = "Code de Conduite";
 "actionGenerateQrcode" = "Générer ton Qrcode";
 "actionFilteringFavorites" = "Seulement les conférences en favoris";
+"actionQrcodeScanner" = "Scanner de Qrcode de profile";
+"actionQrcodeGenerator" = "Génèrer le Qrcode de votre profile";
+"actionDeleteNetworkProfile" = "Supprimer le profile";
 
 "inputEmail" = "Ton adresse email*";
 "inputFirstname" = "Ton prénom*";
@@ -47,4 +50,5 @@
 "semanticGitHub %@" = "GitHub de %@";
 "semanticLinkedIn %@" = "LinkedIn de %@";
 "semanticTicketId %@" = "Identifiant de ton billet %@";
+"semanticProfileQrcode" = "Ton Qrcode est affiché et prêt à être scanné";
 "semanticTicketQrcode" = "Qrcode de ton ticket prêt à être scanné";

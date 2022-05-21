@@ -35,6 +35,9 @@
 "actionCoc" = "Code Of Conduct";
 "actionGenerateQrcode" = "Generate your QR code";
 "actionFilteringFavorites" = "Only favorites schedules";
+"actionQrcodeScanner" = "Profile Qrcode scanner";
+"actionQrcodeGenerator" = "Qrcode generator for your profile";
+"actionDeleteNetworkProfile" = "Delete the profile";
 
 "inputEmail" = "Your email address*";
 "inputFirstname" = "Your first name*";
@@ -48,4 +51,5 @@
 "semanticGitHub %@" = "GitHub of %@";
 "semanticLinkedIn %@" = "LinkedIn of %@";
 "semanticTicketId %@" = "Identifier of your ticket %@";
+"semanticProfileQrcode" = "Your profile qrcode is displayed and ready to be scanned";
 "semanticTicketQrcode" = "Qrcode of your ticket ready to be scanned";

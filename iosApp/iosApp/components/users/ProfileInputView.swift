@@ -33,6 +33,7 @@ struct ProfileInputView: View {
                         Image(uiImage: uiImage)
                             .resizable()
                             .frame(width: 250, height: 250, alignment: .center)
+                            .accessibilityLabel("semanticProfileQrcode")
                     }
                 }
                 Section {
