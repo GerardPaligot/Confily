@@ -28,7 +28,7 @@ struct SpeakerSectionView: View {
                                 onTwitterClicked(speaker.twitterUrl!)
                             }
                         )
-                        .accessibility(label: Text(LocalizedStringKey("semanticTwitter \(speaker.twitter!)")))
+                        .accessibility(label: Text(LocalizedStringKey("semanticTwitter \(speaker.name)")))
                     }
                     if (speaker.github != nil) {
                         SocialItem(
@@ -38,7 +38,7 @@ struct SpeakerSectionView: View {
                                 onGitHubClicked(speaker.githubUrl!)
                             }
                         )
-                        .accessibility(label: Text(LocalizedStringKey("semanticGitHub \(speaker.github!)")))
+                        .accessibility(label: Text(LocalizedStringKey("semanticGitHub \(speaker.name)")))
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)

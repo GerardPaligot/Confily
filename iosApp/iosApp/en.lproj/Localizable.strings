@@ -41,8 +41,8 @@
 "inputCompany" = "Your company";
 "inputShareTalk %@ %@" = "%@ by %@";
 
-"semanticHHmm %@ %@" = "%@ hours %@ minutes";
-"semanticScheduleTime %@ %@ %@ %@" = "From %@ hours %@ minutes to %@ hours %@ minutes";
+"semanticHHmm %lld %lld" = "%lld hours %lld minutes";
+"semanticScheduleTime %lld %lld %lld %lld" = "From %lld hours %lld minutes to %lld hours %lld minutes";
 "semanticTwitter %@" = "Twitter of %@";
 "semanticGitHub %@" = "GitHub of %@";
 "semanticLinkedIn %@" = "LinkedIn of %@";
