@@ -21,6 +21,7 @@ struct SpeakerHeaderView: View {
         VStack {
             SpeakerAvatarView(url: url)
                 .frame(width: 96, height: 96)
+                .accessibility(hidden: true)
             Text(name)
                 .font(titleFont)
                 .padding(.top, 24)
