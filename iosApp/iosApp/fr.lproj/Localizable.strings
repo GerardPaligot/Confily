@@ -32,6 +32,7 @@
 "textTicketLastname" = "Nom";
 "textAgendaNoFavorites" = "Vous n'avez pas de conférences en favoris";
 
+"actionFeedback" = "Donne ton feedback";
 "actionFaq" = "FAQ";
 "actionCoc" = "Code de Conduite";
 "actionTicketScanner" = "Scan ton ticket";

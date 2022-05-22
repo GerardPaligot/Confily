@@ -33,6 +33,7 @@
 "textTicketLastname" = "Last Name";
 "textAgendaNoFavorites" = "You don't have any talks in favorites";
 
+"actionFeedback" = "Give your feedback";
 "actionFaq" = "FAQ";
 "actionCoc" = "Code Of Conduct";
 "actionTicketScanner" = "Scan your ticket";

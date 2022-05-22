@@ -39,7 +39,8 @@ class TalkDao(private val db: Conferences4HallDatabase) {
                 }
             },
             canGiveFeedback = now > startTime,
-            openFeedbackSessionId = talk.open_feedback
+            openFeedbackSessionId = talk.open_feedback,
+            openFeedbackUrl = talk.open_feedback_url
         )
     }
 }

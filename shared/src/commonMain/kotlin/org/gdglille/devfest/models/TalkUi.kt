@@ -13,7 +13,8 @@ data class TalkUi(
     val speakers: List<SpeakerItemUi>,
     val speakersSharing: String,
     val canGiveFeedback: Boolean,
-    val openFeedbackSessionId: String?
+    val openFeedbackSessionId: String?,
+    val openFeedbackUrl: String?
 ) {
     companion object {
         val fake = TalkUi(
@@ -26,7 +27,8 @@ data class TalkUi(
             speakers = arrayListOf(SpeakerItemUi.fake, SpeakerItemUi.fake),
             speakersSharing = "",
             canGiveFeedback = false,
-            openFeedbackSessionId = "e1Wt4hveV3UiEd5yxZ9k"
+            openFeedbackSessionId = "e1Wt4hveV3UiEd5yxZ9k",
+            openFeedbackUrl = "https://openfeedback.io/eimghD4rG79eQuZRu2oT/2022-06-10/e1Wt4hveV3UiEd5yxZ9k"
         )
     }
 }

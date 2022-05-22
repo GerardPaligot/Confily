@@ -10,6 +10,7 @@ import SwiftUI
 import shared
 
 struct ScheduleDetail<SpeakerItem: View>: View {
+    @Environment(\.openURL) var openURL
     @State private var isShareSheetPresented = false
     let talkUi: TalkUi
     let speakerItem: (SpeakerItemUi) -> SpeakerItem
@@ -29,6 +30,10 @@ struct ScheduleDetail<SpeakerItem: View>: View {
                     self.speakerItem(speaker)
                         .padding(.horizontal, 8)
                 }
+                ButtonView(text: NSLocalizedString("actionFeedback", comment: "")) {
+                    if let url2 = URL(string: talkUi.openFeedbackUrl!) { openURL(url2) }
+                }
+                .padding()
             }
         }
         .navigationBarItems(trailing:

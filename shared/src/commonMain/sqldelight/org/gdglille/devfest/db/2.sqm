@@ -1,0 +1,1 @@
+ALTER TABLE Talk ADD COLUMN open_feedback_url TEXT;

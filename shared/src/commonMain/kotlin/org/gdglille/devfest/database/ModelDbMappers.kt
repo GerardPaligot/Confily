@@ -29,7 +29,8 @@ fun ScheduleItem.convertToModelDb(): Talk = Talk(
     abstract_ = this.talk!!.abstract,
     category = this.talk!!.category,
     format = this.talk!!.format,
-    open_feedback = this.talk!!.openFeedback
+    open_feedback = this.talk!!.openFeedback,
+    open_feedback_url = this.talk!!.openFeedback
 )
 
 fun org.gdglille.devfest.models.Event.convertToModelDb(): Event = Event(

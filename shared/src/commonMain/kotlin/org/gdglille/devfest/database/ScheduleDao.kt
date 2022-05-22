@@ -85,7 +85,8 @@ class ScheduleDao(
                     abstract_ = talk.abstract_,
                     category = talk.category,
                     format = talk.format,
-                    open_feedback = talk.open_feedback?.split("/")?.lastOrNull()
+                    open_feedback = talk.open_feedback?.split("/")?.lastOrNull(),
+                    open_feedback_url = talk.open_feedback_url
                 )
                 val speakers = schedule.talk!!.speakers.map { it.convertToModelDb() }
                 speakers.forEach {
