@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.components.events
+package org.gdglille.devfest.android.components.partners
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

@@ -19,6 +19,7 @@ import org.gdglille.devfest.android.components.appbars.TopAppBar
 import org.gdglille.devfest.android.screens.Screen
 import org.gdglille.devfest.android.screens.agenda.AgendaVM
 import org.gdglille.devfest.android.screens.event.EventVM
+import org.gdglille.devfest.android.screens.partners.PartnersVM
 import org.gdglille.devfest.android.screens.users.NetworkingVM
 import org.gdglille.devfest.repositories.AgendaRepository
 import org.gdglille.devfest.repositories.UserRepository
@@ -97,7 +98,12 @@ fun Home(
                     onFaqClick = onFaqClick,
                     onCoCClick = onCoCClick,
                     onTwitterClick = onTwitterClick,
-                    onLinkedInClick = onLinkedInClick,
+                    onLinkedInClick = onLinkedInClick
+                )
+            }
+            composable(Screen.Partners.route) {
+                PartnersVM(
+                    agendaRepository = agendaRepository,
                     onPartnerClick = onPartnerClick
                 )
             }
@@ -107,7 +113,8 @@ fun Home(
 
 internal fun String.getScreen(): Screen = when (this) {
     Screen.Agenda.route -> Screen.Agenda
-    Screen.Event.route -> Screen.Event
     Screen.Networking.route -> Screen.Networking
+    Screen.Partners.route -> Screen.Partners
+    Screen.Event.route -> Screen.Event
     else -> TODO()
 }

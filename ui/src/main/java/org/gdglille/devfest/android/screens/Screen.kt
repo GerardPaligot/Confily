@@ -5,6 +5,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ConfirmationNumber
 import androidx.compose.material.icons.filled.Event
 import androidx.compose.material.icons.filled.Group
+import androidx.compose.material.icons.filled.Handshake
 import androidx.compose.material.icons.filled.LocalActivity
 import androidx.compose.material.icons.filled.QrCode
 import androidx.compose.material.icons.filled.QrCodeScanner
@@ -12,6 +13,7 @@ import androidx.compose.material.icons.filled.Report
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.Event
 import androidx.compose.material.icons.outlined.Group
+import androidx.compose.material.icons.outlined.Handshake
 import androidx.compose.material.icons.outlined.LocalActivity
 import androidx.compose.ui.graphics.vector.ImageVector
 import org.gdglille.devfest.android.components.appbars.ActionItem
@@ -77,5 +79,12 @@ sealed class Screen(
                 id = ActionItemId.ReportActionItem
             )
         )
+    )
+
+    object Partners : Screen(
+        route = "partners",
+        title = R.string.screen_partners,
+        imageVectorFilled = Icons.Filled.Handshake,
+        imageVectorOutlined = Icons.Outlined.Handshake,
     )
 }

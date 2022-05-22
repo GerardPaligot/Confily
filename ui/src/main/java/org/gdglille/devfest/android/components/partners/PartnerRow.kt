@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.components.events
+package org.gdglille.devfest.android.components.partners
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
-import org.gdglille.devfest.models.EventUi
+import org.gdglille.devfest.models.PartnerGroupsUi
 import org.gdglille.devfest.models.PartnerItemUi
 
 @Composable
@@ -44,7 +44,7 @@ fun PartnerRow(
 fun Eventreview() {
     Conferences4HallTheme {
         PartnerRow(
-            partners = EventUi.fake.partners.silvers[0],
+            partners = PartnerGroupsUi.fake.silvers[0],
             onPartnerClick = {}
         )
     }

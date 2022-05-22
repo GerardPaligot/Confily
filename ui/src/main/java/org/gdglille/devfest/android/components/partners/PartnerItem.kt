@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.components.events
+package org.gdglille.devfest.android.components.partners
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -20,7 +20,6 @@ import androidx.compose.ui.unit.dp
 import coil.ImageLoader
 import coil.compose.rememberAsyncImagePainter
 import coil.decode.SvgDecoder
-import org.gdglille.devfest.android.theme.ColorPalette
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.placeholder
 import org.gdglille.devfest.models.PartnerItemUi

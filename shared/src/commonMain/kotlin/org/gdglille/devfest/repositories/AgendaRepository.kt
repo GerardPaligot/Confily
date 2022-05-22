@@ -7,7 +7,6 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.transform
 import kotlinx.coroutines.launch
 import org.gdglille.devfest.database.EventDao
 import org.gdglille.devfest.database.ScheduleDao
@@ -15,6 +14,7 @@ import org.gdglille.devfest.database.SpeakerDao
 import org.gdglille.devfest.database.TalkDao
 import org.gdglille.devfest.models.AgendaUi
 import org.gdglille.devfest.models.EventUi
+import org.gdglille.devfest.models.PartnerGroupsUi
 import org.gdglille.devfest.models.SpeakerUi
 import org.gdglille.devfest.models.TalkUi
 import org.gdglille.devfest.network.ConferenceApi
@@ -24,6 +24,7 @@ interface AgendaRepository {
     suspend fun toggleFavoriteFiltering()
     suspend fun insertOrUpdateTicket(barcode: String)
     suspend fun event(): Flow<EventUi>
+    suspend fun partners(): Flow<PartnerGroupsUi>
     suspend fun agenda(): Flow<AgendaUi>
     suspend fun markAsRead(scheduleId: String, isFavorite: Boolean)
     suspend fun scheduleItem(scheduleId: String): TalkUi
@@ -87,6 +88,8 @@ class AgendaRepositoryImpl(
     }
 
     override suspend fun event(): Flow<EventUi> = eventDao.fetchEvent()
+    override suspend fun partners(): Flow<PartnerGroupsUi> = eventDao.fetchPartners()
+
     override suspend fun agenda(): Flow<AgendaUi> = scheduleDao.fetchSchedules()
 
     override suspend fun markAsRead(scheduleId: String, isFavorite: Boolean) =

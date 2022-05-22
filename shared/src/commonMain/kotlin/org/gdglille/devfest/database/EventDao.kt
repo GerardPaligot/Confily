@@ -1,7 +1,9 @@
 package org.gdglille.devfest.database
 
 import com.squareup.sqldelight.runtime.coroutines.asFlow
+import com.squareup.sqldelight.runtime.coroutines.mapToList
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.combineTransform
 import org.gdglille.devfest.Image
 import org.gdglille.devfest.db.Conferences4HallDatabase
@@ -54,23 +56,25 @@ class EventDao(private val db: Conferences4HallDatabase, private val eventId: St
         return@transactionWithResult db.eventQueries.selectEvent(eventId, eventMapper).asFlow()
             .combineTransform(db.ticketQueries.selectTicket(eventId, ticketMapper).asFlow()) { event, ticket ->
                 val eventInfo = event.executeAsOneOrNull() ?: return@combineTransform
-                val golds = db.eventQueries.selectPartners("gold", eventId, partnerMapper).executeAsList()
-                val silvers = db.eventQueries.selectPartners("silver", eventId, partnerMapper).executeAsList()
-                val bronzes = db.eventQueries.selectPartners("bronze", eventId, partnerMapper).executeAsList()
-                val others = db.eventQueries.selectPartners("other", eventId, partnerMapper).executeAsList()
-                emit(
-                    EventUi(
-                        eventInfo = eventInfo,
-                        ticket = ticket.executeAsOneOrNull(),
-                        partners = PartnerGroupsUi(
-                            golds = golds.chunked(3),
-                            silvers = silvers.chunked(3),
-                            bronzes = bronzes.chunked(3),
-                            others = others.chunked(3)
-                        )
-                    )
+                emit(EventUi(eventInfo = eventInfo, ticket = ticket.executeAsOneOrNull()))
+            }
+    }
+
+    fun fetchPartners(): Flow<PartnerGroupsUi> = db.transactionWithResult {
+        return@transactionWithResult combine(
+            db.eventQueries.selectPartners("gold", eventId, partnerMapper).asFlow().mapToList(),
+            db.eventQueries.selectPartners("silver", eventId, partnerMapper).asFlow().mapToList(),
+            db.eventQueries.selectPartners("bronze", eventId, partnerMapper).asFlow().mapToList(),
+            db.eventQueries.selectPartners("other", eventId, partnerMapper).asFlow().mapToList(),
+            transform = { golds, silvers, bronzes, others ->
+                PartnerGroupsUi(
+                    golds = golds.chunked(3),
+                    silvers = silvers.chunked(3),
+                    bronzes = bronzes.chunked(3),
+                    others = others.chunked(3)
                 )
             }
+        )
     }
 
     fun insertEvent(event: Event) = db.transaction {

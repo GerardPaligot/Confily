@@ -7,8 +7,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import org.gdglille.devfest.android.R
-import org.gdglille.devfest.repositories.AgendaRepository
 import org.gdglille.devfest.android.screens.Event
+import org.gdglille.devfest.repositories.AgendaRepository
 
 @Composable
 fun EventVM(
@@ -17,8 +17,7 @@ fun EventVM(
     onFaqClick: (url: String) -> Unit,
     onCoCClick: (url: String) -> Unit,
     onTwitterClick: (url: String?) -> Unit,
-    onLinkedInClick: (url: String?) -> Unit,
-    onPartnerClick: (siteUrl: String?) -> Unit
+    onLinkedInClick: (url: String?) -> Unit
 ) {
     val viewModel: EventViewModel = viewModel(
         factory = EventViewModel.Factory.create(agendaRepository)
@@ -32,10 +31,8 @@ fun EventVM(
             isLoading = true,
             onFaqClick = {},
             onCoCClick = {},
-            onTwitterClick = {},
-            onLinkedInClick = {},
-            onPartnerClick = {}
-        )
+            onTwitterClick = {}
+        ) {}
         is EventUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
         is EventUiState.Success -> Event(
             logo = R.drawable.ic_launcher_foreground,
@@ -44,8 +41,7 @@ fun EventVM(
             onFaqClick = onFaqClick,
             onCoCClick = onCoCClick,
             onTwitterClick = onTwitterClick,
-            onLinkedInClick = onLinkedInClick,
-            onPartnerClick = onPartnerClick
+            onLinkedInClick = onLinkedInClick
         )
     }
 }

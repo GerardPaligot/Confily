@@ -8,9 +8,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import org.gdglille.devfest.android.ui.R
 import org.gdglille.devfest.android.screens.Screen
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
+import org.gdglille.devfest.android.ui.R
 
 @Composable
 fun BottomAppBar(
@@ -45,6 +45,20 @@ fun BottomAppBar(
                 )
             },
             label = { Text(text = stringResource(id = R.string.screen_networking)) },
+            alwaysShowLabel = true
+        )
+        BottomNavigationItem(
+            selected = Screen.Partners == selected,
+            onClick = {
+                onClick(Screen.Partners)
+            },
+            icon = {
+                Icon(
+                    imageVector = Screen.Partners.imageVector(Screen.Partners == selected),
+                    contentDescription = stringResource(id = Screen.Partners.title)
+                )
+            },
+            label = { Text(text = stringResource(id = R.string.screen_partners)) },
             alwaysShowLabel = true
         )
         BottomNavigationItem(

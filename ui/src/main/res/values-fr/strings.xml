@@ -3,6 +3,7 @@
     <string name="screen_agenda">Agenda</string>
     <string name="screen_networking">Networking</string>
     <string name="screen_event">Événement</string>
+    <string name="screen_partners">Partenaires</string>
     <string name="screen_schedule_detail">Détail d\'une session</string>
     <string name="screen_profile">Création de ton profil</string>
     <string name="screen_qrcode_scanner">Scan Qrcode</string>
