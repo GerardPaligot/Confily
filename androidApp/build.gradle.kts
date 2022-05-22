@@ -12,8 +12,8 @@ val accompanistVersion: String by project
 val settingsVersion: String by project
 val datetimeVersion: String by project
 val versionMajor = 0
-val versionMinor = 2
-val versionPatch = 1
+val versionMinor = 3
+val versionPatch = 0
 android {
     compileSdk = 31
     defaultConfig {
