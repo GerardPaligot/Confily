@@ -9,7 +9,7 @@
 import SwiftUI
 import shared
 
-struct EventSectionView<Menu: View>: View {
+struct EventSectionView<Ticket: View, Menu: View>: View {
     var eventInfoUi: EventInfoUi
     var titleFont: Font = Font.headline
     var subtitleFont: Font = Font.subheadline
@@ -18,6 +18,7 @@ struct EventSectionView<Menu: View>: View {
     var onCoCClicked: (_: String) -> ()
     var onTwitterClicked: (_: String) -> ()
     var onLinkedInClicked: (_: String) -> ()
+    var ticket: () -> (Ticket)
     var menus: () -> (Menu)
 
     var body: some View {
@@ -57,7 +58,7 @@ struct EventSectionView<Menu: View>: View {
                 .font(subtitleFont)
                 .foregroundColor(color)
                 .frame(maxWidth: .infinity, alignment: .leading)
-            HStack {
+            HStack(spacing: 8) {
                 ButtonView(text: NSLocalizedString("actionFaq", comment: "")) {
                     onFaqClicked(eventInfoUi.faqLink)
                 }
@@ -65,7 +66,11 @@ struct EventSectionView<Menu: View>: View {
                     onCoCClicked(eventInfoUi.codeOfConductLink)
                 }
             }
-            self.menus()
+            HStack {
+                self.ticket()
+                Spacer(minLength: 8)
+                self.menus()
+            }
         }
     }
 }
@@ -78,6 +83,10 @@ struct EventSectionView_Previews: PreviewProvider {
             onCoCClicked: { String in },
             onTwitterClicked: { String in },
             onLinkedInClicked: { String in },
+            ticket: {
+                ButtonView(text: NSLocalizedString("actionTicketScanner", comment: "")) {
+                }
+            },
             menus: {
                 ButtonView(text: NSLocalizedString("actionMenus", comment: "")) {
                 }

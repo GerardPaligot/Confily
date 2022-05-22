@@ -9,8 +9,9 @@
 import SwiftUI
 import shared
 
-struct Event<Menu: View>: View {
+struct Event<Ticket: View, Menu: View>: View {
     let event: EventUi
+    let ticket: () -> (Ticket)
     let menus: () -> (Menu)
     let onFaqClicked: (_: String) -> ()
     let onCoCClicked: (_: String) -> ()
@@ -19,6 +20,7 @@ struct Event<Menu: View>: View {
     
     init(
         event: EventUi,
+        @ViewBuilder ticket: @escaping () -> (Ticket),
         @ViewBuilder menus: @escaping () -> (Menu),
         onFaqClicked: @escaping (_: String) -> (),
         onCoCClicked: @escaping (_: String) -> (),
@@ -26,6 +28,7 @@ struct Event<Menu: View>: View {
         onLinkedInClicked: @escaping (_: String) -> ()
     ) {
         self.event = event
+        self.ticket = ticket
         self.menus = menus
         self.onFaqClicked = onFaqClicked
         self.onCoCClicked = onCoCClicked
@@ -43,6 +46,7 @@ struct Event<Menu: View>: View {
                         onCoCClicked: onCoCClicked,
                         onTwitterClicked: onTwitterClicked,
                         onLinkedInClicked: onLinkedInClicked,
+                        ticket: ticket,
                         menus: menus
                     )
                 }
@@ -70,6 +74,10 @@ struct Event_Previews: PreviewProvider {
     static var previews: some View {
         Event(
             event: EventUi.companion.fake,
+            ticket: {
+                ButtonView(text: NSLocalizedString("actionTicketScanner", comment: "")) {
+                }
+            },
             menus: {
                 ButtonView(text: NSLocalizedString("actionMenus", comment: "")) {
                 }

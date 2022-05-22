@@ -13,10 +13,10 @@ import shared
 enum EventNavigationState: Equatable {
     case none
     case menus
+    case ticket
 }
 
 struct EventVM: View {
-    @State private var isPresentingScanner = false
     @State private var navigationState = EventNavigationState.none
     @ObservedObject var viewModel: EventViewModel
     let agendaRepository: AgendaRepository
@@ -35,6 +35,27 @@ struct EventVM: View {
                     case .success(let eventUi):
                         Event(
                             event: eventUi,
+                            ticket: {
+                                NavigationLink(isActive: Binding.constant(self.navigationState == .ticket)) {
+                                    CodeScannerView(codeTypes: [.qr]) { response in
+                                        if case let .success(result) = response {
+                                            if (result.string != "") {
+                                                viewModel.saveTicket(barcode: result.string)
+                                                self.navigationState = EventNavigationState.none
+                                            }
+                                        }
+                                    }
+                                } label: {
+                                    EmptyView()
+                                }
+                                .accessibility(hidden: true)
+                                ButtonView(text: NSLocalizedString("actionTicketScanner", comment: "")) {
+                                    self.navigationState = .ticket
+                                }
+                                .onAppear {
+                                    self.navigationState = EventNavigationState.none
+                                }
+                            },
                             menus: {
                                 NavigationLink(isActive: Binding.constant(self.navigationState == .menus)) {
                                     MenusVM(agendaRepository: self.agendaRepository)
@@ -70,25 +91,6 @@ struct EventVM: View {
             }
             .navigationTitle(Text("screenEvent"))
             .navigationBarTitleDisplayMode(.inline)
-            .navigationBarItems(trailing:
-                HStack {
-                    Button(action: {
-                        isPresentingScanner = true
-                    }, label: {
-                        Image(systemName: "tag")
-                    })
-                }
-            )
-            .sheet(isPresented: $isPresentingScanner) {
-                CodeScannerView(codeTypes: [.qr]) { response in
-                    if case let .success(result) = response {
-                        if (result.string != "") {
-                            viewModel.saveTicket(barcode: result.string)
-                            isPresentingScanner = false
-                        }
-                    }
-                }
-            }
         }
         .onAppear {
             viewModel.fetchEvent()

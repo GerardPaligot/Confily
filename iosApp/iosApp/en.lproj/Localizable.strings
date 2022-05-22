@@ -34,6 +34,7 @@
 
 "actionFaq" = "FAQ";
 "actionCoc" = "Code Of Conduct";
+"actionTicketScanner" = "Scan your ticket";
 "actionMenus" = "Menus";
 "actionGenerateQrcode" = "Generate your QR code";
 "actionFilteringFavorites" = "Only favorites schedules";
