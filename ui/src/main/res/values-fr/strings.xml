@@ -29,6 +29,7 @@
     <string name="text_networking_ask_to_delete">Es-tu sûr de vouloir supprimer %s de ton espace de networking ?</string>
     <string name="text_ticket_firstname">Prénom</string>
     <string name="text_ticket_lastname">Nom</string>
+    <string name="text_agenda_no_favorites">Vous n\'avez pas de conférences en favoris</string>
 
     <string name="action_back">Retour</string>
     <string name="action_share_talk">Partage la session %s</string>

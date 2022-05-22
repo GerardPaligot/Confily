@@ -29,6 +29,7 @@
     <string name="text_networking_ask_to_delete">Are you sure you want to delete %s from your networking space?</string>
     <string name="text_ticket_firstname">First Name</string>
     <string name="text_ticket_lastname">Last Name</string>
+    <string name="text_agenda_no_favorites">You don\'t have any talks in favorites</string>
 
     <string name="action_back">Back</string>
     <string name="action_share_talk">Share talk %s</string>

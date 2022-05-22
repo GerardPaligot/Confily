@@ -55,9 +55,7 @@ class AgendaViewModel(
             }, async {
                 try {
                     repository.agenda().collect {
-                        if (it.talks.isNotEmpty()) {
-                            _uiState.value = AgendaUiState.Success(it)
-                        }
+                        _uiState.value = AgendaUiState.Success(it)
                     }
                 } catch (error: Throwable) {
                     Firebase.crashlytics.recordException(error)

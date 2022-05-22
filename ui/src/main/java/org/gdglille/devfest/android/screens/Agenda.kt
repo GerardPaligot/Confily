@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import org.gdglille.devfest.android.components.talks.NoFavoriteTalks
 import org.gdglille.devfest.android.components.talks.ScheduleItem
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
 import org.gdglille.devfest.models.AgendaUi
@@ -25,20 +26,24 @@ fun Agenda(
     onTalkClicked: (id: String) -> Unit,
     onFavoriteClicked: (TalkItemUi) -> Unit
 ) {
-    LazyColumn(
-        modifier = modifier,
-        contentPadding = PaddingValues(vertical = 4.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
-    ) {
-        items(agenda.talks.keys.toList(), key = { it }) {
-            ScheduleItem(
-                time = it,
-                talks = agenda.talks[it]!!,
-                isLoading = isLoading,
-                onTalkClicked = onTalkClicked,
-                onFavoriteClicked = onFavoriteClicked,
-                modifier = Modifier.animateItemPlacement()
-            )
+    if (agenda.onlyFavorites && !isLoading && agenda.talks.keys.isEmpty()) {
+        NoFavoriteTalks()
+    } else {
+        LazyColumn(
+            modifier = modifier,
+            contentPadding = PaddingValues(vertical = 4.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+        ) {
+            items(agenda.talks.keys.toList(), key = { it }) {
+                ScheduleItem(
+                    time = it,
+                    talks = agenda.talks[it]!!,
+                    isLoading = isLoading,
+                    onTalkClicked = onTalkClicked,
+                    onFavoriteClicked = onFavoriteClicked,
+                    modifier = Modifier.animateItemPlacement()
+                )
+            }
         }
     }
 }
