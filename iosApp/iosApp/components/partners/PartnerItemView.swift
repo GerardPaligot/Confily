@@ -14,15 +14,28 @@ struct PartnerItemView: View {
     var name: String
     var logoUrl: String
     var siteUrl: String
+    // Need to be removed after the Devfest Lille event
+    let exceptions: [String: String] = [
+        "Leroy Merlin - Adeo": "adeo-leroymerlin",
+        "Azfalte": "azfalte",
+        "CGI": "cgi",
+        "ELOSI": "elosi"
+    ]
 
     var body: some View {
-        AnimatedImage(
-            url: URL(string: logoUrl)!
-        )
-        .resizable()
-        .scaledToFit()
-        .padding()
-        .accessibilityLabel(name)
+        if (exceptions.keys.contains(name)) {
+            Image(exceptions[name]!)
+                .resizable()
+                .scaledToFit()
+                .padding()
+                .accessibilityLabel(name)
+        } else {
+            AnimatedImage(url: URL(string: logoUrl)!)
+                .resizable()
+                .scaledToFit()
+                .padding()
+                .accessibilityLabel(name)
+        }
     }
 }
 
