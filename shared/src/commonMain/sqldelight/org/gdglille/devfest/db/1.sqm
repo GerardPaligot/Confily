@@ -1,0 +1,6 @@
+CREATE TABLE Menu (
+name TEXT NOT NULL PRIMARY KEY,
+dish TEXT NOT NULL,
+accompaniment TEXT NOT NULL,
+dessert TEXT NOT NULL
+);

@@ -14,6 +14,7 @@ import org.gdglille.devfest.database.SpeakerDao
 import org.gdglille.devfest.database.TalkDao
 import org.gdglille.devfest.models.AgendaUi
 import org.gdglille.devfest.models.EventUi
+import org.gdglille.devfest.models.MenuItemUi
 import org.gdglille.devfest.models.PartnerGroupsUi
 import org.gdglille.devfest.models.SpeakerUi
 import org.gdglille.devfest.models.TalkUi
@@ -25,6 +26,7 @@ interface AgendaRepository {
     suspend fun insertOrUpdateTicket(barcode: String)
     suspend fun event(): Flow<EventUi>
     suspend fun partners(): Flow<PartnerGroupsUi>
+    suspend fun menus(): Flow<List<MenuItemUi>>
     suspend fun agenda(): Flow<AgendaUi>
     suspend fun markAsRead(scheduleId: String, isFavorite: Boolean)
     suspend fun scheduleItem(scheduleId: String): TalkUi
@@ -89,6 +91,7 @@ class AgendaRepositoryImpl(
 
     override suspend fun event(): Flow<EventUi> = eventDao.fetchEvent()
     override suspend fun partners(): Flow<PartnerGroupsUi> = eventDao.fetchPartners()
+    override suspend fun menus(): Flow<List<MenuItemUi>> = eventDao.fetchMenus()
 
     override suspend fun agenda(): Flow<AgendaUi> = scheduleDao.fetchSchedules()
 
