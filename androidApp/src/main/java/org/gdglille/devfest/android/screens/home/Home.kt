@@ -39,6 +39,7 @@ fun Home(
     onPartnerClick: (siteUrl: String?) -> Unit,
     onScannerClicked: () -> Unit,
     onTicketScannerClicked: () -> Unit,
+    onMenusClicked: () -> Unit,
     onQrCodeClicked: () -> Unit,
     onReportClicked: () -> Unit
 ) {
@@ -98,7 +99,8 @@ fun Home(
                     onCoCClick = onCoCClick,
                     onTicketScannerClicked = onTicketScannerClicked,
                     onTwitterClick = onTwitterClick,
-                    onLinkedInClick = onLinkedInClick
+                    onLinkedInClick = onLinkedInClick,
+                    onMenusClicked = onMenusClicked
                 )
             }
             composable(Screen.Partners.route) {

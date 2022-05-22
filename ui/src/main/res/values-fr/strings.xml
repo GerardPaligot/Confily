@@ -8,6 +8,7 @@
     <string name="screen_profile">Création de ton profil</string>
     <string name="screen_qrcode_scanner">Scan Qrcode</string>
     <string name="screen_ticket_qrcode_scanner">Scan Qrcode Ticket</string>
+    <string name="screen_menus">Menus</string>
 
     <string name="title_gold">Gold</string>
     <string name="title_silver">Silver</string>
@@ -41,6 +42,7 @@
     <string name="action_faq">FAQ</string>
     <string name="action_coc">Code de Conduite</string>
     <string name="action_ticket_scanner">Scan ton ticket</string>
+    <string name="action_menus">Menus</string>
     <string name="action_favorites_remove">Retire la session de tes favoris</string>
     <string name="action_favorites_add">Ajoute la session dans tes favoris</string>
     <string name="action_generate_qrcode">Générer ton Qrcode</string>

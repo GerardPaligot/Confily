@@ -22,6 +22,7 @@ fun Event(
     onFaqClick: (url: String) -> Unit,
     onCoCClick: (url: String) -> Unit,
     onTicketScannerClicked: () -> Unit,
+    onMenusClicked: () -> Unit,
     onTwitterClick: (url: String?) -> Unit,
     onLinkedInClick: (url: String?) -> Unit
 ) {
@@ -39,7 +40,8 @@ fun Event(
                 onCoCClick = onCoCClick,
                 onTwitterClick = onTwitterClick,
                 onLinkedInClick = onLinkedInClick,
-                onTicketScannerClicked = onTicketScannerClicked
+                onTicketScannerClicked = onTicketScannerClicked,
+                onMenusClicked = onMenusClicked
             )
         }
         event.ticket?.let {

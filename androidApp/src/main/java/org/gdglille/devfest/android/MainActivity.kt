@@ -22,6 +22,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import org.gdglille.devfest.android.data.QrCodeGeneratorAndroid
 import org.gdglille.devfest.android.screens.home.Home
+import org.gdglille.devfest.android.screens.menus.MenusVM
 import org.gdglille.devfest.android.screens.profile.ProfileInputVM
 import org.gdglille.devfest.android.screens.scanner.ticket.TicketQrCodeScannerVm
 import org.gdglille.devfest.android.screens.scanner.vcard.VCardQrCodeScannerVm
@@ -102,6 +103,9 @@ class MainActivity : AppCompatActivity() {
                             onTicketScannerClicked = {
                                 navController.navigate("scanner/ticket")
                             },
+                            onMenusClicked = {
+                                navController.navigate("menus")
+                            },
                             onQrCodeClicked = {
                                 navController.navigate("profile")
                             },
@@ -180,6 +184,16 @@ class MainActivity : AppCompatActivity() {
                     ) {
                         ProfileInputVM(
                             userRepository = userRepository,
+                            onBackClicked = {
+                                navController.popBackStack()
+                            }
+                        )
+                    }
+                    composable(
+                        route = "menus"
+                    ) {
+                        MenusVM(
+                            agendaRepository = agendaRepository,
                             onBackClicked = {
                                 navController.popBackStack()
                             }

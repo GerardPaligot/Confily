@@ -36,6 +36,7 @@ fun EventSection(
     onFaqClick: (url: String) -> Unit,
     onCoCClick: (url: String) -> Unit,
     onTicketScannerClicked: () -> Unit,
+    onMenusClicked: () -> Unit,
     onTwitterClick: (url: String?) -> Unit,
     onLinkedInClick: (url: String?) -> Unit,
 ) {
@@ -104,11 +105,19 @@ fun EventSection(
                 Text(text = stringResource(R.string.action_coc))
             }
         }
-        Button(
-            onClick = { onTicketScannerClicked() },
-            modifier = Modifier.fillMaxWidth().placeholder(visible = isLoading)
-        ) {
-            Text(text = stringResource(R.string.action_ticket_scanner))
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Button(
+                onClick = { onTicketScannerClicked() },
+                modifier = Modifier.fillMaxWidth().weight(1f).placeholder(visible = isLoading)
+            ) {
+                Text(text = stringResource(R.string.action_ticket_scanner))
+            }
+            Button(
+                onClick = { onMenusClicked() },
+                modifier = Modifier.fillMaxWidth().weight(1f).placeholder(visible = isLoading)
+            ) {
+                Text(text = stringResource(R.string.action_menus))
+            }
         }
     }
 }

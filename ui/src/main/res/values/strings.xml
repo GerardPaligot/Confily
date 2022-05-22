@@ -8,6 +8,7 @@
     <string name="screen_profile">Create your profile</string>
     <string name="screen_qrcode_scanner">Qrcode Scanner</string>
     <string name="screen_ticket_qrcode_scanner">Ticket Qrcode Scanner</string>
+    <string name="screen_menus">Menus</string>
 
     <string name="title_gold">Gold</string>
     <string name="title_silver">Silver</string>
@@ -41,6 +42,7 @@
     <string name="action_faq">FAQ</string>
     <string name="action_coc">Code Of Conduct</string>
     <string name="action_ticket_scanner">Scan your ticket</string>
+    <string name="action_menus">Menus</string>
     <string name="action_favorites_remove">Remove schedule from favorites</string>
     <string name="action_favorites_add">Add schedule in favorite</string>
     <string name="action_generate_qrcode">Generate your QR code</string>
