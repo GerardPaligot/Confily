@@ -38,9 +38,4 @@ class PartnersViewModel: ObservableObject {
     func stop() {
         repository.stopCollectPartners()
     }
-    
-    func saveTicket(barcode: String) {
-        repository.insertOrUpdateTicket(barcode: barcode) { _, _ in
-        }
-    }
 }

@@ -10,12 +10,20 @@ import SwiftUI
 import CodeScanner
 import shared
 
+enum EventNavigationState: Equatable {
+    case none
+    case menus
+}
+
 struct EventVM: View {
     @State private var isPresentingScanner = false
+    @State private var navigationState = EventNavigationState.none
     @ObservedObject var viewModel: EventViewModel
+    let agendaRepository: AgendaRepository
     @Environment(\.openURL) var openURL
     
     init(agendaRepository: AgendaRepository) {
+        self.agendaRepository = agendaRepository
         self.viewModel = EventViewModel(repository: agendaRepository)
     }
 
@@ -27,6 +35,20 @@ struct EventVM: View {
                     case .success(let eventUi):
                         Event(
                             event: eventUi,
+                            menus: {
+                                NavigationLink(isActive: Binding.constant(self.navigationState == .menus)) {
+                                    MenusVM(agendaRepository: self.agendaRepository)
+                                } label: {
+                                    EmptyView()
+                                }
+                                .accessibility(hidden: true)
+                                ButtonView(text: NSLocalizedString("actionMenus", comment: "")) {
+                                    self.navigationState = .menus
+                                }
+                                .onAppear {
+                                    self.navigationState = EventNavigationState.none
+                                }
+                            },
                             onFaqClicked: { url in
                                 if let url2 = URL(string: url) { openURL(url2) }
                             },

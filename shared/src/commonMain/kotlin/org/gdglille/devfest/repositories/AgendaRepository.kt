@@ -40,6 +40,8 @@ interface AgendaRepository {
     fun stopCollectEvent()
     fun startCollectPartners(success: (PartnerGroupsUi) -> Unit, failure: (Throwable) -> Unit)
     fun stopCollectPartners()
+    fun startCollectMenus(success: (List<MenuItemUi>) -> Unit, failure: (Throwable) -> Unit)
+    fun stopCollectMenus()
 
     @FlowPreview
     @ExperimentalSettingsApi
@@ -153,5 +155,22 @@ class AgendaRepositoryImpl(
 
     override fun stopCollectPartners() {
         partnersJob?.cancel()
+    }
+
+    private var menusJob: Job? = null
+    override fun startCollectMenus(success: (List<MenuItemUi>) -> Unit, failure: (Throwable) -> Unit) {
+        menusJob = coroutineScope.launch {
+            try {
+                menus().collect {
+                    success(it)
+                }
+            } catch (throwable: Throwable) {
+                failure(throwable)
+            }
+        }
+    }
+
+    override fun stopCollectMenus() {
+        menusJob?.cancel()
     }
 }
