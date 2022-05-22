@@ -34,12 +34,12 @@
     <string name="action_share_talk">Share talk %s</string>
     <string name="action_filtering_favorites">Only favorites schedules</string>
     <string name="action_qrcode_scanner">Qrcode scanner</string>
-    <string name="action_ticket_qrcode_scanner">Ticket qrcode scanner</string>
     <string name="action_qrcode_generator">Qrcode generator</string>
     <string name="action_report">Report something to organizers</string>
     <string name="action_system_settings">Open System settings</string>
     <string name="action_faq">FAQ</string>
     <string name="action_coc">Code Of Conduct</string>
+    <string name="action_ticket_scanner">Scan your ticket</string>
     <string name="action_favorites_remove">Remove schedule from favorites</string>
     <string name="action_favorites_add">Add schedule in favorite</string>
     <string name="action_generate_qrcode">Generate your QR code</string>
@@ -53,6 +53,7 @@
     <string name="input_share_talk">%s by %s</string>
 
     <string name="semantic_profile_qrcode">Your qrcode is displayed and ready to be scanned</string>
+    <string name="semantic_ticket_id">Identifier of your ticket %s</string>
     <string name="semantic_ticket_qrcode">Qrcode of your ticket ready to be scanned</string>
     <string name="semantic_twitter">Twitter of %s</string>
     <string name="semantic_github">GitHub of %s</string>

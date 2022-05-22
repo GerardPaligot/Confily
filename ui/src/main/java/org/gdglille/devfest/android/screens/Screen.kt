@@ -2,7 +2,6 @@ package org.gdglille.devfest.android.screens
 
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ConfirmationNumber
 import androidx.compose.material.icons.filled.Event
 import androidx.compose.material.icons.filled.Group
 import androidx.compose.material.icons.filled.Handshake
@@ -68,11 +67,6 @@ sealed class Screen(
         imageVectorFilled = Icons.Filled.LocalActivity,
         imageVectorOutlined = Icons.Outlined.LocalActivity,
         actions = arrayListOf(
-            ActionItem(
-                icon = Icons.Filled.ConfirmationNumber,
-                contentDescription = R.string.action_ticket_qrcode_scanner,
-                id = ActionItemId.TicketQrCodeScannerActionItem
-            ),
             ActionItem(
                 icon = Icons.Default.Report,
                 contentDescription = R.string.action_report,

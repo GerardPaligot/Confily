@@ -16,6 +16,7 @@ fun EventVM(
     modifier: Modifier = Modifier,
     onFaqClick: (url: String) -> Unit,
     onCoCClick: (url: String) -> Unit,
+    onTicketScannerClicked: () -> Unit,
     onTwitterClick: (url: String?) -> Unit,
     onLinkedInClick: (url: String?) -> Unit
 ) {
@@ -31,6 +32,7 @@ fun EventVM(
             isLoading = true,
             onFaqClick = {},
             onCoCClick = {},
+            onTicketScannerClicked = {},
             onTwitterClick = {}
         ) {}
         is EventUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
@@ -40,6 +42,7 @@ fun EventVM(
             modifier = modifier,
             onFaqClick = onFaqClick,
             onCoCClick = onCoCClick,
+            onTicketScannerClicked = onTicketScannerClicked,
             onTwitterClick = onTwitterClick,
             onLinkedInClick = onLinkedInClick
         )

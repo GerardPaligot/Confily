@@ -35,6 +35,7 @@ fun EventSection(
     color: Color = MaterialTheme.colors.onBackground,
     onFaqClick: (url: String) -> Unit,
     onCoCClick: (url: String) -> Unit,
+    onTicketScannerClicked: () -> Unit,
     onTwitterClick: (url: String?) -> Unit,
     onLinkedInClick: (url: String?) -> Unit,
 ) {
@@ -102,6 +103,12 @@ fun EventSection(
             ) {
                 Text(text = stringResource(R.string.action_coc))
             }
+        }
+        Button(
+            onClick = { onTicketScannerClicked() },
+            modifier = Modifier.fillMaxWidth().placeholder(visible = isLoading)
+        ) {
+            Text(text = stringResource(R.string.action_ticket_scanner))
         }
     }
 }

@@ -53,7 +53,6 @@ open class ActionItem(
 sealed class ActionItemId {
     object FavoriteSchedulesActionItem: ActionItemId()
     object VCardQrCodeScannerActionItem: ActionItemId()
-    object TicketQrCodeScannerActionItem: ActionItemId()
     object QrCodeActionItem: ActionItemId()
     object ShareActionItem: ActionItemId()
     object ReportActionItem: ActionItemId()

@@ -56,7 +56,6 @@ fun Home(
                 onActionClicked = {
                     when (it) {
                         ActionItemId.VCardQrCodeScannerActionItem -> onScannerClicked()
-                        ActionItemId.TicketQrCodeScannerActionItem -> onTicketScannerClicked()
                         ActionItemId.QrCodeActionItem -> onQrCodeClicked()
                         ActionItemId.ReportActionItem -> onReportClicked()
                         ActionItemId.FavoriteSchedulesActionItem -> {
@@ -97,6 +96,7 @@ fun Home(
                     agendaRepository = agendaRepository,
                     onFaqClick = onFaqClick,
                     onCoCClick = onCoCClick,
+                    onTicketScannerClicked = onTicketScannerClicked,
                     onTwitterClick = onTwitterClick,
                     onLinkedInClick = onLinkedInClick
                 )

@@ -34,12 +34,12 @@
     <string name="action_share_talk">Partage la session %s</string>
     <string name="action_filtering_favorites">Seulement les talks favoris</string>
     <string name="action_qrcode_scanner">Scan de Qrcode</string>
-    <string name="action_ticket_qrcode_scanner">Scan du qrcode du ticket</string>
     <string name="action_qrcode_generator">Génère un Qrcode</string>
     <string name="action_report">Reporter quelque chose aux organisateurs</string>
     <string name="action_system_settings">Ouvre les préférences systèmes</string>
     <string name="action_faq">FAQ</string>
     <string name="action_coc">Code de Conduite</string>
+    <string name="action_ticket_scanner">Scan ton ticket</string>
     <string name="action_favorites_remove">Retire la session de tes favoris</string>
     <string name="action_favorites_add">Ajoute la session dans tes favoris</string>
     <string name="action_generate_qrcode">Générer ton Qrcode</string>
@@ -53,7 +53,8 @@
     <string name="input_share_talk">%s par %s</string>
 
     <string name="semantic_profile_qrcode">Ton Qrcode est affiché et prêt pour être scanné</string>
-    <string name="semantic_ticket_qrcode">Qrcode de ton ticket prêt à être scanné</string>
+    <string name="semantic_ticket_id">Identifiant de ton billet %s</string>
+    <string name="semantic_ticket_qrcode">Qrcode de ton billet prêt à être scanné</string>
     <string name="semantic_twitter">Twitter de %s</string>
     <string name="semantic_github">GitHub de %s</string>
     <string name="semantic_linkedin">LinkedIn de %s</string>

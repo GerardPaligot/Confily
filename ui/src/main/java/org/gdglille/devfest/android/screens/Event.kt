@@ -21,6 +21,7 @@ fun Event(
     isLoading: Boolean = false,
     onFaqClick: (url: String) -> Unit,
     onCoCClick: (url: String) -> Unit,
+    onTicketScannerClicked: () -> Unit,
     onTwitterClick: (url: String?) -> Unit,
     onLinkedInClick: (url: String?) -> Unit
 ) {
@@ -37,7 +38,8 @@ fun Event(
                 onFaqClick = onFaqClick,
                 onCoCClick = onCoCClick,
                 onTwitterClick = onTwitterClick,
-                onLinkedInClick = onLinkedInClick
+                onLinkedInClick = onLinkedInClick,
+                onTicketScannerClicked = onTicketScannerClicked
             )
         }
         event.ticket?.let {
@@ -46,12 +48,14 @@ fun Event(
                     TicketDetailed(
                         ticket = it.info!!,
                         qrCode = it.qrCode,
-                        modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp)
+                        modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
+                        isLoading = isLoading
                     )
                 } else if (it.qrCode != null) {
                     TicketQrCode(
                         qrCode = it.qrCode!!,
-                        modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp)
+                        modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
+                        isLoading = isLoading
                     )
                 }
             }
