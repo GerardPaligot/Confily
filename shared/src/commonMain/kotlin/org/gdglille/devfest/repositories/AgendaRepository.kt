@@ -7,6 +7,7 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.gdglille.devfest.database.EventDao
 import org.gdglille.devfest.database.ScheduleDao
@@ -35,9 +36,10 @@ interface AgendaRepository {
     // Kotlin/Native client
     fun startCollectAgenda(success: (AgendaUi) -> Unit, failure: (Throwable) -> Unit)
     fun stopCollectAgenda()
-
     fun startCollectEvent(success: (EventUi) -> Unit, failure: (Throwable) -> Unit)
     fun stopCollectEvent()
+    fun startCollectPartners(success: (PartnerGroupsUi) -> Unit, failure: (Throwable) -> Unit)
+    fun stopCollectPartners()
 
     @FlowPreview
     @ExperimentalSettingsApi
@@ -134,5 +136,22 @@ class AgendaRepositoryImpl(
 
     override fun stopCollectEvent() {
         eventJob?.cancel()
+    }
+
+    private var partnersJob: Job? = null
+    override fun startCollectPartners(success: (PartnerGroupsUi) -> Unit, failure: (Throwable) -> Unit) {
+        partnersJob = coroutineScope.launch {
+            try {
+                partners().collect {
+                    success(it)
+                }
+            } catch (throwable: Throwable) {
+                failure(throwable)
+            }
+        }
+    }
+
+    override fun stopCollectPartners() {
+        partnersJob?.cancel()
     }
 }

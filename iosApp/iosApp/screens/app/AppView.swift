@@ -18,12 +18,17 @@ struct AppView: View {
                 .tabItem {
                     Label("screenAgenda", systemImage: "calendar")
                 }
-            
+
             NetworkingVM(userRepository: userRepository)
                 .tabItem {
                     Label("screenNetworking", systemImage: "person.2")
                 }
-            
+
+            PartnersVM(agendaRepository: agendaRepository)
+                .tabItem {
+                    Label("screenPartners", systemImage: "hands.clap")
+                }
+
             EventVM(agendaRepository: agendaRepository)
                 .tabItem {
                     Label("screenEvent", systemImage: "ticket")

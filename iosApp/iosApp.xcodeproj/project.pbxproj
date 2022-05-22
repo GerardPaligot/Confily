@@ -56,6 +56,9 @@
 		D5AE1BE727D18B7E005849B4 /* UserItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5AE1BE627D18B7E005849B4 /* UserItemView.swift */; };
 		D5AEA3A928341C630023245B /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = D5AEA3A828341C630023245B /* FirebaseAnalytics */; };
 		D5AEA3AB28341C630023245B /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = D5AEA3AA28341C630023245B /* FirebaseCrashlytics */; };
+		D5C92EC5283AC56F00D5CF2D /* Partners.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C92EC4283AC56F00D5CF2D /* Partners.swift */; };
+		D5C92EC7283AC66D00D5CF2D /* PartnersVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C92EC6283AC66D00D5CF2D /* PartnersVM.swift */; };
+		D5C92EC9283AC6D400D5CF2D /* PartnersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C92EC8283AC6D400D5CF2D /* PartnersViewModel.swift */; };
 		D5CAA6512821BCC7005BB242 /* PartnerItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CAA6502821BCC7005BB242 /* PartnerItemView.swift */; };
 		D5CAA6532821C306005BB242 /* PartnerRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CAA6522821C306005BB242 /* PartnerRowView.swift */; };
 		D5D5ABF5282071D2004E2F78 /* ShareSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D5ABF4282071D2004E2F78 /* ShareSheetView.swift */; };
@@ -123,6 +126,9 @@
 		D59EFCB727B5AD42000AADCF /* EventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewModel.swift; sourceTree = "<group>"; };
 		D59EFCB927B5AE25000AADCF /* EventVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventVM.swift; sourceTree = "<group>"; };
 		D5AE1BE627D18B7E005849B4 /* UserItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserItemView.swift; sourceTree = "<group>"; };
+		D5C92EC4283AC56F00D5CF2D /* Partners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Partners.swift; sourceTree = "<group>"; };
+		D5C92EC6283AC66D00D5CF2D /* PartnersVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnersVM.swift; sourceTree = "<group>"; };
+		D5C92EC8283AC6D400D5CF2D /* PartnersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnersViewModel.swift; sourceTree = "<group>"; };
 		D5CAA6502821BCC7005BB242 /* PartnerItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnerItemView.swift; sourceTree = "<group>"; };
 		D5CAA6522821C306005BB242 /* PartnerRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnerRowView.swift; sourceTree = "<group>"; };
 		D5D5ABF328207025004E2F78 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -220,6 +226,7 @@
 		D50A458C27B0818F00C9A43C /* components */ = {
 			isa = PBXGroup;
 			children = (
+				D5C92EC2283AC52200D5CF2D /* partners */,
 				D59944BC2833CCF800F59C1B /* tickets */,
 				D501315827C0389D001B48A5 /* users */,
 				D524D73027BBF2B80078DF0D /* image */,
@@ -235,6 +242,7 @@
 		D50A458D27B0819A00C9A43C /* screens */ = {
 			isa = PBXGroup;
 			children = (
+				D5C92EC3283AC54400D5CF2D /* partners */,
 				D501315B27C04638001B48A5 /* networking */,
 				D560789127BE8DED00D4012C /* speaker */,
 				D562CF5C27BD9D9200CF54AF /* app */,
@@ -291,9 +299,6 @@
 			children = (
 				D55BE69427B53FBF00BCF03A /* EventSectionView.swift */,
 				D55BE69827B54DB800BCF03A /* ButtonView.swift */,
-				D57028A927B550BF008EF4AD /* PartnerDividerView.swift */,
-				D5CAA6502821BCC7005BB242 /* PartnerItemView.swift */,
-				D5CAA6522821C306005BB242 /* PartnerRowView.swift */,
 			);
 			path = events;
 			sourceTree = "<group>";
@@ -352,6 +357,26 @@
 				D59944BF2833D45A00F59C1B /* TicketQrCodeView.swift */,
 			);
 			path = tickets;
+			sourceTree = "<group>";
+		};
+		D5C92EC2283AC52200D5CF2D /* partners */ = {
+			isa = PBXGroup;
+			children = (
+				D57028A927B550BF008EF4AD /* PartnerDividerView.swift */,
+				D5CAA6502821BCC7005BB242 /* PartnerItemView.swift */,
+				D5CAA6522821C306005BB242 /* PartnerRowView.swift */,
+			);
+			path = partners;
+			sourceTree = "<group>";
+		};
+		D5C92EC3283AC54400D5CF2D /* partners */ = {
+			isa = PBXGroup;
+			children = (
+				D5C92EC4283AC56F00D5CF2D /* Partners.swift */,
+				D5C92EC6283AC66D00D5CF2D /* PartnersVM.swift */,
+				D5C92EC8283AC6D400D5CF2D /* PartnersViewModel.swift */,
+			);
+			path = partners;
 			sourceTree = "<group>";
 		};
 		D5D6166A27B15C3C00C59EC9 /* agenda */ = {
@@ -490,6 +515,7 @@
 				D524D72E27BBF0DB0078DF0D /* SpeakerItemView.swift in Sources */,
 				D5CAA6512821BCC7005BB242 /* PartnerItemView.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
+				D5C92EC7283AC66D00D5CF2D /* PartnersVM.swift in Sources */,
 				D560788E27BE86D900D4012C /* SpeakerAvatarView.swift in Sources */,
 				D5768D6027C11E2A00FB081C /* Networking.swift in Sources */,
 				D50A458F27B081B600C9A43C /* Agenda.swift in Sources */,
@@ -509,12 +535,14 @@
 				D59944C02833D45A00F59C1B /* TicketQrCodeView.swift in Sources */,
 				D5CAA6532821C306005BB242 /* PartnerRowView.swift in Sources */,
 				D55BE69927B54DB800BCF03A /* ButtonView.swift in Sources */,
+				D5C92EC9283AC6D400D5CF2D /* PartnersViewModel.swift in Sources */,
 				D560789027BE8B9500D4012C /* SpeakerSectionView.swift in Sources */,
 				D524D73E27BBFFF30078DF0D /* ScheduleItemViewModel.swift in Sources */,
 				D501315A27C038BB001B48A5 /* ProfileInputView.swift in Sources */,
 				D560789527BE8F4500D4012C /* SpeakerViewModel.swift in Sources */,
 				D58F1D5427B0057300FB59C7 /* Color.swift in Sources */,
 				D524D73627BBF5670078DF0D /* ImageCache.swift in Sources */,
+				D5C92EC5283AC56F00D5CF2D /* Partners.swift in Sources */,
 				D58F1D4F27AFF40A00FB59C7 /* TalkItemView.swift in Sources */,
 				D57028AA27B550BF008EF4AD /* PartnerDividerView.swift in Sources */,
 				D55BE69527B53FBF00BCF03A /* EventSectionView.swift in Sources */,

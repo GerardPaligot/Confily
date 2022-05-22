@@ -44,9 +44,6 @@ struct EventVM: View {
                         Text("textError")
                     case .loading:
                         Text("textLoading")
-                        .onAppear {
-                            viewModel.fetchEvent()
-                        }
                 }
             }
             .navigationTitle(Text("screenEvent"))
@@ -70,6 +67,12 @@ struct EventVM: View {
                     }
                 }
             }
+        }
+        .onAppear {
+            viewModel.fetchEvent()
+        }
+        .onDisappear {
+            viewModel.stop()
         }
     }
 }

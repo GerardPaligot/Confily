@@ -18,60 +18,33 @@ struct Event: View {
     var onLinkedInClicked: (_: String) -> ()
 
     var body: some View {
-        GeometryReader { geometry in
-            let parentWidth = geometry.size.width
-            ScrollView {
-                LazyVStack(spacing: 8) {
+        ScrollView {
+            LazyVStack(spacing: 8) {
+                Section {
+                    EventSectionView(
+                        eventInfoUi: event.eventInfo,
+                        onFaqClicked: onFaqClicked,
+                        onCoCClicked: onCoCClicked,
+                        onTwitterClicked: onTwitterClicked,
+                        onLinkedInClicked: onLinkedInClicked
+                    )
+                }
+                if (event.ticket != nil) {
                     Section {
-                        EventSectionView(
-                            eventInfoUi: event.eventInfo,
-                            onFaqClicked: onFaqClicked,
-                            onCoCClicked: onCoCClicked,
-                            onTwitterClicked: onTwitterClicked,
-                            onLinkedInClicked: onLinkedInClicked
-                        )
-                    }
-                    if (event.ticket != nil) {
-                        Section {
-                            if (event.ticket?.info != nil) {
-                                TicketDetailedView(
-                                    ticket: (event.ticket?.info)!,
-                                    qrCode: event.ticket!.qrCode
-                                )
+                        if (event.ticket?.info != nil) {
+                            TicketDetailedView(
+                                ticket: (event.ticket?.info)!,
+                                qrCode: event.ticket!.qrCode
+                            )
+                            .padding()
+                        } else if (event.ticket?.qrCode != nil) {
+                            TicketQrCodeView(qrCode: (event.ticket?.qrCode)!)
                                 .padding()
-                            } else if (event.ticket?.qrCode != nil) {
-                                TicketQrCodeView(qrCode: (event.ticket?.qrCode)!)
-                                    .padding()
-                            }
-                        }
-                    }
-                    Section {
-                        PartnerDividerView(text: NSLocalizedString("titleGold", comment: ""))
-                        ForEach(event.partners.golds, id: \.[0].name) { partners in
-                            PartnerRowView(partners: partners, parentWidth: parentWidth) { url in
-                                if let url2 = URL(string: url) { openURL(url2) }
-                            }
-                        }
-                    }
-                    Section {
-                        PartnerDividerView(text: NSLocalizedString("titleSilver", comment: ""))
-                        ForEach(event.partners.silvers, id: \.[0].name) { partners in
-                            PartnerRowView(partners: partners, parentWidth: parentWidth) { url in
-                                if let url2 = URL(string: url) { openURL(url2) }
-                            }
-                        }
-                    }
-                    Section {
-                        PartnerDividerView(text: NSLocalizedString("titleBronze", comment: ""))
-                        ForEach(event.partners.bronzes, id: \.[0].name) { partners in
-                            PartnerRowView(partners: partners, parentWidth: parentWidth) { url in
-                                if let url2 = URL(string: url) { openURL(url2) }
-                            }
                         }
                     }
                 }
-                .padding(.horizontal, 4)
             }
+            .padding(.horizontal, 4)
         }
     }
 }

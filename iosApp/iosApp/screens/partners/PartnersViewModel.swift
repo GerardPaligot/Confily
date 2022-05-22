@@ -1,42 +1,42 @@
 //
-//  EventViewModel.swift
+//  PartnersViewModel.swift
 //  iosApp
 //
-//  Created by GERARD on 10/02/2022.
+//  Created by GERARD on 22/05/2022.
 //  Copyright © 2022 orgName. All rights reserved.
 //
 
 import Foundation
 import shared
 
-enum EventUiState {
+enum PartnersUiState {
     case loading
-    case success(EventUi)
+    case success(PartnerGroupsUi)
     case failure
 }
 
-class EventViewModel: ObservableObject {
+class PartnersViewModel: ObservableObject {
     let repository: AgendaRepository
 
     init(repository: AgendaRepository) {
         self.repository = repository
     }
 
-    @Published var uiState: EventUiState = EventUiState.loading
+    @Published var uiState: PartnersUiState = PartnersUiState.loading
     
-    func fetchEvent() {
-        repository.startCollectEvent(
-            success: { event in
-                self.uiState = EventUiState.success(event)
+    func fetchPartners() {
+        repository.startCollectPartners(
+            success: { partners in
+                self.uiState = PartnersUiState.success(partners)
             },
             failure: { throwable in
-                self.uiState = EventUiState.failure
+                self.uiState = PartnersUiState.failure
             }
         )
     }
     
     func stop() {
-        repository.stopCollectEvent()
+        repository.stopCollectPartners()
     }
     
     func saveTicket(barcode: String) {
