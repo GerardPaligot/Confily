@@ -12,6 +12,13 @@ data class EventAddressDb(
     val lng: Double = 0.0
 )
 
+data class LunchMenuDb(
+    val name: String = "",
+    val dish: String = "",
+    val accompaniment: String = "",
+    val dessert: String = ""
+)
+
 data class BilletWebConfigurationDb(
     val eventId: String = "",
     val userId: String = "",
@@ -29,6 +36,7 @@ data class EventDb(
     val startDate: String = "",
     val endDate: String = "",
     val formats: Map<String, Int> = emptyMap(),
+    val menus: List<LunchMenuDb> = emptyList(),
     val twitterUrl: String? = null,
     val linkedinUrl: String? = null,
     val faqLink: String? = null,

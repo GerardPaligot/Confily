@@ -28,7 +28,7 @@ class EventRepository(
     private val scheduleItemDao: ScheduleItemDao,
     private val partnerDao: PartnerDao
 ) {
-    suspend fun list(eventId: String) = coroutineScope {
+    suspend fun get(eventId: String) = coroutineScope {
         val event = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
         val partners = partnerDao.getAll(eventId)
         return@coroutineScope event.convertToModel(

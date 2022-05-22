@@ -4,9 +4,11 @@ import org.gdglille.devfest.backend.network.conferencehall.Event
 import org.gdglille.devfest.backend.partners.PartnerDb
 import org.gdglille.devfest.backend.partners.convertToModel
 import org.gdglille.devfest.models.EventAddress
+import org.gdglille.devfest.models.EventLunchMenu
 import org.gdglille.devfest.models.EventPartners
 import org.gdglille.devfest.models.inputs.BilletWebConfigInput
 import org.gdglille.devfest.models.inputs.EventInput
+import org.gdglille.devfest.models.inputs.LunchMenuInput
 
 fun Event.convertToDb(year: String, eventId: String, apiKey: String) = EventDb(
     year = year,
@@ -23,6 +25,13 @@ fun Event.convertToDb(year: String, eventId: String, apiKey: String) = EventDb(
     ),
     startDate = this.conferenceDates.start,
     endDate = this.conferenceDates.end
+)
+
+fun LunchMenuDb.convertToModel() = EventLunchMenu(
+    name = name,
+    dish = dish,
+    accompaniment = accompaniment,
+    dessert = dessert
 )
 
 fun EventDb.convertToModel(
@@ -49,11 +58,19 @@ fun EventDb.convertToModel(
         bronzes = bronzes.map { it.convertToModel() },
         others = others.map { it.convertToModel() }
     ),
+    menus = menus.map { it.convertToModel() },
     twitterUrl = this.twitterUrl,
     linkedinUrl = this.linkedinUrl,
     faqLink = this.faqLink,
     codeOfConductLink = this.codeOfConductLink,
     updatedAt = this.updatedAt
+)
+
+fun LunchMenuInput.convertToDb() = LunchMenuDb(
+    name = name,
+    dish = dish,
+    accompaniment = accompaniment,
+    dessert = dessert
 )
 
 fun BilletWebConfigInput.convertToDb() = BilletWebConfigurationDb(
@@ -77,6 +94,7 @@ fun EventInput.convertToDb(event: EventDb, openFeedbackId: String?, apiKey: Stri
         lat = this.address.lat,
         lng = this.address.lng
     ),
+    menus = menus.map { it.convertToDb() },
     startDate = this.startDate,
     endDate = this.endDate,
     formats = this.formats,

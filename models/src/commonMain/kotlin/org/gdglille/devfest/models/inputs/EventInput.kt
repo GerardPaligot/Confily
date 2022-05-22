@@ -22,6 +22,15 @@ data class EventAddressInput(
     }
 }
 
+@Serializable
+data class LunchMenuInput(
+    val name: String,
+    val dish: String,
+    val accompaniment: String,
+    val dessert: String
+): Validator {
+    override fun validate(): List<String> = emptyList()
+}
 
 @Serializable
 data class BilletWebConfigInput(
@@ -48,6 +57,7 @@ data class EventInput(
     @SerialName("end_date")
     val endDate: String,
     val formats: Map<String, Int> = emptyMap(),
+    val menus: List<LunchMenuInput> = emptyList(),
     @SerialName("twitter_url")
     val twitterUrl: String?,
     @SerialName("linkedin_url")

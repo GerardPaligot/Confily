@@ -15,6 +15,14 @@ data class EventAddress(
 )
 
 @Serializable
+data class EventLunchMenu(
+  val name: String,
+  val dish: String,
+  val accompaniment: String,
+  val dessert: String
+)
+
+@Serializable
 data class EventPartners(
   val golds: List<Partner>,
   val silvers: List<Partner>,
@@ -32,6 +40,7 @@ data class Event(
   @SerialName("end_date")
   val endDate: String,
   val partners: EventPartners,
+  val menus: List<EventLunchMenu>,
   @SerialName("twitter_url")
   val twitterUrl: String?,
   @SerialName("linkedin_url")
