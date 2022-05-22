@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.android.components.appbars.AppBarIcons
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
+import org.gdglille.devfest.android.theme.LocalAccessibility
 import org.gdglille.devfest.models.SpeakerUi
 
 @Composable
@@ -30,7 +31,9 @@ fun SpeakerHeader(
     color: Color = MaterialTheme.colors.onBackground,
     onBackClicked: () -> Unit
 ) {
-    Box(modifier = modifier.fillMaxWidth()) {
+    val hasTalkbackActivated = LocalAccessibility.current.isEnabled && LocalAccessibility.current.isTouchExplorationEnabled
+    SpeakerHeaderContainer(hasTalkbackActivated = hasTalkbackActivated, modifier = modifier.fillMaxWidth()) {
+        AppBarIcons.Back(color = color, onClick = onBackClicked)
         Column(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -45,10 +48,25 @@ fun SpeakerHeader(
             Text(text = name, style = titleTextStyle, color = color)
             Text(text = company, style = subtitleTextStyle, color = color)
         }
-        AppBarIcons.Back(color = color, onClick = onBackClicked)
     }
 }
 
+@Composable
+internal fun SpeakerHeaderContainer(
+    hasTalkbackActivated: Boolean,
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit
+) {
+    if (hasTalkbackActivated) {
+        Column(modifier = modifier) {
+            content()
+        }
+    } else {
+        Box(modifier = modifier) {
+            content()
+        }
+    }
+}
 
 @Preview
 @Composable
