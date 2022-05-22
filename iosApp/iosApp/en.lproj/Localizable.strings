@@ -31,6 +31,7 @@
 "textNetworkingAskToDelete %@ %@" = "Are you sure you want to delete %@ %@ from your networking space?";
 "textTicketFirstname" = "First Name";
 "textTicketLastname" = "Last Name";
+"textAgendaNoFavorites" = "You don't have any talks in favorites";
 
 "actionFaq" = "FAQ";
 "actionCoc" = "Code Of Conduct";

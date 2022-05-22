@@ -30,6 +30,7 @@
 "textNetworkingAskToDelete %@ %@" = "Es-tu sûr de vouloir supprimer %@ %@ de ton espace de networking ?";
 "textTicketFirstname" = "Prénom";
 "textTicketLastname" = "Nom";
+"textAgendaNoFavorites" = "Vous n'avez pas de conférences en favoris";
 
 "actionFaq" = "FAQ";
 "actionCoc" = "Code de Conduite";

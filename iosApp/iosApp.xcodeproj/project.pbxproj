@@ -63,6 +63,7 @@
 		D5C92ECF283ACE6000D5CF2D /* MenusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C92ECE283ACE6000D5CF2D /* MenusViewModel.swift */; };
 		D5C92ED1283ACEB500D5CF2D /* Menus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C92ED0283ACEB500D5CF2D /* Menus.swift */; };
 		D5C92ED3283AD00800D5CF2D /* MenusVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C92ED2283AD00800D5CF2D /* MenusVM.swift */; };
+		D5C92ED5283ADDC900D5CF2D /* NoFavoriteTalksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C92ED4283ADDC900D5CF2D /* NoFavoriteTalksView.swift */; };
 		D5CAA6512821BCC7005BB242 /* PartnerItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CAA6502821BCC7005BB242 /* PartnerItemView.swift */; };
 		D5CAA6532821C306005BB242 /* PartnerRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CAA6522821C306005BB242 /* PartnerRowView.swift */; };
 		D5D5ABF5282071D2004E2F78 /* ShareSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D5ABF4282071D2004E2F78 /* ShareSheetView.swift */; };
@@ -137,6 +138,7 @@
 		D5C92ECE283ACE6000D5CF2D /* MenusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenusViewModel.swift; sourceTree = "<group>"; };
 		D5C92ED0283ACEB500D5CF2D /* Menus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menus.swift; sourceTree = "<group>"; };
 		D5C92ED2283AD00800D5CF2D /* MenusVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenusVM.swift; sourceTree = "<group>"; };
+		D5C92ED4283ADDC900D5CF2D /* NoFavoriteTalksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoFavoriteTalksView.swift; sourceTree = "<group>"; };
 		D5CAA6502821BCC7005BB242 /* PartnerItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnerItemView.swift; sourceTree = "<group>"; };
 		D5CAA6522821C306005BB242 /* PartnerRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnerRowView.swift; sourceTree = "<group>"; };
 		D5D5ABF328207025004E2F78 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -348,6 +350,7 @@
 				D58F1D4E27AFF40A00FB59C7 /* TalkItemView.swift */,
 				D50A458A27B0789B00C9A43C /* ScheduleItemView.swift */,
 				D524D72B27BBEC6F0078DF0D /* TalkSectionView.swift */,
+				D5C92ED4283ADDC900D5CF2D /* NoFavoriteTalksView.swift */,
 			);
 			path = talks;
 			sourceTree = "<group>";
@@ -549,6 +552,7 @@
 				D5C92ED1283ACEB500D5CF2D /* Menus.swift in Sources */,
 				D50A458F27B081B600C9A43C /* Agenda.swift in Sources */,
 				D5D6166C27B15C7400C59EC9 /* AgendaViewModel.swift in Sources */,
+				D5C92ED5283ADDC900D5CF2D /* NoFavoriteTalksView.swift in Sources */,
 				D524D74027BC00FF0078DF0D /* ScheduleDetailVM.swift in Sources */,
 				D560789727BE906500D4012C /* SpeakerDetailVM.swift in Sources */,
 				D50E9B0527C12AF000B7B9B9 /* NetworkingViewModel.swift in Sources */,

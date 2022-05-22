@@ -21,14 +21,20 @@ struct Agenda<TalkItem: View>: View {
     }
 
     var body: some View {
-        ScrollView {
-            LazyVStack {
-                ForEach(agenda.talks.keys.sorted(), id: \.self) { time in
-                    ScheduleItemView(
-                        time: time,
-                        talks: agenda.talks[time]!,
-                        talkItem: self.talkItem
-                    )
+        Group {
+            if (agenda.onlyFavorites && agenda.talks.isEmpty) {
+                NoFavoriteTalksView()
+            } else {
+                ScrollView {
+                    LazyVStack {
+                        ForEach(agenda.talks.keys.sorted(), id: \.self) { time in
+                            ScheduleItemView(
+                                time: time,
+                                talks: agenda.talks[time]!,
+                                talkItem: self.talkItem
+                            )
+                        }
+                    }
                 }
             }
         }
