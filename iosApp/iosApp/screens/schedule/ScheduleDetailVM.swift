@@ -33,10 +33,10 @@ struct ScheduleDetailVM<SpeakerItem: View>: View {
                     Text("textError")
                 case .loading:
                     Text("textLoading")
+                    .onAppear {
+                        viewModel.fetchScheduleDetails(scheduleId: scheduleId)
+                    }
             }
-        }
-        .onAppear {
-            viewModel.fetchScheduleDetails(scheduleId: scheduleId)
         }
     }
 }
