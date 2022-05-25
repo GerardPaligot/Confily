@@ -3,9 +3,12 @@ package org.gdglille.devfest.android.screens.home
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -20,15 +23,23 @@ import org.gdglille.devfest.android.screens.Screen
 import org.gdglille.devfest.android.screens.agenda.AgendaVM
 import org.gdglille.devfest.android.screens.event.EventVM
 import org.gdglille.devfest.android.screens.partners.PartnersVM
+import org.gdglille.devfest.android.screens.scanner.vcard.VCardModel
+import org.gdglille.devfest.android.screens.scanner.vcard.convertToModelUi
 import org.gdglille.devfest.android.screens.users.NetworkingVM
 import org.gdglille.devfest.repositories.AgendaRepository
 import org.gdglille.devfest.repositories.UserRepository
+
+object HomeResultKey {
+    const val QR_CODE_TICKET = "QR_CODE_TICKET"
+    const val QR_CODE_VCARD = "QR_CODE_VCARD"
+}
 
 @Composable
 fun Home(
     agendaRepository: AgendaRepository,
     userRepository: UserRepository,
     modifier: Modifier = Modifier,
+    savedStateHandle: SavedStateHandle? = null,
     startDestination: Screen = Screen.Agenda,
     navController: NavHostController = rememberNavController(),
     onTalkClicked: (id: String) -> Unit,
@@ -44,8 +55,22 @@ fun Home(
     onReportClicked: () -> Unit
 ) {
     val viewModel: HomeViewModel = viewModel(
-        factory = HomeViewModel.Factory.create(agendaRepository)
+        factory = HomeViewModel.Factory.create(agendaRepository, userRepository)
     )
+    if (savedStateHandle != null) {
+        val qrCodeTicket by savedStateHandle.getLiveData<String>(HomeResultKey.QR_CODE_TICKET).observeAsState()
+        val qrCodeVCard by savedStateHandle.getLiveData<VCardModel>(HomeResultKey.QR_CODE_VCARD).observeAsState()
+        LaunchedEffect(qrCodeTicket, qrCodeVCard) {
+            qrCodeTicket?.let {
+                viewModel.saveTicket(it)
+                savedStateHandle.remove<String>(HomeResultKey.QR_CODE_TICKET)
+            }
+            qrCodeVCard?.let {
+                viewModel.saveNetworkingProfile(it.convertToModelUi())
+                savedStateHandle.remove<String>(HomeResultKey.QR_CODE_VCARD)
+            }
+        }
+    }
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
     val screen = currentDestination?.route?.getScreen() ?: startDestination

@@ -10,37 +10,13 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import org.gdglille.devfest.android.R
 import org.gdglille.devfest.android.components.appbars.TopAppBar
 import org.gdglille.devfest.android.screens.scanner.FeatureThatRequiresCameraPermission
-import org.gdglille.devfest.models.UserNetworkingUi
 import org.gdglille.devfest.repositories.UserRepository
-
-@Composable
-fun VCardQrCodeScannerVm(
-    userRepository: UserRepository,
-    modifier: Modifier = Modifier,
-    navigateToSettingsScreen: () -> Unit,
-    onBackClicked: () -> Unit,
-) {
-    val viewModel: VCardQrCodeScannerViewModel = viewModel(
-        factory = VCardQrCodeScannerViewModel.Factory.create(userRepository)
-    )
-    VCardQrCodeScanner(
-        modifier = modifier,
-        navigateToSettingsScreen = navigateToSettingsScreen,
-        onRefusePermissionClicked = onBackClicked,
-        onQrCodeDetected = {
-            viewModel.saveNetworkingProfile(user = it.first())
-            onBackClicked()
-        },
-        onBackClicked = onBackClicked
-    )
-}
 
 @Composable
 fun VCardQrCodeScanner(
     modifier: Modifier = Modifier,
     navigateToSettingsScreen: () -> Unit,
-    onRefusePermissionClicked: () -> Unit,
-    onQrCodeDetected: (List<UserNetworkingUi>) -> Unit,
+    onQrCodeDetected: (VCardModel) -> Unit,
     onBackClicked: () -> Unit,
 ) {
     Scaffold(
@@ -55,9 +31,11 @@ fun VCardQrCodeScanner(
             Box(modifier = Modifier.padding(it)) {
                 FeatureThatRequiresCameraPermission(
                     navigateToSettingsScreen = navigateToSettingsScreen,
-                    onRefusePermissionClicked = onRefusePermissionClicked,
+                    onRefusePermissionClicked = onBackClicked,
                     content = {
-                        VCardCameraPreview(onQrCodeDetected = onQrCodeDetected)
+                        VCardCameraPreview(onQrCodeDetected = { vcards ->
+                            onQrCodeDetected(vcards.first())
+                        })
                     }
                 )
             }

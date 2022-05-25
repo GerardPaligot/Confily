@@ -25,7 +25,7 @@ import org.gdglille.devfest.models.UserNetworkingUi
 @Composable
 fun VCardCameraPreview(
     modifier: Modifier = Modifier,
-    onQrCodeDetected: (List<UserNetworkingUi>) -> Unit
+    onQrCodeDetected: (List<VCardModel>) -> Unit
 ) {
     val lifecycleOwner = LocalLifecycleOwner.current
     val context = LocalContext.current
@@ -59,7 +59,7 @@ fun VCardCameraPreview(
                         .addOnSuccessListener { barcodes ->
                             val filtered = barcodes.filter { it.contactInfo != null }
                             if (filtered.isNotEmpty() && !qrCodeDetected.value) {
-                                onQrCodeDetected(filtered.map { UserNetworkingUi(
+                                onQrCodeDetected(filtered.map { VCardModel(
                                     email = it.contactInfo?.emails?.first()?.address ?: "",
                                     firstName = it.contactInfo?.name?.first ?: "",
                                     lastName = it.contactInfo?.name?.last ?: "",

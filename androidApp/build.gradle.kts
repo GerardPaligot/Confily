@@ -3,6 +3,7 @@ import java.util.*
 plugins {
     id("com.android.application")
     kotlin("android")
+    id("kotlin-parcelize")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
 }
@@ -103,6 +104,7 @@ dependencies {
     implementation("com.google.accompanist:accompanist-permissions:$accompanistVersion")
     implementation("androidx.compose.material:material:$composeVersion")
     implementation("androidx.compose.material:material-icons-extended:$composeVersion")
+    implementation("androidx.compose.runtime:runtime-livedata:$composeVersion")
     implementation("androidx.compose.ui:ui-tooling:$composeVersion")
 
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:$datetimeVersion")

@@ -22,10 +22,11 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import org.gdglille.devfest.android.data.QrCodeGeneratorAndroid
 import org.gdglille.devfest.android.screens.home.Home
+import org.gdglille.devfest.android.screens.home.HomeResultKey
 import org.gdglille.devfest.android.screens.menus.MenusVM
 import org.gdglille.devfest.android.screens.profile.ProfileInputVM
-import org.gdglille.devfest.android.screens.scanner.ticket.TicketQrCodeScannerVm
-import org.gdglille.devfest.android.screens.scanner.vcard.VCardQrCodeScannerVm
+import org.gdglille.devfest.android.screens.scanner.ticket.TicketQrCodeScanner
+import org.gdglille.devfest.android.screens.scanner.vcard.VCardQrCodeScanner
 import org.gdglille.devfest.android.screens.schedule.ScheduleDetailVM
 import org.gdglille.devfest.android.screens.speakers.SpeakerDetailVM
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
@@ -83,6 +84,7 @@ class MainActivity : AppCompatActivity() {
                         Home(
                             agendaRepository = agendaRepository,
                             userRepository = userRepository,
+                            savedStateHandle = navController.currentBackStackEntry?.savedStateHandle,
                             onTalkClicked = {
                                 navController.navigate("schedules/$it")
                             },
@@ -160,9 +162,12 @@ class MainActivity : AppCompatActivity() {
                     composable(
                         route = "scanner/vcard"
                     ) {
-                        VCardQrCodeScannerVm(
-                            userRepository = userRepository,
+                        VCardQrCodeScanner(
                             navigateToSettingsScreen = {},
+                            onQrCodeDetected = { vcard ->
+                                navController.previousBackStackEntry?.savedStateHandle?.set(HomeResultKey.QR_CODE_VCARD, vcard)
+                                navController.popBackStack()
+                            },
                             onBackClicked = {
                                 navController.popBackStack()
                             }
@@ -171,13 +176,15 @@ class MainActivity : AppCompatActivity() {
                     composable(
                         route = "scanner/ticket"
                     ) {
-                        TicketQrCodeScannerVm(
-                            agendaRepository = agendaRepository,
+                        TicketQrCodeScanner(
                             navigateToSettingsScreen = {},
-                            onBackClicked = {
+                            onQrCodeDetected = { barcode ->
+                                navController.previousBackStackEntry?.savedStateHandle?.set(HomeResultKey.QR_CODE_TICKET, barcode)
                                 navController.popBackStack()
                             }
-                        )
+                        ) {
+                            navController.popBackStack()
+                        }
                     }
                     composable(
                         route = "profile"
