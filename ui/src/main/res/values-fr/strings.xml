@@ -48,6 +48,7 @@
     <string name="action_generate_qrcode">Générer ton Qrcode</string>
     <string name="action_submit_accept">Ok</string>
     <string name="action_submit_deny">Non</string>
+    <string name="action_networking_delete">Supprimer le profile</string>
 
     <string name="input_email">Ton adresse email*</string>
     <string name="input_firstname">Ton prénom*</string>

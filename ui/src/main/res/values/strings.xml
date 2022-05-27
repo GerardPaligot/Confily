@@ -48,6 +48,7 @@
     <string name="action_generate_qrcode">Generate your QR code</string>
     <string name="action_submit_accept">Ok</string>
     <string name="action_submit_deny">No</string>
+    <string name="action_networking_delete">Delete the profile</string>
 
     <string name="input_email">Your email address*</string>
     <string name="input_firstname">Your first name*</string>

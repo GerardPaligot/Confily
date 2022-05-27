@@ -48,7 +48,7 @@ fun Networking(
             itemsIndexed(users) { index, user ->
                 UserItem(
                     user = user,
-                    modifier = Modifier.clickable { openDialog.value = true }
+                    onClick = { openDialog.value = true }
                 )
                 if (index < users.size - 1) {
                     Divider()
