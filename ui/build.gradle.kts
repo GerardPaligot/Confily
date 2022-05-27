@@ -27,8 +27,8 @@ android {
 dependencies {
     implementation(project(":shared"))
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:$datetimeVersion")
-    implementation("io.coil-kt:coil-compose:$coilVersion")
-    implementation("io.coil-kt:coil-svg:$coilVersion")
+    api("io.coil-kt:coil-compose:$coilVersion")
+    api("io.coil-kt:coil-svg:$coilVersion")
     implementation("com.google.accompanist:accompanist-placeholder-material:$accompanistVersion")
     implementation("br.com.devsrsouza.compose.icons.android:font-awesome:1.0.0")
     implementation("com.halilibo.compose-richtext:richtext-commonmark:0.11.0")

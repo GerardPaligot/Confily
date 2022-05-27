@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.components.partners
+ package org.gdglille.devfest.android.components.partners
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -17,9 +17,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.ImageLoader
 import coil.compose.rememberAsyncImagePainter
-import coil.decode.SvgDecoder
+import coil.imageLoader
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.placeholder
 import org.gdglille.devfest.models.PartnerItemUi
@@ -36,11 +35,6 @@ fun PartnerItem(
     contentScale: ContentScale = ContentScale.Fit,
     onClick: (siteUrl: String?) -> Unit
 ) {
-    val imageLoader = ImageLoader.Builder(LocalContext.current)
-        .components {
-            add(SvgDecoder.Factory())
-        }
-        .build()
     Surface(
         onClick = { onClick(partnerUi.siteUrl) },
         modifier = modifier.placeholder(visible = isLoading),
@@ -52,7 +46,7 @@ fun PartnerItem(
             painter = rememberAsyncImagePainter(
                 model = partnerUi.logoUrl,
                 placeholder = ColorPainter(backgroundColor),
-                imageLoader = imageLoader
+                imageLoader = LocalContext.current.imageLoader
             ),
             contentDescription = partnerUi.name,
             contentScale = contentScale,

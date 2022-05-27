@@ -8,8 +8,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.rememberAsyncImagePainter
+import coil.imageLoader
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
 import org.gdglille.devfest.models.SpeakerUi
 
@@ -23,7 +25,8 @@ fun SpeakerAvatar(
     Image(
         painter = rememberAsyncImagePainter(
             model = url,
-            placeholder = ColorPainter(MaterialTheme.colors.primary)
+            placeholder = ColorPainter(MaterialTheme.colors.primary),
+            imageLoader = LocalContext.current.imageLoader
         ),
         contentDescription = contentDescription,
         modifier = modifier.clip(CircleShape),

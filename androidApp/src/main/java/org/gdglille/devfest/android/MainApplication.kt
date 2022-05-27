@@ -1,9 +1,14 @@
 package org.gdglille.devfest.android
 
 import android.app.Application
+import coil.ImageLoader
+import coil.ImageLoaderFactory
+import coil.decode.SvgDecoder
+import coil.disk.DiskCache
+import coil.memory.MemoryCache
 import io.openfeedback.android.OpenFeedbackConfig
 
-class MainApplication: Application() {
+class MainApplication: Application(), ImageLoaderFactory {
     lateinit var openFeedbackConfig: OpenFeedbackConfig
 
     override fun onCreate() {
@@ -19,4 +24,22 @@ class MainApplication: Application() {
             )
         )
     }
+
+    override fun newImageLoader(): ImageLoader = ImageLoader.Builder(this)
+        .components {
+            add(SvgDecoder.Factory())
+        }
+        .memoryCache {
+            MemoryCache.Builder(this)
+                .maxSizePercent(0.25)
+                .build()
+        }
+        .diskCache {
+            DiskCache.Builder()
+                .directory(this.cacheDir.resolve("image_cache"))
+                .maxSizePercent(0.10)
+                .build()
+        }
+        .respectCacheHeaders(false)
+        .build()
 }
