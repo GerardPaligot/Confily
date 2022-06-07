@@ -22,6 +22,7 @@
     <string name="text_level_intermediate">Intermédiaire</string>
     <string name="text_level_beginner">Débutant</string>
     <string name="text_openfeedback_not_started">Vous serez en mesure de donner un feedback quand la session aura démarrée !</string>
+    <string name="text_permission">Permission requise</string>
     <string name="text_camera_permission_explaination">La caméra est importante pour scanner des Qrcode. Pense à accepter la permission.</string>
     <string name="text_camera_permission_deny">La permission pour la caméra a été refusée. Pense à donner l\'accès via les paramètres systèmes.</string>
     <string name="text_report_subject">Report aux organisateurs depuis l\'app Devfest Lille</string>
@@ -46,8 +47,9 @@
     <string name="action_favorites_remove">Retire la session de tes favoris</string>
     <string name="action_favorites_add">Ajoute la session dans tes favoris</string>
     <string name="action_generate_qrcode">Générer ton Qrcode</string>
-    <string name="action_submit_accept">Ok</string>
+    <string name="action_submit_accept">OK</string>
     <string name="action_submit_deny">Non</string>
+    <string name="action_submit_later">Plus tard</string>
     <string name="action_networking_delete">Supprimer le profile</string>
 
     <string name="input_email">Ton adresse email*</string>
