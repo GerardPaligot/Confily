@@ -16,11 +16,11 @@ val versionMajor = 1
 val versionMinor = 0
 val versionPatch = 0
 android {
-    compileSdk = 31
+    compileSdk = 32
     defaultConfig {
         applicationId = "org.gdglille.devfest.android"
         minSdk = 21
-        targetSdk = 31
+        targetSdk = 32
         versionCode = versionMajor * 1000 + versionMinor * 100 + versionPatch * 10
         versionName = "${versionMajor}.${versionMinor}.${versionPatch}"
     }

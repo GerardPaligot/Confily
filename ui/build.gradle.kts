@@ -8,11 +8,11 @@ val accompanistVersion: String by project
 val coilVersion: String by project
 val datetimeVersion: String by project
 android {
-    compileSdk = 31
+    compileSdk = 32
 
     defaultConfig {
         minSdk = 21
-        targetSdk = 31
+        targetSdk = 32
     }
 
     buildFeatures {
