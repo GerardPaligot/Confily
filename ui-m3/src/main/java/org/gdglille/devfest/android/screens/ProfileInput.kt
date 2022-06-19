@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardActions
@@ -14,7 +15,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -43,6 +44,7 @@ fun ProfileInput(
     onValidation: () -> Unit,
     onBackClicked: () -> Unit,
 ) {
+    val isFormValid = isProfileInputFormValid(profile)
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -54,9 +56,12 @@ fun ProfileInput(
     ) {
         val focusManager = LocalFocusManager.current
         LazyColumn(
+            contentPadding = PaddingValues(24.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(it).fillMaxWidth(),
+            modifier = Modifier
+                .padding(it)
+                .fillMaxWidth(),
         ) {
             if (profile.qrCode != null) {
                 item {
@@ -64,13 +69,13 @@ fun ProfileInput(
                         Image(
                             bitmap = profile.qrCode!!.asImageBitmap(),
                             contentDescription = stringResource(id = R.string.semantic_profile_qrcode),
-                            modifier = Modifier.size(this.maxWidth * 2/3)
+                            modifier = Modifier.size(this.maxWidth * 2 / 3)
                         )
                     }
                 }
             }
             item {
-                TextField(
+                OutlinedTextField(
                     value = profile.email,
                     onValueChange = { text -> onValueChanged(Field.Email, text) },
                     label = { Text(text = stringResource(id = R.string.input_email)) },
@@ -84,7 +89,7 @@ fun ProfileInput(
                 )
             }
             item {
-                TextField(
+                OutlinedTextField(
                     value = profile.firstName,
                     onValueChange = { text -> onValueChanged(Field.FirstName, text) },
                     label = { Text(text = stringResource(id = R.string.input_firstname)) },
@@ -98,7 +103,7 @@ fun ProfileInput(
                 )
             }
             item {
-                TextField(
+                OutlinedTextField(
                     value = profile.lastName,
                     onValueChange = { text -> onValueChanged(Field.LastName, text) },
                     label = { Text(text = stringResource(id = R.string.input_lastname)) },
@@ -112,7 +117,7 @@ fun ProfileInput(
                 )
             }
             item {
-                TextField(
+                OutlinedTextField(
                     value = profile.company,
                     onValueChange = { text -> onValueChanged(Field.Company, text) },
                     label = { Text(text = stringResource(id = R.string.input_company)) },
@@ -131,6 +136,7 @@ fun ProfileInput(
             }
             item {
                 Button(
+                    enabled = isFormValid,
                     onClick = {
                         focusManager.clearFocus()
                         onValidation()
@@ -142,6 +148,9 @@ fun ProfileInput(
         }
     }
 }
+
+fun isProfileInputFormValid(profile: UserProfileUi): Boolean =
+    profile.email.isNotEmpty() && profile.firstName.isNotEmpty() && profile.lastName.isNotEmpty()
 
 @ExperimentalMaterial3Api
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
