@@ -36,6 +36,7 @@ class EventViewModel(private val repository: AgendaRepository) : ViewModel() {
 
     object Factory {
         fun create(repository: AgendaRepository) = object : ViewModelProvider.Factory {
+            @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(modelClass: Class<T>): T = EventViewModel(repository = repository) as T
         }
     }

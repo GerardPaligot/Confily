@@ -8,8 +8,18 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.core.app.NotificationCompat
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.russhwolf.settings.ExperimentalSettingsApi
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 
+@ExperimentalCoroutinesApi
+@ExperimentalSettingsApi
+@FlowPreview
+@ExperimentalMaterial3Api
+@ExperimentalPermissionsApi
 class AlarmReceiver : BroadcastReceiver() {
     @SuppressLint("UnspecifiedImmutableFlag")
     override fun onReceive(context: Context?, intent: Intent?) {

@@ -91,7 +91,8 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":ui"))
+    implementation(project(":ui-m3"))
+    implementation(project(":ui-resources"))
     implementation(project(":shared"))
     implementation("com.russhwolf:multiplatform-settings:$settingsVersion")
     implementation("androidx.browser:browser:1.4.0")
@@ -102,6 +103,7 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.4.2")
     implementation("com.google.accompanist:accompanist-systemuicontroller:$accompanistVersion")
     implementation("com.google.accompanist:accompanist-permissions:$accompanistVersion")
+    implementation("androidx.compose.material3:material3:1.0.0-alpha13")
     implementation("androidx.compose.material:material:$composeVersion")
     implementation("androidx.compose.material:material-icons-extended:$composeVersion")
     implementation("androidx.compose.runtime:runtime-livedata:$composeVersion")

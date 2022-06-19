@@ -1,21 +1,24 @@
 package org.gdglille.devfest.android.screens.scanner
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedButton
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.permissions.*
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.PermissionStatus
+import com.google.accompanist.permissions.rememberPermissionState
+import com.google.accompanist.permissions.shouldShowRationale
 import org.gdglille.devfest.android.R
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
 
-@OptIn(ExperimentalPermissionsApi::class)
+@ExperimentalPermissionsApi
 @Composable
 fun FeatureThatRequiresCameraPermission(
     navigateToSettingsScreen: () -> Unit,
@@ -45,7 +48,6 @@ fun FeatureThatRequiresCameraPermission(
     }
 }
 
-@OptIn(ExperimentalPermissionsApi::class)
 @Composable
 private fun FeatureThatRequiresCameraPermissionRequested(
     modifier: Modifier = Modifier,
@@ -58,7 +60,7 @@ private fun FeatureThatRequiresCameraPermissionRequested(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            style = MaterialTheme.typography.h6,
+            style = MaterialTheme.typography.titleLarge,
             text = stringResource(id = R.string.text_permission)
         )
         Spacer(modifier = Modifier.height(8.dp))
@@ -86,7 +88,7 @@ private fun FeatureThatRequiresCameraPermissionDenied(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            style = MaterialTheme.typography.h6,
+            style = MaterialTheme.typography.titleLarge,
             text = stringResource(id = R.string.text_permission)
         )
         Spacer(modifier = Modifier.height(8.dp))

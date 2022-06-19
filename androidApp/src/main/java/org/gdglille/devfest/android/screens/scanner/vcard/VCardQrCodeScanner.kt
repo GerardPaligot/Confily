@@ -2,16 +2,18 @@ package org.gdglille.devfest.android.screens.scanner.vcard
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Scaffold
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.viewmodel.compose.viewModel
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import org.gdglille.devfest.android.R
 import org.gdglille.devfest.android.components.appbars.TopAppBar
 import org.gdglille.devfest.android.screens.scanner.FeatureThatRequiresCameraPermission
-import org.gdglille.devfest.repositories.UserRepository
 
+@ExperimentalPermissionsApi
+@ExperimentalMaterial3Api
 @Composable
 fun VCardQrCodeScanner(
     modifier: Modifier = Modifier,

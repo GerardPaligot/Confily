@@ -1,16 +1,26 @@
 package org.gdglille.devfest.android.screens.agenda
 
-import androidx.compose.material.Text
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.russhwolf.settings.ExperimentalSettingsApi
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import org.gdglille.devfest.android.R
 import org.gdglille.devfest.android.screens.Agenda
 import org.gdglille.devfest.repositories.AgendaRepository
 
+@ExperimentalCoroutinesApi
+@ExperimentalSettingsApi
+@FlowPreview
+@ExperimentalMaterial3Api
+@ExperimentalPermissionsApi
 @Composable
 fun AgendaVM(
     agendaRepository: AgendaRepository,

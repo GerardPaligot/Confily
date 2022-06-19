@@ -6,8 +6,9 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.primarySurface
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavType
@@ -15,6 +16,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.russhwolf.settings.AndroidSettings
 import com.russhwolf.settings.ExperimentalSettingsApi
@@ -41,6 +43,8 @@ import org.gdglille.devfest.repositories.AgendaRepository
 import org.gdglille.devfest.repositories.UserRepository
 
 
+@ExperimentalPermissionsApi
+@ExperimentalMaterial3Api
 @FlowPreview
 @ExperimentalSettingsApi
 @ExperimentalCoroutinesApi
@@ -70,11 +74,10 @@ class MainActivity : AppCompatActivity() {
         setContent {
             Conferences4HallTheme {
                 val systemUiController = rememberSystemUiController()
-                val useDarkIcons = MaterialTheme.colors.isLight
-                val navBarColor = MaterialTheme.colors.primarySurface
+                val useDarkIcons = !isSystemInDarkTheme()
+                val statusBarColor = MaterialTheme.colorScheme.surface
                 SideEffect {
-                    systemUiController.setSystemBarsColor(color = navBarColor, darkIcons = useDarkIcons)
-                    systemUiController.setNavigationBarColor(color = navBarColor, darkIcons = useDarkIcons)
+                    systemUiController.setSystemBarsColor(color = statusBarColor, darkIcons = useDarkIcons)
                 }
                 val navController = rememberNavController()
                 NavHost(navController = navController, startDestination = "home") {

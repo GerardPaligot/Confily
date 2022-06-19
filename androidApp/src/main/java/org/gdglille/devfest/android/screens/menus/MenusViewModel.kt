@@ -19,7 +19,14 @@ sealed class MenusUiState {
 
 class MenusViewModel(private val repository: AgendaRepository) : ViewModel() {
     private val _uiState =
-        MutableStateFlow<MenusUiState>(MenusUiState.Loading(arrayListOf(MenuItemUi.fake, MenuItemUi.fake)))
+        MutableStateFlow<MenusUiState>(
+            MenusUiState.Loading(
+                arrayListOf(
+                    MenuItemUi.fake,
+                    MenuItemUi.fake
+                )
+            )
+        )
     val uiState: StateFlow<MenusUiState> = _uiState
 
     init {
@@ -37,7 +44,9 @@ class MenusViewModel(private val repository: AgendaRepository) : ViewModel() {
 
     object Factory {
         fun create(repository: AgendaRepository) = object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T = MenusViewModel(repository = repository) as T
+            @Suppress("UNCHECKED_CAST")
+            override fun <T : ViewModel> create(modelClass: Class<T>): T =
+                MenusViewModel(repository = repository) as T
         }
     }
 }

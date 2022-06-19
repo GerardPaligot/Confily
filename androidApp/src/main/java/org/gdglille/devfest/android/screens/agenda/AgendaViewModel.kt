@@ -6,22 +6,19 @@ import android.app.PendingIntent
 import android.content.Context
 import android.os.Build
 import android.os.SystemClock
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
+import com.russhwolf.settings.ExperimentalSettingsApi
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
-import kotlinx.datetime.Clock
-import kotlinx.datetime.DateTimeUnit
+import kotlinx.datetime.*
 import kotlinx.datetime.TimeZone
-import kotlinx.datetime.minus
-import kotlinx.datetime.toInstant
-import kotlinx.datetime.toLocalDateTime
 import org.gdglille.devfest.android.AlarmReceiver
 import org.gdglille.devfest.android.R
 import org.gdglille.devfest.models.AgendaUi
@@ -36,6 +33,11 @@ sealed class AgendaUiState {
     data class Failure(val throwable: Throwable) : AgendaUiState()
 }
 
+@FlowPreview
+@ExperimentalSettingsApi
+@ExperimentalCoroutinesApi
+@ExperimentalPermissionsApi
+@ExperimentalMaterial3Api
 class AgendaViewModel(
     private val repository: AgendaRepository,
     private val alarmManager: AlarmManager
@@ -95,6 +97,7 @@ class AgendaViewModel(
 
     object Factory {
         fun create(context: Context, repository: AgendaRepository) = object : ViewModelProvider.Factory {
+            @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(modelClass: Class<T>): T =
                 AgendaViewModel(
                     repository = repository,

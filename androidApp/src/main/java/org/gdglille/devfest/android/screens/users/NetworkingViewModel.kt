@@ -42,6 +42,7 @@ class NetworkingViewModel(
 
     object Factory {
         fun create(repository: UserRepository) = object : ViewModelProvider.Factory {
+            @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(modelClass: Class<T>): T =
                 NetworkingViewModel(userRepository = repository) as T
         }
