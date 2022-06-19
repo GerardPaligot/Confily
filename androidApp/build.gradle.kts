@@ -84,6 +84,10 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = composeVersion
     }
+
+    compileOptions {
+        isCoreLibraryDesugaringEnabled = true
+    }
 }
 
 repositories {
@@ -94,6 +98,7 @@ dependencies {
     implementation(project(":ui-m3"))
     implementation(project(":ui-resources"))
     implementation(project(":shared"))
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
     implementation("com.russhwolf:multiplatform-settings:$settingsVersion")
     implementation("androidx.browser:browser:1.4.0")
     implementation("com.google.android.material:material:1.5.0")
