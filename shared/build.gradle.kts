@@ -1,16 +1,9 @@
 plugins {
-    kotlin("multiplatform")
-    id("com.android.library")
+    id("conferences4hall.multiplatform.library")
     id("kotlinx-serialization")
     id("com.squareup.sqldelight")
 }
 
-val kotlinVersion: String by project
-val kotlinCoroutinesVersion: String by project
-val ktorVersion: String by project
-val sqldelightVersion: String by project
-val datetimeVersion: String by project
-val settingsVersion: String by project
 kotlin {
     android()
     
@@ -21,29 +14,29 @@ kotlin {
     ).forEach {
         it.binaries.framework {
             baseName = "shared"
-            export("com.russhwolf:multiplatform-settings:$settingsVersion")
+            export(libs.settings)
         }
     }
 
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(project(":models"))
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutinesVersion")
+                api(projects.models)
+                implementation(libs.kotlinx.coroutines)
 
-                implementation("io.ktor:ktor-client-core:$ktorVersion")
-                implementation("io.ktor:ktor-client-json:$ktorVersion")
-                implementation("io.ktor:ktor-client-logging:$ktorVersion")
-                implementation("io.ktor:ktor-client-serialization:$ktorVersion")
-                implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
-                implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
+                implementation(libs.ktor.client.core)
+                implementation(libs.ktor.client.json)
+                implementation(libs.ktor.client.logging)
+                implementation(libs.ktor.client.serialization)
+                implementation(libs.ktor.client.negotiation)
+                implementation(libs.ktor.serialization.json)
 
-                implementation("org.jetbrains.kotlinx:kotlinx-datetime:$datetimeVersion")
+                implementation(libs.kotlinx.datetime)
 
-                implementation("com.squareup.sqldelight:runtime:$sqldelightVersion")
-                implementation("com.squareup.sqldelight:coroutines-extensions:$sqldelightVersion")
-                api("com.russhwolf:multiplatform-settings:$settingsVersion")
-                implementation("com.russhwolf:multiplatform-settings-coroutines-native-mt:$settingsVersion")
+                implementation(libs.sqldelight.runtime)
+                implementation(libs.sqldelight.coroutines)
+                api(libs.settings)
+                implementation(libs.settings.coroutines)
             }
         }
         val commonTest by getting {
@@ -54,8 +47,8 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-android:$ktorVersion")
-                implementation("com.squareup.sqldelight:android-driver:${sqldelightVersion}")
+                implementation(libs.ktor.client.android)
+                implementation(libs.sqldelight.android)
             }
         }
         val androidTest by getting {
@@ -73,8 +66,8 @@ kotlin {
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
             dependencies {
-                implementation("io.ktor:ktor-client-ios:$ktorVersion")
-                implementation("com.squareup.sqldelight:native-driver:${sqldelightVersion}")
+                implementation(libs.ktor.client.ios)
+                implementation(libs.sqldelight.native)
             }
         }
         val iosX64Test by getting
@@ -93,14 +86,5 @@ sqldelight {
     database("Conferences4HallDatabase") {
         packageName = "org.gdglille.devfest.db"
         sourceFolders = listOf("sqldelight")
-    }
-}
-
-android {
-    compileSdk = 32
-    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-    defaultConfig {
-        minSdk = 21
-        targetSdk = 32
     }
 }

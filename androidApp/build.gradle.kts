@@ -1,41 +1,28 @@
-import java.util.*
+import extensions.stringBuildConfigField
+import extensions.toProperties
 
 plugins {
-    id("com.android.application")
-    kotlin("android")
-    id("kotlin-parcelize")
-    id("com.google.gms.google-services")
-    id("com.google.firebase.crashlytics")
+    id("conferences4hall.android.application")
 }
 
-val composeVersion: String by project
-val accompanistVersion: String by project
-val settingsVersion: String by project
-val datetimeVersion: String by project
 val versionMajor = 1
 val versionMinor = 0
 val versionPatch = 0
 android {
-    compileSdk = 32
     defaultConfig {
         applicationId = "org.gdglille.devfest.android"
-        minSdk = 21
-        targetSdk = 32
         versionCode = versionMajor * 1000 + versionMinor * 100 + versionPatch * 10
         versionName = "${versionMajor}.${versionMinor}.${versionPatch}"
     }
 
-    val keystoreProps = project.file("keystore.properties")
+    val keystoreFile = project.file("keystore.properties")
+    val keystoreProps = keystoreFile.toProperties()
     signingConfigs {
-        val props = Properties()
-        if (keystoreProps.exists()) {
-            props.load(keystoreProps.reader())
-        }
         create("release") {
-            keyAlias = props.getProperty("keyAlias")
-            keyPassword = props.getProperty("keyPassword")
+            keyAlias = keystoreProps.getProperty("keyAlias")
+            keyPassword = keystoreProps.getProperty("keyPassword")
             storeFile = file("keystore.release")
-            storePassword = props.getProperty("keyPassword")
+            storePassword = keystoreProps.getProperty("keyPassword")
         }
         getByName("debug") {
             keyAlias = "debug"
@@ -45,90 +32,71 @@ android {
         }
     }
 
-    val appProps = project.file("app.properties")
+    val appProps = project.file("app.properties").toProperties()
     buildTypes {
-        val props = Properties()
-        if (appProps.exists()) {
-            props.load(appProps.reader())
-        }
         getByName("release") {
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
-            if (keystoreProps.exists()) {
+            if (keystoreFile.exists()) {
                 signingConfig = signingConfigs.getByName("release")
             }
-            buildConfigField("String", "BASE_URL", "\"${props.getProperty("BASE_URL")}\"")
-            buildConfigField("String", "EVENT_ID", "\"${props.getProperty("EVENT_ID")}\"")
-            buildConfigField("String", "CONTACT_MAIL", "\"${props.getProperty("CONTACT_MAIL")}\"")
-            buildConfigField("String", "OPENFEEDBACK_PROJECT_ID", "\"${props.getProperty("OPENFEEDBACK_PROJECT_ID")}\"")
-            buildConfigField("String", "FIREBASE_PROJECT_ID", "\"${props.getProperty("FIREBASE_PROJECT_ID")}\"")
-            buildConfigField("String", "FIREBASE_APP_ID", "\"${props.getProperty("FIREBASE_APP_ID")}\"")
-            buildConfigField("String", "FIREBASE_API_KEY", "\"${props.getProperty("FIREBASE_API_KEY")}\"")
+            stringBuildConfigField("BASE_URL", appProps)
+            stringBuildConfigField("EVENT_ID", appProps)
+            stringBuildConfigField("CONTACT_MAIL", appProps)
+            stringBuildConfigField("OPENFEEDBACK_PROJECT_ID", appProps)
+            stringBuildConfigField("FIREBASE_PROJECT_ID", appProps)
+            stringBuildConfigField("FIREBASE_APP_ID", appProps)
+            stringBuildConfigField("FIREBASE_API_KEY", appProps)
         }
         getByName("debug") {
-            buildConfigField("String", "BASE_URL", "\"${props.getProperty("BASE_URL")}\"")
-            buildConfigField("String", "EVENT_ID", "\"${props.getProperty("EVENT_ID")}\"")
-            buildConfigField("String", "CONTACT_MAIL", "\"${props.getProperty("CONTACT_MAIL")}\"")
-            buildConfigField("String", "OPENFEEDBACK_PROJECT_ID", "\"${props.getProperty("OPENFEEDBACK_PROJECT_ID")}\"")
-            buildConfigField("String", "FIREBASE_PROJECT_ID", "\"${props.getProperty("FIREBASE_PROJECT_ID")}\"")
-            buildConfigField("String", "FIREBASE_APP_ID", "\"${props.getProperty("FIREBASE_APP_ID")}\"")
-            buildConfigField("String", "FIREBASE_API_KEY", "\"${props.getProperty("FIREBASE_API_KEY")}\"")
+            stringBuildConfigField("BASE_URL", appProps)
+            stringBuildConfigField("EVENT_ID", appProps)
+            stringBuildConfigField("CONTACT_MAIL", appProps)
+            stringBuildConfigField("OPENFEEDBACK_PROJECT_ID", appProps)
+            stringBuildConfigField("FIREBASE_PROJECT_ID", appProps)
+            stringBuildConfigField("FIREBASE_APP_ID", appProps)
+            stringBuildConfigField("FIREBASE_API_KEY", appProps)
         }
     }
-
-    buildFeatures {
-        compose = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = composeVersion
-    }
-
-    compileOptions {
-        isCoreLibraryDesugaringEnabled = true
-    }
-}
-
-repositories {
-    maven(uri("https://jitpack.io"))
 }
 
 dependencies {
-    implementation(project(":ui-m3"))
-    implementation(project(":ui-resources"))
-    implementation(project(":shared"))
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
-    implementation("com.russhwolf:multiplatform-settings:$settingsVersion")
-    implementation("androidx.browser:browser:1.4.0")
-    implementation("com.google.android.material:material:1.5.0")
-    implementation("androidx.appcompat:appcompat:1.4.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1")
-    implementation("androidx.activity:activity-compose:1.4.0")
-    implementation("androidx.navigation:navigation-compose:2.4.2")
-    implementation("com.google.accompanist:accompanist-systemuicontroller:$accompanistVersion")
-    implementation("com.google.accompanist:accompanist-permissions:$accompanistVersion")
-    implementation("androidx.compose.material3:material3:1.0.0-alpha13")
-    implementation("androidx.compose.material:material:$composeVersion")
-    implementation("androidx.compose.material:material-icons-extended:$composeVersion")
-    implementation("androidx.compose.runtime:runtime-livedata:$composeVersion")
-    implementation("androidx.compose.ui:ui-tooling:$composeVersion")
+    implementation(projects.uiM3)
+    implementation(projects.uiResources)
+    implementation(projects.shared)
+    implementation(libs.settings)
 
-    implementation("org.jetbrains.kotlinx:kotlinx-datetime:$datetimeVersion")
+    implementation(libs.android.material)
 
-    implementation(platform("com.google.firebase:firebase-bom:29.3.1"))
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.browser)
+    implementation(libs.androidx.lifecycle.vm)
+    implementation(libs.androidx.compose.activity)
+    implementation(libs.androidx.compose.navigation)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.icons)
+    implementation(libs.androidx.compose.runtime)
+    implementation(libs.androidx.compose.tooling)
+
+    implementation(libs.accompanist.systemuicontroller)
+    implementation(libs.accompanist.permissions)
+
+    implementation(libs.kotlinx.datetime)
+
+    implementation(platform(libs.google.firebase))
     implementation("com.google.firebase:firebase-crashlytics-ktx")
     implementation("com.google.firebase:firebase-analytics-ktx")
 
-    implementation("com.google.mlkit:barcode-scanning:17.0.2")
-    implementation("androidx.camera:camera-camera2:1.1.0-beta03")
-    implementation("androidx.camera:camera-lifecycle:1.1.0-beta03")
-    implementation("androidx.camera:camera-view:1.1.0-beta03")
+    implementation(libs.google.barcode)
+    implementation(libs.androidx.camera.camera2)
+    implementation(libs.androidx.camera.lifecycle)
+    implementation(libs.androidx.camera.view)
     // Required by AndroidX Camera but another dependency generate a conflict with Guava.
-    implementation("com.google.guava:guava:31.1-android")
+    implementation(libs.google.guava)
 
-    implementation("com.journeyapps:zxing-android-embedded:4.3.0") {
+    implementation(libs.zxing)
+    implementation(libs.zxing.android) {
         isTransitive = false
     }
-    implementation("com.google.zxing:core:3.4.1")
 }

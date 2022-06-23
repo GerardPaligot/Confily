@@ -1,0 +1,107 @@
+[versions]
+kotlin = "1.6.21"
+kotlinxCoroutines = "1.6.1-native-mt"
+kotlinxDatetime = "0.3.2"
+ktor = "2.0.1"
+accompanist = "0.24.8-beta"
+androidDesugarJdkLibs = "1.1.5"
+androidGradlePlugin = "7.2.1"
+androidMaterial = "1.5.0"
+androidxAppcompat = "1.4.2"
+androidxLifecycleVM = "2.4.1"
+androidxBrowser = "1.4.0"
+androidxCamera = "1.1.0-beta03"
+compose = "1.2.0-beta01"
+composeMaterial3 = "1.0.0-alpha13"
+composeActivity = "1.4.0"
+composeNavigation = "2.4.2"
+composeFont = "1.0.0"
+composeRichText = "0.11.0"
+composeOpenfeedback = "0.0.8-SNAPSHOT"
+gcpFirestore = "3.0.9"
+gcpStorage = "2.3.0"
+googleServices = "4.3.10"
+coil = "2.0.0"
+barcode = "17.0.2"
+guava = "31.1-android"
+logback = "1.2.3"
+firebase = "29.3.1"
+firebaseCrashlytics = "2.8.1"
+sqldelight = "1.5.3"
+settings = "0.8.1"
+zxing = "3.4.1"
+zxingAndroid = "4.3.0"
+
+[libraries]
+kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+kotlin-serialization = { group = "org.jetbrains.kotlin", name = "kotlin-serialization", version.ref = "kotlin" }
+kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDatetime" }
+kotlinx-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
+
+ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
+ktor-client-json = { group = "io.ktor", name = "ktor-client-json", version.ref = "ktor" }
+ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktor" }
+ktor-client-serialization = { group = "io.ktor", name = "ktor-client-serialization", version.ref = "ktor" }
+ktor-client-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-client-android = { group = "io.ktor", name = "ktor-client-android", version.ref = "ktor" }
+ktor-client-ios = { group = "io.ktor", name = "ktor-client-ios", version.ref = "ktor" }
+ktor-client-java = { group = "io.ktor", name = "ktor-client-java", version.ref = "ktor" }
+
+ktor-server-core = { group = "io.ktor", name = "ktor-server-core", version.ref = "ktor" }
+ktor-server-netty = { group = "io.ktor", name = "ktor-server-netty", version.ref = "ktor" }
+ktor-server-negotiation = { group = "io.ktor", name = "ktor-server-content-negotiation", version.ref = "ktor" }
+ktor-server-statuspages = { group = "io.ktor", name = "ktor-server-status-pages", version.ref = "ktor" }
+ktor-server-cors = { group = "io.ktor", name = "ktor-server-cors", version.ref = "ktor" }
+
+ktor-serialization-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
+
+android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
+android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
+android-material = { group = "com.google.android.material", name = "material", version.ref = "androidMaterial" }
+
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppcompat" }
+androidx-lifecycle-vm = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "androidxLifecycleVM" }
+androidx-browser = { group = "androidx.browser", name = "browser", version.ref = "androidxBrowser" }
+androidx-camera-camera2 = { group = "androidx.camera", name = "camera-camera2", version.ref = "androidxCamera" }
+androidx-camera-lifecycle = { group = "androidx.camera", name = "camera-lifecycle", version.ref = "androidxCamera" }
+androidx-camera-view = { group = "androidx.camera", name = "camera-view", version.ref = "androidxCamera" }
+androidx-compose-material2 = { group = "androidx.compose.material", name = "material", version.ref = "compose" }
+androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "composeMaterial3" }
+androidx-compose-icons = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "compose" }
+androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime-livedata", version.ref = "compose" }
+androidx-compose-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "compose" }
+androidx-compose-activity = { group = "androidx.activity", name = "activity-compose", version.ref = "composeActivity" }
+androidx-compose-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "composeNavigation" }
+compose-awesome-font = { group = "br.com.devsrsouza.compose.icons.android", name = "font-awesome", version.ref = "composeFont" }
+compose-richtext = { group = "com.halilibo.compose-richtext", name = "richtext-commonmark", version.ref = "composeRichText" }
+compose-openfeedback = { group = "io.openfeedback", name = "feedback-android-sdk-ui", version.ref = "composeOpenfeedback" }
+
+accompanist-placeholder = { group = "com.google.accompanist", name = "accompanist-placeholder-material", version.ref = "accompanist" }
+accompanist-permissions = { group = "com.google.accompanist", name = "accompanist-permissions", version.ref = "accompanist" }
+accompanist-systemuicontroller = { group = "com.google.accompanist", name = "accompanist-systemuicontroller", version.ref = "accompanist" }
+
+coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
+coil-svg = { group = "io.coil-kt", name = "coil-svg", version.ref = "coil" }
+
+google-cloud-firestore = { group = "com.google.cloud", name = "google-cloud-firestore", version.ref = "gcpFirestore" }
+google-cloud-storage = { group = "com.google.cloud", name = "google-cloud-storage", version.ref = "gcpStorage" }
+
+google-services-gradlePlugin = { group = "com.google.gms", name = "google-services", version.ref = "googleServices" }
+google-barcode = { group = "com.google.mlkit", name = "barcode-scanning", version.ref = "barcode" }
+google-firebase = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase" }
+google-firebase-crashlytics-gradlePlugin = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "firebaseCrashlytics" }
+google-guava = { group = "com.google.guava", name = "guava", version.ref = "guava" }
+
+logback = { group = "ch.qos.logback", name = "logback-classic", version.ref = "logback" }
+
+sqldelight-gradlePlugin = { group = "com.squareup.sqldelight", name = "gradle-plugin", version.ref = "sqldelight" }
+sqldelight-runtime = { group = "com.squareup.sqldelight", name = "runtime", version.ref = "sqldelight" }
+sqldelight-coroutines = { group = "com.squareup.sqldelight", name = "coroutines-extensions", version.ref = "sqldelight" }
+sqldelight-android = { group = "com.squareup.sqldelight", name = "android-driver", version.ref = "sqldelight" }
+sqldelight-native = { group = "com.squareup.sqldelight", name = "native-driver", version.ref = "sqldelight" }
+
+settings = { group = "com.russhwolf", name = "multiplatform-settings", version.ref = "settings" }
+settings-coroutines = { group = "com.russhwolf", name = "multiplatform-settings-coroutines-native-mt", version.ref = "settings" }
+
+zxing = { group = "com.google.zxing", name = "core", version.ref = "zxing" }
+zxing-android = { group = "com.journeyapps", name = "zxing-android-embedded", version.ref = "zxingAndroid" }

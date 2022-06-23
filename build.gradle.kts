@@ -1,19 +1,16 @@
 buildscript {
-    val kotlinVersion: String by project
-    val sqldelightVersion: String by project
-
     repositories {
         gradlePluginPortal()
         google()
         mavenCentral()
     }
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
-        classpath("org.jetbrains.kotlin:kotlin-serialization:$kotlinVersion")
-        classpath("com.squareup.sqldelight:gradle-plugin:$sqldelightVersion")
-        classpath("com.google.gms:google-services:4.3.10")
-        classpath("com.google.firebase:firebase-crashlytics-gradle:2.8.1")
-        classpath("com.android.tools.build:gradle:7.2.1")
+        classpath(libs.kotlin.gradlePlugin)
+        classpath(libs.kotlin.serialization)
+        classpath(libs.sqldelight.gradlePlugin)
+        classpath(libs.google.services.gradlePlugin)
+        classpath(libs.google.firebase.crashlytics.gradlePlugin)
+        classpath(libs.android.gradlePlugin)
     }
 }
 

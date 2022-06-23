@@ -1,17 +1,14 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("multiplatform")
+    id("conferences4hall.multiplatform.library")
     id("kotlinx-serialization")
-    id("com.android.library")
 }
 
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "11"
 }
 
-val ktorVersion: String by project
-val datetimeVersion: String by project
 kotlin {
     android()
     jvm()
@@ -29,9 +26,9 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-serialization:$ktorVersion")
-                implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
-                implementation("org.jetbrains.kotlinx:kotlinx-datetime:$datetimeVersion")
+                implementation(libs.ktor.client.serialization)
+                implementation(libs.ktor.serialization.json)
+                implementation(libs.kotlinx.datetime)
             }
         }
         val androidMain by getting
@@ -45,14 +42,5 @@ kotlin {
             iosSimulatorArm64Main.dependsOn(this)
         }
         val jvmMain by getting
-    }
-}
-
-android {
-    compileSdk = 32
-    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-    defaultConfig {
-        minSdk = 21
-        targetSdk = 32
     }
 }

@@ -12,32 +12,30 @@ tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "11"
 }
 
-val kotlinVersion: String by project
-val kotlinCoroutinesVersion: String by project
-val ktorVersion: String by project
 dependencies {
-    implementation(project(":models"))
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutinesVersion")
+    implementation(projects.models)
+    implementation(libs.kotlinx.coroutines)
+    implementation(libs.kotlinx.datetime)
 
-    implementation("io.ktor:ktor-server-core:$ktorVersion")
-    implementation("io.ktor:ktor-server-netty:$ktorVersion")
-    implementation("io.ktor:ktor-server-content-negotiation:$ktorVersion")
-    implementation("io.ktor:ktor-server-status-pages:$ktorVersion")
-    implementation("io.ktor:ktor-server-cors:$ktorVersion")
+    implementation(libs.ktor.server.core)
+    implementation(libs.ktor.server.netty)
+    implementation(libs.ktor.server.negotiation)
+    implementation(libs.ktor.server.statuspages)
+    implementation(libs.ktor.server.cors)
 
-    implementation("io.ktor:ktor-client-core:$ktorVersion")
-    implementation("io.ktor:ktor-client-json:$ktorVersion")
-    implementation("io.ktor:ktor-client-logging:$ktorVersion")
-    implementation("io.ktor:ktor-client-serialization:$ktorVersion")
-    implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
-    implementation("io.ktor:ktor-client-java:$ktorVersion")
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.json)
+    implementation(libs.ktor.client.logging)
+    implementation(libs.ktor.client.serialization)
+    implementation(libs.ktor.client.negotiation)
+    implementation(libs.ktor.client.java)
 
-    implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
+    implementation(libs.ktor.serialization.json)
 
-    implementation("ch.qos.logback:logback-classic:1.2.3")
+    implementation(libs.logback)
 
-    implementation("com.google.cloud:google-cloud-firestore:3.0.9")
-    implementation("com.google.cloud:google-cloud-storage:2.3.0")
+    implementation(libs.google.cloud.firestore)
+    implementation(libs.google.cloud.storage)
 }
 
 appengine {
