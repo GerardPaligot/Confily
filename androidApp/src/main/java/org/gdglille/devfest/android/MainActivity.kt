@@ -42,7 +42,6 @@ import org.gdglille.devfest.network.ConferenceApi
 import org.gdglille.devfest.repositories.AgendaRepository
 import org.gdglille.devfest.repositories.UserRepository
 
-
 @ExperimentalPermissionsApi
 @ExperimentalMaterial3Api
 @FlowPreview

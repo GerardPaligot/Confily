@@ -1,12 +1,12 @@
 plugins {
     id("conferences4hall.multiplatform.library")
+    id("conferences4hall.quality")
     id("kotlinx-serialization")
     id("com.squareup.sqldelight")
 }
 
 kotlin {
     android()
-    
     listOf(
         iosX64(),
         iosArm64(),

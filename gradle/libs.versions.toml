@@ -24,6 +24,7 @@ googleServices = "4.3.10"
 coil = "2.0.0"
 barcode = "17.0.2"
 guava = "31.1-android"
+ktlint = "10.3.0"
 logback = "1.2.3"
 firebase = "29.3.1"
 firebaseCrashlytics = "2.8.1"
@@ -91,6 +92,8 @@ google-barcode = { group = "com.google.mlkit", name = "barcode-scanning", versio
 google-firebase = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase" }
 google-firebase-crashlytics-gradlePlugin = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "firebaseCrashlytics" }
 google-guava = { group = "com.google.guava", name = "guava", version.ref = "guava" }
+
+ktlint-gradlePlugin = { group = "org.jlleitschuh.gradle", name = "ktlint-gradle", version.ref = "ktlint" }
 
 logback = { group = "ch.qos.logback", name = "logback-classic", version.ref = "logback" }
 

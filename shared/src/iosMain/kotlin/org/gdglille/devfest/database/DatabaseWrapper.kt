@@ -1,8 +1,8 @@
 package org.gdglille.devfest.database
 
+import com.squareup.sqldelight.drivers.native.NativeSqliteDriver
 import org.gdglille.devfest.db.Conferences4HallDatabase
 import org.gdglille.devfest.db.Schedule
-import com.squareup.sqldelight.drivers.native.NativeSqliteDriver
 
 actual class DatabaseWrapper {
     actual fun createDb(): Conferences4HallDatabase {

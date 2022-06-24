@@ -52,11 +52,11 @@ open class ActionItem(
 )
 
 sealed class ActionItemId {
-    object FavoriteSchedulesActionItem: ActionItemId()
-    object VCardQrCodeScannerActionItem: ActionItemId()
-    object QrCodeActionItem: ActionItemId()
-    object ShareActionItem: ActionItemId()
-    object ReportActionItem: ActionItemId()
+    object FavoriteSchedulesActionItem : ActionItemId()
+    object VCardQrCodeScannerActionItem : ActionItemId()
+    object QrCodeActionItem : ActionItemId()
+    object ShareActionItem : ActionItemId()
+    object ReportActionItem : ActionItemId()
 }
 
 internal fun (@Composable AppBarIcons.() -> Unit)?.takeOrEmpty(): (@Composable () -> Unit) {

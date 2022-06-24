@@ -1,12 +1,12 @@
 package org.gdglille.devfest.backend.talks
 
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 import org.gdglille.devfest.backend.NotFoundException
 import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.models.inputs.TalkInput
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.coroutineScope
 
 class TalkRepository(
     private val eventDao: EventDao,
@@ -18,7 +18,10 @@ class TalkRepository(
         val talks = talkDao.getAll(eventId)
         val asyncItems = talks.map {
             async {
-                it.convertToModel(speakerDao.getByIds(eventId, *it.speakerIds.toTypedArray()), eventDb)
+                it.convertToModel(
+                    speakerDao.getByIds(eventId, *it.speakerIds.toTypedArray()),
+                    eventDb
+                )
             }
         }
         return@coroutineScope asyncItems.awaitAll()
@@ -36,13 +39,19 @@ class TalkRepository(
         val eventDb = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
         val talk = talkDao.get(eventId, talkId) ?: throw NotFoundException("Talk $talkId Not Found")
         eventDao.updateUpdatedAt(eventId)
-        return@coroutineScope talk.convertToModel(speakerDao.getByIds(eventId, *talk.speakerIds.toTypedArray()), eventDb)
+        return@coroutineScope talk.convertToModel(
+            speakerDao.getByIds(
+                eventId,
+                *talk.speakerIds.toTypedArray()
+            ), eventDb
+        )
     }
 
-    suspend fun update(eventId: String, apiKey: String, talkId: String, talkInput: TalkInput) = coroutineScope {
-        eventDao.getVerified(eventId, apiKey)
-        talkDao.createOrUpdate(eventId, talkInput.convertToDb(id = talkId))
-        eventDao.updateUpdatedAt(eventId)
-        return@coroutineScope talkId
-    }
+    suspend fun update(eventId: String, apiKey: String, talkId: String, talkInput: TalkInput) =
+        coroutineScope {
+            eventDao.getVerified(eventId, apiKey)
+            talkDao.createOrUpdate(eventId, talkInput.convertToDb(id = talkId))
+            eventDao.updateUpdatedAt(eventId)
+            return@coroutineScope talkId
+        }
 }

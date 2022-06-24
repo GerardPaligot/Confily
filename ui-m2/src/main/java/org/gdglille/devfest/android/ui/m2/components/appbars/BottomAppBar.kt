@@ -8,9 +8,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import org.gdglille.devfest.android.ui.m2.R
 import org.gdglille.devfest.android.ui.m2.screens.Screen
 import org.gdglille.devfest.android.ui.m2.theme.Conferences4HallTheme
-import org.gdglille.devfest.android.ui.m2.R
 
 @Composable
 fun BottomAppBar(

@@ -1,9 +1,9 @@
 package org.gdglille.devfest.database
 
 import android.content.Context
+import com.squareup.sqldelight.android.AndroidSqliteDriver
 import org.gdglille.devfest.db.Conferences4HallDatabase
 import org.gdglille.devfest.db.Schedule
-import com.squareup.sqldelight.android.AndroidSqliteDriver
 
 actual class DatabaseWrapper(val context: Context) {
     actual fun createDb(): Conferences4HallDatabase {

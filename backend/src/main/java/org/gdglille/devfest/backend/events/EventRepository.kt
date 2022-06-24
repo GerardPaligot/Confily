@@ -31,11 +31,18 @@ class EventRepository(
     suspend fun get(eventId: String) = coroutineScope {
         val event = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
         val partners = partnerDao.getAll(eventId)
+        val golds = partnerDao.listValidatedFromCms4Partners(event.year, Sponsorship.Gold)
+            .plus(partners.filter { it.sponsoring == Sponsorship.Gold.name })
+        val silvers = partnerDao.listValidatedFromCms4Partners(event.year, Sponsorship.Silver)
+            .plus(partners.filter { it.sponsoring == Sponsorship.Silver.name })
+        val bronzes = partnerDao.listValidatedFromCms4Partners(event.year, Sponsorship.Bronze)
+            .plus(partners.filter { it.sponsoring == Sponsorship.Bronze.name })
         return@coroutineScope event.convertToModel(
-            golds = (partnerDao.listValidatedFromCms4Partners(event.year, Sponsorship.Gold) + partners.filter { it.sponsoring == Sponsorship.Gold.name }).sortedBy { it.name },
-            silvers = (partnerDao.listValidatedFromCms4Partners(event.year, Sponsorship.Silver) + partners.filter { it.sponsoring == Sponsorship.Silver.name }).sortedBy { it.name },
-            bronzes = (partnerDao.listValidatedFromCms4Partners(event.year, Sponsorship.Bronze) + partners.filter { it.sponsoring == Sponsorship.Bronze.name }).sortedBy { it.name },
-            others = partners.filter { it.sponsoring == Sponsorship.Other.name }.sortedBy { it.name }
+            golds = golds.sortedBy { it.name },
+            silvers = silvers.sortedBy { it.name },
+            bronzes = bronzes.sortedBy { it.name },
+            others = partners.filter { it.sponsoring == Sponsorship.Other.name }
+                .sortedBy { it.name }
         )
     }
 
@@ -53,9 +60,18 @@ class EventRepository(
                     async {
                         if (it.talkId == null) it.convertToModel(null)
                         else {
-                            val talk = talkDao.get(eventId, it.talkId) ?: return@async it.convertToModel(null)
+                            val talk =
+                                talkDao.get(eventId, it.talkId) ?: return@async it.convertToModel(
+                                    null
+                                )
                             it.convertToModel(
-                                talk.convertToModel(speakerDao.getByIds(eventId, *talk.speakerIds.toTypedArray()), eventDb)
+                                talk.convertToModel(
+                                    speakerDao.getByIds(
+                                        eventId,
+                                        *talk.speakerIds.toTypedArray()
+                                    ),
+                                    eventDb
+                                )
                             )
                         }
                     }
@@ -87,7 +103,14 @@ class EventRepository(
             talks.map { it.talk!!.speakers }.flatten().map {
                 val socials = arrayListOf<SocialOF>()
                 it.github?.let { github -> socials.add(SocialOF(name = "github", link = github)) }
-                it.twitter?.let { twitter -> socials.add(SocialOF(name = "twitter", link = twitter)) }
+                it.twitter?.let { twitter ->
+                    socials.add(
+                        SocialOF(
+                            name = "twitter",
+                            link = twitter
+                        )
+                    )
+                }
                 SpeakerOF(
                     id = it.id,
                     name = it.displayName,

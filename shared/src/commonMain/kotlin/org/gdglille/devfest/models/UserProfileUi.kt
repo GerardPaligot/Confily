@@ -1,7 +1,6 @@
 package org.gdglille.devfest.models
 
 import org.gdglille.devfest.Image
-import org.gdglille.devfest.toNativeImage
 
 data class UserProfileUi(
     val email: String,

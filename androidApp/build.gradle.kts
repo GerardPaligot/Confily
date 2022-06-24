@@ -3,6 +3,7 @@ import extensions.toProperties
 
 plugins {
     id("conferences4hall.android.application")
+    id("conferences4hall.quality")
 }
 
 val versionMajor = 1
@@ -12,7 +13,7 @@ android {
     defaultConfig {
         applicationId = "org.gdglille.devfest.android"
         versionCode = versionMajor * 1000 + versionMinor * 100 + versionPatch * 10
-        versionName = "${versionMajor}.${versionMinor}.${versionPatch}"
+        versionName = "$versionMajor.$versionMinor.$versionPatch"
     }
 
     val keystoreFile = project.file("keystore.properties")

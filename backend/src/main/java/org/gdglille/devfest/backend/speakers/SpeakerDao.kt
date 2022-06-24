@@ -1,14 +1,14 @@
 package org.gdglille.devfest.backend.speakers
 
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 import org.gdglille.devfest.backend.database.Database
 import org.gdglille.devfest.backend.database.get
 import org.gdglille.devfest.backend.database.getAll
 import org.gdglille.devfest.backend.database.query
 import org.gdglille.devfest.backend.database.whereIn
 import org.gdglille.devfest.backend.storage.Storage
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.coroutineScope
 
 class SpeakerDao(private val database: Database, private val storage: Storage) {
     suspend fun get(eventId: String, id: String): SpeakerDb? = database.get(eventId, id)

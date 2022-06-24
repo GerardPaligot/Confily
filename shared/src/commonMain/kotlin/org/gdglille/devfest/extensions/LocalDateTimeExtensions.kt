@@ -1,7 +1,7 @@
 package org.gdglille.devfest.extensions
 
-import org.gdglille.devfest.DecimalFormat
 import kotlinx.datetime.LocalDateTime
+import org.gdglille.devfest.DecimalFormat
 
 fun LocalDateTime.formatHoursMinutes(): String {
     val formatter = DecimalFormat()

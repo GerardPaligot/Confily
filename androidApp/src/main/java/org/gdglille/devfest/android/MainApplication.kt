@@ -8,7 +8,7 @@ import coil.disk.DiskCache
 import coil.memory.MemoryCache
 import io.openfeedback.android.OpenFeedbackConfig
 
-class MainApplication: Application(), ImageLoaderFactory {
+class MainApplication : Application(), ImageLoaderFactory {
     lateinit var openFeedbackConfig: OpenFeedbackConfig
 
     override fun onCreate() {

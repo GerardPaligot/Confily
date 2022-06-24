@@ -6,6 +6,7 @@ plugins {
     kotlin("plugin.serialization")
     id("com.google.cloud.tools.appengine") version "2.4.2"
     id("com.github.johnrengelman.shadow") version "7.1.2"
+    id("conferences4hall.quality")
 }
 
 tasks.withType<KotlinCompile> {

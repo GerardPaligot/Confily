@@ -1,15 +1,18 @@
 package org.gdglille.devfest.backend.partners
 
-import io.ktor.http.*
-import io.ktor.server.application.*
-import io.ktor.server.response.*
-import io.ktor.server.routing.*
+import io.ktor.http.HttpStatusCode
+import io.ktor.server.application.call
+import io.ktor.server.response.respond
+import io.ktor.server.routing.Route
+import io.ktor.server.routing.post
+import io.ktor.server.routing.put
 import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.receiveValidated
 import org.gdglille.devfest.models.inputs.PartnerInput
 
 fun Route.registerPartnersRoutes(
-    eventDao: EventDao, partnerDao: PartnerDao
+    eventDao: EventDao,
+    partnerDao: PartnerDao
 ) {
     val repository = PartnerRepository(eventDao, partnerDao)
 

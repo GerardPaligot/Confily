@@ -1,6 +1,6 @@
 package org.gdglille.devfest
 
-import io.ktor.client.engine.*
+import io.ktor.client.engine.HttpClientEngine
 
 expect class Platform() {
     val platform: String
@@ -12,5 +12,6 @@ expect class DecimalFormat() {
 }
 
 expect class Image
+
 expect fun ByteArray.toNativeImage(): Image
 expect fun Image.toByteArray(): ByteArray

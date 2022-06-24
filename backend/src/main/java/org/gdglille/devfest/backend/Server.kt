@@ -3,17 +3,19 @@ package org.gdglille.devfest.backend
 import com.google.auth.oauth2.GoogleCredentials
 import com.google.cloud.firestore.FirestoreOptions
 import com.google.cloud.storage.StorageOptions
-import io.ktor.http.*
-import io.ktor.serialization.kotlinx.json.*
-import io.ktor.server.application.*
-import io.ktor.server.engine.*
-import io.ktor.server.netty.*
-import io.ktor.server.plugins.contentnegotiation.*
-import io.ktor.server.plugins.cors.routing.*
-import io.ktor.server.plugins.statuspages.*
-import io.ktor.server.request.*
-import io.ktor.server.response.*
-import io.ktor.server.routing.*
+import io.ktor.http.HttpStatusCode
+import io.ktor.serialization.kotlinx.json.json
+import io.ktor.server.application.ApplicationCall
+import io.ktor.server.application.install
+import io.ktor.server.engine.embeddedServer
+import io.ktor.server.netty.Netty
+import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.server.plugins.cors.routing.CORS
+import io.ktor.server.plugins.statuspages.StatusPages
+import io.ktor.server.request.receive
+import io.ktor.server.response.respond
+import io.ktor.server.routing.route
+import io.ktor.server.routing.routing
 import kotlinx.coroutines.Dispatchers
 import org.gdglille.devfest.backend.billetweb.registerBilletWebRoutes
 import org.gdglille.devfest.backend.conferencehall.registerConferenceHallRoutes
@@ -68,7 +70,10 @@ fun main() {
     val talkDao = TalkDao(
         Database.Factory.create(
             DatabaseType.FirestoreDb(
-                firestore = firestore, projectName = projectName, collectionName = "talks", dispatcher = Dispatchers.IO
+                firestore = firestore,
+                projectName = projectName,
+                collectionName = "talks",
+                dispatcher = Dispatchers.IO
             )
         )
     )

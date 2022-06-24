@@ -1,12 +1,10 @@
 package org.gdglille.devfest.database
 
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.toLocalDateTime
 import org.gdglille.devfest.db.Event
 import org.gdglille.devfest.db.Speaker
 import org.gdglille.devfest.db.Talk
-import kotlinx.datetime.Instant
-import kotlinx.datetime.LocalDateTime
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
 import org.gdglille.devfest.models.ScheduleItem
 
 fun org.gdglille.devfest.models.Speaker.convertToModelDb(): Speaker = Speaker(
@@ -47,4 +45,5 @@ fun org.gdglille.devfest.models.Event.convertToModelDb(): Event = Event(
     updated_at = this.updatedAt
 )
 
-private fun LocalDateTime.format(): String = "${this.dayOfWeek.name} ${this.dayOfMonth}, ${this.month.name} ${this.year}"
+private fun LocalDateTime.format(): String =
+    "${this.dayOfWeek.name} ${this.dayOfMonth}, ${this.month.name} ${this.year}"

@@ -9,7 +9,7 @@ class LocalStorage(
     private val directory: String,
     private val location: String = "/tmp",
     private val dispatcher: CoroutineDispatcher = Dispatchers.Default
-): Storage {
+) : Storage {
     override suspend fun upload(filename: String, content: ByteArray) = withContext(dispatcher) {
         File("$location/$filename").apply {
             writeBytes(content)

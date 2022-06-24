@@ -12,6 +12,7 @@ dependencies {
     implementation(gradleApi())
     implementation(libs.android.gradlePlugin)
     implementation(libs.kotlin.gradlePlugin)
+    implementation(libs.ktlint.gradlePlugin)
 }
 
 gradlePlugin {
@@ -31,6 +32,10 @@ gradlePlugin {
         register("multiplatformLibrary") {
             id = "conferences4hall.multiplatform.library"
             implementationClass = "MultiplatformLibraryPlugin"
+        }
+        register("kotlinQuality") {
+            id = "conferences4hall.quality"
+            implementationClass = "KotlinQualitÿPlugin"
         }
     }
 }

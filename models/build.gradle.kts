@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id("conferences4hall.multiplatform.library")
+    id("conferences4hall.quality")
     id("kotlinx-serialization")
 }
 
@@ -12,7 +13,6 @@ tasks.withType<KotlinCompile> {
 kotlin {
     android()
     jvm()
-    
     listOf(
         iosX64(),
         iosArm64(),

@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class UserEmailInput(
     val email: String
-): Validator {
+) : Validator {
     override fun validate(): List<String> {
         val errors = arrayListOf<String>()
         val pattern = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}"

@@ -2,8 +2,8 @@ package org.gdglille.devfest
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import io.ktor.client.engine.*
-import io.ktor.client.engine.android.*
+import io.ktor.client.engine.HttpClientEngine
+import io.ktor.client.engine.android.Android
 import java.io.ByteArrayOutputStream
 
 actual class Platform actual constructor() {

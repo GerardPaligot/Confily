@@ -12,10 +12,10 @@ import org.gdglille.devfest.backend.talks.TalkDao
 import org.gdglille.devfest.backend.talks.convertToDb
 
 class ConferenceHallRepository(
-  private val api: ConferenceHallApi,
-  private val eventDao: EventDao,
-  private val speakerDao: SpeakerDao,
-  private val talkDao: TalkDao
+    private val api: ConferenceHallApi,
+    private val eventDao: EventDao,
+    private val speakerDao: SpeakerDao,
+    private val talkDao: TalkDao
 ) {
     suspend fun import(eventId: String, apiKey: String) = coroutineScope {
         val eventAccepted = api.fetchEventAccepted(eventId)
@@ -39,7 +39,10 @@ class ConferenceHallRepository(
             .awaitAll()
             .associate { it }
         speakerDao.insertAll(year, speakers.map { it.convertToDb(speakersAvatar[it.uid] ?: "") })
-        talkDao.insertAll(year, talks.map { it.convertToDb(eventAccepted.categories, eventAccepted.formats) })
+        talkDao.insertAll(
+            year,
+            talks.map { it.convertToDb(eventAccepted.categories, eventAccepted.formats) }
+        )
         eventDao.createOrUpdate(eventAccepted.convertToDb(year, eventId, apiKey))
         return@coroutineScope eventAccepted
     }
