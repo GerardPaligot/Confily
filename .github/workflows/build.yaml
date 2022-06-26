@@ -40,6 +40,9 @@ jobs:
             ~/.gradle/caches/build-cache-*
           key: gradle-${{ hashFiles('checksum.txt') }}
 
+      - name: Check Kotlin lint
+        run: ./gradlew ktlintCheck detekt --stacktrace
+
       - name: Check lint
         run: ./gradlew lintDebug --stacktrace
 
