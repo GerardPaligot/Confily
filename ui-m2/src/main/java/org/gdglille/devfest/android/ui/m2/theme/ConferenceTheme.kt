@@ -14,7 +14,9 @@ fun Conferences4HallTheme(
     content: @Composable () -> Unit
 ) {
     CompositionLocalProvider(
-        LocalAccessibility provides LocalContext.current.getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
+        LocalAccessibility provides
+                LocalContext.current.getSystemService(Context.ACCESSIBILITY_SERVICE)
+                        as AccessibilityManager
     ) {
         MaterialTheme(
             colors = if (isDarkMode) darkColors else lightColors,

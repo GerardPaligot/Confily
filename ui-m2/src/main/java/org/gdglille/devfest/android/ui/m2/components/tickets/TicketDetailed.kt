@@ -38,6 +38,8 @@ import org.gdglille.devfest.android.ui.m2.theme.placeholder
 import org.gdglille.devfest.models.TicketInfoUi
 import org.gdglille.devfest.models.TicketUi
 
+private const val TicketRatio = 2 / 3
+
 @Composable
 fun TicketDetailed(
     ticket: TicketInfoUi,
@@ -120,7 +122,7 @@ fun TicketDetailed(
                             bitmap = qrCode.asImageBitmap(),
                             contentDescription = stringResource(id = R.string.semantic_ticket_qrcode),
                             modifier = Modifier
-                                .size(this.maxWidth * 2 / 3)
+                                .size(this.maxWidth * TicketRatio)
                                 .placeholder(isLoading)
                         )
                     }
@@ -141,7 +143,7 @@ fun TicketPreview() {
             TicketDetailed(
                 ticket = TicketUi.fake.info!!,
                 qrCode = TicketUi.fake.qrCode,
-                modifier = Modifier.width(maxWidth * 3 / 4)
+                modifier = Modifier.width(maxWidth)
             )
         }
     }
@@ -158,7 +160,7 @@ fun TicketPreviewLongText() {
             TicketDetailed(
                 ticket = TicketUi.fake.info!!,
                 qrCode = TicketUi.fake.qrCode,
-                modifier = Modifier.width(maxWidth * 3 / 4)
+                modifier = Modifier.width(maxWidth)
             )
         }
     }

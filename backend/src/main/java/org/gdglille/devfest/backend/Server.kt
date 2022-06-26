@@ -35,6 +35,9 @@ import org.gdglille.devfest.backend.talks.registerTalksRoutes
 import org.gdglille.devfest.models.inputs.Validator
 import org.gdglille.devfest.models.inputs.ValidatorException
 
+const val PORT = 8080
+
+@Suppress("LongMethod")
 fun main() {
     val gcpProjectId = "cms4partners-ce427"
     val projectName = "conferences4hall"
@@ -108,7 +111,7 @@ fun main() {
         )
     )
 
-    embeddedServer(Netty, 8080) {
+    embeddedServer(Netty, PORT) {
         install(CORS) {
             anyHost()
         }

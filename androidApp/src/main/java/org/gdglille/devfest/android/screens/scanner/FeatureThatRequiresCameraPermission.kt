@@ -1,6 +1,12 @@
 package org.gdglille.devfest.android.screens.scanner
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -106,7 +112,8 @@ private fun FeatureThatRequiresCameraPermissionRequestedPreview() {
     Conferences4HallTheme {
         FeatureThatRequiresCameraPermissionRequested(
             onAcceptPermissionClicked = {},
-            onRefusePermissionClicked = {})
+            onRefusePermissionClicked = {}
+        )
     }
 }
 

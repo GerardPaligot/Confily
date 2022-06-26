@@ -20,28 +20,34 @@ import org.gdglille.devfest.Image
 import org.gdglille.devfest.android.theme.placeholder
 import org.gdglille.devfest.android.ui.R
 
+private const val TicketRatio = 3 / 4
+
 @Composable
 fun TicketQrCode(
-  qrCode: Image,
-  modifier: Modifier = Modifier,
-  isLoading: Boolean = false,
-  shape: Shape = RoundedCornerShape(16.dp),
-  elevation: Dp = 8.dp
+    qrCode: Image,
+    modifier: Modifier = Modifier,
+    isLoading: Boolean = false,
+    shape: Shape = RoundedCornerShape(16.dp),
+    elevation: Dp = 8.dp
 ) {
-  Surface(
-    modifier = modifier.wrapContentHeight(),
-    shape = shape,
-    tonalElevation = elevation
-  ) {
-    BoxWithConstraints(
-      modifier = Modifier.padding(vertical = 24.dp, horizontal = 28.dp).fillMaxWidth(),
-      contentAlignment = Alignment.Center
+    Surface(
+        modifier = modifier.wrapContentHeight(),
+        shape = shape,
+        tonalElevation = elevation
     ) {
-      Image(
-        bitmap = qrCode.asImageBitmap(),
-        contentDescription = stringResource(id = R.string.semantic_ticket_qrcode),
-        modifier = Modifier.size(this.maxWidth * 3/4).placeholder(isLoading)
-      )
+        BoxWithConstraints(
+            modifier = Modifier
+              .padding(vertical = 24.dp, horizontal = 28.dp)
+              .fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
+            Image(
+                bitmap = qrCode.asImageBitmap(),
+                contentDescription = stringResource(id = R.string.semantic_ticket_qrcode),
+                modifier = Modifier
+                  .size(this.maxWidth * TicketRatio)
+                  .placeholder(isLoading)
+            )
+        }
     }
-  }
 }

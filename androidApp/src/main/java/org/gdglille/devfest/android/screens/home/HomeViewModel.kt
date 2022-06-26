@@ -25,10 +25,14 @@ class HomeViewModel(
     }
 
     object Factory {
-        fun create(agendaRepository: AgendaRepository, userRepository: UserRepository) = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(modelClass: Class<T>): T =
-                HomeViewModel(agendaRepository = agendaRepository, userRepository = userRepository) as T
-        }
+        fun create(agendaRepository: AgendaRepository, userRepository: UserRepository) =
+            object : ViewModelProvider.Factory {
+                @Suppress("UNCHECKED_CAST")
+                override fun <T : ViewModel> create(modelClass: Class<T>): T =
+                    HomeViewModel(
+                        agendaRepository = agendaRepository,
+                        userRepository = userRepository
+                    ) as T
+            }
     }
 }

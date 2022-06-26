@@ -36,7 +36,8 @@ class AlarmReceiver : BroadcastReceiver() {
             setContentIntent(PendingIntent.getActivity(context, 0, MainActivity.create(context), 0))
             setAutoCancel(true)
         }
-        val notificationManager: NotificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notificationManager: NotificationManager =
+            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val importance = NotificationManager.IMPORTANCE_DEFAULT
             val channel = NotificationChannel(CHANNEL_ID, "Devfest Lille App", importance)

@@ -38,7 +38,10 @@ fun ScheduleItem(
         }
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             talks.forEach {
-                Container(onClick = { onTalkClicked(it.id) }, enabled = !isLoading && !it.isPause) {
+                Container(
+                    onClick = { onTalkClicked(it.id) },
+                    enabled = !isLoading && !it.isPause
+                ) {
                     val talkModifier =
                         if (hasTalkbackActivated) Modifier else Modifier.padding(start = timeSpace)
                     TalkItem(

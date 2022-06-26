@@ -6,5 +6,5 @@ import androidx.browser.customtabs.CustomTabsIntent
 
 fun Activity.launchUrl(url: String) {
     val customTabsIntent = CustomTabsIntent.Builder().build()
-    customTabsIntent.launchUrl(this, Uri.parse(url));
+    customTabsIntent.launchUrl(this, Uri.parse(url))
 }

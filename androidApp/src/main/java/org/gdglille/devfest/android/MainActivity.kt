@@ -42,6 +42,7 @@ import org.gdglille.devfest.network.ConferenceApi
 import org.gdglille.devfest.repositories.AgendaRepository
 import org.gdglille.devfest.repositories.UserRepository
 
+@Suppress("LongMethod")
 @ExperimentalPermissionsApi
 @ExperimentalMaterial3Api
 @FlowPreview
@@ -167,7 +168,10 @@ class MainActivity : AppCompatActivity() {
                         VCardQrCodeScanner(
                             navigateToSettingsScreen = {},
                             onQrCodeDetected = { vcard ->
-                                navController.previousBackStackEntry?.savedStateHandle?.set(HomeResultKey.QR_CODE_VCARD, vcard)
+                                navController
+                                    .previousBackStackEntry
+                                    ?.savedStateHandle
+                                    ?.set(HomeResultKey.QR_CODE_VCARD, vcard)
                                 navController.popBackStack()
                             },
                             onBackClicked = {
@@ -181,7 +185,10 @@ class MainActivity : AppCompatActivity() {
                         TicketQrCodeScanner(
                             navigateToSettingsScreen = {},
                             onQrCodeDetected = { barcode ->
-                                navController.previousBackStackEntry?.savedStateHandle?.set(HomeResultKey.QR_CODE_TICKET, barcode)
+                                navController
+                                    .previousBackStackEntry
+                                    ?.savedStateHandle
+                                    ?.set(HomeResultKey.QR_CODE_TICKET, barcode)
                                 navController.popBackStack()
                             }
                         ) {

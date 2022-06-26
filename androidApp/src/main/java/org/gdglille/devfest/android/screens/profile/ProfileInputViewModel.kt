@@ -8,7 +8,7 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import org.gdglille.devfest.android.screens.Field
+import org.gdglille.devfest.android.components.users.Field
 import org.gdglille.devfest.models.UserProfileUi
 import org.gdglille.devfest.repositories.UserRepository
 

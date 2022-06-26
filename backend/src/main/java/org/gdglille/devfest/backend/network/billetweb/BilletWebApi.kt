@@ -39,13 +39,17 @@ class BilletWebApi(
             BilletWebApi(
                 client = HttpClient(Java.create()) {
                     install(ContentNegotiation) {
-                        json(Json {
-                            isLenient = true
-                            ignoreUnknownKeys = true
-                        })
+                        json(
+                            Json {
+                                isLenient = true
+                                ignoreUnknownKeys = true
+                            }
+                        )
                     }
                     if (enableNetworkLogs) {
-                        install(Logging) {
+                        install(
+                            Logging
+                        ) {
                             logger = Logger.DEFAULT
                             level = LogLevel.INFO
                         }

@@ -38,122 +38,130 @@ import org.gdglille.devfest.android.ui.R
 import org.gdglille.devfest.models.TicketInfoUi
 import org.gdglille.devfest.models.TicketUi
 
+private const val TicketRatio = 2 / 3
+
 @Composable
 fun TicketDetailed(
-  ticket: TicketInfoUi,
-  qrCode: Image?,
-  modifier: Modifier = Modifier,
-  isLoading: Boolean = false,
-  shape: Shape = RoundedCornerShape(16.dp),
-  elevation: Dp = 8.dp
+    ticket: TicketInfoUi,
+    qrCode: Image?,
+    modifier: Modifier = Modifier,
+    isLoading: Boolean = false,
+    shape: Shape = RoundedCornerShape(16.dp),
+    elevation: Dp = 8.dp
 ) {
-  val cdTicketId = stringResource(R.string.semantic_ticket_id, ticket.id)
-  Surface(
-    modifier = modifier.wrapContentHeight(),
-    shape = shape,
-    tonalElevation = elevation
-  ) {
-    Column {
-      Column(
-        verticalArrangement = Arrangement.spacedBy(12.dp),
-        modifier = Modifier.padding(vertical = 24.dp, horizontal = 28.dp)
-      ) {
-        Row(
-          modifier = Modifier
-            .semantics(mergeDescendants = true) {}
-            .placeholder(isLoading)
-        ) {
-          Text(
-            text = stringResource(R.string.text_ticket_firstname),
-            modifier = Modifier.weight(1f),
-            textAlign = TextAlign.Start
-          )
-          Text(
-            text = ticket.firstName,
-            modifier = Modifier.weight(1f),
-            textAlign = TextAlign.End,
-            fontWeight = FontWeight.Bold
-          )
-        }
-        Row(
-          modifier = Modifier
-            .semantics(mergeDescendants = true) {}
-            .placeholder(isLoading)
-        ) {
-          Text(
-            text = stringResource(R.string.text_ticket_lastname),
-            modifier = Modifier.weight(1f),
-            textAlign = TextAlign.Start
-          )
-          Text(
-            text = ticket.lastName,
-            modifier = Modifier.weight(1f),
-            textAlign = TextAlign.End,
-            fontWeight = FontWeight.Bold
-          )
-        }
-      }
-      Box(
-        modifier = Modifier
-          .height(1.dp)
-          .fillMaxWidth()
-          .background(color = LocalContentColor.current, shape = DottedShape(10.dp))
-      )
-      Column(
-        verticalArrangement = Arrangement.spacedBy(12.dp),
-        modifier = Modifier.padding(vertical = 24.dp, horizontal = 28.dp).fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
-      ) {
-        Text(
-          text = ticket.id,
-          textAlign = TextAlign.Center,
-          fontWeight = FontWeight.Bold,
-          modifier = Modifier.semantics { text = AnnotatedString(cdTicketId) }.placeholder(isLoading)
-        )
-        if (qrCode != null) {
-          BoxWithConstraints {
-            Image(
-              bitmap = qrCode.asImageBitmap(),
-              contentDescription = stringResource(id = R.string.semantic_ticket_qrcode),
-              modifier = Modifier.size(this.maxWidth * 2/3).placeholder(isLoading)
+    val cdTicketId = stringResource(R.string.semantic_ticket_id, ticket.id)
+    Surface(
+        modifier = modifier.wrapContentHeight(),
+        shape = shape,
+        tonalElevation = elevation
+    ) {
+        Column {
+            Column(
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+                modifier = Modifier.padding(vertical = 24.dp, horizontal = 28.dp)
+            ) {
+                Row(
+                    modifier = Modifier
+                      .semantics(mergeDescendants = true) {}
+                      .placeholder(isLoading)
+                ) {
+                    Text(
+                        text = stringResource(R.string.text_ticket_firstname),
+                        modifier = Modifier.weight(1f),
+                        textAlign = TextAlign.Start
+                    )
+                    Text(
+                        text = ticket.firstName,
+                        modifier = Modifier.weight(1f),
+                        textAlign = TextAlign.End,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+                Row(
+                    modifier = Modifier
+                      .semantics(mergeDescendants = true) {}
+                      .placeholder(isLoading)
+                ) {
+                    Text(
+                        text = stringResource(R.string.text_ticket_lastname),
+                        modifier = Modifier.weight(1f),
+                        textAlign = TextAlign.Start
+                    )
+                    Text(
+                        text = ticket.lastName,
+                        modifier = Modifier.weight(1f),
+                        textAlign = TextAlign.End,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+            }
+            Box(
+                modifier = Modifier
+                  .height(1.dp)
+                  .fillMaxWidth()
+                  .background(color = LocalContentColor.current, shape = DottedShape(10.dp))
             )
-          }
+            Column(
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+                modifier = Modifier
+                  .padding(vertical = 24.dp, horizontal = 28.dp)
+                  .fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = ticket.id,
+                    textAlign = TextAlign.Center,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier
+                      .semantics { text = AnnotatedString(cdTicketId) }
+                      .placeholder(isLoading)
+                )
+                if (qrCode != null) {
+                    BoxWithConstraints {
+                        Image(
+                            bitmap = qrCode.asImageBitmap(),
+                            contentDescription = stringResource(id = R.string.semantic_ticket_qrcode),
+                            modifier = Modifier
+                              .size(this.maxWidth * TicketRatio)
+                              .placeholder(isLoading)
+                        )
+                    }
+                }
+            }
         }
-      }
     }
-  }
 }
 
 @Preview
 @Composable
 fun TicketPreview() {
-  Conferences4HallTheme {
-    BoxWithConstraints(
-      modifier = Modifier.fillMaxWidth(),
-      contentAlignment = Alignment.Center
-    ) {
-      TicketDetailed(
-        ticket = TicketUi.fake.info!!,
-        qrCode = TicketUi.fake.qrCode,
-        modifier = Modifier.width(maxWidth * 3/4)
-      )
+    Conferences4HallTheme {
+        BoxWithConstraints(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
+            TicketDetailed(
+                ticket = TicketUi.fake.info!!,
+                qrCode = TicketUi.fake.qrCode,
+                modifier = Modifier.width(maxWidth)
+            )
+        }
     }
-  }
 }
 
 @Preview
 @Composable
 fun TicketPreviewLongText() {
-  Conferences4HallTheme {
-    BoxWithConstraints(
-      modifier = Modifier.fillMaxWidth(),
-      contentAlignment = Alignment.Center
-    ) {
-      TicketDetailed(
-        ticket = TicketUi.fake.info!!,
-        qrCode = TicketUi.fake.qrCode,
-        modifier = Modifier.width(maxWidth * 3/4)
-      )
+    Conferences4HallTheme {
+        BoxWithConstraints(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
+            TicketDetailed(
+                ticket = TicketUi.fake.info!!,
+                qrCode = TicketUi.fake.qrCode,
+                modifier = Modifier.width(maxWidth)
+            )
+        }
     }
-  }
 }

@@ -1,7 +1,7 @@
 package org.gdglille.devfest
 
-import io.ktor.client.engine.*
-import io.ktor.client.engine.darwin.*
+import io.ktor.client.engine.HttpClientEngine
+import io.ktor.client.engine.darwin.Darwin
 import kotlinx.cinterop.addressOf
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.toCValues

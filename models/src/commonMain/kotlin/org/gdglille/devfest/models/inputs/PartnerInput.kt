@@ -11,6 +11,6 @@ data class PartnerInput(
     val siteUrl: String,
     val name: String,
     val sponsoring: String
-): Validator {
+) : Validator {
     override fun validate(): List<String> = emptyList()
 }

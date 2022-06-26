@@ -35,6 +35,8 @@ import org.gdglille.devfest.repositories.AgendaRepository
 import java.net.UnknownHostException
 import java.util.Locale
 
+private const val ReminderInMinutes = 10
+
 sealed class AgendaUiState {
     data class Loading(val agenda: AgendaUi) : AgendaUiState()
     data class Success(val agenda: AgendaUi) : AgendaUiState()
@@ -96,7 +98,7 @@ class AgendaViewModel(
         if (isFavorite) {
             val time =
                 talkItem.startTime.toLocalDateTime().toInstant(TimeZone.currentSystemDefault())
-                    .minus(10, DateTimeUnit.MINUTE).toEpochMilliseconds()
+                    .minus(ReminderInMinutes, DateTimeUnit.MINUTE).toEpochMilliseconds()
             alarmManager.set(
                 AlarmManager.ELAPSED_REALTIME_WAKEUP,
                 SystemClock.elapsedRealtime() + (time - Clock.System.now().toEpochMilliseconds()),

@@ -4,36 +4,32 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.android.components.appbars.TopAppBar
+import org.gdglille.devfest.android.components.users.Field
+import org.gdglille.devfest.android.components.users.ProfileInputField
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
 import org.gdglille.devfest.android.ui.R
 import org.gdglille.devfest.models.UserProfileUi
 
-enum class Field {
-    Email, FirstName, LastName, Company
-}
+private const val QrcodeRatio = 2 / 3
 
 @ExperimentalMaterial3Api
 @Composable
@@ -69,69 +65,46 @@ fun ProfileInput(
                         Image(
                             bitmap = profile.qrCode!!.asImageBitmap(),
                             contentDescription = stringResource(id = R.string.semantic_profile_qrcode),
-                            modifier = Modifier.size(this.maxWidth * 2 / 3)
+                            modifier = Modifier.size(this.maxWidth * QrcodeRatio)
                         )
                     }
                 }
             }
             item {
-                OutlinedTextField(
+                ProfileInputField(
+                    label = R.string.input_email,
                     value = profile.email,
-                    onValueChange = { text -> onValueChanged(Field.Email, text) },
-                    label = { Text(text = stringResource(id = R.string.input_email)) },
-                    keyboardOptions = KeyboardOptions(
-                        imeAction = ImeAction.Next,
-                        keyboardType = KeyboardType.Email
-                    ),
-                    singleLine = true,
-                    maxLines = 1,
-                    modifier = Modifier.fillMaxWidth()
+                    field = Field.Email,
+                    onValueChanged = onValueChanged,
+                    keyboardType = KeyboardType.Email
                 )
             }
             item {
-                OutlinedTextField(
+                ProfileInputField(
+                    label = R.string.input_firstname,
                     value = profile.firstName,
-                    onValueChange = { text -> onValueChanged(Field.FirstName, text) },
-                    label = { Text(text = stringResource(id = R.string.input_firstname)) },
-                    keyboardOptions = KeyboardOptions(
-                        imeAction = ImeAction.Next,
-                        keyboardType = KeyboardType.Text
-                    ),
-                    singleLine = true,
-                    maxLines = 1,
-                    modifier = Modifier.fillMaxWidth()
+                    field = Field.FirstName,
+                    onValueChanged = onValueChanged
                 )
             }
             item {
-                OutlinedTextField(
+                ProfileInputField(
+                    label = R.string.input_lastname,
                     value = profile.lastName,
-                    onValueChange = { text -> onValueChanged(Field.LastName, text) },
-                    label = { Text(text = stringResource(id = R.string.input_lastname)) },
-                    keyboardOptions = KeyboardOptions(
-                        imeAction = ImeAction.Next,
-                        keyboardType = KeyboardType.Text
-                    ),
-                    singleLine = true,
-                    maxLines = 1,
-                    modifier = Modifier.fillMaxWidth()
+                    field = Field.LastName,
+                    onValueChanged = onValueChanged
                 )
             }
             item {
-                OutlinedTextField(
+                ProfileInputField(
+                    label = R.string.input_company,
                     value = profile.company,
-                    onValueChange = { text -> onValueChanged(Field.Company, text) },
-                    label = { Text(text = stringResource(id = R.string.input_company)) },
-                    keyboardActions = KeyboardActions(onDone = {
+                    field = Field.Company,
+                    onValueChanged = onValueChanged,
+                    onDone = {
                         focusManager.clearFocus()
                         onValidation()
-                    }),
-                    keyboardOptions = KeyboardOptions(
-                        imeAction = ImeAction.Done,
-                        keyboardType = KeyboardType.Text
-                    ),
-                    singleLine = true,
-                    maxLines = 1,
-                    modifier = Modifier.fillMaxWidth()
+                    }
                 )
             }
             item {

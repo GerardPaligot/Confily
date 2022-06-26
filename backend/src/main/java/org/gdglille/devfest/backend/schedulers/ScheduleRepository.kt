@@ -49,7 +49,7 @@ class ScheduleRepository(
         val talk = if (scheduleItem.talkId != null) {
             val talkDb = talkDao.get(eventId, scheduleItem.talkId)
                 ?: throw NotFoundException("Talk ${scheduleItem.talkId} not found")
-            val speakers = speakerDao.getByIds(eventId, *talkDb.speakerIds.toTypedArray())
+            val speakers = speakerDao.getByIds(eventId, talkDb.speakerIds)
             talkDb.convertToModel(speakers, eventDb)
         } else null
         eventDao.updateUpdatedAt(eventId)

@@ -8,6 +8,9 @@ import coil.disk.DiskCache
 import coil.memory.MemoryCache
 import io.openfeedback.android.OpenFeedbackConfig
 
+private const val MemoryCacheSize = 0.25
+private const val DiskCacheSize = 0.10
+
 class MainApplication : Application(), ImageLoaderFactory {
     lateinit var openFeedbackConfig: OpenFeedbackConfig
 
@@ -31,13 +34,13 @@ class MainApplication : Application(), ImageLoaderFactory {
         }
         .memoryCache {
             MemoryCache.Builder(this)
-                .maxSizePercent(0.25)
+                .maxSizePercent(MemoryCacheSize)
                 .build()
         }
         .diskCache {
             DiskCache.Builder()
                 .directory(this.cacheDir.resolve("image_cache"))
-                .maxSizePercent(0.10)
+                .maxSizePercent(DiskCacheSize)
                 .build()
         }
         .respectCacheHeaders(false)

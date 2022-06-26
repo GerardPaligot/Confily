@@ -19,7 +19,7 @@ class TalkRepository(
         val asyncItems = talks.map {
             async {
                 it.convertToModel(
-                    speakerDao.getByIds(eventId, *it.speakerIds.toTypedArray()),
+                    speakerDao.getByIds(eventId, it.speakerIds),
                     eventDb
                 )
             }
@@ -40,10 +40,7 @@ class TalkRepository(
         val talk = talkDao.get(eventId, talkId) ?: throw NotFoundException("Talk $talkId Not Found")
         eventDao.updateUpdatedAt(eventId)
         return@coroutineScope talk.convertToModel(
-            speakerDao.getByIds(
-                eventId,
-                *talk.speakerIds.toTypedArray()
-            ), eventDb
+            speakerDao.getByIds(eventId, talk.speakerIds), eventDb
         )
     }
 

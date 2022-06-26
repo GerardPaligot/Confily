@@ -13,7 +13,7 @@ data class EventAddressInput(
     val city: String,
     val lat: Double,
     val lng: Double
-): Validator {
+) : Validator {
     override fun validate(): List<String> {
         val errors = arrayListOf<String>()
         if (lat <= 0) errors.add("Your latitude should be positive")
@@ -28,7 +28,7 @@ data class LunchMenuInput(
     val dish: String,
     val accompaniment: String,
     val dessert: String
-): Validator {
+) : Validator {
     override fun validate(): List<String> = emptyList()
 }
 
@@ -40,7 +40,7 @@ data class BilletWebConfigInput(
     val userId: String,
     @SerialName("api_key")
     val apiKey: String
-): Validator {
+) : Validator {
     override fun validate(): List<String> = emptyList()
 }
 
@@ -68,7 +68,7 @@ data class EventInput(
     val codeOfConductLink: String,
     @SerialName("update_at")
     val updatedAt: Long = Clock.System.now().epochSeconds
-): Validator {
+) : Validator {
     override fun validate(): List<String> {
         val errors = arrayListOf<String>()
         if (twitterUrl?.contains("twitter.com") == false) errors.add("Your twitter url is malformed")

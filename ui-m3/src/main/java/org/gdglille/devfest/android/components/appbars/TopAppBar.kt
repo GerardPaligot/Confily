@@ -11,9 +11,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import org.gdglille.devfest.android.extensions.stringResource
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
 import org.gdglille.devfest.android.ui.R
 
@@ -35,7 +35,7 @@ fun TopAppBar(
                     Icon(
                         imageVector = action.icon,
                         contentDescription = action.contentDescription?.let {
-                            stringResource(id = it, *action.formatArgs.toTypedArray())
+                            stringResource(id = it, action.formatArgs)
                         } ?: run { null }
                     )
                 }

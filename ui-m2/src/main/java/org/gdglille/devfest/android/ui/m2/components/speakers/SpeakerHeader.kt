@@ -1,6 +1,11 @@
 package org.gdglille.devfest.android.ui.m2.components.speakers
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -26,8 +31,12 @@ fun SpeakerHeader(
     color: Color = MaterialTheme.colors.onBackground,
     onBackClicked: () -> Unit
 ) {
-    val hasTalkbackActivated = LocalAccessibility.current.isEnabled && LocalAccessibility.current.isTouchExplorationEnabled
-    SpeakerHeaderContainer(hasTalkbackActivated = hasTalkbackActivated, modifier = modifier.fillMaxWidth()) {
+    val hasTalkbackActivated =
+        LocalAccessibility.current.isEnabled && LocalAccessibility.current.isTouchExplorationEnabled
+    SpeakerHeaderContainer(
+        hasTalkbackActivated = hasTalkbackActivated,
+        modifier = modifier.fillMaxWidth()
+    ) {
         AppBarIcons.Back(color = color, onClick = onBackClicked)
         Column(
             modifier = Modifier.fillMaxWidth(),

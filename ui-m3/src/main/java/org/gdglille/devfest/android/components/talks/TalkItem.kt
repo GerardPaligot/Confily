@@ -36,7 +36,8 @@ fun TalkItem(
     roomTextStyle: TextStyle = MaterialTheme.typography.bodySmall,
     subtitleColor: Color = MaterialTheme.colorScheme.onBackground,
     subtitleTextStyle: TextStyle = MaterialTheme.typography.bodyMedium,
-    favoriteColor: Color = if (talk.isFavorite) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.onBackground,
+    favoriteColor: Color = if (talk.isFavorite) MaterialTheme.colorScheme.secondary
+    else MaterialTheme.colorScheme.onBackground,
     onFavoriteClicked: (TalkItemUi) -> Unit
 ) {
     Row(

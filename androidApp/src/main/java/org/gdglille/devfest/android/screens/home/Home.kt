@@ -34,11 +34,6 @@ import org.gdglille.devfest.android.screens.users.NetworkingVM
 import org.gdglille.devfest.repositories.AgendaRepository
 import org.gdglille.devfest.repositories.UserRepository
 
-object HomeResultKey {
-    const val QR_CODE_TICKET = "QR_CODE_TICKET"
-    const val QR_CODE_VCARD = "QR_CODE_VCARD"
-}
-
 @FlowPreview
 @ExperimentalSettingsApi
 @ExperimentalCoroutinesApi

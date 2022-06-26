@@ -40,5 +40,3 @@ fun ScheduleDetailVM(
         )
     }
 }
-
-

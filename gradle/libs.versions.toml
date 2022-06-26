@@ -22,6 +22,7 @@ gcpFirestore = "3.0.9"
 gcpStorage = "2.3.0"
 googleServices = "4.3.10"
 coil = "2.0.0"
+detekt = "1.19.0"
 barcode = "17.0.2"
 guava = "31.1-android"
 ktlint = "10.3.0"
@@ -83,6 +84,8 @@ accompanist-systemuicontroller = { group = "com.google.accompanist", name = "acc
 
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 coil-svg = { group = "io.coil-kt", name = "coil-svg", version.ref = "coil" }
+
+detekt-gradlePlugin = { group = "io.gitlab.arturbosch.detekt", name = "detekt-gradle-plugin", version.ref = "detekt" }
 
 google-cloud-firestore = { group = "com.google.cloud", name = "google-cloud-firestore", version.ref = "gcpFirestore" }
 google-cloud-storage = { group = "com.google.cloud", name = "google-cloud-storage", version.ref = "gcpStorage" }

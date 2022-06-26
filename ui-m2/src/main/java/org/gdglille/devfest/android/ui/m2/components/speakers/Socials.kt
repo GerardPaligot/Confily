@@ -4,7 +4,11 @@ import androidx.compose.foundation.Indication
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -27,8 +31,8 @@ import compose.icons.fontawesomeicons.Brands
 import compose.icons.fontawesomeicons.brands.Github
 import compose.icons.fontawesomeicons.brands.LinkedinIn
 import compose.icons.fontawesomeicons.brands.Twitter
-import org.gdglille.devfest.android.ui.m2.theme.Conferences4HallTheme
 import org.gdglille.devfest.android.ui.m2.R
+import org.gdglille.devfest.android.ui.m2.theme.Conferences4HallTheme
 import org.gdglille.devfest.models.EventUi
 import org.gdglille.devfest.models.SpeakerUi
 

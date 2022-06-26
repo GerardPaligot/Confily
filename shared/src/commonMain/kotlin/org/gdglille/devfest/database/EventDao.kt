@@ -22,8 +22,8 @@ import org.gdglille.devfest.toNativeImage
 class EventDao(private val db: Conferences4HallDatabase, private val eventId: String) {
     private val eventMapper =
         { _: String, name: String, address: String, date: String, twitter: String?,
-          twitter_url: String?, linkedin: String?, linkedin_url: String?, faq_url: String,
-          coc_url: String, _: Long ->
+            twitter_url: String?, linkedin: String?, linkedin_url: String?, faq_url: String,
+            coc_url: String, _: Long ->
             EventInfoUi(
                 name = name,
                 address = address,

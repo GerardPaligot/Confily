@@ -17,12 +17,15 @@ fun Conferences4HallTheme(
     content: @Composable () -> Unit
 ) {
     CompositionLocalProvider(
-        LocalAccessibility provides LocalContext.current.getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
+        LocalAccessibility provides
+                LocalContext.current.getSystemService(Context.ACCESSIBILITY_SERVICE)
+                        as AccessibilityManager
     ) {
         val colorSheme = when {
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
                 val context = LocalContext.current
-                if (useDarkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+                if (useDarkTheme) dynamicDarkColorScheme(context)
+                else dynamicLightColorScheme(context)
             }
             else -> if (useDarkTheme) DarkColors else LightColors
         }

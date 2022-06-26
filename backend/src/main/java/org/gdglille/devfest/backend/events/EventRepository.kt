@@ -66,10 +66,7 @@ class EventRepository(
                                 )
                             it.convertToModel(
                                 talk.convertToModel(
-                                    speakerDao.getByIds(
-                                        eventId,
-                                        *talk.speakerIds.toTypedArray()
-                                    ),
+                                    speakerDao.getByIds(eventId, talk.speakerIds),
                                     eventDb
                                 )
                             )

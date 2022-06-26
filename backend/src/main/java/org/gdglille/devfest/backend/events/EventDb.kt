@@ -49,7 +49,9 @@ fun EventDb.openFeedbackUrl(): String? {
     return try {
         val startDate = LocalDateTime.parse(this.startDate.dropLast(1))
         val formatter = DecimalFormat("00")
-        val dateFormatted = "${startDate.year}-${formatter.format(startDate.monthValue)}-${formatter.format(startDate.dayOfMonth)}"
+        val formatMonth = formatter.format(startDate.monthValue)
+        val formatDay = formatter.format(startDate.dayOfMonth)
+        val dateFormatted = "${startDate.year}-$formatMonth-$formatDay"
         "https://openfeedback.io/${this.openFeedbackId}/$dateFormatted"
     } catch (ignored: Throwable) {
         null

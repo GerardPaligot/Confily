@@ -26,7 +26,8 @@ fun ScheduleItem(
     onTalkClicked: (id: String) -> Unit,
     onFavoriteClicked: (TalkItemUi) -> Unit
 ) {
-    val hasTalkbackActivated = LocalAccessibility.current.isEnabled && LocalAccessibility.current.isTouchExplorationEnabled
+    val hasTalkbackActivated =
+        LocalAccessibility.current.isEnabled && LocalAccessibility.current.isTouchExplorationEnabled
     val timeSpace = 55.dp
     ScheduleItemContainer(hasTalkbackActivated = hasTalkbackActivated, modifier = modifier) {
         Box(
@@ -37,8 +38,12 @@ fun ScheduleItem(
         }
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             talks.forEach {
-                Container(onClick = { onTalkClicked(it.id) }, enabled = !isLoading && !it.isPause) {
-                    val talkModifier = if (hasTalkbackActivated) Modifier else Modifier.padding(start = timeSpace)
+                Container(
+                    onClick = { onTalkClicked(it.id) },
+                    enabled = !isLoading && !it.isPause
+                ) {
+                    val talkModifier =
+                        if (hasTalkbackActivated) Modifier else Modifier.padding(start = timeSpace)
                     TalkItem(
                         talk = it,
                         modifier = talkModifier.placeholder(visible = isLoading),

@@ -31,7 +31,7 @@ class ConferenceHallRepository(
                         val avatar = api.fetchSpeakerAvatar(it.photoURL!!)
                         val bucketItem = speakerDao.saveProfile(year, it.uid, avatar)
                         it.uid to bucketItem.url
-                    } catch (error: Throwable) {
+                    } catch (ignored: Throwable) {
                         it.uid to ""
                     }
                 }

@@ -35,13 +35,6 @@ class FirestoreDatabase(
             .toObject(clazz.java)
     }
 
-    override suspend fun <T : Any> getAll(clazz: KClass<T>): List<T> = withContext(dispatcher) {
-        firestore
-            .collection(collectionName)
-            .listDocuments()
-            .map { it.get().get().toObject(clazz.java)!! }
-    }
-
     override suspend fun <T : Any> getAll(eventId: String, clazz: KClass<T>): List<T> = withContext(dispatcher) {
         firestore
             .collection(projectName)
@@ -95,6 +88,15 @@ class FirestoreDatabase(
                 .map { it.toObject(clazz.java) }
         }
 
+    override suspend fun <T : Any> insert(eventId: String, item: T) = withContext(dispatcher) {
+        firestore
+            .collection(collectionName)
+            .document(eventId)
+            .set(item)
+            .get()
+        Unit
+    }
+
     override suspend fun <T : Any> insert(eventId: String, id: String, item: T) = withContext(dispatcher) {
         firestore
             .collection(projectName)
@@ -104,24 +106,6 @@ class FirestoreDatabase(
             .set(item)
             .get()
         Unit
-    }
-
-    override suspend fun <T : Any> insert(id: String, item: T) = withContext(dispatcher) {
-        firestore
-            .collection(collectionName)
-            .document(id)
-            .set(item)
-            .get()
-        Unit
-    }
-
-    override suspend fun <T : Any> insert(transform: (id: String) -> T): String = withContext(dispatcher) {
-        val docRef = firestore
-            .collection(collectionName)
-            .document()
-        val item = transform(docRef.id)
-        docRef.set(item).get()
-        return@withContext docRef.id
     }
 
     override suspend fun <T : Any> insert(eventId: String, transform: (id: String) -> T): String =
@@ -136,11 +120,11 @@ class FirestoreDatabase(
             return@withContext docRef.id
         }
 
-    override suspend fun <T : Any> update(id: String, item: T) = withContext(dispatcher) {
+    override suspend fun <T : Any> update(eventId: String, item: T) = withContext(dispatcher) {
         val map = item::class.memberProperties.associate { it.name to it.getter.call(item) }
         firestore
             .collection(collectionName)
-            .document(id)
+            .document(eventId)
             .set(map, SetOptions.merge())
             .get()
         Unit
@@ -154,15 +138,6 @@ class FirestoreDatabase(
             .collection(collectionName)
             .document(id)
             .set(map, SetOptions.merge())
-            .get()
-        Unit
-    }
-
-    override suspend fun delete(id: String) = withContext(dispatcher) {
-        firestore
-            .collection(collectionName)
-            .document(id)
-            .delete()
             .get()
         Unit
     }

@@ -1,3 +1,5 @@
+@file:Suppress("MatchingDeclarationName")
+
 package org.gdglille.devfest.android.ui.m2.screens
 
 import android.annotation.SuppressLint
@@ -24,15 +26,18 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import org.gdglille.devfest.android.ui.m2.R
 import org.gdglille.devfest.android.ui.m2.components.appbars.TopAppBar
 import org.gdglille.devfest.android.ui.m2.theme.Conferences4HallTheme
-import org.gdglille.devfest.android.ui.m2.R
 import org.gdglille.devfest.models.UserProfileUi
 
 enum class Field {
     Email, FirstName, LastName, Company
 }
 
+private const val TicketRatio = 2 / 3
+
+@Suppress("LongMethod")
 @Composable
 fun ProfileInput(
     profile: UserProfileUi,
@@ -54,7 +59,9 @@ fun ProfileInput(
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(8.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(it).fillMaxWidth(),
+            modifier = Modifier
+                .padding(it)
+                .fillMaxWidth(),
         ) {
             if (profile.qrCode != null) {
                 item {
@@ -62,7 +69,7 @@ fun ProfileInput(
                         Image(
                             bitmap = profile.qrCode!!.asImageBitmap(),
                             contentDescription = stringResource(id = R.string.semantic_profile_qrcode),
-                            modifier = Modifier.size(this.maxWidth * 2/3)
+                            modifier = Modifier.size(this.maxWidth * TicketRatio)
                         )
                     }
                 }

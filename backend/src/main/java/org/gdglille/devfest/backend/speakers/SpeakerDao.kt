@@ -13,9 +13,9 @@ import org.gdglille.devfest.backend.storage.Storage
 class SpeakerDao(private val database: Database, private val storage: Storage) {
     suspend fun get(eventId: String, id: String): SpeakerDb? = database.get(eventId, id)
 
-    suspend fun getByIds(eventId: String, vararg ids: String): List<SpeakerDb> =
+    suspend fun getByIds(eventId: String, ids: List<String>): List<SpeakerDb> =
         try {
-            database.query(eventId, "id".whereIn(ids.toList()))
+            database.query(eventId, "id".whereIn(ids))
         } catch (ignored: Throwable) {
             emptyList()
         }
