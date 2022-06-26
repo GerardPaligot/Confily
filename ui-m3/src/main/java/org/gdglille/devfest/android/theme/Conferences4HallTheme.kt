@@ -18,8 +18,8 @@ fun Conferences4HallTheme(
 ) {
     CompositionLocalProvider(
         LocalAccessibility provides
-                LocalContext.current.getSystemService(Context.ACCESSIBILITY_SERVICE)
-                        as AccessibilityManager
+            LocalContext.current.getSystemService(Context.ACCESSIBILITY_SERVICE)
+            as AccessibilityManager
     ) {
         val colorSheme = when {
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {

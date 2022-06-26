@@ -23,9 +23,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import org.gdglille.devfest.android.ui.m2.R
 import org.gdglille.devfest.android.ui.m2.components.users.UserItem
 import org.gdglille.devfest.android.ui.m2.theme.Conferences4HallTheme
-import org.gdglille.devfest.android.ui.m2.R
 import org.gdglille.devfest.models.NetworkingUi
 import org.gdglille.devfest.models.UserNetworkingUi
 

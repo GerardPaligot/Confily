@@ -11,10 +11,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import org.gdglille.devfest.android.ui.m2.R
 import org.gdglille.devfest.android.ui.m2.components.appbars.TopAppBar
 import org.gdglille.devfest.android.ui.m2.components.menus.MenuItem
 import org.gdglille.devfest.android.ui.m2.theme.Conferences4HallTheme
-import org.gdglille.devfest.android.ui.m2.R
 import org.gdglille.devfest.models.MenuItemUi
 
 @Composable

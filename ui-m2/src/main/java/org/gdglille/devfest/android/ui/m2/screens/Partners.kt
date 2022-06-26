@@ -10,9 +10,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import org.gdglille.devfest.android.ui.m2.R
 import org.gdglille.devfest.android.ui.m2.components.partners.PartnerDivider
 import org.gdglille.devfest.android.ui.m2.components.partners.PartnerRow
-import org.gdglille.devfest.android.ui.m2.R
 import org.gdglille.devfest.models.PartnerGroupsUi
 
 @ExperimentalMaterialApi

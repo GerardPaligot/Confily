@@ -37,16 +37,16 @@ fun TicketQrCode(
     ) {
         BoxWithConstraints(
             modifier = Modifier
-              .padding(vertical = 24.dp, horizontal = 28.dp)
-              .fillMaxWidth(),
+                .padding(vertical = 24.dp, horizontal = 28.dp)
+                .fillMaxWidth(),
             contentAlignment = Alignment.Center
         ) {
             Image(
                 bitmap = qrCode.asImageBitmap(),
                 contentDescription = stringResource(id = R.string.semantic_ticket_qrcode),
                 modifier = Modifier
-                  .size(this.maxWidth * TicketRatio)
-                  .placeholder(isLoading)
+                    .size(this.maxWidth * TicketRatio)
+                    .placeholder(isLoading)
             )
         }
     }

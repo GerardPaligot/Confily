@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import io.openfeedback.android.OpenFeedbackConfig
 import io.openfeedback.android.components.OpenFeedback
 import io.openfeedback.android.components.rememberOpenFeedbackState
+import org.gdglille.devfest.android.ui.m2.R
 import org.gdglille.devfest.android.ui.m2.components.appbars.ActionItem
 import org.gdglille.devfest.android.ui.m2.components.appbars.ActionItemId
 import org.gdglille.devfest.android.ui.m2.components.appbars.TopAppBar
@@ -26,9 +27,8 @@ import org.gdglille.devfest.android.ui.m2.components.speakers.SpeakerItem
 import org.gdglille.devfest.android.ui.m2.components.talks.OpenFeedbackNotStarted
 import org.gdglille.devfest.android.ui.m2.components.talks.TalkSection
 import org.gdglille.devfest.android.ui.m2.theme.Conferences4HallTheme
-import org.gdglille.devfest.android.ui.m2.R
 import org.gdglille.devfest.models.TalkUi
-import java.util.*
+import java.util.Locale
 
 @Composable
 fun ScheduleDetail(

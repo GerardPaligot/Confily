@@ -64,7 +64,6 @@ val md_theme_dark_shadow = Color(0xFF000000)
 val md_theme_dark_surfaceTint = Color(0xFF4AD7F6)
 val md_theme_dark_surfaceTintColor = Color(0xFF4AD7F6)
 
-
 val seed = Color(0xFF03B7D5)
 
 internal val LightColors = lightColorScheme(
@@ -96,7 +95,6 @@ internal val LightColors = lightColorScheme(
     inversePrimary = md_theme_light_inversePrimary,
     surfaceTint = md_theme_light_surfaceTint,
 )
-
 
 internal val DarkColors = darkColorScheme(
     primary = md_theme_dark_primary,

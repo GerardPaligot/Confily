@@ -62,8 +62,8 @@ fun TicketDetailed(
             ) {
                 Row(
                     modifier = Modifier
-                      .semantics(mergeDescendants = true) {}
-                      .placeholder(isLoading)
+                        .semantics(mergeDescendants = true) {}
+                        .placeholder(isLoading)
                 ) {
                     Text(
                         text = stringResource(R.string.text_ticket_firstname),
@@ -79,8 +79,8 @@ fun TicketDetailed(
                 }
                 Row(
                     modifier = Modifier
-                      .semantics(mergeDescendants = true) {}
-                      .placeholder(isLoading)
+                        .semantics(mergeDescendants = true) {}
+                        .placeholder(isLoading)
                 ) {
                     Text(
                         text = stringResource(R.string.text_ticket_lastname),
@@ -97,15 +97,15 @@ fun TicketDetailed(
             }
             Box(
                 modifier = Modifier
-                  .height(1.dp)
-                  .fillMaxWidth()
-                  .background(color = LocalContentColor.current, shape = DottedShape(10.dp))
+                    .height(1.dp)
+                    .fillMaxWidth()
+                    .background(color = LocalContentColor.current, shape = DottedShape(10.dp))
             )
             Column(
                 verticalArrangement = Arrangement.spacedBy(12.dp),
                 modifier = Modifier
-                  .padding(vertical = 24.dp, horizontal = 28.dp)
-                  .fillMaxWidth(),
+                    .padding(vertical = 24.dp, horizontal = 28.dp)
+                    .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
@@ -113,8 +113,8 @@ fun TicketDetailed(
                     textAlign = TextAlign.Center,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier
-                      .semantics { text = AnnotatedString(cdTicketId) }
-                      .placeholder(isLoading)
+                        .semantics { text = AnnotatedString(cdTicketId) }
+                        .placeholder(isLoading)
                 )
                 if (qrCode != null) {
                     BoxWithConstraints {
@@ -122,8 +122,8 @@ fun TicketDetailed(
                             bitmap = qrCode.asImageBitmap(),
                             contentDescription = stringResource(id = R.string.semantic_ticket_qrcode),
                             modifier = Modifier
-                              .size(this.maxWidth * TicketRatio)
-                              .placeholder(isLoading)
+                                .size(this.maxWidth * TicketRatio)
+                                .placeholder(isLoading)
                         )
                     }
                 }

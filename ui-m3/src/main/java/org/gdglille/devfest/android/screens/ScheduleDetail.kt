@@ -29,7 +29,7 @@ import org.gdglille.devfest.android.components.talks.TalkSection
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
 import org.gdglille.devfest.android.ui.R
 import org.gdglille.devfest.models.TalkUi
-import java.util.*
+import java.util.Locale
 
 @ExperimentalMaterial3Api
 @Composable

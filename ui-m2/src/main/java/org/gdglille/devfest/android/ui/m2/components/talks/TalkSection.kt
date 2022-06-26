@@ -18,8 +18,8 @@ import androidx.compose.ui.unit.dp
 import com.halilibo.richtext.markdown.Markdown
 import com.halilibo.richtext.ui.RichText
 import com.halilibo.richtext.ui.RichTextThemeIntegration
-import org.gdglille.devfest.android.ui.m2.theme.Conferences4HallTheme
 import org.gdglille.devfest.android.ui.m2.R
+import org.gdglille.devfest.android.ui.m2.theme.Conferences4HallTheme
 import org.gdglille.devfest.models.TalkUi
 
 @Composable
