@@ -1,33 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="org.gdglille.devfest.android">
+        xmlns:tools="http://schemas.android.com/tools"
+        package="org.gdglille.devfest.android">
 
     <uses-feature android:name="android.hardware.camera" />
+
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+            android:name=".MainApplication"
             android:allowBackup="false"
-            android:label="@string/app_name"
             android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
-            android:name=".MainApplication"
             android:theme="@style/AppTheme">
+        <profileable
+                android:shell="true"
+                tools:targetApi="29" />
+
         <activity
                 android:name=".MainActivity"
                 android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <receiver
                 android:name=".AlarmReceiver"
-                android:exported="true" >
+                android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.NOTIFY" />
             </intent-filter>
         </receiver>
     </application>
-</manifest> 
+
+</manifest>

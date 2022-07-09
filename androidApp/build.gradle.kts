@@ -59,6 +59,12 @@ android {
             stringBuildConfigField("FIREBASE_APP_ID", appProps)
             stringBuildConfigField("FIREBASE_API_KEY", appProps)
         }
+        create("benchmark") {
+            initWith(buildTypes.getByName("release"))
+            signingConfig = signingConfigs.getByName("debug")
+            matchingFallbacks += listOf("release")
+            isDebuggable = false
+        }
     }
 }
 
