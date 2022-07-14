@@ -5,12 +5,13 @@ kotlinxDatetime = "0.3.2"
 ktor = "2.0.1"
 accompanist = "0.24.8-beta"
 androidDesugarJdkLibs = "1.1.5"
-androidGradlePlugin = "7.2.1"
+androidGradlePlugin = "7.4.0-alpha08"
 androidMaterial = "1.5.0"
 androidxAppcompat = "1.4.2"
 androidxLifecycleVM = "2.4.1"
 androidxBrowser = "1.4.0"
 androidxCamera = "1.1.0-beta03"
+androidxProfile = "1.2.0-rc01"
 compose = "1.2.0-beta01"
 composeMaterial3 = "1.0.0-alpha13"
 composeActivity = "1.4.0"
@@ -20,7 +21,7 @@ composeRichText = "0.11.0"
 composeOpenfeedback = "0.0.8-SNAPSHOT"
 gcpFirestore = "3.0.9"
 gcpStorage = "2.3.0"
-googleServices = "4.3.10"
+googleServices = "4.3.5"
 coil = "2.0.0"
 detekt = "1.19.0"
 barcode = "17.0.2"
@@ -67,6 +68,7 @@ androidx-browser = { group = "androidx.browser", name = "browser", version.ref =
 androidx-camera-camera2 = { group = "androidx.camera", name = "camera-camera2", version.ref = "androidxCamera" }
 androidx-camera-lifecycle = { group = "androidx.camera", name = "camera-lifecycle", version.ref = "androidxCamera" }
 androidx-camera-view = { group = "androidx.camera", name = "camera-view", version.ref = "androidxCamera" }
+androidx-profile = { group = "androidx.profileinstaller", name = "profileinstaller", version.ref = "androidxProfile" }
 androidx-compose-material2 = { group = "androidx.compose.material", name = "material", version.ref = "compose" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "composeMaterial3" }
 androidx-compose-icons = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "compose" }

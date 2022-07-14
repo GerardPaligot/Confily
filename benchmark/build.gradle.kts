@@ -1,3 +1,5 @@
+import com.android.build.api.dsl.ManagedVirtualDevice
+
 plugins {
     id("com.android.test")
     id("org.jetbrains.kotlin.android")
@@ -25,6 +27,20 @@ android {
         }
     }
 
+    testOptions {
+        managedDevices {
+            devices {
+                add(
+                    create<ManagedVirtualDevice>("pixel2Api31") {
+                        device = "Pixel 2"
+                        apiLevel = 31
+                        systemImageSource = "aosp"
+                    }
+                )
+            }
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -47,6 +63,6 @@ dependencies {
 
 androidComponents {
     beforeVariants(selector().all()) {
-        it.enabled = it.buildType == "benchmark"
+        it.enable = it.buildType == "benchmark"
     }
 }

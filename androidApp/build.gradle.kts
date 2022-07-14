@@ -64,6 +64,7 @@ android {
             signingConfig = signingConfigs.getByName("debug")
             matchingFallbacks += listOf("release")
             isDebuggable = false
+            proguardFiles("benchmark-rules.pro")
         }
     }
 }
@@ -101,6 +102,8 @@ dependencies {
     implementation(libs.androidx.camera.view)
     // Required by AndroidX Camera but another dependency generate a conflict with Guava.
     implementation(libs.google.guava)
+
+    implementation(libs.androidx.profile)
 
     implementation(libs.zxing)
     implementation(libs.zxing.android) {
