@@ -15,7 +15,7 @@ import kotlinx.serialization.json.Json
 class ConferenceHallApi(
     private val client: HttpClient,
     private val apiKey: String,
-    private val baseUrl: String = "https://conference-hall.io/api"
+    private val baseUrl: String = "https://${System.getenv("BASE_URL_CONFERENCE_HALL")}/api"
 ) {
     suspend fun fetchSpeakerAvatar(url: String) = client.get(url).body<ByteArray>()
 

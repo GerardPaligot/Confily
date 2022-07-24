@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 data class Category(val id: String, val name: String)
 
 @Serializable
-data class Format(val id: String, val name: String, val description: String)
+data class Format(val id: String, val name: String)
 
 @Serializable
 data class Speaker(

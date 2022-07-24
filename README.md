@@ -62,14 +62,15 @@ Start appengine server inside another terminal to interact with the
 local instance of your Firebase.
 
 ```bash
-# Export credential of a random GCP account.
 export GOOGLE_APPLICATION_CREDENTIALS=/path/to/key.json
+export PROJECT_ID=$RANDOM_FIREBASE_PROJECT_ID
+export BASE_URL_CONFERENCE_HALL=conference-hall.io
 ./gradlew :backend:installDist && ./backend/build/install/backend/bin/backend
 ```
 
 Now, you can start to interact with the backend.
 
-### Deploy in GCP
+### Deploy in GCP with AppEngine
 
 ```bash
 # If you are not yet logged
@@ -77,6 +78,24 @@ gcloud auth login
 gcloud config set project $PROJECT_ID
 # Deploy in production
 ./gradlew :backend:appengineDeploy
+```
+
+### Deploy in GCP with Cloud Run
+
+```bash
+# If you are not yet logged
+gcloud auth login
+gcloud config set project $PROJECT_ID
+# Deploy in production
+gcloud builds submit --timeout 1h --tag gcr.io/$PROJECT_ID/$IMAGE:$TAG .
+gcloud run deploy $IMAGE --image=eu.gcr.io/$PROJECT_ID/$IMAGE:$TAG \
+  --platform managed \
+  --port 8080 \
+  --region europe-west1 \
+  --set-env-vars=IS_CLOUD=true \
+  --set-env-vars=BASE_URL_CONFERENCE_HALL=conference-hall.io \
+  --set-env-vars=PROJECT_ID=$PROJECT_ID \
+  --set-env-vars=GOOGLE_APPLICATION_CREDENTIALS=$GOOGLE_APPLICATION_CREDENTIALS
 ```
 
 ## References

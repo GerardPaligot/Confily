@@ -39,11 +39,11 @@ const val PORT = 8080
 
 @Suppress("LongMethod")
 fun main() {
-    val gcpProjectId = "cms4partners-ce427"
     val projectName = "conferences4hall"
-    val isAppEngine = System.getenv("IS_APPENGINE") == "true"
+    val gcpProjectId = System.getenv("PROJECT_ID")
+    val isCloud = System.getenv("IS_CLOUD") == "true"
     val firestore = FirestoreOptions.getDefaultInstance().toBuilder().run {
-        if (!isAppEngine) {
+        if (!isCloud) {
             setEmulatorHost("localhost:8081")
         }
         setProjectId(gcpProjectId)
@@ -67,7 +67,7 @@ fun main() {
         Storage.Factory.create(
             storage = storage,
             bucketName = projectName,
-            isAppEngine = isAppEngine
+            isAppEngine = isCloud
         )
     )
     val talkDao = TalkDao(
