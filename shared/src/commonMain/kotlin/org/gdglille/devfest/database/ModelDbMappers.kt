@@ -7,14 +7,15 @@ import org.gdglille.devfest.db.Speaker
 import org.gdglille.devfest.db.Talk
 import org.gdglille.devfest.models.ScheduleItem
 
-fun org.gdglille.devfest.models.Speaker.convertToModelDb(): Speaker = Speaker(
+fun org.gdglille.devfest.models.Speaker.convertToModelDb(eventId: String): Speaker = Speaker(
     id = this.id,
     display_name = this.displayName,
     bio = this.bio,
     company = this.company,
     photo_url = this.photoUrl,
     twitter = this.twitter,
-    github = this.github
+    github = this.github,
+    event_id = eventId
 )
 
 fun ScheduleItem.convertToModelDb(): Talk = Talk(

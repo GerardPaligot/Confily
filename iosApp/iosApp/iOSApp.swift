@@ -21,7 +21,7 @@ struct iOSApp: App {
         let agendaRepository = AgendaRepositoryImpl(
             api: api,
             scheduleDao: ScheduleDao(db: db, settings: settings, eventId: eventId),
-            speakerDao: SpeakerDao(db: db),
+            speakerDao: SpeakerDao(db: db, eventId: eventId),
             talkDao: TalkDao(db: db),
             eventDao: EventDao(db: db, eventId: eventId),
             qrCodeGenerator: QrCodeGeneratoriOS()

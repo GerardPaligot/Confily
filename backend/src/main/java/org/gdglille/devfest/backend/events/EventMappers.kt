@@ -6,9 +6,13 @@ import org.gdglille.devfest.backend.partners.convertToModel
 import org.gdglille.devfest.models.EventAddress
 import org.gdglille.devfest.models.EventLunchMenu
 import org.gdglille.devfest.models.EventPartners
+import org.gdglille.devfest.models.QuestionAndResponse
+import org.gdglille.devfest.models.QuestionAndResponseAction
 import org.gdglille.devfest.models.inputs.BilletWebConfigInput
 import org.gdglille.devfest.models.inputs.EventInput
 import org.gdglille.devfest.models.inputs.LunchMenuInput
+import org.gdglille.devfest.models.inputs.QuestionAndResponseActionInput
+import org.gdglille.devfest.models.inputs.QuestionAndResponseInput
 
 fun Event.convertToDb(year: String, eventId: String, apiKey: String) = EventDb(
     year = year,
@@ -25,6 +29,19 @@ fun Event.convertToDb(year: String, eventId: String, apiKey: String) = EventDb(
     ),
     startDate = this.conferenceDates.start,
     endDate = this.conferenceDates.end
+)
+
+fun QuestionAndResponseActionDb.convertToModel() = QuestionAndResponseAction(
+    order = order,
+    label = label,
+    url = url
+)
+
+fun QuestionAndResponseDb.convertToModel() = QuestionAndResponse(
+    order = order,
+    question = question,
+    response = response,
+    actions = this.actions.map { it.convertToModel() }
 )
 
 fun LunchMenuDb.convertToModel() = EventLunchMenu(
@@ -59,11 +76,25 @@ fun EventDb.convertToModel(
         others = others.map { it.convertToModel() }
     ),
     menus = menus.map { it.convertToModel() },
+    qanda = qanda.map { it.convertToModel() },
     twitterUrl = this.twitterUrl,
     linkedinUrl = this.linkedinUrl,
     faqLink = this.faqLink,
     codeOfConductLink = this.codeOfConductLink,
     updatedAt = this.updatedAt
+)
+
+fun QuestionAndResponseActionInput.convertToDb() = QuestionAndResponseActionDb(
+    order = order,
+    label = label,
+    url = url
+)
+
+fun QuestionAndResponseInput.convertToDb() = QuestionAndResponseDb(
+    order = order,
+    question = question,
+    response = response,
+    actions = actions.map { it.convertToDb() }
 )
 
 fun LunchMenuInput.convertToDb() = LunchMenuDb(
@@ -95,6 +126,7 @@ fun EventInput.convertToDb(event: EventDb, openFeedbackId: String?, apiKey: Stri
         lng = this.address.lng
     ),
     menus = menus.map { it.convertToDb() },
+    qanda = qanda.map { it.convertToDb() },
     startDate = this.startDate,
     endDate = this.endDate,
     formats = this.formats,

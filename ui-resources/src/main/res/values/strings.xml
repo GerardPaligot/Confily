@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="screen_agenda">Agenda</string>
+    <string name="screen_speakers">Speakers</string>
     <string name="screen_networking">Networking</string>
+    <string name="screen_info">Info</string>
     <string name="screen_event">Event</string>
+    <string name="screen_menus">Menus</string>
+    <string name="screen_qanda">Q&amp;A</string>
+    <string name="screen_coc">Code of conduct</string>
     <string name="screen_partners">Partners</string>
-    <string name="screen_schedule_detail">Schedule Details</string>
+    <string name="screen_schedule_detail">About the talk</string>
     <string name="screen_profile">Create your profile</string>
     <string name="screen_qrcode_scanner">Qrcode Scanner</string>
     <string name="screen_ticket_qrcode_scanner">Ticket Qrcode Scanner</string>
-    <string name="screen_menus">Menus</string>
+    <string name="screen_my_profile">My profile</string>
+    <string name="screen_contacts">Contacts</string>
 
     <string name="title_gold">Gold</string>
     <string name="title_silver">Silver</string>
@@ -18,10 +24,13 @@
     <string name="text_loading">Loading…</string>
     <string name="text_error">Something wrong happened</string>
     <string name="text_schedule_time">From %s to %s</string>
+    <string name="text_schedule_minutes">%s minutes</string>
     <string name="text_level_advanced">Advanced</string>
     <string name="text_level_intermediate">Intermediate</string>
     <string name="text_level_beginner">Beginner</string>
+    <string name="text_openfeedback_title">Notes &amp; feedback</string>
     <string name="text_openfeedback_not_started">You\'ll be able to give feedback when the session has started!</string>
+    <string name="text_speaker_title">About speakers</string>
     <string name="text_permission">Permission required</string>
     <string name="text_camera_permission_explaination">The camera is important to scan QR code. Please grant the permission.</string>
     <string name="text_camera_permission_deny">Camera permission denied. Please, grant us access on the Settings screen.</string>
@@ -32,9 +41,11 @@
     <string name="text_ticket_firstname">First Name</string>
     <string name="text_ticket_lastname">Last Name</string>
     <string name="text_agenda_no_favorites">You don\'t have any talks in favorites</string>
+    <string name="text_pause_item">Pause ☕</string>
 
     <string name="action_back">Back</string>
     <string name="action_share_talk">Share talk %s</string>
+    <string name="action_favorite_talk">Put in favorite talk %s</string>
     <string name="action_filtering_favorites">Only favorites schedules</string>
     <string name="action_qrcode_scanner">Qrcode scanner</string>
     <string name="action_qrcode_generator">Qrcode generator</string>

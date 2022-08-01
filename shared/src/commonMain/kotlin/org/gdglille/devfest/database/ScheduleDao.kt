@@ -26,7 +26,9 @@ class ScheduleDao(
     private val eventId: String
 ) {
     private val scheduleMapper =
-        { id: String, _: String, startTime: String, endTime: String, room: String, title: String, speakers: List<String>, is_favorite: Boolean ->
+        { id: String, _: String, startTime: String, endTime: String, room: String,
+            title: String, abstract: String, speakers: List<String>,
+            speakersAvatar: List<String>, is_favorite: Boolean ->
             TalkItemUi(
                 id = id,
                 room = room,
@@ -34,7 +36,9 @@ class ScheduleDao(
                 startTime = startTime,
                 endTime = endTime,
                 title = title,
+                abstract = abstract,
                 speakers = speakers,
+                speakersAvatar = speakersAvatar,
                 isFavorite = is_favorite
             )
         }
@@ -91,7 +95,7 @@ class ScheduleDao(
                     open_feedback = talk.open_feedback?.split("/")?.lastOrNull(),
                     open_feedback_url = talk.open_feedback_url
                 )
-                val speakers = schedule.talk!!.speakers.map { it.convertToModelDb() }
+                val speakers = schedule.talk!!.speakers.map { it.convertToModelDb(eventId) }
                 speakers.forEach {
                     db.speakerQueries.insertSpeaker(
                         id = it.id,
@@ -100,7 +104,8 @@ class ScheduleDao(
                         company = it.company,
                         photo_url = it.photo_url,
                         twitter = it.twitter,
-                        github = it.github
+                        github = it.github,
+                        event_id = eventId
                     )
                     db.talkQueries.insertTalkWithSpeaker(speaker_id = it.id, talk_id = talk.id)
                 }
@@ -113,8 +118,10 @@ class ScheduleDao(
                     start_time = schedule.startTime,
                     end_time = schedule.endTime,
                     room = schedule.room,
-                    title = schedule.talk?.title ?: "Pause",
+                    title = schedule.talk?.title ?: "Pause ☕️",
+                    abstract_ = schedule.talk?.abstract ?: "",
                     speakers = schedule.talk?.speakers?.map { it.displayName } ?: emptyList(),
+                    speakers_avatar = schedule.talk?.speakers?.map { it.photoUrl } ?: emptyList(),
                     is_favorite = false
                 )
             } else {
@@ -123,8 +130,10 @@ class ScheduleDao(
                     start_time = schedule.startTime,
                     end_time = schedule.endTime,
                     room = schedule.room,
-                    title = schedule.talk?.title ?: "Pause",
+                    title = schedule.talk?.title ?: "Pause ☕️",
+                    abstract_ = schedule.talk?.abstract ?: "",
                     speakers = schedule.talk?.speakers?.map { it.displayName } ?: emptyList(),
+                    speakers_avatar = schedule.talk?.speakers?.map { it.photoUrl } ?: emptyList(),
                     id = schedule.id
                 )
             }

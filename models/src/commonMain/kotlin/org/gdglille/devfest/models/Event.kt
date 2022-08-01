@@ -15,6 +15,21 @@ data class EventAddress(
 )
 
 @Serializable
+data class QuestionAndResponseAction(
+    val order: Int,
+    val label: String,
+    val url: String
+)
+
+@Serializable
+data class QuestionAndResponse(
+    val order: Int,
+    val question: String,
+    val response: String,
+    val actions: List<QuestionAndResponseAction>
+)
+
+@Serializable
 data class EventLunchMenu(
     val name: String,
     val dish: String,
@@ -41,6 +56,7 @@ data class Event(
     val endDate: String,
     val partners: EventPartners,
     val menus: List<EventLunchMenu>,
+    val qanda: List<QuestionAndResponse>,
     @SerialName("twitter_url")
     val twitterUrl: String?,
     @SerialName("linkedin_url")

@@ -70,8 +70,9 @@ android {
 }
 
 dependencies {
-    implementation(projects.uiM3)
-    implementation(projects.uiResources)
+    implementation(projects.themeVitamin.features)
+    implementation(projects.themeVitamin.ui)
+    implementation(projects.androidData)
     implementation(projects.shared)
     implementation(libs.settings)
 
@@ -79,34 +80,8 @@ dependencies {
 
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.browser)
-    implementation(libs.androidx.lifecycle.vm)
+    implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.activity)
     implementation(libs.androidx.compose.navigation)
-    implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.compose.icons)
-    implementation(libs.androidx.compose.runtime)
-    implementation(libs.androidx.compose.tooling)
-
-    implementation(libs.accompanist.systemuicontroller)
-    implementation(libs.accompanist.permissions)
-
-    implementation(libs.kotlinx.datetime)
-
-    implementation(platform(libs.google.firebase))
-    implementation("com.google.firebase:firebase-crashlytics-ktx")
-    implementation("com.google.firebase:firebase-analytics-ktx")
-
-    implementation(libs.google.barcode)
-    implementation(libs.androidx.camera.camera2)
-    implementation(libs.androidx.camera.lifecycle)
-    implementation(libs.androidx.camera.view)
-    // Required by AndroidX Camera but another dependency generate a conflict with Guava.
-    implementation(libs.google.guava)
-
     implementation(libs.androidx.profile)
-
-    implementation(libs.zxing)
-    implementation(libs.zxing.android) {
-        isTransitive = false
-    }
 }

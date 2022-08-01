@@ -14,6 +14,8 @@ import org.gdglille.devfest.models.EventUi
 import org.gdglille.devfest.models.MenuItemUi
 import org.gdglille.devfest.models.PartnerGroupsUi
 import org.gdglille.devfest.models.PartnerItemUi
+import org.gdglille.devfest.models.QuestionAndResponseActionUi
+import org.gdglille.devfest.models.QuestionAndResponseUi
 import org.gdglille.devfest.models.TicketInfoUi
 import org.gdglille.devfest.models.TicketUi
 import org.gdglille.devfest.toByteArray
@@ -87,6 +89,25 @@ class EventDao(private val db: Conferences4HallDatabase, private val eventId: St
         )
     }
 
+    fun fetchQAndA(): Flow<List<QuestionAndResponseUi>> = db.transactionWithResult {
+        return@transactionWithResult combine(
+            db.qAndAQueries.selectQAndA().asFlow().mapToList(),
+            db.qAndAQueries.selectQAndAActions(eventId).asFlow().mapToList(),
+            transform = { qAndADb, actionsDb ->
+                qAndADb.map { qanda ->
+                    QuestionAndResponseUi(
+                        question = qanda.question,
+                        response = qanda.response,
+                        actions = actionsDb
+                            .filter { it.qanda_id == qanda.order_ }
+                            .sortedBy { it.order_ }
+                            .map { QuestionAndResponseActionUi(label = it.label, url = it.url) }
+                    )
+                }
+            }
+        )
+    }
+
     fun fetchMenus(): Flow<List<MenuItemUi>> =
         db.menuQueries.selectMenus(menuMapper).asFlow().mapToList()
 
@@ -128,6 +149,12 @@ class EventDao(private val db: Conferences4HallDatabase, private val eventId: St
         }
         event.partners.others.forEach {
             db.eventQueries.insertPartner(it.name, event.id, type = "other", it.logoUrl, it.siteUrl)
+        }
+        event.qanda.forEach { qAndA ->
+            db.qAndAQueries.insertQAndA(qAndA.order.toLong(), eventId, qAndA.question, qAndA.response)
+            qAndA.actions.forEach {
+                db.qAndAQueries.insertQAndAAction(it.order.toLong(), eventId, qAndA.order.toLong(), it.label, it.url)
+            }
         }
         event.menus.forEach {
             db.menuQueries.insertMenu(it.name, it.dish, it.accompaniment, it.dessert)

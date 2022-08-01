@@ -16,8 +16,8 @@ import androidx.compose.material.icons.outlined.Handshake
 import androidx.compose.material.icons.outlined.LocalActivity
 import androidx.compose.ui.graphics.vector.ImageVector
 import org.gdglille.devfest.android.ui.m2.R
-import org.gdglille.devfest.android.ui.m2.components.appbars.ActionItem
-import org.gdglille.devfest.android.ui.m2.components.appbars.ActionItemId
+import org.gdglille.devfest.android.ui.resources.ActionItem
+import org.gdglille.devfest.android.ui.resources.ActionItemId
 
 sealed class Screen(
     val route: String,

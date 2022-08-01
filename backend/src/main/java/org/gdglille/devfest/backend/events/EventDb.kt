@@ -12,6 +12,19 @@ data class EventAddressDb(
     val lng: Double = 0.0
 )
 
+data class QuestionAndResponseActionDb(
+    val order: Int = 0,
+    val label: String = "",
+    val url: String = ""
+)
+
+data class QuestionAndResponseDb(
+    val order: Int = 0,
+    val question: String = "",
+    val response: String = "",
+    val actions: List<QuestionAndResponseActionDb> = emptyList()
+)
+
 data class LunchMenuDb(
     val name: String = "",
     val dish: String = "",
@@ -37,6 +50,7 @@ data class EventDb(
     val endDate: String = "",
     val formats: Map<String, Int> = emptyMap(),
     val menus: List<LunchMenuDb> = emptyList(),
+    val qanda: List<QuestionAndResponseDb> = emptyList(),
     val twitterUrl: String? = null,
     val linkedinUrl: String? = null,
     val faqLink: String? = null,

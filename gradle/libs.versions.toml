@@ -34,6 +34,8 @@ sqldelight = "1.5.3"
 settings = "0.8.1"
 zxing = "3.4.1"
 zxingAndroid = "4.3.0"
+# vitaminXml = ""
+vitaminCompose = "0.1.0-beta01"
 
 [libraries]
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
@@ -69,10 +71,13 @@ androidx-camera-camera2 = { group = "androidx.camera", name = "camera-camera2", 
 androidx-camera-lifecycle = { group = "androidx.camera", name = "camera-lifecycle", version.ref = "androidxCamera" }
 androidx-camera-view = { group = "androidx.camera", name = "camera-view", version.ref = "androidxCamera" }
 androidx-profile = { group = "androidx.profileinstaller", name = "profileinstaller", version.ref = "androidxProfile" }
+androidx-compose-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "compose" }
+androidx-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout", version.ref = "compose" }
 androidx-compose-material2 = { group = "androidx.compose.material", name = "material", version.ref = "compose" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "composeMaterial3" }
 androidx-compose-icons = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "compose" }
 androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime-livedata", version.ref = "compose" }
+androidx-compose-lifecycle = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "compose" }
 androidx-compose-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "compose" }
 androidx-compose-activity = { group = "androidx.activity", name = "activity-compose", version.ref = "composeActivity" }
 androidx-compose-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "composeNavigation" }
@@ -113,3 +118,12 @@ settings-coroutines = { group = "com.russhwolf", name = "multiplatform-settings-
 
 zxing = { group = "com.google.zxing", name = "core", version.ref = "zxing" }
 zxing-android = { group = "com.journeyapps", name = "zxing-android-embedded", version.ref = "zxingAndroid" }
+
+vitamin-compose-foundation = { group = "com.decathlon.vitamin.compose", name = "foundation", version.ref = "vitaminCompose" }
+vitamin-compose-appbars = { group = "com.decathlon.vitamin.compose", name = "appbars", version.ref = "vitaminCompose" }
+vitamin-compose-tabs = { group = "com.decathlon.vitamin.compose", name = "tabs", version.ref = "vitaminCompose" }
+vitamin-compose-buttons = { group = "com.decathlon.vitamin.compose", name = "buttons", version.ref = "vitaminCompose" }
+vitamin-compose-dividers = { group = "com.decathlon.vitamin.compose", name = "dividers", version.ref = "vitaminCompose" }
+vitamin-compose-modals = { group = "com.decathlon.vitamin.compose", name = "modals", version.ref = "vitaminCompose" }
+vitamin-compose-textinputs = { group = "com.decathlon.vitamin.compose", name = "text-inputs", version.ref = "vitaminCompose" }
+vitamin-compose-tags = { group = "com.decathlon.vitamin.compose", name = "tags", version.ref = "vitaminCompose" }

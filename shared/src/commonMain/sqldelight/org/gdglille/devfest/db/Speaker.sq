@@ -5,16 +5,20 @@ bio TEXT NOT NULL,
 company TEXT,
 photo_url TEXT NOT NULL ,
 twitter TEXT,
-github TEXT
+github TEXT,
+event_id TEXT NOT NULL
 );
 
 insertSpeaker:
 INSERT OR REPLACE INTO Speaker(
-id, display_name, bio, company, photo_url, twitter, github
-) VALUES (?,?,?,?, ?, ?, ?);
+id, display_name, bio, company, photo_url, twitter, github, event_id
+) VALUES (?,?,?,?, ?, ?, ?, ?);
 
 selectSpeaker:
 SELECT * FROM Speaker WHERE id == ?;
 
 selectSpeakers:
 SELECT * FROM Speaker WHERE id IN ?;
+
+selectSpeakersByEvent:
+SELECT * FROM Speaker WHERE event_id == ?;

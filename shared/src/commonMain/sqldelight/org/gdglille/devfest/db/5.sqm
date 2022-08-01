@@ -1,0 +1,6 @@
+CREATE TABLE QAndA (
+order_ INTEGER NOT NULL PRIMARY KEY,
+event_id TEXT NOT NULL,
+question TEXT NOT NULL,
+response TEXT NOT NULL
+);

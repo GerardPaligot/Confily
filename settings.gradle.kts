@@ -16,10 +16,14 @@ pluginManagement {
 
 rootProject.name = "conferences4hall"
 include(":androidApp")
+include(":android-data")
 include(":shared")
 include(":models")
 include(":backend")
 include(":ui-m3")
 include(":ui-m2")
-include(":ui-resources")
 include(":benchmark")
+include(":theme-vitamin:ui")
+include(":theme-vitamin:features")
+include(":ui-resources")
+include(":ui-camera")

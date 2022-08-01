@@ -8,6 +8,9 @@ import org.gdglille.devfest.db.Schedule
 actual class DatabaseWrapper(val context: Context) {
     actual fun createDb(): Conferences4HallDatabase {
         val driver = AndroidSqliteDriver(Conferences4HallDatabase.Schema, context, "conferences4hall.db")
-        return Conferences4HallDatabase.invoke(driver, Schedule.Adapter(speakersAdapter = listOfStringsAdapter))
+        return Conferences4HallDatabase.invoke(
+            driver,
+            Schedule.Adapter(speakersAdapter = listOfStringsAdapter, speakers_avatarAdapter = listOfStringsAdapter)
+        )
     }
 }

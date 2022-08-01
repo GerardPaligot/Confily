@@ -1,0 +1,7 @@
+CREATE TABLE QAndAAction (
+order_ INTEGER NOT NULL PRIMARY KEY,
+qanda_id INTEGER NOT NULL,
+event_id TEXT NOT NULL,
+label TEXT NOT NULL,
+url TEXT NOT NULL
+);

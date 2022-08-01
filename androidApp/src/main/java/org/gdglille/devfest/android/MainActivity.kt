@@ -6,32 +6,13 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.res.stringResource
-import androidx.navigation.NavType
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
-import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.russhwolf.settings.AndroidSettings
 import com.russhwolf.settings.ExperimentalSettingsApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import org.gdglille.devfest.android.data.QrCodeGeneratorAndroid
-import org.gdglille.devfest.android.screens.home.Home
-import org.gdglille.devfest.android.screens.home.HomeResultKey
-import org.gdglille.devfest.android.screens.menus.MenusVM
-import org.gdglille.devfest.android.screens.profile.ProfileInputVM
-import org.gdglille.devfest.android.screens.scanner.ticket.TicketQrCodeScanner
-import org.gdglille.devfest.android.screens.scanner.vcard.VCardQrCodeScanner
-import org.gdglille.devfest.android.screens.schedule.ScheduleDetailVM
-import org.gdglille.devfest.android.screens.speakers.SpeakerDetailVM
-import org.gdglille.devfest.android.theme.Conferences4HallTheme
+import org.gdglille.devfest.android.theme.vitamin.features.Main
 import org.gdglille.devfest.database.DatabaseWrapper
 import org.gdglille.devfest.database.EventDao
 import org.gdglille.devfest.database.ScheduleDao
@@ -40,13 +21,12 @@ import org.gdglille.devfest.database.TalkDao
 import org.gdglille.devfest.database.UserDao
 import org.gdglille.devfest.network.ConferenceApi
 import org.gdglille.devfest.repositories.AgendaRepository
+import org.gdglille.devfest.repositories.SpeakerRepository
 import org.gdglille.devfest.repositories.UserRepository
 
-@Suppress("LongMethod")
-@ExperimentalPermissionsApi
-@ExperimentalMaterial3Api
-@FlowPreview
 @ExperimentalSettingsApi
+@Suppress("LongMethod")
+@FlowPreview
 @ExperimentalCoroutinesApi
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         val agendaRepository = AgendaRepository.Factory.create(
             api = api,
             scheduleDao = ScheduleDao(db, settings, eventId),
-            speakerDao = SpeakerDao(db),
+            speakerDao = SpeakerDao(db, eventId),
             talkDao = TalkDao(db),
             eventDao = EventDao(db, eventId),
             qrCodeGenerator = QrCodeGeneratorAndroid()
@@ -70,153 +50,37 @@ class MainActivity : AppCompatActivity() {
             userDao = UserDao(db = db, settings = settings, eventId = eventId),
             qrCodeGenerator = QrCodeGeneratorAndroid()
         )
+        val speakerRepository = SpeakerRepository.Factory.create(
+            speakerDao = SpeakerDao(db, eventId)
+        )
         val openFeedbackState = (application as MainApplication).openFeedbackConfig
         setContent {
-            Conferences4HallTheme {
-                val systemUiController = rememberSystemUiController()
-                val useDarkIcons = !isSystemInDarkTheme()
-                val statusBarColor = MaterialTheme.colorScheme.surface
-                SideEffect {
-                    systemUiController.setSystemBarsColor(color = statusBarColor, darkIcons = useDarkIcons)
+            val reportSubject = stringResource(id = R.string.text_report_subject)
+            val reportAppTarget = stringResource(id = R.string.text_report_app_target)
+            Main(
+                agendaRepository = agendaRepository,
+                userRepository = userRepository,
+                speakerRepository = speakerRepository,
+                alarmIntentFactory = AlarmIntentFactoryImpl,
+                openFeedbackState = openFeedbackState,
+                launchUrl = { launchUrl(it) },
+                onReportClicked = {
+                    val intent = Intent(Intent.ACTION_SENDTO).apply {
+                        data = Uri.parse("mailto:${BuildConfig.CONTACT_MAIL}")
+                        putExtra(Intent.EXTRA_SUBJECT, reportSubject)
+                    }
+                    startActivity(Intent.createChooser(intent, reportAppTarget))
+                },
+                onShareClicked = { text ->
+                    val sendIntent: Intent = Intent().apply {
+                        action = Intent.ACTION_SEND
+                        putExtra(Intent.EXTRA_TEXT, text)
+                        type = "text/plain"
+                    }
+                    val shareIntent = Intent.createChooser(sendIntent, null)
+                    startActivity(shareIntent)
                 }
-                val navController = rememberNavController()
-                NavHost(navController = navController, startDestination = "home") {
-                    composable(route = "home") {
-                        val reportSubject = stringResource(id = R.string.text_report_subject)
-                        val reportAppTarget = stringResource(id = R.string.text_report_app_target)
-                        Home(
-                            agendaRepository = agendaRepository,
-                            userRepository = userRepository,
-                            savedStateHandle = navController.currentBackStackEntry?.savedStateHandle,
-                            onTalkClicked = {
-                                navController.navigate("schedules/$it")
-                            },
-                            onFaqClick = { launchUrl(it) },
-                            onCoCClick = { launchUrl(it) },
-                            onTwitterClick = {
-                                it?.let { launchUrl(it) }
-                            },
-                            onLinkedInClick = {
-                                it?.let { launchUrl(it) }
-                            },
-                            onPartnerClick = {
-                                it?.let { launchUrl(it) }
-                            },
-                            onScannerClicked = {
-                                navController.navigate("scanner/vcard")
-                            },
-                            onTicketScannerClicked = {
-                                navController.navigate("scanner/ticket")
-                            },
-                            onMenusClicked = {
-                                navController.navigate("menus")
-                            },
-                            onQrCodeClicked = {
-                                navController.navigate("profile")
-                            },
-                            onReportClicked = {
-                                val intent = Intent(Intent.ACTION_SENDTO).apply {
-                                    data = Uri.parse("mailto:${BuildConfig.CONTACT_MAIL}")
-                                    putExtra(Intent.EXTRA_SUBJECT, reportSubject)
-                                }
-                                startActivity(Intent.createChooser(intent, reportAppTarget))
-                            }
-                        )
-                    }
-                    composable(
-                        route = "schedules/{scheduleId}",
-                        arguments = listOf(navArgument("scheduleId") { type = NavType.StringType })
-                    ) {
-                        ScheduleDetailVM(
-                            scheduleId = it.arguments?.getString("scheduleId")!!,
-                            openFeedbackState = openFeedbackState,
-                            agendaRepository = agendaRepository,
-                            onBackClicked = {
-                                navController.popBackStack()
-                            },
-                            onSpeakerClicked = {
-                                navController.navigate("speakers/$it")
-                            },
-                            onShareClicked = { text ->
-                                val sendIntent: Intent = Intent().apply {
-                                    action = Intent.ACTION_SEND
-                                    putExtra(Intent.EXTRA_TEXT, text)
-                                    type = "text/plain"
-                                }
-                                val shareIntent = Intent.createChooser(sendIntent, null)
-                                startActivity(shareIntent)
-                            }
-                        )
-                    }
-                    composable(
-                        route = "speakers/{speakerId}",
-                        arguments = listOf(navArgument("speakerId") { type = NavType.StringType })
-                    ) {
-                        SpeakerDetailVM(
-                            speakerId = it.arguments?.getString("speakerId")!!,
-                            agendaRepository = agendaRepository,
-                            onTwitterClick = { launchUrl(it) },
-                            onGitHubClick = { launchUrl(it) },
-                            onBackClicked = {
-                                navController.popBackStack()
-                            }
-                        )
-                    }
-                    composable(
-                        route = "scanner/vcard"
-                    ) {
-                        VCardQrCodeScanner(
-                            navigateToSettingsScreen = {},
-                            onQrCodeDetected = { vcard ->
-                                navController
-                                    .previousBackStackEntry
-                                    ?.savedStateHandle
-                                    ?.set(HomeResultKey.QR_CODE_VCARD, vcard)
-                                navController.popBackStack()
-                            },
-                            onBackClicked = {
-                                navController.popBackStack()
-                            }
-                        )
-                    }
-                    composable(
-                        route = "scanner/ticket"
-                    ) {
-                        TicketQrCodeScanner(
-                            navigateToSettingsScreen = {},
-                            onQrCodeDetected = { barcode ->
-                                navController
-                                    .previousBackStackEntry
-                                    ?.savedStateHandle
-                                    ?.set(HomeResultKey.QR_CODE_TICKET, barcode)
-                                navController.popBackStack()
-                            }
-                        ) {
-                            navController.popBackStack()
-                        }
-                    }
-                    composable(
-                        route = "profile"
-                    ) {
-                        ProfileInputVM(
-                            userRepository = userRepository,
-                            onBackClicked = {
-                                navController.popBackStack()
-                            }
-                        )
-                    }
-                    composable(
-                        route = "menus"
-                    ) {
-                        MenusVM(
-                            agendaRepository = agendaRepository,
-                            onBackClicked = {
-                                navController.popBackStack()
-                            }
-                        )
-                    }
-                }
-            }
+            )
         }
     }
 
