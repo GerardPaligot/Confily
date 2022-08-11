@@ -1,6 +1,7 @@
 package org.gdglille.devfest.android.theme.vitamin.ui.components.qanda
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,8 +12,10 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.semantics
@@ -39,6 +42,7 @@ fun QAndAItem(
     onExpandedClicked: (QuestionAndResponseUi) -> Unit,
     onLinkClicked: (url: String) -> Unit
 ) {
+    val degrees by animateFloatAsState(if (qAndA.expanded) 180f else 0f)
     Card(
         onClick = { onExpandedClicked(qAndA) },
         modifier = modifier.semantics {
@@ -66,7 +70,8 @@ fun QAndAItem(
                 )
                 Icon(
                     painter = painterResource(R.drawable.ic_vtmn_arrow_down_s_line),
-                    contentDescription = null
+                    contentDescription = null,
+                    modifier = Modifier.rotate(degrees = degrees)
                 )
             }
             AnimatedVisibility(
