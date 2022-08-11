@@ -32,6 +32,7 @@ interface AgendaRepository {
     suspend fun partners(): Flow<PartnerGroupsUi>
     suspend fun qanda(): Flow<List<QuestionAndResponseUi>>
     suspend fun menus(): Flow<List<MenuItemUi>>
+    suspend fun coc(): Flow<String>
     suspend fun agenda(): Flow<AgendaUi>
     suspend fun markAsRead(scheduleId: String, isFavorite: Boolean)
     suspend fun scheduleItem(scheduleId: String): TalkUi
@@ -116,6 +117,7 @@ class AgendaRepositoryImpl(
     override suspend fun partners(): Flow<PartnerGroupsUi> = eventDao.fetchPartners()
     override suspend fun qanda(): Flow<List<QuestionAndResponseUi>> = eventDao.fetchQAndA()
     override suspend fun menus(): Flow<List<MenuItemUi>> = eventDao.fetchMenus()
+    override suspend fun coc(): Flow<String> = eventDao.fetchCoC()
 
     override suspend fun agenda(): Flow<AgendaUi> = scheduleDao.fetchSchedules()
 

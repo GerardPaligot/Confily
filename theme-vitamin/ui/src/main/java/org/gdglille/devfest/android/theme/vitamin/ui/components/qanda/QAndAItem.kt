@@ -33,6 +33,9 @@ import org.gdglille.devfest.android.theme.vitamin.ui.theme.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.vitamin.ui.theme.placeholder
 import org.gdglille.devfest.models.QuestionAndResponseUi
 
+private const val ExpandedDegrees = 180f
+private const val ClosedDegrees = 0f
+
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun QAndAItem(
@@ -42,7 +45,7 @@ fun QAndAItem(
     onExpandedClicked: (QuestionAndResponseUi) -> Unit,
     onLinkClicked: (url: String) -> Unit
 ) {
-    val degrees by animateFloatAsState(if (qAndA.expanded) 180f else 0f)
+    val degrees by animateFloatAsState(if (qAndA.expanded) ExpandedDegrees else ClosedDegrees)
     Card(
         onClick = { onExpandedClicked(qAndA) },
         modifier = modifier.semantics {

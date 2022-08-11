@@ -18,7 +18,10 @@ import org.gdglille.devfest.models.OpenFeedback
 import org.gdglille.devfest.models.SessionOF
 import org.gdglille.devfest.models.SocialOF
 import org.gdglille.devfest.models.SpeakerOF
+import org.gdglille.devfest.models.inputs.CoCInput
 import org.gdglille.devfest.models.inputs.EventInput
+import org.gdglille.devfest.models.inputs.LunchMenuInput
+import org.gdglille.devfest.models.inputs.QuestionAndResponseInput
 import java.time.LocalDateTime
 
 class EventRepository(
@@ -49,6 +52,21 @@ class EventRepository(
     suspend fun update(eventId: String, apiKey: String, eventInput: EventInput) = coroutineScope {
         val event = eventDao.getVerified(eventId, apiKey)
         eventDao.createOrUpdate(eventInput.convertToDb(event, eventInput.openFeedbackId, apiKey))
+        return@coroutineScope eventId
+    }
+
+    suspend fun updateMenus(eventId: String, apiKey: String, menus: List<LunchMenuInput>) = coroutineScope {
+        eventDao.updateMenus(eventId, apiKey, menus.map { it.convertToDb() })
+        return@coroutineScope eventId
+    }
+
+    suspend fun updateQAndA(eventId: String, apiKey: String, qAndA: List<QuestionAndResponseInput>) = coroutineScope {
+        eventDao.updateQuestionsAndResponses(eventId, apiKey, qAndA.mapIndexed { index, it -> it.convertToDb(index) })
+        return@coroutineScope eventId
+    }
+
+    suspend fun updateCoC(eventId: String, apiKey: String, coc: CoCInput) = coroutineScope {
+        eventDao.updateCoc(eventId, apiKey, coc.coc)
         return@coroutineScope eventId
     }
 

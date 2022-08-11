@@ -2,6 +2,7 @@ package org.gdglille.devfest.database
 
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
+import com.squareup.sqldelight.runtime.coroutines.mapToOne
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.combineTransform
@@ -23,7 +24,7 @@ import org.gdglille.devfest.toNativeImage
 
 class EventDao(private val db: Conferences4HallDatabase, private val eventId: String) {
     private val eventMapper =
-        { _: String, name: String, address: String, date: String, twitter: String?,
+        { _: String, name: String, address: String, date: String, _: String, twitter: String?,
             twitter_url: String?, linkedin: String?, linkedin_url: String?, faq_url: String,
             coc_url: String, _: Long ->
             EventInfoUi(
@@ -111,6 +112,8 @@ class EventDao(private val db: Conferences4HallDatabase, private val eventId: St
     fun fetchMenus(): Flow<List<MenuItemUi>> =
         db.menuQueries.selectMenus(menuMapper).asFlow().mapToList()
 
+    fun fetchCoC(): Flow<String> = db.eventQueries.selectCoc(eventId).asFlow().mapToOne()
+
     fun insertEvent(event: Event) = db.transaction {
         val eventDb = event.convertToModelDb()
         db.eventQueries.insertEvent(
@@ -118,6 +121,7 @@ class EventDao(private val db: Conferences4HallDatabase, private val eventId: St
             name = eventDb.name,
             address = eventDb.address,
             date = eventDb.date,
+            coc = eventDb.coc,
             twitter = eventDb.twitter,
             twitter_url = eventDb.twitter_url,
             linkedin = eventDb.linkedin,

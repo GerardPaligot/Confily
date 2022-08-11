@@ -24,20 +24,14 @@ data class EventAddressInput(
 
 @Serializable
 data class QuestionAndResponseActionInput(
-    val order: Int,
     val label: String,
     val url: String
 ) : Validator {
-    override fun validate(): List<String> {
-        val errors = arrayListOf<String>()
-        if (order < 0) errors.add("Your order number should be positive")
-        return errors
-    }
+    override fun validate(): List<String> = emptyList()
 }
 
 @Serializable
 data class QuestionAndResponseInput(
-    val order: Int,
     val question: String,
     val response: String,
     val actions: List<QuestionAndResponseActionInput> = emptyList()
@@ -51,6 +45,13 @@ data class LunchMenuInput(
     val dish: String,
     val accompaniment: String,
     val dessert: String
+) : Validator {
+    override fun validate(): List<String> = emptyList()
+}
+
+@Serializable
+data class CoCInput(
+    val coc: String
 ) : Validator {
     override fun validate(): List<String> = emptyList()
 }
@@ -80,8 +81,6 @@ data class EventInput(
     @SerialName("end_date")
     val endDate: String,
     val formats: Map<String, Int> = emptyMap(),
-    val menus: List<LunchMenuInput> = emptyList(),
-    val qanda: List<QuestionAndResponseInput> = emptyList(),
     @SerialName("twitter_url")
     val twitterUrl: String?,
     @SerialName("linkedin_url")

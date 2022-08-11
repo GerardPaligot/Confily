@@ -37,6 +37,7 @@ fun org.gdglille.devfest.models.Event.convertToModelDb(): Event = Event(
     name = this.name,
     address = this.address.address,
     date = this.startDate.dropLast(1).toLocalDateTime().format(),
+    coc = this.coc,
     twitter = this.twitterUrl?.split("twitter.com/")?.get(1),
     twitter_url = this.twitterUrl,
     linkedin = this.name,

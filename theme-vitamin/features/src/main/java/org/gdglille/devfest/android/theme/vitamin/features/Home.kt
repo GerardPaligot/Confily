@@ -26,7 +26,7 @@ import org.gdglille.devfest.repositories.AgendaRepository
 import org.gdglille.devfest.repositories.SpeakerRepository
 import org.gdglille.devfest.repositories.UserRepository
 
-@Suppress("UnusedPrivateMember")
+@Suppress("LongMethod", "UnusedPrivateMember")
 @ExperimentalCoroutinesApi
 @FlowPreview
 @Composable
@@ -136,9 +136,15 @@ fun Home(
                         )
                     }
                     composable(Screen.CoC.route) {
+                        CoCVM(
+                            agendaRepository = agendaRepository,
+                            onReportClicked = onReportClicked
+                        )
                     }
                 }
             )
         }
+
+        else -> {}
     }
 }

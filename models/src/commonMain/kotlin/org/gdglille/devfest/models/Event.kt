@@ -57,6 +57,7 @@ data class Event(
     val partners: EventPartners,
     val menus: List<EventLunchMenu>,
     val qanda: List<QuestionAndResponse>,
+    val coc: String,
     @SerialName("twitter_url")
     val twitterUrl: String?,
     @SerialName("linkedin_url")

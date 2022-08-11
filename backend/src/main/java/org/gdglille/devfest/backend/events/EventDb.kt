@@ -51,6 +51,7 @@ data class EventDb(
     val formats: Map<String, Int> = emptyMap(),
     val menus: List<LunchMenuDb> = emptyList(),
     val qanda: List<QuestionAndResponseDb> = emptyList(),
+    val coc: String = "",
     val twitterUrl: String? = null,
     val linkedinUrl: String? = null,
     val faqLink: String? = null,

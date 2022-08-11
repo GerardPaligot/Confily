@@ -63,6 +63,7 @@
     <string name="action_submit_deny">Non</string>
     <string name="action_submit_later">Plus tard</string>
     <string name="action_networking_delete">Supprimer le profile</string>
+    <string name="action_contact_organizers">Contacter les organisateurs</string>
 
     <string name="input_email">Ton adresse email*</string>
     <string name="input_firstname">Ton prénom*</string>

@@ -77,6 +77,7 @@ fun EventDb.convertToModel(
     ),
     menus = menus.map { it.convertToModel() },
     qanda = qanda.map { it.convertToModel() },
+    coc = coc,
     twitterUrl = this.twitterUrl,
     linkedinUrl = this.linkedinUrl,
     faqLink = this.faqLink,
@@ -84,17 +85,17 @@ fun EventDb.convertToModel(
     updatedAt = this.updatedAt
 )
 
-fun QuestionAndResponseActionInput.convertToDb() = QuestionAndResponseActionDb(
+fun QuestionAndResponseActionInput.convertToDb(order: Int) = QuestionAndResponseActionDb(
     order = order,
     label = label,
     url = url
 )
 
-fun QuestionAndResponseInput.convertToDb() = QuestionAndResponseDb(
+fun QuestionAndResponseInput.convertToDb(order: Int) = QuestionAndResponseDb(
     order = order,
     question = question,
     response = response,
-    actions = actions.map { it.convertToDb() }
+    actions = actions.mapIndexed { index, it -> it.convertToDb(index) }
 )
 
 fun LunchMenuInput.convertToDb() = LunchMenuDb(
@@ -125,8 +126,9 @@ fun EventInput.convertToDb(event: EventDb, openFeedbackId: String?, apiKey: Stri
         lat = this.address.lat,
         lng = this.address.lng
     ),
-    menus = menus.map { it.convertToDb() },
-    qanda = qanda.map { it.convertToDb() },
+    menus = event.menus,
+    qanda = event.qanda,
+    coc = event.coc,
     startDate = this.startDate,
     endDate = this.endDate,
     formats = this.formats,
