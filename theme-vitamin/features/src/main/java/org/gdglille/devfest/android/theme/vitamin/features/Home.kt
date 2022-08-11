@@ -19,7 +19,8 @@ import org.gdglille.devfest.android.data.models.convertToModelUi
 import org.gdglille.devfest.android.theme.vitamin.features.structure.VitaminScaffoldNavigation
 import org.gdglille.devfest.android.theme.vitamin.features.viewmodels.HomeUiState
 import org.gdglille.devfest.android.theme.vitamin.features.viewmodels.HomeViewModel
-import org.gdglille.devfest.android.theme.vitamin.ui.screens.Screen
+import org.gdglille.devfest.android.theme.vitamin.ui.ActionIds
+import org.gdglille.devfest.android.theme.vitamin.ui.Screen
 import org.gdglille.devfest.android.ui.resources.HomeResultKey
 import org.gdglille.devfest.repositories.AgendaRepository
 import org.gdglille.devfest.repositories.SpeakerRepository
@@ -80,10 +81,13 @@ fun Home(
                 topActions = screenUi.topActions,
                 tabActions = screenUi.tabActions,
                 bottomActions = screenUi.bottomActions,
+                fabAction = screenUi.fabAction,
+                onFabActionClicked = {
+                    if (it.id == ActionIds.REPORT_ID) {
+                        onReportClicked()
+                    }
+                },
                 scrollable = true,
-                onTopActionClicked = { },
-                onTabClicked = { },
-                onBottomActionClicked = { },
                 navigationIcon = null,
                 builder = {
                     composable(Screen.Agenda.route) {

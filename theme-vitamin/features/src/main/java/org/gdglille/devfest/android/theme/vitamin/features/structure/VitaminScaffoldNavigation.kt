@@ -14,6 +14,7 @@ import androidx.navigation.compose.rememberNavController
 import com.decathlon.vitamin.compose.appbars.topbars.icons.VitaminNavigationIconButtons
 import org.gdglille.devfest.android.theme.vitamin.ui.components.structure.VitaminScaffold
 import org.gdglille.devfest.android.ui.resources.BottomAction
+import org.gdglille.devfest.android.ui.resources.FabAction
 import org.gdglille.devfest.android.ui.resources.TabAction
 import org.gdglille.devfest.android.ui.resources.TopAction
 
@@ -26,10 +27,12 @@ fun VitaminScaffoldNavigation(
     topActions: List<TopAction> = emptyList(),
     tabActions: List<TabAction> = emptyList(),
     bottomActions: List<BottomAction> = emptyList(),
+    fabAction: FabAction? = null,
     scrollable: Boolean = false,
-    onTopActionClicked: (TopAction) -> Unit,
-    onTabClicked: (TabAction) -> Unit,
-    onBottomActionClicked: (BottomAction) -> Unit,
+    onTopActionClicked: (TopAction) -> Unit = {},
+    onTabClicked: (TabAction) -> Unit = {},
+    onBottomActionClicked: (BottomAction) -> Unit = {},
+    onFabActionClicked: (FabAction) -> Unit = {},
     navigationIcon: @Composable (VitaminNavigationIconButtons.() -> Unit)? = null,
     builder: NavGraphBuilder.() -> Unit
 ) {
@@ -42,6 +45,7 @@ fun VitaminScaffoldNavigation(
         topActions = topActions,
         tabActions = tabActions,
         bottomActions = bottomActions,
+        fabAction = fabAction,
         scrollable = scrollable,
         routeSelected = route,
         onTopActionClicked = onTopActionClicked,
@@ -64,6 +68,7 @@ fun VitaminScaffoldNavigation(
             }
             onBottomActionClicked(it)
         },
+        onFabActionClicked = onFabActionClicked,
         navigationIcon = navigationIcon,
         content = {
             NavHost(

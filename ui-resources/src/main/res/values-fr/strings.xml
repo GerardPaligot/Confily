@@ -50,6 +50,7 @@
     <string name="action_qrcode_scanner">Scan de Qrcode</string>
     <string name="action_qrcode_generator">Génère un Qrcode</string>
     <string name="action_report">Reporter quelque chose aux organisateurs</string>
+    <string name="action_report_label">Reporter</string>
     <string name="action_system_settings">Ouvre les préférences systèmes</string>
     <string name="action_faq">FAQ</string>
     <string name="action_coc">Code de Conduite</string>

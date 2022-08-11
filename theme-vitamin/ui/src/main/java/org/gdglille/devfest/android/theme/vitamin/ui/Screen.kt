@@ -1,20 +1,30 @@
-package org.gdglille.devfest.android.theme.vitamin.ui.screens
+package org.gdglille.devfest.android.theme.vitamin.ui
 
 import androidx.annotation.StringRes
-import org.gdglille.devfest.android.theme.vitamin.ui.R
 import org.gdglille.devfest.android.ui.resources.BottomAction
+import org.gdglille.devfest.android.ui.resources.FabAction
 import org.gdglille.devfest.android.ui.resources.TabAction
 import org.gdglille.devfest.android.ui.resources.TopAction
 
-object TopActionIds {
+object ActionIds {
     const val SHARE_ID = 0
+    const val REPORT_ID = 1
 }
 
 object TopActions {
     val share = TopAction(
-        id = TopActionIds.SHARE_ID,
+        id = ActionIds.SHARE_ID,
         icon = R.drawable.ic_vtmn_share_line,
         contentDescription = R.string.action_share_talk
+    )
+}
+
+object FabActions {
+    val report = FabAction(
+        id = ActionIds.REPORT_ID,
+        icon = R.drawable.ic_vtmn_error_warning_line,
+        contentDescription = null,
+        label = R.string.action_report_label
     )
 }
 

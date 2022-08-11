@@ -3,6 +3,8 @@ package org.gdglille.devfest.android.theme.vitamin.ui.components.structure
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.material.ExtendedFloatingActionButton
+import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -19,12 +21,14 @@ import com.decathlon.vitamin.compose.appbars.topbars.icons.VitaminNavigationIcon
 import com.decathlon.vitamin.compose.foundation.VitaminTheme
 import com.decathlon.vitamin.compose.tabs.TabItem
 import com.decathlon.vitamin.compose.tabs.VitaminTabs
+import org.gdglille.devfest.android.theme.vitamin.ui.BottomActions
+import org.gdglille.devfest.android.theme.vitamin.ui.FabActions
 import org.gdglille.devfest.android.theme.vitamin.ui.R
-import org.gdglille.devfest.android.theme.vitamin.ui.screens.BottomActions
-import org.gdglille.devfest.android.theme.vitamin.ui.screens.TabActions
-import org.gdglille.devfest.android.theme.vitamin.ui.screens.TopActions
+import org.gdglille.devfest.android.theme.vitamin.ui.TabActions
+import org.gdglille.devfest.android.theme.vitamin.ui.TopActions
 import org.gdglille.devfest.android.theme.vitamin.ui.theme.Conferences4HallTheme
 import org.gdglille.devfest.android.ui.resources.BottomAction
+import org.gdglille.devfest.android.ui.resources.FabAction
 import org.gdglille.devfest.android.ui.resources.TabAction
 import org.gdglille.devfest.android.ui.resources.TopAction
 
@@ -35,11 +39,13 @@ fun VitaminScaffold(
     topActions: List<TopAction> = emptyList(),
     tabActions: List<TabAction> = emptyList(),
     bottomActions: List<BottomAction> = emptyList(),
+    fabAction: FabAction? = null,
     scrollable: Boolean = false,
     routeSelected: String? = null,
-    onTopActionClicked: (TopAction) -> Unit,
-    onTabClicked: (TabAction) -> Unit,
-    onBottomActionClicked: (BottomAction) -> Unit,
+    onTopActionClicked: (TopAction) -> Unit = {},
+    onTabClicked: (TabAction) -> Unit = {},
+    onBottomActionClicked: (BottomAction) -> Unit = {},
+    onFabActionClicked: (FabAction) -> Unit = {},
     navigationIcon: @Composable (VitaminNavigationIconButtons.() -> Unit)? = null,
     content: @Composable (PaddingValues) -> Unit
 ) {
@@ -105,7 +111,25 @@ fun VitaminScaffold(
         },
         backgroundColor = VitaminTheme.colors.vtmnBackgroundSecondary,
         contentColor = VitaminTheme.colors.vtmnContentPrimary,
-        content = content
+        content = content,
+        floatingActionButton = {
+            if (fabAction != null) {
+                ExtendedFloatingActionButton(
+                    text = { Text(text = stringResource(fabAction.label)) },
+                    icon = {
+                        Icon(
+                            painter = painterResource(fabAction.icon),
+                            contentDescription = fabAction.contentDescription?.let { stringResource(it) }
+                        )
+                    },
+                    backgroundColor = VitaminTheme.colors.vtmnBackgroundBrandPrimary,
+                    contentColor = VitaminTheme.colors.vtmnContentPrimaryReversed,
+                    onClick = {
+                        onFabActionClicked(fabAction)
+                    }
+                )
+            }
+        },
     )
 }
 
@@ -127,11 +151,9 @@ internal fun VitaminScaffoldPreview() {
                 BottomActions.speakers,
                 BottomActions.info
             ),
+            fabAction = FabActions.report,
             scrollable = true,
             routeSelected = "agenda",
-            onTopActionClicked = {},
-            onTabClicked = {},
-            onBottomActionClicked = {},
             content = {}
         )
     }

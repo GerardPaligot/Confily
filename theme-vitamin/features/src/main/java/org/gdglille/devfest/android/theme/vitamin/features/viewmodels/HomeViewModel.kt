@@ -10,9 +10,10 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.gdglille.devfest.android.theme.vitamin.features.models.ScreenUi
-import org.gdglille.devfest.android.theme.vitamin.ui.screens.BottomActions
-import org.gdglille.devfest.android.theme.vitamin.ui.screens.Screen
-import org.gdglille.devfest.android.theme.vitamin.ui.screens.TabActions
+import org.gdglille.devfest.android.theme.vitamin.ui.BottomActions
+import org.gdglille.devfest.android.theme.vitamin.ui.FabActions
+import org.gdglille.devfest.android.theme.vitamin.ui.Screen
+import org.gdglille.devfest.android.theme.vitamin.ui.TabActions
 import org.gdglille.devfest.android.ui.resources.BottomAction
 import org.gdglille.devfest.android.ui.resources.TabAction
 import org.gdglille.devfest.models.ScaffoldConfigUi
@@ -96,7 +97,12 @@ class HomeViewModel(
                 )
 
                 Screen.Event.route -> HomeUiState.Success(
-                    ScreenUi(title = Screen.Event.title, tabActions = tabActions, bottomActions = bottomActions)
+                    ScreenUi(
+                        title = Screen.Event.title,
+                        tabActions = tabActions,
+                        bottomActions = bottomActions,
+                        fabAction = FabActions.report
+                    )
                 )
 
                 Screen.Menus.route -> HomeUiState.Success(
