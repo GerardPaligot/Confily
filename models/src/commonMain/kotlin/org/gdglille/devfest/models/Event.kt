@@ -5,6 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class EventAddress(
+    val formatted: List<String>,
     val address: String,
     val country: String,
     @SerialName("country_code")

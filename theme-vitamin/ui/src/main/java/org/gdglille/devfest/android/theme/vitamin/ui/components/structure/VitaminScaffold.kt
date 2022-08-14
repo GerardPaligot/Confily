@@ -151,7 +151,7 @@ internal fun VitaminScaffoldPreview() {
                 BottomActions.speakers,
                 BottomActions.info
             ),
-            fabAction = FabActions.report,
+            fabAction = FabActions.scanTicket,
             scrollable = true,
             routeSelected = "agenda",
             content = {}

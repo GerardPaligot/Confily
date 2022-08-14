@@ -16,8 +16,7 @@ fun SpeakerDetailVM(
     speakerId: String,
     agendaRepository: AgendaRepository,
     modifier: Modifier = Modifier,
-    onTwitterClick: (url: String) -> Unit,
-    onGitHubClick: (url: String) -> Unit,
+    onLinkClicked: (url: String) -> Unit,
     onBackClicked: () -> Unit
 ) {
     val viewModel: SpeakerViewModel = viewModel(
@@ -30,8 +29,7 @@ fun SpeakerDetailVM(
         is SpeakerUiState.Success -> SpeakerDetail(
             speaker = (uiState.value as SpeakerUiState.Success).speaker,
             modifier = modifier,
-            onTwitterClick = onTwitterClick,
-            onGitHubClick = onGitHubClick,
+            onLinkClicked = onLinkClicked,
             onBackClicked = onBackClicked
         )
     }

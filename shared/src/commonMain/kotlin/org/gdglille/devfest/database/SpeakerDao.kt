@@ -22,7 +22,7 @@ class SpeakerDao(private val db: Conferences4HallDatabase, private val eventId: 
             )
         }
     private val mapperItem =
-        { id: String, display_name: String, bio: String, company: String?, photo_url: String, twitter: String?, github: String?, _: String ->
+        { id: String, display_name: String, _: String, company: String?, photo_url: String, twitter: String?, _: String?, _: String ->
             SpeakerItemUi(
                 id = id,
                 name = display_name,

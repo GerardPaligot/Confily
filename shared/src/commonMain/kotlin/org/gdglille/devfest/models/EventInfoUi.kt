@@ -2,7 +2,10 @@ package org.gdglille.devfest.models
 
 data class EventInfoUi(
     val name: String,
+    val formattedAddress: List<String>,
     val address: String,
+    val latitude: Double,
+    val longitude: Double,
     val date: String,
     val twitter: String?,
     val twitterUrl: String?,
@@ -14,7 +17,10 @@ data class EventInfoUi(
     companion object {
         val fake = EventInfoUi(
             name = "Devfest Lille",
+            formattedAddress = listOf("Kinepolis", "Rue du Château d'Isenghien", "Lille", "France"),
             address = "1 Rue du Château d'Isenghien, 59160 Lille",
+            latitude = 50.6526513,
+            longitude = 2.9826465,
             date = "June 9th 2022",
             twitter = "DevfestLille",
             twitterUrl = "https://twitter.com/DevfestLille",

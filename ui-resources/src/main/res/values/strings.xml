@@ -20,6 +20,8 @@
     <string name="title_silver">Silver</string>
     <string name="title_bronze">Bronze</string>
     <string name="title_notif_reminder_talk">Talk in 10 minutes in %s</string>
+    <string name="title_ticket">Your ticket</string>
+    <string name="title_plan">Plan</string>
 
     <string name="text_loading">Loading…</string>
     <string name="text_error">Something wrong happened</string>
@@ -50,7 +52,6 @@
     <string name="action_qrcode_scanner">Qrcode scanner</string>
     <string name="action_qrcode_generator">Qrcode generator</string>
     <string name="action_report">Report something to organizers</string>
-    <string name="action_report_label">Report</string>
     <string name="action_system_settings">Open System settings</string>
     <string name="action_faq">FAQ</string>
     <string name="action_coc">Code Of Conduct</string>
@@ -77,4 +78,5 @@
     <string name="semantic_twitter">Twitter of %s</string>
     <string name="semantic_github">GitHub of %s</string>
     <string name="semantic_linkedin">LinkedIn of %s</string>
+    <string name="semantic_start_itinerary">Start itinerary to the event</string>
 </resources>

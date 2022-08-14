@@ -37,7 +37,8 @@ class HomeViewModel(
             hasSpeakerList = false,
             hasPartnerList = false,
             hasMenus = false,
-            hasQAndA = false
+            hasQAndA = false,
+            hasBilletWebTicket = false
         )
     )
     private val _routeState = MutableStateFlow<String?>(null)
@@ -101,7 +102,7 @@ class HomeViewModel(
                         title = Screen.Event.title,
                         tabActions = tabActions,
                         bottomActions = bottomActions,
-                        fabAction = FabActions.report
+                        fabAction = if (config.hasBilletWebTicket) FabActions.scanTicket else null
                     )
                 )
 

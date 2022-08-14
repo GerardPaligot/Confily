@@ -9,6 +9,9 @@ data class EventUi(
             eventInfo = EventInfoUi(
                 name = "Devfest Lille",
                 address = "Kinepolis, Rue du Château d'Isenghien, Lille, France",
+                formattedAddress = listOf("Kinepolis", "Rue du Château d'Isenghien", "Lille", "France"),
+                latitude = 50.6526513,
+                longitude = 2.9826465,
                 date = "9 Juin 2019",
                 twitter = "DevfestLille",
                 twitterUrl = "https://twitter.com/DevfestLille",

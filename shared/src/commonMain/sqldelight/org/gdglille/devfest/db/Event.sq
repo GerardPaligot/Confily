@@ -1,7 +1,12 @@
+import kotlin.collections.List;
+
 CREATE TABLE Event (
 id TEXT NOT NULL PRIMARY KEY,
 name TEXT NOT NULL,
+formatted_address TEXT AS List<String> NOT NULL,
 address TEXT NOT NULL,
+latitude REAL NOT NULL,
+longitude REAL NOT NULL,
 date TEXT NOT NULL,
 coc TEXT NOT NULL,
 twitter TEXT,
@@ -23,11 +28,11 @@ site_url TEXT
 
 insertEvent:
 INSERT OR REPLACE INTO Event(
-id, name, address, date, coc, twitter, twitter_url, linkedin, linkedin_url, faq_url, coc_url, updated_at
-) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+id, name, formatted_address, address, latitude, longitude, date, coc, twitter, twitter_url, linkedin, linkedin_url, faq_url, coc_url, updated_at
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
 
 selectEvent:
-SELECT id, name, address, date, coc, twitter, twitter_url, linkedin, linkedin_url, faq_url, coc_url, updated_at FROM Event WHERE id == ?;
+SELECT id, name, formatted_address, address, latitude, longitude, date, coc, twitter, twitter_url, linkedin, linkedin_url, faq_url, coc_url, updated_at FROM Event WHERE id == ?;
 
 selectCoc:
 SELECT coc FROM Event WHERE id == ?;

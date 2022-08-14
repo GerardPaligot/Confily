@@ -4,6 +4,7 @@ import java.text.DecimalFormat
 import java.time.LocalDateTime
 
 data class EventAddressDb(
+    val formatted: List<String> = emptyList(),
     val address: String = "",
     val country: String = "",
     val countryCode: String = "",

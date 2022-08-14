@@ -8,7 +8,7 @@ import org.gdglille.devfest.android.ui.resources.TopAction
 
 object ActionIds {
     const val SHARE_ID = 0
-    const val REPORT_ID = 1
+    const val SCAN_TICKET = 1
 }
 
 object TopActions {
@@ -20,11 +20,11 @@ object TopActions {
 }
 
 object FabActions {
-    val report = FabAction(
-        id = ActionIds.REPORT_ID,
-        icon = R.drawable.ic_vtmn_error_warning_line,
+    val scanTicket = FabAction(
+        id = ActionIds.SCAN_TICKET,
+        icon = R.drawable.ic_vtmn_fullscreen_line,
         contentDescription = null,
-        label = R.string.action_report_label
+        label = R.string.action_ticket_scanner
     )
 }
 

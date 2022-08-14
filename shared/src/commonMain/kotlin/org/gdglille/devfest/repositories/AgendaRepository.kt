@@ -108,7 +108,8 @@ class AgendaRepositoryImpl(
                 hasSpeakerList = true,
                 hasPartnerList = partners.golds.isNotEmpty() || partners.silvers.isNotEmpty() || partners.bronzes.isNotEmpty(),
                 hasMenus = menus.isNotEmpty(),
-                hasQAndA = qanda.isNotEmpty()
+                hasQAndA = qanda.isNotEmpty(),
+                hasBilletWebTicket = true
             )
         }
     )

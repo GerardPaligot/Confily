@@ -41,6 +41,7 @@ fun Home(
     onTalkClicked: (id: String) -> Unit,
     onLinkClicked: (url: String?) -> Unit,
     onSpeakerClicked: (id: String) -> Unit,
+    onItineraryClicked: (lat: Double, lng: Double) -> Unit,
     onScannerClicked: () -> Unit,
     onTicketScannerClicked: () -> Unit,
     onQrCodeClicked: () -> Unit,
@@ -83,8 +84,8 @@ fun Home(
                 bottomActions = screenUi.bottomActions,
                 fabAction = screenUi.fabAction,
                 onFabActionClicked = {
-                    if (it.id == ActionIds.REPORT_ID) {
-                        onReportClicked()
+                    if (it.id == ActionIds.SCAN_TICKET) {
+                        onTicketScannerClicked()
                     }
                 },
                 scrollable = true,
@@ -119,11 +120,8 @@ fun Home(
                     composable(Screen.Event.route) {
                         EventVM(
                             agendaRepository = agendaRepository,
-                            onFaqClick = onLinkClicked,
-                            onCoCClick = onLinkClicked,
-                            onTicketScannerClicked = onTicketScannerClicked,
-                            onTwitterClick = onLinkClicked,
-                            onLinkedInClick = onLinkClicked,
+                            onLinkClicked = onLinkClicked,
+                            onItineraryClicked = onItineraryClicked
                         )
                     }
                     composable(Screen.Menus.route) {

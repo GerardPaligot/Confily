@@ -2,6 +2,7 @@ package org.gdglille.devfest.database
 
 import com.squareup.sqldelight.drivers.native.NativeSqliteDriver
 import org.gdglille.devfest.db.Conferences4HallDatabase
+import org.gdglille.devfest.db.Event
 import org.gdglille.devfest.db.Schedule
 
 actual class DatabaseWrapper {
@@ -9,6 +10,7 @@ actual class DatabaseWrapper {
         val driver = NativeSqliteDriver(Conferences4HallDatabase.Schema, "conferences4hall.db")
         return Conferences4HallDatabase.invoke(
             driver,
+            Event.Adapter(formatted_addressAdapter = listOfStringsAdapter),
             Schedule.Adapter(speakersAdapter = listOfStringsAdapter, speakers_avatarAdapter = listOfStringsAdapter)
         )
     }

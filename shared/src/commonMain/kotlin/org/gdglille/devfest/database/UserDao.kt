@@ -25,7 +25,7 @@ class UserDao(private val db: Conferences4HallDatabase, private val settings: Se
         }).executeAsOneOrNull()
 
     fun fetchUserPreview(): UserProfileUi? =
-        db.ticketQueries.selectTicket(eventId, mapper = { event_id, id, ext_id, email, firstname, lastname, barcode, qrcode ->
+        db.ticketQueries.selectTicket(eventId, mapper = { _, _, _, _, firstname, lastname, _, _ ->
             return@selectTicket UserProfileUi(
                 email = "",
                 firstName = firstname ?: "",

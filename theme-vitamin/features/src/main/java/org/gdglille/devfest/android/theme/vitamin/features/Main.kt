@@ -32,7 +32,8 @@ fun Main(
     openFeedbackState: OpenFeedbackConfig,
     launchUrl: (String) -> Unit,
     onReportClicked: () -> Unit,
-    onShareClicked: (text: String) -> Unit
+    onShareClicked: (text: String) -> Unit,
+    onItineraryClicked: (lat: Double, lng: Double) -> Unit
 ) {
     Conferences4HallTheme {
         val systemUiController = rememberSystemUiController()
@@ -54,6 +55,7 @@ fun Main(
                         navController.navigate("schedules/$it")
                     },
                     onLinkClicked = { url -> url?.let { launchUrl(it) } },
+                    onItineraryClicked = onItineraryClicked,
                     onSpeakerClicked = {
                         navController.navigate("speakers/$it")
                     },
@@ -93,12 +95,10 @@ fun Main(
                 SpeakerDetailVM(
                     speakerId = it.arguments?.getString("speakerId")!!,
                     agendaRepository = agendaRepository,
-                    onTwitterClick = { launchUrl(it) },
-                    onGitHubClick = { launchUrl(it) },
-                    onBackClicked = {
-                        navController.popBackStack()
-                    }
-                )
+                    onLinkClicked = { launchUrl(it) }
+                ) {
+                    navController.popBackStack()
+                }
             }
             composable(
                 route = "scanner/vcard"

@@ -20,6 +20,7 @@ fun Event.convertToDb(year: String, eventId: String, apiKey: String) = EventDb(
     apiKey = apiKey,
     name = this.name,
     address = EventAddressDb(
+        formatted = this.address.formattedAddress.split(",").map { it.trim() },
         address = this.address.formattedAddress,
         country = this.address.country.longName,
         countryCode = this.address.country.shortName,
@@ -60,6 +61,7 @@ fun EventDb.convertToModel(
     id = this.year,
     name = this.name,
     address = EventAddress(
+        formatted = this.address.formatted,
         address = this.address.address,
         country = this.address.country,
         countryCode = this.address.countryCode,
@@ -119,6 +121,7 @@ fun EventInput.convertToDb(event: EventDb, openFeedbackId: String?, apiKey: Stri
     apiKey = apiKey,
     name = this.name,
     address = EventAddressDb(
+        formatted = this.address.address.split(",").map { it.trim() },
         address = this.address.address,
         country = this.address.country,
         countryCode = this.address.countryCode,

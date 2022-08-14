@@ -72,12 +72,18 @@ class MainActivity : AppCompatActivity() {
                     startActivity(Intent.createChooser(intent, reportAppTarget))
                 },
                 onShareClicked = { text ->
-                    val sendIntent: Intent = Intent().apply {
-                        action = Intent.ACTION_SEND
+                    val sendIntent = Intent(Intent.ACTION_SEND).apply {
                         putExtra(Intent.EXTRA_TEXT, text)
                         type = "text/plain"
                     }
                     val shareIntent = Intent.createChooser(sendIntent, null)
+                    startActivity(shareIntent)
+                },
+                onItineraryClicked = { lat, lng ->
+                    val intent = Intent(Intent.ACTION_VIEW).apply {
+                        data = Uri.parse("google.navigation:q=$lat,$lng")
+                    }
+                    val shareIntent = Intent.createChooser(intent, null)
                     startActivity(shareIntent)
                 }
             )

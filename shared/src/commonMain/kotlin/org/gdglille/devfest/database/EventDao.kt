@@ -24,12 +24,15 @@ import org.gdglille.devfest.toNativeImage
 
 class EventDao(private val db: Conferences4HallDatabase, private val eventId: String) {
     private val eventMapper =
-        { _: String, name: String, address: String, date: String, _: String, twitter: String?,
-            twitter_url: String?, linkedin: String?, linkedin_url: String?, faq_url: String,
-            coc_url: String, _: Long ->
+        { _: String, name: String, formattedAddress: List<String>, address: String, latitude: Double, longitude: Double,
+            date: String, _: String, twitter: String?, twitter_url: String?, linkedin: String?, linkedin_url: String?,
+            faq_url: String, coc_url: String, _: Long ->
             EventInfoUi(
                 name = name,
+                formattedAddress = formattedAddress,
                 address = address,
+                latitude = latitude,
+                longitude = longitude,
                 date = date,
                 twitter = twitter,
                 twitterUrl = twitter_url,
@@ -119,7 +122,10 @@ class EventDao(private val db: Conferences4HallDatabase, private val eventId: St
         db.eventQueries.insertEvent(
             id = eventDb.id,
             name = eventDb.name,
+            formatted_address = eventDb.formatted_address,
             address = eventDb.address,
+            latitude = eventDb.latitude,
+            longitude = eventDb.longitude,
             date = eventDb.date,
             coc = eventDb.coc,
             twitter = eventDb.twitter,

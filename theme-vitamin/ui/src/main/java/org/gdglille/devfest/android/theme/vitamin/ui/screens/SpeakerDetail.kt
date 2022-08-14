@@ -24,8 +24,7 @@ import org.gdglille.devfest.models.SpeakerUi
 fun SpeakerDetail(
     speaker: SpeakerUi,
     modifier: Modifier = Modifier,
-    onTwitterClick: (url: String) -> Unit,
-    onGitHubClick: (url: String) -> Unit,
+    onLinkClicked: (url: String) -> Unit,
     onBackClicked: () -> Unit
 ) {
     Scaffold(
@@ -44,9 +43,8 @@ fun SpeakerDetail(
                 item {
                     SpeakerSocialSection(
                         speaker = speaker,
-                        onTwitterClick = onTwitterClick,
-                        onGitHubClick = onGitHubClick,
-                        modifier = Modifier.padding(horizontal = 16.dp)
+                        modifier = Modifier.padding(horizontal = 16.dp),
+                        onLinkClicked = onLinkClicked
                     )
                 }
                 item {
@@ -77,9 +75,7 @@ fun SpeakerListPreview() {
     Conferences4HallTheme {
         SpeakerDetail(
             speaker = SpeakerUi.fake,
-            onTwitterClick = {},
-            onGitHubClick = {},
-            onBackClicked = {}
-        )
+            onLinkClicked = {}
+        ) {}
     }
 }
