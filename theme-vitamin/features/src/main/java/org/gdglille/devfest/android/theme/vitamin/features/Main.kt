@@ -1,7 +1,9 @@
 package org.gdglille.devfest.android.theme.vitamin.features
 
+import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.SideEffect
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -12,9 +14,10 @@ import com.decathlon.vitamin.compose.foundation.VitaminTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import io.openfeedback.android.OpenFeedbackConfig
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import org.gdglille.devfest.android.data.AlarmIntentFactory
-import org.gdglille.devfest.android.screens.scanner.vcard.VCardQrCodeScanner
-import org.gdglille.devfest.android.theme.vitamin.ui.screens.TicketQrCodeScanner
+import org.gdglille.devfest.android.theme.vitamin.ui.screens.event.TicketQrCodeScanner
+import org.gdglille.devfest.android.theme.vitamin.ui.screens.networking.VCardQrCodeScanner
 import org.gdglille.devfest.android.theme.vitamin.ui.theme.Conferences4HallTheme
 import org.gdglille.devfest.android.ui.resources.HomeResultKey
 import org.gdglille.devfest.repositories.AgendaRepository
@@ -23,6 +26,7 @@ import org.gdglille.devfest.repositories.UserRepository
 
 @Suppress("LongMethod")
 @ExperimentalCoroutinesApi
+@FlowPreview
 @Composable
 fun Main(
     agendaRepository: AgendaRepository,
@@ -39,6 +43,7 @@ fun Main(
         val systemUiController = rememberSystemUiController()
         val useDarkIcons = !isSystemInDarkTheme()
         val statusBarColor = VitaminTheme.colors.vtmnBackgroundPrimary
+        val brandStatusBarColor = VitaminTheme.colors.vtmnBackgroundBrandPrimary
         SideEffect {
             systemUiController.setSystemBarsColor(color = statusBarColor, darkIcons = useDarkIcons)
         }
@@ -59,13 +64,13 @@ fun Main(
                     onSpeakerClicked = {
                         navController.navigate("speakers/$it")
                     },
-                    onScannerClicked = {
+                    onContactScannerClicked = {
                         navController.navigate("scanner/vcard")
                     },
                     onTicketScannerClicked = {
                         navController.navigate("scanner/ticket")
                     },
-                    onQrCodeClicked = {
+                    onCreateProfileClicked = {
                         navController.navigate("profile")
                     },
                     onReportClicked = onReportClicked
@@ -100,9 +105,7 @@ fun Main(
                     navController.popBackStack()
                 }
             }
-            composable(
-                route = "scanner/vcard"
-            ) {
+            composable(route = "scanner/vcard") {
                 VCardQrCodeScanner(
                     navigateToSettingsScreen = {},
                     onQrCodeDetected = { vcard ->
@@ -117,9 +120,7 @@ fun Main(
                     }
                 )
             }
-            composable(
-                route = "scanner/ticket"
-            ) {
+            composable(route = "scanner/ticket") {
                 TicketQrCodeScanner(
                     navigateToSettingsScreen = {},
                     onQrCodeDetected = { barcode ->
@@ -133,9 +134,19 @@ fun Main(
                     navController.popBackStack()
                 }
             }
-            composable(
-                route = "profile"
-            ) {
+            composable(route = "profile") {
+                DisposableEffect(LocalOnBackPressedDispatcherOwner.current) {
+                    systemUiController.setStatusBarColor(
+                        color = brandStatusBarColor,
+                        darkIcons = useDarkIcons
+                    )
+                    onDispose {
+                        systemUiController.setSystemBarsColor(
+                            color = statusBarColor,
+                            darkIcons = useDarkIcons
+                        )
+                    }
+                }
                 ProfileInputVM(
                     userRepository = userRepository,
                     onBackClicked = {

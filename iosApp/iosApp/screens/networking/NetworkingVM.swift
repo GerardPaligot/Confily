@@ -27,7 +27,7 @@ struct NetworkingVM: View {
                     Networking(
                         networkingUi: networkingUi,
                         onValidation: { email, firstName, lastName, company in
-                            viewModel.fetchProfile(email: email, firstName: firstName, lastName: lastName, company: company)
+                            viewModel.saveProfile(email: email, firstName: firstName, lastName: lastName, company: company)
                         },
                         onDismissProfileSheet: {
                             viewModel.closeQrCode()
@@ -72,9 +72,6 @@ struct NetworkingVM: View {
                         }
                     }
                 }
-            }
-            .onAppear {
-                viewModel.fetchProfile()
             }
         }
         .onAppear {

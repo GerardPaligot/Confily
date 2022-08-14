@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.vitamin.ui.screens
+package org.gdglille.devfest.android.theme.vitamin.ui.screens.event
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth

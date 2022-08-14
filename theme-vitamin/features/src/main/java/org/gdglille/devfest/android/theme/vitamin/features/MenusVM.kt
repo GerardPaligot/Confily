@@ -8,7 +8,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import org.gdglille.devfest.android.data.viewmodels.MenusUiState
 import org.gdglille.devfest.android.data.viewmodels.MenusViewModel
-import org.gdglille.devfest.android.theme.vitamin.ui.screens.Menus
+import org.gdglille.devfest.android.theme.vitamin.ui.screens.event.Menus
 import org.gdglille.devfest.repositories.AgendaRepository
 
 @Composable

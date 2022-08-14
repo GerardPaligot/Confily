@@ -24,10 +24,11 @@ struct iOSApp: App {
             speakerDao: SpeakerDao(db: db, eventId: eventId),
             talkDao: TalkDao(db: db),
             eventDao: EventDao(db: db, eventId: eventId),
+            userDao: UserDao(db: db, eventId: eventId),
             qrCodeGenerator: QrCodeGeneratoriOS()
         )
         let userRepository = UserRepositoryImpl(
-            userDao: UserDao(db: db, settings: settings, eventId: eventId),
+            userDao: UserDao(db: db, eventId: eventId),
             qrCodeGenerator: QrCodeGeneratoriOS()
         )
 		WindowGroup {

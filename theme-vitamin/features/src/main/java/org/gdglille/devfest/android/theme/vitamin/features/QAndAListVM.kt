@@ -8,7 +8,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import org.gdglille.devfest.android.data.viewmodels.QAndAUiState
 import org.gdglille.devfest.android.data.viewmodels.QAndAViewModel
-import org.gdglille.devfest.android.theme.vitamin.ui.screens.QAndAList
+import org.gdglille.devfest.android.theme.vitamin.ui.screens.event.QAndAList
 import org.gdglille.devfest.repositories.AgendaRepository
 
 @Composable

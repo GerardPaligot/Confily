@@ -13,6 +13,7 @@ import org.gdglille.devfest.database.EventDao
 import org.gdglille.devfest.database.ScheduleDao
 import org.gdglille.devfest.database.SpeakerDao
 import org.gdglille.devfest.database.TalkDao
+import org.gdglille.devfest.database.UserDao
 import org.gdglille.devfest.models.AgendaUi
 import org.gdglille.devfest.models.EventUi
 import org.gdglille.devfest.models.MenuItemUi
@@ -58,8 +59,9 @@ interface AgendaRepository {
             speakerDao: SpeakerDao,
             talkDao: TalkDao,
             eventDao: EventDao,
+            userDao: UserDao,
             qrCodeGenerator: QrCodeGenerator
-        ): AgendaRepository = AgendaRepositoryImpl(api, scheduleDao, speakerDao, talkDao, eventDao, qrCodeGenerator)
+        ): AgendaRepository = AgendaRepositoryImpl(api, scheduleDao, speakerDao, talkDao, eventDao, userDao, qrCodeGenerator)
     }
 }
 
@@ -72,6 +74,7 @@ class AgendaRepositoryImpl(
     private val speakerDao: SpeakerDao,
     private val talkDao: TalkDao,
     private val eventDao: EventDao,
+    private val userDao: UserDao,
     private val qrCodeGenerator: QrCodeGenerator
 ) : AgendaRepository {
     override suspend fun fetchAndStoreAgenda() {
@@ -102,14 +105,16 @@ class AgendaRepositoryImpl(
         eventDao.fetchPartners(),
         eventDao.fetchMenus(),
         eventDao.fetchQAndA(),
-        transform = { partners, menus, qanda ->
+        userDao.fetchProfile(),
+        transform = { partners, menus, qanda, profile ->
             ScaffoldConfigUi(
-                hasNetworking = false,
+                hasNetworking = true,
                 hasSpeakerList = true,
                 hasPartnerList = partners.golds.isNotEmpty() || partners.silvers.isNotEmpty() || partners.bronzes.isNotEmpty(),
                 hasMenus = menus.isNotEmpty(),
                 hasQAndA = qanda.isNotEmpty(),
-                hasBilletWebTicket = true
+                hasBilletWebTicket = true,
+                hasProfile = profile?.qrCode != null
             )
         }
     )

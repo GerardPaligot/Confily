@@ -42,9 +42,9 @@ fun Home(
     onLinkClicked: (url: String?) -> Unit,
     onSpeakerClicked: (id: String) -> Unit,
     onItineraryClicked: (lat: Double, lng: Double) -> Unit,
-    onScannerClicked: () -> Unit,
+    onContactScannerClicked: () -> Unit,
     onTicketScannerClicked: () -> Unit,
-    onQrCodeClicked: () -> Unit,
+    onCreateProfileClicked: () -> Unit,
     onReportClicked: () -> Unit
 ) {
     val viewModel: HomeViewModel = viewModel(
@@ -83,12 +83,21 @@ fun Home(
                 tabActions = screenUi.tabActions,
                 bottomActions = screenUi.bottomActions,
                 fabAction = screenUi.fabAction,
+                scrollable = screenUi.scrollable,
                 onFabActionClicked = {
-                    if (it.id == ActionIds.SCAN_TICKET) {
-                        onTicketScannerClicked()
+                    when (it.id) {
+                        ActionIds.SCAN_TICKET -> {
+                            onTicketScannerClicked()
+                        }
+                        ActionIds.SCAN_CONTACTS -> {
+                            onContactScannerClicked()
+                        }
+                        ActionIds.CREATE_PROFILE -> {
+                            onCreateProfileClicked()
+                        }
+                        else -> TODO("Fab not implemented")
                     }
                 },
-                scrollable = true,
                 navigationIcon = null,
                 builder = {
                     composable(Screen.Agenda.route) {
@@ -105,9 +114,13 @@ fun Home(
                         )
                     }
                     composable(Screen.MyProfile.route) {
+                        MyProfileVM(
+                            userRepository = userRepository,
+                            onEditInformation = onCreateProfileClicked
+                        )
                     }
                     composable(Screen.Contacts.route) {
-                        NetworkingVM(
+                        ContactsVM(
                             userRepository = userRepository
                         )
                     }

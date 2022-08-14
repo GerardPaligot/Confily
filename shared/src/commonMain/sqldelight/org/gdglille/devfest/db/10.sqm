@@ -1,0 +1,8 @@
+CREATE TABLE Profile(
+event_id TEXT NOT NULL PRIMARY KEY,
+email TEXT NOT NULL,
+firstname TEXT NOT NULL,
+lastname TEXT NOT NULL,
+company TEXT,
+qrcode BLOB NOT NULL
+);

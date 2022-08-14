@@ -24,9 +24,9 @@ import org.gdglille.devfest.repositories.AgendaRepository
 import org.gdglille.devfest.repositories.SpeakerRepository
 import org.gdglille.devfest.repositories.UserRepository
 
-@ExperimentalSettingsApi
 @Suppress("LongMethod")
 @FlowPreview
+@ExperimentalSettingsApi
 @ExperimentalCoroutinesApi
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,10 +44,11 @@ class MainActivity : AppCompatActivity() {
             speakerDao = SpeakerDao(db, eventId),
             talkDao = TalkDao(db),
             eventDao = EventDao(db, eventId),
+            userDao = UserDao(db = db, eventId = eventId),
             qrCodeGenerator = QrCodeGeneratorAndroid()
         )
         val userRepository = UserRepository.Factory.create(
-            userDao = UserDao(db = db, settings = settings, eventId = eventId),
+            userDao = UserDao(db = db, eventId = eventId),
             qrCodeGenerator = QrCodeGeneratorAndroid()
         )
         val speakerRepository = SpeakerRepository.Factory.create(

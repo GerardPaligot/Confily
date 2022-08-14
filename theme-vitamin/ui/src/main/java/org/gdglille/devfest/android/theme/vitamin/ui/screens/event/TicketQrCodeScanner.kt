@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.screens.scanner.vcard
+package org.gdglille.devfest.android.theme.vitamin.ui.screens.event
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
@@ -6,24 +6,23 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import org.gdglille.devfest.android.data.models.VCardModel
 import org.gdglille.devfest.android.theme.vitamin.ui.R
 import org.gdglille.devfest.android.theme.vitamin.ui.components.appbars.TopAppBar
 import org.gdglille.devfest.android.theme.vitamin.ui.components.permissions.FeatureThatRequiresCameraPermission
-import org.gdglille.devfest.android.ui.camera.VCardCameraPreview
+import org.gdglille.devfest.android.ui.camera.TicketCameraPreview
 
 @Composable
-fun VCardQrCodeScanner(
+fun TicketQrCodeScanner(
     modifier: Modifier = Modifier,
     navigateToSettingsScreen: () -> Unit,
-    onQrCodeDetected: (VCardModel) -> Unit,
+    onQrCodeDetected: (String) -> Unit,
     onBackClicked: () -> Unit,
 ) {
     Scaffold(
         modifier = modifier,
         topBar = {
             TopAppBar(
-                title = stringResource(id = R.string.screen_qrcode_scanner),
+                title = stringResource(id = R.string.screen_ticket_qrcode_scanner),
                 navigationIcon = {
                     Context(
                         onClick = onBackClicked,
@@ -38,8 +37,8 @@ fun VCardQrCodeScanner(
                     navigateToSettingsScreen = navigateToSettingsScreen,
                     onRefusePermissionClicked = onBackClicked,
                     content = {
-                        VCardCameraPreview(onQrCodeDetected = { vcards ->
-                            onQrCodeDetected(vcards.first())
+                        TicketCameraPreview(onQrCodeDetected = { barcode ->
+                            onQrCodeDetected(barcode.first())
                         })
                     }
                 )

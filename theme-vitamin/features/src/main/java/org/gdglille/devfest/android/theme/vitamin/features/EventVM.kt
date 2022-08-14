@@ -8,7 +8,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import org.gdglille.devfest.android.data.viewmodels.EventUiState
 import org.gdglille.devfest.android.data.viewmodels.EventViewModel
-import org.gdglille.devfest.android.theme.vitamin.ui.screens.Event
+import org.gdglille.devfest.android.theme.vitamin.ui.screens.event.Event
 import org.gdglille.devfest.repositories.AgendaRepository
 
 @Composable

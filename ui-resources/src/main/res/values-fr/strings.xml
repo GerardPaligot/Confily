@@ -10,7 +10,7 @@
     <string name="screen_coc">Code de conduite</string>
     <string name="screen_partners">Partenaires</string>
     <string name="screen_schedule_detail">A propos du talk</string>
-    <string name="screen_profile">Création de ton profil</string>
+    <string name="screen_profile">Création de mon profil</string>
     <string name="screen_qrcode_scanner">Scan Qrcode</string>
     <string name="screen_ticket_qrcode_scanner">Scan Qrcode Ticket</string>
     <string name="screen_my_profile">Mon profile</string>
@@ -44,6 +44,9 @@
     <string name="text_ticket_lastname">Nom</string>
     <string name="text_agenda_no_favorites">Vous n\'avez pas de conférences en favoris</string>
     <string name="text_pause_item">Pause ☕</string>
+    <string name="text_here_we_go">C\'est parti !</string>
+    <string name="text_empty_networking">Ici c\'est la zone de networking. Créer ton profil pour pouvoir ajouter les profils que tu croiseras et avec qui tu veux garder contact après l\'événement !</string>
+    <string name="text_empty_contacts">Scanne le QR code de ton interlocuteur pour l’ajouter à ton répertoire de contact.</string>
 
     <string name="action_back">Retour</string>
     <string name="action_share_talk">Partage la session %s</string>
@@ -56,6 +59,7 @@
     <string name="action_faq">FAQ</string>
     <string name="action_coc">Code de Conduite</string>
     <string name="action_ticket_scanner">Scan ton ticket</string>
+    <string name="action_contacts_scanner">Scan</string>
     <string name="action_menus">Menus</string>
     <string name="action_favorites_remove">Retire la session de tes favoris</string>
     <string name="action_favorites_add">Ajoute la session dans tes favoris</string>
@@ -65,11 +69,12 @@
     <string name="action_submit_later">Plus tard</string>
     <string name="action_networking_delete">Supprimer le profile</string>
     <string name="action_contact_organizers">Contacter les organisateurs</string>
+    <string name="action_edit_profile">Modifier mes informations</string>
 
-    <string name="input_email">Ton adresse email*</string>
-    <string name="input_firstname">Ton prénom*</string>
-    <string name="input_lastname">Ton nom*</string>
-    <string name="input_company">Ton entreprise</string>
+    <string name="input_email">E-mail (Mandatory)</string>
+    <string name="input_firstname">Prénom (Mandatory)</string>
+    <string name="input_lastname">Nom (Mandatory)</string>
+    <string name="input_company">Entreprise</string>
     <string name="input_share_talk">%s par %s</string>
 
     <string name="semantic_profile_qrcode">Ton Qrcode est affiché et prêt pour être scanné</string>

@@ -27,16 +27,17 @@ class ProfileInputViewModel(
     init {
         viewModelScope.launch {
             try {
-                val profile = userRepository.fetchProfile()
-                _uiState.value = ProfileInputUiState.Success(
-                    profile = profile ?: UserProfileUi(
-                        email = "",
-                        firstName = "",
-                        lastName = "",
-                        company = "",
-                        qrCode = null
+                userRepository.fetchProfile().collect {
+                    _uiState.value = ProfileInputUiState.Success(
+                        profile = it ?: UserProfileUi(
+                            email = "",
+                            firstName = "",
+                            lastName = "",
+                            company = "",
+                            qrCode = null
+                        )
                     )
-                )
+                }
             } catch (error: Throwable) {
                 Firebase.crashlytics.recordException(error)
                 _uiState.value = ProfileInputUiState.Failure(error)
@@ -61,13 +62,12 @@ class ProfileInputViewModel(
         val profile = (_uiState.value as ProfileInputUiState.Success).profile
         val email = profile.email
         if (email == "") return@launch
-        val profileDb = userRepository.saveProfile(
+        userRepository.saveProfile(
             email,
             profile.firstName,
             profile.lastName,
             profile.company
         )
-        _uiState.value = ProfileInputUiState.Success(profile = profileDb)
     }
 
     object Factory {

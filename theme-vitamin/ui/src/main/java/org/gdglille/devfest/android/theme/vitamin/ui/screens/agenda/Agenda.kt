@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.vitamin.ui.screens
+package org.gdglille.devfest.android.theme.vitamin.ui.screens.agenda
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement

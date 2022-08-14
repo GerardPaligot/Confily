@@ -8,7 +8,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import org.gdglille.devfest.android.data.viewmodels.CoCUiState
 import org.gdglille.devfest.android.data.viewmodels.CoCViewModel
-import org.gdglille.devfest.android.theme.vitamin.ui.screens.CoC
+import org.gdglille.devfest.android.theme.vitamin.ui.screens.event.CoC
 import org.gdglille.devfest.repositories.AgendaRepository
 
 @Composable

@@ -38,7 +38,8 @@ class HomeViewModel(
             hasPartnerList = false,
             hasMenus = false,
             hasQAndA = false,
-            hasBilletWebTicket = false
+            hasBilletWebTicket = false,
+            hasProfile = false
         )
     )
     private val _routeState = MutableStateFlow<String?>(null)
@@ -86,11 +87,21 @@ class HomeViewModel(
                 )
 
                 Screen.MyProfile.route -> HomeUiState.Success(
-                    ScreenUi(title = Screen.MyProfile.title, tabActions = tabActions, bottomActions = bottomActions)
+                    ScreenUi(
+                        title = Screen.MyProfile.title,
+                        tabActions = if (config.hasProfile) tabActions else emptyList(),
+                        bottomActions = bottomActions,
+                        fabAction = if (!config.hasProfile) FabActions.createProfile else null
+                    )
                 )
 
                 Screen.Contacts.route -> HomeUiState.Success(
-                    ScreenUi(title = Screen.Contacts.title, tabActions = tabActions, bottomActions = bottomActions)
+                    ScreenUi(
+                        title = Screen.Contacts.title,
+                        tabActions = tabActions,
+                        bottomActions = bottomActions,
+                        fabAction = FabActions.scanContact
+                    )
                 )
 
                 Screen.Partners.route -> HomeUiState.Success(
@@ -102,7 +113,8 @@ class HomeViewModel(
                         title = Screen.Event.title,
                         tabActions = tabActions,
                         bottomActions = bottomActions,
-                        fabAction = if (config.hasBilletWebTicket) FabActions.scanTicket else null
+                        fabAction = if (config.hasBilletWebTicket) FabActions.scanTicket else null,
+                        scrollable = true
                     )
                 )
 

@@ -8,7 +8,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import org.gdglille.devfest.android.data.viewmodels.SpeakersUiState
 import org.gdglille.devfest.android.data.viewmodels.SpeakersViewModel
-import org.gdglille.devfest.android.theme.vitamin.ui.screens.SpeakersList
+import org.gdglille.devfest.android.theme.vitamin.ui.screens.speakers.SpeakersList
 import org.gdglille.devfest.repositories.SpeakerRepository
 
 @Composable

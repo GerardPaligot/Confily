@@ -4,26 +4,30 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import org.gdglille.devfest.Image
 import org.gdglille.devfest.database.UserDao
+import org.gdglille.devfest.models.NetworkingUi
 import org.gdglille.devfest.models.UserNetworkingUi
 import org.gdglille.devfest.models.UserProfileUi
 import org.gdglille.devfest.vcard.encodeToString
 
 interface UserRepository {
-    suspend fun fetchProfile(): UserProfileUi?
-    suspend fun saveProfile(email: String, firstName: String, lastName: String, company: String): UserProfileUi
+    suspend fun fetchProfile(): Flow<UserProfileUi?>
+    suspend fun saveProfile(email: String, firstName: String, lastName: String, company: String)
     suspend fun fetchNetworking(): Flow<List<UserNetworkingUi>>
     suspend fun insertNetworkingProfile(user: UserNetworkingUi): Boolean
     suspend fun deleteNetworkProfile(email: String)
 
     // Kotlin/Native client
-    fun startCollectNetworking(success: (List<UserNetworkingUi>) -> Unit)
+    fun startCollectNetworking(success: (NetworkingUi) -> Unit)
     fun stopCollectNetworking()
 
     object Factory {
-        fun create(userDao: UserDao, qrCodeGenerator: QrCodeGenerator): UserRepository = UserRepositoryImpl(userDao, qrCodeGenerator)
+        fun create(userDao: UserDao, qrCodeGenerator: QrCodeGenerator): UserRepository =
+            UserRepositoryImpl(userDao, qrCodeGenerator)
     }
 }
 
@@ -35,19 +39,18 @@ class UserRepositoryImpl(
     private val userDao: UserDao,
     private val qrCodeGenerator: QrCodeGenerator
 ) : UserRepository {
-    override suspend fun fetchProfile(): UserProfileUi? {
-        val email = userDao.fetchLastEmail()
-        if (email != null) {
-            return userDao.fetchUser(email)
+    override suspend fun fetchProfile(): Flow<UserProfileUi?> = combine(
+        userDao.fetchProfile(),
+        userDao.fetchUserPreview(),
+        transform = { profile, preview ->
+            return@combine profile ?: preview
         }
-        return userDao.fetchUserPreview()
-    }
+    )
 
-    override suspend fun saveProfile(email: String, firstName: String, lastName: String, company: String): UserProfileUi {
+    override suspend fun saveProfile(email: String, firstName: String, lastName: String, company: String) {
         val qrCode = qrCodeGenerator.generate(UserNetworkingUi(email, firstName, lastName, company).encodeToString())
         val profile = UserProfileUi(email, firstName, lastName, company, qrCode)
         userDao.insertUser(profile)
-        return profile
     }
 
     override suspend fun fetchNetworking(): Flow<List<UserNetworkingUi>> = userDao.fetchNetworking()
@@ -57,19 +60,36 @@ class UserRepositoryImpl(
         userDao.insertEmailNetworking(user)
         return true
     }
+
     override suspend fun deleteNetworkProfile(email: String) = userDao.deleteNetworking(email)
 
     private val coroutineScope: CoroutineScope = MainScope()
-    var agendaJob: Job? = null
-    override fun startCollectNetworking(success: (List<UserNetworkingUi>) -> Unit) {
-        agendaJob = coroutineScope.launch {
-            fetchNetworking().collect {
+    private var networkingJob: Job? = null
+    override fun startCollectNetworking(success: (NetworkingUi) -> Unit) {
+        networkingJob = coroutineScope.launch {
+            combine(
+                fetchProfile(),
+                fetchNetworking(),
+                transform = { profileUi, contacts ->
+                    NetworkingUi(
+                        userProfileUi = profileUi ?: UserProfileUi(
+                            email = "",
+                            firstName = "",
+                            lastName = "",
+                            company = "",
+                            qrCode = null
+                        ),
+                        showQrCode = false,
+                        users = contacts
+                    )
+                }
+            ).collect {
                 success(it)
             }
         }
     }
 
     override fun stopCollectNetworking() {
-        agendaJob?.cancel()
+        networkingJob?.cancel()
     }
 }

@@ -8,14 +8,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import org.gdglille.devfest.android.data.viewmodels.ProfileInputUiState
 import org.gdglille.devfest.android.data.viewmodels.ProfileInputViewModel
-import org.gdglille.devfest.android.theme.vitamin.ui.screens.networking.ProfileInput
+import org.gdglille.devfest.android.theme.vitamin.ui.screens.networking.EmptyNetworking
+import org.gdglille.devfest.android.theme.vitamin.ui.screens.networking.MyProfile
 import org.gdglille.devfest.repositories.UserRepository
 
 @Composable
-fun ProfileInputVM(
+fun MyProfileVM(
     userRepository: UserRepository,
     modifier: Modifier = Modifier,
-    onBackClicked: () -> Unit,
+    onEditInformation: () -> Unit,
 ) {
     val viewModel: ProfileInputViewModel = viewModel(
         factory = ProfileInputViewModel.Factory.create(userRepository)
@@ -24,17 +25,17 @@ fun ProfileInputVM(
     when (uiState.value) {
         is ProfileInputUiState.Loading -> Text(text = stringResource(id = R.string.text_loading))
         is ProfileInputUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
-        is ProfileInputUiState.Success -> ProfileInput(
-            profile = (uiState.value as ProfileInputUiState.Success).profile,
-            modifier = modifier,
-            onBackClicked = onBackClicked,
-            onValueChanged = { field, input ->
-                viewModel.fieldChanged(field, input)
-            },
-            onValidation = {
-                viewModel.saveProfile()
-                onBackClicked()
+        is ProfileInputUiState.Success -> {
+            val profileUi = (uiState.value as ProfileInputUiState.Success).profile
+            if (profileUi.qrCode == null) {
+                EmptyNetworking()
+            } else {
+                MyProfile(
+                    profileUi = profileUi,
+                    modifier = modifier,
+                    onEditInformation = onEditInformation
+                )
             }
-        )
+        }
     }
 }

@@ -1,9 +1,8 @@
 package org.gdglille.devfest.database
 
-import com.russhwolf.settings.Settings
-import com.russhwolf.settings.set
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
+import com.squareup.sqldelight.runtime.coroutines.mapToOneOrNull
 import kotlinx.coroutines.flow.Flow
 import kotlinx.datetime.Clock
 import org.gdglille.devfest.db.Conferences4HallDatabase
@@ -12,19 +11,19 @@ import org.gdglille.devfest.models.UserProfileUi
 import org.gdglille.devfest.toByteArray
 import org.gdglille.devfest.toNativeImage
 
-class UserDao(private val db: Conferences4HallDatabase, private val settings: Settings, private val eventId: String) {
-    fun fetchUser(emailId: String): UserProfileUi? =
-        db.userQueries.selectUser(emailId, mapper = { email, firstname, lastname, company, qrcode ->
-            return@selectUser UserProfileUi(
+class UserDao(private val db: Conferences4HallDatabase, private val eventId: String) {
+    fun fetchProfile(): Flow<UserProfileUi?> =
+        db.userQueries.selectProfile(eventId, mapper = { _, email, firstname, lastname, company, qrcode ->
+            return@selectProfile UserProfileUi(
                 email = email,
                 firstName = firstname,
                 lastName = lastname,
                 company = company ?: "",
                 qrCode = qrcode.toNativeImage()
             )
-        }).executeAsOneOrNull()
+        }).asFlow().mapToOneOrNull()
 
-    fun fetchUserPreview(): UserProfileUi? =
+    fun fetchUserPreview(): Flow<UserProfileUi?> =
         db.ticketQueries.selectTicket(eventId, mapper = { _, _, _, _, firstname, lastname, _, _ ->
             return@selectTicket UserProfileUi(
                 email = "",
@@ -33,14 +32,18 @@ class UserDao(private val db: Conferences4HallDatabase, private val settings: Se
                 company = "",
                 qrCode = null
             )
-        }).executeAsOneOrNull()
+        }).asFlow().mapToOneOrNull()
 
     fun insertUser(user: UserProfileUi) {
-        db.userQueries.insertUser(user.email, user.firstName, user.lastName, user.company, user.qrCode!!.toByteArray())
-        settings["EMAIL"] = user.email
+        db.userQueries.insertProfile(
+            eventId,
+            user.email,
+            user.firstName,
+            user.lastName,
+            user.company,
+            user.qrCode!!.toByteArray()
+        )
     }
-
-    fun fetchLastEmail(): String? = settings.getStringOrNull("EMAIL")
 
     fun fetchNetworking(): Flow<List<UserNetworkingUi>> =
         db.userQueries.selectAll(eventId) { email, firstName, lastName, company, _, _ ->

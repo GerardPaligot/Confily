@@ -27,33 +27,19 @@ class NetworkingViewModel: ObservableObject {
     
     @Published var uiState: UserProfileUiState = UserProfileUiState.loading
     
-    func fetchProfile() {
-        repository.fetchProfile { userProfileUi, error in
-            self.uiState = .success(
-                NetworkingUi(
-                    userProfileUi: userProfileUi ?? UserProfileUi(email: "", firstName: "", lastName: "", company: "", qrCode: nil),
-                    showQrCode: false,
-                    users: []
-                )
-            )
-        }
+    func fetchNetworking() {
+        repository.startCollectNetworking(success: { networkingUi in
+            self.uiState = .success(networkingUi)
+        })
     }
     
-    func fetchProfile(email: String, firstName: String, lastName: String, company: String) {
-        if case .success(let networkingUi) = uiState {
-            if (email == "") { return }
-            repository.saveProfile(email: email, firstName: firstName, lastName: lastName, company: company) { userProfileUi, error in
-                if (userProfileUi != nil) {
-                    self.uiState = .success(networkingUi.doCopy(
-                        userProfileUi: userProfileUi!,
-                        showQrCode: true,
-                        users: networkingUi.users
-                    ))
-                } else {
-                    self.uiState = .failure(error!)
-                }
-            }
-        }
+    func stop() {
+        repository.stopCollectNetworking()
+    }
+    
+    func saveProfile(email: String, firstName: String, lastName: String, company: String) {
+        if (email == "") { return }
+        repository.saveProfile(email: email, firstName: firstName, lastName: lastName, company: company) { _, _ in }
     }
     
     func saveNetworkingProfile(text: String, callback: @escaping (Bool) -> ()) {
@@ -103,22 +89,5 @@ class NetworkingViewModel: ObservableObject {
     
     func deleteNetworkProfile(email: String) {
         repository.deleteNetworkProfile(email: email) { _, error in }
-    }
-    
-    func fetchNetworking() {
-        repository.startCollectNetworking(success: { users in
-            if case .success(let networkingUi) = self.uiState {
-                self.uiState = .success(networkingUi.doCopy(
-                        userProfileUi: networkingUi.userProfileUi,
-                        showQrCode: networkingUi.showQrCode,
-                        users: users
-                    )
-                )
-            }
-        })
-    }
-    
-    func stop() {
-        repository.stopCollectNetworking()
     }
 }

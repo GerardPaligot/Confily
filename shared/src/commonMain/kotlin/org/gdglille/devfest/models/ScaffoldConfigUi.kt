@@ -6,5 +6,6 @@ data class ScaffoldConfigUi(
     val hasPartnerList: Boolean,
     val hasMenus: Boolean,
     val hasQAndA: Boolean,
-    val hasBilletWebTicket: Boolean
+    val hasBilletWebTicket: Boolean,
+    val hasProfile: Boolean
 )

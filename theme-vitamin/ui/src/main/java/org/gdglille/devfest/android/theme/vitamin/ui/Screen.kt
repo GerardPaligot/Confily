@@ -9,6 +9,8 @@ import org.gdglille.devfest.android.ui.resources.TopAction
 object ActionIds {
     const val SHARE_ID = 0
     const val SCAN_TICKET = 1
+    const val SCAN_CONTACTS = 2
+    const val CREATE_PROFILE = 3
 }
 
 object TopActions {
@@ -25,6 +27,18 @@ object FabActions {
         icon = R.drawable.ic_vtmn_fullscreen_line,
         contentDescription = null,
         label = R.string.action_ticket_scanner
+    )
+    val scanContact = FabAction(
+        id = ActionIds.SCAN_CONTACTS,
+        icon = R.drawable.ic_vtmn_add_line,
+        contentDescription = null,
+        label = R.string.action_contacts_scanner
+    )
+    val createProfile = FabAction(
+        id = ActionIds.CREATE_PROFILE,
+        icon = R.drawable.ic_vtmn_add_line,
+        contentDescription = null,
+        label = R.string.screen_profile
     )
 }
 
@@ -83,8 +97,8 @@ sealed class Screen(
 ) {
     object Agenda : Screen(route = "agenda", title = R.string.screen_agenda)
     object SpeakerList : Screen(route = "speakers", title = R.string.screen_speakers)
-    object MyProfile : Screen(route = "profile", title = R.string.screen_my_profile)
-    object Contacts : Screen(route = "contacts", title = R.string.screen_contacts)
+    object MyProfile : Screen(route = "profile", title = R.string.screen_networking)
+    object Contacts : Screen(route = "contacts", title = R.string.screen_networking)
     object Partners : Screen(route = "partners", title = R.string.screen_partners)
     object Event : Screen(route = "event", title = R.string.screen_info)
     object Menus : Screen(route = "menus", title = R.string.screen_info)

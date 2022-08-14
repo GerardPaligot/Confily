@@ -11,5 +11,6 @@ data class ScreenUi(
     val topActions: List<TopAction> = emptyList(),
     val tabActions: List<TabAction> = emptyList(),
     val bottomActions: List<BottomAction> = emptyList(),
-    val fabAction: FabAction? = null
+    val fabAction: FabAction? = null,
+    val scrollable: Boolean = false
 )

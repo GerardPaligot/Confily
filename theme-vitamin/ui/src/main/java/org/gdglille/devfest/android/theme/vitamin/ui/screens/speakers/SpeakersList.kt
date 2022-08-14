@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.vitamin.ui.screens
+package org.gdglille.devfest.android.theme.vitamin.ui.screens.speakers
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues

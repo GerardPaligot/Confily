@@ -12,7 +12,7 @@ import kotlinx.coroutines.FlowPreview
 import org.gdglille.devfest.android.data.AlarmIntentFactory
 import org.gdglille.devfest.android.data.viewmodels.AgendaUiState
 import org.gdglille.devfest.android.data.viewmodels.AgendaViewModel
-import org.gdglille.devfest.android.theme.vitamin.ui.screens.Agenda
+import org.gdglille.devfest.android.theme.vitamin.ui.screens.agenda.Agenda
 import org.gdglille.devfest.repositories.AgendaRepository
 
 @ExperimentalCoroutinesApi

@@ -8,7 +8,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import org.gdglille.devfest.android.data.viewmodels.PartnerUiState
 import org.gdglille.devfest.android.data.viewmodels.PartnersViewModel
-import org.gdglille.devfest.android.theme.vitamin.ui.screens.Partners
+import org.gdglille.devfest.android.theme.vitamin.ui.screens.partners.Partners
 import org.gdglille.devfest.repositories.AgendaRepository
 
 @Composable
