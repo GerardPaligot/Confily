@@ -27,10 +27,10 @@ import org.gdglille.devfest.android.theme.vitamin.ui.R
 import org.gdglille.devfest.android.theme.vitamin.ui.TabActions
 import org.gdglille.devfest.android.theme.vitamin.ui.TopActions
 import org.gdglille.devfest.android.theme.vitamin.ui.theme.Conferences4HallTheme
-import org.gdglille.devfest.android.ui.resources.BottomAction
-import org.gdglille.devfest.android.ui.resources.FabAction
-import org.gdglille.devfest.android.ui.resources.TabAction
-import org.gdglille.devfest.android.ui.resources.TopAction
+import org.gdglille.devfest.android.ui.resources.actions.BottomAction
+import org.gdglille.devfest.android.ui.resources.actions.FabAction
+import org.gdglille.devfest.android.ui.resources.actions.TabAction
+import org.gdglille.devfest.android.ui.resources.actions.TopAction
 
 @Composable
 fun VitaminScaffold(
@@ -42,6 +42,7 @@ fun VitaminScaffold(
     fabAction: FabAction? = null,
     scrollable: Boolean = false,
     routeSelected: String? = null,
+    tabSelectedIndex: Int? = null,
     onTopActionClicked: (TopAction) -> Unit = {},
     onTabClicked: (TabAction) -> Unit = {},
     onBottomActionClicked: (BottomAction) -> Unit = {},
@@ -68,8 +69,8 @@ fun VitaminScaffold(
                     }
                 )
                 if (tabActions.isNotEmpty()) {
-                    val tabItems = tabActions.map {
-                        TabItem(label = stringResource(it.label), selected = it.route == routeSelected)
+                    val tabItems = tabActions.mapIndexed { index, it ->
+                        TabItem(label = stringResource(it.label), selected = index == tabSelectedIndex)
                     }
                     if (scrollable) {
                         VitaminTabs.Scrollable(

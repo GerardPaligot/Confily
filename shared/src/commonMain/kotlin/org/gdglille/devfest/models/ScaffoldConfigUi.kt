@@ -1,11 +1,11 @@
 package org.gdglille.devfest.models
 
 data class ScaffoldConfigUi(
-    val hasNetworking: Boolean,
-    val hasSpeakerList: Boolean,
-    val hasPartnerList: Boolean,
-    val hasMenus: Boolean,
-    val hasQAndA: Boolean,
-    val hasBilletWebTicket: Boolean,
-    val hasProfile: Boolean
+    val hasNetworking: Boolean = false,
+    val hasSpeakerList: Boolean = false,
+    val hasPartnerList: Boolean = false,
+    val hasMenus: Boolean = false,
+    val hasQAndA: Boolean = false,
+    val hasBilletWebTicket: Boolean = false,
+    val hasProfile: Boolean = false
 )

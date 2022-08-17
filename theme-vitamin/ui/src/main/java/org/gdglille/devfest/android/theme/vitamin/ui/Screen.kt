@@ -1,10 +1,10 @@
 package org.gdglille.devfest.android.theme.vitamin.ui
 
 import androidx.annotation.StringRes
-import org.gdglille.devfest.android.ui.resources.BottomAction
-import org.gdglille.devfest.android.ui.resources.FabAction
-import org.gdglille.devfest.android.ui.resources.TabAction
-import org.gdglille.devfest.android.ui.resources.TopAction
+import org.gdglille.devfest.android.ui.resources.actions.BottomAction
+import org.gdglille.devfest.android.ui.resources.actions.FabAction
+import org.gdglille.devfest.android.ui.resources.actions.TabAction
+import org.gdglille.devfest.android.ui.resources.actions.TopAction
 
 object ActionIds {
     const val SHARE_ID = 0
@@ -67,7 +67,7 @@ object BottomActions {
         contentDescription = null,
     )
     val networking = BottomAction(
-        route = Screen.MyProfile.route,
+        route = Screen.Networking.route,
         icon = R.drawable.ic_vtmn_mic_vtmn_line,
         iconSelected = R.drawable.ic_vtmn_mic_vtmn_fill,
         label = R.string.screen_networking,
@@ -82,7 +82,7 @@ object BottomActions {
         contentDescription = null,
     )
     val info = BottomAction(
-        route = Screen.Event.route,
+        route = Screen.Info.route,
         label = R.string.screen_info,
         icon = R.drawable.ic_vtmn_information_line,
         iconSelected = R.drawable.ic_vtmn_information_fill,
@@ -97,9 +97,11 @@ sealed class Screen(
 ) {
     object Agenda : Screen(route = "agenda", title = R.string.screen_agenda)
     object SpeakerList : Screen(route = "speakers", title = R.string.screen_speakers)
+    object Networking : Screen(route = "networking", title = R.string.screen_networking)
     object MyProfile : Screen(route = "profile", title = R.string.screen_networking)
     object Contacts : Screen(route = "contacts", title = R.string.screen_networking)
     object Partners : Screen(route = "partners", title = R.string.screen_partners)
+    object Info : Screen(route = "info", title = R.string.screen_info)
     object Event : Screen(route = "event", title = R.string.screen_info)
     object Menus : Screen(route = "menus", title = R.string.screen_info)
     object QAndA : Screen(route = "qanda", title = R.string.screen_info)

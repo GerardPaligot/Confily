@@ -20,4 +20,5 @@ dependencies {
     implementation(libs.vitamin.compose.tabs)
 
     implementation(libs.accompanist.systemuicontroller)
+    implementation(libs.accompanist.pager)
 }

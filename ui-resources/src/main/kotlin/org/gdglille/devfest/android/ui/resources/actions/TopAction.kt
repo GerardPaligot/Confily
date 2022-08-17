@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.ui.resources
+package org.gdglille.devfest.android.ui.resources.actions
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes

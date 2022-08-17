@@ -9,13 +9,15 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import org.gdglille.devfest.android.theme.vitamin.features.models.ScreenUi
 import org.gdglille.devfest.android.theme.vitamin.ui.BottomActions
 import org.gdglille.devfest.android.theme.vitamin.ui.FabActions
 import org.gdglille.devfest.android.theme.vitamin.ui.Screen
 import org.gdglille.devfest.android.theme.vitamin.ui.TabActions
-import org.gdglille.devfest.android.ui.resources.BottomAction
-import org.gdglille.devfest.android.ui.resources.TabAction
+import org.gdglille.devfest.android.ui.resources.actions.BottomAction
+import org.gdglille.devfest.android.ui.resources.actions.FabAction
+import org.gdglille.devfest.android.ui.resources.actions.TabAction
+import org.gdglille.devfest.android.ui.resources.models.ScreenUi
+import org.gdglille.devfest.android.ui.resources.models.TabActionsUi
 import org.gdglille.devfest.models.ScaffoldConfigUi
 import org.gdglille.devfest.models.UserNetworkingUi
 import org.gdglille.devfest.repositories.AgendaRepository
@@ -31,38 +33,45 @@ class HomeViewModel(
     private val agendaRepository: AgendaRepository,
     private val userRepository: UserRepository
 ) : ViewModel() {
-    private val _configState = MutableStateFlow(
-        ScaffoldConfigUi(
-            hasNetworking = false,
-            hasSpeakerList = false,
-            hasPartnerList = false,
-            hasMenus = false,
-            hasQAndA = false,
-            hasBilletWebTicket = false,
-            hasProfile = false
-        )
-    )
+    private val _configState = MutableStateFlow(ScaffoldConfigUi())
     private val _routeState = MutableStateFlow<String?>(null)
+    private val _uiTabState = MutableStateFlow(TabActionsUi())
+    private val _uiFabState = MutableStateFlow<FabAction?>(null)
+    private val _uiBottomState = MutableStateFlow<List<BottomAction>>(emptyList())
     private val _uiState = combine(
         _routeState,
         _configState,
         transform = { route, config ->
             if (route == null) return@combine HomeUiState.Loading
-            val bottomActions = arrayListOf<BottomAction>().apply {
-                add(BottomActions.agenda)
-                if (config.hasSpeakerList) {
-                    add(BottomActions.speakers)
-                }
-                if (config.hasNetworking) {
-                    add(BottomActions.networking)
-                }
-                if (config.hasPartnerList) {
-                    add(BottomActions.partners)
-                }
-                add(BottomActions.info)
+            updateUiBottomActions(config)
+            updateUiTabActions(route, config)
+            updateUiFabAction(route, config)
+            return@combine when (route) {
+                Screen.Agenda.route -> HomeUiState.Success(ScreenUi(title = Screen.Agenda.title))
+                Screen.SpeakerList.route -> HomeUiState.Success(ScreenUi(title = Screen.SpeakerList.title))
+                Screen.Networking.route -> HomeUiState.Success(ScreenUi(title = Screen.Networking.title))
+                Screen.Partners.route -> HomeUiState.Success(ScreenUi(title = Screen.Partners.title))
+                Screen.Info.route -> HomeUiState.Success(ScreenUi(title = Screen.Info.title))
+                else -> TODO()
             }
-            val tabActions = if (BottomActions.info.selectedRoutes.contains(route)) {
-                arrayListOf<TabAction>().apply {
+        }
+    ).stateIn(viewModelScope, SharingStarted.WhileSubscribed(), initialValue = HomeUiState.Loading)
+    val uiTabState: StateFlow<TabActionsUi> = _uiTabState
+    val uiFabState: StateFlow<FabAction?> = _uiFabState
+    val uiBottomState: StateFlow<List<BottomAction>> = _uiBottomState
+    val uiState: StateFlow<HomeUiState> = _uiState
+
+    private fun updateUiTabActions(route: String, config: ScaffoldConfigUi) {
+        val tabActions = when (route) {
+            Screen.Networking.route -> TabActionsUi(
+                tabActions = if (config.hasProfile) arrayListOf(
+                    TabActions.myProfile,
+                    TabActions.contacts
+                ) else emptyList()
+            )
+
+            Screen.Info.route -> TabActionsUi(
+                tabActions = arrayListOf<TabAction>().apply {
                     add(TabActions.event)
                     if (config.hasMenus) {
                         add(TabActions.menus)
@@ -71,70 +80,47 @@ class HomeViewModel(
                         add(TabActions.qanda)
                     }
                     add(TabActions.coc)
-                }
-            } else if (BottomActions.networking.selectedRoutes.contains(route)) {
-                arrayListOf(TabActions.myProfile, TabActions.contacts)
-            } else {
-                emptyList()
-            }
-            return@combine when (route) {
-                Screen.Agenda.route -> HomeUiState.Success(
-                    ScreenUi(title = Screen.Agenda.title, bottomActions = bottomActions)
-                )
+                },
+                scrollable = true
+            )
 
-                Screen.SpeakerList.route -> HomeUiState.Success(
-                    ScreenUi(title = Screen.SpeakerList.title, bottomActions = bottomActions)
-                )
-
-                Screen.MyProfile.route -> HomeUiState.Success(
-                    ScreenUi(
-                        title = Screen.MyProfile.title,
-                        tabActions = if (config.hasProfile) tabActions else emptyList(),
-                        bottomActions = bottomActions,
-                        fabAction = if (!config.hasProfile) FabActions.createProfile else null
-                    )
-                )
-
-                Screen.Contacts.route -> HomeUiState.Success(
-                    ScreenUi(
-                        title = Screen.Contacts.title,
-                        tabActions = tabActions,
-                        bottomActions = bottomActions,
-                        fabAction = FabActions.scanContact
-                    )
-                )
-
-                Screen.Partners.route -> HomeUiState.Success(
-                    ScreenUi(title = Screen.Partners.title, bottomActions = bottomActions)
-                )
-
-                Screen.Event.route -> HomeUiState.Success(
-                    ScreenUi(
-                        title = Screen.Event.title,
-                        tabActions = tabActions,
-                        bottomActions = bottomActions,
-                        fabAction = if (config.hasBilletWebTicket) FabActions.scanTicket else null,
-                        scrollable = true
-                    )
-                )
-
-                Screen.Menus.route -> HomeUiState.Success(
-                    ScreenUi(title = Screen.Menus.title, tabActions = tabActions, bottomActions = bottomActions)
-                )
-
-                Screen.QAndA.route -> HomeUiState.Success(
-                    ScreenUi(title = Screen.QAndA.title, tabActions = tabActions, bottomActions = bottomActions)
-                )
-
-                Screen.CoC.route -> HomeUiState.Success(
-                    ScreenUi(title = Screen.CoC.title, tabActions = tabActions, bottomActions = bottomActions)
-                )
-
-                else -> TODO()
-            }
+            else -> TabActionsUi()
         }
-    ).stateIn(viewModelScope, SharingStarted.WhileSubscribed(), initialValue = HomeUiState.Loading)
-    val uiState: StateFlow<HomeUiState> = _uiState
+        if (tabActions != _uiTabState.value) {
+            _uiTabState.value = tabActions
+        }
+    }
+
+    private fun updateUiFabAction(route: String, config: ScaffoldConfigUi) {
+        val fabAction = when (route) {
+            Screen.MyProfile.route -> if (!config.hasProfile) FabActions.createProfile else null
+            Screen.Contacts.route -> FabActions.scanContact
+            Screen.Event.route -> if (config.hasBilletWebTicket) FabActions.scanTicket else null
+            else -> null
+        }
+        if (fabAction != _uiFabState.value) {
+            _uiFabState.value = fabAction
+        }
+    }
+
+    private fun updateUiBottomActions(config: ScaffoldConfigUi) {
+        val bottomActions = arrayListOf<BottomAction>().apply {
+            add(BottomActions.agenda)
+            if (config.hasSpeakerList) {
+                add(BottomActions.speakers)
+            }
+            if (config.hasNetworking) {
+                add(BottomActions.networking)
+            }
+            if (config.hasPartnerList) {
+                add(BottomActions.partners)
+            }
+            add(BottomActions.info)
+        }
+        if (bottomActions != _uiBottomState.value) {
+            _uiBottomState.value = bottomActions
+        }
+    }
 
     init {
         viewModelScope.launch {
@@ -149,6 +135,10 @@ class HomeViewModel(
 
     fun screenConfig(route: String) = viewModelScope.launch {
         _routeState.value = route
+    }
+
+    fun updateFabUi(innerScreen: String) = viewModelScope.launch {
+        updateUiFabAction(innerScreen, _configState.value)
     }
 
     fun saveTicket(barcode: String) = viewModelScope.launch {

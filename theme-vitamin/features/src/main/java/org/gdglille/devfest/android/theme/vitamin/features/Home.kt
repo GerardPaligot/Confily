@@ -11,6 +11,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import org.gdglille.devfest.android.data.AlarmIntentFactory
@@ -26,6 +28,7 @@ import org.gdglille.devfest.repositories.AgendaRepository
 import org.gdglille.devfest.repositories.SpeakerRepository
 import org.gdglille.devfest.repositories.UserRepository
 
+@OptIn(ExperimentalPagerApi::class)
 @Suppress("LongMethod", "UnusedPrivateMember")
 @ExperimentalCoroutinesApi
 @FlowPreview
@@ -65,12 +68,17 @@ fun Home(
         }
     }
     val uiState = viewModel.uiState.collectAsState()
+    val uiTabState = viewModel.uiTabState.collectAsState()
+    val uiFabState = viewModel.uiFabState.collectAsState()
+    val uiBottomState = viewModel.uiBottomState.collectAsState()
+    val pagerState = rememberPagerState()
     LaunchedEffect(Unit) {
-        viewModel.screenConfig("agenda")
+        viewModel.screenConfig(Screen.Agenda.route)
     }
     navController.addOnDestinationChangedListener { _, destination, _ ->
         destination.route?.let { route -> viewModel.screenConfig(route) }
     }
+    val tabs = uiTabState.value
     when (uiState.value) {
         is HomeUiState.Success -> {
             val screenUi = (uiState.value as HomeUiState.Success).screenUi
@@ -79,22 +87,26 @@ fun Home(
                 startDestination = Screen.Agenda.route,
                 modifier = modifier,
                 navController = navController,
-                topActions = screenUi.topActions,
-                tabActions = screenUi.tabActions,
-                bottomActions = screenUi.bottomActions,
-                fabAction = screenUi.fabAction,
-                scrollable = screenUi.scrollable,
+                pagerState = pagerState,
+                topActions = emptyList(),
+                tabActions = tabs.tabActions,
+                bottomActions = uiBottomState.value,
+                fabAction = uiFabState.value,
+                scrollable = tabs.scrollable,
                 onFabActionClicked = {
                     when (it.id) {
                         ActionIds.SCAN_TICKET -> {
                             onTicketScannerClicked()
                         }
+
                         ActionIds.SCAN_CONTACTS -> {
                             onContactScannerClicked()
                         }
+
                         ActionIds.CREATE_PROFILE -> {
                             onCreateProfileClicked()
                         }
+
                         else -> TODO("Fab not implemented")
                     }
                 },
@@ -113,15 +125,13 @@ fun Home(
                             onSpeakerClicked = onSpeakerClicked
                         )
                     }
-                    composable(Screen.MyProfile.route) {
-                        MyProfileVM(
+                    composable(Screen.Networking.route) {
+                        NetworkingPages(
+                            tabs = tabs,
                             userRepository = userRepository,
-                            onEditInformation = onCreateProfileClicked
-                        )
-                    }
-                    composable(Screen.Contacts.route) {
-                        ContactsVM(
-                            userRepository = userRepository
+                            viewModel = viewModel,
+                            pagerState = pagerState,
+                            onCreateProfileClicked = onCreateProfileClicked
                         )
                     }
                     composable(Screen.Partners.route) {
@@ -130,25 +140,15 @@ fun Home(
                             onPartnerClick = onLinkClicked
                         )
                     }
-                    composable(Screen.Event.route) {
-                        EventVM(
+                    composable(Screen.Info.route) {
+                        InfoPages(
+                            tabs = tabs,
                             agendaRepository = agendaRepository,
+                            viewModel = viewModel,
+                            modifier = modifier,
+                            pagerState = pagerState,
+                            onItineraryClicked = onItineraryClicked,
                             onLinkClicked = onLinkClicked,
-                            onItineraryClicked = onItineraryClicked
-                        )
-                    }
-                    composable(Screen.Menus.route) {
-                        MenusVM(agendaRepository = agendaRepository)
-                    }
-                    composable(Screen.QAndA.route) {
-                        QAndAListVM(
-                            agendaRepository = agendaRepository,
-                            onLinkClicked = onLinkClicked
-                        )
-                    }
-                    composable(Screen.CoC.route) {
-                        CoCVM(
-                            agendaRepository = agendaRepository,
                             onReportClicked = onReportClicked
                         )
                     }
