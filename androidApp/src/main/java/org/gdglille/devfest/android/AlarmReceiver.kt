@@ -33,7 +33,8 @@ class AlarmReceiver : BroadcastReceiver() {
             setContentText(text)
             setStyle(NotificationCompat.BigTextStyle().bigText(text))
             priority = NotificationCompat.PRIORITY_DEFAULT
-            setContentIntent(PendingIntent.getActivity(context, 0, MainActivity.create(context), 0))
+            val flags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_IMMUTABLE else 0
+            setContentIntent(PendingIntent.getActivity(context, 0, MainActivity.create(context), flags))
             setAutoCancel(true)
         }
         val notificationManager: NotificationManager =
