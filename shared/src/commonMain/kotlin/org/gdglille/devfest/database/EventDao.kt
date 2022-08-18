@@ -169,6 +169,15 @@ class EventDao(private val db: Conferences4HallDatabase, private val eventId: St
         event.menus.forEach {
             db.menuQueries.insertMenu(it.name, it.dish, it.accompaniment, it.dessert)
         }
+        db.featuresActivatedQueries.insertFeatures(
+            event_id = eventId,
+            has_networking = event.features.hasNetworking,
+            has_speaker_list = event.features.hasSpeakerList,
+            has_partner_list = event.features.hasPartnerList,
+            has_menus = event.features.hasMenus,
+            has_qanda = event.features.hasQAndA,
+            has_billet_web_ticket = event.features.hasBilletWebTicket
+        )
     }
 
     fun updateTicket(qrCode: Image, barcode: String, attendee: Attendee?) =

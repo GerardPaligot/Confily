@@ -57,6 +57,14 @@ data class CoCInput(
 }
 
 @Serializable
+data class FeaturesActivatedInput(
+    @SerialName("has_networking")
+    val hasNetworking: Boolean
+) : Validator {
+    override fun validate(): List<String> = emptyList()
+}
+
+@Serializable
 data class BilletWebConfigInput(
     @SerialName("event_id")
     val eventId: String,

@@ -10,13 +10,9 @@ import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
 import org.gdglille.devfest.android.theme.vitamin.features.viewmodels.HomeViewModel
 import org.gdglille.devfest.android.theme.vitamin.ui.Screen
+import org.gdglille.devfest.android.theme.vitamin.ui.TabActions
 import org.gdglille.devfest.android.ui.resources.models.TabActionsUi
 import org.gdglille.devfest.repositories.AgendaRepository
-
-private const val EventId = 0
-private const val MenusId = 1
-private const val QAndAId = 2
-private const val CoCId = 3
 
 @ExperimentalPagerApi
 @Composable
@@ -31,35 +27,35 @@ fun InfoPages(
     onReportClicked: () -> Unit
 ) {
     LaunchedEffect(pagerState.currentPage) {
-        when (pagerState.currentPage) {
-            EventId -> viewModel.updateFabUi(Screen.Event.route)
-            MenusId -> viewModel.updateFabUi(Screen.Menus.route)
-            QAndAId -> viewModel.updateFabUi(Screen.QAndA.route)
-            CoCId -> viewModel.updateFabUi(Screen.CoC.route)
+        when (tabs.tabActions[pagerState.currentPage].route) {
+            TabActions.event.route -> viewModel.updateFabUi(Screen.Event.route)
+            TabActions.menus.route -> viewModel.updateFabUi(Screen.Menus.route)
+            TabActions.qanda.route -> viewModel.updateFabUi(Screen.QAndA.route)
+            TabActions.coc.route -> viewModel.updateFabUi(Screen.CoC.route)
         }
     }
     val count = tabs.tabActions.count()
-    HorizontalPager(count = if (count == EventId) MenusId else count, state = pagerState) { page ->
-        when (page) {
-            EventId -> EventVM(
+    HorizontalPager(count = if (count == 0) 1 else count, state = pagerState) { page ->
+        when (tabs.tabActions[page].route) {
+            TabActions.event.route -> EventVM(
                 agendaRepository = agendaRepository,
                 modifier = modifier.fillMaxSize(),
                 onLinkClicked = onLinkClicked,
                 onItineraryClicked = onItineraryClicked
             )
 
-            MenusId -> MenusVM(
+            TabActions.menus.route -> MenusVM(
                 agendaRepository = agendaRepository,
                 modifier = modifier.fillMaxSize()
             )
 
-            QAndAId -> QAndAListVM(
+            TabActions.qanda.route -> QAndAListVM(
                 agendaRepository = agendaRepository,
                 modifier = modifier.fillMaxSize(),
                 onLinkClicked = onLinkClicked
             )
 
-            CoCId -> CoCVM(
+            TabActions.coc.route -> CoCVM(
                 agendaRepository = agendaRepository,
                 modifier = modifier.fillMaxSize(),
                 onReportClicked = onReportClicked

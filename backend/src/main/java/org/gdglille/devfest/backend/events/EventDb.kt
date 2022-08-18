@@ -33,6 +33,10 @@ data class LunchMenuDb(
     val dessert: String = ""
 )
 
+data class FeaturesActivatedDb(
+    val hasNetworking: Boolean = false
+)
+
 data class BilletWebConfigurationDb(
     val eventId: String = "",
     val userId: String = "",
@@ -53,6 +57,7 @@ data class EventDb(
     val menus: List<LunchMenuDb> = emptyList(),
     val qanda: List<QuestionAndResponseDb> = emptyList(),
     val coc: String = "",
+    val features: FeaturesActivatedDb = FeaturesActivatedDb(),
     val twitterUrl: String? = null,
     val linkedinUrl: String? = null,
     val faqLink: String? = null,

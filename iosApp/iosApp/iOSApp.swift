@@ -25,6 +25,7 @@ struct iOSApp: App {
             talkDao: TalkDao(db: db),
             eventDao: EventDao(db: db, eventId: eventId),
             userDao: UserDao(db: db, eventId: eventId),
+            featuresDao: FeaturesActivatedDao(db: db, eventId: eventId),
             qrCodeGenerator: QrCodeGeneratoriOS()
         )
         let userRepository = UserRepositoryImpl(

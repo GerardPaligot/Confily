@@ -47,6 +47,22 @@ data class EventPartners(
 )
 
 @Serializable
+data class FeaturesActivated(
+    @SerialName("has_networking")
+    val hasNetworking: Boolean,
+    @SerialName("has_speaker_list")
+    val hasSpeakerList: Boolean,
+    @SerialName("has_partner_list")
+    val hasPartnerList: Boolean,
+    @SerialName("has_menus")
+    val hasMenus: Boolean,
+    @SerialName("has_qanda")
+    val hasQAndA: Boolean,
+    @SerialName("has_billet_web_ticket")
+    val hasBilletWebTicket: Boolean
+)
+
+@Serializable
 data class Event(
     val id: String,
     val name: String,
@@ -59,6 +75,7 @@ data class Event(
     val menus: List<EventLunchMenu>,
     val qanda: List<QuestionAndResponse>,
     val coc: String,
+    val features: FeaturesActivated,
     @SerialName("twitter_url")
     val twitterUrl: String?,
     @SerialName("linkedin_url")

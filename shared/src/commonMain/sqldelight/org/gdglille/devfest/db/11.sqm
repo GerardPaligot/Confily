@@ -1,0 +1,9 @@
+CREATE TABLE FeaturesActivated (
+event_id TEXT NOT NULL PRIMARY KEY,
+has_networking INTEGER AS Boolean NOT NULL DEFAULT 0,
+has_speaker_list INTEGER AS Boolean NOT NULL DEFAULT 0,
+has_partner_list INTEGER AS Boolean NOT NULL DEFAULT 0,
+has_menus INTEGER AS Boolean NOT NULL DEFAULT 0,
+has_qanda INTEGER AS Boolean NOT NULL DEFAULT 0,
+has_billet_web_ticket INTEGER AS Boolean NOT NULL DEFAULT 0
+);

@@ -15,6 +15,7 @@ import org.gdglille.devfest.android.data.QrCodeGeneratorAndroid
 import org.gdglille.devfest.android.theme.vitamin.features.Main
 import org.gdglille.devfest.database.DatabaseWrapper
 import org.gdglille.devfest.database.EventDao
+import org.gdglille.devfest.database.FeaturesActivatedDao
 import org.gdglille.devfest.database.ScheduleDao
 import org.gdglille.devfest.database.SpeakerDao
 import org.gdglille.devfest.database.TalkDao
@@ -45,6 +46,7 @@ class MainActivity : AppCompatActivity() {
             talkDao = TalkDao(db),
             eventDao = EventDao(db, eventId),
             userDao = UserDao(db = db, eventId = eventId),
+            featuresDao = FeaturesActivatedDao(db = db, eventId = eventId),
             qrCodeGenerator = QrCodeGeneratorAndroid()
         )
         val userRepository = UserRepository.Factory.create(

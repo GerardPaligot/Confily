@@ -35,6 +35,9 @@ email, firstname, lastname, company, qrcode
 selectProfile:
 SELECT * FROM Profile WHERE event_id == ?;
 
+selectQrCode:
+SELECT qrcode FROM Profile WHERE event_id == ?;
+
 insertProfile:
 INSERT OR REPLACE INTO Profile(
 event_id, email, firstname, lastname, company, qrcode

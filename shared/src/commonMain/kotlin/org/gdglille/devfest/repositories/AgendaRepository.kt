@@ -7,9 +7,9 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import org.gdglille.devfest.database.EventDao
+import org.gdglille.devfest.database.FeaturesActivatedDao
 import org.gdglille.devfest.database.ScheduleDao
 import org.gdglille.devfest.database.SpeakerDao
 import org.gdglille.devfest.database.TalkDao
@@ -60,8 +60,18 @@ interface AgendaRepository {
             talkDao: TalkDao,
             eventDao: EventDao,
             userDao: UserDao,
+            featuresDao: FeaturesActivatedDao,
             qrCodeGenerator: QrCodeGenerator
-        ): AgendaRepository = AgendaRepositoryImpl(api, scheduleDao, speakerDao, talkDao, eventDao, userDao, qrCodeGenerator)
+        ): AgendaRepository = AgendaRepositoryImpl(
+            api,
+            scheduleDao,
+            speakerDao,
+            talkDao,
+            eventDao,
+            userDao,
+            featuresDao,
+            qrCodeGenerator
+        )
     }
 }
 
@@ -75,6 +85,7 @@ class AgendaRepositoryImpl(
     private val talkDao: TalkDao,
     private val eventDao: EventDao,
     private val userDao: UserDao,
+    private val featuresDao: FeaturesActivatedDao,
     private val qrCodeGenerator: QrCodeGenerator
 ) : AgendaRepository {
     override suspend fun fetchAndStoreAgenda() {
@@ -101,24 +112,7 @@ class AgendaRepositoryImpl(
         eventDao.updateTicket(qrCode, barcode, attendee)
     }
 
-    override suspend fun scaffoldConfig(): Flow<ScaffoldConfigUi> = combine(
-        eventDao.fetchPartners(),
-        eventDao.fetchMenus(),
-        eventDao.fetchQAndA(),
-        userDao.fetchProfile(),
-        transform = { partners, menus, qanda, profile ->
-            ScaffoldConfigUi(
-                hasNetworking = true,
-                hasSpeakerList = true,
-                hasPartnerList = partners.golds.isNotEmpty() || partners.silvers.isNotEmpty() || partners.bronzes.isNotEmpty(),
-                hasMenus = menus.isNotEmpty(),
-                hasQAndA = qanda.isNotEmpty(),
-                hasBilletWebTicket = true,
-                hasProfile = profile?.qrCode != null
-            )
-        }
-    )
-
+    override suspend fun scaffoldConfig(): Flow<ScaffoldConfigUi> = featuresDao.fetchFeatures()
     override suspend fun event(): Flow<EventUi> = eventDao.fetchEvent()
     override suspend fun partners(): Flow<PartnerGroupsUi> = eventDao.fetchPartners()
     override suspend fun qanda(): Flow<List<QuestionAndResponseUi>> = eventDao.fetchQAndA()

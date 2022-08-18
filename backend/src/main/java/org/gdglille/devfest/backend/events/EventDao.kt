@@ -33,6 +33,11 @@ class EventDao(private val database: Database) {
         database.update(eventId, existing.copy(coc = coc))
     }
 
+    suspend fun updateFeatures(eventId: String, apiKey: String, hasNetworking: Boolean) {
+        val existing = getVerified(eventId, apiKey)
+        database.update(eventId, existing.copy(features = FeaturesActivatedDb(hasNetworking = hasNetworking)))
+    }
+
     suspend fun updateUpdatedAt(id: String) {
         val existing = database.get<EventDb>(id) ?: return
         database.update(id, existing.copy(updatedAt = System.currentTimeMillis()))

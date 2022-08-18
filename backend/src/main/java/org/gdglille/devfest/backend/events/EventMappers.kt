@@ -6,6 +6,7 @@ import org.gdglille.devfest.backend.partners.convertToModel
 import org.gdglille.devfest.models.EventAddress
 import org.gdglille.devfest.models.EventLunchMenu
 import org.gdglille.devfest.models.EventPartners
+import org.gdglille.devfest.models.FeaturesActivated
 import org.gdglille.devfest.models.QuestionAndResponse
 import org.gdglille.devfest.models.QuestionAndResponseAction
 import org.gdglille.devfest.models.inputs.BilletWebConfigInput
@@ -80,6 +81,14 @@ fun EventDb.convertToModel(
     menus = menus.map { it.convertToModel() },
     qanda = qanda.map { it.convertToModel() },
     coc = coc,
+    features = FeaturesActivated(
+        hasNetworking = features.hasNetworking,
+        hasSpeakerList = !features.hasNetworking,
+        hasPartnerList = golds.isNotEmpty() || silvers.isNotEmpty() || bronzes.isNotEmpty() || others.isNotEmpty(),
+        hasMenus = menus.isNotEmpty(),
+        hasQAndA = qanda.isNotEmpty(),
+        hasBilletWebTicket = billetWebConfig != null
+    ),
     twitterUrl = this.twitterUrl,
     linkedinUrl = this.linkedinUrl,
     faqLink = this.faqLink,

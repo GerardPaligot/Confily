@@ -20,6 +20,7 @@ import org.gdglille.devfest.models.SocialOF
 import org.gdglille.devfest.models.SpeakerOF
 import org.gdglille.devfest.models.inputs.CoCInput
 import org.gdglille.devfest.models.inputs.EventInput
+import org.gdglille.devfest.models.inputs.FeaturesActivatedInput
 import org.gdglille.devfest.models.inputs.LunchMenuInput
 import org.gdglille.devfest.models.inputs.QuestionAndResponseInput
 import java.time.LocalDateTime
@@ -67,6 +68,11 @@ class EventRepository(
 
     suspend fun updateCoC(eventId: String, apiKey: String, coc: CoCInput) = coroutineScope {
         eventDao.updateCoc(eventId, apiKey, coc.coc)
+        return@coroutineScope eventId
+    }
+
+    suspend fun updateFeatures(eventId: String, apiKey: String, features: FeaturesActivatedInput) = coroutineScope {
+        eventDao.updateFeatures(eventId, apiKey, features.hasNetworking)
         return@coroutineScope eventId
     }
 
