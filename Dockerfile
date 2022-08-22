@@ -11,7 +11,7 @@ ENV PROJECT_ID=$PROJECT_ID
 ENV IS_CLOUD=$IS_CLOUD
 ENV GOOGLE_APPLICATION_CREDENTIALS=key.json
 
-RUN ./gradlew :backend:assemble
+RUN ./gradlew :backend:assemble --stacktrace --info --no-daemon
 
 EXPOSE 8080
 

@@ -1,16 +1,9 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
-    id("kotlin-platform-jvm")
-    application
+    id("conferences4hall.backend.application")
+    id("conferences4hall.quality")
     kotlin("plugin.serialization")
     id("com.google.cloud.tools.appengine") version "2.4.2"
     id("com.github.johnrengelman.shadow") version "7.1.2"
-    id("conferences4hall.quality")
-}
-
-tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "11"
 }
 
 dependencies {

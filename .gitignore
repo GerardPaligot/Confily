@@ -1,5 +1,8 @@
 .DS_Store
 
+# Temp
+cloudbuild.yaml
+
 #Ant
 build.xml
 local.properties

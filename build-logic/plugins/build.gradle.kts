@@ -34,6 +34,10 @@ gradlePlugin {
             id = "conferences4hall.multiplatform.library"
             implementationClass = "MultiplatformLibraryPlugin"
         }
+        register("backendApplication") {
+            id = "conferences4hall.backend.application"
+            implementationClass = "BackendPlugin"
+        }
         register("kotlinQuality") {
             id = "conferences4hall.quality"
             implementationClass = "KotlinQualitÿPlugin"
