@@ -33,6 +33,12 @@ data class LunchMenuDb(
     val dessert: String = ""
 )
 
+data class CategoryDb(
+    val name: String = "",
+    val color: String = "",
+    val icon: String = ""
+)
+
 data class FeaturesActivatedDb(
     val hasNetworking: Boolean = false
 )
@@ -57,6 +63,7 @@ data class EventDb(
     val menus: List<LunchMenuDb> = emptyList(),
     val qanda: List<QuestionAndResponseDb> = emptyList(),
     val coc: String = "",
+    val categories: List<CategoryDb> = emptyList(),
     val features: FeaturesActivatedDb = FeaturesActivatedDb(),
     val twitterUrl: String? = null,
     val linkedinUrl: String? = null,

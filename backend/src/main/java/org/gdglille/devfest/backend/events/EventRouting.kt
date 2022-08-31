@@ -12,6 +12,7 @@ import org.gdglille.devfest.backend.receiveValidated
 import org.gdglille.devfest.backend.schedulers.ScheduleItemDao
 import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.talks.TalkDao
+import org.gdglille.devfest.models.inputs.CategoryInput
 import org.gdglille.devfest.models.inputs.CoCInput
 import org.gdglille.devfest.models.inputs.EventInput
 import org.gdglille.devfest.models.inputs.FeaturesActivatedInput
@@ -54,6 +55,12 @@ fun Route.registerEventRoutes(
         val apiKey = call.request.headers["api_key"]!!
         val input = call.receiveValidated<CoCInput>()
         call.respond(HttpStatusCode.OK, repository.updateCoC(eventId, apiKey, input))
+    }
+    put("categories") {
+        val eventId = call.parameters["eventId"]!!
+        val apiKey = call.request.headers["api_key"]!!
+        val input = call.receive<List<CategoryInput>>()
+        call.respond(HttpStatusCode.OK, repository.updateCategories(eventId, apiKey, input))
     }
     put("features_activated") {
         val eventId = call.parameters["eventId"]!!

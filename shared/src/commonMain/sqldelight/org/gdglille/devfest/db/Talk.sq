@@ -9,7 +9,9 @@ abstract TEXT NOT NULL,
 category TEXT NOT NULL,
 format TEXT NOT NULL,
 open_feedback TEXT,
-open_feedback_url TEXT
+open_feedback_url TEXT,
+category_color TEXT,
+category_icon TEXT
 );
 
 CREATE TABLE TalkWithSpeakers(
@@ -22,8 +24,8 @@ FOREIGN KEY (talk_id) REFERENCES Speaker(id)
 
 insertTalk:
 INSERT OR REPLACE INTO Talk(
-id, title, start_time, end_time, room, level, abstract, category, format, open_feedback, open_feedback_url
-) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+id, title, start_time, end_time, room, level, abstract, category, category_color, category_icon, format, open_feedback, open_feedback_url
+) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
 
 selectTalks:
 SELECT * FROM Talk WHERE id IN ?;

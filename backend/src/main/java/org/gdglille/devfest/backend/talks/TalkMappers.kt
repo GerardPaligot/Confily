@@ -2,15 +2,15 @@ package org.gdglille.devfest.backend.talks
 
 import org.gdglille.devfest.backend.events.EventDb
 import org.gdglille.devfest.backend.events.openFeedbackUrl
-import org.gdglille.devfest.backend.network.conferencehall.Category
 import org.gdglille.devfest.backend.network.conferencehall.Format
 import org.gdglille.devfest.backend.speakers.SpeakerDb
 import org.gdglille.devfest.backend.speakers.convertToModel
+import org.gdglille.devfest.models.Category
 import org.gdglille.devfest.models.Talk
 import org.gdglille.devfest.models.inputs.TalkInput
 
 fun org.gdglille.devfest.backend.network.conferencehall.Talk.convertToDb(
-    categories: List<Category>,
+    categories: List<org.gdglille.devfest.backend.network.conferencehall.Category>,
     formats: List<Format>
 ): TalkDb = TalkDb(
     id = this.id,
@@ -31,6 +31,9 @@ fun TalkDb.convertToModel(speakers: List<SpeakerDb>, eventDb: EventDb): Talk = T
     level = this.level,
     abstract = this.abstract,
     category = this.category,
+    categoryStyle = eventDb.categories.find { it.name == this.category }?.let {
+        Category(name = it.name, color = it.color, icon = it.icon)
+    },
     format = this.format,
     language = this.language,
     speakers = speakers.filter { this.speakerIds.contains(it.id) }.map { it.convertToModel() },

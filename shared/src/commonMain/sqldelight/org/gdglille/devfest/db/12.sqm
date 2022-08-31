@@ -1,0 +1,5 @@
+ALTER TABLE Talk ADD COLUMN category_color TEXT;
+ALTER TABLE Talk ADD COLUMN category_icon TEXT;
+ALTER TABLE Schedule ADD COLUMN category TEXT NOT NULL DEFAULT "";
+ALTER TABLE Schedule ADD COLUMN category_color TEXT;
+ALTER TABLE Schedule ADD COLUMN category_icon TEXT;

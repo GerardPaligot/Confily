@@ -57,6 +57,15 @@ data class CoCInput(
 }
 
 @Serializable
+data class CategoryInput(
+    val name: String,
+    val color: String,
+    val icon: String
+) : Validator {
+    override fun validate(): List<String> = emptyList()
+}
+
+@Serializable
 data class FeaturesActivatedInput(
     @SerialName("has_networking")
     val hasNetworking: Boolean

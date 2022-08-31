@@ -4,6 +4,7 @@ import org.gdglille.devfest.backend.NotAuthorized
 import org.gdglille.devfest.backend.NotFoundException
 import org.gdglille.devfest.backend.database.Database
 import org.gdglille.devfest.backend.database.get
+import org.gdglille.devfest.models.inputs.CategoryInput
 
 class EventDao(private val database: Database) {
     suspend fun get(id: String): EventDb? = database.get(id)
@@ -31,6 +32,11 @@ class EventDao(private val database: Database) {
     suspend fun updateCoc(eventId: String, apiKey: String, coc: String) {
         val existing = getVerified(eventId, apiKey)
         database.update(eventId, existing.copy(coc = coc))
+    }
+
+    suspend fun updateCategories(eventId: String, apiKey: String, categories: List<CategoryDb>) {
+        val existing = getVerified(eventId, apiKey)
+        database.update(eventId, existing.copy(categories = categories))
     }
 
     suspend fun updateFeatures(eventId: String, apiKey: String, hasNetworking: Boolean) {

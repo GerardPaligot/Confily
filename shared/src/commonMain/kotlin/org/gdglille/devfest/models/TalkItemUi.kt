@@ -8,6 +8,7 @@ data class TalkItemUi(
     val room: String,
     val title: String,
     val abstract: String,
+    val category: CategoryUi,
     val speakers: List<String>,
     val speakersAvatar: List<String>,
     val isFavorite: Boolean
@@ -22,6 +23,7 @@ data class TalkItemUi(
             room = "Salle 700",
             title = "Designers x Developers : Ça match \uD83D\uDC99 ou ça match \uD83E\uDD4A ?",
             abstract = "Culture, language, outils... Entre designers & developers, pas toujours simple d’être du même côté du ring ! À l’heure de l’expérience utilisateur et de la scalabilité, Sabrina & Simon du Design System de Decathlon vous attendent aux vestiaires pour débriefer et préparer le prochain match !\\nAnalyse tactique, définition du plan de jeu, vérification de l’équipement. \\nOn chausse. Gong \uD83D\uDD14 ! Et c’est parti !",
+            category = CategoryUi(name = "UI/UX", color = "default", icon = "default"),
             speakers = arrayListOf("Sabrina VIGIL", "Simon Leclercq"),
             speakersAvatar = arrayListOf(
                 "https://storage.googleapis.com/conferences4hall/2022/speakers/0YOIreL1mbP7tKcTfX5TSaUI6VN2.png",
@@ -37,6 +39,7 @@ data class TalkItemUi(
             room = "Salle Lumière",
             title = "Pause ☕️",
             abstract = "",
+            category = CategoryUi(name = "", color = null, icon = null),
             speakers = emptyList(),
             speakersAvatar = emptyList(),
             isFavorite = false

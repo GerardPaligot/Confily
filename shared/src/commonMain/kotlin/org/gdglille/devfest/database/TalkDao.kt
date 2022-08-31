@@ -7,6 +7,7 @@ import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 import org.gdglille.devfest.db.Conferences4HallDatabase
 import org.gdglille.devfest.extensions.formatHoursMinutes
+import org.gdglille.devfest.models.CategoryUi
 import org.gdglille.devfest.models.SpeakerItemUi
 import org.gdglille.devfest.models.TalkUi
 
@@ -23,6 +24,7 @@ class TalkDao(private val db: Conferences4HallDatabase) {
             title = talk.title,
             level = talk.level,
             abstract = talk.abstract_,
+            category = CategoryUi(name = talk.category, color = talk.category_color, icon = talk.category_icon),
             startTime = startTime.formatHoursMinutes(),
             endTime = endTime.formatHoursMinutes(),
             timeInMinutes = diff.inWholeMinutes.toInt(),

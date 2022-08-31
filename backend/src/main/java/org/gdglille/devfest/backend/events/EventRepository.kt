@@ -18,6 +18,7 @@ import org.gdglille.devfest.models.OpenFeedback
 import org.gdglille.devfest.models.SessionOF
 import org.gdglille.devfest.models.SocialOF
 import org.gdglille.devfest.models.SpeakerOF
+import org.gdglille.devfest.models.inputs.CategoryInput
 import org.gdglille.devfest.models.inputs.CoCInput
 import org.gdglille.devfest.models.inputs.EventInput
 import org.gdglille.devfest.models.inputs.FeaturesActivatedInput
@@ -68,6 +69,11 @@ class EventRepository(
 
     suspend fun updateCoC(eventId: String, apiKey: String, coc: CoCInput) = coroutineScope {
         eventDao.updateCoc(eventId, apiKey, coc.coc)
+        return@coroutineScope eventId
+    }
+
+    suspend fun updateCategories(eventId: String, apiKey: String, categories: List<CategoryInput>) = coroutineScope {
+        eventDao.updateCategories(eventId, apiKey, categories.map { it.convertToDb() })
         return@coroutineScope eventId
     }
 

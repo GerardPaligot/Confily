@@ -14,6 +14,7 @@ import kotlinx.datetime.toLocalDateTime
 import org.gdglille.devfest.db.Conferences4HallDatabase
 import org.gdglille.devfest.extensions.formatHoursMinutes
 import org.gdglille.devfest.models.AgendaUi
+import org.gdglille.devfest.models.CategoryUi
 import org.gdglille.devfest.models.ScheduleItem
 import org.gdglille.devfest.models.TalkItemUi
 
@@ -27,8 +28,8 @@ class ScheduleDao(
 ) {
     private val scheduleMapper =
         { id: String, _: String, startTime: String, endTime: String, room: String,
-            title: String, abstract: String, speakers: List<String>,
-            speakersAvatar: List<String>, is_favorite: Boolean ->
+            title: String, abstract: String, category: String, categoryColor: String?, categoryIcon: String?,
+            speakers: List<String>, speakersAvatar: List<String>, is_favorite: Boolean ->
             TalkItemUi(
                 id = id,
                 room = room,
@@ -37,6 +38,7 @@ class ScheduleDao(
                 endTime = endTime,
                 title = title,
                 abstract = abstract,
+                category = CategoryUi(name = category, color = categoryColor, icon = categoryIcon),
                 speakers = speakers,
                 speakersAvatar = speakersAvatar,
                 isFavorite = is_favorite
@@ -91,6 +93,8 @@ class ScheduleDao(
                     level = talk.level,
                     abstract_ = talk.abstract_,
                     category = talk.category,
+                    category_color = talk.category_color,
+                    category_icon = talk.category_icon,
                     format = talk.format,
                     open_feedback = talk.open_feedback?.split("/")?.lastOrNull(),
                     open_feedback_url = talk.open_feedback_url
@@ -120,6 +124,9 @@ class ScheduleDao(
                     room = schedule.room,
                     title = schedule.talk?.title ?: "Pause ☕️",
                     abstract_ = schedule.talk?.abstract ?: "",
+                    category = schedule.talk?.category ?: "",
+                    category_color = schedule.talk?.categoryStyle?.color,
+                    category_icon = schedule.talk?.categoryStyle?.icon,
                     speakers = schedule.talk?.speakers?.map { it.displayName } ?: emptyList(),
                     speakers_avatar = schedule.talk?.speakers?.map { it.photoUrl } ?: emptyList(),
                     is_favorite = false
@@ -132,6 +139,9 @@ class ScheduleDao(
                     room = schedule.room,
                     title = schedule.talk?.title ?: "Pause ☕️",
                     abstract_ = schedule.talk?.abstract ?: "",
+                    category = schedule.talk?.category ?: "",
+                    category_color = schedule.talk?.categoryStyle?.color,
+                    category_icon = schedule.talk?.categoryStyle?.icon,
                     speakers = schedule.talk?.speakers?.map { it.displayName } ?: emptyList(),
                     speakers_avatar = schedule.talk?.speakers?.map { it.photoUrl } ?: emptyList(),
                     id = schedule.id

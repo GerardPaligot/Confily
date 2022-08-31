@@ -10,6 +10,7 @@ import org.gdglille.devfest.models.FeaturesActivated
 import org.gdglille.devfest.models.QuestionAndResponse
 import org.gdglille.devfest.models.QuestionAndResponseAction
 import org.gdglille.devfest.models.inputs.BilletWebConfigInput
+import org.gdglille.devfest.models.inputs.CategoryInput
 import org.gdglille.devfest.models.inputs.EventInput
 import org.gdglille.devfest.models.inputs.LunchMenuInput
 import org.gdglille.devfest.models.inputs.QuestionAndResponseActionInput
@@ -114,6 +115,12 @@ fun LunchMenuInput.convertToDb() = LunchMenuDb(
     dish = dish,
     accompaniment = accompaniment,
     dessert = dessert
+)
+
+fun CategoryInput.convertToDb() = CategoryDb(
+    name = name,
+    color = color,
+    icon = icon
 )
 
 fun BilletWebConfigInput.convertToDb() = BilletWebConfigurationDb(

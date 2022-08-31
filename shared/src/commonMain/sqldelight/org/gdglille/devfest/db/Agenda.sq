@@ -10,22 +10,25 @@ title TEXT NOT NULL,
 abstract TEXT NOT NULL,
 speakers TEXT AS List<String> NOT NULL,
 speakers_avatar TEXT AS List<String> NOT NULL,
-is_favorite INTEGER AS Boolean NOT NULL DEFAULT 0
+is_favorite INTEGER AS Boolean NOT NULL DEFAULT 0,
+category TEXT NOT NULL,
+category_color TEXT,
+category_icon TEXT
 );
 
 insertSchedule:
 INSERT OR REPLACE INTO Schedule(
-id, event_id, start_time, end_time, room, title, abstract, speakers, speakers_avatar, is_favorite
-) VALUES (?,?,?,?, ?, ?, ?, ?, ?, ?);
+id, event_id, start_time, end_time, room, title, abstract, category, category_color, category_icon, speakers, speakers_avatar, is_favorite
+) VALUES (?,?,?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
 
 updateSchedule:
-UPDATE Schedule SET event_id = ?, start_time = ?, end_time = ?, room = ?, title = ?, abstract = ?, speakers = ?, speakers_avatar = ? WHERE id == ?;
+UPDATE Schedule SET event_id = ?, start_time = ?, end_time = ?, room = ?, title = ?, abstract = ?, category = ?, category_color = ?, category_icon = ?, speakers = ?, speakers_avatar = ? WHERE id == ?;
 
 markAsFavorite:
 UPDATE Schedule SET is_favorite = ? WHERE id == ?;
 
 selectScheduleItems:
-SELECT id, event_id, start_time, end_time, room, title, abstract, speakers, speakers_avatar, is_favorite FROM Schedule WHERE event_id == ? ORDER BY start_time;
+SELECT id, event_id, start_time, end_time, room, title, abstract, category, category_color, category_icon, speakers, speakers_avatar, is_favorite FROM Schedule WHERE event_id == ? ORDER BY start_time;
 
 countScheduleItems:
 SELECT count(*) FROM Schedule WHERE event_id == ? AND is_favorite == ?;

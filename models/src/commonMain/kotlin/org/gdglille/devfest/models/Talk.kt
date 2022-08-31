@@ -10,6 +10,8 @@ data class Talk(
     val level: String?,
     val abstract: String,
     val category: String,
+    @SerialName("category_style")
+    val categoryStyle: Category? = null,
     val format: String,
     val language: String,
     val speakers: List<Speaker>,
