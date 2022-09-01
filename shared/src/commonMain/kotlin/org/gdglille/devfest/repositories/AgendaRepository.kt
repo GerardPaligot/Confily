@@ -37,7 +37,7 @@ interface AgendaRepository {
     suspend fun agenda(): Flow<AgendaUi>
     suspend fun markAsRead(scheduleId: String, isFavorite: Boolean)
     suspend fun scheduleItem(scheduleId: String): TalkUi
-    suspend fun speaker(speakerId: String): SpeakerUi
+    suspend fun speaker(speakerId: String): Flow<SpeakerUi>
 
     // Kotlin/Native client
     fun startCollectAgenda(success: (AgendaUi) -> Unit, failure: (Throwable) -> Unit)
@@ -48,6 +48,8 @@ interface AgendaRepository {
     fun stopCollectPartners()
     fun startCollectMenus(success: (List<MenuItemUi>) -> Unit, failure: (Throwable) -> Unit)
     fun stopCollectMenus()
+    fun startCollectSpeaker(speakerId: String, success: (SpeakerUi) -> Unit, failure: (Throwable) -> Unit)
+    fun stopCollectSpeaker()
 
     @FlowPreview
     @ExperimentalSettingsApi
@@ -125,7 +127,7 @@ class AgendaRepositoryImpl(
         scheduleDao.markAsFavorite(scheduleId, isFavorite)
 
     override suspend fun scheduleItem(scheduleId: String): TalkUi = talkDao.fetchTalk(scheduleId)
-    override suspend fun speaker(speakerId: String): SpeakerUi = speakerDao.fetchSpeaker(speakerId)
+    override suspend fun speaker(speakerId: String): Flow<SpeakerUi> = speakerDao.fetchSpeaker(speakerId)
 
     private val coroutineScope: CoroutineScope = MainScope()
     private var agendaJob: Job? = null
@@ -194,5 +196,22 @@ class AgendaRepositoryImpl(
 
     override fun stopCollectMenus() {
         menusJob?.cancel()
+    }
+
+    private var speakerJob: Job? = null
+    override fun startCollectSpeaker(speakerId: String, success: (SpeakerUi) -> Unit, failure: (Throwable) -> Unit) {
+        speakerJob = coroutineScope.launch {
+            try {
+                speaker(speakerId).collect {
+                    success(it)
+                }
+            } catch (throwable: Throwable) {
+                failure(throwable)
+            }
+        }
+    }
+
+    override fun stopCollectSpeaker() {
+        speakerJob?.cancel()
     }
 }

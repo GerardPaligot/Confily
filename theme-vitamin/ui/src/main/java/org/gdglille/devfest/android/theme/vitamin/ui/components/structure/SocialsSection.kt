@@ -12,6 +12,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.decathlon.vitamin.compose.foundation.VitaminTheme
+import com.halilibo.richtext.markdown.Markdown
+import com.halilibo.richtext.ui.RichText
+import com.halilibo.richtext.ui.RichTextThemeIntegration
 import org.gdglille.devfest.android.theme.vitamin.ui.components.speakers.Socials
 import org.gdglille.devfest.android.theme.vitamin.ui.theme.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.vitamin.ui.theme.placeholder
@@ -22,6 +25,7 @@ fun SocialsSection(
     title: String,
     subtitle: String,
     modifier: Modifier = Modifier,
+    detailed: String? = null,
     isLoading: Boolean = false,
     twitterUrl: String? = null,
     githubUrl: String? = null,
@@ -35,10 +39,10 @@ fun SocialsSection(
             color = VitaminTheme.colors.vtmnContentPrimary,
             modifier = Modifier.placeholder(visible = isLoading)
         )
-        Spacer(modifier = Modifier.height(2.dp))
+        Spacer(modifier = Modifier.height(4.dp))
         Text(
             text = subtitle,
-            style = VitaminTheme.typography.body1,
+            style = VitaminTheme.typography.body3,
             color = VitaminTheme.colors.vtmnContentSecondary,
             modifier = Modifier.placeholder(visible = isLoading)
         )
@@ -65,6 +69,21 @@ fun SocialsSection(
                         onClick = { linkedinUrl.let(onLinkClicked) },
                         modifier = Modifier.placeholder(visible = isLoading)
                     )
+                }
+            }
+        }
+        detailed?.let {
+            Spacer(modifier = Modifier.height(12.dp))
+            RichTextThemeIntegration(
+                textStyle = { VitaminTheme.typography.body2 },
+                ProvideTextStyle = null,
+                contentColor = { VitaminTheme.colors.vtmnContentPrimary },
+                ProvideContentColor = null,
+            ) {
+                RichText(
+                    modifier = Modifier.placeholder(visible = isLoading)
+                ) {
+                    Markdown(detailed)
                 }
             }
         }

@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
@@ -20,15 +19,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.decathlon.vitamin.compose.foundation.VitaminTheme
-import com.decathlon.vitamin.compose.tags.VitaminTags
 import org.gdglille.devfest.android.theme.vitamin.ui.R
-import org.gdglille.devfest.android.theme.vitamin.ui.components.speakers.SpeakersAvatar
+import org.gdglille.devfest.android.theme.vitamin.ui.components.tags.DecorativeTag
+import org.gdglille.devfest.android.theme.vitamin.ui.components.tags.LevelTag
+import org.gdglille.devfest.android.theme.vitamin.ui.components.tags.UnStyledTag
 import org.gdglille.devfest.android.theme.vitamin.ui.theme.Conferences4HallTheme
 import org.gdglille.devfest.models.TalkItemUi
 
@@ -45,58 +44,68 @@ fun TalkItem(
             onClick = { onTalkItemClicked(talk) },
             backgroundColor = VitaminTheme.colors.vtmnBackgroundPrimary,
             contentColor = VitaminTheme.colors.vtmnContentPrimary,
-            shape = RoundedCornerShape(size = 4.dp)
+            shape = RoundedCornerShape(size = 8.dp),
+            elevation = 2.dp
         ) {
-            val contentPadding = 8.dp
-            Column(
-                modifier = Modifier.fillMaxWidth().padding(contentPadding),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    VitaminTags.DecorativeGravel(
-                        label = talk.room,
-                        modifier = Modifier.padding(vertical = 2.dp)
-                    )
+            Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
+                if (talk.category.color != null || talk.level != null) {
+                    Column {
+                        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            talk.category.color?.let {
+                                DecorativeTag(category = talk.category)
+                            }
+                            talk.level?.let {
+                                LevelTag(level = it)
+                            }
+                        }
+                        Spacer(modifier = Modifier.height(8.dp))
+                    }
                 }
                 Text(
                     text = talk.title,
-                    style = VitaminTheme.typography.body3,
-                    fontWeight = FontWeight.Bold,
+                    style = VitaminTheme.typography.subtitle1,
                     maxLines = 2,
-                    overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.padding(end = 82.dp - contentPadding)
+                    overflow = TextOverflow.Ellipsis
                 )
-                if (talk.abstract != "" || talk.speakers.isNotEmpty()) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text(
-                            text = talk.abstract,
-                            style = VitaminTheme.typography.body3,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                            modifier = Modifier.weight(1f)
-                        )
-                        Spacer(modifier = Modifier.width(16.dp))
-                        SpeakersAvatar(
-                            speakersName = talk.speakers,
-                            speakersAvatar = talk.speakersAvatar,
-                            modifier = Modifier.height(24.dp)
-                        )
-                        Spacer(modifier = Modifier.width(4.dp))
-                    }
+                if (talk.speakers.isNotEmpty()) {
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        text = stringResource(R.string.text_speakers, talk.speakers.joinToString(", ")),
+                        style = VitaminTheme.typography.body3,
+                        color = VitaminTheme.colors.vtmnContentSecondary,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
+                Spacer(modifier = Modifier.height(12.dp))
+                Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                    UnStyledTag(
+                        text = talk.room,
+                        icon = R.drawable.ic_vtmn_map_pin_line,
+                        style = VitaminTheme.typography.body3
+                    )
+                    UnStyledTag(
+                        text = stringResource(R.string.text_schedule_minutes, talk.timeInMinutes.toString()),
+                        icon = if (talk.timeInMinutes <= 30) {
+                            R.drawable.ic_vtmn_flashlight_line
+                        } else {
+                            R.drawable.ic_vtmn_timer_line
+                        },
+                        style = VitaminTheme.typography.body3
+                    )
                 }
             }
         }
         IconButton(
             onClick = { onFavoriteClicked(talk) },
-            modifier = Modifier.align(Alignment.TopEnd).zIndex(1f)
+            modifier = Modifier
+                .align(Alignment.TopEnd)
+                .zIndex(1f),
         ) {
             val favoriteIcon = if (talk.isFavorite) {
-                R.drawable.ic_vtmn_heart_3_fill
+                R.drawable.ic_vtmn_star_fill
             } else {
-                R.drawable.ic_vtmn_heart_3_line
+                R.drawable.ic_vtmn_star_line
             }
             val favoriteDescription = if (talk.isFavorite) {
                 stringResource(R.string.action_favorites_remove)
@@ -104,14 +113,15 @@ fun TalkItem(
                 stringResource(R.string.action_favorites_add)
             }
             val favoriteColor = if (talk.isFavorite) {
-                VitaminTheme.colors.vtmnContentAction
+                VitaminTheme.colors.vtmnContentActive
             } else {
                 VitaminTheme.colors.vtmnContentInactive
             }
             Icon(
                 painter = painterResource(favoriteIcon),
                 contentDescription = favoriteDescription,
-                tint = favoriteColor
+                tint = favoriteColor,
+                modifier = Modifier.padding(12.dp)
             )
         }
     }

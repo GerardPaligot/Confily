@@ -8,7 +8,8 @@ data class SpeakerUi(
     val twitter: String?,
     val twitterUrl: String?,
     val github: String?,
-    val githubUrl: String?
+    val githubUrl: String?,
+    val talks: List<TalkItemUi>
 ) {
     companion object {
         val fake = SpeakerUi(
@@ -19,7 +20,8 @@ data class SpeakerUi(
             twitter = "GerardPaligot",
             twitterUrl = "https://twitter.com/GerardPaligot",
             github = "GerardPaligot",
-            githubUrl = "https://github.com/GerardPaligot"
+            githubUrl = "https://github.com/GerardPaligot",
+            talks = arrayListOf(TalkItemUi.fake)
         )
     }
 }

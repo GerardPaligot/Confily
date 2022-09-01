@@ -11,12 +11,15 @@ import org.gdglille.devfest.models.SpeakerUi
 fun SpeakerSocialSection(
     speaker: SpeakerUi,
     modifier: Modifier = Modifier,
+    isLoading: Boolean = false,
     onLinkClicked: (url: String) -> Unit,
 ) {
     SocialsSection(
         title = speaker.name,
         subtitle = speaker.company,
+        detailed = speaker.bio,
         modifier = modifier,
+        isLoading = isLoading,
         twitterUrl = speaker.twitterUrl,
         githubUrl = speaker.githubUrl,
         onLinkClicked = onLinkClicked

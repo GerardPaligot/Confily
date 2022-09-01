@@ -11,6 +11,7 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -29,8 +30,9 @@ fun SpeakerItem(
 ) {
     Card(
         modifier = modifier.placeholder(visible = isLoading),
-        shape = RoundedCornerShape(size = 4.dp),
-        onClick = { onClick(speakerUi) }
+        shape = RoundedCornerShape(size = 8.dp),
+        onClick = { onClick(speakerUi) },
+        elevation = 2.dp
     ) {
         Column {
             SpeakerAvatar(
@@ -44,14 +46,15 @@ fun SpeakerItem(
             ) {
                 Text(
                     text = speakerUi.name,
-                    style = VitaminTheme.typography.body3,
+                    style = VitaminTheme.typography.body2,
+                    fontWeight = FontWeight.Bold,
                     color = VitaminTheme.colors.vtmnContentPrimary,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
                     text = speakerUi.company,
-                    style = VitaminTheme.typography.overline,
+                    style = VitaminTheme.typography.body3,
                     color = VitaminTheme.colors.vtmnContentSecondary,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis

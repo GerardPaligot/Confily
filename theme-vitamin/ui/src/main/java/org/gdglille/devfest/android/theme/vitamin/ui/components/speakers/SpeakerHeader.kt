@@ -1,8 +1,11 @@
 package org.gdglille.devfest.android.theme.vitamin.ui.components.speakers
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
@@ -22,6 +25,15 @@ fun SpeakerHeader(
     modifier: Modifier = Modifier,
     onBackClicked: () -> Unit
 ) {
+    Column {
+        SpeakerAvatar(
+            url = url,
+            contentDescription = null,
+            modifier = Modifier.fillMaxWidth().height(230.dp),
+            shape = CircleShape
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+    }
     Box(modifier = modifier) {
         SpeakerAvatar(
             url = url,

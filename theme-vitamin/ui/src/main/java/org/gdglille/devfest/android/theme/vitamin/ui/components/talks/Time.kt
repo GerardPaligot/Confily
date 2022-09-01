@@ -24,7 +24,7 @@ fun Time(
             style = VitaminTheme.typography.h6,
             color = VitaminTheme.colors.vtmnContentPrimary,
             modifier = Modifier
-                .padding(vertical = 6.dp, horizontal = 8.dp)
+                .padding(top = 4.dp)
                 .placeholder(visible = isLoading)
         )
     }

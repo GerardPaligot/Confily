@@ -24,10 +24,10 @@ fun ScheduleItem(
 ) {
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(2.dp)
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Time(time = time, isLoading = isLoading)
-        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             talks.forEach {
                 if (it.isPause) {
                     PauseItem()

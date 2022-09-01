@@ -2,6 +2,7 @@
 <resources>
     <string name="screen_agenda">Agenda</string>
     <string name="screen_speakers">Speakers</string>
+    <string name="screen_speaker_detail">Speaker detail</string>
     <string name="screen_networking">Networking</string>
     <string name="screen_info">Info</string>
     <string name="screen_event">Event</string>
@@ -21,17 +22,19 @@
     <string name="title_bronze">Bronze</string>
     <string name="title_notif_reminder_talk">Talk in 10 minutes in %s</string>
     <string name="title_ticket">Your ticket</string>
-    <string name="title_plan">Plan</string>
+    <string name="title_plan">Go to the event</string>
 
     <string name="text_loading">Loading…</string>
     <string name="text_error">Something wrong happened</string>
     <string name="text_schedule_time">From %s to %s</string>
     <string name="text_schedule_minutes">%s minutes</string>
+    <string name="text_speakers">By %s</string>
     <string name="text_level_advanced">Advanced</string>
     <string name="text_level_intermediate">Intermediate</string>
     <string name="text_level_beginner">Beginner</string>
     <string name="text_openfeedback_title">Notes &amp; feedback</string>
-    <string name="text_openfeedback_not_started">You\'ll be able to give feedback when the session has started!</string>
+    <string name="text_openfeedback_not_started_title">React in live!</string>
+    <string name="text_openfeedback_not_started">Wait a little, you will be able to give feedbacks when the session has started.</string>
     <string name="text_speaker_title">About speakers</string>
     <string name="text_permission">Permission required</string>
     <string name="text_camera_permission_explaination">The camera is important to scan QR code. Please grant the permission.</string>

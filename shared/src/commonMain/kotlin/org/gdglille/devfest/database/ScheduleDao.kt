@@ -10,6 +10,8 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapMerge
 import kotlinx.coroutines.flow.map
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 import org.gdglille.devfest.db.Conferences4HallDatabase
 import org.gdglille.devfest.extensions.formatHoursMinutes
@@ -26,16 +28,21 @@ class ScheduleDao(
     private val settings: ObservableSettings,
     private val eventId: String
 ) {
-    private val scheduleMapper =
+    val scheduleMapper =
         { id: String, _: String, startTime: String, endTime: String, room: String,
             title: String, abstract: String, category: String, categoryColor: String?, categoryIcon: String?,
-            speakers: List<String>, speakersAvatar: List<String>, is_favorite: Boolean ->
+            speakers: List<String>, speakersAvatar: List<String>, is_favorite: Boolean, level: String? ->
+            val startDateTime = startTime.toLocalDateTime()
+            val endDateTime = endTime.toLocalDateTime()
+            val diff = endDateTime.toInstant(TimeZone.UTC).minus(startDateTime.toInstant(TimeZone.UTC))
             TalkItemUi(
                 id = id,
                 room = room,
-                slotTime = startTime.toLocalDateTime().formatHoursMinutes(),
+                level = level,
+                slotTime = startDateTime.formatHoursMinutes(),
                 startTime = startTime,
                 endTime = endTime,
+                timeInMinutes = diff.inWholeMinutes.toInt(),
                 title = title,
                 abstract = abstract,
                 category = CategoryUi(name = category, color = categoryColor, icon = categoryIcon),
@@ -129,10 +136,12 @@ class ScheduleDao(
                     category_icon = schedule.talk?.categoryStyle?.icon,
                     speakers = schedule.talk?.speakers?.map { it.displayName } ?: emptyList(),
                     speakers_avatar = schedule.talk?.speakers?.map { it.photoUrl } ?: emptyList(),
-                    is_favorite = false
+                    is_favorite = false,
+                    level = schedule.talk?.level
                 )
             } else {
                 db.agendaQueries.updateSchedule(
+                    id = schedule.id,
                     event_id = eventId,
                     start_time = schedule.startTime,
                     end_time = schedule.endTime,
@@ -144,7 +153,7 @@ class ScheduleDao(
                     category_icon = schedule.talk?.categoryStyle?.icon,
                     speakers = schedule.talk?.speakers?.map { it.displayName } ?: emptyList(),
                     speakers_avatar = schedule.talk?.speakers?.map { it.photoUrl } ?: emptyList(),
-                    id = schedule.id
+                    level = schedule.talk?.level
                 )
             }
         }

@@ -40,3 +40,6 @@ speaker_id, talk_id
 
 selectTalkWithSpeakersByTalkId:
 SELECT * FROM TalkWithSpeakers WHERE talk_id == ?;
+
+selectTalkWithSpeakersBySpeakerId:
+SELECT * FROM TalkWithSpeakers WHERE speaker_id == ?;

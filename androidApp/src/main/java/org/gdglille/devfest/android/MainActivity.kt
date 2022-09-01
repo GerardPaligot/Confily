@@ -1,5 +1,6 @@
 package org.gdglille.devfest.android
 
+import android.app.AlarmManager
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -11,6 +12,7 @@ import com.russhwolf.settings.AndroidSettings
 import com.russhwolf.settings.ExperimentalSettingsApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import org.gdglille.devfest.android.data.AlarmScheduler
 import org.gdglille.devfest.android.data.QrCodeGeneratorAndroid
 import org.gdglille.devfest.android.theme.vitamin.features.Main
 import org.gdglille.devfest.database.DatabaseWrapper
@@ -56,6 +58,11 @@ class MainActivity : AppCompatActivity() {
         val speakerRepository = SpeakerRepository.Factory.create(
             speakerDao = SpeakerDao(db, eventId)
         )
+        val scheduler = AlarmScheduler(
+            agendaRepository,
+            getSystemService(Context.ALARM_SERVICE) as AlarmManager,
+            AlarmIntentFactoryImpl
+        )
         val openFeedbackState = (application as MainApplication).openFeedbackConfig
         setContent {
             val reportSubject = stringResource(id = R.string.text_report_subject)
@@ -64,7 +71,7 @@ class MainActivity : AppCompatActivity() {
                 agendaRepository = agendaRepository,
                 userRepository = userRepository,
                 speakerRepository = speakerRepository,
-                alarmIntentFactory = AlarmIntentFactoryImpl,
+                alarmScheduler = scheduler,
                 openFeedbackState = openFeedbackState,
                 launchUrl = { launchUrl(it) },
                 onReportClicked = {

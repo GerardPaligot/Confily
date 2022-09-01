@@ -39,7 +39,7 @@ fun EventMap(
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(8.dp)
+            modifier = Modifier.padding(16.dp)
         ) {
             Column(modifier = Modifier.weight(1f)) {
                 formattedAddress.forEachIndexed { index, address ->
@@ -51,7 +51,7 @@ fun EventMap(
                     val weight = if (index == 0) FontWeight.Bold else FontWeight.Normal
                     Text(
                         text = address,
-                        style = VitaminTheme.typography.body3,
+                        style = VitaminTheme.typography.body2,
                         fontWeight = weight,
                         color = color,
                         modifier = Modifier.placeholder(visible = isLoading)

@@ -9,7 +9,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import org.gdglille.devfest.android.data.AlarmIntentFactory
+import org.gdglille.devfest.android.data.AlarmScheduler
 import org.gdglille.devfest.android.data.viewmodels.AgendaUiState
 import org.gdglille.devfest.android.data.viewmodels.AgendaViewModel
 import org.gdglille.devfest.android.theme.vitamin.ui.screens.agenda.Agenda
@@ -20,13 +20,13 @@ import org.gdglille.devfest.repositories.AgendaRepository
 @Composable
 fun AgendaVM(
     agendaRepository: AgendaRepository,
-    alarmIntentFactory: AlarmIntentFactory,
+    alarmScheduler: AlarmScheduler,
     modifier: Modifier = Modifier,
     onTalkClicked: (id: String) -> Unit,
 ) {
     val context = LocalContext.current
     val viewModel: AgendaViewModel = viewModel(
-        factory = AgendaViewModel.Factory.create(context, agendaRepository, alarmIntentFactory)
+        factory = AgendaViewModel.Factory.create(agendaRepository, alarmScheduler)
     )
     val uiState = viewModel.uiState.collectAsState()
     when (uiState.value) {
@@ -37,6 +37,7 @@ fun AgendaVM(
             onTalkClicked = {},
             onFavoriteClicked = { }
         )
+
         is AgendaUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
         is AgendaUiState.Success -> Agenda(
             agenda = (uiState.value as AgendaUiState.Success).agenda,

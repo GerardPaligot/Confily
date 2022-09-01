@@ -15,7 +15,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import io.openfeedback.android.OpenFeedbackConfig
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import org.gdglille.devfest.android.data.AlarmIntentFactory
+import org.gdglille.devfest.android.data.AlarmScheduler
 import org.gdglille.devfest.android.theme.vitamin.ui.screens.event.TicketQrCodeScanner
 import org.gdglille.devfest.android.theme.vitamin.ui.screens.networking.VCardQrCodeScanner
 import org.gdglille.devfest.android.theme.vitamin.ui.theme.Conferences4HallTheme
@@ -32,7 +32,7 @@ fun Main(
     agendaRepository: AgendaRepository,
     userRepository: UserRepository,
     speakerRepository: SpeakerRepository,
-    alarmIntentFactory: AlarmIntentFactory,
+    alarmScheduler: AlarmScheduler,
     openFeedbackState: OpenFeedbackConfig,
     launchUrl: (String) -> Unit,
     onReportClicked: () -> Unit,
@@ -54,7 +54,7 @@ fun Main(
                     agendaRepository = agendaRepository,
                     userRepository = userRepository,
                     speakerRepository = speakerRepository,
-                    alarmIntentFactory = alarmIntentFactory,
+                    alarmScheduler = alarmScheduler,
                     savedStateHandle = navController.currentBackStackEntry?.savedStateHandle,
                     onTalkClicked = {
                         navController.navigate("schedules/$it")
@@ -100,10 +100,15 @@ fun Main(
                 SpeakerDetailVM(
                     speakerId = it.arguments?.getString("speakerId")!!,
                     agendaRepository = agendaRepository,
-                    onLinkClicked = { launchUrl(it) }
-                ) {
-                    navController.popBackStack()
-                }
+                    alarmScheduler = alarmScheduler,
+                    onTalkClicked = {
+                        navController.navigate("schedules/$it")
+                    },
+                    onLinkClicked = { launchUrl(it) },
+                    onBackClicked = {
+                        navController.popBackStack()
+                    }
+                )
             }
             composable(route = "scanner/vcard") {
                 VCardQrCodeScanner(

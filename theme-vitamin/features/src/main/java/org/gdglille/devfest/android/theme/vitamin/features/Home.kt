@@ -15,7 +15,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import org.gdglille.devfest.android.data.AlarmIntentFactory
+import org.gdglille.devfest.android.data.AlarmScheduler
 import org.gdglille.devfest.android.data.models.VCardModel
 import org.gdglille.devfest.android.data.models.convertToModelUi
 import org.gdglille.devfest.android.theme.vitamin.features.structure.VitaminScaffoldNavigation
@@ -37,7 +37,7 @@ fun Home(
     agendaRepository: AgendaRepository,
     userRepository: UserRepository,
     speakerRepository: SpeakerRepository,
-    alarmIntentFactory: AlarmIntentFactory,
+    alarmScheduler: AlarmScheduler,
     modifier: Modifier = Modifier,
     savedStateHandle: SavedStateHandle? = null,
     navController: NavHostController = rememberNavController(),
@@ -115,7 +115,7 @@ fun Home(
                     composable(Screen.Agenda.route) {
                         AgendaVM(
                             agendaRepository = agendaRepository,
-                            alarmIntentFactory = alarmIntentFactory,
+                            alarmScheduler = alarmScheduler,
                             onTalkClicked = onTalkClicked,
                         )
                     }

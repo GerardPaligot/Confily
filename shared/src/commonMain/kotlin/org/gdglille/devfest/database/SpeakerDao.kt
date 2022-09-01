@@ -2,10 +2,14 @@ package org.gdglille.devfest.database
 
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
+import com.squareup.sqldelight.runtime.coroutines.mapToOne
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
+import org.gdglille.devfest.database.mappers.TalkMappers
 import org.gdglille.devfest.db.Conferences4HallDatabase
 import org.gdglille.devfest.models.SpeakerItemUi
 import org.gdglille.devfest.models.SpeakerUi
+import org.gdglille.devfest.models.TalkItemUi
 
 class SpeakerDao(private val db: Conferences4HallDatabase, private val eventId: String) {
     private val mapper =
@@ -18,7 +22,8 @@ class SpeakerDao(private val db: Conferences4HallDatabase, private val eventId: 
                 twitter = twitter?.split("twitter.com/")?.get(1),
                 twitterUrl = twitter,
                 github = github?.split("github.com/")?.get(1),
-                githubUrl = github
+                githubUrl = github,
+                talks = emptyList()
             )
         }
     private val mapperItem =
@@ -32,7 +37,23 @@ class SpeakerDao(private val db: Conferences4HallDatabase, private val eventId: 
             )
         }
 
-    fun fetchSpeaker(speakerId: String): SpeakerUi = db.speakerQueries.selectSpeaker(speakerId, mapper).executeAsOne()
+    fun fetchSpeaker(speakerId: String): Flow<SpeakerUi> {
+        return combine(
+            db.speakerQueries.selectSpeaker(speakerId, mapper).asFlow().mapToOne(),
+            fetchTalksBySpeakerId(speakerId),
+            transform = { speaker, talks ->
+                return@combine speaker.copy(talks = talks)
+            }
+        )
+    }
+
+    private fun fetchTalksBySpeakerId(speakerId: String): Flow<List<TalkItemUi>> {
+        val talkWithSpeakers = db.talkQueries.selectTalkWithSpeakersBySpeakerId(speakerId).executeAsList()
+        return db.agendaQueries.selectScheduleItemsById(
+            talkWithSpeakers.map { it.talk_id }, eventId, TalkMappers.talkItem
+        ).asFlow().mapToList()
+    }
+
     fun fetchSpeakers(): Flow<List<SpeakerItemUi>> =
         db.speakerQueries.selectSpeakersByEvent(eventId, mapperItem).asFlow().mapToList()
 }

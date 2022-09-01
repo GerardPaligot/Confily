@@ -4,7 +4,6 @@ import org.gdglille.devfest.backend.NotAuthorized
 import org.gdglille.devfest.backend.NotFoundException
 import org.gdglille.devfest.backend.database.Database
 import org.gdglille.devfest.backend.database.get
-import org.gdglille.devfest.models.inputs.CategoryInput
 
 class EventDao(private val database: Database) {
     suspend fun get(id: String): EventDb? = database.get(id)

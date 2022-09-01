@@ -2,11 +2,12 @@ package org.gdglille.devfest.android.theme.vitamin.ui.screens.event
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -32,48 +33,61 @@ fun Event(
     onLinkClicked: (url: String?) -> Unit,
     onItineraryClicked: (lat: Double, lng: Double) -> Unit
 ) {
-    LazyColumn(
-        modifier = modifier,
-        contentPadding = PaddingValues(vertical = 24.dp, horizontal = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(24.dp),
-    ) {
+    LazyColumn(modifier = modifier) {
         item {
-            SocialsSection(
-                title = event.eventInfo.name,
-                subtitle = event.eventInfo.date,
-                isLoading = isLoading,
-                twitterUrl = event.eventInfo.twitterUrl,
-                linkedinUrl = event.eventInfo.linkedinUrl,
-                onLinkClicked = onLinkClicked
-            )
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(VitaminTheme.colors.vtmnBackgroundPrimary)
+            ) {
+                Spacer(modifier = Modifier.height(24.dp))
+                SocialsSection(
+                    title = event.eventInfo.name,
+                    subtitle = event.eventInfo.date,
+                    isLoading = isLoading,
+                    twitterUrl = event.eventInfo.twitterUrl,
+                    linkedinUrl = event.eventInfo.linkedinUrl,
+                    onLinkClicked = onLinkClicked,
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                )
+                Spacer(modifier = Modifier.height(24.dp))
+            }
         }
         event.ticket?.let {
+            item {
+                Spacer(modifier = Modifier.height(24.dp))
+            }
             item {
                 Text(
                     text = stringResource(R.string.title_ticket),
                     style = VitaminTheme.typography.h6,
+                    modifier = Modifier.padding(horizontal = 16.dp)
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 if (it.info != null) {
                     TicketDetailed(
                         ticket = it.info!!,
                         qrCode = it.qrCode,
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
                         isLoading = isLoading
                     )
                 } else if (it.qrCode != null) {
                     TicketQrCode(
                         qrCode = it.qrCode!!,
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
                         isLoading = isLoading
                     )
                 }
             }
         }
         item {
+            Spacer(modifier = Modifier.height(24.dp))
+        }
+        item {
             Text(
                 text = stringResource(R.string.title_plan),
                 style = VitaminTheme.typography.h6,
+                modifier = Modifier.padding(horizontal = 16.dp)
             )
             Spacer(modifier = Modifier.height(8.dp))
             EventMap(
@@ -81,7 +95,8 @@ fun Event(
                 isLoading = isLoading,
                 onItineraryClicked = {
                     onItineraryClicked(event.eventInfo.latitude, event.eventInfo.longitude)
-                }
+                },
+                modifier = Modifier.padding(horizontal = 16.dp)
             )
         }
     }

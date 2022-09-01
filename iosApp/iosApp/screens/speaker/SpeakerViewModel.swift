@@ -12,7 +12,7 @@ import shared
 enum SpeakerUiState {
     case loading
     case success(SpeakerUi)
-    case failure(Error)
+    case failure
 }
 
 class SpeakerViewModel: ObservableObject {
@@ -25,12 +25,18 @@ class SpeakerViewModel: ObservableObject {
     @Published var uiState: SpeakerUiState = SpeakerUiState.loading
     
     func fetchSpeakerDetails(speakerId: String) {
-        repository.speaker(speakerId: speakerId) { speakerUi, error in
-            if (speakerUi != nil) {
-                self.uiState = SpeakerUiState.success(speakerUi!)
-            } else {
-                self.uiState = SpeakerUiState.failure(error!)
+        repository.startCollectSpeaker(
+            speakerId: speakerId,
+            success: { speaker in
+                self.uiState = SpeakerUiState.success(speaker)
+            },
+            failure: { throwable in
+                self.uiState = SpeakerUiState.failure
             }
-        }
+        )
+    }
+    
+    func stop() {
+        repository.stopCollectSpeaker()
     }
 }

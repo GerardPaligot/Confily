@@ -2,6 +2,7 @@
 <resources>
     <string name="screen_agenda">Agenda</string>
     <string name="screen_speakers">Speakers</string>
+    <string name="screen_speaker_detail">Détail du speaker</string>
     <string name="screen_networking">Networking</string>
     <string name="screen_info">Info</string>
     <string name="screen_event">Événement</string>
@@ -21,17 +22,19 @@
     <string name="title_bronze">Bronze</string>
     <string name="title_notif_reminder_talk">Talk dans 10 minutes en %s</string>
     <string name="title_ticket">Ton ticket</string>
-    <string name="title_plan">Plan</string>
+    <string name="title_plan">Se rendre à l\'évènement</string>
 
     <string name="text_loading">Chargement…</string>
     <string name="text_error">Une erreur inconnue est survenue</string>
     <string name="text_schedule_time">De %s à %s</string>
     <string name="text_schedule_minutes">%s minutes</string>
+    <string name="text_speakers">Par %s</string>
     <string name="text_level_advanced">Avancé</string>
     <string name="text_level_intermediate">Intermédiaire</string>
     <string name="text_level_beginner">Débutant</string>
     <string name="text_openfeedback_title">Notes &amp; avis</string>
-    <string name="text_openfeedback_not_started">Vous serez en mesure de donner un feedback quand la session aura démarrée !</string>
+    <string name="text_openfeedback_not_started_title">Réagissez en live !</string>
+    <string name="text_openfeedback_not_started">Encore un peu de patience, vous pourrez partagez vos feedbacks lorsque la session démarrera.</string>
     <string name="text_speaker_title">A propos des speakers</string>
     <string name="text_permission">Permission requise</string>
     <string name="text_camera_permission_explaination">La caméra est importante pour scanner des Qrcode. Pense à accepter la permission.</string>

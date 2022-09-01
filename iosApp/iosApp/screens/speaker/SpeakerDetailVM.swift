@@ -33,7 +33,7 @@ struct SpeakerDetailVM: View {
                             if let url2 = URL(string: url) { openURL(url2) }
                         }
                     )
-                case .failure(_):
+                case .failure:
                     Text("textError")
                 case .loading:
                     Text("textLoading")
@@ -41,6 +41,9 @@ struct SpeakerDetailVM: View {
         }
         .onAppear {
             viewModel.fetchSpeakerDetails(speakerId: speakerId)
+        }
+        .onDisappear {
+            viewModel.stop()
         }
     }
 }

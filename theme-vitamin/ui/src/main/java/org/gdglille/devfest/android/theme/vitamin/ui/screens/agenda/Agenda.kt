@@ -33,8 +33,8 @@ fun Agenda(
     } else {
         LazyColumn(
             modifier = modifier,
-            contentPadding = PaddingValues(horizontal = 8.dp),
-            verticalArrangement = Arrangement.spacedBy(2.dp),
+            contentPadding = PaddingValues(vertical = 24.dp, horizontal = 16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             items(agenda.talks.keys.toList(), key = { it }) {
                 ScheduleItem(

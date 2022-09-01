@@ -2,7 +2,6 @@ package org.gdglille.devfest.database
 
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
-import kotlinx.datetime.minus
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 import org.gdglille.devfest.db.Conferences4HallDatabase
