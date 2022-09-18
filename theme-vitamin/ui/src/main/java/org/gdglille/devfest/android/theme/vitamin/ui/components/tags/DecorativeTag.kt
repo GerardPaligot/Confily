@@ -81,5 +81,6 @@ private fun getResourceId(icon: String): Int {
     }
     val context = LocalContext.current
     val drawableName = "ic_vtmn_${icon.replace("-", "_")}_line"
-    return context.resources.getIdentifier(drawableName, "drawable", context.packageName)
+    val identifier = context.resources.getIdentifier(drawableName, "drawable", context.packageName)
+    return if (identifier > 0) identifier else R.drawable.ic_vtmn_function_line
 }

@@ -34,8 +34,7 @@ sqldelight = "1.5.3"
 settings = "0.8.1"
 zxing = "3.4.1"
 zxingAndroid = "4.3.0"
-# vitaminXml = ""
-vitaminCompose = "0.1.0-beta01"
+vitaminCompose = "0.1.0-beta02"
 
 [libraries]
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }

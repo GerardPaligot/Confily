@@ -96,7 +96,7 @@ fun UserItem(
             }
         }
         IconButtonTertiary(
-            painter = painterResource(id = R.drawable.ic_vtmn_delete_bin_7_line),
+            painter = painterResource(id = R.drawable.ic_vtmn_delete_bin_line),
             contentDescription = stringResource(R.string.action_networking_delete),
             onClick = onClick
         )

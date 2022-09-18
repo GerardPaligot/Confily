@@ -31,6 +31,8 @@ import org.gdglille.devfest.android.theme.vitamin.ui.components.tags.UnStyledTag
 import org.gdglille.devfest.android.theme.vitamin.ui.theme.Conferences4HallTheme
 import org.gdglille.devfest.models.TalkItemUi
 
+const val ShortTalk = 30
+
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun TalkItem(
@@ -86,7 +88,7 @@ fun TalkItem(
                     )
                     UnStyledTag(
                         text = stringResource(R.string.text_schedule_minutes, talk.timeInMinutes.toString()),
-                        icon = if (talk.timeInMinutes <= 30) {
+                        icon = if (talk.timeInMinutes <= ShortTalk) {
                             R.drawable.ic_vtmn_flashlight_line
                         } else {
                             R.drawable.ic_vtmn_timer_line

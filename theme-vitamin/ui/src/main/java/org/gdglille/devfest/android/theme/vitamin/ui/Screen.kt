@@ -61,15 +61,15 @@ object BottomActions {
     )
     val speakers = BottomAction(
         route = Screen.SpeakerList.route,
-        icon = R.drawable.ic_vtmn_mic_vtmn_line,
-        iconSelected = R.drawable.ic_vtmn_mic_vtmn_fill,
+        icon = R.drawable.ic_vtmn_mic_line,
+        iconSelected = R.drawable.ic_vtmn_mic_fill,
         label = R.string.screen_speakers,
         contentDescription = null,
     )
     val networking = BottomAction(
         route = Screen.Networking.route,
-        icon = R.drawable.ic_vtmn_mic_vtmn_line,
-        iconSelected = R.drawable.ic_vtmn_mic_vtmn_fill,
+        icon = R.drawable.ic_vtmn_mic_line,
+        iconSelected = R.drawable.ic_vtmn_mic_fill,
         label = R.string.screen_networking,
         contentDescription = null,
         selectedRoutes = listOf(Screen.MyProfile.route, Screen.Contacts.route)

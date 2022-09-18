@@ -69,7 +69,7 @@ fun TalkSection(
             )
             UnStyledTag(
                 text = stringResource(R.string.text_schedule_minutes, talk.timeInMinutes.toString()),
-                icon = if (talk.timeInMinutes <= 30) {
+                icon = if (talk.timeInMinutes <= ShortTalk) {
                     R.drawable.ic_vtmn_flashlight_line
                 } else {
                     R.drawable.ic_vtmn_timer_line

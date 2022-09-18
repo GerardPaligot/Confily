@@ -72,7 +72,7 @@ fun QAndAItem(
                     modifier = Modifier.weight(1f)
                 )
                 Icon(
-                    painter = painterResource(R.drawable.ic_vtmn_arrow_down_s_line),
+                    painter = painterResource(R.drawable.ic_vtmn_arrow_down_line),
                     contentDescription = null,
                     modifier = Modifier.rotate(degrees = degrees)
                 )
