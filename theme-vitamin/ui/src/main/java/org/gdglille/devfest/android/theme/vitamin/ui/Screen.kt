@@ -11,9 +11,20 @@ object ActionIds {
     const val SCAN_TICKET = 1
     const val SCAN_CONTACTS = 2
     const val CREATE_PROFILE = 3
+    const val FAVORITE = 4
 }
 
 object TopActions {
+    val favorite = TopAction(
+        id = ActionIds.FAVORITE,
+        icon = R.drawable.ic_vtmn_star_line,
+        contentDescription = R.string.action_filtering_favorites
+    )
+    val favoriteFilled = TopAction(
+        id = ActionIds.FAVORITE,
+        icon = R.drawable.ic_vtmn_star_fill,
+        contentDescription = R.string.action_filtering_favorites
+    )
     val share = TopAction(
         id = ActionIds.SHARE_ID,
         icon = R.drawable.ic_vtmn_share_line,

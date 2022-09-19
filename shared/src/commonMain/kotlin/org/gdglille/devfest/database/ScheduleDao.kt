@@ -71,6 +71,8 @@ class ScheduleDao(
             }
     }
 
+    fun isFavoriteToggled(): Flow<Boolean> = settings.getBooleanFlow("ONLY_FAVORITES")
+
     fun toggleFavoriteFiltering() {
         val isFavorite = settings.getBoolean("ONLY_FAVORITES", false)
         settings.putBoolean("ONLY_FAVORITES", !isFavorite)

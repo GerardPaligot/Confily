@@ -26,6 +26,7 @@ import org.gdglille.devfest.network.ConferenceApi
 
 interface AgendaRepository {
     suspend fun fetchAndStoreAgenda()
+    suspend fun isFavoriteToggled(): Flow<Boolean>
     suspend fun toggleFavoriteFiltering()
     suspend fun insertOrUpdateTicket(barcode: String)
     suspend fun scaffoldConfig(): Flow<ScaffoldConfigUi>
@@ -98,6 +99,8 @@ class AgendaRepositoryImpl(
         }
         eventDao.insertEvent(event)
     }
+
+    override suspend fun isFavoriteToggled(): Flow<Boolean> = scheduleDao.isFavoriteToggled()
 
     override suspend fun toggleFavoriteFiltering() {
         scheduleDao.toggleFavoriteFiltering()

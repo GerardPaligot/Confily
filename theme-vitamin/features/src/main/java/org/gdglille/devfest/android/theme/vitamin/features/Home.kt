@@ -68,6 +68,7 @@ fun Home(
         }
     }
     val uiState = viewModel.uiState.collectAsState()
+    val uiTopState = viewModel.uiTopState.collectAsState()
     val uiTabState = viewModel.uiTabState.collectAsState()
     val uiFabState = viewModel.uiFabState.collectAsState()
     val uiBottomState = viewModel.uiBottomState.collectAsState()
@@ -79,6 +80,7 @@ fun Home(
         destination.route?.let { route -> viewModel.screenConfig(route) }
     }
     val tabs = uiTabState.value
+    val actions = uiTopState.value
     when (uiState.value) {
         is HomeUiState.Success -> {
             val screenUi = (uiState.value as HomeUiState.Success).screenUi
@@ -88,11 +90,18 @@ fun Home(
                 modifier = modifier,
                 navController = navController,
                 pagerState = pagerState,
-                topActions = emptyList(),
+                topActions = actions.topActions,
                 tabActions = tabs.tabActions,
                 bottomActions = uiBottomState.value,
                 fabAction = uiFabState.value,
                 scrollable = tabs.scrollable,
+                onTopActionClicked = {
+                    when (it.id) {
+                        ActionIds.FAVORITE -> {
+                            viewModel.toggleFavoriteFiltering()
+                        }
+                    }
+                },
                 onFabActionClicked = {
                     when (it.id) {
                         ActionIds.SCAN_TICKET -> {
