@@ -14,7 +14,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import org.gdglille.devfest.android.data.AlarmScheduler
 import org.gdglille.devfest.android.data.QrCodeGeneratorAndroid
-import org.gdglille.devfest.android.theme.vitamin.features.Main
+import org.gdglille.devfest.android.theme.Main
 import org.gdglille.devfest.database.DatabaseWrapper
 import org.gdglille.devfest.database.EventDao
 import org.gdglille.devfest.database.FeaturesActivatedDao

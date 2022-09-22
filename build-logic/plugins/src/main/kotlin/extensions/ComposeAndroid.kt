@@ -22,6 +22,7 @@ internal fun Project.configureAndroidCompose(
         }
     }
     dependencies {
-        add("debugImplementation", "androidx.customview:customview-poolingcontainer:1.0.0-beta01")
+        add("debugImplementation", "androidx.customview:customview-poolingcontainer:1.0.0")
+        add("debugImplementation", "androidx.savedstate:savedstate-ktx:1.2.0")
     }
 }
