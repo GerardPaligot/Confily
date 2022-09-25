@@ -21,7 +21,7 @@ class AndroidApplicationPlugin: Plugin<Project> {
                 configureKotlinAndroid(this)
                 configureDesugaring(this)
                 configureAndroidCompose(this)
-                defaultConfig.targetSdk = 32
+                defaultConfig.targetSdk = 33
             }
         }
     }
