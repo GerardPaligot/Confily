@@ -9,7 +9,7 @@ plugins {
 enum class DesignSystem {
     M2, M3, Vitamin
 }
-val designSystem = DesignSystem.M2
+val designSystem = DesignSystem.M3
 val versionMajor = 1
 val versionMinor = 0
 val versionPatch = 0
@@ -80,6 +80,9 @@ dependencies {
     } else if (designSystem == DesignSystem.M2) {
         implementation(projects.themeM2.features)
         implementation(projects.themeM2.ui)
+    } else if (designSystem == DesignSystem.M3) {
+        implementation(projects.themeM3.features)
+        implementation(projects.themeM3.ui)
     }
     implementation(projects.androidData)
     implementation(projects.shared)
