@@ -5,7 +5,7 @@ plugins {
 }
 
 dependencies {
-    implementation(projects.themeM3.ui)
+    api(projects.themeM3.ui)
     implementation(projects.uiResources)
     implementation(projects.androidData)
     implementation(projects.shared)

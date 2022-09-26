@@ -76,13 +76,10 @@ android {
 dependencies {
     if (designSystem == DesignSystem.Vitamin) {
         implementation(projects.themeVitamin.features)
-        implementation(projects.themeVitamin.ui)
     } else if (designSystem == DesignSystem.M2) {
         implementation(projects.themeM2.features)
-        implementation(projects.themeM2.ui)
     } else if (designSystem == DesignSystem.M3) {
         implementation(projects.themeM3.features)
-        implementation(projects.themeM3.ui)
     }
     implementation(projects.androidData)
     implementation(projects.shared)

@@ -39,8 +39,34 @@ codebase for the business logic (with `:shared` module). `:backend` and `:shared
 share the same models due to `:models` module and avoid any errors in the parsing of backend
 responses.
 
+3 design system are used in this project and can be found in `theme-{ds-name}`. All these
+modules contains `features` and `ui` modules to bind Composable with their ViewModels and to 
+create all components of the Design System.
+
 ```mermaid
 flowchart LR
+    :androidApp --> :theme-m2:features
+    :theme-m2:features --> :theme-m2:ui
+    :theme-m2:features --> :ui-resources
+    :theme-m2:features --> :android-data
+    :theme-m2:features --> :shared
+    :theme-m2:ui --> :ui-resources
+    :theme-m2:ui --> :ui-camera
+    :androidApp --> :theme-m3:features
+    :theme-m3:features --> :theme-m3:ui
+    :theme-m3:features --> :ui-resources
+    :theme-m3:features --> :android-data
+    :theme-m3:features --> :shared
+    :theme-m3:ui --> :ui-resources
+    :theme-m3:ui --> :ui-camera
+    :androidApp --> :theme-vitamin:features
+    :theme-vitamin:features --> :theme-vitamin:ui
+    :theme-vitamin:features --> :ui-resources
+    :theme-vitamin:features --> :android-data
+    :theme-vitamin:features --> :shared
+    :theme-vitamin:ui --> :ui-resources
+    :theme-vitamin:ui --> :ui-camera
+    :androidApp --> :android-data
     :androidApp --> :shared
     :iosApp --> :shared
     :shared --> :models
@@ -103,6 +129,7 @@ gcloud run deploy $IMAGE --image=eu.gcr.io/$PROJECT_ID/$IMAGE:$TAG \
 * [SwiftUI vs Jetpack Compose by an Android Engineer](https://proandroiddev.com/swiftui-vs-jetpack-compose-by-an-android-engineer-6b48415f36b3)
 * [Devfest Lille Android](https://play.google.com/store/apps/details?id=org.gdglille.devfest.android)
 * [Devfest Lille iOS](https://apps.apple.com/fr/app/apple-store/id1624758676)
+* [Tech Day 2022](https://play.google.com/store/apps/details?id=com.decathlon.tech.day.android)
 
 ## License
 

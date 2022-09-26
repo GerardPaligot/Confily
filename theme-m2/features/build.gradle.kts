@@ -5,7 +5,7 @@ plugins {
 }
 
 dependencies {
-    implementation(projects.themeM2.ui)
+    api(projects.themeM2.ui)
     implementation(projects.uiResources)
     implementation(projects.androidData)
     implementation(projects.shared)

@@ -5,7 +5,7 @@ plugins {
 }
 
 dependencies {
-    implementation(projects.themeVitamin.ui)
+    api(projects.themeVitamin.ui)
     implementation(projects.uiResources)
     implementation(projects.androidData)
     implementation(projects.shared)
