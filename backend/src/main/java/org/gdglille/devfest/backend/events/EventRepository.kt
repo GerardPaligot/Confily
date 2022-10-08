@@ -57,13 +57,22 @@ class EventRepository(
         return@coroutineScope eventId
     }
 
-    suspend fun updateMenus(eventId: String, apiKey: String, menus: List<LunchMenuInput>) = coroutineScope {
-        eventDao.updateMenus(eventId, apiKey, menus.map { it.convertToDb() })
-        return@coroutineScope eventId
-    }
+    suspend fun updateMenus(eventId: String, apiKey: String, menus: List<LunchMenuInput>) =
+        coroutineScope {
+            eventDao.updateMenus(eventId, apiKey, menus.map { it.convertToDb() })
+            return@coroutineScope eventId
+        }
 
-    suspend fun updateQAndA(eventId: String, apiKey: String, qAndA: List<QuestionAndResponseInput>) = coroutineScope {
-        eventDao.updateQuestionsAndResponses(eventId, apiKey, qAndA.mapIndexed { index, it -> it.convertToDb(index) })
+    suspend fun updateQAndA(
+        eventId: String,
+        apiKey: String,
+        qAndA: List<QuestionAndResponseInput>
+    ) = coroutineScope {
+        eventDao.updateQuestionsAndResponses(
+            eventId,
+            apiKey,
+            qAndA.mapIndexed { index, it -> it.convertToDb(index) }
+        )
         return@coroutineScope eventId
     }
 
@@ -72,15 +81,17 @@ class EventRepository(
         return@coroutineScope eventId
     }
 
-    suspend fun updateCategories(eventId: String, apiKey: String, categories: List<CategoryInput>) = coroutineScope {
-        eventDao.updateCategories(eventId, apiKey, categories.map { it.convertToDb() })
-        return@coroutineScope eventId
-    }
+    suspend fun updateCategories(eventId: String, apiKey: String, categories: List<CategoryInput>) =
+        coroutineScope {
+            eventDao.updateCategories(eventId, apiKey, categories.map { it.convertToDb() })
+            return@coroutineScope eventId
+        }
 
-    suspend fun updateFeatures(eventId: String, apiKey: String, features: FeaturesActivatedInput) = coroutineScope {
-        eventDao.updateFeatures(eventId, apiKey, features.hasNetworking)
-        return@coroutineScope eventId
-    }
+    suspend fun updateFeatures(eventId: String, apiKey: String, features: FeaturesActivatedInput) =
+        coroutineScope {
+            eventDao.updateFeatures(eventId, apiKey, features.hasNetworking)
+            return@coroutineScope eventId
+        }
 
     suspend fun agenda(eventId: String) = coroutineScope {
         val eventDb = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
@@ -120,8 +131,12 @@ class EventRepository(
                     title = it.talk!!.title,
                     trackTitle = it.room,
                     speakers = it.talk!!.speakers.map { speaker -> speaker.id },
-                    startTime = "${LocalDateTime.parse(it.startTime).format(FormatterPattern.SimplifiedIso)}+02:00",
-                    endTime = "${LocalDateTime.parse(it.endTime).format(FormatterPattern.SimplifiedIso)}+02:00",
+                    startTime = "${
+                    LocalDateTime.parse(it.startTime).format(FormatterPattern.SimplifiedIso)
+                    }+02:00",
+                    endTime = "${
+                    LocalDateTime.parse(it.endTime).format(FormatterPattern.SimplifiedIso)
+                    }+02:00",
                     tags = arrayListOf(it.talk!!.category)
                 )
             }

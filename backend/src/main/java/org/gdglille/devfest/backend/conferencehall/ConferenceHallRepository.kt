@@ -38,12 +38,13 @@ class ConferenceHallRepository(
             }
             .awaitAll()
             .associate { it }
-        speakerDao.insertAll(year, speakers.map { it.convertToDb(speakersAvatar[it.uid] ?: "") })
+        val event = eventAccepted.convertToDb(year, eventId, apiKey)
+        speakerDao.insertAll(event.slugId, speakers.map { it.convertToDb(speakersAvatar[it.uid] ?: "") })
         talkDao.insertAll(
-            year,
+            event.slugId,
             talks.map { it.convertToDb(eventAccepted.categories, eventAccepted.formats) }
         )
-        eventDao.createOrUpdate(eventAccepted.convertToDb(year, eventId, apiKey))
+        eventDao.createOrUpdate(event)
         return@coroutineScope eventAccepted
     }
 }

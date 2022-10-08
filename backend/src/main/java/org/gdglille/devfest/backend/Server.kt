@@ -23,6 +23,7 @@ import org.gdglille.devfest.backend.database.Database
 import org.gdglille.devfest.backend.database.DatabaseType
 import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.events.registerEventRoutes
+import org.gdglille.devfest.backend.events.v2.registerEventRoutesV2
 import org.gdglille.devfest.backend.partners.PartnerDao
 import org.gdglille.devfest.backend.partners.registerPartnersRoutes
 import org.gdglille.devfest.backend.schedulers.ScheduleItemDao
@@ -141,6 +142,9 @@ fun main() {
                 registerSchedulersRoutes(eventDao, talkDao, speakerDao, scheduleItemDao)
                 registerPartnersRoutes(eventDao, partnerDao)
                 registerBilletWebRoutes(eventDao)
+            }
+            route("/v2/events/{eventId}") {
+                registerEventRoutesV2(eventDao, speakerDao, talkDao, scheduleItemDao)
             }
         }
     }.start(wait = true)

@@ -50,6 +50,7 @@ data class BilletWebConfigurationDb(
 )
 
 data class EventDb(
+    val slugId: String = "",
     val year: String = "",
     val conferenceHallId: String = "",
     val openFeedbackId: String? = null,

@@ -13,9 +13,9 @@ class EventDao(private val database: Database) {
     }
 
     suspend fun createOrUpdate(event: EventDb) {
-        val existing = database.get<EventDb>(event.year)
-        if (existing == null) database.insert(event.year, event)
-        else database.update(event.year, event)
+        val existing = database.get<EventDb>(event.slugId)
+        if (existing == null) database.insert(event.slugId, event)
+        else database.update(event.slugId, event)
     }
 
     suspend fun updateMenus(eventId: String, apiKey: String, menus: List<LunchMenuDb>) {

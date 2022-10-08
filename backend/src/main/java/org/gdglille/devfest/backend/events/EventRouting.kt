@@ -1,3 +1,5 @@
+@file:JvmName("EventRoutingKt")
+
 package org.gdglille.devfest.backend.events
 
 import io.ktor.http.HttpStatusCode

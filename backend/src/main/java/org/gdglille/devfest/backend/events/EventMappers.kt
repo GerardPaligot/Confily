@@ -1,5 +1,6 @@
 package org.gdglille.devfest.backend.events
 
+import org.gdglille.devfest.backend.internals.slug
 import org.gdglille.devfest.backend.network.conferencehall.Event
 import org.gdglille.devfest.backend.partners.PartnerDb
 import org.gdglille.devfest.backend.partners.convertToModel
@@ -17,6 +18,7 @@ import org.gdglille.devfest.models.inputs.QuestionAndResponseActionInput
 import org.gdglille.devfest.models.inputs.QuestionAndResponseInput
 
 fun Event.convertToDb(year: String, eventId: String, apiKey: String) = EventDb(
+    slugId = this.name.slug(),
     year = year,
     conferenceHallId = eventId,
     apiKey = apiKey,
@@ -130,6 +132,7 @@ fun BilletWebConfigInput.convertToDb() = BilletWebConfigurationDb(
 )
 
 fun EventInput.convertToDb(event: EventDb, openFeedbackId: String?, apiKey: String) = EventDb(
+    slugId = event.name.slug(),
     year = event.year,
     conferenceHallId = event.conferenceHallId,
     openFeedbackId = openFeedbackId ?: event.openFeedbackId,
