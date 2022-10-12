@@ -7,6 +7,8 @@ plugins {
 dependencies {
     implementation(projects.uiResources)
     implementation(projects.uiCamera)
+    implementation(projects.shared)
+    implementation(projects.androidData)
 
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.icons)
