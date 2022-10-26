@@ -7,13 +7,16 @@ import io.ktor.client.plugins.logging.DEFAULT
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
+import io.ktor.client.request.accept
 import io.ktor.client.request.get
+import io.ktor.http.ContentType
+import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.gdglille.devfest.Platform
-import org.gdglille.devfest.models.Agenda
 import org.gdglille.devfest.models.Attendee
 import org.gdglille.devfest.models.Event
+import org.gdglille.devfest.models.ScheduleItem
 
 class ConferenceApi(
     private val client: HttpClient,
@@ -25,7 +28,12 @@ class ConferenceApi(
         client.get("$baseUrl/events/$eventId/billet-web/$barcode")
             .body<Attendee>()
 
-    suspend fun fetchAgenda() = client.get("$baseUrl/events/$eventId/agenda").body<Agenda>()
+    suspend fun fetchAgenda(): Map<String, Map<String, List<ScheduleItem>>> {
+        return client.get("$baseUrl/events/$eventId/agenda") {
+            contentType(ContentType.parse("application/json"))
+            accept(ContentType.parse("application/json; version=2"))
+        }.body()
+    }
 
     companion object {
         fun create(baseUrl: String, eventId: String, enableNetworkLogs: Boolean): ConferenceApi =

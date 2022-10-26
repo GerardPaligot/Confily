@@ -14,10 +14,6 @@ import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.talks.TalkDao
 import org.gdglille.devfest.backend.talks.convertToModel
 import org.gdglille.devfest.models.Agenda
-import org.gdglille.devfest.models.OpenFeedback
-import org.gdglille.devfest.models.SessionOF
-import org.gdglille.devfest.models.SocialOF
-import org.gdglille.devfest.models.SpeakerOF
 import org.gdglille.devfest.models.inputs.CategoryInput
 import org.gdglille.devfest.models.inputs.CoCInput
 import org.gdglille.devfest.models.inputs.EventInput
@@ -119,51 +115,5 @@ class EventRepository(
             }
         }.awaitAll().associate { it }.toSortedMap()
         return@coroutineScope Agenda(talks = schedules)
-    }
-
-    suspend fun openFeedback(eventId: String) = coroutineScope {
-        val agenda = agenda(eventId)
-        val talks = agenda.talks.values.flatten().filter { it.talk != null }
-        val asyncSessions = async {
-            talks.map {
-                SessionOF(
-                    id = it.id,
-                    title = it.talk!!.title,
-                    trackTitle = it.room,
-                    speakers = it.talk!!.speakers.map { speaker -> speaker.id },
-                    startTime = "${
-                    LocalDateTime.parse(it.startTime).format(FormatterPattern.SimplifiedIso)
-                    }+02:00",
-                    endTime = "${
-                    LocalDateTime.parse(it.endTime).format(FormatterPattern.SimplifiedIso)
-                    }+02:00",
-                    tags = arrayListOf(it.talk!!.category)
-                )
-            }
-        }
-        val asyncSpeakers = async {
-            talks.map { it.talk!!.speakers }.flatten().map {
-                val socials = arrayListOf<SocialOF>()
-                it.github?.let { github -> socials.add(SocialOF(name = "github", link = github)) }
-                it.twitter?.let { twitter ->
-                    socials.add(
-                        SocialOF(
-                            name = "twitter",
-                            link = twitter
-                        )
-                    )
-                }
-                SpeakerOF(
-                    id = it.id,
-                    name = it.displayName,
-                    photoUrl = it.photoUrl,
-                    socials = socials
-                )
-            }
-        }
-        return@coroutineScope OpenFeedback(
-            sessions = asyncSessions.await().associateBy { it.id },
-            speakers = asyncSpeakers.await().associateBy { it.id }
-        )
     }
 }

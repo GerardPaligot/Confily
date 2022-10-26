@@ -11,6 +11,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import org.gdglille.devfest.android.ActionIds
@@ -25,6 +27,7 @@ import org.gdglille.devfest.android.ui.resources.HomeResultKey
 import org.gdglille.devfest.repositories.AgendaRepository
 import org.gdglille.devfest.repositories.UserRepository
 
+@OptIn(ExperimentalPagerApi::class)
 @Suppress("LongMethod", "UnusedPrivateMember")
 @ExperimentalCoroutinesApi
 @FlowPreview
@@ -65,7 +68,9 @@ fun Home(
     }
     val uiState = viewModel.uiState.collectAsState()
     val uiTopState = viewModel.uiTopState.collectAsState()
+    val uiTabState = viewModel.uiTabState.collectAsState()
     val uiBottomState = viewModel.uiBottomState.collectAsState()
+    val pagerState = rememberPagerState()
     LaunchedEffect(Unit) {
         viewModel.screenConfig(Screen.Agenda.route)
     }
@@ -73,6 +78,7 @@ fun Home(
         destination.route?.let { route -> viewModel.screenConfig(route) }
     }
     val actions = uiTopState.value
+    val tabActions = uiTabState.value
     when (uiState.value) {
         is HomeUiState.Success -> {
             val screenUi = (uiState.value as HomeUiState.Success).screenUi
@@ -82,7 +88,9 @@ fun Home(
                 modifier = modifier,
                 navController = navController,
                 topActions = actions,
+                tabActions = tabActions,
                 bottomActions = uiBottomState.value,
+                pagerState = pagerState,
                 onTopActionClicked = {
                     when (it.id) {
                         ActionIds.FAVORITE -> {
@@ -105,8 +113,10 @@ fun Home(
                 builder = {
                     composable(Screen.Agenda.route) {
                         AgendaVM(
+                            tabs = tabActions,
                             agendaRepository = agendaRepository,
                             alarmScheduler = alarmScheduler,
+                            pagerState = pagerState,
                             onTalkClicked = onTalkClicked,
                         )
                     }

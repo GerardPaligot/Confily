@@ -4,16 +4,19 @@ package org.gdglille.devfest.backend.events
 
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.call
+import io.ktor.server.request.acceptItems
 import io.ktor.server.request.receive
 import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 import io.ktor.server.routing.put
+import org.gdglille.devfest.backend.events.v2.EventRepositoryV2
 import org.gdglille.devfest.backend.partners.PartnerDao
 import org.gdglille.devfest.backend.receiveValidated
 import org.gdglille.devfest.backend.schedulers.ScheduleItemDao
 import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.talks.TalkDao
+import org.gdglille.devfest.backend.version
 import org.gdglille.devfest.models.inputs.CategoryInput
 import org.gdglille.devfest.models.inputs.CoCInput
 import org.gdglille.devfest.models.inputs.EventInput
@@ -29,6 +32,7 @@ fun Route.registerEventRoutes(
     partnerDao: PartnerDao
 ) {
     val repository = EventRepository(eventDao, speakerDao, talkDao, scheduleItemDao, partnerDao)
+    val repositoryV2 = EventRepositoryV2(eventDao, speakerDao, talkDao, scheduleItemDao)
 
     get {
         val eventId = call.parameters["eventId"]!!
@@ -72,10 +76,14 @@ fun Route.registerEventRoutes(
     }
     get("agenda") {
         val eventId = call.parameters["eventId"]!!
-        call.respond(HttpStatusCode.OK, repository.agenda(eventId))
+        when (call.request.acceptItems().version()) {
+            1 -> call.respond(HttpStatusCode.OK, repository.agenda(eventId))
+            2 -> call.respond(HttpStatusCode.OK, repositoryV2.agenda(eventId))
+            else -> call.respond(HttpStatusCode.NotImplemented)
+        }
     }
     get("openfeedback") {
         val eventId = call.parameters["eventId"]!!
-        call.respond(HttpStatusCode.OK, repository.openFeedback(eventId))
+        call.respond(HttpStatusCode.OK, repositoryV2.openFeedback(eventId))
     }
 }

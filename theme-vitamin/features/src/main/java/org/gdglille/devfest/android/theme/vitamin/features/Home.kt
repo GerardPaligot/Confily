@@ -123,8 +123,10 @@ fun Home(
                 builder = {
                     composable(Screen.Agenda.route) {
                         AgendaVM(
+                            tabs = tabs,
                             agendaRepository = agendaRepository,
                             alarmScheduler = alarmScheduler,
+                            pagerState = pagerState,
                             onTalkClicked = onTalkClicked,
                         )
                     }

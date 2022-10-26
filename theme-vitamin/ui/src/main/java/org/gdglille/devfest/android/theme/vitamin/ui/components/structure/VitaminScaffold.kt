@@ -68,22 +68,26 @@ fun VitaminScaffold(
                         )
                     }
                 )
-                if (tabActions.isNotEmpty()) {
+                if (tabActions.size > 1) {
                     val tabItems = tabActions.mapIndexed { index, it ->
-                        TabItem(label = stringResource(it.label), selected = index == tabSelectedIndex)
+                        if (it.label != null) {
+                            TabItem(label = it.label!!, selected = index == tabSelectedIndex)
+                        } else {
+                            TabItem(label = stringResource(it.labelId), selected = index == tabSelectedIndex)
+                        }
                     }
                     if (scrollable) {
                         VitaminTabs.Scrollable(
                             tabItems = tabItems,
                             onTabClicked = { item ->
-                                tabActions.find { item.label == context.getString(it.label) }?.let(onTabClicked)
+                                tabActions.find { item.label == context.getString(it.labelId) }?.let(onTabClicked)
                             }
                         )
                     } else {
                         VitaminTabs.Fixed(
                             tabItems = tabItems,
                             onTabClicked = { item ->
-                                tabActions.find { item.label == context.getString(it.label) }?.let(onTabClicked)
+                                tabActions.find { item.label == context.getString(it.labelId) }?.let(onTabClicked)
                             }
                         )
                     }

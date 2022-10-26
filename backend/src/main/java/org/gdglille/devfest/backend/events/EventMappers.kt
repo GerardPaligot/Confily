@@ -62,7 +62,7 @@ fun EventDb.convertToModel(
     bronzes: List<PartnerDb>,
     others: List<PartnerDb>
 ) = org.gdglille.devfest.models.Event(
-    id = this.year,
+    id = this.slugId,
     name = this.name,
     address = EventAddress(
         formatted = this.address.formatted,

@@ -3,6 +3,8 @@ package org.gdglille.devfest.android.theme.vitamin.features.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -25,6 +27,8 @@ import org.gdglille.devfest.models.ScaffoldConfigUi
 import org.gdglille.devfest.models.UserNetworkingUi
 import org.gdglille.devfest.repositories.AgendaRepository
 import org.gdglille.devfest.repositories.UserRepository
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 sealed class HomeUiState {
     object Loading : HomeUiState()
@@ -83,6 +87,16 @@ class HomeViewModel(
 
     private fun updateUiTabActions(route: String, config: ScaffoldConfigUi) {
         val tabActions = when (route) {
+            Screen.Agenda.route -> TabActionsUi(
+                tabActions = config.agendaTabs.map {
+                    val label = DateTimeFormatter
+                        .ofPattern("dd MMM")
+                        .format(LocalDate.parse(it))
+                    TabAction(route = it, 0, label)
+                },
+                scrollable = true
+            )
+
             Screen.Networking.route -> TabActionsUi(
                 tabActions = if (config.hasProfile) arrayListOf(
                     TabActions.myProfile,
@@ -144,19 +158,30 @@ class HomeViewModel(
 
     init {
         viewModelScope.launch {
-            try {
-                merge(
-                    agendaRepository.scaffoldConfig(),
-                    agendaRepository.isFavoriteToggled()
-                ).collect {
-                    when (it) {
-                        is ScaffoldConfigUi -> _configState.value = it
-                        is Boolean -> _uiIsFavState.value = it
-                        else -> TODO("Flow not implemented")
+            arrayListOf(
+                async {
+                    try {
+                        agendaRepository.fetchAndStoreAgenda()
+                    } catch (cause: Throwable) {
+                        cause.printStackTrace()
+                    }
+                },
+                async {
+                    try {
+                        merge(
+                            agendaRepository.scaffoldConfig(),
+                            agendaRepository.isFavoriteToggled()
+                        ).collect {
+                            when (it) {
+                                is ScaffoldConfigUi -> _configState.value = it
+                                is Boolean -> _uiIsFavState.value = it
+                                else -> TODO("Flow not implemented")
+                            }
+                        }
+                    } catch (_: Throwable) {
                     }
                 }
-            } catch (_: Throwable) {
-            }
+            ).awaitAll()
         }
     }
 

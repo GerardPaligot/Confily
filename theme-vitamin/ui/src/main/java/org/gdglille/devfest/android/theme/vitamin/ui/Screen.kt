@@ -54,12 +54,12 @@ object FabActions {
 }
 
 object TabActions {
-    val myProfile = TabAction(route = Screen.MyProfile.route, label = R.string.screen_my_profile)
-    val contacts = TabAction(route = Screen.Contacts.route, label = R.string.screen_contacts)
-    val event = TabAction(route = Screen.Event.route, label = R.string.screen_event)
-    val menus = TabAction(route = Screen.Menus.route, label = R.string.screen_menus)
-    val qanda = TabAction(route = Screen.QAndA.route, label = R.string.screen_qanda)
-    val coc = TabAction(route = Screen.CoC.route, label = R.string.screen_coc)
+    val myProfile = TabAction(route = Screen.MyProfile.route, labelId = R.string.screen_my_profile)
+    val contacts = TabAction(route = Screen.Contacts.route, labelId = R.string.screen_contacts)
+    val event = TabAction(route = Screen.Event.route, labelId = R.string.screen_event)
+    val menus = TabAction(route = Screen.Menus.route, labelId = R.string.screen_menus)
+    val qanda = TabAction(route = Screen.QAndA.route, labelId = R.string.screen_qanda)
+    val coc = TabAction(route = Screen.CoC.route, labelId = R.string.screen_coc)
 }
 
 object BottomActions {

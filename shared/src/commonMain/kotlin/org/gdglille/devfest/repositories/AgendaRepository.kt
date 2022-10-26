@@ -35,13 +35,13 @@ interface AgendaRepository {
     suspend fun qanda(): Flow<List<QuestionAndResponseUi>>
     suspend fun menus(): Flow<List<MenuItemUi>>
     suspend fun coc(): Flow<String>
-    suspend fun agenda(): Flow<AgendaUi>
+    suspend fun agenda(date: String): Flow<AgendaUi>
     suspend fun markAsRead(scheduleId: String, isFavorite: Boolean)
     suspend fun scheduleItem(scheduleId: String): TalkUi
     suspend fun speaker(speakerId: String): Flow<SpeakerUi>
 
     // Kotlin/Native client
-    fun startCollectAgenda(success: (AgendaUi) -> Unit, failure: (Throwable) -> Unit)
+    fun startCollectAgenda(date: String, success: (AgendaUi) -> Unit, failure: (Throwable) -> Unit)
     fun stopCollectAgenda()
     fun startCollectEvent(success: (EventUi) -> Unit, failure: (Throwable) -> Unit)
     fun stopCollectEvent()
@@ -94,8 +94,10 @@ class AgendaRepositoryImpl(
     override suspend fun fetchAndStoreAgenda() {
         val event = api.fetchEvent()
         val agenda = api.fetchAgenda()
-        agenda.talks.values.forEach { schedules ->
-            scheduleDao.insertOrUpdateSchedules(event.id, schedules)
+        agenda.entries.forEach { entry ->
+            entry.value.values.forEach { schedules ->
+                scheduleDao.insertOrUpdateSchedules(event.id, entry.key, schedules)
+            }
         }
         eventDao.insertEvent(event)
     }
@@ -124,7 +126,7 @@ class AgendaRepositoryImpl(
     override suspend fun menus(): Flow<List<MenuItemUi>> = eventDao.fetchMenus()
     override suspend fun coc(): Flow<String> = eventDao.fetchCoC()
 
-    override suspend fun agenda(): Flow<AgendaUi> = scheduleDao.fetchSchedules()
+    override suspend fun agenda(date: String): Flow<AgendaUi> = scheduleDao.fetchSchedules(date)
 
     override suspend fun markAsRead(scheduleId: String, isFavorite: Boolean) =
         scheduleDao.markAsFavorite(scheduleId, isFavorite)
@@ -134,10 +136,14 @@ class AgendaRepositoryImpl(
 
     private val coroutineScope: CoroutineScope = MainScope()
     private var agendaJob: Job? = null
-    override fun startCollectAgenda(success: (AgendaUi) -> Unit, failure: (Throwable) -> Unit) {
+    override fun startCollectAgenda(
+        date: String,
+        success: (AgendaUi) -> Unit,
+        failure: (Throwable) -> Unit
+    ) {
         agendaJob = coroutineScope.launch {
             try {
-                agenda().collect {
+                agenda(date = date).collect {
                     success(it)
                 }
             } catch (throwable: Throwable) {

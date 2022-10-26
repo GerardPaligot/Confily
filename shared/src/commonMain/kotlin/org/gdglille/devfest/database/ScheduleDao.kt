@@ -52,10 +52,11 @@ class ScheduleDao(
             )
         }
 
-    fun fetchSchedules(): Flow<AgendaUi> {
+    fun fetchSchedules(date: String): Flow<AgendaUi> {
         return settings.getBooleanFlow("ONLY_FAVORITES", false)
             .flatMapMerge {
-                return@flatMapMerge db.agendaQueries.selectScheduleItems(eventId, scheduleMapper)
+                return@flatMapMerge db.agendaQueries
+                    .selectScheduleItems(eventId, date, scheduleMapper)
                     .asFlow()
                     .mapToList()
                     .map {
@@ -88,8 +89,8 @@ class ScheduleDao(
         settings.putBoolean("ONLY_FAVORITES", false)
     }
 
-    fun insertOrUpdateSchedules(eventId: String, schedules: List<ScheduleItem>) = db.transaction {
-        val schedulesCached = db.agendaQueries.selectScheduleItems(eventId).executeAsList()
+    fun insertOrUpdateSchedules(eventId: String, date: String, schedules: List<ScheduleItem>) = db.transaction {
+        val schedulesCached = db.agendaQueries.selectScheduleItems(eventId, "").executeAsList()
         schedules.forEach { schedule ->
             if (schedule.talk != null) {
                 val talk = schedule.convertToModelDb()
@@ -128,6 +129,7 @@ class ScheduleDao(
                 db.agendaQueries.insertSchedule(
                     id = schedule.id,
                     event_id = eventId,
+                    date = date,
                     start_time = schedule.startTime,
                     end_time = schedule.endTime,
                     room = schedule.room,
@@ -145,6 +147,7 @@ class ScheduleDao(
                 db.agendaQueries.updateSchedule(
                     id = schedule.id,
                     event_id = eventId,
+                    date = date,
                     start_time = schedule.startTime,
                     end_time = schedule.endTime,
                     room = schedule.room,

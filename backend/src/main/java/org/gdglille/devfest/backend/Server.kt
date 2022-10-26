@@ -3,6 +3,7 @@ package org.gdglille.devfest.backend
 import com.google.auth.oauth2.GoogleCredentials
 import com.google.cloud.firestore.FirestoreOptions
 import com.google.cloud.storage.StorageOptions
+import io.ktor.http.HeaderValue
 import io.ktor.http.HttpStatusCode
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.ApplicationCall
@@ -23,7 +24,6 @@ import org.gdglille.devfest.backend.database.Database
 import org.gdglille.devfest.backend.database.DatabaseType
 import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.events.registerEventRoutes
-import org.gdglille.devfest.backend.events.v2.registerEventRoutesV2
 import org.gdglille.devfest.backend.partners.PartnerDao
 import org.gdglille.devfest.backend.partners.registerPartnersRoutes
 import org.gdglille.devfest.backend.schedulers.ScheduleItemDao
@@ -143,9 +143,6 @@ fun main() {
                 registerPartnersRoutes(eventDao, partnerDao)
                 registerBilletWebRoutes(eventDao)
             }
-            route("/v2/events/{eventId}") {
-                registerEventRoutesV2(eventDao, speakerDao, talkDao, scheduleItemDao)
-            }
         }
     }.start(wait = true)
 }
@@ -153,6 +150,13 @@ fun main() {
 object NotAuthorized : Throwable()
 class NotFoundException(message: String) : Throwable(message)
 class NotAcceptableException(message: String) : Throwable(message)
+
+@Suppress("ReturnCount")
+fun List<HeaderValue>.version(): Int {
+    val header = this.find { it.value == "application/json" } ?: return 1
+    val param = header.params.find { it.name == "version" } ?: return 1
+    return param.value.toInt()
+}
 
 suspend inline fun <reified T : Validator> ApplicationCall.receiveValidated(): T {
     val input = receive<T>()

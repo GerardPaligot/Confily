@@ -19,6 +19,7 @@ dependencies {
 
     implementation(libs.accompanist.permissions)
     implementation(libs.accompanist.placeholder)
+    implementation(libs.accompanist.pager)
 
     api(libs.coil.compose)
     api(libs.coil.svg)

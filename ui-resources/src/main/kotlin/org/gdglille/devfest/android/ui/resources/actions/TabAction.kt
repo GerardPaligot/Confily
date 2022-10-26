@@ -4,5 +4,6 @@ import androidx.annotation.StringRes
 
 data class TabAction(
     val route: String,
-    @StringRes val label: Int
+    @StringRes val labelId: Int,
+    val label: String? = null
 )

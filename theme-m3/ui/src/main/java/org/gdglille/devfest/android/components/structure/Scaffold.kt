@@ -1,6 +1,7 @@
 package org.gdglille.devfest.android.components.structure
 
 import androidx.annotation.StringRes
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -10,12 +11,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import org.gdglille.devfest.android.TopActions
 import org.gdglille.devfest.android.components.appbars.BottomAppBar
+import org.gdglille.devfest.android.components.appbars.ScrollableTabRow
+import org.gdglille.devfest.android.components.appbars.Tab
 import org.gdglille.devfest.android.components.appbars.TopAppBar
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.ui.R
 import org.gdglille.devfest.android.ui.resources.actions.BottomAction
+import org.gdglille.devfest.android.ui.resources.actions.TabAction
 import org.gdglille.devfest.android.ui.resources.actions.TopAction
 import org.gdglille.devfest.android.ui.resources.models.BottomActionsUi
+import org.gdglille.devfest.android.ui.resources.models.TabActionsUi
 import org.gdglille.devfest.android.ui.resources.models.TopActionsUi
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -24,20 +29,38 @@ fun Scaffold(
     @StringRes title: Int,
     modifier: Modifier = Modifier,
     topActions: TopActionsUi = TopActionsUi(),
+    tabActions: TabActionsUi = TabActionsUi(),
     bottomActions: BottomActionsUi = BottomActionsUi(),
     routeSelected: String? = null,
+    tabSelectedIndex: Int? = null,
     onTopActionClicked: (TopAction) -> Unit = {},
+    onTabClicked: (TabAction) -> Unit = {},
     onBottomActionClicked: (BottomAction) -> Unit = {},
     content: @Composable (PaddingValues) -> Unit
 ) {
     Scaffold(
         modifier = modifier,
         topBar = {
-            TopAppBar(
-                title = stringResource(title),
-                actions = topActions,
-                onActionClicked = onTopActionClicked
-            )
+            Column {
+                TopAppBar(
+                    title = stringResource(title),
+                    actions = topActions,
+                    onActionClicked = onTopActionClicked
+                )
+                if (tabActions.tabActions.count() > 1 && tabSelectedIndex != null) {
+                    ScrollableTabRow {
+                        tabActions.tabActions.forEachIndexed { index, tabAction ->
+                            tabAction.label?.let {
+                                Tab(
+                                    selected = index == tabSelectedIndex,
+                                    onClick = { onTabClicked(tabAction) },
+                                    text = it
+                                )
+                            }
+                        }
+                    }
+                }
+            }
         },
         bottomBar = {
             if (bottomActions.actions.isNotEmpty() && routeSelected != null) {
@@ -63,10 +86,17 @@ internal fun ScaffoldPreview() {
                     TopActions.share
                 )
             ),
+            tabActions = TabActionsUi(
+                tabActions = listOf(
+                    TabAction(route = "day-1", 0, "11 Oct"),
+                    TabAction(route = "day-2", 0, "12 Oct"),
+                )
+            ),
             bottomActions = BottomActionsUi(
                 listOf()
             ),
             routeSelected = "agenda",
+            tabSelectedIndex = 0,
             content = {}
         )
     }
