@@ -23,7 +23,7 @@ class ScheduleRepository(
             if (scheduleInput.talkId == null) {
                 val scheduleItem = scheduleInput.convertToDb(endTime = scheduleInput.endTime!!)
                 scheduleItemDao.createOrUpdate(eventId, scheduleItem)
-                eventDao.updateUpdatedAt(eventId)
+                eventDao.updateAgendaUpdatedAt(event)
                 return@coroutineScope scheduleItem.id
             } else {
                 val talk = talkDao.get(eventId, scheduleInput.talkId!!)
@@ -37,7 +37,7 @@ class ScheduleRepository(
                     talkId = talk.id
                 )
                 scheduleItemDao.createOrUpdate(eventId, scheduleItem)
-                eventDao.updateUpdatedAt(eventId)
+                eventDao.updateAgendaUpdatedAt(event)
                 return@coroutineScope scheduleItem.id
             }
         }
@@ -52,13 +52,12 @@ class ScheduleRepository(
             val speakers = speakerDao.getByIds(eventId, talkDb.speakerIds)
             talkDb.convertToModel(speakers, eventDb)
         } else null
-        eventDao.updateUpdatedAt(eventId)
         return@coroutineScope scheduleItem.convertToModel(talk)
     }
 
     suspend fun delete(eventId: String, apiKey: String, scheduleId: String) = coroutineScope {
-        eventDao.getVerified(eventId, apiKey)
+        val event = eventDao.getVerified(eventId, apiKey)
         scheduleItemDao.delete(eventId, scheduleId)
-        eventDao.updateUpdatedAt(eventId)
+        eventDao.updateAgendaUpdatedAt(event)
     }
 }

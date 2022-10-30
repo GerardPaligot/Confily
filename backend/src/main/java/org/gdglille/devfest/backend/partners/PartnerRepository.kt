@@ -10,10 +10,10 @@ class PartnerRepository(
 ) {
     suspend fun create(eventId: String, apiKey: String, partnerInput: PartnerInput) =
         coroutineScope {
-            eventDao.getVerified(eventId, apiKey)
+            val event = eventDao.getVerified(eventId, apiKey)
             val partnerDb = partnerInput.convertToDb()
             val id = partnerDao.createOrUpdate(eventId, partnerDb)
-            eventDao.updateUpdatedAt(eventId)
+            eventDao.updateUpdatedAt(event)
             return@coroutineScope id
         }
 
@@ -23,9 +23,9 @@ class PartnerRepository(
         partnerId: String,
         partnerInput: PartnerInput
     ) = coroutineScope {
-        eventDao.getVerified(eventId, apiKey)
+        val event = eventDao.getVerified(eventId, apiKey)
         val speakerDb = partnerInput.convertToDb(partnerId)
-        eventDao.updateUpdatedAt(eventId)
+        eventDao.updateUpdatedAt(event)
         return@coroutineScope partnerDao.createOrUpdate(eventId, speakerDb)
     }
 }

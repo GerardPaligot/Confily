@@ -15,36 +15,45 @@ class EventDao(private val database: Database) {
     suspend fun createOrUpdate(event: EventDb) {
         val existing = database.get<EventDb>(event.slugId)
         if (existing == null) database.insert(event.slugId, event)
-        else database.update(event.slugId, event)
+        else database.update(event.slugId, event.copy(updatedAt = System.currentTimeMillis()))
     }
 
     suspend fun updateMenus(eventId: String, apiKey: String, menus: List<LunchMenuDb>) {
         val existing = getVerified(eventId, apiKey)
-        database.update(eventId, existing.copy(menus = menus))
+        database.update(eventId, existing.copy(menus = menus, updatedAt = System.currentTimeMillis()))
     }
 
     suspend fun updateQuestionsAndResponses(eventId: String, apiKey: String, qAndA: List<QuestionAndResponseDb>) {
         val existing = getVerified(eventId, apiKey)
-        database.update(eventId, existing.copy(qanda = qAndA))
+        database.update(eventId, existing.copy(qanda = qAndA, updatedAt = System.currentTimeMillis()))
     }
 
     suspend fun updateCoc(eventId: String, apiKey: String, coc: String) {
         val existing = getVerified(eventId, apiKey)
-        database.update(eventId, existing.copy(coc = coc))
+        database.update(eventId, existing.copy(coc = coc, updatedAt = System.currentTimeMillis()))
     }
 
     suspend fun updateCategories(eventId: String, apiKey: String, categories: List<CategoryDb>) {
         val existing = getVerified(eventId, apiKey)
-        database.update(eventId, existing.copy(categories = categories))
+        database.update(eventId, existing.copy(categories = categories, updatedAt = System.currentTimeMillis()))
     }
 
     suspend fun updateFeatures(eventId: String, apiKey: String, hasNetworking: Boolean) {
         val existing = getVerified(eventId, apiKey)
-        database.update(eventId, existing.copy(features = FeaturesActivatedDb(hasNetworking = hasNetworking)))
+        database.update(
+            eventId,
+            existing.copy(
+                features = FeaturesActivatedDb(hasNetworking = hasNetworking),
+                updatedAt = System.currentTimeMillis()
+            )
+        )
     }
 
-    suspend fun updateUpdatedAt(id: String) {
-        val existing = database.get<EventDb>(id) ?: return
-        database.update(id, existing.copy(updatedAt = System.currentTimeMillis()))
+    suspend fun updateUpdatedAt(event: EventDb) {
+        database.update(event.slugId, event.copy(updatedAt = System.currentTimeMillis()))
+    }
+
+    suspend fun updateAgendaUpdatedAt(event: EventDb) {
+        database.update(event.slugId, event.copy(agendaUpdatedAt = System.currentTimeMillis()))
     }
 }

@@ -28,17 +28,16 @@ class TalkRepository(
     }
 
     suspend fun create(eventId: String, apiKey: String, talkInput: TalkInput) = coroutineScope {
-        eventDao.getVerified(eventId, apiKey)
+        val event = eventDao.getVerified(eventId, apiKey)
         val talkDb = talkInput.convertToDb()
         val id = talkDao.createOrUpdate(eventId, talkDb)
-        eventDao.updateUpdatedAt(eventId)
+        eventDao.updateAgendaUpdatedAt(event)
         return@coroutineScope id
     }
 
     suspend fun get(eventId: String, talkId: String) = coroutineScope {
         val eventDb = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
         val talk = talkDao.get(eventId, talkId) ?: throw NotFoundException("Talk $talkId Not Found")
-        eventDao.updateUpdatedAt(eventId)
         return@coroutineScope talk.convertToModel(
             speakerDao.getByIds(eventId, talk.speakerIds), eventDb
         )
@@ -46,9 +45,9 @@ class TalkRepository(
 
     suspend fun update(eventId: String, apiKey: String, talkId: String, talkInput: TalkInput) =
         coroutineScope {
-            eventDao.getVerified(eventId, apiKey)
+            val event = eventDao.getVerified(eventId, apiKey)
             talkDao.createOrUpdate(eventId, talkInput.convertToDb(id = talkId))
-            eventDao.updateUpdatedAt(eventId)
+            eventDao.updateAgendaUpdatedAt(event)
             return@coroutineScope talkId
         }
 }

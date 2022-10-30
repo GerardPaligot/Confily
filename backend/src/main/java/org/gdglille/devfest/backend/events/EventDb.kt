@@ -70,7 +70,8 @@ data class EventDb(
     val linkedinUrl: String? = null,
     val faqLink: String? = null,
     val codeOfConductLink: String? = null,
-    val updatedAt: Long = System.currentTimeMillis()
+    val updatedAt: Long = System.currentTimeMillis(),
+    val agendaUpdatedAt: Long = System.currentTimeMillis()
 )
 
 fun EventDb.openFeedbackUrl(): String? {

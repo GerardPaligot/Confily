@@ -15,10 +15,10 @@ class SpeakerRepository(
 
     suspend fun create(eventId: String, apiKey: String, speakerInput: SpeakerInput) =
         coroutineScope {
-            eventDao.getVerified(eventId, apiKey)
+            val event = eventDao.getVerified(eventId, apiKey)
             val speakerDb = speakerInput.convertToDb()
             val id = speakerDao.createOrUpdate(eventId, speakerDb)
-            eventDao.updateUpdatedAt(eventId)
+            eventDao.updateAgendaUpdatedAt(event)
             return@coroutineScope id
         }
 
@@ -34,9 +34,9 @@ class SpeakerRepository(
         speakerId: String,
         speakerInput: SpeakerInput
     ) = coroutineScope {
-        eventDao.getVerified(eventId, apiKey)
+        val event = eventDao.getVerified(eventId, apiKey)
         val speakerDb = speakerInput.convertToDb(speakerId)
-        eventDao.updateUpdatedAt(eventId)
+        eventDao.updateAgendaUpdatedAt(event)
         return@coroutineScope speakerDao.createOrUpdate(eventId, speakerDb)
     }
 }
