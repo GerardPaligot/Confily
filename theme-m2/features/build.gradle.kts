@@ -10,6 +10,7 @@ dependencies {
     implementation(projects.androidData)
     implementation(projects.shared)
 
+    implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.material2)
     implementation(libs.androidx.compose.lifecycle)
     implementation(libs.androidx.compose.runtime)

@@ -10,6 +10,7 @@ dependencies {
     implementation(projects.shared)
     implementation(projects.androidData)
 
+    implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.material2)
     implementation(libs.androidx.compose.icons)
     implementation(libs.androidx.compose.tooling)

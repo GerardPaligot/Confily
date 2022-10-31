@@ -1,9 +1,9 @@
 [versions]
-kotlin = "1.7.10"
+kotlin = "1.7.20"
 kotlinxCoroutines = "1.6.3-native-mt"
 kotlinxDatetime = "0.4.0"
 ktor = "2.0.1"
-accompanist = "0.24.8-beta"
+accompanist = "0.27.0"
 androidDesugarJdkLibs = "1.1.5"
 androidGradlePlugin = "7.3.0"
 androidMaterial = "1.5.0"
@@ -12,11 +12,10 @@ androidxLifecycleVM = "2.4.1"
 androidxBrowser = "1.4.0"
 androidxCamera = "1.1.0-beta03"
 androidxProfile = "1.2.0-rc01"
-compose = "1.2.1"
-composeCompiler = "1.3.1"
-composeMaterial3 = "1.0.0-beta03"
-composeActivity = "1.4.0"
-composeNavigation = "2.4.2"
+composeBom = "2022.10.00"
+composeCompiler = "1.3.2"
+composeActivity = "1.6.1"
+composeNavigation = "2.5.3"
 composeFont = "1.0.0"
 composeRichText = "0.11.0"
 composeOpenfeedback = "0.0.8-SNAPSHOT"
@@ -71,14 +70,15 @@ androidx-camera-camera2 = { group = "androidx.camera", name = "camera-camera2", 
 androidx-camera-lifecycle = { group = "androidx.camera", name = "camera-lifecycle", version.ref = "androidxCamera" }
 androidx-camera-view = { group = "androidx.camera", name = "camera-view", version.ref = "androidxCamera" }
 androidx-profile = { group = "androidx.profileinstaller", name = "profileinstaller", version.ref = "androidxProfile" }
-androidx-compose-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "compose" }
-androidx-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout", version.ref = "compose" }
-androidx-compose-material2 = { group = "androidx.compose.material", name = "material", version.ref = "compose" }
-androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "composeMaterial3" }
-androidx-compose-icons = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "compose" }
-androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime-livedata", version.ref = "compose" }
-androidx-compose-lifecycle = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "compose" }
-androidx-compose-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "compose" }
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout" }
+androidx-compose-material2 = { group = "androidx.compose.material", name = "material" }
+androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-compose-icons = { group = "androidx.compose.material", name = "material-icons-extended" }
+androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime-livedata" }
+androidx-compose-lifecycle = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose" }
+androidx-compose-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-activity = { group = "androidx.activity", name = "activity-compose", version.ref = "composeActivity" }
 androidx-compose-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "composeNavigation" }
 compose-awesome-font = { group = "br.com.devsrsouza.compose.icons.android", name = "font-awesome", version.ref = "composeFont" }
