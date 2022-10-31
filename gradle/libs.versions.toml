@@ -5,7 +5,7 @@ kotlinxDatetime = "0.4.0"
 ktor = "2.0.1"
 accompanist = "0.27.0"
 androidDesugarJdkLibs = "1.1.5"
-androidGradlePlugin = "7.3.0"
+androidGradlePlugin = "7.3.1"
 androidMaterial = "1.5.0"
 androidxAppcompat = "1.4.2"
 androidxLifecycleVM = "2.4.1"
@@ -56,6 +56,7 @@ ktor-server-netty = { group = "io.ktor", name = "ktor-server-netty", version.ref
 ktor-server-negotiation = { group = "io.ktor", name = "ktor-server-content-negotiation", version.ref = "ktor" }
 ktor-server-statuspages = { group = "io.ktor", name = "ktor-server-status-pages", version.ref = "ktor" }
 ktor-server-cors = { group = "io.ktor", name = "ktor-server-cors", version.ref = "ktor" }
+ktor-server-conditional = { group = "io.ktor", name = "ktor-server-conditional-headers", version.ref = "ktor" }
 
 ktor-serialization-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
 

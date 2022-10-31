@@ -163,4 +163,8 @@ class ScheduleDao(
             }
         }
     }
+
+    fun lastEtag(): String? = settings.getStringOrNull("AGENDA_ETAG")
+
+    fun updateEtag(etag: String?) = etag?.let { settings.putString("AGENDA_ETAG", it) }
 }

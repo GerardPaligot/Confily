@@ -16,6 +16,7 @@ dependencies {
     implementation(libs.ktor.server.negotiation)
     implementation(libs.ktor.server.statuspages)
     implementation(libs.ktor.server.cors)
+    implementation(libs.ktor.server.conditional)
 
     implementation(libs.ktor.client.core)
     implementation(libs.ktor.client.json)

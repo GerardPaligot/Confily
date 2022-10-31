@@ -3,13 +3,18 @@
 package org.gdglille.devfest.backend.events
 
 import io.ktor.http.HttpStatusCode
+import io.ktor.http.content.EntityTagVersion
+import io.ktor.http.content.VersionCheckResult
 import io.ktor.server.application.call
 import io.ktor.server.request.acceptItems
 import io.ktor.server.request.receive
+import io.ktor.server.response.etag
+import io.ktor.server.response.lastModified
 import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 import io.ktor.server.routing.put
+import org.gdglille.devfest.backend.NotFoundException
 import org.gdglille.devfest.backend.events.v2.EventRepositoryV2
 import org.gdglille.devfest.backend.partners.PartnerDao
 import org.gdglille.devfest.backend.receiveValidated
@@ -23,6 +28,10 @@ import org.gdglille.devfest.models.inputs.EventInput
 import org.gdglille.devfest.models.inputs.FeaturesActivatedInput
 import org.gdglille.devfest.models.inputs.LunchMenuInput
 import org.gdglille.devfest.models.inputs.QuestionAndResponseInput
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
 
 fun Route.registerEventRoutes(
     eventDao: EventDao,
@@ -76,10 +85,25 @@ fun Route.registerEventRoutes(
     }
     get("agenda") {
         val eventId = call.parameters["eventId"]!!
-        when (call.request.acceptItems().version()) {
-            1 -> call.respond(HttpStatusCode.OK, repository.agenda(eventId))
-            2 -> call.respond(HttpStatusCode.OK, repositoryV2.agenda(eventId))
-            else -> call.respond(HttpStatusCode.NotImplemented)
+        val event = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
+        val zoneId = ZoneId.of("Europe/Paris")
+        val lastModified = ZonedDateTime.of(
+            LocalDateTime.ofInstant(Instant.ofEpochMilli(event.agendaUpdatedAt), zoneId),
+            zoneId
+        )
+        val etag = lastModified.hashCode().toString()
+        val version = EntityTagVersion(etag)
+        val result = version.check(call.request.headers)
+        if (result == VersionCheckResult.NOT_MODIFIED) {
+            call.respond(HttpStatusCode.NotModified)
+        } else {
+            call.response.lastModified(lastModified)
+            call.response.etag(etag)
+            when (call.request.acceptItems().version()) {
+                1 -> call.respond(HttpStatusCode.OK, repository.agenda(event))
+                2 -> call.respond(HttpStatusCode.OK, repositoryV2.agenda(event))
+                else -> call.respond(HttpStatusCode.NotImplemented)
+            }
         }
     }
     get("openfeedback") {

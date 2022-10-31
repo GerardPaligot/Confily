@@ -29,11 +29,10 @@ class EventRepositoryV2(
     private val talkDao: TalkDao,
     private val scheduleItemDao: ScheduleItemDao
 ) {
-    suspend fun agenda(eventId: String) = coroutineScope {
-        val eventDb = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
-        val talks = talkDao.getAll(eventId)
-        val speakers = speakerDao.getAll(eventId)
-        return@coroutineScope scheduleItemDao.getAll(eventId)
+    suspend fun agenda(eventDb: EventDb) = coroutineScope {
+        val talks = talkDao.getAll(eventDb.slugId)
+        val speakers = speakerDao.getAll(eventDb.slugId)
+        return@coroutineScope scheduleItemDao.getAll(eventDb.slugId)
             .groupBy { LocalDateTime.parse(it.startTime).format(FormatterPattern.YearMonthDay) }
             .entries.map { schedulesByDay ->
                 schedulesByDay(schedulesByDay, talks, speakers, eventDb)
@@ -79,7 +78,8 @@ class EventRepositoryV2(
     }
 
     suspend fun openFeedback(eventId: String) = coroutineScope {
-        val agenda = agenda(eventId)
+        val event = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
+        val agenda = agenda(event)
         val talks = agenda.values.map { it.values.flatten() }.flatten().filter { it.talk != null }
         val asyncSessions = async {
             talks.map {

@@ -42,8 +42,7 @@ class EventRepository(
             golds = golds.sortedBy { it.name },
             silvers = silvers.sortedBy { it.name },
             bronzes = bronzes.sortedBy { it.name },
-            others = partners.filter { it.sponsoring == Sponsorship.Other.name }
-                .sortedBy { it.name }
+            others = partners.filter { it.sponsoring == Sponsorship.Other.name }.sortedBy { it.name }
         )
     }
 
@@ -89,21 +88,20 @@ class EventRepository(
             return@coroutineScope eventId
         }
 
-    suspend fun agenda(eventId: String) = coroutineScope {
-        val eventDb = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
-        val schedules = scheduleItemDao.getAll(eventId).groupBy { it.startTime }.entries.map {
+    suspend fun agenda(eventDb: EventDb) = coroutineScope {
+        val schedules = scheduleItemDao.getAll(eventDb.slugId).groupBy { it.startTime }.entries.map {
             async {
                 val scheduleItems = it.value.map {
                     async {
                         if (it.talkId == null) it.convertToModel(null)
                         else {
                             val talk =
-                                talkDao.get(eventId, it.talkId) ?: return@async it.convertToModel(
+                                talkDao.get(eventDb.slugId, it.talkId) ?: return@async it.convertToModel(
                                     null
                                 )
                             it.convertToModel(
                                 talk.convertToModel(
-                                    speakerDao.getByIds(eventId, talk.speakerIds),
+                                    speakerDao.getByIds(eventDb.slugId, talk.speakerIds),
                                     eventDb
                                 )
                             )

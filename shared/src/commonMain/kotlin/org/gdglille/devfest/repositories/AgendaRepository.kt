@@ -92,12 +92,17 @@ class AgendaRepositoryImpl(
     private val qrCodeGenerator: QrCodeGenerator
 ) : AgendaRepository {
     override suspend fun fetchAndStoreAgenda() {
+        val etag = scheduleDao.lastEtag()
         val event = api.fetchEvent()
-        val agenda = api.fetchAgenda()
-        agenda.entries.forEach { entry ->
-            entry.value.values.forEach { schedules ->
-                scheduleDao.insertOrUpdateSchedules(event.id, entry.key, schedules)
+        try {
+            val agenda = api.fetchAgenda(etag)
+            agenda.second.entries.forEach { entry ->
+                entry.value.values.forEach { schedules ->
+                    scheduleDao.insertOrUpdateSchedules(event.id, entry.key, schedules)
+                }
             }
+            scheduleDao.updateEtag(agenda.first)
+        } catch (_: Throwable) {
         }
         eventDao.insertEvent(event)
     }

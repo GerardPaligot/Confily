@@ -11,6 +11,8 @@ import io.ktor.client.request.accept
 import io.ktor.client.request.get
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
+import io.ktor.http.etag
+import io.ktor.http.ifNoneMatch
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.gdglille.devfest.Platform
@@ -28,11 +30,13 @@ class ConferenceApi(
         client.get("$baseUrl/events/$eventId/billet-web/$barcode")
             .body<Attendee>()
 
-    suspend fun fetchAgenda(): Map<String, Map<String, List<ScheduleItem>>> {
-        return client.get("$baseUrl/events/$eventId/agenda") {
+    suspend fun fetchAgenda(etag: String?): Pair<String, Map<String, Map<String, List<ScheduleItem>>>> {
+        val response = client.get("$baseUrl/events/$eventId/agenda") {
             contentType(ContentType.parse("application/json"))
             accept(ContentType.parse("application/json; version=2"))
-        }.body()
+            etag?.let { ifNoneMatch(etag) }
+        }
+        return response.etag()!! to response.body()
     }
 
     companion object {

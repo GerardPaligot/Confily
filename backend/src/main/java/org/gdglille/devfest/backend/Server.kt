@@ -10,6 +10,7 @@ import io.ktor.server.application.ApplicationCall
 import io.ktor.server.application.install
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
+import io.ktor.server.plugins.conditionalheaders.ConditionalHeaders
 import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.server.plugins.cors.routing.CORS
 import io.ktor.server.plugins.statuspages.StatusPages
@@ -119,6 +120,7 @@ fun main() {
         install(ContentNegotiation) {
             json()
         }
+        install(ConditionalHeaders)
         install(StatusPages) {
             exception<ValidatorException> { call, cause ->
                 call.respond(HttpStatusCode.BadRequest, cause.errors)
