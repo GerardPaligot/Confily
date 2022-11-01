@@ -7,5 +7,6 @@ data class SpeakerDb(
     val company: String? = null,
     val photoUrl: String = "",
     val twitter: String? = null,
-    val github: String? = null
+    val github: String? = null,
+    val linkedin: String? = null
 )

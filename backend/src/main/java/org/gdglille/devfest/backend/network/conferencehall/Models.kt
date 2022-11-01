@@ -15,7 +15,9 @@ data class Speaker(
     val displayName: String,
     val bio: String? = null,
     val company: String? = null,
-    val photoURL: String? = null
+    val photoURL: String? = null,
+    val twitter: String? = null,
+    val github: String? = null
 )
 
 @Serializable

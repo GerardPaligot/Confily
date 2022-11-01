@@ -13,5 +13,6 @@ data class Speaker(
     @SerialName("photo_url")
     val photoUrl: String,
     val twitter: String?,
-    val github: String?
+    val github: String?,
+    val linkedin: String?
 )
