@@ -15,6 +15,10 @@ data class Talk(
     val format: String,
     val language: String,
     val speakers: List<Speaker>,
+    @SerialName("link_slides")
+    val linkSlides: String?,
+    @SerialName("link_replay")
+    val linkReplay: String?,
     @SerialName("open_feedback")
     val openFeedback: String?
 )

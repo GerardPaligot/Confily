@@ -11,6 +11,10 @@ data class TalkInput(
     val category: String = "",
     val format: String = "",
     val language: String = "",
+    @SerialName("link_slides")
+    val linkSlides: String? = null,
+    @SerialName("link_replay")
+    val linkReplay: String? = null,
     @SerialName("speaker_ids")
     val speakerIds: List<String> = emptyList()
 ) : Validator {

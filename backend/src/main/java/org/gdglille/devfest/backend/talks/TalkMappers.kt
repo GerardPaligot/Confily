@@ -37,6 +37,8 @@ fun TalkDb.convertToModel(speakers: List<SpeakerDb>, eventDb: EventDb): Talk = T
     format = this.format,
     language = this.language,
     speakers = speakers.filter { this.speakerIds.contains(it.id) }.map { it.convertToModel() },
+    linkSlides = this.linkSlides,
+    linkReplay = this.linkReplay,
     openFeedback = eventDb.openFeedbackUrl()?.let { "$it/$id" } ?: run { null }
 )
 
@@ -48,5 +50,7 @@ fun TalkInput.convertToDb(id: String? = null): TalkDb = TalkDb(
     category = this.category,
     format = this.format,
     language = this.language,
+    linkSlides = this.linkSlides,
+    linkReplay = this.linkReplay,
     speakerIds = this.speakerIds
 )
