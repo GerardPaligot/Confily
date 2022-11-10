@@ -19,7 +19,10 @@ fun Conferences4HallTheme(
     CompositionLocalProvider(
         LocalAccessibility provides
             LocalContext.current.getSystemService(Context.ACCESSIBILITY_SERVICE)
-            as AccessibilityManager
+            as AccessibilityManager,
+        LocalDecorativeColorScheme provides
+            if (useDarkTheme) darkDecorativeColorScheme()
+            else lightDecorativeColorScheme()
     ) {
         val colorSheme = when {
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
@@ -27,6 +30,7 @@ fun Conferences4HallTheme(
                 if (useDarkTheme) dynamicDarkColorScheme(context)
                 else dynamicLightColorScheme(context)
             }
+
             else -> if (useDarkTheme) DarkColors else LightColors
         }
         MaterialTheme(

@@ -29,6 +29,10 @@
     <string name="text_schedule_time">From %s to %s</string>
     <string name="text_schedule_minutes">%s minutes</string>
     <string name="text_speakers">By %s</string>
+    <plurals name="text_speakers_list">
+        <item quantity="one">%s and %d other</item>
+        <item quantity="other">%s and %d others</item>
+    </plurals>
     <string name="text_level_advanced">Advanced</string>
     <string name="text_level_intermediate">Intermediate</string>
     <string name="text_level_beginner">Beginner</string>

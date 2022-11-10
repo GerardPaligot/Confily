@@ -13,7 +13,7 @@ import org.gdglille.devfest.android.theme.Conferences4HallTheme
 fun Time(
     time: String,
     modifier: Modifier = Modifier,
-    style: TextStyle = MaterialTheme.typography.bodyLarge,
+    style: TextStyle = MaterialTheme.typography.headlineSmall,
     color: Color = MaterialTheme.colorScheme.secondary
 ) {
     Text(

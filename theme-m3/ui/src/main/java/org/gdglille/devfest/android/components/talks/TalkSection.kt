@@ -1,11 +1,20 @@
 package org.gdglille.devfest.android.components.talks
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Bolt
+import androidx.compose.material.icons.outlined.Schedule
+import androidx.compose.material.icons.outlined.Timer
+import androidx.compose.material.icons.outlined.Videocam
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -15,6 +24,11 @@ import androidx.compose.ui.unit.dp
 import com.halilibo.richtext.markdown.Markdown
 import com.halilibo.richtext.ui.RichText
 import com.halilibo.richtext.ui.RichTextThemeIntegration
+import org.gdglille.devfest.android.components.speakers.SpeakersAvatar
+import org.gdglille.devfest.android.components.tags.DecorativeTag
+import org.gdglille.devfest.android.components.tags.LevelTag
+import org.gdglille.devfest.android.components.tags.Tag
+import org.gdglille.devfest.android.components.tags.TagDefaults
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.ui.R
 import org.gdglille.devfest.models.TalkUi
@@ -24,37 +38,67 @@ fun TalkSection(
     talk: TalkUi,
     modifier: Modifier = Modifier,
     color: Color = MaterialTheme.colorScheme.onBackground,
-    titleTextStyle: TextStyle = MaterialTheme.typography.titleLarge,
+    titleTextStyle: TextStyle = MaterialTheme.typography.headlineMedium,
+    subtitleTextStyle: TextStyle = MaterialTheme.typography.titleLarge,
     bodyTextStyle: TextStyle = MaterialTheme.typography.bodyMedium
 ) {
-    Column(modifier = modifier) {
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(text = talk.title, color = color, style = titleTextStyle)
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            text = stringResource(id = R.string.text_schedule_time, talk.startTime, talk.endTime),
-            color = color,
-            style = bodyTextStyle
-        )
-        Room(room = talk.room, color = color, style = bodyTextStyle)
-        talk.level?.let {
-            val text = when (it) {
-                "advanced" -> stringResource(R.string.text_level_advanced)
-                "intermediate" -> stringResource(R.string.text_level_intermediate)
-                "beginner" -> stringResource(R.string.text_level_beginner)
-                else -> it
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(24.dp)
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            talk.category.color?.let {
+                DecorativeTag(category = talk.category)
             }
-            Text(text = text, color = color, style = bodyTextStyle)
+            Spacer(modifier = Modifier.width(8.dp))
+            talk.level?.let {
+                LevelTag(level = it)
+            }
+            Spacer(modifier = Modifier.weight(1f))
+            SpeakersAvatar(
+                speakersName = talk.speakers.map { it.name },
+                speakersAvatar = talk.speakers.map { it.url },
+                modifier = Modifier.height(40.dp),
+                betweenSpacing = 6.dp
+            )
         }
-        Spacer(modifier = Modifier.height(8.dp))
-        RichTextThemeIntegration(
-            textStyle = { bodyTextStyle },
-            ProvideTextStyle = null,
-            contentColor = { color.copy(alpha = .73f) },
-            ProvideContentColor = null,
-        ) {
-            RichText {
-                Markdown(talk.abstract)
+        Text(text = talk.title, color = color, style = titleTextStyle)
+        Row {
+            Tag(
+                text = talk.startTime,
+                icon = Icons.Outlined.Schedule,
+                colors = TagDefaults.unStyledColors()
+            )
+            Tag(
+                text = talk.room,
+                icon = Icons.Outlined.Videocam,
+                colors = TagDefaults.unStyledColors()
+            )
+            Tag(
+                text = stringResource(R.string.text_schedule_minutes, talk.timeInMinutes.toString()),
+                icon = if (talk.timeInMinutes <= ShortTalk) {
+                    Icons.Outlined.Bolt
+                } else {
+                    Icons.Outlined.Timer
+                },
+                colors = TagDefaults.unStyledColors()
+            )
+        }
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Text(
+                text = stringResource(id = R.string.screen_schedule_detail),
+                color = color,
+                style = subtitleTextStyle
+            )
+            RichTextThemeIntegration(
+                textStyle = { bodyTextStyle },
+                ProvideTextStyle = null,
+                contentColor = { color.copy(alpha = .73f) },
+                ProvideContentColor = null,
+            ) {
+                RichText {
+                    Markdown(talk.abstract)
+                }
             }
         }
     }

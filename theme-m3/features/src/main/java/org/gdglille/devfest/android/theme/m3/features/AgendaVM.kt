@@ -37,6 +37,7 @@ fun AgendaVM(
     val context = LocalContext.current
     val count = tabs.tabActions.count()
     val viewModel: AgendaViewModel = viewModel(
+        key = "${tabs.tabActions.count()}",
         factory = AgendaViewModel.Factory.create(
             tabs.tabActions.map { it.route },
             agendaRepository,

@@ -18,7 +18,7 @@ import org.gdglille.devfest.android.theme.Conferences4HallTheme
 import org.gdglille.devfest.models.SpeakerUi
 
 @Composable
-fun SpeakerSection(
+fun SpeakerDescriptionSection(
     speaker: SpeakerUi,
     modifier: Modifier = Modifier,
     bodyTextStyle: TextStyle = MaterialTheme.typography.bodyMedium,
@@ -61,9 +61,9 @@ fun SpeakerSection(
 
 @Preview
 @Composable
-fun SpeakerSectionPreview() {
+fun SpeakerDescriptionSectionPreview() {
     Conferences4HallTheme {
-        SpeakerSection(
+        SpeakerDescriptionSection(
             speaker = SpeakerUi.fake,
             onTwitterClick = {},
             onGitHubClick = {}
