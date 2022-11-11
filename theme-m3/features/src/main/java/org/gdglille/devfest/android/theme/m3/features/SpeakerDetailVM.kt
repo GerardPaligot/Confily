@@ -5,6 +5,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import org.gdglille.devfest.android.data.AlarmScheduler
@@ -20,9 +21,11 @@ fun SpeakerDetailVM(
     agendaRepository: AgendaRepository,
     alarmScheduler: AlarmScheduler,
     modifier: Modifier = Modifier,
+    onTalkClicked: (id: String) -> Unit,
     onLinkClicked: (url: String) -> Unit,
     onBackClicked: () -> Unit
 ) {
+    val context = LocalContext.current
     val viewModel: SpeakerViewModel = viewModel(
         factory = SpeakerViewModel.Factory.create(speakerId, agendaRepository, alarmScheduler)
     )
@@ -31,6 +34,8 @@ fun SpeakerDetailVM(
         is SpeakerUiState.Loading -> SpeakerDetail(
             speaker = (uiState.value as SpeakerUiState.Loading).speaker,
             modifier = modifier,
+            onTalkClicked = {},
+            onFavoriteClicked = {},
             onLinkClicked = {},
             onBackClicked = onBackClicked
         )
@@ -39,6 +44,10 @@ fun SpeakerDetailVM(
         is SpeakerUiState.Success -> SpeakerDetail(
             speaker = (uiState.value as SpeakerUiState.Success).speaker,
             modifier = modifier,
+            onTalkClicked = onTalkClicked,
+            onFavoriteClicked = {
+                viewModel.markAsFavorite(context, it)
+            },
             onLinkClicked = onLinkClicked,
             onBackClicked = onBackClicked
         )

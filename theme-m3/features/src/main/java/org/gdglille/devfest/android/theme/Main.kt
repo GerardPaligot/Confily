@@ -100,6 +100,9 @@ fun Main(
                     speakerId = it.arguments?.getString("speakerId")!!,
                     agendaRepository = agendaRepository,
                     alarmScheduler = alarmScheduler,
+                    onTalkClicked = {
+                        navController.navigate("schedules/$it")
+                    },
                     onLinkClicked = { launchUrl(it) },
                     onBackClicked = {
                         navController.popBackStack()

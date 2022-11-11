@@ -16,7 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import org.gdglille.devfest.android.components.speakers.Socials
+import org.gdglille.devfest.android.components.buttons.Socials
 import org.gdglille.devfest.android.theme.m3.ui.R
 import org.gdglille.devfest.android.theme.placeholder
 import org.gdglille.devfest.models.EventInfoUi

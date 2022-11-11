@@ -62,7 +62,7 @@ fun SpeakerItem(
 ) {
     Card(
         modifier = modifier.placeholder(visible = isLoading),
-        shape = MaterialTheme.shapes.extraSmall,
+        shape = MaterialTheme.shapes.small,
         onClick = { onClick(speakerUi) }
     ) {
         Column {
