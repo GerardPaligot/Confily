@@ -1,7 +1,6 @@
 package org.gdglille.devfest.android.screens
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -11,23 +10,21 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.openfeedback.android.OpenFeedbackConfig
-import io.openfeedback.android.components.OpenFeedback
 import io.openfeedback.android.components.rememberOpenFeedbackState
 import org.gdglille.devfest.android.TopActions
 import org.gdglille.devfest.android.components.appbars.TopAppBar
-import org.gdglille.devfest.android.components.speakers.SpeakerBox
-import org.gdglille.devfest.android.components.speakers.SpeakerItem
-import org.gdglille.devfest.android.components.talks.OpenFeedbackNotStarted
+import org.gdglille.devfest.android.components.speakers.SpeakerSection
+import org.gdglille.devfest.android.components.talks.OpenFeedbackSection
 import org.gdglille.devfest.android.components.talks.TalkSection
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.ui.R
 import org.gdglille.devfest.android.ui.resources.models.TopActionsUi
 import org.gdglille.devfest.models.TalkUi
-import java.util.Locale
 
 @ExperimentalMaterial3Api
 @Composable
@@ -60,42 +57,32 @@ fun ScheduleDetail(
         },
         content = {
             val contentPadding = 8.dp
-            LazyColumn(modifier = Modifier.fillMaxWidth(), contentPadding = it) {
+            LazyColumn(
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+                contentPadding = it,
+                verticalArrangement = Arrangement.spacedBy(24.dp)
+            ) {
                 item {
-                    TalkSection(
-                        talk = talk,
-                        modifier = Modifier.padding(horizontal = contentPadding)
+                    Spacer(modifier = Modifier.height(16.dp))
+                    TalkSection(talk = talk)
+                }
+                item {
+                    if (!LocalInspectionMode.current) {
+                        OpenFeedbackSection(
+                            openFeedbackSessionId = talk.openFeedbackSessionId,
+                            openFeedbackState = openFeedbackState,
+                            canGiveFeedback = talk.canGiveFeedback
+                        )
+                    }
+                }
+                item {
+                    SpeakerSection(
+                        speakers = talk.speakers,
+                        onSpeakerItemClick = onSpeakerClicked
                     )
                 }
-                item { Spacer(modifier = Modifier.height(16.dp)) }
                 item {
-                    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        talk.speakers.forEach {
-                            SpeakerBox(onClick = { onSpeakerClicked(it.id) }) {
-                                SpeakerItem(
-                                    speakerUi = it,
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(horizontal = contentPadding, vertical = 4.dp)
-                                )
-                            }
-                        }
-                    }
-                }
-                item {
-                    Spacer(modifier = Modifier.height(8.dp))
-                    if (!talk.canGiveFeedback) {
-                        OpenFeedbackNotStarted(
-                            modifier = Modifier.padding(horizontal = contentPadding)
-                        )
-                    } else if (talk.openFeedbackSessionId != null) {
-                        OpenFeedback(
-                            openFeedbackState = openFeedbackState,
-                            sessionId = talk.openFeedbackSessionId!!,
-                            language = Locale.getDefault().language,
-                            modifier = Modifier.padding(horizontal = contentPadding)
-                        )
-                    }
+                    Spacer(modifier = Modifier.height(32.dp))
                 }
             }
         }

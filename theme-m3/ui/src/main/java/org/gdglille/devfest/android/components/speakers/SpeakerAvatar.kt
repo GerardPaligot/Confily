@@ -26,7 +26,8 @@ fun SpeakerAvatar(
     url: String,
     contentDescription: String?,
     modifier: Modifier = Modifier,
-    contentScale: ContentScale = ContentScale.Crop
+    contentScale: ContentScale = ContentScale.Crop,
+    shape: Shape = CircleShape
 ) {
     Image(
         painter = rememberAsyncImagePainter(
@@ -35,7 +36,7 @@ fun SpeakerAvatar(
             imageLoader = LocalContext.current.imageLoader
         ),
         contentDescription = contentDescription,
-        modifier = modifier.clip(CircleShape),
+        modifier = modifier.clip(shape),
         contentScale = contentScale
     )
 }

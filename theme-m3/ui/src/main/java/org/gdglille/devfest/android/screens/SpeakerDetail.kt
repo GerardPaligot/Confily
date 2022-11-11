@@ -10,8 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import org.gdglille.devfest.android.components.speakers.SpeakerDescriptionSection
 import org.gdglille.devfest.android.components.speakers.SpeakerHeader
-import org.gdglille.devfest.android.components.speakers.SpeakerSection
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
 import org.gdglille.devfest.models.SpeakerUi
 
@@ -40,7 +40,7 @@ fun SpeakerDetail(
                     )
                 }
                 item {
-                    SpeakerSection(
+                    SpeakerDescriptionSection(
                         speaker = speaker,
                         onTwitterClick = onLinkClicked,
                         onGitHubClick = onLinkClicked

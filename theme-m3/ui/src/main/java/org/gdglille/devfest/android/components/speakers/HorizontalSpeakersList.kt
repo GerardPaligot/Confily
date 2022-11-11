@@ -18,6 +18,9 @@ import org.gdglille.devfest.android.theme.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.ui.R
 import org.gdglille.devfest.models.TalkItemUi
 
+private const val MaxSpeakersCount = 3
+private const val SpacingRatio = 5
+
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun HorizontalSpeakersList(
@@ -25,18 +28,18 @@ fun HorizontalSpeakersList(
     avatars: List<String>,
     modifier: Modifier = Modifier,
     height: Dp = 25.dp,
-    betweenSpacing: Dp = height / 5
+    betweenSpacing: Dp = height / SpacingRatio
 ) {
-    val count = (names.size - 3).coerceAtLeast(minimumValue = 0)
-    val speakers = names.take(3).joinToString(", ")
+    val count = (names.size - MaxSpeakersCount).coerceAtLeast(minimumValue = 0)
+    val speakers = names.take(MaxSpeakersCount).joinToString(", ")
     Row(
         modifier = modifier.height(height),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         SpeakersAvatar(
-            speakersName = names.take(3),
-            speakersAvatar = avatars.take(3),
+            speakersName = names.take(MaxSpeakersCount),
+            speakersAvatar = avatars.take(MaxSpeakersCount),
             betweenSpacing = betweenSpacing
         )
         Text(
