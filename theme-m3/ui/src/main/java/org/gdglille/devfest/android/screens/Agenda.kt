@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.android.components.talks.NoFavoriteTalks
+import org.gdglille.devfest.android.components.talks.PauseItem
 import org.gdglille.devfest.android.components.talks.TalkItem
 import org.gdglille.devfest.android.components.talks.Time
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
@@ -42,14 +43,18 @@ fun Agenda(
                     Time(time = slot.key, modifier = Modifier.placeholder(visible = isLoading))
                 }
                 items(slot.value.toList()) {
-                    TalkItem(
-                        talk = it,
-                        onTalkClicked = onTalkClicked,
-                        onFavoriteClicked = onFavoriteClicked,
-                        modifier = Modifier
-                            .placeholder(visible = isLoading)
-                            .animateItemPlacement()
-                    )
+                    if (it.isPause) {
+                        PauseItem()
+                    } else {
+                        TalkItem(
+                            talk = it,
+                            onTalkClicked = onTalkClicked,
+                            onFavoriteClicked = onFavoriteClicked,
+                            modifier = Modifier
+                                .placeholder(visible = isLoading)
+                                .animateItemPlacement()
+                        )
+                    }
                 }
             }
         }
