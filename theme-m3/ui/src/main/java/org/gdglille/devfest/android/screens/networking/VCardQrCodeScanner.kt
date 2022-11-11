@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.screens
+package org.gdglille.devfest.android.screens.networking
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding

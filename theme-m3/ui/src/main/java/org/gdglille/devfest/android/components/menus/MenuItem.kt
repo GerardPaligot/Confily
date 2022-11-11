@@ -28,7 +28,7 @@ fun MenuItem(
     ) {
         Text(
             text = menuItem.name,
-            style = MaterialTheme.typography.titleMedium,
+            style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.placeholder(isLoading)
         )

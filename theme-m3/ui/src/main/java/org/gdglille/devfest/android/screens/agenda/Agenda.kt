@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.screens
+package org.gdglille.devfest.android.screens.agenda
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi

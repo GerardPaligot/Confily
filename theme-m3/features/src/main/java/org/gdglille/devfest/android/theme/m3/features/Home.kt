@@ -42,9 +42,9 @@ fun Home(
     onTalkClicked: (id: String) -> Unit,
     onLinkClicked: (url: String?) -> Unit,
     onContactScannerClicked: () -> Unit,
+    onItineraryClicked: (lat: Double, lng: Double) -> Unit,
     onTicketScannerClicked: () -> Unit,
     onCreateProfileClicked: () -> Unit,
-    onMenusClicked: () -> Unit,
     onReportClicked: () -> Unit
 ) {
     val viewModel: HomeViewModel = viewModel(
@@ -69,6 +69,7 @@ fun Home(
     val uiState = viewModel.uiState.collectAsState()
     val uiTopState = viewModel.uiTopState.collectAsState()
     val uiTabState = viewModel.uiTabState.collectAsState()
+    val uiFabState = viewModel.uiFabState.collectAsState()
     val uiBottomState = viewModel.uiBottomState.collectAsState()
     val pagerState = rememberPagerState()
     LaunchedEffect(Unit) {
@@ -90,6 +91,7 @@ fun Home(
                 topActions = actions,
                 tabActions = tabActions,
                 bottomActions = uiBottomState.value,
+                fabAction = uiFabState.value,
                 pagerState = pagerState,
                 onTopActionClicked = {
                     when (it.id) {
@@ -108,6 +110,15 @@ fun Home(
                         ActionIds.REPORT -> {
                             onReportClicked()
                         }
+                    }
+                },
+                onFabActionClicked = {
+                    when (it.id) {
+                        ActionIds.SCAN_TICKET -> {
+                            onTicketScannerClicked()
+                        }
+
+                        else -> TODO("Fab not implemented")
                     }
                 },
                 builder = {
@@ -131,13 +142,16 @@ fun Home(
                             onPartnerClick = onLinkClicked
                         )
                     }
-                    composable(Screen.Event.route) {
-                        EventVM(
+                    composable(Screen.Info.route) {
+                        InfoPages(
+                            tabs = tabActions,
                             agendaRepository = agendaRepository,
+                            viewModel = viewModel,
                             modifier = modifier,
+                            pagerState = pagerState,
+                            onItineraryClicked = onItineraryClicked,
                             onLinkClicked = onLinkClicked,
-                            onTicketScannerClicked = onTicketScannerClicked,
-                            onMenusClicked = onMenusClicked
+                            onReportClicked = onReportClicked
                         )
                     }
                 }

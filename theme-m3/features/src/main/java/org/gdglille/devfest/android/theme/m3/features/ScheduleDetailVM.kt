@@ -10,7 +10,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import io.openfeedback.android.OpenFeedbackConfig
 import org.gdglille.devfest.android.data.viewmodels.ScheduleItemViewModel
 import org.gdglille.devfest.android.data.viewmodels.ScheduleUiState
-import org.gdglille.devfest.android.screens.ScheduleDetail
+import org.gdglille.devfest.android.screens.agenda.ScheduleDetail
 import org.gdglille.devfest.repositories.AgendaRepository
 
 @OptIn(ExperimentalMaterial3Api::class)

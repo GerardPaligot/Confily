@@ -8,7 +8,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import org.gdglille.devfest.android.data.viewmodels.ContactsUiState
 import org.gdglille.devfest.android.data.viewmodels.ContactsViewModel
-import org.gdglille.devfest.android.screens.Networking
+import org.gdglille.devfest.android.screens.networking.Networking
 import org.gdglille.devfest.repositories.UserRepository
 
 @Composable

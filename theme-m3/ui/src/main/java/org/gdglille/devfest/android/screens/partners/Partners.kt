@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.screens
+package org.gdglille.devfest.android.screens.partners
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues

@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.screens
+package org.gdglille.devfest.android.screens.networking
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement

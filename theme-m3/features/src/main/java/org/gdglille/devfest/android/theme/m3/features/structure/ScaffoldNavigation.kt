@@ -18,6 +18,7 @@ import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.launch
 import org.gdglille.devfest.android.components.structure.Scaffold
 import org.gdglille.devfest.android.ui.resources.actions.BottomAction
+import org.gdglille.devfest.android.ui.resources.actions.FabAction
 import org.gdglille.devfest.android.ui.resources.actions.TabAction
 import org.gdglille.devfest.android.ui.resources.actions.TopAction
 import org.gdglille.devfest.android.ui.resources.models.BottomActionsUi
@@ -35,9 +36,11 @@ fun ScaffoldNavigation(
     topActions: TopActionsUi = TopActionsUi(),
     tabActions: TabActionsUi = TabActionsUi(),
     bottomActions: BottomActionsUi = BottomActionsUi(),
+    fabAction: FabAction? = null,
     onTopActionClicked: (TopAction) -> Unit = {},
     onTabClicked: (TabAction) -> Unit = {},
     onBottomActionClicked: (BottomAction) -> Unit = {},
+    onFabActionClicked: (FabAction) -> Unit = {},
     builder: NavGraphBuilder.() -> Unit
 ) {
     val scope = rememberCoroutineScope()
@@ -50,6 +53,7 @@ fun ScaffoldNavigation(
         topActions = topActions,
         tabActions = tabActions,
         bottomActions = bottomActions,
+        fabAction = fabAction,
         routeSelected = route,
         tabSelectedIndex = pagerState.currentPage,
         onTopActionClicked = onTopActionClicked,
@@ -67,6 +71,7 @@ fun ScaffoldNavigation(
             }
             onBottomActionClicked(it)
         },
+        onFabActionClicked = onFabActionClicked,
         content = {
             NavHost(
                 navController,

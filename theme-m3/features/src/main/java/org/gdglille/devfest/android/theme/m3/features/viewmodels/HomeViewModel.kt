@@ -13,9 +13,12 @@ import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.gdglille.devfest.android.BottomActions
+import org.gdglille.devfest.android.FabActions
 import org.gdglille.devfest.android.Screen
+import org.gdglille.devfest.android.TabActions
 import org.gdglille.devfest.android.TopActions
 import org.gdglille.devfest.android.ui.resources.actions.BottomAction
+import org.gdglille.devfest.android.ui.resources.actions.FabAction
 import org.gdglille.devfest.android.ui.resources.actions.TabAction
 import org.gdglille.devfest.android.ui.resources.models.BottomActionsUi
 import org.gdglille.devfest.android.ui.resources.models.ScreenUi
@@ -42,6 +45,7 @@ class HomeViewModel(
     private val _routeState = MutableStateFlow<String?>(null)
     private val _uiTopState = MutableStateFlow(TopActionsUi())
     private val _uiTabState = MutableStateFlow(TabActionsUi())
+    private val _uiFabState = MutableStateFlow<FabAction?>(null)
     private val _uiBottomState = MutableStateFlow(BottomActionsUi())
     private val _uiIsFavState = MutableStateFlow(false)
     private val _uiState = combine(
@@ -51,19 +55,21 @@ class HomeViewModel(
         transform = { route, config, isFav ->
             if (route == null) return@combine HomeUiState.Loading
             updateUiTopActions(route, isFav)
-            updateUiTabActions(route, config)
             updateUiBottomActions(config)
+            updateUiTabActions(route, config)
+            updateUiFabAction(route, config)
             return@combine when (route) {
                 Screen.Agenda.route -> HomeUiState.Success(ScreenUi(title = Screen.Agenda.title))
                 Screen.Networking.route -> HomeUiState.Success(ScreenUi(title = Screen.Networking.title))
                 Screen.Partners.route -> HomeUiState.Success(ScreenUi(title = Screen.Partners.title))
-                Screen.Event.route -> HomeUiState.Success(ScreenUi(title = Screen.Event.title))
+                Screen.Info.route -> HomeUiState.Success(ScreenUi(title = Screen.Info.title))
                 else -> TODO()
             }
         }
     ).stateIn(viewModelScope, SharingStarted.WhileSubscribed(), initialValue = HomeUiState.Loading)
     val uiTopState: StateFlow<TopActionsUi> = _uiTopState
     val uiTabState: StateFlow<TabActionsUi> = _uiTabState
+    val uiFabState: StateFlow<FabAction?> = _uiFabState
     val uiBottomState: StateFlow<BottomActionsUi> = _uiBottomState
     val uiState: StateFlow<HomeUiState> = _uiState
 
@@ -75,10 +81,6 @@ class HomeViewModel(
 
             Screen.Networking.route -> TopActionsUi(
                 topActions = arrayListOf(TopActions.qrCodeScanner, TopActions.qrCode)
-            )
-
-            Screen.Event.route -> TopActionsUi(
-                topActions = arrayListOf(TopActions.report)
             )
 
             else -> TopActionsUi()
@@ -100,10 +102,34 @@ class HomeViewModel(
                 }
             )
 
+            Screen.Info.route -> TabActionsUi(
+                scrollable = true,
+                tabActions = arrayListOf<TabAction>().apply {
+                    add(TabActions.event)
+                    if (config.hasMenus) {
+                        add(TabActions.menus)
+                    }
+                    if (config.hasQAndA) {
+                        add(TabActions.qanda)
+                    }
+                    add(TabActions.coc)
+                }
+            )
+
             else -> TabActionsUi()
         }
         if (tabActions != _uiTabState.value) {
             _uiTabState.value = tabActions
+        }
+    }
+
+    private fun updateUiFabAction(route: String, config: ScaffoldConfigUi) {
+        val fabAction = when (route) {
+            Screen.Event.route -> if (config.hasBilletWebTicket) FabActions.scanTicket else null
+            else -> null
+        }
+        if (fabAction != _uiFabState.value) {
+            _uiFabState.value = fabAction
         }
     }
 
@@ -155,6 +181,10 @@ class HomeViewModel(
 
     fun screenConfig(route: String) = viewModelScope.launch {
         _routeState.value = route
+    }
+
+    fun updateFabUi(innerScreen: String) = viewModelScope.launch {
+        updateUiFabAction(innerScreen, _configState.value)
     }
 
     fun saveTicket(barcode: String) = viewModelScope.launch {

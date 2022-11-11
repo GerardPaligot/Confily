@@ -4,9 +4,14 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExtendedFloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import org.gdglille.devfest.android.TopActions
@@ -17,6 +22,7 @@ import org.gdglille.devfest.android.components.appbars.TopAppBar
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.ui.R
 import org.gdglille.devfest.android.ui.resources.actions.BottomAction
+import org.gdglille.devfest.android.ui.resources.actions.FabAction
 import org.gdglille.devfest.android.ui.resources.actions.TabAction
 import org.gdglille.devfest.android.ui.resources.actions.TopAction
 import org.gdglille.devfest.android.ui.resources.models.BottomActionsUi
@@ -31,11 +37,13 @@ fun Scaffold(
     topActions: TopActionsUi = TopActionsUi(),
     tabActions: TabActionsUi = TabActionsUi(),
     bottomActions: BottomActionsUi = BottomActionsUi(),
+    fabAction: FabAction? = null,
     routeSelected: String? = null,
     tabSelectedIndex: Int? = null,
     onTopActionClicked: (TopAction) -> Unit = {},
     onTabClicked: (TabAction) -> Unit = {},
     onBottomActionClicked: (BottomAction) -> Unit = {},
+    onFabActionClicked: (FabAction) -> Unit = {},
     content: @Composable (PaddingValues) -> Unit
 ) {
     Scaffold(
@@ -56,6 +64,12 @@ fun Scaffold(
                                     onClick = { onTabClicked(tabAction) },
                                     text = it
                                 )
+                            } ?: kotlin.run {
+                                Tab(
+                                    selected = index == tabSelectedIndex,
+                                    onClick = { onTabClicked(tabAction) },
+                                    text = stringResource(tabAction.labelId)
+                                )
                             }
                         }
                     }
@@ -68,6 +82,23 @@ fun Scaffold(
                     bottomActions = bottomActions,
                     routeSelected = routeSelected,
                     onClick = onBottomActionClicked
+                )
+            }
+        },
+        floatingActionButton = {
+            if (fabAction != null) {
+                ExtendedFloatingActionButton(
+                    text = { Text(text = stringResource(fabAction.label)) },
+                    icon = {
+                        Icon(
+                            painter = painterResource(fabAction.icon),
+                            contentDescription = fabAction.contentDescription?.let { stringResource(it) }
+                        )
+                    },
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    onClick = {
+                        onFabActionClicked(fabAction)
+                    }
                 )
             }
         },

@@ -14,10 +14,9 @@ import io.openfeedback.android.OpenFeedbackConfig
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import org.gdglille.devfest.android.data.AlarmScheduler
-import org.gdglille.devfest.android.screens.TicketQrCodeScanner
-import org.gdglille.devfest.android.screens.VCardQrCodeScanner
+import org.gdglille.devfest.android.screens.event.TicketQrCodeScanner
+import org.gdglille.devfest.android.screens.networking.VCardQrCodeScanner
 import org.gdglille.devfest.android.theme.m3.features.Home
-import org.gdglille.devfest.android.theme.m3.features.MenusVM
 import org.gdglille.devfest.android.theme.m3.features.ProfileInputVM
 import org.gdglille.devfest.android.theme.m3.features.ScheduleDetailVM
 import org.gdglille.devfest.android.theme.m3.features.SpeakerDetailVM
@@ -63,14 +62,12 @@ fun Main(
                     onContactScannerClicked = {
                         navController.navigate("scanner/vcard")
                     },
+                    onItineraryClicked = onItineraryClicked,
                     onTicketScannerClicked = {
                         navController.navigate("scanner/ticket")
                     },
                     onCreateProfileClicked = {
                         navController.navigate("profile")
-                    },
-                    onMenusClicked = {
-                        navController.navigate("menus")
                     },
                     onReportClicked = onReportClicked
                 )
@@ -141,14 +138,6 @@ fun Main(
             composable(route = "profile") {
                 ProfileInputVM(
                     userRepository = userRepository,
-                    onBackClicked = {
-                        navController.popBackStack()
-                    }
-                )
-            }
-            composable(route = "menus") {
-                MenusVM(
-                    agendaRepository = agendaRepository,
                     onBackClicked = {
                         navController.popBackStack()
                     }

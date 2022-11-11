@@ -9,15 +9,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import org.gdglille.devfest.android.data.viewmodels.MenusUiState
 import org.gdglille.devfest.android.data.viewmodels.MenusViewModel
-import org.gdglille.devfest.android.screens.Menus
+import org.gdglille.devfest.android.screens.event.Menus
 import org.gdglille.devfest.repositories.AgendaRepository
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MenusVM(
     agendaRepository: AgendaRepository,
-    modifier: Modifier = Modifier,
-    onBackClicked: () -> Unit
+    modifier: Modifier = Modifier
 ) {
     val viewModel: MenusViewModel = viewModel(
         factory = MenusViewModel.Factory.create(agendaRepository)
@@ -27,16 +26,14 @@ fun MenusVM(
         is MenusUiState.Loading -> Menus(
             menuItems = (uiState.value as MenusUiState.Loading).menus,
             modifier = modifier,
-            isLoading = true,
-            onBackClicked = onBackClicked
+            isLoading = true
         )
 
         is MenusUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
         is MenusUiState.Success -> Menus(
             menuItems = (uiState.value as MenusUiState.Success).menus,
             modifier = modifier,
-            isLoading = false,
-            onBackClicked = onBackClicked
+            isLoading = false
         )
     }
 }
