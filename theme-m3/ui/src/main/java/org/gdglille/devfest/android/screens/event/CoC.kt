@@ -2,7 +2,6 @@ package org.gdglille.devfest.android.screens.event
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -47,10 +46,7 @@ fun CoC(
             }
         }
         item {
-            Button(
-                onClick = onReportClicked,
-                modifier = Modifier.fillMaxWidth()
-            ) {
+            Button(onClick = onReportClicked) {
                 Text(text = stringResource(R.string.action_contact_organizers))
             }
         }

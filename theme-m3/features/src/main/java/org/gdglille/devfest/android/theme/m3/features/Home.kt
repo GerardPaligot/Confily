@@ -28,7 +28,7 @@ import org.gdglille.devfest.repositories.AgendaRepository
 import org.gdglille.devfest.repositories.UserRepository
 
 @OptIn(ExperimentalPagerApi::class)
-@Suppress("LongMethod", "UnusedPrivateMember")
+@Suppress("LongMethod", "UnusedPrivateMember", "ComplexMethod")
 @ExperimentalCoroutinesApi
 @FlowPreview
 @Composable
@@ -72,6 +72,7 @@ fun Home(
     val uiFabState = viewModel.uiFabState.collectAsState()
     val uiBottomState = viewModel.uiBottomState.collectAsState()
     val agendaPagerState = rememberPagerState()
+    val networkingPagerState = rememberPagerState()
     val infoPagerState = rememberPagerState()
     val currentRoute = navController
         .currentBackStackEntryFlow
@@ -87,8 +88,6 @@ fun Home(
     when (uiState.value) {
         is HomeUiState.Success -> {
             val screenUi = (uiState.value as HomeUiState.Success).screenUi
-            val currentPageState =
-                if (currentRoute.value?.destination?.route == Screen.Info.route) infoPagerState else agendaPagerState
             ScaffoldNavigation(
                 title = screenUi.title,
                 startDestination = Screen.Agenda.route,
@@ -98,23 +97,15 @@ fun Home(
                 tabActions = tabActions,
                 bottomActions = uiBottomState.value,
                 fabAction = uiFabState.value,
-                pagerState = currentPageState,
+                pagerState = when (currentRoute.value?.destination?.route) {
+                    Screen.Info.route -> infoPagerState
+                    Screen.Networking.route -> networkingPagerState
+                    else -> agendaPagerState
+                },
                 onTopActionClicked = {
                     when (it.id) {
                         ActionIds.FAVORITE -> {
                             viewModel.toggleFavoriteFiltering()
-                        }
-
-                        ActionIds.SCAN_NETWORKING -> {
-                            onContactScannerClicked()
-                        }
-
-                        ActionIds.CREATE_PROFILE -> {
-                            onCreateProfileClicked()
-                        }
-
-                        ActionIds.REPORT -> {
-                            onReportClicked()
                         }
                     }
                 },
@@ -122,6 +113,14 @@ fun Home(
                     when (it.id) {
                         ActionIds.SCAN_TICKET -> {
                             onTicketScannerClicked()
+                        }
+
+                        ActionIds.CREATE_PROFILE -> {
+                            onCreateProfileClicked()
+                        }
+
+                        ActionIds.SCAN_CONTACTS -> {
+                            onContactScannerClicked()
                         }
 
                         else -> TODO("Fab not implemented")
@@ -138,8 +137,12 @@ fun Home(
                         )
                     }
                     composable(Screen.Networking.route) {
-                        ContactsVM(
+                        NetworkingPages(
+                            tabs = tabActions,
                             userRepository = userRepository,
+                            viewModel = viewModel,
+                            pagerState = networkingPagerState,
+                            onCreateProfileClicked = onCreateProfileClicked
                         )
                     }
                     composable(Screen.Partners.route) {

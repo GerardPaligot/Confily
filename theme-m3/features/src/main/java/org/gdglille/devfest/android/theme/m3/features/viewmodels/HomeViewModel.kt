@@ -79,10 +79,6 @@ class HomeViewModel(
                 topActions = arrayListOf(if (isFav) TopActions.favoriteFilled else TopActions.favorite)
             )
 
-            Screen.Networking.route -> TopActionsUi(
-                topActions = arrayListOf(TopActions.qrCodeScanner, TopActions.qrCode)
-            )
-
             else -> TopActionsUi()
         }
         if (topActions != _uiTopState.value) {
@@ -100,6 +96,13 @@ class HomeViewModel(
                         .format(LocalDate.parse(it))
                     TabAction(route = it, 0, label)
                 }
+            )
+
+            Screen.Networking.route -> TabActionsUi(
+                tabActions = if (config.hasProfile) arrayListOf(
+                    TabActions.myProfile,
+                    TabActions.contacts
+                ) else emptyList()
             )
 
             Screen.Info.route -> TabActionsUi(
@@ -125,6 +128,8 @@ class HomeViewModel(
 
     private fun updateUiFabAction(route: String, config: ScaffoldConfigUi) {
         val fabAction = when (route) {
+            Screen.MyProfile.route -> if (!config.hasProfile) FabActions.createProfile else null
+            Screen.Contacts.route -> FabActions.scanContact
             Screen.Event.route -> if (config.hasBilletWebTicket) FabActions.scanTicket else null
             else -> null
         }

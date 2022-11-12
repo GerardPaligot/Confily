@@ -7,13 +7,15 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.BusinessCenter
 import androidx.compose.material.icons.outlined.Delete
+import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -25,6 +27,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import org.gdglille.devfest.android.components.buttons.IconButton
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.ui.R
 import org.gdglille.devfest.models.NetworkingUi
@@ -60,24 +63,44 @@ fun UserItem(
                     style = nameStyle
                 )
             }
-            Text(
-                text = user.email,
-                color = color.copy(alpha = .73f),
-                style = metaStyle
-            )
-            Text(
-                text = user.company,
-                color = color.copy(alpha = .73f),
-                style = metaStyle
-            )
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(4.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    imageVector = Icons.Outlined.Email,
+                    contentDescription = null,
+                    tint = color,
+                    modifier = Modifier.size(16.dp)
+                )
+                Text(
+                    text = user.email,
+                    color = color.copy(alpha = .73f),
+                    style = metaStyle
+                )
+            }
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(4.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    imageVector = Icons.Outlined.BusinessCenter,
+                    contentDescription = null,
+                    tint = color,
+                    modifier = Modifier.size(16.dp)
+                )
+                Text(
+                    text = user.company,
+                    color = color.copy(alpha = .73f),
+                    style = metaStyle
+                )
+            }
         }
-        IconButton(onClick = onClick) {
-            Icon(
-                imageVector = Icons.Outlined.Delete,
-                contentDescription = stringResource(R.string.action_networking_delete),
-                tint = MaterialTheme.colorScheme.onBackground
-            )
-        }
+        IconButton(
+            imageVector = Icons.Outlined.Delete,
+            contentDescription = stringResource(R.string.action_networking_delete),
+            onClick = onClick
+        )
     }
 }
 

@@ -8,7 +8,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import org.gdglille.devfest.android.data.viewmodels.ContactsUiState
 import org.gdglille.devfest.android.data.viewmodels.ContactsViewModel
-import org.gdglille.devfest.android.screens.networking.Networking
+import org.gdglille.devfest.android.screens.networking.Contacts
 import org.gdglille.devfest.repositories.UserRepository
 
 @Composable
@@ -25,7 +25,7 @@ fun ContactsVM(
         is ContactsUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
         is ContactsUiState.Success -> {
             val usersUi = (uiState.value as ContactsUiState.Success).users
-            Networking(
+            Contacts(
                 users = usersUi,
                 modifier = modifier,
                 onNetworkDeleted = { viewModel.deleteNetworking(it) }
