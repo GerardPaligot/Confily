@@ -71,7 +71,11 @@ fun Home(
     val uiTabState = viewModel.uiTabState.collectAsState()
     val uiFabState = viewModel.uiFabState.collectAsState()
     val uiBottomState = viewModel.uiBottomState.collectAsState()
-    val pagerState = rememberPagerState()
+    val agendaPagerState = rememberPagerState()
+    val infoPagerState = rememberPagerState()
+    val currentRoute = navController
+        .currentBackStackEntryFlow
+        .collectAsState(initial = navController.currentBackStackEntry)
     LaunchedEffect(Unit) {
         viewModel.screenConfig(Screen.Agenda.route)
     }
@@ -83,6 +87,8 @@ fun Home(
     when (uiState.value) {
         is HomeUiState.Success -> {
             val screenUi = (uiState.value as HomeUiState.Success).screenUi
+            val currentPageState =
+                if (currentRoute.value?.destination?.route == Screen.Info.route) infoPagerState else agendaPagerState
             ScaffoldNavigation(
                 title = screenUi.title,
                 startDestination = Screen.Agenda.route,
@@ -92,7 +98,7 @@ fun Home(
                 tabActions = tabActions,
                 bottomActions = uiBottomState.value,
                 fabAction = uiFabState.value,
-                pagerState = pagerState,
+                pagerState = currentPageState,
                 onTopActionClicked = {
                     when (it.id) {
                         ActionIds.FAVORITE -> {
@@ -127,7 +133,7 @@ fun Home(
                             tabs = tabActions,
                             agendaRepository = agendaRepository,
                             alarmScheduler = alarmScheduler,
-                            pagerState = pagerState,
+                            pagerState = agendaPagerState,
                             onTalkClicked = onTalkClicked,
                         )
                     }
@@ -148,7 +154,7 @@ fun Home(
                             agendaRepository = agendaRepository,
                             viewModel = viewModel,
                             modifier = modifier,
-                            pagerState = pagerState,
+                            pagerState = infoPagerState,
                             onItineraryClicked = onItineraryClicked,
                             onLinkClicked = onLinkClicked,
                             onReportClicked = onReportClicked

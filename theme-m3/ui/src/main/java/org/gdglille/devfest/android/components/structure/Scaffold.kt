@@ -8,6 +8,7 @@ import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -16,7 +17,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import org.gdglille.devfest.android.TopActions
 import org.gdglille.devfest.android.components.appbars.BottomAppBar
-import org.gdglille.devfest.android.components.appbars.ScrollableTabRow
 import org.gdglille.devfest.android.components.appbars.Tab
 import org.gdglille.devfest.android.components.appbars.TopAppBar
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
@@ -56,7 +56,11 @@ fun Scaffold(
                     onActionClicked = onTopActionClicked
                 )
                 if (tabActions.tabActions.count() > 1 && tabSelectedIndex != null) {
-                    ScrollableTabRow {
+                    ScrollableTabRow(
+                        selectedTabIndex = tabSelectedIndex,
+                        divider = {},
+                        indicator = {}
+                    ) {
                         tabActions.tabActions.forEachIndexed { index, tabAction ->
                             tabAction.label?.let {
                                 Tab(
