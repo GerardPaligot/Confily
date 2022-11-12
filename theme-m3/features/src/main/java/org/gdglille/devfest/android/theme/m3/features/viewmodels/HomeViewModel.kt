@@ -60,6 +60,7 @@ class HomeViewModel(
             updateUiFabAction(route, config)
             return@combine when (route) {
                 Screen.Agenda.route -> HomeUiState.Success(ScreenUi(title = Screen.Agenda.title))
+                Screen.SpeakerList.route -> HomeUiState.Success(ScreenUi(title = Screen.SpeakerList.title))
                 Screen.Networking.route -> HomeUiState.Success(ScreenUi(title = Screen.Networking.title))
                 Screen.Partners.route -> HomeUiState.Success(ScreenUi(title = Screen.Partners.title))
                 Screen.Info.route -> HomeUiState.Success(ScreenUi(title = Screen.Info.title))
@@ -142,6 +143,7 @@ class HomeViewModel(
         val bottomActions = BottomActionsUi(
             arrayListOf<BottomAction>().apply {
                 add(BottomActions.agenda)
+                add(BottomActions.speakers)
                 if (config.hasNetworking) {
                     add(BottomActions.networking)
                 }

@@ -53,12 +53,16 @@ fun Main(
                 Home(
                     agendaRepository = agendaRepository,
                     userRepository = userRepository,
+                    speakerRepository = speakerRepository,
                     alarmScheduler = alarmScheduler,
                     savedStateHandle = navController.currentBackStackEntry?.savedStateHandle,
                     onTalkClicked = {
                         navController.navigate("schedules/$it")
                     },
                     onLinkClicked = { url -> url?.let { launchUrl(it) } },
+                    onSpeakerClicked = {
+                        navController.navigate("speakers/$it")
+                    },
                     onContactScannerClicked = {
                         navController.navigate("scanner/vcard")
                     },

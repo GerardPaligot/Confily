@@ -25,6 +25,7 @@ import org.gdglille.devfest.android.theme.m3.features.viewmodels.HomeUiState
 import org.gdglille.devfest.android.theme.m3.features.viewmodels.HomeViewModel
 import org.gdglille.devfest.android.ui.resources.HomeResultKey
 import org.gdglille.devfest.repositories.AgendaRepository
+import org.gdglille.devfest.repositories.SpeakerRepository
 import org.gdglille.devfest.repositories.UserRepository
 
 @OptIn(ExperimentalPagerApi::class)
@@ -35,12 +36,14 @@ import org.gdglille.devfest.repositories.UserRepository
 fun Home(
     agendaRepository: AgendaRepository,
     userRepository: UserRepository,
+    speakerRepository: SpeakerRepository,
     alarmScheduler: AlarmScheduler,
     modifier: Modifier = Modifier,
     savedStateHandle: SavedStateHandle? = null,
     navController: NavHostController = rememberNavController(),
     onTalkClicked: (id: String) -> Unit,
     onLinkClicked: (url: String?) -> Unit,
+    onSpeakerClicked: (id: String) -> Unit,
     onContactScannerClicked: () -> Unit,
     onItineraryClicked: (lat: Double, lng: Double) -> Unit,
     onTicketScannerClicked: () -> Unit,
@@ -134,6 +137,12 @@ fun Home(
                             alarmScheduler = alarmScheduler,
                             pagerState = agendaPagerState,
                             onTalkClicked = onTalkClicked,
+                        )
+                    }
+                    composable(Screen.SpeakerList.route) {
+                        SpeakersListVM(
+                            speakerRepository = speakerRepository,
+                            onSpeakerClicked = onSpeakerClicked
                         )
                     }
                     composable(Screen.Networking.route) {

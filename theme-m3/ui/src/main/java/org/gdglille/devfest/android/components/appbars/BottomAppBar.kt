@@ -4,7 +4,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -37,12 +36,6 @@ fun BottomAppBar(
                         tint = iconColor(selected = selected)
                     )
                 },
-                label = {
-                    Text(
-                        text = stringResource(id = action.label),
-                        color = labelColor(selected = selected)
-                    )
-                },
                 alwaysShowLabel = false
             )
         }
@@ -52,10 +45,6 @@ fun BottomAppBar(
 @Composable
 fun iconColor(selected: Boolean): Color =
     if (selected) MaterialTheme.colorScheme.onSecondaryContainer else MaterialTheme.colorScheme.onSurfaceVariant
-
-@Composable
-fun labelColor(selected: Boolean): Color =
-    if (selected) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant
 
 @Preview
 @Composable

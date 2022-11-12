@@ -71,6 +71,13 @@ object BottomActions {
         label = R.string.screen_agenda,
         contentDescription = null
     )
+    val speakers = BottomAction(
+        route = Screen.SpeakerList.route,
+        icon = R.drawable.ic_mtrl_mic_line,
+        iconSelected = R.drawable.ic_mtrl_mic_fill,
+        label = R.string.screen_speakers,
+        contentDescription = null,
+    )
     val networking = BottomAction(
         route = Screen.Networking.route,
         icon = R.drawable.ic_mtrl_group_line,
@@ -101,6 +108,7 @@ sealed class Screen(
     @StringRes val title: Int
 ) {
     object Agenda : Screen(route = "agenda", title = R.string.screen_agenda)
+    object SpeakerList : Screen(route = "speakers", title = R.string.screen_speakers)
     object Networking : Screen(route = "networking", title = R.string.screen_networking)
     object MyProfile : Screen(route = "profile", title = R.string.screen_networking)
     object Contacts : Screen(route = "contacts", title = R.string.screen_networking)
