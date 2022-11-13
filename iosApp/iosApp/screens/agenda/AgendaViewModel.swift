@@ -15,6 +15,7 @@ enum AgendaUiState {
     case failure
 }
 
+@MainActor
 class AgendaViewModel: ObservableObject {
     let repository: AgendaRepository
 
@@ -24,13 +25,16 @@ class AgendaViewModel: ObservableObject {
 
     @Published var uiState: AgendaUiState = AgendaUiState.loading
     
-    func toggleFavoriteFiltering() {
-        repository.toggleFavoriteFiltering { _, _ in
+    func toggleFavoriteFiltering() async {
+        do {
+            try await repository.toggleFavoriteFiltering()
+        } catch {
+            // ignored
         }
     }
-    
+
     func fetchAgenda() {
-        repository.startCollectAgenda(
+        repository.startCollectAgenda(date: "2022-06-10",
             success: { agenda in
                 self.uiState = AgendaUiState.success(agenda)
             },
@@ -44,11 +48,14 @@ class AgendaViewModel: ObservableObject {
         repository.stopCollectAgenda()
     }
     
-    func markAsFavorite(talkItem: TalkItemUi) {
+    func markAsFavorite(talkItem: TalkItemUi) async {
         let scheduleId = talkItem.id
         let isFavorite = !talkItem.isFavorite
-        repository.markAsRead(scheduleId: scheduleId, isFavorite: isFavorite, completionHandler: {_,_ in
-        })
+        do {
+            try await repository.markAsRead(scheduleId: scheduleId, isFavorite: isFavorite)
+        } catch {
+            return
+        }
         if (isFavorite) {
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
                 if (success) {

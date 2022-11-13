@@ -15,6 +15,7 @@ enum PartnersUiState {
     case failure
 }
 
+@MainActor
 class PartnersViewModel: ObservableObject {
     let repository: AgendaRepository
 

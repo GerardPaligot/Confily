@@ -2,7 +2,7 @@ import SwiftUI
 import shared
 
 struct AppView: View {
-    private var viewModel: AppViewModel
+    @ObservedObject var viewModel: AppViewModel
     private let agendaRepository: AgendaRepository
     private let userRepository: UserRepository
     
@@ -35,7 +35,9 @@ struct AppView: View {
                 }
         }
         .onAppear {
-            viewModel.fetchAgenda()
+            Task {
+                await viewModel.fetchAgenda()
+            }
         }
 	}
 }

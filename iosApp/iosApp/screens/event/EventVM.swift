@@ -40,8 +40,10 @@ struct EventVM: View {
                                     CodeScannerView(codeTypes: [.qr]) { response in
                                         if case let .success(result) = response {
                                             if (result.string != "") {
-                                                viewModel.saveTicket(barcode: result.string)
-                                                self.navigationState = EventNavigationState.none
+                                                Task {
+                                                    await viewModel.saveTicket(barcode: result.string)
+                                                    self.navigationState = EventNavigationState.none
+                                                }
                                             }
                                         }
                                     }

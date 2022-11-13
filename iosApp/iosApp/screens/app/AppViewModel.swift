@@ -9,15 +9,19 @@
 import Foundation
 import shared
 
+@MainActor
 class AppViewModel: ObservableObject {
     let repository: AgendaRepository
 
     init(repository: AgendaRepository) {
         self.repository = repository
     }
-    
-    func fetchAgenda() {
-        repository.fetchAndStoreAgenda { void, error in
+
+    func fetchAgenda() async {
+        do {
+            try await repository.fetchAndStoreAgenda()
+        } catch {
+            // ignored
         }
     }
 }

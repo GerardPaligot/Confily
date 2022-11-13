@@ -15,6 +15,7 @@ enum SpeakerUiState {
     case failure
 }
 
+@MainActor
 class SpeakerViewModel: ObservableObject {
     let repository: AgendaRepository
 

@@ -27,13 +27,17 @@ struct NetworkingVM: View {
                     Networking(
                         networkingUi: networkingUi,
                         onValidation: { email, firstName, lastName, company in
-                            viewModel.saveProfile(email: email, firstName: firstName, lastName: lastName, company: company)
+                            Task {
+                                await viewModel.saveProfile(email: email, firstName: firstName, lastName: lastName, company: company)
+                            }
                         },
                         onDismissProfileSheet: {
                             viewModel.closeQrCode()
                         },
                         onNetworkDeleted: { email in
-                            viewModel.deleteNetworkProfile(email: email)
+                            Task {
+                                await viewModel.deleteNetworkProfile(email: email)
+                            }
                         }
                     )
                     case .failure(_):

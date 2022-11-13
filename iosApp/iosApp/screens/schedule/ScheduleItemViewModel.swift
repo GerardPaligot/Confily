@@ -15,6 +15,7 @@ enum ScheduleUiState {
     case failure(Error)
 }
 
+@MainActor
 class ScheduleItemViewModel: ObservableObject {
     let repository: AgendaRepository
 

@@ -33,7 +33,9 @@ struct AgendaVM: View {
                         Agenda(
                             agenda: agenda,
                             onFilteringClicked: {
-                                viewModel.toggleFavoriteFiltering()
+                                Task {
+                                    await viewModel.toggleFavoriteFiltering()
+                                }
                             },
                             talkItem: { talk in
                                 if (!talk.isPause) {
@@ -53,7 +55,9 @@ struct AgendaVM: View {
                                 TalkItemView(
                                     talk: talk,
                                     onFavoriteClicked: { talkItem in
-                                        viewModel.markAsFavorite(talkItem: talkItem)
+                                        Task {
+                                            await viewModel.markAsFavorite(talkItem: talkItem)
+                                        }
                                     }
                                 )
                                     .onTapGesture {

@@ -15,6 +15,7 @@ enum EventUiState {
     case failure
 }
 
+@MainActor
 class EventViewModel: ObservableObject {
     let repository: AgendaRepository
 
@@ -39,8 +40,11 @@ class EventViewModel: ObservableObject {
         repository.stopCollectEvent()
     }
     
-    func saveTicket(barcode: String) {
-        repository.insertOrUpdateTicket(barcode: barcode) { _, _ in
+    func saveTicket(barcode: String) async {
+        do {
+            try await repository.insertOrUpdateTicket(barcode: barcode)
+        } catch {
+            // ignored
         }
     }
 }

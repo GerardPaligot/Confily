@@ -15,6 +15,7 @@ enum MenusUiState {
     case failure
 }
 
+@MainActor
 class MenusViewModel: ObservableObject {
     let repository: AgendaRepository
 

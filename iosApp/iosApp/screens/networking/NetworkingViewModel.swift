@@ -18,6 +18,7 @@ enum UserProfileUiState {
     case failure(Error)
 }
 
+@MainActor
 class NetworkingViewModel: ObservableObject {
     let repository: UserRepository
 
@@ -37,9 +38,13 @@ class NetworkingViewModel: ObservableObject {
         repository.stopCollectNetworking()
     }
     
-    func saveProfile(email: String, firstName: String, lastName: String, company: String) {
+    func saveProfile(email: String, firstName: String, lastName: String, company: String) async {
         if (email == "") { return }
-        repository.saveProfile(email: email, firstName: firstName, lastName: lastName, company: company) { _, _ in }
+        do {
+            try await repository.saveProfile(email: email, firstName: firstName, lastName: lastName, company: company)
+        } catch {
+            // ignored
+        }
     }
     
     func saveNetworkingProfile(text: String, callback: @escaping (Bool) -> ()) {
@@ -87,7 +92,11 @@ class NetworkingViewModel: ObservableObject {
         }
     }
     
-    func deleteNetworkProfile(email: String) {
-        repository.deleteNetworkProfile(email: email) { _, error in }
+    func deleteNetworkProfile(email: String) async {
+        do {
+            try await repository.deleteNetworkProfile(email: email)
+        } catch {
+            // ignored
+        }
     }
 }
