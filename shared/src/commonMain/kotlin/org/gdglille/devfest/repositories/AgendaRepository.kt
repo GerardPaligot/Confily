@@ -1,13 +1,12 @@
 package org.gdglille.devfest.repositories
 
+import com.rickclephas.kmp.nativecoroutines.NativeCoroutineScope
 import com.russhwolf.settings.ExperimentalSettingsApi
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.launch
 import org.gdglille.devfest.database.EventDao
 import org.gdglille.devfest.database.FeaturesActivatedDao
 import org.gdglille.devfest.database.ScheduleDao
@@ -26,31 +25,19 @@ import org.gdglille.devfest.network.ConferenceApi
 
 interface AgendaRepository {
     suspend fun fetchAndStoreAgenda()
-    suspend fun isFavoriteToggled(): Flow<Boolean>
-    suspend fun toggleFavoriteFiltering()
+    fun isFavoriteToggled(): Flow<Boolean>
+    fun toggleFavoriteFiltering()
     suspend fun insertOrUpdateTicket(barcode: String)
-    suspend fun scaffoldConfig(): Flow<ScaffoldConfigUi>
-    suspend fun event(): Flow<EventUi>
-    suspend fun partners(): Flow<PartnerGroupsUi>
-    suspend fun qanda(): Flow<List<QuestionAndResponseUi>>
-    suspend fun menus(): Flow<List<MenuItemUi>>
-    suspend fun coc(): Flow<String>
-    suspend fun agenda(date: String): Flow<AgendaUi>
-    suspend fun markAsRead(scheduleId: String, isFavorite: Boolean)
-    suspend fun scheduleItem(scheduleId: String): TalkUi
-    suspend fun speaker(speakerId: String): Flow<SpeakerUi>
-
-    // Kotlin/Native client
-    fun startCollectAgenda(date: String, success: (AgendaUi) -> Unit, failure: (Throwable) -> Unit)
-    fun stopCollectAgenda()
-    fun startCollectEvent(success: (EventUi) -> Unit, failure: (Throwable) -> Unit)
-    fun stopCollectEvent()
-    fun startCollectPartners(success: (PartnerGroupsUi) -> Unit, failure: (Throwable) -> Unit)
-    fun stopCollectPartners()
-    fun startCollectMenus(success: (List<MenuItemUi>) -> Unit, failure: (Throwable) -> Unit)
-    fun stopCollectMenus()
-    fun startCollectSpeaker(speakerId: String, success: (SpeakerUi) -> Unit, failure: (Throwable) -> Unit)
-    fun stopCollectSpeaker()
+    fun scaffoldConfig(): Flow<ScaffoldConfigUi>
+    fun event(): Flow<EventUi>
+    fun partners(): Flow<PartnerGroupsUi>
+    fun qanda(): Flow<List<QuestionAndResponseUi>>
+    fun menus(): Flow<List<MenuItemUi>>
+    fun coc(): Flow<String>
+    fun agenda(date: String): Flow<AgendaUi>
+    fun speaker(speakerId: String): Flow<SpeakerUi>
+    fun markAsRead(scheduleId: String, isFavorite: Boolean)
+    fun scheduleItem(scheduleId: String): TalkUi
 
     @FlowPreview
     @ExperimentalSettingsApi
@@ -91,6 +78,9 @@ class AgendaRepositoryImpl(
     private val featuresDao: FeaturesActivatedDao,
     private val qrCodeGenerator: QrCodeGenerator
 ) : AgendaRepository {
+    @NativeCoroutineScope
+    private val coroutineScope: CoroutineScope = MainScope()
+
     override suspend fun fetchAndStoreAgenda() {
         val etag = scheduleDao.lastEtag()
         val event = api.fetchEvent()
@@ -107,9 +97,7 @@ class AgendaRepositoryImpl(
         eventDao.insertEvent(event)
     }
 
-    override suspend fun isFavoriteToggled(): Flow<Boolean> = scheduleDao.isFavoriteToggled()
-
-    override suspend fun toggleFavoriteFiltering() {
+    override fun toggleFavoriteFiltering() {
         scheduleDao.toggleFavoriteFiltering()
     }
 
@@ -124,108 +112,19 @@ class AgendaRepositoryImpl(
         eventDao.updateTicket(qrCode, barcode, attendee)
     }
 
-    override suspend fun scaffoldConfig(): Flow<ScaffoldConfigUi> = featuresDao.fetchFeatures()
-    override suspend fun event(): Flow<EventUi> = eventDao.fetchEvent()
-    override suspend fun partners(): Flow<PartnerGroupsUi> = eventDao.fetchPartners()
-    override suspend fun qanda(): Flow<List<QuestionAndResponseUi>> = eventDao.fetchQAndA()
-    override suspend fun menus(): Flow<List<MenuItemUi>> = eventDao.fetchMenus()
-    override suspend fun coc(): Flow<String> = eventDao.fetchCoC()
+    override fun scaffoldConfig(): Flow<ScaffoldConfigUi> = featuresDao.fetchFeatures()
 
-    override suspend fun agenda(date: String): Flow<AgendaUi> = scheduleDao.fetchSchedules(date)
+    override fun isFavoriteToggled(): Flow<Boolean> = scheduleDao.isFavoriteToggled()
+    override fun event(): Flow<EventUi> = eventDao.fetchEvent()
+    override fun partners(): Flow<PartnerGroupsUi> = eventDao.fetchPartners()
+    override fun qanda(): Flow<List<QuestionAndResponseUi>> = eventDao.fetchQAndA()
+    override fun menus(): Flow<List<MenuItemUi>> = eventDao.fetchMenus()
+    override fun coc(): Flow<String> = eventDao.fetchCoC()
+    override fun agenda(date: String): Flow<AgendaUi> = scheduleDao.fetchSchedules(date)
+    override fun speaker(speakerId: String): Flow<SpeakerUi> = speakerDao.fetchSpeaker(speakerId)
 
-    override suspend fun markAsRead(scheduleId: String, isFavorite: Boolean) =
+    override fun markAsRead(scheduleId: String, isFavorite: Boolean) =
         scheduleDao.markAsFavorite(scheduleId, isFavorite)
 
-    override suspend fun scheduleItem(scheduleId: String): TalkUi = talkDao.fetchTalk(scheduleId)
-    override suspend fun speaker(speakerId: String): Flow<SpeakerUi> = speakerDao.fetchSpeaker(speakerId)
-
-    private val coroutineScope: CoroutineScope = MainScope()
-    private var agendaJob: Job? = null
-    override fun startCollectAgenda(
-        date: String,
-        success: (AgendaUi) -> Unit,
-        failure: (Throwable) -> Unit
-    ) {
-        agendaJob = coroutineScope.launch {
-            try {
-                agenda(date = date).collect {
-                    success(it)
-                }
-            } catch (throwable: Throwable) {
-                failure(throwable)
-            }
-        }
-    }
-
-    override fun stopCollectAgenda() {
-        agendaJob?.cancel()
-    }
-
-    private var eventJob: Job? = null
-    override fun startCollectEvent(success: (EventUi) -> Unit, failure: (Throwable) -> Unit) {
-        eventJob = coroutineScope.launch {
-            try {
-                event().collect {
-                    success(it)
-                }
-            } catch (throwable: Throwable) {
-                failure(throwable)
-            }
-        }
-    }
-
-    override fun stopCollectEvent() {
-        eventJob?.cancel()
-    }
-
-    private var partnersJob: Job? = null
-    override fun startCollectPartners(success: (PartnerGroupsUi) -> Unit, failure: (Throwable) -> Unit) {
-        partnersJob = coroutineScope.launch {
-            try {
-                partners().collect {
-                    success(it)
-                }
-            } catch (throwable: Throwable) {
-                failure(throwable)
-            }
-        }
-    }
-
-    override fun stopCollectPartners() {
-        partnersJob?.cancel()
-    }
-
-    private var menusJob: Job? = null
-    override fun startCollectMenus(success: (List<MenuItemUi>) -> Unit, failure: (Throwable) -> Unit) {
-        menusJob = coroutineScope.launch {
-            try {
-                menus().collect {
-                    success(it)
-                }
-            } catch (throwable: Throwable) {
-                failure(throwable)
-            }
-        }
-    }
-
-    override fun stopCollectMenus() {
-        menusJob?.cancel()
-    }
-
-    private var speakerJob: Job? = null
-    override fun startCollectSpeaker(speakerId: String, success: (SpeakerUi) -> Unit, failure: (Throwable) -> Unit) {
-        speakerJob = coroutineScope.launch {
-            try {
-                speaker(speakerId).collect {
-                    success(it)
-                }
-            } catch (throwable: Throwable) {
-                failure(throwable)
-            }
-        }
-    }
-
-    override fun stopCollectSpeaker() {
-        speakerJob?.cancel()
-    }
+    override fun scheduleItem(scheduleId: String): TalkUi = talkDao.fetchTalk(scheduleId)
 }

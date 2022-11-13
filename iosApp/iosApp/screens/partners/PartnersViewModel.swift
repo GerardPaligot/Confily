@@ -8,6 +8,7 @@
 
 import Foundation
 import shared
+import KMPNativeCoroutinesAsync
 
 enum PartnersUiState {
     case loading
@@ -24,19 +25,23 @@ class PartnersViewModel: ObservableObject {
     }
 
     @Published var uiState: PartnersUiState = PartnersUiState.loading
-    
+
+    private var partnersTask: Task<(), Never>?
+
     func fetchPartners() {
-        repository.startCollectPartners(
-            success: { partners in
-                self.uiState = PartnersUiState.success(partners)
-            },
-            failure: { throwable in
+        partnersTask = Task {
+            do {
+                let stream = asyncStream(for: repository.partnersNative())
+                for try await partners in stream {
+                    self.uiState = PartnersUiState.success(partners)
+                }
+            } catch {
                 self.uiState = PartnersUiState.failure
             }
-        )
+        }
     }
     
     func stop() {
-        repository.stopCollectPartners()
+        partnersTask?.cancel()
     }
 }

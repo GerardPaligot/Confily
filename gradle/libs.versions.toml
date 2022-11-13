@@ -1,7 +1,8 @@
 [versions]
 kotlin = "1.7.20"
-kotlinxCoroutines = "1.6.3-native-mt"
+kotlinxCoroutines = "1.6.4"
 kotlinxDatetime = "0.4.0"
+kmpNativeCoroutines = "0.13.1"
 ktor = "2.0.1"
 accompanist = "0.27.0"
 androidDesugarJdkLibs = "1.1.5"
@@ -41,6 +42,8 @@ kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-pl
 kotlin-serialization = { group = "org.jetbrains.kotlin", name = "kotlin-serialization", version.ref = "kotlin" }
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDatetime" }
 kotlinx-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
+
+kmp-native-coroutines = { group = "com.rickclephas.kmp", name = "kmp-nativecoroutines-gradle-plugin", version.ref = "kmpNativeCoroutines" }
 
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
 ktor-client-json = { group = "io.ktor", name = "ktor-client-json", version.ref = "ktor" }

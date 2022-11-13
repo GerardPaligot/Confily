@@ -8,6 +8,7 @@
 
 import Foundation
 import shared
+import KMPNativeCoroutinesAsync
 
 enum MenusUiState {
     case loading
@@ -25,18 +26,22 @@ class MenusViewModel: ObservableObject {
 
     @Published var uiState: MenusUiState = MenusUiState.loading
     
+    private var menusTask: Task<(), Never>?
+    
     func fetchMenus() {
-        repository.startCollectMenus(
-            success: { menus in
-                self.uiState = MenusUiState.success(menus)
-            },
-            failure: { throwable in
+        menusTask = Task {
+            do {
+                let stream = asyncStream(for: repository.menusNative())
+                for try await menus in stream {
+                    self.uiState = MenusUiState.success(menus)
+                }
+            } catch {
                 self.uiState = MenusUiState.failure
             }
-        )
+        }
     }
     
     func stop() {
-        repository.stopCollectMenus()
+        menusTask?.cancel()
     }
 }

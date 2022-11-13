@@ -8,6 +8,7 @@
 
 import SwiftUI
 import shared
+import KMPNativeCoroutinesAsync
 
 enum AgendaUiState {
     case loading
@@ -25,37 +26,33 @@ class AgendaViewModel: ObservableObject {
 
     @Published var uiState: AgendaUiState = AgendaUiState.loading
     
-    func toggleFavoriteFiltering() async {
-        do {
-            try await repository.toggleFavoriteFiltering()
-        } catch {
-            // ignored
-        }
+    private var agendaTask: Task<(), Never>?
+    
+    func toggleFavoriteFiltering() {
+        repository.toggleFavoriteFiltering()
     }
 
     func fetchAgenda() {
-        repository.startCollectAgenda(date: "2022-06-10",
-            success: { agenda in
-                self.uiState = AgendaUiState.success(agenda)
-            },
-            failure: { throwable in
+        agendaTask = Task {
+            do {
+                let stream = asyncStream(for: repository.agendaNative(date: "2022-06-10"))
+                for try await agenda in stream {
+                    self.uiState = AgendaUiState.success(agenda)
+                }
+            } catch {
                 self.uiState = AgendaUiState.failure
             }
-        )
+        }
     }
     
     func stop() {
-        repository.stopCollectAgenda()
+        agendaTask?.cancel()
     }
     
     func markAsFavorite(talkItem: TalkItemUi) async {
         let scheduleId = talkItem.id
         let isFavorite = !talkItem.isFavorite
-        do {
-            try await repository.markAsRead(scheduleId: scheduleId, isFavorite: isFavorite)
-        } catch {
-            return
-        }
+        repository.markAsRead(scheduleId: scheduleId, isFavorite: isFavorite)
         if (isFavorite) {
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
                 if (success) {

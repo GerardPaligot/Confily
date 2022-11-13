@@ -29,8 +29,6 @@ struct ScheduleDetailVM<SpeakerItem: View>: View {
                         talkUi: talkUi,
                         speakerItem: speakerItem
                     )
-                case .failure(_):
-                    Text("textError")
                 case .loading:
                     Text("textLoading")
                     .onAppear {

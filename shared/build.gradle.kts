@@ -4,6 +4,7 @@ plugins {
     id("conferences4hall.multiplatform.library")
     id("conferences4hall.quality")
     id("kotlinx-serialization")
+    id("com.rickclephas.kmp.nativecoroutines")
     id("com.squareup.sqldelight")
 }
 

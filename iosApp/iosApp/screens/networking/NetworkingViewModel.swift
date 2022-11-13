@@ -11,6 +11,8 @@ import shared
 import CoreImage
 import SwiftUI
 import Contacts
+import AsyncAlgorithms
+import KMPNativeCoroutinesAsync
 
 enum UserProfileUiState {
     case loading
@@ -28,23 +30,30 @@ class NetworkingViewModel: ObservableObject {
     
     @Published var uiState: UserProfileUiState = UserProfileUiState.loading
     
+    private var networkingTask: Task<(), Never>?
+    
     func fetchNetworking() {
-        repository.startCollectNetworking(success: { networkingUi in
-            self.uiState = .success(networkingUi)
-        })
+        networkingTask = Task {
+            do {
+                let networkingStream = asyncStream(for: repository.fetchNetworkingNative())
+                let profileStream = asyncStream(for: repository.fetchProfileNative())
+                for try await (networkings, profile) in combineLatest(networkingStream, profileStream) {
+                    let profileUi = profile != nil ? profile! : UserProfileUi(email: "", firstName: "", lastName: "", company: "", qrCode: nil)
+                    self.uiState = .success(NetworkingUi(userProfileUi: profileUi, showQrCode: false, users: networkings))
+                }
+            } catch {
+                self.uiState = .failure(error)
+            }
+        }
     }
     
     func stop() {
-        repository.stopCollectNetworking()
+        networkingTask?.cancel()
     }
     
-    func saveProfile(email: String, firstName: String, lastName: String, company: String) async {
+    func saveProfile(email: String, firstName: String, lastName: String, company: String) {
         if (email == "") { return }
-        do {
-            try await repository.saveProfile(email: email, firstName: firstName, lastName: lastName, company: company)
-        } catch {
-            // ignored
-        }
+        repository.saveProfile(email: email, firstName: firstName, lastName: lastName, company: company)
     }
     
     func saveNetworkingProfile(text: String, callback: @escaping (Bool) -> ()) {
@@ -58,13 +67,8 @@ class NetworkingViewModel: ObservableObject {
                     lastName: contact?.familyName ?? "",
                     company: contact?.organizationName ?? ""
                 )
-                repository.insertNetworkingProfile(user: user) { response, _ in
-                    if (response != nil) {
-                        callback(response! as! Bool)
-                    } else {
-                        callback(false)
-                    }
-                }
+                let inserted = repository.insertNetworkingProfile(user: user)
+                callback(inserted)
             } catch {
                 // ignored
             }
@@ -92,11 +96,7 @@ class NetworkingViewModel: ObservableObject {
         }
     }
     
-    func deleteNetworkProfile(email: String) async {
-        do {
-            try await repository.deleteNetworkProfile(email: email)
-        } catch {
-            // ignored
-        }
+    func deleteNetworkProfile(email: String) {
+        repository.deleteNetworkProfile(email: email)
     }
 }

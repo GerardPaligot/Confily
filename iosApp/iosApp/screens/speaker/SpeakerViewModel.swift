@@ -8,6 +8,7 @@
 
 import Foundation
 import shared
+import KMPNativeCoroutinesAsync
 
 enum SpeakerUiState {
     case loading
@@ -25,19 +26,22 @@ class SpeakerViewModel: ObservableObject {
 
     @Published var uiState: SpeakerUiState = SpeakerUiState.loading
     
+    private var speakerTask: Task<(), Never>?
+    
     func fetchSpeakerDetails(speakerId: String) {
-        repository.startCollectSpeaker(
-            speakerId: speakerId,
-            success: { speaker in
-                self.uiState = SpeakerUiState.success(speaker)
-            },
-            failure: { throwable in
-                self.uiState = SpeakerUiState.failure
+        speakerTask = Task {
+            do {
+                let stream = asyncStream(for: repository.speakerNative(speakerId: speakerId))
+                for try await speaker in stream {
+                    self.uiState = .success(speaker)
+                }
+            } catch {
+                self.uiState = .failure
             }
-        )
+        }
     }
     
     func stop() {
-        repository.stopCollectSpeaker()
+        speakerTask?.cancel()
     }
 }

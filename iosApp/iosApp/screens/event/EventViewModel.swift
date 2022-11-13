@@ -8,6 +8,7 @@
 
 import Foundation
 import shared
+import KMPNativeCoroutinesAsync
 
 enum EventUiState {
     case loading
@@ -25,19 +26,23 @@ class EventViewModel: ObservableObject {
 
     @Published var uiState: EventUiState = EventUiState.loading
     
+    private var eventTask: Task<(), Never>?
+    
     func fetchEvent() {
-        repository.startCollectEvent(
-            success: { event in
-                self.uiState = EventUiState.success(event)
-            },
-            failure: { throwable in
-                self.uiState = EventUiState.failure
+        eventTask = Task {
+            do {
+                let stream = asyncStream(for: repository.eventNative())
+                for try await event in stream {
+                    self.uiState = .success(event)
+                }
+            } catch {
+                self.uiState = .failure
             }
-        )
+        }
     }
     
     func stop() {
-        repository.stopCollectEvent()
+        eventTask?.cancel()
     }
     
     func saveTicket(barcode: String) async {
