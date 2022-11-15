@@ -12,26 +12,38 @@ import shared
 struct TalkSectionView: View {
     var talkUi: TalkUi
     var color: Color = Color.c4hOnBackground
-    var titleFont: Font = Font.headline
+    var titleFont: Font = Font.title
     var bodyFont: Font = Font.callout
 
     var body: some View {
         VStack(alignment: .leading) {
-            VStack(alignment: .leading) {
+            if (talkUi.category.color != nil || talkUi.level != nil) {
+                HStack(spacing: 8) {
+                    if (talkUi.category.color != nil) {
+                        DecorativeTagView(category: talkUi.category)
+                    }
+                    if (talkUi.level != nil) {
+                        LevelTagView(level: talkUi.level!)
+                    }
+                }
+            }
+            VStack(alignment: .leading, spacing: 24) {
                 Text(talkUi.title)
                     .font(titleFont)
                     .padding(.top, 8)
-                Text("textScheduleTime \(talkUi.startTime) \(talkUi.endTime)")
-                    .padding(.top, 8)
-                    .accessibilityLabel(toSpelloutAccessibleTime(startTime: talkUi.startTime, endTime: talkUi.endTime))
-                Text(talkUi.room)
-                if (talkUi.level != nil) {
-                    switch talkUi.level {
-                        case "advanced": Text("textLevelAdvanced")
-                        case "intermediate": Text("textLevelIntermediate")
-                        case "beginner": Text("textLevelBeginner")
-                        default: Text(talkUi.level!)
-                    }
+                HStack {
+                    TagUnStyledView(
+                        text: talkUi.startTime,
+                        icon: "deskclock"
+                    )
+                    TagUnStyledView(
+                        text: talkUi.room,
+                        icon: "video"
+                    )
+                    TagUnStyledView(
+                        text: "\(talkUi.timeInMinutes) minutes",
+                        icon: talkUi.timeInMinutes <= 30 ? "bolt.badge.clock" : "clock"
+                    )
                 }
             }
             .accessibilityElement(children: .combine)

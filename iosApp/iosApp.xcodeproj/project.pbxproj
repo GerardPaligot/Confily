@@ -28,6 +28,10 @@
 		D524D74027BC00FF0078DF0D /* ScheduleDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D524D73F27BC00FF0078DF0D /* ScheduleDetailVM.swift */; };
 		D5309CB227B1CD88001A4F9A /* AgendaVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5309CB127B1CD88001A4F9A /* AgendaVM.swift */; };
 		D53256BF2921810A00EA0DE7 /* AsyncAlgorithms in Frameworks */ = {isa = PBXBuildFile; productRef = D53256BE2921810A00EA0DE7 /* AsyncAlgorithms */; };
+		D53256C22921946600EA0DE7 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53256C12921946600EA0DE7 /* TagView.swift */; };
+		D53256C429219DF200EA0DE7 /* DecorativeTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53256C329219DF200EA0DE7 /* DecorativeTagView.swift */; };
+		D53256C62921A35B00EA0DE7 /* LevelTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53256C52921A35B00EA0DE7 /* LevelTagView.swift */; };
+		D53256C82921A7B900EA0DE7 /* TagUnStyledView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53256C72921A7B900EA0DE7 /* TagUnStyledView.swift */; };
 		D553D579281F2FE600D39A5B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D553D57B281F2FE600D39A5B /* Localizable.strings */; };
 		D55B3BCB27BEF349006184D1 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = D55B3BCA27BEF349006184D1 /* CodeScanner */; };
 		D55BE69527B53FBF00BCF03A /* EventSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55BE69427B53FBF00BCF03A /* EventSectionView.swift */; };
@@ -43,6 +47,7 @@
 		D562CF6027BDAD7800CF54AF /* SpeakerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D562CF5F27BDAD7800CF54AF /* SpeakerHeaderView.swift */; };
 		D57028AA27B550BF008EF4AD /* PartnerDividerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57028A927B550BF008EF4AD /* PartnerDividerView.swift */; };
 		D57028AD27B5535F008EF4AD /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57028AC27B5535F008EF4AD /* Event.swift */; };
+		D574DE1A292446AE00468074 /* PauseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D574DE19292446AE00468074 /* PauseView.swift */; };
 		D5768D6027C11E2A00FB081C /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5768D5F27C11E2A00FB081C /* Networking.swift */; };
 		D582B741283421DE009391C8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D582B740283421DE009391C8 /* GoogleService-Info.plist */; };
 		D5868A582823139E008EE6E3 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = D5868A572823139E008EE6E3 /* SDWebImageSwiftUI */; };
@@ -110,6 +115,10 @@
 		D524D73D27BBFFF30078DF0D /* ScheduleItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleItemViewModel.swift; sourceTree = "<group>"; };
 		D524D73F27BC00FF0078DF0D /* ScheduleDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleDetailVM.swift; sourceTree = "<group>"; };
 		D5309CB127B1CD88001A4F9A /* AgendaVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaVM.swift; sourceTree = "<group>"; };
+		D53256C12921946600EA0DE7 /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
+		D53256C329219DF200EA0DE7 /* DecorativeTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecorativeTagView.swift; sourceTree = "<group>"; };
+		D53256C52921A35B00EA0DE7 /* LevelTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelTagView.swift; sourceTree = "<group>"; };
+		D53256C72921A7B900EA0DE7 /* TagUnStyledView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagUnStyledView.swift; sourceTree = "<group>"; };
 		D553D57A281F2FE600D39A5B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D55BE69427B53FBF00BCF03A /* EventSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSectionView.swift; sourceTree = "<group>"; };
 		D55BE69627B5432900BCF03A /* SocialItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialItem.swift; sourceTree = "<group>"; };
@@ -124,6 +133,7 @@
 		D562CF5F27BDAD7800CF54AF /* SpeakerHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakerHeaderView.swift; sourceTree = "<group>"; };
 		D57028A927B550BF008EF4AD /* PartnerDividerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnerDividerView.swift; sourceTree = "<group>"; };
 		D57028AC27B5535F008EF4AD /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		D574DE19292446AE00468074 /* PauseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseView.swift; sourceTree = "<group>"; };
 		D5768D5F27C11E2A00FB081C /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		D582B740283421DE009391C8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D58F1D4E27AFF40A00FB59C7 /* TalkItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkItemView.swift; sourceTree = "<group>"; };
@@ -242,6 +252,7 @@
 		D50A458C27B0818F00C9A43C /* components */ = {
 			isa = PBXGroup;
 			children = (
+				D53256C02921942C00EA0DE7 /* tags */,
 				D5C92ECA283ACB9800D5CF2D /* menus */,
 				D5C92EC2283AC52200D5CF2D /* partners */,
 				D59944BC2833CCF800F59C1B /* tickets */,
@@ -312,6 +323,17 @@
 			path = schedule;
 			sourceTree = "<group>";
 		};
+		D53256C02921942C00EA0DE7 /* tags */ = {
+			isa = PBXGroup;
+			children = (
+				D53256C12921946600EA0DE7 /* TagView.swift */,
+				D53256C329219DF200EA0DE7 /* DecorativeTagView.swift */,
+				D53256C52921A35B00EA0DE7 /* LevelTagView.swift */,
+				D53256C72921A7B900EA0DE7 /* TagUnStyledView.swift */,
+			);
+			path = tags;
+			sourceTree = "<group>";
+		};
 		D55BE69327B53F3900BCF03A /* events */ = {
 			isa = PBXGroup;
 			children = (
@@ -357,6 +379,7 @@
 				D50A458A27B0789B00C9A43C /* ScheduleItemView.swift */,
 				D524D72B27BBEC6F0078DF0D /* TalkSectionView.swift */,
 				D5C92ED4283ADDC900D5CF2D /* NoFavoriteTalksView.swift */,
+				D574DE19292446AE00468074 /* PauseView.swift */,
 			);
 			path = talks;
 			sourceTree = "<group>";
@@ -548,7 +571,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D574DE1A292446AE00468074 /* PauseView.swift in Sources */,
 				D59944BE2833CDC900F59C1B /* TicketDetailedView.swift in Sources */,
+				D53256C22921946600EA0DE7 /* TagView.swift in Sources */,
 				D560789927BE965200D4012C /* SpeakerItemNavigation.swift in Sources */,
 				D562CF5E27BD9DCB00CF54AF /* AppViewModel.swift in Sources */,
 				D560789327BE8E1400D4012C /* SpeakerDetail.swift in Sources */,
@@ -563,12 +588,14 @@
 				D5C92ED1283ACEB500D5CF2D /* Menus.swift in Sources */,
 				D50A458F27B081B600C9A43C /* Agenda.swift in Sources */,
 				D5D6166C27B15C7400C59EC9 /* AgendaViewModel.swift in Sources */,
+				D53256C62921A35B00EA0DE7 /* LevelTagView.swift in Sources */,
 				D5C92ED5283ADDC900D5CF2D /* NoFavoriteTalksView.swift in Sources */,
 				D524D74027BC00FF0078DF0D /* ScheduleDetailVM.swift in Sources */,
 				D560789727BE906500D4012C /* SpeakerDetailVM.swift in Sources */,
 				D50E9B0527C12AF000B7B9B9 /* NetworkingViewModel.swift in Sources */,
 				D51C2CD128383719006EED5D /* UIApplicationExt.swift in Sources */,
 				D50A458B27B0789B00C9A43C /* ScheduleItemView.swift in Sources */,
+				D53256C82921A7B900EA0DE7 /* TagUnStyledView.swift in Sources */,
 				D5309CB227B1CD88001A4F9A /* AgendaVM.swift in Sources */,
 				D59EFCB827B5AD42000AADCF /* EventViewModel.swift in Sources */,
 				D524D73827BBF6030078DF0D /* ImageCacheKey.swift in Sources */,
@@ -578,6 +605,7 @@
 				D5F324A327C6E2DE007CA4C1 /* QrCodeGeneratoriOS.swift in Sources */,
 				D5C92ECF283ACE6000D5CF2D /* MenusViewModel.swift in Sources */,
 				D59944C02833D45A00F59C1B /* TicketQrCodeView.swift in Sources */,
+				D53256C429219DF200EA0DE7 /* DecorativeTagView.swift in Sources */,
 				D5CAA6532821C306005BB242 /* PartnerRowView.swift in Sources */,
 				D5C92ECC283ACBB000D5CF2D /* MenuItemView.swift in Sources */,
 				D55BE69927B54DB800BCF03A /* ButtonView.swift in Sources */,
@@ -747,7 +775,7 @@
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)";
 				INFOPLIST_FILE = iosApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -776,7 +804,7 @@
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)";
 				INFOPLIST_FILE = iosApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

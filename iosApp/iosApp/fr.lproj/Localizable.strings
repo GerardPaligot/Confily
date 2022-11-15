@@ -31,6 +31,7 @@
 "textTicketFirstname" = "Prénom";
 "textTicketLastname" = "Nom";
 "textAgendaNoFavorites" = "Vous n'avez pas de conférences en favoris";
+"textPauseItem" = "Pause ☕";
 
 "actionFeedback" = "Donne ton feedback";
 "actionFaq" = "FAQ";

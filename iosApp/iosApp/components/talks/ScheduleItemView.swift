@@ -21,17 +21,16 @@ struct ScheduleItemView<TalkItem: View>: View {
     }
     
     var body: some View {
-        let space = 60.0
-        ZStack(alignment: .topLeading) {
+        VStack(alignment: .leading) {
             Text(time)
                 .accessibilityLabel(toSpelloutAccessibleTime(time: time))
                 .font(.body)
                 .foregroundColor(Color.c4hSecondary)
-                .frame(width: space, alignment: .center)
-            VStack(spacing: 4.0) {
+                .padding(.vertical, 8)
+            VStack(spacing: 8.0) {
                 ForEach(talks, id: \.id) { talk in
                     self.talkItem(talk)
-                        .padding(.leading, space)
+                    Divider()
                 }
             }
         }

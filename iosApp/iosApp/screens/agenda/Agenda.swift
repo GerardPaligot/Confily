@@ -36,6 +36,8 @@ struct Agenda<TalkItem: View>: View {
                         }
                     }
                 }
+                .padding([.horizontal], 16)
+                .padding([.vertical], 24)
             }
         }
         .navigationTitle(Text("screenAgenda"))

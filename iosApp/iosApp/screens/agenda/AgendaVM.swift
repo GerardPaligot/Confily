@@ -51,21 +51,23 @@ struct AgendaVM: View {
                                         EmptyView()
                                     }
                                     .accessibility(hidden: true)
-                                }
-                                TalkItemView(
-                                    talk: talk,
-                                    onFavoriteClicked: { talkItem in
-                                        Task {
-                                            await viewModel.markAsFavorite(talkItem: talkItem)
+                                    TalkItemView(
+                                        talk: talk,
+                                        onFavoriteClicked: { talkItem in
+                                            Task {
+                                                await viewModel.markAsFavorite(talkItem: talkItem)
+                                            }
                                         }
-                                    }
-                                )
-                                    .onTapGesture {
-                                        self.navigationState = NavigationState.talk(talk.id)
-                                    }
-                                    .onAppear {
-                                        self.navigationState = NavigationState.none
-                                    }
+                                    )
+                                        .onTapGesture {
+                                            self.navigationState = NavigationState.talk(talk.id)
+                                        }
+                                        .onAppear {
+                                            self.navigationState = NavigationState.none
+                                        }
+                                } else {
+                                    PauseView()
+                                }
                             }
                         )
                     case .failure:

@@ -32,6 +32,7 @@
 "textTicketFirstname" = "First Name";
 "textTicketLastname" = "Last Name";
 "textAgendaNoFavorites" = "You don't have any talks in favorites";
+"textPauseItem" = "Pause ☕";
 
 "actionFeedback" = "Give your feedback";
 "actionFaq" = "FAQ";
