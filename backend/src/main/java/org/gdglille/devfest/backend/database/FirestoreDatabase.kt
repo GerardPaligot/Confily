@@ -9,12 +9,15 @@ import kotlinx.coroutines.withContext
 import kotlin.reflect.KClass
 import kotlin.reflect.full.memberProperties
 
+@Suppress("TooManyFunctions")
 class FirestoreDatabase(
     private val firestore: Firestore,
     private val projectName: String,
     private val collectionName: String,
     private val dispatcher: CoroutineDispatcher = Dispatchers.Default
 ) : Database {
+    override suspend fun count(): Long = firestore.collection(collectionName).count().get().get().count
+
     override suspend fun <T : Any> get(id: String, clazz: KClass<T>): T? = withContext(dispatcher) {
         firestore
             .collection(collectionName)

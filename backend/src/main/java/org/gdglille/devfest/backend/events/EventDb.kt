@@ -3,7 +3,7 @@ package org.gdglille.devfest.backend.events
 import java.text.DecimalFormat
 import java.time.LocalDateTime
 
-data class EventAddressDb(
+data class AddressDb(
     val formatted: List<String> = emptyList(),
     val address: String = "",
     val country: String = "",
@@ -57,9 +57,10 @@ data class EventDb(
     val billetWebConfig: BilletWebConfigurationDb? = null,
     val apiKey: String = "",
     val name: String = "",
-    val address: EventAddressDb = EventAddressDb(),
+    val address: AddressDb = AddressDb(),
     val startDate: String = "",
     val endDate: String = "",
+    val sponsoringTypes: List<String> = emptyList(),
     val formats: Map<String, Int> = emptyMap(),
     val menus: List<LunchMenuDb> = emptyList(),
     val qanda: List<QuestionAndResponseDb> = emptyList(),

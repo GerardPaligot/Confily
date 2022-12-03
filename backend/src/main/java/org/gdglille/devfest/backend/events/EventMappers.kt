@@ -1,12 +1,14 @@
+@file:Suppress("TooManyFunctions")
+
 package org.gdglille.devfest.backend.events
 
 import org.gdglille.devfest.backend.internals.slug
 import org.gdglille.devfest.backend.network.conferencehall.Event
-import org.gdglille.devfest.backend.partners.PartnerDb
 import org.gdglille.devfest.backend.partners.convertToModel
-import org.gdglille.devfest.models.EventAddress
+import org.gdglille.devfest.models.Address
 import org.gdglille.devfest.models.EventLunchMenu
 import org.gdglille.devfest.models.EventPartners
+import org.gdglille.devfest.models.EventV2
 import org.gdglille.devfest.models.FeaturesActivated
 import org.gdglille.devfest.models.QuestionAndResponse
 import org.gdglille.devfest.models.QuestionAndResponseAction
@@ -23,7 +25,7 @@ fun Event.convertToDb(year: String, eventId: String, apiKey: String) = EventDb(
     conferenceHallId = eventId,
     apiKey = apiKey,
     name = this.name,
-    address = EventAddressDb(
+    address = AddressDb(
         formatted = this.address.formattedAddress.split(",").map { it.trim() },
         address = this.address.formattedAddress,
         country = this.address.country.longName,
@@ -56,42 +58,58 @@ fun LunchMenuDb.convertToModel() = EventLunchMenu(
     dessert = dessert
 )
 
-fun EventDb.convertToModel(
-    golds: List<PartnerDb>,
-    silvers: List<PartnerDb>,
-    bronzes: List<PartnerDb>,
-    others: List<PartnerDb>
-) = org.gdglille.devfest.models.Event(
+fun AddressDb.convertToModel() = Address(
+    formatted = this.formatted,
+    address = this.address,
+    country = this.country,
+    countryCode = this.countryCode,
+    city = this.city,
+    lat = this.lat,
+    lng = this.lng
+)
+
+fun EventDb.convertToFeaturesActivatedModel(hasPartnerList: Boolean) = FeaturesActivated(
+    hasNetworking = features.hasNetworking,
+    hasSpeakerList = !features.hasNetworking,
+    hasPartnerList = hasPartnerList,
+    hasMenus = menus.isNotEmpty(),
+    hasQAndA = qanda.isNotEmpty(),
+    hasBilletWebTicket = billetWebConfig != null
+)
+
+fun EventDb.convertToModel(partners: EventPartners) = org.gdglille.devfest.models.Event(
     id = this.slugId,
     name = this.name,
-    address = EventAddress(
-        formatted = this.address.formatted,
-        address = this.address.address,
-        country = this.address.country,
-        countryCode = this.address.countryCode,
-        city = this.address.city,
-        lat = this.address.lat,
-        lng = this.address.lng
-    ),
+    address = this.address.convertToModel(),
     startDate = this.startDate,
     endDate = this.endDate,
-    partners = EventPartners(
-        golds = golds.map { it.convertToModel() },
-        silvers = silvers.map { it.convertToModel() },
-        bronzes = bronzes.map { it.convertToModel() },
-        others = others.map { it.convertToModel() }
-    ),
+    partners = partners,
     menus = menus.map { it.convertToModel() },
     qanda = qanda.map { it.convertToModel() },
     coc = coc,
-    features = FeaturesActivated(
-        hasNetworking = features.hasNetworking,
-        hasSpeakerList = !features.hasNetworking,
-        hasPartnerList = golds.isNotEmpty() || silvers.isNotEmpty() || bronzes.isNotEmpty() || others.isNotEmpty(),
-        hasMenus = menus.isNotEmpty(),
-        hasQAndA = qanda.isNotEmpty(),
-        hasBilletWebTicket = billetWebConfig != null
+    features = this.convertToFeaturesActivatedModel(
+        partners.golds.isNotEmpty() ||
+            partners.silvers.isNotEmpty() ||
+            partners.bronzes.isNotEmpty() ||
+            partners.others.isNotEmpty()
     ),
+    twitterUrl = this.twitterUrl,
+    linkedinUrl = this.linkedinUrl,
+    faqLink = this.faqLink,
+    codeOfConductLink = this.codeOfConductLink,
+    updatedAt = this.updatedAt
+)
+
+fun EventDb.convertToModelV2(hasPartnerList: Boolean) = EventV2(
+    id = this.slugId,
+    name = this.name,
+    address = this.address.convertToModel(),
+    startDate = this.startDate,
+    endDate = this.endDate,
+    menus = menus.map { it.convertToModel() },
+    qanda = qanda.map { it.convertToModel() },
+    coc = coc,
+    features = this.convertToFeaturesActivatedModel(hasPartnerList),
     twitterUrl = this.twitterUrl,
     linkedinUrl = this.linkedinUrl,
     faqLink = this.faqLink,
@@ -139,7 +157,7 @@ fun EventInput.convertToDb(event: EventDb, openFeedbackId: String?, apiKey: Stri
     billetWebConfig = this.billetWebConfig?.convertToDb(),
     apiKey = apiKey,
     name = this.name,
-    address = EventAddressDb(
+    address = AddressDb(
         formatted = this.address.address.split(",").map { it.trim() },
         address = this.address.address,
         country = this.address.country,
@@ -153,6 +171,7 @@ fun EventInput.convertToDb(event: EventDb, openFeedbackId: String?, apiKey: Stri
     coc = event.coc,
     startDate = this.startDate,
     endDate = this.endDate,
+    sponsoringTypes = this.sponsoringTypes,
     formats = this.formats,
     twitterUrl = this.twitterUrl,
     linkedinUrl = this.linkedinUrl,

@@ -4,18 +4,6 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class EventAddress(
-    val formatted: List<String>,
-    val address: String,
-    val country: String,
-    @SerialName("country_code")
-    val countryCode: String,
-    val city: String,
-    val lat: Double,
-    val lng: Double
-)
-
-@Serializable
 data class QuestionAndResponseAction(
     val order: Int,
     val label: String,
@@ -66,12 +54,37 @@ data class FeaturesActivated(
 data class Event(
     val id: String,
     val name: String,
-    val address: EventAddress,
+    val address: Address,
     @SerialName("start_date")
     val startDate: String,
     @SerialName("end_date")
     val endDate: String,
     val partners: EventPartners,
+    val menus: List<EventLunchMenu>,
+    val qanda: List<QuestionAndResponse>,
+    val coc: String,
+    val features: FeaturesActivated,
+    @SerialName("twitter_url")
+    val twitterUrl: String?,
+    @SerialName("linkedin_url")
+    val linkedinUrl: String?,
+    @SerialName("faq_link")
+    val faqLink: String?,
+    @SerialName("code_of_conduct_link")
+    val codeOfConductLink: String?,
+    @SerialName("updated_at")
+    val updatedAt: Long
+)
+
+@Serializable
+data class EventV2(
+    val id: String,
+    val name: String,
+    val address: Address,
+    @SerialName("start_date")
+    val startDate: String,
+    @SerialName("end_date")
+    val endDate: String,
     val menus: List<EventLunchMenu>,
     val qanda: List<QuestionAndResponse>,
     val coc: String,

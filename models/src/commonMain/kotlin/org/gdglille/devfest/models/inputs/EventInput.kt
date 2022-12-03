@@ -97,6 +97,8 @@ data class EventInput(
     val startDate: String,
     @SerialName("end_date")
     val endDate: String,
+    @SerialName("sponsoring_types")
+    val sponsoringTypes: List<String> = emptyList(),
     val formats: Map<String, Int> = emptyMap(),
     @SerialName("twitter_url")
     val twitterUrl: String?,

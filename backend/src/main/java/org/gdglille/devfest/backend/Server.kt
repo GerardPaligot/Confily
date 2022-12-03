@@ -2,6 +2,8 @@ package org.gdglille.devfest.backend
 
 import com.google.auth.oauth2.GoogleCredentials
 import com.google.cloud.firestore.FirestoreOptions
+import com.google.cloud.secretmanager.v1.SecretManagerServiceClient
+import com.google.cloud.secretmanager.v1.SecretManagerServiceSettings
 import com.google.cloud.storage.StorageOptions
 import io.ktor.http.HeaderValue
 import io.ktor.http.HttpStatusCode
@@ -25,10 +27,13 @@ import org.gdglille.devfest.backend.database.Database
 import org.gdglille.devfest.backend.database.DatabaseType
 import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.events.registerEventRoutes
+import org.gdglille.devfest.backend.network.geolocation.GeocodeApi
 import org.gdglille.devfest.backend.partners.PartnerDao
+import org.gdglille.devfest.backend.partners.cms4partners.Cms4PartnersDao
 import org.gdglille.devfest.backend.partners.registerPartnersRoutes
 import org.gdglille.devfest.backend.schedulers.ScheduleItemDao
 import org.gdglille.devfest.backend.schedulers.registerSchedulersRoutes
+import org.gdglille.devfest.backend.secret.Secret
 import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.speakers.registerSpeakersRoutes
 import org.gdglille.devfest.backend.storage.Storage
@@ -57,6 +62,15 @@ fun main() {
         setCredentials(GoogleCredentials.getApplicationDefault())
         build()
     }.service
+    val secret = Secret.Factory.create(
+        projectId = gcpProjectId,
+        client = SecretManagerServiceClient.create(
+            SecretManagerServiceSettings.newBuilder().apply {
+                this.credentialsProvider =
+                    SecretManagerServiceSettings.defaultCredentialsProviderBuilder().build()
+            }.build()
+        )
+    )
     val speakerDao = SpeakerDao(
         Database.Factory.create(
             DatabaseType.FirestoreDb(
@@ -112,7 +126,15 @@ fun main() {
             )
         )
     )
-
+    val cms4partnerDao = Cms4PartnersDao(
+        firestore = firestore,
+        projectName = projectName,
+        dispatcher = Dispatchers.IO
+    )
+    val geocodeApi = GeocodeApi.Factory.create(
+        apiKey = secret["GEOCODE_API_KEY"],
+        enableNetworkLogs = true
+    )
     embeddedServer(Netty, PORT) {
         install(CORS) {
             anyHost()
@@ -138,11 +160,11 @@ fun main() {
         routing {
             registerConferenceHallRoutes(eventDao, speakerDao, talkDao)
             route("/events/{eventId}") {
-                registerEventRoutes(eventDao, speakerDao, talkDao, scheduleItemDao, partnerDao)
+                registerEventRoutes(eventDao, speakerDao, talkDao, scheduleItemDao, partnerDao, cms4partnerDao)
                 registerSpeakersRoutes(eventDao, speakerDao)
                 registerTalksRoutes(eventDao, speakerDao, talkDao)
                 registerSchedulersRoutes(eventDao, talkDao, speakerDao, scheduleItemDao)
-                registerPartnersRoutes(eventDao, partnerDao)
+                registerPartnersRoutes(geocodeApi, eventDao, partnerDao, cms4partnerDao)
                 registerBilletWebRoutes(eventDao)
             }
         }

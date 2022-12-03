@@ -20,8 +20,9 @@ composeNavigation = "2.5.3"
 composeFont = "1.0.0"
 composeRichText = "0.11.0"
 composeOpenfeedback = "0.0.8-SNAPSHOT"
-gcpFirestore = "3.0.9"
+gcpFirestore = "3.7.3"
 gcpStorage = "2.3.0"
+gcpSecret = "2.3.10"
 googleServices = "4.3.5"
 coil = "2.0.0"
 detekt = "1.19.0"
@@ -101,6 +102,7 @@ detekt-gradlePlugin = { group = "io.gitlab.arturbosch.detekt", name = "detekt-gr
 
 google-cloud-firestore = { group = "com.google.cloud", name = "google-cloud-firestore", version.ref = "gcpFirestore" }
 google-cloud-storage = { group = "com.google.cloud", name = "google-cloud-storage", version.ref = "gcpStorage" }
+google-cloud-secret = { group = "com.google.cloud", name = "google-cloud-secretmanager", version.ref = "gcpSecret" }
 
 google-services-gradlePlugin = { group = "com.google.gms", name = "google-services", version.ref = "googleServices" }
 google-barcode = { group = "com.google.mlkit", name = "barcode-scanning", version.ref = "barcode" }

@@ -17,6 +17,7 @@ import io.ktor.server.routing.put
 import org.gdglille.devfest.backend.NotFoundException
 import org.gdglille.devfest.backend.events.v2.EventRepositoryV2
 import org.gdglille.devfest.backend.partners.PartnerDao
+import org.gdglille.devfest.backend.partners.cms4partners.Cms4PartnersDao
 import org.gdglille.devfest.backend.receiveValidated
 import org.gdglille.devfest.backend.schedulers.ScheduleItemDao
 import org.gdglille.devfest.backend.speakers.SpeakerDao
@@ -33,19 +34,24 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
+@Suppress("LongParameterList")
 fun Route.registerEventRoutes(
     eventDao: EventDao,
     speakerDao: SpeakerDao,
     talkDao: TalkDao,
     scheduleItemDao: ScheduleItemDao,
-    partnerDao: PartnerDao
+    partnerDao: PartnerDao,
+    cms4PartnersDao: Cms4PartnersDao
 ) {
-    val repository = EventRepository(eventDao, speakerDao, talkDao, scheduleItemDao, partnerDao)
+    val repository = EventRepository(eventDao, speakerDao, talkDao, scheduleItemDao, partnerDao, cms4PartnersDao)
     val repositoryV2 = EventRepositoryV2(eventDao, speakerDao, talkDao, scheduleItemDao)
 
     get {
         val eventId = call.parameters["eventId"]!!
-        call.respond(HttpStatusCode.OK, repository.get(eventId))
+        when (call.request.acceptItems().version()) {
+            1 -> call.respond(HttpStatusCode.OK, repository.getWithPartners(eventId))
+            2 -> call.respond(HttpStatusCode.OK, repository.get(eventId))
+        }
     }
     put {
         val eventId = call.parameters["eventId"]!!

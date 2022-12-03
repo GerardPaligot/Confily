@@ -31,6 +31,7 @@ dependencies {
 
     implementation(libs.google.cloud.firestore)
     implementation(libs.google.cloud.storage)
+    implementation(libs.google.cloud.secret)
 }
 
 appengine {

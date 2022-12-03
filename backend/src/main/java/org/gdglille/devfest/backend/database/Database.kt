@@ -14,7 +14,9 @@ sealed class DatabaseType {
     ) : DatabaseType()
 }
 
+@Suppress("TooManyFunctions")
 interface Database {
+    suspend fun count(): Long
     suspend fun <T : Any> get(id: String, clazz: KClass<T>): T?
     suspend fun <T : Any> query(clazz: KClass<T>, vararg ops: WhereOperation): List<T>
     suspend fun <T : Any> insert(eventId: String, item: T)
