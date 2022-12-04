@@ -1,4 +1,4 @@
-package org.gdglille.devfest.backend.network.geolocation
+package org.gdglille.devfest.backend.internals.network.geolocation
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

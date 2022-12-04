@@ -2,9 +2,9 @@ package org.gdglille.devfest.backend.schedulers
 
 import kotlinx.coroutines.coroutineScope
 import org.gdglille.devfest.backend.NotFoundException
-import org.gdglille.devfest.backend.date.FormatterPattern
-import org.gdglille.devfest.backend.date.format
 import org.gdglille.devfest.backend.events.EventDao
+import org.gdglille.devfest.backend.internals.date.FormatterPattern
+import org.gdglille.devfest.backend.internals.date.format
 import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.talks.TalkDao
 import org.gdglille.devfest.backend.talks.convertToModel

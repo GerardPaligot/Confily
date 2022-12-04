@@ -5,10 +5,10 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import org.gdglille.devfest.backend.NotFoundException
-import org.gdglille.devfest.backend.date.FormatterPattern
-import org.gdglille.devfest.backend.date.format
 import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.events.EventDb
+import org.gdglille.devfest.backend.internals.date.FormatterPattern
+import org.gdglille.devfest.backend.internals.date.format
 import org.gdglille.devfest.backend.schedulers.ScheduleDb
 import org.gdglille.devfest.backend.schedulers.ScheduleItemDao
 import org.gdglille.devfest.backend.schedulers.convertToModel

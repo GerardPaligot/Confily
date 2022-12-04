@@ -20,23 +20,22 @@ import io.ktor.server.request.receive
 import io.ktor.server.response.respond
 import io.ktor.server.routing.route
 import io.ktor.server.routing.routing
-import kotlinx.coroutines.Dispatchers
 import org.gdglille.devfest.backend.billetweb.registerBilletWebRoutes
 import org.gdglille.devfest.backend.conferencehall.registerConferenceHallRoutes
-import org.gdglille.devfest.backend.database.Database
-import org.gdglille.devfest.backend.database.DatabaseType
 import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.events.registerEventRoutes
-import org.gdglille.devfest.backend.network.geolocation.GeocodeApi
+import org.gdglille.devfest.backend.internals.helpers.database.BasicDatabase
+import org.gdglille.devfest.backend.internals.helpers.database.Database
+import org.gdglille.devfest.backend.internals.helpers.secret.Secret
+import org.gdglille.devfest.backend.internals.helpers.storage.Storage
+import org.gdglille.devfest.backend.internals.network.geolocation.GeocodeApi
 import org.gdglille.devfest.backend.partners.PartnerDao
 import org.gdglille.devfest.backend.partners.cms4partners.Cms4PartnersDao
 import org.gdglille.devfest.backend.partners.registerPartnersRoutes
 import org.gdglille.devfest.backend.schedulers.ScheduleItemDao
 import org.gdglille.devfest.backend.schedulers.registerSchedulersRoutes
-import org.gdglille.devfest.backend.secret.Secret
 import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.speakers.registerSpeakersRoutes
-import org.gdglille.devfest.backend.storage.Storage
 import org.gdglille.devfest.backend.talks.TalkDao
 import org.gdglille.devfest.backend.talks.registerTalksRoutes
 import org.gdglille.devfest.models.inputs.Validator
@@ -71,66 +70,21 @@ fun main() {
             }.build()
         )
     )
+    val database = Database.Factory.create(firestore = firestore, projectName = projectName)
+    val basicDatabase = BasicDatabase.Factory.create(firestore = firestore)
     val speakerDao = SpeakerDao(
-        Database.Factory.create(
-            DatabaseType.FirestoreDb(
-                firestore = firestore,
-                projectName = projectName,
-                collectionName = "speakers",
-                dispatcher = Dispatchers.IO
-            )
-        ),
+        database,
         Storage.Factory.create(
             storage = storage,
             bucketName = projectName,
             isAppEngine = isCloud
         )
     )
-    val talkDao = TalkDao(
-        Database.Factory.create(
-            DatabaseType.FirestoreDb(
-                firestore = firestore,
-                projectName = projectName,
-                collectionName = "talks",
-                dispatcher = Dispatchers.IO
-            )
-        )
-    )
-    val scheduleItemDao = ScheduleItemDao(
-        Database.Factory.create(
-            DatabaseType.FirestoreDb(
-                firestore = firestore,
-                projectName = projectName,
-                collectionName = "schedule-items",
-                dispatcher = Dispatchers.IO
-            )
-        )
-    )
-    val eventDao = EventDao(
-        Database.Factory.create(
-            DatabaseType.FirestoreDb(
-                firestore = firestore,
-                projectName = projectName,
-                collectionName = projectName,
-                dispatcher = Dispatchers.IO
-            )
-        )
-    )
-    val partnerDao = PartnerDao(
-        Database.Factory.create(
-            DatabaseType.FirestoreDb(
-                firestore = firestore,
-                projectName = projectName,
-                collectionName = "companies",
-                dispatcher = Dispatchers.IO
-            )
-        )
-    )
-    val cms4partnerDao = Cms4PartnersDao(
-        firestore = firestore,
-        projectName = projectName,
-        dispatcher = Dispatchers.IO
-    )
+    val talkDao = TalkDao(database)
+    val scheduleItemDao = ScheduleItemDao(database)
+    val eventDao = EventDao(projectName, basicDatabase)
+    val partnerDao = PartnerDao(database)
+    val cms4partnerDao = Cms4PartnersDao(basicDatabase)
     val geocodeApi = GeocodeApi.Factory.create(
         apiKey = secret["GEOCODE_API_KEY"],
         enableNetworkLogs = true

@@ -2,9 +2,8 @@
 
 package org.gdglille.devfest.backend.events
 
+import org.gdglille.devfest.backend.internals.network.conferencehall.Event
 import org.gdglille.devfest.backend.internals.slug
-import org.gdglille.devfest.backend.network.conferencehall.Event
-import org.gdglille.devfest.backend.partners.convertToModel
 import org.gdglille.devfest.models.Address
 import org.gdglille.devfest.models.EventLunchMenu
 import org.gdglille.devfest.models.EventPartners

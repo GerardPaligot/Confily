@@ -1,4 +1,4 @@
-package org.gdglille.devfest.backend.secret
+package org.gdglille.devfest.backend.internals.helpers.secret
 
 import com.google.cloud.secretmanager.v1.SecretManagerServiceClient
 

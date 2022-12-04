@@ -1,32 +1,19 @@
 package org.gdglille.devfest.backend.partners.cms4partners
 
-import com.google.cloud.firestore.Firestore
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
-import org.gdglille.devfest.backend.database.Database
-import org.gdglille.devfest.backend.database.DatabaseType
-import org.gdglille.devfest.backend.database.query
-import org.gdglille.devfest.backend.database.whereEquals
-import org.gdglille.devfest.backend.database.whereNotEquals
+import org.gdglille.devfest.backend.internals.helpers.database.BasicDatabase
+import org.gdglille.devfest.backend.internals.helpers.database.query
+import org.gdglille.devfest.backend.internals.helpers.database.whereEquals
+import org.gdglille.devfest.backend.internals.helpers.database.whereNotEquals
 
 enum class Sponsorship { Gold, Silver, Bronze, Other }
 
 class Cms4PartnersDao(
-    private val firestore: Firestore,
-    private val projectName: String,
-    private val dispatcher: CoroutineDispatcher = Dispatchers.Default
+    private val database: BasicDatabase
 ) {
     suspend fun list(year: String, sponsorship: Sponsorship): List<Cms4PartnerDb> {
-        val database = Database.Factory.create(
-            DatabaseType.FirestoreDb(
-                firestore = firestore,
-                projectName = projectName,
-                collectionName = "companies",
-                dispatcher = dispatcher
-            )
-        )
         return database
             .query<Cms4PartnerDb>(
+                collectionName = "companies",
                 "edition".whereEquals(year),
                 "public".whereEquals(true),
                 "logoUrl".whereNotEquals(null),
@@ -40,16 +27,9 @@ class Cms4PartnersDao(
     }
 
     suspend fun list(year: String): List<Cms4PartnerDb> {
-        val database = Database.Factory.create(
-            DatabaseType.FirestoreDb(
-                firestore = firestore,
-                projectName = projectName,
-                collectionName = "companies-$year",
-                dispatcher = dispatcher
-            )
-        )
         return database
             .query<Cms4PartnerDb>(
+                collectionName = "companies-$year",
                 "edition".whereEquals(year),
                 "public".whereEquals(true),
                 "logoUrl".whereNotEquals(null)
@@ -61,15 +41,5 @@ class Cms4PartnersDao(
             }
     }
 
-    suspend fun hasPartners(year: String): Boolean {
-        val database = Database.Factory.create(
-            DatabaseType.FirestoreDb(
-                firestore = firestore,
-                projectName = projectName,
-                collectionName = "companies-$year",
-                dispatcher = dispatcher
-            )
-        )
-        return database.count() > 0
-    }
+    suspend fun hasPartners(year: String): Boolean = database.count(collectionName = "companies-$year") > 0
 }

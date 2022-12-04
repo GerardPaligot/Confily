@@ -2,15 +2,15 @@ package org.gdglille.devfest.backend.talks
 
 import org.gdglille.devfest.backend.events.EventDb
 import org.gdglille.devfest.backend.events.openFeedbackUrl
-import org.gdglille.devfest.backend.network.conferencehall.Format
+import org.gdglille.devfest.backend.internals.network.conferencehall.Format
 import org.gdglille.devfest.backend.speakers.SpeakerDb
 import org.gdglille.devfest.backend.speakers.convertToModel
 import org.gdglille.devfest.models.Category
 import org.gdglille.devfest.models.Talk
 import org.gdglille.devfest.models.inputs.TalkInput
 
-fun org.gdglille.devfest.backend.network.conferencehall.Talk.convertToDb(
-    categories: List<org.gdglille.devfest.backend.network.conferencehall.Category>,
+fun org.gdglille.devfest.backend.internals.network.conferencehall.Talk.convertToDb(
+    categories: List<org.gdglille.devfest.backend.internals.network.conferencehall.Category>,
     formats: List<Format>
 ): TalkDb = TalkDb(
     id = this.id,

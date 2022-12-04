@@ -6,7 +6,7 @@ import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 import org.gdglille.devfest.backend.events.EventDao
-import org.gdglille.devfest.backend.network.billetweb.BilletWebApi
+import org.gdglille.devfest.backend.internals.network.billetweb.BilletWebApi
 
 fun Route.registerBilletWebRoutes(
     eventDao: EventDao

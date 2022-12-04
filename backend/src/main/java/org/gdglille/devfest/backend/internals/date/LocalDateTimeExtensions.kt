@@ -1,4 +1,4 @@
-package org.gdglille.devfest.backend.date
+package org.gdglille.devfest.backend.internals.date
 
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter

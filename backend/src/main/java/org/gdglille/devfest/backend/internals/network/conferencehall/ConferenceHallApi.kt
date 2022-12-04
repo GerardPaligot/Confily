@@ -1,4 +1,4 @@
-package org.gdglille.devfest.backend.network.geolocation
+package org.gdglille.devfest.backend.internals.network.conferencehall
 
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -11,19 +11,23 @@ import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.request.get
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
-import java.net.URLEncoder
 
-class GeocodeApi(
+class ConferenceHallApi(
     private val client: HttpClient,
     private val apiKey: String,
-    private val baseUrl: String = "https://maps.googleapis.com/maps/api"
+    private val baseUrl: String = "https://${System.getenv("BASE_URL_CONFERENCE_HALL")}/api"
 ) {
-    suspend fun geocode(query: String): Geocode =
-        client.get("$baseUrl/geocode/json?address=${URLEncoder.encode(query, "utf-8")}&key=$apiKey").body()
+    suspend fun fetchSpeakerAvatar(url: String) = client.get(url).body<ByteArray>()
+
+    suspend fun fetchEventConfirmed(eventId: String) =
+        client.get("$baseUrl/v1/event/$eventId?key=$apiKey&state=confirmed").body<Event>()
+
+    suspend fun fetchEventAccepted(eventId: String) =
+        client.get("$baseUrl/v1/event/$eventId?key=$apiKey&state=accepted").body<Event>()
 
     object Factory {
-        fun create(apiKey: String, enableNetworkLogs: Boolean): GeocodeApi =
-            GeocodeApi(
+        fun create(apiKey: String, enableNetworkLogs: Boolean): ConferenceHallApi =
+            ConferenceHallApi(
                 client = HttpClient(Java.create()) {
                     install(ContentNegotiation) {
                         json(

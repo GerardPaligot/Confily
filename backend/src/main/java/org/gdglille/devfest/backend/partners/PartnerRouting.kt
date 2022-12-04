@@ -8,7 +8,7 @@ import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.put
 import org.gdglille.devfest.backend.events.EventDao
-import org.gdglille.devfest.backend.network.geolocation.GeocodeApi
+import org.gdglille.devfest.backend.internals.network.geolocation.GeocodeApi
 import org.gdglille.devfest.backend.partners.cms4partners.Cms4PartnersDao
 import org.gdglille.devfest.backend.receiveValidated
 import org.gdglille.devfest.models.inputs.PartnerInput

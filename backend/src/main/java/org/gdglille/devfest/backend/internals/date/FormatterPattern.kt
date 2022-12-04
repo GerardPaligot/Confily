@@ -1,4 +1,4 @@
-package org.gdglille.devfest.backend.date
+package org.gdglille.devfest.backend.internals.date
 
 sealed class FormatterPattern(val format: String) {
     object YearMonthDay : FormatterPattern("yyyy-MM-dd")

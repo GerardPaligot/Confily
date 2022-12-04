@@ -3,8 +3,8 @@ package org.gdglille.devfest.backend.partners
 import org.gdglille.devfest.backend.NotAcceptableException
 import org.gdglille.devfest.backend.NotFoundException
 import org.gdglille.devfest.backend.events.EventDao
-import org.gdglille.devfest.backend.network.geolocation.GeocodeApi
-import org.gdglille.devfest.backend.network.geolocation.convertToDb
+import org.gdglille.devfest.backend.internals.network.geolocation.GeocodeApi
+import org.gdglille.devfest.backend.internals.network.geolocation.convertToDb
 import org.gdglille.devfest.backend.partners.cms4partners.Cms4PartnersDao
 import org.gdglille.devfest.backend.partners.cms4partners.convertToModelV2
 import org.gdglille.devfest.models.PartnerV2

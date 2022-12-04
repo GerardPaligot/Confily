@@ -4,8 +4,8 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import org.gdglille.devfest.backend.NotFoundException
-import org.gdglille.devfest.backend.date.FormatterPattern
-import org.gdglille.devfest.backend.date.format
+import org.gdglille.devfest.backend.internals.date.FormatterPattern
+import org.gdglille.devfest.backend.internals.date.format
 import org.gdglille.devfest.backend.partners.PartnerDao
 import org.gdglille.devfest.backend.partners.cms4partners.Cms4PartnersDao
 import org.gdglille.devfest.backend.partners.cms4partners.Sponsorship
@@ -59,7 +59,7 @@ class EventRepository(
     suspend fun get(eventId: String): EventV2 {
         val event = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
         return event.convertToModelV2(
-            hasPartnerList = cms4PartnersDao.hasPartners(event.year) || partnerDao.hasPartners()
+            hasPartnerList = cms4PartnersDao.hasPartners(event.year) || partnerDao.hasPartners(eventId)
         )
     }
 

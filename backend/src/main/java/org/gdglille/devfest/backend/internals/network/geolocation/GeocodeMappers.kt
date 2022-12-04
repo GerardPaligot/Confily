@@ -1,4 +1,4 @@
-package org.gdglille.devfest.backend.network.geolocation
+package org.gdglille.devfest.backend.internals.network.geolocation
 
 import org.gdglille.devfest.backend.events.AddressDb
 

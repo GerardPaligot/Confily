@@ -1,7 +1,7 @@
 package org.gdglille.devfest.backend.schedulers
 
-import org.gdglille.devfest.backend.date.FormatterPattern
-import org.gdglille.devfest.backend.date.format
+import org.gdglille.devfest.backend.internals.date.FormatterPattern
+import org.gdglille.devfest.backend.internals.date.format
 import org.gdglille.devfest.models.ScheduleItem
 import org.gdglille.devfest.models.Talk
 import org.gdglille.devfest.models.inputs.ScheduleInput

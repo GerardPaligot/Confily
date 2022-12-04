@@ -5,7 +5,7 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.events.convertToDb
-import org.gdglille.devfest.backend.network.conferencehall.ConferenceHallApi
+import org.gdglille.devfest.backend.internals.network.conferencehall.ConferenceHallApi
 import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.speakers.convertToDb
 import org.gdglille.devfest.backend.talks.TalkDao

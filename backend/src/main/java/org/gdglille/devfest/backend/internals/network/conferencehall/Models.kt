@@ -1,4 +1,4 @@
-package org.gdglille.devfest.backend.network.conferencehall
+package org.gdglille.devfest.backend.internals.network.conferencehall
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

@@ -1,4 +1,4 @@
-package org.gdglille.devfest.backend.storage
+package org.gdglille.devfest.backend.internals.helpers.storage
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
