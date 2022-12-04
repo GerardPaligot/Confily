@@ -35,6 +35,10 @@ class SpeakerDao(private val database: Database, private val storage: Storage) {
         collectionName = CollectionName
     )
 
+    suspend fun insert(eventId: String, speaker: SpeakerDb) = coroutineScope {
+        database.insert(eventId = eventId, collectionName = CollectionName, id = speaker.id, item = speaker)
+    }
+
     suspend fun insertAll(eventId: String, speakers: List<SpeakerDb>) = coroutineScope {
         val asyncItems = speakers.map {
             async {

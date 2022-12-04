@@ -22,6 +22,15 @@ class TalkDao(private val database: Database) {
         collectionName = CollectionName
     )
 
+    suspend fun insert(eventId: String, talk: TalkDb) {
+        database.insert(
+            eventId = eventId,
+            collectionName = CollectionName,
+            id = talk.id,
+            item = talk
+        )
+    }
+
     suspend fun insertAll(eventId: String, talks: List<TalkDb>) = coroutineScope {
         val asyncItems = talks.map {
             async {

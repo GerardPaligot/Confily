@@ -22,4 +22,38 @@ fun Route.registerConferenceHallRoutes(
         val repository = ConferenceHallRepository(api, eventDao, speakerDao, talkDao)
         call.respond(HttpStatusCode.Created, repository.import(eventId, apiKey))
     }
+
+    post("conference-hall/{eventId}/talks/import") {
+        val apiKey = call.request.headers["api_key"]!!
+        val eventId = call.parameters["eventId"]!!
+        val api = ConferenceHallApi.Factory.create(apiKey = apiKey, enableNetworkLogs = true)
+        val repository = ConferenceHallRepository(api, eventDao, speakerDao, talkDao)
+        call.respond(HttpStatusCode.Created, repository.importTalks(eventId))
+    }
+
+    post("conference-hall/{eventId}/talks/{talkId}/import") {
+        val apiKey = call.request.headers["api_key"]!!
+        val eventId = call.parameters["eventId"]!!
+        val talkId = call.parameters["talkId"]!!
+        val api = ConferenceHallApi.Factory.create(apiKey = apiKey, enableNetworkLogs = true)
+        val repository = ConferenceHallRepository(api, eventDao, speakerDao, talkDao)
+        call.respond(HttpStatusCode.Created, repository.importTalk(eventId, talkId))
+    }
+
+    post("conference-hall/{eventId}/speakers/import") {
+        val apiKey = call.request.headers["api_key"]!!
+        val eventId = call.parameters["eventId"]!!
+        val api = ConferenceHallApi.Factory.create(apiKey = apiKey, enableNetworkLogs = true)
+        val repository = ConferenceHallRepository(api, eventDao, speakerDao, talkDao)
+        call.respond(HttpStatusCode.Created, repository.importSpeakers(eventId))
+    }
+
+    post("conference-hall/{eventId}/speakers/{speakerId}/import") {
+        val apiKey = call.request.headers["api_key"]!!
+        val eventId = call.parameters["eventId"]!!
+        val speakerId = call.parameters["speakerId"]!!
+        val api = ConferenceHallApi.Factory.create(apiKey = apiKey, enableNetworkLogs = true)
+        val repository = ConferenceHallRepository(api, eventDao, speakerDao, talkDao)
+        call.respond(HttpStatusCode.Created, repository.importSpeaker(eventId, speakerId))
+    }
 }
