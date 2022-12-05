@@ -100,6 +100,10 @@ data class EventInput(
     @SerialName("sponsoring_types")
     val sponsoringTypes: List<String> = emptyList(),
     val formats: Map<String, Int> = emptyMap(),
+    @SerialName("contact_phone")
+    val contactPhone: String?,
+    @SerialName("contact_email")
+    val contactEmail: String,
     @SerialName("twitter_url")
     val twitterUrl: String?,
     @SerialName("linkedin_url")

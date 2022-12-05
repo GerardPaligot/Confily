@@ -67,6 +67,8 @@ data class EventDb(
     val coc: String = "",
     val categories: List<CategoryDb> = emptyList(),
     val features: FeaturesActivatedDb = FeaturesActivatedDb(),
+    val contactPhone: String? = null,
+    val contactEmail: String = "",
     val twitterUrl: String? = null,
     val linkedinUrl: String? = null,
     val faqLink: String? = null,

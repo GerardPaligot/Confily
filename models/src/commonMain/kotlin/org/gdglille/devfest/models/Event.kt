@@ -89,6 +89,10 @@ data class EventV2(
     val qanda: List<QuestionAndResponse>,
     val coc: String,
     val features: FeaturesActivated,
+    @SerialName("contact_phone")
+    val contactPhone: String?,
+    @SerialName("contact_email")
+    val contactEmail: String,
     @SerialName("twitter_url")
     val twitterUrl: String?,
     @SerialName("linkedin_url")
