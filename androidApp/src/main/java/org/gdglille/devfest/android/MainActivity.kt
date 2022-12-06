@@ -18,6 +18,7 @@ import org.gdglille.devfest.android.theme.Main
 import org.gdglille.devfest.database.DatabaseWrapper
 import org.gdglille.devfest.database.EventDao
 import org.gdglille.devfest.database.FeaturesActivatedDao
+import org.gdglille.devfest.database.PartnerDao
 import org.gdglille.devfest.database.ScheduleDao
 import org.gdglille.devfest.database.SpeakerDao
 import org.gdglille.devfest.database.TalkDao
@@ -47,7 +48,7 @@ class MainActivity : AppCompatActivity() {
             speakerDao = SpeakerDao(db, eventId),
             talkDao = TalkDao(db),
             eventDao = EventDao(db, eventId),
-            userDao = UserDao(db = db, eventId = eventId),
+            partnerDao = PartnerDao(db = db, eventId = eventId),
             featuresDao = FeaturesActivatedDao(db = db, eventId = eventId),
             qrCodeGenerator = QrCodeGeneratorAndroid()
         )

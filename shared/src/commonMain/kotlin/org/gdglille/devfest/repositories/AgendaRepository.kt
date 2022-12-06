@@ -9,11 +9,12 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.Flow
 import org.gdglille.devfest.database.EventDao
 import org.gdglille.devfest.database.FeaturesActivatedDao
+import org.gdglille.devfest.database.PartnerDao
 import org.gdglille.devfest.database.ScheduleDao
 import org.gdglille.devfest.database.SpeakerDao
 import org.gdglille.devfest.database.TalkDao
-import org.gdglille.devfest.database.UserDao
 import org.gdglille.devfest.models.AgendaUi
+import org.gdglille.devfest.models.CoCUi
 import org.gdglille.devfest.models.EventUi
 import org.gdglille.devfest.models.MenuItemUi
 import org.gdglille.devfest.models.PartnerGroupsUi
@@ -33,7 +34,7 @@ interface AgendaRepository {
     fun partners(): Flow<PartnerGroupsUi>
     fun qanda(): Flow<List<QuestionAndResponseUi>>
     fun menus(): Flow<List<MenuItemUi>>
-    fun coc(): Flow<String>
+    fun coc(): Flow<CoCUi>
     fun agenda(date: String): Flow<AgendaUi>
     fun speaker(speakerId: String): Flow<SpeakerUi>
     fun markAsRead(scheduleId: String, isFavorite: Boolean)
@@ -49,7 +50,7 @@ interface AgendaRepository {
             speakerDao: SpeakerDao,
             talkDao: TalkDao,
             eventDao: EventDao,
-            userDao: UserDao,
+            partnerDao: PartnerDao,
             featuresDao: FeaturesActivatedDao,
             qrCodeGenerator: QrCodeGenerator
         ): AgendaRepository = AgendaRepositoryImpl(
@@ -58,7 +59,7 @@ interface AgendaRepository {
             speakerDao,
             talkDao,
             eventDao,
-            userDao,
+            partnerDao,
             featuresDao,
             qrCodeGenerator
         )
@@ -74,7 +75,7 @@ class AgendaRepositoryImpl(
     private val speakerDao: SpeakerDao,
     private val talkDao: TalkDao,
     private val eventDao: EventDao,
-    private val userDao: UserDao,
+    private val partnerDao: PartnerDao,
     private val featuresDao: FeaturesActivatedDao,
     private val qrCodeGenerator: QrCodeGenerator
 ) : AgendaRepository {
@@ -84,6 +85,7 @@ class AgendaRepositoryImpl(
     override suspend fun fetchAndStoreAgenda() {
         val etag = scheduleDao.lastEtag()
         val event = api.fetchEvent()
+        val partners = api.fetchPartners()
         try {
             val agenda = api.fetchAgenda(etag)
             agenda.second.entries.forEach { entry ->
@@ -95,6 +97,7 @@ class AgendaRepositoryImpl(
         } catch (_: Throwable) {
         }
         eventDao.insertEvent(event)
+        partnerDao.insertPartners(partners)
     }
 
     override fun toggleFavoriteFiltering() {
@@ -116,10 +119,10 @@ class AgendaRepositoryImpl(
 
     override fun isFavoriteToggled(): Flow<Boolean> = scheduleDao.isFavoriteToggled()
     override fun event(): Flow<EventUi> = eventDao.fetchEvent()
-    override fun partners(): Flow<PartnerGroupsUi> = eventDao.fetchPartners()
+    override fun partners(): Flow<PartnerGroupsUi> = partnerDao.fetchPartners()
     override fun qanda(): Flow<List<QuestionAndResponseUi>> = eventDao.fetchQAndA()
     override fun menus(): Flow<List<MenuItemUi>> = eventDao.fetchMenus()
-    override fun coc(): Flow<String> = eventDao.fetchCoC()
+    override fun coc(): Flow<CoCUi> = eventDao.fetchCoC()
     override fun agenda(date: String): Flow<AgendaUi> = scheduleDao.fetchSchedules(date)
     override fun speaker(speakerId: String): Flow<SpeakerUi> = speakerDao.fetchSpeaker(speakerId)
 

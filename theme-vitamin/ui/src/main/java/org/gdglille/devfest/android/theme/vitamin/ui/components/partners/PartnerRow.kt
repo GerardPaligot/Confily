@@ -45,7 +45,7 @@ fun PartnerRow(
 fun PartnerRowPreview() {
     Conferences4HallTheme {
         PartnerRow(
-            partners = PartnerGroupsUi.fake.silvers[0],
+            partners = PartnerGroupsUi.fake.map.values.first().first(),
             onPartnerClick = {}
         )
     }

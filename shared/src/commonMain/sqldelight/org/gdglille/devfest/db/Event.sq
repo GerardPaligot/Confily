@@ -9,6 +9,8 @@ latitude REAL NOT NULL,
 longitude REAL NOT NULL,
 date TEXT NOT NULL,
 coc TEXT NOT NULL,
+contact_email TEXT NOT NULL,
+contact_phone TEXT,
 twitter TEXT,
 twitter_url TEXT,
 linkedin TEXT,
@@ -18,32 +20,55 @@ coc_url TEXT NOT NULL,
 updated_at INTEGER NOT NULL
 );
 
-CREATE TABLE Partner(
+CREATE TABLE Partner (
 name TEXT NOT NULL PRIMARY KEY,
+description TEXT NOT NULL,
 event_id TEXT NOT NULL,
+type_id TEXT NOT NULL,
 type TEXT NOT NULL,
 logo_url TEXT NOT NULL,
-site_url TEXT
+site_url TEXT,
+twitter_url TEXT,
+twitter_message TEXT,
+linkedin_url TEXT,
+linkedin_message TEXT,
+formatted_address TEXT AS List<String>,
+address TEXT,
+latitude REAL,
+longitude REAL
+);
+
+CREATE TABLE PartnerType (
+order_ INTEGER NOT NULL,
+name TEXT NOT NULL PRIMARY KEY
 );
 
 insertEvent:
 INSERT OR REPLACE INTO Event(
-id, name, formatted_address, address, latitude, longitude, date, coc, twitter, twitter_url, linkedin, linkedin_url, faq_url, coc_url, updated_at
-) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+id, name, formatted_address, address, latitude, longitude, date, coc, contact_email, contact_phone, twitter, twitter_url, linkedin, linkedin_url, faq_url, coc_url, updated_at
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
 
 selectEvent:
-SELECT id, name, formatted_address, address, latitude, longitude, date, coc, twitter, twitter_url, linkedin, linkedin_url, faq_url, coc_url, updated_at FROM Event WHERE id == ?;
+SELECT id, name, formatted_address, address, latitude, longitude, date, coc, contact_email, contact_phone, twitter, twitter_url, linkedin, linkedin_url, faq_url, coc_url, updated_at FROM Event WHERE id == ?;
 
 selectCoc:
-SELECT coc FROM Event WHERE id == ?;
+SELECT coc, contact_email, contact_phone FROM Event WHERE id == ?;
 
 selectUpdatedAt:
 SELECT updated_at FROM Event WHERE id == ?;
 
+insertPartnerType:
+INSERT OR REPLACE INTO PartnerType(
+order_, name
+) VALUES (?, ?);
+
 insertPartner:
 INSERT OR REPLACE INTO Partner(
-name, event_id, type, logo_url, site_url
-) VALUES (?,?,?,?,?);
+name, description, event_id, type_id, type, logo_url, site_url, twitter_url, twitter_message, linkedin_url, linkedin_message, formatted_address, address, latitude, longitude
+) VALUES (?,?,?, ?,?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+selectPartnerTypes:
+SELECT * FROM PartnerType ORDER BY order_ ASC;
 
 selectPartners:
-SELECT * FROM Partner WHERE type == ? AND event_id == ?;
+SELECT name, description, logo_url, site_url, twitter_url, twitter_message, linkedin_url, linkedin_message, formatted_address, address, latitude, longitude FROM Partner WHERE event_id == ? AND type_id == ? ORDER BY name ASC;

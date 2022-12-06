@@ -1,0 +1,18 @@
+import kotlin.collections.List;
+
+ALTER TABLE Event ADD COLUMN contact_email TEXT NOT NULL DEFAULT "";
+ALTER TABLE Event ADD COLUMN contact_phone TEXT;
+ALTER TABLE Partner ADD COLUMN description TEXT NOT NULL DEFAULT "";
+ALTER TABLE Partner ADD COLUMN type_id TEXT NOT NULL DEFAULT "";
+ALTER TABLE Partner ADD COLUMN twitter_url TEXT;
+ALTER TABLE Partner ADD COLUMN twitter_message TEXT;
+ALTER TABLE Partner ADD COLUMN linkedin_url TEXT;
+ALTER TABLE Partner ADD COLUMN linkedin_message TEXT;
+ALTER TABLE Partner ADD COLUMN formatted_address TEXT AS List<String>;
+ALTER TABLE Partner ADD COLUMN address TEXT;
+ALTER TABLE Partner ADD COLUMN latitude TEXT;
+ALTER TABLE Partner ADD COLUMN longitude TEXT;
+CREATE TABLE PartnerType (
+order_ INTEGER NOT NULL,
+name TEXT NOT NULL PRIMARY KEY
+);

@@ -17,10 +17,11 @@ import com.halilibo.richtext.markdown.Markdown
 import com.halilibo.richtext.ui.RichText
 import com.halilibo.richtext.ui.RichTextThemeIntegration
 import org.gdglille.devfest.android.theme.m3.ui.R
+import org.gdglille.devfest.models.CoCUi
 
 @Composable
 fun CoC(
-    coc: String,
+    coc: CoCUi,
     modifier: Modifier = Modifier,
     onReportClicked: () -> Unit
 ) {
@@ -44,7 +45,7 @@ fun CoC(
                 ProvideContentColor = null,
             ) {
                 RichText {
-                    Markdown(coc)
+                    Markdown(coc.text)
                 }
             }
         }

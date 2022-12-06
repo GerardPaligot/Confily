@@ -5,6 +5,7 @@ import kotlinx.datetime.toLocalDateTime
 import org.gdglille.devfest.db.Event
 import org.gdglille.devfest.db.Speaker
 import org.gdglille.devfest.db.Talk
+import org.gdglille.devfest.models.EventV2
 import org.gdglille.devfest.models.ScheduleItem
 
 fun org.gdglille.devfest.models.Speaker.convertToModelDb(eventId: String): Speaker = Speaker(
@@ -34,7 +35,7 @@ fun ScheduleItem.convertToModelDb(): Talk = Talk(
     open_feedback_url = this.talk!!.openFeedback
 )
 
-fun org.gdglille.devfest.models.Event.convertToModelDb(): Event = Event(
+fun EventV2.convertToModelDb(): Event = Event(
     id = this.id,
     name = this.name,
     formatted_address = this.address.formatted,
@@ -43,6 +44,8 @@ fun org.gdglille.devfest.models.Event.convertToModelDb(): Event = Event(
     longitude = this.address.lng,
     date = this.startDate.dropLast(1).toLocalDateTime().format(),
     coc = this.coc,
+    contact_email = contactEmail,
+    contact_phone = contactPhone,
     twitter = this.twitterUrl?.split("twitter.com/")?.get(1),
     twitter_url = this.twitterUrl,
     linkedin = this.name,

@@ -27,9 +27,14 @@ class Cms4PartnersDao(
     }
 
     suspend fun list(year: String): List<Cms4PartnerDb> {
+        val collectionName = if (hasPartners(year)) {
+            "companies-$year"
+        } else {
+            "companies"
+        }
         return database
             .query<Cms4PartnerDb>(
-                collectionName = "companies-$year",
+                collectionName = collectionName,
                 "edition".whereEquals(year),
                 "public".whereEquals(true),
                 "logoUrl".whereNotEquals(null)

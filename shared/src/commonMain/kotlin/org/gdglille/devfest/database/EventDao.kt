@@ -9,12 +9,11 @@ import kotlinx.coroutines.flow.combineTransform
 import org.gdglille.devfest.Image
 import org.gdglille.devfest.db.Conferences4HallDatabase
 import org.gdglille.devfest.models.Attendee
-import org.gdglille.devfest.models.Event
+import org.gdglille.devfest.models.CoCUi
 import org.gdglille.devfest.models.EventInfoUi
 import org.gdglille.devfest.models.EventUi
+import org.gdglille.devfest.models.EventV2
 import org.gdglille.devfest.models.MenuItemUi
-import org.gdglille.devfest.models.PartnerGroupsUi
-import org.gdglille.devfest.models.PartnerItemUi
 import org.gdglille.devfest.models.QuestionAndResponseActionUi
 import org.gdglille.devfest.models.QuestionAndResponseUi
 import org.gdglille.devfest.models.TicketInfoUi
@@ -25,8 +24,8 @@ import org.gdglille.devfest.toNativeImage
 class EventDao(private val db: Conferences4HallDatabase, private val eventId: String) {
     private val eventMapper =
         { _: String, name: String, formattedAddress: List<String>, address: String, latitude: Double, longitude: Double,
-            date: String, _: String, twitter: String?, twitter_url: String?, linkedin: String?, linkedin_url: String?,
-            faq_url: String, coc_url: String, _: Long ->
+            date: String, _: String, _: String, _: String?, twitter: String?, twitterUrl: String?,
+            linkedin: String?, linkedinUrl: String?, faqUrl: String, cocUrl: String, _: Long ->
             EventInfoUi(
                 name = name,
                 formattedAddress = formattedAddress,
@@ -35,21 +34,20 @@ class EventDao(private val db: Conferences4HallDatabase, private val eventId: St
                 longitude = longitude,
                 date = date,
                 twitter = twitter,
-                twitterUrl = twitter_url,
+                twitterUrl = twitterUrl,
                 linkedin = linkedin,
-                linkedinUrl = linkedin_url,
-                faqLink = faq_url,
-                codeOfConductLink = coc_url
+                linkedinUrl = linkedinUrl,
+                faqLink = faqUrl,
+                codeOfConductLink = cocUrl
             )
-        }
-
-    private val partnerMapper =
-        { name: String, _: String, _: String, logo_url: String, site_url: String? ->
-            PartnerItemUi(logoUrl = logo_url, siteUrl = site_url, name = name)
         }
 
     private val menuMapper = { name: String, dish: String, accompaniment: String, dessert: String ->
         MenuItemUi(name = name, dish = dish, accompaniment = accompaniment, dessert = dessert)
+    }
+
+    private val cocMapper = { coc: String, email: String, phone: String? ->
+        CoCUi(text = coc, phone = phone, email = email)
     }
 
     private val ticketMapper =
@@ -76,23 +74,6 @@ class EventDao(private val db: Conferences4HallDatabase, private val eventId: St
             }
     }
 
-    fun fetchPartners(): Flow<PartnerGroupsUi> = db.transactionWithResult {
-        return@transactionWithResult combine(
-            db.eventQueries.selectPartners("gold", eventId, partnerMapper).asFlow().mapToList(),
-            db.eventQueries.selectPartners("silver", eventId, partnerMapper).asFlow().mapToList(),
-            db.eventQueries.selectPartners("bronze", eventId, partnerMapper).asFlow().mapToList(),
-            db.eventQueries.selectPartners("other", eventId, partnerMapper).asFlow().mapToList(),
-            transform = { golds, silvers, bronzes, others ->
-                PartnerGroupsUi(
-                    golds = golds.chunked(3),
-                    silvers = silvers.chunked(3),
-                    bronzes = bronzes.chunked(3),
-                    others = others.chunked(3)
-                )
-            }
-        )
-    }
-
     fun fetchQAndA(): Flow<List<QuestionAndResponseUi>> = db.transactionWithResult {
         return@transactionWithResult combine(
             db.qAndAQueries.selectQAndA().asFlow().mapToList(),
@@ -115,9 +96,9 @@ class EventDao(private val db: Conferences4HallDatabase, private val eventId: St
     fun fetchMenus(): Flow<List<MenuItemUi>> =
         db.menuQueries.selectMenus(menuMapper).asFlow().mapToList()
 
-    fun fetchCoC(): Flow<String> = db.eventQueries.selectCoc(eventId).asFlow().mapToOne()
+    fun fetchCoC(): Flow<CoCUi> = db.eventQueries.selectCoc(eventId, cocMapper).asFlow().mapToOne()
 
-    fun insertEvent(event: Event) = db.transaction {
+    fun insertEvent(event: EventV2) = db.transaction {
         val eventDb = event.convertToModelDb()
         db.eventQueries.insertEvent(
             id = eventDb.id,
@@ -128,6 +109,8 @@ class EventDao(private val db: Conferences4HallDatabase, private val eventId: St
             longitude = eventDb.longitude,
             date = eventDb.date,
             coc = eventDb.coc,
+            contact_email = eventDb.contact_email,
+            contact_phone = eventDb.contact_phone,
             twitter = eventDb.twitter,
             twitter_url = eventDb.twitter_url,
             linkedin = eventDb.linkedin,
@@ -136,30 +119,6 @@ class EventDao(private val db: Conferences4HallDatabase, private val eventId: St
             coc_url = eventDb.coc_url,
             updated_at = eventDb.updated_at
         )
-        event.partners.golds.forEach {
-            db.eventQueries.insertPartner(it.name, event.id, type = "gold", it.logoUrl, it.siteUrl)
-        }
-        event.partners.silvers.forEach {
-            db.eventQueries.insertPartner(
-                it.name,
-                event.id,
-                type = "silver",
-                it.logoUrl,
-                it.siteUrl
-            )
-        }
-        event.partners.bronzes.forEach {
-            db.eventQueries.insertPartner(
-                it.name,
-                event.id,
-                type = "bronze",
-                it.logoUrl,
-                it.siteUrl
-            )
-        }
-        event.partners.others.forEach {
-            db.eventQueries.insertPartner(it.name, event.id, type = "other", it.logoUrl, it.siteUrl)
-        }
         event.qanda.forEach { qAndA ->
             db.qAndAQueries.insertQAndA(qAndA.order.toLong(), eventId, qAndA.question, qAndA.response)
             qAndA.actions.forEach {

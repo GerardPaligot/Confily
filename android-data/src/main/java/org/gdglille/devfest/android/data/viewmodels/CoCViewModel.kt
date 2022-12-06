@@ -8,11 +8,12 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import org.gdglille.devfest.models.CoCUi
 import org.gdglille.devfest.repositories.AgendaRepository
 
 sealed class CoCUiState {
     object Loading : CoCUiState()
-    data class Success(val coc: String) : CoCUiState()
+    data class Success(val coc: CoCUi) : CoCUiState()
     data class Failure(val throwable: Throwable) : CoCUiState()
 }
 
