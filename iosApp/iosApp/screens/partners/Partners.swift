@@ -18,27 +18,13 @@ struct Partners: View {
             let parentWidth = geometry.size.width
             ScrollView {
                 LazyVStack(spacing: 8) {
-                    Section {
-                        PartnerDividerView(text: NSLocalizedString("titleGold", comment: ""))
-                        ForEach(partners.golds, id: \.[0].name) { partners in
-                            PartnerRowView(partners: partners, parentWidth: parentWidth) { url in
-                                if let url2 = URL(string: url) { openURL(url2) }
-                            }
-                        }
-                    }
-                    Section {
-                        PartnerDividerView(text: NSLocalizedString("titleSilver", comment: ""))
-                        ForEach(partners.silvers, id: \.[0].name) { partners in
-                            PartnerRowView(partners: partners, parentWidth: parentWidth) { url in
-                                if let url2 = URL(string: url) { openURL(url2) }
-                            }
-                        }
-                    }
-                    Section {
-                        PartnerDividerView(text: NSLocalizedString("titleBronze", comment: ""))
-                        ForEach(partners.bronzes, id: \.[0].name) { partners in
-                            PartnerRowView(partners: partners, parentWidth: parentWidth) { url in
-                                if let url2 = URL(string: url) { openURL(url2) }
+                    ForEach(Array(partners.map.keys).reversed(), id: \.self) { key in
+                        Section {
+                            PartnerDividerView(text: key)
+                            ForEach(partners.map[key]!, id: \.[0].name) { partners in
+                                PartnerRowView(partners: partners, parentWidth: parentWidth) { url in
+                                    if let url2 = URL(string: url) { openURL(url2) }
+                                }
                             }
                         }
                     }

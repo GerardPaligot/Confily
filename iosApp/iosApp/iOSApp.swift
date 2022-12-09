@@ -24,7 +24,7 @@ struct iOSApp: App {
             speakerDao: SpeakerDao(db: db, eventId: eventId),
             talkDao: TalkDao(db: db),
             eventDao: EventDao(db: db, eventId: eventId),
-            userDao: UserDao(db: db, eventId: eventId),
+            partnerDao: PartnerDao(db: db, eventId: eventId),
             featuresDao: FeaturesActivatedDao(db: db, eventId: eventId),
             qrCodeGenerator: QrCodeGeneratoriOS()
         )

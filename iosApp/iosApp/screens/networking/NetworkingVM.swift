@@ -28,7 +28,7 @@ struct NetworkingVM: View {
                         networkingUi: networkingUi,
                         onValidation: { email, firstName, lastName, company in
                             Task {
-                                await viewModel.saveProfile(email: email, firstName: firstName, lastName: lastName, company: company)
+                                viewModel.saveProfile(email: email, firstName: firstName, lastName: lastName, company: company)
                             }
                         },
                         onDismissProfileSheet: {
@@ -36,7 +36,7 @@ struct NetworkingVM: View {
                         },
                         onNetworkDeleted: { email in
                             Task {
-                                await viewModel.deleteNetworkProfile(email: email)
+                                viewModel.deleteNetworkProfile(email: email)
                             }
                         }
                     )

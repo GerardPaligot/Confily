@@ -34,7 +34,7 @@ struct AgendaVM: View {
                             agenda: agenda,
                             onFilteringClicked: {
                                 Task {
-                                    await viewModel.toggleFavoriteFiltering()
+                                    viewModel.toggleFavoriteFiltering()
                                 }
                             },
                             talkItem: { talk in
