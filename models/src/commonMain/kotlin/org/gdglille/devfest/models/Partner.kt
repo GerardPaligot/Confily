@@ -14,6 +14,7 @@ data class Partner(
 
 @Serializable
 data class PartnerV2(
+    val id: String,
     val name: String,
     val description: String,
     @SerialName("logo_url")

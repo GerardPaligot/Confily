@@ -36,8 +36,8 @@ class FirestoreDatabase(private val firestore: Firestore, private val projectNam
         }
 
     override suspend fun <T : Any> query(
-        collectionName: String,
         eventId: String,
+        collectionName: String,
         clazz: KClass<T>,
         vararg ops: WhereOperation
     ): List<T> =

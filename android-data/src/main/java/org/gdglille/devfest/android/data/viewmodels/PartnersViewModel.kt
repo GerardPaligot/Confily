@@ -11,25 +11,25 @@ import kotlinx.coroutines.launch
 import org.gdglille.devfest.models.PartnerGroupsUi
 import org.gdglille.devfest.repositories.AgendaRepository
 
-sealed class PartnerUiState {
-    data class Loading(val partners: PartnerGroupsUi) : PartnerUiState()
-    data class Success(val partners: PartnerGroupsUi) : PartnerUiState()
-    data class Failure(val throwable: Throwable) : PartnerUiState()
+sealed class PartnersUiState {
+    data class Loading(val partners: PartnerGroupsUi) : PartnersUiState()
+    data class Success(val partners: PartnerGroupsUi) : PartnersUiState()
+    data class Failure(val throwable: Throwable) : PartnersUiState()
 }
 
 class PartnersViewModel(private val repository: AgendaRepository) : ViewModel() {
-    private val _uiState = MutableStateFlow<PartnerUiState>(PartnerUiState.Loading(PartnerGroupsUi.fake))
-    val uiState: StateFlow<PartnerUiState> = _uiState
+    private val _uiState = MutableStateFlow<PartnersUiState>(PartnersUiState.Loading(PartnerGroupsUi.fake))
+    val uiState: StateFlow<PartnersUiState> = _uiState
 
     init {
         viewModelScope.launch {
             try {
                 repository.partners().collect {
-                    _uiState.value = PartnerUiState.Success(it)
+                    _uiState.value = PartnersUiState.Success(it)
                 }
             } catch (error: Throwable) {
                 Firebase.crashlytics.recordException(error)
-                _uiState.value = PartnerUiState.Failure(error)
+                _uiState.value = PartnersUiState.Failure(error)
             }
         }
     }

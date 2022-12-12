@@ -43,7 +43,7 @@ class FirestoreBasicDatabase(private val firestore: Firestore) : BasicDatabase {
             .get()
             .get()
             .documents
-            .map { it.toObject(clazz.java) }
+            .map { it.id to it.toObject(clazz.java) }
     }
 
     override suspend fun <T : Any> insert(collectionName: String, eventId: String, item: T) =

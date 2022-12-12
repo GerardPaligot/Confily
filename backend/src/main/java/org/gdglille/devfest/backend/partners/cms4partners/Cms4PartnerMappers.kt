@@ -28,6 +28,7 @@ fun Cms4PartnerDb.convertToModel() = Partner(
 )
 
 fun Cms4PartnerDb.convertToModelV2() = PartnerV2(
+    id = this.id,
     name = this.name,
     description = this.description ?: "",
     logoUrl = this.logoUrl,

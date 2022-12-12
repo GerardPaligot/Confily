@@ -44,6 +44,7 @@ fun Home(
     onTalkClicked: (id: String) -> Unit,
     onLinkClicked: (url: String?) -> Unit,
     onSpeakerClicked: (id: String) -> Unit,
+    onPartnerClicked: (id: String) -> Unit,
     onContactScannerClicked: () -> Unit,
     onItineraryClicked: (lat: Double, lng: Double) -> Unit,
     onTicketScannerClicked: () -> Unit,
@@ -157,7 +158,7 @@ fun Home(
                     composable(Screen.Partners.route) {
                         PartnersVM(
                             agendaRepository = agendaRepository,
-                            onPartnerClick = onLinkClicked
+                            onPartnerClick = onPartnerClicked
                         )
                     }
                     composable(Screen.Info.route) {

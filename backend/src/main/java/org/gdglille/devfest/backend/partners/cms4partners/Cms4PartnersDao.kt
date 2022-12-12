@@ -1,7 +1,6 @@
 package org.gdglille.devfest.backend.partners.cms4partners
 
 import org.gdglille.devfest.backend.internals.helpers.database.BasicDatabase
-import org.gdglille.devfest.backend.internals.helpers.database.query
 import org.gdglille.devfest.backend.internals.helpers.database.whereEquals
 import org.gdglille.devfest.backend.internals.helpers.database.whereNotEquals
 
@@ -12,17 +11,19 @@ class Cms4PartnersDao(
 ) {
     suspend fun list(year: String, sponsorship: Sponsorship): List<Cms4PartnerDb> {
         return database
-            .query<Cms4PartnerDb>(
+            .query(
                 collectionName = "companies",
+                clazz = Cms4PartnerDb::class,
                 "edition".whereEquals(year),
                 "public".whereEquals(true),
                 "logoUrl".whereNotEquals(null),
                 "sponsoring".whereEquals(sponsorship.name)
             )
             .map {
-                if (it.siteUrl == null) return@map it
-                if (it.siteUrl.contains(Regex("^https?://"))) return@map it
-                return@map it.copy(siteUrl = "https://${it.siteUrl}")
+                val partner = it.second.copy(id = it.first)
+                if (partner.siteUrl == null) return@map partner
+                if (partner.siteUrl.contains(Regex("^https?://"))) return@map partner
+                return@map partner.copy(siteUrl = "https://${partner.siteUrl}")
             }
     }
 
@@ -33,16 +34,18 @@ class Cms4PartnersDao(
             "companies"
         }
         return database
-            .query<Cms4PartnerDb>(
+            .query(
                 collectionName = collectionName,
+                clazz = Cms4PartnerDb::class,
                 "edition".whereEquals(year),
                 "public".whereEquals(true),
                 "logoUrl".whereNotEquals(null)
             )
             .map {
-                if (it.siteUrl == null) return@map it
-                if (it.siteUrl.contains(Regex("^https?://"))) return@map it
-                return@map it.copy(siteUrl = "https://${it.siteUrl}")
+                val partner = it.second.copy(id = it.first)
+                if (partner.siteUrl == null) return@map partner
+                if (partner.siteUrl.contains(Regex("^https?://"))) return@map partner
+                return@map partner.copy(siteUrl = "https://${partner.siteUrl}")
             }
     }
 

@@ -4,11 +4,12 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import androidx.navigation.navDeepLink
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import io.openfeedback.android.OpenFeedbackConfig
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -17,6 +18,7 @@ import org.gdglille.devfest.android.data.AlarmScheduler
 import org.gdglille.devfest.android.screens.event.TicketQrCodeScanner
 import org.gdglille.devfest.android.screens.networking.VCardQrCodeScanner
 import org.gdglille.devfest.android.theme.m3.features.Home
+import org.gdglille.devfest.android.theme.m3.features.PartnerDetailVM
 import org.gdglille.devfest.android.theme.m3.features.ProfileInputVM
 import org.gdglille.devfest.android.theme.m3.features.ScheduleDetailVM
 import org.gdglille.devfest.android.theme.m3.features.SpeakerDetailVM
@@ -38,8 +40,10 @@ fun Main(
     launchUrl: (String) -> Unit,
     onReportClicked: () -> Unit,
     onShareClicked: (text: String) -> Unit,
-    onItineraryClicked: (lat: Double, lng: Double) -> Unit
+    onItineraryClicked: (lat: Double, lng: Double) -> Unit,
+    navController: NavHostController
 ) {
+    val rootUri = "c4h://event"
     Conferences4HallTheme {
         val systemUiController = rememberSystemUiController()
         val useDarkIcons = !isSystemInDarkTheme()
@@ -47,9 +51,11 @@ fun Main(
         SideEffect {
             systemUiController.setSystemBarsColor(color = statusBarColor, darkIcons = useDarkIcons)
         }
-        val navController = rememberNavController()
         NavHost(navController = navController, startDestination = "home") {
-            composable(route = "home") {
+            composable(
+                route = "home",
+                deepLinks = listOf(navDeepLink { uriPattern = rootUri })
+            ) {
                 Home(
                     agendaRepository = agendaRepository,
                     userRepository = userRepository,
@@ -62,6 +68,9 @@ fun Main(
                     onLinkClicked = { url -> url?.let { launchUrl(it) } },
                     onSpeakerClicked = {
                         navController.navigate("speakers/$it")
+                    },
+                    onPartnerClicked = {
+                        navController.navigate("partners/$it")
                     },
                     onContactScannerClicked = {
                         navController.navigate("scanner/vcard")
@@ -91,6 +100,21 @@ fun Main(
                         navController.navigate("speakers/$it")
                     },
                     onShareClicked = onShareClicked
+                )
+            }
+            composable(
+                route = "partners/{partnerId}",
+                arguments = listOf(navArgument("partnerId") { type = NavType.StringType }),
+                deepLinks = listOf(navDeepLink { uriPattern = "$rootUri/partners/{partnerId}" })
+            ) {
+                PartnerDetailVM(
+                    partnerId = it.arguments?.getString("partnerId")!!,
+                    agendaRepository = agendaRepository,
+                    onLinkClicked = { launchUrl(it) },
+                    onItineraryClicked = onItineraryClicked,
+                    onBackClicked = {
+                        navController.popBackStack()
+                    }
                 )
             }
             composable(

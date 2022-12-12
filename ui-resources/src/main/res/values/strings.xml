@@ -10,6 +10,7 @@
     <string name="screen_qanda">Q&amp;A</string>
     <string name="screen_coc">Code of conduct</string>
     <string name="screen_partners">Partners</string>
+    <string name="screen_partners_detail">Partner detail</string>
     <string name="screen_schedule_detail">About the talk</string>
     <string name="screen_profile">Create my profile</string>
     <string name="screen_qrcode_scanner">Qrcode Scanner</string>
@@ -23,6 +24,10 @@
     <string name="title_notif_reminder_talk">Talk in 10 minutes in %s</string>
     <string name="title_ticket">Your ticket</string>
     <string name="title_plan">Go to the event</string>
+    <string name="title_plan_partner">Go to the partner location</string>
+    <string name="title_communication">Communication on social networks</string>
+    <string name="title_communication_twitter">Twitter message</string>
+    <string name="title_communication_linkedin">LinkedIn message</string>
 
     <string name="text_loading">Loading…</string>
     <string name="text_error">Something wrong happened</string>
@@ -77,6 +82,7 @@
     <string name="action_networking_delete">Delete the profile</string>
     <string name="action_contact_organizers">Contact organizers</string>
     <string name="action_edit_profile">Edit my information</string>
+    <string name="action_open_website">Open website of %s</string>
 
     <string name="input_email">Mail (Mandatory)</string>
     <string name="input_firstname">Name (Mandatory)</string>

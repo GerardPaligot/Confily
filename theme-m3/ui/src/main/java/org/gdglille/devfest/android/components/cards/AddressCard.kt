@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Navigation
 import androidx.compose.material3.Card
@@ -31,7 +30,8 @@ fun AddressCard(
     formattedAddress: List<String>,
     modifier: Modifier = Modifier,
     isLoading: Boolean = false,
-    shape: Shape = RoundedCornerShape(4.dp),
+    hasGpsLocation: Boolean = true,
+    shape: Shape = MaterialTheme.shapes.small,
     onItineraryClicked: () -> Unit
 ) {
     Card(
@@ -54,13 +54,15 @@ fun AddressCard(
                     )
                 }
             }
-            IconButton(onClick = onItineraryClicked) {
-                Icon(
-                    imageVector = Icons.Outlined.Navigation,
-                    contentDescription = stringResource(R.string.semantic_start_itinerary),
-                    tint = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.size(32.dp).placeholder(isLoading)
-                )
+            if (hasGpsLocation) {
+                IconButton(onClick = onItineraryClicked) {
+                    Icon(
+                        imageVector = Icons.Outlined.Navigation,
+                        contentDescription = stringResource(R.string.semantic_start_itinerary),
+                        tint = MaterialTheme.colorScheme.onSurface,
+                        modifier = Modifier.size(32.dp).placeholder(isLoading)
+                    )
+                }
             }
         }
     }

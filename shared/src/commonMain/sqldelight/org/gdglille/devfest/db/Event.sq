@@ -21,7 +21,8 @@ updated_at INTEGER NOT NULL
 );
 
 CREATE TABLE Partner (
-name TEXT NOT NULL PRIMARY KEY,
+id TEXT NOT NULL PRIMARY KEY,
+name TEXT NOT NULL,
 description TEXT NOT NULL,
 event_id TEXT NOT NULL,
 type_id TEXT NOT NULL,
@@ -64,11 +65,14 @@ order_, name
 
 insertPartner:
 INSERT OR REPLACE INTO Partner(
-name, description, event_id, type_id, type, logo_url, site_url, twitter_url, twitter_message, linkedin_url, linkedin_message, formatted_address, address, latitude, longitude
-) VALUES (?,?,?, ?,?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+id, name, description, event_id, type_id, type, logo_url, site_url, twitter_url, twitter_message, linkedin_url, linkedin_message, formatted_address, address, latitude, longitude
+) VALUES (?, ?,?,?, ?,?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
 
 selectPartnerTypes:
 SELECT * FROM PartnerType ORDER BY order_ ASC;
 
 selectPartners:
-SELECT name, description, logo_url, site_url, twitter_url, twitter_message, linkedin_url, linkedin_message, formatted_address, address, latitude, longitude FROM Partner WHERE event_id == ? AND type_id == ? ORDER BY name ASC;
+SELECT id, name, description, logo_url, site_url, twitter_url, twitter_message, linkedin_url, linkedin_message, formatted_address, address, latitude, longitude FROM Partner WHERE event_id == ? AND type_id == ? ORDER BY name ASC;
+
+selectPartner:
+SELECT id, name, description, logo_url, site_url, twitter_url, twitter_message, linkedin_url, linkedin_message, formatted_address, address, latitude, longitude FROM Partner WHERE id == ? ORDER BY name ASC;

@@ -8,8 +8,8 @@ interface Database {
     suspend fun <T : Any> get(eventId: String, collectionName: String, id: String, clazz: KClass<T>): T?
     suspend fun <T : Any> getAll(eventId: String, collectionName: String, clazz: KClass<T>): List<T>
     suspend fun <T : Any> query(
-        collectionName: String,
         eventId: String,
+        collectionName: String,
         clazz: KClass<T>,
         vararg ops: WhereOperation
     ): List<T>
@@ -40,13 +40,13 @@ sealed class WhereOperation(val left: String) {
 }
 
 suspend inline fun <reified T : Any> Database.get(eventId: String, collectionName: String, id: String): T? =
-    get(collectionName, eventId, id, T::class)
+    get(eventId, collectionName, id, T::class)
 
 suspend inline fun <reified T : Any> Database.getAll(eventId: String, collectionName: String): List<T> =
-    getAll(collectionName, eventId, T::class)
+    getAll(eventId, collectionName, T::class)
 
 suspend inline fun <reified T : Any> Database.query(
-    eventId: String,
     collectionName: String,
+    eventId: String,
     vararg ops: WhereOperation
 ): List<T> = query(collectionName, eventId, T::class, *ops)

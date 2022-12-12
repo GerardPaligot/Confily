@@ -8,6 +8,8 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.ui.res.stringResource
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.russhwolf.settings.AndroidSettings
 import com.russhwolf.settings.ExperimentalSettingsApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -33,6 +35,13 @@ import org.gdglille.devfest.repositories.UserRepository
 @ExperimentalSettingsApi
 @ExperimentalCoroutinesApi
 class MainActivity : AppCompatActivity() {
+    private lateinit var navController: NavHostController
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        navController.handleDeepLink(intent)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val baseUrl = BuildConfig.BASE_URL
@@ -66,6 +75,7 @@ class MainActivity : AppCompatActivity() {
         )
         val openFeedbackState = (application as MainApplication).openFeedbackConfig
         setContent {
+            navController = rememberNavController()
             val reportSubject = stringResource(id = R.string.text_report_subject)
             val reportAppTarget = stringResource(id = R.string.text_report_app_target)
             Main(
@@ -96,7 +106,8 @@ class MainActivity : AppCompatActivity() {
                     }
                     val shareIntent = Intent.createChooser(intent, null)
                     startActivity(shareIntent)
-                }
+                },
+                navController = navController
             )
         }
     }

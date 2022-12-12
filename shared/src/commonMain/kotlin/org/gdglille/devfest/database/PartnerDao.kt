@@ -2,6 +2,7 @@ package org.gdglille.devfest.database
 
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
+import com.squareup.sqldelight.runtime.coroutines.mapToOne
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapMerge
@@ -13,10 +14,11 @@ import org.gdglille.devfest.models.PartnerV2
 
 class PartnerDao(private val db: Conferences4HallDatabase, private val eventId: String) {
     private val partnerMapper =
-        { name: String, description: String, logoUrl: String, siteUrl: String?,
+        { id: String, name: String, description: String, logoUrl: String, siteUrl: String?,
             twitterUrl: String?, twitterMessage: String?, linkedinUrl: String?, linkedinMessage: String?,
             formattedAddress: List<String>?, address: String?, latitude: Double?, longitude: Double? ->
             PartnerItemUi(
+                id = id,
                 name = name,
                 description = description,
                 logoUrl = logoUrl,
@@ -46,6 +48,9 @@ class PartnerDao(private val db: Conferences4HallDatabase, private val eventId: 
         }
     }
 
+    fun fetchPartner(id: String): Flow<PartnerItemUi> =
+        db.eventQueries.selectPartner(id, partnerMapper).asFlow().mapToOne()
+
     fun insertPartners(partners: Map<String, List<PartnerV2>>) = db.transaction {
         partners.keys.forEachIndexed { index, type ->
             db.eventQueries.insertPartnerType(order_ = index.toLong(), name = type)
@@ -53,6 +58,7 @@ class PartnerDao(private val db: Conferences4HallDatabase, private val eventId: 
         partners.entries.forEach { entry ->
             entry.value.forEach {
                 db.eventQueries.insertPartner(
+                    id = it.id,
                     name = it.name,
                     description = it.description,
                     event_id = eventId,

@@ -19,7 +19,7 @@ fun Partners(
     partners: PartnerGroupsUi,
     modifier: Modifier = Modifier,
     isLoading: Boolean = false,
-    onPartnerClick: (siteUrl: String?) -> Unit
+    onPartnerClick: (id: String) -> Unit
 ) {
     LazyColumn(
         modifier = modifier.padding(horizontal = 8.dp),

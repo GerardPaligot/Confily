@@ -33,10 +33,10 @@ fun PartnerItem(
     shape: Shape = MaterialTheme.shapes.medium,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     contentScale: ContentScale = ContentScale.Fit,
-    onClick: (siteUrl: String?) -> Unit
+    onClick: (id: String) -> Unit
 ) {
     Surface(
-        onClick = { onClick(partnerUi.siteUrl) },
+        onClick = { onClick(partnerUi.id) },
         modifier = modifier.placeholder(visible = isLoading),
         shape = shape,
         color = backgroundColor,

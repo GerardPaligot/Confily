@@ -71,7 +71,7 @@ class ConferenceApi(
                             Logging
                         ) {
                             logger = Logger.DEFAULT
-                            level = LogLevel.INFO
+                            level = LogLevel.ALL
                         }
                     }
                 }

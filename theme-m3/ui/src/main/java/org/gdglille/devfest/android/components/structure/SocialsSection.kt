@@ -10,6 +10,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.halilibo.richtext.markdown.Markdown
@@ -17,19 +18,22 @@ import com.halilibo.richtext.ui.RichText
 import com.halilibo.richtext.ui.RichTextThemeIntegration
 import org.gdglille.devfest.android.components.buttons.Socials
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
+import org.gdglille.devfest.android.theme.m3.ui.R
 import org.gdglille.devfest.android.theme.placeholder
 import org.gdglille.devfest.models.EventUi
+import org.gdglille.devfest.models.PartnerItemUi
 
 @Composable
 fun SocialsSection(
     title: String,
-    subtitle: String,
+    subtitle: String?,
     modifier: Modifier = Modifier,
     detailed: String? = null,
     isLoading: Boolean = false,
     twitterUrl: String? = null,
     githubUrl: String? = null,
     linkedinUrl: String? = null,
+    websiteUrl: String? = null,
     onLinkClicked: (url: String) -> Unit
 ) {
     Column(modifier = modifier.fillMaxWidth()) {
@@ -39,15 +43,18 @@ fun SocialsSection(
             color = MaterialTheme.colorScheme.onSurface,
             modifier = Modifier.placeholder(visible = isLoading)
         )
-        Spacer(modifier = Modifier.height(4.dp))
-        Text(
-            text = subtitle,
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.placeholder(visible = isLoading)
-        )
+        subtitle?.let {
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = subtitle,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.placeholder(visible = isLoading)
+            )
+        }
         Spacer(modifier = Modifier.height(12.dp))
-        if (twitterUrl != null || githubUrl != null || linkedinUrl != null) {
+        val hasUrls = twitterUrl != null || githubUrl != null || linkedinUrl != null || websiteUrl != null
+        if (hasUrls) {
             Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                 twitterUrl?.let {
                     Socials.Twitter(
@@ -67,6 +74,13 @@ fun SocialsSection(
                     Socials.LinkedIn(
                         text = it,
                         onClick = { linkedinUrl.let(onLinkClicked) },
+                        modifier = Modifier.placeholder(visible = isLoading)
+                    )
+                }
+                websiteUrl?.let {
+                    Socials.Website(
+                        text = stringResource(R.string.action_open_website, title),
+                        onClick = { websiteUrl.let(onLinkClicked) },
                         modifier = Modifier.placeholder(visible = isLoading)
                     )
                 }
@@ -100,6 +114,7 @@ internal fun SocialsSectionPreview() {
             twitterUrl = EventUi.fake.eventInfo.twitterUrl,
             githubUrl = EventUi.fake.eventInfo.twitterUrl,
             linkedinUrl = EventUi.fake.eventInfo.twitterUrl,
+            websiteUrl = PartnerItemUi.fake.siteUrl,
             onLinkClicked = {}
         )
     }

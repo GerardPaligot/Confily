@@ -5,10 +5,10 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.SideEffect
+import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.decathlon.vitamin.compose.foundation.VitaminTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -41,7 +41,8 @@ fun Main(
     launchUrl: (String) -> Unit,
     onReportClicked: () -> Unit,
     onShareClicked: (text: String) -> Unit,
-    onItineraryClicked: (lat: Double, lng: Double) -> Unit
+    onItineraryClicked: (lat: Double, lng: Double) -> Unit,
+    navController: NavHostController
 ) {
     Conferences4HallTheme {
         val systemUiController = rememberSystemUiController()
@@ -51,7 +52,6 @@ fun Main(
         SideEffect {
             systemUiController.setSystemBarsColor(color = statusBarColor, darkIcons = useDarkIcons)
         }
-        val navController = rememberNavController()
         NavHost(navController = navController, startDestination = "home") {
             composable(route = "home") {
                 Home(

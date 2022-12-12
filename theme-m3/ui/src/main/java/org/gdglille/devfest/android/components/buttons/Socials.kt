@@ -2,6 +2,8 @@ package org.gdglille.devfest.android.components.buttons
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Language
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -15,6 +17,7 @@ import compose.icons.fontawesomeicons.brands.Twitter
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.ui.R
 import org.gdglille.devfest.models.EventUi
+import org.gdglille.devfest.models.PartnerItemUi
 import org.gdglille.devfest.models.SpeakerUi
 
 object Socials {
@@ -59,6 +62,20 @@ object Socials {
             onClick = onClick
         )
     }
+
+    @Composable
+    fun Website(
+        text: String,
+        modifier: Modifier = Modifier,
+        onClick: () -> Unit
+    ) {
+        IconButton(
+            imageVector = Icons.Outlined.Language,
+            contentDescription = text,
+            modifier = modifier,
+            onClick = onClick
+        )
+    }
 }
 
 @Preview
@@ -76,6 +93,10 @@ fun SocialItemPreview() {
             )
             Socials.LinkedIn(
                 text = EventUi.fake.eventInfo.linkedin!!,
+                onClick = {}
+            )
+            Socials.Website(
+                text = PartnerItemUi.fake.name,
                 onClick = {}
             )
         }

@@ -18,6 +18,7 @@ import org.gdglille.devfest.models.CoCUi
 import org.gdglille.devfest.models.EventUi
 import org.gdglille.devfest.models.MenuItemUi
 import org.gdglille.devfest.models.PartnerGroupsUi
+import org.gdglille.devfest.models.PartnerItemUi
 import org.gdglille.devfest.models.QuestionAndResponseUi
 import org.gdglille.devfest.models.ScaffoldConfigUi
 import org.gdglille.devfest.models.SpeakerUi
@@ -32,6 +33,7 @@ interface AgendaRepository {
     fun scaffoldConfig(): Flow<ScaffoldConfigUi>
     fun event(): Flow<EventUi>
     fun partners(): Flow<PartnerGroupsUi>
+    fun partner(id: String): Flow<PartnerItemUi>
     fun qanda(): Flow<List<QuestionAndResponseUi>>
     fun menus(): Flow<List<MenuItemUi>>
     fun coc(): Flow<CoCUi>
@@ -120,6 +122,7 @@ class AgendaRepositoryImpl(
     override fun isFavoriteToggled(): Flow<Boolean> = scheduleDao.isFavoriteToggled()
     override fun event(): Flow<EventUi> = eventDao.fetchEvent()
     override fun partners(): Flow<PartnerGroupsUi> = partnerDao.fetchPartners()
+    override fun partner(id: String): Flow<PartnerItemUi> = partnerDao.fetchPartner(id)
     override fun qanda(): Flow<List<QuestionAndResponseUi>> = eventDao.fetchQAndA()
     override fun menus(): Flow<List<MenuItemUi>> = eventDao.fetchMenus()
     override fun coc(): Flow<CoCUi> = eventDao.fetchCoC()

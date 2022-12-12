@@ -1,0 +1,22 @@
+import kotlin.collections.List;
+
+CREATE TABLE Partner_New (
+id TEXT NOT NULL PRIMARY KEY,
+name TEXT NOT NULL,
+description TEXT NOT NULL,
+event_id TEXT NOT NULL,
+type_id TEXT NOT NULL,
+type TEXT NOT NULL,
+logo_url TEXT NOT NULL,
+site_url TEXT,
+twitter_url TEXT,
+twitter_message TEXT,
+linkedin_url TEXT,
+linkedin_message TEXT,
+formatted_address TEXT AS List<String>,
+address TEXT,
+latitude REAL,
+longitude REAL
+);
+DROP TABLE Partner;
+ALTER TABLE Partner_New RENAME TO Partner;

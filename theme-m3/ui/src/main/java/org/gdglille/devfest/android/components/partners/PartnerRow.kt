@@ -22,7 +22,7 @@ fun PartnerRow(
     modifier: Modifier = Modifier,
     isLoading: Boolean = false,
     maxItems: Int = 3,
-    onPartnerClick: (siteUrl: String?) -> Unit,
+    onPartnerClick: (id: String) -> Unit,
 ) {
     BoxWithConstraints(modifier = modifier.fillMaxWidth()) {
         val width = (this.maxWidth - (8.dp * (maxItems - 1))) / maxItems
