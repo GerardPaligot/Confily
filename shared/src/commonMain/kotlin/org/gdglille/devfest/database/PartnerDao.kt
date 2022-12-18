@@ -5,9 +5,10 @@ import com.squareup.sqldelight.runtime.coroutines.mapToList
 import com.squareup.sqldelight.runtime.coroutines.mapToOne
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flatMapMerge
+import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.map
 import org.gdglille.devfest.db.Conferences4HallDatabase
+import org.gdglille.devfest.models.PartnerGroupUi
 import org.gdglille.devfest.models.PartnerGroupsUi
 import org.gdglille.devfest.models.PartnerItemUi
 import org.gdglille.devfest.models.PartnerV2
@@ -35,14 +36,21 @@ class PartnerDao(private val db: Conferences4HallDatabase, private val eventId: 
         }
 
     fun fetchPartners(): Flow<PartnerGroupsUi> = db.transactionWithResult {
-        return@transactionWithResult db.eventQueries.selectPartnerTypes().asFlow().mapToList().flatMapMerge { types ->
-            return@flatMapMerge combine(
+        return@transactionWithResult db.eventQueries.selectPartnerTypes().asFlow().mapToList().flatMapConcat { types ->
+            return@flatMapConcat combine(
                 types.map { type ->
                     db.eventQueries.selectPartners(eventId, type.name, partnerMapper).asFlow().mapToList()
                         .map { type.name to it.chunked(3) }
                 },
-                transform = {
-                    PartnerGroupsUi(map = it.toMap())
+                transform = { results ->
+                    PartnerGroupsUi(
+                        groups = types.map { type ->
+                            PartnerGroupUi(
+                                type = type.name,
+                                partners = results.find { it.first == type.name }!!.second
+                            )
+                        }
+                    )
                 }
             )
         }

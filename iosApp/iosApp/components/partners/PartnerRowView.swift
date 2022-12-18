@@ -19,11 +19,12 @@ struct PartnerRowView: View {
         HStack(spacing: 8) {
             let maxItemsFloat = CGFloat(maxItems)
             let width = (parentWidth - (8 * (maxItemsFloat - 1))) / maxItemsFloat
-            ForEach(partners, id: \.name) { partner in
+            ForEach(partners, id: \.id) { partner in
                 Button {
                     onPartnerClicked(partner.siteUrl!)
                 } label: {
                     PartnerItemView(
+                        id: partner.id,
                         name: partner.name,
                         logoUrl: partner.logoUrl,
                         siteUrl: partner.siteUrl!

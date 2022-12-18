@@ -18,10 +18,10 @@ struct Partners: View {
             let parentWidth = geometry.size.width
             ScrollView {
                 LazyVStack(spacing: 8) {
-                    ForEach(Array(partners.map.keys).reversed(), id: \.self) { key in
+                    ForEach(partners.groups, id: \.type) { partnerGroup in
                         Section {
-                            PartnerDividerView(text: key)
-                            ForEach(partners.map[key]!, id: \.[0].name) { partners in
+                            PartnerDividerView(text: partnerGroup.type)
+                            ForEach(partnerGroup.partners, id: \.[0].id) { partners in
                                 PartnerRowView(partners: partners, parentWidth: parentWidth) { url in
                                     if let url2 = URL(string: url) { openURL(url2) }
                                 }

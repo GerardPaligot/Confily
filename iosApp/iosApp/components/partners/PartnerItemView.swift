@@ -11,26 +11,27 @@ import shared
 import SDWebImageSwiftUI
 
 struct PartnerItemView: View {
+    var id: String
     var name: String
     var logoUrl: String
     var siteUrl: String
     // Need to be removed after the Devfest Lille event
     let exceptions: [String: String] = [
-        "Leroy Merlin - Adeo": "adeo-leroymerlin",
-        "Azfalte": "azfalte",
-        "CGI": "cgi",
-        "ELOSI": "elosi"
+        "hw0KkSyFq1FaTh8hz57C": "adeo-leroymerlin",
+        "K8aq8RSjQy8vqHAd6uHZ": "azfalte",
+        "PHwo6wyY149snPikjCxA": "cgi",
+        "C6cfJWrlr1XZHit4eMPK": "elosi"
     ]
 
     var body: some View {
-        if (exceptions.keys.contains(name)) {
-            Image(exceptions[name]!)
+        if (exceptions.keys.contains(id)) {
+            Image(exceptions[id]!)
                 .resizable()
                 .scaledToFit()
                 .padding()
                 .accessibilityLabel(name)
         } else {
-            AnimatedImage(url: URL(string: logoUrl)!)
+            WebImage(url: URL(string: logoUrl)!)
                 .resizable()
                 .scaledToFit()
                 .padding()
@@ -42,6 +43,7 @@ struct PartnerItemView: View {
 struct PartnerItemView_Previews: PreviewProvider {
     static var previews: some View {
         PartnerItemView(
+            id: PartnerItemUi.companion.fake.id,
             name: PartnerItemUi.companion.fake.name,
             logoUrl: PartnerItemUi.companion.fake.logoUrl,
             siteUrl: PartnerItemUi.companion.fake.siteUrl!

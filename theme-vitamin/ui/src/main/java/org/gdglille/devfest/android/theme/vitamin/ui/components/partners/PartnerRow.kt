@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.android.theme.vitamin.ui.theme.Conferences4HallTheme
-import org.gdglille.devfest.models.PartnerGroupsUi
+import org.gdglille.devfest.models.PartnerGroupUi
 import org.gdglille.devfest.models.PartnerItemUi
 
 @ExperimentalMaterialApi
@@ -45,7 +45,7 @@ fun PartnerRow(
 fun PartnerRowPreview() {
     Conferences4HallTheme {
         PartnerRow(
-            partners = PartnerGroupsUi.fake.map.values.first().first(),
+            partners = PartnerGroupUi.fake.partners.first(),
             onPartnerClick = {}
         )
     }

@@ -26,9 +26,9 @@ fun Partners(
         contentPadding = PaddingValues(vertical = 4.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        partners.map.entries.forEach { entry ->
-            item { PartnerDivider(title = entry.key) }
-            items(entry.value) {
+        partners.groups.forEach {
+            item { PartnerDivider(title = it.type) }
+            items(it.partners) {
                 PartnerRow(partners = it, onPartnerClick = onPartnerClick, isLoading = isLoading)
             }
         }
