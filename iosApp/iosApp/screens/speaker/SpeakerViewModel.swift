@@ -19,9 +19,11 @@ enum SpeakerUiState {
 @MainActor
 class SpeakerViewModel: ObservableObject {
     let repository: AgendaRepository
+    let alarmScheduler: AlarmScheduler
 
     init(repository: AgendaRepository) {
         self.repository = repository
+        self.alarmScheduler = AlarmScheduler(repository: repository)
     }
 
     @Published var uiState: SpeakerUiState = SpeakerUiState.loading
@@ -39,6 +41,10 @@ class SpeakerViewModel: ObservableObject {
                 self.uiState = .failure
             }
         }
+    }
+
+    func markAsFavorite(talkItem: TalkItemUi) async {
+        await self.alarmScheduler.schedule(talkItem: talkItem)
     }
     
     func stop() {

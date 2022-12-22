@@ -9,8 +9,15 @@
 import SwiftUI
 import shared
 
+extension CGFloat {
+    public static let small: CGFloat = 30
+    public static let medium: CGFloat = 48
+    public static let large: CGFloat = 96
+}
+
 struct SpeakerAvatarView: View {
     var url: String
+    var size: CGFloat = .medium
     
     var body: some View {
         AsyncImageView(
@@ -19,7 +26,9 @@ struct SpeakerAvatarView: View {
                 Text("...")
             }
         )
+            .frame(width: size, height: size)
             .clipShape(Circle())
+            .accessibility(hidden: true)
     }
 }
 

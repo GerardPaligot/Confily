@@ -9,10 +9,23 @@
 import SwiftUI
 import shared
 
-struct SpeakerDetail: View {
+struct SpeakerDetail<TalkItem: View>: View {
     var speaker: SpeakerUi
     var onTwitterClicked: (_: String) -> ()
     var onGitHubClicked: (_: String) -> ()
+    let talkItem: (TalkItemUi) -> TalkItem
+    
+    init(
+        speaker: SpeakerUi,
+        onTwitterClicked: @escaping (_: String) -> (),
+        onGitHubClicked: @escaping (_: String) -> (),
+        @ViewBuilder talkItem: @escaping (TalkItemUi) -> TalkItem
+    ) {
+        self.speaker = speaker
+        self.onTwitterClicked = onTwitterClicked
+        self.onGitHubClicked = onGitHubClicked
+        self.talkItem = talkItem
+    }
     
     var body: some View {
         ScrollView {
@@ -27,8 +40,12 @@ struct SpeakerDetail: View {
                     onTwitterClicked: onTwitterClicked,
                     onGitHubClicked: onGitHubClicked
                 )
+                Spacer().frame(maxHeight: 24)
+                ForEach(speaker.talks, id: \.id) { talk in
+                    self.talkItem(talk)
+                }
             }
-            .padding(.horizontal, 8)
+            .padding(.horizontal, 16)
         }
     }
 }
@@ -38,7 +55,13 @@ struct SpeakerDetail_Previews: PreviewProvider {
         SpeakerDetail(
             speaker: SpeakerUi.companion.fake,
             onTwitterClicked: { String in },
-            onGitHubClicked: { String in }
+            onGitHubClicked: { String in },
+            talkItem: { talk in
+                TalkItemView(
+                    talk: talk,
+                    onFavoriteClicked: { TalkItemUi in }
+                )
+            }
         )
     }
 }

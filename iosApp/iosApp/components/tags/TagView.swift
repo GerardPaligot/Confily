@@ -15,18 +15,20 @@ struct TagView: View {
     var contentColor: Color = Color.decorativeOnAmethyst
     
     var body: some View {
-        HStack(alignment: VerticalAlignment.center, spacing: 4) {
+        Label {
+            Text(text)
+                .foregroundColor(contentColor)
+                .font(.caption)
+        } icon: {
             if (icon != nil) {
                 Image(systemName: icon!)
                     .foregroundColor(contentColor)
             }
-            Text(text)
-                .foregroundColor(contentColor)
         }
         .padding([.horizontal], 8)
         .padding([.vertical], 6)
         .background(containerColor)
-        .clipShape(RoundedRectangle(cornerRadius: 4))
+        .clipShape(RoundedRectangle(cornerRadius: 16))
     }
 }
 

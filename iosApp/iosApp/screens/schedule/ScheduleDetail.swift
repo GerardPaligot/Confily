@@ -25,16 +25,14 @@ struct ScheduleDetail<SpeakerItem: View>: View {
             LazyVStack(spacing: 8) {
                 TalkSectionView(talkUi: talkUi)
                     .padding(.bottom, 8)
-                    .padding(.horizontal, 8)
                 ForEach(talkUi.speakers, id: \.id) { speaker in
                     self.speakerItem(speaker)
-                        .padding(.horizontal, 8)
                 }
                 ButtonView(text: NSLocalizedString("actionFeedback", comment: "")) {
                     if let url2 = URL(string: talkUi.openFeedbackUrl!) { openURL(url2) }
                 }
-                .padding()
             }
+            .padding(.horizontal, 16)
         }
         .navigationBarItems(trailing:
             HStack {

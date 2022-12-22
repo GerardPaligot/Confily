@@ -30,7 +30,6 @@ struct ScheduleItemView<TalkItem: View>: View {
             VStack(spacing: 8.0) {
                 ForEach(talks, id: \.id) { talk in
                     self.talkItem(talk)
-                    Divider()
                 }
             }
         }

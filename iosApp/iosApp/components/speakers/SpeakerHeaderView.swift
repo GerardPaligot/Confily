@@ -19,9 +19,10 @@ struct SpeakerHeaderView: View {
     
     var body: some View {
         VStack {
-            SpeakerAvatarView(url: url)
-                .frame(width: 96, height: 96)
-                .accessibility(hidden: true)
+            SpeakerAvatarView(
+                url: url,
+                size: .large
+            )
             Text(name)
                 .font(titleFont)
                 .padding(.top, 24)

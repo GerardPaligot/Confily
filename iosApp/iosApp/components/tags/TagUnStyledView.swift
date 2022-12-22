@@ -16,7 +16,7 @@ struct TagUnStyledView: View {
         TagView(
             text: text,
             icon: icon,
-            containerColor: Color.white.opacity(1.0),
+            containerColor: Color.white.opacity(0),
             contentColor: Color.c4hOnBackground
         )
     }
