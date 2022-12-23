@@ -16,7 +16,7 @@ dependencies {
     implementation(libs.androidx.compose.tooling)
     implementation(libs.compose.awesome.font)
     implementation(libs.compose.richtext)
-    api(libs.compose.openfeedback)
+    api(libs.compose.openfeedback.m2)
 
     implementation(libs.accompanist.permissions)
     implementation(libs.accompanist.placeholder)

@@ -88,7 +88,8 @@ androidx-compose-activity = { group = "androidx.activity", name = "activity-comp
 androidx-compose-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "composeNavigation" }
 compose-awesome-font = { group = "br.com.devsrsouza.compose.icons.android", name = "font-awesome", version.ref = "composeFont" }
 compose-richtext = { group = "com.halilibo.compose-richtext", name = "richtext-commonmark", version.ref = "composeRichText" }
-compose-openfeedback = { group = "io.openfeedback", name = "feedback-android-sdk-ui", version.ref = "composeOpenfeedback" }
+compose-openfeedback-m2 = { group = "io.openfeedback", name = "feedback-android-sdk-m2", version.ref = "composeOpenfeedback" }
+compose-openfeedback-m3 = { group = "io.openfeedback", name = "feedback-android-sdk-m3", version.ref = "composeOpenfeedback" }
 
 accompanist-placeholder = { group = "com.google.accompanist", name = "accompanist-placeholder-material", version.ref = "accompanist" }
 accompanist-permissions = { group = "com.google.accompanist", name = "accompanist-permissions", version.ref = "accompanist" }

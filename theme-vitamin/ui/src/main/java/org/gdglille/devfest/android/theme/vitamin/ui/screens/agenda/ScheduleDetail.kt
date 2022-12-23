@@ -9,6 +9,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -16,7 +17,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.decathlon.vitamin.compose.appbars.topbars.ActionItem
 import io.openfeedback.android.OpenFeedbackConfig
-import io.openfeedback.android.components.rememberOpenFeedbackState
 import org.gdglille.devfest.android.theme.vitamin.ui.R
 import org.gdglille.devfest.android.theme.vitamin.ui.components.appbars.TopAppBar
 import org.gdglille.devfest.android.theme.vitamin.ui.components.speakers.SpeakerSection
@@ -96,14 +96,15 @@ fun TalkDetailPreview() {
     Conferences4HallTheme {
         ScheduleDetail(
             talk = TalkUi.fake,
-            openFeedbackState = rememberOpenFeedbackState(
-                projectId = "",
+            openFeedbackState = OpenFeedbackConfig(
+                context = LocalContext.current,
                 firebaseConfig = OpenFeedbackConfig.FirebaseConfig(
                     projectId = "",
                     applicationId = "",
                     apiKey = "",
                     databaseUrl = ""
-                )
+                ),
+                openFeedbackProjectId = ""
             ),
             onBackClicked = {},
             onSpeakerClicked = {},
