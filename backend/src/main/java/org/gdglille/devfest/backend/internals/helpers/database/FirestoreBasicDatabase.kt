@@ -23,6 +23,14 @@ class FirestoreBasicDatabase(private val firestore: Firestore) : BasicDatabase {
                 .toObject(clazz.java)
         }
 
+    override suspend fun <T : Any> getAll(collectionName: String, clazz: KClass<T>): List<T> =
+        withContext(Dispatchers.IO) {
+            firestore
+                .collection(collectionName)
+                .listDocuments()
+                .map { it.get().get().toObject(clazz.java)!! }
+        }
+
     override suspend fun <T : Any> query(
         collectionName: String,
         clazz: KClass<T>,

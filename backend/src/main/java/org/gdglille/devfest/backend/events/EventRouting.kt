@@ -46,50 +46,53 @@ fun Route.registerEventRoutes(
     val repository = EventRepository(eventDao, speakerDao, talkDao, scheduleItemDao, partnerDao, cms4PartnersDao)
     val repositoryV2 = EventRepositoryV2(eventDao, speakerDao, talkDao, scheduleItemDao)
 
-    get {
+    get("/events") {
+        call.respond(HttpStatusCode.OK, repository.list())
+    }
+    get("/events/{eventId}") {
         val eventId = call.parameters["eventId"]!!
         when (call.request.acceptItems().version()) {
             1 -> call.respond(HttpStatusCode.OK, repository.getWithPartners(eventId))
             2 -> call.respond(HttpStatusCode.OK, repository.get(eventId))
         }
     }
-    put {
+    put("/events/{eventId}") {
         val eventId = call.parameters["eventId"]!!
         val apiKey = call.request.headers["api_key"]!!
         val input = call.receiveValidated<EventInput>()
         call.respond(HttpStatusCode.OK, repository.update(eventId, apiKey, input))
     }
-    put("menus") {
+    put("/events/{eventId}/menus") {
         val eventId = call.parameters["eventId"]!!
         val apiKey = call.request.headers["api_key"]!!
         val input = call.receive<List<LunchMenuInput>>()
         call.respond(HttpStatusCode.OK, repository.updateMenus(eventId, apiKey, input))
     }
-    put("qanda") {
+    put("/events/{eventId}/qanda") {
         val eventId = call.parameters["eventId"]!!
         val apiKey = call.request.headers["api_key"]!!
         val input = call.receive<List<QuestionAndResponseInput>>()
         call.respond(HttpStatusCode.OK, repository.updateQAndA(eventId, apiKey, input))
     }
-    put("coc") {
+    put("/events/{eventId}/coc") {
         val eventId = call.parameters["eventId"]!!
         val apiKey = call.request.headers["api_key"]!!
         val input = call.receiveValidated<CoCInput>()
         call.respond(HttpStatusCode.OK, repository.updateCoC(eventId, apiKey, input))
     }
-    put("categories") {
+    put("/events/{eventId}/categories") {
         val eventId = call.parameters["eventId"]!!
         val apiKey = call.request.headers["api_key"]!!
         val input = call.receive<List<CategoryInput>>()
         call.respond(HttpStatusCode.OK, repository.updateCategories(eventId, apiKey, input))
     }
-    put("features_activated") {
+    put("/events/{eventId}/features_activated") {
         val eventId = call.parameters["eventId"]!!
         val apiKey = call.request.headers["api_key"]!!
         val input = call.receiveValidated<FeaturesActivatedInput>()
         call.respond(HttpStatusCode.OK, repository.updateFeatures(eventId, apiKey, input))
     }
-    get("agenda") {
+    get("/events/{eventId}/agenda") {
         val eventId = call.parameters["eventId"]!!
         val event = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
         val zoneId = ZoneId.of("Europe/Paris")
@@ -112,7 +115,7 @@ fun Route.registerEventRoutes(
             }
         }
     }
-    get("openfeedback") {
+    get("/events/{eventId}/openfeedback") {
         val eventId = call.parameters["eventId"]!!
         call.respond(HttpStatusCode.OK, repositoryV2.openFeedback(eventId))
     }

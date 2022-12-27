@@ -84,6 +84,22 @@ data class Event(
 )
 
 @Serializable
+data class EventList(
+    val future: List<EventItemList>,
+    val past: List<EventItemList>
+)
+
+@Serializable
+data class EventItemList(
+    val id: String,
+    val name: String,
+    @SerialName("start_date")
+    val startDate: String,
+    @SerialName("end_date")
+    val endDate: String,
+)
+
+@Serializable
 data class EventV2(
     val id: String,
     val name: String,

@@ -17,6 +17,7 @@ import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.talks.TalkDao
 import org.gdglille.devfest.backend.talks.convertToModel
 import org.gdglille.devfest.models.Agenda
+import org.gdglille.devfest.models.EventList
 import org.gdglille.devfest.models.EventPartners
 import org.gdglille.devfest.models.EventV2
 import org.gdglille.devfest.models.inputs.CategoryInput
@@ -35,6 +36,19 @@ class EventRepository(
     private val partnerDao: PartnerDao,
     private val cms4PartnersDao: Cms4PartnersDao
 ) {
+    suspend fun list(): EventList {
+        val events = eventDao.list().map { it.convertToEventItemList() }
+        val now = LocalDateTime.now()
+        return EventList(
+            future = events
+                .filter { LocalDateTime.parse(it.startDate.dropLast(1)).isAfter(now) }
+                .sortedBy { it.startDate },
+            past = events
+                .filter { LocalDateTime.parse(it.startDate.dropLast(1)).isBefore(now) }
+                .sortedBy { it.startDate }
+        )
+    }
+
     suspend fun getWithPartners(eventId: String) = coroutineScope {
         val event = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
         val partners = partnerDao.getAll(eventId)

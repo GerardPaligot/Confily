@@ -113,8 +113,8 @@ fun main() {
         }
         routing {
             registerConferenceHallRoutes(eventDao, speakerDao, talkDao)
+            registerEventRoutes(eventDao, speakerDao, talkDao, scheduleItemDao, partnerDao, cms4partnerDao)
             route("/events/{eventId}") {
-                registerEventRoutes(eventDao, speakerDao, talkDao, scheduleItemDao, partnerDao, cms4partnerDao)
                 registerSpeakersRoutes(eventDao, speakerDao)
                 registerTalksRoutes(eventDao, speakerDao, talkDao)
                 registerSchedulersRoutes(eventDao, talkDao, speakerDao, scheduleItemDao)

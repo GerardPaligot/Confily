@@ -4,11 +4,13 @@ import org.gdglille.devfest.backend.NotAuthorized
 import org.gdglille.devfest.backend.NotFoundException
 import org.gdglille.devfest.backend.internals.helpers.database.BasicDatabase
 import org.gdglille.devfest.backend.internals.helpers.database.get
+import org.gdglille.devfest.backend.internals.helpers.database.getAll
 
 class EventDao(
     private val projectName: String,
     private val database: BasicDatabase
 ) {
+    suspend fun list(): List<EventDb> = database.getAll(projectName)
     suspend fun get(id: String): EventDb? = database.get(projectName, id)
     suspend fun getVerified(id: String, apiKey: String?): EventDb {
         val eventDb = database.get<EventDb>(projectName, id)

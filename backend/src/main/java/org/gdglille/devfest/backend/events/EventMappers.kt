@@ -6,6 +6,7 @@ import org.gdglille.devfest.backend.internals.network.conferencehall.Event
 import org.gdglille.devfest.backend.internals.slug
 import org.gdglille.devfest.models.Acronym
 import org.gdglille.devfest.models.Address
+import org.gdglille.devfest.models.EventItemList
 import org.gdglille.devfest.models.EventLunchMenu
 import org.gdglille.devfest.models.EventPartners
 import org.gdglille.devfest.models.EventV2
@@ -105,6 +106,13 @@ fun EventDb.convertToModel(partners: EventPartners) = org.gdglille.devfest.model
     faqLink = this.faqLink,
     codeOfConductLink = this.codeOfConductLink,
     updatedAt = this.updatedAt
+)
+
+fun EventDb.convertToEventItemList() = EventItemList(
+    id = this.slugId,
+    name = this.name,
+    startDate = this.startDate,
+    endDate = this.endDate
 )
 
 fun EventDb.convertToModelV2(hasPartnerList: Boolean) = EventV2(
