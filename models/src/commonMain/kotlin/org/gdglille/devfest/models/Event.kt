@@ -4,6 +4,12 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
+data class Acronym(
+    val key: String,
+    val value: String
+)
+
+@Serializable
 data class QuestionAndResponseAction(
     val order: Int,
     val label: String,
@@ -15,7 +21,8 @@ data class QuestionAndResponse(
     val order: Int,
     val question: String,
     val response: String,
-    val actions: List<QuestionAndResponseAction>
+    val actions: List<QuestionAndResponseAction>,
+    val acronyms: List<Acronym>
 )
 
 @Serializable

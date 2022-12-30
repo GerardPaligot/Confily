@@ -23,6 +23,14 @@ data class EventAddressInput(
 }
 
 @Serializable
+data class AcronymInput(
+    val key: String,
+    val value: String
+) : Validator {
+    override fun validate(): List<String> = emptyList()
+}
+
+@Serializable
 data class QuestionAndResponseActionInput(
     val label: String,
     val url: String
@@ -34,7 +42,8 @@ data class QuestionAndResponseActionInput(
 data class QuestionAndResponseInput(
     val question: String,
     val response: String,
-    val actions: List<QuestionAndResponseActionInput> = emptyList()
+    val actions: List<QuestionAndResponseActionInput> = emptyList(),
+    val acronyms: List<AcronymInput> = emptyList()
 ) : Validator {
     override fun validate(): List<String> = emptyList()
 }

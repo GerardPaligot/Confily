@@ -4,6 +4,7 @@ package org.gdglille.devfest.backend.events
 
 import org.gdglille.devfest.backend.internals.network.conferencehall.Event
 import org.gdglille.devfest.backend.internals.slug
+import org.gdglille.devfest.models.Acronym
 import org.gdglille.devfest.models.Address
 import org.gdglille.devfest.models.EventLunchMenu
 import org.gdglille.devfest.models.EventPartners
@@ -11,6 +12,7 @@ import org.gdglille.devfest.models.EventV2
 import org.gdglille.devfest.models.FeaturesActivated
 import org.gdglille.devfest.models.QuestionAndResponse
 import org.gdglille.devfest.models.QuestionAndResponseAction
+import org.gdglille.devfest.models.inputs.AcronymInput
 import org.gdglille.devfest.models.inputs.BilletWebConfigInput
 import org.gdglille.devfest.models.inputs.CategoryInput
 import org.gdglille.devfest.models.inputs.EventInput
@@ -37,6 +39,11 @@ fun Event.convertToDb(year: String, eventId: String, apiKey: String) = EventDb(
     endDate = this.conferenceDates.end
 )
 
+fun AcronymDb.convertToModel() = Acronym(
+    key = key,
+    value = value
+)
+
 fun QuestionAndResponseActionDb.convertToModel() = QuestionAndResponseAction(
     order = order,
     label = label,
@@ -47,7 +54,8 @@ fun QuestionAndResponseDb.convertToModel() = QuestionAndResponse(
     order = order,
     question = question,
     response = response,
-    actions = this.actions.map { it.convertToModel() }
+    actions = this.actions.map { it.convertToModel() },
+    acronyms = this.acronyms.map { it.convertToModel() }
 )
 
 fun LunchMenuDb.convertToModel() = EventLunchMenu(
@@ -118,6 +126,11 @@ fun EventDb.convertToModelV2(hasPartnerList: Boolean) = EventV2(
     updatedAt = this.updatedAt
 )
 
+fun AcronymInput.convertToDb() = AcronymDb(
+    key = key,
+    value = value
+)
+
 fun QuestionAndResponseActionInput.convertToDb(order: Int) = QuestionAndResponseActionDb(
     order = order,
     label = label,
@@ -128,7 +141,8 @@ fun QuestionAndResponseInput.convertToDb(order: Int) = QuestionAndResponseDb(
     order = order,
     question = question,
     response = response,
-    actions = actions.mapIndexed { index, it -> it.convertToDb(index) }
+    actions = actions.mapIndexed { index, it -> it.convertToDb(index) },
+    acronyms = acronyms.map { it.convertToDb() }
 )
 
 fun LunchMenuInput.convertToDb() = LunchMenuDb(

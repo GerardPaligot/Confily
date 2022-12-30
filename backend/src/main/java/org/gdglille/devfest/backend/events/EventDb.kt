@@ -13,6 +13,11 @@ data class AddressDb(
     val lng: Double = 0.0
 )
 
+data class AcronymDb(
+    val key: String = "",
+    val value: String = ""
+)
+
 data class QuestionAndResponseActionDb(
     val order: Int = 0,
     val label: String = "",
@@ -23,7 +28,8 @@ data class QuestionAndResponseDb(
     val order: Int = 0,
     val question: String = "",
     val response: String = "",
-    val actions: List<QuestionAndResponseActionDb> = emptyList()
+    val actions: List<QuestionAndResponseActionDb> = emptyList(),
+    val acronyms: List<AcronymDb> = emptyList()
 )
 
 data class LunchMenuDb(
