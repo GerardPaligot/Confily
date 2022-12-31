@@ -9,9 +9,17 @@
 import SwiftUI
 import shared
 
-struct Partners: View {
-    @Environment(\.openURL) var openURL
-    var partners: PartnerGroupsUi
+struct Partners<PartnerItem: View>: View {
+    let partners: PartnerGroupsUi
+    let partnerItem: (PartnerItemUi, CGFloat) -> PartnerItem
+    
+    init(
+        partners: PartnerGroupsUi,
+        @ViewBuilder partnerItem: @escaping (PartnerItemUi, CGFloat) -> PartnerItem
+    ) {
+        self.partners = partners
+        self.partnerItem = partnerItem
+    }
 
     var body: some View {
         GeometryReader { geometry in
@@ -22,9 +30,11 @@ struct Partners: View {
                         Section {
                             PartnerDividerView(text: partnerGroup.type)
                             ForEach(partnerGroup.partners, id: \.[0].id) { partners in
-                                PartnerRowView(partners: partners, parentWidth: parentWidth) { url in
-                                    if let url2 = URL(string: url) { openURL(url2) }
-                                }
+                                PartnerRowView(
+                                    partners: partners,
+                                    parentWidth: parentWidth,
+                                    partnerItem: self.partnerItem
+                                )
                             }
                         }
                     }
@@ -38,7 +48,17 @@ struct Partners: View {
 struct Partners_Previews: PreviewProvider {
     static var previews: some View {
         Partners(
-            partners: PartnerGroupsUi.companion.fake
+            partners: PartnerGroupsUi.companion.fake,
+            partnerItem: { partner, size in
+                Button {
+                } label: {
+                    PartnerItemView(
+                        id: partner.id,
+                        name: partner.name,
+                        logoUrl: partner.logoUrl
+                    )
+                }
+            }
         )
     }
 }

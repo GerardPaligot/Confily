@@ -42,6 +42,5 @@ struct SocialItem_Previews: PreviewProvider {
             text: "@GerardPaligot",
             onClick: {}
         )
-            .preferredColorScheme(.dark)
     }
 }

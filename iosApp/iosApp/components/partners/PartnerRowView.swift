@@ -9,30 +9,28 @@
 import SwiftUI
 import shared
 
-struct PartnerRowView: View {
-    var partners: Array<PartnerItemUi>
-    var parentWidth: CGFloat
-    var onPartnerClicked: (_: String) -> ()
-    var maxItems: Int = 3
+struct PartnerRowView<PartnerItem: View>: View {
+    let partners: Array<PartnerItemUi>
+    let parentWidth: CGFloat
+    let partnerItem: (PartnerItemUi, CGFloat) -> PartnerItem
+    let maxItems: Int = 3
+    
+    init(
+        partners: Array<PartnerItemUi>,
+        parentWidth: CGFloat,
+        @ViewBuilder partnerItem: @escaping (PartnerItemUi, CGFloat) -> PartnerItem
+    ) {
+        self.partners = partners
+        self.parentWidth = parentWidth
+        self.partnerItem = partnerItem
+    }
 
     var body: some View {
         HStack(spacing: 8) {
             let maxItemsFloat = CGFloat(maxItems)
             let width = (parentWidth - (8 * (maxItemsFloat - 1))) / maxItemsFloat
             ForEach(partners, id: \.id) { partner in
-                Button {
-                    onPartnerClicked(partner.siteUrl!)
-                } label: {
-                    PartnerItemView(
-                        id: partner.id,
-                        name: partner.name,
-                        logoUrl: partner.logoUrl,
-                        siteUrl: partner.siteUrl!
-                    )
-                }
-                .frame(width: width, height: width)
-                .background(Color.white)
-                .clipShape(RoundedRectangle(cornerRadius: 8))
+                self.partnerItem(partner, width)
             }
         }
     }
@@ -49,7 +47,16 @@ struct PartnerRowView_Previews: PreviewProvider {
                     PartnerItemUi.companion.fake
                 ],
                 parentWidth: parentWidth,
-                onPartnerClicked: { String in }
+                partnerItem: { partner, size in
+                    Button {
+                    } label: {
+                        PartnerItemView(
+                            id: partner.id,
+                            name: partner.name,
+                            logoUrl: partner.logoUrl
+                        )
+                    }
+                }
             )
         }
     }

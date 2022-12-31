@@ -17,6 +17,10 @@
 "titleNetworkProfile" = "Delete a profile";
 "titleNotifReminderTalk %@" = "Talk in 10 minutes in %@";
 "titleNotifReminderTalkSpeakers %@" = "By %@";
+"titlePlanPartner" = "Go to the partner location";
+"titleCommunication" = "Communication on social networks";
+"titleCommunicationTwitter" = "Twitter message";
+"titleCommunicationLinkedin" = "LinkedIn message";
 
 "textLoading" = "Loading…";
 "textError" = "Something wrong happened";

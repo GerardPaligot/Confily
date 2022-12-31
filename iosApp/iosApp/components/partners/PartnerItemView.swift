@@ -14,7 +14,6 @@ struct PartnerItemView: View {
     var id: String
     var name: String
     var logoUrl: String
-    var siteUrl: String
     // Need to be removed after the Devfest Lille event
     let exceptions: [String: String] = [
         "hw0KkSyFq1FaTh8hz57C": "adeo-leroymerlin",
@@ -45,8 +44,7 @@ struct PartnerItemView_Previews: PreviewProvider {
         PartnerItemView(
             id: PartnerItemUi.companion.fake.id,
             name: PartnerItemUi.companion.fake.name,
-            logoUrl: PartnerItemUi.companion.fake.logoUrl,
-            siteUrl: PartnerItemUi.companion.fake.siteUrl!
+            logoUrl: PartnerItemUi.companion.fake.logoUrl
         )
             .frame(width: 250, height: 250)
     }
