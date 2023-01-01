@@ -45,11 +45,12 @@ struct PartnersVM: View {
                                 Button {
                                     self.navigationState = NavigationPartnerState.partner(partner.id)
                                 } label: {
-                                    PartnerItemView(
-                                        id: partner.id,
-                                        name: partner.name,
-                                        logoUrl: partner.logoUrl
+                                    RemoteImage(
+                                        url: partner.logoUrl,
+                                        description: partner.name,
+                                        id: partner.id
                                     )
+                                    .padding()
                                 }
                                 .frame(width: size, height: size)
                                 .background(Color.white)

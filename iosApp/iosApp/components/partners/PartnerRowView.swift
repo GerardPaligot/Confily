@@ -50,10 +50,10 @@ struct PartnerRowView_Previews: PreviewProvider {
                 partnerItem: { partner, size in
                     Button {
                     } label: {
-                        PartnerItemView(
-                            id: partner.id,
-                            name: partner.name,
-                            logoUrl: partner.logoUrl
+                        RemoteImage(
+                            url: partner.logoUrl,
+                            description: partner.name,
+                            id: partner.id
                         )
                     }
                 }

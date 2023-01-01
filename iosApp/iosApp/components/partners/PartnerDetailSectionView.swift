@@ -19,11 +19,12 @@ struct PartnerDetailSectionView: View {
     
     var body: some View {
         HStack(alignment: .top, spacing: 8) {
-            PartnerItemView(
-                id: partnerUi.id,
-                name: partnerUi.name,
-                logoUrl: partnerUi.logoUrl
+            RemoteImage(
+                url: partnerUi.logoUrl,
+                description: nil,
+                id: partnerUi.id
             )
+            .padding()
             .frame(width: 128, height: 128)
             .background(Color.white)
             .clipShape(RoundedRectangle(cornerRadius: 8))

@@ -18,14 +18,9 @@ extension CGFloat {
 struct SpeakerAvatarView: View {
     var url: String
     var size: CGFloat = .medium
-    
+
     var body: some View {
-        AsyncImageView(
-            url: URL(string: url)!,
-            placeholder: {
-                Text("...")
-            }
-        )
+        RemoteImage(url: url, description: nil)
             .frame(width: size, height: size)
             .clipShape(Circle())
             .accessibility(hidden: true)

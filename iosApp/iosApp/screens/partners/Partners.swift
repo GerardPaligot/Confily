@@ -12,6 +12,7 @@ import shared
 struct Partners<PartnerItem: View>: View {
     let partners: PartnerGroupsUi
     let partnerItem: (PartnerItemUi, CGFloat) -> PartnerItem
+    let horizontalSpacing: CGFloat = 16
     
     init(
         partners: PartnerGroupsUi,
@@ -32,14 +33,14 @@ struct Partners<PartnerItem: View>: View {
                             ForEach(partnerGroup.partners, id: \.[0].id) { partners in
                                 PartnerRowView(
                                     partners: partners,
-                                    parentWidth: parentWidth,
+                                    parentWidth: parentWidth - (self.horizontalSpacing * 2),
                                     partnerItem: self.partnerItem
                                 )
                             }
                         }
                     }
                 }
-                .padding(.horizontal, 4)
+                .padding(.horizontal, self.horizontalSpacing)
             }
         }
     }
@@ -52,11 +53,12 @@ struct Partners_Previews: PreviewProvider {
             partnerItem: { partner, size in
                 Button {
                 } label: {
-                    PartnerItemView(
-                        id: partner.id,
-                        name: partner.name,
-                        logoUrl: partner.logoUrl
+                    RemoteImage(
+                        url: partner.logoUrl,
+                        description: partner.name,
+                        id: partner.id
                     )
+                    .padding()
                 }
             }
         )
