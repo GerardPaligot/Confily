@@ -11,35 +11,34 @@ import shared
 
 struct SpeakerDetail<TalkItem: View>: View {
     var speaker: SpeakerUi
-    var onTwitterClicked: (_: String) -> ()
-    var onGitHubClicked: (_: String) -> ()
+    var onLinkClicked: (_: String) -> ()
     let talkItem: (TalkItemUi) -> TalkItem
     
     init(
         speaker: SpeakerUi,
-        onTwitterClicked: @escaping (_: String) -> (),
-        onGitHubClicked: @escaping (_: String) -> (),
+        onLinkClicked: @escaping (_: String) -> (),
         @ViewBuilder talkItem: @escaping (TalkItemUi) -> TalkItem
     ) {
         self.speaker = speaker
-        self.onTwitterClicked = onTwitterClicked
-        self.onGitHubClicked = onGitHubClicked
+        self.onLinkClicked = onLinkClicked
         self.talkItem = talkItem
     }
     
     var body: some View {
         ScrollView {
-            LazyVStack(spacing: 8) {
-                SpeakerHeaderView(
-                    url: speaker.url,
-                    name: speaker.name,
-                    company: speaker.company
+            LazyVStack(spacing: 16) {
+                SocialHeaderView(
+                    title: speaker.name,
+                    description: speaker.company,
+                    logoUrl: speaker.url,
+                    twitterUrl: speaker.twitterUrl,
+                    githubUrl: speaker.githubUrl,
+                    hasLogoPadding: false,
+                    linkOnClick: onLinkClicked
                 )
-                SpeakerSectionView(
-                    speaker: speaker,
-                    onTwitterClicked: onTwitterClicked,
-                    onGitHubClicked: onGitHubClicked
-                )
+                Text(speaker.bio)
+                    .font(Font.callout)
+                    .foregroundColor(Color.c4hOnBackground)
                 Spacer().frame(maxHeight: 24)
                 ForEach(speaker.talks, id: \.id) { talk in
                     self.talkItem(talk)
@@ -54,8 +53,7 @@ struct SpeakerDetail_Previews: PreviewProvider {
     static var previews: some View {
         SpeakerDetail(
             speaker: SpeakerUi.companion.fake,
-            onTwitterClicked: { String in },
-            onGitHubClicked: { String in },
+            onLinkClicked: { String in },
             talkItem: { talk in
                 TalkItemView(
                     talk: talk,

@@ -34,10 +34,7 @@ struct SpeakerDetailVM: View {
                 case .success(let speakerUi):
                     SpeakerDetail(
                         speaker: speakerUi,
-                        onTwitterClicked: { url in
-                            if let url2 = URL(string: url) { openURL(url2) }
-                        },
-                        onGitHubClicked: { url in
+                        onLinkClicked: { url in
                             if let url2 = URL(string: url) { openURL(url2) }
                         },
                         talkItem: { talk in

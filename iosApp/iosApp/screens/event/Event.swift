@@ -13,39 +13,30 @@ struct Event<Ticket: View, Menu: View>: View {
     let event: EventUi
     let ticket: () -> (Ticket)
     let menus: () -> (Menu)
-    let onFaqClicked: (_: String) -> ()
-    let onCoCClicked: (_: String) -> ()
-    let onTwitterClicked: (_: String) -> ()
-    let onLinkedInClicked: (_: String) -> ()
+    let onLinkClicked: (_: String) -> ()
+    let onMapClicked: (_: URL) -> ()
     
     init(
         event: EventUi,
         @ViewBuilder ticket: @escaping () -> (Ticket),
         @ViewBuilder menus: @escaping () -> (Menu),
-        onFaqClicked: @escaping (_: String) -> (),
-        onCoCClicked: @escaping (_: String) -> (),
-        onTwitterClicked: @escaping (_: String) -> (),
-        onLinkedInClicked: @escaping (_: String) -> ()
+        onLinkClicked: @escaping (_: String) -> (),
+        onMapClicked: @escaping (_: URL) -> ()
     ) {
         self.event = event
         self.ticket = ticket
         self.menus = menus
-        self.onFaqClicked = onFaqClicked
-        self.onCoCClicked = onCoCClicked
-        self.onTwitterClicked = onTwitterClicked
-        self.onLinkedInClicked = onLinkedInClicked
+        self.onLinkClicked = onLinkClicked
+        self.onMapClicked = onMapClicked
     }
 
     var body: some View {
         ScrollView {
-            LazyVStack(spacing: 8) {
+            LazyVStack(spacing: 24) {
                 Section {
                     EventSectionView(
                         eventInfoUi: event.eventInfo,
-                        onFaqClicked: onFaqClicked,
-                        onCoCClicked: onCoCClicked,
-                        onTwitterClicked: onTwitterClicked,
-                        onLinkedInClicked: onLinkedInClicked,
+                        onLinkClicked: onLinkClicked,
                         ticket: ticket,
                         menus: menus
                     )
@@ -64,8 +55,17 @@ struct Event<Ticket: View, Menu: View>: View {
                         }
                     }
                 }
+                Section {
+                    AddressCardView(
+                        formattedAddress: event.eventInfo.formattedAddress,
+                        hasGpsLocation: true,
+                        mapOnClick: {
+                            onMapClicked(URL(string: "maps://?saddr=&daddr=\(event.eventInfo.latitude),\(event.eventInfo.longitude)")!)
+                        }
+                    )
+                }
             }
-            .padding(.horizontal, 4)
+            .padding(.horizontal, 16)
         }
     }
 }
@@ -82,10 +82,8 @@ struct Event_Previews: PreviewProvider {
                 ButtonView(text: NSLocalizedString("actionMenus", comment: "")) {
                 }
             },
-            onFaqClicked: { String in },
-            onCoCClicked: { String in },
-            onTwitterClicked: { String in },
-            onLinkedInClicked: { String in }
+            onLinkClicked: { String in },
+            onMapClicked: { uri in }
         )
     }
 }

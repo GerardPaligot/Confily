@@ -11,7 +11,9 @@ struct iOSApp: App {
     let db = DatabaseWrapper().createDb()
     
     init() {
-        FirebaseApp.configure()
+        if (isInDebugMode == false) {
+            FirebaseApp.configure()
+        }
         SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
     }
 

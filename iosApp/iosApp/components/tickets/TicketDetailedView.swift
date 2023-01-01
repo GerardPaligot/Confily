@@ -48,6 +48,7 @@ struct TicketDetailedView: View {
             }
         }
         .background(Color.c4hSurface)
+        .cornerRadius(16)
         .overlay(
             RoundedRectangle(cornerRadius: 16)
                 .stroke(.black, lineWidth: 2)

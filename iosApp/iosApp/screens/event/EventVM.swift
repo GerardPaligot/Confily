@@ -72,17 +72,13 @@ struct EventVM: View {
                                     self.navigationState = EventNavigationState.none
                                 }
                             },
-                            onFaqClicked: { url in
+                            onLinkClicked: { url in
                                 if let url2 = URL(string: url) { openURL(url2) }
                             },
-                            onCoCClicked: { url in
-                                if let url2 = URL(string: url) { openURL(url2) }
-                            },
-                            onTwitterClicked: { url in
-                                if let url2 = URL(string: url) { openURL(url2) }
-                            },
-                            onLinkedInClicked: { url in
-                                if let url2 = URL(string: url) { openURL(url2) }
+                            onMapClicked: { url in
+                                if UIApplication.shared.canOpenURL(url) {
+                                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                                }
                             }
                         )
                     case .failure:

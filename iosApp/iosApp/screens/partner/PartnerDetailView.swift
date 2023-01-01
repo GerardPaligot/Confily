@@ -18,11 +18,14 @@ struct PartnerDetailView: View {
         let hasGpsLocation = partnerUi.latitude != nil && partnerUi.longitude != nil
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 16) {
-                PartnerDetailSectionView(
-                    partnerUi: partnerUi,
-                    twitterOnClick: linkOnClick,
-                    linkedinOnClick: linkOnClick,
-                    websiteOnClick: linkOnClick
+                SocialHeaderView(
+                    title: partnerUi.name,
+                    description: partnerUi.description_,
+                    logoUrl: partnerUi.logoUrl,
+                    twitterUrl: partnerUi.twitterUrl,
+                    linkedInUrl: partnerUi.linkedinUrl,
+                    websiteUrl: partnerUi.siteUrl,
+                    linkOnClick: linkOnClick
                 )
                 if (partnerUi.formattedAddress != nil) {
                     VStack(alignment: .leading) {

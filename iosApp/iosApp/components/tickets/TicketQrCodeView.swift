@@ -17,6 +17,7 @@ struct TicketQrCodeView: View {
             .frame(width: 250, height: 250, alignment: .center)
             .padding()
             .background(Color.c4hSurface)
+            .cornerRadius(16)
             .overlay(
                 RoundedRectangle(cornerRadius: 16)
                     .stroke(.black, lineWidth: 2)
