@@ -35,9 +35,10 @@ struct AppView: View {
                 }
         }
         .onAppear {
-            Task {
-                await viewModel.fetchAgenda()
-            }
+            viewModel.fetchAgenda()
+        }
+        .onDisappear {
+            viewModel.stop()
         }
 	}
 }
