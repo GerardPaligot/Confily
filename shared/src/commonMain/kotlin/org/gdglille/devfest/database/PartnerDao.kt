@@ -36,10 +36,10 @@ class PartnerDao(private val db: Conferences4HallDatabase, private val eventId: 
         }
 
     fun fetchPartners(): Flow<PartnerGroupsUi> = db.transactionWithResult {
-        return@transactionWithResult db.eventQueries.selectPartnerTypes().asFlow().mapToList().flatMapConcat { types ->
+        return@transactionWithResult db.partnerQueries.selectPartnerTypes().asFlow().mapToList().flatMapConcat { types ->
             return@flatMapConcat combine(
                 types.map { type ->
-                    db.eventQueries.selectPartners(eventId, type.name, partnerMapper).asFlow().mapToList()
+                    db.partnerQueries.selectPartners(eventId, type.name, partnerMapper).asFlow().mapToList()
                         .map { type.name to it.chunked(3) }
                 },
                 transform = { results ->
@@ -57,15 +57,15 @@ class PartnerDao(private val db: Conferences4HallDatabase, private val eventId: 
     }
 
     fun fetchPartner(id: String): Flow<PartnerItemUi> =
-        db.eventQueries.selectPartner(id, partnerMapper).asFlow().mapToOne()
+        db.partnerQueries.selectPartner(id, partnerMapper).asFlow().mapToOne()
 
     fun insertPartners(partners: Map<String, List<PartnerV2>>) = db.transaction {
         partners.keys.forEachIndexed { index, type ->
-            db.eventQueries.insertPartnerType(order_ = index.toLong(), name = type)
+            db.partnerQueries.insertPartnerType(order_ = index.toLong(), name = type)
         }
         partners.entries.forEach { entry ->
             entry.value.forEach {
-                db.eventQueries.insertPartner(
+                db.partnerQueries.insertPartner(
                     id = it.id,
                     name = it.name,
                     description = it.description,
