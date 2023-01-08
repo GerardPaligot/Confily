@@ -20,6 +20,14 @@ coc_url TEXT NOT NULL,
 updated_at INTEGER NOT NULL
 );
 
+CREATE TABLE EventItem (
+id TEXT NOT NULL PRIMARY KEY,
+name TEXT NOT NULL,
+date TEXT NOT NULL,
+timestamp INTEGER NOT NULL,
+past INTEGER AS Boolean NOT NULL DEFAULT 0
+);
+
 insertEvent:
 INSERT OR REPLACE INTO Event(
 id, name, formatted_address, address, latitude, longitude, date, coc, contact_email, contact_phone, twitter, twitter_url, linkedin, linkedin_url, faq_url, coc_url, updated_at
@@ -30,3 +38,9 @@ SELECT id, name, formatted_address, address, latitude, longitude, date, coc, con
 
 selectCoc:
 SELECT coc, contact_email, contact_phone FROM Event WHERE id == ?;
+
+insertEventItem:
+INSERT OR REPLACE INTO EventItem(id, name, date, timestamp, past) VALUES (?, ?, ?, ?, ?);
+
+selectEventItem:
+SELECT id, name, date, timestamp, past FROM EventItem ORDER BY timestamp DESC;

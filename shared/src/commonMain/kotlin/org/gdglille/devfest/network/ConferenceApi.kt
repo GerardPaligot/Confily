@@ -17,6 +17,7 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.gdglille.devfest.Platform
 import org.gdglille.devfest.models.Attendee
+import org.gdglille.devfest.models.EventList
 import org.gdglille.devfest.models.EventV2
 import org.gdglille.devfest.models.PartnerV2
 import org.gdglille.devfest.models.ScheduleItem
@@ -26,6 +27,8 @@ class ConferenceApi(
     private val baseUrl: String,
     private val eventId: String
 ) {
+    suspend fun fetchEventList(): EventList = client.get("$baseUrl/events").body()
+
     suspend fun fetchEvent(): EventV2 {
         val response = client.get("$baseUrl/events/$eventId") {
             contentType(ContentType.parse("application/json"))

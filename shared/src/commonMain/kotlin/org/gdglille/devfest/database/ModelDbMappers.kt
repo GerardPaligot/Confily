@@ -1,10 +1,13 @@
 package org.gdglille.devfest.database
 
 import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 import org.gdglille.devfest.db.Event
+import org.gdglille.devfest.db.EventItem
 import org.gdglille.devfest.db.Speaker
 import org.gdglille.devfest.db.Talk
+import org.gdglille.devfest.models.EventItemList
 import org.gdglille.devfest.models.EventV2
 import org.gdglille.devfest.models.ScheduleItem
 
@@ -57,3 +60,11 @@ fun EventV2.convertToModelDb(): Event = Event(
 
 private fun LocalDateTime.format(): String =
     "${this.dayOfWeek.name} ${this.dayOfMonth}, ${this.month.name} ${this.year}"
+
+fun EventItemList.convertToModelDb(): EventItem = EventItem(
+    id = this.id,
+    name = this.name,
+    date = this.startDate.dropLast(1).toLocalDateTime().format(),
+    timestamp = this.startDate.dropLast(1).toInstant().toEpochMilliseconds(),
+    past = false
+)

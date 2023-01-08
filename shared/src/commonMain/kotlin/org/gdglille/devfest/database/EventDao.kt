@@ -6,11 +6,15 @@ import com.squareup.sqldelight.runtime.coroutines.mapToOne
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.combineTransform
+import kotlinx.coroutines.flow.map
 import org.gdglille.devfest.Image
 import org.gdglille.devfest.db.Conferences4HallDatabase
 import org.gdglille.devfest.models.Attendee
 import org.gdglille.devfest.models.CoCUi
 import org.gdglille.devfest.models.EventInfoUi
+import org.gdglille.devfest.models.EventItemList
+import org.gdglille.devfest.models.EventItemListUi
+import org.gdglille.devfest.models.EventItemUi
 import org.gdglille.devfest.models.EventUi
 import org.gdglille.devfest.models.EventV2
 import org.gdglille.devfest.models.MenuItemUi
@@ -41,6 +45,10 @@ class EventDao(private val db: Conferences4HallDatabase, private val eventId: St
                 codeOfConductLink = cocUrl
             )
         }
+
+    private val eventItemMapper = { id: String, name: String, date: String, _: Long, _: Boolean ->
+        EventItemUi(id = id, name = name, date = date)
+    }
 
     private val menuMapper = { name: String, dish: String, accompaniment: String, dessert: String ->
         MenuItemUi(name = name, dish = dish, accompaniment = accompaniment, dessert = dessert)
@@ -73,6 +81,11 @@ class EventDao(private val db: Conferences4HallDatabase, private val eventId: St
                 emit(EventUi(eventInfo = eventInfo, ticket = ticket.executeAsOneOrNull()))
             }
     }
+
+    fun fetchFutureEvent(): Flow<EventItemListUi> =
+        db.eventQueries.selectEventItem(eventItemMapper).asFlow().mapToList().map {
+            EventItemListUi(future = it)
+        }
 
     fun fetchQAndA(): Flow<List<QuestionAndResponseUi>> = db.transactionWithResult {
         return@transactionWithResult combine(
@@ -137,6 +150,19 @@ class EventDao(private val db: Conferences4HallDatabase, private val eventId: St
             has_qanda = event.features.hasQAndA,
             has_billet_web_ticket = event.features.hasBilletWebTicket
         )
+    }
+
+    fun insertEventItems(items: List<EventItemList>) = db.transaction {
+        items.forEach {
+            val itemDb = it.convertToModelDb()
+            db.eventQueries.insertEventItem(
+                id = itemDb.id,
+                name = itemDb.name,
+                date = itemDb.date,
+                timestamp = itemDb.timestamp,
+                past = itemDb.past
+            )
+        }
     }
 
     fun updateTicket(qrCode: Image, barcode: String, attendee: Attendee?) =
