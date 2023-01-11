@@ -12,7 +12,7 @@ import org.gdglille.devfest.toByteArray
 import org.gdglille.devfest.toNativeImage
 
 class UserDao(private val db: Conferences4HallDatabase, private val eventId: String) {
-    fun fetchProfile(): Flow<UserProfileUi?> =
+    fun fetchProfile(eventId: String): Flow<UserProfileUi?> =
         db.userQueries.selectProfile(eventId, mapper = { _, email, firstname, lastname, company, qrcode ->
             return@selectProfile UserProfileUi(
                 email = email,
@@ -23,7 +23,7 @@ class UserDao(private val db: Conferences4HallDatabase, private val eventId: Str
             )
         }).asFlow().mapToOneOrNull()
 
-    fun fetchUserPreview(): Flow<UserProfileUi?> =
+    fun fetchUserPreview(eventId: String): Flow<UserProfileUi?> =
         db.ticketQueries.selectTicket(eventId, mapper = { _, _, _, _, firstname, lastname, _, _ ->
             return@selectTicket UserProfileUi(
                 email = "",
@@ -34,7 +34,7 @@ class UserDao(private val db: Conferences4HallDatabase, private val eventId: Str
             )
         }).asFlow().mapToOneOrNull()
 
-    fun insertUser(user: UserProfileUi) {
+    fun insertUser(eventId: String, user: UserProfileUi) {
         db.userQueries.insertProfile(
             eventId,
             user.email,
@@ -45,7 +45,7 @@ class UserDao(private val db: Conferences4HallDatabase, private val eventId: Str
         )
     }
 
-    fun fetchNetworking(): Flow<List<UserNetworkingUi>> =
+    fun fetchNetworking(eventId: String): Flow<List<UserNetworkingUi>> =
         db.userQueries.selectAll(eventId) { email, firstName, lastName, company, _, _ ->
             UserNetworkingUi(
                 email,
@@ -55,7 +55,7 @@ class UserDao(private val db: Conferences4HallDatabase, private val eventId: Str
             )
         }.asFlow().mapToList()
 
-    fun insertEmailNetworking(userNetworkingUi: UserNetworkingUi) =
+    fun insertEmailNetworking(eventId: String, userNetworkingUi: UserNetworkingUi) =
         db.userQueries.insertNetwork(
             userNetworkingUi.email,
             userNetworkingUi.firstName,
@@ -65,5 +65,25 @@ class UserDao(private val db: Conferences4HallDatabase, private val eventId: Str
             Clock.System.now().epochSeconds
         )
 
-    fun deleteNetworking(email: String) = db.userQueries.deleteNetwork(email)
+    fun deleteNetworking(eventId: String, email: String) =
+        db.userQueries.deleteNetwork(eventId, email)
+
+    @Deprecated(message = "")
+    fun fetchProfile(): Flow<UserProfileUi?> = fetchProfile(eventId)
+
+    @Deprecated(message = "")
+    fun fetchUserPreview(): Flow<UserProfileUi?> = fetchUserPreview(eventId)
+
+    @Deprecated(message = "")
+    fun insertUser(user: UserProfileUi) = insertUser(eventId, user)
+
+    @Deprecated(message = "")
+    fun fetchNetworking(): Flow<List<UserNetworkingUi>> = fetchNetworking(eventId)
+
+    @Deprecated(message = "")
+    fun insertEmailNetworking(userNetworkingUi: UserNetworkingUi) =
+        insertEmailNetworking(eventId, userNetworkingUi)
+
+    @Deprecated(message = "")
+    fun deleteNetworking(email: String) = deleteNetworking(eventId, email)
 }

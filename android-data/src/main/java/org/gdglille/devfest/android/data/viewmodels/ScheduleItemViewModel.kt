@@ -29,6 +29,7 @@ class ScheduleItemViewModel(
             try {
                 _uiState.value = ScheduleUiState.Success(repository.scheduleItem(scheduleId))
             } catch (error: Throwable) {
+                error.printStackTrace()
                 Firebase.crashlytics.recordException(error)
                 _uiState.value = ScheduleUiState.Failure(error)
             }

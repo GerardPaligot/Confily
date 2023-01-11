@@ -27,7 +27,7 @@ updateSchedule:
 UPDATE Schedule SET event_id = ?, date = ?, start_time = ?, end_time = ?, room = ?, title = ?, abstract = ?, category = ?, category_color = ?, category_icon = ?, speakers = ?, speakers_avatar = ?, level = ? WHERE id == ?;
 
 markAsFavorite:
-UPDATE Schedule SET is_favorite = ? WHERE id == ?;
+UPDATE Schedule SET is_favorite = ? WHERE id == ? AND event_id == ?;
 
 selectScheduleItems:
 SELECT id, event_id, start_time, end_time, room, title, abstract, category, category_color, category_icon, speakers, speakers_avatar, is_favorite, level FROM Schedule WHERE event_id == ? AND date == ? ORDER BY start_time;

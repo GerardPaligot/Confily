@@ -9,7 +9,7 @@ import org.gdglille.devfest.db.Conferences4HallDatabase
 import org.gdglille.devfest.models.ScaffoldConfigUi
 
 class FeaturesActivatedDao(private val db: Conferences4HallDatabase, private val eventId: String) {
-    fun fetchFeatures(): Flow<ScaffoldConfigUi> = combine(
+    fun fetchFeatures(eventId: String): Flow<ScaffoldConfigUi> = combine(
         db.featuresActivatedQueries.selectFeatures(eventId).asFlow().mapToOneOrNull(),
         db.userQueries.selectQrCode(eventId).asFlow().mapToOneOrNull(),
         db.agendaQueries.selectDays(eventId).asFlow().mapToList(),
@@ -26,4 +26,7 @@ class FeaturesActivatedDao(private val db: Conferences4HallDatabase, private val
             )
         }
     )
+
+    @Deprecated(message = "")
+    fun fetchFeatures(): Flow<ScaffoldConfigUi> = fetchFeatures(eventId)
 }

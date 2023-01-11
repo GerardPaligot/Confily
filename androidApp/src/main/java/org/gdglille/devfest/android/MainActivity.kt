@@ -27,6 +27,7 @@ import org.gdglille.devfest.database.TalkDao
 import org.gdglille.devfest.database.UserDao
 import org.gdglille.devfest.network.ConferenceApi
 import org.gdglille.devfest.repositories.AgendaRepository
+import org.gdglille.devfest.repositories.EventRepository
 import org.gdglille.devfest.repositories.SpeakerRepository
 import org.gdglille.devfest.repositories.UserRepository
 
@@ -51,11 +52,15 @@ class MainActivity : AppCompatActivity() {
             baseUrl = baseUrl, eventId = eventId, enableNetworkLogs = BuildConfig.DEBUG
         )
         val settings = AndroidSettings(getSharedPreferences(eventId, MODE_PRIVATE))
+        val eventRepository = EventRepository.Factory.create(
+            api = api,
+            eventDao = EventDao(db, eventId)
+        )
         val agendaRepository = AgendaRepository.Factory.create(
             api = api,
             scheduleDao = ScheduleDao(db, settings, eventId),
             speakerDao = SpeakerDao(db, eventId),
-            talkDao = TalkDao(db),
+            talkDao = TalkDao(db, eventId),
             eventDao = EventDao(db, eventId),
             partnerDao = PartnerDao(db = db, eventId = eventId),
             featuresDao = FeaturesActivatedDao(db = db, eventId = eventId),
@@ -79,6 +84,7 @@ class MainActivity : AppCompatActivity() {
             val reportSubject = stringResource(id = R.string.text_report_subject)
             val reportAppTarget = stringResource(id = R.string.text_report_app_target)
             Main(
+                eventRepository = eventRepository,
                 agendaRepository = agendaRepository,
                 userRepository = userRepository,
                 speakerRepository = speakerRepository,

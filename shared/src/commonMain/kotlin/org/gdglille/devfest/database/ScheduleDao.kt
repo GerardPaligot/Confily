@@ -52,7 +52,7 @@ class ScheduleDao(
             )
         }
 
-    fun fetchSchedules(date: String): Flow<AgendaUi> {
+    fun fetchSchedules(eventId: String, date: String): Flow<AgendaUi> {
         return settings.getBooleanFlow("ONLY_FAVORITES", false)
             .flatMapMerge {
                 return@flatMapMerge db.agendaQueries
@@ -79,8 +79,12 @@ class ScheduleDao(
         settings.putBoolean("ONLY_FAVORITES", !isFavorite)
     }
 
-    fun markAsFavorite(scheduleId: String, isFavorite: Boolean) = db.transaction {
-        db.agendaQueries.markAsFavorite(isFavorite, scheduleId)
+    fun markAsFavorite(eventId: String, scheduleId: String, isFavorite: Boolean) = db.transaction {
+        db.agendaQueries.markAsFavorite(
+            is_favorite = isFavorite,
+            id = scheduleId,
+            event_id = eventId
+        )
         if (isFavorite) return@transaction
         val onlyFavorites = settings.getBoolean("ONLY_FAVORITES", false)
         if (!onlyFavorites) return@transaction
@@ -93,7 +97,7 @@ class ScheduleDao(
         val schedulesCached = db.agendaQueries.selectScheduleItems(eventId, "").executeAsList()
         schedules.forEach { schedule ->
             if (schedule.talk != null) {
-                val talk = schedule.convertToModelDb()
+                val talk = schedule.convertToModelDb(eventId)
                 db.talkQueries.insertTalk(
                     id = talk.id,
                     title = talk.title,
@@ -107,7 +111,8 @@ class ScheduleDao(
                     category_icon = talk.category_icon,
                     format = talk.format,
                     open_feedback = talk.open_feedback?.split("/")?.lastOrNull(),
-                    open_feedback_url = talk.open_feedback_url
+                    open_feedback_url = talk.open_feedback_url,
+                    event_id = talk.event_id
                 )
                 val speakers = schedule.talk!!.speakers.map { it.convertToModelDb(eventId) }
                 speakers.forEach {
@@ -121,7 +126,11 @@ class ScheduleDao(
                         github = it.github,
                         event_id = eventId
                     )
-                    db.talkQueries.insertTalkWithSpeaker(speaker_id = it.id, talk_id = talk.id)
+                    db.talkQueries.insertTalkWithSpeaker(
+                        speaker_id = it.id,
+                        talk_id = talk.id,
+                        event_id = eventId
+                    )
                 }
             }
             val cached = schedulesCached.find { it.id == schedule.id }
@@ -164,7 +173,21 @@ class ScheduleDao(
         }
     }
 
-    fun lastEtag(): String? = settings.getStringOrNull("AGENDA_ETAG")
+    fun lastEtag(eventId: String): String? = settings.getStringOrNull("AGENDA_ETAG_$eventId")
 
-    fun updateEtag(etag: String?) = etag?.let { settings.putString("AGENDA_ETAG", it) }
+    fun updateEtag(eventId: String, etag: String?) =
+        etag?.let { settings.putString("AGENDA_ETAG_$eventId", it) }
+
+    @Deprecated(message = "")
+    fun fetchSchedules(date: String): Flow<AgendaUi> = fetchSchedules(eventId, date)
+
+    @Deprecated(message = "")
+    fun updateEtag(etag: String?) = updateEtag(eventId, etag)
+
+    @Deprecated(message = "")
+    fun lastEtag(): String? = lastEtag(eventId)
+
+    @Deprecated(message = "")
+    fun markAsFavorite(scheduleId: String, isFavorite: Boolean) =
+        markAsFavorite(eventId, scheduleId, isFavorite)
 }

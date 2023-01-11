@@ -35,11 +35,13 @@ class PartnerDao(private val db: Conferences4HallDatabase, private val eventId: 
             )
         }
 
-    fun fetchPartners(): Flow<PartnerGroupsUi> = db.transactionWithResult {
-        return@transactionWithResult db.partnerQueries.selectPartnerTypes().asFlow().mapToList().flatMapConcat { types ->
+    fun fetchPartners(eventId: String): Flow<PartnerGroupsUi> = db.transactionWithResult {
+        return@transactionWithResult db.partnerQueries.selectPartnerTypes(eventId).asFlow().mapToList().flatMapConcat { types ->
             return@flatMapConcat combine(
                 types.map { type ->
-                    db.partnerQueries.selectPartners(eventId, type.name, partnerMapper).asFlow().mapToList()
+                    db.partnerQueries.selectPartners(eventId, type.name, partnerMapper)
+                        .asFlow()
+                        .mapToList()
                         .map { type.name to it.chunked(3) }
                 },
                 transform = { results ->
@@ -56,12 +58,16 @@ class PartnerDao(private val db: Conferences4HallDatabase, private val eventId: 
         }
     }
 
-    fun fetchPartner(id: String): Flow<PartnerItemUi> =
-        db.partnerQueries.selectPartner(id, partnerMapper).asFlow().mapToOne()
+    fun fetchPartner(eventId: String, id: String): Flow<PartnerItemUi> =
+        db.partnerQueries.selectPartner(eventId, id, partnerMapper).asFlow().mapToOne()
 
-    fun insertPartners(partners: Map<String, List<PartnerV2>>) = db.transaction {
+    fun insertPartners(eventId: String, partners: Map<String, List<PartnerV2>>) = db.transaction {
         partners.keys.forEachIndexed { index, type ->
-            db.partnerQueries.insertPartnerType(order_ = index.toLong(), name = type)
+            db.partnerQueries.insertPartnerType(
+                order_ = index.toLong(),
+                name = type,
+                event_id = eventId
+            )
         }
         partners.entries.forEach { entry ->
             entry.value.forEach {
@@ -86,4 +92,13 @@ class PartnerDao(private val db: Conferences4HallDatabase, private val eventId: 
             }
         }
     }
+
+    @Deprecated(message = "")
+    fun fetchPartners(): Flow<PartnerGroupsUi> = fetchPartners(eventId)
+
+    @Deprecated(message = "")
+    fun fetchPartner(id: String): Flow<PartnerItemUi> = fetchPartner(eventId, id)
+
+    @Deprecated(message = "")
+    fun insertPartners(partners: Map<String, List<PartnerV2>>) = insertPartners(eventId, partners)
 }

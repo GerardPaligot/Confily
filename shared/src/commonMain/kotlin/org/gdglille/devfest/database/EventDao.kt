@@ -72,7 +72,12 @@ class EventDao(private val db: Conferences4HallDatabase, private val eventId: St
             )
         }
 
-    fun fetchEvent(): Flow<EventUi> = db.transactionWithResult {
+    fun fetchFutureEvent(): Flow<EventItemListUi> =
+        db.eventQueries.selectEventItem(eventItemMapper).asFlow().mapToList().map {
+            EventItemListUi(future = it)
+        }
+
+    fun fetchEvent(eventId: String): Flow<EventUi> = db.transactionWithResult {
         return@transactionWithResult db.eventQueries.selectEvent(eventId, eventMapper).asFlow()
             .combineTransform(
                 db.ticketQueries.selectTicket(eventId, ticketMapper).asFlow()
@@ -82,14 +87,9 @@ class EventDao(private val db: Conferences4HallDatabase, private val eventId: St
             }
     }
 
-    fun fetchFutureEvent(): Flow<EventItemListUi> =
-        db.eventQueries.selectEventItem(eventItemMapper).asFlow().mapToList().map {
-            EventItemListUi(future = it)
-        }
-
-    fun fetchQAndA(): Flow<List<QuestionAndResponseUi>> = db.transactionWithResult {
+    fun fetchQAndA(eventId: String): Flow<List<QuestionAndResponseUi>> = db.transactionWithResult {
         return@transactionWithResult combine(
-            db.qAndAQueries.selectQAndA().asFlow().mapToList(),
+            db.qAndAQueries.selectQAndA(eventId).asFlow().mapToList(),
             db.qAndAQueries.selectQAndAActions(eventId).asFlow().mapToList(),
             transform = { qAndADb, actionsDb ->
                 qAndADb.map { qanda ->
@@ -106,10 +106,11 @@ class EventDao(private val db: Conferences4HallDatabase, private val eventId: St
         )
     }
 
-    fun fetchMenus(): Flow<List<MenuItemUi>> =
-        db.menuQueries.selectMenus(menuMapper).asFlow().mapToList()
+    fun fetchMenus(eventId: String): Flow<List<MenuItemUi>> =
+        db.menuQueries.selectMenus(eventId, menuMapper).asFlow().mapToList()
 
-    fun fetchCoC(): Flow<CoCUi> = db.eventQueries.selectCoc(eventId, cocMapper).asFlow().mapToOne()
+    fun fetchCoC(eventId: String): Flow<CoCUi> =
+        db.eventQueries.selectCoc(eventId, cocMapper).asFlow().mapToOne()
 
     fun insertEvent(event: EventV2) = db.transaction {
         val eventDb = event.convertToModelDb()
@@ -139,7 +140,7 @@ class EventDao(private val db: Conferences4HallDatabase, private val eventId: St
             }
         }
         event.menus.forEach {
-            db.menuQueries.insertMenu(it.name, it.dish, it.accompaniment, it.dessert)
+            db.menuQueries.insertMenu(it.name, it.dish, it.accompaniment, it.dessert, event.id)
         }
         db.featuresActivatedQueries.insertFeatures(
             event_id = eventId,
@@ -165,7 +166,7 @@ class EventDao(private val db: Conferences4HallDatabase, private val eventId: St
         }
     }
 
-    fun updateTicket(qrCode: Image, barcode: String, attendee: Attendee?) =
+    fun updateTicket(eventId: String, qrCode: Image, barcode: String, attendee: Attendee?) =
         db.ticketQueries.insertUser(
             id = attendee?.id,
             ext_id = attendee?.idExt,
@@ -176,4 +177,20 @@ class EventDao(private val db: Conferences4HallDatabase, private val eventId: St
             barcode = barcode,
             qrcode = qrCode.toByteArray()
         )
+
+    @Deprecated(message = "")
+    fun fetchEvent(): Flow<EventUi> = fetchEvent(eventId)
+
+    @Deprecated(message = "")
+    fun fetchQAndA(): Flow<List<QuestionAndResponseUi>> = fetchQAndA(eventId)
+
+    @Deprecated(message = "")
+    fun fetchMenus(): Flow<List<MenuItemUi>> = fetchMenus(eventId)
+
+    @Deprecated(message = "")
+    fun fetchCoC(): Flow<CoCUi> = fetchCoC(eventId)
+
+    @Deprecated(message = "")
+    fun updateTicket(qrCode: Image, barcode: String, attendee: Attendee?) =
+        updateTicket(eventId, qrCode, barcode, attendee)
 }

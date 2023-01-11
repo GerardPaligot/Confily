@@ -24,14 +24,6 @@ event_id TEXT NOT NULL,
 created_at INTEGER NOT NULL
 );
 
-selectUser:
-SELECT * FROM User WHERE email == ?;
-
-insertUser:
-INSERT OR REPLACE INTO User(
-email, firstname, lastname, company, qrcode
-) VALUES(?, ?, ?, ?, ?);
-
 selectProfile:
 SELECT * FROM Profile WHERE event_id == ?;
 
@@ -52,4 +44,4 @@ email, firstname, lastname, company, event_id, created_at
 ) VALUES (?, ?, ?, ?, ?, ?);
 
 deleteNetwork:
-DELETE FROM Networking WHERE  email = ?;
+DELETE FROM Networking WHERE event_id = ? AND email = ?;

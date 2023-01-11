@@ -37,23 +37,29 @@ class SpeakerDao(private val db: Conferences4HallDatabase, private val eventId: 
             )
         }
 
-    fun fetchSpeaker(speakerId: String): Flow<SpeakerUi> {
+    fun fetchSpeaker(eventId: String, speakerId: String): Flow<SpeakerUi> {
         return combine(
-            db.speakerQueries.selectSpeaker(speakerId, mapper).asFlow().mapToOne(),
-            fetchTalksBySpeakerId(speakerId),
+            db.speakerQueries.selectSpeaker(speakerId, eventId, mapper).asFlow().mapToOne(),
+            fetchTalksBySpeakerId(eventId, speakerId),
             transform = { speaker, talks ->
                 return@combine speaker.copy(talks = talks)
             }
         )
     }
 
-    private fun fetchTalksBySpeakerId(speakerId: String): Flow<List<TalkItemUi>> {
-        val talkWithSpeakers = db.talkQueries.selectTalkWithSpeakersBySpeakerId(speakerId).executeAsList()
+    private fun fetchTalksBySpeakerId(eventId: String, speakerId: String): Flow<List<TalkItemUi>> {
+        val talkWithSpeakers = db.talkQueries.selectTalkWithSpeakersBySpeakerId(speakerId, eventId).executeAsList()
         return db.agendaQueries.selectScheduleItemsById(
             talkWithSpeakers.map { it.talk_id }, eventId, TalkMappers.talkItem
         ).asFlow().mapToList()
     }
 
-    fun fetchSpeakers(): Flow<List<SpeakerItemUi>> =
+    fun fetchSpeakers(eventId: String): Flow<List<SpeakerItemUi>> =
         db.speakerQueries.selectSpeakersByEvent(eventId, mapperItem).asFlow().mapToList()
+
+    @Deprecated(message = "")
+    fun fetchSpeaker(speakerId: String): Flow<SpeakerUi> = fetchSpeaker(eventId, speakerId)
+
+    @Deprecated(message = "")
+    fun fetchSpeakers(): Flow<List<SpeakerItemUi>> = fetchSpeakers(eventId)
 }

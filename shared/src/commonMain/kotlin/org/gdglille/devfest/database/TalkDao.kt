@@ -10,11 +10,15 @@ import org.gdglille.devfest.models.CategoryUi
 import org.gdglille.devfest.models.SpeakerItemUi
 import org.gdglille.devfest.models.TalkUi
 
-class TalkDao(private val db: Conferences4HallDatabase) {
-    fun fetchTalk(talkId: String): TalkUi = db.talkQueries.transactionWithResult {
-        val talkWithSpeakers = db.talkQueries.selectTalkWithSpeakersByTalkId(talkId).executeAsList()
-        val speakers = db.speakerQueries.selectSpeakers(talkWithSpeakers.map { it.speaker_id }).executeAsList()
-        val talk = db.talkQueries.selectTalk(talkId).executeAsOne()
+class TalkDao(private val db: Conferences4HallDatabase, private val eventId: String) {
+    fun fetchTalk(eventId: String, talkId: String): TalkUi = db.talkQueries.transactionWithResult {
+        val talkWithSpeakers = db.talkQueries
+            .selectTalkWithSpeakersByTalkId(talkId, eventId)
+            .executeAsList()
+        val speakers = db.speakerQueries
+            .selectSpeakers(talkWithSpeakers.map { it.speaker_id }, eventId)
+            .executeAsList()
+        val talk = db.talkQueries.selectTalk(talkId, eventId).executeAsOne()
         val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
         val startTime = talk.start_time.toLocalDateTime()
         val endTime = talk.end_time.toLocalDateTime()
@@ -23,7 +27,11 @@ class TalkDao(private val db: Conferences4HallDatabase) {
             title = talk.title,
             level = talk.level,
             abstract = talk.abstract_,
-            category = CategoryUi(name = talk.category, color = talk.category_color, icon = talk.category_icon),
+            category = CategoryUi(
+                name = talk.category,
+                color = talk.category_color,
+                icon = talk.category_icon
+            ),
             startTime = startTime.formatHoursMinutes(),
             endTime = endTime.formatHoursMinutes(),
             timeInMinutes = diff.inWholeMinutes.toInt(),
@@ -49,4 +57,7 @@ class TalkDao(private val db: Conferences4HallDatabase) {
             openFeedbackUrl = talk.open_feedback_url
         )
     }
+
+    @Deprecated(message = "")
+    fun fetchTalk(talkId: String): TalkUi = fetchTalk(eventId, talkId)
 }

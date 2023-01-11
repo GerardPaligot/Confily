@@ -19,7 +19,7 @@ order_, event_id, question, response
 ) VALUES (?, ?, ?, ?);
 
 selectQAndA:
-SELECT * FROM QAndA ORDER BY order_ ASC;
+SELECT order_, question, response FROM QAndA WHERE event_id == ? ORDER BY order_ ASC;
 
 insertQAndAAction:
 INSERT OR REPLACE INTO QAndAAction(

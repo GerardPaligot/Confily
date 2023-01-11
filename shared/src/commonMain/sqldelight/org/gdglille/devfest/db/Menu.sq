@@ -2,13 +2,14 @@ CREATE TABLE Menu (
 name TEXT NOT NULL PRIMARY KEY,
 dish TEXT NOT NULL,
 accompaniment TEXT NOT NULL,
-dessert TEXT NOT NULL
+dessert TEXT NOT NULL,
+event_id TEXT NOT NULL
 );
 
 insertMenu:
 INSERT OR REPLACE INTO Menu(
-name, dish, accompaniment, dessert
-) VALUES (?, ?, ?, ?);
+name, dish, accompaniment, dessert, event_id
+) VALUES (?, ?, ?, ?, ?);
 
 selectMenus:
-SELECT * FROM Menu;
+SELECT name, dish, accompaniment, dessert FROM Menu WHERE event_id == ?;

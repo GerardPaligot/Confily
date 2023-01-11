@@ -21,13 +21,14 @@ longitude REAL
 
 CREATE TABLE PartnerType (
 order_ INTEGER NOT NULL,
-name TEXT NOT NULL PRIMARY KEY
+name TEXT NOT NULL PRIMARY KEY,
+event_id TEXT NOT NULL
 );
 
 insertPartnerType:
 INSERT OR REPLACE INTO PartnerType(
-order_, name
-) VALUES (?, ?);
+order_, name, event_id
+) VALUES (?, ?, ?);
 
 insertPartner:
 INSERT OR REPLACE INTO Partner(
@@ -35,10 +36,10 @@ id, name, description, event_id, type_id, type, logo_url, site_url, twitter_url,
 ) VALUES (?, ?,?,?, ?,?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
 
 selectPartnerTypes:
-SELECT * FROM PartnerType ORDER BY order_ ASC;
+SELECT order_, name FROM PartnerType WHERE event_id == ? ORDER BY order_ ASC;
 
 selectPartners:
 SELECT id, name, description, logo_url, site_url, twitter_url, twitter_message, linkedin_url, linkedin_message, formatted_address, address, latitude, longitude FROM Partner WHERE event_id == ? AND type_id == ? ORDER BY name ASC;
 
 selectPartner:
-SELECT id, name, description, logo_url, site_url, twitter_url, twitter_message, linkedin_url, linkedin_message, formatted_address, address, latitude, longitude FROM Partner WHERE id == ? ORDER BY name ASC;
+SELECT id, name, description, logo_url, site_url, twitter_url, twitter_message, linkedin_url, linkedin_message, formatted_address, address, latitude, longitude FROM Partner WHERE event_id == ? AND id == ? ORDER BY name ASC;

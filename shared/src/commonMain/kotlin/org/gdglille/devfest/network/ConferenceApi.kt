@@ -29,7 +29,7 @@ class ConferenceApi(
 ) {
     suspend fun fetchEventList(): EventList = client.get("$baseUrl/events").body()
 
-    suspend fun fetchEvent(): EventV2 {
+    suspend fun fetchEvent(eventId: String): EventV2 {
         val response = client.get("$baseUrl/events/$eventId") {
             contentType(ContentType.parse("application/json"))
             accept(ContentType.parse("application/json; version=2"))
@@ -37,14 +37,17 @@ class ConferenceApi(
         return response.body()
     }
 
-    suspend fun fetchPartners(): Map<String, List<PartnerV2>> =
+    suspend fun fetchPartners(eventId: String): Map<String, List<PartnerV2>> =
         client.get("$baseUrl/events/$eventId/partners").body()
 
-    suspend fun fetchAttendee(barcode: String) =
+    suspend fun fetchAttendee(eventId: String, barcode: String) =
         client.get("$baseUrl/events/$eventId/billet-web/$barcode")
             .body<Attendee>()
 
-    suspend fun fetchAgenda(etag: String?): Pair<String, Map<String, Map<String, List<ScheduleItem>>>> {
+    suspend fun fetchAgenda(
+        eventId: String,
+        etag: String?
+    ): Pair<String, Map<String, Map<String, List<ScheduleItem>>>> {
         val response = client.get("$baseUrl/events/$eventId/agenda") {
             contentType(ContentType.parse("application/json"))
             accept(ContentType.parse("application/json; version=2"))
@@ -52,6 +55,19 @@ class ConferenceApi(
         }
         return response.etag()!! to response.body()
     }
+
+    @Deprecated(message = "")
+    suspend fun fetchEvent(): EventV2 = fetchEvent(eventId)
+
+    @Deprecated(message = "")
+    suspend fun fetchPartners(): Map<String, List<PartnerV2>> = fetchPartners(eventId)
+
+    @Deprecated(message = "")
+    suspend fun fetchAttendee(barcode: String) = fetchAttendee(eventId, barcode)
+
+    @Deprecated(message = "")
+    suspend fun fetchAgenda(etag: String?):
+        Pair<String, Map<String, Map<String, List<ScheduleItem>>>> = fetchAgenda(eventId, etag)
 
     companion object {
         fun create(baseUrl: String, eventId: String, enableNetworkLogs: Boolean): ConferenceApi =

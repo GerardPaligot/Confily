@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="screen_events">Events</string>
     <string name="screen_agenda">Agenda</string>
     <string name="screen_speakers">Speakers</string>
     <string name="screen_speaker_detail">Speaker detail</string>

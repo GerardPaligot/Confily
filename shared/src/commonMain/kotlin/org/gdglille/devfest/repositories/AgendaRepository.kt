@@ -27,6 +27,7 @@ import org.gdglille.devfest.network.ConferenceApi
 
 interface AgendaRepository {
     suspend fun fetchAndStoreAgenda()
+    suspend fun fetchAndStoreAgenda(eventId: String)
     fun isFavoriteToggled(): Flow<Boolean>
     fun toggleFavoriteFiltering()
     suspend fun insertOrUpdateTicket(barcode: String)
@@ -100,6 +101,24 @@ class AgendaRepositoryImpl(
         }
         eventDao.insertEvent(event)
         partnerDao.insertPartners(partners)
+    }
+
+    override suspend fun fetchAndStoreAgenda(eventId: String) {
+        val etag = scheduleDao.lastEtag(eventId)
+        val event = api.fetchEvent(eventId)
+        val partners = api.fetchPartners(eventId)
+        try {
+            val agenda = api.fetchAgenda(eventId, etag)
+            agenda.second.entries.forEach { entry ->
+                entry.value.values.forEach { schedules ->
+                    scheduleDao.insertOrUpdateSchedules(event.id, entry.key, schedules)
+                }
+            }
+            scheduleDao.updateEtag(eventId, agenda.first)
+        } catch (_: Throwable) {
+        }
+        eventDao.insertEvent(event)
+        partnerDao.insertPartners(eventId, partners)
     }
 
     override fun toggleFavoriteFiltering() {

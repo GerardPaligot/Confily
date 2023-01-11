@@ -22,7 +22,7 @@ fun org.gdglille.devfest.models.Speaker.convertToModelDb(eventId: String): Speak
     event_id = eventId
 )
 
-fun ScheduleItem.convertToModelDb(): Talk = Talk(
+fun ScheduleItem.convertToModelDb(eventId: String): Talk = Talk(
     id = this.id,
     title = this.talk!!.title,
     start_time = this.startTime,
@@ -35,7 +35,8 @@ fun ScheduleItem.convertToModelDb(): Talk = Talk(
     category_icon = this.talk!!.categoryStyle?.icon,
     format = this.talk!!.format,
     open_feedback = this.talk!!.openFeedback,
-    open_feedback_url = this.talk!!.openFeedback
+    open_feedback_url = this.talk!!.openFeedback,
+    event_id = eventId
 )
 
 fun EventV2.convertToModelDb(): Event = Event(
@@ -65,6 +66,6 @@ fun EventItemList.convertToModelDb(): EventItem = EventItem(
     id = this.id,
     name = this.name,
     date = this.startDate.dropLast(1).toLocalDateTime().format(),
-    timestamp = this.startDate.dropLast(1).toInstant().toEpochMilliseconds(),
+    timestamp = this.startDate.toInstant().toEpochMilliseconds(),
     past = false
 )

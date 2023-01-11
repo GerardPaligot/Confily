@@ -6,7 +6,6 @@ data class EventItemListUi(
     companion object {
         val fake = EventItemListUi(
             future = listOf(
-                EventItemUi.fake,
                 EventItemUi.fake
             )
         )

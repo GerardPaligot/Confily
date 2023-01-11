@@ -17,6 +17,7 @@ import kotlinx.coroutines.FlowPreview
 import org.gdglille.devfest.android.data.AlarmScheduler
 import org.gdglille.devfest.android.screens.event.TicketQrCodeScanner
 import org.gdglille.devfest.android.screens.networking.VCardQrCodeScanner
+import org.gdglille.devfest.android.theme.m3.features.EventListVM
 import org.gdglille.devfest.android.theme.m3.features.Home
 import org.gdglille.devfest.android.theme.m3.features.PartnerDetailVM
 import org.gdglille.devfest.android.theme.m3.features.ProfileInputVM
@@ -24,6 +25,7 @@ import org.gdglille.devfest.android.theme.m3.features.ScheduleDetailVM
 import org.gdglille.devfest.android.theme.m3.features.SpeakerDetailVM
 import org.gdglille.devfest.android.ui.resources.HomeResultKey
 import org.gdglille.devfest.repositories.AgendaRepository
+import org.gdglille.devfest.repositories.EventRepository
 import org.gdglille.devfest.repositories.SpeakerRepository
 import org.gdglille.devfest.repositories.UserRepository
 
@@ -32,6 +34,7 @@ import org.gdglille.devfest.repositories.UserRepository
 @FlowPreview
 @Composable
 fun Main(
+    eventRepository: EventRepository,
     agendaRepository: AgendaRepository,
     userRepository: UserRepository,
     speakerRepository: SpeakerRepository,
@@ -52,6 +55,16 @@ fun Main(
             systemUiController.setSystemBarsColor(color = statusBarColor, darkIcons = useDarkIcons)
         }
         NavHost(navController = navController, startDestination = "home") {
+            composable(
+                route = "events"
+            ) {
+                EventListVM(
+                    repository = eventRepository,
+                    onEventClicked = {
+                        navController.navigate("home")
+                    }
+                )
+            }
             composable(
                 route = "home",
                 deepLinks = listOf(navDeepLink { uriPattern = rootUri })

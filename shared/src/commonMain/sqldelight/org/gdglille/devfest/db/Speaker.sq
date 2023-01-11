@@ -15,10 +15,10 @@ id, display_name, bio, company, photo_url, twitter, github, event_id
 ) VALUES (?,?,?,?, ?, ?, ?, ?);
 
 selectSpeaker:
-SELECT * FROM Speaker WHERE id == ?;
+SELECT * FROM Speaker WHERE id == ? AND event_id == ?;
 
 selectSpeakers:
-SELECT * FROM Speaker WHERE id IN ?;
+SELECT * FROM Speaker WHERE id IN ? AND event_id == ?;
 
 selectSpeakersByEvent:
 SELECT * FROM Speaker WHERE event_id == ?;
