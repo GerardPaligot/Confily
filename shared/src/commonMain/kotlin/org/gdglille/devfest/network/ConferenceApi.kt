@@ -24,8 +24,7 @@ import org.gdglille.devfest.models.ScheduleItem
 
 class ConferenceApi(
     private val client: HttpClient,
-    private val baseUrl: String,
-    private val eventId: String
+    private val baseUrl: String
 ) {
     suspend fun fetchEventList(): EventList = client.get("$baseUrl/events").body()
 
@@ -56,24 +55,9 @@ class ConferenceApi(
         return response.etag()!! to response.body()
     }
 
-    @Deprecated(message = "")
-    suspend fun fetchEvent(): EventV2 = fetchEvent(eventId)
-
-    @Deprecated(message = "")
-    suspend fun fetchPartners(): Map<String, List<PartnerV2>> = fetchPartners(eventId)
-
-    @Deprecated(message = "")
-    suspend fun fetchAttendee(barcode: String) = fetchAttendee(eventId, barcode)
-
-    @Deprecated(message = "")
-    suspend fun fetchAgenda(etag: String?):
-        Pair<String, Map<String, Map<String, List<ScheduleItem>>>> = fetchAgenda(eventId, etag)
-
     companion object {
-        fun create(baseUrl: String, eventId: String, enableNetworkLogs: Boolean): ConferenceApi =
+        fun create(baseUrl: String, enableNetworkLogs: Boolean): ConferenceApi =
             ConferenceApi(
-                baseUrl = baseUrl,
-                eventId = eventId,
                 client = HttpClient(Platform().engine) {
                     install(
                         ContentNegotiation
@@ -93,7 +77,8 @@ class ConferenceApi(
                             level = LogLevel.ALL
                         }
                     }
-                }
+                },
+                baseUrl = baseUrl
             )
     }
 }

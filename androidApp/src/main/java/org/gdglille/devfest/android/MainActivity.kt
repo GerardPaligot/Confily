@@ -46,32 +46,36 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val baseUrl = BuildConfig.BASE_URL
-        val eventId = BuildConfig.EVENT_ID
         val db = DatabaseWrapper(context = this).createDb()
         val api = ConferenceApi.create(
-            baseUrl = baseUrl, eventId = eventId, enableNetworkLogs = BuildConfig.DEBUG
+            baseUrl = baseUrl,
+            enableNetworkLogs = BuildConfig.DEBUG
         )
-        val settings = AndroidSettings(getSharedPreferences(eventId, MODE_PRIVATE))
+        val settings = AndroidSettings(
+            getSharedPreferences(BuildConfig.APPLICATION_ID, MODE_PRIVATE)
+        )
         val eventRepository = EventRepository.Factory.create(
             api = api,
-            eventDao = EventDao(db, eventId)
+            eventDao = EventDao(db, settings)
         )
         val agendaRepository = AgendaRepository.Factory.create(
             api = api,
-            scheduleDao = ScheduleDao(db, settings, eventId),
-            speakerDao = SpeakerDao(db, eventId),
-            talkDao = TalkDao(db, eventId),
-            eventDao = EventDao(db, eventId),
-            partnerDao = PartnerDao(db = db, eventId = eventId),
-            featuresDao = FeaturesActivatedDao(db = db, eventId = eventId),
+            scheduleDao = ScheduleDao(db, settings),
+            speakerDao = SpeakerDao(db),
+            talkDao = TalkDao(db),
+            eventDao = EventDao(db, settings),
+            partnerDao = PartnerDao(db),
+            featuresDao = FeaturesActivatedDao(db),
             qrCodeGenerator = QrCodeGeneratorAndroid()
         )
         val userRepository = UserRepository.Factory.create(
-            userDao = UserDao(db = db, eventId = eventId),
+            userDao = UserDao(db),
+            eventDao = EventDao(db, settings),
             qrCodeGenerator = QrCodeGeneratorAndroid()
         )
         val speakerRepository = SpeakerRepository.Factory.create(
-            speakerDao = SpeakerDao(db, eventId)
+            speakerDao = SpeakerDao(db),
+            eventDao = EventDao(db, settings)
         )
         val scheduler = AlarmScheduler(
             agendaRepository,

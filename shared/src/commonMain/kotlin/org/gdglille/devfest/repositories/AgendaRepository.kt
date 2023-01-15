@@ -27,7 +27,6 @@ import org.gdglille.devfest.network.ConferenceApi
 
 interface AgendaRepository {
     suspend fun fetchAndStoreAgenda()
-    suspend fun fetchAndStoreAgenda(eventId: String)
     fun isFavoriteToggled(): Flow<Boolean>
     fun toggleFavoriteFiltering()
     suspend fun insertOrUpdateTicket(barcode: String)
@@ -86,24 +85,7 @@ class AgendaRepositoryImpl(
     private val coroutineScope: CoroutineScope = MainScope()
 
     override suspend fun fetchAndStoreAgenda() {
-        val etag = scheduleDao.lastEtag()
-        val event = api.fetchEvent()
-        val partners = api.fetchPartners()
-        try {
-            val agenda = api.fetchAgenda(etag)
-            agenda.second.entries.forEach { entry ->
-                entry.value.values.forEach { schedules ->
-                    scheduleDao.insertOrUpdateSchedules(event.id, entry.key, schedules)
-                }
-            }
-            scheduleDao.updateEtag(agenda.first)
-        } catch (_: Throwable) {
-        }
-        eventDao.insertEvent(event)
-        partnerDao.insertPartners(partners)
-    }
-
-    override suspend fun fetchAndStoreAgenda(eventId: String) {
+        val eventId = eventDao.fetchEventId()
         val etag = scheduleDao.lastEtag(eventId)
         val event = api.fetchEvent(eventId)
         val partners = api.fetchPartners(eventId)
@@ -126,30 +108,66 @@ class AgendaRepositoryImpl(
     }
 
     override suspend fun insertOrUpdateTicket(barcode: String) {
+        val eventId = eventDao.fetchEventId()
         val attendee = try {
-            val attendee = api.fetchAttendee(barcode)
+            val attendee = api.fetchAttendee(eventId, barcode)
             attendee
         } catch (ignored: Throwable) {
             null
         }
         val qrCode = qrCodeGenerator.generate(barcode)
-        eventDao.updateTicket(qrCode, barcode, attendee)
+        eventDao.updateTicket(eventId, qrCode, barcode, attendee)
     }
 
-    override fun scaffoldConfig(): Flow<ScaffoldConfigUi> = featuresDao.fetchFeatures()
+    override fun scaffoldConfig(): Flow<ScaffoldConfigUi> = featuresDao.fetchFeatures(
+        eventId = eventDao.fetchEventId()
+    )
 
     override fun isFavoriteToggled(): Flow<Boolean> = scheduleDao.isFavoriteToggled()
-    override fun event(): Flow<EventUi> = eventDao.fetchEvent()
-    override fun partners(): Flow<PartnerGroupsUi> = partnerDao.fetchPartners()
-    override fun partner(id: String): Flow<PartnerItemUi> = partnerDao.fetchPartner(id)
-    override fun qanda(): Flow<List<QuestionAndResponseUi>> = eventDao.fetchQAndA()
-    override fun menus(): Flow<List<MenuItemUi>> = eventDao.fetchMenus()
-    override fun coc(): Flow<CoCUi> = eventDao.fetchCoC()
-    override fun agenda(date: String): Flow<AgendaUi> = scheduleDao.fetchSchedules(date)
-    override fun speaker(speakerId: String): Flow<SpeakerUi> = speakerDao.fetchSpeaker(speakerId)
 
-    override fun markAsRead(scheduleId: String, isFavorite: Boolean) =
-        scheduleDao.markAsFavorite(scheduleId, isFavorite)
+    override fun event(): Flow<EventUi> = eventDao.fetchEvent(
+        eventId = eventDao.fetchEventId()
+    )
 
-    override fun scheduleItem(scheduleId: String): TalkUi = talkDao.fetchTalk(scheduleId)
+    override fun partners(): Flow<PartnerGroupsUi> = partnerDao.fetchPartners(
+        eventId = eventDao.fetchEventId()
+    )
+
+    override fun partner(id: String): Flow<PartnerItemUi> = partnerDao.fetchPartner(
+        eventId = eventDao.fetchEventId(),
+        id = id
+    )
+
+    override fun qanda(): Flow<List<QuestionAndResponseUi>> = eventDao.fetchQAndA(
+        eventId = eventDao.fetchEventId()
+    )
+
+    override fun menus(): Flow<List<MenuItemUi>> = eventDao.fetchMenus(
+        eventId = eventDao.fetchEventId()
+    )
+
+    override fun coc(): Flow<CoCUi> = eventDao.fetchCoC(
+        eventId = eventDao.fetchEventId()
+    )
+
+    override fun agenda(date: String): Flow<AgendaUi> = scheduleDao.fetchSchedules(
+        eventId = eventDao.fetchEventId(),
+        date = date
+    )
+
+    override fun speaker(speakerId: String): Flow<SpeakerUi> = speakerDao.fetchSpeaker(
+        eventId = eventDao.fetchEventId(),
+        speakerId = speakerId
+    )
+
+    override fun markAsRead(scheduleId: String, isFavorite: Boolean) = scheduleDao.markAsFavorite(
+        eventId = eventDao.fetchEventId(),
+        scheduleId = scheduleId,
+        isFavorite = isFavorite
+    )
+
+    override fun scheduleItem(scheduleId: String): TalkUi = talkDao.fetchTalk(
+        eventId = eventDao.fetchEventId(),
+        talkId = scheduleId
+    )
 }

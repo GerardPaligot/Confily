@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="screen_events">Évènements</string>
+    <string name="screen_events_future">Prochains évènements</string>
+    <string name="screen_events_past">Précédents évènements</string>
     <string name="screen_agenda">Agenda</string>
     <string name="screen_speakers">Speakers</string>
     <string name="screen_speaker_detail">Détail du speaker</string>
@@ -85,6 +87,7 @@
     <string name="action_contact_organizers">Contacter les organisateurs</string>
     <string name="action_edit_profile">Modifier mes informations</string>
     <string name="action_open_website">Ouvre le site de %s</string>
+    <string name="action_power_off">Changer d\'évènement</string>
 
     <string name="input_email">E-mail (Mandatory)</string>
     <string name="input_firstname">Prénom (Mandatory)</string>

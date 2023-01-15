@@ -27,6 +27,7 @@ import org.gdglille.devfest.android.ui.resources.models.TopActionsUi
 import org.gdglille.devfest.models.ScaffoldConfigUi
 import org.gdglille.devfest.models.UserNetworkingUi
 import org.gdglille.devfest.repositories.AgendaRepository
+import org.gdglille.devfest.repositories.EventRepository
 import org.gdglille.devfest.repositories.UserRepository
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -39,7 +40,8 @@ sealed class HomeUiState {
 
 class HomeViewModel(
     private val agendaRepository: AgendaRepository,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val eventRepository: EventRepository
 ) : ViewModel() {
     private val _configState = MutableStateFlow(ScaffoldConfigUi())
     private val _routeState = MutableStateFlow<String?>(null)
@@ -78,6 +80,10 @@ class HomeViewModel(
         val topActions = when (route) {
             Screen.Agenda.route -> TopActionsUi(
                 topActions = arrayListOf(if (isFav) TopActions.favoriteFilled else TopActions.favorite)
+            )
+
+            Screen.Info.route -> TopActionsUi(
+                topActions = arrayListOf(TopActions.disconnect)
             )
 
             else -> TopActionsUi()
@@ -206,14 +212,23 @@ class HomeViewModel(
         agendaRepository.toggleFavoriteFiltering()
     }
 
+    fun disconnect() = viewModelScope.launch {
+        eventRepository.deleteEventId()
+    }
+
     object Factory {
-        fun create(agendaRepository: AgendaRepository, userRepository: UserRepository) =
+        fun create(
+            agendaRepository: AgendaRepository,
+            userRepository: UserRepository,
+            eventRepository: EventRepository
+        ) =
             object : ViewModelProvider.Factory {
                 @Suppress("UNCHECKED_CAST")
                 override fun <T : ViewModel> create(modelClass: Class<T>): T =
                     HomeViewModel(
                         agendaRepository = agendaRepository,
-                        userRepository = userRepository
+                        userRepository = userRepository,
+                        eventRepository = eventRepository
                     ) as T
             }
     }

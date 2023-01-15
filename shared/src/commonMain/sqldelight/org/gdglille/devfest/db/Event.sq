@@ -43,4 +43,4 @@ insertEventItem:
 INSERT OR REPLACE INTO EventItem(id, name, date, timestamp, past) VALUES (?, ?, ?, ?, ?);
 
 selectEventItem:
-SELECT id, name, date, timestamp, past FROM EventItem ORDER BY timestamp DESC;
+SELECT id, name, date, timestamp, past FROM EventItem WHERE past == ? ORDER BY timestamp DESC;

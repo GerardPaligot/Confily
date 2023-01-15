@@ -1,14 +1,16 @@
 package org.gdglille.devfest.database
 
+import com.russhwolf.settings.ExperimentalSettingsApi
+import com.russhwolf.settings.ObservableSettings
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
 import com.squareup.sqldelight.runtime.coroutines.mapToOne
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.combineTransform
-import kotlinx.coroutines.flow.map
 import org.gdglille.devfest.Image
 import org.gdglille.devfest.db.Conferences4HallDatabase
+import org.gdglille.devfest.exceptions.EventSavedException
 import org.gdglille.devfest.models.Attendee
 import org.gdglille.devfest.models.CoCUi
 import org.gdglille.devfest.models.EventInfoUi
@@ -25,7 +27,11 @@ import org.gdglille.devfest.models.TicketUi
 import org.gdglille.devfest.toByteArray
 import org.gdglille.devfest.toNativeImage
 
-class EventDao(private val db: Conferences4HallDatabase, private val eventId: String) {
+@OptIn(ExperimentalSettingsApi::class)
+class EventDao(
+    private val db: Conferences4HallDatabase,
+    private val settings: ObservableSettings
+) {
     private val eventMapper =
         { _: String, name: String, formattedAddress: List<String>, address: String, latitude: Double, longitude: Double,
             date: String, _: String, _: String, _: String?, twitter: String?, twitterUrl: String?,
@@ -72,10 +78,20 @@ class EventDao(private val db: Conferences4HallDatabase, private val eventId: St
             )
         }
 
-    fun fetchFutureEvent(): Flow<EventItemListUi> =
-        db.eventQueries.selectEventItem(eventItemMapper).asFlow().mapToList().map {
-            EventItemListUi(future = it)
+    fun fetchEventList(): Flow<EventItemListUi> = combine(
+        db.eventQueries.selectEventItem(true, eventItemMapper).asFlow().mapToList(),
+        db.eventQueries.selectEventItem(false, eventItemMapper).asFlow().mapToList(),
+        transform = { past, future ->
+            EventItemListUi(future = future, past = past)
         }
+    )
+
+    fun insertEventId(eventId: String) = settings.putString("EVENT_ID", eventId)
+
+    fun deleteEventId() = settings.remove("EVENT_ID")
+
+    fun fetchEventId(): String =
+        settings.getStringOrNull("EVENT_ID") ?: throw EventSavedException()
 
     fun fetchEvent(eventId: String): Flow<EventUi> = db.transactionWithResult {
         return@transactionWithResult db.eventQueries.selectEvent(eventId, eventMapper).asFlow()
@@ -134,16 +150,20 @@ class EventDao(private val db: Conferences4HallDatabase, private val eventId: St
             updated_at = eventDb.updated_at
         )
         event.qanda.forEach { qAndA ->
-            db.qAndAQueries.insertQAndA(qAndA.order.toLong(), eventId, qAndA.question, qAndA.response)
+            db.qAndAQueries.insertQAndA(
+                qAndA.order.toLong(), eventDb.id, qAndA.question, qAndA.response
+            )
             qAndA.actions.forEach {
-                db.qAndAQueries.insertQAndAAction(it.order.toLong(), eventId, qAndA.order.toLong(), it.label, it.url)
+                db.qAndAQueries.insertQAndAAction(
+                    it.order.toLong(), eventDb.id, qAndA.order.toLong(), it.label, it.url
+                )
             }
         }
         event.menus.forEach {
             db.menuQueries.insertMenu(it.name, it.dish, it.accompaniment, it.dessert, event.id)
         }
         db.featuresActivatedQueries.insertFeatures(
-            event_id = eventId,
+            event_id = eventDb.id,
             has_networking = event.features.hasNetworking,
             has_speaker_list = event.features.hasSpeakerList,
             has_partner_list = event.features.hasPartnerList,
@@ -153,9 +173,19 @@ class EventDao(private val db: Conferences4HallDatabase, private val eventId: St
         )
     }
 
-    fun insertEventItems(items: List<EventItemList>) = db.transaction {
-        items.forEach {
-            val itemDb = it.convertToModelDb()
+    fun insertEventItems(future: List<EventItemList>, past: List<EventItemList>) = db.transaction {
+        future.forEach {
+            val itemDb = it.convertToModelDb(false)
+            db.eventQueries.insertEventItem(
+                id = itemDb.id,
+                name = itemDb.name,
+                date = itemDb.date,
+                timestamp = itemDb.timestamp,
+                past = itemDb.past
+            )
+        }
+        past.forEach {
+            val itemDb = it.convertToModelDb(true)
             db.eventQueries.insertEventItem(
                 id = itemDb.id,
                 name = itemDb.name,
@@ -177,20 +207,4 @@ class EventDao(private val db: Conferences4HallDatabase, private val eventId: St
             barcode = barcode,
             qrcode = qrCode.toByteArray()
         )
-
-    @Deprecated(message = "")
-    fun fetchEvent(): Flow<EventUi> = fetchEvent(eventId)
-
-    @Deprecated(message = "")
-    fun fetchQAndA(): Flow<List<QuestionAndResponseUi>> = fetchQAndA(eventId)
-
-    @Deprecated(message = "")
-    fun fetchMenus(): Flow<List<MenuItemUi>> = fetchMenus(eventId)
-
-    @Deprecated(message = "")
-    fun fetchCoC(): Flow<CoCUi> = fetchCoC(eventId)
-
-    @Deprecated(message = "")
-    fun updateTicket(qrCode: Image, barcode: String, attendee: Attendee?) =
-        updateTicket(eventId, qrCode, barcode, attendee)
 }

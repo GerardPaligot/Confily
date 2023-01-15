@@ -11,7 +11,7 @@ import org.gdglille.devfest.models.UserProfileUi
 import org.gdglille.devfest.toByteArray
 import org.gdglille.devfest.toNativeImage
 
-class UserDao(private val db: Conferences4HallDatabase, private val eventId: String) {
+class UserDao(private val db: Conferences4HallDatabase) {
     fun fetchProfile(eventId: String): Flow<UserProfileUi?> =
         db.userQueries.selectProfile(eventId, mapper = { _, email, firstname, lastname, company, qrcode ->
             return@selectProfile UserProfileUi(
@@ -67,23 +67,4 @@ class UserDao(private val db: Conferences4HallDatabase, private val eventId: Str
 
     fun deleteNetworking(eventId: String, email: String) =
         db.userQueries.deleteNetwork(eventId, email)
-
-    @Deprecated(message = "")
-    fun fetchProfile(): Flow<UserProfileUi?> = fetchProfile(eventId)
-
-    @Deprecated(message = "")
-    fun fetchUserPreview(): Flow<UserProfileUi?> = fetchUserPreview(eventId)
-
-    @Deprecated(message = "")
-    fun insertUser(user: UserProfileUi) = insertUser(eventId, user)
-
-    @Deprecated(message = "")
-    fun fetchNetworking(): Flow<List<UserNetworkingUi>> = fetchNetworking(eventId)
-
-    @Deprecated(message = "")
-    fun insertEmailNetworking(userNetworkingUi: UserNetworkingUi) =
-        insertEmailNetworking(eventId, userNetworkingUi)
-
-    @Deprecated(message = "")
-    fun deleteNetworking(email: String) = deleteNetworking(eventId, email)
 }

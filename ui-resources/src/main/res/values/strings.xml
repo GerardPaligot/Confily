@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="screen_events">Events</string>
+    <string name="screen_events_future">Future events</string>
+    <string name="screen_events_past">Past events</string>
     <string name="screen_agenda">Agenda</string>
     <string name="screen_speakers">Speakers</string>
     <string name="screen_speaker_detail">Speaker detail</string>
@@ -84,6 +86,7 @@
     <string name="action_contact_organizers">Contact organizers</string>
     <string name="action_edit_profile">Edit my information</string>
     <string name="action_open_website">Open website of %s</string>
+    <string name="action_power_off">Change event</string>
 
     <string name="input_email">Mail (Mandatory)</string>
     <string name="input_firstname">Name (Mandatory)</string>

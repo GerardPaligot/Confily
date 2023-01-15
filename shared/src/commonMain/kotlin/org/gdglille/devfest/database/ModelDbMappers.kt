@@ -62,10 +62,10 @@ fun EventV2.convertToModelDb(): Event = Event(
 private fun LocalDateTime.format(): String =
     "${this.dayOfWeek.name} ${this.dayOfMonth}, ${this.month.name} ${this.year}"
 
-fun EventItemList.convertToModelDb(): EventItem = EventItem(
+fun EventItemList.convertToModelDb(past: Boolean): EventItem = EventItem(
     id = this.id,
     name = this.name,
     date = this.startDate.dropLast(1).toLocalDateTime().format(),
     timestamp = this.startDate.toInstant().toEpochMilliseconds(),
-    past = false
+    past = past
 )

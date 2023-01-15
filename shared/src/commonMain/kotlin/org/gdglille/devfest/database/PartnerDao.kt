@@ -13,7 +13,7 @@ import org.gdglille.devfest.models.PartnerGroupsUi
 import org.gdglille.devfest.models.PartnerItemUi
 import org.gdglille.devfest.models.PartnerV2
 
-class PartnerDao(private val db: Conferences4HallDatabase, private val eventId: String) {
+class PartnerDao(private val db: Conferences4HallDatabase) {
     private val partnerMapper =
         { id: String, name: String, description: String, logoUrl: String, siteUrl: String?,
             twitterUrl: String?, twitterMessage: String?, linkedinUrl: String?, linkedinMessage: String?,
@@ -92,13 +92,4 @@ class PartnerDao(private val db: Conferences4HallDatabase, private val eventId: 
             }
         }
     }
-
-    @Deprecated(message = "")
-    fun fetchPartners(): Flow<PartnerGroupsUi> = fetchPartners(eventId)
-
-    @Deprecated(message = "")
-    fun fetchPartner(id: String): Flow<PartnerItemUi> = fetchPartner(eventId, id)
-
-    @Deprecated(message = "")
-    fun insertPartners(partners: Map<String, List<PartnerV2>>) = insertPartners(eventId, partners)
 }

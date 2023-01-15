@@ -10,7 +10,7 @@ import org.gdglille.devfest.models.CategoryUi
 import org.gdglille.devfest.models.SpeakerItemUi
 import org.gdglille.devfest.models.TalkUi
 
-class TalkDao(private val db: Conferences4HallDatabase, private val eventId: String) {
+class TalkDao(private val db: Conferences4HallDatabase) {
     fun fetchTalk(eventId: String, talkId: String): TalkUi = db.talkQueries.transactionWithResult {
         val talkWithSpeakers = db.talkQueries
             .selectTalkWithSpeakersByTalkId(talkId, eventId)
@@ -57,7 +57,4 @@ class TalkDao(private val db: Conferences4HallDatabase, private val eventId: Str
             openFeedbackUrl = talk.open_feedback_url
         )
     }
-
-    @Deprecated(message = "")
-    fun fetchTalk(talkId: String): TalkUi = fetchTalk(eventId, talkId)
 }

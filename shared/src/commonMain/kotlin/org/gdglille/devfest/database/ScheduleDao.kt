@@ -25,10 +25,9 @@ import org.gdglille.devfest.models.TalkItemUi
 @ExperimentalSettingsApi
 class ScheduleDao(
     private val db: Conferences4HallDatabase,
-    private val settings: ObservableSettings,
-    private val eventId: String
+    private val settings: ObservableSettings
 ) {
-    val scheduleMapper =
+    private val scheduleMapper =
         { id: String, _: String, startTime: String, endTime: String, room: String,
             title: String, abstract: String, category: String, categoryColor: String?, categoryIcon: String?,
             speakers: List<String>, speakersAvatar: List<String>, is_favorite: Boolean, level: String? ->
@@ -177,17 +176,4 @@ class ScheduleDao(
 
     fun updateEtag(eventId: String, etag: String?) =
         etag?.let { settings.putString("AGENDA_ETAG_$eventId", it) }
-
-    @Deprecated(message = "")
-    fun fetchSchedules(date: String): Flow<AgendaUi> = fetchSchedules(eventId, date)
-
-    @Deprecated(message = "")
-    fun updateEtag(etag: String?) = updateEtag(eventId, etag)
-
-    @Deprecated(message = "")
-    fun lastEtag(): String? = lastEtag(eventId)
-
-    @Deprecated(message = "")
-    fun markAsFavorite(scheduleId: String, isFavorite: Boolean) =
-        markAsFavorite(eventId, scheduleId, isFavorite)
 }

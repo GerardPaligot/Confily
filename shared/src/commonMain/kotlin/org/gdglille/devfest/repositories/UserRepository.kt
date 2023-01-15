@@ -6,6 +6,7 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import org.gdglille.devfest.Image
+import org.gdglille.devfest.database.EventDao
 import org.gdglille.devfest.database.UserDao
 import org.gdglille.devfest.models.UserNetworkingUi
 import org.gdglille.devfest.models.UserProfileUi
@@ -19,8 +20,11 @@ interface UserRepository {
     fun deleteNetworkProfile(email: String)
 
     object Factory {
-        fun create(userDao: UserDao, qrCodeGenerator: QrCodeGenerator): UserRepository =
-            UserRepositoryImpl(userDao, qrCodeGenerator)
+        fun create(
+            userDao: UserDao,
+            eventDao: EventDao,
+            qrCodeGenerator: QrCodeGenerator
+        ): UserRepository = UserRepositoryImpl(userDao, eventDao, qrCodeGenerator)
     }
 }
 
@@ -30,32 +34,41 @@ interface QrCodeGenerator {
 
 class UserRepositoryImpl(
     private val userDao: UserDao,
+    private val eventDao: EventDao,
     private val qrCodeGenerator: QrCodeGenerator
 ) : UserRepository {
     @NativeCoroutineScope
     private val coroutineScope: CoroutineScope = MainScope()
 
     override fun fetchProfile(): Flow<UserProfileUi?> = combine(
-        userDao.fetchProfile(),
-        userDao.fetchUserPreview(),
+        userDao.fetchProfile(eventId = eventDao.fetchEventId()),
+        userDao.fetchUserPreview(eventId = eventDao.fetchEventId()),
         transform = { profile, preview ->
             return@combine profile ?: preview
         }
     )
 
     override fun saveProfile(email: String, firstName: String, lastName: String, company: String) {
-        val qrCode = qrCodeGenerator.generate(UserNetworkingUi(email, firstName, lastName, company).encodeToString())
+        val qrCode = qrCodeGenerator.generate(
+            UserNetworkingUi(email, firstName, lastName, company).encodeToString()
+        )
         val profile = UserProfileUi(email, firstName, lastName, company, qrCode)
-        userDao.insertUser(profile)
+        userDao.insertUser(eventId = eventDao.fetchEventId(), user = profile)
     }
 
-    override fun fetchNetworking(): Flow<List<UserNetworkingUi>> = userDao.fetchNetworking()
+    override fun fetchNetworking(): Flow<List<UserNetworkingUi>> = userDao.fetchNetworking(
+        eventId = eventDao.fetchEventId()
+    )
+
     override fun insertNetworkingProfile(user: UserNetworkingUi): Boolean {
         val hasRequiredFields = user.email != "" && user.lastName != "" && user.firstName != ""
         if (!hasRequiredFields) return false
-        userDao.insertEmailNetworking(user)
+        userDao.insertEmailNetworking(eventId = eventDao.fetchEventId(), userNetworkingUi = user)
         return true
     }
 
-    override fun deleteNetworkProfile(email: String) = userDao.deleteNetworking(email)
+    override fun deleteNetworkProfile(email: String) = userDao.deleteNetworking(
+        eventId = eventDao.fetchEventId(),
+        email = email
+    )
 }

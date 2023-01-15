@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.combine
 import org.gdglille.devfest.db.Conferences4HallDatabase
 import org.gdglille.devfest.models.ScaffoldConfigUi
 
-class FeaturesActivatedDao(private val db: Conferences4HallDatabase, private val eventId: String) {
+class FeaturesActivatedDao(private val db: Conferences4HallDatabase) {
     fun fetchFeatures(eventId: String): Flow<ScaffoldConfigUi> = combine(
         db.featuresActivatedQueries.selectFeatures(eventId).asFlow().mapToOneOrNull(),
         db.userQueries.selectQrCode(eventId).asFlow().mapToOneOrNull(),
@@ -26,7 +26,4 @@ class FeaturesActivatedDao(private val db: Conferences4HallDatabase, private val
             )
         }
     )
-
-    @Deprecated(message = "")
-    fun fetchFeatures(): Flow<ScaffoldConfigUi> = fetchFeatures(eventId)
 }

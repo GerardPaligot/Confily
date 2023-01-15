@@ -11,7 +11,7 @@ import org.gdglille.devfest.models.SpeakerItemUi
 import org.gdglille.devfest.models.SpeakerUi
 import org.gdglille.devfest.models.TalkItemUi
 
-class SpeakerDao(private val db: Conferences4HallDatabase, private val eventId: String) {
+class SpeakerDao(private val db: Conferences4HallDatabase) {
     private val mapper =
         { _: String, display_name: String, bio: String, company: String?, photo_url: String, twitter: String?, github: String?, _: String ->
             SpeakerUi(
@@ -56,10 +56,4 @@ class SpeakerDao(private val db: Conferences4HallDatabase, private val eventId: 
 
     fun fetchSpeakers(eventId: String): Flow<List<SpeakerItemUi>> =
         db.speakerQueries.selectSpeakersByEvent(eventId, mapperItem).asFlow().mapToList()
-
-    @Deprecated(message = "")
-    fun fetchSpeaker(speakerId: String): Flow<SpeakerUi> = fetchSpeaker(eventId, speakerId)
-
-    @Deprecated(message = "")
-    fun fetchSpeakers(): Flow<List<SpeakerItemUi>> = fetchSpeakers(eventId)
 }

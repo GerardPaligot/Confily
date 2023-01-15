@@ -39,6 +39,10 @@ class EventListViewModel(private val repository: EventRepository) : ViewModel() 
         }
     }
 
+    fun savedEventId(eventId: String) = viewModelScope.launch {
+        repository.saveEventId(eventId)
+    }
+
     object Factory {
         fun create(repository: EventRepository) = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
