@@ -12,6 +12,7 @@ object ActionIds {
     const val SCAN_CONTACTS = 2
     const val CREATE_PROFILE = 3
     const val FAVORITE = 4
+    const val DISCONNECT = 5
 }
 
 object TopActions {
@@ -29,6 +30,11 @@ object TopActions {
         id = ActionIds.SHARE_ID,
         icon = R.drawable.ic_vtmn_share_line,
         contentDescription = R.string.action_share_talk
+    )
+    val disconnect = TopAction(
+        id = ActionIds.DISCONNECT,
+        icon = R.drawable.ic_vtmn_shut_down_line,
+        contentDescription = R.string.action_power_off
     )
 }
 
@@ -54,6 +60,8 @@ object FabActions {
 }
 
 object TabActions {
+    val futureEvents = TabAction(route = Screen.FutureEvents.route, labelId = R.string.screen_events_future)
+    val pastEvents = TabAction(route = Screen.PastEvents.route, labelId = R.string.screen_events_past)
     val myProfile = TabAction(route = Screen.MyProfile.route, labelId = R.string.screen_my_profile)
     val contacts = TabAction(route = Screen.Contacts.route, labelId = R.string.screen_contacts)
     val event = TabAction(route = Screen.Event.route, labelId = R.string.screen_event)
@@ -106,6 +114,8 @@ sealed class Screen(
     val route: String,
     @StringRes val title: Int
 ) {
+    object FutureEvents : Screen(route = "events/future", title = R.string.screen_events_future)
+    object PastEvents : Screen(route = "events/past", title = R.string.screen_events_past)
     object Agenda : Screen(route = "agenda", title = R.string.screen_agenda)
     object SpeakerList : Screen(route = "speakers", title = R.string.screen_speakers)
     object Networking : Screen(route = "networking", title = R.string.screen_networking)

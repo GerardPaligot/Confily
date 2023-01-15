@@ -9,7 +9,7 @@ plugins {
 enum class DesignSystem {
     M2, M3, Vitamin
 }
-val designSystem = DesignSystem.M3
+val designSystem = DesignSystem.Vitamin
 val versionMajor = 1
 val versionMinor = 0
 val versionPatch = 0

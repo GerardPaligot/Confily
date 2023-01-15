@@ -5,6 +5,8 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.collectAsState
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -16,6 +18,9 @@ import io.openfeedback.android.OpenFeedbackConfig
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import org.gdglille.devfest.android.data.AlarmScheduler
+import org.gdglille.devfest.android.data.viewmodels.MainUiState
+import org.gdglille.devfest.android.data.viewmodels.MainViewModel
+import org.gdglille.devfest.android.theme.vitamin.features.EventListVM
 import org.gdglille.devfest.android.theme.vitamin.features.Home
 import org.gdglille.devfest.android.theme.vitamin.features.ProfileInputVM
 import org.gdglille.devfest.android.theme.vitamin.features.ScheduleDetailVM
@@ -25,6 +30,7 @@ import org.gdglille.devfest.android.theme.vitamin.ui.screens.networking.VCardQrC
 import org.gdglille.devfest.android.theme.vitamin.ui.theme.Conferences4HallTheme
 import org.gdglille.devfest.android.ui.resources.HomeResultKey
 import org.gdglille.devfest.repositories.AgendaRepository
+import org.gdglille.devfest.repositories.EventRepository
 import org.gdglille.devfest.repositories.SpeakerRepository
 import org.gdglille.devfest.repositories.UserRepository
 
@@ -33,6 +39,7 @@ import org.gdglille.devfest.repositories.UserRepository
 @FlowPreview
 @Composable
 fun Main(
+    eventRepository: EventRepository,
     agendaRepository: AgendaRepository,
     userRepository: UserRepository,
     speakerRepository: SpeakerRepository,
@@ -52,117 +59,152 @@ fun Main(
         SideEffect {
             systemUiController.setSystemBarsColor(color = statusBarColor, darkIcons = useDarkIcons)
         }
-        NavHost(navController = navController, startDestination = "home") {
-            composable(route = "home") {
-                Home(
-                    agendaRepository = agendaRepository,
-                    userRepository = userRepository,
-                    speakerRepository = speakerRepository,
-                    alarmScheduler = alarmScheduler,
-                    savedStateHandle = navController.currentBackStackEntry?.savedStateHandle,
-                    onTalkClicked = {
-                        navController.navigate("schedules/$it")
-                    },
-                    onLinkClicked = { url -> url?.let { launchUrl(it) } },
-                    onItineraryClicked = onItineraryClicked,
-                    onSpeakerClicked = {
-                        navController.navigate("speakers/$it")
-                    },
-                    onContactScannerClicked = {
-                        navController.navigate("scanner/vcard")
-                    },
-                    onTicketScannerClicked = {
-                        navController.navigate("scanner/ticket")
-                    },
-                    onCreateProfileClicked = {
-                        navController.navigate("profile")
-                    },
-                    onReportClicked = onReportClicked
-                )
-            }
-            composable(
-                route = "schedules/{scheduleId}",
-                arguments = listOf(navArgument("scheduleId") { type = NavType.StringType })
-            ) {
-                ScheduleDetailVM(
-                    scheduleId = it.arguments?.getString("scheduleId")!!,
-                    openFeedbackState = openFeedbackState,
-                    agendaRepository = agendaRepository,
-                    onBackClicked = {
-                        navController.popBackStack()
-                    },
-                    onSpeakerClicked = {
-                        navController.navigate("speakers/$it")
-                    },
-                    onShareClicked = onShareClicked
-                )
-            }
-            composable(
-                route = "speakers/{speakerId}",
-                arguments = listOf(navArgument("speakerId") { type = NavType.StringType })
-            ) {
-                SpeakerDetailVM(
-                    speakerId = it.arguments?.getString("speakerId")!!,
-                    agendaRepository = agendaRepository,
-                    alarmScheduler = alarmScheduler,
-                    onTalkClicked = {
-                        navController.navigate("schedules/$it")
-                    },
-                    onLinkClicked = { launchUrl(it) },
-                    onBackClicked = {
-                        navController.popBackStack()
-                    }
-                )
-            }
-            composable(route = "scanner/vcard") {
-                VCardQrCodeScanner(
-                    navigateToSettingsScreen = {},
-                    onQrCodeDetected = { vcard ->
-                        navController
-                            .previousBackStackEntry
-                            ?.savedStateHandle
-                            ?.set(HomeResultKey.QR_CODE_VCARD, vcard)
-                        navController.popBackStack()
-                    },
-                    onBackClicked = {
-                        navController.popBackStack()
-                    }
-                )
-            }
-            composable(route = "scanner/ticket") {
-                TicketQrCodeScanner(
-                    navigateToSettingsScreen = {},
-                    onQrCodeDetected = { barcode ->
-                        navController
-                            .previousBackStackEntry
-                            ?.savedStateHandle
-                            ?.set(HomeResultKey.QR_CODE_TICKET, barcode)
-                        navController.popBackStack()
-                    }
-                ) {
-                    navController.popBackStack()
+        val viewModel: MainViewModel = viewModel(
+            factory = MainViewModel.Factory.create(eventRepository)
+        )
+        val uiState = viewModel.uiState.collectAsState()
+        when (uiState.value) {
+            is MainUiState.Success -> {
+                val startDestination = if ((uiState.value as MainUiState.Success).initialized) {
+                    "home"
+                } else {
+                    "events"
                 }
-            }
-            composable(route = "profile") {
-                DisposableEffect(LocalOnBackPressedDispatcherOwner.current) {
-                    systemUiController.setStatusBarColor(
-                        color = brandStatusBarColor,
-                        darkIcons = useDarkIcons
-                    )
-                    onDispose {
-                        systemUiController.setSystemBarsColor(
-                            color = statusBarColor,
-                            darkIcons = useDarkIcons
+                NavHost(navController = navController, startDestination = startDestination) {
+                    composable(route = "events") {
+                        EventListVM(
+                            repository = eventRepository,
+                            onEventClicked = {
+                                navController.navigate("home") {
+                                    this.popUpTo("events") {
+                                        inclusive = true
+                                    }
+                                }
+                            }
+                        )
+                    }
+                    composable(route = "home") {
+                        Home(
+                            agendaRepository = agendaRepository,
+                            userRepository = userRepository,
+                            speakerRepository = speakerRepository,
+                            eventRepository = eventRepository,
+                            alarmScheduler = alarmScheduler,
+                            savedStateHandle = navController.currentBackStackEntry?.savedStateHandle,
+                            onTalkClicked = {
+                                navController.navigate("schedules/$it")
+                            },
+                            onLinkClicked = { url -> url?.let { launchUrl(it) } },
+                            onItineraryClicked = onItineraryClicked,
+                            onSpeakerClicked = {
+                                navController.navigate("speakers/$it")
+                            },
+                            onContactScannerClicked = {
+                                navController.navigate("scanner/vcard")
+                            },
+                            onTicketScannerClicked = {
+                                navController.navigate("scanner/ticket")
+                            },
+                            onCreateProfileClicked = {
+                                navController.navigate("profile")
+                            },
+                            onReportClicked = onReportClicked,
+                            onDisconnectedClicked = {
+                                navController.navigate("events") {
+                                    popUpTo("home") {
+                                        inclusive = true
+                                    }
+                                }
+                            }
+                        )
+                    }
+                    composable(
+                        route = "schedules/{scheduleId}",
+                        arguments = listOf(navArgument("scheduleId") { type = NavType.StringType })
+                    ) {
+                        ScheduleDetailVM(
+                            scheduleId = it.arguments?.getString("scheduleId")!!,
+                            openFeedbackState = openFeedbackState,
+                            agendaRepository = agendaRepository,
+                            onBackClicked = {
+                                navController.popBackStack()
+                            },
+                            onSpeakerClicked = {
+                                navController.navigate("speakers/$it")
+                            },
+                            onShareClicked = onShareClicked
+                        )
+                    }
+                    composable(
+                        route = "speakers/{speakerId}",
+                        arguments = listOf(navArgument("speakerId") { type = NavType.StringType })
+                    ) {
+                        SpeakerDetailVM(
+                            speakerId = it.arguments?.getString("speakerId")!!,
+                            agendaRepository = agendaRepository,
+                            alarmScheduler = alarmScheduler,
+                            onTalkClicked = {
+                                navController.navigate("schedules/$it")
+                            },
+                            onLinkClicked = { launchUrl(it) },
+                            onBackClicked = {
+                                navController.popBackStack()
+                            }
+                        )
+                    }
+                    composable(route = "scanner/vcard") {
+                        VCardQrCodeScanner(
+                            navigateToSettingsScreen = {},
+                            onQrCodeDetected = { vcard ->
+                                navController
+                                    .previousBackStackEntry
+                                    ?.savedStateHandle
+                                    ?.set(HomeResultKey.QR_CODE_VCARD, vcard)
+                                navController.popBackStack()
+                            },
+                            onBackClicked = {
+                                navController.popBackStack()
+                            }
+                        )
+                    }
+                    composable(route = "scanner/ticket") {
+                        TicketQrCodeScanner(
+                            navigateToSettingsScreen = {},
+                            onQrCodeDetected = { barcode ->
+                                navController
+                                    .previousBackStackEntry
+                                    ?.savedStateHandle
+                                    ?.set(HomeResultKey.QR_CODE_TICKET, barcode)
+                                navController.popBackStack()
+                            }
+                        ) {
+                            navController.popBackStack()
+                        }
+                    }
+                    composable(route = "profile") {
+                        DisposableEffect(LocalOnBackPressedDispatcherOwner.current) {
+                            systemUiController.setStatusBarColor(
+                                color = brandStatusBarColor,
+                                darkIcons = useDarkIcons
+                            )
+                            onDispose {
+                                systemUiController.setSystemBarsColor(
+                                    color = statusBarColor,
+                                    darkIcons = useDarkIcons
+                                )
+                            }
+                        }
+                        ProfileInputVM(
+                            userRepository = userRepository,
+                            onBackClicked = {
+                                navController.popBackStack()
+                            }
                         )
                     }
                 }
-                ProfileInputVM(
-                    userRepository = userRepository,
-                    onBackClicked = {
-                        navController.popBackStack()
-                    }
-                )
             }
+
+            else -> {}
         }
     }
 }

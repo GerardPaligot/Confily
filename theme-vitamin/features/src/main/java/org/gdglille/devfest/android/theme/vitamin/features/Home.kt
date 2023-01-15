@@ -25,6 +25,7 @@ import org.gdglille.devfest.android.theme.vitamin.ui.ActionIds
 import org.gdglille.devfest.android.theme.vitamin.ui.Screen
 import org.gdglille.devfest.android.ui.resources.HomeResultKey
 import org.gdglille.devfest.repositories.AgendaRepository
+import org.gdglille.devfest.repositories.EventRepository
 import org.gdglille.devfest.repositories.SpeakerRepository
 import org.gdglille.devfest.repositories.UserRepository
 
@@ -37,6 +38,7 @@ fun Home(
     agendaRepository: AgendaRepository,
     userRepository: UserRepository,
     speakerRepository: SpeakerRepository,
+    eventRepository: EventRepository,
     alarmScheduler: AlarmScheduler,
     modifier: Modifier = Modifier,
     savedStateHandle: SavedStateHandle? = null,
@@ -48,10 +50,11 @@ fun Home(
     onContactScannerClicked: () -> Unit,
     onTicketScannerClicked: () -> Unit,
     onCreateProfileClicked: () -> Unit,
-    onReportClicked: () -> Unit
+    onReportClicked: () -> Unit,
+    onDisconnectedClicked: () -> Unit
 ) {
     val viewModel: HomeViewModel = viewModel(
-        factory = HomeViewModel.Factory.create(agendaRepository, userRepository)
+        factory = HomeViewModel.Factory.create(agendaRepository, userRepository, eventRepository)
     )
     if (savedStateHandle != null) {
         val qrCodeTicket by savedStateHandle.getLiveData<String>(HomeResultKey.QR_CODE_TICKET).observeAsState()
@@ -99,6 +102,10 @@ fun Home(
                     when (it.id) {
                         ActionIds.FAVORITE -> {
                             viewModel.toggleFavoriteFiltering()
+                        }
+                        ActionIds.DISCONNECT -> {
+                            viewModel.disconnect()
+                            onDisconnectedClicked()
                         }
                     }
                 },
