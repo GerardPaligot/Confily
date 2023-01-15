@@ -7,9 +7,9 @@ plugins {
 }
 
 enum class DesignSystem {
-    M2, M3, Vitamin
+    M3, Vitamin
 }
-val designSystem = DesignSystem.Vitamin
+val designSystem = DesignSystem.M3
 val versionMajor = 1
 val versionMinor = 0
 val versionPatch = 0
@@ -76,8 +76,6 @@ android {
 dependencies {
     if (designSystem == DesignSystem.Vitamin) {
         implementation(projects.themeVitamin.features)
-    } else if (designSystem == DesignSystem.M2) {
-        implementation(projects.themeM2.features)
     } else if (designSystem == DesignSystem.M3) {
         implementation(projects.themeM3.features)
     }

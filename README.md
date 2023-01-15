@@ -45,13 +45,6 @@ create all components of the Design System.
 
 ```mermaid
 flowchart LR
-    :androidApp --> :theme-m2:features
-    :theme-m2:features --> :theme-m2:ui
-    :theme-m2:features --> :ui-resources
-    :theme-m2:features --> :android-data
-    :theme-m2:features --> :shared
-    :theme-m2:ui --> :ui-resources
-    :theme-m2:ui --> :ui-camera
     :androidApp --> :theme-m3:features
     :theme-m3:features --> :theme-m3:ui
     :theme-m3:features --> :ui-resources
