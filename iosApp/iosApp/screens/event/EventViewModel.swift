@@ -18,10 +18,10 @@ enum EventUiState {
 
 @MainActor
 class EventViewModel: ObservableObject {
-    let repository: AgendaRepository
+    let agendaRepository: AgendaRepository
 
-    init(repository: AgendaRepository) {
-        self.repository = repository
+    init(agendaRepository: AgendaRepository) {
+        self.agendaRepository = agendaRepository
     }
 
     @Published var uiState: EventUiState = EventUiState.loading
@@ -31,7 +31,7 @@ class EventViewModel: ObservableObject {
     func fetchEvent() {
         eventTask = Task {
             do {
-                let stream = asyncStream(for: repository.eventNative())
+                let stream = asyncStream(for: agendaRepository.eventNative())
                 for try await event in stream {
                     self.uiState = .success(event)
                 }
@@ -47,7 +47,7 @@ class EventViewModel: ObservableObject {
     
     func saveTicket(barcode: String) async {
         do {
-            try await repository.insertOrUpdateTicket(barcode: barcode)
+            try await agendaRepository.insertOrUpdateTicket(barcode: barcode)
         } catch {
             // ignored
         }

@@ -20,11 +20,13 @@ struct EventVM: View {
     @State private var navigationState = EventNavigationState.none
     @ObservedObject var viewModel: EventViewModel
     let agendaRepository: AgendaRepository
+    let onDisconnectedClicked: () -> ()
     @Environment(\.openURL) var openURL
     
-    init(agendaRepository: AgendaRepository) {
+    init(agendaRepository: AgendaRepository, onDisconnectedClicked: @escaping () -> ()) {
         self.agendaRepository = agendaRepository
-        self.viewModel = EventViewModel(repository: agendaRepository)
+        self.onDisconnectedClicked = onDisconnectedClicked
+        self.viewModel = EventViewModel(agendaRepository: agendaRepository)
     }
 
     var body: some View {
@@ -89,6 +91,16 @@ struct EventVM: View {
             }
             .navigationTitle(Text("screenEvent"))
             .navigationBarTitleDisplayMode(.inline)
+            .navigationBarItems(trailing:
+                HStack {
+                    Button(action: {
+                        onDisconnectedClicked()
+                    }, label: {
+                        Image(systemName: "power")
+                    })
+                    .accessibilityLabel("actionPowerOff")
+                }
+            )
         }
         .onAppear {
             viewModel.fetchEvent()

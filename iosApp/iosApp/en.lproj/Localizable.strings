@@ -6,6 +6,8 @@
   Copyright © 2022 orgName. All rights reserved.
 */
 
+"screenEventsFuture" = "Future events";
+"screenEventsPast" = "Past events";
 "screenAgenda" = "Agenda";
 "screenNetworking" = "Networking";
 "screenPartners" = "Partners";
@@ -48,6 +50,7 @@
 "actionQrcodeScanner" = "Profile Qrcode scanner";
 "actionQrcodeGenerator" = "Qrcode generator for your profile";
 "actionDeleteNetworkProfile" = "Delete the profile";
+"actionPowerOff" = "Change event";
 
 "inputEmail" = "Your email address*";
 "inputFirstname" = "Your first name*";
