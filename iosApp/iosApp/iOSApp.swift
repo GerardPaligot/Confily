@@ -6,7 +6,7 @@ import SDWebImageSVGCoder
 
 @main
 struct iOSApp: App {
-    let baseUrl = "https://cms4partners-ce427.nw.r.appspot.com"
+    let baseUrl = Configuration.baseURL.absoluteString
     let db = DatabaseWrapper().createDb()
     
     init() {
