@@ -15,7 +15,8 @@ import org.gdglille.devfest.repositories.AgendaRepository
 fun CoCVM(
     agendaRepository: AgendaRepository,
     modifier: Modifier = Modifier,
-    onReportClicked: () -> Unit,
+    onReportByPhoneClicked: (String) -> Unit,
+    onReportByEmailClicked: (String) -> Unit
 ) {
     val viewModel: CoCViewModel = viewModel(
         factory = CoCViewModel.Factory.create(agendaRepository)
@@ -27,7 +28,8 @@ fun CoCVM(
         is CoCUiState.Success -> CoC(
             coc = (uiState.value as CoCUiState.Success).coc,
             modifier = modifier,
-            onReportClicked = onReportClicked
+            onReportByPhoneClicked = onReportByPhoneClicked,
+            onReportByEmailClicked = onReportByEmailClicked
         )
     }
 }

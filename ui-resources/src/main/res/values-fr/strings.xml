@@ -84,7 +84,8 @@
     <string name="action_submit_deny">Non</string>
     <string name="action_submit_later">Plus tard</string>
     <string name="action_networking_delete">Supprimer le profile</string>
-    <string name="action_contact_organizers">Contacter les organisateurs</string>
+    <string name="action_contact_organizers_phone">Contacter par téléphone</string>
+    <string name="action_contact_organizers_mail">Contacter par mail</string>
     <string name="action_edit_profile">Modifier mes informations</string>
     <string name="action_open_website">Ouvre le site de %s</string>
     <string name="action_power_off">Changer d\'évènement</string>

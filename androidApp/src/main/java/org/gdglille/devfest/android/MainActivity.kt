@@ -95,9 +95,15 @@ class MainActivity : AppCompatActivity() {
                 alarmScheduler = scheduler,
                 openFeedbackState = openFeedbackState,
                 launchUrl = { launchUrl(it) },
-                onReportClicked = {
+                onReportByPhoneClicked = {
+                    val intent = Intent(Intent.ACTION_DIAL).apply {
+                        data = Uri.parse("tel:$it")
+                    }
+                    startActivity(intent)
+                },
+                onReportByEmailClicked = {
                     val intent = Intent(Intent.ACTION_SENDTO).apply {
-                        data = Uri.parse("mailto:${BuildConfig.CONTACT_MAIL}")
+                        data = Uri.parse("mailto:$it")
                         putExtra(Intent.EXTRA_SUBJECT, reportSubject)
                     }
                     startActivity(Intent.createChooser(intent, reportAppTarget))

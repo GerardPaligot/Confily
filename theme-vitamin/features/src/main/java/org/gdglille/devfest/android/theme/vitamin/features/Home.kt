@@ -50,7 +50,8 @@ fun Home(
     onContactScannerClicked: () -> Unit,
     onTicketScannerClicked: () -> Unit,
     onCreateProfileClicked: () -> Unit,
-    onReportClicked: () -> Unit,
+    onReportByPhoneClicked: (String) -> Unit,
+    onReportByEmailClicked: (String) -> Unit,
     onDisconnectedClicked: () -> Unit
 ) {
     val viewModel: HomeViewModel = viewModel(
@@ -167,7 +168,8 @@ fun Home(
                             pagerState = pagerState,
                             onItineraryClicked = onItineraryClicked,
                             onLinkClicked = onLinkClicked,
-                            onReportClicked = onReportClicked
+                            onReportByPhoneClicked = onReportByPhoneClicked,
+                            onReportByEmailClicked = onReportByEmailClicked
                         )
                     }
                 }

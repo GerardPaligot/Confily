@@ -46,7 +46,8 @@ fun Main(
     alarmScheduler: AlarmScheduler,
     openFeedbackState: OpenFeedbackConfig,
     launchUrl: (String) -> Unit,
-    onReportClicked: () -> Unit,
+    onReportByPhoneClicked: (String) -> Unit,
+    onReportByEmailClicked: (String) -> Unit,
     onShareClicked: (text: String) -> Unit,
     onItineraryClicked: (lat: Double, lng: Double) -> Unit,
     navController: NavHostController
@@ -108,7 +109,8 @@ fun Main(
                             onCreateProfileClicked = {
                                 navController.navigate("profile")
                             },
-                            onReportClicked = onReportClicked,
+                            onReportByPhoneClicked = onReportByPhoneClicked,
+                            onReportByEmailClicked = onReportByEmailClicked,
                             onDisconnectedClicked = {
                                 navController.navigate("events") {
                                     popUpTo("home") {

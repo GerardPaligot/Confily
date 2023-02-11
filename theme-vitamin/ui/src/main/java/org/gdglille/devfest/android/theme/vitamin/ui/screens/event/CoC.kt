@@ -8,6 +8,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.decathlon.vitamin.compose.buttons.VitaminButtons
 import com.decathlon.vitamin.compose.foundation.VitaminTheme
@@ -15,13 +16,15 @@ import com.halilibo.richtext.markdown.Markdown
 import com.halilibo.richtext.ui.RichText
 import com.halilibo.richtext.ui.RichTextThemeIntegration
 import org.gdglille.devfest.android.theme.vitamin.ui.R
+import org.gdglille.devfest.android.theme.vitamin.ui.theme.Conferences4HallTheme
 import org.gdglille.devfest.models.CoCUi
 
 @Composable
 fun CoC(
     coc: CoCUi,
     modifier: Modifier = Modifier,
-    onReportClicked: () -> Unit
+    onReportByPhoneClicked: (String) -> Unit,
+    onReportByEmailClicked: (String) -> Unit
 ) {
     LazyColumn(
         modifier = modifier,
@@ -47,12 +50,33 @@ fun CoC(
                 }
             }
         }
+        coc.phone?.let { phone ->
+            item {
+                VitaminButtons.Primary(
+                    text = stringResource(R.string.action_contact_organizers_phone),
+                    onClick = { onReportByPhoneClicked(phone) },
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+        }
         item {
             VitaminButtons.Primary(
-                text = stringResource(R.string.action_contact_organizers),
-                onClick = onReportClicked,
+                text = stringResource(R.string.action_contact_organizers_mail),
+                onClick = { onReportByEmailClicked(coc.email) },
                 modifier = Modifier.fillMaxWidth()
             )
         }
+    }
+}
+
+@Preview
+@Composable
+fun CoCPreview() {
+    Conferences4HallTheme {
+        CoC(
+            coc = CoCUi.fake,
+            onReportByPhoneClicked = {},
+            onReportByEmailClicked = {}
+        )
     }
 }

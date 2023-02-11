@@ -24,7 +24,8 @@ fun InfoPages(
     pagerState: PagerState = rememberPagerState(),
     onItineraryClicked: (lat: Double, lng: Double) -> Unit,
     onLinkClicked: (url: String?) -> Unit,
-    onReportClicked: () -> Unit
+    onReportByPhoneClicked: (String) -> Unit,
+    onReportByEmailClicked: (String) -> Unit,
 ) {
     LaunchedEffect(pagerState.currentPage) {
         when (tabs.tabActions[pagerState.currentPage].route) {
@@ -58,7 +59,8 @@ fun InfoPages(
             TabActions.coc.route -> CoCVM(
                 agendaRepository = agendaRepository,
                 modifier = modifier.fillMaxSize(),
-                onReportClicked = onReportClicked
+                onReportByPhoneClicked = onReportByPhoneClicked,
+                onReportByEmailClicked = onReportByEmailClicked
             )
 
             else -> TODO("Screen not implemented")
