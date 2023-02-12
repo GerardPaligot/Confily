@@ -58,7 +58,7 @@ fun ScaffoldNavigation(
         tabSelectedIndex = pagerState.currentPage,
         onTopActionClicked = onTopActionClicked,
         onTabClicked = {
-            scope.launch { pagerState.animateScrollToPage(tabActions.tabActions.indexOf(it)) }
+            scope.launch { pagerState.animateScrollToPage(tabActions.actions.indexOf(it)) }
             onTabClicked(it)
         },
         onBottomActionClicked = {

@@ -5,5 +5,6 @@ import org.gdglille.devfest.android.ui.resources.actions.TopAction
 
 @Immutable
 data class TopActionsUi(
-    val topActions: List<TopAction> = emptyList()
+    val actions: List<TopAction> = emptyList(),
+    val maxActions: Int = 3
 )

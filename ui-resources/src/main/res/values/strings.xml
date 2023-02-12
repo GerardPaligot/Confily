@@ -64,6 +64,7 @@
     <string name="text_empty_contacts">Scan qrcode of the attendee to add her or him in your contact list.</string>
 
     <string name="action_back">Back</string>
+    <string name="action_expanded_menu">Display overflow menu</string>
     <string name="action_share_talk">Share talk %s</string>
     <string name="action_favorite_talk">Put in favorite talk %s</string>
     <string name="action_filtering_favorites">Only favorites schedules</string>

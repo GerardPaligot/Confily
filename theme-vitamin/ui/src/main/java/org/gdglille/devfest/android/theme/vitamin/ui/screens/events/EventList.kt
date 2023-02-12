@@ -22,6 +22,7 @@ import org.gdglille.devfest.android.theme.vitamin.ui.TabActions
 import org.gdglille.devfest.android.theme.vitamin.ui.components.events.EventItem
 import org.gdglille.devfest.android.theme.vitamin.ui.components.structure.VitaminScaffold
 import org.gdglille.devfest.android.theme.vitamin.ui.theme.Conferences4HallTheme
+import org.gdglille.devfest.android.ui.resources.models.TabActionsUi
 import org.gdglille.devfest.models.EventItemListUi
 
 @OptIn(ExperimentalPagerApi::class, ExperimentalFoundationApi::class)
@@ -34,13 +35,18 @@ fun EventList(
     onEventClicked: (String) -> Unit
 ) {
     val scope = rememberCoroutineScope()
-    val tabActions = remember { listOf(TabActions.futureEvents, TabActions.pastEvents) }
+    val tabActionsUi = remember {
+        TabActionsUi(
+            actions = listOf(TabActions.futureEvents, TabActions.pastEvents),
+            scrollable = true
+        )
+    }
     VitaminScaffold(
         title = R.string.screen_events,
-        tabActions = tabActions,
+        tabActionsUi = tabActionsUi,
         tabSelectedIndex = pagerState.currentPage,
         onTabClicked = {
-            scope.launch { pagerState.animateScrollToPage(tabActions.indexOf(it)) }
+            scope.launch { pagerState.animateScrollToPage(tabActionsUi.actions.indexOf(it)) }
         }
     ) { padding ->
         HorizontalPager(count = 2, state = pagerState) { page ->

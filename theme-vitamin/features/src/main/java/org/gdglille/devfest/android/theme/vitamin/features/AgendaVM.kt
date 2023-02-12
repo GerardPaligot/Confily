@@ -37,7 +37,7 @@ fun AgendaVM(
     val context = LocalContext.current
     val viewModel: AgendaViewModel = viewModel(
         factory = AgendaViewModel.Factory.create(
-            tabs.tabActions.map { it.route },
+            tabs.actions.map { it.route },
             agendaRepository,
             alarmScheduler
         )

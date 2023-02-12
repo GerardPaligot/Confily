@@ -1,13 +1,14 @@
 package org.gdglille.devfest.android.theme.vitamin.ui.components.structure
 
 import androidx.annotation.StringRes
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.ExtendedFloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -15,12 +16,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.decathlon.vitamin.compose.appbars.bottomnavigations.SelectedActionItem
 import com.decathlon.vitamin.compose.appbars.bottomnavigations.VitaminBottomNavigations
-import com.decathlon.vitamin.compose.appbars.topbars.ActionItem
-import com.decathlon.vitamin.compose.appbars.topbars.VitaminTopBars
 import com.decathlon.vitamin.compose.appbars.topbars.icons.VitaminNavigationIconButtons
 import com.decathlon.vitamin.compose.foundation.VitaminTheme
-import com.decathlon.vitamin.compose.tabs.TabItem
-import com.decathlon.vitamin.compose.tabs.VitaminTabs
 import org.gdglille.devfest.android.theme.vitamin.ui.BottomActions
 import org.gdglille.devfest.android.theme.vitamin.ui.FabActions
 import org.gdglille.devfest.android.theme.vitamin.ui.R
@@ -31,16 +28,18 @@ import org.gdglille.devfest.android.ui.resources.actions.BottomAction
 import org.gdglille.devfest.android.ui.resources.actions.FabAction
 import org.gdglille.devfest.android.ui.resources.actions.TabAction
 import org.gdglille.devfest.android.ui.resources.actions.TopAction
+import org.gdglille.devfest.android.ui.resources.models.BottomActionsUi
+import org.gdglille.devfest.android.ui.resources.models.TabActionsUi
+import org.gdglille.devfest.android.ui.resources.models.TopActionsUi
 
 @Composable
 fun VitaminScaffold(
     @StringRes title: Int,
     modifier: Modifier = Modifier,
-    topActions: List<TopAction> = emptyList(),
-    tabActions: List<TabAction> = emptyList(),
-    bottomActions: List<BottomAction> = emptyList(),
+    topActionsUi: TopActionsUi = TopActionsUi(),
+    tabActionsUi: TabActionsUi = TabActionsUi(),
+    bottomActionsUi: BottomActionsUi = BottomActionsUi(),
     fabAction: FabAction? = null,
-    scrollable: Boolean = false,
     routeSelected: String? = null,
     tabSelectedIndex: Int? = null,
     onTopActionClicked: (TopAction) -> Unit = {},
@@ -51,53 +50,26 @@ fun VitaminScaffold(
     content: @Composable (PaddingValues) -> Unit
 ) {
     val context = LocalContext.current
+    val expandedMenu = remember { mutableStateOf(false) }
     Scaffold(
         modifier = modifier,
         topBar = {
-            Column {
-                VitaminTopBars.Primary(
-                    title = stringResource(title),
-                    navigationIcon = navigationIcon,
-                    actions = topActions.map {
-                        ActionItem(
-                            icon = painterResource(it.icon),
-                            contentDescription = it.contentDescription?.let { stringResource(it) },
-                            onClick = {
-                                onTopActionClicked(it)
-                            }
-                        )
-                    }
-                )
-                if (tabActions.size > 1) {
-                    val tabItems = tabActions.mapIndexed { index, it ->
-                        if (it.label != null) {
-                            TabItem(label = it.label!!, selected = index == tabSelectedIndex)
-                        } else {
-                            TabItem(label = stringResource(it.labelId), selected = index == tabSelectedIndex)
-                        }
-                    }
-                    if (scrollable) {
-                        VitaminTabs.Scrollable(
-                            tabItems = tabItems,
-                            onTabClicked = { item ->
-                                tabActions.find { item.label == context.getString(it.labelId) }?.let(onTabClicked)
-                            }
-                        )
-                    } else {
-                        VitaminTabs.Fixed(
-                            tabItems = tabItems,
-                            onTabClicked = { item ->
-                                tabActions.find { item.label == context.getString(it.labelId) }?.let(onTabClicked)
-                            }
-                        )
-                    }
-                }
-            }
+            VitaminTopBar(
+                title = title,
+                navigationIcon = navigationIcon,
+                topActionsUi = topActionsUi,
+                onTopActionClicked = onTopActionClicked,
+                expandedMenu = expandedMenu,
+                tabActionsUi = tabActionsUi,
+                tabSelectedIndex = tabSelectedIndex,
+                context = context,
+                onTabClicked = onTabClicked
+            )
         },
         bottomBar = {
-            if (bottomActions.isNotEmpty() && routeSelected != null) {
+            if (bottomActionsUi.actions.isNotEmpty() && routeSelected != null) {
                 VitaminBottomNavigations.Primary(
-                    actions = bottomActions.map { action ->
+                    actions = bottomActionsUi.actions.map { action ->
                         val hasSelectedRoutes = action.selectedRoutes.find { it == routeSelected } != null
                         val selected = hasSelectedRoutes || action.route == routeSelected
                         SelectedActionItem(
@@ -144,22 +116,27 @@ internal fun VitaminScaffoldPreview() {
     Conferences4HallTheme {
         VitaminScaffold(
             title = R.string.screen_agenda,
-            topActions = listOf(TopActions.share),
-            tabActions = listOf(
-                TabActions.event,
-                TabActions.menus,
-                TabActions.qanda,
-                TabActions.coc
+            topActionsUi = TopActionsUi(
+                actions = listOf(TopActions.share)
             ),
-            bottomActions = listOf(
-                BottomActions.agenda,
-                BottomActions.speakers,
-                BottomActions.info
+            tabActionsUi = TabActionsUi(
+                scrollable = false,
+                actions = listOf(
+                    TabActions.event,
+                    TabActions.menus,
+                    TabActions.qanda,
+                    TabActions.coc
+                )
+            ),
+            bottomActionsUi = BottomActionsUi(
+                actions = listOf(
+                    BottomActions.agenda,
+                    BottomActions.speakers,
+                    BottomActions.info
+                )
             ),
             fabAction = FabActions.scanTicket,
-            scrollable = true,
-            routeSelected = "agenda",
-            content = {}
-        )
+            routeSelected = "agenda"
+        ) {}
     }
 }

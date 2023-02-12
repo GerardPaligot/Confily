@@ -35,11 +35,11 @@ fun AgendaVM(
     onTalkClicked: (id: String) -> Unit,
 ) {
     val context = LocalContext.current
-    val count = tabs.tabActions.count()
+    val count = tabs.actions.count()
     val viewModel: AgendaViewModel = viewModel(
-        key = "${tabs.tabActions.count()}",
+        key = "${tabs.actions.count()}",
         factory = AgendaViewModel.Factory.create(
-            tabs.tabActions.map { it.route },
+            tabs.actions.map { it.route },
             agendaRepository,
             alarmScheduler
         )

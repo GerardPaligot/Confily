@@ -13,6 +13,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import org.gdglille.devfest.android.components.structure.OverflowMenu
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.ui.R
 import org.gdglille.devfest.android.ui.resources.actions.TopAction
@@ -24,16 +25,20 @@ fun TopAppBar(
     title: String,
     modifier: Modifier = Modifier,
     navigationIcon: @Composable (AppBarIcons.() -> Unit)? = null,
-    actions: TopActionsUi = TopActionsUi(),
-    onActionClicked: ((TopAction) -> Unit)? = null
+    topActionsUi: TopActionsUi = TopActionsUi(),
+    onActionClicked: (TopAction) -> Unit = { }
 ) {
+    val showAsActionItems = topActionsUi.actions.take(topActionsUi.maxActions)
+    val overflowActions = TopActionsUi(
+        topActionsUi.actions.subtract(showAsActionItems.toSet()).toList()
+    )
     SmallTopAppBar(
         title = { Text(text = title) },
         modifier = modifier,
         navigationIcon = navigationIcon.takeOrEmpty(),
         actions = {
-            actions.topActions.forEach { action ->
-                IconButton(onClick = { onActionClicked?.let { it(action) } }) {
+            showAsActionItems.forEach { action ->
+                IconButton(onClick = { onActionClicked(action) }) {
                     Icon(
                         painter = painterResource(action.icon),
                         contentDescription = action.contentDescription?.let {
@@ -41,6 +46,12 @@ fun TopAppBar(
                         }
                     )
                 }
+            }
+            if (overflowActions.actions.isNotEmpty()) {
+                OverflowMenu(
+                    topActionsUi = overflowActions,
+                    onClick = onActionClicked
+                )
             }
         }
     )
@@ -68,8 +79,8 @@ fun TopAppBarPreview() {
             TopAppBar(
                 title = "QrCode Scanner",
                 navigationIcon = { Back { } },
-                actions = TopActionsUi(
-                    topActions = arrayListOf(
+                topActionsUi = TopActionsUi(
+                    actions = arrayListOf(
                         TopAction(
                             id = 0,
                             icon = R.drawable.ic_mtrl_qr_code_scanner_line,

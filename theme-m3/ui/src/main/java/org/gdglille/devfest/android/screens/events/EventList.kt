@@ -38,7 +38,7 @@ fun EventList(
     val tabActions = remember { listOf(TabActions.futureEvents, TabActions.pastEvents) }
     Scaffold(
         title = R.string.screen_events,
-        tabActions = TabActionsUi(tabActions = tabActions),
+        tabActions = TabActionsUi(actions = tabActions),
         tabSelectedIndex = pagerState.currentPage,
         onTabClicked = {
             scope.launch { pagerState.animateScrollToPage(tabActions.indexOf(it)) }

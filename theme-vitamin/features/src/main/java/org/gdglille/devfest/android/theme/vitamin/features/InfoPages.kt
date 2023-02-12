@@ -28,16 +28,16 @@ fun InfoPages(
     onReportByEmailClicked: (String) -> Unit
 ) {
     LaunchedEffect(pagerState.currentPage) {
-        when (tabs.tabActions[pagerState.currentPage].route) {
+        when (tabs.actions[pagerState.currentPage].route) {
             TabActions.event.route -> viewModel.updateFabUi(Screen.Event.route)
             TabActions.menus.route -> viewModel.updateFabUi(Screen.Menus.route)
             TabActions.qanda.route -> viewModel.updateFabUi(Screen.QAndA.route)
             TabActions.coc.route -> viewModel.updateFabUi(Screen.CoC.route)
         }
     }
-    val count = tabs.tabActions.count()
+    val count = tabs.actions.count()
     HorizontalPager(count = if (count == 0) 1 else count, state = pagerState) { page ->
-        when (tabs.tabActions[page].route) {
+        when (tabs.actions[page].route) {
             TabActions.event.route -> EventVM(
                 agendaRepository = agendaRepository,
                 modifier = modifier.fillMaxSize(),

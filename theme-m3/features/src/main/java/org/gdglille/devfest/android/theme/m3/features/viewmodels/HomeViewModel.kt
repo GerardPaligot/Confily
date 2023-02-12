@@ -79,11 +79,12 @@ class HomeViewModel(
     private fun updateUiTopActions(route: String, isFav: Boolean) {
         val topActions = when (route) {
             Screen.Agenda.route -> TopActionsUi(
-                topActions = arrayListOf(if (isFav) TopActions.favoriteFilled else TopActions.favorite)
+                actions = arrayListOf(if (isFav) TopActions.favoriteFilled else TopActions.favorite)
             )
 
             Screen.Info.route -> TopActionsUi(
-                topActions = arrayListOf(TopActions.disconnect)
+                actions = arrayListOf(TopActions.disconnect),
+                maxActions = 0
             )
 
             else -> TopActionsUi()
@@ -97,7 +98,7 @@ class HomeViewModel(
         val tabActions = when (route) {
             Screen.Agenda.route -> TabActionsUi(
                 scrollable = true,
-                tabActions = config.agendaTabs.map {
+                actions = config.agendaTabs.map {
                     val label = DateTimeFormatter
                         .ofPattern("dd MMM")
                         .format(LocalDate.parse(it))
@@ -106,7 +107,7 @@ class HomeViewModel(
             )
 
             Screen.Networking.route -> TabActionsUi(
-                tabActions = if (config.hasProfile) arrayListOf(
+                actions = if (config.hasProfile) arrayListOf(
                     TabActions.myProfile,
                     TabActions.contacts
                 ) else emptyList()
@@ -114,7 +115,7 @@ class HomeViewModel(
 
             Screen.Info.route -> TabActionsUi(
                 scrollable = true,
-                tabActions = arrayListOf<TabAction>().apply {
+                actions = arrayListOf<TabAction>().apply {
                     add(TabActions.event)
                     if (config.hasMenus) {
                         add(TabActions.menus)

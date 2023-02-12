@@ -43,7 +43,7 @@ fun ScheduleDetail(
             TopAppBar(
                 title = stringResource(id = R.string.screen_schedule_detail),
                 navigationIcon = { Back(onClick = onBackClicked) },
-                actions = TopActionsUi(topActions = listOf(TopActions.share)),
+                topActionsUi = TopActionsUi(actions = listOf(TopActions.share)),
                 onActionClicked = {
                     when (it.id) {
                         TopActions.share.id -> {

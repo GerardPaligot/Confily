@@ -22,6 +22,9 @@ import org.gdglille.devfest.android.ui.resources.actions.BottomAction
 import org.gdglille.devfest.android.ui.resources.actions.FabAction
 import org.gdglille.devfest.android.ui.resources.actions.TabAction
 import org.gdglille.devfest.android.ui.resources.actions.TopAction
+import org.gdglille.devfest.android.ui.resources.models.BottomActionsUi
+import org.gdglille.devfest.android.ui.resources.models.TabActionsUi
+import org.gdglille.devfest.android.ui.resources.models.TopActionsUi
 
 @ExperimentalPagerApi
 @Composable
@@ -31,11 +34,10 @@ fun VitaminScaffoldNavigation(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
     pagerState: PagerState = rememberPagerState(),
-    topActions: List<TopAction> = emptyList(),
-    tabActions: List<TabAction> = emptyList(),
-    bottomActions: List<BottomAction> = emptyList(),
+    topActionsUi: TopActionsUi = TopActionsUi(),
+    tabActionsUi: TabActionsUi = TabActionsUi(),
+    bottomActionsUi: BottomActionsUi = BottomActionsUi(),
     fabAction: FabAction? = null,
-    scrollable: Boolean = false,
     onTopActionClicked: (TopAction) -> Unit = {},
     onTabClicked: (TabAction) -> Unit = {},
     onBottomActionClicked: (BottomAction) -> Unit = {},
@@ -50,16 +52,15 @@ fun VitaminScaffoldNavigation(
     VitaminScaffold(
         title = title,
         modifier = modifier,
-        topActions = topActions,
-        tabActions = tabActions,
-        bottomActions = bottomActions,
+        topActionsUi = topActionsUi,
+        tabActionsUi = tabActionsUi,
+        bottomActionsUi = bottomActionsUi,
         fabAction = fabAction,
-        scrollable = scrollable,
         routeSelected = route,
         tabSelectedIndex = pagerState.currentPage,
         onTopActionClicked = onTopActionClicked,
         onTabClicked = {
-            scope.launch { pagerState.animateScrollToPage(tabActions.indexOf(it)) }
+            scope.launch { pagerState.animateScrollToPage(tabActionsUi.actions.indexOf(it)) }
             onTabClicked(it)
         },
         onBottomActionClicked = {
@@ -73,14 +74,13 @@ fun VitaminScaffoldNavigation(
             onBottomActionClicked(it)
         },
         onFabActionClicked = onFabActionClicked,
-        navigationIcon = navigationIcon,
-        content = {
-            NavHost(
-                navController,
-                startDestination = startDestination,
-                modifier = modifier.padding(it),
-                builder = builder
-            )
-        }
-    )
+        navigationIcon = navigationIcon
+    ) {
+        NavHost(
+            navController,
+            startDestination = startDestination,
+            modifier = modifier.padding(it),
+            builder = builder
+        )
+    }
 }

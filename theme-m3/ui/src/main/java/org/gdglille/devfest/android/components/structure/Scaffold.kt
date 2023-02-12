@@ -52,16 +52,16 @@ fun Scaffold(
             Column {
                 TopAppBar(
                     title = stringResource(title),
-                    actions = topActions,
+                    topActionsUi = topActions,
                     onActionClicked = onTopActionClicked
                 )
-                if (tabActions.tabActions.count() > 1 && tabSelectedIndex != null) {
+                if (tabActions.actions.count() > 1 && tabSelectedIndex != null) {
                     ScrollableTabRow(
                         selectedTabIndex = tabSelectedIndex,
                         divider = {},
                         indicator = {}
                     ) {
-                        tabActions.tabActions.forEachIndexed { index, tabAction ->
+                        tabActions.actions.forEachIndexed { index, tabAction ->
                             tabAction.label?.let {
                                 Tab(
                                     selected = index == tabSelectedIndex,
@@ -117,12 +117,12 @@ internal fun ScaffoldPreview() {
         Scaffold(
             title = R.string.screen_agenda,
             topActions = TopActionsUi(
-                topActions = listOf(
+                actions = listOf(
                     TopActions.share
                 )
             ),
             tabActions = TabActionsUi(
-                tabActions = listOf(
+                actions = listOf(
                     TabAction(route = "day-1", 0, "11 Oct"),
                     TabAction(route = "day-2", 0, "12 Oct"),
                 )

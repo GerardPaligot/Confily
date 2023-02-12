@@ -94,11 +94,10 @@ fun Home(
                 modifier = modifier,
                 navController = navController,
                 pagerState = pagerState,
-                topActions = actions.topActions,
-                tabActions = tabs.tabActions,
-                bottomActions = uiBottomState.value,
+                topActionsUi = actions,
+                tabActionsUi = tabs,
+                bottomActionsUi = uiBottomState.value,
                 fabAction = uiFabState.value,
-                scrollable = tabs.scrollable,
                 onTopActionClicked = {
                     when (it.id) {
                         ActionIds.FAVORITE -> {
@@ -127,53 +126,52 @@ fun Home(
                         else -> TODO("Fab not implemented")
                     }
                 },
-                navigationIcon = null,
-                builder = {
-                    composable(Screen.Agenda.route) {
-                        AgendaVM(
-                            tabs = tabs,
-                            agendaRepository = agendaRepository,
-                            alarmScheduler = alarmScheduler,
-                            pagerState = pagerState,
-                            onTalkClicked = onTalkClicked,
-                        )
-                    }
-                    composable(Screen.SpeakerList.route) {
-                        SpeakersListVM(
-                            speakerRepository = speakerRepository,
-                            onSpeakerClicked = onSpeakerClicked
-                        )
-                    }
-                    composable(Screen.Networking.route) {
-                        NetworkingPages(
-                            tabs = tabs,
-                            userRepository = userRepository,
-                            viewModel = viewModel,
-                            pagerState = pagerState,
-                            onCreateProfileClicked = onCreateProfileClicked
-                        )
-                    }
-                    composable(Screen.Partners.route) {
-                        PartnersVM(
-                            agendaRepository = agendaRepository,
-                            onPartnerClick = onLinkClicked
-                        )
-                    }
-                    composable(Screen.Info.route) {
-                        InfoPages(
-                            tabs = tabs,
-                            agendaRepository = agendaRepository,
-                            viewModel = viewModel,
-                            modifier = modifier,
-                            pagerState = pagerState,
-                            onItineraryClicked = onItineraryClicked,
-                            onLinkClicked = onLinkClicked,
-                            onReportByPhoneClicked = onReportByPhoneClicked,
-                            onReportByEmailClicked = onReportByEmailClicked
-                        )
-                    }
+                navigationIcon = null
+            ) {
+                composable(Screen.Agenda.route) {
+                    AgendaVM(
+                        tabs = tabs,
+                        agendaRepository = agendaRepository,
+                        alarmScheduler = alarmScheduler,
+                        pagerState = pagerState,
+                        onTalkClicked = onTalkClicked,
+                    )
                 }
-            )
+                composable(Screen.SpeakerList.route) {
+                    SpeakersListVM(
+                        speakerRepository = speakerRepository,
+                        onSpeakerClicked = onSpeakerClicked
+                    )
+                }
+                composable(Screen.Networking.route) {
+                    NetworkingPages(
+                        tabs = tabs,
+                        userRepository = userRepository,
+                        viewModel = viewModel,
+                        pagerState = pagerState,
+                        onCreateProfileClicked = onCreateProfileClicked
+                    )
+                }
+                composable(Screen.Partners.route) {
+                    PartnersVM(
+                        agendaRepository = agendaRepository,
+                        onPartnerClick = onLinkClicked
+                    )
+                }
+                composable(Screen.Info.route) {
+                    InfoPages(
+                        tabs = tabs,
+                        agendaRepository = agendaRepository,
+                        viewModel = viewModel,
+                        modifier = modifier,
+                        pagerState = pagerState,
+                        onItineraryClicked = onItineraryClicked,
+                        onLinkClicked = onLinkClicked,
+                        onReportByPhoneClicked = onReportByPhoneClicked,
+                        onReportByEmailClicked = onReportByEmailClicked
+                    )
+                }
+            }
         }
 
         else -> {}

@@ -20,6 +20,7 @@ import org.gdglille.devfest.android.theme.vitamin.ui.TopActions
 import org.gdglille.devfest.android.ui.resources.actions.BottomAction
 import org.gdglille.devfest.android.ui.resources.actions.FabAction
 import org.gdglille.devfest.android.ui.resources.actions.TabAction
+import org.gdglille.devfest.android.ui.resources.models.BottomActionsUi
 import org.gdglille.devfest.android.ui.resources.models.ScreenUi
 import org.gdglille.devfest.android.ui.resources.models.TabActionsUi
 import org.gdglille.devfest.android.ui.resources.models.TopActionsUi
@@ -47,7 +48,7 @@ class HomeViewModel(
     private val _uiTopState = MutableStateFlow(TopActionsUi())
     private val _uiTabState = MutableStateFlow(TabActionsUi())
     private val _uiFabState = MutableStateFlow<FabAction?>(null)
-    private val _uiBottomState = MutableStateFlow<List<BottomAction>>(emptyList())
+    private val _uiBottomState = MutableStateFlow(BottomActionsUi())
     private val _uiIsFavState = MutableStateFlow(false)
     private val _uiState = combine(
         _routeState,
@@ -72,16 +73,17 @@ class HomeViewModel(
     val uiTopState: StateFlow<TopActionsUi> = _uiTopState
     val uiTabState: StateFlow<TabActionsUi> = _uiTabState
     val uiFabState: StateFlow<FabAction?> = _uiFabState
-    val uiBottomState: StateFlow<List<BottomAction>> = _uiBottomState
+    val uiBottomState: StateFlow<BottomActionsUi> = _uiBottomState
     val uiState: StateFlow<HomeUiState> = _uiState
 
     private fun updateUiTopActions(route: String, isFav: Boolean) {
         val topActions = when (route) {
             Screen.Agenda.route -> TopActionsUi(
-                topActions = arrayListOf(if (isFav) TopActions.favoriteFilled else TopActions.favorite)
+                actions = arrayListOf(if (isFav) TopActions.favoriteFilled else TopActions.favorite)
             )
             Screen.Info.route -> TopActionsUi(
-                topActions = arrayListOf(TopActions.disconnect)
+                actions = arrayListOf(TopActions.disconnect),
+                maxActions = 0
             )
             else -> TopActionsUi()
         }
@@ -93,7 +95,7 @@ class HomeViewModel(
     private fun updateUiTabActions(route: String, config: ScaffoldConfigUi) {
         val tabActions = when (route) {
             Screen.Agenda.route -> TabActionsUi(
-                tabActions = config.agendaTabs.map {
+                actions = config.agendaTabs.map {
                     val label = DateTimeFormatter
                         .ofPattern("dd MMM")
                         .format(LocalDate.parse(it))
@@ -103,14 +105,14 @@ class HomeViewModel(
             )
 
             Screen.Networking.route -> TabActionsUi(
-                tabActions = if (config.hasProfile) arrayListOf(
+                actions = if (config.hasProfile) arrayListOf(
                     TabActions.myProfile,
                     TabActions.contacts
                 ) else emptyList()
             )
 
             Screen.Info.route -> TabActionsUi(
-                tabActions = arrayListOf<TabAction>().apply {
+                actions = arrayListOf<TabAction>().apply {
                     add(TabActions.event)
                     if (config.hasMenus) {
                         add(TabActions.menus)
@@ -143,19 +145,21 @@ class HomeViewModel(
     }
 
     private fun updateUiBottomActions(config: ScaffoldConfigUi) {
-        val bottomActions = arrayListOf<BottomAction>().apply {
-            add(BottomActions.agenda)
-            if (config.hasSpeakerList) {
-                add(BottomActions.speakers)
+        val bottomActions = BottomActionsUi(
+            actions = arrayListOf<BottomAction>().apply {
+                add(BottomActions.agenda)
+                if (config.hasSpeakerList) {
+                    add(BottomActions.speakers)
+                }
+                if (config.hasNetworking) {
+                    add(BottomActions.networking)
+                }
+                if (config.hasPartnerList) {
+                    add(BottomActions.partners)
+                }
+                add(BottomActions.info)
             }
-            if (config.hasNetworking) {
-                add(BottomActions.networking)
-            }
-            if (config.hasPartnerList) {
-                add(BottomActions.partners)
-            }
-            add(BottomActions.info)
-        }
+        )
         if (bottomActions != _uiBottomState.value) {
             _uiBottomState.value = bottomActions
         }

@@ -31,7 +31,7 @@ fun NetworkingPages(
             else -> viewModel.updateFabUi(Screen.Contacts.route)
         }
     }
-    val count = tabs.tabActions.count()
+    val count = tabs.actions.count()
     HorizontalPager(count = if (count == MyProfileId) 1 else count, state = pagerState) { page ->
         when (page) {
             MyProfileId -> MyProfileVM(
