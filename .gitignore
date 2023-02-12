@@ -1,8 +1,5 @@
 .DS_Store
 
-# Temp
-cloudbuild.yaml
-
 #Ant
 build.xml
 local.properties
@@ -25,7 +22,6 @@ build/
 *.apk
 
 */keystore.properties
-*/app.properties
 
 # Firebase instance
 firestore-debug.log
