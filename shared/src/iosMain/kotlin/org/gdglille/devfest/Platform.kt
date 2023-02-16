@@ -15,7 +15,8 @@ import platform.UIKit.UIImage
 import platform.UIKit.UIImageJPEGRepresentation
 import platform.posix.memcpy
 
-actual typealias PlatformContext = Nothing
+class IOSContext
+actual typealias PlatformContext = IOSContext
 
 actual class Platform actual constructor(context: PlatformContext) {
     actual val httpEngine: HttpClientEngine = Darwin.create()

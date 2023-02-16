@@ -17,7 +17,8 @@ struct iOSApp: App {
     }
 
 	var body: some Scene {
-        let api = ConferenceApi.companion.create(baseUrl: self.baseUrl, enableNetworkLogs: isInDebugMode)
+        let platform = Platform(context: IOSContext())
+        let api = ConferenceApi.companion.create(platform: platform, baseUrl: self.baseUrl, enableNetworkLogs: isInDebugMode)
         let settings = AppleSettings(delegate: UserDefaults.standard)
         let agendaRepository = AgendaRepositoryImpl(
             api: api,
@@ -30,7 +31,7 @@ struct iOSApp: App {
             qrCodeGenerator: QrCodeGeneratoriOS()
         )
         let userRepository = UserRepositoryImpl(
-            userDao: UserDao(db: db),
+            userDao: UserDao(db: db, platform: platform),
             eventDao: EventDao(db: db, settings: settings),
             qrCodeGenerator: QrCodeGeneratoriOS()
         )
