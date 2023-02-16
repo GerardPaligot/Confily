@@ -13,6 +13,7 @@ object ActionIds {
     const val CREATE_PROFILE = 3
     const val FAVORITE = 4
     const val DISCONNECT = 5
+    const val EXPORT = 7
 }
 
 object TopActions {
@@ -35,6 +36,11 @@ object TopActions {
         id = ActionIds.DISCONNECT,
         icon = R.drawable.ic_vtmn_shut_down_line,
         contentDescription = R.string.action_power_off
+    )
+    val export = TopAction(
+        id = ActionIds.EXPORT,
+        icon = R.drawable.ic_vtmn_upload_line,
+        contentDescription = R.string.action_export
     )
 }
 

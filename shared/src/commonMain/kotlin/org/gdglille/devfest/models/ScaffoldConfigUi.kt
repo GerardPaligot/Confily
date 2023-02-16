@@ -8,5 +8,6 @@ data class ScaffoldConfigUi(
     val hasQAndA: Boolean = false,
     val hasBilletWebTicket: Boolean = false,
     val hasProfile: Boolean = false,
-    val agendaTabs: List<String> = emptyList()
+    val agendaTabs: List<String> = emptyList(),
+    val hasUsersInNetworking: Boolean = false
 )

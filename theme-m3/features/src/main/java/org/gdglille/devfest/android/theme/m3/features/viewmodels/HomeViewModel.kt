@@ -5,7 +5,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
@@ -24,6 +26,7 @@ import org.gdglille.devfest.android.ui.resources.models.BottomActionsUi
 import org.gdglille.devfest.android.ui.resources.models.ScreenUi
 import org.gdglille.devfest.android.ui.resources.models.TabActionsUi
 import org.gdglille.devfest.android.ui.resources.models.TopActionsUi
+import org.gdglille.devfest.models.ExportNetworkingUi
 import org.gdglille.devfest.models.ScaffoldConfigUi
 import org.gdglille.devfest.models.UserNetworkingUi
 import org.gdglille.devfest.repositories.AgendaRepository
@@ -50,13 +53,14 @@ class HomeViewModel(
     private val _uiFabState = MutableStateFlow<FabAction?>(null)
     private val _uiBottomState = MutableStateFlow(BottomActionsUi())
     private val _uiIsFavState = MutableStateFlow(false)
+    private val _exportPath = MutableSharedFlow<ExportNetworkingUi>(replay = 1)
     private val _uiState = combine(
         _routeState,
         _configState,
         _uiIsFavState,
         transform = { route, config, isFav ->
             if (route == null) return@combine HomeUiState.Loading
-            updateUiTopActions(route, isFav)
+            updateUiTopActions(route, config, isFav)
             updateUiBottomActions(config)
             updateUiTabActions(route, config)
             updateUiFabAction(route, config)
@@ -74,12 +78,17 @@ class HomeViewModel(
     val uiTabState: StateFlow<TabActionsUi> = _uiTabState
     val uiFabState: StateFlow<FabAction?> = _uiFabState
     val uiBottomState: StateFlow<BottomActionsUi> = _uiBottomState
+    val exportPath: SharedFlow<ExportNetworkingUi> = _exportPath
     val uiState: StateFlow<HomeUiState> = _uiState
 
-    private fun updateUiTopActions(route: String, isFav: Boolean) {
+    private fun updateUiTopActions(route: String, config: ScaffoldConfigUi, isFav: Boolean) {
         val topActions = when (route) {
             Screen.Agenda.route -> TopActionsUi(
                 actions = arrayListOf(if (isFav) TopActions.favoriteFilled else TopActions.favorite)
+            )
+
+            Screen.Networking.route -> TopActionsUi(
+                actions = if (config.hasUsersInNetworking) listOf(TopActions.export) else emptyList()
             )
 
             Screen.Info.route -> TopActionsUi(
@@ -215,6 +224,10 @@ class HomeViewModel(
 
     fun disconnect() = viewModelScope.launch {
         eventRepository.deleteEventId()
+    }
+
+    fun exportNetworking() = viewModelScope.launch {
+        _exportPath.tryEmit(userRepository.exportNetworking())
     }
 
     object Factory {

@@ -8,12 +8,16 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.ui.res.stringResource
+import androidx.core.app.ShareCompat
+import androidx.core.content.FileProvider
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.russhwolf.settings.AndroidSettings
 import com.russhwolf.settings.ExperimentalSettingsApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import org.gdglille.devfest.AndroidContext
+import org.gdglille.devfest.Platform
 import org.gdglille.devfest.android.data.AlarmScheduler
 import org.gdglille.devfest.android.data.QrCodeGeneratorAndroid
 import org.gdglille.devfest.android.theme.Main
@@ -30,6 +34,7 @@ import org.gdglille.devfest.repositories.AgendaRepository
 import org.gdglille.devfest.repositories.EventRepository
 import org.gdglille.devfest.repositories.SpeakerRepository
 import org.gdglille.devfest.repositories.UserRepository
+import java.io.File
 
 @Suppress("LongMethod")
 @FlowPreview
@@ -47,7 +52,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val baseUrl = BuildConfig.BASE_URL
         val db = DatabaseWrapper(context = this).createDb()
+        val platform = Platform(AndroidContext(this.applicationContext))
         val api = ConferenceApi.create(
+            platform = platform,
             baseUrl = baseUrl,
             enableNetworkLogs = BuildConfig.DEBUG
         )
@@ -69,7 +76,7 @@ class MainActivity : AppCompatActivity() {
             qrCodeGenerator = QrCodeGeneratorAndroid()
         )
         val userRepository = UserRepository.Factory.create(
-            userDao = UserDao(db),
+            userDao = UserDao(db, platform),
             eventDao = EventDao(db, settings),
             qrCodeGenerator = QrCodeGeneratorAndroid()
         )
@@ -85,6 +92,7 @@ class MainActivity : AppCompatActivity() {
         val openFeedbackState = (application as MainApplication).openFeedbackConfig
         setContent {
             navController = rememberNavController()
+            val exportSubject = stringResource(id = R.string.text_export_subject)
             val reportSubject = stringResource(id = R.string.text_report_subject)
             val reportAppTarget = stringResource(id = R.string.text_report_app_target)
             Main(
@@ -95,6 +103,21 @@ class MainActivity : AppCompatActivity() {
                 alarmScheduler = scheduler,
                 openFeedbackState = openFeedbackState,
                 launchUrl = { launchUrl(it) },
+                onContactExportClicked = { export ->
+                    val uri: Uri = FileProvider.getUriForFile(
+                        applicationContext,
+                        "${applicationContext.packageName}.provider",
+                        File(export.filePath)
+                    )
+                    val intent = ShareCompat.IntentBuilder(this)
+                        .setStream(uri)
+                        .intent
+                        .setAction(Intent.ACTION_SENDTO)
+                        .setData(Uri.parse("mailto:${export.mailto ?: ""}"))
+                        .putExtra(Intent.EXTRA_SUBJECT, exportSubject)
+                        .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                    startActivity(intent)
+                },
                 onReportByPhoneClicked = {
                     val intent = Intent(Intent.ACTION_DIAL).apply {
                         data = Uri.parse("tel:$it")

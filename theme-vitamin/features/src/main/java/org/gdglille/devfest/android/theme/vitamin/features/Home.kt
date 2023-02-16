@@ -24,6 +24,7 @@ import org.gdglille.devfest.android.theme.vitamin.features.viewmodels.HomeViewMo
 import org.gdglille.devfest.android.theme.vitamin.ui.ActionIds
 import org.gdglille.devfest.android.theme.vitamin.ui.Screen
 import org.gdglille.devfest.android.ui.resources.HomeResultKey
+import org.gdglille.devfest.models.ExportNetworkingUi
 import org.gdglille.devfest.repositories.AgendaRepository
 import org.gdglille.devfest.repositories.EventRepository
 import org.gdglille.devfest.repositories.SpeakerRepository
@@ -48,6 +49,7 @@ fun Home(
     onSpeakerClicked: (id: String) -> Unit,
     onItineraryClicked: (lat: Double, lng: Double) -> Unit,
     onContactScannerClicked: () -> Unit,
+    onContactExportClicked: (ExportNetworkingUi) -> Unit,
     onTicketScannerClicked: () -> Unit,
     onCreateProfileClicked: () -> Unit,
     onReportByPhoneClicked: (String) -> Unit,
@@ -76,9 +78,13 @@ fun Home(
     val uiTabState = viewModel.uiTabState.collectAsState()
     val uiFabState = viewModel.uiFabState.collectAsState()
     val uiBottomState = viewModel.uiBottomState.collectAsState()
+    val exportPath = viewModel.exportPath.collectAsState(null)
     val pagerState = rememberPagerState()
     LaunchedEffect(Unit) {
         viewModel.screenConfig(Screen.Agenda.route)
+    }
+    LaunchedEffect(exportPath.value) {
+        exportPath.value?.let(onContactExportClicked)
     }
     navController.addOnDestinationChangedListener { _, destination, _ ->
         destination.route?.let { route -> viewModel.screenConfig(route) }
@@ -106,6 +112,9 @@ fun Home(
                         ActionIds.DISCONNECT -> {
                             viewModel.disconnect()
                             onDisconnectedClicked()
+                        }
+                        ActionIds.EXPORT -> {
+                            viewModel.exportNetworking()
                         }
                     }
                 },

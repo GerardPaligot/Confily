@@ -5,23 +5,36 @@ import com.squareup.sqldelight.runtime.coroutines.mapToList
 import com.squareup.sqldelight.runtime.coroutines.mapToOneOrNull
 import kotlinx.coroutines.flow.Flow
 import kotlinx.datetime.Clock
+import okio.Path.Companion.toPath
+import org.gdglille.devfest.Platform
 import org.gdglille.devfest.db.Conferences4HallDatabase
 import org.gdglille.devfest.models.UserNetworkingUi
 import org.gdglille.devfest.models.UserProfileUi
 import org.gdglille.devfest.toByteArray
 import org.gdglille.devfest.toNativeImage
 
-class UserDao(private val db: Conferences4HallDatabase) {
+class UserDao(
+    private val db: Conferences4HallDatabase,
+    private val platform: Platform
+) {
+    fun getEmailProfile(eventId: String): String? = db.userQueries
+        .selectProfile(eventId)
+        .executeAsOneOrNull()
+        ?.email
+
     fun fetchProfile(eventId: String): Flow<UserProfileUi?> =
-        db.userQueries.selectProfile(eventId, mapper = { _, email, firstname, lastname, company, qrcode ->
-            return@selectProfile UserProfileUi(
-                email = email,
-                firstName = firstname,
-                lastName = lastname,
-                company = company ?: "",
-                qrCode = qrcode.toNativeImage()
-            )
-        }).asFlow().mapToOneOrNull()
+        db.userQueries.selectProfile(
+            eventId,
+            mapper = { _, email, firstname, lastname, company, qrcode ->
+                return@selectProfile UserProfileUi(
+                    email = email,
+                    firstName = firstname,
+                    lastName = lastname,
+                    company = company ?: "",
+                    qrCode = qrcode.toNativeImage()
+                )
+            }
+        ).asFlow().mapToOneOrNull()
 
     fun fetchUserPreview(eventId: String): Flow<UserProfileUi?> =
         db.ticketQueries.selectTicket(eventId, mapper = { _, _, _, _, firstname, lastname, _, _ ->
@@ -67,4 +80,15 @@ class UserDao(private val db: Conferences4HallDatabase) {
 
     fun deleteNetworking(eventId: String, email: String) =
         db.userQueries.deleteNetwork(eventId, email)
+
+    fun exportNetworking(eventId: String): String {
+        val users = db.userQueries.selectAll(eventId).executeAsList()
+        val path = "${platform.fileEngine.tempFolderPath}/${Clock.System.now().epochSeconds}.csv"
+        platform.fileEngine.fileSystem.write(path.toPath()) {
+            users.forEach { user ->
+                writeUtf8("${user.email};${user.firstname};${user.lastname};${user.company}")
+            }
+        }
+        return path
+    }
 }

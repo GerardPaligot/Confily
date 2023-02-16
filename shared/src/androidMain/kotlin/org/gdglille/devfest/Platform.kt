@@ -1,14 +1,24 @@
 package org.gdglille.devfest
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.engine.android.Android
+import okio.FileSystem
+import okio.Path.Companion.toPath
 import java.io.ByteArrayOutputStream
 
-actual class Platform actual constructor() {
-    actual val platform: String = "Android ${android.os.Build.VERSION.SDK_INT}"
-    actual val engine: HttpClientEngine = Android.create()
+data class AndroidContext(val context: Context)
+actual typealias PlatformContext = AndroidContext
+
+actual class Platform actual constructor(context: PlatformContext) {
+    actual val httpEngine: HttpClientEngine = Android.create()
+    actual val fileEngine = FileEngine(
+        fileSystem = FileSystem.SYSTEM,
+        tempFolderPath = context.context.cacheDir?.absolutePath?.toPath()
+            ?: FileSystem.SYSTEM_TEMPORARY_DIRECTORY
+    )
 }
 
 actual class DecimalFormat {

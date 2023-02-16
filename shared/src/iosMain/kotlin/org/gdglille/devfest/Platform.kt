@@ -6,18 +6,23 @@ import kotlinx.cinterop.addressOf
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.toCValues
 import kotlinx.cinterop.usePinned
+import okio.FileSystem
 import platform.Foundation.NSData
 import platform.Foundation.NSNumber
 import platform.Foundation.NSNumberFormatter
 import platform.Foundation.dataWithBytes
-import platform.UIKit.UIDevice
 import platform.UIKit.UIImage
 import platform.UIKit.UIImageJPEGRepresentation
 import platform.posix.memcpy
 
-actual class Platform actual constructor() {
-    actual val platform: String = UIDevice.currentDevice.systemName() + " " + UIDevice.currentDevice.systemVersion
-    actual val engine: HttpClientEngine = Darwin.create()
+actual typealias PlatformContext = Nothing
+
+actual class Platform actual constructor(context: PlatformContext) {
+    actual val httpEngine: HttpClientEngine = Darwin.create()
+    actual val fileEngine = FileEngine(
+        fileSystem = FileSystem.SYSTEM,
+        tempFolderPath = FileSystem.SYSTEM_TEMPORARY_DIRECTORY
+    )
 }
 
 actual class DecimalFormat {

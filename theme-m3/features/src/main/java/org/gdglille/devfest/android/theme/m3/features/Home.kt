@@ -24,6 +24,7 @@ import org.gdglille.devfest.android.theme.m3.features.structure.ScaffoldNavigati
 import org.gdglille.devfest.android.theme.m3.features.viewmodels.HomeUiState
 import org.gdglille.devfest.android.theme.m3.features.viewmodels.HomeViewModel
 import org.gdglille.devfest.android.ui.resources.HomeResultKey
+import org.gdglille.devfest.models.ExportNetworkingUi
 import org.gdglille.devfest.repositories.AgendaRepository
 import org.gdglille.devfest.repositories.EventRepository
 import org.gdglille.devfest.repositories.SpeakerRepository
@@ -48,6 +49,7 @@ fun Home(
     onSpeakerClicked: (id: String) -> Unit,
     onPartnerClicked: (id: String) -> Unit,
     onContactScannerClicked: () -> Unit,
+    onContactExportClicked: (ExportNetworkingUi) -> Unit,
     onItineraryClicked: (lat: Double, lng: Double) -> Unit,
     onTicketScannerClicked: () -> Unit,
     onCreateProfileClicked: () -> Unit,
@@ -79,6 +81,7 @@ fun Home(
     val uiTabState = viewModel.uiTabState.collectAsState()
     val uiFabState = viewModel.uiFabState.collectAsState()
     val uiBottomState = viewModel.uiBottomState.collectAsState()
+    val exportPath = viewModel.exportPath.collectAsState(null)
     val agendaPagerState = rememberPagerState()
     val networkingPagerState = rememberPagerState()
     val infoPagerState = rememberPagerState()
@@ -87,6 +90,9 @@ fun Home(
         .collectAsState(initial = navController.currentBackStackEntry)
     LaunchedEffect(Unit) {
         viewModel.screenConfig(Screen.Agenda.route)
+    }
+    LaunchedEffect(exportPath.value) {
+        exportPath.value?.let(onContactExportClicked)
     }
     navController.addOnDestinationChangedListener { _, destination, _ ->
         destination.route?.let { route -> viewModel.screenConfig(route) }
@@ -118,6 +124,9 @@ fun Home(
                         ActionIds.DISCONNECT -> {
                             viewModel.disconnect()
                             onDisconnectedClicked()
+                        }
+                        ActionIds.EXPORT -> {
+                            viewModel.exportNetworking()
                         }
                     }
                 },

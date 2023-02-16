@@ -29,6 +29,7 @@ import org.gdglille.devfest.android.theme.vitamin.ui.screens.event.TicketQrCodeS
 import org.gdglille.devfest.android.theme.vitamin.ui.screens.networking.VCardQrCodeScanner
 import org.gdglille.devfest.android.theme.vitamin.ui.theme.Conferences4HallTheme
 import org.gdglille.devfest.android.ui.resources.HomeResultKey
+import org.gdglille.devfest.models.ExportNetworkingUi
 import org.gdglille.devfest.repositories.AgendaRepository
 import org.gdglille.devfest.repositories.EventRepository
 import org.gdglille.devfest.repositories.SpeakerRepository
@@ -46,6 +47,7 @@ fun Main(
     alarmScheduler: AlarmScheduler,
     openFeedbackState: OpenFeedbackConfig,
     launchUrl: (String) -> Unit,
+    onContactExportClicked: (ExportNetworkingUi) -> Unit,
     onReportByPhoneClicked: (String) -> Unit,
     onReportByEmailClicked: (String) -> Unit,
     onShareClicked: (text: String) -> Unit,
@@ -103,6 +105,7 @@ fun Main(
                             onContactScannerClicked = {
                                 navController.navigate("scanner/vcard")
                             },
+                            onContactExportClicked = onContactExportClicked,
                             onTicketScannerClicked = {
                                 navController.navigate("scanner/ticket")
                             },

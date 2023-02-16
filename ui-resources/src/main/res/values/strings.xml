@@ -51,6 +51,7 @@
     <string name="text_permission">Permission required</string>
     <string name="text_camera_permission_explaination">The camera is important to scan QR code. Please grant the permission.</string>
     <string name="text_camera_permission_deny">Camera permission denied. Please, grant us access on the Settings screen.</string>
+    <string name="text_export_subject">Networking export</string>
     <string name="text_report_subject">Report to organizers from Devfest Lille App</string>
     <string name="text_report_app_target">Choose an Email client</string>
     <string name="text_networking_empty">Scan a Qrcode to add a profile in your networking list\n\nAnd create your own Qrcode in your profile form</string>
@@ -89,6 +90,7 @@
     <string name="action_edit_profile">Edit my information</string>
     <string name="action_open_website">Open website of %s</string>
     <string name="action_power_off">Change event</string>
+    <string name="action_export">Export networking</string>
 
     <string name="input_email">Mail (Mandatory)</string>
     <string name="input_firstname">Name (Mandatory)</string>

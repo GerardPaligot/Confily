@@ -35,6 +35,9 @@ INSERT OR REPLACE INTO Profile(
 event_id, email, firstname, lastname, company, qrcode
 ) VALUES(?, ?, ?, ?, ?, ?);
 
+countNetworking:
+SELECT count(*) FROM Networking WHERE event_id = ?;
+
 selectAll:
 SELECT * FROM Networking WHERE event_id = ? ORDER BY created_at DESC;
 

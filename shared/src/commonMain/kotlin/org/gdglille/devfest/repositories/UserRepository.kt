@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.combine
 import org.gdglille.devfest.Image
 import org.gdglille.devfest.database.EventDao
 import org.gdglille.devfest.database.UserDao
+import org.gdglille.devfest.models.ExportNetworkingUi
 import org.gdglille.devfest.models.UserNetworkingUi
 import org.gdglille.devfest.models.UserProfileUi
 import org.gdglille.devfest.vcard.encodeToString
@@ -18,6 +19,7 @@ interface UserRepository {
     fun fetchNetworking(): Flow<List<UserNetworkingUi>>
     fun insertNetworkingProfile(user: UserNetworkingUi): Boolean
     fun deleteNetworkProfile(email: String)
+    fun exportNetworking(): ExportNetworkingUi
 
     object Factory {
         fun create(
@@ -70,5 +72,10 @@ class UserRepositoryImpl(
     override fun deleteNetworkProfile(email: String) = userDao.deleteNetworking(
         eventId = eventDao.fetchEventId(),
         email = email
+    )
+
+    override fun exportNetworking(): ExportNetworkingUi = ExportNetworkingUi(
+        mailto = userDao.getEmailProfile(eventDao.fetchEventId()),
+        filePath = userDao.exportNetworking(eventId = eventDao.fetchEventId())
     )
 }

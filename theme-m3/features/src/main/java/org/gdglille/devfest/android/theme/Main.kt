@@ -28,6 +28,7 @@ import org.gdglille.devfest.android.theme.m3.features.ProfileInputVM
 import org.gdglille.devfest.android.theme.m3.features.ScheduleDetailVM
 import org.gdglille.devfest.android.theme.m3.features.SpeakerDetailVM
 import org.gdglille.devfest.android.ui.resources.HomeResultKey
+import org.gdglille.devfest.models.ExportNetworkingUi
 import org.gdglille.devfest.repositories.AgendaRepository
 import org.gdglille.devfest.repositories.EventRepository
 import org.gdglille.devfest.repositories.SpeakerRepository
@@ -45,6 +46,7 @@ fun Main(
     alarmScheduler: AlarmScheduler,
     openFeedbackState: OpenFeedbackConfig,
     launchUrl: (String) -> Unit,
+    onContactExportClicked: (ExportNetworkingUi) -> Unit,
     onReportByPhoneClicked: (String) -> Unit,
     onReportByEmailClicked: (String) -> Unit,
     onShareClicked: (text: String) -> Unit,
@@ -107,6 +109,7 @@ fun Main(
                             onContactScannerClicked = {
                                 navController.navigate("scanner/vcard")
                             },
+                            onContactExportClicked = onContactExportClicked,
                             onItineraryClicked = onItineraryClicked,
                             onTicketScannerClicked = {
                                 navController.navigate("scanner/ticket")

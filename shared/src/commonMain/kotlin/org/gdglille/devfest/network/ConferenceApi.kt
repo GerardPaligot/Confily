@@ -56,9 +56,9 @@ class ConferenceApi(
     }
 
     companion object {
-        fun create(baseUrl: String, enableNetworkLogs: Boolean): ConferenceApi =
+        fun create(platform: Platform, baseUrl: String, enableNetworkLogs: Boolean): ConferenceApi =
             ConferenceApi(
-                client = HttpClient(Platform().engine) {
+                client = HttpClient(platform.httpEngine) {
                     install(
                         ContentNegotiation
                     ) {

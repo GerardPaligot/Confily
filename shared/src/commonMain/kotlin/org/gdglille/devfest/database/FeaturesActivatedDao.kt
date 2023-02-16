@@ -2,6 +2,7 @@ package org.gdglille.devfest.database
 
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
+import com.squareup.sqldelight.runtime.coroutines.mapToOneOrDefault
 import com.squareup.sqldelight.runtime.coroutines.mapToOneOrNull
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
@@ -13,7 +14,8 @@ class FeaturesActivatedDao(private val db: Conferences4HallDatabase) {
         db.featuresActivatedQueries.selectFeatures(eventId).asFlow().mapToOneOrNull(),
         db.userQueries.selectQrCode(eventId).asFlow().mapToOneOrNull(),
         db.agendaQueries.selectDays(eventId).asFlow().mapToList(),
-        transform = { features, qrCode, days ->
+        db.userQueries.countNetworking(eventId).asFlow().mapToOneOrDefault(defaultValue = 0L),
+        transform = { features, qrCode, days, countNetworking ->
             ScaffoldConfigUi(
                 hasNetworking = if (features?.has_networking != null) features.has_networking else false,
                 hasSpeakerList = if (features?.has_speaker_list != null) features.has_speaker_list else false,
@@ -22,7 +24,8 @@ class FeaturesActivatedDao(private val db: Conferences4HallDatabase) {
                 hasQAndA = if (features?.has_qanda != null) features.has_qanda else false,
                 hasBilletWebTicket = if (features?.has_billet_web_ticket != null) features.has_billet_web_ticket else false,
                 hasProfile = qrCode != null,
-                agendaTabs = days
+                agendaTabs = days,
+                hasUsersInNetworking = true // countNetworking != 0L
             )
         }
     )

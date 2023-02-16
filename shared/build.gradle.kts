@@ -41,6 +41,8 @@ kotlin {
 
                 implementation(libs.sqldelight.runtime)
                 implementation(libs.sqldelight.coroutines)
+                implementation(libs.okio)
+
                 api(libs.settings)
                 implementation(libs.settings.coroutines)
             }

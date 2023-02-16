@@ -1,10 +1,19 @@
 package org.gdglille.devfest
 
 import io.ktor.client.engine.HttpClientEngine
+import okio.FileSystem
+import okio.Path
 
-expect class Platform() {
-    val platform: String
-    val engine: HttpClientEngine
+data class FileEngine(
+    val fileSystem: FileSystem,
+    val tempFolderPath: Path
+)
+
+expect class PlatformContext
+
+expect class Platform(context: PlatformContext) {
+    val httpEngine: HttpClientEngine
+    val fileEngine: FileEngine
 }
 
 expect class DecimalFormat() {
