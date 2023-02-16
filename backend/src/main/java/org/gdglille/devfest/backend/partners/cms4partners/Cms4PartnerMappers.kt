@@ -9,8 +9,7 @@ fun Cms4PartnerDb.convertToAddressModel(): Address? {
     return Address(
         formatted = listOf(
             address,
-            zipcode,
-            city
+            "$zipCode $city"
         ),
         address = address,
         country = "",

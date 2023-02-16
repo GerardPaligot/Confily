@@ -16,7 +16,7 @@ data class Cms4PartnerDb(
     val siteUrl: String? = null,
     val address: String = "",
     val city: String = "",
-    val zipcode: String = "",
+    val zipCode: String = "",
     val location: Cms4LocationDb? = null,
     val twitter: String? = null,
     val twitterAccount: String? = null,
