@@ -25,7 +25,7 @@ class FeaturesActivatedDao(private val db: Conferences4HallDatabase) {
                 hasBilletWebTicket = if (features?.has_billet_web_ticket != null) features.has_billet_web_ticket else false,
                 hasProfile = qrCode != null,
                 agendaTabs = days,
-                hasUsersInNetworking = true // countNetworking != 0L
+                hasUsersInNetworking = countNetworking != 0L
             )
         }
     )
