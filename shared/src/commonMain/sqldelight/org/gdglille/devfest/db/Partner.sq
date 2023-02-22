@@ -25,6 +25,21 @@ name TEXT NOT NULL PRIMARY KEY,
 event_id TEXT NOT NULL
 );
 
+CREATE TABLE Job (
+url TEXT NOT NULL PRIMARY KEY,
+partner_id TEXT NOT NULL,
+event_id TEXT NOT NULL,
+title TEXT NOT NULL,
+company_name TEXT NOT NULL,
+location TEXT NOT NULL,
+salary_min INTEGER,
+salary_max INTEGER,
+salary_recurrence TEXT,
+requirements REAL NOT NULL,
+publish_date INTEGER NOT NULL,
+propulsed TEXT NOT NULL
+);
+
 insertPartnerType:
 INSERT OR REPLACE INTO PartnerType(
 order_, name, event_id
@@ -35,6 +50,11 @@ INSERT OR REPLACE INTO Partner(
 id, name, description, event_id, type_id, type, logo_url, site_url, twitter_url, twitter_message, linkedin_url, linkedin_message, formatted_address, address, latitude, longitude
 ) VALUES (?, ?,?,?, ?,?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
 
+insertJob:
+INSERT OR REPLACE INTO Job(
+url, partner_id, event_id, title, company_name, location, salary_min, salary_max, salary_recurrence, requirements, publish_date, propulsed
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
 selectPartnerTypes:
 SELECT order_, name FROM PartnerType WHERE event_id == ? ORDER BY order_ ASC;
 
@@ -43,3 +63,6 @@ SELECT id, name, description, logo_url, site_url, twitter_url, twitter_message, 
 
 selectPartner:
 SELECT id, name, description, logo_url, site_url, twitter_url, twitter_message, linkedin_url, linkedin_message, formatted_address, address, latitude, longitude FROM Partner WHERE event_id == ? AND id == ? ORDER BY name ASC;
+
+selectJobs:
+SELECT url, partner_id, event_id, title, company_name, location, salary_min, salary_max, salary_recurrence, requirements, publish_date, propulsed FROM Job WHERE event_id == ? AND partner_id == ? ORDER BY publish_date ASC;

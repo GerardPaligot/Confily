@@ -1,0 +1,14 @@
+CREATE TABLE Job (
+url TEXT NOT NULL PRIMARY KEY,
+partner_id TEXT NOT NULL,
+event_id TEXT NOT NULL,
+title TEXT NOT NULL,
+company_name TEXT NOT NULL,
+location TEXT NOT NULL,
+salary_min INTEGER,
+salary_max INTEGER,
+salary_recurrence TEXT,
+requirements REAL NOT NULL,
+publish_date INTEGER NOT NULL,
+propulsed TEXT NOT NULL
+);

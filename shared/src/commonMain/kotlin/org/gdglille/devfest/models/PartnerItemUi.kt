@@ -13,7 +13,8 @@ data class PartnerItemUi(
     val formattedAddress: List<String>?,
     val address: String?,
     val latitude: Double?,
-    val longitude: Double?
+    val longitude: Double?,
+    val jobs: List<JobUi>
 ) {
     companion object {
         val fake = PartnerItemUi(
@@ -31,7 +32,8 @@ data class PartnerItemUi(
             formattedAddress = listOf("165 Av. de Bretagne", "59000 Lille", "France"),
             address = "165 Av. de Bretagne, 59000 Lille, France",
             latitude = 50.6340034,
-            longitude = 3.0207872
+            longitude = 3.0207872,
+            jobs = listOf(JobUi.fake)
         )
     }
 }
