@@ -11,6 +11,7 @@ AppEngine.
 * Fetch your partners from [CMS4Partners](https://github.com/GDG-Lille/cms4partners)
 * Create your feedback forms to [OpenFeedback.io](https://github.com/HugoGresse/open-feedback)
 * Import a participant ticket from [BilletWeb](https://www.billetweb.fr/)
+* Import partner jobs from [WeLoveDevs](https://welovedevs.com/)
 * Networking space which respect privacy from mobile to mobile
 * Mobile application for Android and iOS
 

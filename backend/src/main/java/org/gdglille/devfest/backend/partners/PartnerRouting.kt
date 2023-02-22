@@ -9,6 +9,7 @@ import io.ktor.server.routing.post
 import io.ktor.server.routing.put
 import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.internals.network.geolocation.GeocodeApi
+import org.gdglille.devfest.backend.jobs.JobDao
 import org.gdglille.devfest.backend.partners.cms4partners.Cms4PartnersDao
 import org.gdglille.devfest.backend.receiveValidated
 import org.gdglille.devfest.models.inputs.PartnerInput
@@ -17,9 +18,10 @@ fun Route.registerPartnersRoutes(
     geocodeApi: GeocodeApi,
     eventDao: EventDao,
     partnerDao: PartnerDao,
-    cms4PartnersDao: Cms4PartnersDao
+    cms4PartnersDao: Cms4PartnersDao,
+    jobDao: JobDao
 ) {
-    val repository = PartnerRepository(geocodeApi, eventDao, partnerDao, cms4PartnersDao)
+    val repository = PartnerRepository(geocodeApi, eventDao, partnerDao, cms4PartnersDao, jobDao)
 
     get("/partners") {
         val eventId = call.parameters["eventId"]!!

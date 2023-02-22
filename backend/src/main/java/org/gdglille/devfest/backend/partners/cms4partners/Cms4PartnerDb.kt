@@ -23,5 +23,6 @@ data class Cms4PartnerDb(
     val linkedin: String? = null,
     val linkedinAccount: String? = null,
     val sponsoring: String = "",
+    val wldId: String? = null,
     val creationDate: Timestamp = Timestamp.now()
 )

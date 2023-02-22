@@ -29,5 +29,6 @@ data class PartnerV2(
     val linkedinUrl: String?,
     @SerialName("linkedin_message")
     val linkedinMessage: String?,
-    val address: Address?
+    val address: Address?,
+    val jobs: List<Job> = emptyList()
 )

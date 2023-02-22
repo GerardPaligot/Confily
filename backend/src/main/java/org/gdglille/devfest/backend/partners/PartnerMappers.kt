@@ -3,6 +3,7 @@ package org.gdglille.devfest.backend.partners
 import com.google.cloud.Timestamp
 import org.gdglille.devfest.backend.events.AddressDb
 import org.gdglille.devfest.backend.events.convertToModel
+import org.gdglille.devfest.models.Job
 import org.gdglille.devfest.models.Partner
 import org.gdglille.devfest.models.PartnerV2
 import org.gdglille.devfest.models.inputs.PartnerInput
@@ -13,7 +14,7 @@ fun PartnerDb.convertToModel() = Partner(
     siteUrl = this.siteUrl
 )
 
-fun PartnerDb.convertToModelV2() = PartnerV2(
+fun PartnerDb.convertToModelV2(jobs: List<Job>) = PartnerV2(
     id = this.id,
     name = this.name,
     description = this.description,
@@ -23,7 +24,8 @@ fun PartnerDb.convertToModelV2() = PartnerV2(
     twitterMessage = this.twitterMessage,
     linkedinUrl = this.linkedinUrl,
     linkedinMessage = this.linkedinMessage,
-    address = this.address.convertToModel()
+    address = this.address.convertToModel(),
+    jobs = jobs
 )
 
 fun PartnerInput.convertToDb(id: String? = null, addressDb: AddressDb) = PartnerDb(
@@ -38,5 +40,6 @@ fun PartnerInput.convertToDb(id: String? = null, addressDb: AddressDb) = Partner
     linkedinMessage = linkedinMessage,
     address = addressDb,
     sponsoring = sponsoring,
+    wldId = wldId,
     creationDate = Timestamp.now()
 )

@@ -1,6 +1,7 @@
 package org.gdglille.devfest.backend.partners.cms4partners
 
 import org.gdglille.devfest.models.Address
+import org.gdglille.devfest.models.Job
 import org.gdglille.devfest.models.Partner
 import org.gdglille.devfest.models.PartnerV2
 
@@ -26,7 +27,7 @@ fun Cms4PartnerDb.convertToModel() = Partner(
     siteUrl = this.siteUrl
 )
 
-fun Cms4PartnerDb.convertToModelV2() = PartnerV2(
+fun Cms4PartnerDb.convertToModelV2(jobs: List<Job>) = PartnerV2(
     id = this.id,
     name = this.name,
     description = this.description ?: "",
@@ -36,5 +37,6 @@ fun Cms4PartnerDb.convertToModelV2() = PartnerV2(
     twitterMessage = this.twitter,
     linkedinUrl = this.linkedinAccount,
     linkedinMessage = this.linkedin,
-    address = this.convertToAddressModel()
+    address = this.convertToAddressModel(),
+    jobs = jobs
 )

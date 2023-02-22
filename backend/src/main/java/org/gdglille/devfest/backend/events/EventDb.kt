@@ -55,12 +55,18 @@ data class BilletWebConfigurationDb(
     val apiKey: String = "",
 )
 
+data class WldConfigurationDb(
+    val appId: String = "",
+    val apiKey: String = ""
+)
+
 data class EventDb(
     val slugId: String = "",
     val year: String = "",
     val conferenceHallId: String = "",
     val openFeedbackId: String? = null,
     val billetWebConfig: BilletWebConfigurationDb? = null,
+    val wldConfig: WldConfigurationDb? = null,
     val apiKey: String = "",
     val name: String = "",
     val address: AddressDb = AddressDb(),

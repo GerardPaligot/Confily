@@ -20,7 +20,9 @@ data class PartnerInput(
     @SerialName("linkedin_message")
     val linkedinMessage: String?,
     val address: String,
-    val sponsoring: String
+    val sponsoring: String,
+    @SerialName("wld_id")
+    val wldId: String?
 ) : Validator {
     override fun validate(): List<String> = emptyList()
 }

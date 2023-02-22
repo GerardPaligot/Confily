@@ -95,6 +95,16 @@ data class BilletWebConfigInput(
 }
 
 @Serializable
+data class WldConfigInput(
+    @SerialName("app_id")
+    val appId: String,
+    @SerialName("api_key")
+    val apiKey: String
+) : Validator {
+    override fun validate(): List<String> = emptyList()
+}
+
+@Serializable
 data class EventInput(
     val name: String,
     val address: EventAddressInput,
@@ -102,6 +112,8 @@ data class EventInput(
     val openFeedbackId: String?,
     @SerialName("billet_web_config")
     val billetWebConfig: BilletWebConfigInput?,
+    @SerialName("wld_config")
+    val wldConfig: WldConfigInput?,
     @SerialName("start_date")
     val startDate: String,
     @SerialName("end_date")

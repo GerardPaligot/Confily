@@ -29,6 +29,9 @@ import org.gdglille.devfest.backend.internals.helpers.database.Database
 import org.gdglille.devfest.backend.internals.helpers.secret.Secret
 import org.gdglille.devfest.backend.internals.helpers.storage.Storage
 import org.gdglille.devfest.backend.internals.network.geolocation.GeocodeApi
+import org.gdglille.devfest.backend.internals.network.welovedevs.WeLoveDevsApi
+import org.gdglille.devfest.backend.jobs.JobDao
+import org.gdglille.devfest.backend.jobs.registerJobRoutes
 import org.gdglille.devfest.backend.partners.PartnerDao
 import org.gdglille.devfest.backend.partners.cms4partners.Cms4PartnersDao
 import org.gdglille.devfest.backend.partners.registerPartnersRoutes
@@ -85,6 +88,8 @@ fun main() {
     val eventDao = EventDao(projectName, basicDatabase)
     val partnerDao = PartnerDao(database)
     val cms4partnerDao = Cms4PartnersDao(basicDatabase)
+    val jobDao = JobDao(database)
+    val wldApi = WeLoveDevsApi.Factory.create(enableNetworkLogs = true)
     val geocodeApi = GeocodeApi.Factory.create(
         apiKey = secret["GEOCODE_API_KEY"],
         enableNetworkLogs = true
@@ -118,8 +123,9 @@ fun main() {
                 registerSpeakersRoutes(eventDao, speakerDao)
                 registerTalksRoutes(eventDao, speakerDao, talkDao)
                 registerSchedulersRoutes(eventDao, talkDao, speakerDao, scheduleItemDao)
-                registerPartnersRoutes(geocodeApi, eventDao, partnerDao, cms4partnerDao)
+                registerPartnersRoutes(geocodeApi, eventDao, partnerDao, cms4partnerDao, jobDao)
                 registerBilletWebRoutes(eventDao)
+                registerJobRoutes(wldApi, eventDao, partnerDao, cms4partnerDao, jobDao)
             }
         }
     }.start(wait = true)

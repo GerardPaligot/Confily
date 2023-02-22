@@ -15,5 +15,6 @@ data class PartnerDb(
     val linkedinMessage: String? = null,
     val address: AddressDb = AddressDb(),
     val sponsoring: String = "",
+    val wldId: String? = null,
     val creationDate: Timestamp = Timestamp.now()
 )

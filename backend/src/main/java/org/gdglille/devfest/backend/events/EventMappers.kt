@@ -20,6 +20,7 @@ import org.gdglille.devfest.models.inputs.EventInput
 import org.gdglille.devfest.models.inputs.LunchMenuInput
 import org.gdglille.devfest.models.inputs.QuestionAndResponseActionInput
 import org.gdglille.devfest.models.inputs.QuestionAndResponseInput
+import org.gdglille.devfest.models.inputs.WldConfigInput
 
 fun Event.convertToDb(year: String, eventId: String, apiKey: String) = EventDb(
     slugId = this.name.slug(),
@@ -172,12 +173,18 @@ fun BilletWebConfigInput.convertToDb() = BilletWebConfigurationDb(
     apiKey = apiKey
 )
 
+fun WldConfigInput.convertToDb() = WldConfigurationDb(
+    appId = appId,
+    apiKey = apiKey
+)
+
 fun EventInput.convertToDb(event: EventDb, openFeedbackId: String?, apiKey: String) = EventDb(
     slugId = event.name.slug(),
     year = event.year,
     conferenceHallId = event.conferenceHallId,
     openFeedbackId = openFeedbackId ?: event.openFeedbackId,
     billetWebConfig = this.billetWebConfig?.convertToDb(),
+    wldConfig = this.wldConfig?.convertToDb(),
     apiKey = apiKey,
     name = this.name,
     address = AddressDb(
