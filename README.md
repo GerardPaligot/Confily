@@ -28,6 +28,7 @@ AppEngine.
 * [Kotlin Coroutines](https://kotlinlang.org/docs/coroutines-guide.html) - Light-weight threads
 * [kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization) - Kotlin Multiplatform / multi format serialization
 * [SQLDelight](https://github.com/cashapp/sqldelight) - Generates typesafe Kotlin APIs from SQL
+* [Okio](https://github.com/square/okio) - A modern I/O library for Android, Java, and Kotlin Multiplatform
 * [Multiplatform Settings](https://github.com/russhwolf/multiplatform-settings) - Kotlin Multiplatform library for saving simple key-value data
 * [ktor](https://github.com/ktorio/ktor) - Client to make HTTP request and HTTP server routing
 * [Firestore](https://github.com/googleapis/java-firestore) - JVM client to make request on Firestore
