@@ -1,11 +1,12 @@
 package org.gdglille.devfest.android.screens.partners
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -15,13 +16,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import compose.icons.FontAwesomeIcons
-import compose.icons.fontawesomeicons.Brands
-import compose.icons.fontawesomeicons.brands.Linkedin
-import compose.icons.fontawesomeicons.brands.Twitter
 import org.gdglille.devfest.android.components.appbars.TopAppBar
 import org.gdglille.devfest.android.components.cards.AddressCard
-import org.gdglille.devfest.android.components.cards.SocialCard
+import org.gdglille.devfest.android.components.jobs.JobItem
 import org.gdglille.devfest.android.components.partners.PartnerDetailSection
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.ui.R
@@ -58,6 +55,25 @@ fun PartnerDetail(
                         onLinkClicked = onLinkClicked
                     )
                 }
+                if (partnerItemUi.jobs.isNotEmpty()) {
+                    item {
+                        Text(
+                            text = stringResource(R.string.title_jobs),
+                            style = MaterialTheme.typography.titleLarge,
+                            modifier = Modifier.padding(horizontal = 16.dp)
+                        )
+                    }
+                    items(partnerItemUi.jobs) {
+                        JobItem(
+                            jobUi = it,
+                            isLoading = isLoading,
+                            onClick = onLinkClicked,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp)
+                        )
+                    }
+                }
                 partnerItemUi.formattedAddress?.let {
                     val hasGpsLocation = partnerItemUi.latitude != null && partnerItemUi.longitude != null
                     item {
@@ -78,33 +94,6 @@ fun PartnerDetail(
                             },
                             modifier = Modifier.padding(horizontal = 16.dp)
                         )
-                    }
-                }
-                if (partnerItemUi.twitterMessage != null || partnerItemUi.linkedinMessage != null) {
-                    item {
-                        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                            Text(
-                                text = stringResource(R.string.title_communication),
-                                style = MaterialTheme.typography.titleLarge,
-                                modifier = Modifier.padding(horizontal = 16.dp)
-                            )
-                            partnerItemUi.twitterMessage?.let { twitterMessage ->
-                                SocialCard(
-                                    title = stringResource(R.string.title_communication_twitter),
-                                    text = twitterMessage,
-                                    imageVector = FontAwesomeIcons.Brands.Twitter,
-                                    modifier = Modifier.padding(horizontal = 16.dp)
-                                )
-                            }
-                            partnerItemUi.linkedinMessage?.let { linkedinMessage ->
-                                SocialCard(
-                                    title = stringResource(R.string.title_communication_linkedin),
-                                    text = linkedinMessage,
-                                    imageVector = FontAwesomeIcons.Brands.Linkedin,
-                                    modifier = Modifier.padding(horizontal = 16.dp)
-                                )
-                            }
-                        }
                     }
                 }
                 item {

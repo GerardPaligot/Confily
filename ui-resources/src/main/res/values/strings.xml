@@ -28,6 +28,7 @@
     <string name="title_ticket">Your ticket</string>
     <string name="title_plan">Go to the event</string>
     <string name="title_plan_partner">Go to the partner location</string>
+    <string name="title_jobs">Jobs</string>
     <string name="title_communication">Communication on social networks</string>
     <string name="title_communication_twitter">Twitter message</string>
     <string name="title_communication_linkedin">LinkedIn message</string>
@@ -63,6 +64,12 @@
     <string name="text_here_we_go">Here we go!</string>
     <string name="text_empty_networking">Here is the networking space. Create your profile to be able to add attendees you will meet and with who you want to keep contact after the event!</string>
     <string name="text_empty_contacts">Scan qrcode of the attendee to add her or him in your contact list.</string>
+    <string name="text_job_salary">%dK - %dK/%s</string>
+    <plurals name="text_job_requirements">
+        <item quantity="one">%d year min</item>
+        <item quantity="other">%d years min</item>
+    </plurals>
+    <string name="text_job_propulsed">Propulsed by %s</string>
 
     <string name="action_back">Back</string>
     <string name="action_expanded_menu">Display overflow menu</string>
