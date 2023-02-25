@@ -67,6 +67,7 @@
     <string name="text_job_salary">%dK - %dK/%s</string>
     <plurals name="text_job_requirements">
         <item quantity="one">%d year min</item>
+        <item quantity="many">%d years min</item>
         <item quantity="other">%d years min</item>
     </plurals>
     <string name="text_job_propulsed">Propulsed by %s</string>
