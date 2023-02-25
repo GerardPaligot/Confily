@@ -13,6 +13,7 @@ import org.gdglille.devfest.database.PartnerDao
 import org.gdglille.devfest.database.ScheduleDao
 import org.gdglille.devfest.database.SpeakerDao
 import org.gdglille.devfest.database.TalkDao
+import org.gdglille.devfest.exceptions.AgendaNotModifiedException
 import org.gdglille.devfest.models.AgendaUi
 import org.gdglille.devfest.models.CoCUi
 import org.gdglille.devfest.models.EventUi
@@ -97,7 +98,7 @@ class AgendaRepositoryImpl(
                 }
             }
             scheduleDao.updateEtag(eventId, agenda.first)
-        } catch (_: Throwable) {
+        } catch (_: AgendaNotModifiedException) {
         }
         eventDao.insertEvent(event)
         partnerDao.insertPartners(eventId, partners)

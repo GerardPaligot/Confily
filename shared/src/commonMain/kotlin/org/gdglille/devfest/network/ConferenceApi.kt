@@ -10,12 +10,14 @@ import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.request.accept
 import io.ktor.client.request.get
 import io.ktor.http.ContentType
+import io.ktor.http.HttpStatusCode
 import io.ktor.http.contentType
 import io.ktor.http.etag
 import io.ktor.http.ifNoneMatch
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.gdglille.devfest.Platform
+import org.gdglille.devfest.exceptions.AgendaNotModifiedException
 import org.gdglille.devfest.models.Attendee
 import org.gdglille.devfest.models.EventList
 import org.gdglille.devfest.models.EventV2
@@ -51,6 +53,9 @@ class ConferenceApi(
             contentType(ContentType.parse("application/json"))
             accept(ContentType.parse("application/json; version=2"))
             etag?.let { ifNoneMatch(etag) }
+        }
+        if (response.status == HttpStatusCode.NotModified) {
+            throw AgendaNotModifiedException()
         }
         return response.etag()!! to response.body()
     }

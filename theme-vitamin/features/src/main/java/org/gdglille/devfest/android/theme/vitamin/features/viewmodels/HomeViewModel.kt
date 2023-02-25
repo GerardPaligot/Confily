@@ -179,8 +179,7 @@ class HomeViewModel(
                 async {
                     try {
                         agendaRepository.fetchAndStoreAgenda()
-                    } catch (cause: Throwable) {
-                        cause.printStackTrace()
+                    } catch (_: Throwable) {
                     }
                 },
                 async {
