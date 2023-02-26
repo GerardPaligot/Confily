@@ -11,8 +11,8 @@ import shared
 import KMPNativeCoroutinesAsync
 
 enum AgendaUiState {
-    case loading
-    case success(AgendaUi)
+    case loading([String: AgendaUi])
+    case success([String: AgendaUi])
     case failure
 }
 
@@ -26,7 +26,9 @@ class AgendaViewModel: ObservableObject {
         self.alarmScheduler = AlarmScheduler(repository: repository)
     }
 
-    @Published var uiState: AgendaUiState = AgendaUiState.loading
+    @Published var uiState: AgendaUiState = AgendaUiState.loading([
+        "01-01-2022": AgendaUi.companion.fake
+    ])
     
     private var agendaTask: Task<(), Never>?
     
@@ -37,7 +39,7 @@ class AgendaViewModel: ObservableObject {
     func fetchAgenda() {
         agendaTask = Task {
             do {
-                let stream = asyncStream(for: repository.agendaNative(date: "2022-06-10"))
+                let stream = asyncStream(for: repository.agendaNative())
                 for try await agenda in stream {
                     self.uiState = AgendaUiState.success(agenda)
                 }

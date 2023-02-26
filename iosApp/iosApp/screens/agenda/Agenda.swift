@@ -10,23 +10,39 @@ import SwiftUI
 import shared
 
 struct Agenda<TalkItem: View>: View {
-    let agenda: AgendaUi
+    let dates: [String]
+    let agendas: [AgendaUi]
     let onFilteringClicked: () -> ()
     let talkItem: (TalkItemUi) -> TalkItem
+    @State private var selectedDate = 0
     
-    init(agenda: AgendaUi, onFilteringClicked: @escaping () -> (), @ViewBuilder talkItem: @escaping (TalkItemUi) -> TalkItem) {
-        self.agenda = agenda
+    init(
+        agendas: [String: AgendaUi],
+        onFilteringClicked: @escaping () -> (),
+        @ViewBuilder talkItem: @escaping (TalkItemUi) -> TalkItem
+    ) {
+        self.dates = agendas.keys.map({ key in key })
+        self.agendas = agendas.values.map({ value in value })
         self.onFilteringClicked = onFilteringClicked
         self.talkItem = talkItem
     }
 
     var body: some View {
+        let agenda = self.agendas[selectedDate]
         Group {
-            if (agenda.onlyFavorites && agenda.talks.isEmpty) {
-                NoFavoriteTalksView()
-            } else {
-                ScrollView {
-                    LazyVStack {
+            ScrollView {
+                LazyVStack {
+                    if (self.dates.count > 1) {
+                        Picker("Days:", selection: $selectedDate) {
+                            ForEach(self.dates.indices, id: \.self) { index in
+                                Text(self.dates[index]).tag(index)
+                            }
+                        }
+                        .pickerStyle(SegmentedPickerStyle())
+                    }
+                    if (agenda.onlyFavorites && agenda.talks.isEmpty) {
+                        NoFavoriteTalksView()
+                    } else {
                         ForEach(agenda.talks.keys.sorted(), id: \.self) { time in
                             ScheduleItemView(
                                 time: time,
@@ -35,9 +51,9 @@ struct Agenda<TalkItem: View>: View {
                             )
                         }
                     }
-                    .padding([.horizontal], 16)
-                    .padding([.vertical], 24)
                 }
+                .padding([.horizontal], 16)
+                .padding([.vertical], 24)
             }
         }
         .navigationTitle(Text("screenAgenda"))
@@ -60,7 +76,10 @@ struct Agenda<TalkItem: View>: View {
 struct Agenda_Previews: PreviewProvider {
     static var previews: some View {
         Agenda(
-            agenda: AgendaUi.companion.fake,
+            agendas: [
+                "01-01-2022": AgendaUi.companion.fake,
+                "02-01-2022": AgendaUi.companion.fake
+            ],
             onFilteringClicked: {},
             talkItem: { talk in
                 TalkItemView(

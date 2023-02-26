@@ -29,9 +29,9 @@ struct AgendaVM: View {
         NavigationView {
             Group {
                 switch uiState {
-                    case .success(let agenda):
+                    case .success(let agendas):
                         Agenda(
-                            agenda: agenda,
+                            agendas: agendas,
                             onFilteringClicked: {
                                 Task {
                                     viewModel.toggleFavoriteFiltering()
@@ -72,9 +72,9 @@ struct AgendaVM: View {
                         )
                     case .failure:
                         Text("textError")
-                    case .loading:
+                    case .loading(let agendas):
                         Agenda(
-                            agenda: AgendaUi(onlyFavorites: false, talks: [:]),
+                            agendas: agendas,
                             onFilteringClicked: {},
                             talkItem: { talk in }
                         )

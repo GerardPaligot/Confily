@@ -7,6 +7,9 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flatMapConcat
+import kotlinx.coroutines.flow.map
 import org.gdglille.devfest.database.EventDao
 import org.gdglille.devfest.database.FeaturesActivatedDao
 import org.gdglille.devfest.database.PartnerDao
@@ -38,6 +41,7 @@ interface AgendaRepository {
     fun qanda(): Flow<List<QuestionAndResponseUi>>
     fun menus(): Flow<List<MenuItemUi>>
     fun coc(): Flow<CoCUi>
+    fun agenda(): Flow<Map<String, AgendaUi>>
     fun agenda(date: String): Flow<AgendaUi>
     fun speaker(speakerId: String): Flow<SpeakerUi>
     fun markAsRead(scheduleId: String, isFavorite: Boolean)
@@ -150,6 +154,15 @@ class AgendaRepositoryImpl(
     override fun coc(): Flow<CoCUi> = eventDao.fetchCoC(
         eventId = eventDao.fetchEventId()
     )
+
+    override fun agenda(): Flow<Map<String, AgendaUi>> {
+        return scaffoldConfig().flatMapConcat { config ->
+            return@flatMapConcat combine(
+                flows = config.agendaTabs.map { date -> agenda(date = date).map { date to it } },
+                transform = { it.associate { it } }
+            )
+        }
+    }
 
     override fun agenda(date: String): Flow<AgendaUi> = scheduleDao.fetchSchedules(
         eventId = eventDao.fetchEventId(),
