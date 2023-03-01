@@ -58,6 +58,7 @@
 		D582B741283421DE009391C8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D582B740283421DE009391C8 /* GoogleService-Info.plist */; };
 		D5868A582823139E008EE6E3 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = D5868A572823139E008EE6E3 /* SDWebImageSwiftUI */; };
 		D5868A5B282313F2008EE6E3 /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = D5868A5A282313F2008EE6E3 /* SDWebImageSVGCoder */; };
+		D587A25C29AB90120074E4B9 /* JobItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D587A25B29AB90120074E4B9 /* JobItemView.swift */; };
 		D58F1D4F27AFF40A00FB59C7 /* TalkItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58F1D4E27AFF40A00FB59C7 /* TalkItemView.swift */; };
 		D58F1D5127B001CE00FB59C7 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D58F1D5027B001CE00FB59C7 /* Colors.xcassets */; };
 		D58F1D5427B0057300FB59C7 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58F1D5327B0057300FB59C7 /* Color.swift */; };
@@ -85,7 +86,6 @@
 		D5C92ED5283ADDC900D5CF2D /* NoFavoriteTalksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C92ED4283ADDC900D5CF2D /* NoFavoriteTalksView.swift */; };
 		D5CAA6512821BCC7005BB242 /* RemoteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CAA6502821BCC7005BB242 /* RemoteImage.swift */; };
 		D5CAA6532821C306005BB242 /* PartnerRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CAA6522821C306005BB242 /* PartnerRowView.swift */; };
-		D5CFF39B2960669E006F9052 /* SocialCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CFF39A2960669E006F9052 /* SocialCardView.swift */; };
 		D5D5ABF5282071D2004E2F78 /* ShareSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D5ABF4282071D2004E2F78 /* ShareSheetView.swift */; };
 		D5D6166C27B15C7400C59EC9 /* AgendaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D6166B27B15C7400C59EC9 /* AgendaViewModel.swift */; };
 		D5F324A327C6E2DE007CA4C1 /* QrCodeGeneratoriOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F324A227C6E2DE007CA4C1 /* QrCodeGeneratoriOS.swift */; };
@@ -154,6 +154,7 @@
 		D574DE19292446AE00468074 /* PauseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseView.swift; sourceTree = "<group>"; };
 		D5768D5F27C11E2A00FB081C /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		D582B740283421DE009391C8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D587A25B29AB90120074E4B9 /* JobItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobItemView.swift; sourceTree = "<group>"; };
 		D58F1D4E27AFF40A00FB59C7 /* TalkItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkItemView.swift; sourceTree = "<group>"; };
 		D58F1D5027B001CE00FB59C7 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		D58F1D5327B0057300FB59C7 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -177,7 +178,6 @@
 		D5C92ED4283ADDC900D5CF2D /* NoFavoriteTalksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoFavoriteTalksView.swift; sourceTree = "<group>"; };
 		D5CAA6502821BCC7005BB242 /* RemoteImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImage.swift; sourceTree = "<group>"; };
 		D5CAA6522821C306005BB242 /* PartnerRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnerRowView.swift; sourceTree = "<group>"; };
-		D5CFF39A2960669E006F9052 /* SocialCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialCardView.swift; sourceTree = "<group>"; };
 		D5D5ABF328207025004E2F78 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D5D5ABF4282071D2004E2F78 /* ShareSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetView.swift; sourceTree = "<group>"; };
 		D5D6166B27B15C7400C59EC9 /* AgendaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaViewModel.swift; sourceTree = "<group>"; };
@@ -377,7 +377,7 @@
 			children = (
 				D544C7E429547F410038CB80 /* CardModifier.swift */,
 				D55D7A71295F81DC008EA04B /* AddressCardView.swift */,
-				D5CFF39A2960669E006F9052 /* SocialCardView.swift */,
+				D587A25B29AB90120074E4B9 /* JobItemView.swift */,
 			);
 			path = cards;
 			sourceTree = "<group>";
@@ -653,6 +653,7 @@
 				D524D72E27BBF0DB0078DF0D /* SpeakerItemView.swift in Sources */,
 				D563E2E72975596D00B5FCA0 /* EventItemView.swift in Sources */,
 				D5CAA6512821BCC7005BB242 /* RemoteImage.swift in Sources */,
+				D587A25C29AB90120074E4B9 /* JobItemView.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				D5C92EC7283AC66D00D5CF2D /* PartnersVM.swift in Sources */,
 				D560788E27BE86D900D4012C /* SpeakerAvatarView.swift in Sources */,
@@ -696,7 +697,6 @@
 				D58F1D5427B0057300FB59C7 /* Color.swift in Sources */,
 				D5C92EC5283AC56F00D5CF2D /* Partners.swift in Sources */,
 				D5C92ED3283AD00800D5CF2D /* MenusVM.swift in Sources */,
-				D5CFF39B2960669E006F9052 /* SocialCardView.swift in Sources */,
 				D58F1D4F27AFF40A00FB59C7 /* TalkItemView.swift in Sources */,
 				D57028AA27B550BF008EF4AD /* PartnerDividerView.swift in Sources */,
 				D55BE69527B53FBF00BCF03A /* EventSectionView.swift in Sources */,

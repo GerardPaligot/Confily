@@ -27,6 +27,17 @@ struct PartnerDetailView: View {
                     websiteUrl: partnerUi.siteUrl,
                     linkOnClick: linkOnClick
                 )
+                if (partnerUi.jobs.count > 0) {
+                    Text("titleJobs")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                    ForEach(self.partnerUi.jobs, id: \.self) { job in
+                        JobItemView(
+                            jobUi: job,
+                            onClick: linkOnClick
+                        )
+                    }
+                }
                 if (partnerUi.formattedAddress != nil) {
                     VStack(alignment: .leading) {
                         Text("titlePlanPartner")
@@ -38,25 +49,6 @@ struct PartnerDetailView: View {
                             mapOnClick: {
                                 mapOnClick(URL(string: "maps://?saddr=&daddr=\(partnerUi.latitude ?? 0),\(partnerUi.longitude ?? 0)")!)
                             }
-                        )
-                    }
-                }
-                if (partnerUi.twitterMessage != nil || partnerUi.linkedinMessage != nil) {
-                    Text("titleCommunication")
-                        .font(.headline)
-                        .fontWeight(.bold)
-                    if (partnerUi.twitterMessage != nil) {
-                        SocialCardView(
-                            title: LocalizedStringKey("titleCommunicationTwitter").stringValue(),
-                            message: partnerUi.twitterMessage!,
-                            icon: "ic_twitter"
-                        )
-                    }
-                    if (partnerUi.linkedinMessage != nil) {
-                        SocialCardView(
-                            title: LocalizedStringKey("titleCommunicationLinkedin").stringValue(),
-                            message: partnerUi.linkedinMessage!,
-                            icon: "ic_linkedin"
                         )
                     }
                 }

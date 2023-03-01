@@ -20,6 +20,7 @@
 "titleNotifReminderTalk %@" = "Talk in 10 minutes in %@";
 "titleNotifReminderTalkSpeakers %@" = "By %@";
 "titlePlanPartner" = "Go to the partner location";
+"titleJobs" = "Jobs";
 "titleCommunication" = "Communication on social networks";
 "titleCommunicationTwitter" = "Twitter message";
 "titleCommunicationLinkedin" = "LinkedIn message";
@@ -39,6 +40,8 @@
 "textTicketLastname" = "Last Name";
 "textAgendaNoFavorites" = "You don't have any talks in favorites";
 "textPauseItem" = "Pause ☕";
+"textJobRequirements" = "years min";
+"textJobPropulsed" = "Propulsed by";
 
 "actionFeedback" = "Give your feedback";
 "actionFaq" = "FAQ";
