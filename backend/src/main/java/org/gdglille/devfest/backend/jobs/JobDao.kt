@@ -4,7 +4,6 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import org.gdglille.devfest.backend.internals.helpers.database.Database
-import org.gdglille.devfest.backend.internals.helpers.database.get
 import org.gdglille.devfest.backend.internals.helpers.database.getAll
 
 private const val CollectionName = "jobs"
@@ -13,32 +12,15 @@ class JobDao(private val database: Database) {
     suspend fun getAll(eventId: String): List<JobDb> = database
         .getAll(eventId = eventId, collectionName = CollectionName)
 
-    suspend fun createOrUpdate(eventId: String, job: JobDb): String = coroutineScope {
-        val existing = database.get<JobDb>(
-            eventId = eventId,
-            collectionName = CollectionName,
-            id = job.id
-        )
-        if (existing == null) database.insert(
-            eventId = eventId, collectionName = CollectionName,
-            id = job.id,
-            item = job
-        )
-        else database.update(
-            eventId = eventId,
-            collectionName = CollectionName,
-            id = job.id,
-            item = job
-        )
-        return@coroutineScope job.id
-    }
-
-    suspend fun createOrUpdateAll(eventId: String, jobs: List<JobDb>) = coroutineScope {
-        val asyncItems = jobs.map {
+    suspend fun resetJobs(eventId: String, jobs: List<JobDb>) = coroutineScope {
+        database.delete(eventId, CollectionName)
+        val asyncItems = jobs.map { job ->
             async {
-                createOrUpdate(
+                database.insert(
                     eventId = eventId,
-                    job = it
+                    collectionName = CollectionName,
+                    id = job.id,
+                    item = job
                 )
             }
         }

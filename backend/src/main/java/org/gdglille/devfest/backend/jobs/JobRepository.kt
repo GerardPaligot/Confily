@@ -25,14 +25,16 @@ class JobRepository(
         val companyIds = cms4PartnerDbs.map { it.wldId!! } + partners.map { it.wldId!! }
         if (companyIds.isEmpty()) throw NotFoundException("No partner has WLD config")
         val jobs = api.fetchPublicJobs(companyIds, event.wldConfig.appId, event.wldConfig.apiKey)
-        val jobsDb = jobs.hits.map { hit ->
-            val id = "${hit.companyId.substring(0..MaxPartnerChar)}-${hit.publishDate}"
-            val partnerId = cms4PartnerDbs.find { it.wldId == hit.companyId }?.id
-                ?: partners.find { it.wldId == hit.companyId }?.id
-                ?: throw NotAcceptableException("Partner WLD ${hit.companyId} not found")
-            hit.convertToDb(id, partnerId)
-        }
-        jobDao.createOrUpdateAll(eventId, jobsDb)
+        val jobsDb = jobs.hits
+            .filter { it.title.contains("spontaneous_application").not() }
+            .map { hit ->
+                val id = "${hit.companyId.substring(0..MaxPartnerChar)}-${hit.publishDate}"
+                val partnerId = cms4PartnerDbs.find { it.wldId == hit.companyId }?.id
+                    ?: partners.find { it.wldId == hit.companyId }?.id
+                    ?: throw NotAcceptableException("Partner WLD ${hit.companyId} not found")
+                hit.convertToDb(id, partnerId)
+            }
+        jobDao.resetJobs(eventId, jobsDb)
         return@coroutineScope jobsDb.map { it.convertToModel() }
     }
 }

@@ -4,6 +4,8 @@ import com.google.cloud.firestore.Firestore
 import com.google.cloud.firestore.Query
 import com.google.cloud.firestore.SetOptions
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.withContext
 import kotlin.reflect.KClass
 import kotlin.reflect.full.memberProperties
@@ -112,6 +114,16 @@ class FirestoreDatabase(private val firestore: Firestore, private val projectNam
             .document(id)
             .delete()
             .get()
+        Unit
+    }
+
+    override suspend fun delete(eventId: String, collectionName: String) = withContext(Dispatchers.IO) {
+        val documents = firestore
+            .collection(projectName)
+            .document(eventId)
+            .collection(collectionName)
+            .listDocuments()
+        documents.map { async { it.delete() } }.awaitAll()
         Unit
     }
 }
