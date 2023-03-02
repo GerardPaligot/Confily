@@ -11,8 +11,6 @@ import shared
 
 struct AddressCardView: View {
     var formattedAddress: Array<String>
-    var hasGpsLocation: Bool
-    var mapOnClick: () -> ()
     
     var body: some View {
         HStack(alignment: .center) {
@@ -29,31 +27,15 @@ struct AddressCardView: View {
                     }
                 }
             }
-            Spacer()
-            if (hasGpsLocation) {
-                Button {
-                    mapOnClick()
-                } label: {
-                    Image(systemName: "map")
-                        .resizable()
-                        .frame(width: 24, height: 24)
-                        .padding()
-                }
-            }
         }
         .frame(maxWidth: .infinity, alignment: .topLeading)
-        .padding()
-        .background(Color.c4hSurface)
-        .modifier(CardModifier(elevation: 2))
     }
 }
 
 struct AddressCardView_Previews: PreviewProvider {
     static var previews: some View {
         AddressCardView(
-            formattedAddress: EventUi.companion.fake.eventInfo.formattedAddress,
-            hasGpsLocation: true,
-            mapOnClick: { }
+            formattedAddress: EventUi.companion.fake.eventInfo.formattedAddress
         )
     }
 }

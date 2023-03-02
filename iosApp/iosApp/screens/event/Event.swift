@@ -7,42 +7,32 @@
 //
 
 import SwiftUI
+import CodeScanner
 import shared
 
-struct Event<Ticket: View, Menu: View>: View {
+struct Event: View {
+    @EnvironmentObject var viewModelFactory: ViewModelFactory
+    @State var showScanner = false
+    @Environment(\.openURL) var openURL
     let event: EventUi
-    let ticket: () -> (Ticket)
-    let menus: () -> (Menu)
-    let onLinkClicked: (_: String) -> ()
-    let onMapClicked: (_: URL) -> ()
+    let barcodeScanned: (String) async -> ()
+    let onDisconnectedClicked: () -> ()
     
     init(
         event: EventUi,
-        @ViewBuilder ticket: @escaping () -> (Ticket),
-        @ViewBuilder menus: @escaping () -> (Menu),
-        onLinkClicked: @escaping (_: String) -> (),
-        onMapClicked: @escaping (_: URL) -> ()
+        barcodeScanned: @escaping (String) async -> (),
+        onDisconnectedClicked: @escaping () -> ()
     ) {
         self.event = event
-        self.ticket = ticket
-        self.menus = menus
-        self.onLinkClicked = onLinkClicked
-        self.onMapClicked = onMapClicked
+        self.barcodeScanned = barcodeScanned
+        self.onDisconnectedClicked = onDisconnectedClicked
     }
 
     var body: some View {
-        ScrollView {
-            LazyVStack(spacing: 24) {
+        NavigationView {
+            List {
                 Section {
-                    EventSectionView(
-                        eventInfoUi: event.eventInfo,
-                        onLinkClicked: onLinkClicked,
-                        ticket: ticket,
-                        menus: menus
-                    )
-                }
-                if (event.ticket != nil) {
-                    Section {
+                    if (event.ticket != nil) {
                         if (event.ticket?.info != nil) {
                             TicketDetailedView(
                                 ticket: (event.ticket?.info)!,
@@ -54,18 +44,49 @@ struct Event<Ticket: View, Menu: View>: View {
                                 .padding()
                         }
                     }
+                    NavigationLink(isActive: $showScanner) {
+                        CodeScannerView(codeTypes: [.qr]) { response in
+                            if case let .success(result) = response {
+                                if (result.string != "") {
+                                    Task {
+                                        await self.barcodeScanned(result.string)
+                                        showScanner = false
+                                    }
+                                }
+                            }
+                        }
+                    } label: {
+                        Text("actionTicketScanner")
+                    }
+                    NavigationLink {
+                        MenusVM(viewModel: self.viewModelFactory.makeMenusViewModel())
+                    } label: {
+                        Text("actionMenus")
+                    }
+                    AddressCardView(formattedAddress: event.eventInfo.formattedAddress)
+                    Link("actionItinerary", destination: URL(string: "maps://?saddr=&daddr=\(event.eventInfo.latitude),\(event.eventInfo.longitude)")!)
+                }
+                Section(header: Text("titleLinks")) {
+                    Link("actionFaq", destination: URL(string: event.eventInfo.faqLink)!)
+                    Link("actionCoc", destination: URL(string: event.eventInfo.codeOfConductLink)!)
+                    if (event.eventInfo.twitterUrl != nil) {
+                        Link("actionTwitter", destination: URL(string: event.eventInfo.twitterUrl!)!)
+                    }
+                    if (event.eventInfo.linkedinUrl != nil) {
+                        Link("actionLinkedin", destination: URL(string: event.eventInfo.linkedinUrl!)!)
+                    }
                 }
                 Section {
-                    AddressCardView(
-                        formattedAddress: event.eventInfo.formattedAddress,
-                        hasGpsLocation: true,
-                        mapOnClick: {
-                            onMapClicked(URL(string: "maps://?saddr=&daddr=\(event.eventInfo.latitude),\(event.eventInfo.longitude)")!)
-                        }
-                    )
+                    Button {
+                        onDisconnectedClicked()
+                    } label: {
+                        Text("actionChangeEvent")
+                    }
                 }
             }
-            .padding(.horizontal, 16)
+            .listStyle(GroupedListStyle())
+            .navigationTitle(Text(self.event.eventInfo.name))
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
@@ -74,16 +95,8 @@ struct Event_Previews: PreviewProvider {
     static var previews: some View {
         Event(
             event: EventUi.companion.fake,
-            ticket: {
-                ButtonView(text: NSLocalizedString("actionTicketScanner", comment: "")) {
-                }
-            },
-            menus: {
-                ButtonView(text: NSLocalizedString("actionMenus", comment: "")) {
-                }
-            },
-            onLinkClicked: { String in },
-            onMapClicked: { uri in }
-        )
+            barcodeScanned: { barcode in },
+            onDisconnectedClicked: {}
+        ).environmentObject(ViewModelFactory())
     }
 }

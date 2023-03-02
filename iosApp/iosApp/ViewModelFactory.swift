@@ -15,16 +15,36 @@ class ViewModelFactory: ObservableObject {
     private var userRepository: UserRepository
     private var eventRepository: EventRepository
 
-    init(
-        agendaRepository: AgendaRepository,
-        userRepository: UserRepository,
-        eventRepository: EventRepository
-    ) {
-        self.agendaRepository = agendaRepository
-        self.userRepository = userRepository
-        self.eventRepository = eventRepository
+    init() {
+        let platform = Platform(context: IOSContext())
+        let db = DatabaseWrapper().createDb()
+        let api = ConferenceApi.companion.create(
+            platform: platform,
+            baseUrl: Configuration.baseURL.absoluteString,
+            enableNetworkLogs: isInDebugMode
+        )
+        let settings = AppleSettings(delegate: UserDefaults.standard)
+        self.agendaRepository = AgendaRepositoryImpl(
+            api: api,
+            scheduleDao: ScheduleDao(db: db, settings: settings),
+            speakerDao: SpeakerDao(db: db),
+            talkDao: TalkDao(db: db),
+            eventDao: EventDao(db: db, settings: settings),
+            partnerDao: PartnerDao(db: db),
+            featuresDao: FeaturesActivatedDao(db: db),
+            qrCodeGenerator: QrCodeGeneratoriOS()
+        )
+        self.userRepository = UserRepositoryImpl(
+            userDao: UserDao(db: db, platform: platform),
+            eventDao: EventDao(db: db, settings: settings),
+            qrCodeGenerator: QrCodeGeneratoriOS()
+        )
+        self.eventRepository = EventRepositoryImpl(
+            api: api,
+            eventDao: EventDao(db: db, settings: settings)
+        )
     }
-    
+
     func makeAppViewModel() -> AppViewModel {
         return AppViewModel(repository: self.eventRepository)
     }

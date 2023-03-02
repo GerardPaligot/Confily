@@ -24,6 +24,7 @@
 "titleCommunication" = "Communication on social networks";
 "titleCommunicationTwitter" = "Twitter message";
 "titleCommunicationLinkedin" = "LinkedIn message";
+"titleLinks" = "Links";
 
 "textLoading" = "Loading…";
 "textError" = "Something wrong happened";
@@ -44,10 +45,14 @@
 "textJobPropulsed" = "Propulsed by";
 
 "actionFeedback" = "Give your feedback";
+"actionItinerary" = "Itinerary";
+"actionTwitter" = "Twitter";
+"actionLinkedin" = "LinkedIn";
 "actionFaq" = "FAQ";
 "actionCoc" = "Code Of Conduct";
 "actionTicketScanner" = "Scan your ticket";
 "actionMenus" = "Menus";
+"actionChangeEvent" = "Change event";
 "actionGenerateQrcode" = "Generate your QR code";
 "actionFilteringFavorites" = "Only favorites schedules";
 "actionQrcodeScanner" = "Profile Qrcode scanner";

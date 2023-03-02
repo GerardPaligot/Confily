@@ -43,13 +43,11 @@ struct PartnerDetailView: View {
                         Text("titlePlanPartner")
                             .font(.headline)
                             .fontWeight(.bold)
-                        AddressCardView(
-                            formattedAddress: partnerUi.formattedAddress!,
-                            hasGpsLocation: hasGpsLocation,
-                            mapOnClick: {
-                                mapOnClick(URL(string: "maps://?saddr=&daddr=\(partnerUi.latitude ?? 0),\(partnerUi.longitude ?? 0)")!)
-                            }
-                        )
+                        /*
+                         FIXME
+                         mapOnClick(URL(string: "maps://?saddr=&daddr=\(partnerUi.latitude ?? 0),\(partnerUi.longitude ?? 0)")!)
+                         */
+                        AddressCardView(formattedAddress: partnerUi.formattedAddress!)
                     }
                 }
             }
