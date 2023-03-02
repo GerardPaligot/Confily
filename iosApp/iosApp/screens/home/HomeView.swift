@@ -2,36 +2,33 @@ import SwiftUI
 import shared
 
 struct HomeView: View {
+    @EnvironmentObject var viewModelFactory: ViewModelFactory
     @ObservedObject var viewModel: HomeViewModel
-    private let agendaRepository: AgendaRepository
-    private let userRepository: UserRepository
     private let onDisconnectedClicked: () -> ()
     
-    init(agendaRepository: AgendaRepository, userRepository: UserRepository, onDisconnectedClicked: @escaping () -> ()) {
-        self.agendaRepository = agendaRepository
-        self.userRepository = userRepository
+    init(viewModel: HomeViewModel, onDisconnectedClicked: @escaping () -> ()) {
         self.onDisconnectedClicked = onDisconnectedClicked
-        self.viewModel = HomeViewModel(repository: agendaRepository)
+        self.viewModel = viewModel
     }
 
 	var body: some View {
         TabView {
-            AgendaVM(agendaRepository: agendaRepository)
+            AgendaVM(viewModel: viewModelFactory.makeAgendaViewModel())
                 .tabItem {
                     Label("screenAgenda", systemImage: "calendar")
                 }
 
-            NetworkingVM(userRepository: userRepository)
+            NetworkingVM(viewModel: viewModelFactory.makeNetworkingViewModel())
                 .tabItem {
                     Label("screenNetworking", systemImage: "person.2")
                 }
 
-            PartnersVM(agendaRepository: agendaRepository)
+            PartnersVM(viewModel: viewModelFactory.makePartnersViewModel())
                 .tabItem {
                     Label("screenPartners", systemImage: "hands.clap")
                 }
 
-            EventVM(agendaRepository: agendaRepository, onDisconnectedClicked: self.onDisconnectedClicked)
+            EventVM(viewModel: self.viewModelFactory.makeEventViewModel(),onDisconnectedClicked: self.onDisconnectedClicked)
                 .tabItem {
                     Label("screenEvent", systemImage: "ticket")
                 }

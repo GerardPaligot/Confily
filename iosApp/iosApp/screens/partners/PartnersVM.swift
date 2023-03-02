@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import shared
 
 enum NavigationPartnerState: Equatable {
     case none
@@ -15,13 +14,12 @@ enum NavigationPartnerState: Equatable {
 }
 
 struct PartnersVM: View {
+    @EnvironmentObject var viewModelFactory: ViewModelFactory
     @ObservedObject var viewModel: PartnersViewModel
     @State private var navigationState = NavigationPartnerState.none
-    let agendaRepository: AgendaRepository
 
-    init(agendaRepository: AgendaRepository) {
-        self.agendaRepository = agendaRepository
-        self.viewModel = PartnersViewModel(repository: agendaRepository)
+    init(viewModel: PartnersViewModel) {
+        self.viewModel = viewModel
     }
 
     var body: some View {
@@ -35,8 +33,7 @@ struct PartnersVM: View {
                             partnerItem: { partner, size in
                                 NavigationLink(isActive: Binding.constant(self.navigationState == .partner(partner.id))) {
                                     PartnerDetailVM(
-                                        agendaRepository: self.agendaRepository,
-                                        partnerId: partner.id
+                                        viewModel: viewModelFactory.makePartnerDetailViewModel(partnerId: partner.id)
                                     )
                                 } label: {
                                     EmptyView()

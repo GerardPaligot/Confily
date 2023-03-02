@@ -14,10 +14,10 @@ struct EventListVM<EventItem: View>: View {
     let eventItem: (EventItemUi) -> (EventItem)
     
     init(
-        repository: EventRepository,
+        viewModel: EventListViewModel,
         @ViewBuilder eventItem: @escaping (EventItemUi) -> EventItem
     ) {
-        self.viewModel = EventListViewModel(repository: repository)
+        self.viewModel = viewModel
         self.eventItem = eventItem
     }
     

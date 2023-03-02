@@ -14,8 +14,8 @@ struct ScheduleDetailVM<SpeakerItem: View>: View {
     let scheduleId: String
     let speakerItem: (SpeakerItemUi) -> SpeakerItem
     
-    init(agendaRepository: AgendaRepository, scheduleId: String, @ViewBuilder speakerItem: @escaping (SpeakerItemUi) -> SpeakerItem) {
-        self.viewModel = ScheduleItemViewModel(repository: agendaRepository)
+    init(viewModel: ScheduleItemViewModel, scheduleId: String, @ViewBuilder speakerItem: @escaping (SpeakerItemUi) -> SpeakerItem) {
+        self.viewModel = viewModel
         self.scheduleId = scheduleId
         self.speakerItem = speakerItem
     }

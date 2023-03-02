@@ -14,8 +14,8 @@ struct NetworkingVM: View {
     @ObservedObject var viewModel: NetworkingViewModel
     @State private var isPresentingScanner = false
     
-    init(userRepository: UserRepository) {
-        self.viewModel = NetworkingViewModel(repository: userRepository)
+    init(viewModel: NetworkingViewModel) {
+        self.viewModel = viewModel
     }
     
     var body: some View {

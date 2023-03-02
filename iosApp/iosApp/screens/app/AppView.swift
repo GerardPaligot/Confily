@@ -10,20 +10,11 @@ import SwiftUI
 import shared
 
 struct AppView: View {
+    @EnvironmentObject var viewModelFactory: ViewModelFactory
     @ObservedObject var viewModel: AppViewModel
-    private let agendaRepository: AgendaRepository
-    private let userRepository: UserRepository
-    private let eventRepository: EventRepository
     
-    init(
-        agendaRepository: AgendaRepository,
-        userRepository: UserRepository,
-        eventRepository: EventRepository
-    ) {
-        self.agendaRepository = agendaRepository
-        self.userRepository = userRepository
-        self.eventRepository = eventRepository
-        self.viewModel = AppViewModel(repository: eventRepository)
+    init(viewModel: AppViewModel) {
+        self.viewModel = viewModel
     }
     
     var body: some View {
@@ -32,7 +23,7 @@ struct AppView: View {
             switch uiState {
                 case .events:
                     EventListVM(
-                        repository: self.eventRepository,
+                        viewModel: viewModelFactory.makeEventListViewModel(),
                         eventItem: { event in
                             Button {
                                 viewModel.saveEventId(eventId: event.id)
@@ -44,8 +35,7 @@ struct AppView: View {
                     )
                 case .agenda:
                     HomeView(
-                        agendaRepository: self.agendaRepository,
-                        userRepository: self.userRepository,
+                        viewModel: viewModelFactory.makeHomeViewModel(),
                         onDisconnectedClicked: {
                             viewModel.disconnect()
                         }

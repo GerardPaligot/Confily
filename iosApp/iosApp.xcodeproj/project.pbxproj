@@ -72,6 +72,7 @@
 		D5AEA3A928341C630023245B /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = D5AEA3A828341C630023245B /* FirebaseAnalytics */; };
 		D5AEA3AB28341C630023245B /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = D5AEA3AA28341C630023245B /* FirebaseCrashlytics */; };
 		D5B6D47D29983D4C0056EA02 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B6D47C29983D4C0056EA02 /* Configuration.swift */; };
+		D5BC483229B0CC98002CC517 /* ViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BC483129B0CC98002CC517 /* ViewModelFactory.swift */; };
 		D5C753292975E7BC00E2FD0B /* EventListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C753282975E7BC00E2FD0B /* EventListVM.swift */; };
 		D5C7532B2975EB2B00E2FD0B /* EventListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C7532A2975EB2B00E2FD0B /* EventListViewModel.swift */; };
 		D5C7532E2975F56000E2FD0B /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C7532D2975F56000E2FD0B /* AppViewModel.swift */; };
@@ -164,6 +165,7 @@
 		D59EFCB927B5AE25000AADCF /* EventVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventVM.swift; sourceTree = "<group>"; };
 		D5AE1BE627D18B7E005849B4 /* UserItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserItemView.swift; sourceTree = "<group>"; };
 		D5B6D47C29983D4C0056EA02 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		D5BC483129B0CC98002CC517 /* ViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelFactory.swift; sourceTree = "<group>"; };
 		D5C753282975E7BC00E2FD0B /* EventListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListVM.swift; sourceTree = "<group>"; };
 		D5C7532A2975EB2B00E2FD0B /* EventListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListViewModel.swift; sourceTree = "<group>"; };
 		D5C7532D2975F56000E2FD0B /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
@@ -238,6 +240,7 @@
 				D50A458D27B0819A00C9A43C /* screens */,
 				D58F1D5227B0054E00FB59C7 /* theming */,
 				2152FB032600AC8F00CF470E /* iOSApp.swift */,
+				D5BC483129B0CC98002CC517 /* ViewModelFactory.swift */,
 				D5B6D47C29983D4C0056EA02 /* Configuration.swift */,
 				7555FF8C242A565B00829871 /* Info.plist */,
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
@@ -641,6 +644,7 @@
 			files = (
 				D574DE1A292446AE00468074 /* PauseView.swift in Sources */,
 				D59944BE2833CDC900F59C1B /* TicketDetailedView.swift in Sources */,
+				D5BC483229B0CC98002CC517 /* ViewModelFactory.swift in Sources */,
 				D53256C22921946600EA0DE7 /* TagView.swift in Sources */,
 				D560789927BE965200D4012C /* SpeakerItemNavigation.swift in Sources */,
 				D562CF5E27BD9DCB00CF54AF /* HomeViewModel.swift in Sources */,

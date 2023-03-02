@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import shared
 
 enum NavigationSpeakerState: Equatable {
     case none
@@ -15,15 +14,14 @@ enum NavigationSpeakerState: Equatable {
 }
 
 struct SpeakerDetailVM: View {
+    @EnvironmentObject var viewModelFactory: ViewModelFactory
     @ObservedObject var viewModel: SpeakerViewModel
     @State private var navigationState = NavigationSpeakerState.none
     @Environment(\.openURL) var openURL
-    let agendaRepository: AgendaRepository
     let speakerId: String
     
-    init(agendaRepository: AgendaRepository, speakerId: String) {
-        self.agendaRepository = agendaRepository
-        self.viewModel = SpeakerViewModel(repository: agendaRepository)
+    init(viewModel: SpeakerViewModel, speakerId: String) {
+        self.viewModel = viewModel
         self.speakerId = speakerId
     }
 
@@ -40,10 +38,10 @@ struct SpeakerDetailVM: View {
                         talkItem: { talk in
                             NavigationLink(isActive: Binding.constant(self.navigationState == .talk(talk.id))) {
                                 ScheduleDetailVM(
-                                    agendaRepository: self.agendaRepository,
+                                    viewModel: viewModelFactory.makeScheduleItemViewModel(),
                                     scheduleId: talk.id,
                                     speakerItem: { speaker in
-                                        SpeakerItemNavigation(agendaRepository: agendaRepository, speaker: speaker)
+                                        SpeakerItemNavigation(viewModel: viewModelFactory.makeSpeakerViewModel(), speaker: speaker)
                                     }
                                 )
                             } label: {

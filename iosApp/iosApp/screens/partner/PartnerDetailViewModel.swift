@@ -19,19 +19,21 @@ enum PartnerUiState {
 @MainActor
 class PartnerDetailViewModel: ObservableObject {
     let repository: AgendaRepository
+    let partnerId: String
 
-    init(repository: AgendaRepository) {
+    init(repository: AgendaRepository, partnerId: String) {
         self.repository = repository
+        self.partnerId = partnerId
     }
 
     @Published var uiState: PartnerUiState = PartnerUiState.loading
 
     private var partnerTask: Task<(), Never>?
 
-    func fetchPartner(partnerId: String) {
+    func fetchPartner() {
         partnerTask = Task {
             do {
-                let stream = asyncStream(for: repository.partnerNative(id: partnerId))
+                let stream = asyncStream(for: repository.partnerNative(id: self.partnerId))
                 for try await partner in stream {
                     self.uiState = PartnerUiState.success(partner)
                 }

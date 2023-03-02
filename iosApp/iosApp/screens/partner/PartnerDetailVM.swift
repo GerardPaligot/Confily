@@ -12,13 +12,9 @@ import shared
 struct PartnerDetailVM: View {
     @ObservedObject var viewModel: PartnerDetailViewModel
     @Environment(\.openURL) var openURL
-    let agendaRepository: AgendaRepository
-    let partnerId: String
     
-    init(agendaRepository: AgendaRepository, partnerId: String) {
-        self.agendaRepository = agendaRepository
-        self.viewModel = PartnerDetailViewModel(repository: agendaRepository)
-        self.partnerId = partnerId
+    init(viewModel: PartnerDetailViewModel) {
+        self.viewModel = viewModel
     }
 
     var body: some View {
@@ -44,7 +40,7 @@ struct PartnerDetailVM: View {
             }
         }
         .onAppear {
-            viewModel.fetchPartner(partnerId: partnerId)
+            viewModel.fetchPartner()
         }
         .onDisappear {
             viewModel.stop()

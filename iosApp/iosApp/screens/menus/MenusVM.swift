@@ -7,13 +7,12 @@
 //
 
 import SwiftUI
-import shared
 
 struct MenusVM: View {
     @ObservedObject var viewModel: MenusViewModel
 
-    init(agendaRepository: AgendaRepository) {
-        self.viewModel = MenusViewModel(repository: agendaRepository)
+    init(viewModel: MenusViewModel) {
+        self.viewModel = viewModel
     }
 
     var body: some View {

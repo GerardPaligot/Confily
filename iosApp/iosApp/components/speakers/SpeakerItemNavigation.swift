@@ -10,13 +10,13 @@ import SwiftUI
 import shared
 
 struct SpeakerItemNavigation: View {
-    var agendaRepository: AgendaRepository
+    var viewModel: SpeakerViewModel
     var speaker: SpeakerItemUi
     
     var body: some View {
         NavigationLink {
             SpeakerDetailVM(
-                agendaRepository: agendaRepository,
+                viewModel: viewModel,
                 speakerId: speaker.id
             )
         } label: {

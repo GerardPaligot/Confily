@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import shared
 
 enum NavigationState: Equatable {
     case none
@@ -15,13 +14,12 @@ enum NavigationState: Equatable {
 }
 
 struct AgendaVM: View {
+    @EnvironmentObject var viewModelFactory: ViewModelFactory
     @ObservedObject var viewModel: AgendaViewModel
     @State private var navigationState = NavigationState.none
-    let agendaRepository: AgendaRepository
     
-    init(agendaRepository: AgendaRepository) {
-        self.agendaRepository = agendaRepository
-        self.viewModel = AgendaViewModel(repository: agendaRepository)
+    init(viewModel: AgendaViewModel) {
+        self.viewModel = viewModel
     }
 
     var body: some View {
@@ -41,10 +39,10 @@ struct AgendaVM: View {
                                 if (!talk.isPause) {
                                     NavigationLink(isActive: Binding.constant(self.navigationState == .talk(talk.id))) {
                                         ScheduleDetailVM(
-                                            agendaRepository: self.agendaRepository,
+                                            viewModel: viewModelFactory.makeScheduleItemViewModel(),
                                             scheduleId: talk.id,
                                             speakerItem: { speaker in
-                                                SpeakerItemNavigation(agendaRepository: agendaRepository, speaker: speaker)
+                                                SpeakerItemNavigation(viewModel: viewModelFactory.makeSpeakerViewModel(), speaker: speaker)
                                             }
                                         )
                                     } label: {

@@ -8,7 +8,6 @@
 
 import SwiftUI
 import CodeScanner
-import shared
 
 enum EventNavigationState: Equatable {
     case none
@@ -17,16 +16,15 @@ enum EventNavigationState: Equatable {
 }
 
 struct EventVM: View {
+    @EnvironmentObject var viewModelFactory: ViewModelFactory
     @State private var navigationState = EventNavigationState.none
     @ObservedObject var viewModel: EventViewModel
-    let agendaRepository: AgendaRepository
     let onDisconnectedClicked: () -> ()
     @Environment(\.openURL) var openURL
     
-    init(agendaRepository: AgendaRepository, onDisconnectedClicked: @escaping () -> ()) {
-        self.agendaRepository = agendaRepository
+    init(viewModel: EventViewModel, onDisconnectedClicked: @escaping () -> ()) {
         self.onDisconnectedClicked = onDisconnectedClicked
-        self.viewModel = EventViewModel(agendaRepository: agendaRepository)
+        self.viewModel = viewModel
     }
 
     var body: some View {
@@ -62,7 +60,7 @@ struct EventVM: View {
                             },
                             menus: {
                                 NavigationLink(isActive: Binding.constant(self.navigationState == .menus)) {
-                                    MenusVM(agendaRepository: self.agendaRepository)
+                                    MenusVM(viewModel: self.viewModelFactory.makeMenusViewModel())
                                 } label: {
                                     EmptyView()
                                 }

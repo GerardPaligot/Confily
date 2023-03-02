@@ -39,8 +39,14 @@ struct iOSApp: App {
             api: api,
             eventDao: EventDao(db: db, settings: settings)
         )
+        let viewModelFactory = ViewModelFactory(
+            agendaRepository: agendaRepository,
+            userRepository: userRepository,
+            eventRepository: eventRepository
+        )
 		WindowGroup {
-            AppView(agendaRepository: agendaRepository, userRepository: userRepository, eventRepository: eventRepository)
+            AppView(viewModel: viewModelFactory.makeAppViewModel())
+                .environmentObject(viewModelFactory)
 		}
 	}
     
