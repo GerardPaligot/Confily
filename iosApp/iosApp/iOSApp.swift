@@ -25,9 +25,11 @@ struct iOSApp: App {
     }
 
 	var body: some Scene {
-		WindowGroup {
-            AppView(viewModel: self.viewModelFactory.makeAppViewModel())
-                .environmentObject(viewModelFactory)
-		}
+        WindowGroup {
+            AppView(
+                viewModel: self.viewModelFactory.makeAppViewModel()
+            )
+            .environmentObject(viewModelFactory)
+        }
 	}
 }
