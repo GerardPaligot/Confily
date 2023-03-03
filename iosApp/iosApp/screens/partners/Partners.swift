@@ -15,36 +15,36 @@ struct Partners: View {
     let maxItems: Int = 3
 
     var body: some View {
-        NavigationView {
-            GeometryReader { geometry in
-                let parentWidth = geometry.size.width  - (self.horizontalSpacing * 2)
-                ScrollView {
-                    LazyVStack(spacing: 8) {
-                        ForEach(partners.groups, id: \.type) { partnerGroup in
-                            Section {
-                                ForEach(partnerGroup.partners, id: \.[0].id) { partners in
-                                    PartnerRowView(
-                                        partners: partners,
-                                        parentWidth: parentWidth
-                                    )
-                                }
-                            } header : {
-                                PartnerDividerView(text: partnerGroup.type)
-                                    .padding(.horizontal, self.horizontalSpacing)
+        GeometryReader { geometry in
+            let parentWidth = geometry.size.width  - (self.horizontalSpacing * 2)
+            ScrollView {
+                LazyVStack(spacing: 8) {
+                    ForEach(partners.groups, id: \.type) { partnerGroup in
+                        Section {
+                            ForEach(partnerGroup.partners, id: \.[0].id) { partners in
+                                PartnerRowView(
+                                    partners: partners,
+                                    parentWidth: parentWidth
+                                )
                             }
+                        } header : {
+                            PartnerDividerView(text: partnerGroup.type)
+                                .padding(.horizontal, self.horizontalSpacing)
                         }
                     }
                 }
             }
-            .navigationTitle(Text("screenPartners"))
-            .navigationBarTitleDisplayMode(.inline)
         }
+        .navigationTitle(Text("screenPartners"))
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
 struct Partners_Previews: PreviewProvider {
     static var previews: some View {
-        Partners(partners: PartnerGroupsUi.companion.fake)
-            .environmentObject(ViewModelFactory())
+        NavigationView {
+            Partners(partners: PartnerGroupsUi.companion.fake)
+                .environmentObject(ViewModelFactory())
+        }
     }
 }

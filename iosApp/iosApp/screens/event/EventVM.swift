@@ -19,20 +19,22 @@ struct EventVM: View {
 
     var body: some View {
         let uiState = viewModel.uiState
-        Group {
-            switch uiState {
-                case .success(let eventUi):
-                    Event(
-                        event: eventUi,
-                        barcodeScanned: { barcode in
-                            await viewModel.saveTicket(barcode: barcode)
-                        },
-                        onDisconnectedClicked: onDisconnectedClicked
-                    )
-                case .failure:
-                    Text("textError")
-                case .loading:
-                    Text("textLoading")
+        NavigationView {
+            Group {
+                switch uiState {
+                    case .success(let eventUi):
+                        Event(
+                            event: eventUi,
+                            barcodeScanned: { barcode in
+                                await viewModel.saveTicket(barcode: barcode)
+                            },
+                            onDisconnectedClicked: onDisconnectedClicked
+                        )
+                    case .failure:
+                        Text("textError")
+                    case .loading:
+                        Text("textLoading")
+                }
             }
         }
         .onAppear {
