@@ -25,6 +25,8 @@
 "titleCommunicationTwitter" = "Twitter message";
 "titleCommunicationLinkedin" = "LinkedIn message";
 "titleLinks" = "Links";
+"titleTalks" = "Talks";
+"titleCompany" = "Company";
 
 "textLoading" = "Loading…";
 "textError" = "Something wrong happened";

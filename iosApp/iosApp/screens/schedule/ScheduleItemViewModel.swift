@@ -17,14 +17,16 @@ enum ScheduleUiState {
 @MainActor
 class ScheduleItemViewModel: ObservableObject {
     let repository: AgendaRepository
+    let scheduleId: String
 
-    init(repository: AgendaRepository) {
+    init(repository: AgendaRepository, scheduleId: String) {
         self.repository = repository
+        self.scheduleId = scheduleId
     }
 
     @Published var uiState: ScheduleUiState = .loading
 
-    func fetchScheduleDetails(scheduleId: String) {
+    func fetchScheduleDetails() {
         let talk = repository.scheduleItem(scheduleId: scheduleId)
         self.uiState = .success(talk)
     }

@@ -9,30 +9,19 @@
 import SwiftUI
 import shared
 
-struct ScheduleDetailVM<SpeakerItem: View>: View {
+struct ScheduleDetailVM: View {
     @ObservedObject var viewModel: ScheduleItemViewModel
-    let scheduleId: String
-    let speakerItem: (SpeakerItemUi) -> SpeakerItem
-    
-    init(viewModel: ScheduleItemViewModel, scheduleId: String, @ViewBuilder speakerItem: @escaping (SpeakerItemUi) -> SpeakerItem) {
-        self.viewModel = viewModel
-        self.scheduleId = scheduleId
-        self.speakerItem = speakerItem
-    }
 
     var body: some View {
         let uiState = viewModel.uiState
         Group {
             switch uiState {
                 case .success(let talkUi):
-                    ScheduleDetail(
-                        talkUi: talkUi,
-                        speakerItem: speakerItem
-                    )
+                    ScheduleDetail(talkUi: talkUi)
                 case .loading:
                     Text("textLoading")
                     .onAppear {
-                        viewModel.fetchScheduleDetails(scheduleId: scheduleId)
+                        viewModel.fetchScheduleDetails()
                     }
             }
         }

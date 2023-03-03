@@ -11,7 +11,7 @@ import shared
 import KMPNativeCoroutinesAsync
 
 enum AgendaUiState {
-    case loading([String: AgendaUi])
+    case loading
     case success([String: AgendaUi])
     case failure
 }
@@ -26,9 +26,7 @@ class AgendaViewModel: ObservableObject {
         self.alarmScheduler = AlarmScheduler(repository: repository)
     }
 
-    @Published var uiState: AgendaUiState = AgendaUiState.loading([
-        "01-01-2022": AgendaUi.companion.fake
-    ])
+    @Published var uiState: AgendaUiState = AgendaUiState.loading
     
     private var agendaTask: Task<(), Never>?
     

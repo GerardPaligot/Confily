@@ -9,41 +9,54 @@
 import SwiftUI
 import shared
 
-struct SpeakerDetail<TalkItem: View>: View {
-    var speaker: SpeakerUi
-    var onLinkClicked: (_: String) -> ()
-    let talkItem: (TalkItemUi) -> TalkItem
+struct SpeakerDetail: View {
+    let speaker: SpeakerUi
+    let onFavoriteClicked: (TalkItemUi) -> ()
     
     init(
         speaker: SpeakerUi,
-        onLinkClicked: @escaping (_: String) -> (),
-        @ViewBuilder talkItem: @escaping (TalkItemUi) -> TalkItem
+        onFavoriteClicked: @escaping (TalkItemUi) -> ()
     ) {
         self.speaker = speaker
-        self.onLinkClicked = onLinkClicked
-        self.talkItem = talkItem
+        self.onFavoriteClicked = onFavoriteClicked
     }
     
     var body: some View {
-        ScrollView {
-            LazyVStack(spacing: 16) {
-                SocialHeaderView(
-                    title: speaker.name,
-                    // description: speaker.company,
-                    logoUrl: speaker.url,
-                    twitterUrl: speaker.twitterUrl,
-                    githubUrl: speaker.githubUrl
-                )
-                Text(speaker.bio)
-                    .font(Font.callout)
-                    .foregroundColor(Color.c4hOnBackground)
-                Spacer().frame(maxHeight: 24)
-                ForEach(speaker.talks, id: \.id) { talk in
-                    self.talkItem(talk)
+        List {
+            Section {
+                HStack {
+                    Spacer()
+                    SocialHeaderView(
+                        title: speaker.name,
+                        logoUrl: speaker.url,
+                        twitterUrl: speaker.twitterUrl,
+                        githubUrl: speaker.githubUrl
+                    )
+                    Spacer()
                 }
             }
-            .padding(.horizontal, 16)
+            Section {
+                HStack(alignment: .center) {
+                    Text("titleCompany")
+                    Spacer()
+                    Text(speaker.company)
+                        .foregroundColor(.secondary)
+                }
+                Text(speaker.bio)
+                    .font(Font.callout)
+            }
+            Section {
+                ForEach(speaker.talks, id: \.id) { talk in
+                    TalkItemNavigation(
+                        talk: talk,
+                        onFavoriteClicked: self.onFavoriteClicked
+                    )
+                }
+            } header: {
+                Text("titleTalks")
+            }
         }
+        .listStyle(.grouped)
     }
 }
 
@@ -51,13 +64,8 @@ struct SpeakerDetail_Previews: PreviewProvider {
     static var previews: some View {
         SpeakerDetail(
             speaker: SpeakerUi.companion.fake,
-            onLinkClicked: { String in },
-            talkItem: { talk in
-                TalkItemView(
-                    talk: talk,
-                    onFavoriteClicked: { TalkItemUi in }
-                )
-            }
+            onFavoriteClicked: { talk in }
         )
+        .environmentObject(ViewModelFactory())
     }
 }

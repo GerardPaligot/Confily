@@ -47,7 +47,6 @@ struct TalkItemView: View {
                     icon: talk.timeInMinutes <= 30 ? "bolt.badge.clock" : "clock"
                 )
             }
-            Divider()
             ZStack(alignment: .leading) {
                 if (talk.category.color != nil || talk.level != nil) {
                     HStack(spacing: 8) {
@@ -70,12 +69,9 @@ struct TalkItemView: View {
             .padding([.top], 8)
         }
         .frame(maxWidth: .infinity, alignment: .topLeading)
-        .padding()
         .accessibilityElement(children: .combine)
         .accessibilityAddTraits(!talk.isPause ? .isButton : [])
         .accessibilityRemoveTraits(!talk.isPause ? .isStaticText : [])
-        .background(Color.c4hSurface)
-        .modifier(CardModifier(elevation: 2))
     }
 }
 
@@ -85,5 +81,6 @@ struct TalkItemView_Previews: PreviewProvider {
             talk: TalkItemUi.companion.fake,
             onFavoriteClicked: { TalkItemUi in }
         )
+        .padding()
     }
 }

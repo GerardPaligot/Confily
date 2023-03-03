@@ -10,17 +10,17 @@ import SwiftUI
 import shared
 
 struct SpeakerItemNavigation: View {
-    var viewModel: SpeakerViewModel
+    @EnvironmentObject var viewModelFactory: ViewModelFactory
     var speaker: SpeakerItemUi
     
     var body: some View {
         NavigationLink {
             SpeakerDetailVM(
-                viewModel: viewModel,
-                speakerId: speaker.id
+                viewModel: viewModelFactory.makeSpeakerViewModel(speakerId: speaker.id)
             )
         } label: {
             SpeakerItemView(speakerUi: speaker)
         }
+        .buttonStyle(.plain)
     }
 }

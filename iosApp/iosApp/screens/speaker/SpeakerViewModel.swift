@@ -19,10 +19,12 @@ enum SpeakerUiState {
 @MainActor
 class SpeakerViewModel: ObservableObject {
     let repository: AgendaRepository
+    let speakerId: String
     let alarmScheduler: AlarmScheduler
 
-    init(repository: AgendaRepository) {
+    init(repository: AgendaRepository, speakerId: String) {
         self.repository = repository
+        self.speakerId = speakerId
         self.alarmScheduler = AlarmScheduler(repository: repository)
     }
 
@@ -30,10 +32,10 @@ class SpeakerViewModel: ObservableObject {
     
     private var speakerTask: Task<(), Never>?
     
-    func fetchSpeakerDetails(speakerId: String) {
+    func fetchSpeakerDetails() {
         speakerTask = Task {
             do {
-                let stream = asyncStream(for: repository.speakerNative(speakerId: speakerId))
+                let stream = asyncStream(for: repository.speakerNative(speakerId: self.speakerId))
                 for try await speaker in stream {
                     self.uiState = .success(speaker)
                 }

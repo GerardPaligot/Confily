@@ -10,14 +10,8 @@ import SwiftUI
 
 struct PauseView: View {
     var body: some View {
-        ZStack {
-            Text("textPauseItem")
-                .foregroundColor(.decorativeOnBrick)
-        }
-        .padding()
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color.decorativeBrick)
-        .clipShape(RoundedRectangle(cornerRadius: 8))
+        Text("textPauseItem")
+            .font(.title3)
     }
 }
 

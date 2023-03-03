@@ -61,12 +61,12 @@ class ViewModelFactory: ObservableObject {
         return AgendaViewModel(repository: self.agendaRepository)
     }
     
-    func makeScheduleItemViewModel() -> ScheduleItemViewModel {
-        return ScheduleItemViewModel(repository: self.agendaRepository)
+    func makeScheduleItemViewModel(scheduleId: String) -> ScheduleItemViewModel {
+        return ScheduleItemViewModel(repository: self.agendaRepository, scheduleId: scheduleId)
     }
     
-    func makeSpeakerViewModel() -> SpeakerViewModel {
-        return SpeakerViewModel(repository: self.agendaRepository)
+    func makeSpeakerViewModel(speakerId: String) -> SpeakerViewModel {
+        return SpeakerViewModel(repository: self.agendaRepository, speakerId: speakerId)
     }
     
     func makeNetworkingViewModel() -> NetworkingViewModel {

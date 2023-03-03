@@ -9,16 +9,9 @@
 import SwiftUI
 import shared
 
-struct ScheduleDetail<SpeakerItem: View>: View {
-    @Environment(\.openURL) var openURL
+struct ScheduleDetail: View {
     @State private var isShareSheetPresented = false
     let talkUi: TalkUi
-    let speakerItem: (SpeakerItemUi) -> SpeakerItem
-    
-    init(talkUi: TalkUi, @ViewBuilder speakerItem: @escaping (SpeakerItemUi) -> SpeakerItem) {
-        self.talkUi = talkUi
-        self.speakerItem = speakerItem
-    }
     
     var body: some View {
         ScrollView {
@@ -26,11 +19,9 @@ struct ScheduleDetail<SpeakerItem: View>: View {
                 TalkSectionView(talkUi: talkUi)
                     .padding(.bottom, 8)
                 ForEach(talkUi.speakers, id: \.id) { speaker in
-                    self.speakerItem(speaker)
+                    SpeakerItemNavigation(speaker: speaker)
                 }
-                ButtonView(text: NSLocalizedString("actionFeedback", comment: "")) {
-                    if let url2 = URL(string: talkUi.openFeedbackUrl!) { openURL(url2) }
-                }
+                Link("actionFeedback", destination: URL(string: talkUi.openFeedbackUrl!)!)
             }
             .padding(.horizontal, 16)
         }
@@ -52,11 +43,7 @@ struct ScheduleDetail<SpeakerItem: View>: View {
 
 struct ScheduleDetail_Previews: PreviewProvider {
     static var previews: some View {
-        ScheduleDetail(
-            talkUi: TalkUi.companion.fake,
-            speakerItem: { speaker in
-                SpeakerItemView(speakerUi: speaker)
-            }
-        )
+        ScheduleDetail(talkUi: TalkUi.companion.fake)
+            .environmentObject(ViewModelFactory())
     }
 }

@@ -25,6 +25,8 @@
 "titleCommunicationTwitter" = "Message sur Twitter";
 "titleCommunicationLinkedin" = "Message sur LinkedIn";
 "titleLinks" = "Liens";
+"titleTalks" = "Conférences";
+"titleCompany" = "Entreprise";
 
 "textLoading" = "Chargement…";
 "textError" = "Une erreur inconnue est survenue";

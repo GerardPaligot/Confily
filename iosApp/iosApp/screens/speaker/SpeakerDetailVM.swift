@@ -8,22 +8,8 @@
 
 import SwiftUI
 
-enum NavigationSpeakerState: Equatable {
-    case none
-    case talk(String)
-}
-
 struct SpeakerDetailVM: View {
-    @EnvironmentObject var viewModelFactory: ViewModelFactory
     @ObservedObject var viewModel: SpeakerViewModel
-    @State private var navigationState = NavigationSpeakerState.none
-    @Environment(\.openURL) var openURL
-    let speakerId: String
-    
-    init(viewModel: SpeakerViewModel, speakerId: String) {
-        self.viewModel = viewModel
-        self.speakerId = speakerId
-    }
 
     var body: some View {
         let uiState = viewModel.uiState
@@ -32,36 +18,10 @@ struct SpeakerDetailVM: View {
                 case .success(let speakerUi):
                     SpeakerDetail(
                         speaker: speakerUi,
-                        onLinkClicked: { url in
-                            if let url2 = URL(string: url) { openURL(url2) }
-                        },
-                        talkItem: { talk in
-                            NavigationLink(isActive: Binding.constant(self.navigationState == .talk(talk.id))) {
-                                ScheduleDetailVM(
-                                    viewModel: viewModelFactory.makeScheduleItemViewModel(),
-                                    scheduleId: talk.id,
-                                    speakerItem: { speaker in
-                                        SpeakerItemNavigation(viewModel: viewModelFactory.makeSpeakerViewModel(), speaker: speaker)
-                                    }
-                                )
-                            } label: {
-                                EmptyView()
+                        onFavoriteClicked: { talk in
+                            Task {
+                                await viewModel.markAsFavorite(talkItem: talk)
                             }
-                            .accessibility(hidden: true)
-                            TalkItemView(
-                                talk: talk,
-                                onFavoriteClicked: { talkItem in
-                                    Task {
-                                        await viewModel.markAsFavorite(talkItem: talkItem)
-                                    }
-                                }
-                            )
-                                .onTapGesture {
-                                    self.navigationState = NavigationSpeakerState.talk(talk.id)
-                                }
-                                .onAppear {
-                                    self.navigationState = NavigationSpeakerState.none
-                                }
                         }
                     )
                 case .failure:
@@ -71,7 +31,7 @@ struct SpeakerDetailVM: View {
             }
         }
         .onAppear {
-            viewModel.fetchSpeakerDetails(speakerId: speakerId)
+            viewModel.fetchSpeakerDetails()
         }
         .onDisappear {
             viewModel.stop()

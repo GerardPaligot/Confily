@@ -11,20 +11,16 @@ import shared
 
 struct SpeakerItemView: View {
     var speakerUi: SpeakerItemUi
-    var color: Color = Color.c4hOnBackground
-    var nameFont: Font = Font.callout.bold()
-    var companyFont: Font = Font.caption
     
     var body: some View {
         HStack(alignment: .center, spacing: 16) {
             SpeakerAvatarView(url: speakerUi.url, size: .medium)
             VStack(alignment: .leading) {
                 Text(speakerUi.name)
-                    .foregroundColor(color)
-                    .font(nameFont)
+                    .font(Font.callout.bold())
                 Text(speakerUi.company)
-                    .foregroundColor(color.opacity(0.74))
-                    .font(companyFont)
+                    .foregroundColor(.secondary)
+                    .font(Font.caption)
             }
         }
         .frame(maxWidth: .infinity, alignment: .topLeading)
