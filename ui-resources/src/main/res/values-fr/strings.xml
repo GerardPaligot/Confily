@@ -64,6 +64,7 @@
     <string name="text_pause_item">Pause ☕</string>
     <string name="text_here_we_go">C\'est parti !</string>
     <string name="text_empty_networking">Ici c\'est la zone de networking. Créer ton profil pour pouvoir ajouter les profils que tu croiseras et avec qui tu veux garder contact après l\'événement !</string>
+    <string name="text_empty_networking_warning">Si vous créez votre profil et que vous partagez votre qrcode, vous acceptez la prospection que peut représenter ce scan par l’un de nos partenaires.</string>
     <string name="text_empty_contacts">Scanne le QR code de ton interlocuteur pour l’ajouter à ton répertoire de contact.</string>
     <string name="text_job_salary">%dK - %dK/%s</string>
     <plurals name="text_job_requirements">

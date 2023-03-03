@@ -63,6 +63,7 @@
     <string name="text_pause_item">Pause ☕</string>
     <string name="text_here_we_go">Here we go!</string>
     <string name="text_empty_networking">Here is the networking space. Create your profile to be able to add attendees you will meet and with who you want to keep contact after the event!</string>
+    <string name="text_empty_networking_warning">If you create your profile and share your qrcode, you accept the prospecting that this scan may represent by one of our partners.</string>
     <string name="text_empty_contacts">Scan qrcode of the attendee to add her or him in your contact list.</string>
     <string name="text_job_salary">%dK - %dK/%s</string>
     <plurals name="text_job_requirements">

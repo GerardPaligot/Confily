@@ -30,6 +30,11 @@ fun EmptyNetworking(
             color = VitaminTheme.colors.vtmnContentPrimary
         )
         Text(
+            text = stringResource(id = R.string.text_empty_networking_warning),
+            style = VitaminTheme.typography.body2,
+            color = VitaminTheme.colors.vtmnContentPrimary
+        )
+        Text(
             text = stringResource(R.string.text_here_we_go),
             style = VitaminTheme.typography.body2,
             color = VitaminTheme.colors.vtmnContentPrimary

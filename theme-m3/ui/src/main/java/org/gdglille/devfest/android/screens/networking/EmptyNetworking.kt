@@ -27,6 +27,9 @@ fun EmptyNetworking(
             text = stringResource(R.string.text_empty_networking)
         )
         Text(
+            text = stringResource(id = R.string.text_empty_networking_warning)
+        )
+        Text(
             text = stringResource(R.string.text_here_we_go)
         )
     }
