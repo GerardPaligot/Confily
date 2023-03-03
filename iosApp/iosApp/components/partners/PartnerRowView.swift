@@ -9,28 +9,32 @@
 import SwiftUI
 import shared
 
-struct PartnerRowView<PartnerItem: View>: View {
+struct PartnerRowView: View {
+    @EnvironmentObject var viewModelFactory: ViewModelFactory
     let partners: Array<PartnerItemUi>
     let parentWidth: CGFloat
-    let partnerItem: (PartnerItemUi, CGFloat) -> PartnerItem
     let maxItems: Int = 3
-    
-    init(
-        partners: Array<PartnerItemUi>,
-        parentWidth: CGFloat,
-        @ViewBuilder partnerItem: @escaping (PartnerItemUi, CGFloat) -> PartnerItem
-    ) {
-        self.partners = partners
-        self.parentWidth = parentWidth
-        self.partnerItem = partnerItem
-    }
 
     var body: some View {
         HStack(spacing: 8) {
             let maxItemsFloat = CGFloat(maxItems)
             let width = (parentWidth - (8 * (maxItemsFloat - 1))) / maxItemsFloat
             ForEach(partners, id: \.id) { partner in
-                self.partnerItem(partner, width)
+                NavigationLink {
+                    PartnerDetailVM(
+                        viewModel: viewModelFactory.makePartnerDetailViewModel(partnerId: partner.id)
+                    )
+                } label: {
+                    RemoteImage(
+                        url: partner.logoUrl,
+                        description: partner.name,
+                        id: partner.id
+                    )
+                    .padding()
+                    .frame(width: width, height: width)
+                    .background(Color.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                }
             }
         }
     }
@@ -46,18 +50,9 @@ struct PartnerRowView_Previews: PreviewProvider {
                     PartnerItemUi.companion.fake,
                     PartnerItemUi.companion.fake
                 ],
-                parentWidth: parentWidth,
-                partnerItem: { partner, size in
-                    Button {
-                    } label: {
-                        RemoteImage(
-                            url: partner.logoUrl,
-                            description: partner.name,
-                            id: partner.id
-                        )
-                    }
-                }
+                parentWidth: parentWidth
             )
         }
+        .environmentObject(ViewModelFactory())
     }
 }

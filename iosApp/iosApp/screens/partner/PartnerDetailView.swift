@@ -10,58 +10,54 @@ import SwiftUI
 import shared
 
 struct PartnerDetailView: View {
-    var partnerUi: PartnerItemUi
-    var linkOnClick: (_: String) -> ()
-    var mapOnClick: (_: URL) -> ()
+    let partnerUi: PartnerItemUi
 
     var body: some View {
-        let hasGpsLocation = partnerUi.latitude != nil && partnerUi.longitude != nil
-        ScrollView {
-            LazyVStack(alignment: .leading, spacing: 16) {
-                SocialHeaderView(
-                    title: partnerUi.name,
-                    description: partnerUi.description_,
-                    logoUrl: partnerUi.logoUrl,
-                    twitterUrl: partnerUi.twitterUrl,
-                    linkedInUrl: partnerUi.linkedinUrl,
-                    websiteUrl: partnerUi.siteUrl,
-                    linkOnClick: linkOnClick
-                )
-                if (partnerUi.jobs.count > 0) {
-                    Text("titleJobs")
-                        .font(.headline)
-                        .fontWeight(.bold)
-                    ForEach(self.partnerUi.jobs, id: \.self) { job in
-                        JobItemView(
-                            jobUi: job,
-                            onClick: linkOnClick
+        NavigationView {
+            List {
+                Section {
+                    HStack {
+                        Spacer()
+                        SocialHeaderView(
+                            title: partnerUi.name,
+                            logoUrl: partnerUi.logoUrl,
+                            twitterUrl: partnerUi.twitterUrl,
+                            linkedInUrl: partnerUi.linkedinUrl,
+                            websiteUrl: partnerUi.siteUrl
                         )
+                        Spacer()
+                    }
+                    Text(partnerUi.description_)
+                        .font(.callout)
+                }
+                if (partnerUi.jobs.count > 0) {
+                    Section {
+                        ForEach(self.partnerUi.jobs, id: \.self) { job in
+                            Link(destination: URL(string: job.url)!) {
+                                JobItemView(jobUi: job)
+                            }
+                            .buttonStyle(.plain)
+                        }
+                    } header: {
+                        Text("titleJobs")
                     }
                 }
                 if (partnerUi.formattedAddress != nil) {
-                    VStack(alignment: .leading) {
-                        Text("titlePlanPartner")
-                            .font(.headline)
-                            .fontWeight(.bold)
-                        /*
-                         FIXME
-                         mapOnClick(URL(string: "maps://?saddr=&daddr=\(partnerUi.latitude ?? 0),\(partnerUi.longitude ?? 0)")!)
-                         */
+                    Section {
                         AddressCardView(formattedAddress: partnerUi.formattedAddress!)
+                        if (partnerUi.latitude != nil && partnerUi.longitude != nil) {
+                            Link("actionItinerary", destination: URL(string: "maps://?saddr=&daddr=\(partnerUi.latitude ?? 0),\(partnerUi.longitude ?? 0)")!)
+                        }
                     }
                 }
             }
-            .padding([.horizontal], 16)
+            .listStyle(GroupedListStyle())
         }
     }
 }
 
 struct PartnerDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        PartnerDetailView(
-            partnerUi: PartnerItemUi.companion.fake,
-            linkOnClick: { url in },
-            mapOnClick: { url in }
-        )
+        PartnerDetailView(partnerUi: PartnerItemUi.companion.fake)
     }
 }

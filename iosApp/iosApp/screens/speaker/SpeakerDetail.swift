@@ -29,12 +29,10 @@ struct SpeakerDetail<TalkItem: View>: View {
             LazyVStack(spacing: 16) {
                 SocialHeaderView(
                     title: speaker.name,
-                    description: speaker.company,
+                    // description: speaker.company,
                     logoUrl: speaker.url,
                     twitterUrl: speaker.twitterUrl,
-                    githubUrl: speaker.githubUrl,
-                    hasLogoPadding: false,
-                    linkOnClick: onLinkClicked
+                    githubUrl: speaker.githubUrl
                 )
                 Text(speaker.bio)
                     .font(Font.callout)

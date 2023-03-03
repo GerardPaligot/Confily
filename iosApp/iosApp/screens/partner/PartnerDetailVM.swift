@@ -7,11 +7,9 @@
 //
 
 import SwiftUI
-import shared
 
 struct PartnerDetailVM: View {
     @ObservedObject var viewModel: PartnerDetailViewModel
-    @Environment(\.openURL) var openURL
     
     init(viewModel: PartnerDetailViewModel) {
         self.viewModel = viewModel
@@ -22,17 +20,7 @@ struct PartnerDetailVM: View {
         Group {
             switch uiState {
                 case .success(let partnerUi):
-                    PartnerDetailView(
-                        partnerUi: partnerUi,
-                        linkOnClick: { url in
-                            if let url2 = URL(string: url) { openURL(url2) }
-                        },
-                        mapOnClick: { url in
-                            if UIApplication.shared.canOpenURL(url) {
-                                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                            }
-                        }
-                    )
+                    PartnerDetailView(partnerUi: partnerUi)
                 case .failure:
                     Text("textError")
                 case .loading:

@@ -47,6 +47,8 @@
 "actionItinerary" = "Itinéraire";
 "actionTwitter" = "Twitter";
 "actionLinkedin" = "LinkedIn";
+"actionGitHub" = "GitHub";
+"actionWebsite" = "Site web";
 "actionFaq" = "FAQ";
 "actionCoc" = "Code de Conduite";
 "actionTicketScanner" = "Scan ton ticket";
