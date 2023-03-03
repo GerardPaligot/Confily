@@ -1,5 +1,4 @@
 import SwiftUI
-import shared
 
 struct HomeView: View {
     @EnvironmentObject var viewModelFactory: ViewModelFactory

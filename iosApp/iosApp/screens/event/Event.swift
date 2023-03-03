@@ -11,7 +11,6 @@ import CodeScanner
 import shared
 
 struct Event: View {
-    @EnvironmentObject var viewModelFactory: ViewModelFactory
     @State var showScanner = false
     @Environment(\.openURL) var openURL
     let event: EventUi
@@ -58,11 +57,7 @@ struct Event: View {
                     } label: {
                         Text("actionTicketScanner")
                     }
-                    NavigationLink {
-                        MenusVM(viewModel: self.viewModelFactory.makeMenusViewModel())
-                    } label: {
-                        Text("actionMenus")
-                    }
+                    MenusNavigation()
                     AddressCardView(formattedAddress: event.eventInfo.formattedAddress)
                     Link("actionItinerary", destination: URL(string: "maps://?saddr=&daddr=\(event.eventInfo.latitude),\(event.eventInfo.longitude)")!)
                 }

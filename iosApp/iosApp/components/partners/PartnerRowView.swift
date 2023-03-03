@@ -10,7 +10,6 @@ import SwiftUI
 import shared
 
 struct PartnerRowView: View {
-    @EnvironmentObject var viewModelFactory: ViewModelFactory
     let partners: Array<PartnerItemUi>
     let parentWidth: CGFloat
     let maxItems: Int = 3
@@ -20,21 +19,10 @@ struct PartnerRowView: View {
             let maxItemsFloat = CGFloat(maxItems)
             let width = (parentWidth - (8 * (maxItemsFloat - 1))) / maxItemsFloat
             ForEach(partners, id: \.id) { partner in
-                NavigationLink {
-                    PartnerDetailVM(
-                        viewModel: viewModelFactory.makePartnerDetailViewModel(partnerId: partner.id)
-                    )
-                } label: {
-                    RemoteImage(
-                        url: partner.logoUrl,
-                        description: partner.name,
-                        id: partner.id
-                    )
-                    .padding()
-                    .frame(width: width, height: width)
-                    .background(Color.white)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-                }
+                PartnerItemNavigation(
+                    partner: partner,
+                    size: width
+                )
             }
         }
     }

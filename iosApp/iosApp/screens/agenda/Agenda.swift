@@ -10,7 +10,6 @@ import SwiftUI
 import shared
 
 struct Agenda: View {
-    @EnvironmentObject var viewModelFactory: ViewModelFactory
     @State private var selectedDate = 0
     let dates: [String]
     let agendas: [AgendaUi]
