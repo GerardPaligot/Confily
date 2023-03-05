@@ -36,7 +36,9 @@
 "textLevelBeginner" = "Débutant";
 "textOpenfeedbackNotStarted" = "Vous serez en mesure de donner un feedback quand la session aura démarrée !";
 "textReportSubject" = "Report depuis l'app Devfest Lille";
-"textNetworkingNoScan" = "Scan un Qrcode pour ajouter un contact dans ta liste de networking\n\nEt crée ton Qrcode depuis le formulaire de ton profil";
+"textNetworkingEmpty" = "Ici c'est la zone de networking. Créer ton profil pour pouvoir ajouter les profils que tu croiseras et avec qui tu veux garder contact après l'événement !";
+"textNetworkingWarning" = "Si vous créez votre profil et que vous partagez votre qrcode, vous acceptez la prospection que peut représenter ce scan par l’un de nos partenaires.";
+"textNetworkingHereWeGo" = "C'est parti !";
 "textNetworkingAskToDelete %@ %@" = "Es-tu sûr de vouloir supprimer %@ %@ de ton espace de networking ?";
 "textTicketFirstname" = "Prénom";
 "textTicketLastname" = "Nom";
@@ -53,6 +55,7 @@
 "actionWebsite" = "Site web";
 "actionFaq" = "FAQ";
 "actionCoc" = "Code de Conduite";
+"actionProfile" = "Crée ton profil";
 "actionTicketScanner" = "Scan ton ticket";
 "actionMenus" = "Menus";
 "actionChangeEvent" = "Changer d'évènement";

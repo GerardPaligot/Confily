@@ -7,57 +7,124 @@
 //
 
 import SwiftUI
+import CodeScanner
 import shared
 
 struct Networking: View {
     var networkingUi: NetworkingUi
+    var onShowScanner: () -> ()
+    var onQrcodeScanned: (String) -> ()
     var onValidation: (String, String, String, String) -> ()
-    var onDismissProfileSheet: () -> ()
     var onNetworkDeleted: (String) -> ()
 
     var body: some View {
         Group {
-            if (networkingUi.users.count > 0) {
-                ScrollView {
-                    LazyVStack(spacing: 10) {
+            if (networkingUi.userProfileUi != nil) {
+                List {
+                    if let profileUi = networkingUi.userProfileUi {
+                        Section {
+                            NavigationLink {
+                                ProfileInputView(
+                                    email: networkingUi.userProfileUi?.email ?? "",
+                                    firstName: networkingUi.userProfileUi?.firstName ?? "",
+                                    lastName: networkingUi.userProfileUi?.lastName ?? "",
+                                    company: networkingUi.userProfileUi?.company ?? "",
+                                    qrCode: networkingUi.userProfileUi?.qrCode ?? nil,
+                                    onValidation: onValidation
+                                )
+                            } label: {
+                                ProfileItemView(profileUi: profileUi)
+                            }
+                        }
+                    }
+                    Section {
                         ForEach(networkingUi.users, id: \.self) { user in
                             UserItemView(
                                 user: user,
                                 onNetworkDeleted: onNetworkDeleted
                             )
-                            .padding()
                             .frame(maxWidth: .infinity, alignment: .leading)
                         }
                     }
                 }
+                .listStyle(.grouped)
             } else {
-                Text("textNetworkingNoScan")
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 30)
+                ScrollView {
+                    LazyVStack(alignment: .leading, spacing: 24) {
+                        Text("textNetworkingEmpty")
+                        Text("textNetworkingWarning")
+                        Text("textNetworkingHereWeGo")
+                        NavigationLink {
+                            ProfileInputView(
+                                email: "",
+                                firstName: "",
+                                lastName: "",
+                                company: "",
+                                qrCode: nil,
+                                onValidation: onValidation
+                            )
+                        } label: {
+                            Text("actionProfile")
+                        }
+                    }
+                    .padding([.horizontal])
+                }
             }
         }
-        .sheet(isPresented: Binding.constant(networkingUi.showQrCode), onDismiss: {
-            onDismissProfileSheet()
-        }) {
-            ProfileInputView(
-                email: networkingUi.userProfileUi.email,
-                firstName: networkingUi.userProfileUi.firstName,
-                lastName: networkingUi.userProfileUi.lastName,
-                company: networkingUi.userProfileUi.company,
-                qrCode: networkingUi.userProfileUi.qrCode,
-                onValidation: onValidation
-            )
+        .navigationTitle(Text("screenNetworking"))
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarItems(trailing:
+            HStack {
+                if (networkingUi.userProfileUi != nil) {
+                    Button(action: {
+                        onShowScanner()
+                    }, label: {
+                        Image(systemName: "qrcode.viewfinder")
+                    })
+                    .accessibilityLabel("actionQrcodeScanner")
+                }
+            }
+        )
+        .sheet(isPresented: Binding.constant(networkingUi.showQrCode)) {
+            CodeScannerView(codeTypes: [.qr]) { response in
+                if case let .success(result) = response {
+                    if (result.string != "") {
+                        onQrcodeScanned(result.string)
+                    }
+                }
+            }
         }
     }
 }
 
 struct Networking_Previews: PreviewProvider {
     static var previews: some View {
-        Networking(
-            networkingUi: NetworkingUi.companion.fake,
-            onValidation: { _, _, _, _ in },
-            onDismissProfileSheet: {},
-            onNetworkDeleted: { _ in }
-        )
+        NavigationView {
+            Networking(
+                networkingUi: NetworkingUi.companion.fake,
+                onShowScanner: {},
+                onQrcodeScanned: { _ in },
+                onValidation: { _, _, _, _ in },
+                onNetworkDeleted: { _ in }
+            )
+        }
+    }
+}
+
+struct Empty_Networking_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationView {
+            Networking(
+                networkingUi: NetworkingUi.companion.fake.doCopy(
+                    userProfileUi: nil,
+                    showQrCode: NetworkingUi.companion.fake.showQrCode,
+                    users: []
+                ),
+                onShowScanner: {},
+                onQrcodeScanned: { _ in },
+                onValidation: { _, _, _, _ in },
+                onNetworkDeleted: { _ in }
+            )
+        }
     }
 }

@@ -38,8 +38,7 @@ class NetworkingViewModel: ObservableObject {
                 let networkingStream = asyncStream(for: repository.fetchNetworkingNative())
                 let profileStream = asyncStream(for: repository.fetchProfileNative())
                 for try await (networkings, profile) in combineLatest(networkingStream, profileStream) {
-                    let profileUi = profile != nil ? profile! : UserProfileUi(email: "", firstName: "", lastName: "", company: "", qrCode: nil)
-                    self.uiState = .success(NetworkingUi(userProfileUi: profileUi, showQrCode: false, users: networkings))
+                    self.uiState = .success(NetworkingUi(userProfileUi: profile, showQrCode: false, users: networkings))
                 }
             } catch {
                 self.uiState = .failure(error)
@@ -56,7 +55,7 @@ class NetworkingViewModel: ObservableObject {
         repository.saveProfile(email: email, firstName: firstName, lastName: lastName, company: company)
     }
     
-    func saveNetworkingProfile(text: String, callback: @escaping (Bool) -> ()) {
+    func saveNetworkingProfile(text: String) {
         if let data = text.data(using: .unicode) {
             do {
                 let contacts = try CNContactVCardSerialization.contacts(with: data)
@@ -67,15 +66,21 @@ class NetworkingViewModel: ObservableObject {
                     lastName: contact?.familyName ?? "",
                     company: contact?.organizationName ?? ""
                 )
-                let inserted = repository.insertNetworkingProfile(user: user)
-                callback(inserted)
+                repository.insertNetworkingProfile(user: user)
+                if case .success(let networkingUi) = uiState {
+                    self.uiState = .success(networkingUi.doCopy(
+                        userProfileUi: networkingUi.userProfileUi,
+                        showQrCode: false,
+                        users: networkingUi.users
+                    ))
+                }
             } catch {
                 // ignored
             }
         }
     }
     
-    func displayQrCode() {
+    func showQrcode() {
         if case .success(let networkingUi) = uiState {
             self.uiState = .success(networkingUi.doCopy(
                     userProfileUi: networkingUi.userProfileUi,
@@ -83,16 +88,6 @@ class NetworkingViewModel: ObservableObject {
                     users: networkingUi.users
                 )
             )
-        }
-    }
-    
-    func closeQrCode() {
-        if case .success(let networkingUi) = uiState {
-            self.uiState = .success(networkingUi.doCopy(
-                userProfileUi: networkingUi.userProfileUi,
-                showQrCode: false,
-                users: networkingUi.users
-            ))
         }
     }
     

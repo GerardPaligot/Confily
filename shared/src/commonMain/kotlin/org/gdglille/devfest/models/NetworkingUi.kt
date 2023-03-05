@@ -1,7 +1,7 @@
 package org.gdglille.devfest.models
 
 data class NetworkingUi(
-    val userProfileUi: UserProfileUi,
+    val userProfileUi: UserProfileUi?,
     val showQrCode: Boolean,
     val users: List<UserNetworkingUi> = emptyList(),
 ) {

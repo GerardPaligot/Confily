@@ -30,10 +30,14 @@ struct ProfileInputView: View {
                 }
                 if let uiImage = qrCode {
                     Section {
-                        Image(uiImage: uiImage)
-                            .resizable()
-                            .frame(width: 250, height: 250, alignment: .center)
-                            .accessibilityLabel("semanticProfileQrcode")
+                        HStack {
+                            Spacer()
+                            Image(uiImage: uiImage)
+                                .resizable()
+                                .frame(width: 250, height: 250, alignment: .center)
+                                .accessibilityLabel("semanticProfileQrcode")
+                            Spacer()
+                        }
                     }
                 }
                 Section {
@@ -54,10 +58,10 @@ struct ProfileInputView: View {
 struct EmailInputView_Previews: PreviewProvider {
     static var previews: some View {
         ProfileInputView(
-            email: NetworkingUi.companion.fake.userProfileUi.email,
-            firstName: NetworkingUi.companion.fake.userProfileUi.firstName,
-            lastName: NetworkingUi.companion.fake.userProfileUi.lastName,
-            company: NetworkingUi.companion.fake.userProfileUi.company,
+            email: NetworkingUi.companion.fake.userProfileUi!.email,
+            firstName: NetworkingUi.companion.fake.userProfileUi!.firstName,
+            lastName: NetworkingUi.companion.fake.userProfileUi!.lastName,
+            company: NetworkingUi.companion.fake.userProfileUi!.company,
             qrCode: nil,
             onValidation: { _, _, _, _ in }
         )
