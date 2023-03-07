@@ -79,21 +79,23 @@ fun UserItem(
                     style = metaStyle
                 )
             }
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(4.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    imageVector = Icons.Outlined.BusinessCenter,
-                    contentDescription = null,
-                    tint = color,
-                    modifier = Modifier.size(16.dp)
-                )
-                Text(
-                    text = user.company,
-                    color = color.copy(alpha = .73f),
-                    style = metaStyle
-                )
+            if (user.company != "") {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(4.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        imageVector = Icons.Outlined.BusinessCenter,
+                        contentDescription = null,
+                        tint = color,
+                        modifier = Modifier.size(16.dp)
+                    )
+                    Text(
+                        text = user.company,
+                        color = color.copy(alpha = .73f),
+                        style = metaStyle
+                    )
+                }
             }
         }
         IconButton(
@@ -128,7 +130,7 @@ fun EmailItemPreview() {
                 }
                 item {
                     UserItem(
-                        user = NetworkingUi.fake.users[0],
+                        user = NetworkingUi.fake.users[0].copy(company = ""),
                         onClick = {}
                     )
                 }
