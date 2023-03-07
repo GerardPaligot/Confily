@@ -5,15 +5,25 @@ developed in Swift with SwiftUI, an Android application developed
 in Kotlin with Jetpack Compose and a backed in Kotlin hosted on
 AppEngine.
 
-## Features
+## Backend Features
 
 * Create the agenda of your conference, optionally from [Conference Hall](https://github.com/bpetetot/conference-hall)
 * Fetch your partners from [CMS4Partners](https://github.com/GDG-Lille/cms4partners)
-* Create your feedback forms to [OpenFeedback.io](https://github.com/HugoGresse/open-feedback)
+* Create your feedback forms from [OpenFeedback.io](https://github.com/HugoGresse/open-feedback)
 * Import a participant ticket from [BilletWeb](https://www.billetweb.fr/)
 * Import partner jobs from [WeLoveDevs](https://welovedevs.com/)
-* Networking space which respect privacy from mobile to mobile
-* Mobile application for Android and iOS
+
+## Mobile Features
+
+* Select your conference
+* Conference schedule
+* Bookmarking of talks
+* Speaker page with biography, socials and talks
+* Networking space which privacy respect from mobile to mobile
+* Partners with description, socials, jobs and location
+* Event page with socials, location, menus, q&a and code of conduct
+* Scan your event ticket
+* Enjoy your conference!
 
 ## Build With
 
