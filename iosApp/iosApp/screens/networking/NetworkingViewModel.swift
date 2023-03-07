@@ -94,4 +94,26 @@ class NetworkingViewModel: ObservableObject {
     func deleteNetworkProfile(email: String) {
         repository.deleteNetworkProfile(email: email)
     }
+    
+    func exportNetworking() -> ComposeMailData {
+        let networking = repository.exportNetworking()
+        let recipients = networking.mailto != nil ? [networking.mailto!] : []
+        do {
+            return ComposeMailData(
+                subject: "Networking export",
+                recipients: recipients,
+                message: "",
+                attachments: [
+                    AttachmentData(
+                        data: try Data(contentsOf: URL(fileURLWithPath: networking.filePath), options: Data.ReadingOptions()),
+                        mimeType: "plain/text",
+                        fileName: "export.csv"
+                    )
+                ]
+            )
+        } catch {
+            print("Error occurred when we try to export networking \(error)")
+            return ComposeMailData.empty
+        }
+    }
 }

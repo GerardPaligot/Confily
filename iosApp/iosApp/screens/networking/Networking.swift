@@ -8,11 +8,13 @@
 
 import SwiftUI
 import CodeScanner
+import MessageUI
 import shared
 
 struct Networking: View {
     var networkingUi: NetworkingUi
     var onShowScanner: () -> ()
+    var onExportNetworking: () -> ()
     var onQrcodeScanned: (String) -> ()
     var onValidation: (String, String, String, String) -> ()
     var onNetworkDeleted: (String) -> ()
@@ -83,6 +85,14 @@ struct Networking: View {
                     })
                     .accessibilityLabel("actionQrcodeScanner")
                 }
+                if (networkingUi.users.count > 0) {
+                    Button {
+                        onExportNetworking()
+                    } label: {
+                        Image(systemName: "square.and.arrow.up")
+                    }
+                    .disabled(!MailView.canSendMail)
+                }
             }
         )
         .sheet(isPresented: Binding.constant(networkingUi.showQrCode)) {
@@ -103,6 +113,7 @@ struct Networking_Previews: PreviewProvider {
             Networking(
                 networkingUi: NetworkingUi.companion.fake,
                 onShowScanner: {},
+                onExportNetworking: {},
                 onQrcodeScanned: { _ in },
                 onValidation: { _, _, _, _ in },
                 onNetworkDeleted: { _ in }
@@ -121,6 +132,7 @@ struct Empty_Networking_Previews: PreviewProvider {
                     users: []
                 ),
                 onShowScanner: {},
+                onExportNetworking: {},
                 onQrcodeScanned: { _ in },
                 onValidation: { _, _, _, _ in },
                 onNetworkDeleted: { _ in }

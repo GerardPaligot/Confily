@@ -8,9 +8,20 @@
 
 import SwiftUI
 import shared
+import MessageUI
+
+struct MailingState {
+    var export: ComposeMailData
+    var isPresenting: Bool
+}
 
 struct NetworkingVM: View {
     @ObservedObject var viewModel: NetworkingViewModel
+    @State private var showMailView = false
+    @State private var mailingState = MailingState(
+        export: ComposeMailData.empty,
+        isPresenting: false
+    )
     
     init(viewModel: NetworkingViewModel) {
         self.viewModel = viewModel
@@ -26,6 +37,14 @@ struct NetworkingVM: View {
                         networkingUi: networkingUi,
                         onShowScanner: {
                             viewModel.showQrcode()
+                        },
+                        onExportNetworking: {
+                            if MFMailComposeViewController.canSendMail() {
+                                mailingState = MailingState(
+                                    export: viewModel.exportNetworking(),
+                                    isPresenting: true
+                                )
+                            }
                         },
                         onQrcodeScanned: { barcode in
                             Task {
@@ -49,6 +68,12 @@ struct NetworkingVM: View {
                         Text("textLoading")
                 }
             }
+        }
+        .sheet(isPresented: self.$mailingState.isPresenting) {
+            MailView(
+                data: self.$mailingState.export,
+                callback: nil
+            )
         }
         .onAppear {
             viewModel.fetchNetworking()
