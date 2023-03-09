@@ -3,7 +3,10 @@ package org.gdglille.devfest.database
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
 import com.squareup.sqldelight.runtime.coroutines.mapToOneOrNull
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.datetime.Clock
 import okio.Path.Companion.toPath
 import org.gdglille.devfest.Platform
@@ -58,7 +61,7 @@ class UserDao(
         )
     }
 
-    fun fetchNetworking(eventId: String): Flow<List<UserNetworkingUi>> =
+    fun fetchNetworking(eventId: String): Flow<ImmutableList<UserNetworkingUi>> =
         db.userQueries.selectAll(eventId) { email, firstName, lastName, company, _, _ ->
             UserNetworkingUi(
                 email,
@@ -66,7 +69,7 @@ class UserDao(
                 lastName,
                 company ?: ""
             )
-        }.asFlow().mapToList()
+        }.asFlow().mapToList().map { it.toImmutableList() }
 
     fun insertEmailNetworking(eventId: String, userNetworkingUi: UserNetworkingUi) =
         db.userQueries.insertNetwork(

@@ -18,6 +18,7 @@ import com.decathlon.vitamin.compose.appbars.bottomnavigations.SelectedActionIte
 import com.decathlon.vitamin.compose.appbars.bottomnavigations.VitaminBottomNavigations
 import com.decathlon.vitamin.compose.appbars.topbars.icons.VitaminNavigationIconButtons
 import com.decathlon.vitamin.compose.foundation.VitaminTheme
+import kotlinx.collections.immutable.persistentListOf
 import org.gdglille.devfest.android.theme.vitamin.ui.BottomActions
 import org.gdglille.devfest.android.theme.vitamin.ui.FabActions
 import org.gdglille.devfest.android.theme.vitamin.ui.R
@@ -117,11 +118,11 @@ internal fun VitaminScaffoldPreview() {
         VitaminScaffold(
             title = R.string.screen_agenda,
             topActionsUi = TopActionsUi(
-                actions = listOf(TopActions.share)
+                actions = persistentListOf(TopActions.share)
             ),
             tabActionsUi = TabActionsUi(
                 scrollable = false,
-                actions = listOf(
+                actions = persistentListOf(
                     TabActions.event,
                     TabActions.menus,
                     TabActions.qanda,
@@ -129,7 +130,7 @@ internal fun VitaminScaffoldPreview() {
                 )
             ),
             bottomActionsUi = BottomActionsUi(
-                actions = listOf(
+                actions = persistentListOf(
                     BottomActions.agenda,
                     BottomActions.speakers,
                     BottomActions.info

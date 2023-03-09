@@ -2,6 +2,9 @@ package org.gdglille.devfest.repositories
 
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutineScope
 import com.russhwolf.settings.ExperimentalSettingsApi
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.ImmutableMap
+import kotlinx.collections.immutable.toImmutableMap
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -38,10 +41,10 @@ interface AgendaRepository {
     fun event(): Flow<EventUi>
     fun partners(): Flow<PartnerGroupsUi>
     fun partner(id: String): Flow<PartnerItemUi>
-    fun qanda(): Flow<List<QuestionAndResponseUi>>
-    fun menus(): Flow<List<MenuItemUi>>
+    fun qanda(): Flow<ImmutableList<QuestionAndResponseUi>>
+    fun menus(): Flow<ImmutableList<MenuItemUi>>
     fun coc(): Flow<CoCUi>
-    fun agenda(): Flow<Map<String, AgendaUi>>
+    fun agenda(): Flow<ImmutableMap<String, AgendaUi>>
     fun agenda(date: String): Flow<AgendaUi>
     fun speaker(speakerId: String): Flow<SpeakerUi>
     fun markAsRead(scheduleId: String, isFavorite: Boolean)
@@ -143,11 +146,11 @@ class AgendaRepositoryImpl(
         id = id
     )
 
-    override fun qanda(): Flow<List<QuestionAndResponseUi>> = eventDao.fetchQAndA(
+    override fun qanda(): Flow<ImmutableList<QuestionAndResponseUi>> = eventDao.fetchQAndA(
         eventId = eventDao.fetchEventId()
     )
 
-    override fun menus(): Flow<List<MenuItemUi>> = eventDao.fetchMenus(
+    override fun menus(): Flow<ImmutableList<MenuItemUi>> = eventDao.fetchMenus(
         eventId = eventDao.fetchEventId()
     )
 
@@ -155,11 +158,11 @@ class AgendaRepositoryImpl(
         eventId = eventDao.fetchEventId()
     )
 
-    override fun agenda(): Flow<Map<String, AgendaUi>> {
+    override fun agenda(): Flow<ImmutableMap<String, AgendaUi>> {
         return scaffoldConfig().flatMapConcat { config ->
             return@flatMapConcat combine(
                 flows = config.agendaTabs.map { date -> agenda(date = date).map { date to it } },
-                transform = { it.associate { it } }
+                transform = { it.associate { it }.toImmutableMap() }
             )
         }
     }

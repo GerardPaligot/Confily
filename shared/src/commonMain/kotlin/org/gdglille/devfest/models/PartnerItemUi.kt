@@ -1,5 +1,8 @@
 package org.gdglille.devfest.models
 
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+
 data class PartnerItemUi(
     val id: String,
     val name: String,
@@ -10,11 +13,11 @@ data class PartnerItemUi(
     val twitterMessage: String?,
     val linkedinUrl: String?,
     val linkedinMessage: String?,
-    val formattedAddress: List<String>?,
+    val formattedAddress: ImmutableList<String>?,
     val address: String?,
     val latitude: Double?,
     val longitude: Double?,
-    val jobs: List<JobUi>
+    val jobs: ImmutableList<JobUi>
 ) {
     companion object {
         val fake = PartnerItemUi(
@@ -29,11 +32,11 @@ data class PartnerItemUi(
                 "Alors rendez-vous le 10 Juin prochain sur leur stand ! \uD83D\uDE80",
             linkedinUrl = "https://www.linkedin.com/company/welovedevs/",
             linkedinMessage = null,
-            formattedAddress = listOf("165 Av. de Bretagne", "59000 Lille", "France"),
+            formattedAddress = persistentListOf("165 Av. de Bretagne", "59000 Lille", "France"),
             address = "165 Av. de Bretagne, 59000 Lille, France",
             latitude = 50.6340034,
             longitude = 3.0207872,
-            jobs = listOf(JobUi.fake)
+            jobs = persistentListOf(JobUi.fake)
         )
     }
 }

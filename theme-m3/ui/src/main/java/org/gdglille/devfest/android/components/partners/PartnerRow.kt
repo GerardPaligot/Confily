@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kotlinx.collections.immutable.ImmutableList
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
 import org.gdglille.devfest.models.PartnerGroupUi
 import org.gdglille.devfest.models.PartnerItemUi
@@ -18,7 +19,7 @@ import org.gdglille.devfest.models.PartnerItemUi
 @ExperimentalMaterial3Api
 @Composable
 fun PartnerRow(
-    partners: List<PartnerItemUi>,
+    partners: ImmutableList<PartnerItemUi>,
     modifier: Modifier = Modifier,
     isLoading: Boolean = false,
     maxItems: Int = 3,

@@ -16,6 +16,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.launch
 import org.gdglille.devfest.android.theme.vitamin.ui.R
 import org.gdglille.devfest.android.theme.vitamin.ui.TabActions
@@ -37,7 +38,7 @@ fun EventList(
     val scope = rememberCoroutineScope()
     val tabActionsUi = remember {
         TabActionsUi(
-            actions = listOf(TabActions.futureEvents, TabActions.pastEvents),
+            actions = persistentListOf(TabActions.futureEvents, TabActions.pastEvents),
             scrollable = true
         )
     }

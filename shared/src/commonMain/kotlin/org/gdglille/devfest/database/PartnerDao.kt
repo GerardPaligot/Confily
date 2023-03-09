@@ -3,6 +3,8 @@ package org.gdglille.devfest.database
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
 import com.squareup.sqldelight.runtime.coroutines.mapToOne
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapConcat
@@ -31,11 +33,11 @@ class PartnerDao(private val db: Conferences4HallDatabase) {
                 twitterMessage = twitterMessage,
                 linkedinUrl = linkedinUrl,
                 linkedinMessage = linkedinMessage,
-                formattedAddress = formattedAddress,
+                formattedAddress = formattedAddress?.toImmutableList(),
                 address = address,
                 latitude = latitude,
                 longitude = longitude,
-                jobs = emptyList()
+                jobs = persistentListOf()
             )
         }
     private val jobsMapper =
@@ -69,7 +71,7 @@ class PartnerDao(private val db: Conferences4HallDatabase) {
                         db.partnerQueries.selectPartners(eventId, type.name, partnerMapper)
                             .asFlow()
                             .mapToList()
-                            .map { type.name to it.chunked(3) }
+                            .map { type.name to it.chunked(3).toImmutableList() }
                     },
                     transform = { results ->
                         PartnerGroupsUi(
@@ -77,8 +79,10 @@ class PartnerDao(private val db: Conferences4HallDatabase) {
                                 PartnerGroupUi(
                                     type = type.name,
                                     partners = results.find { it.first == type.name }!!.second
+                                        .map { it.toImmutableList() }
+                                        .toImmutableList()
                                 )
-                            }
+                            }.toImmutableList()
                         )
                     }
                 )
@@ -90,7 +94,7 @@ class PartnerDao(private val db: Conferences4HallDatabase) {
             .combine(
                 db.partnerQueries.selectJobs(eventId, id, jobsMapper).asFlow().mapToList()
             ) { partner, jobs ->
-                partner.copy(jobs = jobs)
+                partner.copy(jobs = jobs.toImmutableList())
             }
 
     fun insertPartners(eventId: String, partners: Map<String, List<PartnerV2>>) = db.transaction {

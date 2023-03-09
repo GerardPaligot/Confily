@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.halilibo.richtext.markdown.Markdown
 import com.halilibo.richtext.ui.RichText
 import com.halilibo.richtext.ui.RichTextThemeIntegration
+import kotlinx.collections.immutable.toImmutableList
 import org.gdglille.devfest.android.components.speakers.SpeakersAvatar
 import org.gdglille.devfest.android.components.tags.DecorativeTag
 import org.gdglille.devfest.android.components.tags.LevelTag
@@ -56,8 +57,8 @@ fun TalkSection(
             }
             Spacer(modifier = Modifier.weight(1f))
             SpeakersAvatar(
-                speakersName = talk.speakers.map { it.name },
-                speakersAvatar = talk.speakers.map { it.url },
+                speakersName = talk.speakers.map { it.name }.toImmutableList(),
+                speakersAvatar = talk.speakers.map { it.url }.toImmutableList(),
                 modifier = Modifier.height(40.dp),
                 betweenSpacing = 6.dp
             )

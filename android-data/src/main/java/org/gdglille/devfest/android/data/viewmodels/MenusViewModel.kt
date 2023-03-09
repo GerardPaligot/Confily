@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -12,8 +14,8 @@ import org.gdglille.devfest.models.MenuItemUi
 import org.gdglille.devfest.repositories.AgendaRepository
 
 sealed class MenusUiState {
-    data class Loading(val menus: List<MenuItemUi>) : MenusUiState()
-    data class Success(val menus: List<MenuItemUi>) : MenusUiState()
+    data class Loading(val menus: ImmutableList<MenuItemUi>) : MenusUiState()
+    data class Success(val menus: ImmutableList<MenuItemUi>) : MenusUiState()
     data class Failure(val throwable: Throwable) : MenusUiState()
 }
 
@@ -21,7 +23,7 @@ class MenusViewModel(private val repository: AgendaRepository) : ViewModel() {
     private val _uiState =
         MutableStateFlow<MenusUiState>(
             MenusUiState.Loading(
-                arrayListOf(
+                persistentListOf(
                     MenuItemUi.fake,
                     MenuItemUi.fake
                 )

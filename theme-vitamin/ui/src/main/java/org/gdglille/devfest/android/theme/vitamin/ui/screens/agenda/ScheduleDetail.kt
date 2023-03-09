@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.decathlon.vitamin.compose.appbars.topbars.ActionItem
 import io.openfeedback.android.OpenFeedbackConfig
+import kotlinx.collections.immutable.persistentListOf
 import org.gdglille.devfest.android.theme.vitamin.ui.R
 import org.gdglille.devfest.android.theme.vitamin.ui.components.appbars.TopAppBar
 import org.gdglille.devfest.android.theme.vitamin.ui.components.speakers.SpeakerSection
@@ -46,7 +47,7 @@ fun ScheduleDetail(
                         contentDescription = stringResource(id = R.string.action_back)
                     )
                 },
-                actions = arrayListOf(
+                actions = persistentListOf(
                     ActionItem(
                         icon = painterResource(id = R.drawable.ic_vtmn_share_line),
                         contentDescription = stringResource(

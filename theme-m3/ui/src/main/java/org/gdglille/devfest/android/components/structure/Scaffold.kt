@@ -15,6 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import kotlinx.collections.immutable.persistentListOf
+import org.gdglille.devfest.android.BottomActions
 import org.gdglille.devfest.android.TopActions
 import org.gdglille.devfest.android.components.appbars.BottomAppBar
 import org.gdglille.devfest.android.components.appbars.Tab
@@ -117,18 +119,22 @@ internal fun ScaffoldPreview() {
         Scaffold(
             title = R.string.screen_agenda,
             topActions = TopActionsUi(
-                actions = listOf(
+                actions = persistentListOf(
                     TopActions.share
                 )
             ),
             tabActions = TabActionsUi(
-                actions = listOf(
+                actions = persistentListOf(
                     TabAction(route = "day-1", 0, "11 Oct"),
                     TabAction(route = "day-2", 0, "12 Oct"),
                 )
             ),
             bottomActions = BottomActionsUi(
-                listOf()
+                persistentListOf(
+                    BottomActions.agenda,
+                    BottomActions.partners,
+                    BottomActions.info
+                )
             ),
             routeSelected = "agenda",
             tabSelectedIndex = 0,

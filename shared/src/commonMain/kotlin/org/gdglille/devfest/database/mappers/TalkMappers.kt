@@ -1,5 +1,6 @@
 package org.gdglille.devfest.database.mappers
 
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
@@ -25,8 +26,8 @@ object TalkMappers {
             title = title,
             abstract = abstract,
             category = CategoryUi(name = category, color = categoryColor, icon = categoryIcon),
-            speakers = speakers,
-            speakersAvatar = speakersAvatar,
+            speakers = speakers.toImmutableList(),
+            speakersAvatar = speakersAvatar.toImmutableList(),
             isFavorite = is_favorite
         )
     }

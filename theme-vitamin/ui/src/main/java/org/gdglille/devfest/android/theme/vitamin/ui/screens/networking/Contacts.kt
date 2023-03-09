@@ -15,6 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.decathlon.vitamin.compose.dividers.VitaminDividers
 import com.decathlon.vitamin.compose.modals.VitaminModals
+import kotlinx.collections.immutable.ImmutableList
 import org.gdglille.devfest.android.theme.vitamin.ui.R
 import org.gdglille.devfest.android.theme.vitamin.ui.components.users.UserItem
 import org.gdglille.devfest.android.theme.vitamin.ui.theme.Conferences4HallTheme
@@ -23,7 +24,7 @@ import org.gdglille.devfest.models.UserNetworkingUi
 
 @Composable
 fun Contacts(
-    users: List<UserNetworkingUi>,
+    users: ImmutableList<UserNetworkingUi>,
     modifier: Modifier = Modifier,
     onNetworkDeleted: (String) -> Unit
 ) {

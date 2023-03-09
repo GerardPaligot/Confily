@@ -16,6 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.openfeedback.android.OpenFeedbackConfig
+import kotlinx.collections.immutable.persistentListOf
 import org.gdglille.devfest.android.TopActions
 import org.gdglille.devfest.android.components.appbars.TopAppBar
 import org.gdglille.devfest.android.components.speakers.SpeakerSection
@@ -43,7 +44,7 @@ fun ScheduleDetail(
             TopAppBar(
                 title = stringResource(id = R.string.screen_schedule_detail),
                 navigationIcon = { Back(onClick = onBackClicked) },
-                topActionsUi = TopActionsUi(actions = listOf(TopActions.share)),
+                topActionsUi = TopActionsUi(actions = persistentListOf(TopActions.share)),
                 onActionClicked = {
                     when (it.id) {
                         TopActions.share.id -> {

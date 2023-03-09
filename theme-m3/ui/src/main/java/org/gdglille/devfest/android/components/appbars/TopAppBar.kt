@@ -13,6 +13,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toImmutableList
 import org.gdglille.devfest.android.components.structure.OverflowMenu
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.ui.R
@@ -30,7 +32,7 @@ fun TopAppBar(
 ) {
     val showAsActionItems = topActionsUi.actions.take(topActionsUi.maxActions)
     val overflowActions = TopActionsUi(
-        topActionsUi.actions.subtract(showAsActionItems.toSet()).toList()
+        topActionsUi.actions.subtract(showAsActionItems.toSet()).toImmutableList()
     )
     SmallTopAppBar(
         title = { Text(text = title) },
@@ -80,7 +82,7 @@ fun TopAppBarPreview() {
                 title = "QrCode Scanner",
                 navigationIcon = { Back { } },
                 topActionsUi = TopActionsUi(
-                    actions = arrayListOf(
+                    actions = persistentListOf(
                         TopAction(
                             id = 0,
                             icon = R.drawable.ic_mtrl_qr_code_scanner_line,

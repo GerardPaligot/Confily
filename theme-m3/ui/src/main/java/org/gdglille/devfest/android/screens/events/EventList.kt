@@ -16,6 +16,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.launch
 import org.gdglille.devfest.android.TabActions
 import org.gdglille.devfest.android.components.events.EventItem
@@ -35,7 +36,7 @@ fun EventList(
     onEventClicked: (String) -> Unit
 ) {
     val scope = rememberCoroutineScope()
-    val tabActions = remember { listOf(TabActions.futureEvents, TabActions.pastEvents) }
+    val tabActions = remember { persistentListOf(TabActions.futureEvents, TabActions.pastEvents) }
     Scaffold(
         title = R.string.screen_events,
         tabActions = TabActionsUi(actions = tabActions),

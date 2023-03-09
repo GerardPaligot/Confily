@@ -3,8 +3,12 @@ package org.gdglille.devfest.database
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
 import com.squareup.sqldelight.runtime.coroutines.mapToOne
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
 import org.gdglille.devfest.database.mappers.TalkMappers
 import org.gdglille.devfest.db.Conferences4HallDatabase
 import org.gdglille.devfest.models.SpeakerItemUi
@@ -23,7 +27,7 @@ class SpeakerDao(private val db: Conferences4HallDatabase) {
                 twitterUrl = twitter,
                 github = github?.split("github.com/")?.get(1),
                 githubUrl = github,
-                talks = emptyList()
+                talks = persistentListOf()
             )
         }
     private val mapperItem =
@@ -42,18 +46,21 @@ class SpeakerDao(private val db: Conferences4HallDatabase) {
             db.speakerQueries.selectSpeaker(speakerId, eventId, mapper).asFlow().mapToOne(),
             fetchTalksBySpeakerId(eventId, speakerId),
             transform = { speaker, talks ->
-                return@combine speaker.copy(talks = talks)
+                return@combine speaker.copy(talks = talks.toImmutableList())
             }
         )
     }
 
-    private fun fetchTalksBySpeakerId(eventId: String, speakerId: String): Flow<List<TalkItemUi>> {
+    private fun fetchTalksBySpeakerId(eventId: String, speakerId: String): Flow<ImmutableList<TalkItemUi>> {
         val talkWithSpeakers = db.talkQueries.selectTalkWithSpeakersBySpeakerId(speakerId, eventId).executeAsList()
         return db.agendaQueries.selectScheduleItemsById(
             talkWithSpeakers.map { it.talk_id }, eventId, TalkMappers.talkItem
-        ).asFlow().mapToList()
+        ).asFlow().mapToList().map { it.toImmutableList() }
     }
 
-    fun fetchSpeakers(eventId: String): Flow<List<SpeakerItemUi>> =
-        db.speakerQueries.selectSpeakersByEvent(eventId, mapperItem).asFlow().mapToList()
+    fun fetchSpeakers(eventId: String): Flow<ImmutableList<SpeakerItemUi>> =
+        db.speakerQueries.selectSpeakersByEvent(eventId, mapperItem)
+            .asFlow()
+            .mapToList()
+            .map { it.toImmutableList() }
 }

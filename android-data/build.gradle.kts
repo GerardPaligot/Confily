@@ -14,6 +14,7 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics-ktx")
 
     implementation(libs.kotlinx.datetime)
+    implementation(libs.kotlinx.collections)
 
     implementation(libs.zxing)
     implementation(libs.zxing.android) {

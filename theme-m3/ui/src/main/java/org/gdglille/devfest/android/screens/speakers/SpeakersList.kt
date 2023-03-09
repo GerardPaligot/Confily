@@ -8,13 +8,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import org.gdglille.devfest.android.components.speakers.SpeakerItemRow
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
 import org.gdglille.devfest.models.SpeakerItemUi
 
 @Composable
 fun SpeakersList(
-    speakers: List<List<SpeakerItemUi>>,
+    speakers: ImmutableList<ImmutableList<SpeakerItemUi>>,
     modifier: Modifier = Modifier,
     isLoading: Boolean = false,
     onSpeakerClicked: (id: String) -> Unit,
@@ -41,9 +43,9 @@ fun SpeakersList(
 fun SpeakersListPreview() {
     Conferences4HallTheme {
         SpeakersList(
-            speakers = arrayListOf(
-                arrayListOf(SpeakerItemUi.fake, SpeakerItemUi.fake),
-                arrayListOf(SpeakerItemUi.fake, SpeakerItemUi.fake)
+            speakers = persistentListOf(
+                persistentListOf(SpeakerItemUi.fake, SpeakerItemUi.fake),
+                persistentListOf(SpeakerItemUi.fake, SpeakerItemUi.fake)
             ),
             onSpeakerClicked = {}
         )

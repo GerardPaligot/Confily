@@ -1,5 +1,8 @@
 package org.gdglille.devfest.models
 
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+
 data class SpeakerUi(
     val url: String,
     val name: String,
@@ -9,7 +12,7 @@ data class SpeakerUi(
     val twitterUrl: String?,
     val github: String?,
     val githubUrl: String?,
-    val talks: List<TalkItemUi>
+    val talks: ImmutableList<TalkItemUi>
 ) {
     companion object {
         val fake = SpeakerUi(
@@ -21,7 +24,7 @@ data class SpeakerUi(
             twitterUrl = "https://twitter.com/GerardPaligot",
             github = "GerardPaligot",
             githubUrl = "https://github.com/GerardPaligot",
-            talks = arrayListOf(TalkItemUi.fake)
+            talks = persistentListOf(TalkItemUi.fake)
         )
     }
 }

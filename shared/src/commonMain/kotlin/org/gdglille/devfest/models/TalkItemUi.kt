@@ -1,5 +1,8 @@
 package org.gdglille.devfest.models
 
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+
 data class TalkItemUi(
     val id: String,
     val slotTime: String,
@@ -11,8 +14,8 @@ data class TalkItemUi(
     val title: String,
     val abstract: String,
     val category: CategoryUi,
-    val speakers: List<String>,
-    val speakersAvatar: List<String>,
+    val speakers: ImmutableList<String>,
+    val speakersAvatar: ImmutableList<String>,
     val isFavorite: Boolean
 ) {
     val isPause: Boolean = id.contains("-pause")
@@ -28,8 +31,8 @@ data class TalkItemUi(
             title = "Designers x Developers : Ça match \uD83D\uDC99 ou ça match \uD83E\uDD4A ?",
             abstract = "Culture, language, outils... Entre designers & developers, pas toujours simple d’être du même côté du ring ! À l’heure de l’expérience utilisateur et de la scalabilité, Sabrina & Simon du Design System de Decathlon vous attendent aux vestiaires pour débriefer et préparer le prochain match !\\nAnalyse tactique, définition du plan de jeu, vérification de l’équipement. \\nOn chausse. Gong \uD83D\uDD14 ! Et c’est parti !",
             category = CategoryUi(name = "UI/UX", color = "default", icon = "default"),
-            speakers = arrayListOf("Sabrina VIGIL", "Simon Leclercq"),
-            speakersAvatar = arrayListOf(
+            speakers = persistentListOf("Sabrina VIGIL", "Simon Leclercq"),
+            speakersAvatar = persistentListOf(
                 "https://storage.googleapis.com/conferences4hall/2022/speakers/0YOIreL1mbP7tKcTfX5TSaUI6VN2.png",
                 "https://storage.googleapis.com/conferences4hall/2022/speakers/w9Lt3a83WkPU1duFnlNxDZcxfsn2.png"
             ),
@@ -46,8 +49,8 @@ data class TalkItemUi(
             title = "Pause ☕️",
             abstract = "",
             category = CategoryUi(name = "", color = null, icon = null),
-            speakers = emptyList(),
-            speakersAvatar = emptyList(),
+            speakers = persistentListOf(),
+            speakersAvatar = persistentListOf(),
             isFavorite = false
         )
     }

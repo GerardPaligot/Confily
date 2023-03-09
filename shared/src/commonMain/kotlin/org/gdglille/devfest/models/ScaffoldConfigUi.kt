@@ -1,5 +1,8 @@
 package org.gdglille.devfest.models
 
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+
 data class ScaffoldConfigUi(
     val hasNetworking: Boolean = false,
     val hasSpeakerList: Boolean = false,
@@ -8,6 +11,6 @@ data class ScaffoldConfigUi(
     val hasQAndA: Boolean = false,
     val hasBilletWebTicket: Boolean = false,
     val hasProfile: Boolean = false,
-    val agendaTabs: List<String> = emptyList(),
+    val agendaTabs: ImmutableList<String> = persistentListOf(),
     val hasUsersInNetworking: Boolean = false
 )

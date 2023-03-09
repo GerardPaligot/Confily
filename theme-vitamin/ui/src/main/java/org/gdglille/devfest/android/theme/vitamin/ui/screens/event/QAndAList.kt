@@ -8,13 +8,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.decathlon.vitamin.compose.dividers.VitaminDividers
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import org.gdglille.devfest.android.theme.vitamin.ui.components.qanda.QAndAItem
 import org.gdglille.devfest.android.theme.vitamin.ui.theme.Conferences4HallTheme
 import org.gdglille.devfest.models.QuestionAndResponseUi
 
 @Composable
 fun QAndAList(
-    qAndA: List<QuestionAndResponseUi>,
+    qAndA: ImmutableList<QuestionAndResponseUi>,
     modifier: Modifier = Modifier,
     isLoading: Boolean = false,
     onExpandedClicked: (QuestionAndResponseUi) -> Unit,
@@ -44,7 +46,7 @@ fun QAndAList(
 fun QAndAListPreview() {
     Conferences4HallTheme {
         QAndAList(
-            qAndA = arrayListOf(
+            qAndA = persistentListOf(
                 QuestionAndResponseUi.fake,
                 QuestionAndResponseUi.fake.copy(expanded = true)
             ),

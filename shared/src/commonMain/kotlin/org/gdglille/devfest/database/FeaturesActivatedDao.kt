@@ -4,6 +4,7 @@ import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
 import com.squareup.sqldelight.runtime.coroutines.mapToOneOrDefault
 import com.squareup.sqldelight.runtime.coroutines.mapToOneOrNull
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import org.gdglille.devfest.db.Conferences4HallDatabase
@@ -24,7 +25,7 @@ class FeaturesActivatedDao(private val db: Conferences4HallDatabase) {
                 hasQAndA = if (features?.has_qanda != null) features.has_qanda else false,
                 hasBilletWebTicket = if (features?.has_billet_web_ticket != null) features.has_billet_web_ticket else false,
                 hasProfile = qrCode != null,
-                agendaTabs = days,
+                agendaTabs = days.toImmutableList(),
                 hasUsersInNetworking = countNetworking != 0L
             )
         }

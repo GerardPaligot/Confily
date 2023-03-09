@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kotlinx.collections.immutable.ImmutableList
 import org.gdglille.devfest.android.components.users.UserItem
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.ui.R
@@ -26,7 +27,7 @@ import org.gdglille.devfest.models.UserNetworkingUi
 
 @Composable
 fun Contacts(
-    users: List<UserNetworkingUi>,
+    users: ImmutableList<UserNetworkingUi>,
     modifier: Modifier = Modifier,
     onNetworkDeleted: (String) -> Unit
 ) {

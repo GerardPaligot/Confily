@@ -5,6 +5,8 @@ import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.coroutines.getBooleanFlow
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
+import kotlinx.collections.immutable.toImmutableList
+import kotlinx.collections.immutable.toImmutableMap
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
@@ -45,8 +47,8 @@ class ScheduleDao(
                 title = title,
                 abstract = abstract,
                 category = CategoryUi(name = category, color = categoryColor, icon = categoryIcon),
-                speakers = speakers,
-                speakersAvatar = speakersAvatar,
+                speakers = speakers.toImmutableList(),
+                speakersAvatar = speakersAvatar.toImmutableList(),
                 isFavorite = is_favorite
             )
         }
@@ -65,7 +67,10 @@ class ScheduleDao(
                         AgendaUi(
                             onlyFavorites = onlyFavorites,
                             talks = talks.groupBy { it.slotTime }
-                                .mapValues { entry -> entry.value.sortedBy { it.room } }
+                                .mapValues { entry ->
+                                    entry.value.sortedBy { it.room }.toImmutableList()
+                                }
+                                .toImmutableMap()
                         )
                     }
             }

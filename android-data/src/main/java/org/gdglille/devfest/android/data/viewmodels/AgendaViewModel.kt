@@ -7,6 +7,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,8 +22,8 @@ import org.gdglille.devfest.models.TalkItemUi
 import org.gdglille.devfest.repositories.AgendaRepository
 
 sealed class AgendaUiState {
-    data class Loading(val agenda: List<AgendaUi>) : AgendaUiState()
-    data class Success(val agenda: List<AgendaUi>) : AgendaUiState()
+    data class Loading(val agenda: ImmutableList<AgendaUi>) : AgendaUiState()
+    data class Success(val agenda: ImmutableList<AgendaUi>) : AgendaUiState()
     data class Failure(val throwable: Throwable) : AgendaUiState()
 }
 
@@ -32,14 +35,16 @@ class AgendaViewModel(
     private val alarmScheduler: AlarmScheduler
 ) : ViewModel() {
     private val _uiState = MutableStateFlow<AgendaUiState>(
-        AgendaUiState.Loading(listOf(AgendaUi.fake))
+        AgendaUiState.Loading(persistentListOf(AgendaUi.fake))
     )
     val uiState: StateFlow<AgendaUiState> = _uiState
 
     init {
         viewModelScope.launch {
             try {
-                combine(dates.map { repository.agenda(date = it) }) { it.toList() }.collect {
+                combine(dates.map { repository.agenda(date = it) }) {
+                    it.toList().toImmutableList()
+                }.collect {
                     _uiState.value = AgendaUiState.Success(it)
                 }
             } catch (error: Throwable) {

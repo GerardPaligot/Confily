@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -13,7 +14,7 @@ import org.gdglille.devfest.repositories.UserRepository
 
 sealed class ContactsUiState {
     object Loading : ContactsUiState()
-    data class Success(val users: List<UserNetworkingUi>) : ContactsUiState()
+    data class Success(val users: ImmutableList<UserNetworkingUi>) : ContactsUiState()
     data class Failure(val throwable: Throwable) : ContactsUiState()
 }
 

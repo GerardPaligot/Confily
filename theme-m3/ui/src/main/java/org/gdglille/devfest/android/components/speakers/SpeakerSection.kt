@@ -11,18 +11,23 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toImmutableList
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.ui.R
 import org.gdglille.devfest.models.SpeakerItemUi
 
 @Composable
 fun SpeakerSection(
-    speakers: List<SpeakerItemUi>,
+    speakers: ImmutableList<SpeakerItemUi>,
     modifier: Modifier = Modifier,
     subtitleTextStyle: TextStyle = MaterialTheme.typography.titleLarge,
     onSpeakerItemClick: (String) -> Unit,
 ) {
-    val speakersChunked = remember(speakers) { speakers.chunked(size = 2) }
+    val speakersChunked = remember(speakers) {
+        speakers.chunked(size = 2).map { it.toImmutableList() }
+    }
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -47,7 +52,7 @@ fun SpeakerSection(
 fun SpeakerSectionPreview() {
     Conferences4HallTheme {
         SpeakerSection(
-            speakers = arrayListOf(SpeakerItemUi.fake, SpeakerItemUi.fake),
+            speakers = persistentListOf(SpeakerItemUi.fake, SpeakerItemUi.fake),
             onSpeakerItemClick = {}
         )
     }

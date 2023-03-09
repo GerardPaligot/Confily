@@ -9,12 +9,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
 import org.gdglille.devfest.models.SpeakerItemUi
 
 @Composable
 fun SpeakerItemRow(
-    speakers: List<SpeakerItemUi>,
+    speakers: ImmutableList<SpeakerItemUi>,
     modifier: Modifier = Modifier,
     maxItems: Int = 2,
     isLoading: Boolean = false,
@@ -40,7 +42,7 @@ fun SpeakerItemRow(
 fun SpeakerItemRowPreview() {
     Conferences4HallTheme {
         SpeakerItemRow(
-            speakers = arrayListOf(SpeakerItemUi.fake, SpeakerItemUi.fake),
+            speakers = persistentListOf(SpeakerItemUi.fake, SpeakerItemUi.fake),
             onSpeakerItemClick = {}
         )
     }

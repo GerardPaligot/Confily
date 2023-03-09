@@ -1,15 +1,18 @@
 package org.gdglille.devfest.models
 
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+
 data class NetworkingUi(
     val userProfileUi: UserProfileUi?,
     val showQrCode: Boolean,
-    val users: List<UserNetworkingUi> = emptyList(),
+    val users: ImmutableList<UserNetworkingUi> = persistentListOf(),
 ) {
     companion object {
         val fake = NetworkingUi(
             userProfileUi = UserProfileUi.fake,
             showQrCode = false,
-            users = arrayListOf(
+            users = persistentListOf(
                 UserNetworkingUi(
                     email = "gerard@gdglille.org",
                     firstName = "Gérard",

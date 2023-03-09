@@ -1,5 +1,6 @@
 package org.gdglille.devfest.database
 
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
@@ -44,7 +45,7 @@ class TalkDao(private val db: Conferences4HallDatabase) {
                     url = it.photo_url,
                     twitter = it.twitter?.split("twitter.com/")?.get(1)
                 )
-            },
+            }.toImmutableList(),
             speakersSharing = speakers.joinToString(", ") { speaker ->
                 if (speaker.twitter == null) speaker.display_name
                 else {

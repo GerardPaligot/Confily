@@ -5,9 +5,12 @@ import com.russhwolf.settings.ObservableSettings
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
 import com.squareup.sqldelight.runtime.coroutines.mapToOne
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.combineTransform
+import kotlinx.coroutines.flow.map
 import org.gdglille.devfest.Image
 import org.gdglille.devfest.db.Conferences4HallDatabase
 import org.gdglille.devfest.exceptions.EventSavedException
@@ -38,7 +41,7 @@ class EventDao(
             linkedin: String?, linkedinUrl: String?, faqUrl: String, cocUrl: String, _: Long ->
             EventInfoUi(
                 name = name,
-                formattedAddress = formattedAddress,
+                formattedAddress = formattedAddress.toImmutableList(),
                 address = address,
                 latitude = latitude,
                 longitude = longitude,
@@ -82,7 +85,7 @@ class EventDao(
         db.eventQueries.selectEventItem(true, eventItemMapper).asFlow().mapToList(),
         db.eventQueries.selectEventItem(false, eventItemMapper).asFlow().mapToList(),
         transform = { past, future ->
-            EventItemListUi(future = future, past = past)
+            EventItemListUi(future = future.toImmutableList(), past = past.toImmutableList())
         }
     )
 
@@ -103,7 +106,7 @@ class EventDao(
             }
     }
 
-    fun fetchQAndA(eventId: String): Flow<List<QuestionAndResponseUi>> = db.transactionWithResult {
+    fun fetchQAndA(eventId: String): Flow<ImmutableList<QuestionAndResponseUi>> = db.transactionWithResult {
         return@transactionWithResult combine(
             db.qAndAQueries.selectQAndA(eventId).asFlow().mapToList(),
             db.qAndAQueries.selectQAndAActions(eventId).asFlow().mapToList(),
@@ -116,14 +119,18 @@ class EventDao(
                             .filter { it.qanda_id == qanda.order_ }
                             .sortedBy { it.order_ }
                             .map { QuestionAndResponseActionUi(label = it.label, url = it.url) }
+                            .toImmutableList()
                     )
-                }
+                }.toImmutableList()
             }
         )
     }
 
-    fun fetchMenus(eventId: String): Flow<List<MenuItemUi>> =
-        db.menuQueries.selectMenus(eventId, menuMapper).asFlow().mapToList()
+    fun fetchMenus(eventId: String): Flow<ImmutableList<MenuItemUi>> =
+        db.menuQueries.selectMenus(eventId, menuMapper)
+            .asFlow()
+            .mapToList()
+            .map { it.toImmutableList() }
 
     fun fetchCoC(eventId: String): Flow<CoCUi> =
         db.eventQueries.selectCoc(eventId, cocMapper).asFlow().mapToOne()

@@ -1,8 +1,11 @@
 package org.gdglille.devfest.models
 
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+
 data class EventInfoUi(
     val name: String,
-    val formattedAddress: List<String>,
+    val formattedAddress: ImmutableList<String>,
     val address: String,
     val latitude: Double,
     val longitude: Double,
@@ -17,7 +20,7 @@ data class EventInfoUi(
     companion object {
         val fake = EventInfoUi(
             name = "Devfest Lille",
-            formattedAddress = listOf("Kinepolis", "Rue du Château d'Isenghien", "Lille", "France"),
+            formattedAddress = persistentListOf("Kinepolis", "Rue du Château d'Isenghien", "Lille", "France"),
             address = "1 Rue du Château d'Isenghien, 59160 Lille",
             latitude = 50.6526513,
             longitude = 2.9826465,

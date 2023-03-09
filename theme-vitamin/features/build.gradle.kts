@@ -22,4 +22,6 @@ dependencies {
 
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.accompanist.pager)
+
+    implementation(libs.kotlinx.collections)
 }

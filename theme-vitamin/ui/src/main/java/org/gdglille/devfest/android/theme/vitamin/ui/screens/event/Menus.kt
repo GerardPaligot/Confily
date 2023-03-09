@@ -15,6 +15,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.decathlon.vitamin.compose.dividers.VitaminDividers
 import com.decathlon.vitamin.compose.foundation.VitaminTheme
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import org.gdglille.devfest.android.theme.vitamin.ui.R
 import org.gdglille.devfest.android.theme.vitamin.ui.components.menus.MenuItem
 import org.gdglille.devfest.android.theme.vitamin.ui.theme.Conferences4HallTheme
@@ -22,7 +24,7 @@ import org.gdglille.devfest.models.MenuItemUi
 
 @Composable
 fun Menus(
-    menuItems: List<MenuItemUi>,
+    menuItems: ImmutableList<MenuItemUi>,
     modifier: Modifier = Modifier,
     isLoading: Boolean = false
 ) {
@@ -55,7 +57,7 @@ fun Menus(
 fun MenusPreview() {
     Conferences4HallTheme {
         Menus(
-            menuItems = arrayListOf(MenuItemUi.fake, MenuItemUi.fake, MenuItemUi.fake)
+            menuItems = persistentListOf(MenuItemUi.fake, MenuItemUi.fake, MenuItemUi.fake)
         )
     }
 }

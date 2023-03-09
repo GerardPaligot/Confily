@@ -1,6 +1,7 @@
 package org.gdglille.devfest.repositories
 
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutineScope
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.Flow
@@ -16,7 +17,7 @@ import org.gdglille.devfest.vcard.encodeToString
 interface UserRepository {
     fun fetchProfile(): Flow<UserProfileUi?>
     fun saveProfile(email: String, firstName: String, lastName: String, company: String)
-    fun fetchNetworking(): Flow<List<UserNetworkingUi>>
+    fun fetchNetworking(): Flow<ImmutableList<UserNetworkingUi>>
     fun insertNetworkingProfile(user: UserNetworkingUi): Boolean
     fun deleteNetworkProfile(email: String)
     fun exportNetworking(): ExportNetworkingUi
@@ -58,7 +59,7 @@ class UserRepositoryImpl(
         userDao.insertUser(eventId = eventDao.fetchEventId(), user = profile)
     }
 
-    override fun fetchNetworking(): Flow<List<UserNetworkingUi>> = userDao.fetchNetworking(
+    override fun fetchNetworking(): Flow<ImmutableList<UserNetworkingUi>> = userDao.fetchNetworking(
         eventId = eventDao.fetchEventId()
     )
 

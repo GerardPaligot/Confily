@@ -1,22 +1,43 @@
 package org.gdglille.devfest.models
 
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+
 data class PartnerGroupsUi(
-    val groups: List<PartnerGroupUi>
+    val groups: ImmutableList<PartnerGroupUi>
 ) {
     companion object {
         val fake = PartnerGroupsUi(
-            groups = listOf(
+            groups = persistentListOf(
                 PartnerGroupUi(
                     type = "Gold",
-                    partners = arrayListOf(arrayListOf(PartnerItemUi.fake, PartnerItemUi.fake, PartnerItemUi.fake))
+                    partners = persistentListOf(
+                        persistentListOf(
+                            PartnerItemUi.fake,
+                            PartnerItemUi.fake,
+                            PartnerItemUi.fake
+                        )
+                    )
                 ),
                 PartnerGroupUi(
                     type = "Silver",
-                    partners = arrayListOf(arrayListOf(PartnerItemUi.fake, PartnerItemUi.fake, PartnerItemUi.fake))
+                    partners = persistentListOf(
+                        persistentListOf(
+                            PartnerItemUi.fake,
+                            PartnerItemUi.fake,
+                            PartnerItemUi.fake
+                        )
+                    )
                 ),
                 PartnerGroupUi(
                     type = "Bronze",
-                    partners = arrayListOf(arrayListOf(PartnerItemUi.fake, PartnerItemUi.fake, PartnerItemUi.fake))
+                    partners = persistentListOf(
+                        persistentListOf(
+                            PartnerItemUi.fake,
+                            PartnerItemUi.fake,
+                            PartnerItemUi.fake
+                        )
+                    )
                 )
             )
         )

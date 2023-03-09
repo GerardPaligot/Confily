@@ -9,6 +9,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.decathlon.vitamin.compose.foundation.VitaminTheme
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import org.gdglille.devfest.android.theme.vitamin.ui.theme.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.vitamin.ui.theme.placeholder
 import org.gdglille.devfest.models.TalkItemUi
@@ -16,7 +18,7 @@ import org.gdglille.devfest.models.TalkItemUi
 @Composable
 fun ScheduleItem(
     time: String,
-    talks: List<TalkItemUi>,
+    talks: ImmutableList<TalkItemUi>,
     modifier: Modifier = Modifier,
     isLoading: Boolean = false,
     onTalkClicked: (id: String) -> Unit,
@@ -51,7 +53,7 @@ fun ScheduleItemPreview() {
         Scaffold(backgroundColor = VitaminTheme.colors.vtmnBackgroundSecondary) {
             ScheduleItem(
                 time = "10:00",
-                talks = arrayListOf(TalkItemUi.fake, TalkItemUi.fake),
+                talks = persistentListOf(TalkItemUi.fake, TalkItemUi.fake),
                 onTalkClicked = {},
                 onFavoriteClicked = { },
                 modifier = Modifier.padding(it)

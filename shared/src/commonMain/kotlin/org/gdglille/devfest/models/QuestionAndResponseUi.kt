@@ -1,16 +1,19 @@
 package org.gdglille.devfest.models
 
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+
 data class QuestionAndResponseUi(
     val question: String,
     val response: String,
-    val actions: List<QuestionAndResponseActionUi>,
+    val actions: ImmutableList<QuestionAndResponseActionUi>,
     val expanded: Boolean = false
 ) {
     companion object {
         val fake = QuestionAndResponseUi(
             question = "Comment devenir partenaires ?",
             response = "Consultez tout d'abord notre dossier de partenariat, puis remplir ce formulaire.",
-            actions = arrayListOf(
+            actions = persistentListOf(
                 QuestionAndResponseActionUi(
                     label = "Dossier Partenariat",
                     url = "https://devfest.gdglille.org/partenaire.pdf"

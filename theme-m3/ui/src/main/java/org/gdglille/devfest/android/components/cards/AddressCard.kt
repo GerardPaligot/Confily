@@ -20,6 +20,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kotlinx.collections.immutable.ImmutableList
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.ui.R
 import org.gdglille.devfest.android.theme.placeholder
@@ -27,7 +28,7 @@ import org.gdglille.devfest.models.EventUi
 
 @Composable
 fun AddressCard(
-    formattedAddress: List<String>,
+    formattedAddress: ImmutableList<String>,
     modifier: Modifier = Modifier,
     isLoading: Boolean = false,
     hasGpsLocation: Boolean = true,

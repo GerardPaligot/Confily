@@ -18,6 +18,7 @@ import com.decathlon.vitamin.compose.foundation.VitaminTheme
 import com.halilibo.richtext.markdown.Markdown
 import com.halilibo.richtext.ui.RichText
 import com.halilibo.richtext.ui.RichTextThemeIntegration
+import kotlinx.collections.immutable.toImmutableList
 import org.gdglille.devfest.android.theme.vitamin.ui.R
 import org.gdglille.devfest.android.theme.vitamin.ui.components.speakers.SpeakersAvatar
 import org.gdglille.devfest.android.theme.vitamin.ui.components.tags.DecorativeTag
@@ -47,8 +48,8 @@ fun TalkSection(
                 }
                 Spacer(modifier = Modifier.weight(1f))
                 SpeakersAvatar(
-                    speakersName = talk.speakers.map { it.name },
-                    speakersAvatar = talk.speakers.map { it.url },
+                    speakersName = talk.speakers.map { it.name }.toImmutableList(),
+                    speakersAvatar = talk.speakers.map { it.url }.toImmutableList(),
                     modifier = Modifier.height(40.dp)
                 )
             }

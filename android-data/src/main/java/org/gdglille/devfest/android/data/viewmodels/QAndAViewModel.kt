@@ -5,6 +5,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -12,8 +15,8 @@ import org.gdglille.devfest.models.QuestionAndResponseUi
 import org.gdglille.devfest.repositories.AgendaRepository
 
 sealed class QAndAUiState {
-    data class Loading(val qanda: List<QuestionAndResponseUi>) : QAndAUiState()
-    data class Success(val qanda: List<QuestionAndResponseUi>) : QAndAUiState()
+    data class Loading(val qanda: ImmutableList<QuestionAndResponseUi>) : QAndAUiState()
+    data class Success(val qanda: ImmutableList<QuestionAndResponseUi>) : QAndAUiState()
     data class Failure(val throwable: Throwable) : QAndAUiState()
 }
 
@@ -21,7 +24,7 @@ class QAndAViewModel(private val repository: AgendaRepository) : ViewModel() {
     private val _uiState =
         MutableStateFlow<QAndAUiState>(
             QAndAUiState.Loading(
-                arrayListOf(
+                persistentListOf(
                     QuestionAndResponseUi.fake,
                     QuestionAndResponseUi.fake
                 )
@@ -49,7 +52,7 @@ class QAndAViewModel(private val repository: AgendaRepository) : ViewModel() {
             val qandaUi = state.qanda[index]
             val qandaList = state.qanda.toMutableList()
             qandaList[index] = qandaUi.copy(expanded = qandaUi.expanded.not())
-            _uiState.value = QAndAUiState.Success(qandaList)
+            _uiState.value = QAndAUiState.Success(qandaList.toImmutableList())
         }
     }
 

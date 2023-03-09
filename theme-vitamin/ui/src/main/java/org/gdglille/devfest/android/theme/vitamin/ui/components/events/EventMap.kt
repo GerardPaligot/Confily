@@ -20,6 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.decathlon.vitamin.compose.foundation.VitaminTheme
+import kotlinx.collections.immutable.ImmutableList
 import org.gdglille.devfest.android.theme.vitamin.ui.R
 import org.gdglille.devfest.android.theme.vitamin.ui.theme.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.vitamin.ui.theme.placeholder
@@ -27,7 +28,7 @@ import org.gdglille.devfest.models.EventUi
 
 @Composable
 fun EventMap(
-    formattedAddress: List<String>,
+    formattedAddress: ImmutableList<String>,
     modifier: Modifier = Modifier,
     isLoading: Boolean = false,
     shape: Shape = RoundedCornerShape(4.dp),

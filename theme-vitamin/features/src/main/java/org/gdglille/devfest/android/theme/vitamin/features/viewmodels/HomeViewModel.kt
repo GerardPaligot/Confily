@@ -3,6 +3,8 @@ package org.gdglille.devfest.android.theme.vitamin.features.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -84,13 +86,13 @@ class HomeViewModel(
     private fun updateUiTopActions(route: String, config: ScaffoldConfigUi, isFav: Boolean) {
         val topActions = when (route) {
             Screen.Agenda.route -> TopActionsUi(
-                actions = arrayListOf(if (isFav) TopActions.favoriteFilled else TopActions.favorite)
+                actions = persistentListOf(if (isFav) TopActions.favoriteFilled else TopActions.favorite)
             )
             Screen.Networking.route -> TopActionsUi(
-                actions = if (config.hasUsersInNetworking) listOf(TopActions.export) else emptyList()
+                actions = if (config.hasUsersInNetworking) persistentListOf(TopActions.export) else persistentListOf()
             )
             Screen.Info.route -> TopActionsUi(
-                actions = arrayListOf(TopActions.disconnect),
+                actions = persistentListOf(TopActions.disconnect),
                 maxActions = 0
             )
             else -> TopActionsUi()
@@ -108,15 +110,15 @@ class HomeViewModel(
                         .ofPattern("dd MMM")
                         .format(LocalDate.parse(it))
                     TabAction(route = it, 0, label)
-                },
+                }.toImmutableList(),
                 scrollable = true
             )
 
             Screen.Networking.route -> TabActionsUi(
-                actions = if (config.hasProfile) arrayListOf(
+                actions = if (config.hasProfile) persistentListOf(
                     TabActions.myProfile,
                     TabActions.contacts
-                ) else emptyList()
+                ) else persistentListOf()
             )
 
             Screen.Info.route -> TabActionsUi(
@@ -129,7 +131,7 @@ class HomeViewModel(
                         add(TabActions.qanda)
                     }
                     add(TabActions.coc)
-                },
+                }.toImmutableList(),
                 scrollable = true
             )
 
@@ -166,7 +168,7 @@ class HomeViewModel(
                     add(BottomActions.partners)
                 }
                 add(BottomActions.info)
-            }
+            }.toImmutableList()
         )
         if (bottomActions != _uiBottomState.value) {
             _uiBottomState.value = bottomActions

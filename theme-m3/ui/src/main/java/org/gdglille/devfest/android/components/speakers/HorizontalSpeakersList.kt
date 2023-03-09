@@ -14,6 +14,8 @@ import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.ui.R
 import org.gdglille.devfest.models.TalkItemUi
@@ -24,8 +26,8 @@ private const val SpacingRatio = 5
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun HorizontalSpeakersList(
-    names: List<String>,
-    avatars: List<String>,
+    names: ImmutableList<String>,
+    avatars: ImmutableList<String>,
     modifier: Modifier = Modifier,
     height: Dp = 25.dp,
     betweenSpacing: Dp = height / SpacingRatio
@@ -38,8 +40,8 @@ fun HorizontalSpeakersList(
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         SpeakersAvatar(
-            speakersName = names.take(MaxSpeakersCount),
-            speakersAvatar = avatars.take(MaxSpeakersCount),
+            speakersName = names.take(MaxSpeakersCount).toImmutableList(),
+            speakersAvatar = avatars.take(MaxSpeakersCount).toImmutableList(),
             betweenSpacing = betweenSpacing
         )
         Text(
@@ -66,12 +68,14 @@ fun HorizontalSpeakersListPreview() {
                 height = 25.dp
             )
             HorizontalSpeakersList(
-                names = TalkItemUi.fake.speakers + TalkItemUi.fake.speakers,
-                avatars = TalkItemUi.fake.speakersAvatar + TalkItemUi.fake.speakersAvatar,
+                names = (TalkItemUi.fake.speakers + TalkItemUi.fake.speakers).toImmutableList(),
+                avatars = (TalkItemUi.fake.speakersAvatar + TalkItemUi.fake.speakersAvatar)
+                    .toImmutableList(),
                 height = 40.dp
             )
             HorizontalSpeakersList(
-                names = TalkItemUi.fake.speakers + TalkItemUi.fake.speakers + TalkItemUi.fake.speakers,
+                names = (TalkItemUi.fake.speakers + TalkItemUi.fake.speakers + TalkItemUi.fake.speakers)
+                    .toImmutableList(),
                 avatars = TalkItemUi.fake.speakersAvatar,
                 height = 60.dp
             )

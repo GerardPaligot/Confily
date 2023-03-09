@@ -26,4 +26,5 @@ dependencies {
     api(libs.coil.svg)
 
     implementation(libs.kotlinx.datetime)
+    implementation(libs.kotlinx.collections)
 }

@@ -1,13 +1,16 @@
 package org.gdglille.devfest.models
 
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+
 data class EventItemListUi(
-    val future: List<EventItemUi>,
-    val past: List<EventItemUi>
+    val future: ImmutableList<EventItemUi>,
+    val past: ImmutableList<EventItemUi>
 ) {
     companion object {
         val fake = EventItemListUi(
-            future = listOf(EventItemUi.fake),
-            past = listOf(EventItemUi.fake)
+            future = persistentListOf(EventItemUi.fake),
+            past = persistentListOf(EventItemUi.fake)
         )
     }
 }
