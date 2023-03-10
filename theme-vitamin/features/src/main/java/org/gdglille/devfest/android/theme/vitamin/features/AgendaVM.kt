@@ -30,18 +30,16 @@ fun AgendaVM(
     tabs: TabActionsUi,
     agendaRepository: AgendaRepository,
     alarmScheduler: AlarmScheduler,
+    onTalkClicked: (id: String) -> Unit,
     modifier: Modifier = Modifier,
     pagerState: PagerState = rememberPagerState(),
-    onTalkClicked: (id: String) -> Unit,
+    viewModel: AgendaViewModel = viewModel(
+        factory = AgendaViewModel.Factory.create(
+            tabs.actions.map { it.route }, agendaRepository, alarmScheduler
+        )
+    ),
 ) {
     val context = LocalContext.current
-    val viewModel: AgendaViewModel = viewModel(
-        factory = AgendaViewModel.Factory.create(
-            tabs.actions.map { it.route },
-            agendaRepository,
-            alarmScheduler
-        )
-    )
     val uiState = viewModel.uiState.collectAsState()
     when (uiState.value) {
         is AgendaUiState.Loading -> Agenda(

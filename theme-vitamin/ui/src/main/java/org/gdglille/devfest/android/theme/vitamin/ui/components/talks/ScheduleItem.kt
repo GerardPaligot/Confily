@@ -19,10 +19,10 @@ import org.gdglille.devfest.models.TalkItemUi
 fun ScheduleItem(
     time: String,
     talks: ImmutableList<TalkItemUi>,
+    onTalkClicked: (id: String) -> Unit,
+    onFavoriteClicked: (TalkItemUi) -> Unit,
     modifier: Modifier = Modifier,
     isLoading: Boolean = false,
-    onTalkClicked: (id: String) -> Unit,
-    onFavoriteClicked: (TalkItemUi) -> Unit
 ) {
     Column(
         modifier = modifier,

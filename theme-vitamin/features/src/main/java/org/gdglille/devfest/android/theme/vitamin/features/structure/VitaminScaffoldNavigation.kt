@@ -79,7 +79,7 @@ fun VitaminScaffoldNavigation(
         NavHost(
             navController,
             startDestination = startDestination,
-            modifier = modifier.padding(it),
+            modifier = Modifier.padding(it),
             builder = builder
         )
     }

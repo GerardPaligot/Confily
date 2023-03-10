@@ -26,8 +26,8 @@ import org.gdglille.devfest.models.UserProfileUi
 @Composable
 fun MyProfile(
     profileUi: UserProfileUi,
-    modifier: Modifier = Modifier,
-    onEditInformation: () -> Unit
+    onEditInformation: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     val typography = VitaminTheme.typography.body2
     val color = VitaminTheme.colors.vtmnContentPrimary

@@ -37,9 +37,9 @@ const val ShortTalk = 30
 @Composable
 fun TalkItem(
     talk: TalkItemUi,
-    modifier: Modifier = Modifier,
     onTalkItemClicked: (TalkItemUi) -> Unit,
-    onFavoriteClicked: (TalkItemUi) -> Unit
+    onFavoriteClicked: (TalkItemUi) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Box(modifier = modifier.fillMaxWidth()) {
         Card(

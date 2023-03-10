@@ -29,10 +29,10 @@ import org.gdglille.devfest.models.EventUi
 @Composable
 fun EventMap(
     formattedAddress: ImmutableList<String>,
+    onItineraryClicked: () -> Unit,
     modifier: Modifier = Modifier,
     isLoading: Boolean = false,
     shape: Shape = RoundedCornerShape(4.dp),
-    onItineraryClicked: () -> Unit
 ) {
     Card(
         modifier = modifier.wrapContentHeight(),

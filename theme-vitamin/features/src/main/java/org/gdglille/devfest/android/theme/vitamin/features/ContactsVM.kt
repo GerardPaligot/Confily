@@ -15,11 +15,11 @@ import org.gdglille.devfest.repositories.UserRepository
 @Composable
 fun ContactsVM(
     userRepository: UserRepository,
-    modifier: Modifier = Modifier
-) {
-    val viewModel: ContactsViewModel = viewModel(
+    modifier: Modifier = Modifier,
+    viewModel: ContactsViewModel = viewModel(
         factory = ContactsViewModel.Factory.create(userRepository)
     )
+) {
     val uiState = viewModel.uiState.collectAsState()
     when (uiState.value) {
         is ContactsUiState.Loading -> Text(text = stringResource(id = R.string.text_loading))

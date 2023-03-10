@@ -7,8 +7,6 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -51,7 +49,6 @@ fun VitaminScaffold(
     content: @Composable (PaddingValues) -> Unit
 ) {
     val context = LocalContext.current
-    val expandedMenu = remember { mutableStateOf(false) }
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -60,7 +57,6 @@ fun VitaminScaffold(
                 navigationIcon = navigationIcon,
                 topActionsUi = topActionsUi,
                 onTopActionClicked = onTopActionClicked,
-                expandedMenu = expandedMenu,
                 tabActionsUi = tabActionsUi,
                 tabSelectedIndex = tabSelectedIndex,
                 context = context,

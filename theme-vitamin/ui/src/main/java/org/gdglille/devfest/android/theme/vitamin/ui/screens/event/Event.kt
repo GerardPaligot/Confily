@@ -28,10 +28,10 @@ import org.gdglille.devfest.models.EventUi
 @Composable
 fun Event(
     event: EventUi,
+    onLinkClicked: (url: String?) -> Unit,
+    onItineraryClicked: (lat: Double, lng: Double) -> Unit,
     modifier: Modifier = Modifier,
     isLoading: Boolean = false,
-    onLinkClicked: (url: String?) -> Unit,
-    onItineraryClicked: (lat: Double, lng: Double) -> Unit
 ) {
     LazyColumn(modifier = modifier) {
         item {

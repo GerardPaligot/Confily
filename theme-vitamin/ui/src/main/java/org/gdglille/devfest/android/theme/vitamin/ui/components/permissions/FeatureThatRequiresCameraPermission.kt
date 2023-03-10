@@ -28,9 +28,10 @@ import org.gdglille.devfest.android.theme.vitamin.ui.theme.Conferences4HallTheme
 fun FeatureThatRequiresCameraPermission(
     navigateToSettingsScreen: () -> Unit,
     onRefusePermissionClicked: () -> Unit,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
+    modifier: Modifier = Modifier
 ) {
-    val paddingModifier = Modifier.padding(24.dp)
+    val paddingModifier = modifier.padding(24.dp)
     val cameraPermissionState = rememberPermissionState(android.Manifest.permission.CAMERA)
     when (cameraPermissionState.status) {
         is PermissionStatus.Denied -> {
@@ -55,9 +56,9 @@ fun FeatureThatRequiresCameraPermission(
 
 @Composable
 private fun FeatureThatRequiresCameraPermissionRequested(
-    modifier: Modifier = Modifier,
     onAcceptPermissionClicked: () -> Unit,
-    onRefusePermissionClicked: () -> Unit
+    onRefusePermissionClicked: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier.fillMaxSize(),

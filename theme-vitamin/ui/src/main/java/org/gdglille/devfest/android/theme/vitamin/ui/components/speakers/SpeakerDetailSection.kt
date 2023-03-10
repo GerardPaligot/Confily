@@ -19,9 +19,9 @@ import org.gdglille.devfest.models.SpeakerUi
 @Composable
 fun SpeakerDetailSection(
     speaker: SpeakerUi,
+    onLinkClicked: (url: String) -> Unit,
     modifier: Modifier = Modifier,
     isLoading: Boolean = false,
-    onLinkClicked: (url: String) -> Unit
 ) {
     Column(
         modifier = modifier

@@ -30,10 +30,10 @@ import org.gdglille.devfest.models.EventItemListUi
 @Composable
 fun EventList(
     events: EventItemListUi,
+    onEventClicked: (String) -> Unit,
     modifier: Modifier = Modifier,
     pagerState: PagerState = rememberPagerState(),
     isLoading: Boolean = false,
-    onEventClicked: (String) -> Unit
 ) {
     val scope = rememberCoroutineScope()
     val tabActionsUi = remember {

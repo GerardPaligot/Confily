@@ -17,9 +17,9 @@ import org.gdglille.devfest.models.PartnerGroupsUi
 @Composable
 fun Partners(
     partners: PartnerGroupsUi,
+    onPartnerClick: (siteUrl: String?) -> Unit,
     modifier: Modifier = Modifier,
-    isLoading: Boolean = false,
-    onPartnerClick: (siteUrl: String?) -> Unit
+    isLoading: Boolean = false
 ) {
     LazyColumn(
         modifier = modifier.padding(horizontal = 8.dp),

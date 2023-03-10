@@ -20,8 +20,8 @@ import org.gdglille.devfest.models.SpeakerItemUi
 @Composable
 fun SpeakerSection(
     speakers: ImmutableList<SpeakerItemUi>,
-    modifier: Modifier = Modifier,
     onSpeakerItemClick: (String) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     val speakersChunked = remember(speakers) {
         speakers.chunked(size = 2).map { it.toImmutableList() }

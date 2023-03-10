@@ -24,13 +24,13 @@ import org.gdglille.devfest.models.EventUi
 fun SocialsSection(
     title: String,
     subtitle: String,
+    onLinkClicked: (url: String) -> Unit,
     modifier: Modifier = Modifier,
     detailed: String? = null,
     isLoading: Boolean = false,
     twitterUrl: String? = null,
     githubUrl: String? = null,
     linkedinUrl: String? = null,
-    onLinkClicked: (url: String) -> Unit
 ) {
     Column(modifier = modifier.fillMaxWidth()) {
         Text(

@@ -14,10 +14,10 @@ import org.gdglille.devfest.android.ui.camera.VCardCameraPreview
 
 @Composable
 fun VCardQrCodeScanner(
-    modifier: Modifier = Modifier,
     navigateToSettingsScreen: () -> Unit,
     onQrCodeDetected: (VCardModel) -> Unit,
     onBackClicked: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Scaffold(
         modifier = modifier,

@@ -25,12 +25,12 @@ import org.gdglille.devfest.models.TalkItemUi
 @Composable
 fun SpeakerDetail(
     speaker: SpeakerUi,
-    modifier: Modifier = Modifier,
-    isLoading: Boolean = false,
     onTalkClicked: (id: String) -> Unit,
     onFavoriteClicked: (TalkItemUi) -> Unit,
     onLinkClicked: (url: String) -> Unit,
-    onBackClicked: () -> Unit
+    onBackClicked: () -> Unit,
+    modifier: Modifier = Modifier,
+    isLoading: Boolean = false
 ) {
     Scaffold(
         modifier = modifier,

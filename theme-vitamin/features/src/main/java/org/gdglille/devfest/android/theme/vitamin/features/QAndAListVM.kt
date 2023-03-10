@@ -14,12 +14,12 @@ import org.gdglille.devfest.repositories.AgendaRepository
 @Composable
 fun QAndAListVM(
     agendaRepository: AgendaRepository,
+    onLinkClicked: (url: String) -> Unit,
     modifier: Modifier = Modifier,
-    onLinkClicked: (url: String) -> Unit
-) {
-    val viewModel: QAndAViewModel = viewModel(
+    viewModel: QAndAViewModel = viewModel(
         factory = QAndAViewModel.Factory.create(agendaRepository)
     )
+) {
     val uiState = viewModel.uiState.collectAsState()
     when (uiState.value) {
         is QAndAUiState.Loading -> QAndAList(

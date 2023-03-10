@@ -20,12 +20,12 @@ fun InfoPages(
     tabs: TabActionsUi,
     agendaRepository: AgendaRepository,
     viewModel: HomeViewModel,
-    modifier: Modifier = Modifier,
-    pagerState: PagerState = rememberPagerState(),
     onItineraryClicked: (lat: Double, lng: Double) -> Unit,
     onLinkClicked: (url: String?) -> Unit,
     onReportByPhoneClicked: (String) -> Unit,
-    onReportByEmailClicked: (String) -> Unit
+    onReportByEmailClicked: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    pagerState: PagerState = rememberPagerState(),
 ) {
     LaunchedEffect(pagerState.currentPage) {
         when (tabs.actions[pagerState.currentPage].route) {

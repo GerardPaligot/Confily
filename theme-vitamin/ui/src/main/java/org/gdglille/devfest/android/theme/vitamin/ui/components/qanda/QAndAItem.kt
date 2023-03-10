@@ -40,10 +40,10 @@ private const val ClosedDegrees = 0f
 @Composable
 fun QAndAItem(
     qAndA: QuestionAndResponseUi,
+    onExpandedClicked: (QuestionAndResponseUi) -> Unit,
+    onLinkClicked: (url: String) -> Unit,
     modifier: Modifier = Modifier,
     isLoading: Boolean = false,
-    onExpandedClicked: (QuestionAndResponseUi) -> Unit,
-    onLinkClicked: (url: String) -> Unit
 ) {
     val degrees by animateFloatAsState(if (qAndA.expanded) ExpandedDegrees else ClosedDegrees)
     Card(

@@ -35,10 +35,10 @@ import org.gdglille.devfest.models.UserProfileUi
 @Composable
 fun ProfileInput(
     profile: UserProfileUi,
-    modifier: Modifier = Modifier,
     onValueChanged: (Field, String) -> Unit,
     onValidation: () -> Unit,
     onBackClicked: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Scaffold(
         modifier = modifier,

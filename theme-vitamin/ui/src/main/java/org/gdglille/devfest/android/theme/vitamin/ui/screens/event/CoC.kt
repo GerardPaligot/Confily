@@ -22,9 +22,9 @@ import org.gdglille.devfest.models.CoCUi
 @Composable
 fun CoC(
     coc: CoCUi,
-    modifier: Modifier = Modifier,
     onReportByPhoneClicked: (String) -> Unit,
-    onReportByEmailClicked: (String) -> Unit
+    onReportByEmailClicked: (String) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     LazyColumn(
         modifier = modifier,
