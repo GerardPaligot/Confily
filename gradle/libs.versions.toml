@@ -26,10 +26,11 @@ gcpStorage = "2.3.0"
 gcpSecret = "2.3.10"
 googleServices = "4.3.5"
 coil = "2.0.0"
-detekt = "1.19.0"
 barcode = "17.0.2"
 guava = "31.1-android"
+detekt = "1.19.0"
 ktlint = "10.3.0"
+composeLinter = "1.1.1"
 logback = "1.2.3"
 firebase = "29.3.1"
 firebaseCrashlytics = "2.8.1"
@@ -103,6 +104,8 @@ coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coi
 coil-svg = { group = "io.coil-kt", name = "coil-svg", version.ref = "coil" }
 
 detekt-gradlePlugin = { group = "io.gitlab.arturbosch.detekt", name = "detekt-gradle-plugin", version.ref = "detekt" }
+ktlint-gradlePlugin = { group = "org.jlleitschuh.gradle", name = "ktlint-gradle", version.ref = "ktlint" }
+compose-linter = { group = "com.slack.lint.compose", name = "compose-lint-checks", version.ref = "composeLinter" }
 
 google-cloud-firestore = { group = "com.google.cloud", name = "google-cloud-firestore", version.ref = "gcpFirestore" }
 google-cloud-storage = { group = "com.google.cloud", name = "google-cloud-storage", version.ref = "gcpStorage" }
@@ -113,8 +116,6 @@ google-barcode = { group = "com.google.mlkit", name = "barcode-scanning", versio
 google-firebase = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase" }
 google-firebase-crashlytics-gradlePlugin = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "firebaseCrashlytics" }
 google-guava = { group = "com.google.guava", name = "guava", version.ref = "guava" }
-
-ktlint-gradlePlugin = { group = "org.jlleitschuh.gradle", name = "ktlint-gradle", version.ref = "ktlint" }
 
 logback = { group = "ch.qos.logback", name = "logback-classic", version.ref = "logback" }
 

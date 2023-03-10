@@ -40,7 +40,7 @@ gradlePlugin {
         }
         register("kotlinQuality") {
             id = "conferences4hall.quality"
-            implementationClass = "KotlinQualitÿPlugin"
+            implementationClass = "KotlinQualityPlugin"
         }
     }
 }
