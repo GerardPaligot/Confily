@@ -16,12 +16,12 @@ import org.gdglille.devfest.repositories.UserRepository
 @Composable
 fun ProfileInputVM(
     userRepository: UserRepository,
-    modifier: Modifier = Modifier,
     onBackClicked: () -> Unit,
-) {
-    val viewModel: ProfileInputViewModel = viewModel(
+    modifier: Modifier = Modifier,
+    viewModel: ProfileInputViewModel = viewModel(
         factory = ProfileInputViewModel.Factory.create(userRepository)
     )
+) {
     val uiState = viewModel.uiState.collectAsState()
     when (uiState.value) {
         is ProfileInputUiState.Loading -> Text(text = stringResource(id = R.string.text_loading))

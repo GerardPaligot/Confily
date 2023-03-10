@@ -14,13 +14,13 @@ import org.gdglille.devfest.repositories.AgendaRepository
 @Composable
 fun EventVM(
     agendaRepository: AgendaRepository,
-    modifier: Modifier = Modifier,
     onLinkClicked: (url: String?) -> Unit,
-    onItineraryClicked: (lat: Double, lng: Double) -> Unit
-) {
-    val viewModel: EventViewModel = viewModel(
+    onItineraryClicked: (lat: Double, lng: Double) -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: EventViewModel = viewModel(
         factory = EventViewModel.Factory.create(agendaRepository)
     )
+) {
     val uiState = viewModel.uiState.collectAsState()
     when (uiState.value) {
         is EventUiState.Loading -> Event(

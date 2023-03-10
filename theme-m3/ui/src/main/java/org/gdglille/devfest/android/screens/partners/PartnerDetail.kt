@@ -28,11 +28,11 @@ import org.gdglille.devfest.models.PartnerItemUi
 @Composable
 fun PartnerDetail(
     partnerItemUi: PartnerItemUi,
-    modifier: Modifier = Modifier,
-    isLoading: Boolean = false,
     onLinkClicked: (url: String) -> Unit,
     onItineraryClicked: (lat: Double, lng: Double) -> Unit,
-    onBackClicked: () -> Unit
+    onBackClicked: () -> Unit,
+    modifier: Modifier = Modifier,
+    isLoading: Boolean = false,
 ) {
     Scaffold(
         modifier = modifier,
@@ -50,7 +50,6 @@ fun PartnerDetail(
                 item {
                     PartnerDetailSection(
                         partnerItemUi = partnerItemUi,
-                        modifier = modifier,
                         isLoading = isLoading,
                         onLinkClicked = onLinkClicked
                     )

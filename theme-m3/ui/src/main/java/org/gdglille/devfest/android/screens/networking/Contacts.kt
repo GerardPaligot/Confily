@@ -28,8 +28,8 @@ import org.gdglille.devfest.models.UserNetworkingUi
 @Composable
 fun Contacts(
     users: ImmutableList<UserNetworkingUi>,
+    onNetworkDeleted: (String) -> Unit,
     modifier: Modifier = Modifier,
-    onNetworkDeleted: (String) -> Unit
 ) {
     if (users.isEmpty()) {
         EmptyContacts(modifier = modifier)
@@ -89,7 +89,10 @@ fun Contacts(
 fun ContactsPreview() {
     Conferences4HallTheme {
         Scaffold {
-            Contacts(users = NetworkingUi.fake.users) {}
+            Contacts(
+                users = NetworkingUi.fake.users,
+                onNetworkDeleted = {}
+            )
         }
     }
 }

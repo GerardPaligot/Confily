@@ -76,7 +76,7 @@ fun ScaffoldNavigation(
             NavHost(
                 navController,
                 startDestination = startDestination,
-                modifier = modifier.padding(it),
+                modifier = Modifier.padding(it),
                 builder = builder
             )
         }

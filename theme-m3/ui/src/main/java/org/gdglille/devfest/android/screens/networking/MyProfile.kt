@@ -25,8 +25,8 @@ import org.gdglille.devfest.models.UserProfileUi
 @Composable
 fun MyProfile(
     profileUi: UserProfileUi,
+    onEditInformation: () -> Unit,
     modifier: Modifier = Modifier,
-    onEditInformation: () -> Unit
 ) {
     val typography = MaterialTheme.typography.bodyMedium
     val color = MaterialTheme.colorScheme.onBackground

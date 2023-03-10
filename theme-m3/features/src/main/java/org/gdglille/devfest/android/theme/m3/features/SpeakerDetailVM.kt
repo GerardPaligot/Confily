@@ -20,15 +20,15 @@ fun SpeakerDetailVM(
     speakerId: String,
     agendaRepository: AgendaRepository,
     alarmScheduler: AlarmScheduler,
-    modifier: Modifier = Modifier,
     onTalkClicked: (id: String) -> Unit,
     onLinkClicked: (url: String) -> Unit,
-    onBackClicked: () -> Unit
-) {
-    val context = LocalContext.current
-    val viewModel: SpeakerViewModel = viewModel(
+    onBackClicked: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: SpeakerViewModel = viewModel(
         factory = SpeakerViewModel.Factory.create(speakerId, agendaRepository, alarmScheduler)
     )
+) {
+    val context = LocalContext.current
     val uiState = viewModel.uiState.collectAsState()
     when (uiState.value) {
         is SpeakerUiState.Loading -> SpeakerDetail(

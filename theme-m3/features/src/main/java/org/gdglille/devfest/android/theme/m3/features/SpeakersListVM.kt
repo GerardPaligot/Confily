@@ -14,12 +14,12 @@ import org.gdglille.devfest.repositories.SpeakerRepository
 @Composable
 fun SpeakersListVM(
     speakerRepository: SpeakerRepository,
+    onSpeakerClicked: (id: String) -> Unit,
     modifier: Modifier = Modifier,
-    onSpeakerClicked: (id: String) -> Unit
-) {
-    val viewModel: SpeakersViewModel = viewModel(
+    viewModel: SpeakersViewModel = viewModel(
         factory = SpeakersViewModel.Factory.create(speakerRepository)
     )
+) {
     val uiState = viewModel.uiState.collectAsState()
     when (uiState.value) {
         is SpeakersUiState.Loading -> SpeakersList(

@@ -26,6 +26,7 @@ internal fun OverflowMenu(
     Dropdown(
         expanded = expanded,
         modifier = modifier,
+        onDismissRequest = { expanded.value = false },
         anchor = {
             IconButton(onClick = { expanded.value = true }) {
                 Icon(

@@ -41,9 +41,6 @@ fun Home(
     speakerRepository: SpeakerRepository,
     eventRepository: EventRepository,
     alarmScheduler: AlarmScheduler,
-    modifier: Modifier = Modifier,
-    savedStateHandle: SavedStateHandle? = null,
-    navController: NavHostController = rememberNavController(),
     onTalkClicked: (id: String) -> Unit,
     onLinkClicked: (url: String?) -> Unit,
     onSpeakerClicked: (id: String) -> Unit,
@@ -55,11 +52,14 @@ fun Home(
     onCreateProfileClicked: () -> Unit,
     onReportByPhoneClicked: (String) -> Unit,
     onReportByEmailClicked: (String) -> Unit,
-    onDisconnectedClicked: () -> Unit
-) {
-    val viewModel: HomeViewModel = viewModel(
+    onDisconnectedClicked: () -> Unit,
+    modifier: Modifier = Modifier,
+    savedStateHandle: SavedStateHandle? = null,
+    navController: NavHostController = rememberNavController(),
+    viewModel: HomeViewModel = viewModel(
         factory = HomeViewModel.Factory.create(agendaRepository, userRepository, eventRepository)
     )
+) {
     if (savedStateHandle != null) {
         val qrCodeTicket by savedStateHandle.getLiveData<String>(HomeResultKey.QR_CODE_TICKET)
             .observeAsState()
@@ -183,7 +183,6 @@ fun Home(
                             tabs = tabActions,
                             agendaRepository = agendaRepository,
                             viewModel = viewModel,
-                            modifier = modifier,
                             pagerState = infoPagerState,
                             onItineraryClicked = onItineraryClicked,
                             onLinkClicked = onLinkClicked,

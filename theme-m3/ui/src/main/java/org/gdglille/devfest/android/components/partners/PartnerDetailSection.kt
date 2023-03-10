@@ -21,9 +21,9 @@ import org.gdglille.devfest.models.PartnerItemUi
 @Composable
 fun PartnerDetailSection(
     partnerItemUi: PartnerItemUi,
+    onLinkClicked: (url: String) -> Unit,
     modifier: Modifier = Modifier,
     isLoading: Boolean = false,
-    onLinkClicked: (url: String) -> Unit
 ) {
     Column(
         modifier = modifier
@@ -45,7 +45,6 @@ fun PartnerDetailSection(
             title = partnerItemUi.name,
             subtitle = null,
             detailed = partnerItemUi.description,
-            modifier = modifier,
             isLoading = isLoading,
             twitterUrl = partnerItemUi.twitterUrl,
             githubUrl = null,

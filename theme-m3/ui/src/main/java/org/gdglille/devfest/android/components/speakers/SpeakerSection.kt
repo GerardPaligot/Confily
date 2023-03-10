@@ -21,9 +21,9 @@ import org.gdglille.devfest.models.SpeakerItemUi
 @Composable
 fun SpeakerSection(
     speakers: ImmutableList<SpeakerItemUi>,
+    onSpeakerItemClick: (String) -> Unit,
     modifier: Modifier = Modifier,
     subtitleTextStyle: TextStyle = MaterialTheme.typography.titleLarge,
-    onSpeakerItemClick: (String) -> Unit,
 ) {
     val speakersChunked = remember(speakers) {
         speakers.chunked(size = 2).map { it.toImmutableList() }

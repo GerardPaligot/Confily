@@ -17,14 +17,14 @@ import org.gdglille.devfest.repositories.AgendaRepository
 fun PartnerDetailVM(
     partnerId: String,
     agendaRepository: AgendaRepository,
-    modifier: Modifier = Modifier,
     onLinkClicked: (url: String) -> Unit,
     onItineraryClicked: (lat: Double, lng: Double) -> Unit,
-    onBackClicked: () -> Unit
-) {
-    val viewModel: PartnerViewModel = viewModel(
+    onBackClicked: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: PartnerViewModel = viewModel(
         factory = PartnerViewModel.Factory.create(partnerId, agendaRepository)
     )
+) {
     val uiState = viewModel.uiState.collectAsState()
     when (uiState.value) {
         is PartnerUiState.Loading -> PartnerDetail(

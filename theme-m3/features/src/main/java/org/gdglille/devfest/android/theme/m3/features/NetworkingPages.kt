@@ -21,9 +21,9 @@ fun NetworkingPages(
     tabs: TabActionsUi,
     userRepository: UserRepository,
     viewModel: HomeViewModel,
+    onCreateProfileClicked: () -> Unit,
     modifier: Modifier = Modifier,
     pagerState: PagerState = rememberPagerState(),
-    onCreateProfileClicked: () -> Unit
 ) {
     LaunchedEffect(pagerState.currentPage) {
         when (pagerState.currentPage) {

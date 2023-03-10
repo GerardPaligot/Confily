@@ -19,10 +19,10 @@ import org.gdglille.devfest.models.QuestionAndResponseUi
 @Composable
 fun QAndAList(
     qAndA: ImmutableList<QuestionAndResponseUi>,
+    onExpandedClicked: (QuestionAndResponseUi) -> Unit,
+    onLinkClicked: (url: String) -> Unit,
     modifier: Modifier = Modifier,
     isLoading: Boolean = false,
-    onExpandedClicked: (QuestionAndResponseUi) -> Unit,
-    onLinkClicked: (url: String) -> Unit
 ) {
     LazyColumn(
         modifier = modifier

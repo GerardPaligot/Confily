@@ -14,13 +14,13 @@ import org.gdglille.devfest.repositories.AgendaRepository
 @Composable
 fun CoCVM(
     agendaRepository: AgendaRepository,
-    modifier: Modifier = Modifier,
     onReportByPhoneClicked: (String) -> Unit,
-    onReportByEmailClicked: (String) -> Unit
-) {
-    val viewModel: CoCViewModel = viewModel(
+    onReportByEmailClicked: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: CoCViewModel = viewModel(
         factory = CoCViewModel.Factory.create(agendaRepository)
     )
+) {
     val uiState = viewModel.uiState.collectAsState()
     when (uiState.value) {
         is CoCUiState.Loading -> Text(text = stringResource(R.string.text_loading))

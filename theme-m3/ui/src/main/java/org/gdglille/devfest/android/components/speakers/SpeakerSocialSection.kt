@@ -10,9 +10,9 @@ import org.gdglille.devfest.models.SpeakerUi
 @Composable
 fun SpeakerSocialSection(
     speaker: SpeakerUi,
+    onLinkClicked: (url: String) -> Unit,
     modifier: Modifier = Modifier,
     isLoading: Boolean = false,
-    onLinkClicked: (url: String) -> Unit,
 ) {
     SocialsSection(
         title = speaker.name,
@@ -31,7 +31,8 @@ fun SpeakerSocialSection(
 fun SpeakerSocialSectionPreview() {
     Conferences4HallTheme {
         SpeakerSocialSection(
-            speaker = SpeakerUi.fake
-        ) {}
+            speaker = SpeakerUi.fake,
+            onLinkClicked = {}
+        )
     }
 }

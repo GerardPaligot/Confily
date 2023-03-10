@@ -15,10 +15,10 @@ import org.gdglille.devfest.android.ui.camera.TicketCameraPreview
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TicketQrCodeScanner(
-    modifier: Modifier = Modifier,
     navigateToSettingsScreen: () -> Unit,
     onQrCodeDetected: (String) -> Unit,
     onBackClicked: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Scaffold(
         modifier = modifier,

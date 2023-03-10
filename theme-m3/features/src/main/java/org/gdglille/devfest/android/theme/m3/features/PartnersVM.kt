@@ -16,12 +16,12 @@ import org.gdglille.devfest.repositories.AgendaRepository
 @Composable
 fun PartnersVM(
     agendaRepository: AgendaRepository,
+    onPartnerClick: (id: String) -> Unit,
     modifier: Modifier = Modifier,
-    onPartnerClick: (id: String) -> Unit
-) {
-    val viewModel: PartnersViewModel = viewModel(
+    viewModel: PartnersViewModel = viewModel(
         factory = PartnersViewModel.Factory.create(agendaRepository)
     )
+) {
     val uiState = viewModel.uiState.collectAsState()
     when (uiState.value) {
         is PartnersUiState.Loading -> Partners(

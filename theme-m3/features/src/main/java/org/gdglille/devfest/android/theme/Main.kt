@@ -51,7 +51,10 @@ fun Main(
     onReportByEmailClicked: (String) -> Unit,
     onShareClicked: (text: String) -> Unit,
     onItineraryClicked: (lat: Double, lng: Double) -> Unit,
-    navController: NavHostController
+    navController: NavHostController,
+    viewModel: MainViewModel = viewModel(
+        factory = MainViewModel.Factory.create(eventRepository)
+    )
 ) {
     val rootUri = "c4h://event"
     Conferences4HallTheme {
@@ -61,9 +64,6 @@ fun Main(
         SideEffect {
             systemUiController.setSystemBarsColor(color = statusBarColor, darkIcons = useDarkIcons)
         }
-        val viewModel: MainViewModel = viewModel(
-            factory = MainViewModel.Factory.create(eventRepository)
-        )
         val uiState = viewModel.uiState.collectAsState()
         when (uiState.value) {
             is MainUiState.Success -> {
@@ -201,10 +201,11 @@ fun Main(
                                     ?.savedStateHandle
                                     ?.set(HomeResultKey.QR_CODE_TICKET, barcode)
                                 navController.popBackStack()
+                            },
+                            onBackClicked = {
+                                navController.popBackStack()
                             }
-                        ) {
-                            navController.popBackStack()
-                        }
+                        )
                     }
                     composable(route = "profile") {
                         ProfileInputVM(

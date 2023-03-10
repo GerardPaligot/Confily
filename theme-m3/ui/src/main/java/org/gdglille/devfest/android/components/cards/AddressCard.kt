@@ -29,11 +29,11 @@ import org.gdglille.devfest.models.EventUi
 @Composable
 fun AddressCard(
     formattedAddress: ImmutableList<String>,
+    onItineraryClicked: () -> Unit,
     modifier: Modifier = Modifier,
     isLoading: Boolean = false,
     hasGpsLocation: Boolean = true,
     shape: Shape = MaterialTheme.shapes.small,
-    onItineraryClicked: () -> Unit
 ) {
     Card(
         modifier = modifier.wrapContentHeight(),

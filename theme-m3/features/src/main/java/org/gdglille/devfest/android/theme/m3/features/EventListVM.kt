@@ -17,12 +17,12 @@ import org.gdglille.devfest.repositories.EventRepository
 @Composable
 fun EventListVM(
     repository: EventRepository,
+    onEventClicked: () -> Unit,
     modifier: Modifier = Modifier,
-    onEventClicked: () -> Unit
-) {
-    val viewModel: EventListViewModel = viewModel(
+    viewModel: EventListViewModel = viewModel(
         factory = EventListViewModel.Factory.create(repository)
     )
+) {
     val pagerState = rememberPagerState()
     val uiState = viewModel.uiState.collectAsState()
     when (uiState.value) {

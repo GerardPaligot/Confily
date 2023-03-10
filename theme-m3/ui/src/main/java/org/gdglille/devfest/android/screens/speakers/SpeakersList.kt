@@ -17,9 +17,9 @@ import org.gdglille.devfest.models.SpeakerItemUi
 @Composable
 fun SpeakersList(
     speakers: ImmutableList<ImmutableList<SpeakerItemUi>>,
+    onSpeakerClicked: (id: String) -> Unit,
     modifier: Modifier = Modifier,
     isLoading: Boolean = false,
-    onSpeakerClicked: (id: String) -> Unit,
 ) {
     LazyColumn(
         modifier = modifier.fillMaxWidth(),

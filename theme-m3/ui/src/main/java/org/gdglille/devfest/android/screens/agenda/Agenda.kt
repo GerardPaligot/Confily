@@ -25,10 +25,10 @@ import org.gdglille.devfest.models.TalkItemUi
 @Composable
 fun Agenda(
     agenda: AgendaUi,
+    onTalkClicked: (id: String) -> Unit,
+    onFavoriteClicked: (TalkItemUi) -> Unit,
     modifier: Modifier = Modifier,
     isLoading: Boolean = false,
-    onTalkClicked: (id: String) -> Unit,
-    onFavoriteClicked: (TalkItemUi) -> Unit
 ) {
     if (agenda.onlyFavorites && !isLoading && agenda.talks.keys.isEmpty()) {
         NoFavoriteTalks()

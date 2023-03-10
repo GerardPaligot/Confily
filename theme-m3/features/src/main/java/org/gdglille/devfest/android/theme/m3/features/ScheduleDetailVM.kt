@@ -19,14 +19,14 @@ fun ScheduleDetailVM(
     scheduleId: String,
     openFeedbackState: OpenFeedbackConfig,
     agendaRepository: AgendaRepository,
-    modifier: Modifier = Modifier,
     onBackClicked: () -> Unit,
     onSpeakerClicked: (id: String) -> Unit,
-    onShareClicked: (text: String) -> Unit
-) {
-    val viewModel: ScheduleItemViewModel = viewModel(
+    onShareClicked: (text: String) -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: ScheduleItemViewModel = viewModel(
         factory = ScheduleItemViewModel.Factory.create(scheduleId, agendaRepository)
     )
+) {
     val uiState = viewModel.uiState.collectAsState()
     when (uiState.value) {
         is ScheduleUiState.Loading -> Text(text = stringResource(id = R.string.text_loading))

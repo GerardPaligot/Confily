@@ -32,10 +32,10 @@ import org.gdglille.devfest.models.TalkUi
 fun ScheduleDetail(
     talk: TalkUi,
     openFeedbackState: OpenFeedbackConfig,
-    modifier: Modifier = Modifier,
     onBackClicked: () -> Unit,
     onSpeakerClicked: (id: String) -> Unit,
-    onShareClicked: (text: String) -> Unit
+    onShareClicked: (text: String) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     val textShared = stringResource(id = R.string.input_share_talk, talk.title, talk.speakersSharing)
     Scaffold(

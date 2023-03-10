@@ -16,11 +16,11 @@ import org.gdglille.devfest.repositories.AgendaRepository
 @Composable
 fun MenusVM(
     agendaRepository: AgendaRepository,
-    modifier: Modifier = Modifier
-) {
-    val viewModel: MenusViewModel = viewModel(
+    modifier: Modifier = Modifier,
+    viewModel: MenusViewModel = viewModel(
         factory = MenusViewModel.Factory.create(agendaRepository)
     )
+) {
     val uiState = viewModel.uiState.collectAsState()
     when (uiState.value) {
         is MenusUiState.Loading -> Menus(
