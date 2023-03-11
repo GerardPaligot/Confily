@@ -41,6 +41,8 @@
 	<string>App requires an access to your camera to allow scanning profile qrcode or ticket qrcode</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
+		<key>UISceneConfigurations</key>
+		<dict/>
 		<key>UIApplicationSupportsMultipleScenes</key>
 		<false/>
 	</dict>

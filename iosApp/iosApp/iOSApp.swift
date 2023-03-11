@@ -21,7 +21,7 @@ struct iOSApp: App {
             FirebaseApp.configure()
         }
         SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
-        self.viewModelFactory = ViewModelFactory()
+        self.viewModelFactory = ViewModelFactory(isDebug: isInDebugMode)
     }
 
 	var body: some Scene {

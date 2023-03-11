@@ -15,13 +15,13 @@ class ViewModelFactory: ObservableObject {
     private var userRepository: UserRepository
     private var eventRepository: EventRepository
 
-    init() {
+    init(isDebug: Bool = false) {
         let platform = Platform(context: IOSContext())
         let db = DatabaseWrapper().createDb()
         let api = ConferenceApi.companion.create(
             platform: platform,
             baseUrl: Configuration.baseURL.absoluteString,
-            enableNetworkLogs: isInDebugMode
+            enableNetworkLogs: isDebug
         )
         let settings = AppleSettings(delegate: UserDefaults.standard)
         self.agendaRepository = AgendaRepositoryImpl(
