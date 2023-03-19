@@ -64,15 +64,15 @@ fun SocialItemPreview() {
     Conferences4HallTheme {
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Socials.Twitter(
-                text = SpeakerUi.fake.twitter!!,
+                text = SpeakerUi.fake.name,
                 onClick = {}
             )
             Socials.GitHub(
-                text = SpeakerUi.fake.github!!,
+                text = SpeakerUi.fake.name,
                 onClick = {}
             )
             Socials.LinkedIn(
-                text = EventUi.fake.eventInfo.linkedin!!,
+                text = EventUi.fake.eventInfo.name,
                 onClick = {}
             )
         }

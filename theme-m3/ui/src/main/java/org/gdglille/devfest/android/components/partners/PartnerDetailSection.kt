@@ -43,6 +43,7 @@ fun PartnerDetailSection(
         Spacer(modifier = Modifier.height(16.dp))
         SocialsSection(
             title = partnerItemUi.name,
+            pronouns = null,
             subtitle = null,
             detailed = partnerItemUi.description,
             isLoading = isLoading,

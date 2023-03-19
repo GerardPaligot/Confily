@@ -13,10 +13,10 @@ import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Brands
 import compose.icons.fontawesomeicons.brands.Github
 import compose.icons.fontawesomeicons.brands.LinkedinIn
+import compose.icons.fontawesomeicons.brands.Mastodon
 import compose.icons.fontawesomeicons.brands.Twitter
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.ui.R
-import org.gdglille.devfest.models.EventUi
 import org.gdglille.devfest.models.PartnerItemUi
 import org.gdglille.devfest.models.SpeakerUi
 
@@ -30,6 +30,20 @@ object Socials {
         IconButton(
             imageVector = FontAwesomeIcons.Brands.Twitter,
             contentDescription = stringResource(id = R.string.semantic_twitter, text),
+            modifier = modifier,
+            onClick = onClick
+        )
+    }
+
+    @Composable
+    fun Mastodon(
+        text: String,
+        modifier: Modifier = Modifier,
+        onClick: () -> Unit
+    ) {
+        IconButton(
+            imageVector = FontAwesomeIcons.Brands.Mastodon,
+            contentDescription = stringResource(id = R.string.semantic_mastodon, text),
             modifier = modifier,
             onClick = onClick
         )
@@ -71,7 +85,7 @@ object Socials {
     ) {
         IconButton(
             imageVector = Icons.Outlined.Language,
-            contentDescription = text,
+            contentDescription = stringResource(id = R.string.semantic_website, text),
             modifier = modifier,
             onClick = onClick
         )
@@ -84,15 +98,19 @@ fun SocialItemPreview() {
     Conferences4HallTheme {
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Socials.Twitter(
-                text = SpeakerUi.fake.twitter!!,
+                text = SpeakerUi.fake.name,
+                onClick = {}
+            )
+            Socials.Mastodon(
+                text = SpeakerUi.fake.name,
                 onClick = {}
             )
             Socials.GitHub(
-                text = SpeakerUi.fake.github!!,
+                text = SpeakerUi.fake.name,
                 onClick = {}
             )
             Socials.LinkedIn(
-                text = EventUi.fake.eventInfo.linkedin!!,
+                text = SpeakerUi.fake.name,
                 onClick = {}
             )
             Socials.Website(

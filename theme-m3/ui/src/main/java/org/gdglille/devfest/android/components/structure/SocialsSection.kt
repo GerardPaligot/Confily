@@ -9,8 +9,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.halilibo.richtext.markdown.Markdown
@@ -18,7 +18,6 @@ import com.halilibo.richtext.ui.RichText
 import com.halilibo.richtext.ui.RichTextThemeIntegration
 import org.gdglille.devfest.android.components.buttons.Socials
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
-import org.gdglille.devfest.android.theme.m3.ui.R
 import org.gdglille.devfest.android.theme.placeholder
 import org.gdglille.devfest.models.EventUi
 import org.gdglille.devfest.models.PartnerItemUi
@@ -26,23 +25,38 @@ import org.gdglille.devfest.models.PartnerItemUi
 @Composable
 fun SocialsSection(
     title: String,
+    pronouns: String?,
     subtitle: String?,
     onLinkClicked: (url: String) -> Unit,
     modifier: Modifier = Modifier,
     detailed: String? = null,
     isLoading: Boolean = false,
     twitterUrl: String? = null,
+    mastodonUrl: String? = null,
     githubUrl: String? = null,
     linkedinUrl: String? = null,
     websiteUrl: String? = null,
 ) {
     Column(modifier = modifier.fillMaxWidth()) {
-        Text(
-            text = title,
-            style = MaterialTheme.typography.headlineLarge,
-            color = MaterialTheme.colorScheme.onSurface,
-            modifier = Modifier.placeholder(visible = isLoading)
-        )
+        Row(
+            verticalAlignment = Alignment.Bottom,
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.headlineLarge,
+                color = MaterialTheme.colorScheme.onSurface,
+                modifier = Modifier.placeholder(visible = isLoading)
+            )
+            pronouns?.let {
+                Text(
+                    text = pronouns,
+                    style = MaterialTheme.typography.headlineSmall,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = .5f),
+                    modifier = Modifier.placeholder(visible = isLoading)
+                )
+            }
+        }
         subtitle?.let {
             Spacer(modifier = Modifier.height(4.dp))
             Text(
@@ -58,28 +72,35 @@ fun SocialsSection(
             Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                 twitterUrl?.let {
                     Socials.Twitter(
-                        text = it,
+                        text = title,
                         onClick = { twitterUrl.let(onLinkClicked) },
+                        modifier = Modifier.placeholder(visible = isLoading)
+                    )
+                }
+                mastodonUrl?.let {
+                    Socials.Mastodon(
+                        text = title,
+                        onClick = { mastodonUrl.let(onLinkClicked) },
                         modifier = Modifier.placeholder(visible = isLoading)
                     )
                 }
                 githubUrl?.let {
                     Socials.GitHub(
-                        text = it,
+                        text = title,
                         onClick = { githubUrl.let(onLinkClicked) },
                         modifier = Modifier.placeholder(visible = isLoading)
                     )
                 }
                 linkedinUrl?.let {
                     Socials.LinkedIn(
-                        text = it,
+                        text = title,
                         onClick = { linkedinUrl.let(onLinkClicked) },
                         modifier = Modifier.placeholder(visible = isLoading)
                     )
                 }
                 websiteUrl?.let {
                     Socials.Website(
-                        text = stringResource(R.string.action_open_website, title),
+                        text = title,
                         onClick = { websiteUrl.let(onLinkClicked) },
                         modifier = Modifier.placeholder(visible = isLoading)
                     )
@@ -110,6 +131,7 @@ internal fun SocialsSectionPreview() {
     Conferences4HallTheme {
         SocialsSection(
             title = EventUi.fake.eventInfo.name,
+            pronouns = null,
             subtitle = EventUi.fake.eventInfo.date,
             twitterUrl = EventUi.fake.eventInfo.twitterUrl,
             githubUrl = EventUi.fake.eventInfo.twitterUrl,

@@ -73,6 +73,7 @@
         <item quantity="other">%d années min</item>
     </plurals>
     <string name="text_job_propulsed">Propulsé par %s</string>
+    <string name="text_speaker_activity">%s à %s</string>
 
     <string name="action_back">Retour</string>
     <string name="action_expanded_menu">Afficher le menu</string>
@@ -98,7 +99,6 @@
     <string name="action_contact_organizers_phone">Contacter par téléphone</string>
     <string name="action_contact_organizers_mail">Contacter par mail</string>
     <string name="action_edit_profile">Modifier mes informations</string>
-    <string name="action_open_website">Ouvre le site de %s</string>
     <string name="action_power_off">Changer d\'évènement</string>
     <string name="action_export">Exporter les contacts</string>
 
@@ -112,7 +112,9 @@
     <string name="semantic_ticket_id">Identifiant de ton billet %s</string>
     <string name="semantic_ticket_qrcode">Qrcode de ton billet prêt à être scanné</string>
     <string name="semantic_twitter">Twitter de %s</string>
+    <string name="semantic_mastodon">Mastodon de %s</string>
     <string name="semantic_github">GitHub de %s</string>
     <string name="semantic_linkedin">LinkedIn de %s</string>
+    <string name="semantic_website">Site de %s</string>
     <string name="semantic_start_itinerary">Démarrer l\'itinéraire vers l\'évènement</string>
 </resources>

@@ -42,6 +42,7 @@ fun Event(
         item {
             SocialsSection(
                 title = event.eventInfo.name,
+                pronouns = null,
                 subtitle = event.eventInfo.date,
                 isLoading = isLoading,
                 twitterUrl = event.eventInfo.twitterUrl,

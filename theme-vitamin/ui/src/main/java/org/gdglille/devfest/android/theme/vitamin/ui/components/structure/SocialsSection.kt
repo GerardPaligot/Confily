@@ -23,7 +23,7 @@ import org.gdglille.devfest.models.EventUi
 @Composable
 fun SocialsSection(
     title: String,
-    subtitle: String,
+    subtitle: String?,
     onLinkClicked: (url: String) -> Unit,
     modifier: Modifier = Modifier,
     detailed: String? = null,
@@ -39,33 +39,35 @@ fun SocialsSection(
             color = VitaminTheme.colors.vtmnContentPrimary,
             modifier = Modifier.placeholder(visible = isLoading)
         )
-        Spacer(modifier = Modifier.height(4.dp))
-        Text(
-            text = subtitle,
-            style = VitaminTheme.typography.body3,
-            color = VitaminTheme.colors.vtmnContentSecondary,
-            modifier = Modifier.placeholder(visible = isLoading)
-        )
+        subtitle?.let {
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = subtitle,
+                style = VitaminTheme.typography.body3,
+                color = VitaminTheme.colors.vtmnContentSecondary,
+                modifier = Modifier.placeholder(visible = isLoading)
+            )
+        }
         Spacer(modifier = Modifier.height(12.dp))
         if (twitterUrl != null || githubUrl != null || linkedinUrl != null) {
             Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                 twitterUrl?.let {
                     Socials.Twitter(
-                        text = it,
+                        text = title,
                         onClick = { twitterUrl.let(onLinkClicked) },
                         modifier = Modifier.placeholder(visible = isLoading)
                     )
                 }
                 githubUrl?.let {
                     Socials.GitHub(
-                        text = it,
+                        text = title,
                         onClick = { githubUrl.let(onLinkClicked) },
                         modifier = Modifier.placeholder(visible = isLoading)
                     )
                 }
                 linkedinUrl?.let {
                     Socials.LinkedIn(
-                        text = it,
+                        text = title,
                         onClick = { linkedinUrl.let(onLinkClicked) },
                         modifier = Modifier.placeholder(visible = isLoading)
                     )
