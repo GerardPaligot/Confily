@@ -5,6 +5,7 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
+import org.gdglille.devfest.database.mappers.SpeakerMappers
 import org.gdglille.devfest.db.Conferences4HallDatabase
 import org.gdglille.devfest.extensions.formatHoursMinutes
 import org.gdglille.devfest.models.CategoryUi
@@ -41,9 +42,9 @@ class TalkDao(private val db: Conferences4HallDatabase) {
                 SpeakerItemUi(
                     id = it.id,
                     name = it.display_name,
-                    company = it.company ?: "",
-                    url = it.photo_url,
-                    twitter = it.twitter?.split("twitter.com/")?.get(1)
+                    pronouns = it.pronouns,
+                    company = SpeakerMappers.displayActivity(it.job_title, it.company),
+                    url = it.photo_url
                 )
             }.toImmutableList(),
             speakersSharing = speakers.joinToString(", ") { speaker ->

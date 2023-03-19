@@ -123,11 +123,16 @@ class ScheduleDao(
                     db.speakerQueries.insertSpeaker(
                         id = it.id,
                         display_name = it.display_name,
+                        pronouns = it.pronouns,
                         bio = it.bio,
+                        job_title = it.job_title,
                         company = it.company,
                         photo_url = it.photo_url,
                         twitter = it.twitter,
+                        mastodon = it.mastodon,
                         github = it.github,
+                        linkedin = it.linkedin,
+                        website = it.website,
                         event_id = eventId
                     )
                     db.talkQueries.insertTalkWithSpeaker(

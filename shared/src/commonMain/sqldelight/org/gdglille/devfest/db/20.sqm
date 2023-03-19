@@ -1,0 +1,5 @@
+ALTER TABLE Speaker ADD COLUMN pronouns TEXT;
+ALTER TABLE Speaker ADD COLUMN job_title TEXT;
+ALTER TABLE Speaker ADD COLUMN linkedin TEXT;
+ALTER TABLE Speaker ADD COLUMN website TEXT;
+ALTER TABLE Speaker ADD COLUMN mastodon TEXT;

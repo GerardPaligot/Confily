@@ -14,11 +14,16 @@ import org.gdglille.devfest.models.ScheduleItem
 fun org.gdglille.devfest.models.Speaker.convertToModelDb(eventId: String): Speaker = Speaker(
     id = this.id,
     display_name = this.displayName,
+    pronouns = this.pronouns,
     bio = this.bio,
+    job_title = this.jobTitle,
     company = this.company,
     photo_url = this.photoUrl,
     twitter = this.twitter,
+    mastodon = this.mastodon,
     github = this.github,
+    linkedin = this.linkedin,
+    website = this.website,
     event_id = eventId
 )
 

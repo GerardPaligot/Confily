@@ -1,24 +1,32 @@
 CREATE TABLE Speaker(
 id TEXT NOT NULL PRIMARY KEY,
 display_name TEXT NOT NULL,
+pronouns TEXT,
 bio TEXT NOT NULL,
+job_title TEXT,
 company TEXT,
 photo_url TEXT NOT NULL ,
 twitter TEXT,
+mastodon TEXT,
 github TEXT,
+linkedin TEXT,
+website TEXT,
 event_id TEXT NOT NULL
 );
 
 insertSpeaker:
 INSERT OR REPLACE INTO Speaker(
-id, display_name, bio, company, photo_url, twitter, github, event_id
-) VALUES (?,?,?,?, ?, ?, ?, ?);
+id, display_name, pronouns, bio, job_title, company, photo_url, twitter, mastodon, github, linkedin, website, event_id
+) VALUES (?,?,?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
 
 selectSpeaker:
-SELECT * FROM Speaker WHERE id == ? AND event_id == ?;
+SELECT id, display_name, pronouns, bio, job_title, company, photo_url, twitter, mastodon, github, linkedin, website, event_id
+FROM Speaker WHERE id == ? AND event_id == ?;
 
 selectSpeakers:
-SELECT * FROM Speaker WHERE id IN ? AND event_id == ?;
+SELECT id, display_name, pronouns, bio, job_title, company, photo_url, twitter, mastodon, github, linkedin, website, event_id
+FROM Speaker WHERE id IN ? AND event_id == ?;
 
 selectSpeakersByEvent:
-SELECT * FROM Speaker WHERE event_id == ?;
+SELECT id, display_name, pronouns, bio, job_title, company, photo_url, twitter, mastodon, github, linkedin, website, event_id
+FROM Speaker WHERE event_id == ?;
