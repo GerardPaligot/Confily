@@ -22,10 +22,14 @@ fun org.gdglille.devfest.backend.internals.network.conferencehall.Speaker.conver
 fun SpeakerDb.convertToModel(): Speaker = Speaker(
     id = this.id,
     displayName = this.displayName,
+    pronouns = this.pronouns,
     bio = this.bio,
+    jobTitle = this.jobTitle,
     company = this.company,
     photoUrl = this.photoUrl,
+    website = this.website,
     twitter = this.twitter,
+    mastodon = this.mastodon,
     github = this.github,
     linkedin = this.linkedin
 )
@@ -33,10 +37,14 @@ fun SpeakerDb.convertToModel(): Speaker = Speaker(
 fun SpeakerInput.convertToDb(id: String? = null) = SpeakerDb(
     id = id ?: "",
     displayName = this.displayName,
+    pronouns = this.pronouns,
     bio = this.bio,
+    jobTitle = this.jobTitle,
     company = this.company,
     photoUrl = this.photoUrl,
+    website = this.website,
     twitter = this.twitter,
+    mastodon = this.mastodon,
     github = this.github,
     linkedin = this.linkedin
 )
