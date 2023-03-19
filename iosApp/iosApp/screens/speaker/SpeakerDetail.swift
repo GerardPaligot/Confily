@@ -28,19 +28,33 @@ struct SpeakerDetail: View {
                     Spacer()
                     SocialHeaderView(
                         title: speaker.name,
+                        pronouns: speaker.pronouns,
                         logoUrl: speaker.url,
                         twitterUrl: speaker.twitterUrl,
-                        githubUrl: speaker.githubUrl
+                        mastodonUrl: speaker.mastodonUrl,
+                        linkedInUrl: speaker.linkedinUrl,
+                        githubUrl: speaker.githubUrl,
+                        websiteUrl: speaker.websiteUrl
                     )
                     Spacer()
                 }
             }
             Section {
-                HStack(alignment: .center) {
-                    Text("titleCompany")
-                    Spacer()
-                    Text(speaker.company)
-                        .foregroundColor(.secondary)
+                if (speaker.jobTitle != nil) {
+                    HStack(alignment: .center) {
+                        Text("titleJob")
+                        Spacer()
+                        Text(speaker.jobTitle!)
+                            .foregroundColor(.secondary)
+                    }
+                }
+                if (speaker.company != nil) {
+                    HStack(alignment: .center) {
+                        Text("titleCompany")
+                        Spacer()
+                        Text(speaker.company!)
+                            .foregroundColor(.secondary)
+                    }
                 }
                 Text(speaker.bio)
                     .font(Font.callout)

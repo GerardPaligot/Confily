@@ -60,6 +60,7 @@
 		D5868A582823139E008EE6E3 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = D5868A572823139E008EE6E3 /* SDWebImageSwiftUI */; };
 		D5868A5B282313F2008EE6E3 /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = D5868A5A282313F2008EE6E3 /* SDWebImageSVGCoder */; };
 		D587A25C29AB90120074E4B9 /* JobItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D587A25B29AB90120074E4B9 /* JobItemView.swift */; };
+		D58A307329C7C340000998CA /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = D58A307229C7C340000998CA /* WrappingHStack */; };
 		D58F1D4F27AFF40A00FB59C7 /* TalkItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58F1D4E27AFF40A00FB59C7 /* TalkItemView.swift */; };
 		D58F1D5127B001CE00FB59C7 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D58F1D5027B001CE00FB59C7 /* Colors.xcassets */; };
 		D58F1D5427B0057300FB59C7 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58F1D5327B0057300FB59C7 /* Color.swift */; };
@@ -199,6 +200,7 @@
 				D5868A582823139E008EE6E3 /* SDWebImageSwiftUI in Frameworks */,
 				D5A226BE2921336E000D14AB /* KMPNativeCoroutinesCore in Frameworks */,
 				D5A226BC2921336E000D14AB /* KMPNativeCoroutinesAsync in Frameworks */,
+				D58A307329C7C340000998CA /* WrappingHStack in Frameworks */,
 				D5AEA3AB28341C630023245B /* FirebaseCrashlytics in Frameworks */,
 				D5AEA3A928341C630023245B /* FirebaseAnalytics in Frameworks */,
 				D55B3BCB27BEF349006184D1 /* CodeScanner in Frameworks */,
@@ -578,6 +580,7 @@
 				D5A226BB2921336E000D14AB /* KMPNativeCoroutinesAsync */,
 				D5A226BD2921336E000D14AB /* KMPNativeCoroutinesCore */,
 				D53256BE2921810A00EA0DE7 /* AsyncAlgorithms */,
+				D58A307229C7C340000998CA /* WrappingHStack */,
 			);
 			productName = iosApp;
 			productReference = 7555FF7B242A565900829871 /* iosApp.app */;
@@ -615,6 +618,7 @@
 				D5AEA3A728341C630023245B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				D5A226BA2921336E000D14AB /* XCRemoteSwiftPackageReference "KMP-NativeCoroutines" */,
 				D53256BD2921810A00EA0DE7 /* XCRemoteSwiftPackageReference "swift-async-algorithms" */,
+				D58A307129C7C340000998CA /* XCRemoteSwiftPackageReference "WrappingHStack" */,
 			);
 			productRefGroup = 7555FF7C242A565900829871 /* Products */;
 			projectDirPath = "";
@@ -1014,6 +1018,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		D58A307129C7C340000998CA /* XCRemoteSwiftPackageReference "WrappingHStack" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dkk/WrappingHStack";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		D5A226BA2921336E000D14AB /* XCRemoteSwiftPackageReference "KMP-NativeCoroutines" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rickclephas/KMP-NativeCoroutines.git";
@@ -1052,6 +1064,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D5868A59282313F2008EE6E3 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */;
 			productName = SDWebImageSVGCoder;
+		};
+		D58A307229C7C340000998CA /* WrappingHStack */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D58A307129C7C340000998CA /* XCRemoteSwiftPackageReference "WrappingHStack" */;
+			productName = WrappingHStack;
 		};
 		D5A226BB2921336E000D14AB /* KMPNativeCoroutinesAsync */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -7,12 +7,15 @@
 //
 
 import SwiftUI
+import WrappingHStack
 import shared
 
 struct SocialHeaderView: View {
     var title: String
+    var pronouns: String? = nil
     var logoUrl: String? = nil
     var twitterUrl: String? = nil
+    var mastodonUrl: String? = nil
     var linkedInUrl: String? = nil
     var githubUrl: String? = nil
     var websiteUrl: String? = nil
@@ -32,11 +35,18 @@ struct SocialHeaderView: View {
                     .background(Color.white)
                     .clipShape(RoundedRectangle(cornerRadius: 8))
                 }
-                Text(title)
-                    .foregroundColor(Color.c4hOnBackground)
-                    .font(Font.title2)
+                HStack(alignment: .bottom, spacing: 16) {
+                    Text(title)
+                        .foregroundColor(Color.c4hOnBackground)
+                        .font(Font.title2)
+                    if (pronouns != nil) {
+                        Text(pronouns!)
+                            .foregroundColor(.secondary)
+                            .font(Font.callout)
+                    }
+                }
             }
-            HStack {
+            WrappingHStack(alignment: .center, lineSpacing: 8) {
                 if (twitterUrl != nil) {
                     Link(destination: URL(string: twitterUrl!)!) {
                         VStack {
@@ -52,6 +62,22 @@ struct SocialHeaderView: View {
                     }
                     .buttonStyle(.bordered)
                     .accessibility(label: Text(LocalizedStringKey("semanticTwitter \(title)")))
+                }
+                if (mastodonUrl != nil) {
+                    Link(destination: URL(string: mastodonUrl!)!) {
+                        VStack {
+                            Image("ic_mastodon")
+                                .renderingMode(.template)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 24, height: 24, alignment: .center)
+                            Text("actionMastodon")
+                                .font(.caption)
+                        }
+                        .frame(width: 64)
+                    }
+                    .buttonStyle(.bordered)
+                    .accessibility(label: Text(LocalizedStringKey("semanticMastodon \(title)")))
                 }
                 if (linkedInUrl != nil) {
                     Link(destination: URL(string: linkedInUrl!)!) {
@@ -110,8 +136,10 @@ struct SocialHeaderView_Previews: PreviewProvider {
     static var previews: some View {
         SocialHeaderView(
             title: PartnerItemUi.companion.fake.name,
+            pronouns: SpeakerUi.companion.fake.pronouns,
             logoUrl: PartnerItemUi.companion.fake.logoUrl,
             twitterUrl: PartnerItemUi.companion.fake.twitterUrl,
+            mastodonUrl: SpeakerUi.companion.fake.mastodonUrl,
             linkedInUrl: PartnerItemUi.companion.fake.linkedinUrl,
             githubUrl: SpeakerUi.companion.fake.githubUrl,
             websiteUrl: PartnerItemUi.companion.fake.siteUrl

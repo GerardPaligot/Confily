@@ -27,6 +27,7 @@
 "titleLinks" = "Links";
 "titleTalks" = "Talks";
 "titleCompany" = "Company";
+"titleJob" = "Job";
 
 "textLoading" = "Loading…";
 "textError" = "Something wrong happened";
@@ -51,6 +52,7 @@
 "actionFeedback" = "Give your feedback";
 "actionItinerary" = "Itinerary";
 "actionTwitter" = "Twitter";
+"actionMastodon" = "Mastodon";
 "actionLinkedin" = "LinkedIn";
 "actionGitHub" = "GitHub";
 "actionWebsite" = "Website";
@@ -76,6 +78,7 @@
 "semanticHHmm %lld %lld" = "%lld hours %lld minutes";
 "semanticScheduleTime %lld %lld %lld %lld" = "From %lld hours %lld minutes to %lld hours %lld minutes";
 "semanticTwitter %@" = "Twitter of %@";
+"semanticMastodon %@" = "Mastodon of %@";
 "semanticGitHub %@" = "GitHub of %@";
 "semanticLinkedIn %@" = "LinkedIn of %@";
 "semanticWebsite %@" = "Website of %@";
