@@ -101,7 +101,21 @@ export BASE_URL_CONFERENCE_HALL=conference-hall.io
 
 Now, you can start to interact with the backend.
 
-### Deploy in GCP with AppEngine
+### Deploy in GCP
+
+#### Prerequisites
+
+* Billing account enabled on your GCP project
+* Gcloud app created: `gcloud app create`
+* Cloud Build service enabled
+* Secret Manager enabled
+
+Optionaly, you can configure Geocoding api to complete partner address:
+
+* Geocoding enabled
+* Add secret `GEOCODE_API_KEY` in Secret Manager with geocoding api key
+
+#### Deploy in GCP with AppEngine
 
 ```bash
 # If you are not yet logged
@@ -111,7 +125,7 @@ gcloud config set project $PROJECT_ID
 ./gradlew :backend:appengineDeploy
 ```
 
-### Deploy in GCP with Cloud Run
+#### Deploy in GCP with Cloud Run
 
 ```bash
 # If you are not yet logged
