@@ -27,8 +27,14 @@ import org.gdglille.devfest.models.inputs.FeaturesActivatedInput
 import org.gdglille.devfest.models.inputs.LunchMenuInput
 import org.gdglille.devfest.models.inputs.QuestionAndResponseInput
 import java.time.LocalDateTime
+import org.gdglille.devfest.backend.NotAcceptableException
+import org.gdglille.devfest.backend.internals.network.geolocation.GeocodeApi
+import org.gdglille.devfest.backend.internals.network.geolocation.convertToDb
+import org.gdglille.devfest.models.CreatedEvent
+import org.gdglille.devfest.models.inputs.CreatingEventInput
 
 class EventRepository(
+    private val geocodeApi: GeocodeApi,
     private val eventDao: EventDao,
     private val speakerDao: SpeakerDao,
     private val talkDao: TalkDao,
@@ -75,6 +81,14 @@ class EventRepository(
         return event.convertToModelV2(
             hasPartnerList = cms4PartnersDao.hasPartners(event.year) || partnerDao.hasPartners(eventId)
         )
+    }
+
+    suspend fun create(eventInput: CreatingEventInput) = coroutineScope {
+        val addressDb = geocodeApi.geocode(eventInput.address).convertToDb()
+            ?: throw NotAcceptableException("Your address information isn't found")
+        val event = eventInput.convertToDb(addressDb)
+        eventDao.createOrUpdate(event)
+        return@coroutineScope CreatedEvent(eventId = event.slugId, apiKey = event.apiKey)
     }
 
     suspend fun update(eventId: String, apiKey: String, eventInput: EventInput) = coroutineScope {

@@ -2,6 +2,7 @@
 
 package org.gdglille.devfest.backend.events
 
+import java.util.UUID
 import org.gdglille.devfest.backend.internals.network.conferencehall.Event
 import org.gdglille.devfest.backend.internals.slug
 import org.gdglille.devfest.models.Acronym
@@ -16,6 +17,7 @@ import org.gdglille.devfest.models.QuestionAndResponseAction
 import org.gdglille.devfest.models.inputs.AcronymInput
 import org.gdglille.devfest.models.inputs.BilletWebConfigInput
 import org.gdglille.devfest.models.inputs.CategoryInput
+import org.gdglille.devfest.models.inputs.CreatingEventInput
 import org.gdglille.devfest.models.inputs.EventInput
 import org.gdglille.devfest.models.inputs.LunchMenuInput
 import org.gdglille.devfest.models.inputs.QuestionAndResponseActionInput
@@ -203,6 +205,27 @@ fun EventInput.convertToDb(event: EventDb, openFeedbackId: String?, apiKey: Stri
     endDate = this.endDate,
     sponsoringTypes = this.sponsoringTypes,
     formats = this.formats,
+    contactPhone = this.contactPhone,
+    contactEmail = this.contactEmail,
+    twitterUrl = this.twitterUrl,
+    linkedinUrl = this.linkedinUrl,
+    faqLink = this.faqLink,
+    codeOfConductLink = this.codeOfConductLink,
+    updatedAt = this.updatedAt
+)
+
+fun CreatingEventInput.convertToDb(addressDb: AddressDb) = EventDb(
+    slugId = name.slug(),
+    year = year,
+    conferenceHallId = null,
+    openFeedbackId = openFeedbackId,
+    billetWebConfig = this.billetWebConfig?.convertToDb(),
+    wldConfig = this.wldConfig?.convertToDb(),
+    apiKey = UUID.randomUUID().toString(),
+    name = this.name,
+    address = addressDb,
+    startDate = this.startDate,
+    endDate = this.endDate,
     contactPhone = this.contactPhone,
     contactEmail = this.contactEmail,
     twitterUrl = this.twitterUrl,

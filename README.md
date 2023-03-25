@@ -108,14 +108,15 @@ Now, you can start to interact with the backend.
 * Billing account enabled on your GCP project
 * Gcloud app created: `gcloud app create`
 * Cloud Build service enabled
+* Cloud Firestore service enabled
 * Secret Manager enabled
-
-Optionaly, you can configure Geocoding api to complete partner address:
-
 * Geocoding enabled
 * Add secret `GEOCODE_API_KEY` in Secret Manager with geocoding api key
 
 #### Deploy in GCP with AppEngine
+
+Be sure to edit the `app.yaml` file in `backend/src/main/appengine` folder with your project id 
+before to deploy.
 
 ```bash
 # If you are not yet logged

@@ -13,6 +13,7 @@ import io.ktor.server.response.lastModified
 import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
+import io.ktor.server.routing.post
 import io.ktor.server.routing.put
 import org.gdglille.devfest.backend.NotFoundException
 import org.gdglille.devfest.backend.events.v2.EventRepositoryV2
@@ -33,9 +34,12 @@ import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
+import org.gdglille.devfest.backend.internals.network.geolocation.GeocodeApi
+import org.gdglille.devfest.models.inputs.CreatingEventInput
 
 @Suppress("LongParameterList")
 fun Route.registerEventRoutes(
+    geocodeApi: GeocodeApi,
     eventDao: EventDao,
     speakerDao: SpeakerDao,
     talkDao: TalkDao,
@@ -43,11 +47,15 @@ fun Route.registerEventRoutes(
     partnerDao: PartnerDao,
     cms4PartnersDao: Cms4PartnersDao
 ) {
-    val repository = EventRepository(eventDao, speakerDao, talkDao, scheduleItemDao, partnerDao, cms4PartnersDao)
+    val repository = EventRepository(geocodeApi, eventDao, speakerDao, talkDao, scheduleItemDao, partnerDao, cms4PartnersDao)
     val repositoryV2 = EventRepositoryV2(eventDao, speakerDao, talkDao, scheduleItemDao)
 
     get("/events") {
         call.respond(HttpStatusCode.OK, repository.list())
+    }
+    post("/events") {
+        val input = call.receiveValidated<CreatingEventInput>()
+        call.respond(HttpStatusCode.Created, repository.create(input))
     }
     get("/events/{eventId}") {
         val eventId = call.parameters["eventId"]!!

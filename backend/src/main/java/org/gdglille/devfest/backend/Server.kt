@@ -118,7 +118,7 @@ fun main() {
         }
         routing {
             registerConferenceHallRoutes(eventDao, speakerDao, talkDao)
-            registerEventRoutes(eventDao, speakerDao, talkDao, scheduleItemDao, partnerDao, cms4partnerDao)
+            registerEventRoutes(geocodeApi, eventDao, speakerDao, talkDao, scheduleItemDao, partnerDao, cms4partnerDao)
             route("/events/{eventId}") {
                 registerSpeakersRoutes(eventDao, speakerDao)
                 registerTalksRoutes(eventDao, speakerDao, talkDao)

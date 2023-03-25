@@ -63,7 +63,7 @@ data class WldConfigurationDb(
 data class EventDb(
     val slugId: String = "",
     val year: String = "",
-    val conferenceHallId: String = "",
+    val conferenceHallId: String? = null,
     val openFeedbackId: String? = null,
     val billetWebConfig: BilletWebConfigurationDb? = null,
     val wldConfig: WldConfigurationDb? = null,
