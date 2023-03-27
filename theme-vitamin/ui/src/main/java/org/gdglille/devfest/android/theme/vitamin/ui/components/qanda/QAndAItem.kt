@@ -28,10 +28,10 @@ import com.decathlon.vitamin.compose.foundation.VitaminTheme
 import com.halilibo.richtext.markdown.Markdown
 import com.halilibo.richtext.ui.RichText
 import com.halilibo.richtext.ui.RichTextThemeIntegration
-import org.gdglille.devfest.android.theme.vitamin.ui.R
 import org.gdglille.devfest.android.theme.vitamin.ui.theme.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.vitamin.ui.theme.placeholder
 import org.gdglille.devfest.models.QuestionAndResponseUi
+import com.decathlon.vitamin.compose.foundation.R as RVitamin
 
 private const val ExpandedDegrees = 180f
 private const val ClosedDegrees = 0f
@@ -72,7 +72,7 @@ fun QAndAItem(
                     modifier = Modifier.weight(1f)
                 )
                 Icon(
-                    painter = painterResource(R.drawable.ic_vtmn_arrow_down_line),
+                    painter = painterResource(RVitamin.drawable.ic_vtmn_arrow_down_line),
                     contentDescription = null,
                     modifier = Modifier.rotate(degrees = degrees)
                 )
@@ -94,7 +94,7 @@ fun QAndAItem(
                         qAndA.actions.forEach {
                             VitaminButtons.Tertiary(
                                 text = it.label,
-                                icon = painterResource(R.drawable.ic_vtmn_link_line),
+                                icon = painterResource(RVitamin.drawable.ic_vtmn_link_line),
                                 iconSide = IconSide.LEFT,
                                 modifier = Modifier.fillMaxWidth(),
                                 onClick = {

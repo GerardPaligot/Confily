@@ -6,10 +6,10 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import org.gdglille.devfest.android.theme.vitamin.ui.R
 import org.gdglille.devfest.android.theme.vitamin.ui.components.appbars.TopAppBar
 import org.gdglille.devfest.android.theme.vitamin.ui.components.permissions.FeatureThatRequiresCameraPermission
 import org.gdglille.devfest.android.ui.camera.TicketCameraPreview
+import org.gdglille.devfest.android.ui.resources.R
 
 @Composable
 fun TicketQrCodeScanner(

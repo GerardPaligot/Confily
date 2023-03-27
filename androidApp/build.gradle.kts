@@ -14,6 +14,7 @@ val versionMajor = 1
 val versionMinor = 0
 val versionPatch = 0
 android {
+    namespace = "org.gdglille.devfest.android"
     defaultConfig {
         applicationId = "org.gdglille.devfest.android"
         versionCode = versionMajor * 1000 + versionMinor * 100 + versionPatch * 10
@@ -71,6 +72,10 @@ android {
             proguardFiles("benchmark-rules.pro")
         }
     }
+
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {
@@ -81,6 +86,7 @@ dependencies {
     }
     implementation(projects.androidData)
     implementation(projects.shared)
+    implementation(projects.uiResources)
     implementation(libs.settings)
 
     implementation(libs.android.material)

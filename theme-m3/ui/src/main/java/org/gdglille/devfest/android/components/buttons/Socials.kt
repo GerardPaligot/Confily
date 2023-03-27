@@ -16,7 +16,7 @@ import compose.icons.fontawesomeicons.brands.LinkedinIn
 import compose.icons.fontawesomeicons.brands.Mastodon
 import compose.icons.fontawesomeicons.brands.Twitter
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
-import org.gdglille.devfest.android.theme.m3.ui.R
+import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.models.PartnerItemUi
 import org.gdglille.devfest.models.SpeakerUi
 

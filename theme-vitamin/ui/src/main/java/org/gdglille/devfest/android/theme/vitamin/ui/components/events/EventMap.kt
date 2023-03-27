@@ -21,10 +21,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.decathlon.vitamin.compose.foundation.VitaminTheme
 import kotlinx.collections.immutable.ImmutableList
-import org.gdglille.devfest.android.theme.vitamin.ui.R
 import org.gdglille.devfest.android.theme.vitamin.ui.theme.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.vitamin.ui.theme.placeholder
+import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.models.EventUi
+import com.decathlon.vitamin.compose.foundation.R as RVitamin
 
 @Composable
 fun EventMap(
@@ -61,7 +62,7 @@ fun EventMap(
             }
             IconButton(onClick = onItineraryClicked) {
                 Icon(
-                    painter = painterResource(R.drawable.ic_vtmn_direction_line),
+                    painter = painterResource(RVitamin.drawable.ic_vtmn_direction_line),
                     contentDescription = stringResource(R.string.semantic_start_itinerary),
                     tint = VitaminTheme.colors.vtmnContentAction,
                     modifier = Modifier.size(32.dp).placeholder(isLoading)

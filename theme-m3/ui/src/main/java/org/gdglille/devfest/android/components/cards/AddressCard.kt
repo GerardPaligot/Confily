@@ -22,8 +22,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
-import org.gdglille.devfest.android.theme.m3.ui.R
 import org.gdglille.devfest.android.theme.placeholder
+import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.models.EventUi
 
 @Composable

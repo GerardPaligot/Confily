@@ -10,6 +10,7 @@ import io.openfeedback.android.OpenFeedbackConfig
 import org.gdglille.devfest.android.data.viewmodels.ScheduleItemViewModel
 import org.gdglille.devfest.android.data.viewmodels.ScheduleUiState
 import org.gdglille.devfest.android.theme.vitamin.ui.screens.agenda.ScheduleDetail
+import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.repositories.AgendaRepository
 
 @Composable

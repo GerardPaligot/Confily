@@ -10,7 +10,7 @@ import androidx.compose.ui.unit.dp
 import com.decathlon.vitamin.compose.foundation.VitaminTheme
 import io.openfeedback.android.OpenFeedbackConfig
 import io.openfeedback.android.m2.OpenFeedback
-import org.gdglille.devfest.android.theme.vitamin.ui.R
+import org.gdglille.devfest.android.ui.resources.R
 import java.util.Locale
 
 @Composable

@@ -10,6 +10,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import org.gdglille.devfest.android.data.viewmodels.ProfileInputUiState
 import org.gdglille.devfest.android.data.viewmodels.ProfileInputViewModel
 import org.gdglille.devfest.android.screens.networking.ProfileInput
+import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.repositories.UserRepository
 
 @OptIn(ExperimentalMaterial3Api::class)

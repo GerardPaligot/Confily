@@ -6,8 +6,8 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import com.decathlon.vitamin.compose.tags.VitaminTags
-import org.gdglille.devfest.android.theme.vitamin.ui.R
 import org.gdglille.devfest.models.CategoryUi
+import com.decathlon.vitamin.compose.foundation.R as RVitamin
 
 @Composable
 fun DecorativeTag(
@@ -77,10 +77,10 @@ private fun String.iconPainter(): Painter = painterResource(getResourceId(this))
 @Composable
 private fun getResourceId(icon: String): Int {
     if (icon == "default") {
-        return R.drawable.ic_vtmn_function_line
+        return RVitamin.drawable.ic_vtmn_function_line
     }
     val context = LocalContext.current
     val drawableName = "ic_vtmn_${icon.replace("-", "_")}_line"
     val identifier = context.resources.getIdentifier(drawableName, "drawable", context.packageName)
-    return if (identifier > 0) identifier else R.drawable.ic_vtmn_function_line
+    return if (identifier > 0) identifier else RVitamin.drawable.ic_vtmn_function_line
 }

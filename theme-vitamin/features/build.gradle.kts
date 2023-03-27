@@ -4,6 +4,10 @@ plugins {
     id("conferences4hall.quality")
 }
 
+android {
+    namespace = "org.gdglille.devfest.android.theme.vitamin.features"
+}
+
 dependencies {
     api(projects.themeVitamin.ui)
     implementation(projects.uiResources)

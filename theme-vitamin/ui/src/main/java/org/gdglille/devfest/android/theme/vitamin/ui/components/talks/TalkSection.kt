@@ -19,13 +19,14 @@ import com.halilibo.richtext.markdown.Markdown
 import com.halilibo.richtext.ui.RichText
 import com.halilibo.richtext.ui.RichTextThemeIntegration
 import kotlinx.collections.immutable.toImmutableList
-import org.gdglille.devfest.android.theme.vitamin.ui.R
 import org.gdglille.devfest.android.theme.vitamin.ui.components.speakers.SpeakersAvatar
 import org.gdglille.devfest.android.theme.vitamin.ui.components.tags.DecorativeTag
 import org.gdglille.devfest.android.theme.vitamin.ui.components.tags.LevelTag
 import org.gdglille.devfest.android.theme.vitamin.ui.components.tags.UnStyledTag
 import org.gdglille.devfest.android.theme.vitamin.ui.theme.Conferences4HallTheme
+import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.models.TalkUi
+import com.decathlon.vitamin.compose.foundation.R as RVitamin
 
 @Composable
 fun TalkSection(
@@ -62,18 +63,18 @@ fun TalkSection(
         Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
             UnStyledTag(
                 text = talk.startTime,
-                icon = R.drawable.ic_vtmn_time_line
+                icon = RVitamin.drawable.ic_vtmn_time_line
             )
             UnStyledTag(
                 text = talk.room,
-                icon = R.drawable.ic_vtmn_map_pin_line
+                icon = RVitamin.drawable.ic_vtmn_map_pin_line
             )
             UnStyledTag(
                 text = stringResource(R.string.text_schedule_minutes, talk.timeInMinutes.toString()),
                 icon = if (talk.timeInMinutes <= ShortTalk) {
-                    R.drawable.ic_vtmn_flashlight_line
+                    RVitamin.drawable.ic_vtmn_flashlight_line
                 } else {
-                    R.drawable.ic_vtmn_timer_line
+                    RVitamin.drawable.ic_vtmn_timer_line
                 }
             )
         }

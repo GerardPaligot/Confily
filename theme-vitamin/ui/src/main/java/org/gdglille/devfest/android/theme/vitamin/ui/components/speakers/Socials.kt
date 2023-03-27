@@ -8,11 +8,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.gdglille.devfest.android.theme.vitamin.ui.R
 import org.gdglille.devfest.android.theme.vitamin.ui.components.buttons.IconButtonTertiary
 import org.gdglille.devfest.android.theme.vitamin.ui.theme.Conferences4HallTheme
+import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.models.EventUi
 import org.gdglille.devfest.models.SpeakerUi
+import com.decathlon.vitamin.compose.foundation.R as RVitamin
 
 object Socials {
     @Composable
@@ -22,7 +23,7 @@ object Socials {
         onClick: () -> Unit
     ) {
         IconButtonTertiary(
-            painter = painterResource(R.drawable.ic_vtmn_twitter_line),
+            painter = painterResource(RVitamin.drawable.ic_vtmn_twitter_line),
             contentDescription = stringResource(id = R.string.semantic_twitter, text),
             modifier = modifier,
             onClick = onClick
@@ -36,7 +37,7 @@ object Socials {
         onClick: () -> Unit
     ) {
         IconButtonTertiary(
-            painter = painterResource(R.drawable.ic_vtmn_google_line),
+            painter = painterResource(RVitamin.drawable.ic_vtmn_google_line),
             contentDescription = stringResource(id = R.string.semantic_github, text),
             modifier = modifier,
             onClick = onClick
@@ -50,7 +51,7 @@ object Socials {
         onClick: () -> Unit
     ) {
         IconButtonTertiary(
-            painter = painterResource(R.drawable.ic_vtmn_google_line),
+            painter = painterResource(RVitamin.drawable.ic_vtmn_google_line),
             contentDescription = stringResource(id = R.string.semantic_linkedin, text),
             modifier = modifier,
             onClick = onClick

@@ -12,7 +12,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import org.gdglille.devfest.android.theme.m3.ui.R
+import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.android.ui.resources.actions.TopAction
 import org.gdglille.devfest.android.ui.resources.models.TopActionsUi
 

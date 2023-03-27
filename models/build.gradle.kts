@@ -6,6 +6,10 @@ plugins {
     id("kotlinx-serialization")
 }
 
+android {
+    namespace = "org.gdglille.devfest.android.models"
+}
+
 kotlin {
     android()
     jvm()

@@ -25,11 +25,12 @@ import androidx.compose.ui.unit.dp
 import com.decathlon.vitamin.compose.buttons.VitaminButtons
 import com.decathlon.vitamin.compose.foundation.VitaminTheme
 import com.decathlon.vitamin.compose.textinputs.VitaminTextInputs
-import org.gdglille.devfest.android.theme.vitamin.ui.R
 import org.gdglille.devfest.android.theme.vitamin.ui.components.appbars.ExtendedTopAppBar
 import org.gdglille.devfest.android.theme.vitamin.ui.theme.Conferences4HallTheme
 import org.gdglille.devfest.android.ui.resources.Field
+import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.models.UserProfileUi
+import com.decathlon.vitamin.compose.foundation.R as RVitamin
 
 @Suppress("LongMethod")
 @Composable
@@ -48,7 +49,7 @@ fun ProfileInput(
                 navigationIcon = {
                     IconButton(onClick = onBackClicked) {
                         Icon(
-                            painter = painterResource(R.drawable.ic_vtmn_arrow_left_line),
+                            painter = painterResource(RVitamin.drawable.ic_vtmn_arrow_left_line),
                             contentDescription = stringResource(id = R.string.action_back)
                         )
                     }

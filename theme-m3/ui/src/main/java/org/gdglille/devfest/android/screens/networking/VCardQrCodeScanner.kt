@@ -10,8 +10,8 @@ import androidx.compose.ui.res.stringResource
 import org.gdglille.devfest.android.components.appbars.TopAppBar
 import org.gdglille.devfest.android.components.permissions.FeatureThatRequiresCameraPermission
 import org.gdglille.devfest.android.data.models.VCardModel
-import org.gdglille.devfest.android.theme.m3.ui.R
 import org.gdglille.devfest.android.ui.camera.VCardCameraPreview
+import org.gdglille.devfest.android.ui.resources.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

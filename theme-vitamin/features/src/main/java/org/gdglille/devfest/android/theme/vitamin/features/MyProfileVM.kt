@@ -10,6 +10,7 @@ import org.gdglille.devfest.android.data.viewmodels.ProfileInputUiState
 import org.gdglille.devfest.android.data.viewmodels.ProfileInputViewModel
 import org.gdglille.devfest.android.theme.vitamin.ui.screens.networking.EmptyNetworking
 import org.gdglille.devfest.android.theme.vitamin.ui.screens.networking.MyProfile
+import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.repositories.UserRepository
 
 @Composable

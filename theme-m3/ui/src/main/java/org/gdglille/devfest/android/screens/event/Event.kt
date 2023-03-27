@@ -23,7 +23,7 @@ import org.gdglille.devfest.android.components.structure.SocialsSection
 import org.gdglille.devfest.android.components.tickets.TicketDetailed
 import org.gdglille.devfest.android.components.tickets.TicketQrCode
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
-import org.gdglille.devfest.android.theme.m3.ui.R
+import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.models.EventUi
 
 @Composable

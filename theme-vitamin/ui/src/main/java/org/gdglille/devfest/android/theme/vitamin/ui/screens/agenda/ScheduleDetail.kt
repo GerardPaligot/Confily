@@ -18,13 +18,14 @@ import androidx.compose.ui.unit.dp
 import com.decathlon.vitamin.compose.appbars.topbars.ActionItem
 import io.openfeedback.android.OpenFeedbackConfig
 import kotlinx.collections.immutable.persistentListOf
-import org.gdglille.devfest.android.theme.vitamin.ui.R
 import org.gdglille.devfest.android.theme.vitamin.ui.components.appbars.TopAppBar
 import org.gdglille.devfest.android.theme.vitamin.ui.components.speakers.SpeakerSection
 import org.gdglille.devfest.android.theme.vitamin.ui.components.talks.OpenFeedbackSection
 import org.gdglille.devfest.android.theme.vitamin.ui.components.talks.TalkSection
 import org.gdglille.devfest.android.theme.vitamin.ui.theme.Conferences4HallTheme
+import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.models.TalkUi
+import com.decathlon.vitamin.compose.foundation.R as RVitamin
 
 @Composable
 fun ScheduleDetail(
@@ -49,7 +50,7 @@ fun ScheduleDetail(
                 },
                 actions = persistentListOf(
                     ActionItem(
-                        icon = painterResource(id = R.drawable.ic_vtmn_share_line),
+                        icon = painterResource(id = RVitamin.drawable.ic_vtmn_share_line),
                         contentDescription = stringResource(
                             id = R.string.action_share_talk, talk.title
                         ),

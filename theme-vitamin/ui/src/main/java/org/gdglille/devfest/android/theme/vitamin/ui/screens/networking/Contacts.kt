@@ -16,9 +16,9 @@ import androidx.compose.ui.unit.dp
 import com.decathlon.vitamin.compose.dividers.VitaminDividers
 import com.decathlon.vitamin.compose.modals.VitaminModals
 import kotlinx.collections.immutable.ImmutableList
-import org.gdglille.devfest.android.theme.vitamin.ui.R
 import org.gdglille.devfest.android.theme.vitamin.ui.components.users.UserItem
 import org.gdglille.devfest.android.theme.vitamin.ui.theme.Conferences4HallTheme
+import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.models.NetworkingUi
 import org.gdglille.devfest.models.UserNetworkingUi
 

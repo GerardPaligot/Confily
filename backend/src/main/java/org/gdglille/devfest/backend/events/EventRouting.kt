@@ -17,6 +17,7 @@ import io.ktor.server.routing.post
 import io.ktor.server.routing.put
 import org.gdglille.devfest.backend.NotFoundException
 import org.gdglille.devfest.backend.events.v2.EventRepositoryV2
+import org.gdglille.devfest.backend.internals.network.geolocation.GeocodeApi
 import org.gdglille.devfest.backend.partners.PartnerDao
 import org.gdglille.devfest.backend.partners.cms4partners.Cms4PartnersDao
 import org.gdglille.devfest.backend.receiveValidated
@@ -26,6 +27,7 @@ import org.gdglille.devfest.backend.talks.TalkDao
 import org.gdglille.devfest.backend.version
 import org.gdglille.devfest.models.inputs.CategoryInput
 import org.gdglille.devfest.models.inputs.CoCInput
+import org.gdglille.devfest.models.inputs.CreatingEventInput
 import org.gdglille.devfest.models.inputs.EventInput
 import org.gdglille.devfest.models.inputs.FeaturesActivatedInput
 import org.gdglille.devfest.models.inputs.LunchMenuInput
@@ -34,8 +36,6 @@ import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
-import org.gdglille.devfest.backend.internals.network.geolocation.GeocodeApi
-import org.gdglille.devfest.models.inputs.CreatingEventInput
 
 @Suppress("LongParameterList")
 fun Route.registerEventRoutes(
@@ -47,7 +47,9 @@ fun Route.registerEventRoutes(
     partnerDao: PartnerDao,
     cms4PartnersDao: Cms4PartnersDao
 ) {
-    val repository = EventRepository(geocodeApi, eventDao, speakerDao, talkDao, scheduleItemDao, partnerDao, cms4PartnersDao)
+    val repository = EventRepository(
+        geocodeApi, eventDao, speakerDao, talkDao, scheduleItemDao, partnerDao, cms4PartnersDao
+    )
     val repositoryV2 = EventRepositoryV2(eventDao, speakerDao, talkDao, scheduleItemDao)
 
     get("/events") {

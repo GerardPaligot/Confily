@@ -10,6 +10,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import org.gdglille.devfest.android.data.viewmodels.PartnersUiState
 import org.gdglille.devfest.android.data.viewmodels.PartnersViewModel
 import org.gdglille.devfest.android.screens.partners.Partners
+import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.repositories.AgendaRepository
 
 @OptIn(ExperimentalMaterial3Api::class)

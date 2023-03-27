@@ -13,7 +13,7 @@ import com.decathlon.vitamin.compose.appbars.topbars.VitaminTopBars
 import com.decathlon.vitamin.compose.appbars.topbars.icons.VitaminNavigationIconButtons
 import com.decathlon.vitamin.compose.tabs.TabItem
 import com.decathlon.vitamin.compose.tabs.VitaminTabs
-import org.gdglille.devfest.android.theme.vitamin.ui.R
+import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.android.ui.resources.actions.TabAction
 import org.gdglille.devfest.android.ui.resources.actions.TopAction
 import org.gdglille.devfest.android.ui.resources.models.TabActionsUi

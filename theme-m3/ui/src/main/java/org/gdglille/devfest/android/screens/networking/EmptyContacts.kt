@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import org.gdglille.devfest.android.theme.m3.ui.R
+import org.gdglille.devfest.android.ui.resources.R
 
 @Composable
 fun EmptyContacts(modifier: Modifier = Modifier) {

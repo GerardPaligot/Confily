@@ -18,11 +18,11 @@ import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.launch
-import org.gdglille.devfest.android.theme.vitamin.ui.R
 import org.gdglille.devfest.android.theme.vitamin.ui.TabActions
 import org.gdglille.devfest.android.theme.vitamin.ui.components.events.EventItem
 import org.gdglille.devfest.android.theme.vitamin.ui.components.structure.VitaminScaffold
 import org.gdglille.devfest.android.theme.vitamin.ui.theme.Conferences4HallTheme
+import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.android.ui.resources.models.TabActionsUi
 import org.gdglille.devfest.models.EventItemListUi
 

@@ -12,6 +12,7 @@ import org.gdglille.devfest.android.data.AlarmScheduler
 import org.gdglille.devfest.android.data.viewmodels.SpeakerUiState
 import org.gdglille.devfest.android.data.viewmodels.SpeakerViewModel
 import org.gdglille.devfest.android.screens.speakers.SpeakerDetail
+import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.repositories.AgendaRepository
 
 @OptIn(ExperimentalMaterial3Api::class)

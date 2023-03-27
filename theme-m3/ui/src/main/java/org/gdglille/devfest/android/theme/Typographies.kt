@@ -5,7 +5,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import org.gdglille.devfest.android.theme.m3.ui.R
+import org.gdglille.devfest.android.ui.resources.R
 
 val family = FontFamily(
     Font(R.font.archivo_light, weight = FontWeight.Light, style = FontStyle.Normal),

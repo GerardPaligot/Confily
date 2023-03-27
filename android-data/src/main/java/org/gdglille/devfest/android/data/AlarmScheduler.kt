@@ -13,6 +13,7 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.minus
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
+import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.models.TalkItemUi
 import org.gdglille.devfest.repositories.AgendaRepository
 import java.util.Locale

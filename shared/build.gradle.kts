@@ -8,6 +8,10 @@ plugins {
     id("com.squareup.sqldelight")
 }
 
+android {
+    namespace = "org.gdglille.devfest.android.shared"
+}
+
 kotlin {
     android()
 

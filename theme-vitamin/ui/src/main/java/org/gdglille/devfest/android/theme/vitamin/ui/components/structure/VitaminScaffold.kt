@@ -19,10 +19,10 @@ import com.decathlon.vitamin.compose.foundation.VitaminTheme
 import kotlinx.collections.immutable.persistentListOf
 import org.gdglille.devfest.android.theme.vitamin.ui.BottomActions
 import org.gdglille.devfest.android.theme.vitamin.ui.FabActions
-import org.gdglille.devfest.android.theme.vitamin.ui.R
 import org.gdglille.devfest.android.theme.vitamin.ui.TabActions
 import org.gdglille.devfest.android.theme.vitamin.ui.TopActions
 import org.gdglille.devfest.android.theme.vitamin.ui.theme.Conferences4HallTheme
+import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.android.ui.resources.actions.BottomAction
 import org.gdglille.devfest.android.ui.resources.actions.FabAction
 import org.gdglille.devfest.android.ui.resources.actions.TabAction

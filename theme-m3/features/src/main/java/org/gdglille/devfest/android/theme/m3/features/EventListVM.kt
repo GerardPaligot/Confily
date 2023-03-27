@@ -11,6 +11,7 @@ import com.google.accompanist.pager.rememberPagerState
 import org.gdglille.devfest.android.data.viewmodels.EventListUiState
 import org.gdglille.devfest.android.data.viewmodels.EventListViewModel
 import org.gdglille.devfest.android.screens.events.EventList
+import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.repositories.EventRepository
 
 @OptIn(ExperimentalPagerApi::class)

@@ -23,11 +23,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.decathlon.vitamin.compose.dividers.VitaminDividers
 import com.decathlon.vitamin.compose.foundation.VitaminTheme
-import org.gdglille.devfest.android.theme.vitamin.ui.R
 import org.gdglille.devfest.android.theme.vitamin.ui.components.buttons.IconButtonTertiary
 import org.gdglille.devfest.android.theme.vitamin.ui.theme.Conferences4HallTheme
+import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.models.NetworkingUi
 import org.gdglille.devfest.models.UserNetworkingUi
+import com.decathlon.vitamin.compose.foundation.R as RVitamin
 
 @Composable
 fun UserItem(
@@ -67,7 +68,7 @@ fun UserItem(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
-                    painter = painterResource(R.drawable.ic_vtmn_mail_line),
+                    painter = painterResource(RVitamin.drawable.ic_vtmn_mail_line),
                     contentDescription = null,
                     tint = metaColor,
                     modifier = Modifier.size(16.dp)
@@ -83,7 +84,7 @@ fun UserItem(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
-                    painter = painterResource(R.drawable.ic_vtmn_suitcase_line),
+                    painter = painterResource(RVitamin.drawable.ic_vtmn_suitcase_line),
                     contentDescription = null,
                     tint = metaColor,
                     modifier = Modifier.size(16.dp)
@@ -96,7 +97,7 @@ fun UserItem(
             }
         }
         IconButtonTertiary(
-            painter = painterResource(id = R.drawable.ic_vtmn_delete_bin_line),
+            painter = painterResource(id = RVitamin.drawable.ic_vtmn_delete_bin_line),
             contentDescription = stringResource(R.string.action_networking_delete),
             onClick = onClick
         )

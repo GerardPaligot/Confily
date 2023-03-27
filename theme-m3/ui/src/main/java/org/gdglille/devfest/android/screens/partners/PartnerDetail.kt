@@ -21,7 +21,7 @@ import org.gdglille.devfest.android.components.cards.AddressCard
 import org.gdglille.devfest.android.components.jobs.JobItem
 import org.gdglille.devfest.android.components.partners.PartnerDetailSection
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
-import org.gdglille.devfest.android.theme.m3.ui.R
+import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.models.PartnerItemUi
 
 @ExperimentalMaterial3Api

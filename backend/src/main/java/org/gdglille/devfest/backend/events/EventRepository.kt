@@ -3,9 +3,12 @@ package org.gdglille.devfest.backend.events
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
+import org.gdglille.devfest.backend.NotAcceptableException
 import org.gdglille.devfest.backend.NotFoundException
 import org.gdglille.devfest.backend.internals.date.FormatterPattern
 import org.gdglille.devfest.backend.internals.date.format
+import org.gdglille.devfest.backend.internals.network.geolocation.GeocodeApi
+import org.gdglille.devfest.backend.internals.network.geolocation.convertToDb
 import org.gdglille.devfest.backend.partners.PartnerDao
 import org.gdglille.devfest.backend.partners.cms4partners.Cms4PartnersDao
 import org.gdglille.devfest.backend.partners.cms4partners.Sponsorship
@@ -17,22 +20,20 @@ import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.talks.TalkDao
 import org.gdglille.devfest.backend.talks.convertToModel
 import org.gdglille.devfest.models.Agenda
+import org.gdglille.devfest.models.CreatedEvent
 import org.gdglille.devfest.models.EventList
 import org.gdglille.devfest.models.EventPartners
 import org.gdglille.devfest.models.EventV2
 import org.gdglille.devfest.models.inputs.CategoryInput
 import org.gdglille.devfest.models.inputs.CoCInput
+import org.gdglille.devfest.models.inputs.CreatingEventInput
 import org.gdglille.devfest.models.inputs.EventInput
 import org.gdglille.devfest.models.inputs.FeaturesActivatedInput
 import org.gdglille.devfest.models.inputs.LunchMenuInput
 import org.gdglille.devfest.models.inputs.QuestionAndResponseInput
 import java.time.LocalDateTime
-import org.gdglille.devfest.backend.NotAcceptableException
-import org.gdglille.devfest.backend.internals.network.geolocation.GeocodeApi
-import org.gdglille.devfest.backend.internals.network.geolocation.convertToDb
-import org.gdglille.devfest.models.CreatedEvent
-import org.gdglille.devfest.models.inputs.CreatingEventInput
 
+@Suppress("LongParameterList")
 class EventRepository(
     private val geocodeApi: GeocodeApi,
     private val eventDao: EventDao,

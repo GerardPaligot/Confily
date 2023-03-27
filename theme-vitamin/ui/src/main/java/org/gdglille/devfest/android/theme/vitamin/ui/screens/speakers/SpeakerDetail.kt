@@ -13,11 +13,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.decathlon.vitamin.compose.appbars.topbars.VitaminTopBars
-import org.gdglille.devfest.android.theme.vitamin.ui.R
 import org.gdglille.devfest.android.theme.vitamin.ui.components.speakers.SpeakerDetailSection
 import org.gdglille.devfest.android.theme.vitamin.ui.components.talks.TalkItem
 import org.gdglille.devfest.android.theme.vitamin.ui.theme.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.vitamin.ui.theme.placeholder
+import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.models.SpeakerUi
 import org.gdglille.devfest.models.TalkItemUi
 

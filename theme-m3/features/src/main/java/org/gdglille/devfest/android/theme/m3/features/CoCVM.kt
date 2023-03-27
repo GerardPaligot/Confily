@@ -9,6 +9,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import org.gdglille.devfest.android.data.viewmodels.CoCUiState
 import org.gdglille.devfest.android.data.viewmodels.CoCViewModel
 import org.gdglille.devfest.android.screens.event.CoC
+import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.repositories.AgendaRepository
 
 @Composable

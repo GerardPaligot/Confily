@@ -10,6 +10,7 @@ import org.gdglille.devfest.android.data.viewmodels.ContactsUiState
 import org.gdglille.devfest.android.data.viewmodels.ContactsViewModel
 import org.gdglille.devfest.android.theme.vitamin.ui.screens.networking.Contacts
 import org.gdglille.devfest.android.theme.vitamin.ui.screens.networking.EmptyContacts
+import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.repositories.UserRepository
 
 @Composable

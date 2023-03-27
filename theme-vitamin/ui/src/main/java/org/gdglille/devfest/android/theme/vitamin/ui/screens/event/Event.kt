@@ -17,12 +17,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.decathlon.vitamin.compose.foundation.VitaminTheme
-import org.gdglille.devfest.android.theme.vitamin.ui.R
 import org.gdglille.devfest.android.theme.vitamin.ui.components.events.EventMap
 import org.gdglille.devfest.android.theme.vitamin.ui.components.events.TicketDetailed
 import org.gdglille.devfest.android.theme.vitamin.ui.components.events.TicketQrCode
 import org.gdglille.devfest.android.theme.vitamin.ui.components.structure.SocialsSection
 import org.gdglille.devfest.android.theme.vitamin.ui.theme.Conferences4HallTheme
+import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.models.EventUi
 
 @Composable

@@ -24,12 +24,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.decathlon.vitamin.compose.foundation.VitaminTheme
-import org.gdglille.devfest.android.theme.vitamin.ui.R
 import org.gdglille.devfest.android.theme.vitamin.ui.components.tags.DecorativeTag
 import org.gdglille.devfest.android.theme.vitamin.ui.components.tags.LevelTag
 import org.gdglille.devfest.android.theme.vitamin.ui.components.tags.UnStyledTag
 import org.gdglille.devfest.android.theme.vitamin.ui.theme.Conferences4HallTheme
+import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.models.TalkItemUi
+import com.decathlon.vitamin.compose.foundation.R as RVitamin
 
 const val ShortTalk = 30
 
@@ -83,15 +84,15 @@ fun TalkItem(
                 Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                     UnStyledTag(
                         text = talk.room,
-                        icon = R.drawable.ic_vtmn_map_pin_line,
+                        icon = RVitamin.drawable.ic_vtmn_map_pin_line,
                         style = VitaminTheme.typography.body3
                     )
                     UnStyledTag(
                         text = stringResource(R.string.text_schedule_minutes, talk.timeInMinutes.toString()),
                         icon = if (talk.timeInMinutes <= ShortTalk) {
-                            R.drawable.ic_vtmn_flashlight_line
+                            RVitamin.drawable.ic_vtmn_flashlight_line
                         } else {
-                            R.drawable.ic_vtmn_timer_line
+                            RVitamin.drawable.ic_vtmn_timer_line
                         },
                         style = VitaminTheme.typography.body3
                     )
@@ -105,9 +106,9 @@ fun TalkItem(
                 .zIndex(1f),
         ) {
             val favoriteIcon = if (talk.isFavorite) {
-                R.drawable.ic_vtmn_star_fill
+                RVitamin.drawable.ic_vtmn_star_fill
             } else {
-                R.drawable.ic_vtmn_star_line
+                RVitamin.drawable.ic_vtmn_star_line
             }
             val favoriteDescription = if (talk.isFavorite) {
                 stringResource(R.string.action_favorites_remove)

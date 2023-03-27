@@ -19,6 +19,7 @@ import org.gdglille.devfest.android.data.AlarmScheduler
 import org.gdglille.devfest.android.data.viewmodels.AgendaUiState
 import org.gdglille.devfest.android.data.viewmodels.AgendaViewModel
 import org.gdglille.devfest.android.screens.agenda.Agenda
+import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.android.ui.resources.models.TabActionsUi
 import org.gdglille.devfest.repositories.AgendaRepository
 

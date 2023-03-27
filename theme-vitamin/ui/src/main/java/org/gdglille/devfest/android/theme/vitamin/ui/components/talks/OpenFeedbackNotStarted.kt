@@ -22,8 +22,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.decathlon.vitamin.compose.foundation.VitaminTheme
-import org.gdglille.devfest.android.theme.vitamin.ui.R
 import org.gdglille.devfest.android.theme.vitamin.ui.theme.Conferences4HallTheme
+import org.gdglille.devfest.android.ui.resources.R
+import com.decathlon.vitamin.compose.foundation.R as RVitamin
 
 @Composable
 fun OpenFeedbackNotStarted(
@@ -41,27 +42,27 @@ fun OpenFeedbackNotStarted(
             CompositionLocalProvider(LocalContentColor provides VitaminTheme.colors.vtmnContentTertiary) {
                 Row {
                     Icon(
-                        painter = painterResource(R.drawable.ic_vtmn_emotion_laugh_line),
+                        painter = painterResource(RVitamin.drawable.ic_vtmn_emotion_laugh_line),
                         contentDescription = null,
                         modifier = Modifier.size(32.dp)
                     )
                     Icon(
-                        painter = painterResource(R.drawable.ic_vtmn_emotion_line),
+                        painter = painterResource(RVitamin.drawable.ic_vtmn_emotion_line),
                         contentDescription = null,
                         modifier = Modifier.size(32.dp)
                     )
                     Icon(
-                        painter = painterResource(R.drawable.ic_vtmn_emotion_normal_line),
+                        painter = painterResource(RVitamin.drawable.ic_vtmn_emotion_normal_line),
                         contentDescription = null,
                         modifier = Modifier.size(32.dp)
                     )
                     Icon(
-                        painter = painterResource(R.drawable.ic_vtmn_emotion_unhappy_line),
+                        painter = painterResource(RVitamin.drawable.ic_vtmn_emotion_unhappy_line),
                         contentDescription = null,
                         modifier = Modifier.size(32.dp)
                     )
                     Icon(
-                        painter = painterResource(R.drawable.ic_vtmn_emotion_sad_line),
+                        painter = painterResource(RVitamin.drawable.ic_vtmn_emotion_sad_line),
                         contentDescription = null,
                         modifier = Modifier.size(32.dp)
                     )

@@ -11,7 +11,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import io.openfeedback.android.OpenFeedbackConfig
 import io.openfeedback.android.m3.OpenFeedback
-import org.gdglille.devfest.android.theme.m3.ui.R
+import org.gdglille.devfest.android.ui.resources.R
 import java.util.Locale
 
 @Composable

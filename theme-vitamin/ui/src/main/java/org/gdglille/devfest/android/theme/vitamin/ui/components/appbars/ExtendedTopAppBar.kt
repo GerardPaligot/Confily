@@ -26,8 +26,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.decathlon.vitamin.compose.foundation.VitaminTheme
-import org.gdglille.devfest.android.theme.vitamin.ui.R
 import org.gdglille.devfest.android.theme.vitamin.ui.theme.Conferences4HallTheme
+import com.decathlon.vitamin.compose.foundation.R as RVitamin
 
 @Composable
 fun ExtendedTopAppBar(
@@ -79,7 +79,7 @@ internal fun ExtendedTopAppBarPreview() {
             navigationIcon = {
                 IconButton(onClick = {}) {
                     Icon(
-                        painter = painterResource(R.drawable.ic_vtmn_arrow_left_line),
+                        painter = painterResource(RVitamin.drawable.ic_vtmn_arrow_left_line),
                         contentDescription = null
                     )
                 }
@@ -97,7 +97,7 @@ internal fun ExtendedTopAppBarContextualPreview() {
             navigationIcon = {
                 IconButton(onClick = {}) {
                     Icon(
-                        painter = painterResource(R.drawable.ic_vtmn_arrow_left_line),
+                        painter = painterResource(RVitamin.drawable.ic_vtmn_arrow_left_line),
                         contentDescription = null
                     )
                 }

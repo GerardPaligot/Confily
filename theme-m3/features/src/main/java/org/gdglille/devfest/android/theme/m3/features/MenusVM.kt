@@ -10,6 +10,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import org.gdglille.devfest.android.data.viewmodels.MenusUiState
 import org.gdglille.devfest.android.data.viewmodels.MenusViewModel
 import org.gdglille.devfest.android.screens.event.Menus
+import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.repositories.AgendaRepository
 
 @OptIn(ExperimentalMaterial3Api::class)

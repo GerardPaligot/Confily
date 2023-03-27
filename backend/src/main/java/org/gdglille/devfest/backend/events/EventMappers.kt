@@ -2,7 +2,6 @@
 
 package org.gdglille.devfest.backend.events
 
-import java.util.UUID
 import org.gdglille.devfest.backend.internals.network.conferencehall.Event
 import org.gdglille.devfest.backend.internals.slug
 import org.gdglille.devfest.models.Acronym
@@ -23,6 +22,7 @@ import org.gdglille.devfest.models.inputs.LunchMenuInput
 import org.gdglille.devfest.models.inputs.QuestionAndResponseActionInput
 import org.gdglille.devfest.models.inputs.QuestionAndResponseInput
 import org.gdglille.devfest.models.inputs.WldConfigInput
+import java.util.UUID
 
 fun Event.convertToDb(year: String, eventId: String, apiKey: String) = EventDb(
     slugId = this.name.slug(),

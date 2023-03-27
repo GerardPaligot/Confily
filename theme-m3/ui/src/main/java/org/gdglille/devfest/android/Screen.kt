@@ -1,7 +1,7 @@
 package org.gdglille.devfest.android
 
 import androidx.annotation.StringRes
-import org.gdglille.devfest.android.theme.m3.ui.R
+import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.android.ui.resources.actions.BottomAction
 import org.gdglille.devfest.android.ui.resources.actions.FabAction
 import org.gdglille.devfest.android.ui.resources.actions.TabAction

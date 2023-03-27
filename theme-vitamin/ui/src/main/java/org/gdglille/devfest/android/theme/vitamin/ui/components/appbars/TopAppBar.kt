@@ -13,8 +13,9 @@ import com.decathlon.vitamin.compose.appbars.topbars.VitaminTopBars
 import com.decathlon.vitamin.compose.appbars.topbars.icons.VitaminNavigationIconButtons
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
-import org.gdglille.devfest.android.theme.vitamin.ui.R
 import org.gdglille.devfest.android.theme.vitamin.ui.theme.Conferences4HallTheme
+import org.gdglille.devfest.android.ui.resources.R
+import com.decathlon.vitamin.compose.foundation.R as RVitamin
 
 @Composable
 fun TopAppBar(
@@ -48,7 +49,7 @@ fun TopAppBarPreview() {
                 navigationIcon = { Context(onClick = { }, contentDescription = null) },
                 actions = persistentListOf(
                     ActionItem(
-                        icon = painterResource(id = R.drawable.ic_vtmn_fullscreen_line),
+                        icon = painterResource(id = RVitamin.drawable.ic_vtmn_fullscreen_line),
                         contentDescription = stringResource(id = R.string.action_qrcode_scanner),
                         onClick = {}
                     )

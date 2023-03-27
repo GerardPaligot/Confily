@@ -4,6 +4,10 @@ plugins {
     id("conferences4hall.quality")
 }
 
+android {
+    namespace = "org.gdglille.devfest.android.ui.camera"
+}
+
 dependencies {
     implementation(projects.androidData)
 
