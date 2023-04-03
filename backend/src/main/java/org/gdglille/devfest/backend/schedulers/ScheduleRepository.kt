@@ -6,6 +6,7 @@ import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.internals.date.FormatterPattern
 import org.gdglille.devfest.backend.internals.date.format
 import org.gdglille.devfest.backend.speakers.SpeakerDao
+import org.gdglille.devfest.backend.speakers.convertToModel
 import org.gdglille.devfest.backend.talks.TalkDao
 import org.gdglille.devfest.backend.talks.convertToModel
 import org.gdglille.devfest.models.inputs.ScheduleInput
@@ -50,6 +51,7 @@ class ScheduleRepository(
             val talkDb = talkDao.get(eventId, scheduleItem.talkId)
                 ?: throw NotFoundException("Talk ${scheduleItem.talkId} not found")
             val speakers = speakerDao.getByIds(eventId, talkDb.speakerIds)
+                .map { it.convertToModel() }
             talkDb.convertToModel(speakers, eventDb)
         } else null
         return@coroutineScope scheduleItem.convertToModel(talk)

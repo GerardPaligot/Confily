@@ -14,6 +14,7 @@ import org.gdglille.devfest.backend.schedulers.ScheduleItemDao
 import org.gdglille.devfest.backend.schedulers.convertToModel
 import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.speakers.SpeakerDb
+import org.gdglille.devfest.backend.speakers.convertToModel
 import org.gdglille.devfest.backend.talks.TalkDao
 import org.gdglille.devfest.backend.talks.TalkDb
 import org.gdglille.devfest.backend.talks.convertToModel
@@ -70,7 +71,7 @@ class EventRepositoryV2(
             val talk = talks.find { it.id == schedule.talkId }
                 ?: return@async schedule.convertToModel(null)
             val speakersTalk =
-                speakers.filter { talk.speakerIds.contains(it.id) }
+                speakers.filter { talk.speakerIds.contains(it.id) }.map { it.convertToModel() }
             schedule.convertToModel(
                 talk.convertToModel(speakersTalk, eventDb)
             )

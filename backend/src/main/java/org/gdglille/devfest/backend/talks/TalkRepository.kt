@@ -6,6 +6,7 @@ import kotlinx.coroutines.coroutineScope
 import org.gdglille.devfest.backend.NotFoundException
 import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.speakers.SpeakerDao
+import org.gdglille.devfest.backend.speakers.convertToModel
 import org.gdglille.devfest.models.inputs.TalkInput
 
 class TalkRepository(
@@ -16,10 +17,11 @@ class TalkRepository(
     suspend fun list(eventId: String) = coroutineScope {
         val eventDb = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
         val talks = talkDao.getAll(eventId)
-        val asyncItems = talks.map {
+        val speakers = speakerDao.getAll(eventId)
+        val asyncItems = talks.map { talkDb ->
             async {
-                it.convertToModel(
-                    speakerDao.getByIds(eventId, it.speakerIds),
+                talkDb.convertToModel(
+                    speakers.filter { talkDb.speakerIds.contains(it.id) }.map { it.convertToModel() },
                     eventDb
                 )
             }
@@ -39,7 +41,7 @@ class TalkRepository(
         val eventDb = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
         val talk = talkDao.get(eventId, talkId) ?: throw NotFoundException("Talk $talkId Not Found")
         return@coroutineScope talk.convertToModel(
-            speakerDao.getByIds(eventId, talk.speakerIds), eventDb
+            speakerDao.getByIds(eventId, talk.speakerIds).map { it.convertToModel() }, eventDb
         )
     }
 

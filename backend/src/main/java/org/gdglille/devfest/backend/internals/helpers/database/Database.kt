@@ -50,4 +50,4 @@ suspend inline fun <reified T : Any> Database.query(
     collectionName: String,
     eventId: String,
     vararg ops: WhereOperation
-): List<T> = query(collectionName, eventId, T::class, *ops)
+): List<T> = query(eventId, collectionName, T::class, *ops)

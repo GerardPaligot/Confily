@@ -17,6 +17,7 @@ import org.gdglille.devfest.backend.partners.convertToModel
 import org.gdglille.devfest.backend.schedulers.ScheduleItemDao
 import org.gdglille.devfest.backend.schedulers.convertToModel
 import org.gdglille.devfest.backend.speakers.SpeakerDao
+import org.gdglille.devfest.backend.speakers.convertToModel
 import org.gdglille.devfest.backend.talks.TalkDao
 import org.gdglille.devfest.backend.talks.convertToModel
 import org.gdglille.devfest.models.Agenda
@@ -147,7 +148,8 @@ class EventRepository(
                                 )
                             it.convertToModel(
                                 talk.convertToModel(
-                                    speakerDao.getByIds(eventDb.slugId, talk.speakerIds),
+                                    speakerDao.getByIds(eventDb.slugId, talk.speakerIds)
+                                        .map { it.convertToModel() },
                                     eventDb
                                 )
                             )

@@ -3,9 +3,8 @@ package org.gdglille.devfest.backend.talks
 import org.gdglille.devfest.backend.events.EventDb
 import org.gdglille.devfest.backend.events.openFeedbackUrl
 import org.gdglille.devfest.backend.internals.network.conferencehall.Format
-import org.gdglille.devfest.backend.speakers.SpeakerDb
-import org.gdglille.devfest.backend.speakers.convertToModel
 import org.gdglille.devfest.models.Category
+import org.gdglille.devfest.models.Speaker
 import org.gdglille.devfest.models.Talk
 import org.gdglille.devfest.models.inputs.TalkInput
 
@@ -25,7 +24,7 @@ fun org.gdglille.devfest.backend.internals.network.conferencehall.Talk.convertTo
     speakerIds = this.speakers,
 )
 
-fun TalkDb.convertToModel(speakers: List<SpeakerDb>, eventDb: EventDb): Talk = Talk(
+fun TalkDb.convertToModel(speakers: List<Speaker>, eventDb: EventDb): Talk = Talk(
     id = this.id,
     title = this.title,
     level = this.level,
@@ -36,7 +35,7 @@ fun TalkDb.convertToModel(speakers: List<SpeakerDb>, eventDb: EventDb): Talk = T
     },
     format = this.format,
     language = this.language,
-    speakers = speakers.filter { this.speakerIds.contains(it.id) }.map { it.convertToModel() },
+    speakers = speakers,
     linkSlides = this.linkSlides,
     linkReplay = this.linkReplay,
     openFeedback = eventDb.openFeedbackUrl()?.let { "$it/$id" } ?: run { null }
