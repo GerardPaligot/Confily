@@ -57,7 +57,6 @@ fun ScheduleDetail(
             )
         },
         content = {
-            val contentPadding = 8.dp
             LazyColumn(
                 modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
                 contentPadding = it,
@@ -67,13 +66,15 @@ fun ScheduleDetail(
                     Spacer(modifier = Modifier.height(16.dp))
                     TalkSection(talk = talk)
                 }
-                item {
-                    if (!LocalInspectionMode.current) {
-                        OpenFeedbackSection(
-                            openFeedbackSessionId = talk.openFeedbackSessionId,
-                            openFeedbackState = openFeedbackState,
-                            canGiveFeedback = talk.canGiveFeedback
-                        )
+                if (talk.openFeedbackSessionId != null) {
+                    item {
+                        if (!LocalInspectionMode.current) {
+                            OpenFeedbackSection(
+                                openFeedbackSessionId = talk.openFeedbackSessionId,
+                                openFeedbackState = openFeedbackState,
+                                canGiveFeedback = talk.canGiveFeedback
+                            )
+                        }
                     }
                 }
                 item {
