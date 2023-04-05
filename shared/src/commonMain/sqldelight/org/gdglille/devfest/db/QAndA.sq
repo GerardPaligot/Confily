@@ -6,7 +6,8 @@ response TEXT NOT NULL
 );
 
 CREATE TABLE QAndAAction (
-order_ INTEGER NOT NULL PRIMARY KEY,
+id TEXT NOT NULL PRIMARY KEY,
+order_ INTEGER NOT NULL,
 qanda_id INTEGER NOT NULL,
 event_id TEXT NOT NULL,
 label TEXT NOT NULL,
@@ -23,8 +24,8 @@ SELECT order_, question, response FROM QAndA WHERE event_id == ? ORDER BY order_
 
 insertQAndAAction:
 INSERT OR REPLACE INTO QAndAAction(
-order_, event_id, qanda_id, label, url
-) VALUES (?, ?, ?, ?, ?);
+id, order_, event_id, qanda_id, label, url
+) VALUES (?, ?, ?, ?, ?, ?);
 
 selectQAndAActions:
 SELECT * FROM QAndAAction WHERE event_id == ?;

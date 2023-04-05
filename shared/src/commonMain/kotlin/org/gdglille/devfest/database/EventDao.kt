@@ -162,7 +162,12 @@ class EventDao(
             )
             qAndA.actions.forEach {
                 db.qAndAQueries.insertQAndAAction(
-                    it.order.toLong(), eventDb.id, qAndA.order.toLong(), it.label, it.url
+                    id = "${qAndA.order}-${it.order}",
+                    order_ = it.order.toLong(),
+                    event_id = eventDb.id,
+                    qanda_id = qAndA.order.toLong(),
+                    label = it.label,
+                    url = it.url
                 )
             }
         }
