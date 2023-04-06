@@ -146,6 +146,7 @@ class EventDao(
             longitude = eventDb.longitude,
             date = eventDb.date,
             coc = eventDb.coc,
+            openfeedback_project_id = eventDb.openfeedback_project_id,
             contact_email = eventDb.contact_email,
             contact_phone = eventDb.contact_phone,
             twitter = eventDb.twitter,

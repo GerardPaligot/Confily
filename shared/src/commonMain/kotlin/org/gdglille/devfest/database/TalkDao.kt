@@ -21,6 +21,9 @@ class TalkDao(private val db: Conferences4HallDatabase) {
             .selectSpeakers(talkWithSpeakers.map { it.speaker_id }, eventId)
             .executeAsList()
         val talk = db.talkQueries.selectTalk(talkId, eventId).executeAsOne()
+        val openfeedbackProjectId = db.eventQueries.selectOpenfeedbackProjectId(eventId)
+            .executeAsOne()
+            .openfeedback_project_id
         val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
         val startTime = talk.start_time.toLocalDateTime()
         val endTime = talk.end_time.toLocalDateTime()
@@ -55,6 +58,7 @@ class TalkDao(private val db: Conferences4HallDatabase) {
                 }
             },
             canGiveFeedback = now > startTime,
+            openFeedbackProjectId = openfeedbackProjectId,
             openFeedbackSessionId = talk.open_feedback,
             openFeedbackUrl = talk.open_feedback_url
         )

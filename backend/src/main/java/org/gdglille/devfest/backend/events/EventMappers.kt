@@ -127,6 +127,7 @@ fun EventDb.convertToModelV2(hasPartnerList: Boolean) = EventV2(
     menus = menus.map { it.convertToModel() },
     qanda = qanda.map { it.convertToModel() },
     coc = coc,
+    openfeedbackProjectId = this.openFeedbackId,
     features = this.convertToFeaturesActivatedModel(hasPartnerList),
     contactPhone = this.contactPhone,
     contactEmail = this.contactEmail,

@@ -69,13 +69,16 @@ fun ScheduleDetail(
                     Spacer(modifier = Modifier.height(16.dp))
                     TalkSection(talk = talk)
                 }
-                item {
-                    if (!LocalInspectionMode.current) {
-                        OpenFeedbackSection(
-                            openFeedbackState = openFeedbackState,
-                            openFeedbackSessionId = talk.openFeedbackSessionId,
-                            canGiveFeedback = talk.canGiveFeedback
-                        )
+                if (talk.openFeedbackProjectId != null && talk.openFeedbackSessionId != null) {
+                    item {
+                        if (!LocalInspectionMode.current) {
+                            OpenFeedbackSection(
+                                openFeedbackState = openFeedbackState,
+                                openFeedbackProjectId = talk.openFeedbackProjectId!!,
+                                openFeedbackSessionId = talk.openFeedbackSessionId!!,
+                                canGiveFeedback = talk.canGiveFeedback
+                            )
+                        }
                     }
                 }
                 item {

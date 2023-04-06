@@ -18,7 +18,6 @@ class MainApplication : Application(), ImageLoaderFactory {
         super.onCreate()
         openFeedbackConfig = OpenFeedbackConfig(
             context = this,
-            openFeedbackProjectId = BuildConfig.OPENFEEDBACK_PROJECT_ID,
             firebaseConfig = OpenFeedbackConfig.FirebaseConfig(
                 projectId = BuildConfig.FIREBASE_PROJECT_ID,
                 applicationId = BuildConfig.APPLICATION_ID,

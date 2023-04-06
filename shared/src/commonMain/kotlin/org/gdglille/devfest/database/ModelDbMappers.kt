@@ -53,6 +53,7 @@ fun EventV2.convertToModelDb(): Event = Event(
     longitude = this.address.lng,
     date = this.startDate.dropLast(1).toLocalDateTime().format(),
     coc = this.coc,
+    openfeedback_project_id = this.openfeedbackProjectId,
     contact_email = contactEmail,
     contact_phone = contactPhone,
     twitter = this.twitterUrl?.split("twitter.com/")?.get(1),

@@ -16,7 +16,8 @@ import java.util.Locale
 
 @Composable
 fun OpenFeedbackSection(
-    openFeedbackSessionId: String?,
+    openFeedbackProjectId: String,
+    openFeedbackSessionId: String,
     canGiveFeedback: Boolean,
     openFeedbackState: OpenFeedbackConfig,
     modifier: Modifier = Modifier,
@@ -24,7 +25,7 @@ fun OpenFeedbackSection(
 ) {
     if (!canGiveFeedback) {
         OpenFeedbackNotStarted(modifier = modifier)
-    } else if (openFeedbackSessionId != null) {
+    } else {
         Column(
             verticalArrangement = Arrangement.spacedBy(16.dp),
             modifier = modifier
@@ -34,7 +35,8 @@ fun OpenFeedbackSection(
                 style = subtitleTextStyle
             )
             OpenFeedback(
-                openFeedbackState = openFeedbackState,
+                config = openFeedbackState,
+                projectId = openFeedbackProjectId,
                 sessionId = openFeedbackSessionId,
                 language = Locale.getDefault().language
             )

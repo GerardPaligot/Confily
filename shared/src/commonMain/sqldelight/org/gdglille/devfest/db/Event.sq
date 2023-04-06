@@ -9,6 +9,7 @@ latitude REAL NOT NULL,
 longitude REAL NOT NULL,
 date TEXT NOT NULL,
 coc TEXT NOT NULL,
+openfeedback_project_id TEXT,
 contact_email TEXT NOT NULL,
 contact_phone TEXT,
 twitter TEXT,
@@ -30,11 +31,14 @@ past INTEGER AS Boolean NOT NULL DEFAULT 0
 
 insertEvent:
 INSERT OR REPLACE INTO Event(
-id, name, formatted_address, address, latitude, longitude, date, coc, contact_email, contact_phone, twitter, twitter_url, linkedin, linkedin_url, faq_url, coc_url, updated_at
-) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+id, name, formatted_address, address, latitude, longitude, date, coc, openfeedback_project_id, contact_email, contact_phone, twitter, twitter_url, linkedin, linkedin_url, faq_url, coc_url, updated_at
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
 
 selectEvent:
 SELECT id, name, formatted_address, address, latitude, longitude, date, coc, contact_email, contact_phone, twitter, twitter_url, linkedin, linkedin_url, faq_url, coc_url, updated_at FROM Event WHERE id == ?;
+
+selectOpenfeedbackProjectId:
+SELECT openfeedback_project_id FROM Event WHERE id == ?;
 
 selectCoc:
 SELECT coc, contact_email, contact_phone FROM Event WHERE id == ?;

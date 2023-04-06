@@ -15,14 +15,15 @@ import java.util.Locale
 
 @Composable
 fun OpenFeedbackSection(
-    openFeedbackSessionId: String?,
+    openFeedbackProjectId: String,
+    openFeedbackSessionId: String,
     canGiveFeedback: Boolean,
     openFeedbackState: OpenFeedbackConfig,
     modifier: Modifier = Modifier
 ) {
     if (!canGiveFeedback) {
         OpenFeedbackNotStarted(modifier = modifier)
-    } else if (openFeedbackSessionId != null) {
+    } else {
         Column(
             verticalArrangement = Arrangement.spacedBy(16.dp),
             modifier = modifier
@@ -32,7 +33,8 @@ fun OpenFeedbackSection(
                 style = VitaminTheme.typography.h6
             )
             OpenFeedback(
-                openFeedbackState = openFeedbackState,
+                config = openFeedbackState,
+                projectId = openFeedbackProjectId,
                 sessionId = openFeedbackSessionId,
                 language = Locale.getDefault().language
             )

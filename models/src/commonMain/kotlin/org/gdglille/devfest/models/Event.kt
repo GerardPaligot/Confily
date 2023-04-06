@@ -111,6 +111,8 @@ data class EventV2(
     val menus: List<EventLunchMenu>,
     val qanda: List<QuestionAndResponse>,
     val coc: String,
+    @SerialName("openfeedback_project_id")
+    val openfeedbackProjectId: String?,
     val features: FeaturesActivated,
     @SerialName("contact_phone")
     val contactPhone: String?,
