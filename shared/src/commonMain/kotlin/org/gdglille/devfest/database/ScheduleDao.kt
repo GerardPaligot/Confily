@@ -30,7 +30,7 @@ class ScheduleDao(
     private val settings: ObservableSettings
 ) {
     private val scheduleMapper =
-        { id: String, _: String, startTime: String, endTime: String, room: String,
+        { id: String, order: Long, _: String, startTime: String, endTime: String, room: String,
             title: String, abstract: String, category: String, categoryColor: String?, categoryIcon: String?,
             speakers: List<String>, speakersAvatar: List<String>, is_favorite: Boolean, level: String? ->
             val startDateTime = startTime.toLocalDateTime()
@@ -38,6 +38,7 @@ class ScheduleDao(
             val diff = endDateTime.toInstant(TimeZone.UTC).minus(startDateTime.toInstant(TimeZone.UTC))
             TalkItemUi(
                 id = id,
+                order = order.toInt(),
                 room = room,
                 level = level,
                 slotTime = startDateTime.formatHoursMinutes(),
@@ -68,7 +69,7 @@ class ScheduleDao(
                             onlyFavorites = onlyFavorites,
                             talks = talks.groupBy { it.slotTime }
                                 .mapValues { entry ->
-                                    entry.value.sortedBy { it.room }.toImmutableList()
+                                    entry.value.sortedBy { it.order }.toImmutableList()
                                 }
                                 .toImmutableMap()
                         )
@@ -146,6 +147,7 @@ class ScheduleDao(
             if (cached == null) {
                 db.agendaQueries.insertSchedule(
                     id = schedule.id,
+                    order_ = schedule.order.toLong(),
                     event_id = eventId,
                     date = date,
                     start_time = schedule.startTime,
@@ -164,6 +166,7 @@ class ScheduleDao(
             } else {
                 db.agendaQueries.updateSchedule(
                     id = schedule.id,
+                    order_ = schedule.order.toLong(),
                     event_id = eventId,
                     date = date,
                     start_time = schedule.startTime,

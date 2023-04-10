@@ -2,6 +2,7 @@ import kotlin.collections.List;
 
 CREATE TABLE Schedule(
 id TEXT NOT NULL PRIMARY KEY,
+order_ INTEGER NOT NULL,
 event_id TEXT NOT NULL,
 date TEXT NOT NULL,
 start_time TEXT NOT NULL,
@@ -20,20 +21,20 @@ level TEXT
 
 insertSchedule:
 INSERT OR REPLACE INTO Schedule(
-id, event_id, date, start_time, end_time, room, title, abstract, category, category_color, category_icon, speakers, speakers_avatar, is_favorite, level
-) VALUES (?, ?,?,?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+id, order_, event_id, date, start_time, end_time, room, title, abstract, category, category_color, category_icon, speakers, speakers_avatar, is_favorite, level
+) VALUES (?, ?, ?,?,?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
 
 updateSchedule:
-UPDATE Schedule SET event_id = ?, date = ?, start_time = ?, end_time = ?, room = ?, title = ?, abstract = ?, category = ?, category_color = ?, category_icon = ?, speakers = ?, speakers_avatar = ?, level = ? WHERE id == ?;
+UPDATE Schedule SET event_id = ?, order_ = ?, date = ?, start_time = ?, end_time = ?, room = ?, title = ?, abstract = ?, category = ?, category_color = ?, category_icon = ?, speakers = ?, speakers_avatar = ?, level = ? WHERE id == ?;
 
 markAsFavorite:
 UPDATE Schedule SET is_favorite = ? WHERE id == ? AND event_id == ?;
 
 selectScheduleItems:
-SELECT id, event_id, start_time, end_time, room, title, abstract, category, category_color, category_icon, speakers, speakers_avatar, is_favorite, level FROM Schedule WHERE event_id == ? AND date == ? ORDER BY start_time;
+SELECT id, order_, event_id, start_time, end_time, room, title, abstract, category, category_color, category_icon, speakers, speakers_avatar, is_favorite, level FROM Schedule WHERE event_id == ? AND date == ? ORDER BY start_time;
 
 selectScheduleItemsById:
-SELECT id, event_id, start_time, end_time, room, title, abstract, category, category_color, category_icon, speakers, speakers_avatar, is_favorite, level FROM Schedule WHERE id IN ? AND event_id = ?;
+SELECT id, order_, event_id, start_time, end_time, room, title, abstract, category, category_color, category_icon, speakers, speakers_avatar, is_favorite, level FROM Schedule WHERE id IN ? AND event_id = ?;
 
 selectDays:
 SELECT DISTINCT date FROM Schedule WHERE event_id = ?;

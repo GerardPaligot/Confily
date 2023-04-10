@@ -5,6 +5,7 @@ import kotlinx.collections.immutable.persistentListOf
 
 data class TalkItemUi(
     val id: String,
+    val order: Int,
     val slotTime: String,
     val startTime: String,
     val endTime: String,
@@ -22,6 +23,7 @@ data class TalkItemUi(
     companion object {
         val fake = TalkItemUi(
             id = "7TTU2GNH3fOu76Q5MrxNkV3ry7l1",
+            order = 0,
             slotTime = "10:00",
             startTime = "2022-06-10T09:00:00.000",
             endTime = "2022-06-10T09:50:00.000",
@@ -40,6 +42,7 @@ data class TalkItemUi(
         )
         val fakePause = TalkItemUi(
             id = "12:00-pause",
+            order = 0,
             slotTime = "12:00",
             startTime = "2022-06-10T10:50:00.000",
             endTime = "2022-06-10T11:10:00.000",
