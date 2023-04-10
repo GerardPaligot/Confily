@@ -52,9 +52,10 @@ class EventRepositoryV2(
         return@async schedulesByDay.key to schedulesByDay.value
             .groupBy { LocalDateTime.parse(it.startTime).format(FormatterPattern.HoursMinutes) }
             .entries.map { schedulesBySlot ->
-                schedulesBySlot.key to schedulesBySlot.value.map { schedule ->
-                    schedulesBySlot(schedule, talks, speakers, eventDb)
-                }.awaitAll()
+                schedulesBySlot.key to schedulesBySlot.value
+                    .map { schedule -> schedulesBySlot(schedule, talks, speakers, eventDb) }
+                    .awaitAll()
+                    .sortedBy { it.order }
             }
             .associate { it }
             .toSortedMap()
