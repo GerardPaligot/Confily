@@ -10,7 +10,7 @@ enum class DesignSystem {
     M3, Vitamin
 }
 val designSystem = DesignSystem.M3
-val versionMajor = 1
+val versionMajor = 2
 val versionMinor = 0
 val versionPatch = 0
 android {
