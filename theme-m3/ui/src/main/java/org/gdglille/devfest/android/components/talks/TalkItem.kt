@@ -27,6 +27,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -53,6 +55,19 @@ fun TalkItem(
     onFavoriteClicked: (TalkItemUi) -> Unit = {},
     onTalkClicked: (String) -> Unit
 ) {
+    val semanticSpeakers = if (talk.speakers.isEmpty()) ""
+    else stringResource(id = R.string.semantic_talk_item_speakers, talk.speakers.joinToString(", "))
+    val semanticLevel = if (talk.level == null) ""
+    else stringResource(id = R.string.semantic_talk_item_level, talk.level!!)
+    val semanticTalk = stringResource(
+        id = R.string.semantic_talk_item,
+        talk.title,
+        semanticSpeakers,
+        talk.room,
+        talk.timeInMinutes,
+        talk.category.name,
+        semanticLevel
+    )
     Card(
         shape = MaterialTheme.shapes.medium,
         onClick = { onTalkClicked(talk.id) },
@@ -60,7 +75,10 @@ fun TalkItem(
     ) {
         Box {
             Column(
-                modifier = Modifier.fillMaxWidth().padding(16.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+                    .clearAndSetSemantics { contentDescription = semanticTalk }
             ) {
                 if (talk.category.color != null || talk.level != null) {
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -107,7 +125,9 @@ fun TalkItem(
             if (!talk.isPause) {
                 IconButton(
                     onClick = { onFavoriteClicked(talk) },
-                    modifier = Modifier.padding(4.dp).align(Alignment.TopEnd)
+                    modifier = Modifier
+                        .padding(4.dp)
+                        .align(Alignment.TopEnd)
                 ) {
                     Icon(
                         imageVector = if (talk.isFavorite) Icons.Outlined.Star else Icons.Outlined.Grade,

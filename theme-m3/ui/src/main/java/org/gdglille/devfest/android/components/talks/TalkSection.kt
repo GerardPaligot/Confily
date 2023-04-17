@@ -18,12 +18,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.halilibo.richtext.markdown.Markdown
-import com.halilibo.richtext.ui.RichText
-import com.halilibo.richtext.ui.RichTextThemeIntegration
 import kotlinx.collections.immutable.toImmutableList
 import org.gdglille.devfest.android.components.speakers.SpeakersAvatar
 import org.gdglille.devfest.android.components.tags.DecorativeTag
@@ -39,12 +38,21 @@ fun TalkSection(
     talk: TalkUi,
     modifier: Modifier = Modifier,
     color: Color = MaterialTheme.colorScheme.onBackground,
-    titleTextStyle: TextStyle = MaterialTheme.typography.headlineMedium,
-    subtitleTextStyle: TextStyle = MaterialTheme.typography.titleLarge,
-    bodyTextStyle: TextStyle = MaterialTheme.typography.bodyMedium
+    titleTextStyle: TextStyle = MaterialTheme.typography.headlineMedium
 ) {
+    val semanticLevel = if (talk.level == null) ""
+    else stringResource(id = R.string.semantic_talk_item_level, talk.level!!)
+    val semanticTalk = stringResource(
+        id = R.string.semantic_talk_item,
+        talk.title,
+        "",
+        talk.room,
+        talk.timeInMinutes,
+        talk.category.name,
+        semanticLevel
+    )
     Column(
-        modifier = modifier,
+        modifier = modifier.clearAndSetSemantics { contentDescription = semanticTalk },
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -84,23 +92,6 @@ fun TalkSection(
                 },
                 colors = TagDefaults.unStyledColors()
             )
-        }
-        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text(
-                text = stringResource(id = R.string.screen_schedule_detail),
-                color = color,
-                style = subtitleTextStyle
-            )
-            RichTextThemeIntegration(
-                textStyle = { bodyTextStyle },
-                ProvideTextStyle = null,
-                contentColor = { color.copy(alpha = .73f) },
-                ProvideContentColor = null,
-            ) {
-                RichText {
-                    Markdown(talk.abstract)
-                }
-            }
         }
     }
 }

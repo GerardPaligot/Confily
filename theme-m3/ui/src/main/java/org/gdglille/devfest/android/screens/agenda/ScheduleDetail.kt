@@ -21,6 +21,7 @@ import org.gdglille.devfest.android.TopActions
 import org.gdglille.devfest.android.components.appbars.TopAppBar
 import org.gdglille.devfest.android.components.speakers.SpeakerSection
 import org.gdglille.devfest.android.components.talks.OpenFeedbackSection
+import org.gdglille.devfest.android.components.talks.TalkAbstract
 import org.gdglille.devfest.android.components.talks.TalkSection
 import org.gdglille.devfest.android.theme.Conferences4HallTheme
 import org.gdglille.devfest.android.ui.resources.R
@@ -58,13 +59,18 @@ fun ScheduleDetail(
         },
         content = {
             LazyColumn(
-                modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
                 contentPadding = it,
                 verticalArrangement = Arrangement.spacedBy(24.dp)
             ) {
                 item {
                     Spacer(modifier = Modifier.height(16.dp))
                     TalkSection(talk = talk)
+                }
+                item {
+                    TalkAbstract(abstract = talk.abstract)
                 }
                 if (talk.openFeedbackProjectId != null && talk.openFeedbackSessionId != null) {
                     item {

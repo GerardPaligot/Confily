@@ -77,7 +77,7 @@
 
     <string name="action_back">Retour</string>
     <string name="action_expanded_menu">Afficher le menu</string>
-    <string name="action_share_talk">Partage la session %s</string>
+    <string name="action_share_talk">Partage la session</string>
     <string name="action_favorite_talk">Mettre en favoris la session %s</string>
     <string name="action_filtering_favorites">Seulement les talks favoris</string>
     <string name="action_qrcode_scanner">Scan de Qrcode</string>
@@ -117,4 +117,7 @@
     <string name="semantic_linkedin">LinkedIn de %s</string>
     <string name="semantic_website">Site de %s</string>
     <string name="semantic_start_itinerary">Démarrer l\'itinéraire vers l\'évènement</string>
+    <string name="semantic_talk_item">%s %s dans la salle %s pendant %d minutes dans la catégorie %s %s</string>
+    <string name="semantic_talk_item_speakers">avec %s comme speaker</string>
+    <string name="semantic_talk_item_level">pour niveau %s</string>
 </resources>

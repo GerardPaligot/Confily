@@ -76,7 +76,7 @@
 
     <string name="action_back">Back</string>
     <string name="action_expanded_menu">Display overflow menu</string>
-    <string name="action_share_talk">Share talk %s</string>
+    <string name="action_share_talk">Share talk</string>
     <string name="action_favorite_talk">Put in favorite talk %s</string>
     <string name="action_filtering_favorites">Only favorites schedules</string>
     <string name="action_qrcode_scanner">Qrcode scanner</string>
@@ -116,4 +116,7 @@
     <string name="semantic_linkedin">LinkedIn of %s</string>
     <string name="semantic_website">Website of %s</string>
     <string name="semantic_start_itinerary">Start itinerary to the event</string>
+    <string name="semantic_talk_item">%s %s in %s room during %d minutes in category %s %s</string>
+    <string name="semantic_talk_item_speakers">with %s as speaker</string>
+    <string name="semantic_talk_item_level">for level %s</string>
 </resources>
