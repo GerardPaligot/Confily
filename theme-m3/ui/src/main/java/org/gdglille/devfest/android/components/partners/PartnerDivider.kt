@@ -13,6 +13,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -34,7 +36,14 @@ fun PartnerDivider(
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Divider(color = dividerColor, thickness = 1.dp, modifier = Modifier.weight(1f))
-            Text(text = title, style = style, color = titleColor)
+            Text(
+                text = title,
+                style = style,
+                color = titleColor,
+                modifier = Modifier.semantics {
+                    heading()
+                }
+            )
             Divider(color = dividerColor, thickness = 1.dp, modifier = Modifier.weight(1f))
         }
         Spacer(modifier = Modifier.height(8.dp))
