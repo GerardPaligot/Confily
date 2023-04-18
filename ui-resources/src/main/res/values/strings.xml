@@ -119,4 +119,6 @@
     <string name="semantic_talk_item">%s %s in %s room during %d minutes in category %s %s</string>
     <string name="semantic_talk_item_speakers">with %s as speaker</string>
     <string name="semantic_talk_item_level">for level %s</string>
+    <string name="semantic_user_item_email">Email address %s</string>
+    <string name="semantic_user_item_company">Work at %s</string>
 </resources>

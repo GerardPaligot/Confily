@@ -24,6 +24,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -43,13 +45,23 @@ fun UserItem(
     contentPadding: PaddingValues = PaddingValues(horizontal = 8.dp, vertical = 16.dp),
     onClick: () -> Unit
 ) {
+    val email = stringResource(id = R.string.semantic_user_item_email, user.email)
+    val work = if (user.company == "") "" else {
+        stringResource(id = R.string.semantic_user_item_company, user.company)
+    }
     Row(
-        modifier = modifier.fillMaxWidth().padding(contentPadding),
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(contentPadding),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Column(
             verticalArrangement = Arrangement.spacedBy(2.dp),
-            modifier = Modifier.weight(1f)
+            modifier = Modifier
+                .weight(1f)
+                .clearAndSetSemantics {
+                    contentDescription = "${user.firstName} ${user.lastName} $email $work"
+                }
         ) {
             Row(horizontalArrangement = Arrangement.spacedBy(2.dp)) {
                 Text(

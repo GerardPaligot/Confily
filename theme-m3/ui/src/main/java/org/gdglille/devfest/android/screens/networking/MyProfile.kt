@@ -15,6 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -30,6 +32,10 @@ fun MyProfile(
 ) {
     val typography = MaterialTheme.typography.bodyMedium
     val color = MaterialTheme.colorScheme.onBackground
+    val email = stringResource(id = R.string.semantic_user_item_email, profileUi.email)
+    val work = if (profileUi.company == "") "" else {
+        stringResource(id = R.string.semantic_user_item_company, profileUi.company)
+    }
     val isInPreview = LocalInspectionMode.current
     LazyColumn(
         modifier = modifier,
@@ -49,7 +55,10 @@ fun MyProfile(
         item {
             Column(
                 verticalArrangement = Arrangement.spacedBy(4.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.clearAndSetSemantics {
+                    contentDescription = "${profileUi.firstName} ${profileUi.lastName} $email $work"
+                }
             ) {
                 Text(
                     text = "${profileUi.firstName} ${profileUi.lastName}",
