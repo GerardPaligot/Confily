@@ -16,6 +16,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.android.components.cards.AddressCard
@@ -56,7 +58,7 @@ fun Event(
                 Text(
                     text = stringResource(R.string.title_ticket),
                     style = MaterialTheme.typography.titleLarge,
-                    modifier = Modifier.padding(horizontal = 16.dp)
+                    modifier = Modifier.padding(horizontal = 16.dp).semantics { heading() }
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 if (it.info != null) {
@@ -79,7 +81,7 @@ fun Event(
             Text(
                 text = stringResource(R.string.title_plan),
                 style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(horizontal = 16.dp)
+                modifier = Modifier.padding(horizontal = 16.dp).semantics { heading() }
             )
             Spacer(modifier = Modifier.height(8.dp))
             AddressCard(
