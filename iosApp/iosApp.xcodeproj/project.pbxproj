@@ -76,6 +76,7 @@
 		D5AEA3AB28341C630023245B /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = D5AEA3AA28341C630023245B /* FirebaseCrashlytics */; };
 		D5B6D47D29983D4C0056EA02 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B6D47C29983D4C0056EA02 /* Configuration.swift */; };
 		D5BC483229B0CC98002CC517 /* ViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BC483129B0CC98002CC517 /* ViewModelFactory.swift */; };
+		D5C1B3BB29F26D9E00D94391 /* BundleExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C1B3BA29F26D9E00D94391 /* BundleExt.swift */; };
 		D5C753292975E7BC00E2FD0B /* EventListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C753282975E7BC00E2FD0B /* EventListVM.swift */; };
 		D5C7532B2975EB2B00E2FD0B /* EventListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C7532A2975EB2B00E2FD0B /* EventListViewModel.swift */; };
 		D5C7532E2975F56000E2FD0B /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C7532D2975F56000E2FD0B /* AppViewModel.swift */; };
@@ -171,6 +172,7 @@
 		D5AE1BE627D18B7E005849B4 /* UserItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserItemView.swift; sourceTree = "<group>"; };
 		D5B6D47C29983D4C0056EA02 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		D5BC483129B0CC98002CC517 /* ViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelFactory.swift; sourceTree = "<group>"; };
+		D5C1B3BA29F26D9E00D94391 /* BundleExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleExt.swift; sourceTree = "<group>"; };
 		D5C753282975E7BC00E2FD0B /* EventListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListVM.swift; sourceTree = "<group>"; };
 		D5C7532A2975EB2B00E2FD0B /* EventListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListViewModel.swift; sourceTree = "<group>"; };
 		D5C7532D2975F56000E2FD0B /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
@@ -326,6 +328,7 @@
 			children = (
 				D51C2CD028383719006EED5D /* UIApplicationExt.swift */,
 				D52F3B992961CDCC00535233 /* ViewExt.swift */,
+				D5C1B3BA29F26D9E00D94391 /* BundleExt.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -713,6 +716,7 @@
 				D5C7532E2975F56000E2FD0B /* AppViewModel.swift in Sources */,
 				D5768D6027C11E2A00FB081C /* Networking.swift in Sources */,
 				D5C92ED1283ACEB500D5CF2D /* Menus.swift in Sources */,
+				D5C1B3BB29F26D9E00D94391 /* BundleExt.swift in Sources */,
 				D50A458F27B081B600C9A43C /* Agenda.swift in Sources */,
 				D5D6166C27B15C7400C59EC9 /* AgendaViewModel.swift in Sources */,
 				D5C7532B2975EB2B00E2FD0B /* EventListViewModel.swift in Sources */,

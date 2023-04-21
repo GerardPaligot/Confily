@@ -16,27 +16,16 @@ struct TalkItemView: View {
     var onFavoriteClicked: (_: TalkItemUi) -> ()
     
     var body: some View {
+        let speakers = talk.speakers.isEmpty ? "" : Bundle.main.translation(key: "semanticTalkItemSpeakers", arguments: talk.speakers.joined(separator: ", "))
+        let room = Bundle.main.translation(key: "semanticTalkItemRoom", arguments: talk.room)
+        let time = Bundle.main.translation(key: "semanticTalkItemTime", arguments: talk.timeInMinutes)
+        let category = Bundle.main.translation(key: "semanticTalkItemCategory", arguments: talk.category.name)
+        let level = talk.level == nil ? "" : Bundle.main.translation(key: "semanticTalkItemLevel", arguments: talk.level!.toLocalized()?.stringValue() ?? "")
         VStack(alignment: .leading) {
-            HStack(alignment: .top) {
-                Text(talk.title)
-                    .foregroundColor(titleColor)
-                    .font(titleTextStyle)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                if (!talk.isPause) {
-                    let iconName = talk.isFavorite ? "star.fill" : "star"
-                    let iconColor = talk.isFavorite ? Color.c4hSecondary : Color.c4hOnBackground
-                    Button {
-                        onFavoriteClicked(talk)
-                    } label: {
-                        Image(systemName: iconName)
-                            .foregroundColor(iconColor)
-                            .padding(8)
-                    }
-                    .accessibilityAddTraits(
-                        talk.isFavorite ? [.isButton, .isSelected] : .isButton
-                    )
-                }
-            }
+            Text(talk.title)
+                .foregroundColor(titleColor)
+                .font(titleTextStyle)
+                .frame(maxWidth: .infinity, alignment: .leading)
             HStack {
                 TagUnStyledView(
                     text: talk.room,
@@ -69,9 +58,8 @@ struct TalkItemView: View {
             .padding([.top], 8)
         }
         .frame(maxWidth: .infinity, alignment: .topLeading)
-        .accessibilityElement(children: .combine)
-        .accessibilityAddTraits(!talk.isPause ? .isButton : [])
-        .accessibilityRemoveTraits(!talk.isPause ? .isStaticText : [])
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("\(talk.title) \(speakers) \(room) \(time) \(category) \(level)")
     }
 }
 

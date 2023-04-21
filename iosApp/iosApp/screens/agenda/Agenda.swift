@@ -51,6 +51,16 @@ struct Agenda: View {
                                             talk: talk,
                                             onFavoriteClicked: onFavoriteClicked
                                         )
+                                        .swipeActions(allowsFullSwipe: false) {
+                                            let iconName = talk.isFavorite ? "star.fill" : "star"
+                                            let iconColor = talk.isFavorite ? Color.c4hSecondary : Color.c4hOnBackground
+                                            let iconAction = talk.isFavorite ? LocalizedStringKey("actionRemoveFavorite") : LocalizedStringKey("actionToggleFavorite")
+                                            Button { onFavoriteClicked(talk) } label: {
+                                                Image(systemName: iconName)
+                                            }
+                                            .tint(iconColor)
+                                            .accessibilityLabel(Text(iconAction))
+                                        }
                                     } else {
                                         PauseView()
                                     }

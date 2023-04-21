@@ -29,6 +29,7 @@ struct AddressCardView: View {
             }
         }
         .frame(maxWidth: .infinity, alignment: .topLeading)
+        .accessibilityElement(children: .combine)
     }
 }
 

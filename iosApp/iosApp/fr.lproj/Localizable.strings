@@ -67,6 +67,8 @@
 "actionQrcodeGenerator" = "Génèrer le Qrcode de votre profile";
 "actionDeleteNetworkProfile" = "Supprimer le profile";
 "actionPowerOff" = "Changer d'évènement";
+"actionToggleFavorite" = "Mettre en favoris";
+"actionRemoveFavorite" = "Retirer des favoris";
 
 "inputEmail" = "Ton adresse email*";
 "inputFirstname" = "Ton prénom*";
@@ -84,3 +86,8 @@
 "semanticTicketId %@" = "Identifiant de ton billet %@";
 "semanticProfileQrcode" = "Ton Qrcode est affiché et prêt à être scanné";
 "semanticTicketQrcode" = "Qrcode de ton ticket prêt à être scanné";
+"semanticTalkItemSpeakers" = "avec %@ comme speaker";
+"semanticTalkItemRoom" = "dans la salle %@";
+"semanticTalkItemTime" = "pendant %d minutes";
+"semanticTalkItemCategory" = "dans la categorie %@";
+"semanticTalkItemLevel" = "pour niveau %@";

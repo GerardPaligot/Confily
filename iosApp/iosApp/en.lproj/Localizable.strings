@@ -68,6 +68,8 @@
 "actionQrcodeGenerator" = "Qrcode generator for your profile";
 "actionDeleteNetworkProfile" = "Delete the profile";
 "actionPowerOff" = "Change event";
+"actionToggleFavorite" = "Put in favorite";
+"actionRemoveFavorite" = "Remove favorite";
 
 "inputEmail" = "Your email address*";
 "inputFirstname" = "Your first name*";
@@ -85,3 +87,8 @@
 "semanticTicketId %@" = "Identifier of your ticket %@";
 "semanticProfileQrcode" = "Your profile qrcode is displayed and ready to be scanned";
 "semanticTicketQrcode" = "Qrcode of your ticket ready to be scanned";
+"semanticTalkItemSpeakers" = "with %@ as speaker";
+"semanticTalkItemRoom" = "in %@ room";
+"semanticTalkItemTime" = "during %d minutes";
+"semanticTalkItemCategory" = "in category %@";
+"semanticTalkItemLevel" = "for level %@";

@@ -47,6 +47,7 @@ struct SpeakerDetail: View {
                         Text(speaker.jobTitle!)
                             .foregroundColor(.secondary)
                     }
+                    .accessibilityElement(children: .combine)
                 }
                 if (speaker.company != nil) {
                     HStack(alignment: .center) {
@@ -55,6 +56,7 @@ struct SpeakerDetail: View {
                         Text(speaker.company!)
                             .foregroundColor(.secondary)
                     }
+                    .accessibilityElement(children: .combine)
                 }
                 Text(speaker.bio)
                     .font(Font.callout)

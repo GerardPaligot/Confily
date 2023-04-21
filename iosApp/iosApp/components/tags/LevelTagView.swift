@@ -26,7 +26,7 @@ extension LocalizedStringKey {
     }
 }
 
-private extension String {
+extension String {
     static func localizedString(for key: String, locale: Locale = .current) -> String {
         let language = locale.languageCode
         let path = Bundle.main.path(forResource: language, ofType: "lproj")!
