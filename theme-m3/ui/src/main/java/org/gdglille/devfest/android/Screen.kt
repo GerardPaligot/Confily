@@ -87,15 +87,15 @@ object BottomActions {
     )
     val speakers = BottomAction(
         route = Screen.SpeakerList.route,
-        icon = R.drawable.ic_mtrl_mic_line,
-        iconSelected = R.drawable.ic_mtrl_mic_fill,
+        icon = R.drawable.ic_mtrl_interpreter_mode_line,
+        iconSelected = R.drawable.ic_mtrl_interpreter_mode_fill,
         label = R.string.screen_speakers,
         contentDescription = null,
     )
     val networking = BottomAction(
         route = Screen.Networking.route,
-        icon = R.drawable.ic_mtrl_group_line,
-        iconSelected = R.drawable.ic_mtrl_group_fill,
+        icon = R.drawable.ic_mtrl_hub_line,
+        iconSelected = R.drawable.ic_mtrl_hub_fill,
         label = R.string.screen_networking,
         contentDescription = null,
         selectedRoutes = listOf(Screen.MyProfile.route, Screen.Contacts.route)
