@@ -38,24 +38,19 @@ fun SocialsSection(
     websiteUrl: String? = null,
 ) {
     Column(modifier = modifier.fillMaxWidth()) {
-        Row(
-            verticalAlignment = Alignment.Bottom,
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
+        Text(
+            text = title,
+            style = MaterialTheme.typography.headlineLarge,
+            color = MaterialTheme.colorScheme.onSurface,
+            modifier = Modifier.placeholder(visible = isLoading)
+        )
+        pronouns?.let {
             Text(
-                text = title,
-                style = MaterialTheme.typography.headlineLarge,
-                color = MaterialTheme.colorScheme.onSurface,
+                text = pronouns,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = .5f),
                 modifier = Modifier.placeholder(visible = isLoading)
             )
-            pronouns?.let {
-                Text(
-                    text = pronouns,
-                    style = MaterialTheme.typography.headlineSmall,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = .5f),
-                    modifier = Modifier.placeholder(visible = isLoading)
-                )
-            }
         }
         subtitle?.let {
             Spacer(modifier = Modifier.height(4.dp))
