@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.flowlayout.FlowRow
 import com.halilibo.richtext.markdown.Markdown
 import com.halilibo.richtext.ui.RichText
 import com.halilibo.richtext.ui.RichTextThemeIntegration
@@ -64,7 +65,7 @@ fun SocialsSection(
         Spacer(modifier = Modifier.height(12.dp))
         val hasUrls = twitterUrl != null || githubUrl != null || linkedinUrl != null || websiteUrl != null
         if (hasUrls) {
-            Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+            FlowRow(mainAxisSpacing = 16.dp) {
                 twitterUrl?.let {
                     Socials.Twitter(
                         text = title,
