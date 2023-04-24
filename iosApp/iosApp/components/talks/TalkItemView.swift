@@ -22,6 +22,17 @@ struct TalkItemView: View {
         let category = Bundle.main.translation(key: "semanticTalkItemCategory", arguments: talk.category.name)
         let level = talk.level == nil ? "" : Bundle.main.translation(key: "semanticTalkItemLevel", arguments: talk.level!.toLocalized()?.stringValue() ?? "")
         VStack(alignment: .leading) {
+            if (talk.category.color != nil || talk.level != nil) {
+                HStack(spacing: 8) {
+                    if (talk.category.color != nil) {
+                        DecorativeTagView(category: talk.category)
+                            .labelStyle(.titleOnly)
+                    }
+                    if (talk.level != nil) {
+                        LevelTagView(level: talk.level!)
+                    }
+                }
+            }
             Text(talk.title)
                 .foregroundColor(titleColor)
                 .font(titleTextStyle)
@@ -36,26 +47,6 @@ struct TalkItemView: View {
                     icon: talk.timeInMinutes <= 30 ? "bolt.badge.clock" : "clock"
                 )
             }
-            ZStack(alignment: .leading) {
-                if (talk.category.color != nil || talk.level != nil) {
-                    HStack(spacing: 8) {
-                        if (talk.category.color != nil) {
-                            DecorativeTagView(category: talk.category)
-                        }
-                        if (talk.level != nil) {
-                            LevelTagView(level: talk.level!)
-                        }
-                    }
-                }
-                if (talk.speakers.count != 0) {
-                    SpeakersAvatarView(
-                        speakers: talk.speakers,
-                        avatars: talk.speakersAvatar
-                    )
-                    .frame(maxWidth: .infinity, alignment: .trailing)
-                }
-            }
-            .padding([.top], 8)
         }
         .frame(maxWidth: .infinity, alignment: .topLeading)
         .accessibilityElement(children: .ignore)
