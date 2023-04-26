@@ -28,6 +28,7 @@ import org.gdglille.devfest.backend.internals.helpers.database.BasicDatabase
 import org.gdglille.devfest.backend.internals.helpers.database.Database
 import org.gdglille.devfest.backend.internals.helpers.secret.Secret
 import org.gdglille.devfest.backend.internals.helpers.storage.Storage
+import org.gdglille.devfest.backend.internals.network.conferencehall.ConferenceHallApi
 import org.gdglille.devfest.backend.internals.network.geolocation.GeocodeApi
 import org.gdglille.devfest.backend.internals.network.welovedevs.WeLoveDevsApi
 import org.gdglille.devfest.backend.jobs.JobDao
@@ -94,6 +95,7 @@ fun main() {
         apiKey = secret["GEOCODE_API_KEY"],
         enableNetworkLogs = true
     )
+    val conferenceHallApi = ConferenceHallApi.Factory.create(enableNetworkLogs = true)
     embeddedServer(Netty, PORT) {
         install(CORS) {
             anyHost()
@@ -117,9 +119,9 @@ fun main() {
             }
         }
         routing {
-            registerConferenceHallRoutes(eventDao, speakerDao, talkDao)
             registerEventRoutes(geocodeApi, eventDao, speakerDao, talkDao, scheduleItemDao, partnerDao, cms4partnerDao)
             route("/events/{eventId}") {
+                registerConferenceHallRoutes(conferenceHallApi, eventDao, speakerDao, talkDao)
                 registerSpeakersRoutes(eventDao, speakerDao)
                 registerTalksRoutes(eventDao, speakerDao, talkDao)
                 registerSchedulersRoutes(eventDao, talkDao, speakerDao, scheduleItemDao)

@@ -14,19 +14,18 @@ import kotlinx.serialization.json.Json
 
 class ConferenceHallApi(
     private val client: HttpClient,
-    private val apiKey: String,
     private val baseUrl: String = "https://${System.getenv("BASE_URL_CONFERENCE_HALL")}/api"
 ) {
     suspend fun fetchSpeakerAvatar(url: String) = client.get(url).body<ByteArray>()
 
-    suspend fun fetchEventConfirmed(eventId: String) =
+    suspend fun fetchEventConfirmed(eventId: String, apiKey: String) =
         client.get("$baseUrl/v1/event/$eventId?key=$apiKey&state=confirmed").body<Event>()
 
-    suspend fun fetchEventAccepted(eventId: String) =
+    suspend fun fetchEventAccepted(eventId: String, apiKey: String) =
         client.get("$baseUrl/v1/event/$eventId?key=$apiKey&state=accepted").body<Event>()
 
     object Factory {
-        fun create(apiKey: String, enableNetworkLogs: Boolean): ConferenceHallApi =
+        fun create(enableNetworkLogs: Boolean): ConferenceHallApi =
             ConferenceHallApi(
                 client = HttpClient(Java.create()) {
                     install(ContentNegotiation) {
@@ -45,8 +44,7 @@ class ConferenceHallApi(
                             level = LogLevel.INFO
                         }
                     }
-                },
-                apiKey = apiKey
+                }
             )
     }
 }

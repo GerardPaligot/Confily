@@ -11,49 +11,37 @@ import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.talks.TalkDao
 
 fun Route.registerConferenceHallRoutes(
+    conferenceHallApi: ConferenceHallApi,
     eventDao: EventDao,
     speakerDao: SpeakerDao,
     talkDao: TalkDao
 ) {
-    post("conference-hall/{eventId}/import") {
-        val apiKey = call.request.headers["api_key"]!!
-        val eventId = call.parameters["eventId"]!!
-        val api = ConferenceHallApi.Factory.create(apiKey = apiKey, enableNetworkLogs = true)
-        val repository = ConferenceHallRepository(api, eventDao, speakerDao, talkDao)
-        call.respond(HttpStatusCode.Created, repository.import(eventId, apiKey))
-    }
+    val conferenceHallRepo =
+        ConferenceHallRepository(conferenceHallApi, eventDao, speakerDao, talkDao)
 
     post("conference-hall/{eventId}/talks/import") {
         val apiKey = call.request.headers["api_key"]!!
         val eventId = call.parameters["eventId"]!!
-        val api = ConferenceHallApi.Factory.create(apiKey = apiKey, enableNetworkLogs = true)
-        val repository = ConferenceHallRepository(api, eventDao, speakerDao, talkDao)
-        call.respond(HttpStatusCode.Created, repository.importTalks(eventId))
+        call.respond(HttpStatusCode.Created, conferenceHallRepo.importTalks(eventId, apiKey))
     }
 
     post("conference-hall/{eventId}/talks/{talkId}/import") {
         val apiKey = call.request.headers["api_key"]!!
         val eventId = call.parameters["eventId"]!!
         val talkId = call.parameters["talkId"]!!
-        val api = ConferenceHallApi.Factory.create(apiKey = apiKey, enableNetworkLogs = true)
-        val repository = ConferenceHallRepository(api, eventDao, speakerDao, talkDao)
-        call.respond(HttpStatusCode.Created, repository.importTalk(eventId, talkId))
+        call.respond(HttpStatusCode.Created, conferenceHallRepo.importTalk(eventId, apiKey, talkId))
     }
 
     post("conference-hall/{eventId}/speakers/import") {
         val apiKey = call.request.headers["api_key"]!!
         val eventId = call.parameters["eventId"]!!
-        val api = ConferenceHallApi.Factory.create(apiKey = apiKey, enableNetworkLogs = true)
-        val repository = ConferenceHallRepository(api, eventDao, speakerDao, talkDao)
-        call.respond(HttpStatusCode.Created, repository.importSpeakers(eventId))
+        call.respond(HttpStatusCode.Created, conferenceHallRepo.importSpeakers(eventId, apiKey))
     }
 
     post("conference-hall/{eventId}/speakers/{speakerId}/import") {
         val apiKey = call.request.headers["api_key"]!!
         val eventId = call.parameters["eventId"]!!
         val speakerId = call.parameters["speakerId"]!!
-        val api = ConferenceHallApi.Factory.create(apiKey = apiKey, enableNetworkLogs = true)
-        val repository = ConferenceHallRepository(api, eventDao, speakerDao, talkDao)
-        call.respond(HttpStatusCode.Created, repository.importSpeaker(eventId, speakerId))
+        call.respond(HttpStatusCode.Created, conferenceHallRepo.importSpeaker(eventId, apiKey, speakerId))
     }
 }

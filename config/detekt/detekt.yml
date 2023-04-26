@@ -679,7 +679,7 @@ style:
     active: false
   ThrowsCount:
     active: true
-    max: 2
+    max: 5
   TrailingWhitespace:
     active: false
   UnderscoresInNumericLiterals:

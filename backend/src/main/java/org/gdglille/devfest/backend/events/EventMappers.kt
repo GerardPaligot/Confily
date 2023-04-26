@@ -2,7 +2,6 @@
 
 package org.gdglille.devfest.backend.events
 
-import org.gdglille.devfest.backend.internals.network.conferencehall.Event
 import org.gdglille.devfest.backend.internals.slug
 import org.gdglille.devfest.models.Acronym
 import org.gdglille.devfest.models.Address
@@ -16,6 +15,7 @@ import org.gdglille.devfest.models.QuestionAndResponseAction
 import org.gdglille.devfest.models.inputs.AcronymInput
 import org.gdglille.devfest.models.inputs.BilletWebConfigInput
 import org.gdglille.devfest.models.inputs.CategoryInput
+import org.gdglille.devfest.models.inputs.ConferenceHallConfigInput
 import org.gdglille.devfest.models.inputs.CreatingEventInput
 import org.gdglille.devfest.models.inputs.EventInput
 import org.gdglille.devfest.models.inputs.LunchMenuInput
@@ -23,25 +23,6 @@ import org.gdglille.devfest.models.inputs.QuestionAndResponseActionInput
 import org.gdglille.devfest.models.inputs.QuestionAndResponseInput
 import org.gdglille.devfest.models.inputs.WldConfigInput
 import java.util.UUID
-
-fun Event.convertToDb(year: String, eventId: String, apiKey: String) = EventDb(
-    slugId = this.name.slug(),
-    year = year,
-    conferenceHallId = eventId,
-    apiKey = apiKey,
-    name = this.name,
-    address = AddressDb(
-        formatted = this.address.formattedAddress.split(",").map { it.trim() },
-        address = this.address.formattedAddress,
-        country = this.address.country.longName,
-        countryCode = this.address.country.shortName,
-        city = this.address.locality.longName,
-        lat = this.address.latLng.lat,
-        lng = this.address.latLng.lng
-    ),
-    startDate = this.conferenceDates.start,
-    endDate = this.conferenceDates.end
-)
 
 fun AcronymDb.convertToModel() = Acronym(
     key = key,
@@ -170,6 +151,11 @@ fun CategoryInput.convertToDb() = CategoryDb(
     icon = icon
 )
 
+fun ConferenceHallConfigInput.convertToDb() = ConferenceHallConfigurationDb(
+    eventId = eventId,
+    apiKey = apiKey
+)
+
 fun BilletWebConfigInput.convertToDb() = BilletWebConfigurationDb(
     eventId = eventId,
     userId = userId,
@@ -184,8 +170,8 @@ fun WldConfigInput.convertToDb() = WldConfigurationDb(
 fun EventInput.convertToDb(event: EventDb, openFeedbackId: String?, apiKey: String) = EventDb(
     slugId = event.name.slug(),
     year = event.year,
-    conferenceHallId = event.conferenceHallId,
     openFeedbackId = openFeedbackId ?: event.openFeedbackId,
+    conferenceHallConfig = this.conferenceHallConfigInput?.convertToDb(),
     billetWebConfig = this.billetWebConfig?.convertToDb(),
     wldConfig = this.wldConfig?.convertToDb(),
     apiKey = apiKey,
@@ -218,8 +204,8 @@ fun EventInput.convertToDb(event: EventDb, openFeedbackId: String?, apiKey: Stri
 fun CreatingEventInput.convertToDb(addressDb: AddressDb) = EventDb(
     slugId = name.slug(),
     year = year,
-    conferenceHallId = null,
     openFeedbackId = openFeedbackId,
+    conferenceHallConfig = this.conferenceHallConfigInput?.convertToDb(),
     billetWebConfig = this.billetWebConfig?.convertToDb(),
     wldConfig = this.wldConfig?.convertToDb(),
     apiKey = UUID.randomUUID().toString(),

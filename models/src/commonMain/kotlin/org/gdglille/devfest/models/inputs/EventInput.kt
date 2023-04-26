@@ -83,6 +83,16 @@ data class FeaturesActivatedInput(
 }
 
 @Serializable
+data class ConferenceHallConfigInput(
+    @SerialName("event_id")
+    val eventId: String,
+    @SerialName("api_key")
+    val apiKey: String
+) : Validator {
+    override fun validate(): List<String> = emptyList()
+}
+
+@Serializable
 data class BilletWebConfigInput(
     @SerialName("event_id")
     val eventId: String,
@@ -110,6 +120,8 @@ data class EventInput(
     val address: EventAddressInput,
     @SerialName("open_feedback_id")
     val openFeedbackId: String?,
+    @SerialName("conference_hall_config")
+    val conferenceHallConfigInput: ConferenceHallConfigInput?,
     @SerialName("billet_web_config")
     val billetWebConfig: BilletWebConfigInput?,
     @SerialName("wld_config")
