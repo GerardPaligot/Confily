@@ -21,7 +21,12 @@ struct ScheduleDetail: View {
                 ForEach(talkUi.speakers, id: \.id) { speaker in
                     SpeakerItemNavigation(speaker: speaker)
                 }
-                Link("actionFeedback", destination: URL(string: talkUi.openFeedbackUrl!)!)
+                if (talkUi.canGiveFeedback) {
+                    Link("actionFeedback", destination: URL(string: talkUi.openFeedbackUrl!)!)
+                } else {
+                    Text("textFeedbackNotStarted")
+                        .font(.caption)
+                }
             }
             .padding(.horizontal, 16)
         }

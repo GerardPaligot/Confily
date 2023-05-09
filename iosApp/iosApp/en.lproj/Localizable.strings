@@ -48,6 +48,7 @@
 "textPauseItem" = "Pause ☕";
 "textJobRequirements" = "years min";
 "textJobPropulsed" = "Propulsed by";
+"textFeedbackNotStarted" = "Wait a little, you will be able to give feedbacks when the session has started.";
 
 "actionFeedback" = "Give your feedback";
 "actionItinerary" = "Itinerary";
