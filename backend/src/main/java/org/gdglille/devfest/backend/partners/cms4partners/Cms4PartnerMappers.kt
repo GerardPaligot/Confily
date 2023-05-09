@@ -33,9 +33,9 @@ fun Cms4PartnerDb.convertToModelV2(jobs: List<Job>) = PartnerV2(
     description = this.description ?: "",
     logoUrl = this.logoUrl,
     siteUrl = this.siteUrl,
-    twitterUrl = this.twitterAccount,
+    twitterUrl = if (this.twitterAccount == "") null else this.twitterAccount,
     twitterMessage = this.twitter,
-    linkedinUrl = this.linkedinAccount,
+    linkedinUrl = if (this.linkedinAccount == "") null else this.linkedinAccount,
     linkedinMessage = this.linkedin,
     address = this.convertToAddressModel(),
     jobs = jobs
