@@ -9,11 +9,11 @@
 import SwiftUI
 import shared
 
-struct EventListView<EventItem: View>: View {
+struct EventListView: View {
     private let tabs = ["screenEventsFuture", "screenEventsPast"]
     @State private var selectedTab = 0
     var events: EventItemListUi
-    var eventItem: (EventItemUi) -> (EventItem)
+    var onEventClicked: (String) -> ()
     
     var body: some View {
         let items = selectedTab == 0 ? events.future : events.past
@@ -26,7 +26,11 @@ struct EventListView<EventItem: View>: View {
                 }
                 .pickerStyle(SegmentedPickerStyle())
                 ForEach(items, id: \.id) { event in
-                    self.eventItem(event)
+                    Button {
+                        onEventClicked(event.id)
+                    } label: {
+                        EventItemView(item: event)
+                    }
                 }
             }
             .padding([.horizontal], 16)
@@ -38,14 +42,7 @@ struct EventListView_Previews: PreviewProvider {
     static var previews: some View {
         EventListView(
             events: EventItemListUi.companion.fake,
-            eventItem: { event in
-                Button {
-                    // action
-                } label: {
-                    EventItemView(item: event)
-                        .foregroundColor(Color.c4hOnSurface)
-                }
-            }
+            onEventClicked: { eventId in }
         )
     }
 }

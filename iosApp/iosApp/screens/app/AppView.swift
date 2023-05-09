@@ -33,13 +33,8 @@ struct AppView: View {
                 case .events:
                     EventListVM(
                         viewModel: viewModelFactory.makeEventListViewModel(),
-                        eventItem: { event in
-                            Button {
-                                viewModel.saveEventId(eventId: event.id)
-                            } label: {
-                                EventItemView(item: event)
-                                    .foregroundColor(Color.c4hOnSurface)
-                            }
+                        onEventClicked: { eventId in
+                            viewModel.saveEventId(eventId: eventId)
                         }
                     )
                 case .agenda:

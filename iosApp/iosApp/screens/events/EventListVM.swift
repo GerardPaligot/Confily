@@ -9,17 +9,9 @@
 import SwiftUI
 import shared
 
-struct EventListVM<EventItem: View>: View {
+struct EventListVM: View {
     @ObservedObject var viewModel: EventListViewModel
-    let eventItem: (EventItemUi) -> (EventItem)
-    
-    init(
-        viewModel: EventListViewModel,
-        @ViewBuilder eventItem: @escaping (EventItemUi) -> EventItem
-    ) {
-        self.viewModel = viewModel
-        self.eventItem = eventItem
-    }
+    let onEventClicked: (String) -> ()
     
     var body: some View {
         let uiState = viewModel.uiState
@@ -29,7 +21,7 @@ struct EventListVM<EventItem: View>: View {
                     case .success(let events):
                         EventListView(
                             events: events,
-                            eventItem: self.eventItem
+                            onEventClicked: onEventClicked
                         )
                     case .failure:
                         Text("textError")
