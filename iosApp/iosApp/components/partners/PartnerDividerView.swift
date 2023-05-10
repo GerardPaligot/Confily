@@ -16,7 +16,6 @@ struct PartnerDividerView: View {
     
     var body: some View {
         HStack {
-            VStack { Divider().background(dividerColor) }
             Text(text)
                 .foregroundColor(titleColor)
                 .font(font)
@@ -29,6 +28,6 @@ struct PartnerDividerView: View {
 
 struct PartnerDividerView_Previews: PreviewProvider {
     static var previews: some View {
-        PartnerDividerView(text: "Gold")
+        PartnerDividerView(text: "Community Partners")
     }
 }
