@@ -51,7 +51,7 @@ class TalkDao(private val database: Database) {
             eventId = eventId,
             collectionName = CollectionName
         ) { talk.copy(id = it) }
-        val existing = database.get<SpeakerDb>(eventId = eventId, collectionName = CollectionName, id = talk.id)
+        val existing = database.get<TalkDb>(eventId = eventId, collectionName = CollectionName, id = talk.id)
         if (existing == null) database.insert(
             eventId = eventId,
             collectionName = CollectionName,

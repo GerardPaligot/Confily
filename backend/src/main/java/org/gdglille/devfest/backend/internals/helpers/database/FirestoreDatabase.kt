@@ -93,7 +93,7 @@ class FirestoreDatabase(private val firestore: Firestore, private val projectNam
             return@withContext docRef.id
         }
 
-    override suspend fun <T : Any> update(collectionName: String, eventId: String, id: String, item: T) =
+    override suspend fun <T : Any> update(eventId: String, collectionName: String, id: String, item: T) =
         withContext(Dispatchers.IO) {
             val map = item::class.memberProperties.associate { it.name to it.getter.call(item) }
             firestore
