@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.map
+import org.gdglille.devfest.Platform
 import org.gdglille.devfest.db.Conferences4HallDatabase
 import org.gdglille.devfest.models.JobUi
 import org.gdglille.devfest.models.PartnerGroupUi
@@ -17,7 +18,7 @@ import org.gdglille.devfest.models.PartnerItemUi
 import org.gdglille.devfest.models.PartnerV2
 import org.gdglille.devfest.models.SalaryUi
 
-class PartnerDao(private val db: Conferences4HallDatabase) {
+class PartnerDao(private val db: Conferences4HallDatabase, private val platform: Platform) {
     private val partnerMapper =
         { id: String, name: String, description: String, logoUrl: String, siteUrl: String?,
             twitterUrl: String?, twitterMessage: String?, linkedinUrl: String?,
@@ -114,7 +115,13 @@ class PartnerDao(private val db: Conferences4HallDatabase) {
                     event_id = eventId,
                     type_id = entry.key,
                     type = entry.key,
-                    logo_url = partner.logoUrl,
+                    logo_url = if (platform.hasSupportSVG) {
+                        partner.media.svg
+                    } else if (partner.media.pngs != null) {
+                        partner.media.pngs!!._250
+                    } else {
+                        partner.media.svg
+                    },
                     site_url = partner.siteUrl,
                     twitter_url = partner.twitterUrl,
                     twitter_message = partner.twitterMessage,

@@ -24,6 +24,7 @@ actual class Platform actual constructor(context: PlatformContext) {
         fileSystem = FileSystem.SYSTEM,
         tempFolderPath = FileSystem.SYSTEM_TEMPORARY_DIRECTORY
     )
+    actual val hasSupportSVG: Boolean = false
 }
 
 actual class DecimalFormat {

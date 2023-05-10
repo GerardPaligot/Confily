@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity() {
             speakerDao = SpeakerDao(db),
             talkDao = TalkDao(db),
             eventDao = EventDao(db, settings),
-            partnerDao = PartnerDao(db),
+            partnerDao = PartnerDao(db = db, platform = platform),
             featuresDao = FeaturesActivatedDao(db),
             qrCodeGenerator = QrCodeGeneratorAndroid()
         )

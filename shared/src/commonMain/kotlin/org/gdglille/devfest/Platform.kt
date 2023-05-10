@@ -14,6 +14,7 @@ expect class PlatformContext
 expect class Platform(context: PlatformContext) {
     val httpEngine: HttpClientEngine
     val fileEngine: FileEngine
+    val hasSupportSVG: Boolean
 }
 
 expect class DecimalFormat() {

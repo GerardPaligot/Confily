@@ -13,12 +13,27 @@ data class Partner(
 )
 
 @Serializable
+data class PartnerMediaPngs(
+    val _250: String,
+    val _500: String,
+    val _1000: String
+)
+
+@Serializable
+data class PartnerMedia(
+    val svg: String,
+    val pngs: PartnerMediaPngs?
+)
+
+@Serializable
 data class PartnerV2(
     val id: String,
     val name: String,
     val description: String,
     @SerialName("logo_url")
     val logoUrl: String,
+    @SerialName("media")
+    val media: PartnerMedia,
     @SerialName("site_url")
     val siteUrl: String?,
     @SerialName("twitter_url")

@@ -30,7 +30,7 @@ class ViewModelFactory: ObservableObject {
             speakerDao: SpeakerDao(db: db),
             talkDao: TalkDao(db: db),
             eventDao: EventDao(db: db, settings: settings),
-            partnerDao: PartnerDao(db: db),
+            partnerDao: PartnerDao(db: db, platform: platform),
             featuresDao: FeaturesActivatedDao(db: db),
             qrCodeGenerator: QrCodeGeneratoriOS()
         )
