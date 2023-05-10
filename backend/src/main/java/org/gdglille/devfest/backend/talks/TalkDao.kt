@@ -6,7 +6,6 @@ import kotlinx.coroutines.coroutineScope
 import org.gdglille.devfest.backend.internals.helpers.database.Database
 import org.gdglille.devfest.backend.internals.helpers.database.get
 import org.gdglille.devfest.backend.internals.helpers.database.getAll
-import org.gdglille.devfest.backend.speakers.SpeakerDb
 
 private const val CollectionName = "talks"
 
