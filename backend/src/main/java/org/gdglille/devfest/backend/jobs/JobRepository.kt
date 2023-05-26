@@ -28,7 +28,8 @@ class JobRepository(
         val jobsDb = jobs.hits
             .filter { it.title.contains("spontaneous_application").not() }
             .map { hit ->
-                val id = "${hit.companyId.substring(0..MaxPartnerChar)}-${hit.publishDate}"
+                val id = if (hit.companyId.length < MaxPartnerChar) hit.companyId
+                else "${hit.companyId.substring(0..MaxPartnerChar)}-${hit.publishDate}"
                 val partnerId = cms4PartnerDbs.find { it.wldId == hit.companyId }?.id
                     ?: partners.find { it.wldId == hit.companyId }?.id
                     ?: throw NotAcceptableException("Partner WLD ${hit.companyId} not found")
