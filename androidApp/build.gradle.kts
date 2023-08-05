@@ -12,7 +12,7 @@ enum class DesignSystem {
 val designSystem = DesignSystem.M3
 val versionMajor = 2
 val versionMinor = 0
-val versionPatch = 2
+val versionPatch = 3
 android {
     namespace = "org.gdglille.devfest.android"
     defaultConfig {
