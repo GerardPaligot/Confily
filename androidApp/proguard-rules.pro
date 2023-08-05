@@ -14,3 +14,6 @@
 -dontwarn org.openjsse.javax.net.ssl.SSLSocket
 -dontwarn org.openjsse.net.ssl.OpenJSSE
 -dontwarn org.slf4j.impl.StaticLoggerBinder
+
+# See https://github.com/firebase/firebase-android-sdk/issues/2124
+-keep class com.google.android.gms.internal.** { *; }
