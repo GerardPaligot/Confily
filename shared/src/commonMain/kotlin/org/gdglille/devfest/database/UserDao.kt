@@ -1,10 +1,12 @@
 package org.gdglille.devfest.database
 
-import com.squareup.sqldelight.runtime.coroutines.asFlow
-import com.squareup.sqldelight.runtime.coroutines.mapToList
-import com.squareup.sqldelight.runtime.coroutines.mapToOneOrNull
+import app.cash.sqldelight.coroutines.asFlow
+import app.cash.sqldelight.coroutines.mapToList
+import app.cash.sqldelight.coroutines.mapToOneOrNull
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.datetime.Clock
@@ -37,7 +39,7 @@ class UserDao(
                     qrCode = qrcode.toNativeImage()
                 )
             }
-        ).asFlow().mapToOneOrNull()
+        ).asFlow().mapToOneOrNull(Dispatchers.IO)
 
     fun fetchUserPreview(eventId: String): Flow<UserProfileUi?> =
         db.ticketQueries.selectTicket(eventId, mapper = { _, _, _, _, firstname, lastname, _, _ ->
@@ -48,7 +50,7 @@ class UserDao(
                 company = "",
                 qrCode = null
             )
-        }).asFlow().mapToOneOrNull()
+        }).asFlow().mapToOneOrNull(Dispatchers.IO)
 
     fun insertUser(eventId: String, user: UserProfileUi) {
         db.userQueries.insertProfile(
@@ -69,7 +71,7 @@ class UserDao(
                 lastName,
                 company ?: ""
             )
-        }.asFlow().mapToList().map { it.toImmutableList() }
+        }.asFlow().mapToList(Dispatchers.IO).map { it.toImmutableList() }
 
     fun insertEmailNetworking(eventId: String, userNetworkingUi: UserNetworkingUi) =
         db.userQueries.insertNetwork(

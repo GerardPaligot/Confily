@@ -1,7 +1,7 @@
 package org.gdglille.devfest.database
 
 import android.content.Context
-import com.squareup.sqldelight.android.AndroidSqliteDriver
+import app.cash.sqldelight.driver.android.AndroidSqliteDriver
 import org.gdglille.devfest.db.Conferences4HallDatabase
 import org.gdglille.devfest.db.Event
 import org.gdglille.devfest.db.Partner

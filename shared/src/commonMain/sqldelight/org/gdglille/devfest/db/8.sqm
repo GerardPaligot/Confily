@@ -1,1 +1,4 @@
+import kotlin.collections.List;
+import kotlin.String;
+
 ALTER TABLE Event ADD COLUMN formatted_address TEXT AS List<String> NOT NULL DEFAULT "";

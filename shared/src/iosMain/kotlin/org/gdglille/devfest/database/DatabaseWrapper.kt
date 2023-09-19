@@ -1,6 +1,6 @@
 package org.gdglille.devfest.database
 
-import com.squareup.sqldelight.drivers.native.NativeSqliteDriver
+import app.cash.sqldelight.driver.native.NativeSqliteDriver
 import org.gdglille.devfest.db.Conferences4HallDatabase
 import org.gdglille.devfest.db.Event
 import org.gdglille.devfest.db.Partner

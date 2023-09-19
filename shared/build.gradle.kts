@@ -5,7 +5,7 @@ plugins {
     id("conferences4hall.quality")
     id("kotlinx-serialization")
     id("com.rickclephas.kmp.nativecoroutines")
-    id("com.squareup.sqldelight")
+    id("app.cash.sqldelight")
 }
 
 android {
@@ -98,8 +98,10 @@ kotlin {
 }
 
 sqldelight {
-    database("Conferences4HallDatabase") {
-        packageName = "org.gdglille.devfest.db"
-        sourceFolders = listOf("sqldelight")
+    databases {
+        create("Conferences4HallDatabase") {
+            packageName.set("org.gdglille.devfest.db")
+        }
+        // sourceFolders = listOf("sqldelight")
     }
 }

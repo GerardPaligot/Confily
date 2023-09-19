@@ -1,14 +1,16 @@
 package org.gdglille.devfest.database
 
+import app.cash.sqldelight.coroutines.asFlow
+import app.cash.sqldelight.coroutines.mapToList
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.coroutines.getBooleanFlow
-import com.squareup.sqldelight.runtime.coroutines.asFlow
-import com.squareup.sqldelight.runtime.coroutines.mapToList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.collections.immutable.toImmutableMap
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapMerge
 import kotlinx.coroutines.flow.map
@@ -60,7 +62,7 @@ class ScheduleDao(
                 return@flatMapMerge db.agendaQueries
                     .selectScheduleItems(eventId, date, scheduleMapper)
                     .asFlow()
-                    .mapToList()
+                    .mapToList(Dispatchers.IO)
                     .map {
                         val onlyFavorites = settings.getBoolean("ONLY_FAVORITES", false)
                         val talks =

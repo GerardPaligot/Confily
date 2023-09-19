@@ -1,4 +1,5 @@
 import kotlin.collections.List;
+import kotlin.String;
 
 CREATE TABLE Partner_New (
 id TEXT NOT NULL PRIMARY KEY,
