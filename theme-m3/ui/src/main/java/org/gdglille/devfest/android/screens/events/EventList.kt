@@ -26,7 +26,7 @@ import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.android.ui.resources.models.TabActionsUi
 import org.gdglille.devfest.models.EventItemListUi
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalPagerApi::class)
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun EventList(
     events: EventItemListUi,

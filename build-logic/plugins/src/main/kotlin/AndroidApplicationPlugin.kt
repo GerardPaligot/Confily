@@ -24,7 +24,7 @@ class AndroidApplicationPlugin: Plugin<Project> {
                 configureKotlinAndroid(this)
                 configureDesugaring(this)
                 configureAndroidCompose(this)
-                defaultConfig.targetSdk = 33
+                defaultConfig.targetSdk = 34
             }
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
             dependencies {

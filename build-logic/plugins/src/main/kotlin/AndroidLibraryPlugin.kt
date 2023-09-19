@@ -20,7 +20,7 @@ class AndroidLibraryPlugin: Plugin<Project> {
             extensions.configure<LibraryExtension> {
                 configureKotlinAndroid(this)
                 configureDesugaring(this)
-                defaultConfig.targetSdk = 32
+                defaultConfig.targetSdk = 34
             }
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
             dependencies {
