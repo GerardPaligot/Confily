@@ -19,7 +19,6 @@ import org.gdglille.devfest.backend.NotFoundException
 import org.gdglille.devfest.backend.events.v2.EventRepositoryV2
 import org.gdglille.devfest.backend.internals.network.geolocation.GeocodeApi
 import org.gdglille.devfest.backend.partners.PartnerDao
-import org.gdglille.devfest.backend.partners.cms4partners.Cms4PartnersDao
 import org.gdglille.devfest.backend.receiveValidated
 import org.gdglille.devfest.backend.schedulers.ScheduleItemDao
 import org.gdglille.devfest.backend.speakers.SpeakerDao
@@ -44,11 +43,10 @@ fun Route.registerEventRoutes(
     speakerDao: SpeakerDao,
     talkDao: TalkDao,
     scheduleItemDao: ScheduleItemDao,
-    partnerDao: PartnerDao,
-    cms4PartnersDao: Cms4PartnersDao
+    partnerDao: PartnerDao
 ) {
     val repository = EventRepository(
-        geocodeApi, eventDao, speakerDao, talkDao, scheduleItemDao, partnerDao, cms4PartnersDao
+        geocodeApi, eventDao, speakerDao, talkDao, scheduleItemDao, partnerDao
     )
     val repositoryV2 = EventRepositoryV2(eventDao, speakerDao, talkDao, scheduleItemDao)
 

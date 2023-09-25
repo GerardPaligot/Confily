@@ -8,7 +8,6 @@ AppEngine.
 ## Backend Features
 
 * Create the agenda of your conference, optionally from [Conference Hall](https://github.com/bpetetot/conference-hall)
-* Fetch your partners from [CMS4Partners](https://github.com/GDG-Lille/cms4partners)
 * Create your feedback forms from [OpenFeedback.io](https://github.com/HugoGresse/open-feedback)
 * Import a participant ticket from [BilletWeb](https://www.billetweb.fr/)
 * Import partner jobs from [WeLoveDevs](https://welovedevs.com/)

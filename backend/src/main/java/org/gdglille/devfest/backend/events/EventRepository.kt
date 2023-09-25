@@ -10,9 +10,7 @@ import org.gdglille.devfest.backend.internals.date.format
 import org.gdglille.devfest.backend.internals.network.geolocation.GeocodeApi
 import org.gdglille.devfest.backend.internals.network.geolocation.convertToDb
 import org.gdglille.devfest.backend.partners.PartnerDao
-import org.gdglille.devfest.backend.partners.cms4partners.Cms4PartnersDao
-import org.gdglille.devfest.backend.partners.cms4partners.Sponsorship
-import org.gdglille.devfest.backend.partners.cms4partners.convertToModel
+import org.gdglille.devfest.backend.partners.Sponsorship
 import org.gdglille.devfest.backend.partners.convertToModel
 import org.gdglille.devfest.backend.schedulers.ScheduleItemDao
 import org.gdglille.devfest.backend.schedulers.convertToModel
@@ -41,8 +39,7 @@ class EventRepository(
     private val speakerDao: SpeakerDao,
     private val talkDao: TalkDao,
     private val scheduleItemDao: ScheduleItemDao,
-    private val partnerDao: PartnerDao,
-    private val cms4PartnersDao: Cms4PartnersDao
+    private val partnerDao: PartnerDao
 ) {
     suspend fun list(): EventList {
         val events = eventDao.list().map { it.convertToEventItemList() }
@@ -60,17 +57,17 @@ class EventRepository(
     suspend fun getWithPartners(eventId: String) = coroutineScope {
         val event = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
         val partners = partnerDao.getAll(eventId)
-        val golds = cms4PartnersDao.list(event.year, Sponsorship.Gold).map { it.convertToModel() }
-            .plus(partners.filter { it.sponsoring == Sponsorship.Gold.name }.map { it.convertToModel() })
-        val silvers = cms4PartnersDao.list(event.year, Sponsorship.Silver).map { it.convertToModel() }
-            .plus(partners.filter { it.sponsoring == Sponsorship.Silver.name }.map { it.convertToModel() })
-        val bronzes = cms4PartnersDao.list(event.year, Sponsorship.Bronze).map { it.convertToModel() }
-            .plus(partners.filter { it.sponsoring == Sponsorship.Bronze.name }.map { it.convertToModel() })
         return@coroutineScope event.convertToModel(
             EventPartners(
-                golds = golds.sortedBy { it.name },
-                silvers = silvers.sortedBy { it.name },
-                bronzes = bronzes.sortedBy { it.name },
+                golds = partners.filter { it.sponsoring == Sponsorship.Gold.name }
+                    .map { it.convertToModel() }
+                    .sortedBy { it.name },
+                silvers = partners.filter { it.sponsoring == Sponsorship.Silver.name }
+                    .map { it.convertToModel() }
+                    .sortedBy { it.name },
+                bronzes = partners.filter { it.sponsoring == Sponsorship.Bronze.name }
+                    .map { it.convertToModel() }
+                    .sortedBy { it.name },
                 others = partners.filter { it.sponsoring == Sponsorship.Other.name }
                     .map { it.convertToModel() }
                     .sortedBy { it.name }
@@ -80,9 +77,7 @@ class EventRepository(
 
     suspend fun get(eventId: String): EventV2 {
         val event = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
-        return event.convertToModelV2(
-            hasPartnerList = cms4PartnersDao.hasPartners(event.year) || partnerDao.hasPartners(eventId)
-        )
+        return event.convertToModelV2(hasPartnerList = partnerDao.hasPartners(eventId))
     }
 
     suspend fun create(eventInput: CreatingEventInput) = coroutineScope {

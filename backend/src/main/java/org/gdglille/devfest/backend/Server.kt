@@ -34,7 +34,6 @@ import org.gdglille.devfest.backend.internals.network.welovedevs.WeLoveDevsApi
 import org.gdglille.devfest.backend.jobs.JobDao
 import org.gdglille.devfest.backend.jobs.registerJobRoutes
 import org.gdglille.devfest.backend.partners.PartnerDao
-import org.gdglille.devfest.backend.partners.cms4partners.Cms4PartnersDao
 import org.gdglille.devfest.backend.partners.registerPartnersRoutes
 import org.gdglille.devfest.backend.schedulers.ScheduleItemDao
 import org.gdglille.devfest.backend.schedulers.registerSchedulersRoutes
@@ -88,7 +87,6 @@ fun main() {
     val scheduleItemDao = ScheduleItemDao(database)
     val eventDao = EventDao(projectName, basicDatabase)
     val partnerDao = PartnerDao(database)
-    val cms4partnerDao = Cms4PartnersDao(basicDatabase)
     val jobDao = JobDao(database)
     val wldApi = WeLoveDevsApi.Factory.create(enableNetworkLogs = true)
     val geocodeApi = GeocodeApi.Factory.create(
@@ -119,15 +117,22 @@ fun main() {
             }
         }
         routing {
-            registerEventRoutes(geocodeApi, eventDao, speakerDao, talkDao, scheduleItemDao, partnerDao, cms4partnerDao)
+            registerEventRoutes(
+                geocodeApi,
+                eventDao,
+                speakerDao,
+                talkDao,
+                scheduleItemDao,
+                partnerDao
+            )
             route("/events/{eventId}") {
                 registerConferenceHallRoutes(conferenceHallApi, eventDao, speakerDao, talkDao)
                 registerSpeakersRoutes(eventDao, speakerDao)
                 registerTalksRoutes(eventDao, speakerDao, talkDao)
                 registerSchedulersRoutes(eventDao, talkDao, speakerDao, scheduleItemDao)
-                registerPartnersRoutes(geocodeApi, eventDao, partnerDao, cms4partnerDao, jobDao)
+                registerPartnersRoutes(geocodeApi, eventDao, partnerDao, jobDao)
                 registerBilletWebRoutes(eventDao)
-                registerJobRoutes(wldApi, eventDao, partnerDao, cms4partnerDao, jobDao)
+                registerJobRoutes(wldApi, eventDao, partnerDao, jobDao)
             }
         }
     }.start(wait = true)
