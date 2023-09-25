@@ -1,4 +1,4 @@
-runtime: java11
+runtime: java17
 instance_class: F2
 entrypoint: 'java -jar backend-all.jar'
 env_variables:
