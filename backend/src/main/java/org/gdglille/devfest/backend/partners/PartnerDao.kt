@@ -1,13 +1,18 @@
 package org.gdglille.devfest.backend.partners
 
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import org.gdglille.devfest.backend.internals.helpers.database.Database
 import org.gdglille.devfest.backend.internals.helpers.database.get
 import org.gdglille.devfest.backend.internals.helpers.database.getAll
+import org.gdglille.devfest.backend.internals.helpers.image.Png
+import org.gdglille.devfest.backend.internals.helpers.storage.Storage
+import org.gdglille.devfest.backend.internals.helpers.storage.Upload
 
 private const val CollectionName = "companies"
 
-class PartnerDao(private val database: Database) {
+class PartnerDao(private val database: Database, private val storage: Storage) {
     suspend fun getAll(eventId: String): List<PartnerDb> = database
         .getAll<PartnerDb>(eventId = eventId, collectionName = CollectionName)
         .map {
@@ -33,6 +38,20 @@ class PartnerDao(private val database: Database) {
             item = partner
         )
         return@coroutineScope partner.id
+    }
+
+    suspend fun uploadPartnerLogos(eventId: String, partnerId: String, pngs: List<Png>): List<Upload> = coroutineScope {
+        return@coroutineScope pngs
+            .filter { it.content != null }
+            .map { png ->
+                async {
+                    storage.upload(
+                        filename = "$eventId/partners/$partnerId/${png.size}.png",
+                        content = png.content!!
+                    )
+                }
+            }
+            .awaitAll()
     }
 
     suspend fun hasPartners(eventId: String): Boolean =

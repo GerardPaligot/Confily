@@ -27,6 +27,9 @@ dependencies {
 
     implementation(libs.ktor.serialization.json)
 
+    implementation(libs.apache.batik.transcoder)
+    implementation(libs.apache.batik.codec)
+
     implementation(libs.logback)
 
     implementation(libs.google.cloud.firestore)

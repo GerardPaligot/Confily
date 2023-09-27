@@ -8,6 +8,7 @@ import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.put
 import org.gdglille.devfest.backend.events.EventDao
+import org.gdglille.devfest.backend.internals.helpers.image.TranscoderImage
 import org.gdglille.devfest.backend.internals.network.geolocation.GeocodeApi
 import org.gdglille.devfest.backend.jobs.JobDao
 import org.gdglille.devfest.backend.receiveValidated
@@ -17,9 +18,10 @@ fun Route.registerPartnersRoutes(
     geocodeApi: GeocodeApi,
     eventDao: EventDao,
     partnerDao: PartnerDao,
-    jobDao: JobDao
+    jobDao: JobDao,
+    imageTranscoder: TranscoderImage
 ) {
-    val repository = PartnerRepository(geocodeApi, eventDao, partnerDao, jobDao)
+    val repository = PartnerRepository(geocodeApi, eventDao, partnerDao, jobDao, imageTranscoder)
 
     get("/partners") {
         val eventId = call.parameters["eventId"]!!

@@ -26,6 +26,7 @@ import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.events.registerEventRoutes
 import org.gdglille.devfest.backend.internals.helpers.database.BasicDatabase
 import org.gdglille.devfest.backend.internals.helpers.database.Database
+import org.gdglille.devfest.backend.internals.helpers.image.TranscoderImage
 import org.gdglille.devfest.backend.internals.helpers.secret.Secret
 import org.gdglille.devfest.backend.internals.helpers.storage.Storage
 import org.gdglille.devfest.backend.internals.network.conferencehall.ConferenceHallApi
@@ -59,7 +60,7 @@ fun main() {
         setCredentials(GoogleCredentials.getApplicationDefault())
         build()
     }.service
-    val storage = StorageOptions.getDefaultInstance().toBuilder().run {
+    val cloudStorage = StorageOptions.getDefaultInstance().toBuilder().run {
         setProjectId(gcpProjectId)
         setCredentials(GoogleCredentials.getApplicationDefault())
         build()
@@ -75,18 +76,16 @@ fun main() {
     )
     val database = Database.Factory.create(firestore = firestore, projectName = projectName)
     val basicDatabase = BasicDatabase.Factory.create(firestore = firestore)
-    val speakerDao = SpeakerDao(
-        database,
-        Storage.Factory.create(
-            storage = storage,
-            bucketName = projectName,
-            isAppEngine = isCloud
-        )
+    val storage = Storage.Factory.create(
+        storage = cloudStorage,
+        bucketName = projectName,
+        isAppEngine = isCloud
     )
+    val speakerDao = SpeakerDao(database, storage)
     val talkDao = TalkDao(database)
     val scheduleItemDao = ScheduleItemDao(database)
     val eventDao = EventDao(projectName, basicDatabase)
-    val partnerDao = PartnerDao(database)
+    val partnerDao = PartnerDao(database, storage)
     val jobDao = JobDao(database)
     val wldApi = WeLoveDevsApi.Factory.create(enableNetworkLogs = true)
     val geocodeApi = GeocodeApi.Factory.create(
@@ -94,6 +93,7 @@ fun main() {
         enableNetworkLogs = true
     )
     val conferenceHallApi = ConferenceHallApi.Factory.create(enableNetworkLogs = true)
+    val imageTranscoder = TranscoderImage()
     embeddedServer(Netty, PORT) {
         install(CORS) {
             anyHost()
@@ -130,7 +130,7 @@ fun main() {
                 registerSpeakersRoutes(eventDao, speakerDao)
                 registerTalksRoutes(eventDao, speakerDao, talkDao)
                 registerSchedulersRoutes(eventDao, talkDao, speakerDao, scheduleItemDao)
-                registerPartnersRoutes(geocodeApi, eventDao, partnerDao, jobDao)
+                registerPartnersRoutes(geocodeApi, eventDao, partnerDao, jobDao, imageTranscoder)
                 registerBilletWebRoutes(eventDao)
                 registerJobRoutes(wldApi, eventDao, partnerDao, jobDao)
             }

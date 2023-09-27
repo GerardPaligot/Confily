@@ -36,6 +36,7 @@ firebase = "32.2.3"
 firebaseCrashlytics = "2.9.9"
 sqldelight = "2.0.0"
 okio = "3.3.0"
+apacheBatik = "1.17"
 settings = "0.8.1"
 zxing = "3.5.1"
 zxingAndroid = "4.3.0"
@@ -127,6 +128,9 @@ sqldelight-android = { group = "app.cash.sqldelight", name = "android-driver", v
 sqldelight-native = { group = "app.cash.sqldelight", name = "native-driver", version.ref = "sqldelight" }
 
 okio = { group = "com.squareup.okio", name = "okio", version.ref = "okio" }
+
+apache-batik-transcoder = { group = "org.apache.xmlgraphics", name = "batik-transcoder", version.ref = "apacheBatik" }
+apache-batik-codec = { group = "org.apache.xmlgraphics", name = "batik-codec", version.ref = "apacheBatik" }
 
 settings = { group = "com.russhwolf", name = "multiplatform-settings", version.ref = "settings" }
 settings-coroutines = { group = "com.russhwolf", name = "multiplatform-settings-coroutines-native-mt", version.ref = "settings" }
