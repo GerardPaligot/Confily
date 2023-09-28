@@ -10,7 +10,9 @@ class EventDao(
     private val projectName: String,
     private val database: BasicDatabase
 ) {
-    suspend fun list(): List<EventDb> = database.getAll(projectName)
+    suspend fun list(): List<EventDb> = database
+        .getAll<EventDb>(projectName)
+        .filter { it.published }
     suspend fun get(id: String): EventDb? = database.get(projectName, id)
     suspend fun getVerified(id: String, apiKey: String?): EventDb {
         val eventDb = database.get<EventDb>(projectName, id)

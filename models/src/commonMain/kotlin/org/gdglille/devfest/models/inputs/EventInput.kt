@@ -125,6 +125,7 @@ data class EventInput(
     val linkedinUrl: String?,
     @SerialName("faq_link")
     val faqLink: String,
+    val published: Boolean,
     @SerialName("code_of_conduct_link")
     val codeOfConductLink: String,
     @SerialName("update_at")

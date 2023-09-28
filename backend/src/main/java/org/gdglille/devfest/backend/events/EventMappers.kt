@@ -190,6 +190,7 @@ fun EventInput.convertToDb(event: EventDb, addressDb: AddressDb) = EventDb(
     linkedinUrl = this.linkedinUrl,
     faqLink = this.faqLink,
     codeOfConductLink = this.codeOfConductLink,
+    published = published,
     updatedAt = this.updatedAt
 )
 

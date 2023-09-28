@@ -46,11 +46,11 @@ class EventRepository(
         val now = LocalDateTime.now()
         return EventList(
             future = events
-                .filter { LocalDateTime.parse(it.startDate.dropLast(1)).isAfter(now) }
+                .filter { LocalDateTime.parse(it.endDate.dropLast(1)).isAfter(now) }
                 .sortedBy { it.startDate },
             past = events
                 .filter { LocalDateTime.parse(it.startDate.dropLast(1)).isBefore(now) }
-                .sortedBy { it.startDate }
+                .sortedBy { it.endDate }
         )
     }
 
