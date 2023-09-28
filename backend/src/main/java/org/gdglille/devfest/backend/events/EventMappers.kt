@@ -167,24 +167,16 @@ fun WldConfigInput.convertToDb() = WldConfigurationDb(
     apiKey = apiKey
 )
 
-fun EventInput.convertToDb(event: EventDb, openFeedbackId: String?, apiKey: String) = EventDb(
+fun EventInput.convertToDb(event: EventDb, addressDb: AddressDb) = EventDb(
     slugId = event.name.slug(),
     year = event.year,
     openFeedbackId = openFeedbackId ?: event.openFeedbackId,
     conferenceHallConfig = this.conferenceHallConfigInput?.convertToDb(),
     billetWebConfig = this.billetWebConfig?.convertToDb(),
     wldConfig = this.wldConfig?.convertToDb(),
-    apiKey = apiKey,
+    apiKey = event.apiKey,
     name = this.name,
-    address = AddressDb(
-        formatted = this.address.address.split(",").map { it.trim() },
-        address = this.address.address,
-        country = this.address.country,
-        countryCode = this.address.countryCode,
-        city = this.address.city,
-        lat = this.address.lat,
-        lng = this.address.lng
-    ),
+    address = addressDb,
     menus = event.menus,
     qanda = event.qanda,
     coc = event.coc,
@@ -204,10 +196,6 @@ fun EventInput.convertToDb(event: EventDb, openFeedbackId: String?, apiKey: Stri
 fun CreatingEventInput.convertToDb(addressDb: AddressDb) = EventDb(
     slugId = name.slug(),
     year = year,
-    openFeedbackId = openFeedbackId,
-    conferenceHallConfig = this.conferenceHallConfigInput?.convertToDb(),
-    billetWebConfig = this.billetWebConfig?.convertToDb(),
-    wldConfig = this.wldConfig?.convertToDb(),
     apiKey = UUID.randomUUID().toString(),
     name = this.name,
     address = addressDb,

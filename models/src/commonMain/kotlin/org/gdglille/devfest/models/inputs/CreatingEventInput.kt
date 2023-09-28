@@ -9,14 +9,6 @@ data class CreatingEventInput(
     val name: String,
     val year: String,
     val address: String,
-    @SerialName("open_feedback_id")
-    val openFeedbackId: String?,
-    @SerialName("conference_hall_config")
-    val conferenceHallConfigInput: ConferenceHallConfigInput?,
-    @SerialName("billet_web_config")
-    val billetWebConfig: BilletWebConfigInput?,
-    @SerialName("wld_config")
-    val wldConfig: WldConfigInput?,
     @SerialName("start_date")
     val startDate: String,
     @SerialName("end_date")

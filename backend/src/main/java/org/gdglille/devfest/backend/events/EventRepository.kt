@@ -89,8 +89,10 @@ class EventRepository(
     }
 
     suspend fun update(eventId: String, apiKey: String, eventInput: EventInput) = coroutineScope {
+        val addressDb = geocodeApi.geocode(eventInput.address).convertToDb()
+            ?: throw NotAcceptableException("Your address information isn't found")
         val event = eventDao.getVerified(eventId, apiKey)
-        eventDao.createOrUpdate(eventInput.convertToDb(event, eventInput.openFeedbackId, apiKey))
+        eventDao.createOrUpdate(eventInput.convertToDb(event, addressDb))
         return@coroutineScope eventId
     }
 

@@ -5,24 +5,6 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class EventAddressInput(
-    val address: String,
-    val country: String,
-    @SerialName("country_code")
-    val countryCode: String,
-    val city: String,
-    val lat: Double,
-    val lng: Double
-) : Validator {
-    override fun validate(): List<String> {
-        val errors = arrayListOf<String>()
-        if (lat <= 0) errors.add("Your latitude should be positive")
-        if (lng <= 0) errors.add("Your longitude should be positive")
-        return errors
-    }
-}
-
-@Serializable
 data class AcronymInput(
     val key: String,
     val value: String
@@ -117,7 +99,7 @@ data class WldConfigInput(
 @Serializable
 data class EventInput(
     val name: String,
-    val address: EventAddressInput,
+    val address: String,
     @SerialName("open_feedback_id")
     val openFeedbackId: String?,
     @SerialName("conference_hall_config")
@@ -152,7 +134,6 @@ data class EventInput(
         val errors = arrayListOf<String>()
         if (twitterUrl?.contains("twitter.com") == false) errors.add("Your twitter url is malformed")
         if (linkedinUrl?.contains("linkedin.com") == false) errors.add("Your linkedin url is malformed")
-        errors.addAll(address.validate())
         formats.values.forEach {
             if (it <= 0) errors.add("The time can't be null or negative")
         }
