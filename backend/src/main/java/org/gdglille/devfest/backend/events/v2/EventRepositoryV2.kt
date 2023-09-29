@@ -39,8 +39,9 @@ class EventRepositoryV2(
                 schedulesByDay(schedulesByDay, talks, speakers, eventDb)
             }
             .awaitAll()
+            .sortedBy { it.first }
             .associate { it }
-            .toSortedMap()
+            .toMap()
     }
 
     private fun CoroutineScope.schedulesByDay(
@@ -57,8 +58,9 @@ class EventRepositoryV2(
                     .awaitAll()
                     .sortedBy { it.order }
             }
+            .sortedBy { it.first }
             .associate { it }
-            .toSortedMap()
+            .toMap()
     }
 
     private fun CoroutineScope.schedulesBySlot(
