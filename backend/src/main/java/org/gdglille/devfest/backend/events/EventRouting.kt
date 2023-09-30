@@ -23,7 +23,7 @@ import java.time.ZoneId
 import java.time.ZonedDateTime
 import org.gdglille.devfest.backend.NotFoundException
 import org.gdglille.devfest.backend.events.v2.EventRepositoryV2
-import org.gdglille.devfest.backend.internals.network.geolocation.GeocodeApi
+import org.gdglille.devfest.backend.third.parties.geocode.GeocodeApi
 import org.gdglille.devfest.backend.partners.PartnerDao
 import org.gdglille.devfest.backend.qanda.QAndADao
 import org.gdglille.devfest.backend.receiveValidated

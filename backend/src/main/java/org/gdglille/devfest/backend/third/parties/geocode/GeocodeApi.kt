@@ -1,4 +1,4 @@
-package org.gdglille.devfest.backend.internals.network.billetweb
+package org.gdglille.devfest.backend.third.parties.geocode
 
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -10,33 +10,20 @@ import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.request.get
 import io.ktor.serialization.kotlinx.json.json
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import org.gdglille.devfest.models.Attendee
+import java.net.URLEncoder
 
-class BilletWebApi(
+class GeocodeApi(
     private val client: HttpClient,
-    private val baseUrl: String = "https://www.billetweb.fr/api"
+    private val apiKey: String,
+    private val baseUrl: String = "https://maps.googleapis.com/maps/api"
 ) {
-    suspend fun fetchAttendee(
-        eventId: String,
-        userId: String,
-        apiKey: String,
-        barcode: String
-    ): List<Attendee> {
-        val body =
-            client.get("$baseUrl/event/$eventId/attendees?user=$userId&key=$apiKey&version=1&past=1&barcode=$barcode")
-                .body<String>()
-        val formatter = Json {
-            isLenient = true
-            ignoreUnknownKeys = true
-        }
-        return formatter.decodeFromString(body)
-    }
+    suspend fun geocode(query: String): Geocode =
+        client.get("$baseUrl/geocode/json?address=${URLEncoder.encode(query, "utf-8")}&key=$apiKey").body()
 
     object Factory {
-        fun create(enableNetworkLogs: Boolean): BilletWebApi =
-            BilletWebApi(
+        fun create(apiKey: String, enableNetworkLogs: Boolean): GeocodeApi =
+            GeocodeApi(
                 client = HttpClient(Java.create()) {
                     install(ContentNegotiation) {
                         json(
@@ -54,7 +41,8 @@ class BilletWebApi(
                             level = LogLevel.INFO
                         }
                     }
-                }
+                },
+                apiKey = apiKey
             )
     }
 }

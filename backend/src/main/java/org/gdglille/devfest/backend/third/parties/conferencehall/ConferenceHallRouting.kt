@@ -1,4 +1,4 @@
-package org.gdglille.devfest.backend.conferencehall
+package org.gdglille.devfest.backend.third.parties.conferencehall
 
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.call
@@ -6,7 +6,6 @@ import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.post
 import org.gdglille.devfest.backend.events.EventDao
-import org.gdglille.devfest.backend.internals.network.conferencehall.ConferenceHallApi
 import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.talks.TalkDao
 

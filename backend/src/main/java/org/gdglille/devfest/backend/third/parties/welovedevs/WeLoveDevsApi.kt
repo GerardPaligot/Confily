@@ -1,4 +1,4 @@
-package org.gdglille.devfest.backend.internals.network.geolocation
+package org.gdglille.devfest.backend.third.parties.welovedevs
 
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -8,22 +8,40 @@ import io.ktor.client.plugins.logging.DEFAULT
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
-import io.ktor.client.request.get
+import io.ktor.client.request.headers
+import io.ktor.client.request.post
+import io.ktor.client.request.setBody
+import io.ktor.http.ContentType
+import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
-import java.net.URLEncoder
 
-class GeocodeApi(
-    private val client: HttpClient,
-    private val apiKey: String,
-    private val baseUrl: String = "https://maps.googleapis.com/maps/api"
-) {
-    suspend fun geocode(query: String): Geocode =
-        client.get("$baseUrl/geocode/json?address=${URLEncoder.encode(query, "utf-8")}&key=$apiKey").body()
+private const val MaxJobs = 10
+
+class WeLoveDevsApi(private val client: HttpClient) {
+    suspend fun fetchPublicJobs(
+        companyIds: List<String>,
+        appId: String,
+        apiKey: String,
+        page: Int = 0
+    ): PublicJobs =
+        client.post("https://$appId-dsn.algolia.net/1/indexes/public_jobs/query?page=$page") {
+            contentType(ContentType.Application.Json)
+            headers {
+                this["X-Algolia-API-Key"] = apiKey
+                this["X-Algolia-Application-Id"] = appId
+            }
+            setBody(
+                JobQuery(
+                    filters = companyIds.joinToString(" OR ") { "smallCompany.id:$it" },
+                    hitsPerPage = companyIds.size * MaxJobs
+                )
+            )
+        }.body()
 
     object Factory {
-        fun create(apiKey: String, enableNetworkLogs: Boolean): GeocodeApi =
-            GeocodeApi(
+        fun create(enableNetworkLogs: Boolean): WeLoveDevsApi =
+            WeLoveDevsApi(
                 client = HttpClient(Java.create()) {
                     install(ContentNegotiation) {
                         json(
@@ -41,8 +59,7 @@ class GeocodeApi(
                             level = LogLevel.INFO
                         }
                     }
-                },
-                apiKey = apiKey
+                }
             )
     }
 }

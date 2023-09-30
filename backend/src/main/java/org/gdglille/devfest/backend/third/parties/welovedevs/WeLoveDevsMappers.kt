@@ -1,6 +1,7 @@
-package org.gdglille.devfest.backend.jobs
+package org.gdglille.devfest.backend.third.parties.welovedevs
 
-import org.gdglille.devfest.backend.internals.network.welovedevs.Hit
+import org.gdglille.devfest.backend.jobs.JobDb
+import org.gdglille.devfest.backend.jobs.SalaryDb
 import org.gdglille.devfest.models.Job
 import org.gdglille.devfest.models.Salary
 

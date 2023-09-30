@@ -1,4 +1,4 @@
-package org.gdglille.devfest.backend.conferencehall
+package org.gdglille.devfest.backend.third.parties.conferencehall
 
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -6,7 +6,6 @@ import kotlinx.coroutines.coroutineScope
 import org.gdglille.devfest.backend.NotAcceptableException
 import org.gdglille.devfest.backend.NotFoundException
 import org.gdglille.devfest.backend.events.EventDao
-import org.gdglille.devfest.backend.internals.network.conferencehall.ConferenceHallApi
 import org.gdglille.devfest.backend.internals.slug
 import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.speakers.convertToDb

@@ -4,8 +4,10 @@ import kotlinx.coroutines.coroutineScope
 import org.gdglille.devfest.backend.NotAcceptableException
 import org.gdglille.devfest.backend.NotFoundException
 import org.gdglille.devfest.backend.events.EventDao
-import org.gdglille.devfest.backend.internals.network.welovedevs.WeLoveDevsApi
+import org.gdglille.devfest.backend.third.parties.welovedevs.WeLoveDevsApi
 import org.gdglille.devfest.backend.partners.PartnerDao
+import org.gdglille.devfest.backend.third.parties.welovedevs.convertToDb
+import org.gdglille.devfest.backend.third.parties.welovedevs.convertToModel
 
 private const val MaxPartnerChar = 6
 

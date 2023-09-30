@@ -1,4 +1,4 @@
-package org.gdglille.devfest.backend.internals.network.conferencehall
+package org.gdglille.devfest.backend.third.parties.conferencehall
 
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body

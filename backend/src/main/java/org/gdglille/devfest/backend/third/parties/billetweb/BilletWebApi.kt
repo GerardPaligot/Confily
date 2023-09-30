@@ -1,4 +1,4 @@
-package org.gdglille.devfest.backend.internals.network.welovedevs
+package org.gdglille.devfest.backend.third.parties.billetweb
 
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -8,40 +8,34 @@ import io.ktor.client.plugins.logging.DEFAULT
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
-import io.ktor.client.request.headers
-import io.ktor.client.request.post
-import io.ktor.client.request.setBody
-import io.ktor.http.ContentType
-import io.ktor.http.contentType
+import io.ktor.client.request.get
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
+import org.gdglille.devfest.models.Attendee
 
-private const val MaxJobs = 10
-
-class WeLoveDevsApi(private val client: HttpClient) {
-    suspend fun fetchPublicJobs(
-        companyIds: List<String>,
-        appId: String,
+class BilletWebApi(
+    private val client: HttpClient,
+    private val baseUrl: String = "https://www.billetweb.fr/api"
+) {
+    suspend fun fetchAttendee(
+        eventId: String,
+        userId: String,
         apiKey: String,
-        page: Int = 0
-    ): PublicJobs =
-        client.post("https://$appId-dsn.algolia.net/1/indexes/public_jobs/query?page=$page") {
-            contentType(ContentType.Application.Json)
-            headers {
-                this["X-Algolia-API-Key"] = apiKey
-                this["X-Algolia-Application-Id"] = appId
-            }
-            setBody(
-                JobQuery(
-                    filters = companyIds.joinToString(" OR ") { "smallCompany.id:$it" },
-                    hitsPerPage = companyIds.size * MaxJobs
-                )
-            )
-        }.body()
+        barcode: String
+    ): List<Attendee> {
+        val body =
+            client.get("$baseUrl/event/$eventId/attendees?user=$userId&key=$apiKey&version=1&past=1&barcode=$barcode")
+                .body<String>()
+        val formatter = Json {
+            isLenient = true
+            ignoreUnknownKeys = true
+        }
+        return formatter.decodeFromString(body)
+    }
 
     object Factory {
-        fun create(enableNetworkLogs: Boolean): WeLoveDevsApi =
-            WeLoveDevsApi(
+        fun create(enableNetworkLogs: Boolean): BilletWebApi =
+            BilletWebApi(
                 client = HttpClient(Java.create()) {
                     install(ContentNegotiation) {
                         json(

@@ -7,8 +7,8 @@ import org.gdglille.devfest.backend.NotAcceptableException
 import org.gdglille.devfest.backend.NotFoundException
 import org.gdglille.devfest.backend.internals.date.FormatterPattern
 import org.gdglille.devfest.backend.internals.date.format
-import org.gdglille.devfest.backend.internals.network.geolocation.GeocodeApi
-import org.gdglille.devfest.backend.internals.network.geolocation.convertToDb
+import org.gdglille.devfest.backend.third.parties.geocode.GeocodeApi
+import org.gdglille.devfest.backend.third.parties.geocode.convertToDb
 import org.gdglille.devfest.backend.partners.PartnerDao
 import org.gdglille.devfest.backend.partners.Sponsorship
 import org.gdglille.devfest.backend.partners.convertToModel

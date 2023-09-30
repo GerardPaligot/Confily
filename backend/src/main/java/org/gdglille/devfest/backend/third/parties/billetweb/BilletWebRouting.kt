@@ -1,4 +1,4 @@
-package org.gdglille.devfest.backend.billetweb
+package org.gdglille.devfest.backend.third.parties.billetweb
 
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.call
@@ -6,7 +6,6 @@ import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 import org.gdglille.devfest.backend.events.EventDao
-import org.gdglille.devfest.backend.internals.network.billetweb.BilletWebApi
 
 fun Route.registerBilletWebRoutes(
     eventDao: EventDao

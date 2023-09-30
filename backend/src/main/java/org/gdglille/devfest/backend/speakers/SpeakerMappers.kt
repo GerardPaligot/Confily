@@ -3,7 +3,7 @@ package org.gdglille.devfest.backend.speakers
 import org.gdglille.devfest.models.Speaker
 import org.gdglille.devfest.models.inputs.SpeakerInput
 
-fun org.gdglille.devfest.backend.internals.network.conferencehall.Speaker.convertToDb(url: String): SpeakerDb =
+fun org.gdglille.devfest.backend.third.parties.conferencehall.Speaker.convertToDb(url: String): SpeakerDb =
     SpeakerDb(
         id = this.uid,
         displayName = this.displayName,

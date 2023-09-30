@@ -20,8 +20,8 @@ import io.ktor.server.request.receive
 import io.ktor.server.response.respond
 import io.ktor.server.routing.route
 import io.ktor.server.routing.routing
-import org.gdglille.devfest.backend.billetweb.registerBilletWebRoutes
-import org.gdglille.devfest.backend.conferencehall.registerConferenceHallRoutes
+import org.gdglille.devfest.backend.third.parties.billetweb.registerBilletWebRoutes
+import org.gdglille.devfest.backend.third.parties.conferencehall.registerConferenceHallRoutes
 import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.events.registerEventRoutes
 import org.gdglille.devfest.backend.internals.helpers.database.BasicDatabase
@@ -29,11 +29,10 @@ import org.gdglille.devfest.backend.internals.helpers.database.Database
 import org.gdglille.devfest.backend.internals.helpers.image.TranscoderImage
 import org.gdglille.devfest.backend.internals.helpers.secret.Secret
 import org.gdglille.devfest.backend.internals.helpers.storage.Storage
-import org.gdglille.devfest.backend.internals.network.conferencehall.ConferenceHallApi
-import org.gdglille.devfest.backend.internals.network.geolocation.GeocodeApi
-import org.gdglille.devfest.backend.internals.network.welovedevs.WeLoveDevsApi
+import org.gdglille.devfest.backend.third.parties.conferencehall.ConferenceHallApi
+import org.gdglille.devfest.backend.third.parties.geocode.GeocodeApi
+import org.gdglille.devfest.backend.third.parties.welovedevs.WeLoveDevsApi
 import org.gdglille.devfest.backend.jobs.JobDao
-import org.gdglille.devfest.backend.jobs.registerJobRoutes
 import org.gdglille.devfest.backend.partners.PartnerDao
 import org.gdglille.devfest.backend.partners.registerPartnersRoutes
 import org.gdglille.devfest.backend.qanda.QAndADao
@@ -44,6 +43,7 @@ import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.speakers.registerSpeakersRoutes
 import org.gdglille.devfest.backend.talks.TalkDao
 import org.gdglille.devfest.backend.talks.registerTalksRoutes
+import org.gdglille.devfest.backend.third.parties.welovedevs.registerWLDRoutes
 import org.gdglille.devfest.models.inputs.Validator
 import org.gdglille.devfest.models.inputs.ValidatorException
 
@@ -130,14 +130,15 @@ fun main() {
                 partnerDao
             )
             route("/events/{eventId}") {
-                registerConferenceHallRoutes(conferenceHallApi, eventDao, speakerDao, talkDao)
                 registerQAndAsRoutes(eventDao, qAndADao)
                 registerSpeakersRoutes(eventDao, speakerDao)
                 registerTalksRoutes(eventDao, speakerDao, talkDao)
                 registerSchedulersRoutes(eventDao, talkDao, speakerDao, scheduleItemDao)
                 registerPartnersRoutes(geocodeApi, eventDao, partnerDao, jobDao, imageTranscoder)
+                // Third parties
                 registerBilletWebRoutes(eventDao)
-                registerJobRoutes(wldApi, eventDao, partnerDao, jobDao)
+                registerConferenceHallRoutes(conferenceHallApi, eventDao, speakerDao, talkDao)
+                registerWLDRoutes(wldApi, eventDao, partnerDao, jobDao)
             }
         }
     }.start(wait = true)

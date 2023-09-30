@@ -7,10 +7,10 @@ import org.gdglille.devfest.backend.NotAcceptableException
 import org.gdglille.devfest.backend.NotFoundException
 import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.internals.helpers.image.TranscoderImage
-import org.gdglille.devfest.backend.internals.network.geolocation.GeocodeApi
-import org.gdglille.devfest.backend.internals.network.geolocation.convertToDb
+import org.gdglille.devfest.backend.third.parties.geocode.GeocodeApi
+import org.gdglille.devfest.backend.third.parties.geocode.convertToDb
 import org.gdglille.devfest.backend.jobs.JobDao
-import org.gdglille.devfest.backend.jobs.convertToModel
+import org.gdglille.devfest.backend.third.parties.welovedevs.convertToModel
 import org.gdglille.devfest.models.PartnerV2
 import org.gdglille.devfest.models.inputs.PartnerInput
 

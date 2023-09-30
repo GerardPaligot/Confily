@@ -1,4 +1,4 @@
-package org.gdglille.devfest.backend.internals.network.welovedevs
+package org.gdglille.devfest.backend.third.parties.welovedevs
 
 import kotlinx.serialization.Serializable
 
