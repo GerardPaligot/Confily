@@ -96,6 +96,7 @@ class AgendaRepositoryImpl(
         val eventId = eventDao.fetchEventId()
         val etag = scheduleDao.lastEtag(eventId)
         val event = api.fetchEvent(eventId)
+        val qanda = api.fetchQAndA(eventId)
         val partners = api.fetchPartners(eventId)
         try {
             val agenda = api.fetchAgenda(eventId, etag)
@@ -107,7 +108,7 @@ class AgendaRepositoryImpl(
             scheduleDao.updateEtag(eventId, agenda.first)
         } catch (_: AgendaNotModifiedException) {
         }
-        eventDao.insertEvent(event)
+        eventDao.insertEvent(event, qanda)
         partnerDao.insertPartners(eventId, partners)
     }
 

@@ -13,7 +13,9 @@ class EventDao(
     suspend fun list(): List<EventDb> = database
         .getAll<EventDb>(projectName)
         .filter { it.published }
+
     suspend fun get(id: String): EventDb? = database.get(projectName, id)
+
     suspend fun getVerified(id: String, apiKey: String?): EventDb {
         val eventDb = database.get<EventDb>(projectName, id)
             ?: throw NotFoundException("Event $id Not Found")
@@ -23,22 +25,29 @@ class EventDao(
     suspend fun createOrUpdate(event: EventDb) {
         val existing = database.get<EventDb>(projectName, event.slugId)
         if (existing == null) database.insert(projectName, event.slugId, event)
-        else database.update(projectName, event.slugId, event.copy(updatedAt = System.currentTimeMillis()))
+        else database.update(
+            projectName,
+            event.slugId,
+            event.copy(updatedAt = System.currentTimeMillis())
+        )
     }
 
     suspend fun updateMenus(eventId: String, apiKey: String, menus: List<LunchMenuDb>) {
         val existing = getVerified(eventId, apiKey)
-        database.update(projectName, eventId, existing.copy(menus = menus, updatedAt = System.currentTimeMillis()))
-    }
-
-    suspend fun updateQuestionsAndResponses(eventId: String, apiKey: String, qAndA: List<QuestionAndResponseDb>) {
-        val existing = getVerified(eventId, apiKey)
-        database.update(projectName, eventId, existing.copy(qanda = qAndA, updatedAt = System.currentTimeMillis()))
+        database.update(
+            projectName,
+            eventId,
+            existing.copy(menus = menus, updatedAt = System.currentTimeMillis())
+        )
     }
 
     suspend fun updateCoc(eventId: String, apiKey: String, coc: String) {
         val existing = getVerified(eventId, apiKey)
-        database.update(projectName, eventId, existing.copy(coc = coc, updatedAt = System.currentTimeMillis()))
+        database.update(
+            projectName,
+            eventId,
+            existing.copy(coc = coc, updatedAt = System.currentTimeMillis())
+        )
     }
 
     suspend fun updateCategories(eventId: String, apiKey: String, categories: List<CategoryDb>) {
@@ -63,10 +72,18 @@ class EventDao(
     }
 
     suspend fun updateUpdatedAt(event: EventDb) {
-        database.update(projectName, event.slugId, event.copy(updatedAt = System.currentTimeMillis()))
+        database.update(
+            projectName,
+            event.slugId,
+            event.copy(updatedAt = System.currentTimeMillis())
+        )
     }
 
     suspend fun updateAgendaUpdatedAt(event: EventDb) {
-        database.update(projectName, event.slugId, event.copy(agendaUpdatedAt = System.currentTimeMillis()))
+        database.update(
+            projectName,
+            event.slugId,
+            event.copy(agendaUpdatedAt = System.currentTimeMillis())
+        )
     }
 }

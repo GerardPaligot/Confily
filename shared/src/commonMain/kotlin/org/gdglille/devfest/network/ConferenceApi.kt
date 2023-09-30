@@ -20,23 +20,30 @@ import org.gdglille.devfest.Platform
 import org.gdglille.devfest.exceptions.AgendaNotModifiedException
 import org.gdglille.devfest.models.Attendee
 import org.gdglille.devfest.models.EventList
-import org.gdglille.devfest.models.EventV2
+import org.gdglille.devfest.models.EventV3
 import org.gdglille.devfest.models.PartnerV2
+import org.gdglille.devfest.models.QuestionAndResponse
 import org.gdglille.devfest.models.ScheduleItem
 
 class ConferenceApi(
     private val client: HttpClient,
-    private val baseUrl: String
+    private val baseUrl: String,
+    private val acceptLanguage: String
 ) {
     suspend fun fetchEventList(): EventList = client.get("$baseUrl/events").body()
 
-    suspend fun fetchEvent(eventId: String): EventV2 {
+    suspend fun fetchEvent(eventId: String): EventV3 {
         val response = client.get("$baseUrl/events/$eventId") {
             contentType(ContentType.parse("application/json"))
-            accept(ContentType.parse("application/json; version=2"))
+            accept(ContentType.parse("application/json; version=3"))
         }
         return response.body()
     }
+
+    suspend fun fetchQAndA(eventId: String): List<QuestionAndResponse> =
+        client.get("$baseUrl/events/$eventId/qanda") {
+            headers["Accept-Language"] = acceptLanguage
+        }.body()
 
     suspend fun fetchPartners(eventId: String): Map<String, List<PartnerV2>> =
         client.get("$baseUrl/events/$eventId/partners").body()
@@ -61,7 +68,12 @@ class ConferenceApi(
     }
 
     companion object {
-        fun create(platform: Platform, baseUrl: String, enableNetworkLogs: Boolean): ConferenceApi =
+        fun create(
+            platform: Platform,
+            baseUrl: String,
+            acceptLanguage: String,
+            enableNetworkLogs: Boolean
+        ): ConferenceApi =
             ConferenceApi(
                 client = HttpClient(platform.httpEngine) {
                     install(
@@ -83,7 +95,8 @@ class ConferenceApi(
                         }
                     }
                 },
-                baseUrl = baseUrl
+                baseUrl = baseUrl,
+                acceptLanguage = acceptLanguage
             )
     }
 }

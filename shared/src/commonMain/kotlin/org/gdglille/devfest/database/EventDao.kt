@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.combineTransform
 import kotlinx.coroutines.flow.map
 import org.gdglille.devfest.Image
 import org.gdglille.devfest.db.Conferences4HallDatabase
+import org.gdglille.devfest.db.QAndA
 import org.gdglille.devfest.exceptions.EventSavedException
 import org.gdglille.devfest.models.Attendee
 import org.gdglille.devfest.models.CoCUi
@@ -24,7 +25,9 @@ import org.gdglille.devfest.models.EventItemListUi
 import org.gdglille.devfest.models.EventItemUi
 import org.gdglille.devfest.models.EventUi
 import org.gdglille.devfest.models.EventV2
+import org.gdglille.devfest.models.EventV3
 import org.gdglille.devfest.models.MenuItemUi
+import org.gdglille.devfest.models.QuestionAndResponse
 import org.gdglille.devfest.models.QuestionAndResponseActionUi
 import org.gdglille.devfest.models.QuestionAndResponseUi
 import org.gdglille.devfest.models.TicketInfoUi
@@ -137,7 +140,7 @@ class EventDao(
     fun fetchCoC(eventId: String): Flow<CoCUi> =
         db.eventQueries.selectCoc(eventId, cocMapper).asFlow().mapToOne(Dispatchers.IO)
 
-    fun insertEvent(event: EventV2) = db.transaction {
+    fun insertEvent(event: EventV3, qAndA: List<QuestionAndResponse>) = db.transaction {
         val eventDb = event.convertToModelDb()
         db.eventQueries.insertEvent(
             id = eventDb.id,
@@ -159,13 +162,13 @@ class EventDao(
             coc_url = eventDb.coc_url,
             updated_at = eventDb.updated_at
         )
-        event.qanda.forEach { qAndA ->
+        qAndA.forEach { qAndA ->
             db.qAndAQueries.insertQAndA(
                 qAndA.order.toLong(), eventDb.id, qAndA.question, qAndA.response
             )
             qAndA.actions.forEach {
                 db.qAndAQueries.insertQAndAAction(
-                    id = "${qAndA.order}-${it.order}",
+                    id = "${qAndA.id}-${it.order}",
                     order_ = it.order.toLong(),
                     event_id = eventDb.id,
                     qanda_id = qAndA.order.toLong(),

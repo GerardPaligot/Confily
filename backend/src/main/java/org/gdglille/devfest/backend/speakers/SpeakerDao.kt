@@ -22,8 +22,8 @@ class SpeakerDao(private val database: Database, private val storage: Storage) {
     suspend fun getByIds(eventId: String, ids: List<String>): List<SpeakerDb> =
         try {
             database.query(
-                collectionName = CollectionName,
                 eventId = eventId,
+                collectionName = CollectionName,
                 "id".whereIn(ids)
             )
         } catch (ignored: Throwable) {

@@ -29,14 +29,17 @@ import org.gdglille.devfest.models.inputs.CreatingEventInput
 import org.gdglille.devfest.models.inputs.EventInput
 import org.gdglille.devfest.models.inputs.FeaturesActivatedInput
 import org.gdglille.devfest.models.inputs.LunchMenuInput
-import org.gdglille.devfest.models.inputs.QuestionAndResponseInput
 import java.time.LocalDateTime
+import org.gdglille.devfest.backend.qanda.QAndADao
+import org.gdglille.devfest.models.Event
+import org.gdglille.devfest.models.EventV3
 
 @Suppress("LongParameterList")
 class EventRepository(
     private val geocodeApi: GeocodeApi,
     private val eventDao: EventDao,
     private val speakerDao: SpeakerDao,
+    private val qAndADao: QAndADao,
     private val talkDao: TalkDao,
     private val scheduleItemDao: ScheduleItemDao,
     private val partnerDao: PartnerDao
@@ -54,9 +57,10 @@ class EventRepository(
         )
     }
 
-    suspend fun getWithPartners(eventId: String) = coroutineScope {
+    suspend fun getWithPartners(eventId: String): Event = coroutineScope {
         val event = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
         val partners = partnerDao.getAll(eventId)
+        val qanda = qAndADao.getAll(eventId, event.defaultLanguage)
         return@coroutineScope event.convertToModel(
             EventPartners(
                 golds = partners.filter { it.sponsoring == Sponsorship.Gold.name }
@@ -71,19 +75,35 @@ class EventRepository(
                 others = partners.filter { it.sponsoring == Sponsorship.Other.name }
                     .map { it.convertToModel() }
                     .sortedBy { it.name }
-            )
+            ),
+            qanda
         )
     }
 
-    suspend fun get(eventId: String): EventV2 {
+    suspend fun getV2(eventId: String): EventV2 = coroutineScope {
         val event = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
-        return event.convertToModelV2(hasPartnerList = partnerDao.hasPartners(eventId))
+        val hasPartners = async { partnerDao.hasPartners(eventId) }
+        val qanda = async { qAndADao.getAll(eventId, event.defaultLanguage) }
+        return@coroutineScope event.convertToModelV2(
+            hasPartnerList = hasPartners.await(),
+            qanda = qanda.await()
+        )
     }
 
-    suspend fun create(eventInput: CreatingEventInput) = coroutineScope {
+    suspend fun getV3(eventId: String): EventV3 = coroutineScope {
+        val event = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
+        val hasPartners = async { partnerDao.hasPartners(eventId) }
+        val qanda = async { qAndADao.hasQAndA(eventId) }
+        return@coroutineScope event.convertToModelV3(
+            hasPartnerList = hasPartners.await(),
+            hasQandA = qanda.await()
+        )
+    }
+
+    suspend fun create(eventInput: CreatingEventInput, language: String) = coroutineScope {
         val addressDb = geocodeApi.geocode(eventInput.address).convertToDb()
             ?: throw NotAcceptableException("Your address information isn't found")
-        val event = eventInput.convertToDb(addressDb)
+        val event = eventInput.convertToDb(addressDb, language)
         eventDao.createOrUpdate(event)
         return@coroutineScope CreatedEvent(eventId = event.slugId, apiKey = event.apiKey)
     }
@@ -101,19 +121,6 @@ class EventRepository(
             eventDao.updateMenus(eventId, apiKey, menus.map { it.convertToDb() })
             return@coroutineScope eventId
         }
-
-    suspend fun updateQAndA(
-        eventId: String,
-        apiKey: String,
-        qAndA: List<QuestionAndResponseInput>
-    ) = coroutineScope {
-        eventDao.updateQuestionsAndResponses(
-            eventId,
-            apiKey,
-            qAndA.mapIndexed { index, it -> it.convertToDb(index) }
-        )
-        return@coroutineScope eventId
-    }
 
     suspend fun updateCoC(eventId: String, apiKey: String, coc: CoCInput) = coroutineScope {
         eventDao.updateCoc(eventId, apiKey, coc.coc)

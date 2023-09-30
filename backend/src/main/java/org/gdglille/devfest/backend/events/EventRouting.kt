@@ -6,7 +6,9 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.http.content.EntityTagVersion
 import io.ktor.http.content.VersionCheckResult
 import io.ktor.server.application.call
+import io.ktor.server.plugins.BadRequestException
 import io.ktor.server.request.acceptItems
+import io.ktor.server.request.acceptLanguage
 import io.ktor.server.request.receive
 import io.ktor.server.response.etag
 import io.ktor.server.response.lastModified
@@ -15,10 +17,15 @@ import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.put
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
 import org.gdglille.devfest.backend.NotFoundException
 import org.gdglille.devfest.backend.events.v2.EventRepositoryV2
 import org.gdglille.devfest.backend.internals.network.geolocation.GeocodeApi
 import org.gdglille.devfest.backend.partners.PartnerDao
+import org.gdglille.devfest.backend.qanda.QAndADao
 import org.gdglille.devfest.backend.receiveValidated
 import org.gdglille.devfest.backend.schedulers.ScheduleItemDao
 import org.gdglille.devfest.backend.speakers.SpeakerDao
@@ -30,23 +37,19 @@ import org.gdglille.devfest.models.inputs.CreatingEventInput
 import org.gdglille.devfest.models.inputs.EventInput
 import org.gdglille.devfest.models.inputs.FeaturesActivatedInput
 import org.gdglille.devfest.models.inputs.LunchMenuInput
-import org.gdglille.devfest.models.inputs.QuestionAndResponseInput
-import java.time.Instant
-import java.time.LocalDateTime
-import java.time.ZoneId
-import java.time.ZonedDateTime
 
 @Suppress("LongParameterList")
 fun Route.registerEventRoutes(
     geocodeApi: GeocodeApi,
     eventDao: EventDao,
     speakerDao: SpeakerDao,
+    qAndADao: QAndADao,
     talkDao: TalkDao,
     scheduleItemDao: ScheduleItemDao,
     partnerDao: PartnerDao
 ) {
     val repository = EventRepository(
-        geocodeApi, eventDao, speakerDao, talkDao, scheduleItemDao, partnerDao
+        geocodeApi, eventDao, speakerDao, qAndADao, talkDao, scheduleItemDao, partnerDao
     )
     val repositoryV2 = EventRepositoryV2(eventDao, speakerDao, talkDao, scheduleItemDao)
 
@@ -55,13 +58,16 @@ fun Route.registerEventRoutes(
     }
     post("/events") {
         val input = call.receiveValidated<CreatingEventInput>()
-        call.respond(HttpStatusCode.Created, repository.create(input))
+        val language = call.request.acceptLanguage()
+            ?: throw BadRequestException("Accept Language required for this api")
+        call.respond(HttpStatusCode.Created, repository.create(input, language))
     }
     get("/events/{eventId}") {
         val eventId = call.parameters["eventId"]!!
         when (call.request.acceptItems().version()) {
             1 -> call.respond(HttpStatusCode.OK, repository.getWithPartners(eventId))
-            2 -> call.respond(HttpStatusCode.OK, repository.get(eventId))
+            2 -> call.respond(HttpStatusCode.OK, repository.getV2(eventId))
+            3 -> call.respond(HttpStatusCode.OK, repository.getV3(eventId))
         }
     }
     put("/events/{eventId}") {
@@ -75,12 +81,6 @@ fun Route.registerEventRoutes(
         val apiKey = call.request.headers["api_key"]!!
         val input = call.receive<List<LunchMenuInput>>()
         call.respond(HttpStatusCode.OK, repository.updateMenus(eventId, apiKey, input))
-    }
-    put("/events/{eventId}/qanda") {
-        val eventId = call.parameters["eventId"]!!
-        val apiKey = call.request.headers["api_key"]!!
-        val input = call.receive<List<QuestionAndResponseInput>>()
-        call.respond(HttpStatusCode.OK, repository.updateQAndA(eventId, apiKey, input))
     }
     put("/events/{eventId}/coc") {
         val eventId = call.parameters["eventId"]!!

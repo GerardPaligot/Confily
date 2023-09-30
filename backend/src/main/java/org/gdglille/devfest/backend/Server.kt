@@ -36,6 +36,8 @@ import org.gdglille.devfest.backend.jobs.JobDao
 import org.gdglille.devfest.backend.jobs.registerJobRoutes
 import org.gdglille.devfest.backend.partners.PartnerDao
 import org.gdglille.devfest.backend.partners.registerPartnersRoutes
+import org.gdglille.devfest.backend.qanda.QAndADao
+import org.gdglille.devfest.backend.qanda.registerQAndAsRoutes
 import org.gdglille.devfest.backend.schedulers.ScheduleItemDao
 import org.gdglille.devfest.backend.schedulers.registerSchedulersRoutes
 import org.gdglille.devfest.backend.speakers.SpeakerDao
@@ -87,6 +89,7 @@ fun main() {
     val eventDao = EventDao(projectName, basicDatabase)
     val partnerDao = PartnerDao(database, storage)
     val jobDao = JobDao(database)
+    val qAndADao = QAndADao(database)
     val wldApi = WeLoveDevsApi.Factory.create(enableNetworkLogs = true)
     val geocodeApi = GeocodeApi.Factory.create(
         apiKey = secret["GEOCODE_API_KEY"],
@@ -121,12 +124,14 @@ fun main() {
                 geocodeApi,
                 eventDao,
                 speakerDao,
+                qAndADao,
                 talkDao,
                 scheduleItemDao,
                 partnerDao
             )
             route("/events/{eventId}") {
                 registerConferenceHallRoutes(conferenceHallApi, eventDao, speakerDao, talkDao)
+                registerQAndAsRoutes(eventDao, qAndADao)
                 registerSpeakersRoutes(eventDao, speakerDao)
                 registerTalksRoutes(eventDao, speakerDao, talkDao)
                 registerSchedulersRoutes(eventDao, talkDao, speakerDao, scheduleItemDao)

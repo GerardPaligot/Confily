@@ -5,32 +5,6 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class AcronymInput(
-    val key: String,
-    val value: String
-) : Validator {
-    override fun validate(): List<String> = emptyList()
-}
-
-@Serializable
-data class QuestionAndResponseActionInput(
-    val label: String,
-    val url: String
-) : Validator {
-    override fun validate(): List<String> = emptyList()
-}
-
-@Serializable
-data class QuestionAndResponseInput(
-    val question: String,
-    val response: String,
-    val actions: List<QuestionAndResponseActionInput> = emptyList(),
-    val acronyms: List<AcronymInput> = emptyList()
-) : Validator {
-    override fun validate(): List<String> = emptyList()
-}
-
-@Serializable
 data class LunchMenuInput(
     val name: String,
     val dish: String,

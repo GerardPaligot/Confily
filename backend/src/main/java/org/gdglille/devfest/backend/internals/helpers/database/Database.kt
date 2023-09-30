@@ -47,7 +47,7 @@ suspend inline fun <reified T : Any> Database.getAll(eventId: String, collection
     getAll(eventId, collectionName, T::class)
 
 suspend inline fun <reified T : Any> Database.query(
-    collectionName: String,
     eventId: String,
+    collectionName: String,
     vararg ops: WhereOperation
 ): List<T> = query(eventId, collectionName, T::class, *ops)

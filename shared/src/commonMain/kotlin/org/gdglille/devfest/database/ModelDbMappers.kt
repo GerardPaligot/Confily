@@ -8,7 +8,7 @@ import org.gdglille.devfest.db.EventItem
 import org.gdglille.devfest.db.Speaker
 import org.gdglille.devfest.db.Talk
 import org.gdglille.devfest.models.EventItemList
-import org.gdglille.devfest.models.EventV2
+import org.gdglille.devfest.models.EventV3
 import org.gdglille.devfest.models.ScheduleItem
 
 fun org.gdglille.devfest.models.Speaker.convertToModelDb(eventId: String): Speaker = Speaker(
@@ -44,7 +44,7 @@ fun ScheduleItem.convertToModelDb(eventId: String): Talk = Talk(
     event_id = eventId
 )
 
-fun EventV2.convertToModelDb(): Event = Event(
+fun EventV3.convertToModelDb(): Event = Event(
     id = this.id,
     name = this.name,
     formatted_address = this.address.formatted,

@@ -36,6 +36,7 @@ import org.gdglille.devfest.repositories.EventRepository
 import org.gdglille.devfest.repositories.SpeakerRepository
 import org.gdglille.devfest.repositories.UserRepository
 import java.io.File
+import java.util.Locale
 
 @Suppress("LongMethod")
 @FlowPreview
@@ -57,6 +58,7 @@ class MainActivity : AppCompatActivity() {
         val api = ConferenceApi.create(
             platform = platform,
             baseUrl = baseUrl,
+            acceptLanguage = Locale.getDefault().toLanguageTag(),
             enableNetworkLogs = BuildConfig.DEBUG
         )
         val settings = AndroidSettings(
