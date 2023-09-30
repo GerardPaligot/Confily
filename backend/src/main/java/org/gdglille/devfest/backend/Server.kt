@@ -20,8 +20,8 @@ import io.ktor.server.request.receive
 import io.ktor.server.response.respond
 import io.ktor.server.routing.route
 import io.ktor.server.routing.routing
-import org.gdglille.devfest.backend.third.parties.billetweb.registerBilletWebRoutes
-import org.gdglille.devfest.backend.third.parties.conferencehall.registerConferenceHallRoutes
+import org.gdglille.devfest.backend.categories.CategoryDao
+import org.gdglille.devfest.backend.categories.registerCategoriesRoutes
 import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.events.registerEventRoutes
 import org.gdglille.devfest.backend.internals.helpers.database.BasicDatabase
@@ -29,9 +29,6 @@ import org.gdglille.devfest.backend.internals.helpers.database.Database
 import org.gdglille.devfest.backend.internals.helpers.image.TranscoderImage
 import org.gdglille.devfest.backend.internals.helpers.secret.Secret
 import org.gdglille.devfest.backend.internals.helpers.storage.Storage
-import org.gdglille.devfest.backend.third.parties.conferencehall.ConferenceHallApi
-import org.gdglille.devfest.backend.third.parties.geocode.GeocodeApi
-import org.gdglille.devfest.backend.third.parties.welovedevs.WeLoveDevsApi
 import org.gdglille.devfest.backend.jobs.JobDao
 import org.gdglille.devfest.backend.partners.PartnerDao
 import org.gdglille.devfest.backend.partners.registerPartnersRoutes
@@ -43,6 +40,11 @@ import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.speakers.registerSpeakersRoutes
 import org.gdglille.devfest.backend.talks.TalkDao
 import org.gdglille.devfest.backend.talks.registerTalksRoutes
+import org.gdglille.devfest.backend.third.parties.billetweb.registerBilletWebRoutes
+import org.gdglille.devfest.backend.third.parties.conferencehall.ConferenceHallApi
+import org.gdglille.devfest.backend.third.parties.conferencehall.registerConferenceHallRoutes
+import org.gdglille.devfest.backend.third.parties.geocode.GeocodeApi
+import org.gdglille.devfest.backend.third.parties.welovedevs.WeLoveDevsApi
 import org.gdglille.devfest.backend.third.parties.welovedevs.registerWLDRoutes
 import org.gdglille.devfest.models.inputs.Validator
 import org.gdglille.devfest.models.inputs.ValidatorException
@@ -85,6 +87,7 @@ fun main() {
     )
     val speakerDao = SpeakerDao(database, storage)
     val talkDao = TalkDao(database)
+    val categoryDao = CategoryDao(database)
     val scheduleItemDao = ScheduleItemDao(database)
     val eventDao = EventDao(projectName, basicDatabase)
     val partnerDao = PartnerDao(database, storage)
@@ -126,18 +129,32 @@ fun main() {
                 speakerDao,
                 qAndADao,
                 talkDao,
+                categoryDao,
                 scheduleItemDao,
                 partnerDao
             )
             route("/events/{eventId}") {
                 registerQAndAsRoutes(eventDao, qAndADao)
                 registerSpeakersRoutes(eventDao, speakerDao)
-                registerTalksRoutes(eventDao, speakerDao, talkDao)
-                registerSchedulersRoutes(eventDao, talkDao, speakerDao, scheduleItemDao)
+                registerTalksRoutes(eventDao, speakerDao, talkDao, categoryDao)
+                registerCategoriesRoutes(eventDao, categoryDao)
+                registerSchedulersRoutes(
+                    eventDao,
+                    talkDao,
+                    categoryDao,
+                    speakerDao,
+                    scheduleItemDao
+                )
                 registerPartnersRoutes(geocodeApi, eventDao, partnerDao, jobDao, imageTranscoder)
                 // Third parties
                 registerBilletWebRoutes(eventDao)
-                registerConferenceHallRoutes(conferenceHallApi, eventDao, speakerDao, talkDao)
+                registerConferenceHallRoutes(
+                    conferenceHallApi,
+                    eventDao,
+                    speakerDao,
+                    talkDao,
+                    categoryDao
+                )
                 registerWLDRoutes(wldApi, eventDao, partnerDao, jobDao)
             }
         }

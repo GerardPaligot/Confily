@@ -2,6 +2,7 @@ package org.gdglille.devfest.backend.schedulers
 
 import kotlinx.coroutines.coroutineScope
 import org.gdglille.devfest.backend.NotFoundException
+import org.gdglille.devfest.backend.categories.CategoryDao
 import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.internals.date.FormatterPattern
 import org.gdglille.devfest.backend.internals.date.format
@@ -15,6 +16,7 @@ import java.time.LocalDateTime
 class ScheduleRepository(
     private val eventDao: EventDao,
     private val talkDao: TalkDao,
+    private val categoryDao: CategoryDao,
     private val speakerDao: SpeakerDao,
     private val scheduleItemDao: ScheduleItemDao
 ) {
@@ -52,7 +54,8 @@ class ScheduleRepository(
                 ?: throw NotFoundException("Talk ${scheduleItem.talkId} not found")
             val speakers = speakerDao.getByIds(eventId, talkDb.speakerIds)
                 .map { it.convertToModel() }
-            talkDb.convertToModel(speakers, eventDb)
+            val category = categoryDao.get(eventId, talkDb.category)
+            talkDb.convertToModel(speakers, category, eventDb)
         } else null
         return@coroutineScope scheduleItem.convertToModel(talk)
     }

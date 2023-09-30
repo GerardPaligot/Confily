@@ -1,7 +1,5 @@
 package org.gdglille.devfest.backend.qanda
 
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import org.gdglille.devfest.backend.NotFoundException
 import org.gdglille.devfest.backend.events.EventDao

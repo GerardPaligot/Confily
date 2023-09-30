@@ -15,7 +15,6 @@ import kotlinx.coroutines.flow.combineTransform
 import kotlinx.coroutines.flow.map
 import org.gdglille.devfest.Image
 import org.gdglille.devfest.db.Conferences4HallDatabase
-import org.gdglille.devfest.db.QAndA
 import org.gdglille.devfest.exceptions.EventSavedException
 import org.gdglille.devfest.models.Attendee
 import org.gdglille.devfest.models.CoCUi
@@ -24,7 +23,6 @@ import org.gdglille.devfest.models.EventItemList
 import org.gdglille.devfest.models.EventItemListUi
 import org.gdglille.devfest.models.EventItemUi
 import org.gdglille.devfest.models.EventUi
-import org.gdglille.devfest.models.EventV2
 import org.gdglille.devfest.models.EventV3
 import org.gdglille.devfest.models.MenuItemUi
 import org.gdglille.devfest.models.QuestionAndResponse

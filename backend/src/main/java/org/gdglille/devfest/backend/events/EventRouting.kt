@@ -17,41 +17,55 @@ import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.put
-import java.time.Instant
-import java.time.LocalDateTime
-import java.time.ZoneId
-import java.time.ZonedDateTime
 import org.gdglille.devfest.backend.NotFoundException
+import org.gdglille.devfest.backend.categories.CategoryDao
 import org.gdglille.devfest.backend.events.v2.EventRepositoryV2
-import org.gdglille.devfest.backend.third.parties.geocode.GeocodeApi
 import org.gdglille.devfest.backend.partners.PartnerDao
 import org.gdglille.devfest.backend.qanda.QAndADao
 import org.gdglille.devfest.backend.receiveValidated
 import org.gdglille.devfest.backend.schedulers.ScheduleItemDao
 import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.talks.TalkDao
+import org.gdglille.devfest.backend.third.parties.geocode.GeocodeApi
 import org.gdglille.devfest.backend.version
-import org.gdglille.devfest.models.inputs.CategoryInput
 import org.gdglille.devfest.models.inputs.CoCInput
 import org.gdglille.devfest.models.inputs.CreatingEventInput
 import org.gdglille.devfest.models.inputs.EventInput
 import org.gdglille.devfest.models.inputs.FeaturesActivatedInput
 import org.gdglille.devfest.models.inputs.LunchMenuInput
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
 
-@Suppress("LongParameterList")
+@Suppress("LongParameterList", "MagicNumber")
 fun Route.registerEventRoutes(
     geocodeApi: GeocodeApi,
     eventDao: EventDao,
     speakerDao: SpeakerDao,
     qAndADao: QAndADao,
     talkDao: TalkDao,
+    categoryDao: CategoryDao,
     scheduleItemDao: ScheduleItemDao,
     partnerDao: PartnerDao
 ) {
     val repository = EventRepository(
-        geocodeApi, eventDao, speakerDao, qAndADao, talkDao, scheduleItemDao, partnerDao
+        geocodeApi,
+        eventDao,
+        speakerDao,
+        qAndADao,
+        talkDao,
+        categoryDao,
+        scheduleItemDao,
+        partnerDao
     )
-    val repositoryV2 = EventRepositoryV2(eventDao, speakerDao, talkDao, scheduleItemDao)
+    val repositoryV2 = EventRepositoryV2(
+        eventDao,
+        speakerDao,
+        talkDao,
+        categoryDao,
+        scheduleItemDao
+    )
 
     get("/events") {
         call.respond(HttpStatusCode.OK, repository.list())
@@ -87,12 +101,6 @@ fun Route.registerEventRoutes(
         val apiKey = call.request.headers["api_key"]!!
         val input = call.receiveValidated<CoCInput>()
         call.respond(HttpStatusCode.OK, repository.updateCoC(eventId, apiKey, input))
-    }
-    put("/events/{eventId}/categories") {
-        val eventId = call.parameters["eventId"]!!
-        val apiKey = call.request.headers["api_key"]!!
-        val input = call.receive<List<CategoryInput>>()
-        call.respond(HttpStatusCode.OK, repository.updateCategories(eventId, apiKey, input))
     }
     put("/events/{eventId}/features_activated") {
         val eventId = call.parameters["eventId"]!!

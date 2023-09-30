@@ -2,7 +2,6 @@
 
 package org.gdglille.devfest.backend.events
 
-import java.util.UUID
 import org.gdglille.devfest.backend.internals.slug
 import org.gdglille.devfest.backend.qanda.QAndADb
 import org.gdglille.devfest.backend.qanda.convertToModel
@@ -14,12 +13,12 @@ import org.gdglille.devfest.models.EventV2
 import org.gdglille.devfest.models.EventV3
 import org.gdglille.devfest.models.FeaturesActivated
 import org.gdglille.devfest.models.inputs.BilletWebConfigInput
-import org.gdglille.devfest.models.inputs.CategoryInput
 import org.gdglille.devfest.models.inputs.ConferenceHallConfigInput
 import org.gdglille.devfest.models.inputs.CreatingEventInput
 import org.gdglille.devfest.models.inputs.EventInput
 import org.gdglille.devfest.models.inputs.LunchMenuInput
 import org.gdglille.devfest.models.inputs.WldConfigInput
+import java.util.UUID
 
 fun LunchMenuDb.convertToModel() = EventLunchMenu(
     name = name,
@@ -122,12 +121,6 @@ fun LunchMenuInput.convertToDb() = LunchMenuDb(
     dish = dish,
     accompaniment = accompaniment,
     dessert = dessert
-)
-
-fun CategoryInput.convertToDb() = CategoryDb(
-    name = name,
-    color = color,
-    icon = icon
 )
 
 fun ConferenceHallConfigInput.convertToDb() = ConferenceHallConfigurationDb(

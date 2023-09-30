@@ -5,39 +5,46 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import org.gdglille.devfest.backend.NotAcceptableException
 import org.gdglille.devfest.backend.NotFoundException
+import org.gdglille.devfest.backend.categories.CategoryDao
 import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.internals.slug
 import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.speakers.convertToDb
 import org.gdglille.devfest.backend.talks.TalkDao
-import org.gdglille.devfest.backend.talks.convertToDb
 
 class ConferenceHallRepository(
     private val api: ConferenceHallApi,
     private val eventDao: EventDao,
     private val speakerDao: SpeakerDao,
-    private val talkDao: TalkDao
+    private val talkDao: TalkDao,
+    private val categoryDao: CategoryDao
 ) {
-    suspend fun importTalks(eventId: String, apiKey: String) {
+    suspend fun importTalks(eventId: String, apiKey: String) = coroutineScope {
         val event = eventDao.getVerified(eventId, apiKey)
         val chConfig = event.conferenceHallConfig
             ?: throw NotAcceptableException("ConferenceHall config not initialized")
-        val eventAccepted = api.fetchEventAccepted(chConfig.eventId, chConfig.apiKey)
         val eventConfirmed = api.fetchEventConfirmed(chConfig.eventId, chConfig.apiKey)
-        val talks = eventAccepted.talks + eventConfirmed.talks
+        eventConfirmed.categories
+            .map { async { categoryDao.createOrUpdate(eventId, it.convertToDb()) } }
+            .awaitAll()
         talkDao.insertAll(
-            eventAccepted.name.slug(),
-            talks.map { it.convertToDb(eventAccepted.categories, eventAccepted.formats) }
+            eventConfirmed.name.slug(),
+            eventConfirmed.talks.map {
+                it.convertToDb(eventConfirmed.categories, eventConfirmed.formats)
+            }
         )
     }
 
-    suspend fun importTalk(eventId: String, apiKey: String, talkId: String) {
+    suspend fun importTalk(eventId: String, apiKey: String, talkId: String) = coroutineScope {
         val event = eventDao.getVerified(eventId, apiKey)
         val chConfig = event.conferenceHallConfig
             ?: throw NotAcceptableException("ConferenceHall config not initialized")
         val eventConfirmed = api.fetchEventConfirmed(chConfig.eventId, chConfig.apiKey)
         val talk = eventConfirmed.talks.find { it.id == talkId }
             ?: throw NotFoundException("Talk $talkId not found in confirmed talks")
+        eventConfirmed.categories
+            .map { async { categoryDao.createOrUpdate(eventId, it.convertToDb()) } }
+            .awaitAll()
         talkDao.insert(eventId, talk.convertToDb(eventConfirmed.categories, eventConfirmed.formats))
     }
 
@@ -45,10 +52,8 @@ class ConferenceHallRepository(
         val event = eventDao.getVerified(eventId, apiKey)
         val chConfig = event.conferenceHallConfig
             ?: throw NotAcceptableException("ConferenceHall config not initialized")
-        val eventAccepted = api.fetchEventAccepted(chConfig.eventId, chConfig.apiKey)
         val eventConfirmed = api.fetchEventConfirmed(chConfig.eventId, chConfig.apiKey)
-        val speakers = eventAccepted.speakers + eventConfirmed.speakers
-        val speakersAvatar = speakers
+        val speakersAvatar = eventConfirmed.speakers
             .filter { speaker -> speaker.photoURL != null }
             .map {
                 async {
@@ -63,7 +68,10 @@ class ConferenceHallRepository(
             }
             .awaitAll()
             .associate { it }
-        speakerDao.insertAll(eventAccepted.name.slug(), speakers.map { it.convertToDb(speakersAvatar[it.uid] ?: "") })
+        speakerDao.insertAll(
+            eventConfirmed.name.slug(),
+            eventConfirmed.speakers.map { it.convertToDb(speakersAvatar[it.uid] ?: "") }
+        )
     }
 
     suspend fun importSpeaker(eventId: String, apiKey: String, speakerId: String) {

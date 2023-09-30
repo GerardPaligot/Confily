@@ -7,6 +7,7 @@ import io.ktor.server.routing.Route
 import io.ktor.server.routing.delete
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
+import org.gdglille.devfest.backend.categories.CategoryDao
 import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.receiveValidated
 import org.gdglille.devfest.backend.speakers.SpeakerDao
@@ -16,10 +17,11 @@ import org.gdglille.devfest.models.inputs.ScheduleInput
 fun Route.registerSchedulersRoutes(
     eventDao: EventDao,
     talkDao: TalkDao,
+    categoryDao: CategoryDao,
     speakerDao: SpeakerDao,
     scheduleItemDao: ScheduleItemDao
 ) {
-    val repository = ScheduleRepository(eventDao, talkDao, speakerDao, scheduleItemDao)
+    val repository = ScheduleRepository(eventDao, talkDao, categoryDao, speakerDao, scheduleItemDao)
 
     post("/schedulers") {
         val eventId = call.parameters["eventId"]!!

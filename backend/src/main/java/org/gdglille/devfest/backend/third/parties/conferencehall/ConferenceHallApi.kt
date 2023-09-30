@@ -21,9 +21,6 @@ class ConferenceHallApi(
     suspend fun fetchEventConfirmed(eventId: String, apiKey: String) =
         client.get("$baseUrl/v1/event/$eventId?key=$apiKey&state=confirmed").body<Event>()
 
-    suspend fun fetchEventAccepted(eventId: String, apiKey: String) =
-        client.get("$baseUrl/v1/event/$eventId?key=$apiKey&state=accepted").body<Event>()
-
     object Factory {
         fun create(enableNetworkLogs: Boolean): ConferenceHallApi =
             ConferenceHallApi(

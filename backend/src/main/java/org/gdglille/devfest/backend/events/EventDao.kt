@@ -50,15 +50,6 @@ class EventDao(
         )
     }
 
-    suspend fun updateCategories(eventId: String, apiKey: String, categories: List<CategoryDb>) {
-        val existing = getVerified(eventId, apiKey)
-        database.update(
-            projectName,
-            eventId,
-            existing.copy(categories = categories, updatedAt = System.currentTimeMillis())
-        )
-    }
-
     suspend fun updateFeatures(eventId: String, apiKey: String, hasNetworking: Boolean) {
         val existing = getVerified(eventId, apiKey)
         database.update(

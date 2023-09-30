@@ -5,34 +5,34 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import org.gdglille.devfest.backend.NotAcceptableException
 import org.gdglille.devfest.backend.NotFoundException
+import org.gdglille.devfest.backend.categories.CategoryDao
 import org.gdglille.devfest.backend.internals.date.FormatterPattern
 import org.gdglille.devfest.backend.internals.date.format
-import org.gdglille.devfest.backend.third.parties.geocode.GeocodeApi
-import org.gdglille.devfest.backend.third.parties.geocode.convertToDb
 import org.gdglille.devfest.backend.partners.PartnerDao
 import org.gdglille.devfest.backend.partners.Sponsorship
 import org.gdglille.devfest.backend.partners.convertToModel
+import org.gdglille.devfest.backend.qanda.QAndADao
 import org.gdglille.devfest.backend.schedulers.ScheduleItemDao
 import org.gdglille.devfest.backend.schedulers.convertToModel
 import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.speakers.convertToModel
 import org.gdglille.devfest.backend.talks.TalkDao
 import org.gdglille.devfest.backend.talks.convertToModel
+import org.gdglille.devfest.backend.third.parties.geocode.GeocodeApi
+import org.gdglille.devfest.backend.third.parties.geocode.convertToDb
 import org.gdglille.devfest.models.Agenda
 import org.gdglille.devfest.models.CreatedEvent
+import org.gdglille.devfest.models.Event
 import org.gdglille.devfest.models.EventList
 import org.gdglille.devfest.models.EventPartners
 import org.gdglille.devfest.models.EventV2
-import org.gdglille.devfest.models.inputs.CategoryInput
+import org.gdglille.devfest.models.EventV3
 import org.gdglille.devfest.models.inputs.CoCInput
 import org.gdglille.devfest.models.inputs.CreatingEventInput
 import org.gdglille.devfest.models.inputs.EventInput
 import org.gdglille.devfest.models.inputs.FeaturesActivatedInput
 import org.gdglille.devfest.models.inputs.LunchMenuInput
 import java.time.LocalDateTime
-import org.gdglille.devfest.backend.qanda.QAndADao
-import org.gdglille.devfest.models.Event
-import org.gdglille.devfest.models.EventV3
 
 @Suppress("LongParameterList")
 class EventRepository(
@@ -41,6 +41,7 @@ class EventRepository(
     private val speakerDao: SpeakerDao,
     private val qAndADao: QAndADao,
     private val talkDao: TalkDao,
+    private val categoryDao: CategoryDao,
     private val scheduleItemDao: ScheduleItemDao,
     private val partnerDao: PartnerDao
 ) {
@@ -127,12 +128,6 @@ class EventRepository(
         return@coroutineScope eventId
     }
 
-    suspend fun updateCategories(eventId: String, apiKey: String, categories: List<CategoryInput>) =
-        coroutineScope {
-            eventDao.updateCategories(eventId, apiKey, categories.map { it.convertToDb() })
-            return@coroutineScope eventId
-        }
-
     suspend fun updateFeatures(eventId: String, apiKey: String, features: FeaturesActivatedInput) =
         coroutineScope {
             eventDao.updateFeatures(eventId, apiKey, features.hasNetworking)
@@ -140,30 +135,31 @@ class EventRepository(
         }
 
     suspend fun agenda(eventDb: EventDb) = coroutineScope {
-        val schedules = scheduleItemDao.getAll(eventDb.slugId).groupBy { it.startTime }.entries.map {
-            async {
-                val scheduleItems = it.value.map {
-                    async {
-                        if (it.talkId == null) it.convertToModel(null)
-                        else {
-                            val talk =
-                                talkDao.get(eventDb.slugId, it.talkId) ?: return@async it.convertToModel(
-                                    null
+        val categories = categoryDao.getAll(eventDb.slugId)
+        val schedules =
+            scheduleItemDao.getAll(eventDb.slugId).groupBy { it.startTime }.entries.map {
+                async {
+                    val scheduleItems = it.value.map {
+                        async {
+                            if (it.talkId == null) it.convertToModel(null)
+                            else {
+                                val talk = talkDao.get(eventDb.slugId, it.talkId)
+                                    ?: return@async it.convertToModel(null)
+                                it.convertToModel(
+                                    talk.convertToModel(
+                                        speakerDao.getByIds(eventDb.slugId, talk.speakerIds)
+                                            .map { it.convertToModel() },
+                                        categories.find { it.id == talk.category },
+                                        eventDb
+                                    )
                                 )
-                            it.convertToModel(
-                                talk.convertToModel(
-                                    speakerDao.getByIds(eventDb.slugId, talk.speakerIds)
-                                        .map { it.convertToModel() },
-                                    eventDb
-                                )
-                            )
+                            }
                         }
-                    }
-                }.awaitAll()
-                val key = LocalDateTime.parse(it.key).format(FormatterPattern.HoursMinutes)
-                return@async key to scheduleItems.sortedBy { it.room }
-            }
-        }.awaitAll().associate { it }.toSortedMap()
+                    }.awaitAll()
+                    val key = LocalDateTime.parse(it.key).format(FormatterPattern.HoursMinutes)
+                    return@async key to scheduleItems.sortedBy { it.room }
+                }
+            }.awaitAll().associate { it }.toSortedMap()
         return@coroutineScope Agenda(talks = schedules)
     }
 }

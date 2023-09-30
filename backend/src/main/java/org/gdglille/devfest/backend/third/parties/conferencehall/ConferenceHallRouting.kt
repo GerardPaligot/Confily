@@ -5,6 +5,7 @@ import io.ktor.server.application.call
 import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.post
+import org.gdglille.devfest.backend.categories.CategoryDao
 import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.talks.TalkDao
@@ -13,10 +14,11 @@ fun Route.registerConferenceHallRoutes(
     conferenceHallApi: ConferenceHallApi,
     eventDao: EventDao,
     speakerDao: SpeakerDao,
-    talkDao: TalkDao
+    talkDao: TalkDao,
+    categoryDao: CategoryDao
 ) {
     val conferenceHallRepo =
-        ConferenceHallRepository(conferenceHallApi, eventDao, speakerDao, talkDao)
+        ConferenceHallRepository(conferenceHallApi, eventDao, speakerDao, talkDao, categoryDao)
 
     post("conference-hall/{eventId}/talks/import") {
         val apiKey = call.request.headers["api_key"]!!

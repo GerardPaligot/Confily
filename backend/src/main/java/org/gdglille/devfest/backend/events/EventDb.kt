@@ -2,7 +2,6 @@ package org.gdglille.devfest.backend.events
 
 import java.text.DecimalFormat
 import java.time.LocalDateTime
-import org.gdglille.devfest.backend.qanda.QAndADb
 
 data class AddressDb(
     val formatted: List<String> = emptyList(),
@@ -19,12 +18,6 @@ data class LunchMenuDb(
     val dish: String = "",
     val accompaniment: String = "",
     val dessert: String = ""
-)
-
-data class CategoryDb(
-    val name: String = "",
-    val color: String = "",
-    val icon: String = ""
 )
 
 data class FeaturesActivatedDb(
@@ -64,7 +57,6 @@ data class EventDb(
     val formats: Map<String, Int> = emptyMap(),
     val menus: List<LunchMenuDb> = emptyList(),
     val coc: String = "",
-    val categories: List<CategoryDb> = emptyList(),
     val features: FeaturesActivatedDb = FeaturesActivatedDb(),
     val contactPhone: String? = null,
     val contactEmail: String = "",

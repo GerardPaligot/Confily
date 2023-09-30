@@ -5,6 +5,8 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import org.gdglille.devfest.backend.NotFoundException
+import org.gdglille.devfest.backend.categories.CategoryDao
+import org.gdglille.devfest.backend.categories.CategoryDb
 import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.events.EventDb
 import org.gdglille.devfest.backend.internals.date.FormatterPattern
@@ -28,15 +30,17 @@ class EventRepositoryV2(
     private val eventDao: EventDao,
     private val speakerDao: SpeakerDao,
     private val talkDao: TalkDao,
+    private val categoryDao: CategoryDao,
     private val scheduleItemDao: ScheduleItemDao
 ) {
     suspend fun agenda(eventDb: EventDb) = coroutineScope {
         val talks = talkDao.getAll(eventDb.slugId)
         val speakers = speakerDao.getAll(eventDb.slugId)
+        val categories = categoryDao.getAll(eventDb.slugId)
         return@coroutineScope scheduleItemDao.getAll(eventDb.slugId)
             .groupBy { LocalDateTime.parse(it.startTime).format(FormatterPattern.YearMonthDay) }
             .entries.map { schedulesByDay ->
-                schedulesByDay(schedulesByDay, talks, speakers, eventDb)
+                schedulesByDay(schedulesByDay, talks, speakers, categories, eventDb)
             }
             .awaitAll()
             .sortedBy { it.first }
@@ -48,13 +52,16 @@ class EventRepositoryV2(
         schedulesByDay: Map.Entry<String, List<ScheduleDb>>,
         talks: List<TalkDb>,
         speakers: List<SpeakerDb>,
+        categories: List<CategoryDb>,
         eventDb: EventDb
     ) = async {
         return@async schedulesByDay.key to schedulesByDay.value
             .groupBy { LocalDateTime.parse(it.startTime).format(FormatterPattern.HoursMinutes) }
             .entries.map { schedulesBySlot ->
                 schedulesBySlot.key to schedulesBySlot.value
-                    .map { schedule -> schedulesBySlot(schedule, talks, speakers, eventDb) }
+                    .map { schedule ->
+                        schedulesBySlot(schedule, talks, speakers, categories, eventDb)
+                    }
                     .awaitAll()
                     .sortedBy { it.order }
             }
@@ -67,6 +74,7 @@ class EventRepositoryV2(
         schedule: ScheduleDb,
         talks: List<TalkDb>,
         speakers: List<SpeakerDb>,
+        categories: List<CategoryDb>,
         eventDb: EventDb
     ) = async {
         if (schedule.talkId == null) schedule.convertToModel(null)
@@ -75,8 +83,9 @@ class EventRepositoryV2(
                 ?: return@async schedule.convertToModel(null)
             val speakersTalk =
                 speakers.filter { talk.speakerIds.contains(it.id) }.map { it.convertToModel() }
+            val category = categories.find { it.id == talk.category }
             schedule.convertToModel(
-                talk.convertToModel(speakersTalk, eventDb)
+                talk.convertToModel(speakersTalk, category, eventDb)
             )
         }
     }
