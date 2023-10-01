@@ -25,8 +25,6 @@ import org.gdglille.devfest.models.CreatedEvent
 import org.gdglille.devfest.models.Event
 import org.gdglille.devfest.models.EventList
 import org.gdglille.devfest.models.EventPartners
-import org.gdglille.devfest.models.EventV2
-import org.gdglille.devfest.models.EventV3
 import org.gdglille.devfest.models.inputs.CoCInput
 import org.gdglille.devfest.models.inputs.CreatingEventInput
 import org.gdglille.devfest.models.inputs.EventInput
@@ -79,26 +77,6 @@ class EventRepository(
                     .sortedBy { it.name }
             ),
             qanda
-        )
-    }
-
-    suspend fun getV2(eventId: String): EventV2 = coroutineScope {
-        val event = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
-        val hasPartners = async { partnerDao.hasPartners(eventId) }
-        val qanda = async { qAndADao.getAll(eventId, event.defaultLanguage) }
-        return@coroutineScope event.convertToModelV2(
-            hasPartnerList = hasPartners.await(),
-            qanda = qanda.await()
-        )
-    }
-
-    suspend fun getV3(eventId: String): EventV3 = coroutineScope {
-        val event = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
-        val hasPartners = async { partnerDao.hasPartners(eventId) }
-        val qanda = async { qAndADao.hasQAndA(eventId) }
-        return@coroutineScope event.convertToModelV3(
-            hasPartnerList = hasPartners.await(),
-            hasQandA = qanda.await()
         )
     }
 

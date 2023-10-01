@@ -22,3 +22,21 @@ data class Talk(
     @SerialName("open_feedback")
     val openFeedback: String?
 )
+
+@Serializable
+data class TalkV3(
+    val id: String,
+    val title: String,
+    val level: String?,
+    val abstract: String,
+    val categoryId: String,
+    val formatId: String,
+    val language: String,
+    val speakers: List<String>,
+    @SerialName("link_slides")
+    val linkSlides: String?,
+    @SerialName("link_replay")
+    val linkReplay: String?,
+    @SerialName("open_feedback")
+    val openFeedback: String?
+)

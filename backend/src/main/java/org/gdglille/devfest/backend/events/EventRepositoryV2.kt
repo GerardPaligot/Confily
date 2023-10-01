@@ -1,4 +1,4 @@
-package org.gdglille.devfest.backend.events.v2
+package org.gdglille.devfest.backend.events
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
@@ -7,35 +7,48 @@ import kotlinx.coroutines.coroutineScope
 import org.gdglille.devfest.backend.NotFoundException
 import org.gdglille.devfest.backend.categories.CategoryDao
 import org.gdglille.devfest.backend.categories.CategoryDb
-import org.gdglille.devfest.backend.events.EventDao
-import org.gdglille.devfest.backend.events.EventDb
 import org.gdglille.devfest.backend.formats.FormatDao
 import org.gdglille.devfest.backend.formats.FormatDb
 import org.gdglille.devfest.backend.internals.date.FormatterPattern
 import org.gdglille.devfest.backend.internals.date.format
+import org.gdglille.devfest.backend.partners.PartnerDao
+import org.gdglille.devfest.backend.qanda.QAndADao
 import org.gdglille.devfest.backend.schedulers.ScheduleDb
 import org.gdglille.devfest.backend.schedulers.ScheduleItemDao
 import org.gdglille.devfest.backend.schedulers.convertToModel
 import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.speakers.SpeakerDb
-import org.gdglille.devfest.backend.speakers.convertToModel
 import org.gdglille.devfest.backend.talks.TalkDao
 import org.gdglille.devfest.backend.talks.TalkDb
 import org.gdglille.devfest.backend.talks.convertToModel
+import org.gdglille.devfest.models.EventV2
 import org.gdglille.devfest.models.OpenFeedback
 import org.gdglille.devfest.models.SessionOF
 import org.gdglille.devfest.models.SocialOF
 import org.gdglille.devfest.models.SpeakerOF
 import java.time.LocalDateTime
 
+@Suppress("LongParameterList")
 class EventRepositoryV2(
     private val eventDao: EventDao,
     private val speakerDao: SpeakerDao,
     private val talkDao: TalkDao,
     private val categoryDao: CategoryDao,
     private val formatDao: FormatDao,
-    private val scheduleItemDao: ScheduleItemDao
+    private val scheduleItemDao: ScheduleItemDao,
+    private val partnerDao: PartnerDao,
+    private val qAndADao: QAndADao
 ) {
+    suspend fun getV2(eventId: String): EventV2 = coroutineScope {
+        val event = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
+        val hasPartners = async { partnerDao.hasPartners(eventId) }
+        val qanda = async { qAndADao.getAll(eventId, event.defaultLanguage) }
+        return@coroutineScope event.convertToModelV2(
+            hasPartnerList = hasPartners.await(),
+            qanda = qanda.await()
+        )
+    }
+
     suspend fun agenda(eventDb: EventDb) = coroutineScope {
         val talks = talkDao.getAll(eventDb.slugId)
         val speakers = speakerDao.getAll(eventDb.slugId)
