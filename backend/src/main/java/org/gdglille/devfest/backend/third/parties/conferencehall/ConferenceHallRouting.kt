@@ -7,30 +7,46 @@ import io.ktor.server.routing.Route
 import io.ktor.server.routing.post
 import org.gdglille.devfest.backend.categories.CategoryDao
 import org.gdglille.devfest.backend.events.EventDao
+import org.gdglille.devfest.backend.formats.FormatDao
+import org.gdglille.devfest.backend.receiveValidated
 import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.talks.TalkDao
+import org.gdglille.devfest.models.inputs.third.parties.conferencehall.ImportTalkInput
 
+@Suppress("LongParameterList")
 fun Route.registerConferenceHallRoutes(
     conferenceHallApi: ConferenceHallApi,
     eventDao: EventDao,
     speakerDao: SpeakerDao,
     talkDao: TalkDao,
-    categoryDao: CategoryDao
+    categoryDao: CategoryDao,
+    formatDao: FormatDao
 ) {
-    val conferenceHallRepo =
-        ConferenceHallRepository(conferenceHallApi, eventDao, speakerDao, talkDao, categoryDao)
+    val conferenceHallRepo = ConferenceHallRepository(
+        conferenceHallApi,
+        eventDao,
+        speakerDao,
+        talkDao,
+        categoryDao,
+        formatDao
+    )
 
     post("conference-hall/{eventId}/talks/import") {
         val apiKey = call.request.headers["api_key"]!!
         val eventId = call.parameters["eventId"]!!
-        call.respond(HttpStatusCode.Created, conferenceHallRepo.importTalks(eventId, apiKey))
+        val input = call.receiveValidated<ImportTalkInput>()
+        call.respond(HttpStatusCode.Created, conferenceHallRepo.importTalks(eventId, apiKey, input))
     }
 
     post("conference-hall/{eventId}/talks/{talkId}/import") {
         val apiKey = call.request.headers["api_key"]!!
         val eventId = call.parameters["eventId"]!!
         val talkId = call.parameters["talkId"]!!
-        call.respond(HttpStatusCode.Created, conferenceHallRepo.importTalk(eventId, apiKey, talkId))
+        val input = call.receiveValidated<ImportTalkInput>()
+        call.respond(
+            HttpStatusCode.Created,
+            conferenceHallRepo.importTalk(eventId, apiKey, talkId, input)
+        )
     }
 
     post("conference-hall/{eventId}/speakers/import") {
@@ -43,6 +59,9 @@ fun Route.registerConferenceHallRoutes(
         val apiKey = call.request.headers["api_key"]!!
         val eventId = call.parameters["eventId"]!!
         val speakerId = call.parameters["speakerId"]!!
-        call.respond(HttpStatusCode.Created, conferenceHallRepo.importSpeaker(eventId, apiKey, speakerId))
+        call.respond(
+            HttpStatusCode.Created,
+            conferenceHallRepo.importSpeaker(eventId, apiKey, speakerId)
+        )
     }
 }

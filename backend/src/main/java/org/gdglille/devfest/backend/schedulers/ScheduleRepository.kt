@@ -4,6 +4,7 @@ import kotlinx.coroutines.coroutineScope
 import org.gdglille.devfest.backend.NotFoundException
 import org.gdglille.devfest.backend.categories.CategoryDao
 import org.gdglille.devfest.backend.events.EventDao
+import org.gdglille.devfest.backend.formats.FormatDao
 import org.gdglille.devfest.backend.internals.date.FormatterPattern
 import org.gdglille.devfest.backend.internals.date.format
 import org.gdglille.devfest.backend.speakers.SpeakerDao
@@ -17,31 +18,32 @@ class ScheduleRepository(
     private val eventDao: EventDao,
     private val talkDao: TalkDao,
     private val categoryDao: CategoryDao,
+    private val formatDao: FormatDao,
     private val speakerDao: SpeakerDao,
     private val scheduleItemDao: ScheduleItemDao
 ) {
     suspend fun create(eventId: String, apiKey: String, scheduleInput: ScheduleInput) =
         coroutineScope {
             val event = eventDao.getVerified(eventId, apiKey)
-            if (scheduleInput.talkId == null) {
+            return@coroutineScope if (scheduleInput.talkId == null) {
                 val scheduleItem = scheduleInput.convertToDb(endTime = scheduleInput.endTime!!)
                 scheduleItemDao.createOrUpdate(eventId, scheduleItem)
                 eventDao.updateAgendaUpdatedAt(event)
-                return@coroutineScope scheduleItem.id
+                scheduleItem.id
             } else {
                 val talk = talkDao.get(eventId, scheduleInput.talkId!!)
                     ?: throw NotFoundException("Talk ${scheduleInput.talkId} not found")
-                val format = event.formats[talk.format]
-                    ?: throw NotFoundException("Category ${talk.category} not found in Event")
+                val format = formatDao.get(eventId, talk.format)
+                    ?: throw NotFoundException("Format ${talk.category} not found")
                 val endTime =
-                    LocalDateTime.parse(scheduleInput.startTime).plusMinutes(format.toLong())
+                    LocalDateTime.parse(scheduleInput.startTime).plusMinutes(format.time.toLong())
                 val scheduleItem = scheduleInput.convertToDb(
                     endTime = endTime.format(FormatterPattern.Iso8601),
                     talkId = talk.id
                 )
                 scheduleItemDao.createOrUpdate(eventId, scheduleItem)
                 eventDao.updateAgendaUpdatedAt(event)
-                return@coroutineScope scheduleItem.id
+                scheduleItem.id
             }
         }
 
@@ -53,9 +55,9 @@ class ScheduleRepository(
             val talkDb = talkDao.get(eventId, scheduleItem.talkId)
                 ?: throw NotFoundException("Talk ${scheduleItem.talkId} not found")
             val speakers = speakerDao.getByIds(eventId, talkDb.speakerIds)
-                .map { it.convertToModel() }
             val category = categoryDao.get(eventId, talkDb.category)
-            talkDb.convertToModel(speakers, category, eventDb)
+            val format = formatDao.get(eventId, talkDb.format)
+            talkDb.convertToModel(speakers, category, format, eventDb)
         } else null
         return@coroutineScope scheduleItem.convertToModel(talk)
     }

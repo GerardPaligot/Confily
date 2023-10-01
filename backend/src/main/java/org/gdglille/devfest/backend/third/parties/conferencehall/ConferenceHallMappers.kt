@@ -1,24 +1,34 @@
 package org.gdglille.devfest.backend.third.parties.conferencehall
 
 import org.gdglille.devfest.backend.categories.CategoryDb
+import org.gdglille.devfest.backend.formats.FormatDb
 import org.gdglille.devfest.backend.talks.TalkDb
+import org.gdglille.devfest.models.inputs.third.parties.conferencehall.CategoryInput
+import org.gdglille.devfest.models.inputs.third.parties.conferencehall.FormatInput
 
-fun Category.convertToDb() = CategoryDb(
+fun Category.convertToDb(categories: List<CategoryInput>): CategoryDb {
+    val category = categories.find { it.id == id }
+    return CategoryDb(
+        id = id,
+        name = name,
+        color = category?.color ?: "default",
+        icon = category?.icon ?: ""
+    )
+}
+
+fun Format.convertToDb(formats: List<FormatInput>) = FormatDb(
     id = id,
     name = name,
-    color = "default",
-    icon = ""
+    time = formats.find { it.id == this.id }?.time ?: 0
 )
 
-fun Talk.convertToDb(categories: List<Category>, formats: List<Format>): TalkDb = TalkDb(
+fun Talk.convertToDb(): TalkDb = TalkDb(
     id = this.id,
     title = this.title,
     level = this.level,
     abstract = this.abstract,
-    category = categories.find { it.id == this.categories }?.name
-        ?: error("Category not found for ${this.id} talk"),
-    format = formats.find { it.id == this.formats }?.name
-        ?: error("Format not found for ${this.id} talk"),
+    category = this.categories,
+    format = this.formats,
     language = this.language,
     speakerIds = this.speakers,
 )

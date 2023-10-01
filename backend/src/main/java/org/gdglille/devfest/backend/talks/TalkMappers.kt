@@ -4,13 +4,16 @@ import org.gdglille.devfest.backend.categories.CategoryDb
 import org.gdglille.devfest.backend.categories.convertToModel
 import org.gdglille.devfest.backend.events.EventDb
 import org.gdglille.devfest.backend.events.openFeedbackUrl
-import org.gdglille.devfest.models.Speaker
+import org.gdglille.devfest.backend.formats.FormatDb
+import org.gdglille.devfest.backend.speakers.SpeakerDb
+import org.gdglille.devfest.backend.speakers.convertToModel
 import org.gdglille.devfest.models.Talk
 import org.gdglille.devfest.models.inputs.TalkInput
 
 fun TalkDb.convertToModel(
-    speakers: List<Speaker>,
+    speakers: List<SpeakerDb>,
     category: CategoryDb?,
+    format: FormatDb?,
     eventDb: EventDb
 ): Talk = Talk(
     id = this.id,
@@ -19,9 +22,9 @@ fun TalkDb.convertToModel(
     abstract = this.abstract,
     category = category?.name ?: this.category,
     categoryStyle = category?.convertToModel(),
-    format = this.format,
+    format = format?.name ?: this.format,
     language = this.language,
-    speakers = speakers,
+    speakers = speakers.map { it.convertToModel() },
     linkSlides = this.linkSlides,
     linkReplay = this.linkReplay,
     openFeedback = eventDb.openFeedbackUrl()?.let { "$it/$id" } ?: run { null }

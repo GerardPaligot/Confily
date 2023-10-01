@@ -6,6 +6,7 @@ import kotlinx.coroutines.coroutineScope
 import org.gdglille.devfest.backend.NotAcceptableException
 import org.gdglille.devfest.backend.NotFoundException
 import org.gdglille.devfest.backend.categories.CategoryDao
+import org.gdglille.devfest.backend.formats.FormatDao
 import org.gdglille.devfest.backend.internals.date.FormatterPattern
 import org.gdglille.devfest.backend.internals.date.format
 import org.gdglille.devfest.backend.partners.PartnerDao
@@ -15,7 +16,6 @@ import org.gdglille.devfest.backend.qanda.QAndADao
 import org.gdglille.devfest.backend.schedulers.ScheduleItemDao
 import org.gdglille.devfest.backend.schedulers.convertToModel
 import org.gdglille.devfest.backend.speakers.SpeakerDao
-import org.gdglille.devfest.backend.speakers.convertToModel
 import org.gdglille.devfest.backend.talks.TalkDao
 import org.gdglille.devfest.backend.talks.convertToModel
 import org.gdglille.devfest.backend.third.parties.geocode.GeocodeApi
@@ -42,6 +42,7 @@ class EventRepository(
     private val qAndADao: QAndADao,
     private val talkDao: TalkDao,
     private val categoryDao: CategoryDao,
+    private val formatDao: FormatDao,
     private val scheduleItemDao: ScheduleItemDao,
     private val partnerDao: PartnerDao
 ) {
@@ -136,8 +137,12 @@ class EventRepository(
 
     suspend fun agenda(eventDb: EventDb) = coroutineScope {
         val categories = categoryDao.getAll(eventDb.slugId)
-        val schedules =
-            scheduleItemDao.getAll(eventDb.slugId).groupBy { it.startTime }.entries.map {
+        val formats = formatDao.getAll(eventDb.slugId)
+        val speakers = speakerDao.getAll(eventDb.slugId)
+        val schedules = scheduleItemDao
+            .getAll(eventDb.slugId)
+            .groupBy { it.startTime }
+            .entries.map {
                 async {
                     val scheduleItems = it.value.map {
                         async {
@@ -147,9 +152,9 @@ class EventRepository(
                                     ?: return@async it.convertToModel(null)
                                 it.convertToModel(
                                     talk.convertToModel(
-                                        speakerDao.getByIds(eventDb.slugId, talk.speakerIds)
-                                            .map { it.convertToModel() },
+                                        speakers.filter { talk.speakerIds.contains(it.id) },
                                         categories.find { it.id == talk.category },
+                                        formats.find { it.id == talk.format },
                                         eventDb
                                     )
                                 )

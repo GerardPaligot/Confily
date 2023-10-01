@@ -9,19 +9,29 @@ import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import org.gdglille.devfest.backend.categories.CategoryDao
 import org.gdglille.devfest.backend.events.EventDao
+import org.gdglille.devfest.backend.formats.FormatDao
 import org.gdglille.devfest.backend.receiveValidated
 import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.talks.TalkDao
 import org.gdglille.devfest.models.inputs.ScheduleInput
 
+@Suppress("LongParameterList")
 fun Route.registerSchedulersRoutes(
     eventDao: EventDao,
     talkDao: TalkDao,
     categoryDao: CategoryDao,
+    formatDao: FormatDao,
     speakerDao: SpeakerDao,
     scheduleItemDao: ScheduleItemDao
 ) {
-    val repository = ScheduleRepository(eventDao, talkDao, categoryDao, speakerDao, scheduleItemDao)
+    val repository = ScheduleRepository(
+        eventDao,
+        talkDao,
+        categoryDao,
+        formatDao,
+        speakerDao,
+        scheduleItemDao
+    )
 
     post("/schedulers") {
         val eventId = call.parameters["eventId"]!!

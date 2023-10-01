@@ -9,6 +9,8 @@ import org.gdglille.devfest.backend.categories.CategoryDao
 import org.gdglille.devfest.backend.categories.CategoryDb
 import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.events.EventDb
+import org.gdglille.devfest.backend.formats.FormatDao
+import org.gdglille.devfest.backend.formats.FormatDb
 import org.gdglille.devfest.backend.internals.date.FormatterPattern
 import org.gdglille.devfest.backend.internals.date.format
 import org.gdglille.devfest.backend.schedulers.ScheduleDb
@@ -31,16 +33,18 @@ class EventRepositoryV2(
     private val speakerDao: SpeakerDao,
     private val talkDao: TalkDao,
     private val categoryDao: CategoryDao,
+    private val formatDao: FormatDao,
     private val scheduleItemDao: ScheduleItemDao
 ) {
     suspend fun agenda(eventDb: EventDb) = coroutineScope {
         val talks = talkDao.getAll(eventDb.slugId)
         val speakers = speakerDao.getAll(eventDb.slugId)
         val categories = categoryDao.getAll(eventDb.slugId)
+        val formats = formatDao.getAll(eventDb.slugId)
         return@coroutineScope scheduleItemDao.getAll(eventDb.slugId)
             .groupBy { LocalDateTime.parse(it.startTime).format(FormatterPattern.YearMonthDay) }
             .entries.map { schedulesByDay ->
-                schedulesByDay(schedulesByDay, talks, speakers, categories, eventDb)
+                schedulesByDay(schedulesByDay, talks, speakers, categories, formats, eventDb)
             }
             .awaitAll()
             .sortedBy { it.first }
@@ -48,11 +52,13 @@ class EventRepositoryV2(
             .toMap()
     }
 
+    @Suppress("LongParameterList")
     private fun CoroutineScope.schedulesByDay(
         schedulesByDay: Map.Entry<String, List<ScheduleDb>>,
         talks: List<TalkDb>,
         speakers: List<SpeakerDb>,
         categories: List<CategoryDb>,
+        formats: List<FormatDb>,
         eventDb: EventDb
     ) = async {
         return@async schedulesByDay.key to schedulesByDay.value
@@ -60,7 +66,7 @@ class EventRepositoryV2(
             .entries.map { schedulesBySlot ->
                 schedulesBySlot.key to schedulesBySlot.value
                     .map { schedule ->
-                        schedulesBySlot(schedule, talks, speakers, categories, eventDb)
+                        schedulesBySlot(schedule, talks, speakers, categories, formats, eventDb)
                     }
                     .awaitAll()
                     .sortedBy { it.order }
@@ -70,22 +76,24 @@ class EventRepositoryV2(
             .toMap()
     }
 
+    @Suppress("LongParameterList")
     private fun CoroutineScope.schedulesBySlot(
         schedule: ScheduleDb,
         talks: List<TalkDb>,
         speakers: List<SpeakerDb>,
         categories: List<CategoryDb>,
+        formats: List<FormatDb>,
         eventDb: EventDb
     ) = async {
         if (schedule.talkId == null) schedule.convertToModel(null)
         else {
             val talk = talks.find { it.id == schedule.talkId }
                 ?: return@async schedule.convertToModel(null)
-            val speakersTalk =
-                speakers.filter { talk.speakerIds.contains(it.id) }.map { it.convertToModel() }
+            val speakersTalk = speakers.filter { talk.speakerIds.contains(it.id) }
             val category = categories.find { it.id == talk.category }
+            val format = formats.find { it.id == talk.format }
             schedule.convertToModel(
-                talk.convertToModel(speakersTalk, category, eventDb)
+                talk.convertToModel(speakersTalk, category, format, eventDb)
             )
         }
     }

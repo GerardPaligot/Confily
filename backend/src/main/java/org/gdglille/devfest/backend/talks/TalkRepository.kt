@@ -6,6 +6,7 @@ import kotlinx.coroutines.coroutineScope
 import org.gdglille.devfest.backend.NotFoundException
 import org.gdglille.devfest.backend.categories.CategoryDao
 import org.gdglille.devfest.backend.events.EventDao
+import org.gdglille.devfest.backend.formats.FormatDao
 import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.speakers.convertToModel
 import org.gdglille.devfest.models.inputs.TalkInput
@@ -14,18 +15,21 @@ class TalkRepository(
     private val eventDao: EventDao,
     private val speakerDao: SpeakerDao,
     private val talkDao: TalkDao,
-    private val categoryDao: CategoryDao
+    private val categoryDao: CategoryDao,
+    private val formatDao: FormatDao
 ) {
     suspend fun list(eventId: String) = coroutineScope {
         val eventDb = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
         val talks = talkDao.getAll(eventId)
         val speakers = speakerDao.getAll(eventId)
         val categories = categoryDao.getAll(eventId)
+        val formats = formatDao.getAll(eventId)
         val asyncItems = talks.map { talkDb ->
             async {
                 talkDb.convertToModel(
-                    speakers.filter { talkDb.speakerIds.contains(it.id) }.map { it.convertToModel() },
+                    speakers.filter { talkDb.speakerIds.contains(it.id) },
                     categories.find { it.id == talkDb.category },
+                    formats.find { it.id == talkDb.format },
                     eventDb
                 )
             }
@@ -45,9 +49,11 @@ class TalkRepository(
         val eventDb = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
         val talk = talkDao.get(eventId, talkId) ?: throw NotFoundException("Talk $talkId Not Found")
         val categoryDb = categoryDao.get(eventId, talk.category)
+        val formatDb = formatDao.get(eventId, talk.format)
         return@coroutineScope talk.convertToModel(
-            speakerDao.getByIds(eventId, talk.speakerIds).map { it.convertToModel() },
+            speakerDao.getByIds(eventId, talk.speakerIds),
             categoryDb,
+            formatDb,
             eventDb
         )
     }

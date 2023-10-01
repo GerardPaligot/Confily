@@ -20,6 +20,7 @@ import io.ktor.server.routing.put
 import org.gdglille.devfest.backend.NotFoundException
 import org.gdglille.devfest.backend.categories.CategoryDao
 import org.gdglille.devfest.backend.events.v2.EventRepositoryV2
+import org.gdglille.devfest.backend.formats.FormatDao
 import org.gdglille.devfest.backend.partners.PartnerDao
 import org.gdglille.devfest.backend.qanda.QAndADao
 import org.gdglille.devfest.backend.receiveValidated
@@ -46,6 +47,7 @@ fun Route.registerEventRoutes(
     qAndADao: QAndADao,
     talkDao: TalkDao,
     categoryDao: CategoryDao,
+    formatDao: FormatDao,
     scheduleItemDao: ScheduleItemDao,
     partnerDao: PartnerDao
 ) {
@@ -56,6 +58,7 @@ fun Route.registerEventRoutes(
         qAndADao,
         talkDao,
         categoryDao,
+        formatDao,
         scheduleItemDao,
         partnerDao
     )
@@ -64,6 +67,7 @@ fun Route.registerEventRoutes(
         speakerDao,
         talkDao,
         categoryDao,
+        formatDao,
         scheduleItemDao
     )
 

@@ -9,6 +9,7 @@ import io.ktor.server.routing.post
 import io.ktor.server.routing.put
 import org.gdglille.devfest.backend.categories.CategoryDao
 import org.gdglille.devfest.backend.events.EventDao
+import org.gdglille.devfest.backend.formats.FormatDao
 import org.gdglille.devfest.backend.receiveValidated
 import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.models.inputs.TalkInput
@@ -17,9 +18,10 @@ fun Route.registerTalksRoutes(
     eventDao: EventDao,
     speakerDao: SpeakerDao,
     talkDao: TalkDao,
-    categoryDao: CategoryDao
+    categoryDao: CategoryDao,
+    formatDao: FormatDao
 ) {
-    val repository = TalkRepository(eventDao, speakerDao, talkDao, categoryDao)
+    val repository = TalkRepository(eventDao, speakerDao, talkDao, categoryDao, formatDao)
 
     get("/talks") {
         val eventId = call.parameters["eventId"]!!

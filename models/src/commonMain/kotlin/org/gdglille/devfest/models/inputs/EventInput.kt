@@ -22,15 +22,6 @@ data class CoCInput(
 }
 
 @Serializable
-data class CategoryInput(
-    val name: String,
-    val color: String,
-    val icon: String
-) : Validator {
-    override fun validate(): List<String> = emptyList()
-}
-
-@Serializable
 data class FeaturesActivatedInput(
     @SerialName("has_networking")
     val hasNetworking: Boolean
@@ -88,7 +79,6 @@ data class EventInput(
     val endDate: String,
     @SerialName("sponsoring_types")
     val sponsoringTypes: List<String> = emptyList(),
-    val formats: Map<String, Int> = emptyMap(),
     @SerialName("contact_phone")
     val contactPhone: String?,
     @SerialName("contact_email")
@@ -105,13 +95,8 @@ data class EventInput(
     @SerialName("update_at")
     val updatedAt: Long = Clock.System.now().epochSeconds
 ) : Validator {
-    override fun validate(): List<String> {
-        val errors = arrayListOf<String>()
-        if (twitterUrl?.contains("twitter.com") == false) errors.add("Your twitter url is malformed")
-        if (linkedinUrl?.contains("linkedin.com") == false) errors.add("Your linkedin url is malformed")
-        formats.values.forEach {
-            if (it <= 0) errors.add("The time can't be null or negative")
-        }
-        return errors
+    override fun validate(): List<String> = mutableListOf<String>().apply {
+        if (twitterUrl?.contains("twitter.com") == false) add("Your twitter url is malformed")
+        if (linkedinUrl?.contains("linkedin.com") == false) add("Your linkedin url is malformed")
     }
 }

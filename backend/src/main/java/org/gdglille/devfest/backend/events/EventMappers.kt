@@ -155,7 +155,6 @@ fun EventInput.convertToDb(event: EventDb, addressDb: AddressDb) = EventDb(
     startDate = this.startDate,
     endDate = this.endDate,
     sponsoringTypes = this.sponsoringTypes,
-    formats = this.formats,
     contactPhone = this.contactPhone,
     contactEmail = this.contactEmail,
     twitterUrl = this.twitterUrl,

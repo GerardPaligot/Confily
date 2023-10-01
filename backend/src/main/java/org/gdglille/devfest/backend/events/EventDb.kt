@@ -54,7 +54,6 @@ data class EventDb(
     val startDate: String = "",
     val endDate: String = "",
     val sponsoringTypes: List<String> = emptyList(),
-    val formats: Map<String, Int> = emptyMap(),
     val menus: List<LunchMenuDb> = emptyList(),
     val coc: String = "",
     val features: FeaturesActivatedDb = FeaturesActivatedDb(),

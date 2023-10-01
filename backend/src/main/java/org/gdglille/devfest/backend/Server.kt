@@ -24,6 +24,8 @@ import org.gdglille.devfest.backend.categories.CategoryDao
 import org.gdglille.devfest.backend.categories.registerCategoriesRoutes
 import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.events.registerEventRoutes
+import org.gdglille.devfest.backend.formats.FormatDao
+import org.gdglille.devfest.backend.formats.registerFormatsRoutes
 import org.gdglille.devfest.backend.internals.helpers.database.BasicDatabase
 import org.gdglille.devfest.backend.internals.helpers.database.Database
 import org.gdglille.devfest.backend.internals.helpers.image.TranscoderImage
@@ -88,6 +90,7 @@ fun main() {
     val speakerDao = SpeakerDao(database, storage)
     val talkDao = TalkDao(database)
     val categoryDao = CategoryDao(database)
+    val formatDao = FormatDao(database)
     val scheduleItemDao = ScheduleItemDao(database)
     val eventDao = EventDao(projectName, basicDatabase)
     val partnerDao = PartnerDao(database, storage)
@@ -130,18 +133,21 @@ fun main() {
                 qAndADao,
                 talkDao,
                 categoryDao,
+                formatDao,
                 scheduleItemDao,
                 partnerDao
             )
             route("/events/{eventId}") {
                 registerQAndAsRoutes(eventDao, qAndADao)
                 registerSpeakersRoutes(eventDao, speakerDao)
-                registerTalksRoutes(eventDao, speakerDao, talkDao, categoryDao)
+                registerTalksRoutes(eventDao, speakerDao, talkDao, categoryDao, formatDao)
                 registerCategoriesRoutes(eventDao, categoryDao)
+                registerFormatsRoutes(eventDao, formatDao)
                 registerSchedulersRoutes(
                     eventDao,
                     talkDao,
                     categoryDao,
+                    formatDao,
                     speakerDao,
                     scheduleItemDao
                 )
@@ -153,7 +159,8 @@ fun main() {
                     eventDao,
                     speakerDao,
                     talkDao,
-                    categoryDao
+                    categoryDao,
+                    formatDao
                 )
                 registerWLDRoutes(wldApi, eventDao, partnerDao, jobDao)
             }
