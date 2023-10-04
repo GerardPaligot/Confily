@@ -28,6 +28,7 @@
 "titleTalks" = "Conférences";
 "titleCompany" = "Entreprise";
 "titleJob" = "Job";
+"title_agenda_break" = "Pause";
 
 "textLoading" = "Chargement…";
 "textError" = "Une erreur inconnue est survenue";

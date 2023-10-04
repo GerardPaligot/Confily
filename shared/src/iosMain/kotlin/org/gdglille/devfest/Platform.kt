@@ -7,9 +7,11 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.toCValues
 import kotlinx.cinterop.usePinned
 import okio.FileSystem
+import platform.Foundation.NSBundle
 import platform.Foundation.NSData
 import platform.Foundation.NSNumber
 import platform.Foundation.NSNumberFormatter
+import platform.Foundation.NSURL
 import platform.Foundation.dataWithBytes
 import platform.UIKit.UIImage
 import platform.UIKit.UIImageJPEGRepresentation
@@ -25,6 +27,22 @@ actual class Platform actual constructor(context: PlatformContext) {
         tempFolderPath = FileSystem.SYSTEM_TEMPORARY_DIRECTORY
     )
     actual val hasSupportSVG: Boolean = false
+    actual fun getString(key: String): String = key.localized()
+}
+
+fun String.localized(): String {
+    val localizedString = NSBundle.mainBundle.localizedStringForKey(this, this, null)
+    if (localizedString != this) return localizedString
+
+    val baseResourcePath = NSBundle.mainBundle.pathForResource("Base", "lproj")
+        ?.let { NSURL(fileURLWithPath = it) }
+    val baseBundle = baseResourcePath?.let { NSBundle(it) }
+
+    if (baseBundle != null) {
+        val baseString = baseBundle.localizedStringForKey(this, this, null)
+        if (baseString != this) return baseString
+    }
+    return this
 }
 
 actual class DecimalFormat {

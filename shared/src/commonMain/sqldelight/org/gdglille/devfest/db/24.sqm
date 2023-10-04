@@ -1,0 +1,58 @@
+import kotlin.Boolean;
+
+DROP TABLE Talk;
+DROP TABLE TalkWithSpeakers;
+DROP TABLE Schedule;
+
+CREATE TABLE Format (
+id TEXT NOT NULL PRIMARY KEY,
+name TEXT NOT NULL,
+time INTEGER NOT NULL,
+event_id TEXT NOT NULL
+);
+
+CREATE TABLE Category (
+id TEXT NOT NULL PRIMARY KEY,
+name TEXT NOT NULL,
+color TEXT NOT NULL,
+icon TEXT NOT NULL,
+event_id TEXT NOT NULL
+);
+
+CREATE TABLE Session (
+id TEXT NOT NULL PRIMARY KEY,
+order_ INTEGER NOT NULL,
+event_id TEXT NOT NULL,
+date TEXT NOT NULL,
+start_time TEXT NOT NULL,
+end_time TEXT NOT NULL,
+room TEXT NOT NULL,
+is_favorite INTEGER AS Boolean NOT NULL DEFAULT 0,
+talk_id TEXT NOT NULL,
+FOREIGN KEY (talk_id) REFERENCES TalkSession(id)
+);
+
+CREATE TABLE TalkSession(
+id TEXT NOT NULL PRIMARY KEY,
+title TEXT NOT NULL,
+abstract TEXT NOT NULL,
+level TEXT,
+language TEXT,
+slide_url TEXT,
+replay_url TEXT,
+open_feedback_url TEXT,
+category_id TEXT NOT NULL,
+format_id TEXT NOT NULL,
+event_id TEXT NOT NULL,
+FOREIGN KEY (category_id) REFERENCES Category(id),
+FOREIGN KEY (format_id) REFERENCES Format(id)
+);
+
+CREATE TABLE TalkSessionWithSpeakers(
+id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+speaker_id TEXT NOT NULL,
+talk_id TEXT NOT NULL,
+event_id TEXT NOT NULL,
+FOREIGN KEY (speaker_id) REFERENCES Speaker(id),
+FOREIGN KEY (talk_id) REFERENCES TalkSession(id)
+);

@@ -12,7 +12,7 @@ import java.io.ByteArrayOutputStream
 data class AndroidContext(val context: Context)
 actual typealias PlatformContext = AndroidContext
 
-actual class Platform actual constructor(context: PlatformContext) {
+actual class Platform actual constructor(private val context: PlatformContext) {
     actual val httpEngine: HttpClientEngine = Android.create()
     actual val fileEngine = FileEngine(
         fileSystem = FileSystem.SYSTEM,
@@ -20,6 +20,12 @@ actual class Platform actual constructor(context: PlatformContext) {
             ?: FileSystem.SYSTEM_TEMPORARY_DIRECTORY
     )
     actual val hasSupportSVG: Boolean = true
+    actual fun getString(key: String): String {
+        val androidContext = context.context
+        val resourceId = androidContext.resources.getIdentifier(key, "string", androidContext.packageName)
+        if (resourceId == 0) return key
+        return androidContext.getString(resourceId)
+    }
 }
 
 actual class DecimalFormat {

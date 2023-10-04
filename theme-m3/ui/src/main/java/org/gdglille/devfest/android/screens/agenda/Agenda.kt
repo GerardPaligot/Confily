@@ -44,7 +44,7 @@ fun Agenda(
                 }
                 items(slot.value.toList()) {
                     if (it.isPause) {
-                        PauseItem()
+                        PauseItem(title = it.title)
                     } else {
                         TalkItem(
                             talk = it,

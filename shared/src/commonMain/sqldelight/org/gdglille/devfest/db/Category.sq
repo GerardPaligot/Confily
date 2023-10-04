@@ -1,0 +1,10 @@
+CREATE TABLE Category (
+id TEXT NOT NULL PRIMARY KEY,
+name TEXT NOT NULL,
+color TEXT NOT NULL,
+icon TEXT NOT NULL,
+event_id TEXT NOT NULL
+);
+
+upsertCategory:
+INSERT OR REPLACE INTO Category VALUES ?;

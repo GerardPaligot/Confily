@@ -16,7 +16,7 @@ class FeaturesActivatedDao(private val db: Conferences4HallDatabase) {
     fun fetchFeatures(eventId: String): Flow<ScaffoldConfigUi> = combine(
         db.featuresActivatedQueries.selectFeatures(eventId).asFlow().mapToOneOrNull(Dispatchers.IO),
         db.userQueries.selectQrCode(eventId).asFlow().mapToOneOrNull(Dispatchers.IO),
-        db.agendaQueries.selectDays(eventId).asFlow().mapToList(Dispatchers.IO),
+        db.sessionQueries.selectDays(eventId).asFlow().mapToList(Dispatchers.IO),
         db.userQueries.countNetworking(eventId).asFlow()
             .mapToOneOrDefault(defaultValue = 0L, context = Dispatchers.IO),
         transform = { features, qrCode, days, countNetworking ->

@@ -9,14 +9,16 @@
 import SwiftUI
 
 struct PauseView: View {
+    let title: String
+
     var body: some View {
-        Text("textPauseItem")
+        Text(title)
             .font(.title3)
     }
 }
 
 struct PauseView_Previews: PreviewProvider {
     static var previews: some View {
-        PauseView()
+        PauseView(title: "Pause")
     }
 }

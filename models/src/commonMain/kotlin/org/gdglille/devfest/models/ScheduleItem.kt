@@ -19,6 +19,7 @@ data class ScheduleItem(
 data class ScheduleItemV3(
     val id: String,
     val order: Int,
+    val date: String,
     @SerialName("start_time")
     val startTime: String,
     @SerialName("end_time")

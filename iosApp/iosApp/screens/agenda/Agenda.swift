@@ -62,7 +62,7 @@ struct Agenda: View {
                                             .accessibilityLabel(Text(iconAction))
                                         }
                                     } else {
-                                        PauseView()
+                                        PauseView(title: talk.title)
                                     }
                                 }
                             } header: {

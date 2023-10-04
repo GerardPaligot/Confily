@@ -21,6 +21,7 @@ fun ScheduleDb.convertToModel(talk: Talk?) = ScheduleItem(
 fun ScheduleDb.convertToModel() = ScheduleItemV3(
     id = this.id,
     order = order ?: 0,
+    date = LocalDateTime.parse(this.startTime).format(FormatterPattern.YearMonthDay),
     startTime = this.startTime,
     endTime = this.endTime,
     room = this.room,

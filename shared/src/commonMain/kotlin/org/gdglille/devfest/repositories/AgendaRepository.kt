@@ -3,16 +3,11 @@ package org.gdglille.devfest.repositories
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutineScope
 import com.russhwolf.settings.ExperimentalSettingsApi
 import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.ImmutableMap
-import kotlinx.collections.immutable.toImmutableMap
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flatMapConcat
-import kotlinx.coroutines.flow.map
 import org.gdglille.devfest.database.EventDao
 import org.gdglille.devfest.database.FeaturesActivatedDao
 import org.gdglille.devfest.database.PartnerDao
@@ -44,10 +39,9 @@ interface AgendaRepository {
     fun qanda(): Flow<ImmutableList<QuestionAndResponseUi>>
     fun menus(): Flow<ImmutableList<MenuItemUi>>
     fun coc(): Flow<CoCUi>
-    fun agenda(): Flow<ImmutableMap<String, AgendaUi>>
     fun agenda(date: String): Flow<AgendaUi>
     fun speaker(speakerId: String): Flow<SpeakerUi>
-    fun markAsRead(scheduleId: String, isFavorite: Boolean)
+    fun markAsRead(sessionId: String, isFavorite: Boolean)
     fun scheduleItem(scheduleId: String): TalkUi
 
     @FlowPreview
@@ -95,19 +89,16 @@ class AgendaRepositoryImpl(
     override suspend fun fetchAndStoreAgenda() {
         val eventId = eventDao.fetchEventId()
         val etag = scheduleDao.lastEtag(eventId)
+        try {
+            val (newEtag, agenda) = api.fetchAgenda(eventId, etag)
+            scheduleDao.saveAgenda(eventId, agenda)
+            scheduleDao.updateEtag(eventId, newEtag)
+        } catch (ex: AgendaNotModifiedException) {
+            ex.printStackTrace()
+        }
         val event = api.fetchEvent(eventId)
         val qanda = api.fetchQAndA(eventId)
         val partners = api.fetchPartners(eventId)
-        try {
-            val agenda = api.fetchAgenda(eventId, etag)
-            agenda.second.entries.forEach { entry ->
-                entry.value.values.forEach { schedules ->
-                    scheduleDao.insertOrUpdateSchedules(event.id, entry.key, schedules)
-                }
-            }
-            scheduleDao.updateEtag(eventId, agenda.first)
-        } catch (_: AgendaNotModifiedException) {
-        }
         eventDao.insertEvent(event, qanda)
         partnerDao.insertPartners(eventId, partners)
     }
@@ -159,15 +150,6 @@ class AgendaRepositoryImpl(
         eventId = eventDao.fetchEventId()
     )
 
-    override fun agenda(): Flow<ImmutableMap<String, AgendaUi>> {
-        return scaffoldConfig().flatMapConcat { config ->
-            return@flatMapConcat combine(
-                flows = config.agendaTabs.map { date -> agenda(date = date).map { date to it } },
-                transform = { it.associate { it }.toImmutableMap() }
-            )
-        }
-    }
-
     override fun agenda(date: String): Flow<AgendaUi> = scheduleDao.fetchSchedules(
         eventId = eventDao.fetchEventId(),
         date = date
@@ -178,9 +160,9 @@ class AgendaRepositoryImpl(
         speakerId = speakerId
     )
 
-    override fun markAsRead(scheduleId: String, isFavorite: Boolean) = scheduleDao.markAsFavorite(
+    override fun markAsRead(sessionId: String, isFavorite: Boolean) = scheduleDao.markAsFavorite(
         eventId = eventDao.fetchEventId(),
-        scheduleId = scheduleId,
+        sessionId = sessionId,
         isFavorite = isFavorite
     )
 

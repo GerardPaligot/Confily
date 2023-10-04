@@ -1,8 +1,10 @@
 package org.gdglille.devfest.database.mappers
 
 import kotlinx.collections.immutable.persistentListOf
+import org.gdglille.devfest.models.Speaker
 import org.gdglille.devfest.models.SpeakerItemUi
 import org.gdglille.devfest.models.SpeakerUi
+import org.gdglille.devfest.db.Speaker as SpeakerDb
 
 object SpeakerMappers {
     val speakerUi =
@@ -38,9 +40,26 @@ object SpeakerMappers {
             )
         }
 
-    fun displayActivity(jobTitle: String?, company: String?) =
-        if (jobTitle != null && company != null) "$jobTitle - $company"
-        else if (jobTitle == null && company != null) company
-        else if (jobTitle != null && company != null) jobTitle
-        else ""
+    fun displayActivity(jobTitle: String?, company: String?) = when {
+        jobTitle != null && company != null -> "$jobTitle - $company"
+        jobTitle == null && company != null -> company
+        jobTitle != null && company == null -> jobTitle
+        else -> ""
+    }
 }
+
+fun Speaker.convertToDb(eventId: String): SpeakerDb = SpeakerDb(
+    id = id,
+    display_name = displayName,
+    pronouns = pronouns,
+    bio = bio,
+    job_title = jobTitle,
+    company = company,
+    photo_url = photoUrl,
+    twitter = twitter,
+    mastodon = mastodon,
+    github = github,
+    linkedin = linkedin,
+    website = website,
+    event_id = eventId
+)

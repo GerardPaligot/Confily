@@ -32,7 +32,7 @@ fun ScheduleItem(
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             talks.forEach {
                 if (it.isPause) {
-                    PauseItem()
+                    PauseItem(title = it.title)
                 } else {
                     TalkItem(
                         talk = it,

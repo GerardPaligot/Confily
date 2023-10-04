@@ -28,6 +28,7 @@
 "titleTalks" = "Talks";
 "titleCompany" = "Company";
 "titleJob" = "Job";
+"title_agenda_break" = "Break";
 
 "textLoading" = "Loading…";
 "textError" = "Something wrong happened";

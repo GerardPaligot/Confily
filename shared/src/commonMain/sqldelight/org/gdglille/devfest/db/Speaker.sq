@@ -5,7 +5,7 @@ pronouns TEXT,
 bio TEXT NOT NULL,
 job_title TEXT,
 company TEXT,
-photo_url TEXT NOT NULL ,
+photo_url TEXT NOT NULL,
 twitter TEXT,
 mastodon TEXT,
 github TEXT,
@@ -14,18 +14,12 @@ website TEXT,
 event_id TEXT NOT NULL
 );
 
-insertSpeaker:
-INSERT OR REPLACE INTO Speaker(
-id, display_name, pronouns, bio, job_title, company, photo_url, twitter, mastodon, github, linkedin, website, event_id
-) VALUES (?,?,?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+upsertSpeaker:
+INSERT OR REPLACE INTO Speaker VALUES ?;
 
 selectSpeaker:
 SELECT id, display_name, pronouns, bio, job_title, company, photo_url, twitter, mastodon, github, linkedin, website, event_id
 FROM Speaker WHERE id == ? AND event_id == ?;
-
-selectSpeakers:
-SELECT id, display_name, pronouns, bio, job_title, company, photo_url, twitter, mastodon, github, linkedin, website, event_id
-FROM Speaker WHERE id IN ? AND event_id == ?;
 
 selectSpeakersByEvent:
 SELECT id, display_name, pronouns, bio, job_title, company, photo_url, twitter, mastodon, github, linkedin, website, event_id

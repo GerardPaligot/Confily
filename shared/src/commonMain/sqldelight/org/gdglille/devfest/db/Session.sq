@@ -1,0 +1,104 @@
+import kotlin.Boolean;
+
+CREATE TABLE Session (
+id TEXT NOT NULL PRIMARY KEY,
+order_ INTEGER NOT NULL,
+event_id TEXT NOT NULL,
+date TEXT NOT NULL,
+start_time TEXT NOT NULL,
+end_time TEXT NOT NULL,
+room TEXT NOT NULL,
+is_favorite INTEGER AS Boolean NOT NULL DEFAULT 0,
+talk_id TEXT,
+FOREIGN KEY (talk_id) REFERENCES TalkSession(id)
+);
+
+CREATE TABLE TalkSession(
+id TEXT NOT NULL PRIMARY KEY,
+title TEXT NOT NULL,
+abstract TEXT NOT NULL,
+level TEXT,
+language TEXT,
+slide_url TEXT,
+replay_url TEXT,
+open_feedback_url TEXT,
+category_id TEXT NOT NULL,
+format_id TEXT NOT NULL,
+event_id TEXT NOT NULL,
+FOREIGN KEY (category_id) REFERENCES Category(id),
+FOREIGN KEY (format_id) REFERENCES Format(id)
+);
+
+CREATE TABLE TalkSessionWithSpeakers(
+id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+speaker_id TEXT NOT NULL,
+talk_id TEXT NOT NULL,
+event_id TEXT NOT NULL,
+FOREIGN KEY (speaker_id) REFERENCES Speaker(id),
+FOREIGN KEY (talk_id) REFERENCES TalkSession(id)
+);
+
+selectSessions:
+SELECT Session.id, Session.order_, Session.event_id, Session.start_time, Session.end_time, Session.room, Session.is_favorite,
+Session.talk_id, TalkSession.title, TalkSession.abstract, TalkSession.level, TalkSession.language, TalkSession.slide_url, TalkSession.replay_url, TalkSession.open_feedback_url,
+TalkSession.category_id, Category.name AS categoryName, Category.color AS categoryColor, Category.icon AS categoryIcon,
+TalkSession.format_id, Format.name AS formatName, Format.time
+FROM Session
+INNER JOIN TalkSession ON Session.talk_id = TalkSession.id
+INNER JOIN Category ON TalkSession.category_id = Category.id
+INNER JOIN Format ON TalkSession.format_id = Format.id
+WHERE Session.event_id = ? AND date = ?
+ORDER BY start_time;
+
+selectBreakSessions:
+SELECT Session.id, Session.order_, Session.event_id, Session.start_time, Session.end_time, Session.room, Session.is_favorite
+FROM Session
+WHERE Session.event_id = ? AND date = ? AND talk_id IS NULL
+ORDER BY start_time;
+
+selectDays:
+SELECT DISTINCT date FROM Session WHERE event_id = ?;
+
+countSessionsByFavorite:
+SELECT count(*) FROM Session WHERE event_id == ? AND is_favorite == ?;
+
+selectSessionByTalkId:
+SELECT Session.id, Session.order_, Session.event_id, Session.start_time, Session.end_time, Session.room, Session.is_favorite,
+TalkSession.id, TalkSession.title, TalkSession.abstract, TalkSession.level, TalkSession.language, TalkSession.slide_url, TalkSession.replay_url, TalkSession.open_feedback_url,
+TalkSession.category_id, Category.name AS categoryName, Category.color AS categoryColor, Category.icon AS categoryIcon,
+TalkSession.format_id, Format.name AS formatName, Format.time
+FROM Session
+INNER JOIN TalkSession ON Session.talk_id = TalkSession.id
+INNER JOIN Category ON TalkSession.category_id = Category.id
+INNER JOIN Format ON TalkSession.format_id = Format.id
+WHERE Session.event_id = ? AND Session.talk_id = ?;
+
+selectSpeakersByTalkId:
+SELECT Speaker.id, Speaker.display_name, Speaker.pronouns, Speaker.bio, Speaker.job_title, Speaker.company,
+Speaker.photo_url, Speaker.twitter, Speaker.mastodon, Speaker.github, Speaker.linkedin, Speaker.website
+FROM TalkSessionWithSpeakers
+INNER JOIN Speaker ON TalkSessionWithSpeakers.talk_id = Speaker.id
+WHERE TalkSessionWithSpeakers.event_id = ? AND TalkSessionWithSpeakers.talk_id = ?;
+
+selectTalksBySpeakerId:
+SELECT TalkSession.id, TalkSession.title, TalkSession.abstract, TalkSession.level,TalkSession.language,
+TalkSession.slide_url, TalkSession.replay_url, TalkSession.open_feedback_url,
+TalkSession.category_id, Category.name AS categoryName, Category.color AS categoryColor, Category.icon AS categoryIcon,
+TalkSession.format_id, Format.name AS formatName, Format.time
+FROM TalkSessionWithSpeakers
+INNER JOIN TalkSession ON TalkSessionWithSpeakers.talk_id = TalkSession.id
+INNER JOIN Category ON TalkSession.category_id = Category.id
+INNER JOIN Format ON TalkSession.format_id = Format.id
+WHERE TalkSessionWithSpeakers.event_id = ? AND TalkSessionWithSpeakers.speaker_id = ?;
+
+upsertSession:
+INSERT OR REPLACE INTO Session(id, order_, event_id, date, start_time, end_time, room, talk_id) VALUES ?;
+
+markAsFavorite:
+UPDATE Session SET is_favorite = ? WHERE id == ? AND event_id == ?;
+
+upsertTalkSession:
+INSERT OR REPLACE INTO TalkSession VALUES ?;
+
+upsertTalkWithSpeakersSession:
+INSERT OR REPLACE INTO TalkSessionWithSpeakers(speaker_id, talk_id, event_id) VALUES ?;

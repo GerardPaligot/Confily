@@ -32,6 +32,7 @@
     <string name="title_communication">Communication on social networks</string>
     <string name="title_communication_twitter">Twitter message</string>
     <string name="title_communication_linkedin">LinkedIn message</string>
+    <string name="title_agenda_break">Break</string>
 
     <string name="text_loading">Loading…</string>
     <string name="text_error">Something wrong happened</string>
@@ -60,7 +61,6 @@
     <string name="text_ticket_firstname">First Name</string>
     <string name="text_ticket_lastname">Last Name</string>
     <string name="text_agenda_no_favorites">You don\'t have any talks in favorites</string>
-    <string name="text_pause_item">Pause ☕</string>
     <string name="text_here_we_go">Here we go!</string>
     <string name="text_empty_networking">Here is the networking space. Create your profile to be able to add attendees you will meet and with who you want to keep contact after the event!</string>
     <string name="text_empty_networking_warning">If you create your profile and share your qrcode, you accept the prospecting that this scan may represent by one of our partners.</string>

@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity() {
         )
         val agendaRepository = AgendaRepository.Factory.create(
             api = api,
-            scheduleDao = ScheduleDao(db, settings),
+            scheduleDao = ScheduleDao(db, settings, platform),
             speakerDao = SpeakerDao(db),
             talkDao = TalkDao(db),
             eventDao = EventDao(db, settings),
