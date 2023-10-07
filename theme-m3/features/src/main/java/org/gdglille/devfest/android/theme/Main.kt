@@ -21,6 +21,7 @@ import org.gdglille.devfest.android.data.viewmodels.MainUiState
 import org.gdglille.devfest.android.data.viewmodels.MainViewModel
 import org.gdglille.devfest.android.screens.event.TicketQrCodeScanner
 import org.gdglille.devfest.android.screens.networking.VCardQrCodeScanner
+import org.gdglille.devfest.android.theme.m3.features.AgendaFiltersVM
 import org.gdglille.devfest.android.theme.m3.features.EventListVM
 import org.gdglille.devfest.android.theme.m3.features.Home
 import org.gdglille.devfest.android.theme.m3.features.PartnerDetailVM
@@ -96,6 +97,9 @@ fun Main(
                             eventRepository = eventRepository,
                             alarmScheduler = alarmScheduler,
                             savedStateHandle = navController.currentBackStackEntry?.savedStateHandle,
+                            onFilterClicked = {
+                                navController.navigate("schedules/filters")
+                            },
                             onTalkClicked = {
                                 navController.navigate("schedules/$it")
                             },
@@ -126,6 +130,12 @@ fun Main(
                                     }
                                 }
                             }
+                        )
+                    }
+                    composable(route = "schedules/filters") {
+                        AgendaFiltersVM(
+                            agendaRepository = agendaRepository,
+                            onBackClicked = { navController.popBackStack() }
                         )
                     }
                     composable(

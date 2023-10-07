@@ -8,6 +8,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import org.gdglille.devfest.database.EventDao
 import org.gdglille.devfest.database.FeaturesActivatedDao
 import org.gdglille.devfest.database.PartnerDao
@@ -16,8 +17,11 @@ import org.gdglille.devfest.database.SpeakerDao
 import org.gdglille.devfest.database.TalkDao
 import org.gdglille.devfest.exceptions.AgendaNotModifiedException
 import org.gdglille.devfest.models.AgendaUi
+import org.gdglille.devfest.models.CategoryUi
 import org.gdglille.devfest.models.CoCUi
 import org.gdglille.devfest.models.EventUi
+import org.gdglille.devfest.models.FiltersUi
+import org.gdglille.devfest.models.FormatUi
 import org.gdglille.devfest.models.MenuItemUi
 import org.gdglille.devfest.models.PartnerGroupsUi
 import org.gdglille.devfest.models.PartnerItemUi
@@ -29,8 +33,6 @@ import org.gdglille.devfest.network.ConferenceApi
 
 interface AgendaRepository {
     suspend fun fetchAndStoreAgenda()
-    fun isFavoriteToggled(): Flow<Boolean>
-    fun toggleFavoriteFiltering()
     suspend fun insertOrUpdateTicket(barcode: String)
     fun scaffoldConfig(): Flow<ScaffoldConfigUi>
     fun event(): Flow<EventUi>
@@ -40,6 +42,11 @@ interface AgendaRepository {
     fun menus(): Flow<ImmutableList<MenuItemUi>>
     fun coc(): Flow<CoCUi>
     fun agenda(date: String): Flow<AgendaUi>
+    fun filters(): Flow<FiltersUi>
+    fun hasFilterApplied(): Flow<Boolean>
+    fun applyFavoriteFilter(selected: Boolean)
+    fun applyCategoryFilter(categoryUi: CategoryUi, selected: Boolean)
+    fun applyFormatFilter(formatUi: FormatUi, selected: Boolean)
     fun speaker(speakerId: String): Flow<SpeakerUi>
     fun markAsRead(sessionId: String, isFavorite: Boolean)
     fun scheduleItem(scheduleId: String): TalkUi
@@ -103,10 +110,6 @@ class AgendaRepositoryImpl(
         partnerDao.insertPartners(eventId, partners)
     }
 
-    override fun toggleFavoriteFiltering() {
-        scheduleDao.toggleFavoriteFiltering()
-    }
-
     override suspend fun insertOrUpdateTicket(barcode: String) {
         val eventId = eventDao.fetchEventId()
         val attendee = try {
@@ -122,8 +125,6 @@ class AgendaRepositoryImpl(
     override fun scaffoldConfig(): Flow<ScaffoldConfigUi> = featuresDao.fetchFeatures(
         eventId = eventDao.fetchEventId()
     )
-
-    override fun isFavoriteToggled(): Flow<Boolean> = scheduleDao.isFavoriteToggled()
 
     override fun event(): Flow<EventUi> = eventDao.fetchEvent(
         eventId = eventDao.fetchEventId()
@@ -154,6 +155,22 @@ class AgendaRepositoryImpl(
         eventId = eventDao.fetchEventId(),
         date = date
     )
+
+    override fun filters(): Flow<FiltersUi> = scheduleDao.fetchFilters(
+        eventId = eventDao.fetchEventId()
+    )
+
+    override fun hasFilterApplied(): Flow<Boolean> = scheduleDao.fetchFiltersAppliedCount(
+        eventId = eventDao.fetchEventId()
+    ).map { it > 0 }
+
+    override fun applyFavoriteFilter(selected: Boolean) = scheduleDao.applyFavoriteFilter(selected)
+
+    override fun applyCategoryFilter(categoryUi: CategoryUi, selected: Boolean) =
+        scheduleDao.applyCategoryFilter(categoryUi, eventDao.fetchEventId(), selected)
+
+    override fun applyFormatFilter(formatUi: FormatUi, selected: Boolean) =
+        scheduleDao.applyFormatFilter(formatUi, eventDao.fetchEventId(), selected)
 
     override fun speaker(speakerId: String): Flow<SpeakerUi> = speakerDao.fetchSpeaker(
         eventId = eventDao.fetchEventId(),

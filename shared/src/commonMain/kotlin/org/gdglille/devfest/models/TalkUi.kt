@@ -30,7 +30,7 @@ data class TalkUi(
             room = "Stage 1",
             level = "Beginner",
             abstract = "Votre logiciel hang, vous ne savez pas pourquoi ? Ou votre application préférée ne\\nlit pas sa configuration et vous ne savez pas pourquoi ?\\n\\nIl existe beaucoup d'outils fournis avec Linux. Pourtant beaucoup de développeurs\\nne les connaissent pas ou ne les utilisent pas.\\n\\nA travers une série de cas d'utilisation, nous verrons comment utiliser tout ces\\noutils: grep, find, xargs, strace, tcpdump, lsof",
-            category = CategoryUi(name = "Web", color = "default", icon = "default"),
+            category = CategoryUi(id = "", name = "Web", color = "default", icon = "default"),
             speakers = persistentListOf(SpeakerItemUi.fake, SpeakerItemUi.fake),
             speakersSharing = "",
             canGiveFeedback = false,

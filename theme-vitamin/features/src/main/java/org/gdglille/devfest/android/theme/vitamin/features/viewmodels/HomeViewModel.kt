@@ -188,7 +188,7 @@ class HomeViewModel(
                     try {
                         merge(
                             agendaRepository.scaffoldConfig(),
-                            agendaRepository.isFavoriteToggled()
+                            agendaRepository.hasFilterApplied()
                         ).collect {
                             when (it) {
                                 is ScaffoldConfigUi -> _configState.value = it
@@ -220,7 +220,7 @@ class HomeViewModel(
     }
 
     fun toggleFavoriteFiltering() = viewModelScope.launch {
-        agendaRepository.toggleFavoriteFiltering()
+        agendaRepository.applyFavoriteFilter(true)
     }
 
     fun disconnect() = viewModelScope.launch {

@@ -12,7 +12,7 @@ object ActionIds {
     const val SCAN_TICKET = 2
     const val SCAN_CONTACTS = 3
     const val CREATE_PROFILE = 4
-    const val FAVORITE = 5
+    const val FILTERS = 5
     const val DISCONNECT = 6
     const val EXPORT = 7
 }
@@ -23,15 +23,15 @@ object TopActions {
         icon = R.drawable.ic_mtrl_share_line,
         contentDescription = R.string.action_share_talk
     )
-    val favorite = TopAction(
-        id = ActionIds.FAVORITE,
-        icon = R.drawable.ic_mtrl_star_line,
-        contentDescription = R.string.action_filtering_favorites
+    val filters = TopAction(
+        id = ActionIds.FILTERS,
+        icon = R.drawable.ic_mtrl_filter_line,
+        contentDescription = R.string.action_filtering
     )
-    val favoriteFilled = TopAction(
-        id = ActionIds.FAVORITE,
-        icon = R.drawable.ic_mtrl_star_fill,
-        contentDescription = R.string.action_filtering_favorites
+    val filtersFilled = TopAction(
+        id = ActionIds.FILTERS,
+        icon = R.drawable.ic_mtrl_filter_fill,
+        contentDescription = R.string.action_filtering
     )
     val disconnect = TopAction(
         id = ActionIds.DISCONNECT,

@@ -32,7 +32,7 @@ data class TalkItemUi(
             level = "beginner",
             title = "Designers x Developers : Ça match \uD83D\uDC99 ou ça match \uD83E\uDD4A ?",
             abstract = "Culture, language, outils... Entre designers & developers, pas toujours simple d’être du même côté du ring ! À l’heure de l’expérience utilisateur et de la scalabilité, Sabrina & Simon du Design System de Decathlon vous attendent aux vestiaires pour débriefer et préparer le prochain match !\\nAnalyse tactique, définition du plan de jeu, vérification de l’équipement. \\nOn chausse. Gong \uD83D\uDD14 ! Et c’est parti !",
-            category = CategoryUi(name = "UI/UX", color = "default", icon = "default"),
+            category = CategoryUi(id = "", name = "UI/UX", color = "default", icon = "default"),
             speakers = persistentListOf("Sabrina VIGIL", "Simon Leclercq"),
             speakersAvatar = persistentListOf(
                 "https://storage.googleapis.com/conferences4hall/2022/speakers/0YOIreL1mbP7tKcTfX5TSaUI6VN2.png",
@@ -51,7 +51,7 @@ data class TalkItemUi(
             level = null,
             title = "Pause ☕️",
             abstract = "",
-            category = CategoryUi(name = "", color = null, icon = null),
+            category = CategoryUi(id = "", name = "", color = null, icon = null),
             speakers = persistentListOf(),
             speakersAvatar = persistentListOf(),
             isFavorite = false

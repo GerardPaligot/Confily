@@ -1,9 +1,23 @@
+import kotlin.Boolean;
+
 CREATE TABLE Format (
 id TEXT NOT NULL PRIMARY KEY,
 name TEXT NOT NULL,
 time INTEGER NOT NULL,
+selected INTEGER AS Boolean NOT NULL DEFAULT 0,
 event_id TEXT NOT NULL
 );
+
+selectFormats:
+SELECT id, name, time, selected
+FROM Format
+WHERE event_id = ?
+ORDER BY time;
+
+selectSelectedFormats:
+SELECT id, name, time, selected
+FROM Format
+WHERE event_id = ? AND selected = 1;
 
 upsertFormat:
 INSERT OR REPLACE INTO Format VALUES ?;

@@ -41,6 +41,7 @@ fun Home(
     speakerRepository: SpeakerRepository,
     eventRepository: EventRepository,
     alarmScheduler: AlarmScheduler,
+    onFilterClicked: () -> Unit,
     onTalkClicked: (id: String) -> Unit,
     onLinkClicked: (url: String?) -> Unit,
     onSpeakerClicked: (id: String) -> Unit,
@@ -118,8 +119,9 @@ fun Home(
                 },
                 onTopActionClicked = {
                     when (it.id) {
-                        ActionIds.FAVORITE -> {
-                            viewModel.toggleFavoriteFiltering()
+                        ActionIds.FILTERS -> {
+                            // TODO viewModel.toggleFavoriteFiltering()
+                            onFilterClicked()
                         }
                         ActionIds.DISCONNECT -> {
                             viewModel.disconnect()

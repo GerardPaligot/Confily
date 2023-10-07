@@ -18,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import kotlinx.collections.immutable.persistentListOf
 import org.gdglille.devfest.android.BottomActions
 import org.gdglille.devfest.android.TopActions
+import org.gdglille.devfest.android.components.appbars.AppBarIcons
 import org.gdglille.devfest.android.components.appbars.BottomAppBar
 import org.gdglille.devfest.android.components.appbars.Tab
 import org.gdglille.devfest.android.components.appbars.TopAppBar
@@ -36,6 +37,7 @@ import org.gdglille.devfest.android.ui.resources.models.TopActionsUi
 fun Scaffold(
     @StringRes title: Int,
     modifier: Modifier = Modifier,
+    navigationIcon: @Composable (AppBarIcons.() -> Unit)? = null,
     topActions: TopActionsUi = TopActionsUi(),
     tabActions: TabActionsUi = TabActionsUi(),
     bottomActions: BottomActionsUi = BottomActionsUi(),
@@ -54,6 +56,7 @@ fun Scaffold(
             Column {
                 TopAppBar(
                     title = stringResource(title),
+                    navigationIcon = navigationIcon,
                     topActionsUi = topActions,
                     onActionClicked = onTopActionClicked
                 )

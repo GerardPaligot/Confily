@@ -54,15 +54,15 @@ class HomeViewModel(
     private val _uiTabState = MutableStateFlow(TabActionsUi())
     private val _uiFabState = MutableStateFlow<FabAction?>(null)
     private val _uiBottomState = MutableStateFlow(BottomActionsUi())
-    private val _uiIsFavState = MutableStateFlow(false)
+    private val _uiHasFiltersState = MutableStateFlow(false)
     private val _exportPath = MutableSharedFlow<ExportNetworkingUi>(replay = 1)
     private val _uiState = combine(
         _routeState,
         _configState,
-        _uiIsFavState,
-        transform = { route, config, isFav ->
+        _uiHasFiltersState,
+        transform = { route, config, hasFilters ->
             if (route == null) return@combine HomeUiState.Loading
-            updateUiTopActions(route, config, isFav)
+            updateUiTopActions(route, config, hasFilters)
             updateUiBottomActions(config)
             updateUiTabActions(route, config)
             updateUiFabAction(route, config)
@@ -83,10 +83,10 @@ class HomeViewModel(
     val exportPath: SharedFlow<ExportNetworkingUi> = _exportPath
     val uiState: StateFlow<HomeUiState> = _uiState
 
-    private fun updateUiTopActions(route: String, config: ScaffoldConfigUi, isFav: Boolean) {
+    private fun updateUiTopActions(route: String, config: ScaffoldConfigUi, hasFilters: Boolean) {
         val topActions = when (route) {
             Screen.Agenda.route -> TopActionsUi(
-                actions = persistentListOf(if (isFav) TopActions.favoriteFilled else TopActions.favorite)
+                actions = persistentListOf(if (hasFilters) TopActions.filtersFilled else TopActions.filters)
             )
 
             Screen.Networking.route -> TopActionsUi(
@@ -190,11 +190,11 @@ class HomeViewModel(
                     try {
                         merge(
                             agendaRepository.scaffoldConfig(),
-                            agendaRepository.isFavoriteToggled()
+                            agendaRepository.hasFilterApplied()
                         ).collect {
                             when (it) {
                                 is ScaffoldConfigUi -> _configState.value = it
-                                is Boolean -> _uiIsFavState.value = it
+                                is Boolean -> _uiHasFiltersState.value = it
                                 else -> TODO("Flow not implemented")
                             }
                         }
@@ -219,10 +219,6 @@ class HomeViewModel(
 
     fun saveNetworkingProfile(user: UserNetworkingUi) = viewModelScope.launch {
         userRepository.insertNetworkingProfile(user)
-    }
-
-    fun toggleFavoriteFiltering() = viewModelScope.launch {
-        agendaRepository.toggleFavoriteFiltering()
     }
 
     fun disconnect() = viewModelScope.launch {

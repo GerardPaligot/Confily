@@ -4,6 +4,7 @@
     <string name="screen_events_future">Prochains évènements</string>
     <string name="screen_events_past">Précédents évènements</string>
     <string name="screen_agenda">Agenda</string>
+    <string name="screen_agenda_filters">Filtres</string>
     <string name="screen_speakers">Speakers</string>
     <string name="screen_speaker_detail">Détail du speaker</string>
     <string name="screen_networking">Networking</string>
@@ -33,6 +34,9 @@
     <string name="title_communication_twitter">Message sur Twitter</string>
     <string name="title_communication_linkedin">Message sur LinkedIn</string>
     <string name="title_agenda_break">Pause</string>
+    <string name="title_filters_favorites">Favoris</string>
+    <string name="title_filters_categories">Catégories</string>
+    <string name="title_filters_formats">Formats</string>
 
     <string name="text_loading">Chargement…</string>
     <string name="text_error">Une erreur inconnue est survenue</string>
@@ -79,6 +83,7 @@
     <string name="action_expanded_menu">Afficher le menu</string>
     <string name="action_share_talk">Partage la session</string>
     <string name="action_favorite_talk">Mettre en favoris la session %s</string>
+    <string name="action_filtering">Ouvrir l\'écran des filtres</string>
     <string name="action_filtering_favorites">Seulement les talks favoris</string>
     <string name="action_qrcode_scanner">Scan de Qrcode</string>
     <string name="action_qrcode_generator">Génère un Qrcode</string>

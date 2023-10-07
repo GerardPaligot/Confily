@@ -24,63 +24,63 @@ fun DecorativeTag(
     when (category.color) {
         "amethyst" -> Tag(
             text = category.name,
-            icon = category.icon?.iconVector(),
+            icon = category.iconVector(),
             modifier = modifier,
             colors = TagDefaults.amethystColors()
         )
 
         "cobalt" -> Tag(
             text = category.name,
-            icon = category.icon?.iconVector(),
+            icon = category.iconVector(),
             modifier = modifier,
             colors = TagDefaults.cobaltColors()
         )
 
         "brick" -> Tag(
             text = category.name,
-            icon = category.icon?.iconVector(),
+            icon = category.iconVector(),
             modifier = modifier,
             colors = TagDefaults.brickColors()
         )
 
         "emerald" -> Tag(
             text = category.name,
-            icon = category.icon?.iconVector(),
+            icon = category.iconVector(),
             modifier = modifier,
             colors = TagDefaults.emeraldColors()
         )
 
         "jade" -> Tag(
             text = category.name,
-            icon = category.icon?.iconVector(),
+            icon = category.iconVector(),
             modifier = modifier,
             colors = TagDefaults.jadeColors()
         )
 
         "saffron" -> Tag(
             text = category.name,
-            icon = category.icon?.iconVector(),
+            icon = category.iconVector(),
             modifier = modifier,
             colors = TagDefaults.saffronColors()
         )
 
         "gold" -> Tag(
             text = category.name,
-            icon = category.icon?.iconVector(),
+            icon = category.iconVector(),
             modifier = modifier,
             colors = TagDefaults.goldColors()
         )
 
         "gravel" -> Tag(
             text = category.name,
-            icon = category.icon?.iconVector(),
+            icon = category.iconVector(),
             modifier = modifier,
             colors = TagDefaults.gravelColors()
         )
 
         "default" -> Tag(
             text = category.name,
-            icon = category.icon?.iconVector(),
+            icon = category.iconVector(),
             modifier = modifier,
             colors = TagDefaults.emeraldColors()
         )
@@ -88,7 +88,7 @@ fun DecorativeTag(
 }
 
 @Composable
-private fun String.iconVector(): ImageVector? = when (this) {
+fun CategoryUi.iconVector(): ImageVector? = when (this.icon) {
     "database" -> Icons.Outlined.DataObject
     "computer" -> Icons.Outlined.Computer
     "public" -> Icons.Outlined.Public

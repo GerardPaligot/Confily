@@ -23,31 +23,34 @@ import org.gdglille.devfest.models.TalkItemUi
 import org.gdglille.devfest.models.TalkUi
 import org.gdglille.devfest.models.TalkV3
 import kotlin.reflect.KFunction1
+import org.gdglille.devfest.db.SelectCategories
+import org.gdglille.devfest.db.SelectFormats
+import org.gdglille.devfest.models.FormatUi
 
 private const val BREAK_TITLE = "break"
 
 fun SelectSessions.convertCategoryUi() = CategoryUi(
-    name = categoryName,
-    color = categoryColor,
-    icon = categoryIcon
+    id = category_id, name = categoryName, color = categoryColor, icon = categoryIcon
 )
 
 fun SelectBreakSessions.convertCategoryUi() = CategoryUi(
-    name = BREAK_TITLE,
-    color = null,
-    icon = null
+    id = id, name = BREAK_TITLE, color = null, icon = null
 )
 
 fun SelectTalksBySpeakerId.convertCategoryUi() = CategoryUi(
-    name = categoryName,
-    color = categoryColor,
-    icon = categoryIcon
+    id = category_id, name = categoryName, color = categoryColor, icon = categoryIcon
 )
 
 fun SelectSessionByTalkId.convertCategoryUi() = CategoryUi(
-    name = categoryName,
-    color = categoryColor,
-    icon = categoryIcon
+    id = category_id, name = categoryName, color = categoryColor, icon = categoryIcon
+)
+
+fun SelectCategories.convertCategoryUi() = CategoryUi(
+    id = id, name = name, color = color, icon = icon
+)
+
+fun SelectFormats.convertFormatUi() = FormatUi(
+    id = id, name = name, time = time.toInt()
 )
 
 fun SelectSessions.convertTalkItemUi(speakers: List<SelectSpeakersByTalkId>): TalkItemUi {

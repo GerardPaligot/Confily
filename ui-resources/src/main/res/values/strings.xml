@@ -4,6 +4,7 @@
     <string name="screen_events_future">Future events</string>
     <string name="screen_events_past">Past events</string>
     <string name="screen_agenda">Agenda</string>
+    <string name="screen_agenda_filters">Filters</string>
     <string name="screen_speakers">Speakers</string>
     <string name="screen_speaker_detail">Speaker detail</string>
     <string name="screen_networking">Networking</string>
@@ -33,6 +34,9 @@
     <string name="title_communication_twitter">Twitter message</string>
     <string name="title_communication_linkedin">LinkedIn message</string>
     <string name="title_agenda_break">Break</string>
+    <string name="title_filters_favorites">Favorites</string>
+    <string name="title_filters_categories">Categories</string>
+    <string name="title_filters_formats">Formats</string>
 
     <string name="text_loading">Loading…</string>
     <string name="text_error">Something wrong happened</string>
@@ -78,6 +82,7 @@
     <string name="action_expanded_menu">Display overflow menu</string>
     <string name="action_share_talk">Share talk</string>
     <string name="action_favorite_talk">Put in favorite talk %s</string>
+    <string name="action_filtering">Open filter screen</string>
     <string name="action_filtering_favorites">Only favorites schedules</string>
     <string name="action_qrcode_scanner">Qrcode scanner</string>
     <string name="action_qrcode_generator">Qrcode generator</string>

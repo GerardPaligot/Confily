@@ -1,10 +1,24 @@
+import kotlin.Boolean;
+
 CREATE TABLE Category (
 id TEXT NOT NULL PRIMARY KEY,
 name TEXT NOT NULL,
 color TEXT NOT NULL,
 icon TEXT NOT NULL,
+selected INTEGER AS Boolean NOT NULL DEFAULT 0,
 event_id TEXT NOT NULL
 );
+
+selectCategories:
+SELECT id, name, color, icon, selected
+FROM Category
+WHERE event_id = ?
+ORDER BY name;
+
+selectSelectedCategories:
+SELECT id, name, color, icon, selected
+FROM Category
+WHERE event_id = ? AND selected = 1;
 
 upsertCategory:
 INSERT OR REPLACE INTO Category VALUES ?;
