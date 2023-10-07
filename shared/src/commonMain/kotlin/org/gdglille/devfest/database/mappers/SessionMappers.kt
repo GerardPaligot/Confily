@@ -7,6 +7,8 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 import org.gdglille.devfest.db.SelectBreakSessions
+import org.gdglille.devfest.db.SelectCategories
+import org.gdglille.devfest.db.SelectFormats
 import org.gdglille.devfest.db.SelectOpenfeedbackProjectId
 import org.gdglille.devfest.db.SelectSessionByTalkId
 import org.gdglille.devfest.db.SelectSessions
@@ -17,15 +19,13 @@ import org.gdglille.devfest.db.TalkSession
 import org.gdglille.devfest.db.TalkSessionWithSpeakers
 import org.gdglille.devfest.extensions.formatHoursMinutes
 import org.gdglille.devfest.models.CategoryUi
+import org.gdglille.devfest.models.FormatUi
 import org.gdglille.devfest.models.ScheduleItemV3
 import org.gdglille.devfest.models.SpeakerItemUi
 import org.gdglille.devfest.models.TalkItemUi
 import org.gdglille.devfest.models.TalkUi
 import org.gdglille.devfest.models.TalkV3
 import kotlin.reflect.KFunction1
-import org.gdglille.devfest.db.SelectCategories
-import org.gdglille.devfest.db.SelectFormats
-import org.gdglille.devfest.models.FormatUi
 
 private const val BREAK_TITLE = "break"
 
