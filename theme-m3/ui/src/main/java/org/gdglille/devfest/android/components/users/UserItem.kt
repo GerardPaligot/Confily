@@ -30,7 +30,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.android.components.buttons.IconButton
-import org.gdglille.devfest.android.theme.Conferences4HallTheme
+import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.models.NetworkingUi
 import org.gdglille.devfest.models.UserNetworkingUi

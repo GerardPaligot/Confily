@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import org.gdglille.devfest.android.components.speakers.SpeakerItemRow
-import org.gdglille.devfest.android.theme.Conferences4HallTheme
+import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.models.SpeakerItemUi
 
 @Composable

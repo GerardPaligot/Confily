@@ -58,7 +58,7 @@ fun Main(
     )
 ) {
     val rootUri = "c4h://event"
-    Conferences4HallTheme {
+    org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme {
         val systemUiController = rememberSystemUiController()
         val useDarkIcons = !isSystemInDarkTheme()
         val statusBarColor = MaterialTheme.colorScheme.surface
@@ -156,7 +156,9 @@ fun Main(
                     composable(
                         route = "partners/{partnerId}",
                         arguments = listOf(navArgument("partnerId") { type = NavType.StringType }),
-                        deepLinks = listOf(navDeepLink { uriPattern = "$rootUri/partners/{partnerId}" })
+                        deepLinks = listOf(navDeepLink {
+                            uriPattern = "$rootUri/partners/{partnerId}"
+                        })
                     ) {
                         PartnerDetailVM(
                             partnerId = it.arguments?.getString("partnerId")!!,

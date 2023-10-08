@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 import org.gdglille.devfest.android.TabActions
 import org.gdglille.devfest.android.components.events.EventItem
 import org.gdglille.devfest.android.components.structure.Scaffold
-import org.gdglille.devfest.android.theme.Conferences4HallTheme
+import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.android.ui.resources.models.TabActionsUi
 import org.gdglille.devfest.models.EventItemListUi

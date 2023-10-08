@@ -1,6 +1,6 @@
-package org.gdglille.devfest.android.components.tags
+package org.gdglille.devfest.android.theme.m3.style.tags
 
-import org.gdglille.devfest.android.theme.DecorativeColorSchemeTokens
+import org.gdglille.devfest.android.theme.m3.style.DecorativeColorSchemeTokens
 
 internal object GoldTagTokens {
     val ContainerColor = DecorativeColorSchemeTokens.Gold

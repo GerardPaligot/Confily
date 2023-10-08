@@ -17,7 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.Image
-import org.gdglille.devfest.android.theme.placeholder
+import org.gdglille.devfest.android.theme.m3.style.placeholder
 import org.gdglille.devfest.android.ui.resources.R
 
 private const val TicketRatio = 3 / 4

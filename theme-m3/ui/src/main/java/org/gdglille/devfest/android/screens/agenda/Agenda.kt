@@ -16,8 +16,8 @@ import org.gdglille.devfest.android.components.talks.NoFavoriteTalks
 import org.gdglille.devfest.android.components.talks.PauseItem
 import org.gdglille.devfest.android.components.talks.TalkItem
 import org.gdglille.devfest.android.components.talks.Time
-import org.gdglille.devfest.android.theme.Conferences4HallTheme
-import org.gdglille.devfest.android.theme.placeholder
+import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
+import org.gdglille.devfest.android.theme.m3.style.placeholder
 import org.gdglille.devfest.models.AgendaUi
 import org.gdglille.devfest.models.TalkItemUi
 

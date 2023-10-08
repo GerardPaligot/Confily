@@ -23,7 +23,7 @@ import org.gdglille.devfest.android.components.speakers.SpeakerSection
 import org.gdglille.devfest.android.components.talks.OpenFeedbackSection
 import org.gdglille.devfest.android.components.talks.TalkAbstract
 import org.gdglille.devfest.android.components.talks.TalkSection
-import org.gdglille.devfest.android.theme.Conferences4HallTheme
+import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.android.ui.resources.models.TopActionsUi
 import org.gdglille.devfest.models.TalkUi

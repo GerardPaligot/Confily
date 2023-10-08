@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme
+package org.gdglille.devfest.android.theme.m3.style
 
 import androidx.compose.ui.graphics.Color
 

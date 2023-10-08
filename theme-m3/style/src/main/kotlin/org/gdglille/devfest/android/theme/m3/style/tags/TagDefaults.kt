@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.components.tags
+package org.gdglille.devfest.android.theme.m3.style.tags
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material3.MaterialTheme
@@ -8,7 +8,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import org.gdglille.devfest.android.theme.toColor
+import org.gdglille.devfest.android.theme.m3.style.toColor
 
 object TagDefaults {
     private val HorizontalPadding = 8.dp

@@ -13,6 +13,7 @@ dependencies {
     implementation(projects.uiCamera)
     implementation(projects.shared)
     implementation(projects.androidData)
+    implementation(projects.themeM3.style)
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.material3)

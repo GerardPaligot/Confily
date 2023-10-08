@@ -1,10 +1,11 @@
-package org.gdglille.devfest.android.theme
+package org.gdglille.devfest.android.theme.m3.style
 
 import android.content.Context
 import android.os.Build
 import android.view.accessibility.AccessibilityManager
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Typography
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
@@ -35,7 +36,7 @@ fun Conferences4HallTheme(
         }
         MaterialTheme(
             colorScheme = colorSheme,
-            typography = typography,
+            typography = Typography(),
             content = content
         )
     }

@@ -13,7 +13,7 @@ import org.gdglille.devfest.android.components.filters.CategoryListFilters
 import org.gdglille.devfest.android.components.filters.FavoriteFilter
 import org.gdglille.devfest.android.components.filters.FormatListFilters
 import org.gdglille.devfest.android.components.structure.Scaffold
-import org.gdglille.devfest.android.theme.Conferences4HallTheme
+import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.models.CategoryUi
 import org.gdglille.devfest.models.FiltersUi

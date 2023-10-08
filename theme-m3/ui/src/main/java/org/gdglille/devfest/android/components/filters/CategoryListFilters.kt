@@ -12,7 +12,7 @@ import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.collections.immutable.persistentMapOf
 import org.gdglille.devfest.android.components.chips.FilterChip
 import org.gdglille.devfest.android.components.tags.iconVector
-import org.gdglille.devfest.android.theme.Conferences4HallTheme
+import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.models.CategoryUi
 

@@ -22,7 +22,7 @@ import org.gdglille.devfest.android.components.appbars.AppBarIcons
 import org.gdglille.devfest.android.components.appbars.BottomAppBar
 import org.gdglille.devfest.android.components.appbars.Tab
 import org.gdglille.devfest.android.components.appbars.TopAppBar
-import org.gdglille.devfest.android.theme.Conferences4HallTheme
+import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.android.ui.resources.actions.BottomAction
 import org.gdglille.devfest.android.ui.resources.actions.FabAction

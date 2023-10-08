@@ -35,9 +35,9 @@ import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.android.components.speakers.HorizontalSpeakersList
 import org.gdglille.devfest.android.components.tags.DecorativeTag
 import org.gdglille.devfest.android.components.tags.LevelTag
-import org.gdglille.devfest.android.components.tags.Tag
-import org.gdglille.devfest.android.components.tags.TagDefaults
-import org.gdglille.devfest.android.theme.Conferences4HallTheme
+import org.gdglille.devfest.android.theme.m3.style.tags.Tag
+import org.gdglille.devfest.android.theme.m3.style.tags.TagDefaults
+import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.models.TalkItemUi
 

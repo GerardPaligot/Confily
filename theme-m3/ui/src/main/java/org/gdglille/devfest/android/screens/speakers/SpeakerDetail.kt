@@ -16,8 +16,8 @@ import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.android.components.appbars.TopAppBar
 import org.gdglille.devfest.android.components.speakers.SpeakerDetailSection
 import org.gdglille.devfest.android.components.talks.TalkItem
-import org.gdglille.devfest.android.theme.Conferences4HallTheme
-import org.gdglille.devfest.android.theme.placeholder
+import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
+import org.gdglille.devfest.android.theme.m3.style.placeholder
 import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.models.SpeakerUi
 import org.gdglille.devfest.models.TalkItemUi
