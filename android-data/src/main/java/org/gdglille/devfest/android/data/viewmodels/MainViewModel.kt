@@ -12,12 +12,12 @@ import org.gdglille.devfest.repositories.EventRepository
 
 sealed class MainUiState {
     object Loading : MainUiState()
-    data class Success(val initialized: Boolean) : MainUiState()
+    data class Success(val startDestination: String) : MainUiState()
 }
 
 class MainViewModel(private val repository: EventRepository) : ViewModel() {
     val uiState: StateFlow<MainUiState> = flow { emit(repository.isInitialized()) }
-        .map { MainUiState.Success(it) }
+        .map { MainUiState.Success(if (it) "home" else "events") }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(),

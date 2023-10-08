@@ -68,12 +68,10 @@ fun Main(
         val uiState = viewModel.uiState.collectAsState()
         when (uiState.value) {
             is MainUiState.Success -> {
-                val startDestination = if ((uiState.value as MainUiState.Success).initialized) {
-                    "home"
-                } else {
-                    "events"
-                }
-                NavHost(navController = navController, startDestination = startDestination) {
+                NavHost(
+                    navController = navController,
+                    startDestination = (uiState.value as MainUiState.Success).startDestination
+                ) {
                     composable(route = "events") {
                         EventListVM(
                             repository = eventRepository,
