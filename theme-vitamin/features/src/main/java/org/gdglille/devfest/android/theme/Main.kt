@@ -17,7 +17,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import io.openfeedback.android.OpenFeedbackConfig
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import org.gdglille.devfest.android.data.AlarmScheduler
+import org.gdglille.devfest.AlarmScheduler
 import org.gdglille.devfest.android.data.viewmodels.MainUiState
 import org.gdglille.devfest.android.data.viewmodels.MainViewModel
 import org.gdglille.devfest.android.theme.vitamin.features.EventListVM

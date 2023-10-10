@@ -15,9 +15,9 @@ import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import org.gdglille.devfest.android.data.AlarmScheduler
-import org.gdglille.devfest.android.data.viewmodels.AgendaUiState
-import org.gdglille.devfest.android.data.viewmodels.AgendaViewModel
+import org.gdglille.devfest.AlarmScheduler
+import org.gdglille.devfest.android.theme.m3.schedules.feature.AgendaUiState
+import org.gdglille.devfest.android.theme.m3.schedules.feature.AgendaViewModel
 import org.gdglille.devfest.android.theme.vitamin.ui.screens.agenda.Agenda
 import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.android.ui.resources.models.TabActionsUi
@@ -34,8 +34,8 @@ fun AgendaVM(
     onTalkClicked: (id: String) -> Unit,
     modifier: Modifier = Modifier,
     pagerState: PagerState = rememberPagerState(),
-    viewModel: AgendaViewModel = viewModel(
-        factory = AgendaViewModel.Factory.create(
+    viewModel: org.gdglille.devfest.android.theme.m3.schedules.feature.AgendaViewModel = viewModel(
+        factory = org.gdglille.devfest.android.theme.m3.schedules.feature.AgendaViewModel.Factory.create(
             tabs.actions.map { it.route }, agendaRepository, alarmScheduler
         )
     ),
@@ -43,17 +43,17 @@ fun AgendaVM(
     val context = LocalContext.current
     val uiState = viewModel.uiState.collectAsState()
     when (uiState.value) {
-        is AgendaUiState.Loading -> Agenda(
-            agenda = (uiState.value as AgendaUiState.Loading).agenda.first(),
+        is org.gdglille.devfest.android.theme.m3.schedules.feature.AgendaUiState.Loading -> Agenda(
+            agenda = (uiState.value as org.gdglille.devfest.android.theme.m3.schedules.feature.AgendaUiState.Loading).agenda.first(),
             modifier = modifier,
             isLoading = true,
             onTalkClicked = {},
             onFavoriteClicked = { }
         )
 
-        is AgendaUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
-        is AgendaUiState.Success -> {
-            val agenda = (uiState.value as AgendaUiState.Success).agenda
+        is org.gdglille.devfest.android.theme.m3.schedules.feature.AgendaUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
+        is org.gdglille.devfest.android.theme.m3.schedules.feature.AgendaUiState.Success -> {
+            val agenda = (uiState.value as org.gdglille.devfest.android.theme.m3.schedules.feature.AgendaUiState.Success).agenda
             HorizontalPager(
                 count = if (agenda.isEmpty()) 1 else agenda.size,
                 state = pagerState,

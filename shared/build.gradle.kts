@@ -60,6 +60,7 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
+                implementation(projects.uiResources)
                 implementation(libs.ktor.client.android)
                 implementation(libs.sqldelight.android)
             }

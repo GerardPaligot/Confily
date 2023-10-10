@@ -16,18 +16,19 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import io.openfeedback.android.OpenFeedbackConfig
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import org.gdglille.devfest.android.data.AlarmScheduler
+import org.gdglille.devfest.AlarmScheduler
 import org.gdglille.devfest.android.data.viewmodels.MainUiState
 import org.gdglille.devfest.android.data.viewmodels.MainViewModel
 import org.gdglille.devfest.android.screens.event.TicketQrCodeScanner
 import org.gdglille.devfest.android.screens.networking.VCardQrCodeScanner
-import org.gdglille.devfest.android.theme.m3.features.AgendaFiltersVM
+import org.gdglille.devfest.android.theme.m3.schedules.feature.AgendaFiltersVM
 import org.gdglille.devfest.android.theme.m3.features.EventListVM
 import org.gdglille.devfest.android.theme.m3.features.Home
 import org.gdglille.devfest.android.theme.m3.features.PartnerDetailVM
 import org.gdglille.devfest.android.theme.m3.features.ProfileInputVM
-import org.gdglille.devfest.android.theme.m3.features.ScheduleDetailVM
+import org.gdglille.devfest.android.theme.m3.schedules.feature.ScheduleDetailVM
 import org.gdglille.devfest.android.theme.m3.features.SpeakerDetailVM
+import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.ui.resources.HomeResultKey
 import org.gdglille.devfest.models.ExportNetworkingUi
 import org.gdglille.devfest.repositories.AgendaRepository
@@ -58,7 +59,7 @@ fun Main(
     )
 ) {
     val rootUri = "c4h://event"
-    org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme {
+    Conferences4HallTheme {
         val systemUiController = rememberSystemUiController()
         val useDarkIcons = !isSystemInDarkTheme()
         val statusBarColor = MaterialTheme.colorScheme.surface

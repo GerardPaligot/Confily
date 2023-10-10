@@ -9,9 +9,8 @@ import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import org.gdglille.devfest.android.data.AlarmScheduler
+import org.gdglille.devfest.AlarmScheduler
 import org.gdglille.devfest.models.SpeakerUi
 import org.gdglille.devfest.models.TalkItemUi
 import org.gdglille.devfest.repositories.AgendaRepository

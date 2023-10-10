@@ -8,9 +8,9 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
-import org.gdglille.devfest.android.Screen
-import org.gdglille.devfest.android.TabActions
 import org.gdglille.devfest.android.theme.m3.features.viewmodels.HomeViewModel
+import org.gdglille.devfest.android.theme.m3.navigation.Screen
+import org.gdglille.devfest.android.theme.m3.navigation.TabActions
 import org.gdglille.devfest.android.ui.resources.models.TabActionsUi
 import org.gdglille.devfest.repositories.AgendaRepository
 

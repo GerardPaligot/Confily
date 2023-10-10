@@ -3,6 +3,8 @@ package org.gdglille.devfest.android.theme.m3.features.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.async
@@ -16,11 +18,11 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import org.gdglille.devfest.android.BottomActions
-import org.gdglille.devfest.android.FabActions
-import org.gdglille.devfest.android.Screen
-import org.gdglille.devfest.android.TabActions
-import org.gdglille.devfest.android.TopActions
+import org.gdglille.devfest.android.theme.m3.navigation.BottomActions
+import org.gdglille.devfest.android.theme.m3.navigation.FabActions
+import org.gdglille.devfest.android.theme.m3.navigation.Screen
+import org.gdglille.devfest.android.theme.m3.navigation.TabActions
+import org.gdglille.devfest.android.theme.m3.navigation.TopActions
 import org.gdglille.devfest.android.ui.resources.actions.BottomAction
 import org.gdglille.devfest.android.ui.resources.actions.FabAction
 import org.gdglille.devfest.android.ui.resources.actions.TabAction
@@ -34,8 +36,6 @@ import org.gdglille.devfest.models.UserNetworkingUi
 import org.gdglille.devfest.repositories.AgendaRepository
 import org.gdglille.devfest.repositories.EventRepository
 import org.gdglille.devfest.repositories.UserRepository
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 sealed class HomeUiState {
     object Loading : HomeUiState()

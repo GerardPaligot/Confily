@@ -18,7 +18,7 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.gdglille.devfest.android.components.appbars.TopAppBar
+import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBar
 import org.gdglille.devfest.android.components.cards.AddressCard
 import org.gdglille.devfest.android.components.jobs.JobItem
 import org.gdglille.devfest.android.components.partners.PartnerDetailSection

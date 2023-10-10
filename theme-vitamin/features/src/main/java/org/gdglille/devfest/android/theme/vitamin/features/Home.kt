@@ -15,7 +15,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import org.gdglille.devfest.android.data.AlarmScheduler
+import org.gdglille.devfest.AlarmScheduler
 import org.gdglille.devfest.android.data.models.VCardModel
 import org.gdglille.devfest.android.data.models.convertToModelUi
 import org.gdglille.devfest.android.theme.vitamin.features.structure.VitaminScaffoldNavigation

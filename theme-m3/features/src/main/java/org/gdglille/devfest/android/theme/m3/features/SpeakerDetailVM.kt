@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
-import org.gdglille.devfest.android.data.AlarmScheduler
+import org.gdglille.devfest.AlarmScheduler
 import org.gdglille.devfest.android.data.viewmodels.SpeakerUiState
 import org.gdglille.devfest.android.data.viewmodels.SpeakerViewModel
 import org.gdglille.devfest.android.screens.speakers.SpeakerDetail

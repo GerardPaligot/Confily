@@ -18,7 +18,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import org.gdglille.devfest.AndroidContext
 import org.gdglille.devfest.Platform
-import org.gdglille.devfest.android.data.AlarmScheduler
+import org.gdglille.devfest.AlarmScheduler
 import org.gdglille.devfest.android.data.QrCodeGeneratorAndroid
 import org.gdglille.devfest.android.theme.Main
 import org.gdglille.devfest.android.ui.resources.R
@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity() {
         )
         val scheduler = AlarmScheduler(
             agendaRepository,
-            getSystemService(Context.ALARM_SERVICE) as AlarmManager,
+            getSystemService(ALARM_SERVICE) as AlarmManager,
             AlarmIntentFactoryImpl
         )
         val openFeedbackState = (application as MainApplication).openFeedbackConfig
