@@ -18,8 +18,8 @@ import io.openfeedback.android.OpenFeedbackConfig
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import org.gdglille.devfest.AlarmScheduler
-import org.gdglille.devfest.android.data.viewmodels.MainUiState
-import org.gdglille.devfest.android.data.viewmodels.MainViewModel
+import org.gdglille.devfest.android.theme.MainUiState
+import org.gdglille.devfest.android.theme.MainViewModel
 import org.gdglille.devfest.android.theme.vitamin.features.EventListVM
 import org.gdglille.devfest.android.theme.vitamin.features.Home
 import org.gdglille.devfest.android.theme.vitamin.features.ProfileInputVM
@@ -53,8 +53,8 @@ fun Main(
     onShareClicked: (text: String) -> Unit,
     onItineraryClicked: (lat: Double, lng: Double) -> Unit,
     navController: NavHostController,
-    viewModel: MainViewModel = viewModel(
-        factory = MainViewModel.Factory.create(eventRepository)
+    viewModel: org.gdglille.devfest.android.theme.MainViewModel = viewModel(
+        factory = org.gdglille.devfest.android.theme.MainViewModel.Factory.create(eventRepository)
     )
 ) {
     Conferences4HallTheme {
@@ -67,8 +67,8 @@ fun Main(
         }
         val uiState = viewModel.uiState.collectAsState()
         when (uiState.value) {
-            is MainUiState.Success -> {
-                val startDestination = if ((uiState.value as MainUiState.Success).initialized) {
+            is org.gdglille.devfest.android.theme.MainUiState.Success -> {
+                val startDestination = if ((uiState.value as org.gdglille.devfest.android.theme.MainUiState.Success).initialized) {
                     "home"
                 } else {
                     "events"

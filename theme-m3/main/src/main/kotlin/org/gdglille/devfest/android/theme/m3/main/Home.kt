@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.features
+package org.gdglille.devfest.android.theme.m3.main
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -18,9 +18,6 @@ import kotlinx.coroutines.FlowPreview
 import org.gdglille.devfest.AlarmScheduler
 import org.gdglille.devfest.android.data.models.VCardModel
 import org.gdglille.devfest.android.data.models.convertToModelUi
-import org.gdglille.devfest.android.theme.m3.features.structure.ScaffoldNavigation
-import org.gdglille.devfest.android.theme.m3.features.viewmodels.HomeUiState
-import org.gdglille.devfest.android.theme.m3.features.viewmodels.HomeViewModel
 import org.gdglille.devfest.android.theme.m3.infos.feature.InfoPages
 import org.gdglille.devfest.android.theme.m3.navigation.ActionIds
 import org.gdglille.devfest.android.theme.m3.navigation.Screen
@@ -125,7 +122,6 @@ fun Home(
                 onTopActionClicked = {
                     when (it.id) {
                         ActionIds.FILTERS -> {
-                            // TODO viewModel.toggleFavoriteFiltering()
                             onFilterClicked()
                         }
                         ActionIds.DISCONNECT -> {

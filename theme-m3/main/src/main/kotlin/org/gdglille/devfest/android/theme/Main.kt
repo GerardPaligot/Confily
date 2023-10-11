@@ -17,13 +17,11 @@ import io.openfeedback.android.OpenFeedbackConfig
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import org.gdglille.devfest.AlarmScheduler
-import org.gdglille.devfest.android.data.viewmodels.MainUiState
-import org.gdglille.devfest.android.data.viewmodels.MainViewModel
 import org.gdglille.devfest.android.theme.m3.infos.feature.TicketQrCodeScanner
 import org.gdglille.devfest.android.theme.m3.networking.feature.VCardQrCodeScanner
 import org.gdglille.devfest.android.theme.m3.schedules.feature.AgendaFiltersVM
 import org.gdglille.devfest.android.theme.m3.events.feature.EventListVM
-import org.gdglille.devfest.android.theme.m3.features.Home
+import org.gdglille.devfest.android.theme.m3.main.Home
 import org.gdglille.devfest.android.theme.m3.partners.feature.PartnerDetailVM
 import org.gdglille.devfest.android.theme.m3.networking.feature.ProfileInputVM
 import org.gdglille.devfest.android.theme.m3.schedules.feature.ScheduleDetailVM

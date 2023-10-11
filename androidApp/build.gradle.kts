@@ -80,7 +80,7 @@ dependencies {
     if (designSystem == DesignSystem.Vitamin) {
         implementation(projects.themeVitamin.features)
     } else if (designSystem == DesignSystem.M3) {
-        implementation(projects.themeM3.features)
+        implementation(projects.themeM3.main)
     }
     implementation(projects.androidData)
     implementation(projects.shared)

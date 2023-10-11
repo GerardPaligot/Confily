@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.features.viewmodels
+package org.gdglille.devfest.android.theme.m3.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

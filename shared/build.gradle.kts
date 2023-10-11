@@ -63,6 +63,8 @@ kotlin {
                 implementation(projects.uiResources)
                 implementation(libs.ktor.client.android)
                 implementation(libs.sqldelight.android)
+                implementation(libs.zxing)
+                implementation(libs.zxing.android)
             }
         }
         val androidTest by getting {

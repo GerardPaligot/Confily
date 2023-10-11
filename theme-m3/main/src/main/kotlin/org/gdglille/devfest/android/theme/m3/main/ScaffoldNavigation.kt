@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.features.structure
+package org.gdglille.devfest.android.theme.m3.main
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.padding
