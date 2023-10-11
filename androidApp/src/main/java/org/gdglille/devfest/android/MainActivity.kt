@@ -16,9 +16,9 @@ import com.russhwolf.settings.AndroidSettings
 import com.russhwolf.settings.ExperimentalSettingsApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import org.gdglille.devfest.AlarmScheduler
 import org.gdglille.devfest.AndroidContext
 import org.gdglille.devfest.Platform
-import org.gdglille.devfest.AlarmScheduler
 import org.gdglille.devfest.QrCodeGeneratorAndroid
 import org.gdglille.devfest.android.theme.Main
 import org.gdglille.devfest.android.theme.m3.style.R

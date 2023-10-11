@@ -6,7 +6,6 @@ import android.app.PendingIntent
 import android.content.Context
 import android.os.Build
 import android.os.SystemClock
-import java.util.Locale
 import kotlinx.coroutines.coroutineScope
 import kotlinx.datetime.Clock
 import kotlinx.datetime.DateTimeUnit
@@ -17,6 +16,7 @@ import kotlinx.datetime.toLocalDateTime
 import org.gdglille.devfest.android.theme.m3.style.R
 import org.gdglille.devfest.models.TalkItemUi
 import org.gdglille.devfest.repositories.AgendaRepository
+import java.util.Locale
 
 class AlarmScheduler(
     private val repository: AgendaRepository,
