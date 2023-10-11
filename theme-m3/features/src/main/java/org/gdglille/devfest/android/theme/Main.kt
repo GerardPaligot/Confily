@@ -27,7 +27,7 @@ import org.gdglille.devfest.android.theme.m3.features.Home
 import org.gdglille.devfest.android.theme.m3.features.PartnerDetailVM
 import org.gdglille.devfest.android.theme.m3.features.ProfileInputVM
 import org.gdglille.devfest.android.theme.m3.schedules.feature.ScheduleDetailVM
-import org.gdglille.devfest.android.theme.m3.features.SpeakerDetailVM
+import org.gdglille.devfest.android.theme.m3.speakers.feature.SpeakerDetailVM
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.ui.resources.HomeResultKey
 import org.gdglille.devfest.models.ExportNetworkingUi

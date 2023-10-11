@@ -16,7 +16,6 @@ import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import org.gdglille.devfest.AlarmScheduler
-import org.gdglille.devfest.android.theme.m3.schedules.ui.Agenda
 import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.android.ui.resources.models.TabActionsUi
 import org.gdglille.devfest.repositories.AgendaRepository

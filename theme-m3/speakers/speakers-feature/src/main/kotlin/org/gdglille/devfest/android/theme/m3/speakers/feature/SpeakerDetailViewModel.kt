@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.data.viewmodels
+package org.gdglille.devfest.android.theme.m3.speakers.feature
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -21,7 +21,7 @@ sealed class SpeakerUiState {
     data class Failure(val throwable: Throwable) : SpeakerUiState()
 }
 
-class SpeakerViewModel(
+class SpeakerDetailViewModel(
     private val speakerId: String,
     private val repository: AgendaRepository,
     private val alarmScheduler: AlarmScheduler
@@ -48,12 +48,15 @@ class SpeakerViewModel(
     }
 
     object Factory {
-        fun create(speakerId: String, repository: AgendaRepository, alarmScheduler: AlarmScheduler) =
-            object : ViewModelProvider.Factory {
-                override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                    @Suppress("UNCHECKED_CAST")
-                    return SpeakerViewModel(speakerId, repository, alarmScheduler) as T
-                }
+        fun create(
+            speakerId: String,
+            repository: AgendaRepository,
+            alarmScheduler: AlarmScheduler
+        ) = object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                @Suppress("UNCHECKED_CAST")
+                return SpeakerDetailViewModel(speakerId, repository, alarmScheduler) as T
             }
+        }
     }
 }

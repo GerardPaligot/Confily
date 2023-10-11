@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.components.speakers
+package org.gdglille.devfest.android.theme.m3.speakers.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -13,7 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.gdglille.devfest.android.theme.m3.speakers.ui.SpeakerAvatar
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.placeholder
 import org.gdglille.devfest.models.SpeakerUi
@@ -36,7 +35,9 @@ fun SpeakerDetailSection(
             url = speaker.url,
             contentDescription = null,
             shape = CircleShape,
-            modifier = Modifier.size(128.dp).placeholder(visible = isLoading)
+            modifier = Modifier
+                .size(128.dp)
+                .placeholder(visible = isLoading)
         )
         Spacer(modifier = Modifier.height(16.dp))
         SpeakerSocialSection(
@@ -50,7 +51,7 @@ fun SpeakerDetailSection(
 
 @Preview
 @Composable
-fun SpeakerDetailSectionPreview() {
+private fun SpeakerDetailSectionPreview() {
     Conferences4HallTheme {
         SpeakerDetailSection(
             speaker = SpeakerUi.fake,

@@ -1,6 +1,9 @@
-package org.gdglille.devfest.android.components.structure
+package org.gdglille.devfest.android.theme.m3.style.socials
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -10,16 +13,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.flowlayout.FlowRow
 import com.halilibo.richtext.markdown.Markdown
 import com.halilibo.richtext.ui.RichText
 import com.halilibo.richtext.ui.RichTextThemeIntegration
-import org.gdglille.devfest.android.components.buttons.Socials
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.placeholder
-import org.gdglille.devfest.models.EventUi
-import org.gdglille.devfest.models.PartnerItemUi
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun SocialsSection(
     title: String,
@@ -60,39 +60,43 @@ fun SocialsSection(
             )
         }
         Spacer(modifier = Modifier.height(12.dp))
-        val hasUrls = twitterUrl != null || githubUrl != null || linkedinUrl != null || websiteUrl != null
+        val hasUrls =
+            twitterUrl != null || githubUrl != null || linkedinUrl != null || websiteUrl != null
         if (hasUrls) {
-            FlowRow(mainAxisSpacing = 16.dp) {
+            FlowRow(
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
                 twitterUrl?.let {
-                    Socials.Twitter(
+                    SocialIcons.Twitter(
                         text = title,
                         onClick = { twitterUrl.let(onLinkClicked) },
                         modifier = Modifier.placeholder(visible = isLoading)
                     )
                 }
                 mastodonUrl?.let {
-                    Socials.Mastodon(
+                    SocialIcons.Mastodon(
                         text = title,
                         onClick = { mastodonUrl.let(onLinkClicked) },
                         modifier = Modifier.placeholder(visible = isLoading)
                     )
                 }
                 githubUrl?.let {
-                    Socials.GitHub(
+                    SocialIcons.GitHub(
                         text = title,
                         onClick = { githubUrl.let(onLinkClicked) },
                         modifier = Modifier.placeholder(visible = isLoading)
                     )
                 }
                 linkedinUrl?.let {
-                    Socials.LinkedIn(
+                    SocialIcons.LinkedIn(
                         text = title,
                         onClick = { linkedinUrl.let(onLinkClicked) },
                         modifier = Modifier.placeholder(visible = isLoading)
                     )
                 }
                 websiteUrl?.let {
-                    Socials.Website(
+                    SocialIcons.Website(
                         text = title,
                         onClick = { websiteUrl.let(onLinkClicked) },
                         modifier = Modifier.placeholder(visible = isLoading)
@@ -123,13 +127,13 @@ fun SocialsSection(
 internal fun SocialsSectionPreview() {
     Conferences4HallTheme {
         SocialsSection(
-            title = EventUi.fake.eventInfo.name,
-            pronouns = null,
-            subtitle = EventUi.fake.eventInfo.date,
-            twitterUrl = EventUi.fake.eventInfo.twitterUrl,
-            githubUrl = EventUi.fake.eventInfo.twitterUrl,
-            linkedinUrl = EventUi.fake.eventInfo.twitterUrl,
-            websiteUrl = PartnerItemUi.fake.siteUrl,
+            title = "Gérard Paligot",
+            pronouns = "Him/He",
+            subtitle = null,
+            twitterUrl = "",
+            githubUrl = "",
+            linkedinUrl = "",
+            websiteUrl = "",
             onLinkClicked = {}
         )
     }

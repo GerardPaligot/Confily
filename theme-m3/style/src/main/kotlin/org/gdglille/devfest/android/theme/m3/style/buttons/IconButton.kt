@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.components.buttons
+package org.gdglille.devfest.android.theme.m3.style.buttons
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.FloatingActionButton
@@ -48,7 +48,7 @@ fun IconButton(
 
 @Preview
 @Composable
-fun IconButtonPreview() {
+private fun IconButtonPreview() {
     Conferences4HallTheme {
         IconButton(
             imageVector = FontAwesomeIcons.Brands.Twitter,

@@ -1,11 +1,11 @@
-package org.gdglille.devfest.android.components.speakers
+package org.gdglille.devfest.android.theme.m3.speakers.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import org.gdglille.devfest.android.components.structure.SocialsSection
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
+import org.gdglille.devfest.android.theme.m3.style.socials.SocialsSection
 import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.models.SpeakerUi
 
@@ -39,7 +39,7 @@ fun SpeakerSocialSection(
 
 @Preview
 @Composable
-fun SpeakerSocialSectionPreview() {
+private fun SpeakerSocialSectionPreview() {
     Conferences4HallTheme {
         SpeakerSocialSection(
             speaker = SpeakerUi.fake,

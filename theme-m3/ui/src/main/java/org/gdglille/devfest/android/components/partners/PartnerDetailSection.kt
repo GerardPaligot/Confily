@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.gdglille.devfest.android.components.structure.SocialsSection
+import org.gdglille.devfest.android.theme.m3.style.socials.SocialsSection
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.models.PartnerItemUi
 

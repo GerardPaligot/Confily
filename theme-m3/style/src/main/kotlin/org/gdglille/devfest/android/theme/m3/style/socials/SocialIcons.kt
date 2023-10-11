@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.components.buttons
+package org.gdglille.devfest.android.theme.m3.style.socials
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,11 +16,10 @@ import compose.icons.fontawesomeicons.brands.LinkedinIn
 import compose.icons.fontawesomeicons.brands.Mastodon
 import compose.icons.fontawesomeicons.brands.Twitter
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
+import org.gdglille.devfest.android.theme.m3.style.buttons.IconButton
 import org.gdglille.devfest.android.ui.resources.R
-import org.gdglille.devfest.models.PartnerItemUi
-import org.gdglille.devfest.models.SpeakerUi
 
-object Socials {
+object SocialIcons {
     @Composable
     fun Twitter(
         text: String,
@@ -94,29 +93,14 @@ object Socials {
 
 @Preview
 @Composable
-fun SocialItemPreview() {
+private fun SocialItemPreview() {
     Conferences4HallTheme {
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Socials.Twitter(
-                text = SpeakerUi.fake.name,
-                onClick = {}
-            )
-            Socials.Mastodon(
-                text = SpeakerUi.fake.name,
-                onClick = {}
-            )
-            Socials.GitHub(
-                text = SpeakerUi.fake.name,
-                onClick = {}
-            )
-            Socials.LinkedIn(
-                text = SpeakerUi.fake.name,
-                onClick = {}
-            )
-            Socials.Website(
-                text = PartnerItemUi.fake.name,
-                onClick = {}
-            )
+            SocialIcons.Twitter(text = "", onClick = {})
+            SocialIcons.Mastodon(text = "", onClick = {})
+            SocialIcons.GitHub(text = "", onClick = {})
+            SocialIcons.LinkedIn(text = "", onClick = {})
+            SocialIcons.Website(text = "", onClick = {})
         }
     }
 }

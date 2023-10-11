@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.schedules.ui
+package org.gdglille.devfest.android.theme.m3.schedules.feature
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues

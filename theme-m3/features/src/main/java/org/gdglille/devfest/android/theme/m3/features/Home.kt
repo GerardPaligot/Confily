@@ -24,6 +24,7 @@ import org.gdglille.devfest.android.theme.m3.features.viewmodels.HomeViewModel
 import org.gdglille.devfest.android.theme.m3.navigation.ActionIds
 import org.gdglille.devfest.android.theme.m3.navigation.Screen
 import org.gdglille.devfest.android.theme.m3.schedules.feature.AgendaVM
+import org.gdglille.devfest.android.theme.m3.speakers.feature.SpeakersListVM
 import org.gdglille.devfest.android.ui.resources.HomeResultKey
 import org.gdglille.devfest.models.ExportNetworkingUi
 import org.gdglille.devfest.repositories.AgendaRepository

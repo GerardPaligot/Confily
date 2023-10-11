@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.data.viewmodels
+package org.gdglille.devfest.android.theme.m3.speakers.feature
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -15,12 +15,16 @@ import org.gdglille.devfest.models.SpeakerItemUi
 import org.gdglille.devfest.repositories.SpeakerRepository
 
 sealed class SpeakersUiState {
-    data class Loading(val speakers: ImmutableList<ImmutableList<SpeakerItemUi>>) : SpeakersUiState()
-    data class Success(val speakers: ImmutableList<ImmutableList<SpeakerItemUi>>) : SpeakersUiState()
+    data class Loading(val speakers: ImmutableList<ImmutableList<SpeakerItemUi>>) :
+        SpeakersUiState()
+
+    data class Success(val speakers: ImmutableList<ImmutableList<SpeakerItemUi>>) :
+        SpeakersUiState()
+
     data class Failure(val throwable: Throwable) : SpeakersUiState()
 }
 
-class SpeakersViewModel(private val repository: SpeakerRepository) : ViewModel() {
+class SpeakersListViewModel(private val repository: SpeakerRepository) : ViewModel() {
     private val _uiState = MutableStateFlow<SpeakersUiState>(
         SpeakersUiState.Loading(
             persistentListOf(
@@ -50,7 +54,7 @@ class SpeakersViewModel(private val repository: SpeakerRepository) : ViewModel()
         fun create(repository: SpeakerRepository) = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(modelClass: Class<T>): T =
-                SpeakersViewModel(repository = repository) as T
+                SpeakersListViewModel(repository = repository) as T
         }
     }
 }

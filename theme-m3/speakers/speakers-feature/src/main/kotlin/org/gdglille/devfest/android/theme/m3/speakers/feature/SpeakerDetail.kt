@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.screens.speakers
+package org.gdglille.devfest.android.theme.m3.speakers.feature
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Spacer
@@ -13,10 +13,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBar
-import org.gdglille.devfest.android.components.speakers.SpeakerDetailSection
 import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.TalkItem
+import org.gdglille.devfest.android.theme.m3.speakers.ui.SpeakerDetailSection
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
+import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBar
 import org.gdglille.devfest.android.theme.m3.style.placeholder
 import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.models.SpeakerUi
@@ -73,7 +73,7 @@ fun SpeakerDetail(
 @ExperimentalMaterial3Api
 @Preview
 @Composable
-fun SpeakerListPreview() {
+private fun SpeakerListPreview() {
     Conferences4HallTheme {
         SpeakerDetail(
             speaker = SpeakerUi.fake,

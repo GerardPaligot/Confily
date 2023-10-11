@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.features
+package org.gdglille.devfest.android.theme.m3.speakers.feature
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
@@ -9,9 +9,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import org.gdglille.devfest.AlarmScheduler
-import org.gdglille.devfest.android.data.viewmodels.SpeakerUiState
-import org.gdglille.devfest.android.data.viewmodels.SpeakerViewModel
-import org.gdglille.devfest.android.screens.speakers.SpeakerDetail
 import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.repositories.AgendaRepository
 
@@ -25,8 +22,8 @@ fun SpeakerDetailVM(
     onLinkClicked: (url: String) -> Unit,
     onBackClicked: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: SpeakerViewModel = viewModel(
-        factory = SpeakerViewModel.Factory.create(speakerId, agendaRepository, alarmScheduler)
+    viewModel: SpeakerDetailViewModel = viewModel(
+        factory = SpeakerDetailViewModel.Factory.create(speakerId, agendaRepository, alarmScheduler)
     )
 ) {
     val context = LocalContext.current

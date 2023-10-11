@@ -14,6 +14,7 @@ dependencies {
     api(projects.themeM3.speakers.speakersUi)
     api(projects.themeM3.style)
     implementation(projects.themeM3.schedules.schedulesFeature)
+    implementation(projects.themeM3.speakers.speakersFeature)
     implementation(projects.themeM3.navigation)
     implementation(projects.uiResources)
     implementation(projects.androidData)

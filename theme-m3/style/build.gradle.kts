@@ -19,4 +19,7 @@ dependencies {
     implementation(libs.accompanist.placeholder)
 
     implementation(libs.kotlinx.collections)
+
+    implementation(libs.compose.awesome.font)
+    implementation(libs.compose.richtext)
 }

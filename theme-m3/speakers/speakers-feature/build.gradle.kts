@@ -5,13 +5,14 @@ plugins {
 }
 
 android {
-    namespace = "org.gdglille.devfest.android.theme.m3.schedules.feature"
+    namespace = "org.gdglille.devfest.android.theme.m3.speakers.feature"
 }
 
 dependencies {
     implementation(projects.uiResources)
     implementation(projects.shared)
     implementation(projects.themeM3.schedules.schedulesUi)
+    implementation(projects.themeM3.speakers.speakersUi)
     implementation(projects.themeM3.navigation)
     implementation(projects.themeM3.style)
 

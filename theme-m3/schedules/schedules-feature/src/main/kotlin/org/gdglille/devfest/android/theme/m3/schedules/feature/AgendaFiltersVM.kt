@@ -6,7 +6,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
-import org.gdglille.devfest.android.theme.m3.schedules.ui.AgendaFilters
 import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.repositories.AgendaRepository
 

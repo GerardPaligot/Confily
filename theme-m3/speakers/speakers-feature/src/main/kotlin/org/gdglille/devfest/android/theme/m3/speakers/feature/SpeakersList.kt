@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.screens.speakers
+package org.gdglille.devfest.android.theme.m3.speakers.feature
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -40,7 +40,7 @@ fun SpeakersList(
 
 @Preview
 @Composable
-fun SpeakersListPreview() {
+private fun SpeakersListPreview() {
     Conferences4HallTheme {
         SpeakersList(
             speakers = persistentListOf(

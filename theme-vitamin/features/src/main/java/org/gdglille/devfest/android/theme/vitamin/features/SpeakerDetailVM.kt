@@ -8,8 +8,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import org.gdglille.devfest.AlarmScheduler
-import org.gdglille.devfest.android.data.viewmodels.SpeakerUiState
-import org.gdglille.devfest.android.data.viewmodels.SpeakerViewModel
+import org.gdglille.devfest.android.theme.m3.speakers.feature.SpeakerUiState
+import org.gdglille.devfest.android.theme.m3.speakers.feature.SpeakerViewModel
 import org.gdglille.devfest.android.theme.vitamin.ui.screens.speakers.SpeakerDetail
 import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.repositories.AgendaRepository
@@ -23,15 +23,15 @@ fun SpeakerDetailVM(
     onLinkClicked: (url: String) -> Unit,
     onBackClicked: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: SpeakerViewModel = viewModel(
-        factory = SpeakerViewModel.Factory.create(speakerId, agendaRepository, alarmScheduler)
+    viewModel: org.gdglille.devfest.android.theme.m3.speakers.feature.SpeakerViewModel = viewModel(
+        factory = org.gdglille.devfest.android.theme.m3.speakers.feature.SpeakerViewModel.Factory.create(speakerId, agendaRepository, alarmScheduler)
     )
 ) {
     val context = LocalContext.current
     val uiState = viewModel.uiState.collectAsState()
     when (uiState.value) {
-        is SpeakerUiState.Loading -> SpeakerDetail(
-            speaker = (uiState.value as SpeakerUiState.Loading).speaker,
+        is org.gdglille.devfest.android.theme.m3.speakers.feature.SpeakerUiState.Loading -> SpeakerDetail(
+            speaker = (uiState.value as org.gdglille.devfest.android.theme.m3.speakers.feature.SpeakerUiState.Loading).speaker,
             modifier = modifier,
             isLoading = true,
             onTalkClicked = {},
@@ -40,9 +40,9 @@ fun SpeakerDetailVM(
             onBackClicked = onBackClicked
         )
 
-        is SpeakerUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
-        is SpeakerUiState.Success -> SpeakerDetail(
-            speaker = (uiState.value as SpeakerUiState.Success).speaker,
+        is org.gdglille.devfest.android.theme.m3.speakers.feature.SpeakerUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
+        is org.gdglille.devfest.android.theme.m3.speakers.feature.SpeakerUiState.Success -> SpeakerDetail(
+            speaker = (uiState.value as org.gdglille.devfest.android.theme.m3.speakers.feature.SpeakerUiState.Success).speaker,
             modifier = modifier,
             onTalkClicked = onTalkClicked,
             onFavoriteClicked = {
