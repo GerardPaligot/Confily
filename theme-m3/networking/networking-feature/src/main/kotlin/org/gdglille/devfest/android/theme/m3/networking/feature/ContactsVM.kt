@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.features
+package org.gdglille.devfest.android.theme.m3.networking.feature
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -6,9 +6,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
-import org.gdglille.devfest.android.data.viewmodels.ContactsUiState
-import org.gdglille.devfest.android.data.viewmodels.ContactsViewModel
-import org.gdglille.devfest.android.screens.networking.Contacts
 import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.repositories.UserRepository
 
@@ -29,7 +26,7 @@ fun ContactsVM(
             Contacts(
                 users = usersUi,
                 modifier = modifier,
-                onNetworkDeleted = { viewModel.deleteNetworking(it) }
+                onNetworkDeleted = viewModel::deleteNetworking
             )
         }
     }

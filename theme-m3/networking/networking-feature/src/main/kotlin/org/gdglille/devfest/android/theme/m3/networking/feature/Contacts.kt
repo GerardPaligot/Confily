@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.screens.networking
+package org.gdglille.devfest.android.theme.m3.networking.feature
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
@@ -19,7 +19,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
-import org.gdglille.devfest.android.components.users.UserItem
+import org.gdglille.devfest.android.theme.m3.networking.ui.EmptyContacts
+import org.gdglille.devfest.android.theme.m3.networking.ui.UserItem
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.models.NetworkingUi
@@ -86,7 +87,7 @@ fun Contacts(
 @ExperimentalMaterial3Api
 @Preview
 @Composable
-fun ContactsPreview() {
+private fun ContactsPreview() {
     Conferences4HallTheme {
         Scaffold {
             Contacts(

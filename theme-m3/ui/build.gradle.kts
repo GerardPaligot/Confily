@@ -15,6 +15,7 @@ dependencies {
     implementation(projects.androidData)
     implementation(projects.themeM3.schedules.schedulesUi)
     implementation(projects.themeM3.speakers.speakersUi)
+    implementation(projects.themeM3.networking.networkingUi)
     implementation(projects.themeM3.navigation)
     implementation(projects.themeM3.style)
 

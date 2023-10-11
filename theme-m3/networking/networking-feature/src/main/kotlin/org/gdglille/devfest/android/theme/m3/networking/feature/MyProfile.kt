@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.screens.networking
+package org.gdglille.devfest.android.theme.m3.networking.feature
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -90,7 +90,7 @@ fun MyProfile(
 
 @Preview
 @Composable
-fun MyProfilePreview() {
+private fun MyProfilePreview() {
     Conferences4HallTheme {
         MyProfile(
             profileUi = UserProfileUi.fake,

@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.screens.networking
+package org.gdglille.devfest.android.theme.m3.networking.feature
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
@@ -18,7 +18,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBar
-import org.gdglille.devfest.android.components.users.ProfileInputField
+import org.gdglille.devfest.android.theme.m3.networking.ui.ProfileInputField
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.ui.resources.Field
 import org.gdglille.devfest.android.ui.resources.R

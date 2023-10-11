@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.features
+package org.gdglille.devfest.android.theme.m3.networking.feature
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -8,8 +8,6 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
-import org.gdglille.devfest.android.theme.m3.features.viewmodels.HomeViewModel
-import org.gdglille.devfest.android.theme.m3.navigation.Screen
 import org.gdglille.devfest.android.ui.resources.models.TabActionsUi
 import org.gdglille.devfest.repositories.UserRepository
 
@@ -20,15 +18,16 @@ private const val MyProfileId = 0
 fun NetworkingPages(
     tabs: TabActionsUi,
     userRepository: UserRepository,
-    viewModel: HomeViewModel,
     onCreateProfileClicked: () -> Unit,
+    onProfileScreenOpened: () -> Unit,
+    onContactListScreenOpened: () -> Unit,
     modifier: Modifier = Modifier,
     pagerState: PagerState = rememberPagerState(),
 ) {
     LaunchedEffect(pagerState.currentPage) {
         when (pagerState.currentPage) {
-            MyProfileId -> viewModel.updateFabUi(Screen.MyProfile.route)
-            else -> viewModel.updateFabUi(Screen.Contacts.route)
+            MyProfileId -> onProfileScreenOpened()
+            else -> onContactListScreenOpened()
         }
     }
     val count = tabs.actions.count()

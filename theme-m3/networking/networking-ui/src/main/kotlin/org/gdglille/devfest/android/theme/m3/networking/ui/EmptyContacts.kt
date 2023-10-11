@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.screens.networking
+package org.gdglille.devfest.android.theme.m3.networking.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -8,15 +8,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.ui.resources.R
 
 @Composable
-fun EmptyNetworking(
-    modifier: Modifier = Modifier
-) {
+fun EmptyContacts(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -24,21 +20,7 @@ fun EmptyNetworking(
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
         Text(
-            text = stringResource(R.string.text_empty_networking)
+            text = stringResource(R.string.text_empty_contacts)
         )
-        Text(
-            text = stringResource(id = R.string.text_empty_networking_warning)
-        )
-        Text(
-            text = stringResource(R.string.text_here_we_go)
-        )
-    }
-}
-
-@Preview
-@Composable
-fun EmptyNetworkingPreview() {
-    Conferences4HallTheme {
-        EmptyNetworking()
     }
 }

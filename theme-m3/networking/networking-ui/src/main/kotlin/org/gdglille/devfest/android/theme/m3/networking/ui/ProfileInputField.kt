@@ -1,11 +1,10 @@
-package org.gdglille.devfest.android.components.users
+package org.gdglille.devfest.android.theme.m3.networking.ui
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardActionScope
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -15,7 +14,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import org.gdglille.devfest.android.ui.resources.Field
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileInputField(
     @StringRes label: Int,
