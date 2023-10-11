@@ -17,6 +17,7 @@ dependencies {
     implementation(projects.themeM3.speakers.speakersFeature)
     implementation(projects.themeM3.networking.networkingFeature)
     implementation(projects.themeM3.partners.partnersFeature)
+    implementation(projects.themeM3.infos.infosFeature)
     implementation(projects.themeM3.navigation)
     implementation(projects.uiResources)
     implementation(projects.androidData)

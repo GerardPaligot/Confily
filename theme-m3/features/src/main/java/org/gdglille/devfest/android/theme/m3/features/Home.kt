@@ -21,6 +21,7 @@ import org.gdglille.devfest.android.data.models.convertToModelUi
 import org.gdglille.devfest.android.theme.m3.features.structure.ScaffoldNavigation
 import org.gdglille.devfest.android.theme.m3.features.viewmodels.HomeUiState
 import org.gdglille.devfest.android.theme.m3.features.viewmodels.HomeViewModel
+import org.gdglille.devfest.android.theme.m3.infos.feature.InfoPages
 import org.gdglille.devfest.android.theme.m3.navigation.ActionIds
 import org.gdglille.devfest.android.theme.m3.navigation.Screen
 import org.gdglille.devfest.android.theme.m3.networking.feature.NetworkingPages
@@ -193,12 +194,23 @@ fun Home(
                         InfoPages(
                             tabs = tabActions,
                             agendaRepository = agendaRepository,
-                            viewModel = viewModel,
-                            pagerState = infoPagerState,
                             onItineraryClicked = onItineraryClicked,
                             onLinkClicked = onLinkClicked,
                             onReportByPhoneClicked = onReportByPhoneClicked,
-                            onReportByEmailClicked = onReportByEmailClicked
+                            onReportByEmailClicked = onReportByEmailClicked,
+                            onEventScreenOpened = {
+                                viewModel.updateFabUi(Screen.Event.route)
+                            },
+                            onMenusScreenOpened = {
+                                viewModel.updateFabUi(Screen.Menus.route)
+                            },
+                            onQAndAScreenOpened = {
+                                viewModel.updateFabUi(Screen.QAndA.route)
+                            },
+                            onCoCScreenOpened = {
+                                viewModel.updateFabUi(Screen.CoC.route)
+                            },
+                            pagerState = infoPagerState
                         )
                     }
                 }

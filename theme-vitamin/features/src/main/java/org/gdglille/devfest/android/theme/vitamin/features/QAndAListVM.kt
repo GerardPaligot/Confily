@@ -6,8 +6,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
-import org.gdglille.devfest.android.data.viewmodels.QAndAUiState
-import org.gdglille.devfest.android.data.viewmodels.QAndAViewModel
+import org.gdglille.devfest.android.theme.m3.infos.feature.QAndAUiState
+import org.gdglille.devfest.android.theme.m3.infos.feature.QAndAViewModel
 import org.gdglille.devfest.android.theme.vitamin.ui.screens.event.QAndAList
 import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.repositories.AgendaRepository
@@ -17,23 +17,23 @@ fun QAndAListVM(
     agendaRepository: AgendaRepository,
     onLinkClicked: (url: String) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: QAndAViewModel = viewModel(
-        factory = QAndAViewModel.Factory.create(agendaRepository)
+    viewModel: org.gdglille.devfest.android.theme.m3.infos.feature.QAndAViewModel = viewModel(
+        factory = org.gdglille.devfest.android.theme.m3.infos.feature.QAndAViewModel.Factory.create(agendaRepository)
     )
 ) {
     val uiState = viewModel.uiState.collectAsState()
     when (uiState.value) {
-        is QAndAUiState.Loading -> QAndAList(
-            qAndA = (uiState.value as QAndAUiState.Loading).qanda,
+        is org.gdglille.devfest.android.theme.m3.infos.feature.QAndAUiState.Loading -> QAndAList(
+            qAndA = (uiState.value as org.gdglille.devfest.android.theme.m3.infos.feature.QAndAUiState.Loading).qanda,
             modifier = modifier,
             isLoading = true,
             onExpandedClicked = {},
             onLinkClicked = onLinkClicked
         )
 
-        is QAndAUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
-        is QAndAUiState.Success -> QAndAList(
-            qAndA = (uiState.value as QAndAUiState.Success).qanda,
+        is org.gdglille.devfest.android.theme.m3.infos.feature.QAndAUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
+        is org.gdglille.devfest.android.theme.m3.infos.feature.QAndAUiState.Success -> QAndAList(
+            qAndA = (uiState.value as org.gdglille.devfest.android.theme.m3.infos.feature.QAndAUiState.Success).qanda,
             modifier = modifier,
             isLoading = false,
             onExpandedClicked = {
