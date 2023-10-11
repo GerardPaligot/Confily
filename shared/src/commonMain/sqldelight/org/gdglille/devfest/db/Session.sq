@@ -77,7 +77,7 @@ selectSpeakersByTalkId:
 SELECT Speaker.id, Speaker.display_name, Speaker.pronouns, Speaker.bio, Speaker.job_title, Speaker.company,
 Speaker.photo_url, Speaker.twitter, Speaker.mastodon, Speaker.github, Speaker.linkedin, Speaker.website
 FROM TalkSessionWithSpeakers
-INNER JOIN Speaker ON TalkSessionWithSpeakers.talk_id = Speaker.id
+INNER JOIN Speaker ON TalkSessionWithSpeakers.speaker_id = Speaker.id
 WHERE TalkSessionWithSpeakers.event_id = ? AND TalkSessionWithSpeakers.talk_id = ?;
 
 selectTalksBySpeakerId:
