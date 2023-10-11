@@ -18,6 +18,7 @@ dependencies {
     implementation(projects.themeM3.networking.networkingUi)
     implementation(projects.themeM3.partners.partnersUi)
     implementation(projects.themeM3.infos.infosUi)
+    implementation(projects.themeM3.eventList.eventListUi)
     implementation(projects.themeM3.navigation)
     implementation(projects.themeM3.style)
 

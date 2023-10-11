@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.components.events
+package org.gdglille.devfest.android.theme.m3.events.ui
 
 import androidx.compose.foundation.clickable
 import androidx.compose.material3.ListItem
@@ -38,7 +38,7 @@ fun EventItem(
 
 @Preview
 @Composable
-fun EventItemPreview() {
+private fun EventItemPreview() {
     Conferences4HallTheme {
         EventItem(
             item = EventItemUi.fake,

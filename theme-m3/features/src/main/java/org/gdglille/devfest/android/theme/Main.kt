@@ -22,7 +22,7 @@ import org.gdglille.devfest.android.data.viewmodels.MainViewModel
 import org.gdglille.devfest.android.screens.event.TicketQrCodeScanner
 import org.gdglille.devfest.android.screens.networking.VCardQrCodeScanner
 import org.gdglille.devfest.android.theme.m3.schedules.feature.AgendaFiltersVM
-import org.gdglille.devfest.android.theme.m3.features.EventListVM
+import org.gdglille.devfest.android.theme.m3.events.feature.EventListVM
 import org.gdglille.devfest.android.theme.m3.features.Home
 import org.gdglille.devfest.android.theme.m3.partners.feature.PartnerDetailVM
 import org.gdglille.devfest.android.theme.m3.networking.feature.ProfileInputVM

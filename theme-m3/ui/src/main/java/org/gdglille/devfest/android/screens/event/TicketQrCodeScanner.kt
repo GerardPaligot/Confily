@@ -12,7 +12,6 @@ import org.gdglille.devfest.android.components.permissions.FeatureThatRequiresCa
 import org.gdglille.devfest.android.ui.camera.TicketCameraPreview
 import org.gdglille.devfest.android.ui.resources.R
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TicketQrCodeScanner(
     navigateToSettingsScreen: () -> Unit,

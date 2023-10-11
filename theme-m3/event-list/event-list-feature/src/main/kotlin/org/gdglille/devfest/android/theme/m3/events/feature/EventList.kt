@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.screens.events
+package org.gdglille.devfest.android.theme.m3.events.feature
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.PaddingValues
@@ -17,7 +17,7 @@ import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.launch
-import org.gdglille.devfest.android.components.events.EventItem
+import org.gdglille.devfest.android.theme.m3.events.ui.EventItem
 import org.gdglille.devfest.android.theme.m3.navigation.TabActions
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.Scaffold
@@ -65,7 +65,7 @@ fun EventList(
 
 @Preview
 @Composable
-fun EventListPreview() {
+private fun EventListPreview() {
     Conferences4HallTheme {
         EventList(events = EventItemListUi.fake, onEventClicked = {})
     }

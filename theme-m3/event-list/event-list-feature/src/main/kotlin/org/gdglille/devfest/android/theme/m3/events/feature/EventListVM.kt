@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.features
+package org.gdglille.devfest.android.theme.m3.events.feature
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -6,15 +6,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.rememberPagerState
-import org.gdglille.devfest.android.data.viewmodels.EventListUiState
-import org.gdglille.devfest.android.data.viewmodels.EventListViewModel
-import org.gdglille.devfest.android.screens.events.EventList
 import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.repositories.EventRepository
 
-@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun EventListVM(
     repository: EventRepository,
