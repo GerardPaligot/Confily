@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.screens.partners
+package org.gdglille.devfest.android.theme.m3.partners.feature
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -9,8 +9,8 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import org.gdglille.devfest.android.components.partners.PartnerDivider
-import org.gdglille.devfest.android.components.partners.PartnerRow
+import org.gdglille.devfest.android.theme.m3.partners.ui.partners.PartnerDivider
+import org.gdglille.devfest.android.theme.m3.partners.ui.partners.PartnerRow
 import org.gdglille.devfest.models.PartnerGroupsUi
 
 @ExperimentalMaterial3Api

@@ -20,7 +20,7 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.gdglille.devfest.android.components.cards.AddressCard
+import org.gdglille.devfest.android.theme.m3.style.cards.AddressCard
 import org.gdglille.devfest.android.theme.m3.style.socials.SocialsSection
 import org.gdglille.devfest.android.components.tickets.TicketDetailed
 import org.gdglille.devfest.android.components.tickets.TicketQrCode

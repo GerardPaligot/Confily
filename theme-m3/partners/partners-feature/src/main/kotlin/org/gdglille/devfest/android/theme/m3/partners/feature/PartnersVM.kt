@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.features
+package org.gdglille.devfest.android.theme.m3.partners.feature
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
@@ -7,9 +7,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
-import org.gdglille.devfest.android.data.viewmodels.PartnersUiState
-import org.gdglille.devfest.android.data.viewmodels.PartnersViewModel
-import org.gdglille.devfest.android.screens.partners.Partners
 import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.repositories.AgendaRepository
 
@@ -31,6 +28,7 @@ fun PartnersVM(
             isLoading = true,
             onPartnerClick = {}
         )
+
         is PartnersUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
         is PartnersUiState.Success -> Partners(
             partners = (uiState.value as PartnersUiState.Success).partners,

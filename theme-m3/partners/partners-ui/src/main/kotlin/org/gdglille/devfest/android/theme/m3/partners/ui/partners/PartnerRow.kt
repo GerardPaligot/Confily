@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.components.partners
+package org.gdglille.devfest.android.theme.m3.partners.ui.partners
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -45,7 +45,7 @@ fun PartnerRow(
 @ExperimentalMaterial3Api
 @Preview
 @Composable
-fun PartnerRowPreview() {
+private fun PartnerRowPreview() {
     Conferences4HallTheme {
         PartnerRow(
             partners = PartnerGroupUi.fake.partners.first(),

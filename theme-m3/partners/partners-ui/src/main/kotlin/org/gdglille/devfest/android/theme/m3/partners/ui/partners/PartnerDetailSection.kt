@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.components.partners
+package org.gdglille.devfest.android.theme.m3.partners.ui.partners
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column

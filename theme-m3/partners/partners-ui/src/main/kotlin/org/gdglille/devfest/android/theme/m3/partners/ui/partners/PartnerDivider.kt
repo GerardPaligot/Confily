@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.components.partners
+package org.gdglille.devfest.android.theme.m3.partners.ui.partners
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -52,7 +52,7 @@ fun PartnerDivider(
 
 @Preview
 @Composable
-fun PartnerDividerPreview() {
+private fun PartnerDividerPreview() {
     Conferences4HallTheme {
         PartnerDivider(title = "Gold")
     }

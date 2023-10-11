@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.data.viewmodels
+package org.gdglille.devfest.android.theme.m3.partners.feature
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -18,7 +18,8 @@ sealed class PartnersUiState {
 }
 
 class PartnersViewModel(private val repository: AgendaRepository) : ViewModel() {
-    private val _uiState = MutableStateFlow<PartnersUiState>(PartnersUiState.Loading(PartnerGroupsUi.fake))
+    private val _uiState =
+        MutableStateFlow<PartnersUiState>(PartnersUiState.Loading(PartnerGroupsUi.fake))
     val uiState: StateFlow<PartnersUiState> = _uiState
 
     init {

@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.screens.partners
+package org.gdglille.devfest.android.theme.m3.partners.feature
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Spacer
@@ -19,9 +19,9 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBar
-import org.gdglille.devfest.android.components.cards.AddressCard
-import org.gdglille.devfest.android.components.jobs.JobItem
-import org.gdglille.devfest.android.components.partners.PartnerDetailSection
+import org.gdglille.devfest.android.theme.m3.style.cards.AddressCard
+import org.gdglille.devfest.android.theme.m3.partners.ui.jobs.JobItem
+import org.gdglille.devfest.android.theme.m3.partners.ui.partners.PartnerDetailSection
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.ui.resources.R
 import org.gdglille.devfest.models.PartnerItemUi

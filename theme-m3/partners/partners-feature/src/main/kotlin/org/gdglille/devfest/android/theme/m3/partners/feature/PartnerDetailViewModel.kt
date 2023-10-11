@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.data.viewmodels
+package org.gdglille.devfest.android.theme.m3.partners.feature
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -17,11 +17,12 @@ sealed class PartnerUiState {
     data class Failure(val throwable: Throwable) : PartnerUiState()
 }
 
-class PartnerViewModel(
+class PartnerDetailViewModel(
     private val partnerId: String,
     private val repository: AgendaRepository,
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow<PartnerUiState>(PartnerUiState.Loading(PartnerItemUi.fake))
+    private val _uiState =
+        MutableStateFlow<PartnerUiState>(PartnerUiState.Loading(PartnerItemUi.fake))
     val uiState: StateFlow<PartnerUiState> = _uiState
 
     init {
@@ -42,7 +43,7 @@ class PartnerViewModel(
             object : ViewModelProvider.Factory {
                 override fun <T : ViewModel> create(modelClass: Class<T>): T {
                     @Suppress("UNCHECKED_CAST")
-                    return PartnerViewModel(partnerId, repository) as T
+                    return PartnerDetailViewModel(partnerId, repository) as T
                 }
             }
     }

@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.components.partners
+package org.gdglille.devfest.android.theme.m3.partners.ui.partners
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -58,7 +58,7 @@ fun PartnerItem(
 @ExperimentalMaterial3Api
 @Preview
 @Composable
-fun PartnerItemPreview() {
+private fun PartnerItemPreview() {
     Conferences4HallTheme {
         PartnerItem(
             partnerUi = PartnerItemUi.fake,

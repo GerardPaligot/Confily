@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.components.cards
+package org.gdglille.devfest.android.theme.m3.style.cards
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,10 +23,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.placeholder
 import org.gdglille.devfest.android.ui.resources.R
-import org.gdglille.devfest.models.EventUi
 
 @Composable
 fun AddressCard(
@@ -69,7 +69,9 @@ fun AddressCard(
                         imageVector = Icons.Outlined.Navigation,
                         contentDescription = stringResource(R.string.semantic_start_itinerary),
                         tint = MaterialTheme.colorScheme.onSurface,
-                        modifier = Modifier.size(32.dp).placeholder(isLoading)
+                        modifier = Modifier
+                            .size(32.dp)
+                            .placeholder(isLoading)
                     )
                 }
             }
@@ -79,10 +81,14 @@ fun AddressCard(
 
 @Preview
 @Composable
-fun AddressCardPreview() {
+private fun AddressCardPreview() {
     Conferences4HallTheme {
         AddressCard(
-            formattedAddress = EventUi.fake.eventInfo.formattedAddress,
+            formattedAddress = persistentListOf(
+                "Lille Grand Palais",
+                "Bd des Cités Unies 1",
+                "Lille"
+            ),
             onItineraryClicked = {}
         )
     }
