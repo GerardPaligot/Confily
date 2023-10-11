@@ -10,9 +10,16 @@ class QAndARepository(
     private val qAndADao: QAndADao
 ) {
     suspend fun list(eventId: String, language: String) = coroutineScope {
-        return@coroutineScope qAndADao.getAll(eventId, language)
+        val qanda = qAndADao.getAll(eventId, language)
             .map { it.convertToModel() }
             .sortedBy { it.order }
+        if (qanda.isEmpty()) {
+            val event = eventDao.get(eventId) ?: return@coroutineScope emptyList()
+            return@coroutineScope qAndADao.getAll(eventId, event.defaultLanguage)
+                .map { it.convertToModel() }
+                .sortedBy { it.order }
+        }
+        return@coroutineScope qanda
     }
 
     suspend fun get(eventId: String, qandaId: String) = coroutineScope {
