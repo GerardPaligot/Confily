@@ -22,7 +22,7 @@ import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.placeholder
 import org.gdglille.devfest.android.theme.m3.style.tags.Tag
 import org.gdglille.devfest.android.theme.m3.style.tags.TagDefaults
-import org.gdglille.devfest.android.ui.resources.R
+import org.gdglille.devfest.android.theme.m3.style.R
 import org.gdglille.devfest.models.JobUi
 
 @OptIn(ExperimentalMaterial3Api::class)

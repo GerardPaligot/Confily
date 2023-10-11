@@ -9,7 +9,7 @@ import androidx.compose.ui.res.stringResource
 import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBar
 import org.gdglille.devfest.android.theme.m3.style.permissions.FeatureThatRequiresCameraPermission
 import org.gdglille.devfest.android.theme.m3.infos.ui.tickets.TicketCameraPreview
-import org.gdglille.devfest.android.ui.resources.R
+import org.gdglille.devfest.android.theme.m3.style.R
 
 @Composable
 fun TicketQrCodeScanner(

@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import org.gdglille.devfest.android.ui.resources.Field
+import org.gdglille.devfest.android.data.models.Field
 
 @Composable
 fun ProfileInputField(

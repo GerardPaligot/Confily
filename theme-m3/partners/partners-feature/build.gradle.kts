@@ -9,7 +9,6 @@ android {
 }
 
 dependencies {
-    implementation(projects.uiResources)
     implementation(projects.shared)
     implementation(projects.themeM3.partners.partnersUi)
     implementation(projects.themeM3.navigation)

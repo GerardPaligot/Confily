@@ -21,8 +21,8 @@ import org.gdglille.devfest.android.theme.m3.events.ui.EventItem
 import org.gdglille.devfest.android.theme.m3.navigation.TabActions
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.Scaffold
-import org.gdglille.devfest.android.ui.resources.R
-import org.gdglille.devfest.android.ui.resources.models.TabActionsUi
+import org.gdglille.devfest.android.theme.m3.style.R
+import org.gdglille.devfest.android.theme.m3.style.actions.TabActionsUi
 import org.gdglille.devfest.models.EventItemListUi
 
 @OptIn(ExperimentalFoundationApi::class)

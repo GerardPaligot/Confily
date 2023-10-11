@@ -10,7 +10,6 @@ android {
 
 dependencies {
     api(projects.androidData)
-    implementation(projects.uiResources)
     implementation(projects.uiCamera)
     implementation(projects.shared)
     implementation(projects.themeM3.navigation)

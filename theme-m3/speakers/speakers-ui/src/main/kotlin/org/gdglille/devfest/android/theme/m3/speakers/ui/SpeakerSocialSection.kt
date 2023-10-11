@@ -6,7 +6,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.socials.SocialsSection
-import org.gdglille.devfest.android.ui.resources.R
+import org.gdglille.devfest.android.theme.m3.style.R
 import org.gdglille.devfest.models.SpeakerUi
 
 @Composable

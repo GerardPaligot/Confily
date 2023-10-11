@@ -20,7 +20,7 @@ import com.halilibo.richtext.markdown.Markdown
 import com.halilibo.richtext.ui.RichText
 import com.halilibo.richtext.ui.RichTextThemeIntegration
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
-import org.gdglille.devfest.android.ui.resources.R
+import org.gdglille.devfest.android.theme.m3.style.R
 import org.gdglille.devfest.models.CoCUi
 
 @Composable

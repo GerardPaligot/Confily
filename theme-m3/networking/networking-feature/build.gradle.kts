@@ -9,7 +9,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.uiResources)
+    implementation(projects.androidData)
     implementation(projects.shared)
     implementation(projects.themeM3.networking.networkingUi)
     implementation(projects.themeM3.navigation)

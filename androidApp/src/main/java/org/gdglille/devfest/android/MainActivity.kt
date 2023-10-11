@@ -21,7 +21,7 @@ import org.gdglille.devfest.Platform
 import org.gdglille.devfest.AlarmScheduler
 import org.gdglille.devfest.QrCodeGeneratorAndroid
 import org.gdglille.devfest.android.theme.Main
-import org.gdglille.devfest.android.ui.resources.R
+import org.gdglille.devfest.android.theme.m3.style.R
 import org.gdglille.devfest.database.DatabaseWrapper
 import org.gdglille.devfest.database.EventDao
 import org.gdglille.devfest.database.FeaturesActivatedDao

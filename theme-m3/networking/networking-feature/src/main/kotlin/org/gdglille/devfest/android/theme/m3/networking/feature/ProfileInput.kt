@@ -20,8 +20,8 @@ import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBar
 import org.gdglille.devfest.android.theme.m3.networking.ui.ProfileInputField
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
-import org.gdglille.devfest.android.ui.resources.Field
-import org.gdglille.devfest.android.ui.resources.R
+import org.gdglille.devfest.android.data.models.Field
+import org.gdglille.devfest.android.theme.m3.style.R
 import org.gdglille.devfest.models.UserProfileUi
 
 @ExperimentalMaterial3Api

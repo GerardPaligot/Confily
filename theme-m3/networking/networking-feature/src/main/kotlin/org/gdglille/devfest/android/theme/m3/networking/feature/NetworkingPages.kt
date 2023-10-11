@@ -8,7 +8,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
-import org.gdglille.devfest.android.ui.resources.models.TabActionsUi
+import org.gdglille.devfest.android.theme.m3.style.actions.TabActionsUi
 import org.gdglille.devfest.repositories.UserRepository
 
 private const val MyProfileId = 0

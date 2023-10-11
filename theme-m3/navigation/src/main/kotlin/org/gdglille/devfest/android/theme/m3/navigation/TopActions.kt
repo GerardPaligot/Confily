@@ -1,32 +1,38 @@
 package org.gdglille.devfest.android.theme.m3.navigation
 
-import org.gdglille.devfest.android.ui.resources.R
-import org.gdglille.devfest.android.ui.resources.actions.TopAction
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.FilterList
+import androidx.compose.material.icons.outlined.FilterList
+import androidx.compose.material.icons.outlined.PowerOff
+import androidx.compose.material.icons.outlined.Share
+import androidx.compose.material.icons.outlined.Upgrade
+import org.gdglille.devfest.android.theme.m3.style.R
+import org.gdglille.devfest.android.theme.m3.style.actions.TopAction
 
 object TopActions {
     val share = TopAction(
         id = ActionIds.SHARE_ID,
-        icon = R.drawable.ic_mtrl_share_line,
+        icon = Icons.Outlined.Share,
         contentDescription = R.string.action_share_talk
     )
     val filters = TopAction(
         id = ActionIds.FILTERS,
-        icon = R.drawable.ic_mtrl_filter_line,
+        icon = Icons.Outlined.FilterList,
         contentDescription = R.string.action_filtering
     )
     val filtersFilled = TopAction(
         id = ActionIds.FILTERS,
-        icon = R.drawable.ic_mtrl_filter_fill,
+        icon = Icons.Filled.FilterList,
         contentDescription = R.string.action_filtering
     )
     val disconnect = TopAction(
         id = ActionIds.DISCONNECT,
-        icon = R.drawable.ic_mtrl_power_off,
+        icon = Icons.Outlined.PowerOff,
         contentDescription = R.string.action_power_off
     )
     val export = TopAction(
         id = ActionIds.EXPORT,
-        icon = R.drawable.ic_mtrl_upgrade_line,
+        icon = Icons.Outlined.Upgrade,
         contentDescription = R.string.action_export
     )
 }

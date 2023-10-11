@@ -23,7 +23,7 @@ import org.gdglille.devfest.android.theme.m3.style.cards.AddressCard
 import org.gdglille.devfest.android.theme.m3.partners.ui.jobs.JobItem
 import org.gdglille.devfest.android.theme.m3.partners.ui.partners.PartnerDetailSection
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
-import org.gdglille.devfest.android.ui.resources.R
+import org.gdglille.devfest.android.theme.m3.style.R
 import org.gdglille.devfest.models.PartnerItemUi
 
 @ExperimentalMaterial3Api

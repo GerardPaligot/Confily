@@ -1,7 +1,7 @@
 package org.gdglille.devfest.android.theme.m3.navigation
 
 import androidx.annotation.StringRes
-import org.gdglille.devfest.android.ui.resources.R
+import org.gdglille.devfest.android.theme.m3.style.R
 
 sealed class Screen(
     val route: String,

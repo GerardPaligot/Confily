@@ -41,7 +41,6 @@ apacheBatik = "1.17"
 settings = "0.8.1"
 zxing = "3.5.1"
 zxingAndroid = "4.3.0"
-vitaminCompose = "0.1.0-beta02"
 
 [libraries]
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
@@ -139,12 +138,3 @@ settings-coroutines = { group = "com.russhwolf", name = "multiplatform-settings-
 
 zxing = { group = "com.google.zxing", name = "core", version.ref = "zxing" }
 zxing-android = { group = "com.journeyapps", name = "zxing-android-embedded", version.ref = "zxingAndroid" }
-
-vitamin-compose-foundation = { group = "com.decathlon.vitamin.compose", name = "foundation", version.ref = "vitaminCompose" }
-vitamin-compose-appbars = { group = "com.decathlon.vitamin.compose", name = "appbars", version.ref = "vitaminCompose" }
-vitamin-compose-tabs = { group = "com.decathlon.vitamin.compose", name = "tabs", version.ref = "vitaminCompose" }
-vitamin-compose-buttons = { group = "com.decathlon.vitamin.compose", name = "buttons", version.ref = "vitaminCompose" }
-vitamin-compose-dividers = { group = "com.decathlon.vitamin.compose", name = "dividers", version.ref = "vitaminCompose" }
-vitamin-compose-modals = { group = "com.decathlon.vitamin.compose", name = "modals", version.ref = "vitaminCompose" }
-vitamin-compose-textinputs = { group = "com.decathlon.vitamin.compose", name = "text-inputs", version.ref = "vitaminCompose" }
-vitamin-compose-tags = { group = "com.decathlon.vitamin.compose", name = "tags", version.ref = "vitaminCompose" }

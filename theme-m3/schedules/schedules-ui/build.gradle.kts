@@ -9,7 +9,6 @@ android {
 }
 
 dependencies {
-    implementation(projects.uiResources)
     implementation(projects.shared)
     implementation(projects.themeM3.speakers.speakersUi)
     implementation(projects.themeM3.navigation)

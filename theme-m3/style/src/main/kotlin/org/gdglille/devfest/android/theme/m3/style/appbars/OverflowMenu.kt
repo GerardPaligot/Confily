@@ -13,9 +13,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import org.gdglille.devfest.android.theme.m3.style.menus.Dropdown
-import org.gdglille.devfest.android.ui.resources.R
-import org.gdglille.devfest.android.ui.resources.actions.TopAction
-import org.gdglille.devfest.android.ui.resources.models.TopActionsUi
+import org.gdglille.devfest.android.theme.m3.style.R
+import org.gdglille.devfest.android.theme.m3.style.actions.TopAction
+import org.gdglille.devfest.android.theme.m3.style.actions.TopActionsUi
 
 @Composable
 internal fun OverflowMenu(

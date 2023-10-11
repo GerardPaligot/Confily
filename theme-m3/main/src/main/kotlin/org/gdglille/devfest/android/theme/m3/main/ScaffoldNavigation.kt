@@ -17,13 +17,13 @@ import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.launch
 import org.gdglille.devfest.android.theme.m3.style.Scaffold
-import org.gdglille.devfest.android.ui.resources.actions.BottomAction
-import org.gdglille.devfest.android.ui.resources.actions.FabAction
-import org.gdglille.devfest.android.ui.resources.actions.TabAction
-import org.gdglille.devfest.android.ui.resources.actions.TopAction
-import org.gdglille.devfest.android.ui.resources.models.BottomActionsUi
-import org.gdglille.devfest.android.ui.resources.models.TabActionsUi
-import org.gdglille.devfest.android.ui.resources.models.TopActionsUi
+import org.gdglille.devfest.android.theme.m3.style.actions.BottomAction
+import org.gdglille.devfest.android.theme.m3.style.actions.FabAction
+import org.gdglille.devfest.android.theme.m3.style.actions.TabAction
+import org.gdglille.devfest.android.theme.m3.style.actions.TopAction
+import org.gdglille.devfest.android.theme.m3.style.actions.BottomActionsUi
+import org.gdglille.devfest.android.theme.m3.style.actions.TabActionsUi
+import org.gdglille.devfest.android.theme.m3.style.actions.TopActionsUi
 
 @ExperimentalPagerApi
 @Composable

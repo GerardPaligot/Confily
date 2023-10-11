@@ -10,7 +10,7 @@ import org.gdglille.devfest.android.theme.m3.style.permissions.FeatureThatRequir
 import org.gdglille.devfest.android.data.models.VCardModel
 import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBar
 import org.gdglille.devfest.android.theme.m3.networking.ui.VCardCameraPreview
-import org.gdglille.devfest.android.ui.resources.R
+import org.gdglille.devfest.android.theme.m3.style.R
 
 @Composable
 fun VCardQrCodeScanner(

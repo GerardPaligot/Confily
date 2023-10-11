@@ -11,8 +11,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
-import org.gdglille.devfest.android.ui.resources.actions.BottomAction
-import org.gdglille.devfest.android.ui.resources.models.BottomActionsUi
+import org.gdglille.devfest.android.theme.m3.style.actions.BottomAction
+import org.gdglille.devfest.android.theme.m3.style.actions.BottomActionsUi
 
 @Composable
 fun BottomAppBar(
@@ -31,7 +31,7 @@ fun BottomAppBar(
                 },
                 icon = {
                     Icon(
-                        painter = painterResource(if (selected) action.iconSelected else action.icon),
+                        imageVector = if (selected) action.iconSelected else action.icon,
                         contentDescription = action.contentDescription?.let { stringResource(it) },
                         tint = iconColor(selected = selected)
                     )

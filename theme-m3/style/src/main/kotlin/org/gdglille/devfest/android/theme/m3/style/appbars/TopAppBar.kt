@@ -2,6 +2,8 @@ package org.gdglille.devfest.android.theme.m3.style.appbars
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.QrCodeScanner
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -15,9 +17,9 @@ import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
-import org.gdglille.devfest.android.ui.resources.R
-import org.gdglille.devfest.android.ui.resources.actions.TopAction
-import org.gdglille.devfest.android.ui.resources.models.TopActionsUi
+import org.gdglille.devfest.android.theme.m3.style.R
+import org.gdglille.devfest.android.theme.m3.style.actions.TopAction
+import org.gdglille.devfest.android.theme.m3.style.actions.TopActionsUi
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -40,7 +42,7 @@ fun TopAppBar(
             showAsActionItems.forEach { action ->
                 IconButton(onClick = { onActionClicked(action) }) {
                     Icon(
-                        painter = painterResource(action.icon),
+                        imageVector = action.icon,
                         contentDescription = action.contentDescription?.let {
                             stringResource(id = it)
                         }
@@ -83,7 +85,7 @@ private fun TopAppBarPreview() {
                     actions = persistentListOf(
                         TopAction(
                             id = 0,
-                            icon = R.drawable.ic_mtrl_qr_code_scanner_line,
+                            icon = Icons.Outlined.QrCodeScanner,
                             contentDescription = R.string.action_qrcode_scanner
                         )
                     )

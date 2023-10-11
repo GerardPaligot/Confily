@@ -6,10 +6,6 @@ plugins {
     id("conferences4hall.quality")
 }
 
-enum class DesignSystem {
-    M3, Vitamin
-}
-val designSystem = DesignSystem.M3
 val versionMajor = 2
 val versionMinor = 0
 val versionPatch = 3
@@ -77,14 +73,8 @@ android {
 }
 
 dependencies {
-    if (designSystem == DesignSystem.Vitamin) {
-        implementation(projects.themeVitamin.features)
-    } else if (designSystem == DesignSystem.M3) {
-        implementation(projects.themeM3.main)
-    }
-    implementation(projects.androidData)
+    implementation(projects.themeM3.main)
     implementation(projects.shared)
-    implementation(projects.uiResources)
     implementation(libs.settings)
 
     implementation(libs.android.material)
@@ -97,4 +87,7 @@ dependencies {
     implementation(libs.androidx.compose.activity)
     implementation(libs.androidx.compose.navigation)
     implementation(libs.androidx.profile)
+
+    implementation(libs.coil.compose)
+    implementation(libs.coil.svg)
 }

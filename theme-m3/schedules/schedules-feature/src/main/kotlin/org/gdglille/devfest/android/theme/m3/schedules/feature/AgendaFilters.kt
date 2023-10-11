@@ -14,7 +14,7 @@ import org.gdglille.devfest.android.theme.m3.schedules.ui.filters.FavoriteFilter
 import org.gdglille.devfest.android.theme.m3.schedules.ui.filters.FormatListFilters
 import org.gdglille.devfest.android.theme.m3.style.Scaffold
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
-import org.gdglille.devfest.android.ui.resources.R
+import org.gdglille.devfest.android.theme.m3.style.R
 import org.gdglille.devfest.models.CategoryUi
 import org.gdglille.devfest.models.FiltersUi
 import org.gdglille.devfest.models.FormatUi
