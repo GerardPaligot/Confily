@@ -8,7 +8,6 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -22,13 +21,12 @@ import com.google.mlkit.vision.common.InputImage
 
 @SuppressLint("UnsafeOptInUsageError")
 @Composable
-fun TicketCameraPreview(
+fun CameraPreview(
     modifier: Modifier = Modifier,
-    onQrCodeDetected: (List<String>) -> Unit
+    onBarcodeScanned: (barcodes: List<Barcode>) -> Unit
 ) {
     val lifecycleOwner = LocalLifecycleOwner.current
     val context = LocalContext.current
-    val qrCodeDetected = remember { mutableStateOf(false) }
     val cameraProviderFuture = remember { ProcessCameraProvider.getInstance(context) }
     val scanner = remember {
         val options = BarcodeScannerOptions.Builder()
@@ -53,21 +51,23 @@ fun TicketCameraPreview(
                     .setTargetRotation(previewView.display.rotation)
                     .build()
                 analysisUseCase.setAnalyzer(executor) { imageProxy ->
-                    val inputImage = InputImage.fromMediaImage(imageProxy.image!!, imageProxy.imageInfo.rotationDegrees)
+                    val inputImage = InputImage.fromMediaImage(
+                        imageProxy.image!!,
+                        imageProxy.imageInfo.rotationDegrees
+                    )
                     scanner.process(inputImage)
-                        .addOnSuccessListener { barcodes ->
-                            val filtered = barcodes.filter { it.rawValue != null }
-                            if (filtered.isNotEmpty() && !qrCodeDetected.value) {
-                                onQrCodeDetected(filtered.map { it.rawValue!! })
-                                qrCodeDetected.value = !qrCodeDetected.value
-                            }
-                        }
+                        .addOnSuccessListener(onBarcodeScanned)
                         .addOnCompleteListener {
                             imageProxy.close()
                         }
                 }
                 cameraProvider.unbindAll()
-                cameraProvider.bindToLifecycle(lifecycleOwner, cameraSelector, analysisUseCase, preview)
+                cameraProvider.bindToLifecycle(
+                    lifecycleOwner,
+                    cameraSelector,
+                    analysisUseCase,
+                    preview
+                )
             }, executor)
             previewView
         },

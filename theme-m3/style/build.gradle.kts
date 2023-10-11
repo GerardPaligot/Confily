@@ -16,6 +16,7 @@ dependencies {
     implementation(libs.androidx.compose.tooling)
     implementation(libs.androidx.compose.icons)
 
+    implementation(libs.accompanist.permissions)
     implementation(libs.accompanist.placeholder)
 
     implementation(libs.kotlinx.collections)

@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import org.gdglille.devfest.android.theme.vitamin.ui.components.appbars.TopAppBar
 import org.gdglille.devfest.android.theme.vitamin.ui.components.permissions.FeatureThatRequiresCameraPermission
-import org.gdglille.devfest.android.ui.camera.TicketCameraPreview
+import org.gdglille.devfest.android.theme.m3.infos.ui.tickets.TicketCameraPreview
 import org.gdglille.devfest.android.ui.resources.R
 
 @Composable
@@ -37,9 +37,10 @@ fun TicketQrCodeScanner(
                     navigateToSettingsScreen = navigateToSettingsScreen,
                     onRefusePermissionClicked = onBackClicked,
                     content = {
-                        TicketCameraPreview(onQrCodeDetected = { barcode ->
-                            onQrCodeDetected(barcode.first())
-                        })
+                        org.gdglille.devfest.android.theme.m3.infos.ui.tickets.TicketCameraPreview(
+                            onQrCodeDetected = { barcode ->
+                                onQrCodeDetected(barcode.first())
+                            })
                     }
                 )
             }
