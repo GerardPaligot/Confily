@@ -5,8 +5,12 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.res.stringResource
 import androidx.core.app.ShareCompat
 import androidx.core.content.FileProvider
@@ -42,7 +46,7 @@ import java.util.Locale
 @FlowPreview
 @ExperimentalSettingsApi
 @ExperimentalCoroutinesApi
-class MainActivity : AppCompatActivity() {
+class MainActivity : ComponentActivity() {
     private lateinit var navController: NavHostController
 
     override fun onNewIntent(intent: Intent?) {
@@ -52,6 +56,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         val baseUrl = BuildConfig.BASE_URL
         val db = DatabaseWrapper(context = this).createDb()
         val platform = Platform(AndroidContext(this.applicationContext))
@@ -94,6 +99,17 @@ class MainActivity : AppCompatActivity() {
         )
         val openFeedbackState = (application as MainApplication).openFeedbackConfig
         setContent {
+            val inDarkTheme = isSystemInDarkTheme()
+            DisposableEffect(inDarkTheme) {
+                enableEdgeToEdge(
+                    statusBarStyle = SystemBarStyle.auto(
+                        android.graphics.Color.TRANSPARENT,
+                        android.graphics.Color.TRANSPARENT,
+                    ) { inDarkTheme },
+                    navigationBarStyle = SystemBarStyle.auto(lightScrim, darkScrim) { inDarkTheme },
+                )
+                onDispose {}
+            }
             navController = rememberNavController()
             val exportSubject = stringResource(id = R.string.text_export_subject)
             val reportSubject = stringResource(id = R.string.text_report_subject)
@@ -155,6 +171,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
+        /**
+         * The default light scrim, as defined by androidx and the platform:
+         * https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:activity/activity/src/main/java/androidx/activity/EdgeToEdge.kt;l=35-38;drc=27e7d52e8604a080133e8b842db10c89b4482598
+         */
+        private val lightScrim = android.graphics.Color.argb(0xe6, 0xFF, 0xFF, 0xFF)
+
+        /**
+         * The default dark scrim, as defined by androidx and the platform:
+         * https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:activity/activity/src/main/java/androidx/activity/EdgeToEdge.kt;l=40-44;drc=27e7d52e8604a080133e8b842db10c89b4482598
+         */
+        private val darkScrim = android.graphics.Color.argb(0x80, 0x1b, 0x1b, 0x1b)
+
         fun create(context: Context) = Intent(context, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }

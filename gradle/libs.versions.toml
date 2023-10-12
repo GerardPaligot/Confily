@@ -16,7 +16,7 @@ androidxCamera = "1.2.3"
 androidxProfile = "1.3.1"
 composeBom = "2023.09.00"
 composeCompiler = "1.4.8"
-composeActivity = "1.7.2"
+composeActivity = "1.8.0"
 composeNavigation = "2.7.2"
 composeFont = "1.0.0"
 composeRichText = "0.11.0"
@@ -94,7 +94,6 @@ compose-openfeedback-m3 = { group = "io.openfeedback", name = "feedback-android-
 
 accompanist-placeholder = { group = "com.google.accompanist", name = "accompanist-placeholder-material", version.ref = "accompanist" }
 accompanist-permissions = { group = "com.google.accompanist", name = "accompanist-permissions", version.ref = "accompanist" }
-accompanist-systemuicontroller = { group = "com.google.accompanist", name = "accompanist-systemuicontroller", version.ref = "accompanist" }
 
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 coil-svg = { group = "io.coil-kt", name = "coil-svg", version.ref = "coil" }

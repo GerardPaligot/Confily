@@ -1,9 +1,6 @@
 package org.gdglille.devfest.android.theme
 
-import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -12,22 +9,21 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import io.openfeedback.android.OpenFeedbackConfig
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import org.gdglille.devfest.AlarmScheduler
-import org.gdglille.devfest.android.theme.m3.infos.feature.TicketQrCodeScanner
-import org.gdglille.devfest.android.theme.m3.networking.feature.VCardQrCodeScanner
-import org.gdglille.devfest.android.theme.m3.schedules.feature.AgendaFiltersVM
 import org.gdglille.devfest.android.theme.m3.events.feature.EventListVM
+import org.gdglille.devfest.android.theme.m3.infos.feature.TicketQrCodeScanner
 import org.gdglille.devfest.android.theme.m3.main.Home
-import org.gdglille.devfest.android.theme.m3.partners.feature.PartnerDetailVM
+import org.gdglille.devfest.android.theme.m3.main.HomeResultKey
 import org.gdglille.devfest.android.theme.m3.networking.feature.ProfileInputVM
+import org.gdglille.devfest.android.theme.m3.networking.feature.VCardQrCodeScanner
+import org.gdglille.devfest.android.theme.m3.partners.feature.PartnerDetailVM
+import org.gdglille.devfest.android.theme.m3.schedules.feature.AgendaFiltersVM
 import org.gdglille.devfest.android.theme.m3.schedules.feature.ScheduleDetailVM
 import org.gdglille.devfest.android.theme.m3.speakers.feature.SpeakerDetailVM
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
-import org.gdglille.devfest.android.theme.m3.main.HomeResultKey
 import org.gdglille.devfest.models.ExportNetworkingUi
 import org.gdglille.devfest.repositories.AgendaRepository
 import org.gdglille.devfest.repositories.EventRepository
@@ -58,12 +54,6 @@ fun Main(
 ) {
     val rootUri = "c4h://event"
     Conferences4HallTheme {
-        val systemUiController = rememberSystemUiController()
-        val useDarkIcons = !isSystemInDarkTheme()
-        val statusBarColor = MaterialTheme.colorScheme.surface
-        SideEffect {
-            systemUiController.setSystemBarsColor(color = statusBarColor, darkIcons = useDarkIcons)
-        }
         val uiState = viewModel.uiState.collectAsState()
         when (uiState.value) {
             is MainUiState.Success -> {
