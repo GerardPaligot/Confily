@@ -24,5 +24,4 @@ dependencies {
 
     implementation(platform(libs.google.firebase))
     implementation("com.google.firebase:firebase-crashlytics-ktx")
-    implementation(libs.accompanist.pager)
 }

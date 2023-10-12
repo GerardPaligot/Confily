@@ -29,7 +29,6 @@ dependencies {
     implementation(libs.androidx.compose.navigation)
 
     implementation(libs.accompanist.systemuicontroller)
-    implementation(libs.accompanist.pager)
 
     implementation(libs.kotlinx.collections)
 }

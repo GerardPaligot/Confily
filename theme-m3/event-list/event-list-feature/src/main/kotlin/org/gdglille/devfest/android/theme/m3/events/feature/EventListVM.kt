@@ -1,15 +1,17 @@
 package org.gdglille.devfest.android.theme.m3.events.feature
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.google.accompanist.pager.rememberPagerState
 import org.gdglille.devfest.android.theme.m3.style.R
 import org.gdglille.devfest.repositories.EventRepository
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun EventListVM(
     repository: EventRepository,
@@ -19,14 +21,13 @@ fun EventListVM(
         factory = EventListViewModel.Factory.create(repository)
     )
 ) {
-    val pagerState = rememberPagerState()
     val uiState = viewModel.uiState.collectAsState()
     when (uiState.value) {
         is EventListUiState.Loading -> EventList(
             events = (uiState.value as EventListUiState.Loading).events,
             modifier = modifier,
-            pagerState = pagerState,
             isLoading = true,
+            pagerState = rememberPagerState(pageCount = { 1 }),
             onEventClicked = {}
         )
 
@@ -34,7 +35,6 @@ fun EventListVM(
         is EventListUiState.Success -> EventList(
             events = (uiState.value as EventListUiState.Success).events,
             modifier = modifier,
-            pagerState = pagerState,
             isLoading = false,
             onEventClicked = {
                 viewModel.savedEventId(it)

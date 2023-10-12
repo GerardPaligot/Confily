@@ -1,7 +1,10 @@
 package org.gdglille.devfest.android.theme.m3.main
 
 import androidx.annotation.StringRes
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.pager.PagerState
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
@@ -12,9 +15,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.PagerState
-import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.launch
 import org.gdglille.devfest.android.theme.m3.style.Scaffold
 import org.gdglille.devfest.android.theme.m3.style.actions.BottomAction
@@ -25,14 +25,14 @@ import org.gdglille.devfest.android.theme.m3.style.actions.BottomActionsUi
 import org.gdglille.devfest.android.theme.m3.style.actions.TabActionsUi
 import org.gdglille.devfest.android.theme.m3.style.actions.TopActionsUi
 
-@ExperimentalPagerApi
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ScaffoldNavigation(
     @StringRes title: Int,
     startDestination: String,
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    pagerState: PagerState = rememberPagerState(),
+    pagerState: PagerState = rememberPagerState(pageCount = { 0 }),
     topActions: TopActionsUi = TopActionsUi(),
     tabActions: TabActionsUi = TabActionsUi(),
     bottomActions: BottomActionsUi = BottomActionsUi(),

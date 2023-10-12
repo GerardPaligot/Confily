@@ -1,22 +1,22 @@
 package org.gdglille.devfest.android.theme.m3.infos.feature
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.PagerState
-import com.google.accompanist.pager.rememberPagerState
 import org.gdglille.devfest.android.theme.m3.navigation.TabActions
 import org.gdglille.devfest.android.theme.m3.style.actions.TabActionsUi
 import org.gdglille.devfest.repositories.AgendaRepository
 
-@ExperimentalPagerApi
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun InfoPages(
     tabs: TabActionsUi,
     agendaRepository: AgendaRepository,
+    pagerState: PagerState,
     onItineraryClicked: (lat: Double, lng: Double) -> Unit,
     onLinkClicked: (url: String?) -> Unit,
     onReportByPhoneClicked: (String) -> Unit,
@@ -25,8 +25,7 @@ fun InfoPages(
     onMenusScreenOpened: () -> Unit,
     onQAndAScreenOpened: () -> Unit,
     onCoCScreenOpened: () -> Unit,
-    modifier: Modifier = Modifier,
-    pagerState: PagerState = rememberPagerState(),
+    modifier: Modifier = Modifier
 ) {
     LaunchedEffect(pagerState.currentPage) {
         when (tabs.actions[pagerState.currentPage].route) {
@@ -36,8 +35,7 @@ fun InfoPages(
             TabActions.coc.route -> onCoCScreenOpened()
         }
     }
-    val count = tabs.actions.count()
-    HorizontalPager(count = if (count == 0) 1 else count, state = pagerState) { page ->
+    HorizontalPager(state = pagerState) { page ->
         when (tabs.actions[page].route) {
             TabActions.event.route -> EventVM(
                 agendaRepository = agendaRepository,

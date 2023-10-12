@@ -1,5 +1,7 @@
 package org.gdglille.devfest.android.theme.m3.main
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -11,8 +13,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import org.gdglille.devfest.AlarmScheduler
@@ -31,7 +31,7 @@ import org.gdglille.devfest.repositories.EventRepository
 import org.gdglille.devfest.repositories.SpeakerRepository
 import org.gdglille.devfest.repositories.UserRepository
 
-@OptIn(ExperimentalPagerApi::class)
+@OptIn(ExperimentalFoundationApi::class)
 @Suppress("LongMethod", "UnusedPrivateMember", "ComplexMethod")
 @ExperimentalCoroutinesApi
 @FlowPreview
@@ -84,9 +84,17 @@ fun Home(
     val uiFabState = viewModel.uiFabState.collectAsState()
     val uiBottomState = viewModel.uiBottomState.collectAsState()
     val exportPath = viewModel.exportPath.collectAsState(null)
-    val agendaPagerState = rememberPagerState()
-    val networkingPagerState = rememberPagerState()
-    val infoPagerState = rememberPagerState()
+    val actions = uiTopState.value
+    val tabActions = uiTabState.value
+    val agendaPagerState = rememberPagerState(pageCount = {
+        if (tabActions.actions.isEmpty()) 1 else tabActions.actions.count()
+    })
+    val networkingPagerState = rememberPagerState(pageCount = {
+        if (tabActions.actions.isEmpty()) 1 else tabActions.actions.count()
+    })
+    val infoPagerState = rememberPagerState(pageCount = {
+        if (tabActions.actions.isEmpty()) 1 else tabActions.actions.count()
+    })
     val currentRoute = navController
         .currentBackStackEntryFlow
         .collectAsState(initial = navController.currentBackStackEntry)
@@ -99,8 +107,6 @@ fun Home(
     navController.addOnDestinationChangedListener { _, destination, _ ->
         destination.route?.let { route -> viewModel.screenConfig(route) }
     }
-    val actions = uiTopState.value
-    val tabActions = uiTabState.value
     when (uiState.value) {
         is HomeUiState.Success -> {
             val screenUi = (uiState.value as HomeUiState.Success).screenUi
@@ -167,16 +173,15 @@ fun Home(
                     }
                     composable(Screen.Networking.route) {
                         NetworkingPages(
-                            tabs = tabActions,
                             userRepository = userRepository,
+                            pagerState = networkingPagerState,
                             onCreateProfileClicked = onCreateProfileClicked,
                             onProfileScreenOpened = {
                                 viewModel.updateFabUi(Screen.MyProfile.route)
                             },
                             onContactListScreenOpened = {
                                 viewModel.updateFabUi(Screen.Contacts.route)
-                            },
-                            pagerState = networkingPagerState
+                            }
                         )
                     }
                     composable(Screen.Partners.route) {
@@ -189,6 +194,7 @@ fun Home(
                         InfoPages(
                             tabs = tabActions,
                             agendaRepository = agendaRepository,
+                            pagerState = infoPagerState,
                             onItineraryClicked = onItineraryClicked,
                             onLinkClicked = onLinkClicked,
                             onReportByPhoneClicked = onReportByPhoneClicked,
@@ -204,8 +210,7 @@ fun Home(
                             },
                             onCoCScreenOpened = {
                                 viewModel.updateFabUi(Screen.CoC.route)
-                            },
-                            pagerState = infoPagerState
+                            }
                         )
                     }
                 }
