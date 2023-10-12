@@ -6,7 +6,6 @@ kotlinxCollection = "0.3.5"
 kmpNativeCoroutines = "0.13.3"
 ktor = "2.3.2"
 accompanist = "0.30.1"
-androidDesugarJdkLibs = "2.0.3"
 androidGradlePlugin = "8.1.1"
 androidMaterial = "1.9.0"
 androidxAnnotation = "1.7.0"
@@ -28,7 +27,6 @@ gcpSecret = "2.3.10"
 googleServices = "4.3.15"
 coil = "2.4.0"
 barcode = "17.2.0"
-guava = "31.1-android"
 detekt = "1.19.0"
 ktlint = "11.5.0"
 composeLinter = "1.1.1"
@@ -70,7 +68,6 @@ ktor-server-conditional = { group = "io.ktor", name = "ktor-server-conditional-h
 ktor-serialization-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
 
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
-android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
 android-material = { group = "com.google.android.material", name = "material", version.ref = "androidMaterial" }
 
 androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "androidxAnnotation" }
@@ -84,7 +81,6 @@ androidx-profile = { group = "androidx.profileinstaller", name = "profileinstall
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout" }
-androidx-compose-material2 = { group = "androidx.compose.material", name = "material" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-compose-icons = { group = "androidx.compose.material", name = "material-icons-extended" }
 androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime-livedata" }
@@ -94,7 +90,6 @@ androidx-compose-activity = { group = "androidx.activity", name = "activity-comp
 androidx-compose-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "composeNavigation" }
 compose-awesome-font = { group = "br.com.devsrsouza.compose.icons.android", name = "font-awesome", version.ref = "composeFont" }
 compose-richtext = { group = "com.halilibo.compose-richtext", name = "richtext-commonmark", version.ref = "composeRichText" }
-compose-openfeedback-m2 = { group = "io.openfeedback", name = "feedback-android-sdk-m2", version.ref = "composeOpenfeedback" }
 compose-openfeedback-m3 = { group = "io.openfeedback", name = "feedback-android-sdk-m3", version.ref = "composeOpenfeedback" }
 
 accompanist-placeholder = { group = "com.google.accompanist", name = "accompanist-placeholder-material", version.ref = "accompanist" }
@@ -116,7 +111,6 @@ google-services-gradlePlugin = { group = "com.google.gms", name = "google-servic
 google-barcode = { group = "com.google.mlkit", name = "barcode-scanning", version.ref = "barcode" }
 google-firebase = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase" }
 google-firebase-crashlytics-gradlePlugin = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "firebaseCrashlytics" }
-google-guava = { group = "com.google.guava", name = "guava", version.ref = "guava" }
 
 logback = { group = "ch.qos.logback", name = "logback-classic", version.ref = "logback" }
 
