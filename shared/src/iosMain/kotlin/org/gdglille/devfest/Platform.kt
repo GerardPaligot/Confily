@@ -2,6 +2,7 @@ package org.gdglille.devfest
 
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.engine.darwin.Darwin
+import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.addressOf
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.toCValues
@@ -57,6 +58,7 @@ actual class DecimalFormat {
     }
 }
 
+@OptIn(ExperimentalForeignApi::class)
 actual fun ByteArray.toNativeImage(): Image = memScoped {
     toCValues()
         .ptr
@@ -64,6 +66,7 @@ actual fun ByteArray.toNativeImage(): Image = memScoped {
         .let { UIImage.imageWithData(it) }!!
 }
 
+@OptIn(ExperimentalForeignApi::class)
 actual fun Image.toByteArray(): ByteArray {
     val data = UIImageJPEGRepresentation(this, 1.0)!!
     return ByteArray(data.length.toInt()).apply {

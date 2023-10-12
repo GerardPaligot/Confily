@@ -13,7 +13,7 @@ android {
 }
 
 kotlin {
-    android()
+    androidTarget()
 
     if (OperatingSystem.current().isMacOsX) {
         listOf(
@@ -68,7 +68,7 @@ kotlin {
                 implementation(libs.zxing.android)
             }
         }
-        val androidTest by getting {
+        val androidUnitTest by getting {
             dependencies {
                 implementation(kotlin("test-junit"))
                 implementation("junit:junit:4.13.2")
