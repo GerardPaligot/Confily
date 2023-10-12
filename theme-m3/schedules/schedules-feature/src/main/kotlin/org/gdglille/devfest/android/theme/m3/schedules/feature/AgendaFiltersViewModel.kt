@@ -8,9 +8,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import org.gdglille.devfest.models.CategoryUi
-import org.gdglille.devfest.models.FiltersUi
-import org.gdglille.devfest.models.FormatUi
+import org.gdglille.devfest.models.ui.CategoryUi
+import org.gdglille.devfest.models.ui.FiltersUi
+import org.gdglille.devfest.models.ui.FormatUi
 import org.gdglille.devfest.repositories.AgendaRepository
 
 sealed class AgendaFiltersUiState {

@@ -11,8 +11,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.gdglille.devfest.AlarmScheduler
-import org.gdglille.devfest.models.SpeakerUi
-import org.gdglille.devfest.models.TalkItemUi
+import org.gdglille.devfest.models.ui.SpeakerUi
+import org.gdglille.devfest.models.ui.TalkItemUi
 import org.gdglille.devfest.repositories.AgendaRepository
 
 sealed class SpeakerUiState {

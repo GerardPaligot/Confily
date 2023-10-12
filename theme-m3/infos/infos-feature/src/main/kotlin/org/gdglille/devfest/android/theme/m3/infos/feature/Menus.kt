@@ -13,7 +13,7 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import org.gdglille.devfest.android.theme.m3.infos.ui.menus.MenuItem
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
-import org.gdglille.devfest.models.MenuItemUi
+import org.gdglille.devfest.models.ui.MenuItemUi
 
 @ExperimentalMaterial3Api
 @Composable

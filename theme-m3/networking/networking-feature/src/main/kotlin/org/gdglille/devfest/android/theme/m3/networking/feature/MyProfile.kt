@@ -22,7 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.R
-import org.gdglille.devfest.models.UserProfileUi
+import org.gdglille.devfest.models.ui.UserProfileUi
 
 @Composable
 fun MyProfile(

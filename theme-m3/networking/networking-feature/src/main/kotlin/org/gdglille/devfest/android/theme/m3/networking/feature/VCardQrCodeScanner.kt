@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import org.gdglille.devfest.android.theme.m3.style.permissions.FeatureThatRequiresCameraPermission
-import org.gdglille.devfest.android.data.models.VCardModel
+import org.gdglille.devfest.models.ui.VCardModel
 import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBar
 import org.gdglille.devfest.android.theme.m3.networking.ui.VCardCameraPreview
 import org.gdglille.devfest.android.theme.m3.style.R

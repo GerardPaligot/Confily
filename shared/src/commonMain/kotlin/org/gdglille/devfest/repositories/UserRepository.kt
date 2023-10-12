@@ -6,12 +6,12 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
-import org.gdglille.devfest.Image
 import org.gdglille.devfest.database.EventDao
 import org.gdglille.devfest.database.UserDao
-import org.gdglille.devfest.models.ExportNetworkingUi
-import org.gdglille.devfest.models.UserNetworkingUi
-import org.gdglille.devfest.models.UserProfileUi
+import org.gdglille.devfest.models.ui.ExportNetworkingUi
+import org.gdglille.devfest.models.ui.Image
+import org.gdglille.devfest.models.ui.UserNetworkingUi
+import org.gdglille.devfest.models.ui.UserProfileUi
 import org.gdglille.devfest.vcard.encodeToString
 
 interface UserRepository {

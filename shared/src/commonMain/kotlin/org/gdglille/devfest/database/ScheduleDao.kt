@@ -20,11 +20,11 @@ import org.gdglille.devfest.database.mappers.convertTalkItemUi
 import org.gdglille.devfest.database.mappers.convertToDb
 import org.gdglille.devfest.database.mappers.convertToEntity
 import org.gdglille.devfest.db.Conferences4HallDatabase
-import org.gdglille.devfest.models.AgendaUi
 import org.gdglille.devfest.models.AgendaV3
-import org.gdglille.devfest.models.CategoryUi
-import org.gdglille.devfest.models.FiltersUi
-import org.gdglille.devfest.models.FormatUi
+import org.gdglille.devfest.models.ui.AgendaUi
+import org.gdglille.devfest.models.ui.CategoryUi
+import org.gdglille.devfest.models.ui.FiltersUi
+import org.gdglille.devfest.models.ui.FormatUi
 
 @FlowPreview
 @ExperimentalCoroutinesApi

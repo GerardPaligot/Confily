@@ -32,7 +32,7 @@ import org.gdglille.devfest.android.theme.m3.style.tags.Tag
 import org.gdglille.devfest.android.theme.m3.style.tags.TagDefaults
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.R
-import org.gdglille.devfest.models.TalkUi
+import org.gdglille.devfest.models.ui.TalkUi
 
 @Composable
 fun TalkSection(

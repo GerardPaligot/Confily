@@ -1,7 +1,7 @@
 package org.gdglille.devfest.database.mappers
 
 import org.gdglille.devfest.models.Category
-import org.gdglille.devfest.models.CategoryUi
+import org.gdglille.devfest.models.ui.CategoryUi
 import org.gdglille.devfest.db.Category as CategoryDb
 
 fun Category.convertToDb(eventId: String): CategoryDb = CategoryDb(

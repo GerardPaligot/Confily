@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.placeholder
-import org.gdglille.devfest.models.EventItemUi
+import org.gdglille.devfest.models.ui.EventItemUi
 
 @Composable
 fun EventItem(

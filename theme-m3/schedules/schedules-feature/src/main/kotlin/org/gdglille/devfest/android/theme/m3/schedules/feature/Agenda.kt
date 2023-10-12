@@ -18,8 +18,8 @@ import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.TalkItem
 import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.Time
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.placeholder
-import org.gdglille.devfest.models.AgendaUi
-import org.gdglille.devfest.models.TalkItemUi
+import org.gdglille.devfest.models.ui.AgendaUi
+import org.gdglille.devfest.models.ui.TalkItemUi
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

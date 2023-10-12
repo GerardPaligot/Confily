@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import org.gdglille.devfest.android.theme.m3.style.tags.Tag
 import org.gdglille.devfest.android.theme.m3.style.tags.TagDefaults
-import org.gdglille.devfest.models.CategoryUi
+import org.gdglille.devfest.models.ui.CategoryUi
 
 @Composable
 fun DecorativeTag(

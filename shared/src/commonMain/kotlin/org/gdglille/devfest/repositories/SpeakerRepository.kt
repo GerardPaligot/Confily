@@ -7,7 +7,7 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.Flow
 import org.gdglille.devfest.database.EventDao
 import org.gdglille.devfest.database.SpeakerDao
-import org.gdglille.devfest.models.SpeakerItemUi
+import org.gdglille.devfest.models.ui.SpeakerItemUi
 
 interface SpeakerRepository {
     fun speakers(): Flow<ImmutableList<SpeakerItemUi>>

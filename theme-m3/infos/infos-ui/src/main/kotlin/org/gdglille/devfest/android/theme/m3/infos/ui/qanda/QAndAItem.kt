@@ -31,7 +31,7 @@ import com.halilibo.richtext.ui.RichText
 import com.halilibo.richtext.ui.RichTextThemeIntegration
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.placeholder
-import org.gdglille.devfest.models.QuestionAndResponseUi
+import org.gdglille.devfest.models.ui.QuestionAndResponseUi
 
 private const val ExpandedDegrees = 180f
 private const val ClosedDegrees = 0f

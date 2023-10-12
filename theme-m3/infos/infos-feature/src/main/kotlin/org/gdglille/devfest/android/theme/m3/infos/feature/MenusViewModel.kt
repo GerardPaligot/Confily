@@ -10,7 +10,7 @@ import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import org.gdglille.devfest.models.MenuItemUi
+import org.gdglille.devfest.models.ui.MenuItemUi
 import org.gdglille.devfest.repositories.AgendaRepository
 
 sealed class MenusUiState {

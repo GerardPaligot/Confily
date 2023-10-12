@@ -23,7 +23,7 @@ import org.gdglille.devfest.android.theme.m3.style.placeholder
 import org.gdglille.devfest.android.theme.m3.style.tags.Tag
 import org.gdglille.devfest.android.theme.m3.style.tags.TagDefaults
 import org.gdglille.devfest.android.theme.m3.style.R
-import org.gdglille.devfest.models.JobUi
+import org.gdglille.devfest.models.ui.JobUi
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

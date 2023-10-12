@@ -16,7 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.android.theme.m3.style.socials.SocialsSection
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
-import org.gdglille.devfest.models.PartnerItemUi
+import org.gdglille.devfest.models.ui.PartnerItemUi
 
 @ExperimentalMaterial3Api
 @Composable

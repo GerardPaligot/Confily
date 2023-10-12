@@ -13,12 +13,12 @@ import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.map
 import org.gdglille.devfest.Platform
 import org.gdglille.devfest.db.Conferences4HallDatabase
-import org.gdglille.devfest.models.JobUi
-import org.gdglille.devfest.models.PartnerGroupUi
-import org.gdglille.devfest.models.PartnerGroupsUi
-import org.gdglille.devfest.models.PartnerItemUi
 import org.gdglille.devfest.models.PartnerV2
-import org.gdglille.devfest.models.SalaryUi
+import org.gdglille.devfest.models.ui.JobUi
+import org.gdglille.devfest.models.ui.PartnerGroupUi
+import org.gdglille.devfest.models.ui.PartnerGroupsUi
+import org.gdglille.devfest.models.ui.PartnerItemUi
+import org.gdglille.devfest.models.ui.SalaryUi
 
 class PartnerDao(private val db: Conferences4HallDatabase, private val platform: Platform) {
     private val partnerMapper =

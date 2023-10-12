@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import org.gdglille.devfest.android.theme.m3.speakers.ui.SpeakerAvatarBordered
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
-import org.gdglille.devfest.models.TalkItemUi
+import org.gdglille.devfest.models.ui.TalkItemUi
 
 @Composable
 fun SpeakersAvatar(

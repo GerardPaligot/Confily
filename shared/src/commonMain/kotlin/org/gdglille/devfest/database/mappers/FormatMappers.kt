@@ -1,7 +1,7 @@
 package org.gdglille.devfest.database.mappers
 
 import org.gdglille.devfest.models.Format
-import org.gdglille.devfest.models.FormatUi
+import org.gdglille.devfest.models.ui.FormatUi
 import org.gdglille.devfest.db.Format as FormatDb
 
 fun Format.convertToDb(eventId: String): FormatDb = FormatDb(

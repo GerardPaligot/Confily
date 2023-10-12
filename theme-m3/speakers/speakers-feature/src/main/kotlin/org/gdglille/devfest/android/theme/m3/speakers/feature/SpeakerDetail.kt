@@ -19,8 +19,8 @@ import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBar
 import org.gdglille.devfest.android.theme.m3.style.placeholder
 import org.gdglille.devfest.android.theme.m3.style.R
-import org.gdglille.devfest.models.SpeakerUi
-import org.gdglille.devfest.models.TalkItemUi
+import org.gdglille.devfest.models.ui.SpeakerUi
+import org.gdglille.devfest.models.ui.TalkItemUi
 
 @ExperimentalMaterial3Api
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")

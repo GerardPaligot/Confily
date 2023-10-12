@@ -30,9 +30,9 @@ import org.gdglille.devfest.android.theme.m3.style.actions.BottomActionsUi
 import org.gdglille.devfest.android.theme.m3.style.actions.ScreenUi
 import org.gdglille.devfest.android.theme.m3.style.actions.TabActionsUi
 import org.gdglille.devfest.android.theme.m3.style.actions.TopActionsUi
-import org.gdglille.devfest.models.ExportNetworkingUi
-import org.gdglille.devfest.models.ScaffoldConfigUi
-import org.gdglille.devfest.models.UserNetworkingUi
+import org.gdglille.devfest.models.ui.ExportNetworkingUi
+import org.gdglille.devfest.models.ui.ScaffoldConfigUi
+import org.gdglille.devfest.models.ui.UserNetworkingUi
 import org.gdglille.devfest.repositories.AgendaRepository
 import org.gdglille.devfest.repositories.EventRepository
 import org.gdglille.devfest.repositories.UserRepository

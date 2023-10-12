@@ -16,7 +16,6 @@ pluginManagement {
 
 rootProject.name = "conferences4hall"
 include(":androidApp")
-include(":android-data")
 include(":shared")
 include(":models")
 include(":backend")
@@ -36,4 +35,5 @@ include(":theme-m3:event-list:event-list-ui")
 include(":theme-m3:event-list:event-list-feature")
 include(":theme-m3:navigation")
 include(":theme-m3:style")
+include(":ui-models")
 include(":ui-camera")

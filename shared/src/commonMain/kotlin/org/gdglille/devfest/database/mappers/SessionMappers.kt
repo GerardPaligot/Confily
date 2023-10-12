@@ -18,13 +18,13 @@ import org.gdglille.devfest.db.Session
 import org.gdglille.devfest.db.TalkSession
 import org.gdglille.devfest.db.TalkSessionWithSpeakers
 import org.gdglille.devfest.extensions.formatHoursMinutes
-import org.gdglille.devfest.models.CategoryUi
-import org.gdglille.devfest.models.FormatUi
 import org.gdglille.devfest.models.ScheduleItemV3
-import org.gdglille.devfest.models.SpeakerItemUi
-import org.gdglille.devfest.models.TalkItemUi
-import org.gdglille.devfest.models.TalkUi
 import org.gdglille.devfest.models.TalkV3
+import org.gdglille.devfest.models.ui.CategoryUi
+import org.gdglille.devfest.models.ui.FormatUi
+import org.gdglille.devfest.models.ui.SpeakerItemUi
+import org.gdglille.devfest.models.ui.TalkItemUi
+import org.gdglille.devfest.models.ui.TalkUi
 import kotlin.reflect.KFunction1
 
 private const val BREAK_TITLE = "break"

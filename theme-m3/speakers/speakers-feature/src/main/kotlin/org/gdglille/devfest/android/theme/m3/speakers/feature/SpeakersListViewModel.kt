@@ -11,7 +11,7 @@ import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import org.gdglille.devfest.models.SpeakerItemUi
+import org.gdglille.devfest.models.ui.SpeakerItemUi
 import org.gdglille.devfest.repositories.SpeakerRepository
 
 sealed class SpeakersUiState {

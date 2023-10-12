@@ -15,9 +15,9 @@ import org.gdglille.devfest.android.theme.m3.schedules.ui.filters.FormatListFilt
 import org.gdglille.devfest.android.theme.m3.style.Scaffold
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.R
-import org.gdglille.devfest.models.CategoryUi
-import org.gdglille.devfest.models.FiltersUi
-import org.gdglille.devfest.models.FormatUi
+import org.gdglille.devfest.models.ui.CategoryUi
+import org.gdglille.devfest.models.ui.FiltersUi
+import org.gdglille.devfest.models.ui.FormatUi
 
 @Composable
 fun AgendaFilters(

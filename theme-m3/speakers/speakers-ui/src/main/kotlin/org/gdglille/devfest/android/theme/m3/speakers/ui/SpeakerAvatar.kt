@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import coil.imageLoader
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
-import org.gdglille.devfest.models.SpeakerUi
+import org.gdglille.devfest.models.ui.SpeakerUi
 
 @Composable
 fun SpeakerAvatar(

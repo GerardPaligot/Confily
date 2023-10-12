@@ -7,7 +7,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import org.gdglille.devfest.database.EventDao
 import org.gdglille.devfest.exceptions.EventSavedException
-import org.gdglille.devfest.models.EventItemListUi
+import org.gdglille.devfest.models.ui.EventItemListUi
 import org.gdglille.devfest.network.ConferenceApi
 
 interface EventRepository {

@@ -26,7 +26,7 @@ import org.gdglille.devfest.android.theme.m3.schedules.ui.schedule.TalkSection
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.R
 import org.gdglille.devfest.android.theme.m3.style.actions.TopActionsUi
-import org.gdglille.devfest.models.TalkUi
+import org.gdglille.devfest.models.ui.TalkUi
 
 @ExperimentalMaterial3Api
 @Composable

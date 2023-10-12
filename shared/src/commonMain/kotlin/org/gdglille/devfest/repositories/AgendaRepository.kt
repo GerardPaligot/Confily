@@ -16,19 +16,19 @@ import org.gdglille.devfest.database.ScheduleDao
 import org.gdglille.devfest.database.SpeakerDao
 import org.gdglille.devfest.database.TalkDao
 import org.gdglille.devfest.exceptions.AgendaNotModifiedException
-import org.gdglille.devfest.models.AgendaUi
-import org.gdglille.devfest.models.CategoryUi
-import org.gdglille.devfest.models.CoCUi
-import org.gdglille.devfest.models.EventUi
-import org.gdglille.devfest.models.FiltersUi
-import org.gdglille.devfest.models.FormatUi
-import org.gdglille.devfest.models.MenuItemUi
-import org.gdglille.devfest.models.PartnerGroupsUi
-import org.gdglille.devfest.models.PartnerItemUi
-import org.gdglille.devfest.models.QuestionAndResponseUi
-import org.gdglille.devfest.models.ScaffoldConfigUi
-import org.gdglille.devfest.models.SpeakerUi
-import org.gdglille.devfest.models.TalkUi
+import org.gdglille.devfest.models.ui.AgendaUi
+import org.gdglille.devfest.models.ui.CategoryUi
+import org.gdglille.devfest.models.ui.CoCUi
+import org.gdglille.devfest.models.ui.EventUi
+import org.gdglille.devfest.models.ui.FiltersUi
+import org.gdglille.devfest.models.ui.FormatUi
+import org.gdglille.devfest.models.ui.MenuItemUi
+import org.gdglille.devfest.models.ui.PartnerGroupsUi
+import org.gdglille.devfest.models.ui.PartnerItemUi
+import org.gdglille.devfest.models.ui.QuestionAndResponseUi
+import org.gdglille.devfest.models.ui.ScaffoldConfigUi
+import org.gdglille.devfest.models.ui.SpeakerUi
+import org.gdglille.devfest.models.ui.TalkUi
 import org.gdglille.devfest.network.ConferenceApi
 
 interface AgendaRepository {

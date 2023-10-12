@@ -7,6 +7,7 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.toCValues
 import kotlinx.cinterop.usePinned
 import okio.FileSystem
+import org.gdglille.devfest.models.ui.Image
 import platform.Foundation.NSBundle
 import platform.Foundation.NSData
 import platform.Foundation.NSNumber
@@ -55,8 +56,6 @@ actual class DecimalFormat {
         return formatter.stringFromNumber(NSNumber(number))!!
     }
 }
-
-actual typealias Image = UIImage
 
 actual fun ByteArray.toNativeImage(): Image = memScoped {
     toCValues()

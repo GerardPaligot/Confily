@@ -10,7 +10,7 @@ import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import org.gdglille.devfest.db.Conferences4HallDatabase
-import org.gdglille.devfest.models.ScaffoldConfigUi
+import org.gdglille.devfest.models.ui.ScaffoldConfigUi
 
 class FeaturesActivatedDao(private val db: Conferences4HallDatabase) {
     fun fetchFeatures(eventId: String): Flow<ScaffoldConfigUi> = combine(

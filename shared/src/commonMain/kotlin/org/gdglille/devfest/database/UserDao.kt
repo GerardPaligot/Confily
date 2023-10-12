@@ -13,8 +13,8 @@ import kotlinx.datetime.Clock
 import okio.Path.Companion.toPath
 import org.gdglille.devfest.Platform
 import org.gdglille.devfest.db.Conferences4HallDatabase
-import org.gdglille.devfest.models.UserNetworkingUi
-import org.gdglille.devfest.models.UserProfileUi
+import org.gdglille.devfest.models.ui.UserNetworkingUi
+import org.gdglille.devfest.models.ui.UserProfileUi
 import org.gdglille.devfest.toByteArray
 import org.gdglille.devfest.toNativeImage
 

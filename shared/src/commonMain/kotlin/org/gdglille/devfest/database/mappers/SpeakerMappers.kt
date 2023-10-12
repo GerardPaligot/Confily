@@ -2,8 +2,8 @@ package org.gdglille.devfest.database.mappers
 
 import kotlinx.collections.immutable.persistentListOf
 import org.gdglille.devfest.models.Speaker
-import org.gdglille.devfest.models.SpeakerItemUi
-import org.gdglille.devfest.models.SpeakerUi
+import org.gdglille.devfest.models.ui.SpeakerItemUi
+import org.gdglille.devfest.models.ui.SpeakerUi
 import org.gdglille.devfest.db.Speaker as SpeakerDb
 
 object SpeakerMappers {

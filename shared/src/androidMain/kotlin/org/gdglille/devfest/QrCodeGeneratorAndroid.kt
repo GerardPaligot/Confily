@@ -2,6 +2,7 @@ package org.gdglille.devfest
 
 import com.google.zxing.BarcodeFormat
 import com.journeyapps.barcodescanner.BarcodeEncoder
+import org.gdglille.devfest.models.ui.Image
 import org.gdglille.devfest.repositories.QrCodeGenerator
 
 class QrCodeGeneratorAndroid : QrCodeGenerator {

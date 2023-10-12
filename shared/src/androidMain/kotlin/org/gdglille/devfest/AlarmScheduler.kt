@@ -14,7 +14,7 @@ import kotlinx.datetime.minus
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 import org.gdglille.devfest.android.theme.m3.style.R
-import org.gdglille.devfest.models.TalkItemUi
+import org.gdglille.devfest.models.ui.TalkItemUi
 import org.gdglille.devfest.repositories.AgendaRepository
 import java.util.Locale
 

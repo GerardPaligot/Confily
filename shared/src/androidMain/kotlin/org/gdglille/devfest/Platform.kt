@@ -7,6 +7,7 @@ import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.engine.android.Android
 import okio.FileSystem
 import okio.Path.Companion.toPath
+import org.gdglille.devfest.models.ui.Image
 import java.io.ByteArrayOutputStream
 
 data class AndroidContext(val context: Context)
@@ -39,7 +40,6 @@ actual class DecimalFormat {
     }
 }
 
-actual typealias Image = Bitmap
 actual fun ByteArray.toNativeImage(): Image = BitmapFactory.decodeByteArray(this, 0, this.size)
 actual fun Image.toByteArray(): ByteArray {
     val stream = ByteArrayOutputStream()

@@ -3,6 +3,7 @@ package org.gdglille.devfest
 import io.ktor.client.engine.HttpClientEngine
 import okio.FileSystem
 import okio.Path
+import org.gdglille.devfest.models.ui.Image
 
 data class FileEngine(
     val fileSystem: FileSystem,
@@ -21,8 +22,6 @@ expect class Platform(context: PlatformContext) {
 expect class DecimalFormat() {
     fun format(number: Int): String
 }
-
-expect class Image
 
 expect fun ByteArray.toNativeImage(): Image
 expect fun Image.toByteArray(): ByteArray

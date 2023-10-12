@@ -1,6 +1,6 @@
 package org.gdglille.devfest.vcard
 
-import org.gdglille.devfest.models.UserNetworkingUi
+import org.gdglille.devfest.models.ui.UserNetworkingUi
 
 inline fun UserNetworkingUi.encodeToString(): String = """BEGIN:VCARD
 VERSION:4.0

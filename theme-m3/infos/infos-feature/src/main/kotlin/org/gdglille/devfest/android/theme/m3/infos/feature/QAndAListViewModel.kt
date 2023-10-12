@@ -11,7 +11,7 @@ import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import org.gdglille.devfest.models.QuestionAndResponseUi
+import org.gdglille.devfest.models.ui.QuestionAndResponseUi
 import org.gdglille.devfest.repositories.AgendaRepository
 
 sealed class QAndAUiState {

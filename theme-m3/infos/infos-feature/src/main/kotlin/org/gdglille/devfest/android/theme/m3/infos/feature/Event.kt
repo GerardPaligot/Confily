@@ -25,7 +25,7 @@ import org.gdglille.devfest.android.theme.m3.infos.ui.tickets.TicketDetailed
 import org.gdglille.devfest.android.theme.m3.infos.ui.tickets.TicketQrCode
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.R
-import org.gdglille.devfest.models.EventUi
+import org.gdglille.devfest.models.ui.EventUi
 
 @Composable
 fun Event(

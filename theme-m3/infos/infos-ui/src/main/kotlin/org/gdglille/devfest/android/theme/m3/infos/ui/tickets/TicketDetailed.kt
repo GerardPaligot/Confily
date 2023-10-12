@@ -31,13 +31,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import org.gdglille.devfest.Image
+import org.gdglille.devfest.models.ui.Image
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.placeholder
 import org.gdglille.devfest.android.theme.m3.style.shapes.DottedShape
 import org.gdglille.devfest.android.theme.m3.style.R
-import org.gdglille.devfest.models.TicketInfoUi
-import org.gdglille.devfest.models.TicketUi
+import org.gdglille.devfest.models.ui.TicketInfoUi
+import org.gdglille.devfest.models.ui.TicketUi
 
 private const val TicketRatio = 2 / 3
 

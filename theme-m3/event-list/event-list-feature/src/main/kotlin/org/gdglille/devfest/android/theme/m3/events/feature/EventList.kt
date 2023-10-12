@@ -23,7 +23,7 @@ import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.Scaffold
 import org.gdglille.devfest.android.theme.m3.style.R
 import org.gdglille.devfest.android.theme.m3.style.actions.TabActionsUi
-import org.gdglille.devfest.models.EventItemListUi
+import org.gdglille.devfest.models.ui.EventItemListUi
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

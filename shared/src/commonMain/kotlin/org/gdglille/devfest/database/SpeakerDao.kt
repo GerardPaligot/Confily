@@ -13,9 +13,9 @@ import kotlinx.coroutines.flow.map
 import org.gdglille.devfest.database.mappers.SpeakerMappers
 import org.gdglille.devfest.database.mappers.convertTalkItemUi
 import org.gdglille.devfest.db.Conferences4HallDatabase
-import org.gdglille.devfest.models.SpeakerItemUi
-import org.gdglille.devfest.models.SpeakerUi
-import org.gdglille.devfest.models.TalkItemUi
+import org.gdglille.devfest.models.ui.SpeakerItemUi
+import org.gdglille.devfest.models.ui.SpeakerUi
+import org.gdglille.devfest.models.ui.TalkItemUi
 
 class SpeakerDao(private val db: Conferences4HallDatabase) {
     fun fetchSpeaker(eventId: String, speakerId: String): Flow<SpeakerUi> {

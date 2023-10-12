@@ -17,7 +17,7 @@ import org.gdglille.devfest.android.theme.m3.style.chips.FilterChip
 import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.ShortTalk
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.R
-import org.gdglille.devfest.models.FormatUi
+import org.gdglille.devfest.models.ui.FormatUi
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable

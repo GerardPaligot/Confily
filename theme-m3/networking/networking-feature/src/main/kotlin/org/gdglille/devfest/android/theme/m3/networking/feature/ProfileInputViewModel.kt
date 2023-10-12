@@ -8,8 +8,8 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import org.gdglille.devfest.android.data.models.Field
-import org.gdglille.devfest.models.UserProfileUi
+import org.gdglille.devfest.models.ui.Field
+import org.gdglille.devfest.models.ui.UserProfileUi
 import org.gdglille.devfest.repositories.UserRepository
 
 sealed class ProfileInputUiState {

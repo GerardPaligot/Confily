@@ -16,8 +16,8 @@ import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import org.gdglille.devfest.AlarmScheduler
-import org.gdglille.devfest.android.data.models.VCardModel
-import org.gdglille.devfest.android.data.models.convertToModelUi
+import org.gdglille.devfest.models.ui.VCardModel
+import org.gdglille.devfest.models.ui.convertToModelUi
 import org.gdglille.devfest.android.theme.m3.infos.feature.InfoPages
 import org.gdglille.devfest.android.theme.m3.navigation.ActionIds
 import org.gdglille.devfest.android.theme.m3.navigation.Screen
@@ -25,7 +25,7 @@ import org.gdglille.devfest.android.theme.m3.networking.feature.NetworkingPages
 import org.gdglille.devfest.android.theme.m3.partners.feature.PartnersVM
 import org.gdglille.devfest.android.theme.m3.schedules.feature.AgendaVM
 import org.gdglille.devfest.android.theme.m3.speakers.feature.SpeakersListVM
-import org.gdglille.devfest.models.ExportNetworkingUi
+import org.gdglille.devfest.models.ui.ExportNetworkingUi
 import org.gdglille.devfest.repositories.AgendaRepository
 import org.gdglille.devfest.repositories.EventRepository
 import org.gdglille.devfest.repositories.SpeakerRepository

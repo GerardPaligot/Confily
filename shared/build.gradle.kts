@@ -32,6 +32,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(projects.models)
+                api(projects.uiModels)
                 implementation(libs.kotlinx.coroutines)
 
                 implementation(libs.ktor.client.core)

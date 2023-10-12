@@ -8,7 +8,7 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import org.gdglille.devfest.models.PartnerGroupsUi
+import org.gdglille.devfest.models.ui.PartnerGroupsUi
 import org.gdglille.devfest.repositories.AgendaRepository
 
 sealed class PartnersUiState {

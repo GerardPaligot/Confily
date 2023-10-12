@@ -14,7 +14,7 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import org.gdglille.devfest.android.theme.m3.infos.ui.qanda.QAndAItem
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
-import org.gdglille.devfest.models.QuestionAndResponseUi
+import org.gdglille.devfest.models.ui.QuestionAndResponseUi
 
 @Composable
 fun QAndAList(

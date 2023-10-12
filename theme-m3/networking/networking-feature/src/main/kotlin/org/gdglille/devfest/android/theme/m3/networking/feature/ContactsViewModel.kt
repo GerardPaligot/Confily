@@ -9,7 +9,7 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import org.gdglille.devfest.models.UserNetworkingUi
+import org.gdglille.devfest.models.ui.UserNetworkingUi
 import org.gdglille.devfest.repositories.UserRepository
 
 sealed class ContactsUiState {

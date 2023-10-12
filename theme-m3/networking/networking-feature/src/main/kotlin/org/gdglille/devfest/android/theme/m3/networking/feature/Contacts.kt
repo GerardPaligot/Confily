@@ -23,8 +23,8 @@ import org.gdglille.devfest.android.theme.m3.networking.ui.EmptyContacts
 import org.gdglille.devfest.android.theme.m3.networking.ui.UserItem
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.R
-import org.gdglille.devfest.models.NetworkingUi
-import org.gdglille.devfest.models.UserNetworkingUi
+import org.gdglille.devfest.models.ui.NetworkingUi
+import org.gdglille.devfest.models.ui.UserNetworkingUi
 
 @Composable
 fun Contacts(

@@ -2,7 +2,7 @@ package org.gdglille.devfest.database
 
 import org.gdglille.devfest.database.mappers.convertTalkUi
 import org.gdglille.devfest.db.Conferences4HallDatabase
-import org.gdglille.devfest.models.TalkUi
+import org.gdglille.devfest.models.ui.TalkUi
 
 class TalkDao(private val db: Conferences4HallDatabase) {
     fun fetchTalk(eventId: String, talkId: String): TalkUi = db.transactionWithResult {

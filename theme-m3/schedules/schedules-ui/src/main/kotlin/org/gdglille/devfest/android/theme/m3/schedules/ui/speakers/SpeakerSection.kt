@@ -17,7 +17,7 @@ import kotlinx.collections.immutable.toImmutableList
 import org.gdglille.devfest.android.theme.m3.speakers.ui.SpeakerItemRow
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.R
-import org.gdglille.devfest.models.SpeakerItemUi
+import org.gdglille.devfest.models.ui.SpeakerItemUi
 
 @Composable
 fun SpeakerSection(

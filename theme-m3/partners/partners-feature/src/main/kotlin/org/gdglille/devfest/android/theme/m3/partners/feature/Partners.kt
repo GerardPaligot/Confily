@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.android.theme.m3.partners.ui.partners.PartnerDivider
 import org.gdglille.devfest.android.theme.m3.partners.ui.partners.PartnerRow
-import org.gdglille.devfest.models.PartnerGroupsUi
+import org.gdglille.devfest.models.ui.PartnerGroupsUi
 
 @ExperimentalMaterial3Api
 @Composable
