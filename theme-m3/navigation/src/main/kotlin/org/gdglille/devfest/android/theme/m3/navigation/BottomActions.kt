@@ -29,8 +29,8 @@ object BottomActions {
         label = R.string.screen_speakers,
         contentDescription = null,
     )
-    val networking = BottomAction(
-        route = Screen.Networking.route,
+    val myProfile = BottomAction(
+        route = Screen.MyProfile.route,
         icon = Icons.Outlined.Hub,
         iconSelected = Icons.Filled.Hub,
         label = R.string.screen_networking,
@@ -43,8 +43,8 @@ object BottomActions {
         label = R.string.screen_partners,
         contentDescription = null,
     )
-    val info = BottomAction(
-        route = Screen.Info.route,
+    val event = BottomAction(
+        route = Screen.Event.route,
         icon = Icons.Outlined.Info,
         iconSelected = Icons.Filled.Info,
         label = R.string.screen_info,

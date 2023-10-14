@@ -13,7 +13,7 @@ import org.gdglille.devfest.models.ui.UserNetworkingUi
 import org.gdglille.devfest.repositories.UserRepository
 
 sealed class ContactsUiState {
-    object Loading : ContactsUiState()
+    data object Loading : ContactsUiState()
     data class Success(val users: ImmutableList<UserNetworkingUi>) : ContactsUiState()
     data class Failure(val throwable: Throwable) : ContactsUiState()
 }

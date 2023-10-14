@@ -29,4 +29,7 @@ dependencies {
     implementation(libs.androidx.compose.navigation)
 
     implementation(libs.kotlinx.collections)
+
+    implementation(platform(libs.google.firebase))
+    implementation("com.google.firebase:firebase-crashlytics-ktx")
 }

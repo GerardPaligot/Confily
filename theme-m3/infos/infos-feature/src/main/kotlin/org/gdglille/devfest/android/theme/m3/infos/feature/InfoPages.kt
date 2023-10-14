@@ -21,19 +21,11 @@ fun InfoPages(
     onLinkClicked: (url: String?) -> Unit,
     onReportByPhoneClicked: (String) -> Unit,
     onReportByEmailClicked: (String) -> Unit,
-    onEventScreenOpened: () -> Unit,
-    onMenusScreenOpened: () -> Unit,
-    onQAndAScreenOpened: () -> Unit,
-    onCoCScreenOpened: () -> Unit,
+    onInnerScreenOpened: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LaunchedEffect(pagerState.currentPage) {
-        when (tabs.actions[pagerState.currentPage].route) {
-            TabActions.event.route -> onEventScreenOpened()
-            TabActions.menus.route -> onMenusScreenOpened()
-            TabActions.qanda.route -> onQAndAScreenOpened()
-            TabActions.coc.route -> onCoCScreenOpened()
-        }
+        onInnerScreenOpened(tabs.actions[pagerState.currentPage].route)
     }
     HorizontalPager(state = pagerState) { page ->
         when (tabs.actions[page].route) {

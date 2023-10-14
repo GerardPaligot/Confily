@@ -79,22 +79,7 @@ fun Home(
         }
     }
     val uiState = viewModel.uiState.collectAsState()
-    val uiTopState = viewModel.uiTopState.collectAsState()
-    val uiTabState = viewModel.uiTabState.collectAsState()
-    val uiFabState = viewModel.uiFabState.collectAsState()
-    val uiBottomState = viewModel.uiBottomState.collectAsState()
     val exportPath = viewModel.exportPath.collectAsState(null)
-    val actions = uiTopState.value
-    val tabActions = uiTabState.value
-    val agendaPagerState = rememberPagerState(pageCount = {
-        if (tabActions.actions.isEmpty()) 1 else tabActions.actions.count()
-    })
-    val networkingPagerState = rememberPagerState(pageCount = {
-        if (tabActions.actions.isEmpty()) 1 else tabActions.actions.count()
-    })
-    val infoPagerState = rememberPagerState(pageCount = {
-        if (tabActions.actions.isEmpty()) 1 else tabActions.actions.count()
-    })
     val currentRoute = navController
         .currentBackStackEntryFlow
         .collectAsState(initial = navController.currentBackStackEntry)
@@ -110,18 +95,23 @@ fun Home(
     when (uiState.value) {
         is HomeUiState.Success -> {
             val screenUi = (uiState.value as HomeUiState.Success).screenUi
+            val pageCount = if (screenUi.tabActionsUi.actions.isEmpty()) 1
+            else screenUi.tabActionsUi.actions.count()
+            val agendaPagerState = rememberPagerState(pageCount = { pageCount })
+            val networkingPagerState = rememberPagerState(pageCount = { pageCount })
+            val infoPagerState = rememberPagerState(pageCount = { pageCount })
             ScaffoldNavigation(
                 title = screenUi.title,
                 startDestination = Screen.Agenda.route,
                 modifier = modifier,
                 navController = navController,
-                topActions = actions,
-                tabActions = tabActions,
-                bottomActions = uiBottomState.value,
-                fabAction = uiFabState.value,
+                topActions = screenUi.topActionsUi,
+                tabActions = screenUi.tabActionsUi,
+                bottomActions = screenUi.bottomActionsUi,
+                fabAction = screenUi.fabAction,
                 pagerState = when (currentRoute.value?.destination?.route) {
-                    Screen.Info.route -> infoPagerState
-                    Screen.Networking.route -> networkingPagerState
+                    Screen.Event.route, Screen.Menus.route, Screen.QAndA.route, Screen.CoC.route -> infoPagerState
+                    Screen.MyProfile.route, Screen.Contacts.route -> networkingPagerState
                     else -> agendaPagerState
                 },
                 onTopActionClicked = {
@@ -129,10 +119,12 @@ fun Home(
                         ActionIds.FILTERS -> {
                             onFilterClicked()
                         }
+
                         ActionIds.DISCONNECT -> {
                             viewModel.disconnect()
                             onDisconnectedClicked()
                         }
+
                         ActionIds.EXPORT -> {
                             viewModel.exportNetworking()
                         }
@@ -158,7 +150,7 @@ fun Home(
                 builder = {
                     composable(Screen.Agenda.route) {
                         AgendaVM(
-                            tabs = tabActions,
+                            tabs = screenUi.tabActionsUi,
                             agendaRepository = agendaRepository,
                             alarmScheduler = alarmScheduler,
                             pagerState = agendaPagerState,
@@ -171,17 +163,13 @@ fun Home(
                             onSpeakerClicked = onSpeakerClicked
                         )
                     }
-                    composable(Screen.Networking.route) {
+                    composable(Screen.MyProfile.route) {
                         NetworkingPages(
+                            tabs = screenUi.tabActionsUi,
                             userRepository = userRepository,
                             pagerState = networkingPagerState,
                             onCreateProfileClicked = onCreateProfileClicked,
-                            onProfileScreenOpened = {
-                                viewModel.updateFabUi(Screen.MyProfile.route)
-                            },
-                            onContactListScreenOpened = {
-                                viewModel.updateFabUi(Screen.Contacts.route)
-                            }
+                            onInnerScreenOpened = viewModel::innerScreenConfig
                         )
                     }
                     composable(Screen.Partners.route) {
@@ -190,27 +178,16 @@ fun Home(
                             onPartnerClick = onPartnerClicked
                         )
                     }
-                    composable(Screen.Info.route) {
+                    composable(Screen.Event.route) {
                         InfoPages(
-                            tabs = tabActions,
+                            tabs = screenUi.tabActionsUi,
                             agendaRepository = agendaRepository,
                             pagerState = infoPagerState,
                             onItineraryClicked = onItineraryClicked,
                             onLinkClicked = onLinkClicked,
                             onReportByPhoneClicked = onReportByPhoneClicked,
                             onReportByEmailClicked = onReportByEmailClicked,
-                            onEventScreenOpened = {
-                                viewModel.updateFabUi(Screen.Event.route)
-                            },
-                            onMenusScreenOpened = {
-                                viewModel.updateFabUi(Screen.Menus.route)
-                            },
-                            onQAndAScreenOpened = {
-                                viewModel.updateFabUi(Screen.QAndA.route)
-                            },
-                            onCoCScreenOpened = {
-                                viewModel.updateFabUi(Screen.CoC.route)
-                            }
+                            onInnerScreenOpened = viewModel::innerScreenConfig
                         )
                     }
                 }

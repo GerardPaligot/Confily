@@ -7,38 +7,37 @@ import androidx.compose.foundation.pager.PagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import org.gdglille.devfest.android.theme.m3.navigation.TabActions
+import org.gdglille.devfest.android.theme.m3.style.actions.TabActionsUi
 import org.gdglille.devfest.repositories.UserRepository
-
-private const val MyProfileId = 0
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun NetworkingPages(
+    tabs: TabActionsUi,
     userRepository: UserRepository,
     pagerState: PagerState,
     onCreateProfileClicked: () -> Unit,
-    onProfileScreenOpened: () -> Unit,
-    onContactListScreenOpened: () -> Unit,
+    onInnerScreenOpened: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LaunchedEffect(pagerState.currentPage) {
-        when (pagerState.currentPage) {
-            MyProfileId -> onProfileScreenOpened()
-            else -> onContactListScreenOpened()
-        }
+        onInnerScreenOpened(tabs.actions[pagerState.currentPage].route)
     }
     HorizontalPager(state = pagerState) { page ->
-        when (page) {
-            MyProfileId -> MyProfileVM(
+        when (tabs.actions[page].route) {
+            TabActions.myProfile.route -> MyProfileVM(
                 userRepository = userRepository,
                 modifier = modifier.fillMaxSize(),
                 onEditInformation = onCreateProfileClicked
             )
 
-            else -> ContactsVM(
+            TabActions.contacts.route -> ContactsVM(
                 userRepository = userRepository,
                 modifier = modifier.fillMaxSize()
             )
+
+            else -> TODO("Screen not implemented")
         }
     }
 }
