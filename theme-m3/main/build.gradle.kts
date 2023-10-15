@@ -19,8 +19,8 @@ dependencies {
     implementation(projects.themeM3.infos.infosFeature)
     implementation(projects.themeM3.eventList.eventListFeature)
     implementation(projects.themeM3.navigation)
-    implementation(projects.uiModels)
-    implementation(projects.shared)
+    implementation(projects.shared.uiModels)
+    implementation(projects.shared.core)
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.material3)

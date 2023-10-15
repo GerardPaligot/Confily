@@ -74,7 +74,7 @@ android {
 
 dependencies {
     implementation(projects.themeM3.main)
-    implementation(projects.shared)
+    implementation(projects.shared.core)
     implementation(libs.settings)
 
     implementation(libs.android.material)

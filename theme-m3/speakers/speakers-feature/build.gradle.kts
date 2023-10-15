@@ -9,7 +9,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.shared)
+    implementation(projects.shared.core)
     implementation(projects.themeM3.schedules.schedulesUi)
     implementation(projects.themeM3.speakers.speakersUi)
     implementation(projects.themeM3.navigation)

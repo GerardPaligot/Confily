@@ -9,7 +9,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.uiModels)
+    implementation(projects.shared.uiModels)
     implementation(projects.themeM3.style)
 
     implementation(platform(libs.androidx.compose.bom))

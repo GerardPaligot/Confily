@@ -7,7 +7,7 @@ plugins {
 }
 
 dependencies {
-    implementation(projects.models)
+    implementation(projects.shared.models)
     implementation(libs.kotlinx.coroutines)
     implementation(libs.kotlinx.datetime)
 
