@@ -33,7 +33,6 @@ fun AgendaVM(
     viewModel: AgendaViewModel = viewModel(
         key = "${tabs.actions.count()}",
         factory = AgendaViewModel.Factory.create(
-            tabs.actions.map { it.route },
             agendaRepository,
             alarmScheduler
         )

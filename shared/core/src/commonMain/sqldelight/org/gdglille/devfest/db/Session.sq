@@ -39,7 +39,7 @@ FOREIGN KEY (talk_id) REFERENCES TalkSession(id)
 );
 
 selectSessions:
-SELECT Session.id, Session.order_, Session.event_id, Session.start_time, Session.end_time, Session.room, Session.is_favorite,
+SELECT Session.id, Session.order_, Session.event_id, Session.date, Session.start_time, Session.end_time, Session.room, Session.is_favorite,
 Session.talk_id, TalkSession.title, TalkSession.abstract, TalkSession.level, TalkSession.language, TalkSession.slide_url, TalkSession.replay_url, TalkSession.open_feedback_url,
 TalkSession.category_id, Category.name AS categoryName, Category.color AS categoryColor, Category.icon AS categoryIcon,
 TalkSession.format_id, Format.name AS formatName, Format.time
@@ -47,13 +47,13 @@ FROM Session
 INNER JOIN TalkSession ON Session.talk_id = TalkSession.id
 INNER JOIN Category ON TalkSession.category_id = Category.id
 INNER JOIN Format ON TalkSession.format_id = Format.id
-WHERE Session.event_id = ? AND date = ?
+WHERE Session.event_id = ?
 ORDER BY start_time;
 
 selectBreakSessions:
-SELECT Session.id, Session.order_, Session.event_id, Session.start_time, Session.end_time, Session.room, Session.is_favorite
+SELECT Session.id, Session.order_, Session.event_id, Session.date, Session.start_time, Session.end_time, Session.room, Session.is_favorite
 FROM Session
-WHERE Session.event_id = ? AND date = ? AND talk_id IS NULL
+WHERE Session.event_id = ? AND talk_id IS NULL
 ORDER BY start_time;
 
 selectDays:

@@ -31,7 +31,8 @@ class AgendaViewModel: ObservableObject {
     private var agendaTask: Task<(), Never>?
     
     func toggleFavoriteFiltering() {
-        repository.toggleFavoriteFiltering()
+        // TODO
+        // repository.toggleFavoriteFiltering()
     }
 
     func fetchAgenda() {
@@ -39,7 +40,9 @@ class AgendaViewModel: ObservableObject {
             do {
                 let stream = asyncStream(for: repository.agendaNative())
                 for try await agenda in stream {
-                    self.uiState = AgendaUiState.success(agenda)
+                    if (!agenda.isEmpty) {
+                        self.uiState = AgendaUiState.success(agenda)
+                    }
                 }
             } catch {
                 self.uiState = AgendaUiState.failure

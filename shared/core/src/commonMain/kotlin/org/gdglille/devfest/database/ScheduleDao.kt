@@ -5,6 +5,7 @@ import app.cash.sqldelight.coroutines.mapToList
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.coroutines.getBooleanFlow
+import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.collections.immutable.toImmutableMap
 import kotlinx.coroutines.Dispatchers
@@ -34,71 +35,73 @@ class ScheduleDao(
     private val settings: ObservableSettings,
     private val platform: Platform
 ) {
-    fun fetchSchedules(eventId: String, date: String): Flow<AgendaUi> {
-        return combine(
-            db.sessionQueries
-                .selectSessions(eventId, date)
-                .asFlow()
-                .mapToList(Dispatchers.IO),
-            db.sessionQueries
-                .selectBreakSessions(eventId, date)
-                .asFlow()
-                .mapToList(Dispatchers.IO),
-            db.categoryQueries
-                .selectSelectedCategories(eventId)
-                .asFlow()
-                .mapToList(Dispatchers.IO),
-            db.formatQueries
-                .selectSelectedFormats(eventId)
-                .asFlow()
-                .mapToList(Dispatchers.IO),
-            settings.getBooleanFlow("ONLY_FAVORITES", false),
-            transform = { sessions, breaks, selectedCategories, selectedFormats, hasFavFilter ->
-                val selectedCategoryIds = selectedCategories.map { it.id }
-                val selectedFormatIds = selectedFormats.map { it.id }
-                val hasCategoryFilter = selectedCategories.isNotEmpty()
-                val hasFormatFilter = selectedFormats.isNotEmpty()
-                val talkItems = sessions
-                    .filter {
-                        val selectedCategory =
-                            if (hasCategoryFilter) selectedCategoryIds.contains(it.category_id) else true
-                        val selectedFormat =
-                            if (hasFormatFilter) selectedFormatIds.contains(it.format_id) else true
-                        val selectedFav = if (hasFavFilter) it.is_favorite else true
-                        when {
-                            hasCategoryFilter && hasFormatFilter.not() && hasFavFilter.not() -> selectedCategory
-                            hasCategoryFilter && hasFormatFilter.not() && hasFavFilter -> selectedCategory && selectedFav
-                            hasCategoryFilter.not() && hasFormatFilter && hasFavFilter.not() -> selectedFormat
-                            hasCategoryFilter.not() && hasFormatFilter && hasFavFilter -> selectedFormat && selectedFav
-                            hasCategoryFilter && hasFormatFilter && hasFavFilter.not() -> selectedCategory && selectedFormat
-                            hasCategoryFilter.not() && hasFormatFilter.not() && hasFavFilter -> selectedFav
-                            hasCategoryFilter && hasFormatFilter && hasFavFilter -> selectedCategory && selectedFormat && selectedFav
-                            else -> true
-                        }
+    fun fetchSchedules(eventId: String): Flow<ImmutableMap<String, AgendaUi>> = combine(
+        db.sessionQueries
+            .selectSessions(eventId)
+            .asFlow()
+            .mapToList(Dispatchers.IO),
+        db.sessionQueries
+            .selectBreakSessions(eventId)
+            .asFlow()
+            .mapToList(Dispatchers.IO),
+        db.categoryQueries
+            .selectSelectedCategories(eventId)
+            .asFlow()
+            .mapToList(Dispatchers.IO),
+        db.formatQueries
+            .selectSelectedFormats(eventId)
+            .asFlow()
+            .mapToList(Dispatchers.IO),
+        settings.getBooleanFlow("ONLY_FAVORITES", false),
+        transform = { sessions, breaks, selectedCategories, selectedFormats, hasFavFilter ->
+            val selectedCategoryIds = selectedCategories.map { it.id }
+            val selectedFormatIds = selectedFormats.map { it.id }
+            val hasCategoryFilter = selectedCategories.isNotEmpty()
+            val hasFormatFilter = selectedFormats.isNotEmpty()
+            val talkItems = sessions
+                .filter {
+                    val selectedCategory =
+                        if (hasCategoryFilter) selectedCategoryIds.contains(it.category_id) else true
+                    val selectedFormat =
+                        if (hasFormatFilter) selectedFormatIds.contains(it.format_id) else true
+                    val selectedFav = if (hasFavFilter) it.is_favorite else true
+                    when {
+                        hasCategoryFilter && hasFormatFilter.not() && hasFavFilter.not() -> selectedCategory
+                        hasCategoryFilter && hasFormatFilter.not() && hasFavFilter -> selectedCategory && selectedFav
+                        hasCategoryFilter.not() && hasFormatFilter && hasFavFilter.not() -> selectedFormat
+                        hasCategoryFilter.not() && hasFormatFilter && hasFavFilter -> selectedFormat && selectedFav
+                        hasCategoryFilter && hasFormatFilter && hasFavFilter.not() -> selectedCategory && selectedFormat
+                        hasCategoryFilter.not() && hasFormatFilter.not() && hasFavFilter -> selectedFav
+                        hasCategoryFilter && hasFormatFilter && hasFavFilter -> selectedCategory && selectedFormat && selectedFav
+                        else -> true
                     }
-                    .map {
-                        val speakers = if (it.talk_id != null) {
-                            db.sessionQueries
-                                .selectSpeakersByTalkId(eventId, it.talk_id)
-                                .executeAsList()
-                        } else {
-                            emptyList()
-                        }
-                        it.convertTalkItemUi(speakers)
-                    } + breaks.map { it.convertTalkItemUi(platform::getString) }
-                AgendaUi(
-                    onlyFavorites = hasFavFilter,
-                    talks = talkItems
-                        .sortedBy { it.slotTime }
-                        .groupBy { it.slotTime }
-                        .mapValues { entry ->
-                            entry.value.sortedBy { it.order }.toImmutableList()
-                        }
-                        .toImmutableMap()
-                )
-            }
-        )
-    }
+                }
+                .map {
+                    val speakers = if (it.talk_id != null) {
+                        db.sessionQueries
+                            .selectSpeakersByTalkId(eventId, it.talk_id)
+                            .executeAsList()
+                    } else {
+                        emptyList()
+                    }
+                    it.convertTalkItemUi(speakers)
+                } + breaks.map { it.convertTalkItemUi(platform::getString) }
+            sessions.distinctBy { it.date }
+                .associate {
+                    it.date to AgendaUi(
+                        onlyFavorites = hasFavFilter,
+                        talks = talkItems
+                            .sortedBy { it.slotTime }
+                            .groupBy { it.slotTime }
+                            .mapValues { entry ->
+                                entry.value.sortedBy { it.order }.toImmutableList()
+                            }
+                            .toImmutableMap()
+                    )
+                }
+                .toImmutableMap()
+        }
+    )
 
     fun fetchFilters(eventId: String): Flow<FiltersUi> {
         return combine(

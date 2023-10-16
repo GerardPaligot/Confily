@@ -23,7 +23,10 @@ kotlin {
         ).forEach {
             it.binaries.framework {
                 baseName = "shared"
+                isStatic = false
                 export(libs.settings)
+                export(projects.shared.models)
+                export(projects.shared.uiModels)
             }
         }
     }

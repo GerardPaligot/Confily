@@ -14,7 +14,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import org.gdglille.devfest.AlarmScheduler
 import org.gdglille.devfest.models.ui.AgendaUi
@@ -30,7 +29,6 @@ sealed class AgendaUiState {
 @FlowPreview
 @ExperimentalCoroutinesApi
 class AgendaViewModel(
-    private val dates: List<String>,
     private val repository: AgendaRepository,
     private val alarmScheduler: AlarmScheduler
 ) : ViewModel() {
@@ -42,10 +40,10 @@ class AgendaViewModel(
     init {
         viewModelScope.launch {
             try {
-                combine(dates.map { repository.agenda(date = it) }) {
-                    it.toList().toImmutableList()
-                }.collect {
-                    _uiState.value = AgendaUiState.Success(it)
+                repository.agenda().collect {
+                    if (it.isNotEmpty()) {
+                        _uiState.value = AgendaUiState.Success(it.values.toImmutableList())
+                    }
                 }
             } catch (error: Throwable) {
                 Firebase.crashlytics.recordException(error)
@@ -61,13 +59,11 @@ class AgendaViewModel(
 
     object Factory {
         fun create(
-            dates: List<String>,
             repository: AgendaRepository,
             alarmScheduler: AlarmScheduler
         ) = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(modelClass: Class<T>): T = AgendaViewModel(
-                dates = dates,
                 repository = repository,
                 alarmScheduler = alarmScheduler
             ) as T

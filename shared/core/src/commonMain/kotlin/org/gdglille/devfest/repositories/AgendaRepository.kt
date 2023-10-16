@@ -3,6 +3,7 @@ package org.gdglille.devfest.repositories
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutineScope
 import com.russhwolf.settings.ExperimentalSettingsApi
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -41,7 +42,7 @@ interface AgendaRepository {
     fun qanda(): Flow<ImmutableList<QuestionAndResponseUi>>
     fun menus(): Flow<ImmutableList<MenuItemUi>>
     fun coc(): Flow<CoCUi>
-    fun agenda(date: String): Flow<AgendaUi>
+    fun agenda(): Flow<ImmutableMap<String, AgendaUi>>
     fun filters(): Flow<FiltersUi>
     fun hasFilterApplied(): Flow<Boolean>
     fun applyFavoriteFilter(selected: Boolean)
@@ -151,9 +152,8 @@ class AgendaRepositoryImpl(
         eventId = eventDao.fetchEventId()
     )
 
-    override fun agenda(date: String): Flow<AgendaUi> = scheduleDao.fetchSchedules(
-        eventId = eventDao.fetchEventId(),
-        date = date
+    override fun agenda(): Flow<ImmutableMap<String, AgendaUi>> = scheduleDao.fetchSchedules(
+        eventId = eventDao.fetchEventId()
     )
 
     override fun filters(): Flow<FiltersUi> = scheduleDao.fetchFilters(

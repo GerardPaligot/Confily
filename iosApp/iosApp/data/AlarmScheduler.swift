@@ -19,7 +19,7 @@ class AlarmScheduler {
     func schedule(talkItem: TalkItemUi) async {
         let scheduleId = talkItem.id
         let isFavorite = !talkItem.isFavorite
-        repository.markAsRead(scheduleId: scheduleId, isFavorite: isFavorite)
+        repository.markAsRead(sessionId: scheduleId, isFavorite: isFavorite)
         if (isFavorite) {
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
                 if (success) {

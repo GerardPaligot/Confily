@@ -10,9 +10,9 @@ import SwiftUI
 import shared
 
 struct Agenda: View {
-    @State private var selectedDate = 0
+    @State private var selectedDate = ""
     let dates: [String]
-    let agendas: [AgendaUi]
+    let agendas: [String : AgendaUi]
     let onFilteringClicked: () -> ()
     let onFavoriteClicked: (TalkItemUi) -> ()
     
@@ -22,16 +22,17 @@ struct Agenda: View {
         onFavoriteClicked: @escaping (TalkItemUi) -> ()
     ) {
         self.dates = agendas.keys.map({ key in key })
-        self.agendas = agendas.values.map({ value in value })
+        self.selectedDate = self.dates.first ?? ""
+        self.agendas = agendas
         self.onFilteringClicked = onFilteringClicked
         self.onFavoriteClicked = onFavoriteClicked
     }
 
     var body: some View {
-        let agenda = self.agendas[selectedDate]
+        let selectedAgenda = self.agendas[self.selectedDate]
         NavigationView {
             VStack {
-                if (self.dates.count > 1) {
+                if (self.agendas.keys.count > 1) {
                     Picker("Days:", selection: $selectedDate) {
                         ForEach(self.dates.indices, id: \.self) { index in
                             Text(self.dates[index]).tag(index)
@@ -40,12 +41,12 @@ struct Agenda: View {
                     .pickerStyle(SegmentedPickerStyle())
                 }
                 List {
-                    if (agenda.onlyFavorites && agenda.talks.isEmpty) {
+                    if (selectedAgenda != nil && selectedAgenda!.onlyFavorites && selectedAgenda!.talks.isEmpty) {
                         NoFavoriteTalksView()
-                    } else {
-                        ForEach(agenda.talks.keys.sorted(), id: \.self) { time in
+                    } else if (selectedAgenda != nil) {
+                        ForEach(selectedAgenda!.talks.keys.sorted(), id: \.self) { time in
                             Section {
-                                ForEach(agenda.talks[time]!, id: \.id) { talk in
+                                ForEach(selectedAgenda!.talks[time]!, id: \.id) { talk in
                                     if (!talk.isPause) {
                                         TalkItemNavigation(
                                             talk: talk,
@@ -78,14 +79,16 @@ struct Agenda: View {
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarItems(trailing:
                 HStack {
+                if (selectedAgenda != nil) {
                     Button(action: {
                         onFilteringClicked()
                     }, label: {
-                        let icon = agenda.onlyFavorites ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle"
+                        let icon = selectedAgenda!.onlyFavorites ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle"
                         Image(systemName: icon)
                             .accessibilityLabel("actionFilteringFavorites")
-                            .accessibilityAddTraits(agenda.onlyFavorites ? .isSelected : [])
+                            .accessibilityAddTraits(selectedAgenda!.onlyFavorites ? .isSelected : [])
                     })
+                }
                 }
             )
         }

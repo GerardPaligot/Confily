@@ -11,18 +11,12 @@ android {
 }
 
 kotlin {
-    android()
+    androidTarget()
     jvm()
     if (OperatingSystem.current().isMacOsX) {
-        listOf(
-            iosX64(),
-            iosArm64(),
-            iosSimulatorArm64()
-        ).forEach {
-            it.binaries.framework {
-                baseName = "models"
-            }
-        }
+        iosX64()
+        iosArm64()
+        iosSimulatorArm64()
     }
 
     sourceSets {

@@ -21,12 +21,13 @@ class ViewModelFactory: ObservableObject {
         let api = ConferenceApi.companion.create(
             platform: platform,
             baseUrl: Configuration.baseURL.absoluteString,
+            acceptLanguage: Locale.preferredLanguages[0],
             enableNetworkLogs: isDebug
         )
         let settings = AppleSettings(delegate: UserDefaults.standard)
         self.agendaRepository = AgendaRepositoryImpl(
             api: api,
-            scheduleDao: ScheduleDao(db: db, settings: settings),
+            scheduleDao: ScheduleDao(db: db, settings: settings, platform: platform),
             speakerDao: SpeakerDao(db: db),
             talkDao: TalkDao(db: db),
             eventDao: EventDao(db: db, settings: settings),
