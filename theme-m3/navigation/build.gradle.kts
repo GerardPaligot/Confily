@@ -8,7 +8,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.themeM3.style)
+    implementation(projects.themeM3.style.theme)
 
     implementation(libs.androidx.annotation)
     implementation(libs.androidx.compose.icons)

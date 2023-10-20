@@ -64,7 +64,7 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                implementation(projects.themeM3.style)
+                implementation(projects.themeM3.style.theme)
                 implementation(libs.ktor.client.android)
                 implementation(libs.sqldelight.android)
                 implementation(libs.zxing)

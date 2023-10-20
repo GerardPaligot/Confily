@@ -12,7 +12,7 @@ dependencies {
     implementation(projects.shared.core)
     implementation(projects.themeM3.infos.infosUi)
     implementation(projects.themeM3.navigation)
-    implementation(projects.themeM3.style)
+    implementation(projects.themeM3.style.theme)
 
     implementation(libs.kotlinx.collections)
 

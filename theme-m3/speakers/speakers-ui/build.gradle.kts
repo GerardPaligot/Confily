@@ -10,7 +10,7 @@ android {
 
 dependencies {
     implementation(projects.shared.uiModels)
-    implementation(projects.themeM3.style)
+    implementation(projects.themeM3.style.theme)
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.material3)
