@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Bolt
@@ -24,14 +23,14 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.toImmutableList
-import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.ShortTalk
-import org.gdglille.devfest.android.theme.m3.schedules.ui.speakers.SpeakersAvatar
 import org.gdglille.devfest.android.theme.m3.schedules.ui.tags.DecorativeTag
 import org.gdglille.devfest.android.theme.m3.schedules.ui.tags.LevelTag
-import org.gdglille.devfest.android.theme.m3.style.tags.Tag
-import org.gdglille.devfest.android.theme.m3.style.tags.TagDefaults
+import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.ShortTalk
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.R
+import org.gdglille.devfest.android.theme.m3.style.speakers.avatars.MediumBorderedSpeakersAvatar
+import org.gdglille.devfest.android.theme.m3.style.tags.Tag
+import org.gdglille.devfest.android.theme.m3.style.tags.TagDefaults
 import org.gdglille.devfest.models.ui.TalkUi
 
 @Composable
@@ -65,11 +64,9 @@ fun TalkSection(
                 LevelTag(level = it)
             }
             Spacer(modifier = Modifier.weight(1f))
-            SpeakersAvatar(
-                speakersName = talk.speakers.map { it.name }.toImmutableList(),
-                speakersAvatar = talk.speakers.map { it.url }.toImmutableList(),
-                modifier = Modifier.height(40.dp),
-                betweenSpacing = 6.dp
+            MediumBorderedSpeakersAvatar(
+                urls = talk.speakers.map { it.url }.toImmutableList(),
+                descriptions = talk.speakers.map { it.name }.toImmutableList(),
             )
         }
         Text(text = talk.title, color = color, style = titleTextStyle)

@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -20,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.placeholder
+import org.gdglille.devfest.android.theme.m3.style.speakers.avatar.LargeSpeakerAvatar
 import org.gdglille.devfest.models.ui.SpeakerItemUi
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -39,15 +39,17 @@ fun SpeakerItem(
         onClick = { onClick(speakerUi) }
     ) {
         Column {
-            SpeakerAvatar(
+            LargeSpeakerAvatar(
                 url = speakerUi.url,
                 contentDescription = null,
-                modifier = Modifier.fillMaxWidth().aspectRatio(1f),
-                shape = MaterialTheme.shapes.extraSmall
-                    .copy(bottomEnd = CornerSize(0.dp), bottomStart = CornerSize(0.dp))
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(1f),
             )
             Column(
-                modifier = Modifier.fillMaxWidth().padding(8.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
                 verticalArrangement = Arrangement.spacedBy(2.dp)
             ) {
                 Text(
