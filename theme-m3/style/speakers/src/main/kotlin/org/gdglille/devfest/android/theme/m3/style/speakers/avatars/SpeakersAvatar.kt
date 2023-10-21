@@ -19,11 +19,13 @@ import org.gdglille.devfest.android.theme.m3.style.speakers.avatar.SmallBordered
 @Composable
 fun SmallBorderedSpeakersAvatar(
     urls: ImmutableList<String>,
-    descriptions: ImmutableList<String>,
+    descriptions: ImmutableList<String>?,
     modifier: Modifier = Modifier,
 ) {
-    require(urls.size == descriptions.size) {
-        "Urls and descriptions arrays should have the exact same size."
+    if (descriptions != null) {
+        require(urls.size == descriptions.size) {
+            "Urls and descriptions arrays should have the exact same size."
+        }
     }
     val height = BorderedSpeakerAvatarSmallTokens.ContainerHeight.value
     val spacingPx = with(LocalDensity.current) { 4.dp.toPx() }
@@ -34,7 +36,7 @@ fun SmallBorderedSpeakersAvatar(
             Box(modifier = modifierPadding) {
                 SmallBorderedSpeakerAvatar(
                     url = url,
-                    contentDescription = descriptions[index]
+                    contentDescription = descriptions?.getOrNull(index)
                 )
             }
         }
@@ -44,11 +46,13 @@ fun SmallBorderedSpeakersAvatar(
 @Composable
 fun MediumBorderedSpeakersAvatar(
     urls: ImmutableList<String>,
-    descriptions: ImmutableList<String>,
+    descriptions: ImmutableList<String>?,
     modifier: Modifier = Modifier,
 ) {
-    require(urls.size == descriptions.size) {
-        "Urls and descriptions arrays should have the exact same size."
+    if (descriptions != null) {
+        require(urls.size == descriptions.size) {
+            "Urls and descriptions arrays should have the exact same size."
+        }
     }
     val height = BorderedSpeakerAvatarMediumTokens.ContainerHeight.value
     val spacingPx = with(LocalDensity.current) { 4.dp.toPx() }
@@ -59,7 +63,7 @@ fun MediumBorderedSpeakersAvatar(
             Box(modifier = modifierPadding) {
                 MediumBorderedSpeakerAvatar(
                     url = url,
-                    contentDescription = descriptions[index]
+                    contentDescription = descriptions?.getOrNull(index)
                 )
             }
         }
