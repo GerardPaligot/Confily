@@ -14,9 +14,9 @@ import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.collections.immutable.persistentMapOf
 import org.gdglille.devfest.android.theme.m3.style.chips.FilterChip
-import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.ShortTalk
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.R
+import org.gdglille.devfest.android.theme.m3.style.schedules.findTimeImageVector
 import org.gdglille.devfest.models.ui.FormatUi
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -38,7 +38,7 @@ fun FormatListFilters(
                 FilterChip(
                     label = entry.key.name,
                     selected = entry.value,
-                    imageVector = if (entry.key.time <= ShortTalk) Icons.Outlined.Bolt else Icons.Outlined.Timer,
+                    imageVector = entry.key.time.findTimeImageVector(),
                     onClick = { onClick(entry.key, it) }
                 )
             }

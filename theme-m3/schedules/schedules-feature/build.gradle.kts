@@ -12,6 +12,7 @@ dependencies {
     implementation(projects.shared.core)
     implementation(projects.themeM3.schedules.schedulesUi)
     implementation(projects.themeM3.navigation)
+    implementation(projects.themeM3.style.schedules)
     implementation(projects.themeM3.style.theme)
 
     implementation(libs.kotlinx.collections)

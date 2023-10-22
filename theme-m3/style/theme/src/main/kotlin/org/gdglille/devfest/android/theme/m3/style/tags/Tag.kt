@@ -56,7 +56,7 @@ fun Tag(
 @Suppress("LongMethod")
 @Preview
 @Composable
-fun TagPreview() {
+private fun TagPreview() {
     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
         Conferences4HallTheme {
             Column(

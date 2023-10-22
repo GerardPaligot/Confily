@@ -76,7 +76,7 @@ class MainActivity : ComponentActivity() {
         val agendaRepository = AgendaRepository.Factory.create(
             api = api,
             scheduleDao = ScheduleDao(db, settings, platform),
-            speakerDao = SpeakerDao(db),
+            speakerDao = SpeakerDao(db, platform),
             talkDao = TalkDao(db),
             eventDao = EventDao(db, settings),
             partnerDao = PartnerDao(db = db, platform = platform),
@@ -89,7 +89,7 @@ class MainActivity : ComponentActivity() {
             qrCodeGenerator = QrCodeGeneratorAndroid()
         )
         val speakerRepository = SpeakerRepository.Factory.create(
-            speakerDao = SpeakerDao(db),
+            speakerDao = SpeakerDao(db, platform),
             eventDao = EventDao(db, settings)
         )
         val scheduler = AlarmScheduler(

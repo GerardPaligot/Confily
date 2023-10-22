@@ -6,9 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Bolt
 import androidx.compose.material.icons.outlined.Schedule
-import androidx.compose.material.icons.outlined.Timer
 import androidx.compose.material.icons.outlined.Videocam
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -23,12 +21,12 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.toImmutableList
-import org.gdglille.devfest.android.theme.m3.schedules.ui.tags.DecorativeTag
-import org.gdglille.devfest.android.theme.m3.schedules.ui.tags.LevelTag
-import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.ShortTalk
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.R
+import org.gdglille.devfest.android.theme.m3.style.schedules.findCategoryImageVector
+import org.gdglille.devfest.android.theme.m3.style.schedules.findTimeImageVector
 import org.gdglille.devfest.android.theme.m3.style.speakers.avatars.MediumBorderedSpeakersAvatar
+import org.gdglille.devfest.android.theme.m3.style.tags.AutoColoredTag
 import org.gdglille.devfest.android.theme.m3.style.tags.Tag
 import org.gdglille.devfest.android.theme.m3.style.tags.TagDefaults
 import org.gdglille.devfest.models.ui.TalkUi
@@ -56,12 +54,14 @@ fun TalkSection(
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            talk.category.color?.let {
-                DecorativeTag(category = talk.category)
-            }
+            AutoColoredTag(
+                text = talk.category.name,
+                colorName = talk.category.color,
+                icon = talk.category.icon?.findCategoryImageVector()
+            )
             Spacer(modifier = Modifier.width(8.dp))
             talk.level?.let {
-                LevelTag(level = it)
+                Tag(text = it, colors = TagDefaults.gravelColors())
             }
             Spacer(modifier = Modifier.weight(1f))
             MediumBorderedSpeakersAvatar(
@@ -83,11 +83,7 @@ fun TalkSection(
             )
             Tag(
                 text = stringResource(R.string.text_schedule_minutes, talk.timeInMinutes.toString()),
-                icon = if (talk.timeInMinutes <= ShortTalk) {
-                    Icons.Outlined.Bolt
-                } else {
-                    Icons.Outlined.Timer
-                },
+                icon = talk.timeInMinutes.findTimeImageVector(),
                 colors = TagDefaults.unStyledColors()
             )
         }

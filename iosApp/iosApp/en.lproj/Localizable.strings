@@ -50,6 +50,12 @@
 "textJobRequirements" = "years min";
 "textJobPropulsed" = "Propulsed by";
 "textFeedbackNotStarted" = "Wait a little, you will be able to give feedbacks when the session has started.";
+"text_schedule_minutes" = "%@ minutes";
+"text_speakers_list.one" = "%@ and %@ other";
+"text_speakers_list.other" = "%@ and %@ others";
+"text_level_beginner" = "Débutant";
+"text_level_intermediate" = "Intermédiaire";
+"text_level_advanced" = "Avancé";
 
 "actionFeedback" = "Give your feedback";
 "actionItinerary" = "Itinerary";

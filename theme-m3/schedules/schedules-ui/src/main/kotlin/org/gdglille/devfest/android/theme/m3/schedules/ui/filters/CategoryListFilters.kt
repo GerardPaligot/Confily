@@ -11,9 +11,9 @@ import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.collections.immutable.persistentMapOf
 import org.gdglille.devfest.android.theme.m3.style.chips.FilterChip
-import org.gdglille.devfest.android.theme.m3.schedules.ui.tags.iconVector
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.R
+import org.gdglille.devfest.android.theme.m3.style.schedules.findCategoryImageVector
 import org.gdglille.devfest.models.ui.CategoryUi
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -35,7 +35,7 @@ fun CategoryListFilters(
                 FilterChip(
                     label = entry.key.name,
                     selected = entry.value,
-                    imageVector = entry.key.iconVector(),
+                    imageVector = entry.key.icon?.findCategoryImageVector(),
                     onClick = { onClick(entry.key, it) }
                 )
             }

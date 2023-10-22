@@ -28,6 +28,21 @@ object TagDefaults {
     val shape: Shape @Composable get() = MaterialTheme.shapes.small
 
     val textStyle: TextStyle @Composable get() = MaterialTheme.typography.bodySmall
+    
+    @Composable
+    fun colors(colorName: String): TagColors {
+        return when(colorName) {
+            "amethyst" -> amethystColors()
+            "brick" -> brickColors()
+            "cobalt" -> cobaltColors()
+            "emerald" -> emeraldColors()
+            "gold" -> goldColors()
+            "gravel" -> gravelColors()
+            "jade" -> jadeColors()
+            "saffron" -> saffronColors()
+            else -> unStyledColors()
+        }
+    }
 
     @Composable
     fun amethystColors(

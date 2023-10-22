@@ -23,9 +23,26 @@ actual class Platform actual constructor(private val context: PlatformContext) {
     actual val hasSupportSVG: Boolean = true
     actual fun getString(key: String): String {
         val androidContext = context.context
-        val resourceId = androidContext.resources.getIdentifier(key, "string", androidContext.packageName)
+        val resourceId =
+            androidContext.resources.getIdentifier(key, "string", androidContext.packageName)
         if (resourceId == 0) return key
         return androidContext.getString(resourceId)
+    }
+
+    actual fun getString(key: String, count: Int, args: List<Any>): String {
+        val androidContext = context.context
+        val resourceId =
+            androidContext.resources.getIdentifier(key, "plurals", androidContext.packageName)
+        if (resourceId == 0) return key
+        return androidContext.resources.getQuantityString(resourceId, count, args)
+    }
+
+    actual fun getString(key: String, args: List<Any>): String {
+        val androidContext = context.context
+        val resourceId =
+            androidContext.resources.getIdentifier(key, "string", androidContext.packageName)
+        if (resourceId == 0) return key
+        return androidContext.getString(resourceId, *args.toTypedArray())
     }
 }
 

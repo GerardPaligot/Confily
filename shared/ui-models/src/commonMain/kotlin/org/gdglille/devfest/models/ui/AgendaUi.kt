@@ -13,10 +13,19 @@ data class AgendaUi(
         val fake = AgendaUi(
             onlyFavorites = false,
             talks = persistentMapOf(
-                "10:00" to persistentListOf(TalkItemUi.fake, TalkItemUi.fake),
-                "11:00" to persistentListOf(TalkItemUi.fake, TalkItemUi.fake),
+                "10:00" to persistentListOf(
+                    TalkItemUi.fake.copy(id = "1"),
+                    TalkItemUi.fake.copy(id = "2")
+                ),
+                "11:00" to persistentListOf(
+                    TalkItemUi.fake.copy(id = "3"),
+                    TalkItemUi.fake.copy(id = "4")
+                ),
                 "12:00" to persistentListOf(TalkItemUi.fakePause),
-                "13:00" to persistentListOf(TalkItemUi.fake, TalkItemUi.fake),
+                "13:00" to persistentListOf(
+                    TalkItemUi.fake.copy(id = "5"),
+                    TalkItemUi.fake.copy(id = "6")
+                ),
             )
         )
     }

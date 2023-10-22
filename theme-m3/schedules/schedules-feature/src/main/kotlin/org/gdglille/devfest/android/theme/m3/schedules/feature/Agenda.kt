@@ -1,27 +1,25 @@
 package org.gdglille.devfest.android.theme.m3.schedules.feature
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.NoFavoriteTalks
-import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.PauseItem
-import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.TalkItem
+import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.ScheduleItem
 import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.Time
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.placeholder
+import org.gdglille.devfest.android.theme.m3.style.schedules.findTimeImageVector
+import org.gdglille.devfest.android.theme.m3.style.schedules.pause.PauseItem
 import org.gdglille.devfest.models.ui.AgendaUi
 import org.gdglille.devfest.models.ui.TalkItemUi
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun Agenda(
     agenda: AgendaUi,
@@ -42,17 +40,21 @@ fun Agenda(
                 item {
                     Time(time = slot.key, modifier = Modifier.placeholder(visible = isLoading))
                 }
-                items(slot.value.toList()) {
+                items(slot.value.toList(), key = { it.id }) {
                     if (it.isPause) {
-                        PauseItem(title = it.title)
+                        PauseItem(
+                            title = it.title,
+                            room = it.room,
+                            time = it.time,
+                            timeImageVector = it.timeInMinutes.findTimeImageVector(),
+                            modifier = Modifier.placeholder(visible = isLoading)
+                        )
                     } else {
-                        TalkItem(
+                        ScheduleItem(
                             talk = it,
-                            onTalkClicked = onTalkClicked,
+                            modifier = Modifier.placeholder(visible = isLoading),
                             onFavoriteClicked = onFavoriteClicked,
-                            modifier = Modifier
-                                .placeholder(visible = isLoading)
-                                .animateItemPlacement()
+                            onTalkClicked = onTalkClicked
                         )
                     }
                 }
@@ -61,7 +63,6 @@ fun Agenda(
     }
 }
 
-@ExperimentalMaterial3Api
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Preview
 @Composable

@@ -10,6 +10,7 @@ import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
+import org.gdglille.devfest.Platform
 import org.gdglille.devfest.database.mappers.SpeakerMappers
 import org.gdglille.devfest.database.mappers.convertTalkItemUi
 import org.gdglille.devfest.db.Conferences4HallDatabase
@@ -17,7 +18,10 @@ import org.gdglille.devfest.models.ui.SpeakerItemUi
 import org.gdglille.devfest.models.ui.SpeakerUi
 import org.gdglille.devfest.models.ui.TalkItemUi
 
-class SpeakerDao(private val db: Conferences4HallDatabase) {
+class SpeakerDao(
+    private val db: Conferences4HallDatabase,
+    private val platform: Platform
+) {
     fun fetchSpeaker(eventId: String, speakerId: String): Flow<SpeakerUi> {
         return combine(
             db.speakerQueries.selectSpeaker(speakerId, eventId, SpeakerMappers.speakerUi)
@@ -42,10 +46,13 @@ class SpeakerDao(private val db: Conferences4HallDatabase) {
                 talks
                     .map { talk ->
                         talk.convertTalkItemUi(
-                            db.sessionQueries
+                            getString = platform::getString,
+                            getStringArg = platform::getString,
+                            getPluralsArg = platform::getString,
+                            session = db.sessionQueries
                                 .selectSessionByTalkId(eventId, talk.id)
                                 .executeAsOne(),
-                            db.sessionQueries
+                            speakers = db.sessionQueries
                                 .selectSpeakersByTalkId(eventId, talk.id)
                                 .executeAsList()
                         )

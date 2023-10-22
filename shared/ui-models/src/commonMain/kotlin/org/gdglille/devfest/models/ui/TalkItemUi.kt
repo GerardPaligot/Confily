@@ -10,6 +10,7 @@ data class TalkItemUi(
     val startTime: String,
     val endTime: String,
     val timeInMinutes: Int,
+    val time: String,
     val room: String,
     val level: String?,
     val title: String,
@@ -17,6 +18,7 @@ data class TalkItemUi(
     val category: CategoryUi,
     val speakers: ImmutableList<String>,
     val speakersAvatar: ImmutableList<String>,
+    val speakersLabel: String,
     val isFavorite: Boolean
 ) {
     val isPause: Boolean = id.contains("-pause")
@@ -28,6 +30,7 @@ data class TalkItemUi(
             startTime = "2022-06-10T09:00:00.000",
             endTime = "2022-06-10T09:50:00.000",
             timeInMinutes = 50,
+            time = "50 minutes",
             room = "Salle 700",
             level = "beginner",
             title = "Designers x Developers : Ça match \uD83D\uDC99 ou ça match \uD83E\uDD4A ?",
@@ -38,6 +41,7 @@ data class TalkItemUi(
                 "https://storage.googleapis.com/conferences4hall/2022/speakers/0YOIreL1mbP7tKcTfX5TSaUI6VN2.png",
                 "https://storage.googleapis.com/conferences4hall/2022/speakers/w9Lt3a83WkPU1duFnlNxDZcxfsn2.png"
             ),
+            speakersLabel = "Sabrina and Simon",
             isFavorite = false
         )
         val fakePause = TalkItemUi(
@@ -47,13 +51,15 @@ data class TalkItemUi(
             startTime = "2022-06-10T10:50:00.000",
             endTime = "2022-06-10T11:10:00.000",
             timeInMinutes = 20,
+            time = "20 minutes",
             room = "Salle Lumière",
             level = null,
             title = "Pause ☕️",
             abstract = "",
-            category = CategoryUi(id = "", name = "", color = null, icon = null),
+            category = CategoryUi.fake,
             speakers = persistentListOf(),
             speakersAvatar = persistentListOf(),
+            speakersLabel = "",
             isFavorite = false
         )
     }

@@ -84,8 +84,13 @@ class ScheduleDao(
                     } else {
                         emptyList()
                     }
-                    it.convertTalkItemUi(speakers)
-                } + breaks.map { it.convertTalkItemUi(platform::getString) }
+                    it.convertTalkItemUi(
+                        getString = platform::getString,
+                        getStringArg = platform::getString,
+                        getPluralsArg = platform::getString,
+                        speakers = speakers
+                    )
+                } + breaks.map { it.convertTalkItemUi(platform::getString, platform::getString) }
             sessions.distinctBy { it.date }
                 .associate {
                     it.date to AgendaUi(

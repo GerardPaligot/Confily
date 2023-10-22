@@ -5,23 +5,17 @@ plugins {
 }
 
 android {
-    namespace = "org.gdglille.devfest.android.theme.m3.schedules.ui"
+    namespace = "org.gdglille.devfest.android.theme.m3.style.schedules"
 }
 
 dependencies {
-    implementation(projects.shared.uiModels)
-    implementation(projects.themeM3.speakers.speakersUi)
-    implementation(projects.themeM3.navigation)
-    implementation(projects.themeM3.style.schedules)
     implementation(projects.themeM3.style.speakers)
     implementation(projects.themeM3.style.theme)
-
-    implementation(libs.kotlinx.collections)
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.tooling)
     implementation(libs.androidx.compose.icons)
-    implementation(libs.compose.richtext)
-    api(libs.compose.openfeedback.m3)
+
+    implementation(libs.kotlinx.collections)
 }

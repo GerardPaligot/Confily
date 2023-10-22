@@ -28,7 +28,7 @@ class ViewModelFactory: ObservableObject {
         self.agendaRepository = AgendaRepositoryImpl(
             api: api,
             scheduleDao: ScheduleDao(db: db, settings: settings, platform: platform),
-            speakerDao: SpeakerDao(db: db),
+            speakerDao: SpeakerDao(db: db, platform: platform),
             talkDao: TalkDao(db: db),
             eventDao: EventDao(db: db, settings: settings),
             partnerDao: PartnerDao(db: db, platform: platform),
