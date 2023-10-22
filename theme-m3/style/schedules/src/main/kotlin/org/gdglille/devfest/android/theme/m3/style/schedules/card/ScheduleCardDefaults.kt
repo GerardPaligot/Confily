@@ -5,9 +5,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
-import org.gdglille.devfest.android.theme.m3.style.ColorSchemeTokens
-import org.gdglille.devfest.android.theme.m3.style.ShapeTokens
-import org.gdglille.devfest.android.theme.m3.style.TextStyleTokens
 import org.gdglille.devfest.android.theme.m3.style.toColor
 import org.gdglille.devfest.android.theme.m3.style.toShape
 import org.gdglille.devfest.android.theme.m3.style.toTextStyle
@@ -15,17 +12,17 @@ import org.gdglille.devfest.android.theme.m3.style.toTextStyle
 object ScheduleCardDefaults {
     val style: TextStyle
         @Composable
-        get() = TextStyleTokens.TitleMedium.toTextStyle()
+        get() = ScheduleCardTokens.TitleTextStyle.toTextStyle()
 
     val shape: Shape
         @Composable
-        get() = ShapeTokens.MediumShape.toShape()
+        get() = ScheduleCardTokens.ContainerShape.toShape()
 
     @Composable
     fun cardColors(
-        titleColor: Color = ColorSchemeTokens.OnSurfaceColor.toColor(),
-        favoriteColor: Color = ColorSchemeTokens.SecondaryColor.toColor(),
-        unFavoriteColor: Color = ColorSchemeTokens.OnBackgroundColor.toColor()
+        titleColor: Color = ScheduleCardTokens.TitleColor.toColor(),
+        favoriteColor: Color = ScheduleCardTokens.IconFavoriteColor.toColor(),
+        unFavoriteColor: Color = ScheduleCardTokens.IconUnFavoriteColor.toColor()
     ): ScheduleCardColors = remember(titleColor, favoriteColor, unFavoriteColor) {
         ScheduleCardColors(
             titleColor = titleColor,
