@@ -4,11 +4,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
+import org.gdglille.devfest.android.theme.m3.style.ColorSchemeTokens
+import org.gdglille.devfest.android.theme.m3.style.toColor
 
 object PauseItemDefaults {
     val containerColor: Color
         @Composable
-        get() = PauseItemColorTokens.SurfaceColor.toColor()
+        get() = ColorSchemeTokens.SurfaceColor.toColor()
 
     val titleTextStyle: TextStyle
         @Composable

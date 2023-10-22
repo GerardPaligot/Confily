@@ -3,6 +3,7 @@ package org.gdglille.devfest.android.theme.m3.style.speakers.avatars
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import org.gdglille.devfest.android.theme.m3.style.toColor
 
 object LabeledSpeakersAvatarDefaults {
     val smallTextStyle: TextStyle

@@ -1,5 +1,7 @@
 package org.gdglille.devfest.android.theme.m3.style.speakers.avatar
 
+import org.gdglille.devfest.android.theme.m3.style.ColorSchemeTokens
+
 internal object SpeakerAvatarTokens {
-    val ContainerColor = SpeakerAvatarColorTokens.PrimaryColor
+    val ContainerColor = ColorSchemeTokens.PrimaryColor
 }

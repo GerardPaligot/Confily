@@ -23,7 +23,7 @@ fun SmallLabeledSpeakersAvatar(
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(LabeledSpeakersAvatarSizingTokens.SmallSpacing.toDp()),
+        horizontalArrangement = Arrangement.spacedBy(LabeledSpeakersAvatarSmallTokens.SpacingBetween.toDp()),
         modifier = modifier
     ) {
         SmallBorderedSpeakersAvatar(urls = urls, descriptions = null)
