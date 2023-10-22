@@ -123,6 +123,7 @@
     <string name="semantic_website">Site de %s</string>
     <string name="semantic_start_itinerary">Démarrer l\'itinéraire vers l\'évènement</string>
     <string name="semantic_talk_item">%s %s dans la salle %s pendant %d minutes dans la catégorie %s %s</string>
+    <string name="semantic_pause_item">Pause dans %s pendant %s</string>
     <string name="semantic_talk_item_speakers">avec %s comme speaker</string>
     <string name="semantic_talk_item_level">pour niveau %s</string>
     <string name="semantic_user_item_email">Addresse e-mail %s</string>

@@ -16,9 +16,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
+import org.gdglille.devfest.android.theme.m3.style.R
 import org.gdglille.devfest.android.theme.m3.style.tags.Tag
 import org.gdglille.devfest.android.theme.m3.style.tags.TagDefaults
 import org.gdglille.devfest.android.theme.m3.style.toDp
@@ -35,13 +39,14 @@ fun PauseItem(
     titleTextStyle: TextStyle = PauseItemDefaults.titleTextStyle,
     shape: Shape = PauseItemDefaults.shape
 ) {
+    val contentDescription = stringResource(id = R.string.semantic_pause_item, room, time)
     Surface(shape = shape, color = containerColor, modifier = modifier) {
         Column(
             verticalArrangement = Arrangement.spacedBy(PauseItemTokens.BetweenSpacing.toDp()),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(PauseItemTokens.ContainerPadding.toDp())
-            // TODO .clearAndSetSemantics { contentDescription = semanticTalk }
+                .clearAndSetSemantics { this.contentDescription = contentDescription }
         ) {
             Text(
                 text = title,
