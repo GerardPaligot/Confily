@@ -19,8 +19,10 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
+import org.gdglille.devfest.android.theme.m3.style.SpacingTokens
 import org.gdglille.devfest.android.theme.m3.style.tags.Tag
 import org.gdglille.devfest.android.theme.m3.style.tags.TagDefaults
+import org.gdglille.devfest.android.theme.m3.style.toDp
 
 @Composable
 fun PauseItem(
@@ -36,10 +38,10 @@ fun PauseItem(
 ) {
     Surface(shape = shape, color = containerColor, modifier = modifier) {
         Column(
-            verticalArrangement = Arrangement.spacedBy(PauseItemSizingTokens.SmallSpacing.toDp()),
+            verticalArrangement = Arrangement.spacedBy(SpacingTokens.MediumSpacing.toDp()),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(PauseItemSizingTokens.SmallPadding.toDp())
+                .padding(SpacingTokens.LargeSpacing.toDp())
             // TODO .clearAndSetSemantics { contentDescription = semanticTalk }
         ) {
             Text(

@@ -32,7 +32,9 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.R
+import org.gdglille.devfest.android.theme.m3.style.SpacingTokens
 import org.gdglille.devfest.android.theme.m3.style.speakers.avatars.SmallLabeledSpeakersAvatar
+import org.gdglille.devfest.android.theme.m3.style.toDp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -59,7 +61,7 @@ fun ScheduleCard(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(ScheduleCardSizingTokens.MediumPadding.toDp())
+                    .padding(SpacingTokens.LargeSpacing.toDp())
                     .then(semanticModifier)
             ) {
                 if (topBar != null) {
@@ -67,14 +69,14 @@ fun ScheduleCard(
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
                         content = topBar
                     )
-                    Spacer(modifier = Modifier.height(ScheduleCardSizingTokens.MediumSpacing.toDp()))
+                    Spacer(modifier = Modifier.height(SpacingTokens.MediumSpacing.toDp()))
                 }
                 Text(text = title, color = colors.titleColor, style = style)
                 if (speakersUrls.isNotEmpty()) {
-                    Spacer(modifier = Modifier.height(ScheduleCardSizingTokens.MediumSpacing.toDp()))
+                    Spacer(modifier = Modifier.height(SpacingTokens.MediumSpacing.toDp()))
                     SmallLabeledSpeakersAvatar(label = speakersLabel, urls = speakersUrls)
                 }
-                Spacer(modifier = Modifier.height(ScheduleCardSizingTokens.SmallSpacing.toDp()))
+                Spacer(modifier = Modifier.height(SpacingTokens.SmallSpacing.toDp()))
                 if (bottomBar != null) {
                     Row(content = bottomBar)
                 }
@@ -83,7 +85,7 @@ fun ScheduleCard(
                 IconButton(
                     onClick = onFavoriteClick,
                     modifier = Modifier
-                        .padding(ScheduleCardSizingTokens.SmallPadding.toDp())
+                        .padding(SpacingTokens.SmallSpacing.toDp())
                         .align(Alignment.TopEnd)
                 ) {
                     Icon(
