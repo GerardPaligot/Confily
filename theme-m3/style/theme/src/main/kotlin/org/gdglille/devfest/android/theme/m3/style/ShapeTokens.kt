@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.style.speakers.avatar
+package org.gdglille.devfest.android.theme.m3.style
 
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerSize
@@ -9,21 +9,23 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
 
-internal enum class SpeakerAvatarShapeTokens {
+enum class ShapeTokens {
     CircleShape,
-    TopRoundedShape
+    ExtraSmallTopShape,
+    MediumShape
 }
 
-internal fun Shapes.fromToken(value: SpeakerAvatarShapeTokens): Shape {
+internal fun Shapes.fromToken(value: ShapeTokens): Shape {
     return when (value) {
-        SpeakerAvatarShapeTokens.CircleShape -> CircleShape
-        SpeakerAvatarShapeTokens.TopRoundedShape -> extraSmall
+        ShapeTokens.CircleShape -> CircleShape
+        ShapeTokens.ExtraSmallTopShape -> extraSmall
             .copy(bottomEnd = CornerSize(0.dp), bottomStart = CornerSize(0.dp))
+        ShapeTokens.MediumShape -> medium
     }
 }
 
 @Composable
 @ReadOnlyComposable
-internal fun SpeakerAvatarShapeTokens.toShape(): Shape {
+fun ShapeTokens.toShape(): Shape {
     return MaterialTheme.shapes.fromToken(this)
 }

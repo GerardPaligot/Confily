@@ -1,5 +1,7 @@
 package org.gdglille.devfest.android.theme.m3.style.speakers.avatar
 
+import org.gdglille.devfest.android.theme.m3.style.ShapeTokens
+
 internal object SpeakerAvatarLargeTokens {
-    val ContainerShape = SpeakerAvatarShapeTokens.TopRoundedShape
+    val ContainerShape = ShapeTokens.ExtraSmallTopShape
 }

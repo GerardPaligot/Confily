@@ -7,6 +7,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.graphics.painter.Painter
 import org.gdglille.devfest.android.theme.m3.style.toColor
+import org.gdglille.devfest.android.theme.m3.style.toShape
 
 object SpeakerAvatarDefaults {
     val placeholder: Painter
@@ -34,14 +35,14 @@ object SpeakerAvatarDefaults {
     val borderedSmall: BorderStroke
         @Composable
         get() = BorderStroke(
-            width = BorderedSpeakerAvatarSmallTokens.BorderWidth.toDp(),
+            width = BorderedSpeakerAvatarSmallTokens.BorderWidth,
             color = contentColorFor(SpeakerAvatarTokens.ContainerColor.toColor()),
         )
 
     val borderedMedium: BorderStroke
         @Composable
         get() = BorderStroke(
-            width = BorderedSpeakerAvatarMediumTokens.BorderWidth.toDp(),
+            width = BorderedSpeakerAvatarMediumTokens.BorderWidth,
             color = contentColorFor(SpeakerAvatarTokens.ContainerColor.toColor()),
         )
 }

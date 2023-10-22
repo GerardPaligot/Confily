@@ -6,8 +6,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import org.gdglille.devfest.android.theme.m3.style.ColorSchemeTokens
+import org.gdglille.devfest.android.theme.m3.style.ShapeTokens
 import org.gdglille.devfest.android.theme.m3.style.TextStyleTokens
 import org.gdglille.devfest.android.theme.m3.style.toColor
+import org.gdglille.devfest.android.theme.m3.style.toShape
 import org.gdglille.devfest.android.theme.m3.style.toTextStyle
 
 object ScheduleCardDefaults {
@@ -17,7 +19,7 @@ object ScheduleCardDefaults {
 
     val shape: Shape
         @Composable
-        get() = ScheduleCardShapeTokens.ContainerShape.toShape()
+        get() = ShapeTokens.MediumShape.toShape()
 
     @Composable
     fun cardColors(
