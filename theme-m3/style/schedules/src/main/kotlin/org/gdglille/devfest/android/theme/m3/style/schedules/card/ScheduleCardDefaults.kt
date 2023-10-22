@@ -6,12 +6,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import org.gdglille.devfest.android.theme.m3.style.ColorSchemeTokens
+import org.gdglille.devfest.android.theme.m3.style.TextStyleTokens
 import org.gdglille.devfest.android.theme.m3.style.toColor
+import org.gdglille.devfest.android.theme.m3.style.toTextStyle
 
 object ScheduleCardDefaults {
     val style: TextStyle
         @Composable
-        get() = ScheduleCardTextStyleTokens.TitleMedium.toTextStyle()
+        get() = TextStyleTokens.TitleMedium.toTextStyle()
 
     val shape: Shape
         @Composable
