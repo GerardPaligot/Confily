@@ -7,12 +7,14 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.text.TextStyle
 
 enum class TextStyleTokens {
+    TitleLarge,
     TitleMedium,
     BodyMedium
 }
 
 internal fun Typography.fromToken(value: TextStyleTokens): TextStyle {
     return when (value) {
+        TextStyleTokens.TitleLarge -> titleLarge
         TextStyleTokens.TitleMedium -> titleMedium
         TextStyleTokens.BodyMedium -> bodyMedium
     }
