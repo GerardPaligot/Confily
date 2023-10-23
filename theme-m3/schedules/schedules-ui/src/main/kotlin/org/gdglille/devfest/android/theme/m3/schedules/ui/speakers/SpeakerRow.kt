@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.speakers.ui
+package org.gdglille.devfest.android.theme.m3.schedules.ui.speakers
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -8,12 +8,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
+import org.gdglille.devfest.android.theme.m3.style.SpacingTokens
 import org.gdglille.devfest.android.theme.m3.style.placeholder
 import org.gdglille.devfest.android.theme.m3.style.speakers.items.LargeSpeakerItem
+import org.gdglille.devfest.android.theme.m3.style.toDp
 import org.gdglille.devfest.models.ui.SpeakerItemUi
 
 @Composable
@@ -24,15 +25,18 @@ fun SpeakerItemRow(
     isLoading: Boolean = false,
     onSpeakerItemClick: (SpeakerItemUi) -> Unit,
 ) {
+    val horizontalSpacing = SpacingTokens.MediumSpacing.toDp()
     BoxWithConstraints(modifier = modifier.fillMaxWidth()) {
-        val width = (this.maxWidth - (8.dp * (maxItems - 1))) / maxItems
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        val width = (this.maxWidth - (horizontalSpacing * (maxItems - 1))) / maxItems
+        Row(horizontalArrangement = Arrangement.spacedBy(horizontalSpacing)) {
             speakers.forEach {
                 LargeSpeakerItem(
                     name = it.name,
                     description = it.company,
                     url = it.url,
-                    modifier = Modifier.width(width).placeholder(isLoading),
+                    modifier = Modifier
+                        .width(width)
+                        .placeholder(isLoading),
                     onClick = { onSpeakerItemClick(it) }
                 )
             }

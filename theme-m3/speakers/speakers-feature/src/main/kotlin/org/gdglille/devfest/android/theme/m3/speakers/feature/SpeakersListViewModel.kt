@@ -7,7 +7,6 @@ import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
-import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -15,12 +14,8 @@ import org.gdglille.devfest.models.ui.SpeakerItemUi
 import org.gdglille.devfest.repositories.SpeakerRepository
 
 sealed class SpeakersUiState {
-    data class Loading(val speakers: ImmutableList<ImmutableList<SpeakerItemUi>>) :
-        SpeakersUiState()
-
-    data class Success(val speakers: ImmutableList<ImmutableList<SpeakerItemUi>>) :
-        SpeakersUiState()
-
+    data class Loading(val speakers: ImmutableList<SpeakerItemUi>) : SpeakersUiState()
+    data class Success(val speakers: ImmutableList<SpeakerItemUi>) : SpeakersUiState()
     data class Failure(val throwable: Throwable) : SpeakersUiState()
 }
 
@@ -28,8 +23,10 @@ class SpeakersListViewModel(private val repository: SpeakerRepository) : ViewMod
     private val _uiState = MutableStateFlow<SpeakersUiState>(
         SpeakersUiState.Loading(
             persistentListOf(
-                persistentListOf(SpeakerItemUi.fake, SpeakerItemUi.fake),
-                persistentListOf(SpeakerItemUi.fake, SpeakerItemUi.fake)
+                SpeakerItemUi.fake,
+                SpeakerItemUi.fake,
+                SpeakerItemUi.fake,
+                SpeakerItemUi.fake
             )
         )
     )
@@ -39,9 +36,7 @@ class SpeakersListViewModel(private val repository: SpeakerRepository) : ViewMod
         viewModelScope.launch {
             try {
                 repository.speakers().collect {
-                    _uiState.value = SpeakersUiState.Success(
-                        it.chunked(2).map { it.toImmutableList() }.toImmutableList()
-                    )
+                    _uiState.value = SpeakersUiState.Success(it)
                 }
             } catch (error: Throwable) {
                 Firebase.crashlytics.recordException(error)
