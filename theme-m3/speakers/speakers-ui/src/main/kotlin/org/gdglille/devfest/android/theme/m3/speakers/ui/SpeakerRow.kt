@@ -12,6 +12,8 @@ import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
+import org.gdglille.devfest.android.theme.m3.style.placeholder
+import org.gdglille.devfest.android.theme.m3.style.speakers.items.LargeSpeakerItem
 import org.gdglille.devfest.models.ui.SpeakerItemUi
 
 @Composable
@@ -26,11 +28,12 @@ fun SpeakerItemRow(
         val width = (this.maxWidth - (8.dp * (maxItems - 1))) / maxItems
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             speakers.forEach {
-                SpeakerItem(
-                    speakerUi = it,
-                    modifier = Modifier.width(width),
-                    isLoading = isLoading,
-                    onClick = onSpeakerItemClick
+                LargeSpeakerItem(
+                    name = it.name,
+                    description = it.company,
+                    url = it.url,
+                    modifier = Modifier.width(width).placeholder(isLoading),
+                    onClick = { onSpeakerItemClick(it) }
                 )
             }
         }
