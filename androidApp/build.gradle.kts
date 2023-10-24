@@ -73,7 +73,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.themeM3.main)
+    implementation(projects.themeM3.main.mobile)
     implementation(projects.shared.core)
     implementation(libs.settings)
 

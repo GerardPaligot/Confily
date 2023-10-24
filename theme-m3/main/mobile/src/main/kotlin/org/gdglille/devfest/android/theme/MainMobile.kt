@@ -34,7 +34,7 @@ import org.gdglille.devfest.repositories.UserRepository
 @ExperimentalCoroutinesApi
 @FlowPreview
 @Composable
-fun Main(
+fun MainMobile(
     eventRepository: EventRepository,
     agendaRepository: AgendaRepository,
     userRepository: UserRepository,
