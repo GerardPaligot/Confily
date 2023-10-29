@@ -17,24 +17,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
+import org.gdglille.devfest.android.theme.m3.style.previews.ThemedPreviews
 
 @Composable
-fun Tag(
+fun SmallTag(
     text: String,
     modifier: Modifier = Modifier,
     icon: ImageVector? = null,
     colors: TagColors = TagDefaults.amethystColors(),
     style: TextStyle = TagDefaults.textStyle,
-    shape: Shape = TagDefaults.shape
+    shape: Shape = TagDefaults.smallShape
 ) {
     Row(
         modifier = modifier
             .background(color = colors.containerColor, shape = shape)
-            .padding(paddingValues = TagDefaults.ContentPadding),
-        horizontalArrangement = Arrangement.spacedBy(TagDefaults.IconTextPadding),
+            .padding(paddingValues = TagDefaults.smallContentPadding),
+        horizontalArrangement = Arrangement.spacedBy(TagDefaults.smallTextPadding),
         verticalAlignment = Alignment.CenterVertically
     ) {
         icon?.let {
@@ -42,7 +42,39 @@ fun Tag(
                 imageVector = icon,
                 contentDescription = null,
                 tint = colors.contentColor,
-                modifier = Modifier.size(TagDefaults.IconSize)
+                modifier = Modifier.size(TagDefaults.iconSize)
+            )
+        }
+        Text(
+            text = text,
+            color = colors.contentColor,
+            style = style
+        )
+    }
+}
+
+@Composable
+fun MediumTag(
+    text: String,
+    modifier: Modifier = Modifier,
+    icon: ImageVector? = null,
+    colors: TagColors = TagDefaults.amethystColors(),
+    style: TextStyle = TagDefaults.textStyle,
+    shape: Shape = TagDefaults.mediumShape
+) {
+    Row(
+        modifier = modifier
+            .background(color = colors.containerColor, shape = shape)
+            .padding(paddingValues = TagDefaults.mediumContentPadding),
+        horizontalArrangement = Arrangement.spacedBy(TagDefaults.mediumTextPadding),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        icon?.let {
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                tint = colors.contentColor,
+                modifier = Modifier.size(TagDefaults.iconSize)
             )
         }
         Text(
@@ -54,105 +86,109 @@ fun Tag(
 }
 
 @Suppress("LongMethod")
-@Preview
+@ThemedPreviews
 @Composable
-private fun TagPreview() {
-    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-        Conferences4HallTheme {
-            Column(
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier
-                    .background(color = MaterialTheme.colorScheme.background)
-                    .padding(horizontal = 4.dp)
-            ) {
-                Tag(
-                    text = "Mobile",
-                    icon = Icons.Outlined.PhoneAndroid
-                )
-                Tag(
-                    text = "Mobile",
-                    icon = Icons.Outlined.PhoneAndroid,
-                    colors = TagDefaults.brickColors()
-                )
-                Tag(
-                    text = "Mobile",
-                    icon = Icons.Outlined.PhoneAndroid,
-                    colors = TagDefaults.cobaltColors()
-                )
-                Tag(
-                    text = "Mobile",
-                    icon = Icons.Outlined.PhoneAndroid,
-                    colors = TagDefaults.emeraldColors()
-                )
-                Tag(
-                    text = "Mobile",
-                    icon = Icons.Outlined.PhoneAndroid,
-                    colors = TagDefaults.goldColors()
-                )
-                Tag(
-                    text = "Mobile",
-                    icon = Icons.Outlined.PhoneAndroid,
-                    colors = TagDefaults.gravelColors()
-                )
-                Tag(
-                    text = "Mobile",
-                    icon = Icons.Outlined.PhoneAndroid,
-                    colors = TagDefaults.jadeColors()
-                )
-                Tag(
-                    text = "Mobile",
-                    icon = Icons.Outlined.PhoneAndroid,
-                    colors = TagDefaults.saffronColors()
-                )
-            }
+private fun MediumTagPreview() {
+    Conferences4HallTheme {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier
+                .background(color = MaterialTheme.colorScheme.background)
+                .padding(4.dp)
+        ) {
+            MediumTag(
+                text = "Mobile",
+                icon = Icons.Outlined.PhoneAndroid
+            )
+            MediumTag(
+                text = "Mobile",
+                icon = Icons.Outlined.PhoneAndroid,
+                colors = TagDefaults.brickColors()
+            )
+            MediumTag(
+                text = "Mobile",
+                icon = Icons.Outlined.PhoneAndroid,
+                colors = TagDefaults.cobaltColors()
+            )
+            MediumTag(
+                text = "Mobile",
+                icon = Icons.Outlined.PhoneAndroid,
+                colors = TagDefaults.emeraldColors()
+            )
+            MediumTag(
+                text = "Mobile",
+                icon = Icons.Outlined.PhoneAndroid,
+                colors = TagDefaults.goldColors()
+            )
+            MediumTag(
+                text = "Mobile",
+                icon = Icons.Outlined.PhoneAndroid,
+                colors = TagDefaults.gravelColors()
+            )
+            MediumTag(
+                text = "Mobile",
+                icon = Icons.Outlined.PhoneAndroid,
+                colors = TagDefaults.jadeColors()
+            )
+            MediumTag(
+                text = "Mobile",
+                icon = Icons.Outlined.PhoneAndroid,
+                colors = TagDefaults.saffronColors()
+            )
         }
-        Conferences4HallTheme(useDarkTheme = true) {
-            Column(
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier
-                    .background(color = MaterialTheme.colorScheme.background)
-                    .padding(horizontal = 4.dp)
-            ) {
-                Tag(
-                    text = "Mobile",
-                    icon = Icons.Outlined.PhoneAndroid
-                )
-                Tag(
-                    text = "Mobile",
-                    icon = Icons.Outlined.PhoneAndroid,
-                    colors = TagDefaults.brickColors()
-                )
-                Tag(
-                    text = "Mobile",
-                    icon = Icons.Outlined.PhoneAndroid,
-                    colors = TagDefaults.cobaltColors()
-                )
-                Tag(
-                    text = "Mobile",
-                    icon = Icons.Outlined.PhoneAndroid,
-                    colors = TagDefaults.emeraldColors()
-                )
-                Tag(
-                    text = "Mobile",
-                    icon = Icons.Outlined.PhoneAndroid,
-                    colors = TagDefaults.goldColors()
-                )
-                Tag(
-                    text = "Mobile",
-                    icon = Icons.Outlined.PhoneAndroid,
-                    colors = TagDefaults.gravelColors()
-                )
-                Tag(
-                    text = "Mobile",
-                    icon = Icons.Outlined.PhoneAndroid,
-                    colors = TagDefaults.jadeColors()
-                )
-                Tag(
-                    text = "Mobile",
-                    icon = Icons.Outlined.PhoneAndroid,
-                    colors = TagDefaults.saffronColors()
-                )
-            }
+    }
+}
+
+@Suppress("LongMethod")
+@ThemedPreviews
+@Composable
+private fun SmallTagPreview() {
+    Conferences4HallTheme {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier
+                .background(color = MaterialTheme.colorScheme.background)
+                .padding(4.dp)
+        ) {
+            SmallTag(
+                text = "Mobile",
+                icon = Icons.Outlined.PhoneAndroid
+            )
+            SmallTag(
+                text = "Mobile",
+                icon = Icons.Outlined.PhoneAndroid,
+                colors = TagDefaults.brickColors()
+            )
+            SmallTag(
+                text = "Mobile",
+                icon = Icons.Outlined.PhoneAndroid,
+                colors = TagDefaults.cobaltColors()
+            )
+            SmallTag(
+                text = "Mobile",
+                icon = Icons.Outlined.PhoneAndroid,
+                colors = TagDefaults.emeraldColors()
+            )
+            SmallTag(
+                text = "Mobile",
+                icon = Icons.Outlined.PhoneAndroid,
+                colors = TagDefaults.goldColors()
+            )
+            SmallTag(
+                text = "Mobile",
+                icon = Icons.Outlined.PhoneAndroid,
+                colors = TagDefaults.gravelColors()
+            )
+            SmallTag(
+                text = "Mobile",
+                icon = Icons.Outlined.PhoneAndroid,
+                colors = TagDefaults.jadeColors()
+            )
+            SmallTag(
+                text = "Mobile",
+                icon = Icons.Outlined.PhoneAndroid,
+                colors = TagDefaults.saffronColors()
+            )
         }
     }
 }

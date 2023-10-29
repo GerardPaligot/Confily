@@ -23,7 +23,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.R
-import org.gdglille.devfest.android.theme.m3.style.tags.Tag
+import org.gdglille.devfest.android.theme.m3.style.tags.MediumTag
 import org.gdglille.devfest.android.theme.m3.style.tags.TagDefaults
 import org.gdglille.devfest.android.theme.m3.style.toDp
 
@@ -54,12 +54,12 @@ fun PauseItem(
                 style = titleTextStyle
             )
             Row {
-                Tag(
+                MediumTag(
                     text = room,
                     icon = Icons.Outlined.Place,
                     colors = TagDefaults.unStyledColors()
                 )
-                Tag(
+                MediumTag(
                     text = time,
                     icon = timeImageVector,
                     colors = TagDefaults.unStyledColors()

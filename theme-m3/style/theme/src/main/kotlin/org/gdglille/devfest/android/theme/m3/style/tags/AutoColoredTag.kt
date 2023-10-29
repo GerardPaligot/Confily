@@ -13,9 +13,9 @@ fun AutoColoredTag(
     modifier: Modifier = Modifier,
     icon: ImageVector? = null,
     style: TextStyle = TagDefaults.textStyle,
-    shape: Shape = TagDefaults.shape
+    shape: Shape = TagDefaults.mediumShape
 ) {
-    Tag(
+    MediumTag(
         text = text,
         modifier = modifier,
         icon = icon,

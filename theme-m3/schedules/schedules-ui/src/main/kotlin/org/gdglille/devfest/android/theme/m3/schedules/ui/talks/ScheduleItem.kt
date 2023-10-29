@@ -12,7 +12,7 @@ import org.gdglille.devfest.android.theme.m3.style.schedules.card.ScheduleCard
 import org.gdglille.devfest.android.theme.m3.style.schedules.findCategoryImageVector
 import org.gdglille.devfest.android.theme.m3.style.schedules.findTimeImageVector
 import org.gdglille.devfest.android.theme.m3.style.tags.AutoColoredTag
-import org.gdglille.devfest.android.theme.m3.style.tags.Tag
+import org.gdglille.devfest.android.theme.m3.style.tags.MediumTag
 import org.gdglille.devfest.android.theme.m3.style.tags.TagDefaults
 import org.gdglille.devfest.models.ui.TalkItemUi
 
@@ -51,16 +51,16 @@ fun ScheduleItem(
                 icon = talk.category.icon?.findCategoryImageVector()
             )
             talk.level?.let {
-                Tag(text = it, colors = TagDefaults.gravelColors())
+                MediumTag(text = it, colors = TagDefaults.gravelColors())
             }
         },
         bottomBar = {
-            Tag(
+            MediumTag(
                 text = talk.room,
                 icon = Icons.Outlined.Videocam,
                 colors = TagDefaults.unStyledColors()
             )
-            Tag(
+            MediumTag(
                 text = talk.time,
                 icon = talk.timeInMinutes.findTimeImageVector(),
                 colors = TagDefaults.unStyledColors()

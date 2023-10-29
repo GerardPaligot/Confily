@@ -7,31 +7,39 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import org.gdglille.devfest.android.theme.m3.style.TextStyleTokens
 import org.gdglille.devfest.android.theme.m3.style.toColor
+import org.gdglille.devfest.android.theme.m3.style.toDp
+import org.gdglille.devfest.android.theme.m3.style.toShape
+import org.gdglille.devfest.android.theme.m3.style.toTextStyle
 
 object TagDefaults {
-    private val HorizontalPadding = 8.dp
-    private val VerticalPadding = 6.dp
+    val iconSize = 18.dp
+    val textStyle: TextStyle @Composable get() = TextStyleTokens.BodySmall.toTextStyle()
 
-    val IconSize = 18.dp
+    val mediumContentPadding: PaddingValues
+        @Composable get() = PaddingValues(
+            horizontal = TagMediumTokens.ContentHorizontalPadding.toDp(),
+            vertical = TagMediumTokens.ContentVerticalPadding.toDp()
+        )
+    val mediumTextPadding: Dp
+        @Composable get() = TagMediumTokens.BetweenSpacing.toDp()
+    val mediumShape: Shape @Composable get() = TagMediumTokens.ContainerShape.toShape()
 
-    val IconTextPadding = 4.dp
+    val smallContentPadding: PaddingValues
+        @Composable get() = PaddingValues(
+            horizontal = TagSmallTokens.ContentHorizontalPadding.toDp(),
+            vertical = TagSmallTokens.ContentVerticalPadding.toDp()
+        )
+    val smallTextPadding: Dp
+        @Composable get() = TagSmallTokens.BetweenSpacing.toDp()
+    val smallShape: Shape @Composable get() = TagSmallTokens.ContainerShape.toShape()
 
-    val ContentPadding = PaddingValues(
-        start = HorizontalPadding,
-        top = VerticalPadding,
-        end = HorizontalPadding,
-        bottom = VerticalPadding
-    )
-
-    val shape: Shape @Composable get() = MaterialTheme.shapes.small
-
-    val textStyle: TextStyle @Composable get() = MaterialTheme.typography.bodySmall
-    
     @Composable
     fun colors(colorName: String): TagColors {
-        return when(colorName) {
+        return when (colorName) {
             "amethyst" -> amethystColors()
             "brick" -> brickColors()
             "cobalt" -> cobaltColors()

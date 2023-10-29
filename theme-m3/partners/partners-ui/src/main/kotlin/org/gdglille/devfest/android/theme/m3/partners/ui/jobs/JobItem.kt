@@ -20,7 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.placeholder
-import org.gdglille.devfest.android.theme.m3.style.tags.Tag
+import org.gdglille.devfest.android.theme.m3.style.tags.MediumTag
 import org.gdglille.devfest.android.theme.m3.style.tags.TagDefaults
 import org.gdglille.devfest.android.theme.m3.style.R
 import org.gdglille.devfest.models.ui.JobUi
@@ -54,7 +54,7 @@ fun JobItem(
                 modifier = Modifier.padding(top = 4.dp)
             ) {
                 jobUi.salary?.let { salaryUi ->
-                    Tag(
+                    MediumTag(
                         text = stringResource(
                             id = R.string.text_job_salary,
                             salaryUi.min,
@@ -65,7 +65,7 @@ fun JobItem(
                         colors = TagDefaults.unStyledColors()
                     )
                 }
-                Tag(
+                MediumTag(
                     text = pluralStringResource(
                         id = R.plurals.text_job_requirements,
                         count = jobUi.requirements,
@@ -75,7 +75,7 @@ fun JobItem(
                     colors = TagDefaults.unStyledColors()
                 )
             }
-            Tag(
+            MediumTag(
                 text = stringResource(id = R.string.text_job_propulsed, jobUi.propulsed),
                 colors = TagDefaults.gravelColors(),
                 modifier = Modifier.padding(start = 8.dp)

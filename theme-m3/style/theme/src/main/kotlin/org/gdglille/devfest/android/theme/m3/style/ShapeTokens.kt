@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 enum class ShapeTokens {
     CircleShape,
     ExtraSmallTopShape,
+    ExtraSmallShape,
     SmallShape,
     MediumShape
 }
@@ -21,6 +22,7 @@ internal fun Shapes.fromToken(value: ShapeTokens): Shape {
         ShapeTokens.CircleShape -> CircleShape
         ShapeTokens.ExtraSmallTopShape -> extraSmall
             .copy(bottomEnd = CornerSize(0.dp), bottomStart = CornerSize(0.dp))
+        ShapeTokens.ExtraSmallShape -> extraSmall
         ShapeTokens.SmallShape -> small
         ShapeTokens.MediumShape -> medium
     }

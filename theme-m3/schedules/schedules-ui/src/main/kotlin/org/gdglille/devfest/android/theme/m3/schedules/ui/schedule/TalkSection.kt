@@ -27,7 +27,7 @@ import org.gdglille.devfest.android.theme.m3.style.schedules.findCategoryImageVe
 import org.gdglille.devfest.android.theme.m3.style.schedules.findTimeImageVector
 import org.gdglille.devfest.android.theme.m3.style.speakers.avatars.MediumBorderedSpeakersAvatar
 import org.gdglille.devfest.android.theme.m3.style.tags.AutoColoredTag
-import org.gdglille.devfest.android.theme.m3.style.tags.Tag
+import org.gdglille.devfest.android.theme.m3.style.tags.MediumTag
 import org.gdglille.devfest.android.theme.m3.style.tags.TagDefaults
 import org.gdglille.devfest.models.ui.TalkUi
 
@@ -61,7 +61,7 @@ fun TalkSection(
             )
             Spacer(modifier = Modifier.width(8.dp))
             talk.level?.let {
-                Tag(text = it, colors = TagDefaults.gravelColors())
+                MediumTag(text = it, colors = TagDefaults.gravelColors())
             }
             Spacer(modifier = Modifier.weight(1f))
             MediumBorderedSpeakersAvatar(
@@ -71,17 +71,17 @@ fun TalkSection(
         }
         Text(text = talk.title, color = color, style = titleTextStyle)
         Row {
-            Tag(
+            MediumTag(
                 text = talk.startTime,
                 icon = Icons.Outlined.Schedule,
                 colors = TagDefaults.unStyledColors()
             )
-            Tag(
+            MediumTag(
                 text = talk.room,
                 icon = Icons.Outlined.Videocam,
                 colors = TagDefaults.unStyledColors()
             )
-            Tag(
+            MediumTag(
                 text = stringResource(R.string.text_schedule_minutes, talk.timeInMinutes.toString()),
                 icon = talk.timeInMinutes.findTimeImageVector(),
                 colors = TagDefaults.unStyledColors()
