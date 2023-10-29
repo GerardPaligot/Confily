@@ -8,6 +8,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -28,6 +29,7 @@ fun TopAppBar(
     modifier: Modifier = Modifier,
     navigationIcon: @Composable (AppBarIcons.() -> Unit)? = null,
     topActionsUi: TopActionsUi = TopActionsUi(),
+    scrollBehavior: TopAppBarScrollBehavior? = null,
     onActionClicked: (TopAction) -> Unit = { }
 ) {
     val showAsActionItems = topActionsUi.actions.take(topActionsUi.maxActions)
@@ -55,7 +57,8 @@ fun TopAppBar(
                     onClick = onActionClicked
                 )
             }
-        }
+        },
+        scrollBehavior = scrollBehavior
     )
 }
 
@@ -66,6 +69,7 @@ internal fun (@Composable AppBarIcons.() -> Unit)?.takeOrEmpty(): (@Composable (
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
 private fun TopAppBarPreview() {

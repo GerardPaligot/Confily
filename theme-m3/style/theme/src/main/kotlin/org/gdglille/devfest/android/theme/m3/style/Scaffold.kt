@@ -3,14 +3,18 @@ package org.gdglille.devfest.android.theme.m3.style
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,6 +32,7 @@ import org.gdglille.devfest.android.theme.m3.style.actions.BottomActionsUi
 import org.gdglille.devfest.android.theme.m3.style.actions.TabActionsUi
 import org.gdglille.devfest.android.theme.m3.style.actions.TopActionsUi
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Scaffold(
     @StringRes title: Int,
@@ -45,15 +50,17 @@ fun Scaffold(
     onFabActionClicked: (FabAction) -> Unit = {},
     content: @Composable (PaddingValues) -> Unit
 ) {
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
     Scaffold(
-        modifier = modifier,
+        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             Column {
                 TopAppBar(
                     title = stringResource(title),
                     navigationIcon = navigationIcon,
                     topActionsUi = topActions,
-                    onActionClicked = onTopActionClicked
+                    onActionClicked = onTopActionClicked,
+                    scrollBehavior = scrollBehavior
                 )
                 if (tabActions.actions.count() > 1 && tabSelectedIndex != null) {
                     ScrollableTabRow(
