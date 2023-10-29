@@ -7,7 +7,26 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 
 @Composable
-fun AutoColoredTag(
+fun SmallAutoColoredTag(
+    text: String,
+    colorName: String,
+    modifier: Modifier = Modifier,
+    icon: ImageVector? = null,
+    style: TextStyle = TagDefaults.textStyle,
+    shape: Shape = TagDefaults.mediumShape
+) {
+    SmallTag(
+        text = text,
+        modifier = modifier,
+        icon = icon,
+        colors = TagDefaults.colors(colorName),
+        style = style,
+        shape = shape
+    )
+}
+
+@Composable
+fun MediumAutoColoredTag(
     text: String,
     colorName: String,
     modifier: Modifier = Modifier,

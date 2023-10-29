@@ -26,7 +26,7 @@ import org.gdglille.devfest.android.theme.m3.style.R
 import org.gdglille.devfest.android.theme.m3.style.schedules.findCategoryImageVector
 import org.gdglille.devfest.android.theme.m3.style.schedules.findTimeImageVector
 import org.gdglille.devfest.android.theme.m3.style.speakers.avatars.MediumBorderedSpeakersAvatar
-import org.gdglille.devfest.android.theme.m3.style.tags.AutoColoredTag
+import org.gdglille.devfest.android.theme.m3.style.tags.MediumAutoColoredTag
 import org.gdglille.devfest.android.theme.m3.style.tags.MediumTag
 import org.gdglille.devfest.android.theme.m3.style.tags.TagDefaults
 import org.gdglille.devfest.models.ui.TalkUi
@@ -54,7 +54,7 @@ fun TalkSection(
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            AutoColoredTag(
+            MediumAutoColoredTag(
                 text = talk.category.name,
                 colorName = talk.category.color,
                 icon = talk.category.icon?.findCategoryImageVector()

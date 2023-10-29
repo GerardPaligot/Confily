@@ -3,6 +3,9 @@ package org.gdglille.devfest.android.theme.m3.style.schedules.card
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.FlowRowScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
@@ -34,7 +37,7 @@ import org.gdglille.devfest.android.theme.m3.style.previews.ThemedPreviews
 import org.gdglille.devfest.android.theme.m3.style.speakers.avatars.SmallLabeledSpeakersAvatar
 import org.gdglille.devfest.android.theme.m3.style.toDp
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun SmallScheduleCard(
     title: String,
@@ -48,18 +51,23 @@ fun SmallScheduleCard(
     style: TextStyle = ScheduleCardDefaults.smallTextStyle,
     shape: Shape = ScheduleCardDefaults.smallShape,
     onFavoriteClick: (() -> Unit)? = null,
-    bottomBar: (@Composable RowScope.() -> Unit)? = null
+    bottomBar: (@Composable FlowRowScope.() -> Unit)? = null
 ) {
     val semanticModifier = if (contentDescription != null)
         Modifier.clearAndSetSemantics { this.contentDescription = contentDescription }
     else Modifier
     Card(shape = shape, onClick = onClick, modifier = modifier) {
-        Column(verticalArrangement = Arrangement.spacedBy(ScheduleCardSmallTokens.SpeakersBottomPadding.toDp())) {
-            Row {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(ScheduleCardSmallTokens.SpeakersBottomPadding.toDp()),
+            modifier = Modifier.padding(ScheduleCardSmallTokens.ContainerPadding.toDp())
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.Top
+            ) {
                 Column(
                     modifier = Modifier
                         .weight(1f)
-                        .padding(ScheduleCardSmallTokens.ContainerPadding.toDp())
                         .then(semanticModifier)
                 ) {
                     Text(text = title, color = colors.titleColor, style = style)
@@ -83,7 +91,11 @@ fun SmallScheduleCard(
                 }
             }
             if (bottomBar != null) {
-                Row(content = bottomBar)
+                FlowRow(
+                    horizontalArrangement = Arrangement.spacedBy(ScheduleCardSmallTokens.BetweenBottomBarItemPadding.toDp()),
+                    verticalArrangement = Arrangement.spacedBy(ScheduleCardSmallTokens.BetweenBottomBarItemPadding.toDp()),
+                    content = bottomBar
+                )
             }
         }
     }
@@ -91,7 +103,7 @@ fun SmallScheduleCard(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ScheduleCard(
+fun MediumScheduleCard(
     title: String,
     speakersUrls: ImmutableList<String>,
     speakersLabel: String,
@@ -153,6 +165,7 @@ fun ScheduleCard(
     }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @ThemedPreviews
 @Composable
 private fun SmallScheduleCardPreview() {
@@ -172,7 +185,7 @@ private fun SmallScheduleCardPreview() {
 @Composable
 private fun ScheduleCardPreview() {
     Conferences4HallTheme {
-        ScheduleCard(
+        MediumScheduleCard(
             title = "Designers x Developers : Ça match \uD83D\uDC99 ou ça match \uD83E\uDD4A ?",
             speakersUrls = persistentListOf("", ""),
             speakersLabel = "John Doe and Jeanne Doe",
@@ -187,7 +200,7 @@ private fun ScheduleCardPreview() {
 @Composable
 private fun ScheduleCardFavoritePreview() {
     Conferences4HallTheme {
-        ScheduleCard(
+        MediumScheduleCard(
             title = "Designers x Developers : Ça match \uD83D\uDC99 ou ça match \uD83E\uDD4A ?",
             speakersUrls = persistentListOf("", ""),
             speakersLabel = "John Doe and Jeanne Doe",

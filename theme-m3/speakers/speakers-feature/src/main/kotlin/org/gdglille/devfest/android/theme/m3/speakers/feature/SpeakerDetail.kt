@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.ScheduleItem
+import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.MediumScheduleItem
 import org.gdglille.devfest.android.theme.m3.speakers.ui.SpeakerDetailSection
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBar
@@ -55,7 +55,7 @@ fun SpeakerDetail(
                     Spacer(modifier = Modifier.height(24.dp))
                 }
                 items(speaker.talks) {
-                    ScheduleItem(
+                    MediumScheduleItem(
                         talk = it,
                         modifier = Modifier
                             .padding(horizontal = 16.dp)

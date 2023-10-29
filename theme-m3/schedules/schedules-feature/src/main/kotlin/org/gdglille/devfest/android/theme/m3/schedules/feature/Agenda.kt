@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.NoFavoriteTalks
-import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.ScheduleItem
+import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.MediumScheduleItem
 import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.Time
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.placeholder
@@ -50,7 +50,7 @@ fun Agenda(
                             modifier = Modifier.placeholder(visible = isLoading)
                         )
                     } else {
-                        ScheduleItem(
+                        MediumScheduleItem(
                             talk = it,
                             modifier = Modifier.placeholder(visible = isLoading),
                             onFavoriteClicked = onFavoriteClicked,

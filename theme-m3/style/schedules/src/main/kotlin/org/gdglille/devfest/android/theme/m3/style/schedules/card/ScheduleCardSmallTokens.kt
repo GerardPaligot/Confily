@@ -11,4 +11,5 @@ object ScheduleCardSmallTokens {
     val SpeakersTopPadding = SpacingTokens.SmallSpacing
     val SpeakersBottomPadding = SpacingTokens.SmallSpacing
     val IconButtonFavoritePadding = SpacingTokens.SmallSpacing
+    val BetweenBottomBarItemPadding = SpacingTokens.SmallSpacing
 }
