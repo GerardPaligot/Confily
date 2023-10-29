@@ -1,23 +1,44 @@
 package org.gdglille.devfest.android.theme.m3.style.schedules.pause
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import org.gdglille.devfest.android.theme.m3.style.toColor
+import org.gdglille.devfest.android.theme.m3.style.toDp
 import org.gdglille.devfest.android.theme.m3.style.toShape
 import org.gdglille.devfest.android.theme.m3.style.toTextStyle
 
 object PauseItemDefaults {
-    val containerColor: Color
+    val smallContainerColor: Color
         @Composable
-        get() = PauseItemTokens.ContainerColor.toColor()
+        get() = PauseItemSmallTokens.ContainerColor.toColor()
 
-    val titleTextStyle: TextStyle
+    val smallTitleTextStyle: TextStyle
         @Composable
-        get() = PauseItemTokens.TitleTextStyle.toTextStyle()
+        get() = PauseItemSmallTokens.TitleTextStyle.toTextStyle()
 
-    val shape: Shape
+    val smallShape: Shape
         @Composable
-        get() = PauseItemTokens.ContainerShape.toShape()
+        get() = PauseItemSmallTokens.ContainerShape.toShape()
+
+    val smallContentPadding: PaddingValues
+        @Composable
+        get() = PaddingValues(
+            horizontal = PauseItemMediumTokens.ContainerPadding.toDp(),
+            vertical = PauseItemSmallTokens.ContainerPadding.toDp()
+        )
+
+    val mediumContainerColor: Color
+        @Composable
+        get() = PauseItemMediumTokens.ContainerColor.toColor()
+
+    val mediumTitleTextStyle: TextStyle
+        @Composable
+        get() = PauseItemMediumTokens.TitleTextStyle.toTextStyle()
+
+    val mediumShape: Shape
+        @Composable
+        get() = PauseItemMediumTokens.ContainerShape.toShape()
 }

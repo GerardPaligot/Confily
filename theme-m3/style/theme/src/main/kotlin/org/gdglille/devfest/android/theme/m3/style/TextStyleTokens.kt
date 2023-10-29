@@ -10,6 +10,7 @@ import androidx.compose.ui.text.font.FontWeight
 enum class TextStyleTokens {
     TitleLarge,
     TitleMedium,
+    TitleSmall,
     BodySmall,
     BodyMedium,
     BoldBodyMedium
@@ -19,6 +20,7 @@ internal fun Typography.fromToken(value: TextStyleTokens): TextStyle {
     return when (value) {
         TextStyleTokens.TitleLarge -> titleLarge
         TextStyleTokens.TitleMedium -> titleMedium
+        TextStyleTokens.TitleSmall -> titleSmall
         TextStyleTokens.BodySmall -> bodySmall
         TextStyleTokens.BodyMedium -> bodyMedium
         TextStyleTokens.BoldBodyMedium -> bodyMedium.copy(fontWeight = FontWeight.Bold)

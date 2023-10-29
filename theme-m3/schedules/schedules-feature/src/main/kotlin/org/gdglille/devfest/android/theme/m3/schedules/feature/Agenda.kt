@@ -16,7 +16,7 @@ import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.Time
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.placeholder
 import org.gdglille.devfest.android.theme.m3.style.schedules.findTimeImageVector
-import org.gdglille.devfest.android.theme.m3.style.schedules.pause.PauseItem
+import org.gdglille.devfest.android.theme.m3.style.schedules.pause.MediumPauseItem
 import org.gdglille.devfest.models.ui.AgendaUi
 import org.gdglille.devfest.models.ui.TalkItemUi
 
@@ -42,7 +42,7 @@ fun Agenda(
                 }
                 items(slot.value.toList(), key = { it.id }) {
                     if (it.isPause) {
-                        PauseItem(
+                        MediumPauseItem(
                             title = it.title,
                             room = it.room,
                             time = it.time,

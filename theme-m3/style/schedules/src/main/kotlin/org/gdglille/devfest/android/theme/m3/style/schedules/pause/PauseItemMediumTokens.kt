@@ -5,7 +5,7 @@ import org.gdglille.devfest.android.theme.m3.style.ShapeTokens
 import org.gdglille.devfest.android.theme.m3.style.SpacingTokens
 import org.gdglille.devfest.android.theme.m3.style.TextStyleTokens
 
-object PauseItemTokens {
+object PauseItemMediumTokens {
     val ContainerColor = ColorSchemeTokens.SurfaceColor
     val ContainerShape = ShapeTokens.MediumShape
     val ContainerPadding = SpacingTokens.LargeSpacing
