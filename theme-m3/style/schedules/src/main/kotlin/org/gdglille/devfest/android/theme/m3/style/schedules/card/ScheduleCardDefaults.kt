@@ -10,19 +10,27 @@ import org.gdglille.devfest.android.theme.m3.style.toShape
 import org.gdglille.devfest.android.theme.m3.style.toTextStyle
 
 object ScheduleCardDefaults {
-    val style: TextStyle
+    val smallTextStyle: TextStyle
         @Composable
-        get() = ScheduleCardTokens.TitleTextStyle.toTextStyle()
+        get() = ScheduleCardSmallTokens.TitleTextStyle.toTextStyle()
 
-    val shape: Shape
+    val smallShape: Shape
         @Composable
-        get() = ScheduleCardTokens.ContainerShape.toShape()
+        get() = ScheduleCardSmallTokens.ContainerShape.toShape()
+
+    val mediumTextStyle: TextStyle
+        @Composable
+        get() = ScheduleCardMediumTokens.TitleTextStyle.toTextStyle()
+
+    val mediumShape: Shape
+        @Composable
+        get() = ScheduleCardMediumTokens.ContainerShape.toShape()
 
     @Composable
     fun cardColors(
-        titleColor: Color = ScheduleCardTokens.TitleColor.toColor(),
-        favoriteColor: Color = ScheduleCardTokens.IconFavoriteColor.toColor(),
-        unFavoriteColor: Color = ScheduleCardTokens.IconUnFavoriteColor.toColor()
+        titleColor: Color = ScheduleCardMediumTokens.TitleColor.toColor(),
+        favoriteColor: Color = ScheduleCardMediumTokens.IconFavoriteColor.toColor(),
+        unFavoriteColor: Color = ScheduleCardMediumTokens.IconUnFavoriteColor.toColor()
     ): ScheduleCardColors = remember(titleColor, favoriteColor, unFavoriteColor) {
         ScheduleCardColors(
             titleColor = titleColor,

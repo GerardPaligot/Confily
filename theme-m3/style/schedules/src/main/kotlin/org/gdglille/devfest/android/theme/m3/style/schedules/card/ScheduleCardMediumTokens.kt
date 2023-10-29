@@ -5,7 +5,7 @@ import org.gdglille.devfest.android.theme.m3.style.ShapeTokens
 import org.gdglille.devfest.android.theme.m3.style.SpacingTokens
 import org.gdglille.devfest.android.theme.m3.style.TextStyleTokens
 
-object ScheduleCardTokens {
+object ScheduleCardMediumTokens {
     val ContainerShape = ShapeTokens.MediumShape
     val ContainerPadding = SpacingTokens.LargeSpacing
     val TitleTextStyle = TextStyleTokens.TitleMedium
