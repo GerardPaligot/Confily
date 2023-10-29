@@ -127,6 +127,7 @@ fun MediumScheduleItem(
     )
 }
 
+@Suppress("UnusedPrivateMember")
 @ThemedPreviews
 @Composable
 private fun SmallTalkItemPreview() {
@@ -135,6 +136,7 @@ private fun SmallTalkItemPreview() {
     }
 }
 
+@Suppress("UnusedPrivateMember")
 @ThemedPreviews
 @Composable
 private fun MediumTalkItemPreview() {

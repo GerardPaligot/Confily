@@ -1,3 +1,5 @@
+@file:Suppress("TopLevelPropertyNaming")
+
 package org.gdglille.devfest.android.theme.m3.style.previews
 
 const val PHONE_LANDSCAPE =

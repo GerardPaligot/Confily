@@ -112,6 +112,7 @@ fun MediumPauseItem(
     }
 }
 
+@Suppress("UnusedPrivateMember")
 @ThemedPreviews
 @Composable
 private fun SmallPauseItemPreview() {
@@ -124,6 +125,7 @@ private fun SmallPauseItemPreview() {
     }
 }
 
+@Suppress("UnusedPrivateMember")
 @ThemedPreviews
 @Composable
 private fun MediumPauseItemPreview() {

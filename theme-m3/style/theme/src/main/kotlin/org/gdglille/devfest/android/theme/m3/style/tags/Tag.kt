@@ -85,7 +85,7 @@ fun MediumTag(
     }
 }
 
-@Suppress("LongMethod")
+@Suppress("LongMethod", "UnusedPrivateMember")
 @ThemedPreviews
 @Composable
 private fun MediumTagPreview() {
@@ -139,7 +139,7 @@ private fun MediumTagPreview() {
     }
 }
 
-@Suppress("LongMethod")
+@Suppress("LongMethod", "UnusedPrivateMember")
 @ThemedPreviews
 @Composable
 private fun SmallTagPreview() {

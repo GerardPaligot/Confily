@@ -92,8 +92,12 @@ fun SmallScheduleCard(
             }
             if (bottomBar != null) {
                 FlowRow(
-                    horizontalArrangement = Arrangement.spacedBy(ScheduleCardSmallTokens.BetweenBottomBarItemPadding.toDp()),
-                    verticalArrangement = Arrangement.spacedBy(ScheduleCardSmallTokens.BetweenBottomBarItemPadding.toDp()),
+                    horizontalArrangement = Arrangement.spacedBy(
+                        ScheduleCardSmallTokens.BetweenBottomBarItemPadding.toDp()
+                    ),
+                    verticalArrangement = Arrangement.spacedBy(
+                        ScheduleCardSmallTokens.BetweenBottomBarItemPadding.toDp()
+                    ),
                     content = bottomBar
                 )
             }
@@ -166,6 +170,7 @@ fun MediumScheduleCard(
 }
 
 @OptIn(ExperimentalLayoutApi::class)
+@Suppress("UnusedPrivateMember")
 @ThemedPreviews
 @Composable
 private fun SmallScheduleCardPreview() {
@@ -181,6 +186,7 @@ private fun SmallScheduleCardPreview() {
     }
 }
 
+@Suppress("UnusedPrivateMember")
 @ThemedPreviews
 @Composable
 private fun ScheduleCardPreview() {
@@ -196,6 +202,7 @@ private fun ScheduleCardPreview() {
     }
 }
 
+@Suppress("UnusedPrivateMember")
 @ThemedPreviews
 @Composable
 private fun ScheduleCardFavoritePreview() {
