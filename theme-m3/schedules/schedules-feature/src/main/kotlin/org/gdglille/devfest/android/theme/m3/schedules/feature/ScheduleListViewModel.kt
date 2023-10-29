@@ -20,34 +20,34 @@ import org.gdglille.devfest.models.ui.AgendaUi
 import org.gdglille.devfest.models.ui.TalkItemUi
 import org.gdglille.devfest.repositories.AgendaRepository
 
-sealed class AgendaUiState {
-    data class Loading(val agenda: ImmutableList<AgendaUi>) : AgendaUiState()
-    data class Success(val agenda: ImmutableList<AgendaUi>) : AgendaUiState()
-    data class Failure(val throwable: Throwable) : AgendaUiState()
+sealed class ScheduleListUiState {
+    data class Loading(val agenda: ImmutableList<AgendaUi>) : ScheduleListUiState()
+    data class Success(val agenda: ImmutableList<AgendaUi>) : ScheduleListUiState()
+    data class Failure(val throwable: Throwable) : ScheduleListUiState()
 }
 
 @FlowPreview
 @ExperimentalCoroutinesApi
-class AgendaViewModel(
+class ScheduleListViewModel(
     private val repository: AgendaRepository,
     private val alarmScheduler: AlarmScheduler
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow<AgendaUiState>(
-        AgendaUiState.Loading(persistentListOf(AgendaUi.fake))
+    private val _uiState = MutableStateFlow<ScheduleListUiState>(
+        ScheduleListUiState.Loading(persistentListOf(AgendaUi.fake))
     )
-    val uiState: StateFlow<AgendaUiState> = _uiState
+    val uiState: StateFlow<ScheduleListUiState> = _uiState
 
     init {
         viewModelScope.launch {
             try {
                 repository.agenda().collect {
                     if (it.isNotEmpty()) {
-                        _uiState.value = AgendaUiState.Success(it.values.toImmutableList())
+                        _uiState.value = ScheduleListUiState.Success(it.values.toImmutableList())
                     }
                 }
             } catch (error: Throwable) {
                 Firebase.crashlytics.recordException(error)
-                _uiState.value = AgendaUiState.Failure(error)
+                _uiState.value = ScheduleListUiState.Failure(error)
             }
         }
     }
@@ -63,7 +63,7 @@ class AgendaViewModel(
             alarmScheduler: AlarmScheduler
         ) = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(modelClass: Class<T>): T = AgendaViewModel(
+            override fun <T : ViewModel> create(modelClass: Class<T>): T = ScheduleListViewModel(
                 repository = repository,
                 alarmScheduler = alarmScheduler
             ) as T

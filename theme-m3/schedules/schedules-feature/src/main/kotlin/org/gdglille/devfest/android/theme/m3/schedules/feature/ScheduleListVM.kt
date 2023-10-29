@@ -1,13 +1,10 @@
 package org.gdglille.devfest.android.theme.m3.schedules.feature
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -23,16 +20,16 @@ import org.gdglille.devfest.repositories.AgendaRepository
 @ExperimentalCoroutinesApi
 @FlowPreview
 @Composable
-fun AgendaVM(
+fun ScheduleListVM(
     tabs: TabActionsUi,
     agendaRepository: AgendaRepository,
     alarmScheduler: AlarmScheduler,
     pagerState: PagerState,
     onTalkClicked: (id: String) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: AgendaViewModel = viewModel(
+    viewModel: ScheduleListViewModel = viewModel(
         key = "${tabs.actions.count()}",
-        factory = AgendaViewModel.Factory.create(
+        factory = ScheduleListViewModel.Factory.create(
             agendaRepository,
             alarmScheduler
         )
@@ -41,31 +38,26 @@ fun AgendaVM(
     val context = LocalContext.current
     val uiState = viewModel.uiState.collectAsState()
     when (uiState.value) {
-        is AgendaUiState.Loading -> Agenda(
-            agenda = (uiState.value as AgendaUiState.Loading).agenda.first(),
+        is ScheduleListUiState.Loading -> ScheduleListVertical(
+            agenda = (uiState.value as ScheduleListUiState.Loading).agenda.first(),
             modifier = modifier,
             isLoading = true,
             onTalkClicked = {},
             onFavoriteClicked = { }
         )
 
-        is AgendaUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
-        is AgendaUiState.Success -> {
-            val agenda = (uiState.value as AgendaUiState.Success).agenda
-            HorizontalPager(
-                state = pagerState,
-                modifier = Modifier.fillMaxSize(),
-                verticalAlignment = Alignment.Top
-            ) { page ->
-                Agenda(
-                    agenda = agenda[page],
-                    modifier = modifier,
-                    onTalkClicked = onTalkClicked,
-                    onFavoriteClicked = { talkItem ->
-                        viewModel.markAsFavorite(context, talkItem)
-                    }
-                )
-            }
+        is ScheduleListUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
+        is ScheduleListUiState.Success -> {
+            val agendas = (uiState.value as ScheduleListUiState.Success).agenda
+            ScheduleListOrientable(
+                agendas = agendas,
+                pagerState = pagerState,
+                onTalkClicked = onTalkClicked,
+                onFavoriteClicked = { talkItem ->
+                    viewModel.markAsFavorite(context, talkItem)
+                },
+                isLoading = false
+            )
         }
     }
 }

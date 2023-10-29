@@ -21,7 +21,7 @@ import org.gdglille.devfest.models.ui.AgendaUi
 import org.gdglille.devfest.models.ui.TalkItemUi
 
 @Composable
-fun Agenda(
+fun ScheduleListVertical(
     agenda: AgendaUi,
     onTalkClicked: (id: String) -> Unit,
     onFavoriteClicked: (TalkItemUi) -> Unit,
@@ -69,7 +69,7 @@ fun Agenda(
 private fun AgendaPreview() {
     Conferences4HallTheme {
         Scaffold {
-            Agenda(
+            ScheduleListVertical(
                 agenda = AgendaUi.fake,
                 onTalkClicked = {},
                 onFavoriteClicked = { }
