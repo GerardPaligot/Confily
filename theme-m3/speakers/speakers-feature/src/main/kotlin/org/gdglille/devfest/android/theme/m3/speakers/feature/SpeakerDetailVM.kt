@@ -1,6 +1,5 @@
 package org.gdglille.devfest.android.theme.m3.speakers.feature
 
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -12,7 +11,6 @@ import org.gdglille.devfest.AlarmScheduler
 import org.gdglille.devfest.android.theme.m3.style.R
 import org.gdglille.devfest.repositories.AgendaRepository
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SpeakerDetailVM(
     speakerId: String,
@@ -29,7 +27,7 @@ fun SpeakerDetailVM(
     val context = LocalContext.current
     val uiState = viewModel.uiState.collectAsState()
     when (uiState.value) {
-        is SpeakerUiState.Loading -> SpeakerDetail(
+        is SpeakerUiState.Loading -> SpeakerDetailOrientable(
             speaker = (uiState.value as SpeakerUiState.Loading).speaker,
             modifier = modifier,
             onTalkClicked = {},
@@ -39,7 +37,7 @@ fun SpeakerDetailVM(
         )
 
         is SpeakerUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
-        is SpeakerUiState.Success -> SpeakerDetail(
+        is SpeakerUiState.Success -> SpeakerDetailOrientable(
             speaker = (uiState.value as SpeakerUiState.Success).speaker,
             modifier = modifier,
             onTalkClicked = onTalkClicked,

@@ -31,9 +31,7 @@ fun SpeakerDetailSectionVertical(
         modifier = modifier
             .fillMaxWidth()
             .background(MaterialTheme.colorScheme.surface)
-            .padding(horizontal = 16.dp)
     ) {
-        Spacer(modifier = Modifier.height(24.dp))
         MediumSpeakerAvatar(
             url = speaker.url,
             contentDescription = null,
@@ -53,8 +51,10 @@ fun SpeakerDetailSectionVertical(
             onLinkClicked = onLinkClicked
         )
         Spacer(modifier = Modifier.height(8.dp))
-        MarkdownText(text = speaker.bio)
-        Spacer(modifier = Modifier.height(24.dp))
+        MarkdownText(
+            text = speaker.bio,
+            modifier = Modifier.placeholder(visible = isLoading)
+        )
     }
 }
 
@@ -68,8 +68,7 @@ fun SpeakerDetailSectionHorizontal(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.surface)
-            .padding(vertical = 24.dp, horizontal = 16.dp),
+            .background(MaterialTheme.colorScheme.surface),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
@@ -91,10 +90,14 @@ fun SpeakerDetailSectionHorizontal(
                 onLinkClicked = onLinkClicked
             )
         }
-        MarkdownText(text = speaker.bio)
+        MarkdownText(
+            text = speaker.bio,
+            modifier = Modifier.placeholder(visible = isLoading)
+        )
     }
 }
 
+@Suppress("UnusedPrivateMember")
 @ThemedPreviews
 @Composable
 private fun SpeakerDetailSectionVerticalPreview() {
@@ -106,6 +109,7 @@ private fun SpeakerDetailSectionVerticalPreview() {
     }
 }
 
+@Suppress("UnusedPrivateMember")
 @ThemedPreviews
 @Composable
 private fun SpeakerDetailSectionHorizontalPreview() {
