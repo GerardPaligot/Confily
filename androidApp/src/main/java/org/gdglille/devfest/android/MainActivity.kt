@@ -77,7 +77,7 @@ class MainActivity : ComponentActivity() {
             api = api,
             scheduleDao = ScheduleDao(db, settings, platform),
             speakerDao = SpeakerDao(db, platform),
-            talkDao = TalkDao(db),
+            talkDao = TalkDao(db, platform),
             eventDao = EventDao(db, settings),
             partnerDao = PartnerDao(db = db, platform = platform),
             featuresDao = FeaturesActivatedDao(db),

@@ -22,7 +22,6 @@ import org.gdglille.devfest.models.ScheduleItemV3
 import org.gdglille.devfest.models.TalkV3
 import org.gdglille.devfest.models.ui.CategoryUi
 import org.gdglille.devfest.models.ui.FormatUi
-import org.gdglille.devfest.models.ui.SpeakerItemUi
 import org.gdglille.devfest.models.ui.TalkItemUi
 import org.gdglille.devfest.models.ui.TalkUi
 import kotlin.reflect.KFunction1
@@ -167,15 +166,8 @@ fun SelectTalksBySpeakerId.convertTalkItemUi(
     )
 }
 
-fun SelectSpeakersByTalkId.convertSpeakerItemUi() = SpeakerItemUi(
-    id = id,
-    name = display_name,
-    pronouns = pronouns,
-    company = SpeakerMappers.displayActivity(job_title, company),
-    url = photo_url
-)
-
 fun SelectSessionByTalkId.convertTalkUi(
+    getStringArg: KFunction2<String, List<String>, String>,
     speakers: List<SelectSpeakersByTalkId>,
     openfeedbackProjectId: SelectOpenfeedbackProjectId
 ): TalkUi {
@@ -192,7 +184,7 @@ fun SelectSessionByTalkId.convertTalkUi(
         endTime = endTime.formatHoursMinutes(),
         timeInMinutes = diff.inWholeMinutes.toInt(),
         room = room,
-        speakers = speakers.map { it.convertSpeakerItemUi() }.toImmutableList(),
+        speakers = speakers.map { it.convertSpeakerItemUi(getStringArg) }.toImmutableList(),
         speakersSharing = speakers.joinToString(", ") { speaker ->
             if (speaker.twitter == null) speaker.display_name
             else {

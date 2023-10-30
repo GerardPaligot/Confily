@@ -29,7 +29,7 @@ class ViewModelFactory: ObservableObject {
             api: api,
             scheduleDao: ScheduleDao(db: db, settings: settings, platform: platform),
             speakerDao: SpeakerDao(db: db, platform: platform),
-            talkDao: TalkDao(db: db),
+            talkDao: TalkDao(db: db, platform: platform),
             eventDao: EventDao(db: db, settings: settings),
             partnerDao: PartnerDao(db: db, platform: platform),
             featuresDao: FeaturesActivatedDao(db: db),

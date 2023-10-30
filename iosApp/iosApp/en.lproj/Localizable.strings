@@ -51,6 +51,7 @@
 "textJobPropulsed" = "Propulsed by";
 "textFeedbackNotStarted" = "Wait a little, you will be able to give feedbacks when the session has started.";
 "text_schedule_minutes" = "%@ minutes";
+"text_speaker_activity" = "%@ at %@";
 "text_speakers_list.one" = "%@ and %@ other";
 "text_speakers_list.other" = "%@ and %@ others";
 "text_level_beginner" = "Débutant";

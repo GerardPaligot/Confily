@@ -11,8 +11,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import org.gdglille.devfest.Platform
-import org.gdglille.devfest.database.mappers.SpeakerMappers
 import org.gdglille.devfest.database.mappers.convertTalkItemUi
+import org.gdglille.devfest.database.mappers.convertToSpeakerItemUi
+import org.gdglille.devfest.database.mappers.convertToSpeakerUi
 import org.gdglille.devfest.db.Conferences4HallDatabase
 import org.gdglille.devfest.models.ui.SpeakerItemUi
 import org.gdglille.devfest.models.ui.SpeakerUi
@@ -24,12 +25,15 @@ class SpeakerDao(
 ) {
     fun fetchSpeaker(eventId: String, speakerId: String): Flow<SpeakerUi> {
         return combine(
-            db.speakerQueries.selectSpeaker(speakerId, eventId, SpeakerMappers.speakerUi)
+            db.speakerQueries.selectSpeaker(speakerId, eventId)
                 .asFlow()
                 .mapToOne(Dispatchers.IO),
             fetchTalksBySpeakerId(eventId, speakerId),
             transform = { speaker, talks ->
-                return@combine speaker.copy(talks = talks.toImmutableList())
+                return@combine speaker.convertToSpeakerUi(
+                    getStringArg = platform::getString,
+                    talks = talks.toImmutableList()
+                )
             }
         )
     }
@@ -62,8 +66,12 @@ class SpeakerDao(
     }
 
     fun fetchSpeakers(eventId: String): Flow<ImmutableList<SpeakerItemUi>> =
-        db.speakerQueries.selectSpeakersByEvent(eventId, SpeakerMappers.speakerItemUi)
+        db.speakerQueries.selectSpeakersByEvent(eventId)
             .asFlow()
             .mapToList(Dispatchers.IO)
-            .map { it.toImmutableList() }
+            .map { speakers ->
+                speakers
+                    .map { speaker -> speaker.convertToSpeakerItemUi(platform::getString) }
+                    .toImmutableList()
+            }
 }

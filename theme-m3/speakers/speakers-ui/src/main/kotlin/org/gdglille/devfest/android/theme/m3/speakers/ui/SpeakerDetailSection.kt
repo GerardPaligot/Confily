@@ -13,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.placeholder
+import org.gdglille.devfest.android.theme.m3.style.socials.SocialsSection
 import org.gdglille.devfest.android.theme.m3.style.speakers.avatar.MediumSpeakerAvatar
 import org.gdglille.devfest.models.ui.SpeakerUi
 
@@ -36,9 +37,17 @@ fun SpeakerDetailSection(
             modifier = Modifier.placeholder(visible = isLoading)
         )
         Spacer(modifier = Modifier.height(16.dp))
-        SpeakerSocialSection(
-            speaker = speaker,
+        SocialsSection(
+            title = speaker.name,
+            pronouns = speaker.pronouns,
+            subtitle = speaker.activity,
+            detailed = speaker.bio,
             isLoading = isLoading,
+            twitterUrl = speaker.twitterUrl,
+            mastodonUrl = speaker.mastodonUrl,
+            githubUrl = speaker.githubUrl,
+            linkedinUrl = speaker.linkedinUrl,
+            websiteUrl = speaker.websiteUrl,
             onLinkClicked = onLinkClicked
         )
         Spacer(modifier = Modifier.height(24.dp))
