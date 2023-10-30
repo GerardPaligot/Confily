@@ -11,6 +11,7 @@ enum class ColorSchemeTokens {
     SecondaryColor,
     SurfaceColor,
     OnSurfaceColor,
+    OnSurfaceVariant,
     OnBackgroundColor
 }
 
@@ -20,6 +21,7 @@ internal fun ColorScheme.fromToken(value: ColorSchemeTokens): Color {
         ColorSchemeTokens.SecondaryColor -> secondary
         ColorSchemeTokens.SurfaceColor -> surface
         ColorSchemeTokens.OnSurfaceColor -> onSurface
+        ColorSchemeTokens.OnSurfaceVariant -> onSurfaceVariant
         ColorSchemeTokens.OnBackgroundColor -> onBackground
     }
 }

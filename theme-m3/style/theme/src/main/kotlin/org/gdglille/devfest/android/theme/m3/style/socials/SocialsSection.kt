@@ -7,17 +7,18 @@ import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.halilibo.richtext.markdown.Markdown
 import com.halilibo.richtext.ui.RichText
 import com.halilibo.richtext.ui.RichTextThemeIntegration
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.placeholder
+import org.gdglille.devfest.android.theme.m3.style.toDp
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -34,38 +35,53 @@ fun SocialsSection(
     githubUrl: String? = null,
     linkedinUrl: String? = null,
     websiteUrl: String? = null,
+    titleColor: Color = SocialsSectionDefaults.titleColor,
+    pronounsColor: Color = SocialsSectionDefaults.pronounsColor,
+    subTitleColor: Color = SocialsSectionDefaults.subTitleColor,
+    bodyColor: Color = SocialsSectionDefaults.bodyColor,
+    titleTextStyle: TextStyle = SocialsSectionDefaults.titleTextStyle,
+    pronounsTextStyle: TextStyle = SocialsSectionDefaults.pronounsTextStyle,
+    subTitleTextStyle: TextStyle = SocialsSectionDefaults.subTitleTextStyle,
+    bodyTextStyle: TextStyle = SocialsSectionDefaults.bodyTextStyle
 ) {
     Column(modifier = modifier.fillMaxWidth()) {
         Text(
             text = title,
-            style = MaterialTheme.typography.headlineLarge,
-            color = MaterialTheme.colorScheme.onSurface,
+            style = titleTextStyle,
+            color = titleColor,
             modifier = Modifier.placeholder(visible = isLoading)
         )
         pronouns?.let {
             Text(
                 text = pronouns,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = .5f),
+                style = pronounsTextStyle,
+                color = pronounsColor,
                 modifier = Modifier.placeholder(visible = isLoading)
             )
         }
         subtitle?.let {
-            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(
+                modifier = Modifier
+                    .height(SocialsSectionTokens.BetweenTitleAndSubTitleSpacing.toDp())
+            )
             Text(
                 text = subtitle,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                style = subTitleTextStyle,
+                color = subTitleColor,
                 modifier = Modifier.placeholder(visible = isLoading)
             )
         }
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(SocialsSectionTokens.BetweenTitleAndSocialsSpacing.toDp()))
         val hasUrls =
             twitterUrl != null || githubUrl != null || linkedinUrl != null || websiteUrl != null
         if (hasUrls) {
             FlowRow(
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
+                horizontalArrangement = Arrangement.spacedBy(
+                    SocialsSectionTokens.BetweenSocialIconsSpacing.toDp()
+                ),
+                verticalArrangement = Arrangement.spacedBy(
+                    SocialsSectionTokens.BetweenSocialIconsSpacing.toDp()
+                )
             ) {
                 twitterUrl?.let {
                     SocialIcons.Twitter(
@@ -105,16 +121,14 @@ fun SocialsSection(
             }
         }
         detailed?.let {
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(SocialsSectionTokens.TopBodySpacing.toDp()))
             RichTextThemeIntegration(
-                textStyle = { MaterialTheme.typography.bodyMedium },
+                textStyle = { bodyTextStyle },
                 ProvideTextStyle = null,
-                contentColor = { MaterialTheme.colorScheme.onSurface },
+                contentColor = { bodyColor },
                 ProvideContentColor = null,
             ) {
-                RichText(
-                    modifier = Modifier.placeholder(visible = isLoading)
-                ) {
+                RichText(modifier = Modifier.placeholder(visible = isLoading)) {
                     Markdown(detailed)
                 }
             }

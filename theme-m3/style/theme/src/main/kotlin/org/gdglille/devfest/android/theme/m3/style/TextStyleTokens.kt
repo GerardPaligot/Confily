@@ -8,6 +8,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 
 enum class TextStyleTokens {
+    HeadlineLarge,
     TitleLarge,
     TitleMedium,
     TitleSmall,
@@ -18,6 +19,7 @@ enum class TextStyleTokens {
 
 internal fun Typography.fromToken(value: TextStyleTokens): TextStyle {
     return when (value) {
+        TextStyleTokens.HeadlineLarge -> headlineLarge
         TextStyleTokens.TitleLarge -> titleLarge
         TextStyleTokens.TitleMedium -> titleMedium
         TextStyleTokens.TitleSmall -> titleSmall
