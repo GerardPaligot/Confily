@@ -14,7 +14,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.MediumScheduleItem
-import org.gdglille.devfest.android.theme.m3.speakers.ui.SpeakerDetailSection
+import org.gdglille.devfest.android.theme.m3.speakers.ui.SpeakerDetailSectionVertical
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBar
 import org.gdglille.devfest.android.theme.m3.style.placeholder
@@ -45,7 +45,7 @@ fun SpeakerDetail(
         content = {
             LazyColumn(contentPadding = it) {
                 item {
-                    SpeakerDetailSection(
+                    SpeakerDetailSectionVertical(
                         speaker = speaker,
                         isLoading = isLoading,
                         onLinkClicked = onLinkClicked
