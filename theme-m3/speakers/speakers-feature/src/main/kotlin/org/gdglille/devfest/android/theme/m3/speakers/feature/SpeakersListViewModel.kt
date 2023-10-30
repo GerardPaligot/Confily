@@ -22,12 +22,7 @@ sealed class SpeakersUiState {
 class SpeakersListViewModel(private val repository: SpeakerRepository) : ViewModel() {
     private val _uiState = MutableStateFlow<SpeakersUiState>(
         SpeakersUiState.Loading(
-            persistentListOf(
-                SpeakerItemUi.fake,
-                SpeakerItemUi.fake,
-                SpeakerItemUi.fake,
-                SpeakerItemUi.fake
-            )
+            persistentListOf(SpeakerItemUi.fake.copy(id = "1"), SpeakerItemUi.fake.copy(id = "2"))
         )
     )
     val uiState: StateFlow<SpeakersUiState> = _uiState

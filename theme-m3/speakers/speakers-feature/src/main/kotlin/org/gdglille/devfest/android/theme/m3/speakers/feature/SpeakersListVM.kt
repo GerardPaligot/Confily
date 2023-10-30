@@ -20,7 +20,7 @@ fun SpeakersListVM(
 ) {
     val uiState = viewModel.uiState.collectAsState()
     when (uiState.value) {
-        is SpeakersUiState.Loading -> SpeakersList(
+        is SpeakersUiState.Loading -> SpeakersListOrientable(
             speakers = (uiState.value as SpeakersUiState.Loading).speakers,
             isLoading = true,
             modifier = modifier,
@@ -28,7 +28,7 @@ fun SpeakersListVM(
         )
 
         is SpeakersUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
-        is SpeakersUiState.Success -> SpeakersList(
+        is SpeakersUiState.Success -> SpeakersListOrientable(
             speakers = (uiState.value as SpeakersUiState.Success).speakers,
             isLoading = false,
             modifier = modifier,
