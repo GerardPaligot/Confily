@@ -1,68 +1,69 @@
-package org.gdglille.devfest.android.theme.m3.partners.ui.partners
+package org.gdglille.devfest.android.theme.m3.style.partners
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.graphics.painter.ColorPainter
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import coil.imageLoader
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
-import org.gdglille.devfest.android.theme.m3.style.placeholder
-import org.gdglille.devfest.models.ui.PartnerItemUi
+import org.gdglille.devfest.android.theme.m3.style.toDp
 
-@ExperimentalMaterial3Api
 @Composable
 fun PartnerItem(
-    partnerUi: PartnerItemUi,
+    url: String,
+    contentDescription: String?,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    isLoading: Boolean = false,
-    backgroundColor: Color = MaterialTheme.colorScheme.surface,
-    shape: Shape = MaterialTheme.shapes.medium,
+    backgroundColor: Color = PartnerItemDefaults.containerColor,
+    placeholder: Painter = PartnerItemDefaults.placeholderPainter,
+    shape: Shape = PartnerItemDefaults.shape,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    contentScale: ContentScale = ContentScale.Fit,
-    onClick: (id: String) -> Unit
+    contentScale: ContentScale = ContentScale.Fit
 ) {
     Surface(
-        onClick = { onClick(partnerUi.id) },
-        modifier = modifier.placeholder(visible = isLoading),
+        onClick = onClick,
+        modifier = modifier,
         shape = shape,
         color = backgroundColor,
         interactionSource = interactionSource
     ) {
         Image(
             painter = rememberAsyncImagePainter(
-                model = partnerUi.logoUrl,
-                placeholder = ColorPainter(backgroundColor),
+                model = url,
+                placeholder = placeholder,
                 imageLoader = LocalContext.current.imageLoader
             ),
-            contentDescription = partnerUi.name,
+            contentDescription = contentDescription,
             contentScale = contentScale,
-            modifier = Modifier.padding(8.dp)
+            modifier = Modifier.padding(PartnerItemTokens.PaddingSpacing.toDp())
         )
     }
 }
 
-@ExperimentalMaterial3Api
 @Preview
 @Composable
 private fun PartnerItemPreview() {
     Conferences4HallTheme {
         PartnerItem(
-            partnerUi = PartnerItemUi.fake,
-            modifier = Modifier.size(200.dp)
-        ) {}
+            url = "",
+            contentDescription = "Gerard Inc.",
+            onClick = {},
+            modifier = Modifier
+                .fillMaxWidth()
+                .aspectRatio(1f)
+        )
     }
 }
+

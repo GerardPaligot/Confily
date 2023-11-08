@@ -12,7 +12,8 @@ enum class ColorSchemeTokens {
     SurfaceColor,
     OnSurfaceColor,
     OnSurfaceVariant,
-    OnBackgroundColor
+    OnBackgroundColor,
+    WhiteBackgroundColor
 }
 
 internal fun ColorScheme.fromToken(value: ColorSchemeTokens): Color {
@@ -23,6 +24,7 @@ internal fun ColorScheme.fromToken(value: ColorSchemeTokens): Color {
         ColorSchemeTokens.OnSurfaceColor -> onSurface
         ColorSchemeTokens.OnSurfaceVariant -> onSurfaceVariant
         ColorSchemeTokens.OnBackgroundColor -> onBackground
+        ColorSchemeTokens.WhiteBackgroundColor -> Color.White
     }
 }
 

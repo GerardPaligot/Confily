@@ -74,7 +74,7 @@ class PartnerDao(private val db: Conferences4HallDatabase, private val platform:
                         db.partnerQueries.selectPartners(eventId, type.name, partnerMapper)
                             .asFlow()
                             .mapToList(Dispatchers.IO)
-                            .map { type.name to it.chunked(3).toImmutableList() }
+                            .map { type.name to it }
                     },
                     transform = { results ->
                         PartnerGroupsUi(
@@ -82,7 +82,6 @@ class PartnerDao(private val db: Conferences4HallDatabase, private val platform:
                                 PartnerGroupUi(
                                     type = type.name,
                                     partners = results.find { it.first == type.name }!!.second
-                                        .map { it.toImmutableList() }
                                         .toImmutableList()
                                 )
                             }.toImmutableList()

@@ -10,7 +10,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import org.gdglille.devfest.android.theme.m3.style.R
 import org.gdglille.devfest.repositories.AgendaRepository
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PartnersVM(
     agendaRepository: AgendaRepository,
@@ -22,7 +21,7 @@ fun PartnersVM(
 ) {
     val uiState = viewModel.uiState.collectAsState()
     when (uiState.value) {
-        is PartnersUiState.Loading -> Partners(
+        is PartnersUiState.Loading -> PartnersOrientable(
             partners = (uiState.value as PartnersUiState.Loading).partners,
             modifier = modifier,
             isLoading = true,
@@ -30,7 +29,7 @@ fun PartnersVM(
         )
 
         is PartnersUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
-        is PartnersUiState.Success -> Partners(
+        is PartnersUiState.Success -> PartnersOrientable(
             partners = (uiState.value as PartnersUiState.Success).partners,
             modifier = modifier,
             onPartnerClick = onPartnerClick

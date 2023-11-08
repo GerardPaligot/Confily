@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.android.theme.m3.style.socials.SocialsSection
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
+import org.gdglille.devfest.android.theme.m3.style.partners.PartnerItem
 import org.gdglille.devfest.models.ui.PartnerItemUi
 
 @ExperimentalMaterial3Api
@@ -33,14 +34,14 @@ fun PartnerDetailSection(
             .padding(horizontal = 16.dp)
     ) {
         Spacer(modifier = Modifier.height(24.dp))
-        Conferences4HallTheme(useDarkTheme = false) {
-            PartnerItem(
-                partnerUi = partnerItemUi,
-                isLoading = isLoading,
-                modifier = Modifier.size(128.dp).clearAndSetSemantics { },
-                onClick = {}
-            )
-        }
+        PartnerItem(
+            url = partnerItemUi.logoUrl,
+            contentDescription = partnerItemUi.name,
+            onClick = {},
+            modifier = Modifier
+                .size(128.dp)
+                .clearAndSetSemantics { },
+        )
         Spacer(modifier = Modifier.height(16.dp))
         SocialsSection(
             title = partnerItemUi.name,

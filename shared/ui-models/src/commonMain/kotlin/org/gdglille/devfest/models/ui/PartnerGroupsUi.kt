@@ -12,31 +12,25 @@ data class PartnerGroupsUi(
                 PartnerGroupUi(
                     type = "Gold",
                     partners = persistentListOf(
-                        persistentListOf(
-                            PartnerItemUi.fake,
-                            PartnerItemUi.fake,
-                            PartnerItemUi.fake
-                        )
+                        PartnerItemUi.fake.copy(id = "1"),
+                        PartnerItemUi.fake.copy(id = "2"),
+                        PartnerItemUi.fake.copy(id = "3")
                     )
                 ),
                 PartnerGroupUi(
                     type = "Silver",
                     partners = persistentListOf(
-                        persistentListOf(
-                            PartnerItemUi.fake,
-                            PartnerItemUi.fake,
-                            PartnerItemUi.fake
-                        )
+                        PartnerItemUi.fake.copy(id = "4"),
+                        PartnerItemUi.fake.copy(id = "5"),
+                        PartnerItemUi.fake.copy(id = "6")
                     )
                 ),
                 PartnerGroupUi(
                     type = "Bronze",
                     partners = persistentListOf(
-                        persistentListOf(
-                            PartnerItemUi.fake,
-                            PartnerItemUi.fake,
-                            PartnerItemUi.fake
-                        )
+                        PartnerItemUi.fake.copy(id = "7"),
+                        PartnerItemUi.fake.copy(id = "8"),
+                        PartnerItemUi.fake.copy(id = "9")
                     )
                 )
             )
