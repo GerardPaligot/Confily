@@ -15,30 +15,31 @@ import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import io.openfeedback.android.OpenFeedbackConfig
+import io.openfeedback.android.viewmodels.OpenFeedbackFirebaseConfig
 import kotlinx.collections.immutable.persistentListOf
 import org.gdglille.devfest.android.theme.m3.navigation.TopActions
-import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBar
-import org.gdglille.devfest.android.theme.m3.schedules.ui.speakers.SpeakerSection
 import org.gdglille.devfest.android.theme.m3.schedules.ui.schedule.OpenFeedbackSection
 import org.gdglille.devfest.android.theme.m3.schedules.ui.schedule.TalkAbstract
 import org.gdglille.devfest.android.theme.m3.schedules.ui.schedule.TalkSection
+import org.gdglille.devfest.android.theme.m3.schedules.ui.speakers.SpeakerSection
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.R
 import org.gdglille.devfest.android.theme.m3.style.actions.TopActionsUi
+import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBar
 import org.gdglille.devfest.models.ui.TalkUi
 
 @ExperimentalMaterial3Api
 @Composable
 fun ScheduleDetail(
     talk: TalkUi,
-    openFeedbackState: OpenFeedbackConfig,
+    openfeedbackFirebaseConfig: OpenFeedbackFirebaseConfig,
     onBackClicked: () -> Unit,
     onSpeakerClicked: (id: String) -> Unit,
     onShareClicked: (text: String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val textShared = stringResource(id = R.string.input_share_talk, talk.title, talk.speakersSharing)
+    val textShared =
+        stringResource(id = R.string.input_share_talk, talk.title, talk.speakersSharing)
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -78,7 +79,7 @@ fun ScheduleDetail(
                             OpenFeedbackSection(
                                 openFeedbackProjectId = talk.openFeedbackProjectId!!,
                                 openFeedbackSessionId = talk.openFeedbackSessionId!!,
-                                openFeedbackState = openFeedbackState,
+                                openfeedbackFirebaseConfig = openfeedbackFirebaseConfig,
                                 canGiveFeedback = talk.canGiveFeedback
                             )
                         }
@@ -105,15 +106,12 @@ private fun ScheduleDetailPreview() {
     Conferences4HallTheme {
         ScheduleDetail(
             talk = TalkUi.fake,
-            openFeedbackState = OpenFeedbackConfig(
+            openfeedbackFirebaseConfig = OpenFeedbackFirebaseConfig(
                 context = LocalContext.current,
-                firebaseConfig = OpenFeedbackConfig.FirebaseConfig(
-                    projectId = "",
-                    applicationId = "",
-                    apiKey = "",
-                    databaseUrl = ""
-                ),
-                openFeedbackProjectId = ""
+                projectId = "",
+                applicationId = "",
+                apiKey = "",
+                databaseUrl = ""
             ),
             onBackClicked = {},
             onSpeakerClicked = {},

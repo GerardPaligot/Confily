@@ -9,7 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
-import io.openfeedback.android.OpenFeedbackConfig
+import io.openfeedback.android.viewmodels.OpenFeedbackFirebaseConfig
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import org.gdglille.devfest.AlarmScheduler
@@ -40,7 +40,7 @@ fun MainMobile(
     userRepository: UserRepository,
     speakerRepository: SpeakerRepository,
     alarmScheduler: AlarmScheduler,
-    openFeedbackState: OpenFeedbackConfig,
+    openfeedbackFirebaseConfig: OpenFeedbackFirebaseConfig,
     launchUrl: (String) -> Unit,
     onContactExportClicked: (ExportNetworkingUi) -> Unit,
     onReportByPhoneClicked: (String) -> Unit,
@@ -131,7 +131,7 @@ fun MainMobile(
                     ) {
                         ScheduleDetailVM(
                             scheduleId = it.arguments?.getString("scheduleId")!!,
-                            openFeedbackState = openFeedbackState,
+                            openfeedbackFirebaseConfig = openfeedbackFirebaseConfig,
                             agendaRepository = agendaRepository,
                             onBackClicked = {
                                 navController.popBackStack()

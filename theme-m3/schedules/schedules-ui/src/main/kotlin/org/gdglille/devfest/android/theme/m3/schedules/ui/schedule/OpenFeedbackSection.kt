@@ -9,17 +9,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import io.openfeedback.android.OpenFeedbackConfig
 import io.openfeedback.android.m3.OpenFeedback
+import io.openfeedback.android.viewmodels.OpenFeedbackFirebaseConfig
 import org.gdglille.devfest.android.theme.m3.style.R
-import java.util.Locale
 
 @Composable
 fun OpenFeedbackSection(
     openFeedbackProjectId: String,
     openFeedbackSessionId: String,
     canGiveFeedback: Boolean,
-    openFeedbackState: OpenFeedbackConfig,
+    openfeedbackFirebaseConfig: OpenFeedbackFirebaseConfig,
     modifier: Modifier = Modifier,
     subtitleTextStyle: TextStyle = MaterialTheme.typography.titleLarge,
 ) {
@@ -35,10 +34,9 @@ fun OpenFeedbackSection(
                 style = subtitleTextStyle
             )
             OpenFeedback(
-                config = openFeedbackState,
+                config = openfeedbackFirebaseConfig,
                 projectId = openFeedbackProjectId,
-                sessionId = openFeedbackSessionId,
-                language = Locale.getDefault().language
+                sessionId = openFeedbackSessionId
             )
         }
     }

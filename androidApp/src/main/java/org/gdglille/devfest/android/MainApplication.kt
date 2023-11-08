@@ -6,24 +6,22 @@ import coil.ImageLoaderFactory
 import coil.decode.SvgDecoder
 import coil.disk.DiskCache
 import coil.memory.MemoryCache
-import io.openfeedback.android.OpenFeedbackConfig
+import io.openfeedback.android.viewmodels.OpenFeedbackFirebaseConfig
 
 private const val MemoryCacheSize = 0.25
 private const val DiskCacheSize = 0.10
 
 class MainApplication : Application(), ImageLoaderFactory {
-    lateinit var openFeedbackConfig: OpenFeedbackConfig
+    lateinit var openFeedbackConfig: OpenFeedbackFirebaseConfig
 
     override fun onCreate() {
         super.onCreate()
-        openFeedbackConfig = OpenFeedbackConfig(
+        openFeedbackConfig = OpenFeedbackFirebaseConfig(
             context = this,
-            firebaseConfig = OpenFeedbackConfig.FirebaseConfig(
-                projectId = BuildConfig.FIREBASE_PROJECT_ID,
-                applicationId = BuildConfig.APPLICATION_ID,
-                apiKey = BuildConfig.FIREBASE_API_KEY,
-                databaseUrl = "https://${BuildConfig.FIREBASE_PROJECT_ID}.firebaseio.com"
-            )
+            projectId = BuildConfig.FIREBASE_PROJECT_ID,
+            applicationId = BuildConfig.APPLICATION_ID,
+            apiKey = BuildConfig.FIREBASE_API_KEY,
+            databaseUrl = "https://${BuildConfig.FIREBASE_PROJECT_ID}.firebaseio.com"
         )
     }
 

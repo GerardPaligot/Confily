@@ -7,7 +7,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
-import io.openfeedback.android.OpenFeedbackConfig
+import io.openfeedback.android.viewmodels.OpenFeedbackFirebaseConfig
 import org.gdglille.devfest.android.theme.m3.style.R
 import org.gdglille.devfest.repositories.AgendaRepository
 
@@ -15,7 +15,7 @@ import org.gdglille.devfest.repositories.AgendaRepository
 @Composable
 fun ScheduleDetailVM(
     scheduleId: String,
-    openFeedbackState: OpenFeedbackConfig,
+    openfeedbackFirebaseConfig: OpenFeedbackFirebaseConfig,
     agendaRepository: AgendaRepository,
     onBackClicked: () -> Unit,
     onSpeakerClicked: (id: String) -> Unit,
@@ -31,7 +31,7 @@ fun ScheduleDetailVM(
         is ScheduleUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
         is ScheduleUiState.Success -> ScheduleDetail(
             talk = (uiState.value as ScheduleUiState.Success).talk,
-            openFeedbackState = openFeedbackState,
+            openfeedbackFirebaseConfig = openfeedbackFirebaseConfig,
             modifier = modifier,
             onBackClicked = onBackClicked,
             onSpeakerClicked = onSpeakerClicked,

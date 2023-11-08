@@ -97,7 +97,7 @@ class MainActivity : ComponentActivity() {
             getSystemService(ALARM_SERVICE) as AlarmManager,
             AlarmIntentFactoryImpl
         )
-        val openFeedbackState = (application as MainApplication).openFeedbackConfig
+        val openfeedbackFirebaseConfig = (application as MainApplication).openFeedbackConfig
         setContent {
             val inDarkTheme = isSystemInDarkTheme()
             DisposableEffect(inDarkTheme) {
@@ -120,7 +120,7 @@ class MainActivity : ComponentActivity() {
                 userRepository = userRepository,
                 speakerRepository = speakerRepository,
                 alarmScheduler = scheduler,
-                openFeedbackState = openFeedbackState,
+                openfeedbackFirebaseConfig = openfeedbackFirebaseConfig,
                 launchUrl = { launchUrl(it) },
                 onContactExportClicked = { export ->
                     val uri: Uri = FileProvider.getUriForFile(
