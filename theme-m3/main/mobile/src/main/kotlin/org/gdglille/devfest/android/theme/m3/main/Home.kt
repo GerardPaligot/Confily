@@ -22,7 +22,7 @@ import org.gdglille.devfest.android.theme.m3.infos.feature.InfoPages
 import org.gdglille.devfest.android.theme.m3.navigation.ActionIds
 import org.gdglille.devfest.android.theme.m3.navigation.Screen
 import org.gdglille.devfest.android.theme.m3.networking.feature.NetworkingPages
-import org.gdglille.devfest.android.theme.m3.partners.feature.PartnersVM
+import org.gdglille.devfest.android.theme.m3.partners.feature.PartnersListVM
 import org.gdglille.devfest.android.theme.m3.schedules.feature.ScheduleListVM
 import org.gdglille.devfest.android.theme.m3.speakers.feature.SpeakersListVM
 import org.gdglille.devfest.models.ui.ExportNetworkingUi
@@ -173,7 +173,7 @@ fun Home(
                         )
                     }
                     composable(Screen.Partners.route) {
-                        PartnersVM(
+                        PartnersListVM(
                             agendaRepository = agendaRepository,
                             onPartnerClick = onPartnerClicked
                         )

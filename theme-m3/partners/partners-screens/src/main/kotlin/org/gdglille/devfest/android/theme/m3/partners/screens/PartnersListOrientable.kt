@@ -1,14 +1,15 @@
-package org.gdglille.devfest.android.theme.m3.partners.feature
+package org.gdglille.devfest.android.theme.m3.partners.screens
 
 import android.content.res.Configuration
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import org.gdglille.devfest.android.theme.m3.partners.screens.PartnersListScreen
 import org.gdglille.devfest.models.ui.PartnerGroupsUi
 
 @Composable
-fun PartnersOrientable(
+fun PartnersListOrientable(
     partners: PartnerGroupsUi,
     modifier: Modifier = Modifier,
     isLoading: Boolean = false,
@@ -17,7 +18,7 @@ fun PartnersOrientable(
     val orientation = LocalConfiguration.current
     val state = rememberLazyGridState()
     if (orientation.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-        Partners(
+        PartnersListScreen(
             partners = partners,
             modifier = modifier,
             columnCount = 6,
@@ -26,7 +27,7 @@ fun PartnersOrientable(
             onPartnerClick = onPartnerClick
         )
     } else {
-        Partners(
+        PartnersListScreen(
             partners = partners,
             modifier = modifier,
             columnCount = 3,

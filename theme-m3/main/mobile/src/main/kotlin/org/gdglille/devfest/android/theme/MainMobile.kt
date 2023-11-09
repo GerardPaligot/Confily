@@ -19,7 +19,7 @@ import org.gdglille.devfest.android.theme.m3.main.Home
 import org.gdglille.devfest.android.theme.m3.main.HomeResultKey
 import org.gdglille.devfest.android.theme.m3.networking.feature.ProfileInputVM
 import org.gdglille.devfest.android.theme.m3.networking.feature.VCardQrCodeScanner
-import org.gdglille.devfest.android.theme.m3.partners.feature.PartnerDetailVM
+import org.gdglille.devfest.android.theme.m3.partners.feature.PartnerDetailOrientableVM
 import org.gdglille.devfest.android.theme.m3.schedules.feature.AgendaFiltersVM
 import org.gdglille.devfest.android.theme.m3.schedules.feature.ScheduleDetailVM
 import org.gdglille.devfest.android.theme.m3.speakers.feature.SpeakerDetailVM
@@ -149,7 +149,7 @@ fun MainMobile(
                             uriPattern = "$rootUri/partners/{partnerId}"
                         })
                     ) {
-                        PartnerDetailVM(
+                        PartnerDetailOrientableVM(
                             partnerId = it.arguments?.getString("partnerId")!!,
                             agendaRepository = agendaRepository,
                             onLinkClicked = { launchUrl(it) },

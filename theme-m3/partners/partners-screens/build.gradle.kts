@@ -5,12 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "org.gdglille.devfest.android.theme.m3.partners.feature"
+    namespace = "org.gdglille.devfest.android.theme.m3.partners.screens"
 }
 
 dependencies {
     implementation(projects.shared.core)
-    implementation(projects.themeM3.partners.partnersScreens)
     implementation(projects.themeM3.partners.partnersUi)
     implementation(projects.themeM3.navigation)
     implementation(projects.themeM3.style.partners)
@@ -21,9 +20,4 @@ dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.tooling)
-    implementation(libs.androidx.compose.lifecycle)
-    implementation(libs.androidx.lifecycle.vm)
-
-    implementation(platform(libs.google.firebase))
-    implementation("com.google.firebase:firebase-crashlytics-ktx")
 }

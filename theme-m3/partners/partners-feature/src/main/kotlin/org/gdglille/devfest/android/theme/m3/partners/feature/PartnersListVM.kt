@@ -6,11 +6,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
+import org.gdglille.devfest.android.theme.m3.partners.screens.PartnersListOrientable
 import org.gdglille.devfest.android.theme.m3.style.R
 import org.gdglille.devfest.repositories.AgendaRepository
 
 @Composable
-fun PartnersVM(
+fun PartnersListVM(
     agendaRepository: AgendaRepository,
     onPartnerClick: (id: String) -> Unit,
     modifier: Modifier = Modifier,
@@ -20,7 +21,7 @@ fun PartnersVM(
 ) {
     val uiState = viewModel.uiState.collectAsState()
     when (uiState.value) {
-        is PartnersUiState.Loading -> PartnersOrientable(
+        is PartnersUiState.Loading -> PartnersListOrientable(
             partners = (uiState.value as PartnersUiState.Loading).partners,
             modifier = modifier,
             isLoading = true,
@@ -28,7 +29,7 @@ fun PartnersVM(
         )
 
         is PartnersUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
-        is PartnersUiState.Success -> PartnersOrientable(
+        is PartnersUiState.Success -> PartnersListOrientable(
             partners = (uiState.value as PartnersUiState.Success).partners,
             modifier = modifier,
             onPartnerClick = onPartnerClick

@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.partners.feature
+package org.gdglille.devfest.android.theme.m3.partners.screens
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
@@ -23,7 +23,7 @@ import org.gdglille.devfest.android.theme.m3.style.placeholder
 import org.gdglille.devfest.models.ui.PartnerGroupsUi
 
 @Composable
-fun Partners(
+fun PartnersListScreen(
     partners: PartnerGroupsUi,
     modifier: Modifier = Modifier,
     state: LazyGridState = rememberLazyGridState(),
@@ -61,10 +61,10 @@ fun Partners(
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Preview
 @Composable
-fun PartnersPreview() {
+private fun PartnersListScreenPreview() {
     Conferences4HallTheme {
         Scaffold {
-            Partners(
+            PartnersListScreen(
                 partners = PartnerGroupsUi.fake,
                 onPartnerClick = {}
             )
