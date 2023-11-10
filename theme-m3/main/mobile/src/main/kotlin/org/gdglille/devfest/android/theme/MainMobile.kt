@@ -22,7 +22,7 @@ import org.gdglille.devfest.android.theme.m3.networking.feature.VCardQrCodeScann
 import org.gdglille.devfest.android.theme.m3.partners.feature.PartnerDetailOrientableVM
 import org.gdglille.devfest.android.theme.m3.schedules.feature.AgendaFiltersVM
 import org.gdglille.devfest.android.theme.m3.schedules.feature.ScheduleDetailVM
-import org.gdglille.devfest.android.theme.m3.speakers.feature.SpeakerDetailVM
+import org.gdglille.devfest.android.theme.m3.speakers.feature.SpeakerDetailOrientableVM
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.models.ui.ExportNetworkingUi
 import org.gdglille.devfest.repositories.AgendaRepository
@@ -163,7 +163,7 @@ fun MainMobile(
                         route = "speakers/{speakerId}",
                         arguments = listOf(navArgument("speakerId") { type = NavType.StringType })
                     ) {
-                        SpeakerDetailVM(
+                        SpeakerDetailOrientableVM(
                             speakerId = it.arguments?.getString("speakerId")!!,
                             agendaRepository = agendaRepository,
                             alarmScheduler = alarmScheduler,

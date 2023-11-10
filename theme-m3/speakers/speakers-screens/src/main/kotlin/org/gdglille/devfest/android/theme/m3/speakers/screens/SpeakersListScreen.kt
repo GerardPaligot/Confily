@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.speakers.feature
+package org.gdglille.devfest.android.theme.m3.speakers.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -21,7 +21,7 @@ import org.gdglille.devfest.android.theme.m3.style.toDp
 import org.gdglille.devfest.models.ui.SpeakerItemUi
 
 @Composable
-fun SpeakersList(
+fun SpeakersListScreen(
     speakers: ImmutableList<SpeakerItemUi>,
     onSpeakerClicked: (id: String) -> Unit,
     modifier: Modifier = Modifier,
@@ -54,7 +54,7 @@ fun SpeakersList(
 @Composable
 private fun SpeakersListPreview() {
     Conferences4HallTheme {
-        SpeakersList(
+        SpeakersListScreen(
             speakers = persistentListOf(
                 SpeakerItemUi.fake.copy(id = "1"),
                 SpeakerItemUi.fake.copy(id = "2"),

@@ -6,11 +6,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
+import org.gdglille.devfest.android.theme.m3.speakers.screens.SpeakersListOrientable
 import org.gdglille.devfest.android.theme.m3.style.R
 import org.gdglille.devfest.repositories.SpeakerRepository
 
 @Composable
-fun SpeakersListVM(
+fun SpeakersListOrientableVM(
     speakerRepository: SpeakerRepository,
     onSpeakerClicked: (id: String) -> Unit,
     modifier: Modifier = Modifier,
