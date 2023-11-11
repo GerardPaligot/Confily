@@ -32,7 +32,7 @@ fun OpenFeedbackNotStarted(
 
 @Preview
 @Composable
-fun OpenFeedbackNotStartedPreview() {
+private fun OpenFeedbackNotStartedPreview() {
     Conferences4HallTheme {
         OpenFeedbackNotStarted()
     }

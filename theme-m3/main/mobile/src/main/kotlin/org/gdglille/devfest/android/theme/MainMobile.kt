@@ -21,7 +21,7 @@ import org.gdglille.devfest.android.theme.m3.networking.feature.ProfileInputVM
 import org.gdglille.devfest.android.theme.m3.networking.feature.VCardQrCodeScanner
 import org.gdglille.devfest.android.theme.m3.partners.feature.PartnerDetailOrientableVM
 import org.gdglille.devfest.android.theme.m3.schedules.feature.AgendaFiltersVM
-import org.gdglille.devfest.android.theme.m3.schedules.feature.ScheduleDetailVM
+import org.gdglille.devfest.android.theme.m3.schedules.feature.ScheduleDetailOrientableVM
 import org.gdglille.devfest.android.theme.m3.speakers.feature.SpeakerDetailOrientableVM
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.models.ui.ExportNetworkingUi
@@ -129,7 +129,7 @@ fun MainMobile(
                         route = "schedules/{scheduleId}",
                         arguments = listOf(navArgument("scheduleId") { type = NavType.StringType })
                     ) {
-                        ScheduleDetailVM(
+                        ScheduleDetailOrientableVM(
                             scheduleId = it.arguments?.getString("scheduleId")!!,
                             openfeedbackFirebaseConfig = openfeedbackFirebaseConfig,
                             agendaRepository = agendaRepository,

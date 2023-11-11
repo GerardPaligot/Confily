@@ -54,6 +54,7 @@
     <string name="text_openfeedback_title">Notes &amp; avis</string>
     <string name="text_openfeedback_not_started_title">Réagissez en live !</string>
     <string name="text_openfeedback_not_started">Encore un peu de patience, vous pourrez partagez vos feedbacks lorsque la session démarrera.</string>
+    <string name="text_feedback_not_configured">Aucun module de feedback n\'a été configuré pour cet évènement.</string>
     <string name="text_speaker_title">A propos des speakers</string>
     <string name="text_permission">Permission requise</string>
     <string name="text_camera_permission_explaination">La caméra est importante pour scanner des Qrcode. Pense à accepter la permission.</string>

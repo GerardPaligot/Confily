@@ -53,6 +53,7 @@
     <string name="text_openfeedback_title">Notes &amp; feedback</string>
     <string name="text_openfeedback_not_started_title">React in live!</string>
     <string name="text_openfeedback_not_started">Wait a little, you will be able to give feedbacks when the session has started.</string>
+    <string name="text_feedback_not_configured">No feedback module has been configured for this event.</string>
     <string name="text_speaker_title">About speakers</string>
     <string name="text_permission">Permission required</string>
     <string name="text_camera_permission_explaination">The camera is important to scan QR code. Please grant the permission.</string>

@@ -18,26 +18,26 @@ fun OpenFeedbackSection(
     openFeedbackProjectId: String,
     openFeedbackSessionId: String,
     canGiveFeedback: Boolean,
-    openfeedbackFirebaseConfig: OpenFeedbackFirebaseConfig,
+    openFeedbackFirebaseConfig: OpenFeedbackFirebaseConfig,
     modifier: Modifier = Modifier,
-    subtitleTextStyle: TextStyle = MaterialTheme.typography.titleLarge,
+    style: TextStyle = MaterialTheme.typography.titleLarge,
 ) {
-    if (!canGiveFeedback) {
-        OpenFeedbackNotStarted(modifier = modifier)
-    } else {
-        Column(
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-            modifier = modifier
-        ) {
-            Text(
-                text = stringResource(R.string.text_openfeedback_title),
-                style = subtitleTextStyle
-            )
+    Column(
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        modifier = modifier
+    ) {
+        Text(
+            text = stringResource(R.string.text_openfeedback_title),
+            style = style
+        )
+        if (canGiveFeedback) {
             OpenFeedback(
-                config = openfeedbackFirebaseConfig,
+                config = openFeedbackFirebaseConfig,
                 projectId = openFeedbackProjectId,
                 sessionId = openFeedbackSessionId
             )
+        } else {
+            OpenFeedbackNotStarted()
         }
     }
 }
