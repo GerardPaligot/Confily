@@ -3,9 +3,12 @@ package org.gdglille.devfest.android.theme.m3.speakers.feature
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -31,12 +34,14 @@ fun SpeakerDetailOrientableVM(
 ) {
     val context = LocalContext.current
     val uiState = viewModel.uiState.collectAsState()
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
     Scaffold(
-        modifier = modifier,
+        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             TopAppBar(
                 title = stringResource(id = R.string.screen_speaker_detail),
-                navigationIcon = { Back(onClick = onBackClicked) }
+                navigationIcon = { Back(onClick = onBackClicked) },
+                scrollBehavior = scrollBehavior
             )
         },
         content = {
