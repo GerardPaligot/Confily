@@ -12,6 +12,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import org.gdglille.devfest.AlarmScheduler
+import org.gdglille.devfest.android.theme.m3.schedules.screens.ScheduleListOrientable
+import org.gdglille.devfest.android.theme.m3.schedules.screens.ScheduleListVerticalScreen
 import org.gdglille.devfest.android.theme.m3.style.R
 import org.gdglille.devfest.android.theme.m3.style.actions.TabActionsUi
 import org.gdglille.devfest.repositories.AgendaRepository
@@ -20,7 +22,7 @@ import org.gdglille.devfest.repositories.AgendaRepository
 @ExperimentalCoroutinesApi
 @FlowPreview
 @Composable
-fun ScheduleListVM(
+fun ScheduleListOrientableVM(
     tabs: TabActionsUi,
     agendaRepository: AgendaRepository,
     alarmScheduler: AlarmScheduler,
@@ -38,7 +40,7 @@ fun ScheduleListVM(
     val context = LocalContext.current
     val uiState = viewModel.uiState.collectAsState()
     when (uiState.value) {
-        is ScheduleListUiState.Loading -> ScheduleListVertical(
+        is ScheduleListUiState.Loading -> ScheduleListVerticalScreen(
             agenda = (uiState.value as ScheduleListUiState.Loading).agenda.first(),
             modifier = modifier,
             isLoading = true,

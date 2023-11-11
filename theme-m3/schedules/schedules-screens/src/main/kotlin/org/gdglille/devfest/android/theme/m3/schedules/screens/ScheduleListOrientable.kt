@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.schedules.feature
+package org.gdglille.devfest.android.theme.m3.schedules.screens
 
 import android.content.res.Configuration
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -10,6 +10,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import kotlinx.collections.immutable.ImmutableList
+import org.gdglille.devfest.android.theme.m3.schedules.screens.ScheduleListHorizontalScreen
+import org.gdglille.devfest.android.theme.m3.schedules.screens.ScheduleListVerticalScreen
 import org.gdglille.devfest.models.ui.AgendaUi
 import org.gdglille.devfest.models.ui.TalkItemUi
 
@@ -30,7 +32,7 @@ fun ScheduleListOrientable(
         verticalAlignment = Alignment.Top
     ) { page ->
         if (orientation.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            ScheduleListHorizontal(
+            ScheduleListHorizontalScreen(
                 agenda = agendas[page],
                 modifier = modifier,
                 onTalkClicked = onTalkClicked,
@@ -38,7 +40,7 @@ fun ScheduleListOrientable(
                 isLoading = isLoading
             )
         } else {
-            ScheduleListVertical(
+            ScheduleListVerticalScreen(
                 agenda = agendas[page],
                 modifier = modifier,
                 onTalkClicked = onTalkClicked,

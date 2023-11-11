@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.schedules.feature
+package org.gdglille.devfest.android.theme.m3.schedules.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -20,7 +20,7 @@ import org.gdglille.devfest.models.ui.FiltersUi
 import org.gdglille.devfest.models.ui.FormatUi
 
 @Composable
-fun AgendaFilters(
+fun AgendaFiltersScreen(
     filtersUi: FiltersUi,
     onFavoriteClick: (selected: Boolean) -> Unit,
     onCategoryClick: (categoryUi: CategoryUi, selected: Boolean) -> Unit,
@@ -57,7 +57,7 @@ fun AgendaFilters(
 @Composable
 private fun AgendaFiltersPreview() {
     Conferences4HallTheme {
-        AgendaFilters(
+        AgendaFiltersScreen(
             filtersUi = FiltersUi.fake,
             onFavoriteClick = {},
             onCategoryClick = { _, _ -> },

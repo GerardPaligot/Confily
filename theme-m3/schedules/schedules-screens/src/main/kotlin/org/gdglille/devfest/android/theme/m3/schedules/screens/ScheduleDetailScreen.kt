@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.schedules.feature
+package org.gdglille.devfest.android.theme.m3.schedules.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Spacer
@@ -30,7 +30,7 @@ import org.gdglille.devfest.models.ui.TalkUi
 
 @ExperimentalMaterial3Api
 @Composable
-fun ScheduleDetail(
+fun ScheduleDetailScreen(
     talk: TalkUi,
     openfeedbackFirebaseConfig: OpenFeedbackFirebaseConfig,
     onBackClicked: () -> Unit,
@@ -104,7 +104,7 @@ fun ScheduleDetail(
 @Composable
 private fun ScheduleDetailPreview() {
     Conferences4HallTheme {
-        ScheduleDetail(
+        ScheduleDetailScreen(
             talk = TalkUi.fake,
             openfeedbackFirebaseConfig = OpenFeedbackFirebaseConfig(
                 context = LocalContext.current,

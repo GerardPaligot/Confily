@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import io.openfeedback.android.viewmodels.OpenFeedbackFirebaseConfig
+import org.gdglille.devfest.android.theme.m3.schedules.screens.ScheduleDetailScreen
 import org.gdglille.devfest.android.theme.m3.style.R
 import org.gdglille.devfest.repositories.AgendaRepository
 
@@ -29,7 +30,7 @@ fun ScheduleDetailVM(
     when (uiState.value) {
         is ScheduleUiState.Loading -> Text(text = stringResource(id = R.string.text_loading))
         is ScheduleUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
-        is ScheduleUiState.Success -> ScheduleDetail(
+        is ScheduleUiState.Success -> ScheduleDetailScreen(
             talk = (uiState.value as ScheduleUiState.Success).talk,
             openfeedbackFirebaseConfig = openfeedbackFirebaseConfig,
             modifier = modifier,

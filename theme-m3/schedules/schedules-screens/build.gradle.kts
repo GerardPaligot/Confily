@@ -5,15 +5,15 @@ plugins {
 }
 
 android {
-    namespace = "org.gdglille.devfest.android.theme.m3.schedules.feature"
+    namespace = "org.gdglille.devfest.android.theme.m3.schedules.screens"
 }
 
 dependencies {
     implementation(projects.shared.core)
-    implementation(projects.themeM3.schedules.schedulesScreens)
     implementation(projects.themeM3.schedules.schedulesUi)
     implementation(projects.themeM3.navigation)
     implementation(projects.themeM3.style.schedules)
+    implementation(projects.themeM3.style.speakers)
     implementation(projects.themeM3.style.theme)
 
     implementation(libs.kotlinx.collections)
@@ -21,9 +21,4 @@ dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.tooling)
-    implementation(libs.androidx.compose.lifecycle)
-    implementation(libs.androidx.lifecycle.vm)
-
-    implementation(platform(libs.google.firebase))
-    implementation("com.google.firebase:firebase-crashlytics-ktx")
 }

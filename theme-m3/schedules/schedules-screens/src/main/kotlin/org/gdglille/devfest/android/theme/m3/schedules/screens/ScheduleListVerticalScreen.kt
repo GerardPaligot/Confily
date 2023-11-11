@@ -1,30 +1,27 @@
-package org.gdglille.devfest.android.theme.m3.schedules.feature
+package org.gdglille.devfest.android.theme.m3.schedules.screens
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.GridItemSpan
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.NoFavoriteTalks
-import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.SmallScheduleItem
+import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.MediumScheduleItem
 import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.Time
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.placeholder
-import org.gdglille.devfest.android.theme.m3.style.previews.PHONE_LANDSCAPE
 import org.gdglille.devfest.android.theme.m3.style.schedules.findTimeImageVector
-import org.gdglille.devfest.android.theme.m3.style.schedules.pause.SmallPauseItem
+import org.gdglille.devfest.android.theme.m3.style.schedules.pause.MediumPauseItem
 import org.gdglille.devfest.models.ui.AgendaUi
 import org.gdglille.devfest.models.ui.TalkItemUi
 
 @Composable
-fun ScheduleListHorizontal(
+fun ScheduleListVerticalScreen(
     agenda: AgendaUi,
     onTalkClicked: (id: String) -> Unit,
     onFavoriteClicked: (TalkItemUi) -> Unit,
@@ -34,20 +31,18 @@ fun ScheduleListHorizontal(
     if (agenda.onlyFavorites && !isLoading && agenda.talks.keys.isEmpty()) {
         NoFavoriteTalks()
     } else {
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
+        LazyColumn(
             modifier = modifier,
             contentPadding = PaddingValues(vertical = 24.dp, horizontal = 16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             agenda.talks.entries.forEach { slot ->
-                item(span = { GridItemSpan(2) }) {
+                item {
                     Time(time = slot.key, modifier = Modifier.placeholder(visible = isLoading))
                 }
                 items(slot.value.toList(), key = { it.id }) {
                     if (it.isPause) {
-                        SmallPauseItem(
+                        MediumPauseItem(
                             title = it.title,
                             room = it.room,
                             time = it.time,
@@ -55,7 +50,7 @@ fun ScheduleListHorizontal(
                             modifier = Modifier.placeholder(visible = isLoading)
                         )
                     } else {
-                        SmallScheduleItem(
+                        MediumScheduleItem(
                             talk = it,
                             modifier = Modifier.placeholder(visible = isLoading),
                             onFavoriteClicked = onFavoriteClicked,
@@ -69,12 +64,12 @@ fun ScheduleListHorizontal(
 }
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@Preview(device = PHONE_LANDSCAPE)
+@Preview
 @Composable
-private fun AgendaPreview() {
+private fun ScheduleListVerticalScreenPreview() {
     Conferences4HallTheme {
         Scaffold {
-            ScheduleListHorizontal(
+            ScheduleListVerticalScreen(
                 agenda = AgendaUi.fake,
                 onTalkClicked = {},
                 onFavoriteClicked = { }
@@ -82,4 +77,3 @@ private fun AgendaPreview() {
         }
     }
 }
-
