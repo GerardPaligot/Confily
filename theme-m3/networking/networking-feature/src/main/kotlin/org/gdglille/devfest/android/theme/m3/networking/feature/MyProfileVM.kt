@@ -15,16 +15,16 @@ fun MyProfileVM(
     userRepository: UserRepository,
     onEditInformation: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: ProfileInputViewModel = viewModel(
-        factory = ProfileInputViewModel.Factory.create(userRepository)
+    viewModel: MyProfileViewModel = viewModel(
+        factory = MyProfileViewModel.Factory.create(userRepository)
     )
 ) {
     val uiState = viewModel.uiState.collectAsState()
     when (uiState.value) {
-        is ProfileInputUiState.Loading -> Text(text = stringResource(id = R.string.text_loading))
-        is ProfileInputUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
-        is ProfileInputUiState.Success -> {
-            val profileUi = (uiState.value as ProfileInputUiState.Success).profile
+        is MyProfileUiState.Loading -> Text(text = stringResource(id = R.string.text_loading))
+        is MyProfileUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
+        is MyProfileUiState.Success -> {
+            val profileUi = (uiState.value as MyProfileUiState.Success).profile
             if (profileUi.qrCode == null) {
                 EmptyNetworking()
             } else {
