@@ -12,8 +12,11 @@ import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.gdglille.devfest.AlarmScheduler
 import org.gdglille.devfest.models.ui.AgendaUi
@@ -32,25 +35,23 @@ class ScheduleListViewModel(
     private val repository: AgendaRepository,
     private val alarmScheduler: AlarmScheduler
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow<ScheduleListUiState>(
-        ScheduleListUiState.Loading(persistentListOf(AgendaUi.fake))
-    )
-    val uiState: StateFlow<ScheduleListUiState> = _uiState
-
-    init {
-        viewModelScope.launch {
-            try {
-                repository.agenda().collect {
-                    if (it.isNotEmpty()) {
-                        _uiState.value = ScheduleListUiState.Success(it.values.toImmutableList())
-                    }
-                }
-            } catch (error: Throwable) {
-                Firebase.crashlytics.recordException(error)
-                _uiState.value = ScheduleListUiState.Failure(error)
+    val uiState: StateFlow<ScheduleListUiState> = repository.agenda()
+        .map {
+            if (it.isNotEmpty()) {
+                ScheduleListUiState.Success(it.values.toImmutableList())
+            } else {
+                ScheduleListUiState.Success(persistentListOf())
             }
         }
-    }
+        .catch {
+            Firebase.crashlytics.recordException(it)
+            ScheduleListUiState.Failure(it)
+        }
+        .stateIn(
+            scope = viewModelScope,
+            initialValue = ScheduleListUiState.Loading(persistentListOf(AgendaUi.fake)),
+            started = SharingStarted.WhileSubscribed()
+        )
 
     @SuppressLint("UnspecifiedImmutableFlag")
     fun markAsFavorite(context: Context, talkItem: TalkItemUi) = viewModelScope.launch {
