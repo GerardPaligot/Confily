@@ -20,9 +20,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import org.gdglille.devfest.android.theme.m3.networking.ui.EmptyContacts
-import org.gdglille.devfest.android.theme.m3.networking.ui.UserItem
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.R
+import org.gdglille.devfest.android.theme.m3.style.networking.UserItem
 import org.gdglille.devfest.models.ui.NetworkingUi
 import org.gdglille.devfest.models.ui.UserNetworkingUi
 
@@ -43,7 +43,9 @@ fun Contacts(
         ) {
             itemsIndexed(users) { index, user ->
                 UserItem(
-                    user = user,
+                    displayName = "${user.firstName} ${user.lastName}",
+                    email = user.email,
+                    company = user.email,
                     onClick = { openDialog.value = true }
                 )
                 if (index < users.size - 1) {
