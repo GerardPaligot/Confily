@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.style.partners
+package org.gdglille.devfest.android.theme.m3.style.partners.items
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.interaction.MutableInteractionSource
