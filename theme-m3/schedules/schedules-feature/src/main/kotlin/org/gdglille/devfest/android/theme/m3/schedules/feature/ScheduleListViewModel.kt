@@ -40,7 +40,7 @@ class ScheduleListViewModel(
             if (it.isNotEmpty()) {
                 ScheduleListUiState.Success(it.values.toImmutableList())
             } else {
-                ScheduleListUiState.Success(persistentListOf())
+                ScheduleListUiState.Loading(persistentListOf(AgendaUi.fake))
             }
         }
         .catch {
