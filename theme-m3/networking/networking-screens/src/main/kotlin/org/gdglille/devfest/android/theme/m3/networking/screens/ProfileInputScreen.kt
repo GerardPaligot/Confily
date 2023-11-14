@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.networking.feature
+package org.gdglille.devfest.android.theme.m3.networking.screens
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
@@ -26,7 +26,7 @@ import org.gdglille.devfest.models.ui.UserProfileUi
 
 @ExperimentalMaterial3Api
 @Composable
-fun ProfileInput(
+fun ProfileInputScreen(
     profile: UserProfileUi,
     onValueChanged: (Field, String) -> Unit,
     onValidation: () -> Unit,
@@ -114,7 +114,7 @@ fun isProfileInputFormValid(profile: UserProfileUi): Boolean =
 fun EmailInputPreview() {
     Conferences4HallTheme {
         Scaffold {
-            ProfileInput(
+            ProfileInputScreen(
                 profile = UserProfileUi.fake,
                 onValueChanged = { _, _ -> },
                 onValidation = {},

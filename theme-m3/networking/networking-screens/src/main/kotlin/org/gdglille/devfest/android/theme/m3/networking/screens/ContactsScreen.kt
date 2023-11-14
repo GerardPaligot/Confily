@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.networking.feature
+package org.gdglille.devfest.android.theme.m3.networking.screens
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
@@ -19,7 +19,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
-import org.gdglille.devfest.android.theme.m3.networking.ui.EmptyContacts
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.R
 import org.gdglille.devfest.android.theme.m3.style.networking.UserItem
@@ -27,13 +26,13 @@ import org.gdglille.devfest.models.ui.NetworkingUi
 import org.gdglille.devfest.models.ui.UserNetworkingUi
 
 @Composable
-fun Contacts(
+fun ContactsScreen(
     users: ImmutableList<UserNetworkingUi>,
     onNetworkDeleted: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     if (users.isEmpty()) {
-        EmptyContacts(modifier = modifier)
+        EmptyContactsScreen(modifier = modifier)
     } else {
         val openDialog = remember { mutableStateOf(false) }
         LazyColumn(
@@ -92,7 +91,7 @@ fun Contacts(
 private fun ContactsPreview() {
     Conferences4HallTheme {
         Scaffold {
-            Contacts(
+            ContactsScreen(
                 users = NetworkingUi.fake.users,
                 onNetworkDeleted = {}
             )

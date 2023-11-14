@@ -5,12 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "org.gdglille.devfest.android.theme.m3.networking.feature"
+    namespace = "org.gdglille.devfest.android.theme.m3.networking.screens"
 }
 
 dependencies {
     implementation(projects.shared.core)
-    implementation(projects.themeM3.networking.networkingScreens)
     implementation(projects.themeM3.networking.networkingUi)
     implementation(projects.themeM3.navigation)
     implementation(projects.themeM3.style.networking)
@@ -21,9 +20,4 @@ dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.tooling)
-    implementation(libs.androidx.compose.lifecycle)
-    implementation(libs.androidx.lifecycle.vm)
-
-    implementation(platform(libs.google.firebase))
-    implementation("com.google.firebase:firebase-crashlytics-ktx")
 }

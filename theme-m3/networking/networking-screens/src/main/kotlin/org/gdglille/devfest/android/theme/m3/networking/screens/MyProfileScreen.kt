@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.networking.feature
+package org.gdglille.devfest.android.theme.m3.networking.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -25,7 +25,7 @@ import org.gdglille.devfest.android.theme.m3.style.R
 import org.gdglille.devfest.models.ui.UserProfileUi
 
 @Composable
-fun MyProfile(
+fun MyProfileScreen(
     profileUi: UserProfileUi,
     onEditInformation: () -> Unit,
     modifier: Modifier = Modifier,
@@ -92,7 +92,7 @@ fun MyProfile(
 @Composable
 private fun MyProfilePreview() {
     Conferences4HallTheme {
-        MyProfile(
+        MyProfileScreen(
             profileUi = UserProfileUi.fake,
             onEditInformation = {}
         )
