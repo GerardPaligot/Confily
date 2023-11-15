@@ -29,13 +29,14 @@ fun ScheduleListHorizontalScreen(
     onTalkClicked: (id: String) -> Unit,
     onFavoriteClicked: (TalkItemUi) -> Unit,
     modifier: Modifier = Modifier,
+    columnCount: Int = 2,
     isLoading: Boolean = false,
 ) {
     if (agenda.onlyFavorites && !isLoading && agenda.talks.keys.isEmpty()) {
         NoFavoriteTalks()
     } else {
         LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
+            columns = GridCells.Fixed(count = columnCount),
             modifier = modifier,
             contentPadding = PaddingValues(vertical = 24.dp, horizontal = 16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),

@@ -12,7 +12,7 @@ import org.gdglille.devfest.android.theme.m3.style.R
 import org.gdglille.devfest.repositories.UserRepository
 
 @Composable
-fun MyProfileVM(
+fun MyProfileCompactVM(
     userRepository: UserRepository,
     onEditInformation: () -> Unit,
     modifier: Modifier = Modifier,

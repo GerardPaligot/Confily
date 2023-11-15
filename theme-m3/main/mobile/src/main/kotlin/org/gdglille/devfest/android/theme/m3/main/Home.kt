@@ -1,37 +1,45 @@
 package org.gdglille.devfest.android.theme.m3.main
 
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExtendedFloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import org.gdglille.devfest.AlarmScheduler
-import org.gdglille.devfest.models.ui.VCardModel
-import org.gdglille.devfest.models.ui.convertToModelUi
-import org.gdglille.devfest.android.theme.m3.infos.feature.InfoPages
+import org.gdglille.devfest.android.theme.m3.infos.feature.InfoCompactVM
 import org.gdglille.devfest.android.theme.m3.navigation.ActionIds
 import org.gdglille.devfest.android.theme.m3.navigation.Screen
-import org.gdglille.devfest.android.theme.m3.networking.feature.NetworkingPages
-import org.gdglille.devfest.android.theme.m3.partners.feature.PartnersListVM
-import org.gdglille.devfest.android.theme.m3.schedules.feature.ScheduleListOrientableVM
-import org.gdglille.devfest.android.theme.m3.speakers.feature.SpeakersListOrientableVM
+import org.gdglille.devfest.android.theme.m3.networking.feature.NetworkingCompactVM
+import org.gdglille.devfest.android.theme.m3.partners.feature.PartnersListCompactVM
+import org.gdglille.devfest.android.theme.m3.schedules.feature.ScheduleListCompactVM
+import org.gdglille.devfest.android.theme.m3.speakers.feature.SpeakersListCompactVM
+import org.gdglille.devfest.android.theme.m3.style.appbars.BottomAppBar
 import org.gdglille.devfest.models.ui.ExportNetworkingUi
+import org.gdglille.devfest.models.ui.VCardModel
+import org.gdglille.devfest.models.ui.convertToModelUi
 import org.gdglille.devfest.repositories.AgendaRepository
 import org.gdglille.devfest.repositories.EventRepository
 import org.gdglille.devfest.repositories.SpeakerRepository
 import org.gdglille.devfest.repositories.UserRepository
 
-@OptIn(ExperimentalFoundationApi::class)
 @Suppress("LongMethod", "UnusedPrivateMember", "ComplexMethod")
 @ExperimentalCoroutinesApi
 @FlowPreview
@@ -59,7 +67,7 @@ fun Home(
     savedStateHandle: SavedStateHandle? = null,
     navController: NavHostController = rememberNavController(),
     viewModel: HomeViewModel = viewModel(
-        factory = HomeViewModel.Factory.create(agendaRepository, userRepository, eventRepository)
+        factory = HomeViewModel.Factory.create(agendaRepository, userRepository)
     )
 ) {
     if (savedStateHandle != null) {
@@ -79,117 +87,118 @@ fun Home(
         }
     }
     val uiState = viewModel.uiState.collectAsState()
-    val exportPath = viewModel.exportPath.collectAsState(null)
-    val currentRoute = navController
-        .currentBackStackEntryFlow
-        .collectAsState(initial = navController.currentBackStackEntry)
     LaunchedEffect(Unit) {
         viewModel.screenConfig(Screen.Agenda.route)
-    }
-    LaunchedEffect(exportPath.value) {
-        exportPath.value?.let(onContactExportClicked)
     }
     navController.addOnDestinationChangedListener { _, destination, _ ->
         destination.route?.let { route -> viewModel.screenConfig(route) }
     }
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
+    val route = currentDestination?.route ?: Screen.Agenda.route
     when (uiState.value) {
         is HomeUiState.Success -> {
             val screenUi = (uiState.value as HomeUiState.Success).screenUi
-            val pageCount = if (screenUi.tabActionsUi.actions.isEmpty()) 1
-            else screenUi.tabActionsUi.actions.count()
-            val agendaPagerState = rememberPagerState(pageCount = { pageCount })
-            val networkingPagerState = rememberPagerState(pageCount = { pageCount })
-            val infoPagerState = rememberPagerState(pageCount = { pageCount })
-            ScaffoldNavigation(
-                title = screenUi.title,
-                startDestination = Screen.Agenda.route,
+            Scaffold(
                 modifier = modifier,
-                navController = navController,
-                topActions = screenUi.topActionsUi,
-                tabActions = screenUi.tabActionsUi,
-                bottomActions = screenUi.bottomActionsUi,
-                fabAction = screenUi.fabAction,
-                pagerState = when (currentRoute.value?.destination?.route) {
-                    Screen.Event.route, Screen.Menus.route, Screen.QAndA.route, Screen.CoC.route -> infoPagerState
-                    Screen.MyProfile.route, Screen.Contacts.route -> networkingPagerState
-                    else -> agendaPagerState
-                },
-                onTopActionClicked = {
-                    when (it.id) {
-                        ActionIds.FILTERS -> {
-                            onFilterClicked()
-                        }
-
-                        ActionIds.DISCONNECT -> {
-                            viewModel.disconnect()
-                            onDisconnectedClicked()
-                        }
-
-                        ActionIds.EXPORT -> {
-                            viewModel.exportNetworking()
-                        }
+                bottomBar = {
+                    if (screenUi.bottomActionsUi.actions.isNotEmpty()) {
+                        BottomAppBar(
+                            bottomActions = screenUi.bottomActionsUi,
+                            routeSelected = route,
+                            onClick = {
+                                navController.navigate(it.route) {
+                                    popUpTo(navController.graph.findStartDestination().id) {
+                                        saveState = true
+                                    }
+                                    launchSingleTop = true
+                                    restoreState = true
+                                }
+                            }
+                        )
                     }
                 },
-                onFabActionClicked = {
-                    when (it.id) {
-                        ActionIds.SCAN_TICKET -> {
-                            onTicketScannerClicked()
-                        }
+                floatingActionButton = {
+                    screenUi.fabAction?.let { fabAction ->
+                        ExtendedFloatingActionButton(
+                            text = { Text(text = stringResource(fabAction.label)) },
+                            icon = {
+                                Icon(
+                                    imageVector = fabAction.icon,
+                                    contentDescription = fabAction.contentDescription
+                                        ?.let { stringResource(it) }
+                                )
+                            },
+                            containerColor = MaterialTheme.colorScheme.primary,
+                            onClick = {
+                                when (fabAction.id) {
+                                    ActionIds.SCAN_TICKET -> {
+                                        onTicketScannerClicked()
+                                    }
 
-                        ActionIds.CREATE_PROFILE -> {
-                            onCreateProfileClicked()
-                        }
+                                    ActionIds.CREATE_PROFILE -> {
+                                        onCreateProfileClicked()
+                                    }
 
-                        ActionIds.SCAN_CONTACTS -> {
-                            onContactScannerClicked()
-                        }
+                                    ActionIds.SCAN_CONTACTS -> {
+                                        onContactScannerClicked()
+                                    }
 
-                        else -> TODO("Fab not implemented")
+                                    else -> TODO("Fab not implemented")
+                                }
+                            }
+                        )
                     }
                 },
-                builder = {
-                    composable(Screen.Agenda.route) {
-                        ScheduleListOrientableVM(
-                            tabs = screenUi.tabActionsUi,
-                            agendaRepository = agendaRepository,
-                            alarmScheduler = alarmScheduler,
-                            pagerState = agendaPagerState,
-                            onTalkClicked = onTalkClicked,
-                        )
-                    }
-                    composable(Screen.SpeakerList.route) {
-                        SpeakersListOrientableVM(
-                            speakerRepository = speakerRepository,
-                            onSpeakerClicked = onSpeakerClicked
-                        )
-                    }
-                    composable(Screen.MyProfile.route) {
-                        NetworkingPages(
-                            tabs = screenUi.tabActionsUi,
-                            userRepository = userRepository,
-                            pagerState = networkingPagerState,
-                            onCreateProfileClicked = onCreateProfileClicked,
-                            onInnerScreenOpened = viewModel::innerScreenConfig
-                        )
-                    }
-                    composable(Screen.Partners.route) {
-                        PartnersListVM(
-                            agendaRepository = agendaRepository,
-                            onPartnerClick = onPartnerClicked
-                        )
-                    }
-                    composable(Screen.Event.route) {
-                        InfoPages(
-                            tabs = screenUi.tabActionsUi,
-                            agendaRepository = agendaRepository,
-                            pagerState = infoPagerState,
-                            onItineraryClicked = onItineraryClicked,
-                            onLinkClicked = onLinkClicked,
-                            onReportByPhoneClicked = onReportByPhoneClicked,
-                            onReportByEmailClicked = onReportByEmailClicked,
-                            onInnerScreenOpened = viewModel::innerScreenConfig
-                        )
-                    }
+                content = {
+                    NavHost(
+                        navController = navController,
+                        startDestination = Screen.Agenda.route,
+                        modifier = Modifier.padding(it),
+                        builder = {
+                            composable(Screen.Agenda.route) {
+                                ScheduleListCompactVM(
+                                    agendaRepository = agendaRepository,
+                                    alarmScheduler = alarmScheduler,
+                                    onFilterClicked = onFilterClicked,
+                                    onTalkClicked = onTalkClicked
+                                )
+                            }
+                            composable(Screen.SpeakerList.route) {
+                                SpeakersListCompactVM(
+                                    speakerRepository = speakerRepository,
+                                    onSpeakerClicked = onSpeakerClicked
+                                )
+                            }
+                            composable(Screen.MyProfile.route) {
+                                NetworkingCompactVM(
+                                    agendaRepository = agendaRepository,
+                                    userRepository = userRepository,
+                                    onCreateProfileClicked = onCreateProfileClicked,
+                                    onContactExportClicked = onContactExportClicked,
+                                    onInnerScreenOpened = viewModel::innerScreenConfig
+                                )
+                            }
+                            composable(Screen.Partners.route) {
+                                PartnersListCompactVM(
+                                    agendaRepository = agendaRepository,
+                                    onPartnerClick = onPartnerClicked
+                                )
+                            }
+                            composable(Screen.Event.route) {
+                                InfoCompactVM(
+                                    agendaRepository = agendaRepository,
+                                    eventRepository = eventRepository,
+                                    onItineraryClicked = onItineraryClicked,
+                                    onLinkClicked = onLinkClicked,
+                                    onDisconnectedClicked = onDisconnectedClicked,
+                                    onReportByPhoneClicked = onReportByPhoneClicked,
+                                    onReportByEmailClicked = onReportByEmailClicked,
+                                    onInnerScreenOpened = viewModel::innerScreenConfig
+                                )
+                            }
+                        }
+                    )
                 }
             )
         }

@@ -1,0 +1,59 @@
+package org.gdglille.devfest.android.theme.m3.partners.feature
+
+import android.content.res.Configuration
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.viewmodel.compose.viewModel
+import org.gdglille.devfest.android.theme.m3.partners.screens.PartnersListScreen
+import org.gdglille.devfest.android.theme.m3.style.R
+import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBarContentLayout
+import org.gdglille.devfest.repositories.AgendaRepository
+
+private const val ColumnCountLandscape = 6
+private const val ColumnCountPortrait = 3
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun PartnersListCompactVM(
+    agendaRepository: AgendaRepository,
+    onPartnerClick: (id: String) -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: PartnersViewModel = viewModel(
+        factory = PartnersViewModel.Factory.create(agendaRepository)
+    )
+) {
+    val configuration = LocalConfiguration.current
+    val state = rememberLazyGridState()
+    val columnCount =
+        if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) ColumnCountLandscape
+        else ColumnCountPortrait
+    val uiState = viewModel.uiState.collectAsState()
+    TopAppBarContentLayout(
+        title = stringResource(id = R.string.screen_partners),
+        modifier = modifier
+    ) {
+        when (uiState.value) {
+            is PartnersUiState.Loading -> PartnersListScreen(
+                partners = (uiState.value as PartnersUiState.Loading).partners,
+                columnCount = columnCount,
+                state = state,
+                isLoading = true,
+                onPartnerClick = {}
+            )
+
+            is PartnersUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
+            is PartnersUiState.Success -> PartnersListScreen(
+                partners = (uiState.value as PartnersUiState.Success).partners,
+                columnCount = columnCount,
+                state = state,
+                onPartnerClick = onPartnerClick
+            )
+        }
+    }
+}

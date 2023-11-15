@@ -11,7 +11,7 @@ import org.gdglille.devfest.android.theme.m3.style.R
 import org.gdglille.devfest.repositories.UserRepository
 
 @Composable
-fun ContactsVM(
+fun ContactsCompactVM(
     userRepository: UserRepository,
     modifier: Modifier = Modifier,
     viewModel: ContactsViewModel = viewModel(

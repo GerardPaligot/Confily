@@ -3,6 +3,7 @@ package org.gdglille.devfest.android.theme.m3.networking.screens
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.AlertDialog
@@ -36,7 +37,7 @@ fun ContactsScreen(
     } else {
         val openDialog = remember { mutableStateOf(false) }
         LazyColumn(
-            modifier = modifier,
+            modifier = modifier.fillMaxSize(),
             contentPadding = PaddingValues(vertical = 4.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
