@@ -1,51 +1,43 @@
-package org.gdglille.devfest.android.theme.m3.main
+package org.gdglille.devfest.android.theme
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import org.gdglille.devfest.android.theme.m3.main.mappers.convertToModelUi
-import org.gdglille.devfest.android.theme.m3.style.actions.ScreenUi
+import org.gdglille.devfest.android.theme.m3.navigation.BottomActions
+import org.gdglille.devfest.android.theme.m3.style.actions.NavigationAction
+import org.gdglille.devfest.android.theme.m3.style.actions.NavigationActionsUi
 import org.gdglille.devfest.models.ui.ScaffoldConfigUi
 import org.gdglille.devfest.models.ui.UserNetworkingUi
 import org.gdglille.devfest.repositories.AgendaRepository
 import org.gdglille.devfest.repositories.UserRepository
 
-sealed class HomeUiState {
-    data object Loading : HomeUiState()
-    data class Success(val screenUi: ScreenUi) : HomeUiState()
-    data class Failure(val throwable: Throwable) : HomeUiState()
+sealed class MainNavigationUiState {
+    data object Loading : MainNavigationUiState()
+    data class Success(val navActions: NavigationActionsUi) : MainNavigationUiState()
+    data class Failure(val throwable: Throwable) : MainNavigationUiState()
 }
 
-class HomeViewModel(
+class MainNavigationViewModel(
     private val agendaRepository: AgendaRepository,
     private val userRepository: UserRepository
 ) : ViewModel() {
-    private val _routeState = MutableStateFlow<String?>(null)
-    private val _innerRouteState = MutableStateFlow<String?>(null)
-    private val _configState = agendaRepository.scaffoldConfig()
+    val uiState: StateFlow<MainNavigationUiState> = agendaRepository.scaffoldConfig()
+        .map { MainNavigationUiState.Success(navActions(it)) }
+        .catch { MainNavigationUiState.Failure(it) }
         .stateIn(
-            scope = viewModelScope,
-            initialValue = ScaffoldConfigUi(),
-            started = SharingStarted.WhileSubscribed()
+            viewModelScope,
+            SharingStarted.WhileSubscribed(),
+            initialValue = MainNavigationUiState.Loading
         )
-    private val _uiState = combine(
-        _routeState,
-        _innerRouteState,
-        _configState,
-        transform = { route, innerRoute, config ->
-            if (route == null) return@combine HomeUiState.Loading
-            return@combine HomeUiState.Success(convertToModelUi(route, innerRoute, config))
-        }
-    ).stateIn(viewModelScope, SharingStarted.WhileSubscribed(), initialValue = HomeUiState.Loading)
-    val uiState: StateFlow<HomeUiState> = _uiState
 
     init {
         viewModelScope.launch {
@@ -57,17 +49,6 @@ class HomeViewModel(
         }
     }
 
-    fun screenConfig(route: String) = viewModelScope.launch {
-        if (_routeState.value != route) {
-            _innerRouteState.value = null
-            _routeState.value = route
-        }
-    }
-
-    fun innerScreenConfig(route: String) = viewModelScope.launch {
-        _innerRouteState.value = route
-    }
-
     fun saveTicket(barcode: String) = viewModelScope.launch {
         agendaRepository.insertOrUpdateTicket(barcode)
     }
@@ -76,6 +57,20 @@ class HomeViewModel(
         userRepository.insertNetworkingProfile(user)
     }
 
+    private fun navActions(config: ScaffoldConfigUi): NavigationActionsUi = NavigationActionsUi(
+        actions = arrayListOf<NavigationAction>().apply {
+            add(BottomActions.agenda)
+            add(BottomActions.speakers)
+            if (config.hasNetworking) {
+                add(BottomActions.myProfile)
+            }
+            if (config.hasPartnerList) {
+                add(BottomActions.partners)
+            }
+            add(BottomActions.event)
+        }.toImmutableList()
+    )
+
     object Factory {
         fun create(
             agendaRepository: AgendaRepository,
@@ -83,7 +78,7 @@ class HomeViewModel(
         ) = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(modelClass: Class<T>): T =
-                HomeViewModel(
+                MainNavigationViewModel(
                     agendaRepository = agendaRepository,
                     userRepository = userRepository
                 ) as T

@@ -8,16 +8,17 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import org.gdglille.devfest.android.theme.m3.navigation.Screen
 import org.gdglille.devfest.repositories.EventRepository
 
 sealed class MainUiState {
-    object Loading : MainUiState()
+    data object Loading : MainUiState()
     data class Success(val startDestination: String) : MainUiState()
 }
 
 class MainViewModel(private val repository: EventRepository) : ViewModel() {
     val uiState: StateFlow<MainUiState> = flow { emit(repository.isInitialized()) }
-        .map { MainUiState.Success(if (it) "home" else "events") }
+        .map { MainUiState.Success(if (it) Screen.ScheduleList.route else Screen.EventList.route) }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(),

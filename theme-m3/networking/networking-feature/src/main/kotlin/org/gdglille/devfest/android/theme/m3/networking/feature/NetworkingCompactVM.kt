@@ -1,6 +1,7 @@
 package org.gdglille.devfest.android.theme.m3.networking.feature
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
@@ -15,7 +16,7 @@ import org.gdglille.devfest.android.theme.m3.navigation.ActionIds
 import org.gdglille.devfest.android.theme.m3.navigation.TabActions
 import org.gdglille.devfest.android.theme.m3.networking.screens.EmptyNetworkingScreen
 import org.gdglille.devfest.android.theme.m3.style.R
-import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBarContentLayout
+import org.gdglille.devfest.android.theme.m3.style.Scaffold
 import org.gdglille.devfest.models.ui.ExportNetworkingUi
 import org.gdglille.devfest.repositories.AgendaRepository
 import org.gdglille.devfest.repositories.UserRepository
@@ -26,8 +27,8 @@ fun NetworkingCompactVM(
     agendaRepository: AgendaRepository,
     userRepository: UserRepository,
     onCreateProfileClicked: () -> Unit,
+    onContactScannerClicked: () -> Unit,
     onContactExportClicked: (ExportNetworkingUi) -> Unit,
-    onInnerScreenOpened: (String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: NetworkingViewModel = viewModel(
         factory = NetworkingViewModel.Factory.create(agendaRepository, userRepository)
@@ -40,7 +41,7 @@ fun NetworkingCompactVM(
     }
     val title = stringResource(id = R.string.screen_networking)
     when (uiState.value) {
-        is NetworkingUiState.Loading -> TopAppBarContentLayout(title = title, modifier = modifier) {
+        is NetworkingUiState.Loading -> Scaffold(title = title, modifier = modifier) {
             EmptyNetworkingScreen()
         }
 
@@ -49,12 +50,13 @@ fun NetworkingCompactVM(
             val pagerState: PagerState =
                 rememberPagerState(pageCount = { uiModel.tabActionsUi.actions.count() })
             LaunchedEffect(pagerState.currentPage) {
-                onInnerScreenOpened(uiModel.tabActionsUi.actions[pagerState.currentPage].route)
+                viewModel.innerScreenConfig(uiModel.tabActionsUi.actions[pagerState.currentPage].route)
             }
-            TopAppBarContentLayout(
+            Scaffold(
                 title = title,
                 topActions = uiModel.topActionsUi,
                 tabActions = uiModel.tabActionsUi,
+                fabAction = uiModel.fabAction,
                 onActionClicked = {
                     when (it.id) {
                         ActionIds.EXPORT -> {
@@ -62,9 +64,25 @@ fun NetworkingCompactVM(
                         }
                     }
                 },
+                onFabActionClicked = {
+                    when (it.id) {
+                        ActionIds.CREATE_PROFILE -> {
+                            onCreateProfileClicked()
+                        }
+
+                        ActionIds.SCAN_CONTACTS -> {
+                            onContactScannerClicked()
+                        }
+
+                        else -> TODO("Fab not implemented")
+                    }
+                },
                 pagerState = pagerState
             ) {
-                HorizontalPager(state = pagerState) { page ->
+                HorizontalPager(
+                    state = pagerState,
+                    modifier = Modifier.padding(it)
+                ) { page ->
                     when (uiModel.tabActionsUi.actions[page].route) {
                         TabActions.myProfile.route -> MyProfileCompactVM(
                             userRepository = userRepository,

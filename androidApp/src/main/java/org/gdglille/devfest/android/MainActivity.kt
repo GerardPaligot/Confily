@@ -24,7 +24,7 @@ import org.gdglille.devfest.AlarmScheduler
 import org.gdglille.devfest.AndroidContext
 import org.gdglille.devfest.Platform
 import org.gdglille.devfest.QrCodeGeneratorAndroid
-import org.gdglille.devfest.android.theme.MainMobile
+import org.gdglille.devfest.android.theme.Main
 import org.gdglille.devfest.android.theme.m3.style.R
 import org.gdglille.devfest.database.DatabaseWrapper
 import org.gdglille.devfest.database.EventDao
@@ -114,7 +114,7 @@ class MainActivity : ComponentActivity() {
             val exportSubject = stringResource(id = R.string.text_export_subject)
             val reportSubject = stringResource(id = R.string.text_report_subject)
             val reportAppTarget = stringResource(id = R.string.text_report_app_target)
-            MainMobile(
+            Main(
                 eventRepository = eventRepository,
                 agendaRepository = agendaRepository,
                 userRepository = userRepository,

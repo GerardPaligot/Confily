@@ -5,6 +5,6 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
 @Immutable
-data class BottomActionsUi(
-    val actions: ImmutableList<BottomAction> = persistentListOf()
+data class NavigationActionsUi(
+    val actions: ImmutableList<NavigationAction> = persistentListOf()
 )

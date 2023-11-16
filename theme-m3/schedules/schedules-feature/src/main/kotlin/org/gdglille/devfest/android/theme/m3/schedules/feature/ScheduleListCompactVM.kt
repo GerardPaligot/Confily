@@ -2,7 +2,7 @@ package org.gdglille.devfest.android.theme.m3.schedules.feature
 
 import android.content.res.Configuration
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,7 +19,7 @@ import org.gdglille.devfest.android.theme.m3.navigation.ActionIds
 import org.gdglille.devfest.android.theme.m3.schedules.screens.ScheduleListHorizontalPager
 import org.gdglille.devfest.android.theme.m3.schedules.screens.ScheduleListVerticalPager
 import org.gdglille.devfest.android.theme.m3.style.R
-import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBarContentLayout
+import org.gdglille.devfest.android.theme.m3.style.Scaffold
 import org.gdglille.devfest.repositories.AgendaRepository
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -41,7 +41,7 @@ fun ScheduleListCompactVM(
     val title = stringResource(id = R.string.screen_agenda)
     val uiState = viewModel.uiState.collectAsState()
     when (uiState.value) {
-        is ScheduleListUiState.Loading -> TopAppBarContentLayout(
+        is ScheduleListUiState.Loading -> Scaffold(
             title = title,
             modifier = modifier
         ) {
@@ -58,8 +58,9 @@ fun ScheduleListCompactVM(
             val modelUi = (uiState.value as ScheduleListUiState.Success)
             val count = modelUi.scheduleUi.tabActionsUi.actions.count()
             val pagerState = rememberPagerState(pageCount = { count })
-            TopAppBarContentLayout(
+            Scaffold(
                 title = title,
+                modifier = modifier,
                 topActions = modelUi.scheduleUi.topActionsUi,
                 tabActions = modelUi.scheduleUi.tabActionsUi,
                 onActionClicked = {
@@ -68,8 +69,7 @@ fun ScheduleListCompactVM(
                             onFilterClicked()
                         }
                     }
-                },
-                modifier = modifier
+                }
             ) {
                 if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
                     ScheduleListHorizontalPager(
@@ -79,7 +79,8 @@ fun ScheduleListCompactVM(
                         onFavoriteClicked = { talkItem ->
                             viewModel.markAsFavorite(context, talkItem)
                         },
-                        isLoading = false
+                        isLoading = false,
+                        modifier = Modifier.padding(it)
                     )
                 } else {
                     ScheduleListVerticalPager(
@@ -90,7 +91,7 @@ fun ScheduleListCompactVM(
                             viewModel.markAsFavorite(context, talkItem)
                         },
                         isLoading = false,
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier.padding(it)
                     )
                 }
             }

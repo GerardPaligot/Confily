@@ -1,6 +1,6 @@
-package org.gdglille.devfest.android.theme.m3.main
+package org.gdglille.devfest.android.theme
 
-object HomeResultKey {
+object ResultKey {
     const val QR_CODE_TICKET = "QR_CODE_TICKET"
     const val QR_CODE_VCARD = "QR_CODE_VCARD"
 }

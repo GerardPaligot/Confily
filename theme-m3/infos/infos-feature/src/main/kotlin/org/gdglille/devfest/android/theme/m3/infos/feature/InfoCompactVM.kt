@@ -2,6 +2,7 @@ package org.gdglille.devfest.android.theme.m3.infos.feature
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Text
@@ -14,7 +15,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import org.gdglille.devfest.android.theme.m3.navigation.ActionIds
 import org.gdglille.devfest.android.theme.m3.navigation.TabActions
 import org.gdglille.devfest.android.theme.m3.style.R
-import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBarContentLayout
+import org.gdglille.devfest.android.theme.m3.style.Scaffold
 import org.gdglille.devfest.repositories.AgendaRepository
 import org.gdglille.devfest.repositories.EventRepository
 
@@ -25,10 +26,10 @@ fun InfoCompactVM(
     eventRepository: EventRepository,
     onItineraryClicked: (lat: Double, lng: Double) -> Unit,
     onLinkClicked: (url: String?) -> Unit,
+    onTicketScannerClicked: () -> Unit,
     onDisconnectedClicked: () -> Unit,
     onReportByPhoneClicked: (String) -> Unit,
     onReportByEmailClicked: (String) -> Unit,
-    onInnerScreenOpened: (String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: InfoViewModel = viewModel(
         factory = InfoViewModel.Factory.create(agendaRepository, eventRepository)
@@ -37,7 +38,7 @@ fun InfoCompactVM(
     val uiState = viewModel.uiState.collectAsState()
     val title = stringResource(id = R.string.screen_info)
     when (uiState.value) {
-        is InfoUiState.Loading -> TopAppBarContentLayout(title = title, modifier = modifier) {
+        is InfoUiState.Loading -> Scaffold(title = title, modifier = modifier) {
             EventVM(
                 agendaRepository = agendaRepository,
                 modifier = Modifier.fillMaxSize(),
@@ -51,12 +52,14 @@ fun InfoCompactVM(
             val pagerState =
                 rememberPagerState(pageCount = { uiModel.tabActionsUi.actions.count() })
             LaunchedEffect(pagerState.currentPage) {
-                onInnerScreenOpened(uiModel.tabActionsUi.actions[pagerState.currentPage].route)
+                viewModel.innerScreenConfig(uiModel.tabActionsUi.actions[pagerState.currentPage].route)
             }
-            TopAppBarContentLayout(
+            Scaffold(
                 title = title,
+                modifier = modifier,
                 topActions = uiModel.topActionsUi,
                 tabActions = uiModel.tabActionsUi,
+                fabAction = uiModel.fabAction,
                 onActionClicked = {
                     when (it.id) {
                         ActionIds.DISCONNECT -> {
@@ -65,10 +68,21 @@ fun InfoCompactVM(
                         }
                     }
                 },
-                pagerState = pagerState,
-                modifier = modifier
+                onFabActionClicked = {
+                    when (it.id) {
+                        ActionIds.SCAN_TICKET -> {
+                            onTicketScannerClicked()
+                        }
+
+                        else -> TODO("Fab not implemented")
+                    }
+                },
+                pagerState = pagerState
             ) {
-                HorizontalPager(state = pagerState) { page ->
+                HorizontalPager(
+                    state = pagerState,
+                    modifier = Modifier.padding(it)
+                ) { page ->
                     when (uiModel.tabActionsUi.actions[page].route) {
                         TabActions.event.route -> EventVM(
                             agendaRepository = agendaRepository,

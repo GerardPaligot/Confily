@@ -22,30 +22,31 @@ fun FilterChip(
     imageVector: ImageVector? = null,
     onClick: (selected: Boolean) -> Unit
 ) {
-    androidx.compose.material3.FilterChip(
+    val leadingIcon: (@Composable () -> Unit)? = if (selected) @Composable {
+        {
+            Icon(
+                imageVector = Icons.Filled.Done,
+                contentDescription = null,
+                modifier = Modifier.size(FilterChipDefaults.IconSize)
+            )
+        }
+    } else if (imageVector != null) {
+        @Composable {
+            Icon(
+                imageVector = imageVector,
+                contentDescription = null,
+                modifier = Modifier.size(FilterChipDefaults.IconSize)
+            )
+        }
+    } else {
+        null
+    }
+    // TODO Don't know why for now but FilterChip throw a NoSuchMethodError exception.
+    androidx.compose.material3.AssistChip(
         onClick = { onClick(selected.not()) },
         label = { Text(label) },
-        selected = selected,
         modifier = modifier,
-        leadingIcon = if (selected) {
-            {
-                Icon(
-                    imageVector = Icons.Filled.Done,
-                    contentDescription = null,
-                    modifier = Modifier.size(FilterChipDefaults.IconSize)
-                )
-            }
-        } else if (imageVector != null) {
-            {
-                Icon(
-                    imageVector = imageVector,
-                    contentDescription = null,
-                    modifier = Modifier.size(FilterChipDefaults.IconSize)
-                )
-            }
-        } else {
-            null
-        },
+        leadingIcon = leadingIcon
     )
 }
 

@@ -1,21 +1,32 @@
 package org.gdglille.devfest.android.theme.m3.navigation
 
-import androidx.annotation.StringRes
-import org.gdglille.devfest.android.theme.m3.style.R
+sealed class Screen(val route: String) {
+    data object EventList : Screen(route = "events")
+    data object FutureEvents : Screen(route = "events/future")
+    data object PastEvents : Screen(route = "events/past")
+    data object ScheduleList : Screen(route = "schedules")
+    data object ScheduleFilters : Screen(route = "schedules/filters")
+    data object Schedule : Screen(route = "schedules/{scheduleId}") {
+        fun route(scheduleId: String) = "schedules/$scheduleId"
+    }
 
-sealed class Screen(
-    val route: String,
-    @StringRes val title: Int
-) {
-    data object FutureEvents : Screen(route = "events/future", title = R.string.screen_events_future)
-    data object PastEvents : Screen(route = "events/past", title = R.string.screen_events_past)
-    data object Agenda : Screen(route = "agenda", title = R.string.screen_agenda)
-    data object SpeakerList : Screen(route = "speakers", title = R.string.screen_speakers)
-    data object MyProfile : Screen(route = "profile", title = R.string.screen_networking)
-    data object Contacts : Screen(route = "contacts", title = R.string.screen_networking)
-    data object Partners : Screen(route = "partners", title = R.string.screen_partners)
-    data object Event : Screen(route = "event", title = R.string.screen_info)
-    data object Menus : Screen(route = "menus", title = R.string.screen_info)
-    data object QAndA : Screen(route = "qanda", title = R.string.screen_info)
-    data object CoC : Screen(route = "coc", title = R.string.screen_info)
+    data object SpeakerList : Screen(route = "speakers")
+    data object Speaker : Screen(route = "speakers/{speakerId}") {
+        fun route(speakerId: String) = "speakers/$speakerId"
+    }
+
+    data object MyProfile : Screen(route = "profile/me")
+    data object NewProfile : Screen(route = "profile/new")
+    data object Contacts : Screen(route = "contacts")
+    data object PartnerList : Screen(route = "partners")
+    data object Partner : Screen(route = "partners/{partnerId}") {
+        fun route(partnerId: String) = "partners/$partnerId"
+    }
+
+    data object Event : Screen(route = "event")
+    data object Menus : Screen(route = "menus")
+    data object QAndA : Screen(route = "qanda")
+    data object CoC : Screen(route = "coc")
+    data object ScannerVCard : Screen(route = "scanner/vcard")
+    data object ScannerTicket : Screen(route = "scanner/ticket")
 }

@@ -2,6 +2,7 @@ package org.gdglille.devfest.android.theme.m3.partners.feature
 
 import android.content.res.Configuration
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -12,7 +13,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import org.gdglille.devfest.android.theme.m3.partners.screens.PartnersListScreen
 import org.gdglille.devfest.android.theme.m3.style.R
-import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBarContentLayout
+import org.gdglille.devfest.android.theme.m3.style.Scaffold
 import org.gdglille.devfest.repositories.AgendaRepository
 
 private const val ColumnCountLandscape = 6
@@ -34,7 +35,7 @@ fun PartnersListCompactVM(
         if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) ColumnCountLandscape
         else ColumnCountPortrait
     val uiState = viewModel.uiState.collectAsState()
-    TopAppBarContentLayout(
+    Scaffold(
         title = stringResource(id = R.string.screen_partners),
         modifier = modifier
     ) {
@@ -44,7 +45,8 @@ fun PartnersListCompactVM(
                 columnCount = columnCount,
                 state = state,
                 isLoading = true,
-                onPartnerClick = {}
+                onPartnerClick = {},
+                modifier = Modifier.padding(it)
             )
 
             is PartnersUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
@@ -52,7 +54,8 @@ fun PartnersListCompactVM(
                 partners = (uiState.value as PartnersUiState.Success).partners,
                 columnCount = columnCount,
                 state = state,
-                onPartnerClick = onPartnerClick
+                onPartnerClick = onPartnerClick,
+                modifier = Modifier.padding(it)
             )
         }
     }
