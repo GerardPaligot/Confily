@@ -16,7 +16,6 @@ import org.gdglille.devfest.android.theme.m3.style.toDp
 fun FilterSection(
     title: String,
     modifier: Modifier = Modifier,
-    color: Color = FilterSectionDefaults.titleColor,
     style: TextStyle = FilterSectionDefaults.style,
     content: @Composable ColumnScope.() -> Unit
 ) {
@@ -24,7 +23,7 @@ fun FilterSection(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(FilterSectionTokens.BetweenSpacing.toDp())
     ) {
-        Text(text = title, style = style, color = color)
+        Text(text = title, style = style)
         this.content()
     }
 }

@@ -1,6 +1,5 @@
 package org.gdglille.devfest.android.theme.m3.schedules.feature
 
-import android.content.res.Configuration
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.rememberPagerState
@@ -9,59 +8,61 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import org.gdglille.devfest.android.theme.m3.navigation.ActionIds
-import org.gdglille.devfest.android.theme.m3.schedules.screens.ScheduleListHorizontalPager
-import org.gdglille.devfest.android.theme.m3.schedules.screens.ScheduleListVerticalPager
+import org.gdglille.devfest.android.theme.m3.schedules.screens.ScheduleGridPager
 import org.gdglille.devfest.android.theme.m3.style.R
 import org.gdglille.devfest.android.theme.m3.style.Scaffold
+import org.gdglille.devfest.android.theme.m3.style.actions.TopActionsUi
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalFoundationApi::class)
 @ExperimentalCoroutinesApi
 @FlowPreview
 @Composable
-fun ScheduleListCompactVM(
+fun ScheduleGridVM(
     onScheduleStarted: () -> Unit,
     onFilterClicked: () -> Unit,
     onTalkClicked: (id: String) -> Unit,
+    showFilterIcon: Boolean,
     modifier: Modifier = Modifier,
-    viewModel: ScheduleListViewModel = koinViewModel()
+    columnCount: Int = 1,
+    isSmallSize: Boolean = false,
+    viewModel: ScheduleGridViewModel = koinViewModel()
 ) {
     val context = LocalContext.current
-    val configuration = LocalConfiguration.current
     val title = stringResource(id = R.string.screen_agenda)
     LaunchedEffect(key1 = Unit) {
         onScheduleStarted()
     }
     val uiState = viewModel.uiState.collectAsState()
     when (uiState.value) {
-        is ScheduleListUiState.Loading -> Scaffold(
+        is ScheduleGridUiState.Loading -> Scaffold(
             title = title,
             modifier = modifier
         ) {
-            ScheduleListVerticalPager(
-                agendas = (uiState.value as ScheduleListUiState.Loading).agenda,
+            ScheduleGridPager(
+                agendas = (uiState.value as ScheduleGridUiState.Loading).agenda,
                 onTalkClicked = {},
                 onFavoriteClicked = {},
                 isLoading = true
             )
         }
 
-        is ScheduleListUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
-        is ScheduleListUiState.Success -> {
-            val modelUi = (uiState.value as ScheduleListUiState.Success)
+        is ScheduleGridUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
+        is ScheduleGridUiState.Success -> {
+            val modelUi = (uiState.value as ScheduleGridUiState.Success)
             val count = modelUi.scheduleUi.tabActionsUi.actions.count()
             val pagerState = rememberPagerState(pageCount = { count })
             Scaffold(
                 title = title,
                 modifier = modifier,
-                topActions = modelUi.scheduleUi.topActionsUi,
+                topActions = if (!showFilterIcon) TopActionsUi() else modelUi.scheduleUi.topActionsUi,
                 tabActions = modelUi.scheduleUi.tabActionsUi,
+                hasScrollBehavior = false,
                 onActionClicked = {
                     when (it.id) {
                         ActionIds.FILTERS -> {
@@ -70,29 +71,18 @@ fun ScheduleListCompactVM(
                     }
                 }
             ) {
-                if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                    ScheduleListHorizontalPager(
-                        agendas = modelUi.scheduleUi.schedules,
-                        pagerState = pagerState,
-                        onTalkClicked = onTalkClicked,
-                        onFavoriteClicked = { talkItem ->
-                            viewModel.markAsFavorite(context, talkItem)
-                        },
-                        isLoading = false,
-                        modifier = Modifier.padding(it)
-                    )
-                } else {
-                    ScheduleListVerticalPager(
-                        agendas = modelUi.scheduleUi.schedules,
-                        pagerState = pagerState,
-                        onTalkClicked = onTalkClicked,
-                        onFavoriteClicked = { talkItem ->
-                            viewModel.markAsFavorite(context, talkItem)
-                        },
-                        isLoading = false,
-                        modifier = Modifier.padding(it)
-                    )
-                }
+                ScheduleGridPager(
+                    agendas = modelUi.scheduleUi.schedules,
+                    pagerState = pagerState,
+                    onTalkClicked = onTalkClicked,
+                    onFavoriteClicked = { talkItem ->
+                        viewModel.markAsFavorite(context, talkItem)
+                    },
+                    isLoading = false,
+                    columnCount = columnCount,
+                    isSmallSize = isSmallSize,
+                    modifier = Modifier.padding(top = it.calculateTopPadding())
+                )
             }
         }
     }

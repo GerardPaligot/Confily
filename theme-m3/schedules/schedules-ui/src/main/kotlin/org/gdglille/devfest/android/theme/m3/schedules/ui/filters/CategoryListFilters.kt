@@ -30,7 +30,7 @@ fun CategoryListFilters(
     ) {
         FlowRow(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            verticalArrangement = Arrangement.spacedBy(2.dp)
         ) {
             categories.entries.forEach { entry ->
                 FilterChip(

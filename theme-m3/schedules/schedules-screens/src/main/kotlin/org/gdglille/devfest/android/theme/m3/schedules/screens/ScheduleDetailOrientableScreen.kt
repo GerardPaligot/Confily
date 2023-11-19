@@ -62,7 +62,7 @@ fun ScheduleDetailOrientableScreen(
                     verticalAlignment = Alignment.Top,
                     modifier = Modifier.padding(it)
                 ) {
-                    ScheduleDetailVerticalScreen(
+                    ScheduleDetailScreen(
                         talk = talk,
                         openFeedbackFirebaseConfig = null,
                         onSpeakerClicked = onSpeakerClicked,
@@ -78,7 +78,7 @@ fun ScheduleDetailOrientableScreen(
                     )
                 }
             } else {
-                ScheduleDetailVerticalScreen(
+                ScheduleDetailScreen(
                     talk = talk,
                     openFeedbackFirebaseConfig = openFeedbackFirebaseConfig,
                     onSpeakerClicked = onSpeakerClicked,

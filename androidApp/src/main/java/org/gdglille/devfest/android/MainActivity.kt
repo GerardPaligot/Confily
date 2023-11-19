@@ -42,7 +42,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         val openfeedbackFirebaseConfig = (application as MainApplication).openFeedbackConfig
-
         val workManager = WorkManager.getInstance(this)
         setContent {
             val inDarkTheme = isSystemInDarkTheme()

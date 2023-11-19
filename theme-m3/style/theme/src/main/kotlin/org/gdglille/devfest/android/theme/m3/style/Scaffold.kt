@@ -13,10 +13,12 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.contentColorFor
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import kotlinx.coroutines.launch
@@ -33,6 +35,9 @@ import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBar
 fun Scaffold(
     title: String,
     modifier: Modifier = Modifier,
+    hasScrollBehavior: Boolean = true,
+    containerColor: Color = MaterialTheme.colorScheme.background,
+    contentColor: Color = contentColorFor(containerColor),
     topActions: TopActionsUi = TopActionsUi(),
     tabActions: TabActionsUi = TabActionsUi(),
     fabAction: FabAction? = null,
@@ -44,8 +49,13 @@ fun Scaffold(
 ) {
     val scope = rememberCoroutineScope()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
+    val scrollModifier = if (hasScrollBehavior)
+        Modifier.nestedScroll(scrollBehavior.nestedScrollConnection)
+    else Modifier
     Scaffold(
-        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        modifier = modifier.then(scrollModifier),
+        containerColor = containerColor,
+        contentColor = contentColor,
         topBar = {
             Column {
                 TopAppBar(
@@ -53,7 +63,8 @@ fun Scaffold(
                     topActionsUi = topActions,
                     onActionClicked = onActionClicked,
                     scrollBehavior = scrollBehavior,
-                    navigationIcon = navigationIcon
+                    navigationIcon = navigationIcon,
+                    colors = TopAppBarDefaults.topAppBarColors(containerColor = containerColor)
                 )
                 if (tabActions.actions.count() > 1) {
                     val tabSelectedIndex = pagerState.currentPage

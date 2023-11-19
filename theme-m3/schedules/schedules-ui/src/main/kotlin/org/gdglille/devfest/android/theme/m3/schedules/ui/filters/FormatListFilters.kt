@@ -1,8 +1,10 @@
 package org.gdglille.devfest.android.theme.m3.schedules.ui.filters
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -30,7 +32,7 @@ fun FormatListFilters(
     ) {
         FlowRow(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            verticalArrangement = Arrangement.spacedBy(2.dp)
         ) {
             formats.entries.forEach { entry ->
                 FilterChip(
@@ -44,16 +46,19 @@ fun FormatListFilters(
     }
 }
 
-@Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun FormatListPreview() {
     Conferences4HallTheme {
-        FormatListFilters(
-            formats = persistentMapOf(
-                FormatUi.quickie to true,
-                FormatUi.conference to false
-            ),
-            onClick = { _, _ -> }
-        )
+        Surface {
+            FormatListFilters(
+                formats = persistentMapOf(
+                    FormatUi.quickie to true,
+                    FormatUi.conference to false
+                ),
+                onClick = { _, _ -> }
+            )
+        }
     }
 }

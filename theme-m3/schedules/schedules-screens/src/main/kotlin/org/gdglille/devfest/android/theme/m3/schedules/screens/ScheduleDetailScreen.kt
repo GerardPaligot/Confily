@@ -27,7 +27,7 @@ import org.gdglille.devfest.models.ui.TalkUi
 
 @ExperimentalMaterial3Api
 @Composable
-fun ScheduleDetailVerticalScreen(
+fun ScheduleDetailScreen(
     talk: TalkUi,
     openFeedbackFirebaseConfig: OpenFeedbackFirebaseConfig?,
     onSpeakerClicked: (id: String) -> Unit,
@@ -84,7 +84,7 @@ fun ScheduleDetailVerticalScreen(
 private fun ScheduleDetailPreview() {
     Conferences4HallTheme {
         Surface {
-            ScheduleDetailVerticalScreen(
+            ScheduleDetailScreen(
                 talk = TalkUi.fake,
                 openFeedbackFirebaseConfig = OpenFeedbackFirebaseConfig(
                     context = LocalContext.current,

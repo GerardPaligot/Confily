@@ -3,7 +3,6 @@ package org.gdglille.devfest.android.theme.m3.schedules.feature
 import android.annotation.SuppressLint
 import android.content.Context
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
@@ -36,15 +35,15 @@ data class ScheduleUi(
     val schedules: ImmutableList<AgendaUi>
 )
 
-sealed class ScheduleListUiState {
-    data class Loading(val agenda: ImmutableList<AgendaUi>) : ScheduleListUiState()
-    data class Success(val scheduleUi: ScheduleUi) : ScheduleListUiState()
-    data class Failure(val throwable: Throwable) : ScheduleListUiState()
+sealed class ScheduleGridUiState {
+    data class Loading(val agenda: ImmutableList<AgendaUi>) : ScheduleGridUiState()
+    data class Success(val scheduleUi: ScheduleUi) : ScheduleGridUiState()
+    data class Failure(val throwable: Throwable) : ScheduleGridUiState()
 }
 
 @FlowPreview
 @ExperimentalCoroutinesApi
-class ScheduleListViewModel(
+class ScheduleGridViewModel(
     repository: AgendaRepository,
     private val alarmScheduler: AlarmScheduler
 ) : ViewModel() {
@@ -65,14 +64,14 @@ class ScheduleListViewModel(
             )
         }
     private val _schedules = repository.agenda()
-    val uiState: StateFlow<ScheduleListUiState> =
+    val uiState: StateFlow<ScheduleGridUiState> =
         combine(
             _tabsStates,
             _uiHasFiltersState,
             _schedules,
             transform = { agendaTabs, topActions, schedules ->
                 if (schedules.isNotEmpty()) {
-                    ScheduleListUiState.Success(
+                    ScheduleGridUiState.Success(
                         ScheduleUi(
                             topActionsUi = topActions,
                             tabActionsUi = agendaTabs,
@@ -80,15 +79,15 @@ class ScheduleListViewModel(
                         )
                     )
                 } else {
-                    ScheduleListUiState.Loading(persistentListOf(AgendaUi.fake))
+                    ScheduleGridUiState.Loading(persistentListOf(AgendaUi.fake))
                 }
             }
         ).catch {
             Firebase.crashlytics.recordException(it)
-            ScheduleListUiState.Failure(it)
+            ScheduleGridUiState.Failure(it)
         }.stateIn(
             scope = viewModelScope,
-            initialValue = ScheduleListUiState.Loading(persistentListOf(AgendaUi.fake)),
+            initialValue = ScheduleGridUiState.Loading(persistentListOf(AgendaUi.fake)),
             started = SharingStarted.WhileSubscribed()
         )
 

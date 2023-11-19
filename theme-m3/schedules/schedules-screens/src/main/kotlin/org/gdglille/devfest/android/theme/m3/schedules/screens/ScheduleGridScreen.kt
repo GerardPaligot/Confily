@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.MediumScheduleItem
 import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.NoFavoriteTalks
 import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.SmallScheduleItem
 import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.Time
@@ -19,17 +20,19 @@ import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.placeholder
 import org.gdglille.devfest.android.theme.m3.style.previews.PHONE_LANDSCAPE
 import org.gdglille.devfest.android.theme.m3.style.schedules.findTimeImageVector
+import org.gdglille.devfest.android.theme.m3.style.schedules.pause.MediumPauseItem
 import org.gdglille.devfest.android.theme.m3.style.schedules.pause.SmallPauseItem
 import org.gdglille.devfest.models.ui.AgendaUi
 import org.gdglille.devfest.models.ui.TalkItemUi
 
 @Composable
-fun ScheduleListHorizontalScreen(
+fun ScheduleGridScreen(
     agenda: AgendaUi,
     onTalkClicked: (id: String) -> Unit,
     onFavoriteClicked: (TalkItemUi) -> Unit,
     modifier: Modifier = Modifier,
     columnCount: Int = 2,
+    isSmallSize: Boolean = false,
     isLoading: Boolean = false,
 ) {
     if (agenda.onlyFavorites && !isLoading && agenda.talks.keys.isEmpty()) {
@@ -38,30 +41,49 @@ fun ScheduleListHorizontalScreen(
         LazyVerticalGrid(
             columns = GridCells.Fixed(count = columnCount),
             modifier = modifier,
-            contentPadding = PaddingValues(vertical = 24.dp, horizontal = 16.dp),
+            contentPadding = PaddingValues(vertical = 24.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             agenda.talks.entries.forEach { slot ->
-                item(span = { GridItemSpan(2) }) {
+                item(span = { GridItemSpan(columnCount) }) {
                     Time(time = slot.key, modifier = Modifier.placeholder(visible = isLoading))
                 }
                 items(slot.value.toList(), key = { it.id }) {
                     if (it.isPause) {
-                        SmallPauseItem(
-                            title = it.title,
-                            room = it.room,
-                            time = it.time,
-                            timeImageVector = it.timeInMinutes.findTimeImageVector(),
-                            modifier = Modifier.placeholder(visible = isLoading)
-                        )
+                        if (isSmallSize) {
+                            SmallPauseItem(
+                                title = it.title,
+                                room = it.room,
+                                time = it.time,
+                                timeImageVector = it.timeInMinutes.findTimeImageVector(),
+                                modifier = Modifier.placeholder(visible = isLoading)
+                            )
+                        } else {
+                            MediumPauseItem(
+                                title = it.title,
+                                room = it.room,
+                                time = it.time,
+                                timeImageVector = it.timeInMinutes.findTimeImageVector(),
+                                modifier = Modifier.placeholder(visible = isLoading)
+                            )
+                        }
                     } else {
-                        SmallScheduleItem(
-                            talk = it,
-                            modifier = Modifier.placeholder(visible = isLoading),
-                            onFavoriteClicked = onFavoriteClicked,
-                            onTalkClicked = onTalkClicked
-                        )
+                        if (isSmallSize) {
+                            SmallScheduleItem(
+                                talk = it,
+                                modifier = Modifier.placeholder(visible = isLoading),
+                                onFavoriteClicked = onFavoriteClicked,
+                                onTalkClicked = onTalkClicked
+                            )
+                        } else {
+                            MediumScheduleItem(
+                                talk = it,
+                                modifier = Modifier.placeholder(visible = isLoading),
+                                onFavoriteClicked = onFavoriteClicked,
+                                onTalkClicked = onTalkClicked
+                            )
+                        }
                     }
                 }
             }
@@ -72,10 +94,10 @@ fun ScheduleListHorizontalScreen(
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Preview(device = PHONE_LANDSCAPE)
 @Composable
-private fun ScheduleListHorizontalScreenPreview() {
+private fun ScheduleListScreenPreview() {
     Conferences4HallTheme {
         Scaffold {
-            ScheduleListHorizontalScreen(
+            ScheduleGridScreen(
                 agenda = AgendaUi.fake,
                 onTalkClicked = {},
                 onFavoriteClicked = { }
@@ -83,4 +105,3 @@ private fun ScheduleListHorizontalScreenPreview() {
         }
     }
 }
-

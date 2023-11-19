@@ -14,12 +14,14 @@ import org.gdglille.devfest.models.ui.TalkItemUi
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ScheduleListVerticalPager(
+fun ScheduleGridPager(
     agendas: ImmutableList<AgendaUi>,
     onTalkClicked: (id: String) -> Unit,
     onFavoriteClicked: (TalkItemUi) -> Unit,
     modifier: Modifier = Modifier,
     pagerState: PagerState = rememberPagerState(pageCount = { 0 }),
+    columnCount: Int = 2,
+    isSmallSize: Boolean = false,
     isLoading: Boolean = false,
 ) {
     HorizontalPager(
@@ -27,11 +29,13 @@ fun ScheduleListVerticalPager(
         modifier = Modifier.fillMaxSize(),
         verticalAlignment = Alignment.Top
     ) { page ->
-        ScheduleListVerticalScreen(
+        ScheduleGridScreen(
             agenda = agendas[page],
             modifier = modifier,
             onTalkClicked = onTalkClicked,
             onFavoriteClicked = onFavoriteClicked,
+            columnCount = columnCount,
+            isSmallSize = isSmallSize,
             isLoading = isLoading
         )
     }

@@ -8,6 +8,8 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarColors
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -26,6 +28,7 @@ import org.gdglille.devfest.android.theme.m3.style.actions.TopActionsUi
 fun TopAppBar(
     title: String,
     modifier: Modifier = Modifier,
+    colors: TopAppBarColors = TopAppBarDefaults.topAppBarColors(),
     navigationIcon: @Composable (AppBarIcons.() -> Unit)? = null,
     topActionsUi: TopActionsUi = TopActionsUi(),
     scrollBehavior: TopAppBarScrollBehavior? = null,
@@ -57,7 +60,8 @@ fun TopAppBar(
                 )
             }
         },
-        scrollBehavior = scrollBehavior
+        scrollBehavior = scrollBehavior,
+        colors = colors
     )
 }
 

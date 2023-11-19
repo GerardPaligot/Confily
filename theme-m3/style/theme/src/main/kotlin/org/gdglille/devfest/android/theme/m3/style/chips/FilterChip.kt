@@ -1,11 +1,15 @@
 package org.gdglille.devfest.android.theme.m3.style.chips
 
+import android.content.res.Configuration
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -50,15 +54,28 @@ fun FilterChip(
     )
 }
 
-@Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun FilterChipPreview() {
     Conferences4HallTheme {
-        FilterChip(
-            label = "Mobile",
-            selected = false,
-            onClick = {
+        Surface {
+            Column {
+                FilterChip(
+                    label = "Mobile",
+                    imageVector = Icons.Default.Add,
+                    selected = false,
+                    onClick = {
+                    }
+                )
+                FilterChip(
+                    label = "Mobile",
+                    imageVector = Icons.Default.Add,
+                    selected = false,
+                    onClick = {
+                    }
+                )
             }
-        )
+        }
     }
 }
