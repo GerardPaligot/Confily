@@ -29,6 +29,11 @@ data class ConferenceHallConfigurationDb(
     val apiKey: String = ""
 )
 
+data class OpenPlannerConfigurationDb(
+    val eventId: String = "",
+    val privateId: String = ""
+)
+
 data class BilletWebConfigurationDb(
     val eventId: String = "",
     val userId: String = "",
@@ -45,6 +50,7 @@ data class EventDb(
     val year: String = "",
     val openFeedbackId: String? = null,
     val conferenceHallConfig: ConferenceHallConfigurationDb? = null,
+    val openPlannerConfig: OpenPlannerConfigurationDb? = null,
     val billetWebConfig: BilletWebConfigurationDb? = null,
     val wldConfig: WldConfigurationDb? = null,
     val apiKey: String = "",

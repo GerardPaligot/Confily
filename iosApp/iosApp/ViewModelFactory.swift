@@ -32,7 +32,7 @@ class ViewModelFactory: ObservableObject {
             talkDao: TalkDao(db: db, platform: platform),
             eventDao: EventDao(db: db, settings: settings),
             partnerDao: PartnerDao(db: db, platform: platform),
-            featuresDao: FeaturesActivatedDao(db: db),
+            featuresDao: FeaturesActivatedDao(db: db, settings: settings),
             qrCodeGenerator: QrCodeGeneratoriOS()
         )
         self.userRepository = UserRepositoryImpl(

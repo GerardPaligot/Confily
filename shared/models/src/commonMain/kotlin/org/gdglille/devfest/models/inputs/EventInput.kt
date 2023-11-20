@@ -40,6 +40,16 @@ data class ConferenceHallConfigInput(
 }
 
 @Serializable
+data class OpenPlannerConfigInput(
+    @SerialName("event_id")
+    val eventId: String,
+    @SerialName("private_id")
+    val privateId: String
+) : Validator {
+    override fun validate(): List<String> = emptyList()
+}
+
+@Serializable
 data class BilletWebConfigInput(
     @SerialName("event_id")
     val eventId: String,
@@ -69,6 +79,8 @@ data class EventInput(
     val openFeedbackId: String?,
     @SerialName("conference_hall_config")
     val conferenceHallConfigInput: ConferenceHallConfigInput?,
+    @SerialName("open_planner_config")
+    val openPlannerConfigInput: OpenPlannerConfigInput?,
     @SerialName("billet_web_config")
     val billetWebConfig: BilletWebConfigInput?,
     @SerialName("wld_config")

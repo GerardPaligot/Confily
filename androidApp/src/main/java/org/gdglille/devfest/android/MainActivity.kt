@@ -80,7 +80,7 @@ class MainActivity : ComponentActivity() {
             talkDao = TalkDao(db, platform),
             eventDao = EventDao(db, settings),
             partnerDao = PartnerDao(db = db, platform = platform),
-            featuresDao = FeaturesActivatedDao(db),
+            featuresDao = FeaturesActivatedDao(db, settings),
             qrCodeGenerator = QrCodeGeneratorAndroid()
         )
         val userRepository = UserRepository.Factory.create(

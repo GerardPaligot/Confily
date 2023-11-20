@@ -34,8 +34,8 @@ class MainNavigationViewModel(
         .map { MainNavigationUiState.Success(navActions(it)) }
         .catch { MainNavigationUiState.Failure(it) }
         .stateIn(
-            viewModelScope,
-            SharingStarted.WhileSubscribed(),
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(),
             initialValue = MainNavigationUiState.Loading
         )
 

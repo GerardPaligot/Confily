@@ -6,6 +6,8 @@ import com.google.cloud.secretmanager.v1.SecretManagerServiceClient
 import com.google.cloud.secretmanager.v1.SecretManagerServiceSettings
 import com.google.cloud.storage.StorageOptions
 import io.ktor.http.HeaderValue
+import io.ktor.http.HttpHeaders
+import io.ktor.http.HttpMethod
 import io.ktor.http.HttpStatusCode
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.ApplicationCall
@@ -46,6 +48,7 @@ import org.gdglille.devfest.backend.third.parties.billetweb.registerBilletWebRou
 import org.gdglille.devfest.backend.third.parties.conferencehall.ConferenceHallApi
 import org.gdglille.devfest.backend.third.parties.conferencehall.registerConferenceHallRoutes
 import org.gdglille.devfest.backend.third.parties.geocode.GeocodeApi
+import org.gdglille.devfest.backend.third.parties.openplanner.OpenPlannerApi
 import org.gdglille.devfest.backend.third.parties.welovedevs.WeLoveDevsApi
 import org.gdglille.devfest.backend.third.parties.welovedevs.registerWLDRoutes
 import org.gdglille.devfest.models.inputs.Validator
@@ -101,10 +104,19 @@ fun main() {
         apiKey = secret["GEOCODE_API_KEY"],
         enableNetworkLogs = true
     )
+    val openPlannerApi = OpenPlannerApi.Factory.create(enableNetworkLogs = true)
     val conferenceHallApi = ConferenceHallApi.Factory.create(enableNetworkLogs = true)
     val imageTranscoder = TranscoderImage()
     embeddedServer(Netty, PORT) {
         install(CORS) {
+            allowMethod(HttpMethod.Options)
+            allowMethod(HttpMethod.Post)
+            allowMethod(HttpMethod.Put)
+            allowMethod(HttpMethod.Get)
+            allowMethod(HttpMethod.Delete)
+            allowHeader(HttpHeaders.AccessControlAllowOrigin)
+            allowHeader(HttpHeaders.ContentType)
+            allowHeader(HttpHeaders.Authorization)
             anyHost()
         }
         install(ContentNegotiation) {
@@ -128,6 +140,7 @@ fun main() {
         routing {
             registerEventRoutes(
                 geocodeApi,
+                openPlannerApi,
                 eventDao,
                 speakerDao,
                 qAndADao,

@@ -4,16 +4,36 @@ import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOneOrDefault
 import app.cash.sqldelight.coroutines.mapToOneOrNull
+import com.russhwolf.settings.ExperimentalSettingsApi
+import com.russhwolf.settings.ObservableSettings
+import com.russhwolf.settings.coroutines.getStringOrNullFlow
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flatMapConcat
+import kotlinx.coroutines.flow.flow
 import org.gdglille.devfest.db.Conferences4HallDatabase
 import org.gdglille.devfest.models.ui.ScaffoldConfigUi
 
-class FeaturesActivatedDao(private val db: Conferences4HallDatabase) {
-    fun fetchFeatures(eventId: String): Flow<ScaffoldConfigUi> = combine(
+@OptIn(ExperimentalSettingsApi::class)
+class FeaturesActivatedDao(
+    private val db: Conferences4HallDatabase,
+    private val settings: ObservableSettings
+) {
+    @OptIn(ExperimentalCoroutinesApi::class)
+    fun fetchFeatures(): Flow<ScaffoldConfigUi> = settings.getStringOrNullFlow("EVENT_ID")
+        .flatMapConcat {
+            if (it != null) {
+                fetchFeatures(it)
+            } else {
+                flow { ScaffoldConfigUi() }
+            }
+        }
+
+    private fun fetchFeatures(eventId: String): Flow<ScaffoldConfigUi> = combine(
         db.featuresActivatedQueries.selectFeatures(eventId).asFlow().mapToOneOrNull(Dispatchers.IO),
         db.userQueries.selectQrCode(eventId).asFlow().mapToOneOrNull(Dispatchers.IO),
         db.sessionQueries.selectDays(eventId).asFlow().mapToList(Dispatchers.IO),

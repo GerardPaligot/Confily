@@ -17,6 +17,7 @@ import org.gdglille.devfest.models.inputs.ConferenceHallConfigInput
 import org.gdglille.devfest.models.inputs.CreatingEventInput
 import org.gdglille.devfest.models.inputs.EventInput
 import org.gdglille.devfest.models.inputs.LunchMenuInput
+import org.gdglille.devfest.models.inputs.OpenPlannerConfigInput
 import org.gdglille.devfest.models.inputs.WldConfigInput
 import java.util.UUID
 
@@ -128,6 +129,11 @@ fun ConferenceHallConfigInput.convertToDb() = ConferenceHallConfigurationDb(
     apiKey = apiKey
 )
 
+fun OpenPlannerConfigInput.convertToDb() = OpenPlannerConfigurationDb(
+    eventId = eventId,
+    privateId = privateId
+)
+
 fun BilletWebConfigInput.convertToDb() = BilletWebConfigurationDb(
     eventId = eventId,
     userId = userId,
@@ -148,6 +154,7 @@ fun EventInput.convertToDb(event: EventDb, addressDb: AddressDb) = EventDb(
     address = addressDb,
     openFeedbackId = openFeedbackId ?: event.openFeedbackId,
     conferenceHallConfig = this.conferenceHallConfigInput?.convertToDb(),
+    openPlannerConfig = this.openPlannerConfigInput?.convertToDb(),
     billetWebConfig = this.billetWebConfig?.convertToDb(),
     wldConfig = this.wldConfig?.convertToDb(),
     menus = event.menus,

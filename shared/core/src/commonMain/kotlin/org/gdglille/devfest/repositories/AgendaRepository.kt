@@ -123,9 +123,7 @@ class AgendaRepositoryImpl(
         eventDao.updateTicket(eventId, qrCode, barcode, attendee)
     }
 
-    override fun scaffoldConfig(): Flow<ScaffoldConfigUi> = featuresDao.fetchFeatures(
-        eventId = eventDao.fetchEventId()
-    )
+    override fun scaffoldConfig(): Flow<ScaffoldConfigUi> = featuresDao.fetchFeatures()
 
     override fun event(): Flow<EventUi> = eventDao.fetchEvent(
         eventId = eventDao.fetchEventId()

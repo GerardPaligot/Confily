@@ -20,6 +20,10 @@ import org.gdglille.devfest.backend.talks.TalkDao
 import org.gdglille.devfest.backend.talks.convertToModel
 import org.gdglille.devfest.backend.third.parties.geocode.GeocodeApi
 import org.gdglille.devfest.backend.third.parties.geocode.convertToDb
+import org.gdglille.devfest.backend.third.parties.openplanner.OpenPlannerApi
+import org.gdglille.devfest.backend.third.parties.openplanner.convertToDb
+import org.gdglille.devfest.backend.third.parties.openplanner.convertToScheduleDb
+import org.gdglille.devfest.backend.third.parties.openplanner.convertToTalkDb
 import org.gdglille.devfest.models.Agenda
 import org.gdglille.devfest.models.CreatedEvent
 import org.gdglille.devfest.models.Event
@@ -35,6 +39,7 @@ import java.time.LocalDateTime
 @Suppress("LongParameterList")
 class EventRepository(
     private val geocodeApi: GeocodeApi,
+    private val openPlannerApi: OpenPlannerApi,
     private val eventDao: EventDao,
     private val speakerDao: SpeakerDao,
     private val qAndADao: QAndADao,
@@ -145,4 +150,38 @@ class EventRepository(
             }.awaitAll().associate { it }.toSortedMap()
         return@coroutineScope Agenda(talks = schedules)
     }
+
+    suspend fun openPlanner(eventId: String, apiKey: String) =
+        coroutineScope {
+            val event = eventDao.getVerified(eventId, apiKey)
+            val config = event.openPlannerConfig
+                ?: throw NotAcceptableException("OpenPlanner config not initialized")
+            val openPlanner = openPlannerApi.fetchPrivateJson(config.eventId, config.privateId)
+            openPlanner.event.categories
+                .map { async { categoryDao.createOrUpdate(eventId, it.convertToDb()) } }
+                .awaitAll()
+            openPlanner.event.formats
+                .map { async { formatDao.createOrUpdate(eventId, it.convertToDb()) } }
+                .awaitAll()
+            openPlanner.speakers
+                .map { async { speakerDao.createOrUpdate(eventId, it.convertToDb()) } }
+                .awaitAll()
+            openPlanner.sessions
+                .map { async { talkDao.createOrUpdate(eventId, it.convertToTalkDb()) } }
+            openPlanner.sessions
+                .filter { it.trackId != null && it.dateStart != null && it.dateEnd != null }
+                .groupBy { it.dateStart }
+                .map {
+                    async {
+                        it.value.forEachIndexed { index, sessionOP ->
+                            scheduleItemDao.createOrUpdate(
+                                eventId,
+                                sessionOP.convertToScheduleDb(index)
+                            )
+                        }
+                    }
+                }
+                .awaitAll()
+            eventDao.updateAgendaUpdatedAt(event)
+        }
 }
