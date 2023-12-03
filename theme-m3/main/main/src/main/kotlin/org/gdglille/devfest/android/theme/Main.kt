@@ -22,6 +22,7 @@ fun Main(
     onReportByEmailClicked: (String) -> Unit,
     onShareClicked: (text: String) -> Unit,
     onItineraryClicked: (lat: Double, lng: Double) -> Unit,
+    onScheduleStarted: () -> Unit,
     navController: NavHostController,
     viewModel: MainViewModel = koinViewModel()
 ) {
@@ -38,6 +39,7 @@ fun Main(
                     onReportByEmailClicked = onReportByEmailClicked,
                     onShareClicked = onShareClicked,
                     onItineraryClicked = onItineraryClicked,
+                    onScheduleStarted = onScheduleStarted,
                     savedStateHandle = navController.currentBackStackEntry?.savedStateHandle,
                     navController = navController
                 )

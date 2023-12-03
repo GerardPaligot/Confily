@@ -11,11 +11,9 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
-import kotlinx.collections.immutable.persistentMapOf
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -27,10 +25,8 @@ import org.gdglille.devfest.AlarmScheduler
 import org.gdglille.devfest.android.theme.m3.navigation.TopActions
 import org.gdglille.devfest.android.theme.m3.style.actions.TabAction
 import org.gdglille.devfest.android.theme.m3.style.actions.TabActionsUi
-import org.gdglille.devfest.android.theme.m3.style.actions.TopAction
 import org.gdglille.devfest.android.theme.m3.style.actions.TopActionsUi
 import org.gdglille.devfest.models.ui.AgendaUi
-import org.gdglille.devfest.models.ui.ScaffoldConfigUi
 import org.gdglille.devfest.models.ui.TalkItemUi
 import org.gdglille.devfest.repositories.AgendaRepository
 

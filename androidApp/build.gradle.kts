@@ -89,9 +89,11 @@ dependencies {
     implementation(libs.androidx.compose.activity)
     implementation(libs.androidx.compose.navigation)
     implementation(libs.androidx.profile)
+    implementation(libs.androidx.workmanager.ktx)
 
     implementation(libs.koin.core)
     implementation(libs.koin.android)
+    implementation(libs.koin.androidx.workmanager)
 
     implementation(libs.coil.compose)
     implementation(libs.coil.svg)

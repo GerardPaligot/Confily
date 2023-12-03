@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
@@ -25,6 +26,7 @@ import org.koin.androidx.compose.koinViewModel
 @FlowPreview
 @Composable
 fun ScheduleListCompactVM(
+    onScheduleStarted: () -> Unit,
     onFilterClicked: () -> Unit,
     onTalkClicked: (id: String) -> Unit,
     modifier: Modifier = Modifier,
@@ -33,6 +35,9 @@ fun ScheduleListCompactVM(
     val context = LocalContext.current
     val configuration = LocalConfiguration.current
     val title = stringResource(id = R.string.screen_agenda)
+    LaunchedEffect(key1 = Unit) {
+        onScheduleStarted()
+    }
     val uiState = viewModel.uiState.collectAsState()
     when (uiState.value) {
         is ScheduleListUiState.Loading -> Scaffold(

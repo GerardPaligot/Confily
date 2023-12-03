@@ -59,6 +59,7 @@ fun MainNavigation(
     onReportByEmailClicked: (String) -> Unit,
     onShareClicked: (text: String) -> Unit,
     onItineraryClicked: (lat: Double, lng: Double) -> Unit,
+    onScheduleStarted: () -> Unit,
     modifier: Modifier = Modifier,
     savedStateHandle: SavedStateHandle? = null,
     navController: NavHostController = rememberNavController(),
@@ -139,6 +140,7 @@ fun MainNavigation(
                 }
                 composable(Screen.ScheduleList.route) {
                     ScheduleListCompactVM(
+                        onScheduleStarted = onScheduleStarted,
                         onFilterClicked = { navController.navigate(Screen.ScheduleFilters.route) },
                         onTalkClicked = { navController.navigate(Screen.Schedule.route(it)) }
                     )

@@ -9,12 +9,14 @@ import coil.memory.MemoryCache
 import io.openfeedback.android.viewmodels.OpenFeedbackFirebaseConfig
 import org.gdglille.devfest.android.di.appModule
 import org.koin.android.ext.koin.androidContext
+import org.koin.androidx.workmanager.koin.workManagerFactory
+import org.koin.core.component.KoinComponent
 import org.koin.core.context.startKoin
 
 private const val MemoryCacheSize = 0.25
 private const val DiskCacheSize = 0.10
 
-class MainApplication : Application(), ImageLoaderFactory {
+class MainApplication : Application(), ImageLoaderFactory, KoinComponent {
     lateinit var openFeedbackConfig: OpenFeedbackFirebaseConfig
 
     override fun onCreate() {
@@ -29,6 +31,7 @@ class MainApplication : Application(), ImageLoaderFactory {
 
         startKoin {
             androidContext(this@MainApplication)
+            workManagerFactory()
             modules(appModule)
         }
     }

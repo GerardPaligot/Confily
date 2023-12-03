@@ -15,6 +15,10 @@ import androidx.core.app.ShareCompat
 import androidx.core.content.FileProvider
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import androidx.work.Constraints
+import androidx.work.NetworkType
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.russhwolf.settings.ExperimentalSettingsApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -38,6 +42,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         val openfeedbackFirebaseConfig = (application as MainApplication).openFeedbackConfig
+
+        val workManager = WorkManager.getInstance(this)
         setContent {
             val inDarkTheme = isSystemInDarkTheme()
             DisposableEffect(inDarkTheme) {
@@ -99,6 +105,15 @@ class MainActivity : ComponentActivity() {
                     }
                     val shareIntent = Intent.createChooser(intent, null)
                     startActivity(shareIntent)
+                },
+                onScheduleStarted = {
+                    val constraints = Constraints.Builder()
+                        .setRequiredNetworkType(NetworkType.CONNECTED)
+                        .build()
+                    val request = OneTimeWorkRequestBuilder<ScheduleWorkManager>()
+                        .setConstraints(constraints)
+                        .build()
+                    workManager.enqueue(request)
                 },
                 navController = navController
             )
