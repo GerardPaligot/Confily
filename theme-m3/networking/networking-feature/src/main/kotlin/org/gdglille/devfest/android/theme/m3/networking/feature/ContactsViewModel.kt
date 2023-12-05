@@ -1,7 +1,6 @@
 package org.gdglille.devfest.android.theme.m3.networking.feature
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
@@ -39,13 +38,5 @@ class ContactsViewModel(
 
     fun deleteNetworking(email: String) = viewModelScope.launch {
         userRepository.deleteNetworkProfile(email)
-    }
-
-    object Factory {
-        fun create(repository: UserRepository) = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(modelClass: Class<T>): T =
-                ContactsViewModel(userRepository = repository) as T
-        }
     }
 }

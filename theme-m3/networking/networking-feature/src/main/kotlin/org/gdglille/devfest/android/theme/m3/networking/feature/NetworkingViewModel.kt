@@ -85,16 +85,4 @@ class NetworkingViewModel(
     fun exportNetworking() = viewModelScope.launch {
         _exportPath.tryEmit(userRepository.exportNetworking())
     }
-
-    object Factory {
-        fun create(agendaRepository: AgendaRepository, userRepository: UserRepository) =
-            object : ViewModelProvider.Factory {
-                @Suppress("UNCHECKED_CAST")
-                override fun <T : ViewModel> create(modelClass: Class<T>): T =
-                    NetworkingViewModel(
-                        agendaRepository = agendaRepository,
-                        userRepository = userRepository
-                    ) as T
-            }
-    }
 }

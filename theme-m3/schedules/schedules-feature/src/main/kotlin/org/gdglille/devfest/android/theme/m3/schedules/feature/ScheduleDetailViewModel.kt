@@ -1,7 +1,6 @@
 package org.gdglille.devfest.android.theme.m3.schedules.feature
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
@@ -12,7 +11,7 @@ import org.gdglille.devfest.models.ui.TalkUi
 import org.gdglille.devfest.repositories.AgendaRepository
 
 sealed class ScheduleUiState {
-    object Loading : ScheduleUiState()
+    data object Loading : ScheduleUiState()
     data class Success(val talk: TalkUi) : ScheduleUiState()
     data class Failure(val throwable: Throwable) : ScheduleUiState()
 }
@@ -31,17 +30,6 @@ class ScheduleDetailViewModel(
             } catch (error: Throwable) {
                 Firebase.crashlytics.recordException(error)
                 _uiState.value = ScheduleUiState.Failure(error)
-            }
-        }
-    }
-
-    object Factory {
-        fun create(scheduleId: String, repository: AgendaRepository) = object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                @Suppress("UNCHECKED_CAST") return ScheduleDetailViewModel(
-                    scheduleId = scheduleId,
-                    repository = repository
-                ) as T
             }
         }
     }

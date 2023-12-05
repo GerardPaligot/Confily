@@ -1,24 +1,18 @@
 package org.gdglille.devfest.android.theme.m3.events.feature
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.viewmodel.compose.viewModel
 import org.gdglille.devfest.android.theme.m3.style.R
-import org.gdglille.devfest.repositories.EventRepository
+import org.koin.androidx.compose.koinViewModel
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun EventListVM(
-    repository: EventRepository,
     onEventClicked: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: EventListViewModel = viewModel(
-        factory = EventListViewModel.Factory.create(repository)
-    )
+    viewModel: EventListViewModel = koinViewModel()
 ) {
     val uiState = viewModel.uiState.collectAsState()
     when (uiState.value) {

@@ -5,18 +5,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.viewmodel.compose.viewModel
 import org.gdglille.devfest.android.theme.m3.style.R
-import org.gdglille.devfest.repositories.AgendaRepository
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun QAndAListVM(
-    agendaRepository: AgendaRepository,
     onLinkClicked: (url: String) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: QAndAListViewModel = viewModel(
-        factory = QAndAListViewModel.Factory.create(agendaRepository)
-    )
+    viewModel: QAndAListViewModel = koinViewModel()
 ) {
     val uiState = viewModel.uiState.collectAsState()
     when (uiState.value) {

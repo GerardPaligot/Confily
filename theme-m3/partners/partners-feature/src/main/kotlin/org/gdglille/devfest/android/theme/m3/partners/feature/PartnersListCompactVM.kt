@@ -10,11 +10,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.viewmodel.compose.viewModel
 import org.gdglille.devfest.android.theme.m3.partners.screens.PartnersListScreen
 import org.gdglille.devfest.android.theme.m3.style.R
 import org.gdglille.devfest.android.theme.m3.style.Scaffold
-import org.gdglille.devfest.repositories.AgendaRepository
+import org.koin.androidx.compose.koinViewModel
 
 private const val ColumnCountLandscape = 6
 private const val ColumnCountPortrait = 3
@@ -22,12 +21,9 @@ private const val ColumnCountPortrait = 3
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun PartnersListCompactVM(
-    agendaRepository: AgendaRepository,
     onPartnerClick: (id: String) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: PartnersViewModel = viewModel(
-        factory = PartnersViewModel.Factory.create(agendaRepository)
-    )
+    viewModel: PartnersViewModel = koinViewModel()
 ) {
     val configuration = LocalConfiguration.current
     val state = rememberLazyGridState()

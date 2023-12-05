@@ -1,0 +1,26 @@
+package org.gdglille.devfest.android.theme.m3.main.di
+
+import org.gdglille.devfest.android.theme.MainNavigationViewModel
+import org.gdglille.devfest.android.theme.MainViewModel
+import org.gdglille.devfest.android.theme.m3.events.di.eventListModule
+import org.gdglille.devfest.android.theme.m3.infos.di.infosModule
+import org.gdglille.devfest.android.theme.m3.networking.di.networkingModule
+import org.gdglille.devfest.android.theme.m3.partners.di.partnersModule
+import org.gdglille.devfest.android.theme.m3.schedules.di.scheduleModule
+import org.gdglille.devfest.android.theme.m3.speakers.di.speakersModule
+import org.gdglille.devfest.repositoriesModule
+import org.koin.dsl.module
+
+val mainModule = module {
+    includes(
+        repositoriesModule,
+        eventListModule,
+        infosModule,
+        networkingModule,
+        partnersModule,
+        scheduleModule,
+        speakersModule
+    )
+    single { MainNavigationViewModel(get(), get()) }
+    single { MainViewModel(get()) }
+}

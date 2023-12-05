@@ -11,19 +11,15 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.viewmodel.compose.viewModel
 import org.gdglille.devfest.android.theme.m3.navigation.ActionIds
 import org.gdglille.devfest.android.theme.m3.navigation.TabActions
 import org.gdglille.devfest.android.theme.m3.style.R
 import org.gdglille.devfest.android.theme.m3.style.Scaffold
-import org.gdglille.devfest.repositories.AgendaRepository
-import org.gdglille.devfest.repositories.EventRepository
+import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun InfoCompactVM(
-    agendaRepository: AgendaRepository,
-    eventRepository: EventRepository,
     onItineraryClicked: (lat: Double, lng: Double) -> Unit,
     onLinkClicked: (url: String?) -> Unit,
     onTicketScannerClicked: () -> Unit,
@@ -31,19 +27,16 @@ fun InfoCompactVM(
     onReportByPhoneClicked: (String) -> Unit,
     onReportByEmailClicked: (String) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: InfoViewModel = viewModel(
-        factory = InfoViewModel.Factory.create(agendaRepository, eventRepository)
-    )
+    viewModel: InfoViewModel = koinViewModel()
 ) {
     val uiState = viewModel.uiState.collectAsState()
     val title = stringResource(id = R.string.screen_info)
     when (uiState.value) {
         is InfoUiState.Loading -> Scaffold(title = title, modifier = modifier) {
             EventVM(
-                agendaRepository = agendaRepository,
-                modifier = Modifier.fillMaxSize(),
                 onLinkClicked = onLinkClicked,
-                onItineraryClicked = onItineraryClicked
+                onItineraryClicked = onItineraryClicked,
+                modifier = Modifier.fillMaxSize()
             )
         }
 
@@ -85,28 +78,24 @@ fun InfoCompactVM(
                 ) { page ->
                     when (uiModel.tabActionsUi.actions[page].route) {
                         TabActions.event.route -> EventVM(
-                            agendaRepository = agendaRepository,
-                            modifier = Modifier.fillMaxSize(),
                             onLinkClicked = onLinkClicked,
-                            onItineraryClicked = onItineraryClicked
+                            onItineraryClicked = onItineraryClicked,
+                            modifier = Modifier.fillMaxSize()
                         )
 
                         TabActions.menus.route -> MenusVM(
-                            agendaRepository = agendaRepository,
                             modifier = Modifier.fillMaxSize()
                         )
 
                         TabActions.qanda.route -> QAndAListVM(
-                            agendaRepository = agendaRepository,
-                            modifier = Modifier.fillMaxSize(),
-                            onLinkClicked = onLinkClicked
+                            onLinkClicked = onLinkClicked,
+                            modifier = Modifier.fillMaxSize()
                         )
 
                         TabActions.coc.route -> CoCVM(
-                            agendaRepository = agendaRepository,
-                            modifier = Modifier.fillMaxSize(),
                             onReportByPhoneClicked = onReportByPhoneClicked,
-                            onReportByEmailClicked = onReportByEmailClicked
+                            onReportByEmailClicked = onReportByEmailClicked,
+                            modifier = Modifier.fillMaxSize()
                         )
 
                         else -> TODO("Screen not implemented")

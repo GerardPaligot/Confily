@@ -5,19 +5,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.viewmodel.compose.viewModel
 import org.gdglille.devfest.android.theme.m3.schedules.screens.AgendaFiltersScreen
 import org.gdglille.devfest.android.theme.m3.style.R
-import org.gdglille.devfest.repositories.AgendaRepository
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun AgendaFiltersVM(
-    agendaRepository: AgendaRepository,
     onBackClicked: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: AgendaFiltersViewModel = viewModel(
-        factory = AgendaFiltersViewModel.Factory.create(agendaRepository)
-    )
+    viewModel: AgendaFiltersViewModel = koinViewModel()
 ) {
     val uiState = viewModel.uiState.collectAsState()
     when (uiState.value) {

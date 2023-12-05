@@ -1,7 +1,6 @@
 package org.gdglille.devfest.android.theme.m3.networking.feature
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
@@ -19,9 +18,7 @@ sealed class MyProfileUiState {
     data class Failure(val throwable: Throwable) : MyProfileUiState()
 }
 
-class MyProfileViewModel(
-    userRepository: UserRepository
-) : ViewModel() {
+class MyProfileViewModel(userRepository: UserRepository) : ViewModel() {
     val uiState: StateFlow<MyProfileUiState> = userRepository.fetchProfile()
         .map {
             MyProfileUiState.Success(
@@ -43,12 +40,4 @@ class MyProfileViewModel(
             initialValue = MyProfileUiState.Loading,
             started = SharingStarted.WhileSubscribed()
         )
-
-    object Factory {
-        fun create(repository: UserRepository) = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(modelClass: Class<T>): T =
-                MyProfileViewModel(userRepository = repository) as T
-        }
-    }
 }

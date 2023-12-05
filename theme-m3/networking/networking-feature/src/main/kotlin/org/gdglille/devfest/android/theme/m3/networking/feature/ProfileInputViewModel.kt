@@ -1,7 +1,6 @@
 package org.gdglille.devfest.android.theme.m3.networking.feature
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
@@ -13,7 +12,7 @@ import org.gdglille.devfest.models.ui.UserProfileUi
 import org.gdglille.devfest.repositories.UserRepository
 
 sealed class ProfileInputUiState {
-    object Loading : ProfileInputUiState()
+    data object Loading : ProfileInputUiState()
     data class Success(val profile: UserProfileUi) : ProfileInputUiState()
     data class Failure(val throwable: Throwable) : ProfileInputUiState()
 }
@@ -68,13 +67,5 @@ class ProfileInputViewModel(
             profile.lastName,
             profile.company
         )
-    }
-
-    object Factory {
-        fun create(repository: UserRepository) = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(modelClass: Class<T>): T =
-                ProfileInputViewModel(userRepository = repository) as T
-        }
     }
 }

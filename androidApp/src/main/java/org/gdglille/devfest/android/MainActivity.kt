@@ -1,6 +1,5 @@
 package org.gdglille.devfest.android
 
-import android.app.AlarmManager
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -16,31 +15,12 @@ import androidx.core.app.ShareCompat
 import androidx.core.content.FileProvider
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.russhwolf.settings.AndroidSettings
 import com.russhwolf.settings.ExperimentalSettingsApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import org.gdglille.devfest.AlarmScheduler
-import org.gdglille.devfest.AndroidContext
-import org.gdglille.devfest.Platform
-import org.gdglille.devfest.QrCodeGeneratorAndroid
 import org.gdglille.devfest.android.theme.Main
 import org.gdglille.devfest.android.theme.m3.style.R
-import org.gdglille.devfest.database.DatabaseWrapper
-import org.gdglille.devfest.database.EventDao
-import org.gdglille.devfest.database.FeaturesActivatedDao
-import org.gdglille.devfest.database.PartnerDao
-import org.gdglille.devfest.database.ScheduleDao
-import org.gdglille.devfest.database.SpeakerDao
-import org.gdglille.devfest.database.TalkDao
-import org.gdglille.devfest.database.UserDao
-import org.gdglille.devfest.network.ConferenceApi
-import org.gdglille.devfest.repositories.AgendaRepository
-import org.gdglille.devfest.repositories.EventRepository
-import org.gdglille.devfest.repositories.SpeakerRepository
-import org.gdglille.devfest.repositories.UserRepository
 import java.io.File
-import java.util.Locale
 
 @Suppress("LongMethod")
 @FlowPreview
@@ -57,46 +37,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        val baseUrl = BuildConfig.BASE_URL
-        val db = DatabaseWrapper(context = this).createDb()
-        val platform = Platform(AndroidContext(this.applicationContext))
-        val api = ConferenceApi.create(
-            platform = platform,
-            baseUrl = baseUrl,
-            acceptLanguage = Locale.getDefault().toLanguageTag(),
-            enableNetworkLogs = BuildConfig.DEBUG
-        )
-        val settings = AndroidSettings(
-            getSharedPreferences(BuildConfig.APPLICATION_ID, MODE_PRIVATE)
-        )
-        val eventRepository = EventRepository.Factory.create(
-            api = api,
-            eventDao = EventDao(db, settings)
-        )
-        val agendaRepository = AgendaRepository.Factory.create(
-            api = api,
-            scheduleDao = ScheduleDao(db, settings, platform),
-            speakerDao = SpeakerDao(db, platform),
-            talkDao = TalkDao(db, platform),
-            eventDao = EventDao(db, settings),
-            partnerDao = PartnerDao(db = db, platform = platform),
-            featuresDao = FeaturesActivatedDao(db, settings),
-            qrCodeGenerator = QrCodeGeneratorAndroid()
-        )
-        val userRepository = UserRepository.Factory.create(
-            userDao = UserDao(db, platform),
-            eventDao = EventDao(db, settings),
-            qrCodeGenerator = QrCodeGeneratorAndroid()
-        )
-        val speakerRepository = SpeakerRepository.Factory.create(
-            speakerDao = SpeakerDao(db, platform),
-            eventDao = EventDao(db, settings)
-        )
-        val scheduler = AlarmScheduler(
-            agendaRepository,
-            getSystemService(ALARM_SERVICE) as AlarmManager,
-            AlarmIntentFactoryImpl
-        )
         val openfeedbackFirebaseConfig = (application as MainApplication).openFeedbackConfig
         setContent {
             val inDarkTheme = isSystemInDarkTheme()
@@ -115,11 +55,6 @@ class MainActivity : ComponentActivity() {
             val reportSubject = stringResource(id = R.string.text_report_subject)
             val reportAppTarget = stringResource(id = R.string.text_report_app_target)
             Main(
-                eventRepository = eventRepository,
-                agendaRepository = agendaRepository,
-                userRepository = userRepository,
-                speakerRepository = speakerRepository,
-                alarmScheduler = scheduler,
                 openfeedbackFirebaseConfig = openfeedbackFirebaseConfig,
                 launchUrl = { launchUrl(it) },
                 onContactExportClicked = { export ->

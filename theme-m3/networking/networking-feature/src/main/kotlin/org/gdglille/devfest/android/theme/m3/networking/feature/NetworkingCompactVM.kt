@@ -11,28 +11,22 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.viewmodel.compose.viewModel
 import org.gdglille.devfest.android.theme.m3.navigation.ActionIds
 import org.gdglille.devfest.android.theme.m3.navigation.TabActions
 import org.gdglille.devfest.android.theme.m3.networking.screens.EmptyNetworkingScreen
 import org.gdglille.devfest.android.theme.m3.style.R
 import org.gdglille.devfest.android.theme.m3.style.Scaffold
 import org.gdglille.devfest.models.ui.ExportNetworkingUi
-import org.gdglille.devfest.repositories.AgendaRepository
-import org.gdglille.devfest.repositories.UserRepository
+import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun NetworkingCompactVM(
-    agendaRepository: AgendaRepository,
-    userRepository: UserRepository,
     onCreateProfileClicked: () -> Unit,
     onContactScannerClicked: () -> Unit,
     onContactExportClicked: (ExportNetworkingUi) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: NetworkingViewModel = viewModel(
-        factory = NetworkingViewModel.Factory.create(agendaRepository, userRepository)
-    )
+    viewModel: NetworkingViewModel = koinViewModel()
 ) {
     val uiState = viewModel.uiState.collectAsState()
     val exportPath = viewModel.exportPath.collectAsState(null)
@@ -85,11 +79,10 @@ fun NetworkingCompactVM(
                 ) { page ->
                     when (uiModel.tabActionsUi.actions[page].route) {
                         TabActions.myProfile.route -> MyProfileCompactVM(
-                            userRepository = userRepository,
                             onEditInformation = onCreateProfileClicked
                         )
 
-                        TabActions.contacts.route -> ContactsCompactVM(userRepository = userRepository)
+                        TabActions.contacts.route -> ContactsCompactVM()
 
                         else -> TODO("Screen not implemented")
                     }

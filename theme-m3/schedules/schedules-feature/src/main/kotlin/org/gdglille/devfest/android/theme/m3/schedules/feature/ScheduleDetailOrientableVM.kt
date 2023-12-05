@@ -6,25 +6,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.viewmodel.compose.viewModel
 import io.openfeedback.android.viewmodels.OpenFeedbackFirebaseConfig
 import org.gdglille.devfest.android.theme.m3.schedules.screens.ScheduleDetailOrientableScreen
 import org.gdglille.devfest.android.theme.m3.style.R
-import org.gdglille.devfest.repositories.AgendaRepository
+import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ScheduleDetailOrientableVM(
     scheduleId: String,
     openfeedbackFirebaseConfig: OpenFeedbackFirebaseConfig,
-    agendaRepository: AgendaRepository,
     onBackClicked: () -> Unit,
     onSpeakerClicked: (id: String) -> Unit,
     onShareClicked: (text: String) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: ScheduleDetailViewModel = viewModel(
-        factory = ScheduleDetailViewModel.Factory.create(scheduleId, agendaRepository)
-    )
+    viewModel: ScheduleDetailViewModel = koinViewModel(parameters = { parametersOf(scheduleId) })
 ) {
     val uiState = viewModel.uiState.collectAsState()
     when (uiState.value) {

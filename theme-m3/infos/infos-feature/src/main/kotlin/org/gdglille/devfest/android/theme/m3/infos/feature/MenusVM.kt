@@ -6,18 +6,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.viewmodel.compose.viewModel
 import org.gdglille.devfest.android.theme.m3.style.R
-import org.gdglille.devfest.repositories.AgendaRepository
+import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MenusVM(
-    agendaRepository: AgendaRepository,
     modifier: Modifier = Modifier,
-    viewModel: MenusViewModel = viewModel(
-        factory = MenusViewModel.Factory.create(agendaRepository)
-    )
+    viewModel: MenusViewModel = koinViewModel()
 ) {
     val uiState = viewModel.uiState.collectAsState()
     when (uiState.value) {

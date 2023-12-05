@@ -1,7 +1,6 @@
 package org.gdglille.devfest.android.theme.m3.schedules.feature
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -14,7 +13,7 @@ import org.gdglille.devfest.models.ui.FormatUi
 import org.gdglille.devfest.repositories.AgendaRepository
 
 sealed class AgendaFiltersUiState {
-    object Loading : AgendaFiltersUiState()
+    data object Loading : AgendaFiltersUiState()
     data class Success(val filters: FiltersUi) : AgendaFiltersUiState()
     data class Failure(val throwable: Throwable) : AgendaFiltersUiState()
 }
@@ -22,8 +21,7 @@ sealed class AgendaFiltersUiState {
 class AgendaFiltersViewModel(
     private val repository: AgendaRepository
 ) : ViewModel() {
-    val uiState: StateFlow<AgendaFiltersUiState> = repository
-        .filters()
+    val uiState: StateFlow<AgendaFiltersUiState> = repository.filters()
         .map { result -> AgendaFiltersUiState.Success(result) }
         .stateIn(
             scope = viewModelScope,
@@ -41,13 +39,5 @@ class AgendaFiltersViewModel(
 
     fun applyFormatFilter(formatUi: FormatUi, selected: Boolean) = viewModelScope.launch {
         repository.applyFormatFilter(formatUi, selected)
-    }
-
-    object Factory {
-        fun create(repository: AgendaRepository) = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(modelClass: Class<T>): T =
-                AgendaFiltersViewModel(repository = repository) as T
-        }
     }
 }

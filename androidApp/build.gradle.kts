@@ -73,8 +73,10 @@ android {
 }
 
 dependencies {
-    implementation(projects.themeM3.main)
+    implementation(projects.themeM3.main.main)
+    implementation(projects.themeM3.main.mainDi)
     implementation(projects.shared.core)
+    implementation(projects.shared.coreDi)
     implementation(libs.settings)
 
     implementation(libs.android.material)
@@ -87,6 +89,9 @@ dependencies {
     implementation(libs.androidx.compose.activity)
     implementation(libs.androidx.compose.navigation)
     implementation(libs.androidx.profile)
+
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
 
     implementation(libs.coil.compose)
     implementation(libs.coil.svg)

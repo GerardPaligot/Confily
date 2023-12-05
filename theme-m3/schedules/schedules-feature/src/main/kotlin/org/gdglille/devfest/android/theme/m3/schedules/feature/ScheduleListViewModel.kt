@@ -49,7 +49,7 @@ sealed class ScheduleListUiState {
 @FlowPreview
 @ExperimentalCoroutinesApi
 class ScheduleListViewModel(
-    private val repository: AgendaRepository,
+    repository: AgendaRepository,
     private val alarmScheduler: AlarmScheduler
 ) : ViewModel() {
     private val _tabsStates = repository.scaffoldConfig()
@@ -99,18 +99,5 @@ class ScheduleListViewModel(
     @SuppressLint("UnspecifiedImmutableFlag")
     fun markAsFavorite(context: Context, talkItem: TalkItemUi) = viewModelScope.launch {
         alarmScheduler.schedule(context, talkItem)
-    }
-
-    object Factory {
-        fun create(
-            repository: AgendaRepository,
-            alarmScheduler: AlarmScheduler
-        ) = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(modelClass: Class<T>): T = ScheduleListViewModel(
-                repository = repository,
-                alarmScheduler = alarmScheduler
-            ) as T
-        }
     }
 }

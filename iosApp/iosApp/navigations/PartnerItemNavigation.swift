@@ -12,7 +12,6 @@ import shared
 struct PartnerItemNavigation: View {
     @EnvironmentObject var viewModelFactory: ViewModelFactory
     let partner: PartnerItemUi
-    let size: CGFloat
 
     var body: some View {
         NavigationLink {
@@ -26,7 +25,6 @@ struct PartnerItemNavigation: View {
                 id: partner.id
             )
             .padding()
-            .frame(width: size, height: size)
             .background(Color.white)
             .clipShape(RoundedRectangle(cornerRadius: 8))
         }

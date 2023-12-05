@@ -21,12 +21,11 @@ struct Partners: View {
                 LazyVStack(spacing: 8) {
                     ForEach(partners.groups, id: \.type) { partnerGroup in
                         Section {
-                            ForEach(partnerGroup.partners, id: \.[0].id) { partners in
-                                PartnerRowView(
-                                    partners: partners,
-                                    parentWidth: parentWidth
-                                )
-                            }
+                            LazyVGrid(columns: [GridItem(.adaptive(minimum: parentWidth)), GridItem(.adaptive(minimum: parentWidth)), GridItem(.adaptive(minimum: parentWidth))], content: {
+                                ForEach(partnerGroup.partners, id: \.id) { partner in
+                                    PartnerItemNavigation(partner: partner)
+                                }
+                            })
                         } header : {
                             PartnerDividerView(text: partnerGroup.type)
                                 .padding(.horizontal, self.horizontalSpacing)

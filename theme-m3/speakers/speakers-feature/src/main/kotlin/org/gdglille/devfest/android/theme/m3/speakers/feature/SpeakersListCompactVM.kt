@@ -10,11 +10,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.viewmodel.compose.viewModel
 import org.gdglille.devfest.android.theme.m3.speakers.screens.SpeakersListScreen
 import org.gdglille.devfest.android.theme.m3.style.R
 import org.gdglille.devfest.android.theme.m3.style.Scaffold
-import org.gdglille.devfest.repositories.SpeakerRepository
+import org.koin.androidx.compose.koinViewModel
 
 private const val ColumnCountLandscape = 4
 private const val ColumnCountPortrait = 2
@@ -22,12 +21,9 @@ private const val ColumnCountPortrait = 2
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun SpeakersListCompactVM(
-    speakerRepository: SpeakerRepository,
     onSpeakerClicked: (id: String) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: SpeakersListViewModel = viewModel(
-        factory = SpeakersListViewModel.Factory.create(speakerRepository)
-    )
+    viewModel: SpeakersListViewModel = koinViewModel()
 ) {
     val configuration = LocalConfiguration.current
     val state = rememberLazyGridState()

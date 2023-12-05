@@ -7,6 +7,9 @@ import coil.decode.SvgDecoder
 import coil.disk.DiskCache
 import coil.memory.MemoryCache
 import io.openfeedback.android.viewmodels.OpenFeedbackFirebaseConfig
+import org.gdglille.devfest.android.di.appModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 
 private const val MemoryCacheSize = 0.25
 private const val DiskCacheSize = 0.10
@@ -23,6 +26,11 @@ class MainApplication : Application(), ImageLoaderFactory {
             apiKey = BuildConfig.FIREBASE_API_KEY,
             databaseUrl = "https://${BuildConfig.FIREBASE_PROJECT_ID}.firebaseio.com"
         )
+
+        startKoin {
+            androidContext(this@MainApplication)
+            modules(appModule)
+        }
     }
 
     override fun newImageLoader(): ImageLoader = ImageLoader.Builder(this)

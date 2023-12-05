@@ -14,6 +14,8 @@ dependencies {
     implementation(projects.themeM3.navigation)
     implementation(projects.themeM3.style.theme)
 
+    implementation(libs.koin.androidx.compose)
+
     implementation(libs.kotlinx.collections)
 
     implementation(platform(libs.androidx.compose.bom))

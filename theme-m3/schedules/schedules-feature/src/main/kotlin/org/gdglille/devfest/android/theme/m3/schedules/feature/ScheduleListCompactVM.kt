@@ -11,30 +11,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import org.gdglille.devfest.AlarmScheduler
 import org.gdglille.devfest.android.theme.m3.navigation.ActionIds
 import org.gdglille.devfest.android.theme.m3.schedules.screens.ScheduleListHorizontalPager
 import org.gdglille.devfest.android.theme.m3.schedules.screens.ScheduleListVerticalPager
 import org.gdglille.devfest.android.theme.m3.style.R
 import org.gdglille.devfest.android.theme.m3.style.Scaffold
-import org.gdglille.devfest.repositories.AgendaRepository
+import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalFoundationApi::class)
 @ExperimentalCoroutinesApi
 @FlowPreview
 @Composable
 fun ScheduleListCompactVM(
-    agendaRepository: AgendaRepository,
-    alarmScheduler: AlarmScheduler,
     onFilterClicked: () -> Unit,
     onTalkClicked: (id: String) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: ScheduleListViewModel = viewModel(
-        factory = ScheduleListViewModel.Factory.create(agendaRepository, alarmScheduler)
-    )
+    viewModel: ScheduleListViewModel = koinViewModel()
 ) {
     val context = LocalContext.current
     val configuration = LocalConfiguration.current

@@ -1,7 +1,6 @@
 package org.gdglille.devfest.android.theme.m3.infos.feature
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
@@ -12,7 +11,7 @@ import org.gdglille.devfest.models.ui.CoCUi
 import org.gdglille.devfest.repositories.AgendaRepository
 
 sealed class CoCUiState {
-    object Loading : CoCUiState()
+    data object Loading : CoCUiState()
     data class Success(val coc: CoCUi) : CoCUiState()
     data class Failure(val throwable: Throwable) : CoCUiState()
 }
@@ -31,13 +30,6 @@ class CoCViewModel(private val repository: AgendaRepository) : ViewModel() {
                 Firebase.crashlytics.recordException(error)
                 _uiState.value = CoCUiState.Failure(error)
             }
-        }
-    }
-
-    object Factory {
-        fun create(repository: AgendaRepository) = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(modelClass: Class<T>): T = CoCViewModel(repository = repository) as T
         }
     }
 }

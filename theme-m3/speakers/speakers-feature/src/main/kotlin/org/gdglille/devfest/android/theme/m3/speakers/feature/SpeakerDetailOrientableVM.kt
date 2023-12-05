@@ -11,26 +11,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.viewmodel.compose.viewModel
-import org.gdglille.devfest.AlarmScheduler
 import org.gdglille.devfest.android.theme.m3.speakers.screens.SpeakerDetailOrientable
 import org.gdglille.devfest.android.theme.m3.style.R
 import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBar
-import org.gdglille.devfest.repositories.AgendaRepository
+import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SpeakerDetailOrientableVM(
     speakerId: String,
-    agendaRepository: AgendaRepository,
-    alarmScheduler: AlarmScheduler,
     onTalkClicked: (id: String) -> Unit,
     onLinkClicked: (url: String) -> Unit,
     onBackClicked: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: SpeakerDetailViewModel = viewModel(
-        factory = SpeakerDetailViewModel.Factory.create(speakerId, agendaRepository, alarmScheduler)
-    )
+    viewModel: SpeakerDetailViewModel = koinViewModel(parameters = { parametersOf(speakerId) })
 ) {
     val context = LocalContext.current
     val uiState = viewModel.uiState.collectAsState()

@@ -10,24 +10,21 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.viewmodel.compose.viewModel
 import org.gdglille.devfest.android.theme.m3.partners.screens.PartnerDetailOrientable
 import org.gdglille.devfest.android.theme.m3.style.R
 import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBar
-import org.gdglille.devfest.repositories.AgendaRepository
+import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PartnerDetailOrientableVM(
     partnerId: String,
-    agendaRepository: AgendaRepository,
     onLinkClicked: (url: String) -> Unit,
     onItineraryClicked: (lat: Double, lng: Double) -> Unit,
     onBackClicked: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: PartnerDetailViewModel = viewModel(
-        factory = PartnerDetailViewModel.Factory.create(partnerId, agendaRepository)
-    )
+    viewModel: PartnerDetailViewModel = koinViewModel(parameters = { parametersOf(partnerId) })
 ) {
     val uiState = viewModel.uiState.collectAsState()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())

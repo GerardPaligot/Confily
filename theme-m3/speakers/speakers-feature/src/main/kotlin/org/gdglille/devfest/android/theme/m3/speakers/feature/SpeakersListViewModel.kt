@@ -8,9 +8,14 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.gdglille.devfest.models.ui.SpeakerItemUi
+import org.gdglille.devfest.models.ui.SpeakerUi
 import org.gdglille.devfest.repositories.SpeakerRepository
 
 sealed class SpeakersUiState {
@@ -19,32 +24,20 @@ sealed class SpeakersUiState {
     data class Failure(val throwable: Throwable) : SpeakersUiState()
 }
 
-class SpeakersListViewModel(private val repository: SpeakerRepository) : ViewModel() {
-    private val _uiState = MutableStateFlow<SpeakersUiState>(
-        SpeakersUiState.Loading(
-            persistentListOf(SpeakerItemUi.fake.copy(id = "1"), SpeakerItemUi.fake.copy(id = "2"))
+class SpeakersListViewModel(repository: SpeakerRepository) : ViewModel() {
+    val uiState: StateFlow<SpeakersUiState> = repository.speakers()
+        .map { SpeakersUiState.Success(it) }
+        .catch {
+            Firebase.crashlytics.recordException(it)
+            SpeakersUiState.Failure(it)
+        }
+        .stateIn(
+            scope = viewModelScope,
+            initialValue = SpeakersUiState.Loading(
+                persistentListOf(
+                    SpeakerItemUi.fake.copy(id = "1"), SpeakerItemUi.fake.copy(id = "2")
+                )
+            ),
+            started = SharingStarted.WhileSubscribed()
         )
-    )
-    val uiState: StateFlow<SpeakersUiState> = _uiState
-
-    init {
-        viewModelScope.launch {
-            try {
-                repository.speakers().collect {
-                    _uiState.value = SpeakersUiState.Success(it)
-                }
-            } catch (error: Throwable) {
-                Firebase.crashlytics.recordException(error)
-                _uiState.value = SpeakersUiState.Failure(error)
-            }
-        }
-    }
-
-    object Factory {
-        fun create(repository: SpeakerRepository) = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(modelClass: Class<T>): T =
-                SpeakersListViewModel(repository = repository) as T
-        }
-    }
 }

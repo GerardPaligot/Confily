@@ -90,7 +90,6 @@
 		D5C92ED3283AD00800D5CF2D /* MenusVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C92ED2283AD00800D5CF2D /* MenusVM.swift */; };
 		D5C92ED5283ADDC900D5CF2D /* NoFavoriteTalksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C92ED4283ADDC900D5CF2D /* NoFavoriteTalksView.swift */; };
 		D5CAA6512821BCC7005BB242 /* RemoteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CAA6502821BCC7005BB242 /* RemoteImage.swift */; };
-		D5CAA6532821C306005BB242 /* PartnerRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CAA6522821C306005BB242 /* PartnerRowView.swift */; };
 		D5D5ABF5282071D2004E2F78 /* ShareSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D5ABF4282071D2004E2F78 /* ShareSheetView.swift */; };
 		D5D6166C27B15C7400C59EC9 /* AgendaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D6166B27B15C7400C59EC9 /* AgendaViewModel.swift */; };
 		D5F324A327C6E2DE007CA4C1 /* QrCodeGeneratoriOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F324A227C6E2DE007CA4C1 /* QrCodeGeneratoriOS.swift */; };
@@ -186,7 +185,6 @@
 		D5C92ED2283AD00800D5CF2D /* MenusVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenusVM.swift; sourceTree = "<group>"; };
 		D5C92ED4283ADDC900D5CF2D /* NoFavoriteTalksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoFavoriteTalksView.swift; sourceTree = "<group>"; };
 		D5CAA6502821BCC7005BB242 /* RemoteImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImage.swift; sourceTree = "<group>"; };
-		D5CAA6522821C306005BB242 /* PartnerRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnerRowView.swift; sourceTree = "<group>"; };
 		D5D5ABF328207025004E2F78 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D5D5ABF4282071D2004E2F78 /* ShareSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetView.swift; sourceTree = "<group>"; };
 		D5D6166B27B15C7400C59EC9 /* AgendaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaViewModel.swift; sourceTree = "<group>"; };
@@ -503,7 +501,6 @@
 			isa = PBXGroup;
 			children = (
 				D57028A927B550BF008EF4AD /* PartnerDividerView.swift */,
-				D5CAA6522821C306005BB242 /* PartnerRowView.swift */,
 			);
 			path = partners;
 			sourceTree = "<group>";
@@ -744,7 +741,6 @@
 				D538BED72954F6B700F25CBE /* AlarmScheduler.swift in Sources */,
 				D59944C02833D45A00F59C1B /* TicketQrCodeView.swift in Sources */,
 				D53256C429219DF200EA0DE7 /* DecorativeTagView.swift in Sources */,
-				D5CAA6532821C306005BB242 /* PartnerRowView.swift in Sources */,
 				D5C92ECC283ACBB000D5CF2D /* MenuItemView.swift in Sources */,
 				D5C92EC9283AC6D400D5CF2D /* PartnersViewModel.swift in Sources */,
 				D544C7E7295487D00038CB80 /* SpeakerAvatarBorderedView.swift in Sources */,
@@ -921,6 +917,7 @@
 				MARKETING_VERSION = 2.0.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
+					"-lsqlite3",
 					"-framework",
 					shared,
 				);
@@ -954,6 +951,7 @@
 				MARKETING_VERSION = 2.0.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
+					"-lsqlite3",
 					"-framework",
 					shared,
 				);

@@ -1,7 +1,6 @@
 package org.gdglille.devfest.android.theme.m3.events.feature
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
@@ -41,13 +40,5 @@ class EventListViewModel(private val repository: EventRepository) : ViewModel() 
 
     fun savedEventId(eventId: String) = viewModelScope.launch {
         repository.saveEventId(eventId)
-    }
-
-    object Factory {
-        fun create(repository: EventRepository) = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(modelClass: Class<T>): T =
-                EventListViewModel(repository = repository) as T
-        }
     }
 }
