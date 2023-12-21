@@ -6,7 +6,7 @@ class BackendPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             with(pluginManager) {
-                apply("kotlin-platform-jvm")
+                apply("org.jetbrains.kotlin.jvm")
                 apply("org.gradle.application")
             }
             configureKotlinCompiler()
