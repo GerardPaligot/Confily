@@ -9,6 +9,7 @@ import org.gdglille.devfest.android.theme.m3.partners.di.partnersModule
 import org.gdglille.devfest.android.theme.m3.schedules.di.scheduleModule
 import org.gdglille.devfest.android.theme.m3.speakers.di.speakersModule
 import org.gdglille.devfest.repositoriesModule
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val mainModule = module {
@@ -21,6 +22,6 @@ val mainModule = module {
         scheduleModule,
         speakersModule
     )
-    single { MainNavigationViewModel(get(), get()) }
-    single { MainViewModel(get()) }
+    viewModel { MainNavigationViewModel(get(), get()) }
+    viewModel { MainViewModel(get()) }
 }
