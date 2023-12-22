@@ -44,13 +44,13 @@ interface AgendaRepository {
     fun coc(): Flow<CoCUi>
     fun agenda(): Flow<ImmutableMap<String, AgendaUi>>
     fun filters(): Flow<FiltersUi>
+    fun scheduleItem(scheduleId: String): Flow<TalkUi>
     fun hasFilterApplied(): Flow<Boolean>
     fun applyFavoriteFilter(selected: Boolean)
     fun applyCategoryFilter(categoryUi: CategoryUi, selected: Boolean)
     fun applyFormatFilter(formatUi: FormatUi, selected: Boolean)
     fun speaker(speakerId: String): Flow<SpeakerUi>
     fun markAsRead(sessionId: String, isFavorite: Boolean)
-    fun scheduleItem(scheduleId: String): TalkUi
 
     @FlowPreview
     @ExperimentalSettingsApi
@@ -181,7 +181,7 @@ class AgendaRepositoryImpl(
         isFavorite = isFavorite
     )
 
-    override fun scheduleItem(scheduleId: String): TalkUi = talkDao.fetchTalk(
+    override fun scheduleItem(scheduleId: String): Flow<TalkUi> = talkDao.fetchTalk(
         eventId = eventDao.fetchEventId(),
         talkId = scheduleId
     )

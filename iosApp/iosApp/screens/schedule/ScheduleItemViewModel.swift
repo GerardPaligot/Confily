@@ -8,10 +8,12 @@
 
 import Foundation
 import shared
+import KMPNativeCoroutinesAsync
 
 enum ScheduleUiState {
     case loading
     case success(TalkUi)
+    case failure
 }
 
 @MainActor
@@ -25,9 +27,23 @@ class ScheduleItemViewModel: ObservableObject {
     }
 
     @Published var uiState: ScheduleUiState = .loading
+    
+    private var scheduleTask: Task<(), Never>?
 
     func fetchScheduleDetails() {
-        let talk = repository.scheduleItem(scheduleId: scheduleId)
-        self.uiState = .success(talk)
+        scheduleTask = Task {
+            do {
+                let stream = asyncStream(for: repository.scheduleItemNative(scheduleId: scheduleId))
+                for try await schedule in stream {
+                    self.uiState = .success(schedule)
+                }
+            } catch {
+                self.uiState = .failure
+            }
+        }
+    }
+
+    func stop() {
+        scheduleTask?.cancel()
     }
 }

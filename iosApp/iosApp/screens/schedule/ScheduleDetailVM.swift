@@ -18,12 +18,17 @@ struct ScheduleDetailVM: View {
             switch uiState {
                 case .success(let talkUi):
                     ScheduleDetail(talkUi: talkUi)
+                case .failure:
+                    Text("textError")
                 case .loading:
                     Text("textLoading")
-                    .onAppear {
-                        viewModel.fetchScheduleDetails()
-                    }
             }
+        }
+        .onAppear {
+            viewModel.fetchScheduleDetails()
+        }
+        .onDisappear {
+            viewModel.stop()
         }
     }
 }

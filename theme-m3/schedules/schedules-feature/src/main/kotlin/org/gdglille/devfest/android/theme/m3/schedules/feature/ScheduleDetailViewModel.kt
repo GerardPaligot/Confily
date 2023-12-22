@@ -4,9 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import org.gdglille.devfest.models.ui.TalkUi
 import org.gdglille.devfest.repositories.AgendaRepository
 
@@ -17,20 +19,18 @@ sealed class ScheduleUiState {
 }
 
 class ScheduleDetailViewModel(
-    private val scheduleId: String,
-    private val repository: AgendaRepository,
+    scheduleId: String,
+    repository: AgendaRepository,
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow<ScheduleUiState>(ScheduleUiState.Loading)
-    val uiState: StateFlow<ScheduleUiState> = _uiState
-
-    init {
-        viewModelScope.launch {
-            try {
-                _uiState.value = ScheduleUiState.Success(repository.scheduleItem(scheduleId))
-            } catch (error: Throwable) {
-                Firebase.crashlytics.recordException(error)
-                _uiState.value = ScheduleUiState.Failure(error)
-            }
+    val uiState: StateFlow<ScheduleUiState> = repository.scheduleItem(scheduleId)
+        .map { ScheduleUiState.Success(it) }
+        .catch {
+            Firebase.crashlytics.recordException(it)
+            ScheduleUiState.Failure(it)
         }
-    }
+        .stateIn(
+            scope = viewModelScope,
+            initialValue = ScheduleUiState.Loading,
+            started = SharingStarted.WhileSubscribed()
+        )
 }
