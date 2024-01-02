@@ -34,7 +34,7 @@ actual class Platform actual constructor(private val context: PlatformContext) {
         val resourceId =
             androidContext.resources.getIdentifier(key, "plurals", androidContext.packageName)
         if (resourceId == 0) return key
-        return androidContext.resources.getQuantityString(resourceId, count, args)
+        return androidContext.resources.getQuantityString(resourceId, count, *args.toTypedArray())
     }
 
     actual fun getString(key: String, args: List<Any>): String {
