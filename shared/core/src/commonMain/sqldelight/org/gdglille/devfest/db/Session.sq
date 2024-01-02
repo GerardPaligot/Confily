@@ -38,6 +38,8 @@ FOREIGN KEY (speaker_id) REFERENCES Speaker(id),
 FOREIGN KEY (talk_id) REFERENCES TalkSession(id)
 );
 
+CREATE UNIQUE INDEX TalkSessionWithSpeakersIndex ON TalkSessionWithSpeakers(speaker_id, talk_id, event_id);
+
 selectSessions:
 SELECT Session.id, Session.order_, Session.event_id, Session.date, Session.start_time, Session.end_time, Session.room, Session.is_favorite,
 Session.talk_id, TalkSession.title, TalkSession.abstract, TalkSession.level, TalkSession.language, TalkSession.slide_url, TalkSession.replay_url, TalkSession.open_feedback_url,

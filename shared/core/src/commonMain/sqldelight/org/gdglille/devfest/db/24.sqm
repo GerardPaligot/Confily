@@ -56,3 +56,5 @@ event_id TEXT NOT NULL,
 FOREIGN KEY (speaker_id) REFERENCES Speaker(id),
 FOREIGN KEY (talk_id) REFERENCES TalkSession(id)
 );
+
+CREATE UNIQUE INDEX TalkSessionWithSpeakersIndex ON TalkSessionWithSpeakers(speaker_id, talk_id, event_id);
