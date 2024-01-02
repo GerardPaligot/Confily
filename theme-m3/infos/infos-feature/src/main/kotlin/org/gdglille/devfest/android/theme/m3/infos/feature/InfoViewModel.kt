@@ -1,7 +1,6 @@
 package org.gdglille.devfest.android.theme.m3.infos.feature
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
@@ -11,7 +10,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -85,17 +83,5 @@ class InfoViewModel(
 
     fun disconnect() = viewModelScope.launch {
         eventRepository.deleteEventId()
-    }
-
-    object Factory {
-        fun create(agendaRepository: AgendaRepository, eventRepository: EventRepository) =
-            object : ViewModelProvider.Factory {
-                @Suppress("UNCHECKED_CAST")
-                override fun <T : ViewModel> create(modelClass: Class<T>): T =
-                    InfoViewModel(
-                        agendaRepository = agendaRepository,
-                        eventRepository = eventRepository
-                    ) as T
-            }
     }
 }

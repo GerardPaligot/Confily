@@ -1,7 +1,6 @@
 package org.gdglille.devfest.android.theme
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -24,12 +23,4 @@ class MainViewModel(private val repository: EventRepository) : ViewModel() {
             started = SharingStarted.WhileSubscribed(),
             initialValue = MainUiState.Loading
         )
-
-    object Factory {
-        fun create(repository: EventRepository) = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(modelClass: Class<T>): T =
-                MainViewModel(repository = repository) as T
-        }
-    }
 }

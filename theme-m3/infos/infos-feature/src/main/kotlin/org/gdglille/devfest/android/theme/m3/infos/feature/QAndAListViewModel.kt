@@ -1,7 +1,6 @@
 package org.gdglille.devfest.android.theme.m3.infos.feature
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
@@ -53,14 +52,6 @@ class QAndAListViewModel(private val repository: AgendaRepository) : ViewModel()
             val qandaList = state.qanda.toMutableList()
             qandaList[index] = qandaUi.copy(expanded = qandaUi.expanded.not())
             _uiState.value = QAndAUiState.Success(qandaList.toImmutableList())
-        }
-    }
-
-    object Factory {
-        fun create(repository: AgendaRepository) = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(modelClass: Class<T>): T =
-                QAndAListViewModel(repository = repository) as T
         }
     }
 }

@@ -1,7 +1,6 @@
 package org.gdglille.devfest.android.theme
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
@@ -32,22 +31,15 @@ class MainNavigationViewModel(
 ) : ViewModel() {
     val uiState: StateFlow<MainNavigationUiState> = agendaRepository.scaffoldConfig()
         .map { MainNavigationUiState.Success(navActions(it)) }
-        .catch { MainNavigationUiState.Failure(it) }
+        .catch {
+            Firebase.crashlytics.recordException(it)
+            MainNavigationUiState.Failure(it)
+        }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(),
             initialValue = MainNavigationUiState.Loading
         )
-
-    init {
-        viewModelScope.launch {
-            try {
-                agendaRepository.fetchAndStoreAgenda()
-            } catch (ex: Throwable) {
-                Firebase.crashlytics.recordException(ex)
-            }
-        }
-    }
 
     fun saveTicket(barcode: String) = viewModelScope.launch {
         agendaRepository.insertOrUpdateTicket(barcode)
@@ -70,18 +62,4 @@ class MainNavigationViewModel(
             add(BottomActions.event)
         }.toImmutableList()
     )
-
-    object Factory {
-        fun create(
-            agendaRepository: AgendaRepository,
-            userRepository: UserRepository
-        ) = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(modelClass: Class<T>): T =
-                MainNavigationViewModel(
-                    agendaRepository = agendaRepository,
-                    userRepository = userRepository
-                ) as T
-        }
-    }
 }
