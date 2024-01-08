@@ -25,6 +25,6 @@ actual val platformModule = module {
             )
         )
     }
-    single(named(AcceptLanguageNamed)) { Locale.getDefault().toLanguageTag() }
+    single<String>(named(AcceptLanguageNamed)) { Locale.getDefault().toLanguageTag() }
     single<QrCodeGenerator> { QrCodeGeneratorAndroid() }
 }

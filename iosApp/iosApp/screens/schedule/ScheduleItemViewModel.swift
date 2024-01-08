@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import shared
+import SharedDi
 import KMPNativeCoroutinesAsync
 
 enum ScheduleUiState {
@@ -18,16 +18,15 @@ enum ScheduleUiState {
 
 @MainActor
 class ScheduleItemViewModel: ObservableObject {
-    let repository: AgendaRepository
+    private let repository: AgendaRepository = RepositoryHelper().agendaRepository
     let scheduleId: String
 
-    init(repository: AgendaRepository, scheduleId: String) {
-        self.repository = repository
+    init(scheduleId: String) {
         self.scheduleId = scheduleId
     }
 
     @Published var uiState: ScheduleUiState = .loading
-    
+
     private var scheduleTask: Task<(), Never>?
 
     func fetchScheduleDetails() {

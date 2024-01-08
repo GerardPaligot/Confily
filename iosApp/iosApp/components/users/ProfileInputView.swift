@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import shared
+import SharedDi
 
 struct ProfileInputView: View {
     @State var email: String = ""

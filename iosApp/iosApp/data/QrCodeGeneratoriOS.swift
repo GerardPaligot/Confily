@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-import shared
+import SharedDi
 
 class QrCodeGeneratoriOS: QrCodeGenerator {
     func generate(text: String) -> UIImage {

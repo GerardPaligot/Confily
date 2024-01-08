@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import shared
+import SharedDi
 
 struct UserItemView: View {
     @State private var showingAlert = false

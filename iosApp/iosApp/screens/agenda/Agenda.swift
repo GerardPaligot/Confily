@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import shared
+import SharedDi
 
 struct Agenda: View {
     @State private var selectedDate = ""

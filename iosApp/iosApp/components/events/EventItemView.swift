@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import shared
+import SharedDi
 
 struct EventItemView: View {
     var item: EventItemUi

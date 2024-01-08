@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import shared
+import SharedDi
 
 struct PartnerDetailView: View {
     let partnerUi: PartnerItemUi

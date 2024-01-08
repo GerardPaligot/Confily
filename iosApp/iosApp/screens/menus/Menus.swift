@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import shared
+import SharedDi
 
 struct Menus: View {
     var menuItems: Array<MenuItemUi>

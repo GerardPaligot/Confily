@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import shared
+import SharedDi
 import KMPNativeCoroutinesAsync
 
 enum EventListUiState {
@@ -18,16 +18,12 @@ enum EventListUiState {
 
 @MainActor
 class EventListViewModel: ObservableObject {
-    let repository: EventRepository
-    
-    init(repository: EventRepository) {
-        self.repository = repository
-    }
-    
+    private let repository: EventRepository = RepositoryHelper().eventRepository
+
     @Published var uiState: EventListUiState = EventListUiState.loading
-    
+
     private var eventListTask: Task<(), Never>?
-    
+
     func fetchEventList() {
         repository.fetchAndStoreEventList { _ in
         }
@@ -42,7 +38,7 @@ class EventListViewModel: ObservableObject {
             }
         }
     }
-    
+
     func stop() {
         eventListTask?.cancel()
     }

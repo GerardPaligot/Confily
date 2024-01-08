@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import shared
+import SharedDi
 
 struct EventListView: View {
     private let tabs = ["screenEventsFuture", "screenEventsPast"]

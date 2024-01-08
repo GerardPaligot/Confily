@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import shared
+import SharedDi
 
 extension CGFloat {
     public static let small: CGFloat = 30

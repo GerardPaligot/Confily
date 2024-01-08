@@ -9,7 +9,7 @@
 import SwiftUI
 import CodeScanner
 import MessageUI
-import shared
+import SharedDi
 
 struct Networking: View {
     var networkingUi: NetworkingUi

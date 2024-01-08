@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import shared
+import SharedDi
 import KMPNativeCoroutinesAsync
 
 enum EventUiState {
@@ -18,16 +18,12 @@ enum EventUiState {
 
 @MainActor
 class EventViewModel: ObservableObject {
-    let agendaRepository: AgendaRepository
-
-    init(agendaRepository: AgendaRepository) {
-        self.agendaRepository = agendaRepository
-    }
+    private let agendaRepository: AgendaRepository = RepositoryHelper().agendaRepository
 
     @Published var uiState: EventUiState = EventUiState.loading
-    
+
     private var eventTask: Task<(), Never>?
-    
+
     func fetchEvent() {
         eventTask = Task {
             do {
@@ -40,11 +36,11 @@ class EventViewModel: ObservableObject {
             }
         }
     }
-    
+
     func stop() {
         eventTask?.cancel()
     }
-    
+
     func saveTicket(barcode: String) async {
         do {
             try await agendaRepository.insertOrUpdateTicket(barcode: barcode)

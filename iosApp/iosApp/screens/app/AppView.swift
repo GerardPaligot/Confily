@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import shared
+import SharedDi
 
 struct DeeplinkState {
     var isPresentingPartner: Binding<Bool>

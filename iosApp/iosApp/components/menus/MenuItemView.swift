@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import shared
+import SharedDi
 import MapKit
 
 struct MenuItemView: View {

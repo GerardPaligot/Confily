@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import shared
+import SharedDi
 
 struct SpeakersAvatarView: View {
     var speakers: Array<String>

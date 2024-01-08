@@ -8,7 +8,7 @@
 
 import SwiftUI
 import CodeScanner
-import shared
+import SharedDi
 
 struct Event: View {
     @State var showScanner = false

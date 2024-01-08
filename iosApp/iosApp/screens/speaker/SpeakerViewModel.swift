@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import shared
+import SharedDi
 import KMPNativeCoroutinesAsync
 
 enum SpeakerUiState {
@@ -18,14 +18,12 @@ enum SpeakerUiState {
 
 @MainActor
 class SpeakerViewModel: ObservableObject {
-    let repository: AgendaRepository
+    private let repository: AgendaRepository = RepositoryHelper().agendaRepository
+    private let alarmScheduler: AlarmScheduler = AlarmScheduler()
     let speakerId: String
-    let alarmScheduler: AlarmScheduler
 
-    init(repository: AgendaRepository, speakerId: String) {
-        self.repository = repository
+    init(speakerId: String) {
         self.speakerId = speakerId
-        self.alarmScheduler = AlarmScheduler(repository: repository)
     }
 
     @Published var uiState: SpeakerUiState = SpeakerUiState.loading

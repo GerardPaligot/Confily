@@ -7,17 +7,13 @@
 //
 
 import Foundation
-import shared
+import SharedDi
 import KMPNativeCoroutinesAsync
 
 @MainActor
 class HomeViewModel: ObservableObject {
-    let repository: AgendaRepository
+    private let repository: AgendaRepository = RepositoryHelper().agendaRepository
 
-    init(repository: AgendaRepository) {
-        self.repository = repository
-    }
-    
     private var task: Task<(), Never>?
 
     func fetchAgenda() {
@@ -32,7 +28,7 @@ class HomeViewModel: ObservableObject {
             }
         }
     }
-    
+
     func stop() {
         task?.cancel()
     }

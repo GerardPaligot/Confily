@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import shared
+import SharedDi
 import KMPNativeCoroutinesAsync
 
 enum AppUiState {
@@ -18,23 +18,19 @@ enum AppUiState {
 
 @MainActor
 class AppViewModel: ObservableObject {
-    let repository: EventRepository
-    
-    init(repository: EventRepository) {
-        self.repository = repository
-    }
-    
+    private let repository: EventRepository = RepositoryHelper().eventRepository
+
     @Published var uiState: AppUiState = AppUiState.loading
-    
+
     func fetchEventId() {
         self.uiState = repository.isInitialized() ? .agenda : .events
     }
-    
+
     func saveEventId(eventId: String) {
         repository.saveEventId(eventId: eventId)
         self.uiState = .agenda
     }
-    
+
     func disconnect() {
         self.uiState = .events
     }

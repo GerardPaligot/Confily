@@ -22,7 +22,7 @@ kotlin {
             iosSimulatorArm64()
         ).forEach {
             it.binaries.framework {
-                baseName = "shared"
+                baseName = "Shared"
                 isStatic = false
                 export(libs.settings)
                 export(projects.shared.models)

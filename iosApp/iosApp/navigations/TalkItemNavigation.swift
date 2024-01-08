@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import shared
+import SharedDi
 
 struct TalkItemNavigation: View {
     @EnvironmentObject var viewModelFactory: ViewModelFactory

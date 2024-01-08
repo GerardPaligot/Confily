@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import shared
+import SharedDi
 
 struct PartnerItemNavigation: View {
     @EnvironmentObject var viewModelFactory: ViewModelFactory

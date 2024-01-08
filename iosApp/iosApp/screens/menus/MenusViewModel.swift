@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import shared
+import SharedDi
 import KMPNativeCoroutinesAsync
 
 enum MenusUiState {
@@ -18,16 +18,12 @@ enum MenusUiState {
 
 @MainActor
 class MenusViewModel: ObservableObject {
-    let repository: AgendaRepository
-
-    init(repository: AgendaRepository) {
-        self.repository = repository
-    }
+    private let repository: AgendaRepository = RepositoryHelper().agendaRepository
 
     @Published var uiState: MenusUiState = MenusUiState.loading
-    
+
     private var menusTask: Task<(), Never>?
-    
+
     func fetchMenus() {
         menusTask = Task {
             do {
@@ -40,7 +36,7 @@ class MenusViewModel: ObservableObject {
             }
         }
     }
-    
+
     func stop() {
         menusTask?.cancel()
     }

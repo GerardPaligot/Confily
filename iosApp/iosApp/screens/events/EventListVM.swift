@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import shared
+import SharedDi
 
 struct EventListVM: View {
     @ObservedObject var viewModel: EventListViewModel

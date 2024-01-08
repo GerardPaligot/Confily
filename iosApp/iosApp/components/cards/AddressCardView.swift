@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import shared
+import SharedDi
 
 struct AddressCardView: View {
     var formattedAddress: Array<String>

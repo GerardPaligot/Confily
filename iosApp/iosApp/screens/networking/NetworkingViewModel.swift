@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import shared
+import SharedDi
 import CoreImage
 import SwiftUI
 import Contacts
@@ -22,16 +22,12 @@ enum UserProfileUiState {
 
 @MainActor
 class NetworkingViewModel: ObservableObject {
-    let repository: UserRepository
+    private let repository: UserRepository = RepositoryHelper().userRepository
 
-    init(repository: UserRepository) {
-        self.repository = repository
-    }
-    
     @Published var uiState: UserProfileUiState = UserProfileUiState.loading
-    
+
     private var networkingTask: Task<(), Never>?
-    
+
     func fetchNetworking() {
         networkingTask = Task {
             do {
@@ -45,16 +41,16 @@ class NetworkingViewModel: ObservableObject {
             }
         }
     }
-    
+
     func stop() {
         networkingTask?.cancel()
     }
-    
+
     func saveProfile(email: String, firstName: String, lastName: String, company: String) {
         if (email == "") { return }
         repository.saveProfile(email: email, firstName: firstName, lastName: lastName, company: company)
     }
-    
+
     func saveNetworkingProfile(text: String) {
         if let data = text.data(using: .unicode) {
             do {
@@ -79,7 +75,7 @@ class NetworkingViewModel: ObservableObject {
             }
         }
     }
-    
+
     func showQrcode() {
         if case .success(let networkingUi) = uiState {
             self.uiState = .success(networkingUi.doCopy(
@@ -90,11 +86,11 @@ class NetworkingViewModel: ObservableObject {
             )
         }
     }
-    
+
     func deleteNetworkProfile(email: String) {
         repository.deleteNetworkProfile(email: email)
     }
-    
+
     func exportNetworking() -> ComposeMailData {
         let networking = repository.exportNetworking()
         let recipients = networking.mailto != nil ? [networking.mailto!] : []

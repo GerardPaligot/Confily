@@ -1,5 +1,5 @@
 import SwiftUI
-import shared
+import SharedDi
 import Firebase
 import SDWebImage
 import SDWebImageSVGCoder
@@ -20,8 +20,9 @@ struct iOSApp: App {
         if (isInDebugMode == false) {
             FirebaseApp.configure()
         }
+        HelperKt.doInitKoin()
         SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
-        self.viewModelFactory = ViewModelFactory(isDebug: isInDebugMode)
+        self.viewModelFactory = ViewModelFactory()
     }
 
 	var body: some Scene {

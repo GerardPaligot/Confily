@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import shared
+import SharedDi
 
 struct JobItemView: View {
     let jobUi: JobUi

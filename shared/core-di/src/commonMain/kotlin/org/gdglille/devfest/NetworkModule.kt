@@ -5,6 +5,7 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 val networksModule = module {
+    includes(platformModule)
     single {
         ConferenceApi.create(
             platform = get(),

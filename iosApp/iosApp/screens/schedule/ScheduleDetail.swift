@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import shared
+import SharedDi
 
 struct ScheduleDetail: View {
     @State private var isShareSheetPresented = false

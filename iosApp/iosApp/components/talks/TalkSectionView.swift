@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import shared
+import SharedDi
 
 struct TalkSectionView: View {
     var talkUi: TalkUi

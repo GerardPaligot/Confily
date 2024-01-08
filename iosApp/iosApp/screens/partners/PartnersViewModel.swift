@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import shared
+import SharedDi
 import KMPNativeCoroutinesAsync
 
 enum PartnersUiState {
@@ -18,11 +18,7 @@ enum PartnersUiState {
 
 @MainActor
 class PartnersViewModel: ObservableObject {
-    let repository: AgendaRepository
-
-    init(repository: AgendaRepository) {
-        self.repository = repository
-    }
+    private let repository: AgendaRepository = RepositoryHelper().agendaRepository
 
     @Published var uiState: PartnersUiState = PartnersUiState.loading
 
@@ -40,7 +36,7 @@ class PartnersViewModel: ObservableObject {
             }
         }
     }
-    
+
     func stop() {
         partnersTask?.cancel()
     }

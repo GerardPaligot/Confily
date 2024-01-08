@@ -17,6 +17,6 @@ actual val platformModule = module {
     single<Conferences4HallDatabase> { DatabaseWrapper().createDb() }
     single<Platform> { Platform(PlatformContext()) }
     single<ObservableSettings> { AppleSettings(standardUserDefaults) }
-    single(named(AcceptLanguageNamed)) { NSLocale.preferredLanguages.first() }
+    single<String>(named(AcceptLanguageNamed)) { NSLocale.preferredLanguages.first().toString() }
     single<QrCodeGenerator> { QrCodeGeneratoriOS() }
 }

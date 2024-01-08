@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import shared
+import SharedDi
 
 struct ScheduleDetailVM: View {
     @ObservedObject var viewModel: ScheduleItemViewModel

@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import shared
+import SharedDi
 
 struct DecorativeTagView: View {
     var category: CategoryUi

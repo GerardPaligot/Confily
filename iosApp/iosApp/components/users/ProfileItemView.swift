@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import shared
+import SharedDi
 
 struct ProfileItemView: View {
     let profileUi: UserProfileUi

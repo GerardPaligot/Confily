@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import shared
+import SharedDi
 
 struct TicketDetailedView: View {
     var ticket: TicketInfoUi

@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import shared
+import SharedDi
 
 struct SpeakerAvatarBorderedView: View {
     var url: String

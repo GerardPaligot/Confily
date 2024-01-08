@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import shared
+import SharedDi
 import SDWebImageSwiftUI
 
 struct RemoteImage: View {

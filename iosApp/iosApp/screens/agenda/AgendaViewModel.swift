@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import shared
+import SharedDi
 import KMPNativeCoroutinesAsync
 
 enum AgendaUiState {
@@ -18,13 +18,8 @@ enum AgendaUiState {
 
 @MainActor
 class AgendaViewModel: ObservableObject {
-    let repository: AgendaRepository
-    let alarmScheduler: AlarmScheduler
-
-    init(repository: AgendaRepository) {
-        self.repository = repository
-        self.alarmScheduler = AlarmScheduler(repository: repository)
-    }
+    private let repository: AgendaRepository = RepositoryHelper().agendaRepository
+    private let alarmScheduler: AlarmScheduler = AlarmScheduler()
 
     @Published var uiState: AgendaUiState = AgendaUiState.loading
     

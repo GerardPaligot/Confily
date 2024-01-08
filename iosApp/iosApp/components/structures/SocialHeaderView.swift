@@ -8,7 +8,7 @@
 
 import SwiftUI
 import WrappingHStack
-import shared
+import SharedDi
 
 struct SocialHeaderView: View {
     var title: String

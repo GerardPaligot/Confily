@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import shared
+import SharedDi
 
 struct SpeakerItemView: View {
     var speakerUi: SpeakerItemUi
