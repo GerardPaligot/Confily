@@ -22,11 +22,6 @@ struct AgendaVM: View {
                 case .success(let agendas):
                     Agenda(
                         agendas: agendas,
-                        onFilteringClicked: {
-                            Task {
-                                viewModel.toggleFavoriteFiltering()
-                            }
-                        },
                         onFavoriteClicked: { talk in
                             Task {
                                 await viewModel.markAsFavorite(talkItem: talk)

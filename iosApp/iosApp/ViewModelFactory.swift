@@ -27,6 +27,10 @@ class ViewModelFactory: ObservableObject {
         return AgendaViewModel()
     }
 
+    func makeAgendaFiltersViewModel() -> AgendaFiltersViewModel {
+        AgendaFiltersViewModel()
+    }
+
     func makeScheduleItemViewModel(scheduleId: String) -> ScheduleItemViewModel {
         return ScheduleItemViewModel(scheduleId: scheduleId)
     }

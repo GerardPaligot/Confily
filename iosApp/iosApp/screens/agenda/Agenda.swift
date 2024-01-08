@@ -13,18 +13,15 @@ struct Agenda: View {
     @State private var selectedDate = ""
     let dates: [String]
     let agendas: [String : AgendaUi]
-    let onFilteringClicked: () -> ()
     let onFavoriteClicked: (TalkItemUi) -> ()
     
     init(
         agendas: [String: AgendaUi],
-        onFilteringClicked: @escaping () -> (),
         onFavoriteClicked: @escaping (TalkItemUi) -> ()
     ) {
         self.dates = agendas.keys.map({ key in key })
         self.selectedDate = self.dates.first ?? ""
         self.agendas = agendas
-        self.onFilteringClicked = onFilteringClicked
         self.onFavoriteClicked = onFavoriteClicked
     }
 
@@ -78,18 +75,7 @@ struct Agenda: View {
             .navigationTitle(Text("screenAgenda"))
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarItems(trailing:
-                HStack {
-                if (selectedAgenda != nil) {
-                    Button(action: {
-                        onFilteringClicked()
-                    }, label: {
-                        let icon = selectedAgenda!.onlyFavorites ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle"
-                        Image(systemName: icon)
-                            .accessibilityLabel("actionFilteringFavorites")
-                            .accessibilityAddTraits(selectedAgenda!.onlyFavorites ? .isSelected : [])
-                    })
-                }
-                }
+                AgendaFiltersNavigation()
             )
         }
     }
@@ -109,7 +95,6 @@ struct Agenda_Previews: PreviewProvider {
                 "01-01-2022": AgendaUi.companion.fake,
                 "02-01-2022": AgendaUi.companion.fake
             ],
-            onFilteringClicked: {},
             onFavoriteClicked: { talk in }
         )
         .environmentObject(ViewModelFactory())

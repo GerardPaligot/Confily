@@ -24,11 +24,6 @@ class AgendaViewModel: ObservableObject {
     @Published var uiState: AgendaUiState = AgendaUiState.loading
     
     private var agendaTask: Task<(), Never>?
-    
-    func toggleFavoriteFiltering() {
-        // TODO
-        // repository.toggleFavoriteFiltering()
-    }
 
     func fetchAgenda() {
         agendaTask = Task {

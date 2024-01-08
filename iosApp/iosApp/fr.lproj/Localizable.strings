@@ -12,6 +12,7 @@
 "screenNetworking" = "Networking";
 "screenPartners" = "Partenaires";
 "screenEvent" = "Événement";
+"screenFilters" = "Filtres";
 
 "titleGold" = "Gold";
 "titleSilver" = "Silver";
@@ -29,6 +30,9 @@
 "titleCompany" = "Entreprise";
 "titleJob" = "Job";
 "title_agenda_break" = "Pause";
+"titleFiltersFavorites" = "Favoris";
+"titleFiltersCategories" = "Categories";
+"titleFiltersFormats" = "Formats";
 
 "textLoading" = "Chargement…";
 "textError" = "Une erreur inconnue est survenue";
