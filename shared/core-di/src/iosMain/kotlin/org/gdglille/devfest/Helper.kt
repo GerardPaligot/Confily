@@ -11,7 +11,7 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 val buildConfigModule = module {
-    single(named(IsDebugNamed)) { true }
+    single(named(IsDebugNamed)) { false }
     single(named(ApplicationIdNamed)) { "org.gdglille.devfest.ios" }
     single(named(Conference4HallBaseUrlNamed)) { "https://cms4partners-ce427.nw.r.appspot.com" }
 }
