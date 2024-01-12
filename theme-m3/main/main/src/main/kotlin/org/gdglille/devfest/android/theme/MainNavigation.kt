@@ -2,8 +2,13 @@ package org.gdglille.devfest.android.theme
 
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
+import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
+import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.material3.adaptive.navigation.suite.ExperimentalMaterial3AdaptiveNavigationSuiteApi
 import androidx.compose.material3.adaptive.navigation.suite.NavigationSuiteScaffold
+import androidx.compose.material3.adaptive.navigation.suite.NavigationSuiteScaffoldDefaults
+import androidx.compose.material3.adaptive.navigation.suite.NavigationSuiteType
+import androidx.compose.material3.windowsizeclass.WindowHeightSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -47,7 +52,7 @@ import org.koin.androidx.compose.koinViewModel
 @Suppress("LongMethod")
 @OptIn(
     ExperimentalMaterial3AdaptiveNavigationSuiteApi::class, ExperimentalCoroutinesApi::class,
-    FlowPreview::class
+    FlowPreview::class, ExperimentalMaterial3AdaptiveApi::class
 )
 @Composable
 fun MainNavigation(
@@ -86,7 +91,17 @@ fun MainNavigation(
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
     val route = currentDestination?.route ?: Screen.ScheduleList.route
+    val adaptiveInfo = currentWindowAdaptiveInfo()
+    val heightCompact =
+        adaptiveInfo.windowSizeClass.heightSizeClass == WindowHeightSizeClass.Compact
+    val isTablet = adaptiveInfo.windowPosture.isTabletop
+    val layoutType = if (heightCompact && isTablet.not()) {
+        NavigationSuiteType.NavigationRail
+    } else {
+        NavigationSuiteScaffoldDefaults.calculateFromAdaptiveInfo(adaptiveInfo)
+    }
     NavigationSuiteScaffold(
+        layoutType = layoutType,
         modifier = modifier,
         navigationSuiteItems = {
             when (uiState.value) {
