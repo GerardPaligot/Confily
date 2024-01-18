@@ -16,13 +16,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import io.openfeedback.android.viewmodels.OpenFeedbackFirebaseConfig
 import org.gdglille.devfest.android.theme.m3.schedules.ui.schedule.OpenFeedbackSection
 import org.gdglille.devfest.android.theme.m3.schedules.ui.schedule.TalkAbstract
 import org.gdglille.devfest.android.theme.m3.schedules.ui.schedule.TalkSection
 import org.gdglille.devfest.android.theme.m3.schedules.ui.speakers.SpeakerSection
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
+import org.gdglille.devfest.android.theme.m3.style.SpacingTokens
+import org.gdglille.devfest.android.theme.m3.style.toDp
 import org.gdglille.devfest.models.ui.TalkUi
 
 @ExperimentalMaterial3Api
@@ -33,18 +34,18 @@ fun ScheduleDetailScreen(
     onSpeakerClicked: (id: String) -> Unit,
     modifier: Modifier = Modifier,
     state: LazyListState = rememberLazyListState(),
-    contentPadding: PaddingValues = PaddingValues(0.dp),
+    contentPadding: PaddingValues = PaddingValues(SpacingTokens.None.toDp()),
 ) {
     LazyColumn(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp),
+            .padding(horizontal = SpacingTokens.LargeSpacing.toDp()),
         contentPadding = contentPadding,
-        verticalArrangement = Arrangement.spacedBy(24.dp),
+        verticalArrangement = Arrangement.spacedBy(SpacingTokens.LargeSpacing.toDp()),
         state = state
     ) {
         item {
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(SpacingTokens.LargeSpacing.toDp()))
             TalkSection(talk = talk)
         }
         item {
@@ -73,7 +74,7 @@ fun ScheduleDetailScreen(
             )
         }
         item {
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(SpacingTokens.ExtraLargeSpacing.toDp()))
         }
     }
 }

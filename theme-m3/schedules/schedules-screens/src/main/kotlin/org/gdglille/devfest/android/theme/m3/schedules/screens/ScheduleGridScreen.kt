@@ -11,17 +11,18 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.MediumScheduleItem
 import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.NoFavoriteTalks
 import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.SmallScheduleItem
 import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.Time
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
+import org.gdglille.devfest.android.theme.m3.style.SpacingTokens
 import org.gdglille.devfest.android.theme.m3.style.placeholder
 import org.gdglille.devfest.android.theme.m3.style.previews.PHONE_LANDSCAPE
 import org.gdglille.devfest.android.theme.m3.style.schedules.findTimeImageVector
 import org.gdglille.devfest.android.theme.m3.style.schedules.pause.MediumPauseItem
 import org.gdglille.devfest.android.theme.m3.style.schedules.pause.SmallPauseItem
+import org.gdglille.devfest.android.theme.m3.style.toDp
 import org.gdglille.devfest.models.ui.AgendaUi
 import org.gdglille.devfest.models.ui.TalkItemUi
 
@@ -41,9 +42,9 @@ fun ScheduleGridScreen(
         LazyVerticalGrid(
             columns = GridCells.Fixed(count = columnCount),
             modifier = modifier,
-            contentPadding = PaddingValues(vertical = 24.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+            contentPadding = PaddingValues(vertical = SpacingTokens.LargeSpacing.toDp()),
+            verticalArrangement = Arrangement.spacedBy(SpacingTokens.MediumSpacing.toDp()),
+            horizontalArrangement = Arrangement.spacedBy(SpacingTokens.MediumSpacing.toDp())
         ) {
             agenda.talks.entries.forEach { slot ->
                 item(span = { GridItemSpan(columnCount) }) {
