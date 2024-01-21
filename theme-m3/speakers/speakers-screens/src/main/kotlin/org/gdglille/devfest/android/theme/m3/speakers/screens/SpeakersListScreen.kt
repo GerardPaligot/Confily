@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
@@ -26,16 +27,15 @@ fun SpeakersListScreen(
     onSpeakerClicked: (id: String) -> Unit,
     modifier: Modifier = Modifier,
     state: LazyGridState = rememberLazyGridState(),
-    columnCount: Int = 2,
     isLoading: Boolean = false,
 ) {
     LazyVerticalGrid(
-        columns = GridCells.Fixed(count = columnCount),
+        columns = GridCells.Adaptive(minSize = 150.dp),
         modifier = modifier.fillMaxWidth(),
         state = state,
         verticalArrangement = Arrangement.spacedBy(SpacingTokens.MediumSpacing.toDp()),
         horizontalArrangement = Arrangement.spacedBy(SpacingTokens.MediumSpacing.toDp()),
-        contentPadding = PaddingValues(SpacingTokens.LargeSpacing.toDp()),
+        contentPadding = PaddingValues(vertical = SpacingTokens.ExtraLargeSpacing.toDp()),
         content = {
             items(speakers.toList(), key = { it.id }) {
                 LargeSpeakerItem(

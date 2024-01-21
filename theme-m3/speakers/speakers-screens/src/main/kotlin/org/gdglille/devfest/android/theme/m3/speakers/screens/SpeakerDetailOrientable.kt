@@ -1,6 +1,5 @@
 package org.gdglille.devfest.android.theme.m3.speakers.screens
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -8,7 +7,6 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.models.ui.SpeakerUi
 import org.gdglille.devfest.models.ui.TalkItemUi
@@ -21,11 +19,11 @@ fun SpeakerDetailOrientable(
     onLinkClicked: (url: String) -> Unit,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp),
+    isLandscape: Boolean = false,
     isLoading: Boolean = false
 ) {
     val state = rememberLazyListState()
-    val orientation = LocalConfiguration.current
-    if (orientation.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+    if (isLandscape) {
         Row(
             verticalAlignment = Alignment.Top,
             modifier = modifier.padding(contentPadding)
@@ -35,7 +33,7 @@ fun SpeakerDetailOrientable(
                 isLoading = isLoading,
                 modifier = Modifier.weight(1f)
             )
-            SpeakerDetailVerticalScreen(
+            SpeakerDetailScreen(
                 speaker = speaker,
                 onTalkClicked = onTalkClicked,
                 onFavoriteClicked = onFavoriteClicked,
@@ -47,7 +45,7 @@ fun SpeakerDetailOrientable(
             )
         }
     } else {
-        SpeakerDetailVerticalScreen(
+        SpeakerDetailScreen(
             speaker = speaker,
             onTalkClicked = onTalkClicked,
             onFavoriteClicked = onFavoriteClicked,

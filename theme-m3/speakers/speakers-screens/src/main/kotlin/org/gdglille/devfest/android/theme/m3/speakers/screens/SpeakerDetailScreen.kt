@@ -8,7 +8,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -22,7 +21,7 @@ import org.gdglille.devfest.models.ui.SpeakerUi
 import org.gdglille.devfest.models.ui.TalkItemUi
 
 @Composable
-fun SpeakerDetailVerticalScreen(
+fun SpeakerDetailScreen(
     speaker: SpeakerUi,
     onTalkClicked: (id: String) -> Unit,
     onFavoriteClicked: (TalkItemUi) -> Unit,
@@ -65,10 +64,10 @@ fun SpeakerDetailVerticalScreen(
 @Suppress("UnusedPrivateMember")
 @ThemedPreviews
 @Composable
-private fun SpeakerDetailVerticalScreenPreview() {
+private fun SpeakerDetailScreenPreview() {
     Conferences4HallTheme {
         Scaffold {
-            SpeakerDetailVerticalScreen(
+            SpeakerDetailScreen(
                 speaker = SpeakerUi.fake,
                 onTalkClicked = {},
                 onFavoriteClicked = {},

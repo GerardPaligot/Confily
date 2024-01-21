@@ -1,5 +1,6 @@
 package org.gdglille.devfest.android.theme
 
+import android.content.res.Configuration
 import androidx.compose.material3.Icon
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
@@ -38,8 +39,8 @@ import org.gdglille.devfest.android.theme.m3.partners.feature.PartnersListCompac
 import org.gdglille.devfest.android.theme.m3.schedules.feature.AgendaFiltersCompactVM
 import org.gdglille.devfest.android.theme.m3.schedules.feature.ScheduleDetailOrientableVM
 import org.gdglille.devfest.android.theme.m3.schedules.feature.ScheduleGridAdaptive
+import org.gdglille.devfest.android.theme.m3.speakers.feature.SpeakerAdaptive
 import org.gdglille.devfest.android.theme.m3.speakers.feature.SpeakerDetailOrientableVM
-import org.gdglille.devfest.android.theme.m3.speakers.feature.SpeakersListCompactVM
 import org.gdglille.devfest.android.theme.m3.style.appbars.iconColor
 import org.gdglille.devfest.models.ui.ExportNetworkingUi
 import org.gdglille.devfest.models.ui.VCardModel
@@ -184,8 +185,10 @@ fun MainNavigation(
                     )
                 }
                 composable(Screen.SpeakerList.route) {
-                    SpeakersListCompactVM(
-                        onSpeakerClicked = { navController.navigate(Screen.Speaker.route(it)) }
+                    SpeakerAdaptive(
+                        showBackInDetail = adaptiveInfo.windowSizeClass.widthSizeClass.isCompat,
+                        onTalkClicked = { navController.navigate(Screen.Schedule.route(it)) },
+                        onLinkClicked = { launchUrl(it) }
                     )
                 }
                 composable(
@@ -196,7 +199,8 @@ fun MainNavigation(
                         speakerId = it.arguments?.getString("speakerId")!!,
                         onTalkClicked = { navController.navigate(Screen.Schedule.route(it)) },
                         onLinkClicked = { launchUrl(it) },
-                        onBackClicked = { navController.popBackStack() }
+                        navigationIcon = { Back { navController.popBackStack() } },
+                        isLandscape = config.orientation == Configuration.ORIENTATION_LANDSCAPE
                     )
                 }
                 composable(Screen.MyProfile.route) {
