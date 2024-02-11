@@ -150,20 +150,12 @@ fun MainNavigation(
                 composable(Screen.ScheduleList.route) {
                     val showFilterIcon = adaptiveInfo.windowSizeClass.widthSizeClass.isCompat
                             || (adaptiveInfo.windowSizeClass.widthSizeClass.isMedium && config.isPortrait)
-                    val columnCount = when {
-                        adaptiveInfo.windowSizeClass.widthSizeClass.isExpanded
-                                && adaptiveInfo.windowSizeClass.heightSizeClass.isCompat -> 1
-
-                        adaptiveInfo.windowSizeClass.widthSizeClass.isExpanded -> 2
-                        else -> 1
-                    }
                     val isSmallSize = adaptiveInfo.windowSizeClass.heightSizeClass.isCompat
                     ScheduleGridAdaptive(
                         onScheduleStarted = onScheduleStarted,
                         onFilterClicked = { navController.navigate(Screen.ScheduleFilters.route) },
                         onTalkClicked = { navController.navigate(Screen.Schedule.route(it)) },
                         showFilterIcon = showFilterIcon,
-                        columnCount = columnCount,
                         isSmallSize = isSmallSize
                     )
                 }

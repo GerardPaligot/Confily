@@ -20,7 +20,6 @@ fun ScheduleGridAdaptive(
     onTalkClicked: (id: String) -> Unit,
     showFilterIcon: Boolean,
     modifier: Modifier = Modifier,
-    columnCount: Int = 1,
     isSmallSize: Boolean = false,
 ) {
     SupportingPaneScaffold(
@@ -31,7 +30,6 @@ fun ScheduleGridAdaptive(
                 onFilterClicked = onFilterClicked,
                 onTalkClicked = onTalkClicked,
                 showFilterIcon = showFilterIcon,
-                columnCount = columnCount,
                 isSmallSize = isSmallSize
             )
         },

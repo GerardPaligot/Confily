@@ -29,7 +29,6 @@ fun ScheduleGridVM(
     onTalkClicked: (id: String) -> Unit,
     showFilterIcon: Boolean,
     modifier: Modifier = Modifier,
-    columnCount: Int = 1,
     isSmallSize: Boolean = false,
     viewModel: ScheduleGridViewModel = koinViewModel()
 ) {
@@ -38,14 +37,13 @@ fun ScheduleGridVM(
     LaunchedEffect(key1 = Unit) {
         onScheduleStarted()
     }
-    val uiState = viewModel.uiState.collectAsState()
-    when (uiState.value) {
+    when (val uiState = viewModel.uiState.collectAsState().value) {
         is ScheduleGridUiState.Loading -> Scaffold(
             title = title,
             modifier = modifier
         ) {
             ScheduleGridPager(
-                agendas = (uiState.value as ScheduleGridUiState.Loading).agenda,
+                agendas = uiState.agenda,
                 onTalkClicked = {},
                 onFavoriteClicked = {},
                 isLoading = true
@@ -54,14 +52,13 @@ fun ScheduleGridVM(
 
         is ScheduleGridUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
         is ScheduleGridUiState.Success -> {
-            val modelUi = (uiState.value as ScheduleGridUiState.Success)
-            val count = modelUi.scheduleUi.tabActionsUi.actions.count()
+            val count = uiState.scheduleUi.tabActionsUi.actions.count()
             val pagerState = rememberPagerState(pageCount = { count })
             Scaffold(
                 title = title,
                 modifier = modifier,
-                topActions = if (!showFilterIcon) TopActionsUi() else modelUi.scheduleUi.topActionsUi,
-                tabActions = modelUi.scheduleUi.tabActionsUi,
+                topActions = if (!showFilterIcon) TopActionsUi() else uiState.scheduleUi.topActionsUi,
+                tabActions = uiState.scheduleUi.tabActionsUi,
                 hasScrollBehavior = false,
                 onActionClicked = {
                     when (it.id) {
@@ -72,16 +69,15 @@ fun ScheduleGridVM(
                 }
             ) {
                 ScheduleGridPager(
-                    agendas = modelUi.scheduleUi.schedules,
-                    pagerState = pagerState,
+                    agendas = uiState.scheduleUi.schedules,
                     onTalkClicked = onTalkClicked,
                     onFavoriteClicked = { talkItem ->
                         viewModel.markAsFavorite(context, talkItem)
                     },
-                    isLoading = false,
-                    columnCount = columnCount,
+                    modifier = Modifier.padding(top = it.calculateTopPadding()),
+                    pagerState = pagerState,
                     isSmallSize = isSmallSize,
-                    modifier = Modifier.padding(top = it.calculateTopPadding())
+                    isLoading = false
                 )
             }
         }

@@ -20,7 +20,6 @@ fun ScheduleGridPager(
     onFavoriteClicked: (TalkItemUi) -> Unit,
     modifier: Modifier = Modifier,
     pagerState: PagerState = rememberPagerState(pageCount = { 0 }),
-    columnCount: Int = 2,
     isSmallSize: Boolean = false,
     isLoading: Boolean = false,
 ) {
@@ -31,10 +30,9 @@ fun ScheduleGridPager(
     ) { page ->
         ScheduleGridScreen(
             agenda = agendas[page],
-            modifier = modifier,
             onTalkClicked = onTalkClicked,
             onFavoriteClicked = onFavoriteClicked,
-            columnCount = columnCount,
+            modifier = modifier,
             isSmallSize = isSmallSize,
             isLoading = isLoading
         )
