@@ -29,9 +29,8 @@ fun InfoCompactVM(
     modifier: Modifier = Modifier,
     viewModel: InfoViewModel = koinViewModel()
 ) {
-    val uiState = viewModel.uiState.collectAsState()
     val title = stringResource(id = R.string.screen_info)
-    when (uiState.value) {
+    when (val uiState = viewModel.uiState.collectAsState().value) {
         is InfoUiState.Loading -> Scaffold(title = title, modifier = modifier) {
             EventVM(
                 onLinkClicked = onLinkClicked,
@@ -41,18 +40,18 @@ fun InfoCompactVM(
         }
 
         is InfoUiState.Success -> {
-            val uiModel = uiState.value as InfoUiState.Success
-            val pagerState =
-                rememberPagerState(pageCount = { uiModel.tabActionsUi.actions.count() })
+            val pagerState = rememberPagerState(
+                pageCount = { uiState.tabActionsUi.actions.count() }
+            )
             LaunchedEffect(pagerState.currentPage) {
-                viewModel.innerScreenConfig(uiModel.tabActionsUi.actions[pagerState.currentPage].route)
+                viewModel.innerScreenConfig(uiState.tabActionsUi.actions[pagerState.currentPage].route)
             }
             Scaffold(
                 title = title,
                 modifier = modifier,
-                topActions = uiModel.topActionsUi,
-                tabActions = uiModel.tabActionsUi,
-                fabAction = uiModel.fabAction,
+                topActions = uiState.topActionsUi,
+                tabActions = uiState.tabActionsUi,
+                fabAction = uiState.fabAction,
                 onActionClicked = {
                     when (it.id) {
                         ActionIds.DISCONNECT -> {
@@ -76,7 +75,7 @@ fun InfoCompactVM(
                     state = pagerState,
                     modifier = Modifier.padding(it)
                 ) { page ->
-                    when (uiModel.tabActionsUi.actions[page].route) {
+                    when (uiState.tabActionsUi.actions[page].route) {
                         TabActions.event.route -> EventVM(
                             onLinkClicked = onLinkClicked,
                             onItineraryClicked = onItineraryClicked,

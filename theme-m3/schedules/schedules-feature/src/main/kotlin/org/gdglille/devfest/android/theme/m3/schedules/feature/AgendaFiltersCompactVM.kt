@@ -19,14 +19,12 @@ fun AgendaFiltersCompactVM(
     navigationIcon: @Composable() (AppBarIcons.() -> Unit)? = null,
     viewModel: AgendaFiltersViewModel = koinViewModel()
 ) {
-    val uiState = viewModel.uiState.collectAsState()
-    when (uiState.value) {
+    when (val uiState = viewModel.uiState.collectAsState().value) {
         is AgendaFiltersUiState.Loading -> Text(text = stringResource(id = R.string.text_loading))
         is AgendaFiltersUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
         is AgendaFiltersUiState.Success -> {
-            val filtersUi = (uiState.value as AgendaFiltersUiState.Success).filters
             AgendaFiltersScreen(
-                filtersUi = filtersUi,
+                filtersUi = uiState.filters,
                 onFavoriteClick = viewModel::applyFavoriteFilter,
                 onCategoryClick = viewModel::applyCategoryFilter,
                 onFormatClick = viewModel::applyFormatFilter,

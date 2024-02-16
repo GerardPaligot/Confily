@@ -28,29 +28,27 @@ fun NetworkingCompactVM(
     modifier: Modifier = Modifier,
     viewModel: NetworkingViewModel = koinViewModel()
 ) {
-    val uiState = viewModel.uiState.collectAsState()
     val exportPath = viewModel.exportPath.collectAsState(null)
     LaunchedEffect(exportPath.value) {
         exportPath.value?.let(onContactExportClicked)
     }
     val title = stringResource(id = R.string.screen_networking)
-    when (uiState.value) {
+    when (val uiState = viewModel.uiState.collectAsState().value) {
         is NetworkingUiState.Loading -> Scaffold(title = title, modifier = modifier) {
             EmptyNetworkingScreen()
         }
 
         is NetworkingUiState.Success -> {
-            val uiModel = uiState.value as NetworkingUiState.Success
             val pagerState: PagerState =
-                rememberPagerState(pageCount = { uiModel.tabActionsUi.actions.count() })
+                rememberPagerState(pageCount = { uiState.tabActionsUi.actions.count() })
             LaunchedEffect(pagerState.currentPage) {
-                viewModel.innerScreenConfig(uiModel.tabActionsUi.actions[pagerState.currentPage].route)
+                viewModel.innerScreenConfig(uiState.tabActionsUi.actions[pagerState.currentPage].route)
             }
             Scaffold(
                 title = title,
-                topActions = uiModel.topActionsUi,
-                tabActions = uiModel.tabActionsUi,
-                fabAction = uiModel.fabAction,
+                topActions = uiState.topActionsUi,
+                tabActions = uiState.tabActionsUi,
+                fabAction = uiState.fabAction,
                 onActionClicked = {
                     when (it.id) {
                         ActionIds.EXPORT -> {
@@ -77,7 +75,7 @@ fun NetworkingCompactVM(
                     state = pagerState,
                     modifier = Modifier.padding(it)
                 ) { page ->
-                    when (uiModel.tabActionsUi.actions[page].route) {
+                    when (uiState.tabActionsUi.actions[page].route) {
                         TabActions.myProfile.route -> MyProfileCompactVM(
                             onEditInformation = onCreateProfileClicked
                         )

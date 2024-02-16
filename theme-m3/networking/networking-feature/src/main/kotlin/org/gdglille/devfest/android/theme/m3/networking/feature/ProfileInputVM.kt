@@ -17,12 +17,11 @@ fun ProfileInputVM(
     modifier: Modifier = Modifier,
     viewModel: ProfileInputViewModel = koinViewModel()
 ) {
-    val uiState = viewModel.uiState.collectAsState()
-    when (uiState.value) {
+    when (val uiState = viewModel.uiState.collectAsState().value) {
         is ProfileInputUiState.Loading -> Text(text = stringResource(id = R.string.text_loading))
         is ProfileInputUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
         is ProfileInputUiState.Success -> ProfileInputScreen(
-            profile = (uiState.value as ProfileInputUiState.Success).profile,
+            profile = uiState.profile,
             modifier = modifier,
             onBackClicked = onBackClicked,
             onValueChanged = viewModel::fieldChanged,

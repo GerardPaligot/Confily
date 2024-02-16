@@ -14,10 +14,9 @@ fun QAndAListVM(
     modifier: Modifier = Modifier,
     viewModel: QAndAListViewModel = koinViewModel()
 ) {
-    val uiState = viewModel.uiState.collectAsState()
-    when (uiState.value) {
+    when (val uiState = viewModel.uiState.collectAsState().value) {
         is QAndAUiState.Loading -> QAndAList(
-            qAndA = (uiState.value as QAndAUiState.Loading).qanda,
+            qAndA = uiState.qanda,
             modifier = modifier,
             isLoading = true,
             onExpandedClicked = {},
@@ -26,12 +25,10 @@ fun QAndAListVM(
 
         is QAndAUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
         is QAndAUiState.Success -> QAndAList(
-            qAndA = (uiState.value as QAndAUiState.Success).qanda,
+            qAndA = uiState.qanda,
             modifier = modifier,
             isLoading = false,
-            onExpandedClicked = {
-                viewModel.expanded(it)
-            },
+            onExpandedClicked = { viewModel.expanded(it) },
             onLinkClicked = onLinkClicked
         )
     }

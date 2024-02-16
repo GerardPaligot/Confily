@@ -16,12 +16,11 @@ fun MyProfileCompactVM(
     modifier: Modifier = Modifier,
     viewModel: MyProfileViewModel = koinViewModel()
 ) {
-    val uiState = viewModel.uiState.collectAsState()
-    when (uiState.value) {
+    when (val uiState = viewModel.uiState.collectAsState().value) {
         is MyProfileUiState.Loading -> Text(text = stringResource(id = R.string.text_loading))
         is MyProfileUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
         is MyProfileUiState.Success -> {
-            val profileUi = (uiState.value as MyProfileUiState.Success).profile
+            val profileUi = uiState.profile
             if (profileUi.qrCode == null) {
                 EmptyNetworkingScreen(modifier = modifier)
             } else {

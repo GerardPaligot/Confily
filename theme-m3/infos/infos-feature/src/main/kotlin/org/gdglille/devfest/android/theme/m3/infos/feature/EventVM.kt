@@ -15,10 +15,9 @@ fun EventVM(
     modifier: Modifier = Modifier,
     viewModel: EventViewModel = koinViewModel()
 ) {
-    val uiState = viewModel.uiState.collectAsState()
-    when (uiState.value) {
+    when (val uiState = viewModel.uiState.collectAsState().value) {
         is EventUiState.Loading -> Event(
-            event = (uiState.value as EventUiState.Loading).event,
+            event = uiState.event,
             modifier = modifier,
             isLoading = true,
             onLinkClicked = onLinkClicked,
@@ -27,7 +26,7 @@ fun EventVM(
 
         is EventUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
         is EventUiState.Success -> Event(
-            event = (uiState.value as EventUiState.Success).event,
+            event = uiState.event,
             modifier = modifier,
             onLinkClicked = onLinkClicked,
             onItineraryClicked = onItineraryClicked

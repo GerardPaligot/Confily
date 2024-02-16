@@ -1,16 +1,20 @@
 package org.gdglille.devfest.android.theme.m3.speakers.screens
 
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
+import org.gdglille.devfest.android.theme.m3.style.R
+import org.gdglille.devfest.android.theme.m3.style.Scaffold
+import org.gdglille.devfest.android.theme.m3.style.appbars.AppBarIcons
 import org.gdglille.devfest.models.ui.SpeakerUi
 import org.gdglille.devfest.models.ui.TalkItemUi
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun SpeakerDetailOrientable(
     speaker: SpeakerUi,
@@ -18,42 +22,47 @@ fun SpeakerDetailOrientable(
     onFavoriteClicked: (TalkItemUi) -> Unit,
     onLinkClicked: (url: String) -> Unit,
     modifier: Modifier = Modifier,
-    contentPadding: PaddingValues = PaddingValues(0.dp),
+    navigationIcon: @Composable (AppBarIcons.() -> Unit)? = null,
     isLandscape: Boolean = false,
     isLoading: Boolean = false
 ) {
     val state = rememberLazyListState()
-    if (isLandscape) {
-        Row(
-            verticalAlignment = Alignment.Top,
-            modifier = modifier.padding(contentPadding)
-        ) {
-            SpeakerAvatarScreen(
-                url = speaker.url,
-                isLoading = isLoading,
-                modifier = Modifier.weight(1f)
-            )
+    Scaffold(
+        title = stringResource(id = R.string.screen_speaker_detail),
+        navigationIcon = navigationIcon,
+        modifier = modifier
+    ) {
+        if (isLandscape) {
+            Row(
+                verticalAlignment = Alignment.Top,
+                modifier = Modifier.padding(it)
+            ) {
+                SpeakerAvatarScreen(
+                    url = speaker.url,
+                    isLoading = isLoading,
+                    modifier = Modifier.weight(1f)
+                )
+                SpeakerDetailScreen(
+                    speaker = speaker,
+                    onTalkClicked = onTalkClicked,
+                    onFavoriteClicked = onFavoriteClicked,
+                    onLinkClicked = onLinkClicked,
+                    modifier = Modifier.weight(1f),
+                    state = state,
+                    isLoading = isLoading,
+                    displayAvatar = false
+                )
+            }
+        } else {
             SpeakerDetailScreen(
                 speaker = speaker,
                 onTalkClicked = onTalkClicked,
                 onFavoriteClicked = onFavoriteClicked,
                 onLinkClicked = onLinkClicked,
-                modifier = Modifier.weight(1f),
                 state = state,
-                isLoading = isLoading,
-                displayAvatar = false
+                contentPadding = it,
+                isLoading = isLoading
             )
         }
-    } else {
-        SpeakerDetailScreen(
-            speaker = speaker,
-            onTalkClicked = onTalkClicked,
-            onFavoriteClicked = onFavoriteClicked,
-            onLinkClicked = onLinkClicked,
-            modifier = modifier,
-            state = state,
-            contentPadding = contentPadding,
-            isLoading = isLoading
-        )
     }
 }

@@ -14,10 +14,9 @@ fun EventListVM(
     modifier: Modifier = Modifier,
     viewModel: EventListViewModel = koinViewModel()
 ) {
-    val uiState = viewModel.uiState.collectAsState()
-    when (uiState.value) {
+    when (val uiState = viewModel.uiState.collectAsState().value) {
         is EventListUiState.Loading -> EventList(
-            events = (uiState.value as EventListUiState.Loading).events,
+            events = uiState.events,
             onEventClicked = {},
             modifier = modifier,
             isLoading = true
@@ -25,7 +24,7 @@ fun EventListVM(
 
         is EventListUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
         is EventListUiState.Success -> EventList(
-            events = (uiState.value as EventListUiState.Success).events,
+            events = uiState.events,
             onEventClicked = {
                 viewModel.savedEventId(it)
                 onEventClicked()

@@ -14,14 +14,12 @@ fun ContactsCompactVM(
     modifier: Modifier = Modifier,
     viewModel: ContactsViewModel = koinViewModel()
 ) {
-    val uiState = viewModel.uiState.collectAsState()
-    when (uiState.value) {
+    when (val uiState = viewModel.uiState.collectAsState().value) {
         is ContactsUiState.Loading -> Text(text = stringResource(id = R.string.text_loading))
         is ContactsUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
         is ContactsUiState.Success -> {
-            val usersUi = (uiState.value as ContactsUiState.Success).users
             ContactsScreen(
-                users = usersUi,
+                users = uiState.users,
                 modifier = modifier,
                 onNetworkDeleted = viewModel::deleteNetworking
             )

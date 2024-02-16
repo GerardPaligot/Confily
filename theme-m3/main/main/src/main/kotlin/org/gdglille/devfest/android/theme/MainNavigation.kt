@@ -34,8 +34,8 @@ import org.gdglille.devfest.android.theme.m3.navigation.Screen
 import org.gdglille.devfest.android.theme.m3.networking.feature.NetworkingCompactVM
 import org.gdglille.devfest.android.theme.m3.networking.feature.ProfileInputVM
 import org.gdglille.devfest.android.theme.m3.networking.feature.VCardQrCodeScanner
-import org.gdglille.devfest.android.theme.m3.partners.feature.PartnerDetailOrientableVM
-import org.gdglille.devfest.android.theme.m3.partners.feature.PartnersListCompactVM
+import org.gdglille.devfest.android.theme.m3.partners.feature.PartnerDetailVM
+import org.gdglille.devfest.android.theme.m3.partners.feature.PartnersGridVM
 import org.gdglille.devfest.android.theme.m3.schedules.feature.AgendaFiltersCompactVM
 import org.gdglille.devfest.android.theme.m3.schedules.feature.ScheduleDetailOrientableVM
 import org.gdglille.devfest.android.theme.m3.schedules.feature.ScheduleGridAdaptive
@@ -208,7 +208,7 @@ fun MainNavigation(
                     )
                 }
                 composable(Screen.PartnerList.route) {
-                    PartnersListCompactVM(
+                    PartnersGridVM(
                         onPartnerClick = { navController.navigate(Screen.Partner.route(it)) }
                     )
                 }
@@ -219,7 +219,7 @@ fun MainNavigation(
                         uriPattern = "$rootUri/${Screen.Partner.route}"
                     })
                 ) {
-                    PartnerDetailOrientableVM(
+                    PartnerDetailVM(
                         partnerId = it.arguments?.getString("partnerId")!!,
                         onLinkClicked = { launchUrl(it) },
                         onItineraryClicked = onItineraryClicked,

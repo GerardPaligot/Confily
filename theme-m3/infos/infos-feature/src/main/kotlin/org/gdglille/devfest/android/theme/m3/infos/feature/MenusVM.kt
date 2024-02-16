@@ -15,17 +15,16 @@ fun MenusVM(
     modifier: Modifier = Modifier,
     viewModel: MenusViewModel = koinViewModel()
 ) {
-    val uiState = viewModel.uiState.collectAsState()
-    when (uiState.value) {
+    when (val uiState = viewModel.uiState.collectAsState().value) {
         is MenusUiState.Loading -> Menus(
-            menuItems = (uiState.value as MenusUiState.Loading).menus,
+            menuItems = uiState.menus,
             modifier = modifier,
             isLoading = true
         )
 
         is MenusUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
         is MenusUiState.Success -> Menus(
-            menuItems = (uiState.value as MenusUiState.Success).menus,
+            menuItems = uiState.menus,
             modifier = modifier,
             isLoading = false
         )

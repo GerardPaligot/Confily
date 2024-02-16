@@ -2,13 +2,20 @@ package org.gdglille.devfest.android.theme.m3.schedules.screens
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import kotlinx.collections.immutable.ImmutableList
+import org.gdglille.devfest.android.theme.m3.navigation.ActionIds
+import org.gdglille.devfest.android.theme.m3.style.R
+import org.gdglille.devfest.android.theme.m3.style.Scaffold
+import org.gdglille.devfest.android.theme.m3.style.actions.TabActionsUi
+import org.gdglille.devfest.android.theme.m3.style.actions.TopActionsUi
 import org.gdglille.devfest.models.ui.AgendaUi
 import org.gdglille.devfest.models.ui.TalkItemUi
 
@@ -17,24 +24,43 @@ import org.gdglille.devfest.models.ui.TalkItemUi
 fun ScheduleGridPager(
     agendas: ImmutableList<AgendaUi>,
     onTalkClicked: (id: String) -> Unit,
+    onFilterClicked: () -> Unit,
     onFavoriteClicked: (TalkItemUi) -> Unit,
     modifier: Modifier = Modifier,
-    pagerState: PagerState = rememberPagerState(pageCount = { 0 }),
+    topActionsUi: TopActionsUi = TopActionsUi(),
+    tabActionsUi: TabActionsUi = TabActionsUi(),
+    pagerState: PagerState = rememberPagerState(pageCount = { tabActionsUi.actions.count() }),
     isSmallSize: Boolean = false,
     isLoading: Boolean = false,
 ) {
-    HorizontalPager(
-        state = pagerState,
-        modifier = Modifier.fillMaxSize(),
-        verticalAlignment = Alignment.Top
-    ) { page ->
-        ScheduleGridScreen(
-            agenda = agendas[page],
-            onTalkClicked = onTalkClicked,
-            onFavoriteClicked = onFavoriteClicked,
-            modifier = modifier,
-            isSmallSize = isSmallSize,
-            isLoading = isLoading
-        )
+    Scaffold(
+        title = stringResource(id = R.string.screen_agenda),
+        modifier = modifier,
+        topActions = topActionsUi,
+        tabActions = tabActionsUi,
+        hasScrollBehavior = false,
+        onActionClicked = {
+            when (it.id) {
+                ActionIds.FILTERS -> {
+                    onFilterClicked()
+                }
+            }
+        }
+    ) {
+        HorizontalPager(
+            state = pagerState,
+            modifier = Modifier
+                .padding(top = it.calculateTopPadding())
+                .fillMaxSize(),
+            verticalAlignment = Alignment.Top
+        ) { page ->
+            ScheduleGridScreen(
+                agenda = agendas[page],
+                onTalkClicked = onTalkClicked,
+                onFavoriteClicked = onFavoriteClicked,
+                isSmallSize = isSmallSize,
+                isLoading = isLoading
+            )
+        }
     }
 }

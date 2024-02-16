@@ -23,12 +23,11 @@ fun ScheduleDetailOrientableVM(
     modifier: Modifier = Modifier,
     viewModel: ScheduleDetailViewModel = koinViewModel(parameters = { parametersOf(scheduleId) })
 ) {
-    val uiState = viewModel.uiState.collectAsState()
-    when (uiState.value) {
+    when (val uiState = viewModel.uiState.collectAsState().value) {
         is ScheduleUiState.Loading -> Text(text = stringResource(id = R.string.text_loading))
         is ScheduleUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
         is ScheduleUiState.Success -> ScheduleDetailOrientableScreen(
-            talk = (uiState.value as ScheduleUiState.Success).talk,
+            talk = uiState.talk,
             openFeedbackFirebaseConfig = openfeedbackFirebaseConfig,
             modifier = modifier,
             onBackClicked = onBackClicked,

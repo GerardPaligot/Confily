@@ -15,12 +15,11 @@ fun CoCVM(
     modifier: Modifier = Modifier,
     viewModel: CoCViewModel = koinViewModel()
 ) {
-    val uiState = viewModel.uiState.collectAsState()
-    when (uiState.value) {
+    when (val uiState = viewModel.uiState.collectAsState().value) {
         is CoCUiState.Loading -> Text(text = stringResource(R.string.text_loading))
         is CoCUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
         is CoCUiState.Success -> CoC(
-            coc = (uiState.value as CoCUiState.Success).coc,
+            coc = uiState.coc,
             modifier = modifier,
             onReportByPhoneClicked = onReportByPhoneClicked,
             onReportByEmailClicked = onReportByEmailClicked
