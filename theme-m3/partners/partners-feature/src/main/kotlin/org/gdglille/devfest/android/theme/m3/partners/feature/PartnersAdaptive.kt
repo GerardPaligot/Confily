@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.speakers.feature
+package org.gdglille.devfest.android.theme.m3.partners.feature
 
 import androidx.compose.material3.adaptive.AnimatedPane
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
@@ -14,9 +14,9 @@ import androidx.compose.ui.Modifier
 
 @OptIn(ExperimentalMaterial3AdaptiveApi::class)
 @Composable
-fun SpeakerAdaptive(
+fun PartnersAdaptive(
     showBackInDetail: Boolean,
-    onTalkClicked: (id: String) -> Unit,
+    onItineraryClicked: (lat: Double, lng: Double) -> Unit,
     onLinkClicked: (url: String) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -27,8 +27,8 @@ fun SpeakerAdaptive(
         modifier = modifier,
         listPane = {
             AnimatedPane(Modifier) {
-                SpeakersListCompactVM(
-                    onSpeakerClicked = {
+                PartnersGridVM(
+                    onPartnerClick = {
                         selectedItem = it
                         navigator.navigateTo(ListDetailPaneScaffoldRole.Detail)
                     }
@@ -38,10 +38,10 @@ fun SpeakerAdaptive(
         detailPane = {
             AnimatedPane(modifier = Modifier) {
                 selectedItem?.let { item ->
-                    SpeakerDetailVM(
-                        speakerId = item,
-                        onTalkClicked = onTalkClicked,
+                    PartnerDetailVM(
+                        partnerId = item,
                         onLinkClicked = onLinkClicked,
+                        onItineraryClicked = onItineraryClicked,
                         navigationIcon = if (showBackInDetail) {
                             @Composable { Back {
                                 if (navigator.canNavigateBack()) {

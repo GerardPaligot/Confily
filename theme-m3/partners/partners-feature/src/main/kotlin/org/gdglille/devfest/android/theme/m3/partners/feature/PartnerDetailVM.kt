@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import org.gdglille.devfest.android.theme.m3.partners.screens.PartnerDetailOrientable
 import org.gdglille.devfest.android.theme.m3.style.R
+import org.gdglille.devfest.android.theme.m3.style.appbars.AppBarIcons
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
 
@@ -15,17 +16,21 @@ fun PartnerDetailVM(
     partnerId: String,
     onLinkClicked: (url: String) -> Unit,
     onItineraryClicked: (lat: Double, lng: Double) -> Unit,
-    onBackClicked: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: PartnerDetailViewModel = koinViewModel(parameters = { parametersOf(partnerId) })
+    navigationIcon: @Composable (AppBarIcons.() -> Unit)? = null,
+    isLandscape: Boolean = false,
+    viewModel: PartnerDetailViewModel = koinViewModel(
+        key = partnerId,
+        parameters = { parametersOf(partnerId) })
 ) {
     when (val uiState = viewModel.uiState.collectAsState().value) {
         is PartnerUiState.Loading -> PartnerDetailOrientable(
             partnerItemUi = uiState.partner,
             onLinkClicked = {},
             onItineraryClicked = { _, _ -> },
-            onBackClicked = onBackClicked,
             modifier = modifier,
+            navigationIcon = navigationIcon,
+            isLandscape = isLandscape,
             isLoading = true
         )
 
@@ -34,8 +39,9 @@ fun PartnerDetailVM(
             partnerItemUi = uiState.partner,
             onLinkClicked = onLinkClicked,
             onItineraryClicked = onItineraryClicked,
-            onBackClicked = onBackClicked,
-            modifier = modifier
+            modifier = modifier,
+            navigationIcon = navigationIcon,
+            isLandscape = isLandscape,
         )
     }
 }

@@ -41,7 +41,8 @@ fun PartnersGridScreen(
 ) {
     Scaffold(
         title = stringResource(id = R.string.screen_partners),
-        modifier = modifier
+        modifier = modifier,
+        hasScrollBehavior = false
     ) {
         BoxWithConstraints(modifier = Modifier.padding(it)) {
             val minSize = 100.dp

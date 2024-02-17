@@ -35,12 +35,12 @@ import org.gdglille.devfest.android.theme.m3.networking.feature.NetworkingCompac
 import org.gdglille.devfest.android.theme.m3.networking.feature.ProfileInputVM
 import org.gdglille.devfest.android.theme.m3.networking.feature.VCardQrCodeScanner
 import org.gdglille.devfest.android.theme.m3.partners.feature.PartnerDetailVM
-import org.gdglille.devfest.android.theme.m3.partners.feature.PartnersGridVM
+import org.gdglille.devfest.android.theme.m3.partners.feature.PartnersAdaptive
 import org.gdglille.devfest.android.theme.m3.schedules.feature.AgendaFiltersCompactVM
 import org.gdglille.devfest.android.theme.m3.schedules.feature.ScheduleDetailOrientableVM
 import org.gdglille.devfest.android.theme.m3.schedules.feature.ScheduleGridAdaptive
 import org.gdglille.devfest.android.theme.m3.speakers.feature.SpeakerAdaptive
-import org.gdglille.devfest.android.theme.m3.speakers.feature.SpeakerDetailOrientableVM
+import org.gdglille.devfest.android.theme.m3.speakers.feature.SpeakerDetailVM
 import org.gdglille.devfest.android.theme.m3.style.appbars.iconColor
 import org.gdglille.devfest.models.ui.ExportNetworkingUi
 import org.gdglille.devfest.models.ui.VCardModel
@@ -187,7 +187,7 @@ fun MainNavigation(
                     route = Screen.Speaker.route,
                     arguments = listOf(navArgument("speakerId") { type = NavType.StringType })
                 ) {
-                    SpeakerDetailOrientableVM(
+                    SpeakerDetailVM(
                         speakerId = it.arguments?.getString("speakerId")!!,
                         onTalkClicked = { navController.navigate(Screen.Schedule.route(it)) },
                         onLinkClicked = { launchUrl(it) },
@@ -208,8 +208,10 @@ fun MainNavigation(
                     )
                 }
                 composable(Screen.PartnerList.route) {
-                    PartnersGridVM(
-                        onPartnerClick = { navController.navigate(Screen.Partner.route(it)) }
+                    PartnersAdaptive(
+                        showBackInDetail = adaptiveInfo.windowSizeClass.widthSizeClass.isCompat,
+                        onLinkClicked = { launchUrl(it) },
+                        onItineraryClicked = onItineraryClicked,
                     )
                 }
                 composable(
@@ -223,7 +225,8 @@ fun MainNavigation(
                         partnerId = it.arguments?.getString("partnerId")!!,
                         onLinkClicked = { launchUrl(it) },
                         onItineraryClicked = onItineraryClicked,
-                        onBackClicked = { navController.popBackStack() }
+                        navigationIcon = { Back { navController.popBackStack() } },
+                        isLandscape = config.orientation == Configuration.ORIENTATION_LANDSCAPE
                     )
                 }
                 composable(Screen.Event.route) {

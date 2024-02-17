@@ -13,14 +13,16 @@ import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
 
 @Composable
-fun SpeakerDetailOrientableVM(
+fun SpeakerDetailVM(
     speakerId: String,
     onTalkClicked: (id: String) -> Unit,
     onLinkClicked: (url: String) -> Unit,
     modifier: Modifier = Modifier,
     navigationIcon: @Composable (AppBarIcons.() -> Unit)? = null,
     isLandscape: Boolean = false,
-    viewModel: SpeakerDetailViewModel = koinViewModel(key = speakerId, parameters = { parametersOf(speakerId) })
+    viewModel: SpeakerDetailViewModel = koinViewModel(
+        key = speakerId,
+        parameters = { parametersOf(speakerId) })
 ) {
     val context = LocalContext.current
     when (val uiState = viewModel.uiState.collectAsState().value) {
