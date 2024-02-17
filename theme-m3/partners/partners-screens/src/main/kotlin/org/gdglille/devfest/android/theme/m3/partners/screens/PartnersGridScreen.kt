@@ -30,6 +30,8 @@ import org.gdglille.devfest.android.theme.m3.style.placeholder
 import org.gdglille.devfest.android.theme.m3.style.toDp
 import org.gdglille.devfest.models.ui.PartnerGroupsUi
 
+const val NbHorizontalPadding = 2
+
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun PartnersGridScreen(
@@ -47,10 +49,10 @@ fun PartnersGridScreen(
         BoxWithConstraints(modifier = Modifier.padding(it)) {
             val minSize = 100.dp
             val mediumSpacing = SpacingTokens.MediumSpacing.toDp()
-            val count = floor((this.maxWidth - mediumSpacing * 2) / minSize).toInt()
+            val widthSize = this.maxWidth - (mediumSpacing * NbHorizontalPadding)
+            val count = floor(widthSize / minSize).toInt()
             LazyVerticalGrid(
                 columns = GridCells.Adaptive(minSize = minSize),
-                horizontalArrangement = Arrangement.spacedBy(mediumSpacing),
                 verticalArrangement = Arrangement.spacedBy(mediumSpacing),
                 contentPadding = PaddingValues(
                     vertical = SpacingTokens.LargeSpacing.toDp(),
@@ -67,6 +69,7 @@ fun PartnersGridScreen(
                             url = it.logoUrl,
                             contentDescription = it.name,
                             modifier = Modifier
+                                .padding(horizontal = SpacingTokens.SmallSpacing.toDp())
                                 .fillMaxWidth()
                                 .aspectRatio(1f)
                                 .placeholder(visible = isLoading),

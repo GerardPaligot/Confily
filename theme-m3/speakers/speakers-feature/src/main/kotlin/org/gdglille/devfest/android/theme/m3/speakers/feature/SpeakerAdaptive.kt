@@ -27,7 +27,7 @@ fun SpeakerAdaptive(
         modifier = modifier,
         listPane = {
             AnimatedPane(Modifier) {
-                SpeakersListCompactVM(
+                SpeakersGridVM(
                     onSpeakerClicked = {
                         selectedItem = it
                         navigator.navigateTo(ListDetailPaneScaffoldRole.Detail)

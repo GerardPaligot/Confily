@@ -11,7 +11,7 @@ import org.gdglille.devfest.android.theme.m3.style.R
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun SpeakersListCompactVM(
+fun SpeakersGridVM(
     onSpeakerClicked: (id: String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: SpeakersListViewModel = koinViewModel()

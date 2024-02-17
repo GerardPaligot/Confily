@@ -29,6 +29,8 @@ import org.gdglille.devfest.android.theme.m3.style.toDp
 import org.gdglille.devfest.models.ui.AgendaUi
 import org.gdglille.devfest.models.ui.TalkItemUi
 
+const val NbHorizontalPadding = 2
+
 @Composable
 fun ScheduleGridScreen(
     agenda: AgendaUi,
@@ -43,13 +45,15 @@ fun ScheduleGridScreen(
     } else {
         BoxWithConstraints {
             val minSize = 260.dp
-            val count = floor(this.maxWidth / minSize).toInt()
+            val mediumSpacing = SpacingTokens.MediumSpacing.toDp()
+            val widthSize = this.maxWidth - (mediumSpacing * NbHorizontalPadding)
+            val count = floor(widthSize / minSize).toInt()
             LazyVerticalGrid(
                 columns = GridCells.Adaptive(minSize = minSize),
                 modifier = modifier,
                 contentPadding = PaddingValues(vertical = SpacingTokens.LargeSpacing.toDp()),
-                verticalArrangement = Arrangement.spacedBy(SpacingTokens.MediumSpacing.toDp()),
-                horizontalArrangement = Arrangement.spacedBy(SpacingTokens.MediumSpacing.toDp())
+                verticalArrangement = Arrangement.spacedBy(mediumSpacing),
+                horizontalArrangement = Arrangement.spacedBy(mediumSpacing)
             ) {
                 agenda.talks.entries.forEach { slot ->
                     item(span = { GridItemSpan(count) }) {
