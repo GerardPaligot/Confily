@@ -22,6 +22,7 @@ import io.ktor.server.request.receive
 import io.ktor.server.response.respond
 import io.ktor.server.routing.route
 import io.ktor.server.routing.routing
+import kotlinx.serialization.json.Json
 import org.gdglille.devfest.backend.categories.CategoryDao
 import org.gdglille.devfest.backend.categories.registerCategoriesRoutes
 import org.gdglille.devfest.backend.events.EventDao
@@ -121,7 +122,9 @@ fun main() {
             anyHost()
         }
         install(ContentNegotiation) {
-            json()
+            json(
+                Json { ignoreUnknownKeys = true }
+            )
         }
         install(ConditionalHeaders)
         install(StatusPages) {
