@@ -45,6 +45,7 @@ import org.gdglille.devfest.backend.speakers.registerSpeakersRoutes
 import org.gdglille.devfest.backend.talks.TalkDao
 import org.gdglille.devfest.backend.talks.registerTalksRoutes
 import org.gdglille.devfest.backend.third.parties.billetweb.registerBilletWebRoutes
+import org.gdglille.devfest.backend.third.parties.cms4partners.registerCms4PartnersRoutes
 import org.gdglille.devfest.backend.third.parties.conferencehall.ConferenceHallApi
 import org.gdglille.devfest.backend.third.parties.conferencehall.registerConferenceHallRoutes
 import org.gdglille.devfest.backend.third.parties.geocode.GeocodeApi
@@ -167,6 +168,7 @@ fun main() {
                 registerPartnersRoutes(geocodeApi, eventDao, partnerDao, jobDao, imageTranscoder)
                 // Third parties
                 registerBilletWebRoutes(eventDao)
+                registerCms4PartnersRoutes(geocodeApi, eventDao, partnerDao, jobDao, imageTranscoder)
                 registerConferenceHallRoutes(
                     conferenceHallApi,
                     eventDao,
