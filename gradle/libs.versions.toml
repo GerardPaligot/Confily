@@ -17,9 +17,13 @@ coil = "2.5.0"
 detekt = "1.23.4"
 font-awesome = "1.1.0"
 google-accompanist = "0.32.0"
-google-cloud-firestore = "3.7.3"
-google-cloud-secretmanager = "2.3.10"
-google-cloud-storage = "2.3.0"
+google-api-client = "2.3.0"
+google-api-services-drive = "v3-rev20220815-2.0.0"
+google-api-services-sheets = "v4-rev20220927-2.0.0"
+google-cloud-firestore = "3.17.1"
+google-cloud-secretmanager = "2.36.0"
+google-cloud-storage = "2.34.0"
+google-oauth-client = "1.35.0"
 google-firebase = "32.2.3"
 google-firebase-crashlytics-gradlePlugin = "2.9.9"
 google-material = "1.11.0"
@@ -93,6 +97,10 @@ google-accompanist-permissions = { group = "com.google.accompanist", name = "acc
 google-cloud-firestore = { group = "com.google.cloud", name = "google-cloud-firestore", version.ref = "google-cloud-firestore" }
 google-cloud-storage = { group = "com.google.cloud", name = "google-cloud-storage", version.ref = "google-cloud-storage" }
 google-cloud-secret = { group = "com.google.cloud", name = "google-cloud-secretmanager", version.ref = "google-cloud-secretmanager" }
+google-api-client = { group = "com.google.api-client", name = "google-api-client", version.ref = "google-api-client" }
+google-auth-client = { group = "com.google.oauth-client", name = "google-oauth-client-jetty", version.ref = "google-oauth-client" }
+google-sheets = { group = "com.google.apis", name = "google-api-services-sheets", version.ref  = "google-api-services-sheets" }
+google-drive = { group = "com.google.apis", name = "google-api-services-drive", version.ref = "google-api-services-drive" }
 google-firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "google-firebase" }
 google-firebase-crashlytics-gradlePlugin = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "google-firebase-crashlytics-gradlePlugin" }
 google-material = { group = "com.google.android.material", name = "material", version.ref = "google-material" }

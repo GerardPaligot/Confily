@@ -7,16 +7,18 @@ import org.gdglille.devfest.backend.NotFoundException
 import org.gdglille.devfest.backend.categories.CategoryDao
 import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.formats.FormatDao
+import org.gdglille.devfest.backend.internals.helpers.drive.GoogleDriveDataSource
 import org.gdglille.devfest.backend.speakers.SpeakerDao
-import org.gdglille.devfest.backend.speakers.convertToModel
 import org.gdglille.devfest.models.inputs.TalkInput
+import org.gdglille.devfest.models.inputs.TalkVerbatimInput
 
 class TalkRepository(
     private val eventDao: EventDao,
     private val speakerDao: SpeakerDao,
     private val talkDao: TalkDao,
     private val categoryDao: CategoryDao,
-    private val formatDao: FormatDao
+    private val formatDao: FormatDao,
+    private val driveDataSource: GoogleDriveDataSource
 ) {
     suspend fun list(eventId: String) = coroutineScope {
         val eventDb = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
@@ -65,4 +67,62 @@ class TalkRepository(
             eventDao.updateAgendaUpdatedAt(event)
             return@coroutineScope talkId
         }
+
+    suspend fun verbatim(eventId: String, verbatim: TalkVerbatimInput) = coroutineScope {
+        val driveId = driveDataSource.findDriveByName(verbatim.driveName)
+            ?: throw NotFoundException("Drive ${verbatim.driveName} doesn't exist")
+        val eventFolderId = driveDataSource.findFolderByName(driveId, null, verbatim.eventFolder)
+            ?: throw NotFoundException("Folder ${verbatim.eventFolder} doesn't exist")
+        val targetFolderId = driveDataSource.findFolderByName(driveId, eventFolderId, verbatim.targetFolder)
+            ?: throw NotFoundException("Folder ${verbatim.targetFolder} doesn't exist")
+        val templateId = driveDataSource.findFileByName(driveId, null, verbatim.templateName)
+            ?: throw NotFoundException("File ${verbatim.templateName} doesn't exist")
+        val talks = talkDao.getAll(eventId)
+        val asyncVerbatims = talks.map { talkDb ->
+            async { verbatimByTalk(eventId, talkDb.id, driveId, targetFolderId, templateId) }
+        }
+        return@coroutineScope asyncVerbatims.awaitAll()
+    }
+
+    suspend fun verbatim(
+        eventId: String,
+        talkId: String,
+        verbatim: TalkVerbatimInput
+    ) = coroutineScope {
+        val driveId = driveDataSource.findDriveByName(verbatim.driveName)
+            ?: throw NotFoundException("Drive ${verbatim.driveName} doesn't exist")
+        val eventFolderId = driveDataSource.findFolderByName(driveId, null, verbatim.eventFolder)
+            ?: throw NotFoundException("Folder ${verbatim.eventFolder} doesn't exist")
+        val targetFolderId = driveDataSource.findFolderByName(driveId, eventFolderId, verbatim.targetFolder)
+            ?: throw NotFoundException("Folder ${verbatim.targetFolder} doesn't exist")
+        val templateId = driveDataSource.findFileByName(driveId, null, verbatim.templateName)
+            ?: throw NotFoundException("File ${verbatim.templateName} doesn't exist")
+        return@coroutineScope verbatimByTalk(eventId, talkId, driveId, targetFolderId, templateId)
+    }
+
+    private suspend fun verbatimByTalk(
+        eventId: String,
+        talkId: String,
+        driveId: String,
+        targetFolderId: String,
+        templateId: String
+    ) = coroutineScope {
+        val talkDb = talkDao.get(eventId, talkId)
+            ?: throw NotFoundException("Talk $talkId doesn't exist")
+        val emailSpeakers = speakerDao.getByIds(eventId, talkDb.speakerIds)
+            .filter { it.email != null }
+            .map { it.email!! }
+        if (emailSpeakers.isEmpty()) {
+            throw NotFoundException("No speakers in talk $talkId")
+        }
+        val sheetName = "Verbatims ${talkDb.title}"
+        val sheetId = driveDataSource.findFileByName(driveId, targetFolderId, sheetName)
+        if (sheetId != null) {
+            return@coroutineScope sheetId
+        }
+        val fileId = driveDataSource.copyFile(driveId, templateId, sheetName)
+        driveDataSource.moveFile(driveId, fileId, targetFolderId)
+        emailSpeakers.forEach { driveDataSource.grantPermission(fileId = fileId, email = it) }
+        return@coroutineScope fileId
+    }
 }

@@ -10,18 +10,29 @@ import io.ktor.server.routing.put
 import org.gdglille.devfest.backend.categories.CategoryDao
 import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.formats.FormatDao
+import org.gdglille.devfest.backend.internals.helpers.drive.GoogleDriveDataSource
 import org.gdglille.devfest.backend.receiveValidated
 import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.models.inputs.TalkInput
+import org.gdglille.devfest.models.inputs.TalkVerbatimInput
 
+@Suppress("LongParameterList")
 fun Route.registerTalksRoutes(
     eventDao: EventDao,
     speakerDao: SpeakerDao,
     talkDao: TalkDao,
     categoryDao: CategoryDao,
-    formatDao: FormatDao
+    formatDao: FormatDao,
+    driveDataSource: GoogleDriveDataSource
 ) {
-    val repository = TalkRepository(eventDao, speakerDao, talkDao, categoryDao, formatDao)
+    val repository = TalkRepository(
+        eventDao,
+        speakerDao,
+        talkDao,
+        categoryDao,
+        formatDao,
+        driveDataSource
+    )
 
     get("/talks") {
         val eventId = call.parameters["eventId"]!!
@@ -38,11 +49,26 @@ fun Route.registerTalksRoutes(
         val talkInput = call.receiveValidated<TalkInput>()
         call.respond(HttpStatusCode.Created, repository.create(eventId, apiKey, talkInput))
     }
+    post("talks/verbatim") {
+        val eventId = call.parameters["eventId"]!!
+        val verbatim = call.receiveValidated<TalkVerbatimInput>()
+        val verbatims = repository.verbatim(eventId, verbatim)
+        call.respond(
+            status = if (verbatims.isEmpty()) HttpStatusCode.NoContent else HttpStatusCode.Created,
+            message = verbatims
+        )
+    }
     put("/talks/{id}") {
         val eventId = call.parameters["eventId"]!!
         val apiKey = call.request.headers["api_key"]!!
         val talkId = call.parameters["id"]!!
         val talkInput = call.receiveValidated<TalkInput>()
         call.respond(HttpStatusCode.OK, repository.update(eventId, apiKey, talkId, talkInput))
+    }
+    post("talks/{id}/verbatim") {
+        val eventId = call.parameters["eventId"]!!
+        val talkId = call.parameters["id"]!!
+        val verbatim = call.receiveValidated<TalkVerbatimInput>()
+        call.respond(HttpStatusCode.Created, repository.verbatim(eventId, talkId, verbatim))
     }
 }
