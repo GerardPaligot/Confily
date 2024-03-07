@@ -11,7 +11,7 @@ repositories {
 dependencies {
     implementation(gradleApi())
     implementation(libs.android.gradlePlugin)
-    implementation(libs.kotlin.gradlePlugin)
+    implementation(libs.jetbrains.kotlin.gradlePlugin)
     implementation(libs.ktlint.gradlePlugin)
     implementation(libs.detekt.gradlePlugin)
 }

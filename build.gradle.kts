@@ -5,10 +5,10 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath(libs.kotlin.gradlePlugin)
-        classpath(libs.kotlin.serialization)
-        classpath(libs.kmp.native.coroutines)
-        classpath(libs.sqldelight.gradlePlugin)
+        classpath(libs.jetbrains.kotlin.gradlePlugin)
+        classpath(libs.jetbrains.kotlin.serialization.gradlePlugin)
+        classpath(libs.kmp.nativecoroutines.gradlePlugin)
+        classpath(libs.cash.sqldelight.gradlePlugin)
         classpath(libs.google.services.gradlePlugin)
         classpath(libs.google.firebase.crashlytics.gradlePlugin)
         classpath(libs.android.gradlePlugin)

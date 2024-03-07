@@ -79,7 +79,7 @@ dependencies {
     implementation(projects.shared.coreDi)
     implementation(libs.settings)
 
-    implementation(libs.android.material)
+    implementation(libs.google.material)
 
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.browser)
@@ -87,8 +87,8 @@ dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.material3.windowsizeclass)
     implementation(libs.androidx.compose.ui)
-    implementation(libs.androidx.compose.activity)
-    implementation(libs.androidx.compose.navigation)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.profile)
     implementation(libs.androidx.workmanager.ktx)
 

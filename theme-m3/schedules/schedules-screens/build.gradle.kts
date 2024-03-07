@@ -16,7 +16,7 @@ dependencies {
     implementation(projects.themeM3.style.speakers)
     implementation(projects.themeM3.style.theme)
 
-    implementation(libs.kotlinx.collections)
+    implementation(libs.jetbrains.kotlinx.collections)
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.material3)

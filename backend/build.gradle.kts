@@ -8,8 +8,8 @@ plugins {
 
 dependencies {
     implementation(projects.shared.models)
-    implementation(libs.kotlinx.coroutines)
-    implementation(libs.kotlinx.datetime)
+    implementation(libs.jetbrains.kotlinx.coroutines)
+    implementation(libs.jetbrains.kotlinx.datetime)
 
     implementation(libs.ktor.server.core)
     implementation(libs.ktor.server.netty)
@@ -27,8 +27,8 @@ dependencies {
 
     implementation(libs.ktor.serialization.json)
 
-    implementation(libs.apache.batik.transcoder)
-    implementation(libs.apache.batik.codec)
+    implementation(libs.apache.xmlgraphics.batik.transcoder)
+    implementation(libs.apache.xmlgraphics.batik.codec)
 
     implementation(libs.logback)
 

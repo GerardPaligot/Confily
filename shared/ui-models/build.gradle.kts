@@ -23,7 +23,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(libs.kotlinx.collections)
+                implementation(libs.jetbrains.kotlinx.collections)
             }
         }
         val androidMain by getting

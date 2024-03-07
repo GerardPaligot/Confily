@@ -1,55 +1,114 @@
 [versions]
-kotlin = "1.9.22"
-kotlinxCoroutines = "1.7.3"
-kotlinxDatetime = "0.5.0"
-kotlinxCollection = "0.3.6"
-kmpNativeCoroutines = "0.13.3"
-ktor = "2.3.3"
-koin = "3.5.3"
-accompanist = "0.32.0"
-androidGradlePlugin = "8.2.1"
-androidMaterial = "1.11.0"
-androidxAnnotation = "1.7.1"
-androidxAppcompat = "1.6.1"
-androidxLifecycleVM = "2.7.0"
-androidxBrowser = "1.7.0"
-androidxCamera = "1.3.1"
-androidxProfile = "1.3.1"
-androidxWorkManager = "2.9.0"
-composeBom = "2024.01.00"
-composeCompiler = "1.5.8"
-composeActivity = "1.8.2"
-composeNavigation = "2.7.6"
-composeFont = "1.0.0"
-composeRichText = "0.11.0"
-composeOpenfeedback = "1.0.0-SNAPSHOT"
-gcpFirestore = "3.7.3"
-gcpStorage = "2.3.0"
-gcpSecret = "2.3.10"
-googleServices = "4.3.15"
+android-gradlePlugin = "8.2.2"
+androidx-activity-compose = "1.8.2"
+androidx-annotation = "1.7.1"
+androidx-appcompat = "1.6.1"
+androidx-browser = "1.8.0"
+androidx-camera = "1.3.2"
+androidx-compose-bom = "2024.02.01"
+androidx-compose-compiler = "1.5.8"
+androidx-lifecycle = "2.7.0"
+androidx-navigation-compose = "2.7.6"
+androidx-profile = "1.3.1"
+androidx-work = "2.9.0"
+apache-xmlgraphics-batik = "1.17"
+cash-sqldelight = "2.0.1"
 coil = "2.5.0"
-barcode = "17.2.0"
 detekt = "1.23.4"
+font-awesome = "1.0.0"
+google-accompanist = "0.32.0"
+google-cloud-firestore = "3.7.3"
+google-cloud-secretmanager = "2.3.10"
+google-cloud-storage = "2.3.0"
+google-firebase = "32.2.3"
+google-firebase-crashlytics-gradlePlugin = "2.9.9"
+google-material = "1.11.0"
+google-mlkit-barcode-scanning = "17.2.0"
+google-services = "4.3.15"
+google-zxing = "3.5.1"
+jetbrains-kotlin = "1.9.22"
+jetbrains-kotlinx-collections = "0.3.6"
+jetbrains-kotlinx-coroutines = "1.7.3"
+jetbrains-kotlinx-datetime = "0.5.0"
+kmp-nativecoroutines-gradlePlugin = "0.13.3"
+koin = "3.5.3"
 ktlint = "11.5.1"
-composeLinter = "1.1.1"
+ktor = "2.3.3"
 logback = "1.3.5"
-firebase = "32.2.3"
-firebaseCrashlytics = "2.9.9"
-sqldelight = "2.0.1"
-okio = "3.7.0"
-apacheBatik = "1.17"
+openfeedback = "1.0.0-SNAPSHOT"
+richtext-commonmark = "0.11.0"
+squareup-okio = "3.7.0"
 settings = "0.8.1"
-zxing = "3.5.1"
-zxingAndroid = "4.3.0"
+slack-compose-lint-checks = "1.1.1"
+zxing-android-embedded = "4.3.0"
 
 [libraries]
-kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
-kotlin-serialization = { group = "org.jetbrains.kotlin", name = "kotlin-serialization", version.ref = "kotlin" }
-kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDatetime" }
-kotlinx-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
-kotlinx-collections = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version.ref = "kotlinxCollection" }
+android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "android-gradlePlugin" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidx-activity-compose" }
+androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "androidx-annotation" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidx-appcompat" }
+androidx-browser = { group = "androidx.browser", name = "browser", version.ref = "androidx-browser" }
+androidx-camera-camera2 = { group = "androidx.camera", name = "camera-camera2", version.ref = "androidx-camera" }
+androidx-camera-lifecycle = { group = "androidx.camera", name = "camera-lifecycle", version.ref = "androidx-camera" }
+androidx-camera-view = { group = "androidx.camera", name = "camera-view", version.ref = "androidx-camera" }
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidx-compose-bom" }
+androidx-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout" }
+androidx-compose-icons = { group = "androidx.compose.material", name = "material-icons-extended" }
+androidx-compose-lifecycle = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose" }
+androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-compose-material3-windowsizeclass = { group = "androidx.compose.material3", name = "material3-window-size-class" }
+androidx-compose-material3-adaptive = { group = "androidx.compose.material3", name = "material3-adaptive", version = "1.0.0-alpha04" }
+androidx-compose-material3-adaptive-navigation-suite = { group = "androidx.compose.material3", name = "material3-adaptive-navigation-suite", version = "1.0.0-alpha02" }
+androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime-livedata" }
+androidx-compose-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle" }
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidx-navigation-compose" }
+androidx-profile = { group = "androidx.profileinstaller", name = "profileinstaller", version.ref = "androidx-profile" }
+androidx-workmanager-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "androidx-work" }
 
-kmp-native-coroutines = { group = "com.rickclephas.kmp", name = "kmp-nativecoroutines-gradle-plugin", version.ref = "kmpNativeCoroutines" }
+apache-xmlgraphics-batik-transcoder = { group = "org.apache.xmlgraphics", name = "batik-transcoder", version.ref = "apache-xmlgraphics-batik" }
+apache-xmlgraphics-batik-codec = { group = "org.apache.xmlgraphics", name = "batik-codec", version.ref = "apache-xmlgraphics-batik" }
+
+cash-sqldelight-android = { group = "app.cash.sqldelight", name = "android-driver", version.ref = "cash-sqldelight" }
+cash-sqldelight-coroutines = { group = "app.cash.sqldelight", name = "coroutines-extensions", version.ref = "cash-sqldelight" }
+cash-sqldelight-gradlePlugin = { group = "app.cash.sqldelight", name = "gradle-plugin", version.ref = "cash-sqldelight" }
+cash-sqldelight-native = { group = "app.cash.sqldelight", name = "native-driver", version.ref = "cash-sqldelight" }
+cash-sqldelight-runtime = { group = "app.cash.sqldelight", name = "runtime", version.ref = "cash-sqldelight" }
+
+coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
+coil-svg = { group = "io.coil-kt", name = "coil-svg", version.ref = "coil" }
+
+compose-linter = { group = "com.slack.lint.compose", name = "compose-lint-checks", version.ref = "slack-compose-lint-checks" }
+
+detekt-gradlePlugin = { group = "io.gitlab.arturbosch.detekt", name = "detekt-gradle-plugin", version.ref = "detekt" }
+
+font-awesome = { group = "br.com.devsrsouza.compose.icons.android", name = "font-awesome", version.ref = "font-awesome" }
+
+jetbrains-kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "jetbrains-kotlin" }
+jetbrains-kotlin-serialization-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-serialization", version.ref = "jetbrains-kotlin" }
+jetbrains-kotlinx-collections = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version.ref = "jetbrains-kotlinx-collections" }
+jetbrains-kotlinx-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "jetbrains-kotlinx-coroutines" }
+jetbrains-kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "jetbrains-kotlinx-datetime" }
+
+google-accompanist-placeholder = { group = "com.google.accompanist", name = "accompanist-placeholder-material", version.ref = "google-accompanist" }
+google-accompanist-permissions = { group = "com.google.accompanist", name = "accompanist-permissions", version.ref = "google-accompanist" }
+google-cloud-firestore = { group = "com.google.cloud", name = "google-cloud-firestore", version.ref = "google-cloud-firestore" }
+google-cloud-storage = { group = "com.google.cloud", name = "google-cloud-storage", version.ref = "google-cloud-storage" }
+google-cloud-secret = { group = "com.google.cloud", name = "google-cloud-secretmanager", version.ref = "google-cloud-secretmanager" }
+google-firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "google-firebase" }
+google-firebase-crashlytics-gradlePlugin = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "google-firebase-crashlytics-gradlePlugin" }
+google-material = { group = "com.google.android.material", name = "material", version.ref = "google-material" }
+google-mlkit-barcode-scanning = { group = "com.google.mlkit", name = "barcode-scanning", version.ref = "google-mlkit-barcode-scanning" }
+google-services-gradlePlugin = { group = "com.google.gms", name = "google-services", version.ref = "google-services" }
+google-zxing = { group = "com.google.zxing", name = "core", version.ref = "google-zxing" }
+
+kmp-nativecoroutines-gradlePlugin = { group = "com.rickclephas.kmp", name = "kmp-nativecoroutines-gradle-plugin", version.ref = "kmp-nativecoroutines-gradlePlugin" }
+
+koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
+koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
+koin-androidx-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin" }
+koin-androidx-workmanager = { group = "io.insert-koin", name = "koin-androidx-workmanager", version.ref = "koin" }
 
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
 ktor-client-json = { group = "io.ktor", name = "ktor-client-json", version.ref = "ktor" }
@@ -69,74 +128,16 @@ ktor-server-conditional = { group = "io.ktor", name = "ktor-server-conditional-h
 
 ktor-serialization-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
 
-koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
-koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
-koin-androidx-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin" }
-koin-androidx-workmanager = { group = "io.insert-koin", name = "koin-androidx-workmanager", version.ref = "koin" }
-
-android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
-android-material = { group = "com.google.android.material", name = "material", version.ref = "androidMaterial" }
-
-androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "androidxAnnotation" }
-androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppcompat" }
-androidx-lifecycle-vm = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "androidxLifecycleVM" }
-androidx-browser = { group = "androidx.browser", name = "browser", version.ref = "androidxBrowser" }
-androidx-camera-camera2 = { group = "androidx.camera", name = "camera-camera2", version.ref = "androidxCamera" }
-androidx-camera-lifecycle = { group = "androidx.camera", name = "camera-lifecycle", version.ref = "androidxCamera" }
-androidx-camera-view = { group = "androidx.camera", name = "camera-view", version.ref = "androidxCamera" }
-androidx-profile = { group = "androidx.profileinstaller", name = "profileinstaller", version.ref = "androidxProfile" }
-androidx-workmanager-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "androidxWorkManager" }
-androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
-androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
-androidx-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout" }
-androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
-androidx-compose-material3-windowsizeclass = { group = "androidx.compose.material3", name = "material3-window-size-class" }
-androidx-compose-material3-adaptive = { group = "androidx.compose.material3", name = "material3-adaptive", version = "1.0.0-alpha04" }
-androidx-compose-material3-adaptive-navigation-suite = { group = "androidx.compose.material3", name = "material3-adaptive-navigation-suite", version = "1.0.0-alpha02" }
-androidx-compose-icons = { group = "androidx.compose.material", name = "material-icons-extended" }
-androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime-livedata" }
-androidx-compose-lifecycle = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose" }
-androidx-compose-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
-androidx-compose-activity = { group = "androidx.activity", name = "activity-compose", version.ref = "composeActivity" }
-androidx-compose-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "composeNavigation" }
-compose-awesome-font = { group = "br.com.devsrsouza.compose.icons.android", name = "font-awesome", version.ref = "composeFont" }
-compose-richtext = { group = "com.halilibo.compose-richtext", name = "richtext-commonmark", version.ref = "composeRichText" }
-compose-openfeedback-m3 = { group = "io.openfeedback", name = "feedback-android-sdk-m3", version.ref = "composeOpenfeedback" }
-
-accompanist-placeholder = { group = "com.google.accompanist", name = "accompanist-placeholder-material", version.ref = "accompanist" }
-accompanist-permissions = { group = "com.google.accompanist", name = "accompanist-permissions", version.ref = "accompanist" }
-
-coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
-coil-svg = { group = "io.coil-kt", name = "coil-svg", version.ref = "coil" }
-
-detekt-gradlePlugin = { group = "io.gitlab.arturbosch.detekt", name = "detekt-gradle-plugin", version.ref = "detekt" }
 ktlint-gradlePlugin = { group = "org.jlleitschuh.gradle", name = "ktlint-gradle", version.ref = "ktlint" }
-compose-linter = { group = "com.slack.lint.compose", name = "compose-lint-checks", version.ref = "composeLinter" }
-
-google-cloud-firestore = { group = "com.google.cloud", name = "google-cloud-firestore", version.ref = "gcpFirestore" }
-google-cloud-storage = { group = "com.google.cloud", name = "google-cloud-storage", version.ref = "gcpStorage" }
-google-cloud-secret = { group = "com.google.cloud", name = "google-cloud-secretmanager", version.ref = "gcpSecret" }
-
-google-services-gradlePlugin = { group = "com.google.gms", name = "google-services", version.ref = "googleServices" }
-google-barcode = { group = "com.google.mlkit", name = "barcode-scanning", version.ref = "barcode" }
-google-firebase = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase" }
-google-firebase-crashlytics-gradlePlugin = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "firebaseCrashlytics" }
 
 logback = { group = "ch.qos.logback", name = "logback-classic", version.ref = "logback" }
 
-sqldelight-gradlePlugin = { group = "app.cash.sqldelight", name = "gradle-plugin", version.ref = "sqldelight" }
-sqldelight-runtime = { group = "app.cash.sqldelight", name = "runtime", version.ref = "sqldelight" }
-sqldelight-coroutines = { group = "app.cash.sqldelight", name = "coroutines-extensions", version.ref = "sqldelight" }
-sqldelight-android = { group = "app.cash.sqldelight", name = "android-driver", version.ref = "sqldelight" }
-sqldelight-native = { group = "app.cash.sqldelight", name = "native-driver", version.ref = "sqldelight" }
+openfeedback-m3 = { group = "io.openfeedback", name = "feedback-android-sdk-m3", version.ref = "openfeedback" }
 
-okio = { group = "com.squareup.okio", name = "okio", version.ref = "okio" }
-
-apache-batik-transcoder = { group = "org.apache.xmlgraphics", name = "batik-transcoder", version.ref = "apacheBatik" }
-apache-batik-codec = { group = "org.apache.xmlgraphics", name = "batik-codec", version.ref = "apacheBatik" }
+richtext-commonmark = { group = "com.halilibo.compose-richtext", name = "richtext-commonmark", version.ref = "richtext-commonmark" }
 
 settings = { group = "com.russhwolf", name = "multiplatform-settings", version.ref = "settings" }
 settings-coroutines = { group = "com.russhwolf", name = "multiplatform-settings-coroutines-native-mt", version.ref = "settings" }
+squareup-okio = { group = "com.squareup.okio", name = "okio", version.ref = "squareup-okio" }
 
-zxing = { group = "com.google.zxing", name = "core", version.ref = "zxing" }
-zxing-android = { group = "com.journeyapps", name = "zxing-android-embedded", version.ref = "zxingAndroid" }
+zxing-android-embedded = { group = "com.journeyapps", name = "zxing-android-embedded", version.ref = "zxing-android-embedded" }

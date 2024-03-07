@@ -16,5 +16,5 @@ dependencies {
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.tooling)
 
-    implementation(libs.kotlinx.collections)
+    implementation(libs.jetbrains.kotlinx.collections)
 }

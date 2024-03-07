@@ -24,7 +24,7 @@ kotlin {
             dependencies {
                 implementation(libs.ktor.client.serialization)
                 implementation(libs.ktor.serialization.json)
-                implementation(libs.kotlinx.datetime)
+                implementation(libs.jetbrains.kotlinx.datetime)
             }
         }
         val androidMain by getting

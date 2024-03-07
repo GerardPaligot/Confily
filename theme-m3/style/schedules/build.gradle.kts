@@ -17,5 +17,5 @@ dependencies {
     implementation(libs.androidx.compose.tooling)
     implementation(libs.androidx.compose.icons)
 
-    implementation(libs.kotlinx.collections)
+    implementation(libs.jetbrains.kotlinx.collections)
 }

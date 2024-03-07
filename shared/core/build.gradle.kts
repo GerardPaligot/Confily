@@ -38,7 +38,7 @@ kotlin {
             dependencies {
                 api(projects.shared.models)
                 api(projects.shared.uiModels)
-                implementation(libs.kotlinx.coroutines)
+                implementation(libs.jetbrains.kotlinx.coroutines)
 
                 implementation(libs.ktor.client.core)
                 implementation(libs.ktor.client.json)
@@ -47,12 +47,12 @@ kotlin {
                 implementation(libs.ktor.client.negotiation)
                 implementation(libs.ktor.serialization.json)
 
-                implementation(libs.kotlinx.datetime)
-                implementation(libs.kotlinx.collections)
+                implementation(libs.jetbrains.kotlinx.datetime)
+                implementation(libs.jetbrains.kotlinx.collections)
 
-                implementation(libs.sqldelight.runtime)
-                implementation(libs.sqldelight.coroutines)
-                implementation(libs.okio)
+                implementation(libs.cash.sqldelight.runtime)
+                implementation(libs.cash.sqldelight.coroutines)
+                implementation(libs.squareup.okio)
 
                 api(libs.settings)
                 implementation(libs.settings.coroutines)
@@ -68,9 +68,9 @@ kotlin {
             dependencies {
                 implementation(projects.themeM3.style.theme)
                 implementation(libs.ktor.client.android)
-                implementation(libs.sqldelight.android)
-                implementation(libs.zxing)
-                implementation(libs.zxing.android)
+                implementation(libs.cash.sqldelight.android)
+                implementation(libs.google.zxing)
+                implementation(libs.zxing.android.embedded)
             }
         }
         val androidUnitTest by getting {
@@ -90,7 +90,7 @@ kotlin {
                 iosSimulatorArm64Main.dependsOn(this)
                 dependencies {
                     implementation(libs.ktor.client.ios)
-                    implementation(libs.sqldelight.native)
+                    implementation(libs.cash.sqldelight.native)
                 }
             }
             val iosX64Test by getting

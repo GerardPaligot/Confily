@@ -14,11 +14,11 @@ dependencies {
     implementation(libs.androidx.compose.tooling)
     implementation(libs.androidx.compose.icons)
 
-    implementation(libs.accompanist.permissions)
-    implementation(libs.accompanist.placeholder)
+    implementation(libs.google.accompanist.permissions)
+    implementation(libs.google.accompanist.placeholder)
 
-    implementation(libs.kotlinx.collections)
+    implementation(libs.jetbrains.kotlinx.collections)
 
-    implementation(libs.compose.awesome.font)
-    implementation(libs.compose.richtext)
+    implementation(libs.font.awesome)
+    implementation(libs.richtext.commonmark)
 }

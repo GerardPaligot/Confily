@@ -18,5 +18,5 @@ dependencies {
 
     implementation(libs.coil.compose)
 
-    implementation(libs.kotlinx.collections)
+    implementation(libs.jetbrains.kotlinx.collections)
 }

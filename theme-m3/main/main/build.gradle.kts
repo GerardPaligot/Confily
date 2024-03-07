@@ -32,10 +32,10 @@ dependencies {
     implementation(libs.androidx.compose.tooling)
     implementation(libs.androidx.compose.lifecycle)
     implementation(libs.androidx.compose.runtime)
-    implementation(libs.androidx.compose.navigation)
+    implementation(libs.androidx.navigation.compose)
 
-    implementation(libs.kotlinx.collections)
+    implementation(libs.jetbrains.kotlinx.collections)
 
-    implementation(platform(libs.google.firebase))
+    implementation(platform(libs.google.firebase.bom))
     implementation("com.google.firebase:firebase-crashlytics-ktx")
 }
