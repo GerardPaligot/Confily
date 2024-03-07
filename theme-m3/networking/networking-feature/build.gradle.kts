@@ -20,11 +20,11 @@ dependencies {
 
     implementation(libs.jetbrains.kotlinx.collections)
 
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.compose.tooling)
-    implementation(libs.androidx.compose.lifecycle)
-    implementation(libs.androidx.lifecycle.viewmodel)
+    implementation(compose.material3)
+    implementation(compose.preview)
+    debugImplementation(compose.uiTooling)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
     implementation(platform(libs.google.firebase.bom))
     implementation("com.google.firebase:firebase-crashlytics-ktx")

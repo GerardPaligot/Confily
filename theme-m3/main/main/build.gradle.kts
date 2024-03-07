@@ -25,13 +25,14 @@ dependencies {
     implementation(libs.koin.androidx.compose)
 
     implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.material3.windowsizeclass)
     implementation(libs.androidx.compose.material3.adaptive)
     implementation(libs.androidx.compose.material3.adaptive.navigation.suite)
-    implementation(libs.androidx.compose.tooling)
-    implementation(libs.androidx.compose.lifecycle)
-    implementation(libs.androidx.compose.runtime)
+    implementation(libs.androidx.compose.runtime.livedata)
+    implementation(compose.preview)
+    implementation(compose.material3)
+    debugImplementation(compose.uiTooling)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.navigation.compose)
 
     implementation(libs.jetbrains.kotlinx.collections)

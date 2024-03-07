@@ -1,6 +1,5 @@
 
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
-import extensions.configureAndroidCompose
 import extensions.configureDesugaring
 import extensions.configureKotlinAndroid
 import org.gradle.api.Plugin
@@ -16,6 +15,7 @@ class AndroidApplicationPlugin: Plugin<Project> {
             with(pluginManager) {
                 apply("com.android.application")
                 apply("org.jetbrains.kotlin.android")
+                apply("org.jetbrains.compose")
                 apply("kotlin-parcelize")
                 apply("com.google.gms.google-services")
                 apply("com.google.firebase.crashlytics")
@@ -23,7 +23,6 @@ class AndroidApplicationPlugin: Plugin<Project> {
             extensions.configure<BaseAppModuleExtension> {
                 configureKotlinAndroid(this)
                 configureDesugaring(this)
-                configureAndroidCompose(this)
                 defaultConfig.targetSdk = 34
             }
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")

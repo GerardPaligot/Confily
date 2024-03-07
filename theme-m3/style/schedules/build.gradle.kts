@@ -12,10 +12,10 @@ dependencies {
     implementation(projects.themeM3.style.speakers)
     implementation(projects.themeM3.style.theme)
 
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.compose.tooling)
-    implementation(libs.androidx.compose.icons)
+    implementation(compose.material3)
+    implementation(compose.preview)
+    debugImplementation(compose.uiTooling)
+    implementation(compose.materialIconsExtended)
 
     implementation(libs.jetbrains.kotlinx.collections)
 }

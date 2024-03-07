@@ -9,9 +9,8 @@ android {
 }
 
 dependencies {
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.compose.ui)
-    implementation(libs.androidx.compose.foundation.layout)
+    implementation(compose.ui)
+    implementation(compose.foundation)
 
     api(libs.google.mlkit.barcode.scanning)
     implementation(libs.androidx.camera.camera2)

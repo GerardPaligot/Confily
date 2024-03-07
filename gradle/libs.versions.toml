@@ -26,6 +26,7 @@ google-material = "1.11.0"
 google-mlkit-barcode-scanning = "17.2.0"
 google-services = "4.3.15"
 google-zxing = "3.5.1"
+jetbrains-compose = "1.6.0"
 jetbrains-kotlin = "1.9.22"
 jetbrains-kotlinx-collections = "0.3.6"
 jetbrains-kotlinx-coroutines = "1.7.3"
@@ -52,17 +53,12 @@ androidx-camera-camera2 = { group = "androidx.camera", name = "camera-camera2", 
 androidx-camera-lifecycle = { group = "androidx.camera", name = "camera-lifecycle", version.ref = "androidx-camera" }
 androidx-camera-view = { group = "androidx.camera", name = "camera-view", version.ref = "androidx-camera" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidx-compose-bom" }
-androidx-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout" }
-androidx-compose-icons = { group = "androidx.compose.material", name = "material-icons-extended" }
-androidx-compose-lifecycle = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose" }
-androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-compose-material3-windowsizeclass = { group = "androidx.compose.material3", name = "material3-window-size-class" }
 androidx-compose-material3-adaptive = { group = "androidx.compose.material3", name = "material3-adaptive", version = "1.0.0-alpha04" }
 androidx-compose-material3-adaptive-navigation-suite = { group = "androidx.compose.material3", name = "material3-adaptive-navigation-suite", version = "1.0.0-alpha02" }
-androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime-livedata" }
-androidx-compose-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
-androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
-androidx-lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle" }
+androidx-compose-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata" }
+androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidx-navigation-compose" }
 androidx-profile = { group = "androidx.profileinstaller", name = "profileinstaller", version.ref = "androidx-profile" }
 androidx-workmanager-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "androidx-work" }
@@ -85,6 +81,7 @@ detekt-gradlePlugin = { group = "io.gitlab.arturbosch.detekt", name = "detekt-gr
 
 font-awesome = { group = "br.com.devsrsouza.compose.icons.android", name = "font-awesome", version.ref = "font-awesome" }
 
+jetbrains-compose-gradlePlugin = { group = "org.jetbrains.compose", name = "compose-gradle-plugin", version.ref = "jetbrains-compose" }
 jetbrains-kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "jetbrains-kotlin" }
 jetbrains-kotlin-serialization-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-serialization", version.ref = "jetbrains-kotlin" }
 jetbrains-kotlinx-collections = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version.ref = "jetbrains-kotlinx-collections" }

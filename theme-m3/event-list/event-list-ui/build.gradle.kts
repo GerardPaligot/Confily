@@ -12,9 +12,9 @@ dependencies {
     implementation(projects.shared.uiModels)
     implementation(projects.themeM3.style.theme)
 
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.compose.tooling)
+    implementation(compose.material3)
+    implementation(compose.preview)
+    debugImplementation(compose.uiTooling)
 
     implementation(libs.jetbrains.kotlinx.collections)
 }

@@ -17,7 +17,7 @@ dependencies {
 
     implementation(libs.jetbrains.kotlinx.collections)
 
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.compose.tooling)
+    implementation(compose.material3)
+    implementation(compose.preview)
+    debugImplementation(compose.uiTooling)
 }
