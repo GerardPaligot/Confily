@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.style.socials
+package org.gdglille.devfest.android.theme.m3.style.events.socials
 
 import org.gdglille.devfest.android.theme.m3.style.ColorSchemeTokens
 import org.gdglille.devfest.android.theme.m3.style.SpacingTokens

@@ -20,7 +20,7 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.gdglille.devfest.android.theme.m3.style.cards.AddressCard
+import org.gdglille.devfest.android.theme.m3.style.events.cards.AddressCard
 import org.gdglille.devfest.android.theme.m3.partners.ui.partners.PartnerDetailSectionVertical
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.R

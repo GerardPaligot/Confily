@@ -17,6 +17,4 @@ dependencies {
     implementation(libs.google.accompanist.placeholder)
 
     implementation(libs.jetbrains.kotlinx.collections)
-
-    implementation(libs.font.awesome)
 }

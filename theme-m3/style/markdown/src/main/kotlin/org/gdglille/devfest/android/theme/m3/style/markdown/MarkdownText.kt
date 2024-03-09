@@ -9,7 +9,6 @@ import com.halilibo.richtext.ui.RichText
 import com.halilibo.richtext.ui.RichTextThemeIntegration
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.previews.ThemedPreviews
-import org.gdglille.devfest.android.theme.m3.style.socials.SocialsSectionDefaults
 
 @Composable
 fun MarkdownText(

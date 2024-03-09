@@ -5,14 +5,10 @@ plugins {
 }
 
 android {
-    namespace = "org.gdglille.devfest.android.theme.m3.speakers.ui"
+    namespace = "org.gdglille.devfest.android.theme.m3.style.events"
 }
 
 dependencies {
-    implementation(projects.shared.uiModels)
-    implementation(projects.themeM3.style.events)
-    implementation(projects.themeM3.style.markdown)
-    implementation(projects.themeM3.style.speakers)
     implementation(projects.themeM3.style.theme)
 
     implementation(compose.material3)
@@ -20,7 +16,7 @@ dependencies {
     debugImplementation(compose.uiTooling)
     implementation(compose.materialIconsExtended)
 
-    implementation(libs.coil.compose)
-
     implementation(libs.jetbrains.kotlinx.collections)
+
+    implementation(libs.font.awesome)
 }

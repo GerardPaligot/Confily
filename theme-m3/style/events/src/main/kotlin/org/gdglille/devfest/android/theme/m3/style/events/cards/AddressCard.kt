@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.style.cards
+package org.gdglille.devfest.android.theme.m3.style.events.cards
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row

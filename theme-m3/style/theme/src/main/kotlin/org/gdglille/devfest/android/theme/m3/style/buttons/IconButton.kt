@@ -1,6 +1,8 @@
 package org.gdglille.devfest.android.theme.m3.style.buttons
 
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
@@ -12,9 +14,6 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import compose.icons.FontAwesomeIcons
-import compose.icons.fontawesomeicons.Brands
-import compose.icons.fontawesomeicons.brands.Twitter
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 
 @Composable
@@ -51,7 +50,7 @@ fun IconButton(
 private fun IconButtonPreview() {
     Conferences4HallTheme {
         IconButton(
-            imageVector = FontAwesomeIcons.Brands.Twitter,
+            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
             contentDescription = null,
             onClick = {}
         )

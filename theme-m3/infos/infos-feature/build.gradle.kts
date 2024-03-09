@@ -12,6 +12,7 @@ dependencies {
     implementation(projects.shared.core)
     implementation(projects.themeM3.infos.infosUi)
     implementation(projects.themeM3.navigation)
+    implementation(projects.themeM3.style.events)
     implementation(projects.themeM3.style.permissions)
     implementation(projects.themeM3.style.theme)
 
