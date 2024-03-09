@@ -14,7 +14,7 @@ import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.events.socials.SocialsSection
 import org.gdglille.devfest.android.theme.m3.style.markdown.MarkdownText
 import org.gdglille.devfest.android.theme.m3.style.partners.items.PartnerItem
-import org.gdglille.devfest.android.theme.m3.style.placeholder
+import org.gdglille.devfest.android.theme.m3.style.placeholder.placeholder
 import org.gdglille.devfest.android.theme.m3.style.previews.ThemedPreviews
 import org.gdglille.devfest.models.ui.PartnerItemUi
 

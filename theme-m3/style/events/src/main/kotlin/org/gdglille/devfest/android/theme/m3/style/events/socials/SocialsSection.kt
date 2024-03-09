@@ -14,7 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
-import org.gdglille.devfest.android.theme.m3.style.placeholder
+import org.gdglille.devfest.android.theme.m3.style.placeholder.placeholder
 import org.gdglille.devfest.android.theme.m3.style.toDp
 
 @OptIn(ExperimentalLayoutApi::class)

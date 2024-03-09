@@ -20,7 +20,7 @@ import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.SmallScheduleIte
 import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.Time
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.SpacingTokens
-import org.gdglille.devfest.android.theme.m3.style.placeholder
+import org.gdglille.devfest.android.theme.m3.style.placeholder.placeholder
 import org.gdglille.devfest.android.theme.m3.style.previews.PHONE_LANDSCAPE
 import org.gdglille.devfest.android.theme.m3.style.schedules.findTimeImageVector
 import org.gdglille.devfest.android.theme.m3.style.schedules.pause.MediumPauseItem

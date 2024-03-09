@@ -25,7 +25,7 @@ import org.gdglille.devfest.android.theme.m3.partners.ui.partners.PartnerDetailS
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.R
 import org.gdglille.devfest.android.theme.m3.style.partners.jobs.JobItem
-import org.gdglille.devfest.android.theme.m3.style.placeholder
+import org.gdglille.devfest.android.theme.m3.style.placeholder.placeholder
 import org.gdglille.devfest.models.ui.PartnerItemUi
 
 @Composable

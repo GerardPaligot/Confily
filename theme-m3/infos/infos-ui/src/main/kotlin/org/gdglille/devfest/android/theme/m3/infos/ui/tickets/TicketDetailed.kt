@@ -33,7 +33,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.models.ui.Image
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
-import org.gdglille.devfest.android.theme.m3.style.placeholder
+import org.gdglille.devfest.android.theme.m3.style.placeholder.placeholder
 import org.gdglille.devfest.android.theme.m3.style.shapes.DottedShape
 import org.gdglille.devfest.android.theme.m3.style.R
 import org.gdglille.devfest.models.ui.TicketInfoUi

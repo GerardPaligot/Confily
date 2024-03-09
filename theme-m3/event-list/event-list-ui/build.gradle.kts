@@ -10,6 +10,7 @@ android {
 
 dependencies {
     implementation(projects.shared.uiModels)
+    implementation(projects.themeM3.style.components.placeholder)
     implementation(projects.themeM3.style.theme)
 
     implementation(compose.material3)

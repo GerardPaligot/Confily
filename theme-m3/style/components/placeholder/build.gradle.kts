@@ -5,14 +5,15 @@ plugins {
 }
 
 android {
-    namespace = "org.gdglille.devfest.android.theme.m3.style"
+    namespace = "org.gdglille.devfest.android.theme.m3.style.placeholder"
 }
 
 dependencies {
+    implementation(projects.themeM3.style.theme)
+
     implementation(compose.material3)
     implementation(compose.preview)
     debugImplementation(compose.uiTooling)
-    implementation(compose.materialIconsExtended)
 
-    implementation(libs.jetbrains.kotlinx.collections)
+    implementation(libs.google.accompanist.placeholder)
 }

@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.style
+package org.gdglille.devfest.android.theme.m3.style.placeholder
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Modifier
