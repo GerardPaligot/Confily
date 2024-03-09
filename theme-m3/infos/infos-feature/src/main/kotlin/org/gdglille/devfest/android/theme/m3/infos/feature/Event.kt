@@ -45,11 +45,11 @@ fun Event(
                 title = event.eventInfo.name,
                 pronouns = null,
                 subtitle = event.eventInfo.date,
+                onLinkClicked = onLinkClicked,
+                modifier = Modifier.padding(horizontal = 16.dp),
                 isLoading = isLoading,
                 twitterUrl = event.eventInfo.twitterUrl,
-                linkedinUrl = event.eventInfo.linkedinUrl,
-                onLinkClicked = onLinkClicked,
-                modifier = Modifier.padding(horizontal = 16.dp)
+                linkedinUrl = event.eventInfo.linkedinUrl
             )
         }
         event.ticket?.let {

@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
-import org.gdglille.devfest.android.theme.m3.style.markdowns.MarkdownText
+import org.gdglille.devfest.android.theme.m3.style.markdown.MarkdownText
 import org.gdglille.devfest.android.theme.m3.style.partners.items.PartnerItem
 import org.gdglille.devfest.android.theme.m3.style.placeholder
 import org.gdglille.devfest.android.theme.m3.style.previews.ThemedPreviews
@@ -44,12 +44,12 @@ fun PartnerDetailSectionVertical(
             title = partnerItemUi.name,
             pronouns = null,
             subtitle = null,
+            onLinkClicked = onLinkClicked,
             isLoading = isLoading,
             twitterUrl = partnerItemUi.twitterUrl,
             githubUrl = null,
             linkedinUrl = partnerItemUi.linkedinUrl,
-            websiteUrl = partnerItemUi.siteUrl,
-            onLinkClicked = onLinkClicked
+            websiteUrl = partnerItemUi.siteUrl
         )
         Spacer(modifier = Modifier.height(8.dp))
         MarkdownText(

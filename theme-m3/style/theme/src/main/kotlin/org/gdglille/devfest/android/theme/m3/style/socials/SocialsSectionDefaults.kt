@@ -30,12 +30,4 @@ object SocialsSectionDefaults {
     val subTitleTextStyle: TextStyle
         @Composable
         get() = SocialsSectionTokens.SubTitleTextStyle.toTextStyle()
-
-    val bodyColor: Color
-        @Composable
-        get() = SocialsSectionTokens.BodyColor.toColor()
-
-    val bodyTextStyle: TextStyle
-        @Composable
-        get() = SocialsSectionTokens.BodyTextStyle.toTextStyle()
 }

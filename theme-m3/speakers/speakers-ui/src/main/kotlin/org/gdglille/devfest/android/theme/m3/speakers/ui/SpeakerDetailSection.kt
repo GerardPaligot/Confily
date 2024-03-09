@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
-import org.gdglille.devfest.android.theme.m3.style.markdowns.MarkdownText
+import org.gdglille.devfest.android.theme.m3.style.markdown.MarkdownText
 import org.gdglille.devfest.android.theme.m3.style.placeholder
 import org.gdglille.devfest.android.theme.m3.style.previews.ThemedPreviews
 import org.gdglille.devfest.android.theme.m3.style.socials.SocialsSection
@@ -42,13 +42,13 @@ fun SpeakerDetailSectionVertical(
             title = speaker.name,
             pronouns = speaker.pronouns,
             subtitle = speaker.activity,
+            onLinkClicked = onLinkClicked,
             isLoading = isLoading,
             twitterUrl = speaker.twitterUrl,
             mastodonUrl = speaker.mastodonUrl,
             githubUrl = speaker.githubUrl,
             linkedinUrl = speaker.linkedinUrl,
-            websiteUrl = speaker.websiteUrl,
-            onLinkClicked = onLinkClicked
+            websiteUrl = speaker.websiteUrl
         )
         Spacer(modifier = Modifier.height(8.dp))
         MarkdownText(

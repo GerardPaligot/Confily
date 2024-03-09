@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.style.markdowns
+package org.gdglille.devfest.android.theme.m3.style.markdown
 
 import org.gdglille.devfest.android.theme.m3.style.ColorSchemeTokens
 import org.gdglille.devfest.android.theme.m3.style.TextStyleTokens

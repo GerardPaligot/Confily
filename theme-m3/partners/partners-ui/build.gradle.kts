@@ -11,6 +11,7 @@ android {
 dependencies {
     implementation(projects.shared.uiModels)
     implementation(projects.themeM3.navigation)
+    implementation(projects.themeM3.style.markdown)
     implementation(projects.themeM3.style.partners)
     implementation(projects.themeM3.style.theme)
 

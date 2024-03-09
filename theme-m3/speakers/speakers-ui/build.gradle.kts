@@ -10,6 +10,7 @@ android {
 
 dependencies {
     implementation(projects.shared.uiModels)
+    implementation(projects.themeM3.style.markdown)
     implementation(projects.themeM3.style.speakers)
     implementation(projects.themeM3.style.theme)
 

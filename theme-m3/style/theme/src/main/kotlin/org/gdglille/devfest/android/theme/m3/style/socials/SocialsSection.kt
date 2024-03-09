@@ -13,9 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
-import com.halilibo.richtext.markdown.Markdown
-import com.halilibo.richtext.ui.RichText
-import com.halilibo.richtext.ui.RichTextThemeIntegration
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.placeholder
 import org.gdglille.devfest.android.theme.m3.style.toDp
@@ -28,7 +25,6 @@ fun SocialsSection(
     subtitle: String?,
     onLinkClicked: (url: String) -> Unit,
     modifier: Modifier = Modifier,
-    detailed: String? = null,
     isLoading: Boolean = false,
     twitterUrl: String? = null,
     mastodonUrl: String? = null,
@@ -38,11 +34,9 @@ fun SocialsSection(
     titleColor: Color = SocialsSectionDefaults.titleColor,
     pronounsColor: Color = SocialsSectionDefaults.pronounsColor,
     subTitleColor: Color = SocialsSectionDefaults.subTitleColor,
-    bodyColor: Color = SocialsSectionDefaults.bodyColor,
     titleTextStyle: TextStyle = SocialsSectionDefaults.titleTextStyle,
     pronounsTextStyle: TextStyle = SocialsSectionDefaults.pronounsTextStyle,
-    subTitleTextStyle: TextStyle = SocialsSectionDefaults.subTitleTextStyle,
-    bodyTextStyle: TextStyle = SocialsSectionDefaults.bodyTextStyle
+    subTitleTextStyle: TextStyle = SocialsSectionDefaults.subTitleTextStyle
 ) {
     Column(modifier = modifier.fillMaxWidth()) {
         Text(
@@ -120,19 +114,6 @@ fun SocialsSection(
                 }
             }
         }
-        detailed?.let {
-            Spacer(modifier = Modifier.height(SocialsSectionTokens.TopBodySpacing.toDp()))
-            RichTextThemeIntegration(
-                textStyle = { bodyTextStyle },
-                ProvideTextStyle = null,
-                contentColor = { bodyColor },
-                ProvideContentColor = null,
-            ) {
-                RichText(modifier = Modifier.placeholder(visible = isLoading)) {
-                    Markdown(detailed)
-                }
-            }
-        }
     }
 }
 
@@ -144,11 +125,11 @@ internal fun SocialsSectionPreview() {
             title = "Gérard Paligot",
             pronouns = "Him/He",
             subtitle = null,
+            onLinkClicked = {},
             twitterUrl = "",
             githubUrl = "",
             linkedinUrl = "",
-            websiteUrl = "",
-            onLinkClicked = {}
+            websiteUrl = ""
         )
     }
 }

@@ -14,6 +14,7 @@ dependencies {
     implementation(projects.themeM3.networking.networkingUi)
     implementation(projects.themeM3.navigation)
     implementation(projects.themeM3.style.networking)
+    implementation(projects.themeM3.style.permissions)
     implementation(projects.themeM3.style.theme)
 
     implementation(libs.koin.androidx.compose)

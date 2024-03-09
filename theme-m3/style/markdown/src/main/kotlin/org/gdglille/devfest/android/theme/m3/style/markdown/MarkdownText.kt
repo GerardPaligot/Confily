@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.style.markdowns
+package org.gdglille.devfest.android.theme.m3.style.markdown
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -15,8 +15,8 @@ import org.gdglille.devfest.android.theme.m3.style.socials.SocialsSectionDefault
 fun MarkdownText(
     text: String,
     modifier: Modifier = Modifier,
-    bodyColor: Color = SocialsSectionDefaults.bodyColor,
-    bodyTextStyle: TextStyle = SocialsSectionDefaults.bodyTextStyle
+    bodyColor: Color = MarkdownTextDefaults.bodyColor,
+    bodyTextStyle: TextStyle = MarkdownTextDefaults.bodyTextStyle
 ) {
     RichTextThemeIntegration(
         textStyle = { bodyTextStyle },

@@ -15,7 +15,7 @@ apache-xmlgraphics-batik = "1.17"
 cash-sqldelight = "2.0.1"
 coil = "2.5.0"
 detekt = "1.23.4"
-font-awesome = "1.0.0"
+font-awesome = "1.1.0"
 google-accompanist = "0.32.0"
 google-cloud-firestore = "3.7.3"
 google-cloud-secretmanager = "2.3.10"
@@ -79,7 +79,7 @@ compose-linter = { group = "com.slack.lint.compose", name = "compose-lint-checks
 
 detekt-gradlePlugin = { group = "io.gitlab.arturbosch.detekt", name = "detekt-gradle-plugin", version.ref = "detekt" }
 
-font-awesome = { group = "br.com.devsrsouza.compose.icons.android", name = "font-awesome", version.ref = "font-awesome" }
+font-awesome = { group = "br.com.devsrsouza.compose.icons", name = "font-awesome", version.ref = "font-awesome" }
 
 jetbrains-compose-gradlePlugin = { group = "org.jetbrains.compose", name = "compose-gradle-plugin", version.ref = "jetbrains-compose" }
 jetbrains-kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "jetbrains-kotlin" }
