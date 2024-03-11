@@ -10,7 +10,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.ui.res.stringResource
 import androidx.core.app.ShareCompat
 import androidx.core.content.FileProvider
 import androidx.navigation.NavHostController
@@ -22,8 +21,13 @@ import androidx.work.WorkManager
 import com.russhwolf.settings.ExperimentalSettingsApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import org.gdglille.devfest.android.shared.resources.Resource
+import org.gdglille.devfest.android.shared.resources.text_export_subject
+import org.gdglille.devfest.android.shared.resources.text_report_app_target
+import org.gdglille.devfest.android.shared.resources.text_report_subject
 import org.gdglille.devfest.android.theme.Main
-import org.gdglille.devfest.android.theme.m3.style.R
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.stringResource
 import java.io.File
 
 @Suppress("LongMethod")
@@ -38,6 +42,7 @@ class MainActivity : ComponentActivity() {
         navController.handleDeepLink(intent)
     }
 
+    @OptIn(ExperimentalResourceApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -56,9 +61,9 @@ class MainActivity : ComponentActivity() {
                 onDispose {}
             }
             navController = rememberNavController()
-            val exportSubject = stringResource(id = R.string.text_export_subject)
-            val reportSubject = stringResource(id = R.string.text_report_subject)
-            val reportAppTarget = stringResource(id = R.string.text_report_app_target)
+            val exportSubject = stringResource(Resource.string.text_export_subject)
+            val reportSubject = stringResource(Resource.string.text_report_subject)
+            val reportAppTarget = stringResource(Resource.string.text_report_app_target)
             Main(
                 openfeedbackFirebaseConfig = openfeedbackFirebaseConfig,
                 launchUrl = { launchUrl(it) },

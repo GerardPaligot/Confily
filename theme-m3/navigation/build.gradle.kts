@@ -9,8 +9,11 @@ android {
 }
 
 dependencies {
+    implementation(projects.shared.resources)
     implementation(projects.themeM3.style.theme)
 
     implementation(libs.androidx.annotation)
+
+    implementation(compose.components.resources)
     implementation(compose.materialIconsExtended)
 }

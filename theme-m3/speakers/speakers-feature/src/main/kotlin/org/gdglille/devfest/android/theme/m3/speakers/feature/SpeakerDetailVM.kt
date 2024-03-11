@@ -5,13 +5,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import org.gdglille.devfest.android.theme.m3.speakers.screens.SpeakerDetailOrientable
-import org.gdglille.devfest.android.theme.m3.style.R
+import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.theme.m3.style.appbars.AppBarIcons
+import org.gdglille.devfest.android.shared.resources.text_error
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.stringResource
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun SpeakerDetailVM(
     speakerId: String,
@@ -36,7 +39,7 @@ fun SpeakerDetailVM(
             isLandscape = isLandscape,
         )
 
-        is SpeakerUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
+        is SpeakerUiState.Failure -> Text(text = stringResource(Resource.string.text_error))
         is SpeakerUiState.Success -> SpeakerDetailOrientable(
             speaker = uiState.speaker,
             onTalkClicked = onTalkClicked,

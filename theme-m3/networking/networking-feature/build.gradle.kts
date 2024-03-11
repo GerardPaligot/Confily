@@ -10,6 +10,7 @@ android {
 
 dependencies {
     implementation(projects.shared.core)
+    implementation(projects.shared.resources)
     implementation(projects.themeM3.networking.networkingScreens)
     implementation(projects.themeM3.networking.networkingUi)
     implementation(projects.themeM3.navigation)
@@ -22,6 +23,7 @@ dependencies {
     implementation(libs.jetbrains.kotlinx.collections)
 
     implementation(compose.material3)
+    implementation(compose.components.resources)
     implementation(compose.preview)
     debugImplementation(compose.uiTooling)
     implementation(libs.androidx.lifecycle.viewmodel.compose)

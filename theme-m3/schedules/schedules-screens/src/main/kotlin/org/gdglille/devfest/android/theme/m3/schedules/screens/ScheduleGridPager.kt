@@ -9,17 +9,19 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import kotlinx.collections.immutable.ImmutableList
 import org.gdglille.devfest.android.theme.m3.navigation.ActionIds
-import org.gdglille.devfest.android.theme.m3.style.R
+import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.theme.m3.style.Scaffold
 import org.gdglille.devfest.android.theme.m3.style.actions.TabActionsUi
 import org.gdglille.devfest.android.theme.m3.style.actions.TopActionsUi
+import org.gdglille.devfest.android.shared.resources.screen_agenda
 import org.gdglille.devfest.models.ui.AgendaUi
 import org.gdglille.devfest.models.ui.TalkItemUi
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class, ExperimentalResourceApi::class)
 @Composable
 fun ScheduleGridPager(
     agendas: ImmutableList<AgendaUi>,
@@ -34,7 +36,7 @@ fun ScheduleGridPager(
     isLoading: Boolean = false,
 ) {
     Scaffold(
-        title = stringResource(id = R.string.screen_agenda),
+        title = stringResource(Resource.string.screen_agenda),
         modifier = modifier,
         topActions = topActionsUi,
         tabActions = tabActionsUi,

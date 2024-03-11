@@ -13,17 +13,25 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBar
 import org.gdglille.devfest.android.theme.m3.networking.ui.ProfileInputField
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
+import org.gdglille.devfest.android.shared.resources.Resource
+import org.gdglille.devfest.android.shared.resources.action_generate_qrcode
+import org.gdglille.devfest.android.shared.resources.input_company
+import org.gdglille.devfest.android.shared.resources.input_email
+import org.gdglille.devfest.android.shared.resources.input_firstname
+import org.gdglille.devfest.android.shared.resources.input_lastname
+import org.gdglille.devfest.android.shared.resources.screen_profile
 import org.gdglille.devfest.models.ui.Field
-import org.gdglille.devfest.android.theme.m3.style.R
 import org.gdglille.devfest.models.ui.UserProfileUi
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.stringResource
 
+@OptIn(ExperimentalResourceApi::class)
 @ExperimentalMaterial3Api
 @Composable
 fun ProfileInputScreen(
@@ -38,7 +46,7 @@ fun ProfileInputScreen(
         modifier = modifier,
         topBar = {
             TopAppBar(
-                title = stringResource(id = R.string.screen_profile),
+                title = stringResource(Resource.string.screen_profile),
                 navigationIcon = { Back(onClick = onBackClicked) }
             )
         },
@@ -54,7 +62,7 @@ fun ProfileInputScreen(
         ) {
             item {
                 ProfileInputField(
-                    label = R.string.input_email,
+                    label = Resource.string.input_email,
                     value = profile.email,
                     field = Field.Email,
                     onValueChanged = onValueChanged,
@@ -63,7 +71,7 @@ fun ProfileInputScreen(
             }
             item {
                 ProfileInputField(
-                    label = R.string.input_firstname,
+                    label = Resource.string.input_firstname,
                     value = profile.firstName,
                     field = Field.FirstName,
                     onValueChanged = onValueChanged
@@ -71,7 +79,7 @@ fun ProfileInputScreen(
             }
             item {
                 ProfileInputField(
-                    label = R.string.input_lastname,
+                    label = Resource.string.input_lastname,
                     value = profile.lastName,
                     field = Field.LastName,
                     onValueChanged = onValueChanged
@@ -79,7 +87,7 @@ fun ProfileInputScreen(
             }
             item {
                 ProfileInputField(
-                    label = R.string.input_company,
+                    label = Resource.string.input_company,
                     value = profile.company,
                     field = Field.Company,
                     onValueChanged = onValueChanged,
@@ -97,7 +105,7 @@ fun ProfileInputScreen(
                         onValidation()
                     },
                 ) {
-                    Text(text = stringResource(id = R.string.action_generate_qrcode))
+                    Text(text = stringResource(Resource.string.action_generate_qrcode))
                 }
             }
         }

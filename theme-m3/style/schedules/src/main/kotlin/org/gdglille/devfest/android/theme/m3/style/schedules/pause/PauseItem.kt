@@ -16,18 +16,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
-import org.gdglille.devfest.android.theme.m3.style.R
-import org.gdglille.devfest.android.theme.m3.style.previews.ThemedPreviews
+import org.gdglille.devfest.android.shared.resources.Resource
+import org.gdglille.devfest.android.shared.resources.semantic_pause_item
 import org.gdglille.devfest.android.theme.m3.style.tags.MediumTag
 import org.gdglille.devfest.android.theme.m3.style.tags.SmallTag
 import org.gdglille.devfest.android.theme.m3.style.tags.TagDefaults
 import org.gdglille.devfest.android.theme.m3.style.toDp
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.stringResource
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun SmallPauseItem(
     title: String,
@@ -40,7 +43,7 @@ fun SmallPauseItem(
     titleTextStyle: TextStyle = PauseItemDefaults.smallTitleTextStyle,
     shape: Shape = PauseItemDefaults.smallShape
 ) {
-    val contentDescription = stringResource(id = R.string.semantic_pause_item, room, time)
+    val contentDescription = stringResource(Resource.string.semantic_pause_item, room, time)
     Surface(shape = shape, color = containerColor, modifier = modifier) {
         Column(
             verticalArrangement = Arrangement.spacedBy(PauseItemSmallTokens.BetweenSpacing.toDp()),
@@ -70,6 +73,7 @@ fun SmallPauseItem(
     }
 }
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun MediumPauseItem(
     title: String,
@@ -82,7 +86,7 @@ fun MediumPauseItem(
     titleTextStyle: TextStyle = PauseItemDefaults.mediumTitleTextStyle,
     shape: Shape = PauseItemDefaults.mediumShape
 ) {
-    val contentDescription = stringResource(id = R.string.semantic_pause_item, room, time)
+    val contentDescription = stringResource(Resource.string.semantic_pause_item, room, time)
     Surface(shape = shape, color = containerColor, modifier = modifier) {
         Column(
             verticalArrangement = Arrangement.spacedBy(PauseItemMediumTokens.BetweenSpacing.toDp()),
@@ -113,7 +117,7 @@ fun MediumPauseItem(
 }
 
 @Suppress("UnusedPrivateMember")
-@ThemedPreviews
+@Preview
 @Composable
 private fun SmallPauseItemPreview() {
     Conferences4HallTheme {
@@ -126,7 +130,7 @@ private fun SmallPauseItemPreview() {
 }
 
 @Suppress("UnusedPrivateMember")
-@ThemedPreviews
+@Preview
 @Composable
 private fun MediumPauseItemPreview() {
     Conferences4HallTheme {

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="screen_events">Events</string>
+    <string name="screen_events_future">Future events</string>
+    <string name="screen_events_past">Past events</string>
+    <string name="screen_agenda">Agenda</string>
+    <string name="screen_agenda_filters">Filters</string>
+    <string name="screen_speakers">Speakers</string>
+    <string name="screen_speaker_detail">Speaker detail</string>
+    <string name="screen_networking">Networking</string>
+    <string name="screen_info">Info</string>
+    <string name="screen_event">Event</string>
+    <string name="screen_menus">Menus</string>
+    <string name="screen_qanda">Q&amp;A</string>
+    <string name="screen_coc">Code of conduct</string>
+    <string name="screen_partners">Partners</string>
+    <string name="screen_partners_detail">Partner detail</string>
+    <string name="screen_schedule_detail">About the talk</string>
+    <string name="screen_profile">Create my profile</string>
+    <string name="screen_qrcode_scanner">Qrcode Scanner</string>
+    <string name="screen_ticket_qrcode_scanner">Ticket Qrcode Scanner</string>
+    <string name="screen_my_profile">My profile</string>
+    <string name="screen_contacts">Contacts</string>
+
+    <string name="title_notif_reminder_talk">Talk in 10 minutes in %1$s</string>
+    <string name="title_ticket">Your ticket</string>
+    <string name="title_plan">Go to the event</string>
+    <string name="title_plan_partner">Go to the partner location</string>
+    <string name="title_jobs">Jobs</string>
+    <string name="title_agenda_break">Break</string>
+    <string name="title_filters_favorites">Favorites</string>
+    <string name="title_filters_categories">Categories</string>
+    <string name="title_filters_formats">Formats</string>
+
+    <string name="text_loading">Loading…</string>
+    <string name="text_error">Something wrong happened</string>
+    <string name="text_schedule_minutes">%1$s minutes</string>
+    <string name="text_speakers_list_one">%1$s and %2$d other</string>
+    <string name="text_speakers_list_many">%1$s and %2$d others</string>
+    <!--
+    <plurals name="text_speakers_list">
+        <item quantity="one">%s and %d other</item>
+        <item quantity="other">%s and %d others</item>
+    </plurals>
+    -->
+    <string name="text_level_advanced">Advanced</string>
+    <string name="text_level_intermediate">Intermediate</string>
+    <string name="text_level_beginner">Beginner</string>
+    <string name="text_openfeedback_title">Notes &amp; feedback</string>
+    <string name="text_openfeedback_not_started">Wait a little, you will be able to give feedbacks when the session has started.</string>
+    <string name="text_feedback_not_configured">No feedback module has been configured for this event.</string>
+    <string name="text_speaker_title">About speakers</string>
+    <string name="text_permission">Permission required</string>
+    <string name="text_camera_permission_explaination">The camera is important to scan QR code. Please grant the permission.</string>
+    <string name="text_camera_permission_deny">Camera permission denied. Please, grant us access on the Settings screen.</string>
+    <string name="text_export_subject">Networking export</string>
+    <string name="text_report_subject">Report to organizers from Devfest Lille App</string>
+    <string name="text_report_app_target">Choose an Email client</string>
+    <string name="text_networking_ask_to_delete">Are you sure you want to delete %1$s from your networking space?</string>
+    <string name="text_ticket_firstname">First Name</string>
+    <string name="text_ticket_lastname">Last Name</string>
+    <string name="text_agenda_no_favorites">You don\'t have any talks in favorites</string>
+    <string name="text_here_we_go">Here we go!</string>
+    <string name="text_empty_networking">Here is the networking space. Create your profile to be able to add attendees you will meet and with who you want to keep contact after the event!</string>
+    <string name="text_empty_networking_warning">If you create your profile and share your qrcode, you accept the prospecting that this scan may represent by one of our partners.</string>
+    <string name="text_empty_contacts">Scan qrcode of the attendee to add her or him in your contact list.</string>
+    <string name="text_job_salary">%1$dK - %2$dK/%3$s</string>
+    <string name="text_job_requirements_one">%1$d year min</string>
+    <string name="text_job_requirements_many">%1$d years min</string>
+    <!--
+    <plurals name="text_job_requirements">
+        <item quantity="one">%d year min</item>
+        <item quantity="many">%d years min</item>
+        <item quantity="other">%d years min</item>
+    </plurals>
+    -->
+    <string name="text_job_propulsed">Propulsed by %1$s</string>
+    <string name="text_speaker_activity">%1$s at %2$s</string>
+
+    <string name="action_back">Back</string>
+    <string name="action_expanded_menu">Display overflow menu</string>
+    <string name="action_share_talk">Share talk</string>
+    <string name="action_filtering">Open filter screen</string>
+    <string name="action_filtering_favorites">Only favorites schedules</string>
+    <string name="action_qrcode_scanner">Qrcode scanner</string>
+    <string name="action_system_settings">Open System settings</string>
+    <string name="action_ticket_scanner">Scan your ticket</string>
+    <string name="action_contacts_scanner">Scan</string>
+    <string name="action_favorites_remove">Remove schedule from favorites</string>
+    <string name="action_favorites_add">Add schedule in favorite</string>
+    <string name="action_generate_qrcode">Generate your QR code</string>
+    <string name="action_submit_accept">OK</string>
+    <string name="action_submit_deny">No</string>
+    <string name="action_submit_later">Later</string>
+    <string name="action_networking_delete">Delete the profile</string>
+    <string name="action_contact_organizers_phone">Contact by phone</string>
+    <string name="action_contact_organizers_mail">Contact by mail</string>
+    <string name="action_edit_profile">Edit my information</string>
+    <string name="action_power_off">Change event</string>
+    <string name="action_export">Export networking</string>
+
+    <string name="input_email">Mail (Mandatory)</string>
+    <string name="input_firstname">Name (Mandatory)</string>
+    <string name="input_lastname">Nickname (Mandatory)</string>
+    <string name="input_company">Company</string>
+    <string name="input_share_talk">%1$s by %2$s</string>
+
+    <string name="semantic_profile_qrcode">Your qrcode is displayed and ready to be scanned</string>
+    <string name="semantic_ticket_id">Identifier of your ticket %1$s</string>
+    <string name="semantic_ticket_qrcode">Qrcode of your ticket ready to be scanned</string>
+    <string name="semantic_twitter">Twitter of %1$s</string>
+    <string name="semantic_mastodon">Mastodon of %1$s</string>
+    <string name="semantic_github">GitHub of %1$s</string>
+    <string name="semantic_linkedin">LinkedIn of %1$s</string>
+    <string name="semantic_website">Website of %1$s</string>
+    <string name="semantic_start_itinerary">Start itinerary to the event</string>
+    <string name="semantic_talk_item">%1$s %2$s in %3$s room during %4$d minutes in category %5$s %6$s</string>
+    <string name="semantic_pause_item">Break in %1$s during %2$s</string>
+    <string name="semantic_talk_item_speakers">with %1$s as speaker</string>
+    <string name="semantic_talk_item_level">for level %1$s</string>
+    <string name="semantic_user_item_email">Email address %1$s</string>
+    <string name="semantic_user_item_company">Work at %1$s</string>
+</resources>

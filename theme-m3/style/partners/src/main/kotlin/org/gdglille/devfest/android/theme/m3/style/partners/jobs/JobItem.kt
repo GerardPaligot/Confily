@@ -9,23 +9,26 @@ import androidx.compose.material.icons.outlined.Payments
 import androidx.compose.material.icons.outlined.Work
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.res.pluralStringResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
-import org.gdglille.devfest.android.theme.m3.style.R
-import org.gdglille.devfest.android.theme.m3.style.previews.ThemedPreviews
+import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.theme.m3.style.tags.MediumTag
 import org.gdglille.devfest.android.theme.m3.style.tags.TagDefaults
+import org.gdglille.devfest.android.shared.resources.text_job_propulsed
+import org.gdglille.devfest.android.shared.resources.text_job_requirements_many
+import org.gdglille.devfest.android.shared.resources.text_job_requirements_one
+import org.gdglille.devfest.android.shared.resources.text_job_salary
 import org.gdglille.devfest.android.theme.m3.style.toDp
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun JobItem(
     title: String,
@@ -65,7 +68,7 @@ fun JobItem(
                 if (salaryMin != null && salaryMax != null && salaryRecurrence != null) {
                     MediumTag(
                         text = stringResource(
-                            id = R.string.text_job_salary,
+                            Resource.string.text_job_salary,
                             salaryMin,
                             salaryMax,
                             salaryRecurrence
@@ -75,17 +78,17 @@ fun JobItem(
                     )
                 }
                 MediumTag(
-                    text = pluralStringResource(
-                        id = R.plurals.text_job_requirements,
-                        count = requirements,
+                    text = if (requirements <= 1) stringResource(
+                        Resource.string.text_job_requirements_one,
                         requirements
-                    ),
+                    )
+                    else stringResource(Resource.string.text_job_requirements_many, requirements),
                     icon = Icons.Outlined.Work,
                     colors = TagDefaults.unStyledColors()
                 )
             }
             MediumTag(
-                text = stringResource(id = R.string.text_job_propulsed, propulsedBy),
+                text = stringResource(Resource.string.text_job_propulsed, propulsedBy),
                 colors = TagDefaults.gravelColors(),
                 modifier = Modifier.padding(
                     top = JobItemTokens.TagTopPadding.toDp(),
@@ -97,7 +100,7 @@ fun JobItem(
 }
 
 @Suppress("UnusedPrivateMember")
-@ThemedPreviews
+@Preview
 @Composable
 private fun JobItemPreview() {
     Conferences4HallTheme {

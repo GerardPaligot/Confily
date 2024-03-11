@@ -9,13 +9,17 @@ import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
-import org.gdglille.devfest.android.theme.m3.style.R
+import org.gdglille.devfest.android.shared.resources.Resource
+import org.gdglille.devfest.android.shared.resources.action_filtering_favorites
 import org.gdglille.devfest.android.theme.m3.style.schedules.filters.FilterSection
+import org.gdglille.devfest.android.shared.resources.title_filters_favorites
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.stringResource
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun FavoriteFilter(
     isFavorite: Boolean,
@@ -23,7 +27,7 @@ fun FavoriteFilter(
     modifier: Modifier = Modifier
 ) {
     FilterSection(
-        title = stringResource(id = R.string.title_filters_favorites),
+        title = stringResource(Resource.string.title_filters_favorites),
         modifier = modifier
     ) {
         Row(
@@ -37,7 +41,7 @@ fun FavoriteFilter(
                 onCheckedChange = null,
                 modifier = Modifier.minimumInteractiveComponentSize()
             )
-            Text(text = stringResource(id = R.string.action_filtering_favorites))
+            Text(text = stringResource(Resource.string.action_filtering_favorites))
         }
     }
 }

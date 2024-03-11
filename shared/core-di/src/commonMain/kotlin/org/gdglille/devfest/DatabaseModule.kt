@@ -16,8 +16,8 @@ val databasesModule = module {
     single { EventDao(db = get(), settings = get()) }
     single { FeaturesActivatedDao(db = get(), settings = get()) }
     single { PartnerDao(db = get(), platform = get()) }
-    single { ScheduleDao(db = get(), settings = get(), platform = get()) }
-    single { SpeakerDao(db = get(), platform = get()) }
-    single { TalkDao(db = get(), platform = get()) }
+    single { ScheduleDao(db = get(), settings = get()) }
+    single { SpeakerDao(db = get()) }
+    single { TalkDao(db = get()) }
     single { UserDao(db = get(), platform = get()) }
 }

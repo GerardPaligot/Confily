@@ -13,9 +13,12 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.minus
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
-import org.gdglille.devfest.android.theme.m3.style.R
+import org.gdglille.devfest.android.shared.resources.Resource
+import org.gdglille.devfest.android.shared.resources.title_notif_reminder_talk
 import org.gdglille.devfest.models.ui.TalkItemUi
 import org.gdglille.devfest.repositories.AgendaRepository
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.getString
 import java.util.Locale
 
 class AlarmScheduler(
@@ -23,12 +26,14 @@ class AlarmScheduler(
     private val alarmManager: AlarmManager,
     private val alarmIntentFactory: AlarmIntentFactory
 ) {
+    @OptIn(ExperimentalResourceApi::class)
     @SuppressLint("UnspecifiedImmutableFlag")
     suspend fun schedule(context: Context, talkItem: TalkItemUi) = coroutineScope {
         val isFavorite = !talkItem.isFavorite
         repository.markAsRead(talkItem.id, isFavorite)
-        val title = context.getString(
-            R.string.title_notif_reminder_talk, talkItem.room.lowercase(Locale.getDefault())
+        val title = getString(
+            Resource.string.title_notif_reminder_talk,
+            talkItem.room.lowercase(Locale.getDefault())
         )
         val intent = alarmIntentFactory.create(context, talkItem.id, title, talkItem.title)
         val flags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

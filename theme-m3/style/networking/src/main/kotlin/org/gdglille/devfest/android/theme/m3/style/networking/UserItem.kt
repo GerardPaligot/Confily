@@ -21,16 +21,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
-import org.gdglille.devfest.android.theme.m3.style.R
+import org.gdglille.devfest.android.shared.resources.Resource
+import org.gdglille.devfest.android.shared.resources.action_networking_delete
 import org.gdglille.devfest.android.theme.m3.style.buttons.IconButton
+import org.gdglille.devfest.android.shared.resources.semantic_user_item_company
+import org.gdglille.devfest.android.shared.resources.semantic_user_item_email
 import org.gdglille.devfest.android.theme.m3.style.toDp
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.stringResource
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun UserItem(
     displayName: String,
@@ -43,9 +48,9 @@ fun UserItem(
     metaStyle: TextStyle = UserItemDefaults.metaTextStyle,
     contentPadding: PaddingValues = UserItemDefaults.contentPadding
 ) {
-    val emailDescription = stringResource(id = R.string.semantic_user_item_email, email)
+    val emailDescription = stringResource(Resource.string.semantic_user_item_email, email)
     val companyDescription = company
-        ?.let { stringResource(id = R.string.semantic_user_item_company, it) }
+        ?.let { stringResource(Resource.string.semantic_user_item_company, it) }
         ?: ""
     Row(
         modifier = modifier
@@ -91,7 +96,7 @@ fun UserItem(
         }
         IconButton(
             imageVector = Icons.Outlined.Delete,
-            contentDescription = stringResource(R.string.action_networking_delete),
+            contentDescription = stringResource(Resource.string.action_networking_delete),
             onClick = onClick
         )
     }

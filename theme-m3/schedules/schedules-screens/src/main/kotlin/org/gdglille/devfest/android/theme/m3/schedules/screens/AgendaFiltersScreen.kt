@@ -10,22 +10,24 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import org.gdglille.devfest.android.theme.m3.schedules.ui.filters.CategoryListFilters
 import org.gdglille.devfest.android.theme.m3.schedules.ui.filters.FavoriteFilter
 import org.gdglille.devfest.android.theme.m3.schedules.ui.filters.FormatListFilters
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
-import org.gdglille.devfest.android.theme.m3.style.R
+import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.theme.m3.style.Scaffold
 import org.gdglille.devfest.android.theme.m3.style.SpacingTokens
 import org.gdglille.devfest.android.theme.m3.style.appbars.AppBarIcons
+import org.gdglille.devfest.android.shared.resources.screen_agenda_filters
 import org.gdglille.devfest.android.theme.m3.style.toDp
 import org.gdglille.devfest.models.ui.CategoryUi
 import org.gdglille.devfest.models.ui.FiltersUi
 import org.gdglille.devfest.models.ui.FormatUi
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class, ExperimentalResourceApi::class)
 @Composable
 fun AgendaFiltersScreen(
     filtersUi: FiltersUi,
@@ -37,7 +39,7 @@ fun AgendaFiltersScreen(
     navigationIcon: @Composable (AppBarIcons.() -> Unit)? = null
 ) {
     Scaffold(
-        title = stringResource(id = R.string.screen_agenda_filters),
+        title = stringResource(Resource.string.screen_agenda_filters),
         navigationIcon = navigationIcon,
         containerColor = containerColor,
         hasScrollBehavior = false,

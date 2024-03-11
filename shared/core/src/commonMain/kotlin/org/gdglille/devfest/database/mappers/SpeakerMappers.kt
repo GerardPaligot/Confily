@@ -1,16 +1,18 @@
 package org.gdglille.devfest.database.mappers
 
 import kotlinx.collections.immutable.ImmutableList
+import org.gdglille.devfest.android.shared.resources.Resource
+import org.gdglille.devfest.android.shared.resources.text_speaker_activity
 import org.gdglille.devfest.db.SelectSpeakersByTalkId
 import org.gdglille.devfest.models.Speaker
 import org.gdglille.devfest.models.ui.SpeakerItemUi
 import org.gdglille.devfest.models.ui.SpeakerUi
 import org.gdglille.devfest.models.ui.TalkItemUi
-import kotlin.reflect.KFunction2
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.getString
 import org.gdglille.devfest.db.Speaker as SpeakerDb
 
-fun SpeakerDb.convertToSpeakerUi(
-    getStringArg: KFunction2<String, List<String>, String>,
+suspend fun SpeakerDb.convertToSpeakerUi(
     talks: ImmutableList<TalkItemUi>
 ): SpeakerUi = SpeakerUi(
     name = display_name,
@@ -18,7 +20,7 @@ fun SpeakerDb.convertToSpeakerUi(
     bio = bio,
     jobTitle = job_title,
     company = company,
-    activity = displayActivity(getStringArg),
+    activity = displayActivity(),
     url = photo_url,
     twitterUrl = twitter,
     mastodonUrl = mastodon,
@@ -28,29 +30,26 @@ fun SpeakerDb.convertToSpeakerUi(
     talks = talks
 )
 
-fun SpeakerDb.convertToSpeakerItemUi(
-    getStringArg: KFunction2<String, List<String>, String>
-): SpeakerItemUi = SpeakerItemUi(
+suspend fun SpeakerDb.convertToSpeakerItemUi(): SpeakerItemUi = SpeakerItemUi(
     id = id,
     name = display_name,
     pronouns = pronouns,
-    company = displayActivity(getStringArg) ?: "",
+    company = displayActivity() ?: "",
     url = photo_url
 )
 
-fun SelectSpeakersByTalkId.convertSpeakerItemUi(
-    getStringArg: KFunction2<String, List<String>, String>
-) = SpeakerItemUi(
+suspend fun SelectSpeakersByTalkId.convertSpeakerItemUi() = SpeakerItemUi(
     id = id,
     name = display_name,
     pronouns = pronouns,
-    company = displayActivity(getStringArg) ?: "",
+    company = displayActivity() ?: "",
     url = photo_url
 )
 
-fun SpeakerDb.displayActivity(getStringArg: KFunction2<String, List<String>, String>) = when {
-    job_title != null && company != null -> getStringArg(
-        "text_speaker_activity", listOf(job_title, company)
+@OptIn(ExperimentalResourceApi::class)
+suspend fun SpeakerDb.displayActivity() = when {
+    job_title != null && company != null -> getString(
+        Resource.string.text_speaker_activity, job_title, company
     )
 
     job_title == null && company != null -> company
@@ -58,11 +57,10 @@ fun SpeakerDb.displayActivity(getStringArg: KFunction2<String, List<String>, Str
     else -> null
 }
 
-fun SelectSpeakersByTalkId.displayActivity(
-    getStringArg: KFunction2<String, List<String>, String>
-) = when {
-    job_title != null && company != null -> getStringArg(
-        "text_speaker_activity", listOf(job_title, company)
+@OptIn(ExperimentalResourceApi::class)
+suspend fun SelectSpeakersByTalkId.displayActivity() = when {
+    job_title != null && company != null -> getString(
+        Resource.string.text_speaker_activity, job_title, company
     )
 
     job_title == null && company != null -> company

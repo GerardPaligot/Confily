@@ -11,13 +11,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.res.stringResource
-import org.gdglille.devfest.android.theme.m3.style.R
+import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.theme.m3.style.appbars.AppBarIcons
 import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBar
+import org.gdglille.devfest.android.shared.resources.screen_partners_detail
 import org.gdglille.devfest.models.ui.PartnerItemUi
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalResourceApi::class)
 @Composable
 fun PartnerDetailOrientable(
     partnerItemUi: PartnerItemUi,
@@ -34,7 +36,7 @@ fun PartnerDetailOrientable(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             TopAppBar(
-                title = stringResource(id = R.string.screen_partners_detail),
+                title = stringResource(Resource.string.screen_partners_detail),
                 navigationIcon = navigationIcon,
                 scrollBehavior = scrollBehavior
             )

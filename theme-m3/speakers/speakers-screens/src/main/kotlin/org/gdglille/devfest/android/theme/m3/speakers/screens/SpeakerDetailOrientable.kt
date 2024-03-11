@@ -7,14 +7,16 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import org.gdglille.devfest.android.theme.m3.style.R
+import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.theme.m3.style.Scaffold
 import org.gdglille.devfest.android.theme.m3.style.appbars.AppBarIcons
+import org.gdglille.devfest.android.shared.resources.screen_speaker_detail
 import org.gdglille.devfest.models.ui.SpeakerUi
 import org.gdglille.devfest.models.ui.TalkItemUi
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class, ExperimentalResourceApi::class)
 @Composable
 fun SpeakerDetailOrientable(
     speaker: SpeakerUi,
@@ -28,7 +30,7 @@ fun SpeakerDetailOrientable(
 ) {
     val state = rememberLazyListState()
     Scaffold(
-        title = stringResource(id = R.string.screen_speaker_detail),
+        title = stringResource(Resource.string.screen_speaker_detail),
         navigationIcon = navigationIcon,
         modifier = modifier
     ) {

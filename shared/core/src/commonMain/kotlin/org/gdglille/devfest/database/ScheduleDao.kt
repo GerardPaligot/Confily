@@ -14,7 +14,6 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
-import org.gdglille.devfest.Platform
 import org.gdglille.devfest.database.mappers.convertCategoryUi
 import org.gdglille.devfest.database.mappers.convertFormatUi
 import org.gdglille.devfest.database.mappers.convertTalkItemUi
@@ -32,8 +31,7 @@ import org.gdglille.devfest.models.ui.FormatUi
 @ExperimentalSettingsApi
 class ScheduleDao(
     private val db: Conferences4HallDatabase,
-    private val settings: ObservableSettings,
-    private val platform: Platform
+    private val settings: ObservableSettings
 ) {
     fun fetchSchedules(eventId: String): Flow<ImmutableMap<String, AgendaUi>> = combine(
         db.sessionQueries
@@ -84,13 +82,8 @@ class ScheduleDao(
                     } else {
                         emptyList()
                     }
-                    it.convertTalkItemUi(
-                        getString = platform::getString,
-                        getStringArg = platform::getString,
-                        getPluralsArg = platform::getString,
-                        speakers = speakers
-                    )
-                } + breaks.map { it.convertTalkItemUi(platform::getString, platform::getString) }
+                    it.convertTalkItemUi(speakers = speakers)
+                } + breaks.map { it.convertTalkItemUi() }
             sessions.distinctBy { it.date }
                 .associate {
                     it.date to AgendaUi(

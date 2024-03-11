@@ -22,7 +22,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.asImageBitmap
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.text
 import androidx.compose.ui.text.AnnotatedString
@@ -33,14 +32,21 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.models.ui.Image
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
+import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.theme.m3.style.placeholder.placeholder
+import org.gdglille.devfest.android.shared.resources.semantic_ticket_id
+import org.gdglille.devfest.android.shared.resources.semantic_ticket_qrcode
 import org.gdglille.devfest.android.theme.m3.style.shapes.DottedShape
-import org.gdglille.devfest.android.theme.m3.style.R
+import org.gdglille.devfest.android.shared.resources.text_ticket_firstname
+import org.gdglille.devfest.android.shared.resources.text_ticket_lastname
 import org.gdglille.devfest.models.ui.TicketInfoUi
 import org.gdglille.devfest.models.ui.TicketUi
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.stringResource
 
 private const val TicketRatio = 2 / 3
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun TicketDetailed(
     ticket: TicketInfoUi,
@@ -50,7 +56,7 @@ fun TicketDetailed(
     shape: Shape = RoundedCornerShape(16.dp),
     elevation: Dp = 8.dp
 ) {
-    val cdTicketId = stringResource(R.string.semantic_ticket_id, ticket.id)
+    val cdTicketId = stringResource(Resource.string.semantic_ticket_id, ticket.id)
     Surface(
         modifier = modifier.wrapContentHeight(),
         shape = shape,
@@ -67,7 +73,7 @@ fun TicketDetailed(
                         .placeholder(isLoading)
                 ) {
                     Text(
-                        text = stringResource(R.string.text_ticket_firstname),
+                        text = stringResource(Resource.string.text_ticket_firstname),
                         modifier = Modifier.weight(1f),
                         textAlign = TextAlign.Start
                     )
@@ -84,7 +90,7 @@ fun TicketDetailed(
                         .placeholder(isLoading)
                 ) {
                     Text(
-                        text = stringResource(R.string.text_ticket_lastname),
+                        text = stringResource(Resource.string.text_ticket_lastname),
                         modifier = Modifier.weight(1f),
                         textAlign = TextAlign.Start
                     )
@@ -121,7 +127,9 @@ fun TicketDetailed(
                     BoxWithConstraints {
                         Image(
                             bitmap = qrCode.asImageBitmap(),
-                            contentDescription = stringResource(id = R.string.semantic_ticket_qrcode),
+                            contentDescription = stringResource(
+                                Resource.string.semantic_ticket_qrcode
+                            ),
                             modifier = Modifier
                                 .size(this.maxWidth * TicketRatio)
                                 .placeholder(isLoading)

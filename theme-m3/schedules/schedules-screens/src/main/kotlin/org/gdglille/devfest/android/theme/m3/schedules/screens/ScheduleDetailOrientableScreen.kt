@@ -13,15 +13,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.res.stringResource
 import io.openfeedback.android.viewmodels.OpenFeedbackFirebaseConfig
 import kotlinx.collections.immutable.persistentListOf
 import org.gdglille.devfest.android.theme.m3.navigation.TopActions
-import org.gdglille.devfest.android.theme.m3.style.R
+import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.theme.m3.style.actions.TopActionsUi
 import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBar
+import org.gdglille.devfest.android.shared.resources.input_share_talk
+import org.gdglille.devfest.android.shared.resources.screen_schedule_detail
 import org.gdglille.devfest.models.ui.TalkUi
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.stringResource
 
+@OptIn(ExperimentalResourceApi::class)
 @ExperimentalMaterial3Api
 @Composable
 fun ScheduleDetailOrientableScreen(
@@ -34,14 +38,14 @@ fun ScheduleDetailOrientableScreen(
 ) {
     val orientation = LocalConfiguration.current
     val textShared =
-        stringResource(id = R.string.input_share_talk, talk.title, talk.speakersSharing)
+        stringResource(Resource.string.input_share_talk, talk.title, talk.speakersSharing)
     val state = rememberLazyListState()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
     Scaffold(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             TopAppBar(
-                title = stringResource(id = R.string.screen_schedule_detail),
+                title = stringResource(Resource.string.screen_schedule_detail),
                 navigationIcon = { Back(onClick = onBackClicked) },
                 topActionsUi = TopActionsUi(actions = persistentListOf(TopActions.share)),
                 onActionClicked = {

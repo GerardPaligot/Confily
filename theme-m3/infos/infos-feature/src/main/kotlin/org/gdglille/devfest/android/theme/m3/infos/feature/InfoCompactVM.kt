@@ -10,14 +10,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import org.gdglille.devfest.android.theme.m3.navigation.ActionIds
 import org.gdglille.devfest.android.theme.m3.navigation.TabActions
-import org.gdglille.devfest.android.theme.m3.style.R
+import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.theme.m3.style.Scaffold
+import org.gdglille.devfest.android.shared.resources.screen_info
+import org.gdglille.devfest.android.shared.resources.text_error
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.stringResource
 import org.koin.androidx.compose.koinViewModel
 
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class, ExperimentalResourceApi::class)
 @Composable
 fun InfoCompactVM(
     onItineraryClicked: (lat: Double, lng: Double) -> Unit,
@@ -29,7 +32,7 @@ fun InfoCompactVM(
     modifier: Modifier = Modifier,
     viewModel: InfoViewModel = koinViewModel()
 ) {
-    val title = stringResource(id = R.string.screen_info)
+    val title = stringResource(Resource.string.screen_info)
     when (val uiState = viewModel.uiState.collectAsState().value) {
         is InfoUiState.Loading -> Scaffold(title = title, modifier = modifier) {
             EventVM(
@@ -103,6 +106,6 @@ fun InfoCompactVM(
             }
         }
 
-        is InfoUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
+        is InfoUiState.Failure -> Text(text = stringResource(Resource.string.text_error))
     }
 }

@@ -15,7 +15,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -45,11 +44,14 @@ import org.gdglille.devfest.android.theme.m3.style.appbars.iconColor
 import org.gdglille.devfest.models.ui.ExportNetworkingUi
 import org.gdglille.devfest.models.ui.VCardModel
 import org.gdglille.devfest.models.ui.convertToModelUi
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.stringResource
 import org.koin.androidx.compose.koinViewModel
 
 @Suppress("LongMethod")
 @OptIn(
-    ExperimentalMaterial3AdaptiveNavigationSuiteApi::class, ExperimentalMaterial3AdaptiveApi::class
+    ExperimentalMaterial3AdaptiveNavigationSuiteApi::class, ExperimentalMaterial3AdaptiveApi::class,
+    ExperimentalResourceApi::class
 )
 @Composable
 fun MainNavigation(
@@ -110,8 +112,7 @@ fun MainNavigation(
                             icon = {
                                 Icon(
                                     imageVector = if (selected) action.iconSelected else action.icon,
-                                    contentDescription = action.contentDescription
-                                        ?.let { stringResource(it) },
+                                    contentDescription = stringResource(action.label),
                                     tint = iconColor(selected = selected)
                                 )
                             },

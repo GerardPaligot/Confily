@@ -16,16 +16,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
-import org.gdglille.devfest.android.theme.m3.style.R
+import org.gdglille.devfest.android.shared.resources.Resource
+import org.gdglille.devfest.android.shared.resources.action_submit_accept
+import org.gdglille.devfest.android.shared.resources.action_submit_deny
 import org.gdglille.devfest.android.theme.m3.style.networking.UserItem
+import org.gdglille.devfest.android.shared.resources.text_networking_ask_to_delete
 import org.gdglille.devfest.models.ui.NetworkingUi
 import org.gdglille.devfest.models.ui.UserNetworkingUi
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.stringResource
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun ContactsScreen(
     users: ImmutableList<UserNetworkingUi>,
@@ -61,19 +66,19 @@ fun ContactsScreen(
                                     openDialog.value = false
                                 }
                             ) {
-                                Text(stringResource(R.string.action_submit_accept))
+                                Text(stringResource(Resource.string.action_submit_accept))
                             }
                         },
                         dismissButton = {
                             Button(onClick = { openDialog.value = false }) {
-                                Text(stringResource(R.string.action_submit_deny))
+                                Text(stringResource(Resource.string.action_submit_deny))
                             }
                         },
                         text = {
                             Text(
                                 text =
                                 stringResource(
-                                    R.string.text_networking_ask_to_delete,
+                                    Resource.string.text_networking_ask_to_delete,
                                     "${user.firstName} ${user.lastName}"
                                 )
                             )

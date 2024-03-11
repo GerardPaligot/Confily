@@ -7,12 +7,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
-import org.gdglille.devfest.Platform
 import org.gdglille.devfest.database.mappers.convertTalkUi
 import org.gdglille.devfest.db.Conferences4HallDatabase
 import org.gdglille.devfest.models.ui.TalkUi
 
-class TalkDao(private val db: Conferences4HallDatabase, private val platform: Platform) {
+class TalkDao(private val db: Conferences4HallDatabase) {
     fun fetchTalk(eventId: String, talkId: String): Flow<TalkUi> = db.transactionWithResult {
         combine(
             flow = db.sessionQueries
@@ -28,7 +27,7 @@ class TalkDao(private val db: Conferences4HallDatabase, private val platform: Pl
                 .asFlow()
                 .mapToOne(Dispatchers.IO),
             transform = { speakers, openfeedback, talk ->
-                talk.convertTalkUi(platform::getString, speakers, openfeedback)
+                talk.convertTalkUi(speakers, openfeedback)
             }
         )
     }

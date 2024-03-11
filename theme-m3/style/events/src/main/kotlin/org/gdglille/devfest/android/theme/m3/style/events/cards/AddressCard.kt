@@ -16,7 +16,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.font.FontWeight
@@ -25,9 +24,13 @@ import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
+import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.theme.m3.style.placeholder.placeholder
-import org.gdglille.devfest.android.theme.m3.style.R
+import org.gdglille.devfest.android.shared.resources.semantic_start_itinerary
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.stringResource
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun AddressCard(
     formattedAddress: ImmutableList<String>,
@@ -67,7 +70,9 @@ fun AddressCard(
                 IconButton(onClick = onItineraryClicked) {
                     Icon(
                         imageVector = Icons.Outlined.Navigation,
-                        contentDescription = stringResource(R.string.semantic_start_itinerary),
+                        contentDescription = stringResource(
+                            Resource.string.semantic_start_itinerary
+                        ),
                         tint = MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier
                             .size(32.dp)

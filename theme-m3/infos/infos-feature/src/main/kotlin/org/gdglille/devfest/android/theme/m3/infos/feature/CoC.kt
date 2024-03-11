@@ -11,7 +11,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.tooling.preview.Preview
@@ -20,9 +19,15 @@ import com.halilibo.richtext.markdown.Markdown
 import com.halilibo.richtext.ui.RichText
 import com.halilibo.richtext.ui.RichTextThemeIntegration
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
-import org.gdglille.devfest.android.theme.m3.style.R
+import org.gdglille.devfest.android.shared.resources.Resource
+import org.gdglille.devfest.android.shared.resources.action_contact_organizers_mail
+import org.gdglille.devfest.android.shared.resources.action_contact_organizers_phone
+import org.gdglille.devfest.android.shared.resources.screen_coc
 import org.gdglille.devfest.models.ui.CoCUi
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.stringResource
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun CoC(
     coc: CoCUi,
@@ -37,7 +42,7 @@ fun CoC(
     ) {
         item {
             Text(
-                text = stringResource(R.string.screen_coc),
+                text = stringResource(Resource.string.screen_coc),
                 style = MaterialTheme.typography.headlineLarge,
                 color = MaterialTheme.colorScheme.onSurface,
             )
@@ -66,11 +71,11 @@ fun CoC(
             ) {
                 coc.phone?.let { phone ->
                     Button(onClick = { onReportByPhoneClicked(phone) }) {
-                        Text(text = stringResource(R.string.action_contact_organizers_phone))
+                        Text(text = stringResource(Resource.string.action_contact_organizers_phone))
                     }
                 }
                 Button(onClick = { onReportByEmailClicked(coc.email) }) {
-                    Text(text = stringResource(R.string.action_contact_organizers_mail))
+                    Text(text = stringResource(Resource.string.action_contact_organizers_mail))
                 }
             }
         }

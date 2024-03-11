@@ -6,6 +6,14 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
+import org.gdglille.devfest.android.shared.resources.Resource
+import org.gdglille.devfest.android.shared.resources.text_level_advanced
+import org.gdglille.devfest.android.shared.resources.text_level_beginner
+import org.gdglille.devfest.android.shared.resources.text_level_intermediate
+import org.gdglille.devfest.android.shared.resources.text_schedule_minutes
+import org.gdglille.devfest.android.shared.resources.text_speakers_list_many
+import org.gdglille.devfest.android.shared.resources.text_speakers_list_one
+import org.gdglille.devfest.android.shared.resources.title_agenda_break
 import org.gdglille.devfest.db.SelectBreakSessions
 import org.gdglille.devfest.db.SelectCategories
 import org.gdglille.devfest.db.SelectFormats
@@ -24,9 +32,8 @@ import org.gdglille.devfest.models.ui.CategoryUi
 import org.gdglille.devfest.models.ui.FormatUi
 import org.gdglille.devfest.models.ui.TalkItemUi
 import org.gdglille.devfest.models.ui.TalkUi
-import kotlin.reflect.KFunction1
-import kotlin.reflect.KFunction2
-import kotlin.reflect.KFunction3
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.getString
 
 private const val BREAK_TITLE = "break"
 private const val MaxSpeakersCount = 3
@@ -55,10 +62,8 @@ fun SelectFormats.convertFormatUi() = FormatUi(
     id = id, name = name, time = time.toInt()
 )
 
-fun SelectSessions.convertTalkItemUi(
-    getString: KFunction1<String, String>,
-    getStringArg: KFunction2<String, List<String>, String>,
-    getPluralsArg: KFunction3<String, Int, List<Any>, String>,
+@OptIn(ExperimentalResourceApi::class)
+suspend fun SelectSessions.convertTalkItemUi(
     speakers: List<SelectSpeakersByTalkId>
 ): TalkItemUi {
     val startDateTime = start_time.toLocalDateTime()
@@ -68,12 +73,15 @@ fun SelectSessions.convertTalkItemUi(
     val count = (speakers.size - MaxSpeakersCount).coerceAtLeast(minimumValue = 0)
     val maxSpeakers = speakers.take(MaxSpeakersCount)
     val speakersJoined = maxSpeakers.joinToString(", ") { it.display_name }
-    val speakersLabel = if (count == 0) speakersJoined
-    else getPluralsArg("text_speakers_list", count, listOf(speakersJoined, count))
+    val speakersLabel = when (count) {
+        0 -> speakersJoined
+        1 -> getString(Resource.string.text_speakers_list_one, speakersJoined, count)
+        else -> getString(Resource.string.text_speakers_list_many, speakersJoined, count)
+    }
     val level = when (level) {
-        "advanced" -> getString("text_level_advanced")
-        "intermediate" -> getString("text_level_intermediate")
-        "beginner" -> getString("text_level_beginner")
+        "advanced" -> getString(Resource.string.text_level_advanced)
+        "intermediate" -> getString(Resource.string.text_level_intermediate)
+        "beginner" -> getString(Resource.string.text_level_beginner)
         else -> level
     }
     return TalkItemUi(
@@ -87,7 +95,7 @@ fun SelectSessions.convertTalkItemUi(
         startTime = start_time,
         endTime = end_time,
         timeInMinutes = timeInMinutes,
-        time = getStringArg("text_schedule_minutes", listOf(timeInMinutes.toString())),
+        time = getString(Resource.string.text_schedule_minutes, timeInMinutes.toString()),
         category = convertCategoryUi(),
         speakers = maxSpeakers.map { it.display_name }.toImmutableList(),
         speakersAvatar = maxSpeakers.map { it.photo_url }.toImmutableList(),
@@ -96,10 +104,8 @@ fun SelectSessions.convertTalkItemUi(
     )
 }
 
-fun SelectBreakSessions.convertTalkItemUi(
-    getString: KFunction1<String, String>,
-    getStringArg: KFunction2<String, List<String>, String>
-): TalkItemUi {
+@OptIn(ExperimentalResourceApi::class)
+suspend fun SelectBreakSessions.convertTalkItemUi(): TalkItemUi {
     val startDateTime = start_time.toLocalDateTime()
     val endDateTime = end_time.toLocalDateTime()
     val diff = endDateTime.toInstant(TimeZone.UTC).minus(startDateTime.toInstant(TimeZone.UTC))
@@ -107,7 +113,7 @@ fun SelectBreakSessions.convertTalkItemUi(
     return TalkItemUi(
         id = id,
         order = order_.toInt(),
-        title = getString("title_agenda_break"),
+        title = getString(Resource.string.title_agenda_break),
         abstract = "",
         room = room,
         level = null,
@@ -115,7 +121,7 @@ fun SelectBreakSessions.convertTalkItemUi(
         startTime = start_time,
         endTime = end_time,
         timeInMinutes = timeInMinutes,
-        time = getStringArg("text_schedule_minutes", listOf(timeInMinutes.toString())),
+        time = getString(Resource.string.text_schedule_minutes, timeInMinutes.toString()),
         category = convertCategoryUi(),
         speakers = persistentListOf(),
         speakersAvatar = persistentListOf(),
@@ -124,10 +130,8 @@ fun SelectBreakSessions.convertTalkItemUi(
     )
 }
 
-fun SelectTalksBySpeakerId.convertTalkItemUi(
-    getString: KFunction1<String, String>,
-    getStringArg: KFunction2<String, List<String>, String>,
-    getPluralsArg: KFunction3<String, Int, List<Any>, String>,
+@OptIn(ExperimentalResourceApi::class)
+suspend fun SelectTalksBySpeakerId.convertTalkItemUi(
     session: SelectSessionByTalkId,
     speakers: List<SelectSpeakersByTalkId>
 ): TalkItemUi {
@@ -138,12 +142,15 @@ fun SelectTalksBySpeakerId.convertTalkItemUi(
     val count = (speakers.size - MaxSpeakersCount).coerceAtLeast(minimumValue = 0)
     val maxSpeakers = speakers.take(MaxSpeakersCount)
     val speakersJoined = maxSpeakers.joinToString(", ") { it.display_name }
-    val speakersLabel = if (count == 0) speakersJoined
-    else getPluralsArg("text_speakers_list", count, listOf(speakersJoined, count))
+    val speakersLabel = when (count) {
+        0 -> speakersJoined
+        1 -> getString(Resource.string.text_speakers_list_one, speakersJoined, count)
+        else -> getString(Resource.string.text_speakers_list_many, speakersJoined, count)
+    }
     val level = when (level) {
-        "advanced" -> getString("text_level_advanced")
-        "intermediate" -> getString("text_level_intermediate")
-        "beginner" -> getString("text_level_beginner")
+        "advanced" -> getString(Resource.string.text_level_advanced)
+        "intermediate" -> getString(Resource.string.text_level_intermediate)
+        "beginner" -> getString(Resource.string.text_level_beginner)
         else -> level
     }
     return TalkItemUi(
@@ -157,7 +164,7 @@ fun SelectTalksBySpeakerId.convertTalkItemUi(
         startTime = session.start_time,
         endTime = session.end_time,
         timeInMinutes = timeInMinutes,
-        time = getStringArg("text_schedule_minutes", listOf(timeInMinutes.toString())),
+        time = getString(Resource.string.text_schedule_minutes, timeInMinutes.toString()),
         category = convertCategoryUi(),
         speakers = maxSpeakers.map { it.display_name }.toImmutableList(),
         speakersAvatar = maxSpeakers.map { it.photo_url }.toImmutableList(),
@@ -166,8 +173,7 @@ fun SelectTalksBySpeakerId.convertTalkItemUi(
     )
 }
 
-fun SelectSessionByTalkId.convertTalkUi(
-    getStringArg: KFunction2<String, List<String>, String>,
+suspend fun SelectSessionByTalkId.convertTalkUi(
     speakers: List<SelectSpeakersByTalkId>,
     openfeedbackProjectId: SelectOpenfeedbackProjectId
 ): TalkUi {
@@ -184,7 +190,7 @@ fun SelectSessionByTalkId.convertTalkUi(
         endTime = endTime.formatHoursMinutes(),
         timeInMinutes = diff.inWholeMinutes.toInt(),
         room = room,
-        speakers = speakers.map { it.convertSpeakerItemUi(getStringArg) }.toImmutableList(),
+        speakers = speakers.map { it.convertSpeakerItemUi() }.toImmutableList(),
         speakersSharing = speakers.joinToString(", ") { speaker ->
             if (speaker.twitter == null) speaker.display_name
             else {

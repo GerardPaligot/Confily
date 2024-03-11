@@ -14,7 +14,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.TextStyle
@@ -22,15 +21,21 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.toImmutableList
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
-import org.gdglille.devfest.android.theme.m3.style.R
+import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.theme.m3.style.schedules.findCategoryImageVector
 import org.gdglille.devfest.android.theme.m3.style.schedules.findTimeImageVector
+import org.gdglille.devfest.android.shared.resources.semantic_talk_item
+import org.gdglille.devfest.android.shared.resources.semantic_talk_item_level
 import org.gdglille.devfest.android.theme.m3.style.speakers.avatars.MediumBorderedSpeakersAvatar
 import org.gdglille.devfest.android.theme.m3.style.tags.MediumAutoColoredTag
 import org.gdglille.devfest.android.theme.m3.style.tags.MediumTag
 import org.gdglille.devfest.android.theme.m3.style.tags.TagDefaults
+import org.gdglille.devfest.android.shared.resources.text_schedule_minutes
 import org.gdglille.devfest.models.ui.TalkUi
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.stringResource
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun TalkSection(
     talk: TalkUi,
@@ -39,9 +44,9 @@ fun TalkSection(
     titleTextStyle: TextStyle = MaterialTheme.typography.headlineMedium
 ) {
     val semanticLevel = if (talk.level == null) ""
-    else stringResource(id = R.string.semantic_talk_item_level, talk.level!!)
+    else stringResource(Resource.string.semantic_talk_item_level, talk.level!!)
     val semanticTalk = stringResource(
-        id = R.string.semantic_talk_item,
+        Resource.string.semantic_talk_item,
         talk.title,
         "",
         talk.room,
@@ -82,7 +87,10 @@ fun TalkSection(
                 colors = TagDefaults.unStyledColors()
             )
             MediumTag(
-                text = stringResource(R.string.text_schedule_minutes, talk.timeInMinutes.toString()),
+                text = stringResource(
+                    Resource.string.text_schedule_minutes,
+                    talk.timeInMinutes.toString()
+                ),
                 icon = talk.timeInMinutes.findTimeImageVector(),
                 colors = TagDefaults.unStyledColors()
             )

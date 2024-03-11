@@ -7,15 +7,17 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import org.gdglille.devfest.android.theme.m3.schedules.screens.ScheduleGridPager
-import org.gdglille.devfest.android.theme.m3.style.R
+import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.theme.m3.style.actions.TopActionsUi
+import org.gdglille.devfest.android.shared.resources.text_error
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.stringResource
 import org.koin.androidx.compose.koinViewModel
 
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class, ExperimentalResourceApi::class)
 @ExperimentalCoroutinesApi
 @FlowPreview
 @Composable
@@ -41,7 +43,7 @@ fun ScheduleGridVM(
             isLoading = true
         )
 
-        is ScheduleGridUiState.Failure -> Text(text = stringResource(id = R.string.text_error))
+        is ScheduleGridUiState.Failure -> Text(text = stringResource(Resource.string.text_error))
         is ScheduleGridUiState.Success -> ScheduleGridPager(
             agendas = uiState.scheduleUi.schedules,
             topActionsUi = if (!showFilterIcon) TopActionsUi() else uiState.scheduleUi.topActionsUi,

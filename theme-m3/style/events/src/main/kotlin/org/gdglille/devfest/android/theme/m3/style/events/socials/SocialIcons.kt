@@ -6,7 +6,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Language
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import compose.icons.FontAwesomeIcons
@@ -17,8 +16,16 @@ import compose.icons.fontawesomeicons.brands.Mastodon
 import compose.icons.fontawesomeicons.brands.Twitter
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.buttons.IconButton
-import org.gdglille.devfest.android.theme.m3.style.R
+import org.gdglille.devfest.android.shared.resources.Resource
+import org.gdglille.devfest.android.shared.resources.semantic_github
+import org.gdglille.devfest.android.shared.resources.semantic_linkedin
+import org.gdglille.devfest.android.shared.resources.semantic_mastodon
+import org.gdglille.devfest.android.shared.resources.semantic_twitter
+import org.gdglille.devfest.android.shared.resources.semantic_website
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.stringResource
 
+@OptIn(ExperimentalResourceApi::class)
 object SocialIcons {
     @Composable
     fun Twitter(
@@ -28,7 +35,7 @@ object SocialIcons {
     ) {
         IconButton(
             imageVector = FontAwesomeIcons.Brands.Twitter,
-            contentDescription = stringResource(id = R.string.semantic_twitter, text),
+            contentDescription = stringResource(Resource.string.semantic_twitter, text),
             modifier = modifier,
             onClick = onClick
         )
@@ -42,7 +49,7 @@ object SocialIcons {
     ) {
         IconButton(
             imageVector = FontAwesomeIcons.Brands.Mastodon,
-            contentDescription = stringResource(id = R.string.semantic_mastodon, text),
+            contentDescription = stringResource(Resource.string.semantic_mastodon, text),
             modifier = modifier,
             onClick = onClick
         )
@@ -56,7 +63,7 @@ object SocialIcons {
     ) {
         IconButton(
             imageVector = FontAwesomeIcons.Brands.Github,
-            contentDescription = stringResource(id = R.string.semantic_github, text),
+            contentDescription = stringResource(Resource.string.semantic_github, text),
             modifier = modifier,
             onClick = onClick
         )
@@ -70,7 +77,7 @@ object SocialIcons {
     ) {
         IconButton(
             imageVector = FontAwesomeIcons.Brands.LinkedinIn,
-            contentDescription = stringResource(id = R.string.semantic_linkedin, text),
+            contentDescription = stringResource(Resource.string.semantic_linkedin, text),
             modifier = modifier,
             onClick = onClick
         )
@@ -84,7 +91,7 @@ object SocialIcons {
     ) {
         IconButton(
             imageVector = Icons.Outlined.Language,
-            contentDescription = stringResource(id = R.string.semantic_website, text),
+            contentDescription = stringResource(Resource.string.semantic_website, text),
             modifier = modifier,
             onClick = onClick
         )

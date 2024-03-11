@@ -4,11 +4,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
 import com.halilibo.richtext.markdown.Markdown
 import com.halilibo.richtext.ui.RichText
 import com.halilibo.richtext.ui.RichTextThemeIntegration
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
-import org.gdglille.devfest.android.theme.m3.style.previews.ThemedPreviews
 
 @Composable
 fun MarkdownText(
@@ -29,7 +29,7 @@ fun MarkdownText(
     }
 }
 
-@ThemedPreviews
+@Preview
 @Composable
 internal fun SocialsSectionPreview() {
     Conferences4HallTheme {

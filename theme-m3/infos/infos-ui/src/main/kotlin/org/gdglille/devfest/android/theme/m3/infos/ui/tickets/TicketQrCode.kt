@@ -13,15 +13,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.asImageBitmap
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.models.ui.Image
 import org.gdglille.devfest.android.theme.m3.style.placeholder.placeholder
-import org.gdglille.devfest.android.theme.m3.style.R
+import org.gdglille.devfest.android.shared.resources.Resource
+import org.gdglille.devfest.android.shared.resources.semantic_ticket_qrcode
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.stringResource
 
 private const val TicketRatio = 3 / 4
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun TicketQrCode(
     qrCode: Image,
@@ -43,7 +46,7 @@ fun TicketQrCode(
         ) {
             Image(
                 bitmap = qrCode.asImageBitmap(),
-                contentDescription = stringResource(id = R.string.semantic_ticket_qrcode),
+                contentDescription = stringResource(Resource.string.semantic_ticket_qrcode),
                 modifier = Modifier
                     .size(this.maxWidth * TicketRatio)
                     .placeholder(isLoading)

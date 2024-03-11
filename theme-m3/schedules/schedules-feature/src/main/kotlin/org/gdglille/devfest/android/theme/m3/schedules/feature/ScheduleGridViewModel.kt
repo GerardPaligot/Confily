@@ -28,6 +28,9 @@ import org.gdglille.devfest.android.theme.m3.style.actions.TopActionsUi
 import org.gdglille.devfest.models.ui.AgendaUi
 import org.gdglille.devfest.models.ui.TalkItemUi
 import org.gdglille.devfest.repositories.AgendaRepository
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.InternalResourceApi
+import org.jetbrains.compose.resources.StringResource
 
 data class ScheduleUi(
     val topActionsUi: TopActionsUi,
@@ -41,6 +44,7 @@ sealed class ScheduleGridUiState {
     data class Failure(val throwable: Throwable) : ScheduleGridUiState()
 }
 
+@OptIn(InternalResourceApi::class, ExperimentalResourceApi::class)
 @FlowPreview
 @ExperimentalCoroutinesApi
 class ScheduleGridViewModel(
@@ -53,7 +57,7 @@ class ScheduleGridViewModel(
                 scrollable = true,
                 actions = it.agendaTabs.map {
                     val label = DateTimeFormatter.ofPattern("dd MMM").format(LocalDate.parse(it))
-                    TabAction(route = it, 0, label)
+                    TabAction(route = it, StringResource("", "", emptySet()), label)
                 }.toImmutableList()
             )
         }

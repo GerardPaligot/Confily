@@ -7,19 +7,21 @@ import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.collections.immutable.persistentMapOf
 import org.gdglille.devfest.android.theme.m3.style.chips.FilterChip
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
-import org.gdglille.devfest.android.theme.m3.style.R
+import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.theme.m3.style.schedules.filters.FilterSection
 import org.gdglille.devfest.android.theme.m3.style.schedules.findTimeImageVector
+import org.gdglille.devfest.android.shared.resources.title_filters_formats
 import org.gdglille.devfest.models.ui.FormatUi
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalLayoutApi::class)
+@OptIn(ExperimentalLayoutApi::class, ExperimentalResourceApi::class)
 @Composable
 fun FormatListFilters(
     formats: ImmutableMap<FormatUi, Boolean>,
@@ -27,7 +29,7 @@ fun FormatListFilters(
     onClick: (formatUi: FormatUi, selected: Boolean) -> Unit
 ) {
     FilterSection(
-        title = stringResource(id = R.string.title_filters_formats),
+        title = stringResource(Resource.string.title_filters_formats),
         modifier = modifier
     ) {
         FlowRow(

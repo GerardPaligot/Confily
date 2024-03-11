@@ -10,7 +10,6 @@ import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
-import org.gdglille.devfest.Platform
 import org.gdglille.devfest.database.mappers.convertTalkItemUi
 import org.gdglille.devfest.database.mappers.convertToSpeakerItemUi
 import org.gdglille.devfest.database.mappers.convertToSpeakerUi
@@ -19,10 +18,7 @@ import org.gdglille.devfest.models.ui.SpeakerItemUi
 import org.gdglille.devfest.models.ui.SpeakerUi
 import org.gdglille.devfest.models.ui.TalkItemUi
 
-class SpeakerDao(
-    private val db: Conferences4HallDatabase,
-    private val platform: Platform
-) {
+class SpeakerDao(private val db: Conferences4HallDatabase) {
     fun fetchSpeaker(eventId: String, speakerId: String): Flow<SpeakerUi> {
         return combine(
             db.speakerQueries.selectSpeaker(speakerId, eventId)
@@ -31,7 +27,6 @@ class SpeakerDao(
             fetchTalksBySpeakerId(eventId, speakerId),
             transform = { speaker, talks ->
                 return@combine speaker.convertToSpeakerUi(
-                    getStringArg = platform::getString,
                     talks = talks.toImmutableList()
                 )
             }
@@ -50,9 +45,6 @@ class SpeakerDao(
                 talks
                     .map { talk ->
                         talk.convertTalkItemUi(
-                            getString = platform::getString,
-                            getStringArg = platform::getString,
-                            getPluralsArg = platform::getString,
                             session = db.sessionQueries
                                 .selectSessionByTalkId(eventId, talk.id)
                                 .executeAsOne(),
@@ -71,7 +63,7 @@ class SpeakerDao(
             .mapToList(Dispatchers.IO)
             .map { speakers ->
                 speakers
-                    .map { speaker -> speaker.convertToSpeakerItemUi(platform::getString) }
+                    .map { speaker -> speaker.convertToSpeakerItemUi() }
                     .toImmutableList()
             }
 }

@@ -10,6 +10,7 @@ android {
 
 dependencies {
     implementation(projects.shared.core)
+    implementation(projects.shared.resources)
     implementation(projects.themeM3.schedules.schedulesScreens)
     implementation(projects.themeM3.schedules.schedulesUi)
     implementation(projects.themeM3.navigation)
@@ -23,8 +24,9 @@ dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.material3.adaptive)
     implementation(libs.androidx.compose.material3.adaptive.navigation.suite)
-    implementation(compose.preview)
     implementation(compose.material3)
+    implementation(compose.components.resources)
+    implementation(compose.preview)
     debugImplementation(compose.uiTooling)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)

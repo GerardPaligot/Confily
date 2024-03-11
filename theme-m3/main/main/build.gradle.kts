@@ -19,8 +19,9 @@ dependencies {
     implementation(projects.themeM3.infos.infosFeature)
     implementation(projects.themeM3.eventList.eventListFeature)
     implementation(projects.themeM3.navigation)
-    implementation(projects.shared.uiModels)
     implementation(projects.shared.core)
+    implementation(projects.shared.uiModels)
+    implementation(projects.shared.resources)
 
     implementation(libs.koin.androidx.compose)
 
@@ -29,8 +30,9 @@ dependencies {
     implementation(libs.androidx.compose.material3.adaptive)
     implementation(libs.androidx.compose.material3.adaptive.navigation.suite)
     implementation(libs.androidx.compose.runtime.livedata)
-    implementation(compose.preview)
     implementation(compose.material3)
+    implementation(compose.components.resources)
+    implementation(compose.preview)
     debugImplementation(compose.uiTooling)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.navigation.compose)

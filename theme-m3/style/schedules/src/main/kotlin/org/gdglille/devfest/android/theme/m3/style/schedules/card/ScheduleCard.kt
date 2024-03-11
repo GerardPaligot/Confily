@@ -16,7 +16,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Grade
 import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.Card
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -24,20 +23,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
-import org.gdglille.devfest.android.theme.m3.style.R
-import org.gdglille.devfest.android.theme.m3.style.previews.ThemedPreviews
+import org.gdglille.devfest.android.shared.resources.Resource
+import org.gdglille.devfest.android.shared.resources.action_favorites_add
+import org.gdglille.devfest.android.shared.resources.action_favorites_remove
 import org.gdglille.devfest.android.theme.m3.style.speakers.avatars.SmallLabeledSpeakersAvatar
 import org.gdglille.devfest.android.theme.m3.style.toDp
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
+@OptIn(ExperimentalLayoutApi::class, ExperimentalResourceApi::class)
 @Composable
 fun SmallScheduleCard(
     title: String,
@@ -83,8 +85,9 @@ fun SmallScheduleCard(
                     ) {
                         Icon(
                             imageVector = if (isFavorite) Icons.Outlined.Star else Icons.Outlined.Grade,
-                            contentDescription = if (isFavorite) stringResource(R.string.action_favorites_remove)
-                            else stringResource(R.string.action_favorites_add),
+                            contentDescription =
+                            if (isFavorite) stringResource(Resource.string.action_favorites_remove)
+                            else stringResource(Resource.string.action_favorites_add),
                             tint = colors.favIconColor(isFavorite = isFavorite).value
                         )
                     }
@@ -105,7 +108,7 @@ fun SmallScheduleCard(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun MediumScheduleCard(
     title: String,
@@ -159,8 +162,8 @@ fun MediumScheduleCard(
                 ) {
                     Icon(
                         imageVector = if (isFavorite) Icons.Outlined.Star else Icons.Outlined.Grade,
-                        contentDescription = if (isFavorite) stringResource(R.string.action_favorites_remove)
-                        else stringResource(R.string.action_favorites_add),
+                        contentDescription = if (isFavorite) stringResource(Resource.string.action_favorites_remove)
+                        else stringResource(Resource.string.action_favorites_add),
                         tint = colors.favIconColor(isFavorite = isFavorite).value
                     )
                 }
@@ -171,7 +174,7 @@ fun MediumScheduleCard(
 
 @OptIn(ExperimentalLayoutApi::class)
 @Suppress("UnusedPrivateMember")
-@ThemedPreviews
+@Preview
 @Composable
 private fun SmallScheduleCardPreview() {
     Conferences4HallTheme {
@@ -187,7 +190,7 @@ private fun SmallScheduleCardPreview() {
 }
 
 @Suppress("UnusedPrivateMember")
-@ThemedPreviews
+@Preview
 @Composable
 private fun ScheduleCardPreview() {
     Conferences4HallTheme {
@@ -203,7 +206,7 @@ private fun ScheduleCardPreview() {
 }
 
 @Suppress("UnusedPrivateMember")
-@ThemedPreviews
+@Preview
 @Composable
 private fun ScheduleCardFavoritePreview() {
     Conferences4HallTheme {

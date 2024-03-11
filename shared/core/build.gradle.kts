@@ -2,6 +2,7 @@ import org.gradle.internal.os.OperatingSystem
 
 plugins {
     id("conferences4hall.multiplatform.library")
+    id("conferences4hall.android.library.compose")
     id("conferences4hall.quality")
     id("kotlinx-serialization")
     id("com.rickclephas.kmp.nativecoroutines")
@@ -27,6 +28,7 @@ kotlin {
                 export(libs.settings)
                 export(projects.shared.models)
                 export(projects.shared.uiModels)
+                export(projects.shared.resources)
                 // Required https://github.com/cashapp/sqldelight/issues/1442
                 linkerOpts.add("-lsqlite3")
             }
@@ -38,7 +40,10 @@ kotlin {
             dependencies {
                 api(projects.shared.models)
                 api(projects.shared.uiModels)
-                implementation(libs.jetbrains.kotlinx.coroutines)
+                api(projects.shared.resources)
+
+                implementation(compose.runtime)
+                implementation(compose.components.resources)
 
                 implementation(libs.ktor.client.core)
                 implementation(libs.ktor.client.json)
@@ -49,6 +54,7 @@ kotlin {
 
                 implementation(libs.jetbrains.kotlinx.datetime)
                 implementation(libs.jetbrains.kotlinx.collections)
+                implementation(libs.jetbrains.kotlinx.coroutines)
 
                 implementation(libs.cash.sqldelight.runtime)
                 implementation(libs.cash.sqldelight.coroutines)
@@ -66,9 +72,8 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                implementation(projects.themeM3.style.theme)
-                implementation(libs.ktor.client.android)
                 implementation(libs.cash.sqldelight.android)
+                implementation(libs.ktor.client.android)
                 implementation(libs.google.zxing)
                 implementation(libs.zxing.android.embedded)
             }

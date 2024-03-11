@@ -28,6 +28,7 @@ kotlin {
                 export(projects.shared.core)
                 export(projects.shared.models)
                 export(projects.shared.uiModels)
+                export(projects.shared.resources)
                 // Required https://github.com/cashapp/sqldelight/issues/1442
                 linkerOpts.add("-lsqlite3")
             }

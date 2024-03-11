@@ -16,9 +16,6 @@ expect class Platform(context: PlatformContext) {
     val httpEngine: HttpClientEngine
     val fileEngine: FileEngine
     val hasSupportSVG: Boolean
-    fun getString(key: String): String
-    fun getString(key: String, count: Int, args: List<Any>): String
-    fun getString(key: String, args: List<Any>): String
 }
 
 expect class DecimalFormat() {

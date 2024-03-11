@@ -6,13 +6,16 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import io.openfeedback.android.m3.OpenFeedback
 import io.openfeedback.android.viewmodels.OpenFeedbackFirebaseConfig
-import org.gdglille.devfest.android.theme.m3.style.R
+import org.gdglille.devfest.android.shared.resources.Resource
+import org.gdglille.devfest.android.shared.resources.text_openfeedback_title
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.stringResource
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun OpenFeedbackSection(
     openFeedbackProjectId: String,
@@ -27,7 +30,7 @@ fun OpenFeedbackSection(
         modifier = modifier
     ) {
         Text(
-            text = stringResource(R.string.text_openfeedback_title),
+            text = stringResource(Resource.string.text_openfeedback_title),
             style = style
         )
         if (canGiveFeedback) {
