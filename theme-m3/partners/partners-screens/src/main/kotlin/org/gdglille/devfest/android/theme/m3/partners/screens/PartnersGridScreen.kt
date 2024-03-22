@@ -48,7 +48,7 @@ fun PartnersGridScreen(
         modifier = modifier,
         hasScrollBehavior = false
     ) {
-        BoxWithConstraints(modifier = Modifier.padding(it)) {
+        BoxWithConstraints(modifier = Modifier.padding(top = it.calculateTopPadding())) {
             val minSize = 100.dp
             val mediumSpacing = SpacingTokens.MediumSpacing.toDp()
             val widthSize = this.maxWidth - (mediumSpacing * NbHorizontalPadding)

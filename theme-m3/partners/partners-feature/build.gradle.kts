@@ -14,6 +14,7 @@ dependencies {
     implementation(projects.themeM3.partners.partnersScreens)
     implementation(projects.themeM3.partners.partnersUi)
     implementation(projects.themeM3.navigation)
+    implementation(projects.themeM3.style.components.adaptive)
     implementation(projects.themeM3.style.partners)
     implementation(projects.themeM3.style.theme)
 

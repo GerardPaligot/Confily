@@ -16,6 +16,7 @@ dependencies {
     implementation(projects.themeM3.navigation)
     implementation(projects.themeM3.style.schedules)
     implementation(projects.themeM3.style.theme)
+    implementation(projects.themeM3.style.components.adaptive)
 
     implementation(libs.koin.androidx.compose)
 

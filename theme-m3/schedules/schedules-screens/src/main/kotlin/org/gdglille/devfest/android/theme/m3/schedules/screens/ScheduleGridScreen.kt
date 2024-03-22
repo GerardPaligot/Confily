@@ -51,7 +51,10 @@ fun ScheduleGridScreen(
             LazyVerticalGrid(
                 columns = GridCells.Adaptive(minSize = minSize),
                 modifier = modifier,
-                contentPadding = PaddingValues(vertical = SpacingTokens.LargeSpacing.toDp()),
+                contentPadding = PaddingValues(
+                    vertical = SpacingTokens.LargeSpacing.toDp(),
+                    horizontal = SpacingTokens.MediumSpacing.toDp()
+                ),
                 verticalArrangement = Arrangement.spacedBy(mediumSpacing),
                 horizontalArrangement = Arrangement.spacedBy(mediumSpacing)
             ) {

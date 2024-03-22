@@ -40,6 +40,8 @@ import org.gdglille.devfest.android.theme.m3.schedules.feature.ScheduleDetailOri
 import org.gdglille.devfest.android.theme.m3.schedules.feature.ScheduleGridAdaptive
 import org.gdglille.devfest.android.theme.m3.speakers.feature.SpeakerAdaptive
 import org.gdglille.devfest.android.theme.m3.speakers.feature.SpeakerDetailVM
+import org.gdglille.devfest.android.theme.m3.style.adaptive.isCompat
+import org.gdglille.devfest.android.theme.m3.style.adaptive.isMedium
 import org.gdglille.devfest.android.theme.m3.style.appbars.iconColor
 import org.gdglille.devfest.models.ui.ExportNetworkingUi
 import org.gdglille.devfest.models.ui.VCardModel
@@ -211,8 +213,8 @@ fun MainNavigation(
                 composable(Screen.PartnerList.route) {
                     PartnersAdaptive(
                         showBackInDetail = adaptiveInfo.windowSizeClass.widthSizeClass.isCompat,
-                        onLinkClicked = { launchUrl(it) },
                         onItineraryClicked = onItineraryClicked,
+                        onLinkClicked = { launchUrl(it) },
                     )
                 }
                 composable(

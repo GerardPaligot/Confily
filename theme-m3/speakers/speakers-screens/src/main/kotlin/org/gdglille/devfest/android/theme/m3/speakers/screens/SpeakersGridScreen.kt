@@ -50,7 +50,10 @@ fun SpeakersGridScreen(
             state = state,
             verticalArrangement = Arrangement.spacedBy(SpacingTokens.MediumSpacing.toDp()),
             horizontalArrangement = Arrangement.spacedBy(SpacingTokens.MediumSpacing.toDp()),
-            contentPadding = PaddingValues(vertical = SpacingTokens.ExtraLargeSpacing.toDp()),
+            contentPadding = PaddingValues(
+                vertical = SpacingTokens.ExtraLargeSpacing.toDp(),
+                horizontal = SpacingTokens.MediumSpacing.toDp()
+            ),
             content = {
                 items(speakers.toList(), key = { it.id }) {
                     LargeSpeakerItem(
