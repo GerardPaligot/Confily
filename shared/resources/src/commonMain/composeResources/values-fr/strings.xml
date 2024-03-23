@@ -65,6 +65,7 @@
     <string name="text_empty_networking">Ici c\'est la zone de networking. Créer ton profil pour pouvoir ajouter les profils que tu croiseras et avec qui tu veux garder contact après l\'événement !</string>
     <string name="text_empty_networking_warning">Si vous créez votre profil et que vous partagez votre qrcode, vous acceptez la prospection que peut représenter ce scan par l’un de nos partenaires.</string>
     <string name="text_empty_contacts">Scanne le QR code de ton interlocuteur pour l’ajouter à ton répertoire de contact.</string>
+    <string name="text_networking_consents">Si vous créez votre profil, vous consentez à ce que les informations que vous avez fournies dans ce formulaire soient partagées avec d'autres participants ou les partenaires de l'événement via le qrcode généré dans l'application.</string>
     <string name="text_job_salary">%dK - %dK/%s</string>
     <string name="text_job_requirements_one">%d année min</string>
     <string name="text_job_requirements_many">%d années min</string>

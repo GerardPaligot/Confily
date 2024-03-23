@@ -82,6 +82,7 @@ import conferences4hall.shared.resources.generated.resources.text_level_beginner
 import conferences4hall.shared.resources.generated.resources.text_level_intermediate
 import conferences4hall.shared.resources.generated.resources.text_loading
 import conferences4hall.shared.resources.generated.resources.text_networking_ask_to_delete
+import conferences4hall.shared.resources.generated.resources.text_networking_consents
 import conferences4hall.shared.resources.generated.resources.text_openfeedback_not_started
 import conferences4hall.shared.resources.generated.resources.text_openfeedback_title
 import conferences4hall.shared.resources.generated.resources.text_permission
@@ -383,6 +384,10 @@ val Resource.string.text_empty_networking: StringResource
 @OptIn(ExperimentalResourceApi::class)
 val Resource.string.text_empty_networking_warning: StringResource
     get() = Res.string.text_empty_networking_warning
+
+@OptIn(ExperimentalResourceApi::class)
+val Resource.string.text_networking_consents: StringResource
+    get() = Res.string.text_networking_consents
 
 @OptIn(ExperimentalResourceApi::class)
 val Resource.string.text_error: StringResource

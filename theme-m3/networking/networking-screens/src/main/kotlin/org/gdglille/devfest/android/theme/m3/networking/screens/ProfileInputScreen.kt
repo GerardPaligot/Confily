@@ -2,6 +2,7 @@ package org.gdglille.devfest.android.theme.m3.networking.screens
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -26,6 +27,7 @@ import org.gdglille.devfest.android.shared.resources.input_email
 import org.gdglille.devfest.android.shared.resources.input_firstname
 import org.gdglille.devfest.android.shared.resources.input_lastname
 import org.gdglille.devfest.android.shared.resources.screen_profile
+import org.gdglille.devfest.android.shared.resources.text_networking_consents
 import org.gdglille.devfest.models.ui.Field
 import org.gdglille.devfest.models.ui.UserProfileUi
 import org.jetbrains.compose.resources.ExperimentalResourceApi
@@ -98,7 +100,11 @@ fun ProfileInputScreen(
                 )
             }
             item {
+                Text(stringResource(Resource.string.text_networking_consents))
+            }
+            item {
                 Button(
+                    modifier = Modifier.fillMaxWidth(),
                     enabled = isFormValid,
                     onClick = {
                         focusManager.clearFocus()
