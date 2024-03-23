@@ -1,5 +1,6 @@
 package org.gdglille.devfest.android.theme.m3.speakers.feature
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.material3.adaptive.AnimatedPane
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.material3.adaptive.ListDetailPaneScaffold
@@ -45,6 +46,11 @@ fun SpeakerAdaptive(
         detailPane = {
             AnimatedPane(modifier = Modifier) {
                 selectedItem?.let { item ->
+                    BackHandler {
+                        if (navigator.canNavigateBack()) {
+                            navigator.navigateBack()
+                        }
+                    }
                     SpeakerDetailVM(
                         speakerId = item,
                         onTalkClicked = onTalkClicked,

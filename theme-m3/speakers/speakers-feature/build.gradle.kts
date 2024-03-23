@@ -26,6 +26,7 @@ dependencies {
     implementation(compose.components.resources)
     implementation(compose.preview)
     debugImplementation(compose.uiTooling)
+    implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
