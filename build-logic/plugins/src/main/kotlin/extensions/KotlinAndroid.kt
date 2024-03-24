@@ -10,7 +10,7 @@ import org.gradle.kotlin.dsl.dependencies
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 
 internal fun configureKotlinAndroid(
-    commonExtension: CommonExtension<*, *, *, *, *>,
+    commonExtension: CommonExtension<*, *, *, *, *, *>,
 ) {
     commonExtension.apply {
         compileSdk = 34
@@ -27,7 +27,7 @@ internal fun configureKotlinAndroid(
 }
 
 internal fun Project.configureDesugaring(
-    commonExtension: CommonExtension<*, *, *, *, *>,
+    commonExtension: CommonExtension<*, *, *, *, *, *>,
 ) {
     commonExtension.apply {
         compileOptions {
@@ -47,6 +47,6 @@ internal fun Project.configureDesugaring(
     }
 }
 
-private fun CommonExtension<*, *, *, *, *>.kotlinOptions(block: KotlinJvmOptions.() -> Unit) {
+private fun CommonExtension<*, *, *, *, *, *>.kotlinOptions(block: KotlinJvmOptions.() -> Unit) {
     (this as ExtensionAware).extensions.configure("kotlinOptions", block)
 }
