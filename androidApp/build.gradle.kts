@@ -4,6 +4,8 @@ import extensions.toProperties
 plugins {
     id("conferences4hall.android.application")
     id("conferences4hall.quality")
+    id("com.android.application")
+    id("androidx.baselineprofile")
 }
 
 val versionMajor = 2
@@ -100,4 +102,9 @@ dependencies {
 
     implementation(libs.coil.compose)
     implementation(libs.coil.svg)
+    baselineProfile(projects.baselineprofile)
+}
+
+baselineProfile {
+    automaticGenerationDuringBuild = false
 }

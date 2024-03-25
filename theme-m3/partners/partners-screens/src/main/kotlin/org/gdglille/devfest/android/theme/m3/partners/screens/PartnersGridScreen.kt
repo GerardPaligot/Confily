@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.android.shared.resources.Resource
@@ -26,6 +27,8 @@ import org.gdglille.devfest.android.theme.m3.style.Scaffold
 import org.gdglille.devfest.android.theme.m3.style.SpacingTokens
 import org.gdglille.devfest.android.theme.m3.style.partners.items.PartnerItem
 import org.gdglille.devfest.android.theme.m3.style.placeholder.placeholder
+import org.gdglille.devfest.android.shared.resources.screen_partners
+import org.gdglille.devfest.android.theme.m3.partners.semantics.PartnersSemantics
 import org.gdglille.devfest.android.theme.m3.style.toDp
 import org.gdglille.devfest.models.ui.PartnerGroupsUi
 import org.jetbrains.compose.resources.ExperimentalResourceApi
@@ -55,6 +58,7 @@ fun PartnersGridScreen(
             val count = floor(widthSize / minSize).toInt()
             LazyVerticalGrid(
                 columns = GridCells.Adaptive(minSize = minSize),
+                modifier = Modifier.testTag(PartnersSemantics.list),
                 verticalArrangement = Arrangement.spacedBy(mediumSpacing),
                 contentPadding = PaddingValues(
                     vertical = SpacingTokens.LargeSpacing.toDp(),

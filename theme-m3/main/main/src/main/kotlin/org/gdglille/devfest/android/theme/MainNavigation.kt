@@ -13,8 +13,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -53,7 +56,7 @@ import org.koin.androidx.compose.koinViewModel
 @Suppress("LongMethod")
 @OptIn(
     ExperimentalMaterial3AdaptiveNavigationSuiteApi::class, ExperimentalMaterial3AdaptiveApi::class,
-    ExperimentalResourceApi::class
+    ExperimentalResourceApi::class, ExperimentalComposeUiApi::class
 )
 @Composable
 fun MainNavigation(
@@ -102,7 +105,9 @@ fun MainNavigation(
     }
     NavigationSuiteScaffold(
         layoutType = layoutType,
-        modifier = modifier,
+        modifier = modifier.semantics {
+            testTagsAsResourceId = true
+        },
         navigationSuiteItems = {
             when (uiState.value) {
                 is MainNavigationUiState.Success -> {

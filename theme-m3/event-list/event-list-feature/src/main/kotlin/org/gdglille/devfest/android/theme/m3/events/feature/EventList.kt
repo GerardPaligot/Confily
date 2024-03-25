@@ -2,6 +2,7 @@
 
 package org.gdglille.devfest.android.theme.m3.events.feature
 
+import androidx.activity.compose.ReportDrawnWhen
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -27,7 +28,7 @@ import org.gdglille.devfest.models.ui.EventItemListUi
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class, ExperimentalResourceApi::class)
 @Composable
 fun EventList(
     events: EventItemListUi,
@@ -35,6 +36,7 @@ fun EventList(
     modifier: Modifier = Modifier,
     isLoading: Boolean = false,
 ) {
+    ReportDrawnWhen { isLoading }
     val tabActions = remember {
         TabActionsUi(actions = persistentListOf(TabActions.futureEvents, TabActions.pastEvents))
     }

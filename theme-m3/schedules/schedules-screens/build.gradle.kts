@@ -12,6 +12,7 @@ dependencies {
     implementation(projects.shared.core)
     implementation(projects.shared.resources)
     implementation(projects.themeM3.schedules.schedulesUi)
+    implementation(projects.themeM3.schedules.schedulesSemantics)
     implementation(projects.themeM3.navigation)
     implementation(projects.themeM3.style.components.placeholder)
     implementation(projects.themeM3.style.schedules)

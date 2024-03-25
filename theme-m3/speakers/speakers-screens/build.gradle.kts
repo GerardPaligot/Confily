@@ -13,6 +13,7 @@ dependencies {
     implementation(projects.shared.resources)
     implementation(projects.themeM3.schedules.schedulesUi)
     implementation(projects.themeM3.speakers.speakersUi)
+    implementation(projects.themeM3.speakers.speakersSemantics)
     implementation(projects.themeM3.style.components.placeholder)
     implementation(projects.themeM3.style.schedules)
     implementation(projects.themeM3.style.speakers)

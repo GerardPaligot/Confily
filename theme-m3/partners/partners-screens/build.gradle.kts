@@ -12,6 +12,7 @@ dependencies {
     implementation(projects.shared.core)
     implementation(projects.shared.resources)
     implementation(projects.themeM3.partners.partnersUi)
+    implementation(projects.themeM3.partners.partnersSemantics)
     implementation(projects.themeM3.navigation)
     implementation(projects.themeM3.style.components.placeholder)
     implementation(projects.themeM3.style.events)

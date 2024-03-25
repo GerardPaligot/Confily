@@ -12,6 +12,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
@@ -22,6 +23,7 @@ import org.gdglille.devfest.android.theme.m3.style.Scaffold
 import org.gdglille.devfest.android.theme.m3.style.SpacingTokens
 import org.gdglille.devfest.android.theme.m3.style.placeholder.placeholder
 import org.gdglille.devfest.android.shared.resources.screen_speakers
+import org.gdglille.devfest.android.theme.m3.speakers.semantics.SpeakersSemantics
 import org.gdglille.devfest.android.theme.m3.style.speakers.items.LargeSpeakerItem
 import org.gdglille.devfest.android.theme.m3.style.toDp
 import org.gdglille.devfest.models.ui.SpeakerItemUi
@@ -45,6 +47,7 @@ fun SpeakersGridScreen(
         LazyVerticalGrid(
             columns = GridCells.Adaptive(minSize = 130.dp),
             modifier = Modifier
+                .testTag(SpeakersSemantics.list)
                 .padding(top = it.calculateTopPadding())
                 .fillMaxWidth(),
             state = state,

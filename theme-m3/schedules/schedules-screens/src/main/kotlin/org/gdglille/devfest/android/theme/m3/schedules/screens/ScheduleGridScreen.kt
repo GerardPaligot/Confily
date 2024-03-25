@@ -13,8 +13,11 @@ import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kotlin.math.floor
+import org.gdglille.devfest.android.theme.m3.schedules.semantics.SchedulesSemantics
 import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.MediumScheduleItem
 import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.NoFavoriteTalks
 import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.SmallScheduleItem
@@ -44,16 +47,16 @@ fun ScheduleGridScreen(
     isLoading: Boolean = false,
 ) {
     if (agenda.onlyFavorites && !isLoading && agenda.talks.keys.isEmpty()) {
-        NoFavoriteTalks()
+        NoFavoriteTalks(modifier = modifier)
     } else {
-        BoxWithConstraints {
+        BoxWithConstraints(modifier = modifier) {
             val minSize = 260.dp
             val mediumSpacing = SpacingTokens.MediumSpacing.toDp()
             val widthSize = this.maxWidth - (mediumSpacing * NbHorizontalPadding)
             val count = floor(widthSize / minSize).toInt()
             LazyVerticalGrid(
                 columns = GridCells.Adaptive(minSize = minSize),
-                modifier = modifier,
+                modifier = Modifier.testTag(SchedulesSemantics.list),
                 state = state,
                 contentPadding = PaddingValues(
                     vertical = SpacingTokens.LargeSpacing.toDp(),

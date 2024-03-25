@@ -46,6 +46,11 @@ squareup-okio = "3.7.0"
 settings = "0.8.1"
 slack-compose-lint-checks = "1.1.1"
 zxing-android-embedded = "4.3.0"
+benchmarkBaselineProfileGradlePlugin = "1.2.3"
+junit = "1.1.5"
+espressoCore = "3.5.1"
+uiautomator = "2.3.0"
+benchmarkMacroJunit4 = "1.2.3"
 
 [libraries]
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "android-gradlePlugin" }
@@ -145,3 +150,8 @@ settings-coroutines = { group = "com.russhwolf", name = "multiplatform-settings-
 squareup-okio = { group = "com.squareup.okio", name = "okio", version.ref = "squareup-okio" }
 
 zxing-android-embedded = { group = "com.journeyapps", name = "zxing-android-embedded", version.ref = "zxing-android-embedded" }
+androidx-benchmark-baseline-profile-gradle-plugin = { group = "androidx.benchmark", name = "benchmark-baseline-profile-gradle-plugin", version.ref = "benchmarkBaselineProfileGradlePlugin" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-uiautomator = { group = "androidx.test.uiautomator", name = "uiautomator", version.ref = "uiautomator" }
+androidx-benchmark-macro-junit4 = { group = "androidx.benchmark", name = "benchmark-macro-junit4", version.ref = "benchmarkMacroJunit4" }
