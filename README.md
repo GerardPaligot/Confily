@@ -48,40 +48,6 @@ AppEngine.
 * [Storage](https://github.com/googleapis/java-storage) - JVM client to make request on Storage
 * [Drive](https://developers.google.com/drive/api/guides/about-sdk) - JVM client to handle documents in a Google Drive
 
-## Architecture
-
-Kotlin Multiplatform project where `:androidApp` and `:iosApp` share the same
-codebase for the business logic (with `:shared` module). `:backend` and `:shared` modules 
-share the same models due to `:models` module and avoid any errors in the parsing of backend
-responses.
-
-3 design system are used in this project and can be found in `theme-{ds-name}`. All these
-modules contains `features` and `ui` modules to bind Composable with their ViewModels and to 
-create all components of the Design System.
-
-```mermaid
-flowchart LR
-    :androidApp --> :theme-m3:features
-    :theme-m3:features --> :theme-m3:ui
-    :theme-m3:features --> :ui-resources
-    :theme-m3:features --> :android-data
-    :theme-m3:features --> :shared
-    :theme-m3:ui --> :ui-resources
-    :theme-m3:ui --> :ui-camera
-    :androidApp --> :theme-vitamin:features
-    :theme-vitamin:features --> :theme-vitamin:ui
-    :theme-vitamin:features --> :ui-resources
-    :theme-vitamin:features --> :android-data
-    :theme-vitamin:features --> :shared
-    :theme-vitamin:ui --> :ui-resources
-    :theme-vitamin:ui --> :ui-camera
-    :androidApp --> :android-data
-    :androidApp --> :shared
-    :iosApp --> :shared
-    :shared --> :models
-    :backend --> :models
-```
-
 ## Testing
 
 ### Running in local
