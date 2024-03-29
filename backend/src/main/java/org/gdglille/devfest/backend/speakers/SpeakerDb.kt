@@ -5,6 +5,7 @@ data class SpeakerDb(
     val displayName: String = "",
     val pronouns: String? = null,
     val bio: String = "",
+    val email: String? = null,
     val jobTitle: String? = null,
     val company: String? = null,
     val photoUrl: String = "",

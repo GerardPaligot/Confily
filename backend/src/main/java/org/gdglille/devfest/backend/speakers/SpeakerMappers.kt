@@ -39,6 +39,7 @@ fun SpeakerInput.convertToDb(id: String? = null) = SpeakerDb(
     displayName = this.displayName,
     pronouns = this.pronouns,
     bio = this.bio,
+    email = this.email,
     jobTitle = this.jobTitle,
     company = this.company,
     photoUrl = this.photoUrl,

@@ -9,6 +9,7 @@ data class SpeakerInput(
     val displayName: String,
     val pronouns: String? = null,
     val bio: String,
+    val email: String? = null,
     @SerialName("job_title")
     val jobTitle: String? = null,
     val company: String? = null,

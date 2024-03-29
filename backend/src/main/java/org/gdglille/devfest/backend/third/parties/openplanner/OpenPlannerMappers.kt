@@ -4,6 +4,7 @@ import org.gdglille.devfest.backend.categories.CategoryDb
 import org.gdglille.devfest.backend.formats.FormatDb
 import org.gdglille.devfest.backend.schedulers.ScheduleDb
 import org.gdglille.devfest.backend.speakers.SpeakerDb
+import org.gdglille.devfest.backend.speakers.convertToDb
 import org.gdglille.devfest.backend.talks.TalkDb
 
 fun CategoryOP.convertToDb() = CategoryDb(
@@ -27,6 +28,7 @@ fun SpeakerOP.convertToDb(): SpeakerDb {
         displayName = name,
         pronouns = null,
         bio = bio ?: "",
+        email = email,
         jobTitle = jobTitle,
         company = company,
         photoUrl = photoUrl ?: "",
