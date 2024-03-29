@@ -10,6 +10,7 @@ AppEngine.
 * Create the agenda of your conference, optionally from [Conference Hall](https://github.com/bpetetot/conference-hall)
 * Create your feedback forms from [OpenFeedback.io](https://github.com/HugoGresse/open-feedback)
 * Create your partners from [Cms4Partners](https://github.com/GDG-Lille/cms4partners)
+* Import planning from [OpenPlanner](https://openplanner.fr/)
 * Import a participant ticket from [BilletWeb](https://www.billetweb.fr/)
 * Import partner jobs from [WeLoveDevs](https://welovedevs.com/)
 
