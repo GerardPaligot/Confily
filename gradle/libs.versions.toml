@@ -99,7 +99,6 @@ google-cloud-storage = { group = "com.google.cloud", name = "google-cloud-storag
 google-cloud-secret = { group = "com.google.cloud", name = "google-cloud-secretmanager", version.ref = "google-cloud-secretmanager" }
 google-api-client = { group = "com.google.api-client", name = "google-api-client", version.ref = "google-api-client" }
 google-auth-client = { group = "com.google.oauth-client", name = "google-oauth-client-jetty", version.ref = "google-oauth-client" }
-google-sheets = { group = "com.google.apis", name = "google-api-services-sheets", version.ref  = "google-api-services-sheets" }
 google-drive = { group = "com.google.apis", name = "google-api-services-drive", version.ref = "google-api-services-drive" }
 google-firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "google-firebase" }
 google-firebase-crashlytics-gradlePlugin = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "google-firebase-crashlytics-gradlePlugin" }

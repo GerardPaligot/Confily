@@ -30,12 +30,14 @@ AppEngine.
 
 * [Kotlin](https://kotlinlang.org/) - First class and official programming language for Android development
 * [Jetpack Compose](https://developer.android.com/jetpack/compose) - Modern toolkit for building native UI
+* [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) - Multiplatform approach based on Jetpack Compose
 * [Accompanist](https://github.com/google/accompanist) - Collection of extension libraries for Jetpack Compose
 * [Coil](https://github.com/coil-kt/coil) - Media management and image loading framework for Android
 * [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) - Stores UI-related data that isn't destroyed on UI changes
 * [Navigation Compose](https://developer.android.com/jetpack/compose/navigation) - Allow users to navigate across, into, and back out from the different pieces of content within your app
 * [Swift](https://www.swift.org/) - First class and official programming language for iOS development
-* [SwiftUI](https://developer.apple.com/xcode/swiftui/) - Build apps across all Apple platforms with Swift 
+* [SwiftUI](https://developer.apple.com/xcode/swiftui/) - Build apps across all Apple platforms with Swift
+* [Koin](https://insert-koin.io/) - Pragmatic Kotlin & Kotlin Multiplatform Dependency Injection framework
 * [Kotlin Coroutines](https://kotlinlang.org/docs/coroutines-guide.html) - Light-weight threads
 * [kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization) - Kotlin Multiplatform / multi format serialization
 * [SQLDelight](https://github.com/cashapp/sqldelight) - Generates typesafe Kotlin APIs from SQL
@@ -44,6 +46,7 @@ AppEngine.
 * [ktor](https://github.com/ktorio/ktor) - Client to make HTTP request and HTTP server routing
 * [Firestore](https://github.com/googleapis/java-firestore) - JVM client to make request on Firestore
 * [Storage](https://github.com/googleapis/java-storage) - JVM client to make request on Storage
+* [Drive](https://developers.google.com/drive/api/guides/about-sdk) - JVM client to handle documents in a Google Drive
 
 ## Architecture
 
