@@ -3,13 +3,17 @@ android-gradlePlugin = "8.3.1"
 androidx-activity-compose = "1.8.2"
 androidx-annotation = "1.7.1"
 androidx-appcompat = "1.6.1"
+androidx-benchmark = "1.2.3"
 androidx-browser = "1.8.0"
 androidx-camera = "1.3.2"
 androidx-compose-bom = "2024.03.00"
 androidx-compose-compiler = "1.5.8"
+androidx-espresso = "3.5.1"
+androidx-junit = "1.1.5"
 androidx-lifecycle = "2.7.0"
 androidx-navigation-compose = "2.7.6"
 androidx-profile = "1.3.1"
+androidx-uiautomator = "2.3.0"
 androidx-work = "2.9.0"
 apache-xmlgraphics-batik = "1.17"
 cash-sqldelight = "2.0.1"
@@ -19,7 +23,6 @@ font-awesome = "1.1.0"
 google-accompanist = "0.32.0"
 google-api-client = "2.3.0"
 google-api-services-drive = "v3-rev20220815-2.0.0"
-google-api-services-sheets = "v4-rev20220927-2.0.0"
 google-cloud-firestore = "3.17.1"
 google-cloud-secretmanager = "2.36.0"
 google-cloud-storage = "2.34.0"
@@ -46,17 +49,14 @@ squareup-okio = "3.7.0"
 settings = "0.8.1"
 slack-compose-lint-checks = "1.1.1"
 zxing-android-embedded = "4.3.0"
-benchmarkBaselineProfileGradlePlugin = "1.2.3"
-junit = "1.1.5"
-espressoCore = "3.5.1"
-uiautomator = "2.3.0"
-benchmarkMacroJunit4 = "1.2.3"
 
 [libraries]
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "android-gradlePlugin" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidx-activity-compose" }
 androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "androidx-annotation" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidx-appcompat" }
+androidx-benchmark-baseline-profile-gradlePlugin = { group = "androidx.benchmark", name = "benchmark-baseline-profile-gradle-plugin", version.ref = "androidx-benchmark" }
+androidx-benchmark-macro-junit4 = { group = "androidx.benchmark", name = "benchmark-macro-junit4", version.ref = "androidx-benchmark" }
 androidx-browser = { group = "androidx.browser", name = "browser", version.ref = "androidx-browser" }
 androidx-camera-camera2 = { group = "androidx.camera", name = "camera-camera2", version.ref = "androidx-camera" }
 androidx-camera-lifecycle = { group = "androidx.camera", name = "camera-lifecycle", version.ref = "androidx-camera" }
@@ -66,10 +66,13 @@ androidx-compose-material3-windowsizeclass = { group = "androidx.compose.materia
 androidx-compose-material3-adaptive = { group = "androidx.compose.material3", name = "material3-adaptive", version = "1.0.0-alpha04" }
 androidx-compose-material3-adaptive-navigation-suite = { group = "androidx.compose.material3", name = "material3-adaptive-navigation-suite", version = "1.0.0-alpha02" }
 androidx-compose-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "androidx-espresso" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-junit" }
 androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidx-navigation-compose" }
 androidx-profile = { group = "androidx.profileinstaller", name = "profileinstaller", version.ref = "androidx-profile" }
+androidx-uiautomator = { group = "androidx.test.uiautomator", name = "uiautomator", version.ref = "androidx-uiautomator" }
 androidx-workmanager-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "androidx-work" }
 
 apache-xmlgraphics-batik-transcoder = { group = "org.apache.xmlgraphics", name = "batik-transcoder", version.ref = "apache-xmlgraphics-batik" }
@@ -150,8 +153,3 @@ settings-coroutines = { group = "com.russhwolf", name = "multiplatform-settings-
 squareup-okio = { group = "com.squareup.okio", name = "okio", version.ref = "squareup-okio" }
 
 zxing-android-embedded = { group = "com.journeyapps", name = "zxing-android-embedded", version.ref = "zxing-android-embedded" }
-androidx-benchmark-baseline-profile-gradle-plugin = { group = "androidx.benchmark", name = "benchmark-baseline-profile-gradle-plugin", version.ref = "benchmarkBaselineProfileGradlePlugin" }
-androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit" }
-androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
-androidx-uiautomator = { group = "androidx.test.uiautomator", name = "uiautomator", version.ref = "uiautomator" }
-androidx-benchmark-macro-junit4 = { group = "androidx.benchmark", name = "benchmark-macro-junit4", version.ref = "benchmarkMacroJunit4" }
