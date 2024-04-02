@@ -171,17 +171,23 @@ class EventRepository(
                 .awaitAll()
             openPlanner.sessions
                 .map { async { talkDao.createOrUpdate(eventId, it.convertToTalkDb()) } }
+            val trackIds = openPlanner.event.tracks.map { it.id }
             openPlanner.sessions
                 .filter { it.trackId != null && it.dateStart != null && it.dateEnd != null }
                 .groupBy { it.dateStart }
                 .map {
                     async {
-                        it.value.forEachIndexed { index, sessionOP ->
-                            scheduleItemDao.createOrUpdate(
-                                eventId,
-                                sessionOP.convertToScheduleDb(index, openPlanner.event.tracks)
-                            )
-                        }
+                        it.value
+                            .sortedWith { sessionA, sessionB ->
+                                trackIds.indexOf(sessionA.trackId)
+                                    .compareTo(trackIds.indexOf(sessionB.trackId))
+                            }
+                            .forEachIndexed { index, sessionOP ->
+                                scheduleItemDao.createOrUpdate(
+                                    eventId,
+                                    sessionOP.convertToScheduleDb(index, openPlanner.event.tracks)
+                                )
+                            }
                     }
                 }
                 .awaitAll()
