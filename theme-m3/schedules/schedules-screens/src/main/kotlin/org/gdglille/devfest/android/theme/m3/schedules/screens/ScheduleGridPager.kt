@@ -40,6 +40,7 @@ fun ScheduleGridPager(
         modifier = modifier,
         topActions = topActionsUi,
         tabActions = tabActionsUi,
+        pagerState = pagerState,
         hasScrollBehavior = false,
         onActionClicked = {
             when (it.id) {

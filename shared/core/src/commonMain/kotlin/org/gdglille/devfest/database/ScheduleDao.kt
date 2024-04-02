@@ -85,10 +85,11 @@ class ScheduleDao(
                     it.convertTalkItemUi(speakers = speakers)
                 } + breaks.map { it.convertTalkItemUi() }
             sessions.distinctBy { it.date }
-                .associate {
-                    it.date to AgendaUi(
+                .associate { session ->
+                    session.date to AgendaUi(
                         onlyFavorites = hasFavFilter,
                         talks = talkItems
+                            .filter { it.startTime.startsWith(session.date) }
                             .sortedBy { it.slotTime }
                             .groupBy { it.slotTime }
                             .mapValues { entry ->

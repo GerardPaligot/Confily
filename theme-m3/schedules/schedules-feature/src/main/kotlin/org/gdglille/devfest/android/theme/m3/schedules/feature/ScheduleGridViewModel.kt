@@ -55,7 +55,7 @@ class ScheduleGridViewModel(
         .map {
             TabActionsUi(
                 scrollable = true,
-                actions = it.agendaTabs.map {
+                actions = it.agendaTabs.sorted().map {
                     val label = DateTimeFormatter.ofPattern("dd MMM").format(LocalDate.parse(it))
                     TabAction(route = it, StringResource("", "", emptySet()), label)
                 }.toImmutableList()
