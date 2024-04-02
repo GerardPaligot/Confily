@@ -54,12 +54,13 @@ fun SessionOP.convertToTalkDb() = TalkDb(
     linkReplay = null
 )
 
-fun SessionOP.convertToScheduleDb(order: Int) = ScheduleDb(
+fun SessionOP.convertToScheduleDb(order: Int, tracks: List<TrackOP>) = ScheduleDb(
     order = order,
     startTime = dateStart?.split("+")?.first()
         ?: error("Can't schedule a talk without a start time"),
     endTime = dateEnd?.split("+")?.first()
         ?: error("Can't schedule a talk without a end time"),
-    room = trackId ?: error("Can't schedule a talk without a room"),
+    room = trackId?.let { tracks.find { it.id == trackId }?.name }
+        ?: error("Can't schedule a talk without a room"),
     talkId = id
 )

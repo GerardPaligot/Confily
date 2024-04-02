@@ -163,7 +163,10 @@ class EventRepository(
             openPlanner.event.formats
                 .map { async { formatDao.createOrUpdate(eventId, it.convertToDb()) } }
                 .awaitAll()
+            val allSpeakers = openPlanner.sessions
+                .map { it.speakerIds }.flatten()
             openPlanner.speakers
+                .filter { allSpeakers.contains(it.id) }
                 .map { async { speakerDao.createOrUpdate(eventId, it.convertToDb()) } }
                 .awaitAll()
             openPlanner.sessions
@@ -176,7 +179,7 @@ class EventRepository(
                         it.value.forEachIndexed { index, sessionOP ->
                             scheduleItemDao.createOrUpdate(
                                 eventId,
-                                sessionOP.convertToScheduleDb(index)
+                                sessionOP.convertToScheduleDb(index, openPlanner.event.tracks)
                             )
                         }
                     }

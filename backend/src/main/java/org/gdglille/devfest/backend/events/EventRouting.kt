@@ -157,7 +157,7 @@ fun Route.registerEventRoutes(
     }
     post("/events/{eventId}/openplanner") {
         val eventId = call.parameters["eventId"]!!
-        val apiKey = call.parameters["api_key"] ?: throw NotAuthorized
+        val apiKey = call.request.queryParameters["api_key"] ?: throw NotAuthorized
         call.respond(HttpStatusCode.Created, repository.openPlanner(eventId, apiKey))
     }
 }
