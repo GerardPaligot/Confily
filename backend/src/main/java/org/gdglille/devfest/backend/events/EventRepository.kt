@@ -158,7 +158,7 @@ class EventRepository(
                 ?: throw NotAcceptableException("OpenPlanner config not initialized")
             val openPlanner = openPlannerApi.fetchPrivateJson(config.eventId, config.privateId)
             openPlanner.event.categories
-                .map { async { categoryDao.createOrUpdate(eventId, it.convertToDb()) } }
+                .map { async { categoryDao.createIfNotExist(eventId, it.convertToDb()) } }
                 .awaitAll()
             openPlanner.event.formats
                 .map { async { formatDao.createOrUpdate(eventId, it.convertToDb()) } }

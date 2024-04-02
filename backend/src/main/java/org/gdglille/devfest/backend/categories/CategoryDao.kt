@@ -30,4 +30,21 @@ class CategoryDao(private val database: Database) {
             item = item
         )
     }
+
+    suspend fun createIfNotExist(eventId: String, item: CategoryDb) {
+        if (item.id == null) {
+            database.insert(
+                eventId = eventId,
+                collectionName = CollectionName
+            ) { item.copy(id = it) }
+        } else {
+            val existing = get(eventId, item.id)
+            if (existing == null) {
+                database.insert(
+                    eventId = eventId,
+                    collectionName = CollectionName
+                ) { item.copy(id = it) }
+            }
+        }
+    }
 }
