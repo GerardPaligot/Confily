@@ -55,23 +55,28 @@ class SpeakerDao(private val database: Database, private val storage: Storage) {
     }
 
     suspend fun createOrUpdate(eventId: String, speaker: SpeakerDb): String = coroutineScope {
-        if (speaker.id == "") return@coroutineScope database.insert(
-            eventId = eventId,
-            collectionName = CollectionName
-        ) { speaker.copy(id = it) }
+        if (speaker.id == "") {
+            return@coroutineScope database.insert(
+                eventId = eventId,
+                collectionName = CollectionName
+            ) { speaker.copy(id = it) }
+        }
         val existing = database.get<SpeakerDb>(eventId = eventId, collectionName = CollectionName, id = speaker.id)
-        if (existing == null) database.insert(
-            eventId = eventId,
-            collectionName = CollectionName,
-            id = speaker.id,
-            item = speaker
-        )
-        else database.update(
-            eventId = eventId,
-            collectionName = CollectionName,
-            id = speaker.id,
-            item = speaker
-        )
+        if (existing == null) {
+            database.insert(
+                eventId = eventId,
+                collectionName = CollectionName,
+                id = speaker.id,
+                item = speaker
+            )
+        } else {
+            database.update(
+                eventId = eventId,
+                collectionName = CollectionName,
+                id = speaker.id,
+                item = speaker
+            )
+        }
         return@coroutineScope speaker.id
     }
 

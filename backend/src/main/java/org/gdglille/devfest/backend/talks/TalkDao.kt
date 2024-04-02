@@ -46,18 +46,23 @@ class TalkDao(private val database: Database) {
     }
 
     suspend fun createOrUpdate(eventId: String, talk: TalkDb): String = coroutineScope {
-        if (talk.id == "") return@coroutineScope database.insert(
-            eventId = eventId,
-            collectionName = CollectionName
-        ) { talk.copy(id = it) }
+        if (talk.id == "") {
+            return@coroutineScope database.insert(
+                eventId = eventId,
+                collectionName = CollectionName
+            ) { talk.copy(id = it) }
+        }
         val existing = database.get<TalkDb>(eventId = eventId, collectionName = CollectionName, id = talk.id)
-        if (existing == null) database.insert(
-            eventId = eventId,
-            collectionName = CollectionName,
-            id = talk.id,
-            item = talk
-        )
-        else database.update(eventId = eventId, collectionName = CollectionName, id = talk.id, item = talk)
+        if (existing == null) {
+            database.insert(
+                eventId = eventId,
+                collectionName = CollectionName,
+                id = talk.id,
+                item = talk
+            )
+        } else {
+            database.update(eventId = eventId, collectionName = CollectionName, id = talk.id, item = talk)
+        }
         return@coroutineScope talk.id
     }
 

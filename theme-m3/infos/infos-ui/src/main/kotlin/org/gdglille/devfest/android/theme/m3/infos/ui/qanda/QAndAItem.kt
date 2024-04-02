@@ -43,7 +43,7 @@ fun QAndAItem(
     onExpandedClicked: (QuestionAndResponseUi) -> Unit,
     onLinkClicked: (url: String) -> Unit,
     modifier: Modifier = Modifier,
-    isLoading: Boolean = false,
+    isLoading: Boolean = false
 ) {
     val degrees by animateFloatAsState(if (qAndA.expanded) ExpandedDegrees else ClosedDegrees)
     Card(
@@ -84,7 +84,7 @@ fun QAndAItem(
                             textStyle = { MaterialTheme.typography.bodyMedium },
                             ProvideTextStyle = null,
                             contentColor = { MaterialTheme.colorScheme.onSurface },
-                            ProvideContentColor = null,
+                            ProvideContentColor = null
                         ) {
                             RichText {
                                 Markdown(qAndA.response)

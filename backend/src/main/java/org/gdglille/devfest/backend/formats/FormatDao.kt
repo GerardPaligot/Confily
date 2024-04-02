@@ -19,16 +19,19 @@ class FormatDao(private val database: Database) {
     )
 
     suspend fun createOrUpdate(eventId: String, item: FormatDb) {
-        if (item.id == null) database.insert(
-            eventId = eventId,
-            collectionName = CollectionName
-        ) { item.copy(id = it) }
-        else database.update(
-            eventId = eventId,
-            collectionName = CollectionName,
-            id = item.id,
-            item = item
-        )
+        if (item.id == null) {
+            database.insert(
+                eventId = eventId,
+                collectionName = CollectionName
+            ) { item.copy(id = it) }
+        } else {
+            database.update(
+                eventId = eventId,
+                collectionName = CollectionName,
+                id = item.id,
+                item = item
+            )
+        }
     }
 
     suspend fun deleteDiff(eventId: String, ids: List<String>) {

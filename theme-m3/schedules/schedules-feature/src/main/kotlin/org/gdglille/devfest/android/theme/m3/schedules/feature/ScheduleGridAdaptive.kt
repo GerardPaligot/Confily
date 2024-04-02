@@ -49,8 +49,11 @@ fun ScheduleGridAdaptive(
         },
         supportingPane = {
             AgendaFiltersCompactVM(
-                containerColor = if (showFilterIcon) MaterialTheme.colorScheme.background
-                else MaterialTheme.colorScheme.surfaceContainerHigh
+                containerColor = if (showFilterIcon) {
+                    MaterialTheme.colorScheme.background
+                } else {
+                    MaterialTheme.colorScheme.surfaceContainerHigh
+                }
             )
         }
     )

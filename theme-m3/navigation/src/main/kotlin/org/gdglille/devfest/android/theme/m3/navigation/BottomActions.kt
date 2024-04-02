@@ -12,12 +12,12 @@ import androidx.compose.material.icons.outlined.Hub
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.InterpreterMode
 import org.gdglille.devfest.android.shared.resources.Resource
-import org.gdglille.devfest.android.theme.m3.style.actions.NavigationAction
 import org.gdglille.devfest.android.shared.resources.screen_agenda
 import org.gdglille.devfest.android.shared.resources.screen_info
 import org.gdglille.devfest.android.shared.resources.screen_networking
 import org.gdglille.devfest.android.shared.resources.screen_partners
 import org.gdglille.devfest.android.shared.resources.screen_speakers
+import org.gdglille.devfest.android.theme.m3.style.actions.NavigationAction
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 
 @OptIn(ExperimentalResourceApi::class)

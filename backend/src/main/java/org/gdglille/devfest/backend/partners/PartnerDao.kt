@@ -21,22 +21,28 @@ class PartnerDao(private val database: Database, private val storage: Storage) {
         }
 
     suspend fun createOrUpdate(eventId: String, partner: PartnerDb): String = coroutineScope {
-        if (partner.id == "") return@coroutineScope database.insert(
-            eventId = eventId,
-            collectionName = CollectionName
-        ) { partner.copy(id = it) }
+        if (partner.id == "") {
+            return@coroutineScope database.insert(
+                eventId = eventId,
+                collectionName = CollectionName
+            ) { partner.copy(id = it) }
+        }
         val existing = database.get<PartnerDb>(eventId = eventId, collectionName = CollectionName, id = partner.id)
-        if (existing == null) database.insert(
-            eventId = eventId, collectionName = CollectionName,
-            id = partner.id,
-            item = partner
-        )
-        else database.update(
-            eventId = eventId,
-            collectionName = CollectionName,
-            id = partner.id,
-            item = partner
-        )
+        if (existing == null) {
+            database.insert(
+                eventId = eventId,
+                collectionName = CollectionName,
+                id = partner.id,
+                item = partner
+            )
+        } else {
+            database.update(
+                eventId = eventId,
+                collectionName = CollectionName,
+                id = partner.id,
+                item = partner
+            )
+        }
         return@coroutineScope partner.id
     }
 

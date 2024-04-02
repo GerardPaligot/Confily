@@ -23,8 +23,8 @@ fun FilterChip(
     imageVector: ImageVector? = null,
     onClick: (selected: Boolean) -> Unit
 ) {
-    val leadingIcon: (@Composable () -> Unit)? = if (selected) @Composable {
-        {
+    val leadingIcon: (@Composable () -> Unit)? = if (selected) {
+        @Composable {
             Icon(
                 imageVector = Icons.Filled.Done,
                 contentDescription = null,

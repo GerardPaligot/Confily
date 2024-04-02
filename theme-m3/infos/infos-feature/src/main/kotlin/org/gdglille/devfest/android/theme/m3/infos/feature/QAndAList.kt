@@ -22,7 +22,7 @@ fun QAndAList(
     onExpandedClicked: (QuestionAndResponseUi) -> Unit,
     onLinkClicked: (url: String) -> Unit,
     modifier: Modifier = Modifier,
-    isLoading: Boolean = false,
+    isLoading: Boolean = false
 ) {
     LazyColumn(
         modifier = modifier

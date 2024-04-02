@@ -20,8 +20,10 @@ actual val platformModule = module {
     single<ObservableSettings> {
         AndroidSettings(
             androidContext().getSharedPreferences(
-                /* name = */ "org.gdglille.devfest.android",
-                /* mode = */ ComponentActivity.MODE_PRIVATE
+                /* name = */
+                "org.gdglille.devfest.android",
+                /* mode = */
+                ComponentActivity.MODE_PRIVATE
             )
         )
     }

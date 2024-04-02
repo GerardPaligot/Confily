@@ -30,5 +30,5 @@ fun Talk.convertToDb(): TalkDb = TalkDb(
     category = this.categories,
     format = this.formats,
     language = this.language,
-    speakerIds = this.speakers,
+    speakerIds = this.speakers
 )

@@ -5,10 +5,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import org.gdglille.devfest.android.theme.m3.speakers.screens.SpeakerDetailOrientable
 import org.gdglille.devfest.android.shared.resources.Resource
-import org.gdglille.devfest.android.theme.m3.style.appbars.AppBarIcons
 import org.gdglille.devfest.android.shared.resources.text_error
+import org.gdglille.devfest.android.theme.m3.speakers.screens.SpeakerDetailOrientable
+import org.gdglille.devfest.android.theme.m3.style.appbars.AppBarIcons
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 import org.koin.androidx.compose.koinViewModel
@@ -25,7 +25,8 @@ fun SpeakerDetailVM(
     isLandscape: Boolean = false,
     viewModel: SpeakerDetailViewModel = koinViewModel(
         key = speakerId,
-        parameters = { parametersOf(speakerId) })
+        parameters = { parametersOf(speakerId) }
+    )
 ) {
     val context = LocalContext.current
     when (val uiState = viewModel.uiState.collectAsState().value) {
@@ -36,7 +37,7 @@ fun SpeakerDetailVM(
             onLinkClicked = {},
             modifier = modifier,
             navigationIcon = navigationIcon,
-            isLandscape = isLandscape,
+            isLandscape = isLandscape
         )
 
         is SpeakerUiState.Failure -> Text(text = stringResource(Resource.string.text_error))

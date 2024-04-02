@@ -20,7 +20,7 @@ import org.gdglille.devfest.android.theme.m3.style.speakers.avatar.SmallBordered
 fun SmallBorderedSpeakersAvatar(
     urls: ImmutableList<String>,
     descriptions: ImmutableList<String>?,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     if (descriptions != null) {
         require(urls.size == descriptions.size) {
@@ -47,7 +47,7 @@ fun SmallBorderedSpeakersAvatar(
 fun MediumBorderedSpeakersAvatar(
     urls: ImmutableList<String>,
     descriptions: ImmutableList<String>?,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     if (descriptions != null) {
         require(urls.size == descriptions.size) {

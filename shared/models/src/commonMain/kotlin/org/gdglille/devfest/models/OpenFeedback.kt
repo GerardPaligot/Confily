@@ -16,7 +16,7 @@ data class SessionOF(
     val speakers: List<String>,
     val startTime: String = "",
     val endTime: String = "",
-    val tags: List<String> = emptyList(),
+    val tags: List<String> = emptyList()
 )
 
 @Serializable

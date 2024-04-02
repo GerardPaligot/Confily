@@ -21,7 +21,7 @@ fun MarkdownText(
         textStyle = { bodyTextStyle },
         ProvideTextStyle = null,
         contentColor = { bodyColor },
-        ProvideContentColor = null,
+        ProvideContentColor = null
     ) {
         RichText(modifier = modifier) {
             Markdown(text)

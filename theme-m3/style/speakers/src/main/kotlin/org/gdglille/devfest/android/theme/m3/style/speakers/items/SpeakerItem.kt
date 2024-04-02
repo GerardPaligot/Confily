@@ -39,7 +39,7 @@ fun LargeSpeakerItem(
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .aspectRatio(1f),
+                    .aspectRatio(1f)
             )
             Column(
                 modifier = Modifier

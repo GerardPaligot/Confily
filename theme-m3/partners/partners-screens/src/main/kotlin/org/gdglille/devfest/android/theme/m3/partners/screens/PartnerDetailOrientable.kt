@@ -12,9 +12,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import org.gdglille.devfest.android.shared.resources.Resource
+import org.gdglille.devfest.android.shared.resources.screen_partners_detail
 import org.gdglille.devfest.android.theme.m3.style.appbars.AppBarIcons
 import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBar
-import org.gdglille.devfest.android.shared.resources.screen_partners_detail
 import org.gdglille.devfest.models.ui.PartnerItemUi
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
@@ -28,7 +28,7 @@ fun PartnerDetailOrientable(
     modifier: Modifier = Modifier,
     navigationIcon: @Composable (AppBarIcons.() -> Unit)? = null,
     isLandscape: Boolean = false,
-    isLoading: Boolean = false,
+    isLoading: Boolean = false
 ) {
     val state = rememberLazyListState()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())

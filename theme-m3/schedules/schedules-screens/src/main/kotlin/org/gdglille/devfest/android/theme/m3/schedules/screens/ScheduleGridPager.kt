@@ -36,7 +36,7 @@ fun ScheduleGridPager(
     tabActionsUi: TabActionsUi = TabActionsUi(),
     pagerState: PagerState = rememberPagerState(pageCount = { tabActionsUi.actions.count() }),
     isSmallSize: Boolean = false,
-    isLoading: Boolean = false,
+    isLoading: Boolean = false
 ) {
     Scaffold(
         title = stringResource(Resource.string.screen_agenda),

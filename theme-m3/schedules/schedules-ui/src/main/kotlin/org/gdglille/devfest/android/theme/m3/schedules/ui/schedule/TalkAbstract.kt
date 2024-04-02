@@ -41,7 +41,7 @@ fun TalkAbstract(
             textStyle = { bodyTextStyle },
             ProvideTextStyle = null,
             contentColor = { color.copy(alpha = .73f) },
-            ProvideContentColor = null,
+            ProvideContentColor = null
         ) {
             RichText(
                 modifier = Modifier.clearAndSetSemantics {

@@ -49,7 +49,9 @@ suspend fun SelectSpeakersByTalkId.convertSpeakerItemUi() = SpeakerItemUi(
 @OptIn(ExperimentalResourceApi::class)
 suspend fun SpeakerDb.displayActivity() = when {
     job_title != null && company != null -> getString(
-        Resource.string.text_speaker_activity, job_title, company
+        Resource.string.text_speaker_activity,
+        job_title,
+        company
     )
 
     job_title == null && company != null -> company
@@ -60,7 +62,9 @@ suspend fun SpeakerDb.displayActivity() = when {
 @OptIn(ExperimentalResourceApi::class)
 suspend fun SelectSpeakersByTalkId.displayActivity() = when {
     job_title != null && company != null -> getString(
-        Resource.string.text_speaker_activity, job_title, company
+        Resource.string.text_speaker_activity,
+        job_title,
+        company
     )
 
     job_title == null && company != null -> company

@@ -77,5 +77,5 @@ data class SessionOP(
     val language: String,
     val level: String,
     val formatId: String,
-    val categoryId: String,
+    val categoryId: String
 )

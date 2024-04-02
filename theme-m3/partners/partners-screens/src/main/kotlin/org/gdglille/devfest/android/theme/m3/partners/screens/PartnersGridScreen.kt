@@ -21,14 +21,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.screen_partners
+import org.gdglille.devfest.android.theme.m3.partners.semantics.PartnersSemantics
 import org.gdglille.devfest.android.theme.m3.partners.ui.partners.PartnerDivider
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.Scaffold
 import org.gdglille.devfest.android.theme.m3.style.SpacingTokens
 import org.gdglille.devfest.android.theme.m3.style.partners.items.PartnerItem
 import org.gdglille.devfest.android.theme.m3.style.placeholder.placeholder
-import org.gdglille.devfest.android.shared.resources.screen_partners
-import org.gdglille.devfest.android.theme.m3.partners.semantics.PartnersSemantics
 import org.gdglille.devfest.android.theme.m3.style.toDp
 import org.gdglille.devfest.models.ui.PartnerGroupsUi
 import org.jetbrains.compose.resources.ExperimentalResourceApi
@@ -64,7 +63,7 @@ fun PartnersGridScreen(
                     vertical = SpacingTokens.LargeSpacing.toDp(),
                     horizontal = mediumSpacing
                 ),
-                state = state,
+                state = state
             ) {
                 partners.groups.forEach {
                     item(span = { GridItemSpan(currentLineSpan = count) }) {

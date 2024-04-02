@@ -21,10 +21,16 @@ fun Route.registerOpenPlannerRoutes(
     talkDao: TalkDao,
     categoryDao: CategoryDao,
     formatDao: FormatDao,
-    scheduleItemDao: ScheduleItemDao,
+    scheduleItemDao: ScheduleItemDao
 ) {
     val repository = OpenPlannerRepository(
-        openPlannerApi, eventDao, speakerDao, talkDao, categoryDao, formatDao, scheduleItemDao
+        openPlannerApi,
+        eventDao,
+        speakerDao,
+        talkDao,
+        categoryDao,
+        formatDao,
+        scheduleItemDao
     )
 
     post("openplanner/webhook") {

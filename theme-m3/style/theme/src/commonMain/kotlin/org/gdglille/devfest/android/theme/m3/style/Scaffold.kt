@@ -56,7 +56,9 @@ fun Scaffold(
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
     val scrollModifier = if (hasScrollBehavior) {
         Modifier.nestedScroll(scrollBehavior.nestedScrollConnection)
-    } else Modifier
+    } else {
+        Modifier
+    }
     Scaffold(
         modifier = modifier.then(scrollModifier),
         containerColor = containerColor,

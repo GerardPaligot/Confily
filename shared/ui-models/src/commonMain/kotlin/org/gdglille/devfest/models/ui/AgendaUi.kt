@@ -25,7 +25,7 @@ data class AgendaUi(
                 "13:00" to persistentListOf(
                     TalkItemUi.fake.copy(id = "5"),
                     TalkItemUi.fake.copy(id = "6")
-                ),
+                )
             )
         )
     }

@@ -78,7 +78,9 @@ class EventDao(
                         firstName = firstname,
                         lastName = lastname
                     )
-                } else null,
+                } else {
+                    null
+                },
                 qrCode = qrcode.toNativeImage()
             )
         }
@@ -161,7 +163,10 @@ class EventDao(
         )
         qAndA.forEach { qAndA ->
             db.qAndAQueries.insertQAndA(
-                qAndA.order.toLong(), eventDb.id, qAndA.question, qAndA.response
+                qAndA.order.toLong(),
+                eventDb.id,
+                qAndA.question,
+                qAndA.response
             )
             qAndA.actions.forEach {
                 db.qAndAQueries.insertQAndAAction(

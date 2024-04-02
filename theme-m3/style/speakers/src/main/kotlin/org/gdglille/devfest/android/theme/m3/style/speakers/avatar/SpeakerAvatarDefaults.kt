@@ -36,13 +36,13 @@ object SpeakerAvatarDefaults {
         @Composable
         get() = BorderStroke(
             width = BorderedSpeakerAvatarSmallTokens.BorderWidth,
-            color = contentColorFor(SpeakerAvatarTokens.ContainerColor.toColor()),
+            color = contentColorFor(SpeakerAvatarTokens.ContainerColor.toColor())
         )
 
     val borderedMedium: BorderStroke
         @Composable
         get() = BorderStroke(
             width = BorderedSpeakerAvatarMediumTokens.BorderWidth,
-            color = contentColorFor(SpeakerAvatarTokens.ContainerColor.toColor()),
+            color = contentColorFor(SpeakerAvatarTokens.ContainerColor.toColor())
         )
 }

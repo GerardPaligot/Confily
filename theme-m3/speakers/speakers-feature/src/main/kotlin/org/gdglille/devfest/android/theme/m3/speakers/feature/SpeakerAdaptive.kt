@@ -60,12 +60,16 @@ fun SpeakerAdaptive(
                         onTalkClicked = onTalkClicked,
                         onLinkClicked = onLinkClicked,
                         navigationIcon = if (showBackInDetail) {
-                            @Composable { Back {
-                                if (navigator.canNavigateBack()) {
-                                    navigator.navigateBack()
+                            @Composable {
+                                Back {
+                                    if (navigator.canNavigateBack()) {
+                                        navigator.navigateBack()
+                                    }
                                 }
-                            } }
-                        } else null
+                            }
+                        } else {
+                            null
+                        }
                     )
                 }
             }

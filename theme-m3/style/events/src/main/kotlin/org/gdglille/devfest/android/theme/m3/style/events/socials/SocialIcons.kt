@@ -14,14 +14,14 @@ import compose.icons.fontawesomeicons.brands.Github
 import compose.icons.fontawesomeicons.brands.LinkedinIn
 import compose.icons.fontawesomeicons.brands.Mastodon
 import compose.icons.fontawesomeicons.brands.Twitter
-import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
-import org.gdglille.devfest.android.theme.m3.style.buttons.IconButton
 import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.semantic_github
 import org.gdglille.devfest.android.shared.resources.semantic_linkedin
 import org.gdglille.devfest.android.shared.resources.semantic_mastodon
 import org.gdglille.devfest.android.shared.resources.semantic_twitter
 import org.gdglille.devfest.android.shared.resources.semantic_website
+import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
+import org.gdglille.devfest.android.theme.m3.style.buttons.IconButton
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 

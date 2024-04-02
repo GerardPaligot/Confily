@@ -34,7 +34,7 @@ fun ScheduleDetailOrientableScreen(
     onBackClicked: () -> Unit,
     onSpeakerClicked: (id: String) -> Unit,
     onShareClicked: (text: String) -> Unit,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     val orientation = LocalConfiguration.current
     val textShared =

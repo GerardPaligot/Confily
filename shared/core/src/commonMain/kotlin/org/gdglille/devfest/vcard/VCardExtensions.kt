@@ -7,4 +7,5 @@ VERSION:4.0
 N:$lastName;$firstName
 EMAIL;INTERNET:$email
 ORG:$company
-END:VCARD""".trimMargin()
+END:VCARD
+""".trimMargin()

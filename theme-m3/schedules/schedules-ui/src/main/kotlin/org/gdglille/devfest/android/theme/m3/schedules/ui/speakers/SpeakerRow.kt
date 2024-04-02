@@ -23,7 +23,7 @@ fun SpeakerItemRow(
     modifier: Modifier = Modifier,
     maxItems: Int = 2,
     isLoading: Boolean = false,
-    onSpeakerItemClick: (SpeakerItemUi) -> Unit,
+    onSpeakerItemClick: (SpeakerItemUi) -> Unit
 ) {
     val horizontalSpacing = SpacingTokens.MediumSpacing.toDp()
     BoxWithConstraints(modifier = modifier.fillMaxWidth()) {

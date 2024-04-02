@@ -4,10 +4,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import org.gdglille.devfest.android.theme.m3.partners.screens.PartnerDetailOrientable
 import org.gdglille.devfest.android.shared.resources.Resource
-import org.gdglille.devfest.android.theme.m3.style.appbars.AppBarIcons
 import org.gdglille.devfest.android.shared.resources.text_error
+import org.gdglille.devfest.android.theme.m3.partners.screens.PartnerDetailOrientable
+import org.gdglille.devfest.android.theme.m3.style.appbars.AppBarIcons
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 import org.koin.androidx.compose.koinViewModel
@@ -24,7 +24,8 @@ fun PartnerDetailVM(
     isLandscape: Boolean = false,
     viewModel: PartnerDetailViewModel = koinViewModel(
         key = partnerId,
-        parameters = { parametersOf(partnerId) })
+        parameters = { parametersOf(partnerId) }
+    )
 ) {
     when (val uiState = viewModel.uiState.collectAsState().value) {
         is PartnerUiState.Loading -> PartnerDetailOrientable(
@@ -44,7 +45,7 @@ fun PartnerDetailVM(
             onItineraryClicked = onItineraryClicked,
             modifier = modifier,
             navigationIcon = navigationIcon,
-            isLandscape = isLandscape,
+            isLandscape = isLandscape
         )
     }
 }

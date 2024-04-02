@@ -1,6 +1,5 @@
 package org.gdglille.devfest.android.theme.m3.navigation
 
-import org.gdglille.devfest.android.theme.m3.style.actions.TabAction
 import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.screen_coc
 import org.gdglille.devfest.android.shared.resources.screen_contacts
@@ -10,6 +9,7 @@ import org.gdglille.devfest.android.shared.resources.screen_events_past
 import org.gdglille.devfest.android.shared.resources.screen_menus
 import org.gdglille.devfest.android.shared.resources.screen_my_profile
 import org.gdglille.devfest.android.shared.resources.screen_qanda
+import org.gdglille.devfest.android.theme.m3.style.actions.TabAction
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 
 @OptIn(ExperimentalResourceApi::class)

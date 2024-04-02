@@ -30,10 +30,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
-import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.action_favorites_add
 import org.gdglille.devfest.android.shared.resources.action_favorites_remove
+import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.speakers.avatars.SmallLabeledSpeakersAvatar
 import org.gdglille.devfest.android.theme.m3.style.toDp
 import org.jetbrains.compose.resources.ExperimentalResourceApi
@@ -55,9 +55,11 @@ fun SmallScheduleCard(
     onFavoriteClick: (() -> Unit)? = null,
     bottomBar: (@Composable FlowRowScope.() -> Unit)? = null
 ) {
-    val semanticModifier = if (contentDescription != null)
+    val semanticModifier = if (contentDescription != null) {
         Modifier.clearAndSetSemantics { this.contentDescription = contentDescription }
-    else Modifier
+    } else {
+        Modifier
+    }
     Card(shape = shape, onClick = onClick, modifier = modifier) {
         Column(
             verticalArrangement = Arrangement.spacedBy(ScheduleCardSmallTokens.SpeakersBottomPadding.toDp()),
@@ -86,8 +88,11 @@ fun SmallScheduleCard(
                         Icon(
                             imageVector = if (isFavorite) Icons.Outlined.Star else Icons.Outlined.Grade,
                             contentDescription =
-                            if (isFavorite) stringResource(Resource.string.action_favorites_remove)
-                            else stringResource(Resource.string.action_favorites_add),
+                            if (isFavorite) {
+                                stringResource(Resource.string.action_favorites_remove)
+                            } else {
+                                stringResource(Resource.string.action_favorites_add)
+                            },
                             tint = colors.favIconColor(isFavorite = isFavorite).value
                         )
                     }
@@ -125,9 +130,11 @@ fun MediumScheduleCard(
     topBar: (@Composable RowScope.() -> Unit)? = null,
     bottomBar: (@Composable RowScope.() -> Unit)? = null
 ) {
-    val semanticModifier = if (contentDescription != null)
+    val semanticModifier = if (contentDescription != null) {
         Modifier.clearAndSetSemantics { this.contentDescription = contentDescription }
-    else Modifier
+    } else {
+        Modifier
+    }
     Card(shape = shape, onClick = onClick, modifier = modifier) {
         Box {
             Column(
@@ -162,8 +169,11 @@ fun MediumScheduleCard(
                 ) {
                     Icon(
                         imageVector = if (isFavorite) Icons.Outlined.Star else Icons.Outlined.Grade,
-                        contentDescription = if (isFavorite) stringResource(Resource.string.action_favorites_remove)
-                        else stringResource(Resource.string.action_favorites_add),
+                        contentDescription = if (isFavorite) {
+                            stringResource(Resource.string.action_favorites_remove)
+                        } else {
+                            stringResource(Resource.string.action_favorites_add)
+                        },
                         tint = colors.favIconColor(isFavorite = isFavorite).value
                     )
                 }

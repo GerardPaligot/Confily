@@ -55,8 +55,10 @@ import org.koin.androidx.compose.koinViewModel
 
 @Suppress("LongMethod")
 @OptIn(
-    ExperimentalMaterial3AdaptiveNavigationSuiteApi::class, ExperimentalMaterial3AdaptiveApi::class,
-    ExperimentalResourceApi::class, ExperimentalComposeUiApi::class
+    ExperimentalMaterial3AdaptiveNavigationSuiteApi::class,
+    ExperimentalMaterial3AdaptiveApi::class,
+    ExperimentalResourceApi::class,
+    ExperimentalComposeUiApi::class
 )
 @Composable
 fun MainNavigation(
@@ -156,8 +158,8 @@ fun MainNavigation(
                     )
                 }
                 composable(Screen.ScheduleList.route) {
-                    val showFilterIcon = adaptiveInfo.windowSizeClass.widthSizeClass.isCompat
-                            || (adaptiveInfo.windowSizeClass.widthSizeClass.isMedium && config.isPortrait)
+                    val showFilterIcon = adaptiveInfo.windowSizeClass.widthSizeClass.isCompat ||
+                        (adaptiveInfo.windowSizeClass.widthSizeClass.isMedium && config.isPortrait)
                     val isSmallSize = adaptiveInfo.windowSizeClass.heightSizeClass.isCompat
                     ScheduleGridAdaptive(
                         onScheduleStarted = onScheduleStarted,
@@ -219,15 +221,17 @@ fun MainNavigation(
                     PartnersAdaptive(
                         showBackInDetail = adaptiveInfo.windowSizeClass.widthSizeClass.isCompat,
                         onItineraryClicked = onItineraryClicked,
-                        onLinkClicked = { launchUrl(it) },
+                        onLinkClicked = { launchUrl(it) }
                     )
                 }
                 composable(
                     route = Screen.Partner.route,
                     arguments = listOf(navArgument("partnerId") { type = NavType.StringType }),
-                    deepLinks = listOf(navDeepLink {
-                        uriPattern = "$rootUri/${Screen.Partner.route}"
-                    })
+                    deepLinks = listOf(
+                        navDeepLink {
+                            uriPattern = "$rootUri/${Screen.Partner.route}"
+                        }
+                    )
                 ) {
                     PartnerDetailVM(
                         partnerId = it.arguments?.getString("partnerId")!!,

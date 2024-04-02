@@ -20,17 +20,17 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.toImmutableList
-import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.shared.resources.Resource
-import org.gdglille.devfest.android.theme.m3.style.schedules.findCategoryImageVector
-import org.gdglille.devfest.android.theme.m3.style.schedules.findTimeImageVector
 import org.gdglille.devfest.android.shared.resources.semantic_talk_item
 import org.gdglille.devfest.android.shared.resources.semantic_talk_item_level
+import org.gdglille.devfest.android.shared.resources.text_schedule_minutes
+import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
+import org.gdglille.devfest.android.theme.m3.style.schedules.findCategoryImageVector
+import org.gdglille.devfest.android.theme.m3.style.schedules.findTimeImageVector
 import org.gdglille.devfest.android.theme.m3.style.speakers.avatars.MediumBorderedSpeakersAvatar
 import org.gdglille.devfest.android.theme.m3.style.tags.MediumAutoColoredTag
 import org.gdglille.devfest.android.theme.m3.style.tags.MediumTag
 import org.gdglille.devfest.android.theme.m3.style.tags.TagDefaults
-import org.gdglille.devfest.android.shared.resources.text_schedule_minutes
 import org.gdglille.devfest.models.ui.TalkUi
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
@@ -43,8 +43,11 @@ fun TalkSection(
     color: Color = MaterialTheme.colorScheme.onBackground,
     titleTextStyle: TextStyle = MaterialTheme.typography.headlineMedium
 ) {
-    val semanticLevel = if (talk.level == null) ""
-    else stringResource(Resource.string.semantic_talk_item_level, talk.level!!)
+    val semanticLevel = if (talk.level == null) {
+        ""
+    } else {
+        stringResource(Resource.string.semantic_talk_item_level, talk.level!!)
+    }
     val semanticTalk = stringResource(
         Resource.string.semantic_talk_item,
         talk.title,
@@ -71,7 +74,7 @@ fun TalkSection(
             Spacer(modifier = Modifier.weight(1f))
             MediumBorderedSpeakersAvatar(
                 urls = talk.speakers.map { it.url }.toImmutableList(),
-                descriptions = talk.speakers.map { it.name }.toImmutableList(),
+                descriptions = talk.speakers.map { it.name }.toImmutableList()
             )
         }
         Text(text = talk.title, color = color, style = titleTextStyle)

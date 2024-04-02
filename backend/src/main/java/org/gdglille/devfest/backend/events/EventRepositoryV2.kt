@@ -98,8 +98,9 @@ class EventRepositoryV2(
         formats: List<FormatDb>,
         eventDb: EventDb
     ) = async {
-        if (schedule.talkId == null) schedule.convertToModel(null)
-        else {
+        if (schedule.talkId == null) {
+            schedule.convertToModel(null)
+        } else {
             val talk = talks.find { it.id == schedule.talkId }
                 ?: return@async schedule.convertToModel(null)
             val speakersTalk = speakers.filter { talk.speakerIds.contains(it.id) }

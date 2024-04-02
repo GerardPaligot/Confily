@@ -6,7 +6,7 @@ import kotlinx.collections.immutable.persistentListOf
 data class NetworkingUi(
     val userProfileUi: UserProfileUi?,
     val showQrCode: Boolean,
-    val users: ImmutableList<UserNetworkingUi> = persistentListOf(),
+    val users: ImmutableList<UserNetworkingUi> = persistentListOf()
 ) {
     companion object {
         val fake = NetworkingUi(
@@ -42,8 +42,8 @@ data class NetworkingUi(
                     firstName = "Gérard",
                     lastName = "Paligot",
                     company = "Decathlon"
-                ),
-            ),
+                )
+            )
         )
     }
 }

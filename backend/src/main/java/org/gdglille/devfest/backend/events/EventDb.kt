@@ -37,7 +37,7 @@ data class OpenPlannerConfigurationDb(
 data class BilletWebConfigurationDb(
     val eventId: String = "",
     val userId: String = "",
-    val apiKey: String = "",
+    val apiKey: String = ""
 )
 
 data class WldConfigurationDb(

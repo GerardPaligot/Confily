@@ -23,7 +23,7 @@ fun OpenFeedbackSection(
     canGiveFeedback: Boolean,
     openFeedbackFirebaseConfig: OpenFeedbackFirebaseConfig,
     modifier: Modifier = Modifier,
-    style: TextStyle = MaterialTheme.typography.titleLarge,
+    style: TextStyle = MaterialTheme.typography.titleLarge
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),

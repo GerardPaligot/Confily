@@ -11,15 +11,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import org.gdglille.devfest.android.shared.resources.Resource
+import org.gdglille.devfest.android.shared.resources.screen_agenda_filters
 import org.gdglille.devfest.android.theme.m3.schedules.ui.filters.CategoryListFilters
 import org.gdglille.devfest.android.theme.m3.schedules.ui.filters.FavoriteFilter
 import org.gdglille.devfest.android.theme.m3.schedules.ui.filters.FormatListFilters
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
-import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.theme.m3.style.Scaffold
 import org.gdglille.devfest.android.theme.m3.style.SpacingTokens
 import org.gdglille.devfest.android.theme.m3.style.appbars.AppBarIcons
-import org.gdglille.devfest.android.shared.resources.screen_agenda_filters
 import org.gdglille.devfest.android.theme.m3.style.toDp
 import org.gdglille.devfest.models.ui.CategoryUi
 import org.gdglille.devfest.models.ui.FiltersUi
@@ -53,7 +53,7 @@ fun AgendaFiltersScreen(
                 vertical = SpacingTokens.MediumSpacing.toDp(),
                 horizontal = SpacingTokens.LargeSpacing.toDp()
             ),
-            verticalArrangement = Arrangement.spacedBy(SpacingTokens.LargeSpacing.toDp()),
+            verticalArrangement = Arrangement.spacedBy(SpacingTokens.LargeSpacing.toDp())
         ) {
             item {
                 FavoriteFilter(isFavorite = filtersUi.onlyFavorites, onClick = onFavoriteClick)

@@ -16,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import kotlin.math.floor
 import org.gdglille.devfest.android.theme.m3.schedules.semantics.SchedulesSemantics
 import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.MediumScheduleItem
 import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.NoFavoriteTalks
@@ -44,7 +43,7 @@ fun ScheduleGridScreen(
     modifier: Modifier = Modifier,
     state: LazyGridState = rememberLazyGridState(),
     isSmallSize: Boolean = false,
-    isLoading: Boolean = false,
+    isLoading: Boolean = false
 ) {
     if (agenda.onlyFavorites && !isLoading && agenda.talks.keys.isEmpty()) {
         NoFavoriteTalks(modifier = modifier)

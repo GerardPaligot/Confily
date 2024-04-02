@@ -58,7 +58,9 @@ class ScheduleRepository(
             val category = categoryDao.get(eventId, talkDb.category)
             val format = formatDao.get(eventId, talkDb.format)
             talkDb.convertToModel(speakers, category, format, eventDb)
-        } else null
+        } else {
+            null
+        }
         return@coroutineScope scheduleItem.convertToModel(talk)
     }
 

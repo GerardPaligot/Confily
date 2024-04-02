@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import kotlin.math.roundToInt
 
 data class DottedShape(
-    val step: Dp,
+    val step: Dp
 ) : Shape {
     override fun createOutline(
         size: Size,

@@ -13,9 +13,9 @@ import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
-import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.text_speaker_title
+import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.models.ui.SpeakerItemUi
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
@@ -26,7 +26,7 @@ fun SpeakerSection(
     speakers: ImmutableList<SpeakerItemUi>,
     onSpeakerItemClick: (String) -> Unit,
     modifier: Modifier = Modifier,
-    subtitleTextStyle: TextStyle = MaterialTheme.typography.titleLarge,
+    subtitleTextStyle: TextStyle = MaterialTheme.typography.titleLarge
 ) {
     val speakersChunked = remember(speakers) {
         speakers.chunked(size = 2).map { it.toImmutableList() }

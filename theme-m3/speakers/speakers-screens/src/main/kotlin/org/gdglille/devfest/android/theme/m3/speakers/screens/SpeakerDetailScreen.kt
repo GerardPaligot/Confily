@@ -30,7 +30,7 @@ fun SpeakerDetailScreen(
     state: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(0.dp),
     isLoading: Boolean = false,
-    displayAvatar: Boolean = true,
+    displayAvatar: Boolean = true
 ) {
     LazyColumn(
         contentPadding = PaddingValues(vertical = 24.dp, horizontal = 16.dp),

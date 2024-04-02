@@ -7,8 +7,11 @@ interface Storage {
 
     object Factory {
         fun create(storage: CloudStorage, bucketName: String, isAppEngine: Boolean): Storage {
-            return if (isAppEngine) BucketStorage(storage, bucketName)
-            else LocalStorage(bucketName)
+            return if (isAppEngine) {
+                BucketStorage(storage, bucketName)
+            } else {
+                LocalStorage(bucketName)
+            }
         }
     }
 }

@@ -18,14 +18,14 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.gdglille.devfest.android.theme.m3.style.events.cards.AddressCard
-import org.gdglille.devfest.android.theme.m3.style.events.socials.SocialsSection
-import org.gdglille.devfest.android.theme.m3.infos.ui.tickets.TicketDetailed
-import org.gdglille.devfest.android.theme.m3.infos.ui.tickets.TicketQrCode
-import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.title_plan
 import org.gdglille.devfest.android.shared.resources.title_ticket
+import org.gdglille.devfest.android.theme.m3.infos.ui.tickets.TicketDetailed
+import org.gdglille.devfest.android.theme.m3.infos.ui.tickets.TicketQrCode
+import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
+import org.gdglille.devfest.android.theme.m3.style.events.cards.AddressCard
+import org.gdglille.devfest.android.theme.m3.style.events.socials.SocialsSection
 import org.gdglille.devfest.models.ui.EventUi
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
@@ -37,12 +37,12 @@ fun Event(
     onLinkClicked: (url: String) -> Unit,
     onItineraryClicked: (lat: Double, lng: Double) -> Unit,
     modifier: Modifier = Modifier,
-    isLoading: Boolean = false,
+    isLoading: Boolean = false
 ) {
     LazyColumn(
         modifier = modifier,
         contentPadding = PaddingValues(vertical = 24.dp),
-        verticalArrangement = Arrangement.spacedBy(24.dp),
+        verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
         item {
             SocialsSection(

@@ -20,13 +20,16 @@ class ScheduleItemDao(private val database: Database) {
 
     suspend fun createOrUpdate(eventId: String, item: ScheduleDb) {
         val existing = database.get<ScheduleDb>(eventId = eventId, collectionName = CollectionName, id = item.id)
-        if (existing == null) database.insert(
-            eventId = eventId,
-            collectionName = CollectionName,
-            id = item.id,
-            item = item
-        )
-        else database.update(eventId = eventId, collectionName = CollectionName, id = item.id, item = item)
+        if (existing == null) {
+            database.insert(
+                eventId = eventId,
+                collectionName = CollectionName,
+                id = item.id,
+                item = item
+            )
+        } else {
+            database.update(eventId = eventId, collectionName = CollectionName, id = item.id, item = item)
+        }
     }
 
     suspend fun delete(eventId: String, id: String) = database.delete(

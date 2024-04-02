@@ -20,7 +20,7 @@ sealed class ScheduleUiState {
 
 class ScheduleDetailViewModel(
     scheduleId: String,
-    repository: AgendaRepository,
+    repository: AgendaRepository
 ) : ViewModel() {
     val uiState: StateFlow<ScheduleUiState> = repository.scheduleItem(scheduleId)
         .map { ScheduleUiState.Success(it) }

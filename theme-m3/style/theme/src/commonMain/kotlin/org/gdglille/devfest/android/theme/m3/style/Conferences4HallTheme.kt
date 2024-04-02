@@ -15,8 +15,11 @@ fun Conferences4HallTheme(
 ) {
     CompositionLocalProvider(
         LocalDecorativeColorScheme provides
-            if (useDarkTheme) darkDecorativeColorScheme()
-            else lightDecorativeColorScheme()
+            if (useDarkTheme) {
+                darkDecorativeColorScheme()
+            } else {
+                lightDecorativeColorScheme()
+            }
     ) {
         MaterialTheme(
             colorScheme = colorScheme,

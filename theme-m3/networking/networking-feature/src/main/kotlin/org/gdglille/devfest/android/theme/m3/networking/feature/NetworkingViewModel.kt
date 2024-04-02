@@ -1,7 +1,6 @@
 package org.gdglille.devfest.android.theme.m3.networking.feature
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
@@ -51,16 +50,22 @@ class NetworkingViewModel(
         transform = { route, config ->
             NetworkingUiState.Success(
                 topActionsUi = TopActionsUi(
-                    actions = if (config.hasUsersInNetworking) persistentListOf(TopActions.export)
-                    else persistentListOf()
+                    actions = if (config.hasUsersInNetworking) {
+                        persistentListOf(TopActions.export)
+                    } else {
+                        persistentListOf()
+                    }
                 ),
                 tabActionsUi = TabActionsUi(
                     scrollable = true,
-                    actions = if (config.hasProfile) persistentListOf(
-                        TabActions.myProfile,
-                        TabActions.contacts
-                    )
-                    else persistentListOf(TabActions.myProfile)
+                    actions = if (config.hasProfile) {
+                        persistentListOf(
+                            TabActions.myProfile,
+                            TabActions.contacts
+                        )
+                    } else {
+                        persistentListOf(TabActions.myProfile)
+                    }
                 ),
                 fabAction = when (route) {
                     Screen.MyProfile.route -> if (!config.hasProfile) FabActions.createProfile else null

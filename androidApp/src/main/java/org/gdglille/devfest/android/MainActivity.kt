@@ -54,9 +54,9 @@ class MainActivity : ComponentActivity() {
                 enableEdgeToEdge(
                     statusBarStyle = SystemBarStyle.auto(
                         android.graphics.Color.TRANSPARENT,
-                        android.graphics.Color.TRANSPARENT,
+                        android.graphics.Color.TRANSPARENT
                     ) { inDarkTheme },
-                    navigationBarStyle = SystemBarStyle.auto(lightScrim, darkScrim) { inDarkTheme },
+                    navigationBarStyle = SystemBarStyle.auto(lightScrim, darkScrim) { inDarkTheme }
                 )
                 onDispose {}
             }

@@ -33,7 +33,9 @@ fun TopAppBar(
     androidx.compose.material3.TopAppBar(
         title = { Text(text = title) },
         modifier = modifier,
-        navigationIcon = navigationIcon.takeOrEmpty(),
+        navigationIcon = {
+            navigationIcon?.let { AppBarIcons.it() }
+        },
         actions = {
             showAsActionItems.forEach { action ->
                 IconButton(onClick = { onActionClicked(action) }) {
@@ -55,11 +57,4 @@ fun TopAppBar(
         scrollBehavior = scrollBehavior,
         colors = colors
     )
-}
-
-internal fun (@Composable AppBarIcons.() -> Unit)?.takeOrEmpty(): (@Composable () -> Unit) {
-    if (this == null) return {}
-    return {
-        AppBarIcons.this()
-    }
 }

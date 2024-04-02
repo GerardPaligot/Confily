@@ -18,11 +18,11 @@ import androidx.compose.ui.unit.dp
 import com.halilibo.richtext.markdown.Markdown
 import com.halilibo.richtext.ui.RichText
 import com.halilibo.richtext.ui.RichTextThemeIntegration
-import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.action_contact_organizers_mail
 import org.gdglille.devfest.android.shared.resources.action_contact_organizers_phone
 import org.gdglille.devfest.android.shared.resources.screen_coc
+import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.models.ui.CoCUi
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
@@ -33,7 +33,7 @@ fun CoC(
     coc: CoCUi,
     onReportByPhoneClicked: (String) -> Unit,
     onReportByEmailClicked: (String) -> Unit,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     LazyColumn(
         modifier = modifier,
@@ -44,7 +44,7 @@ fun CoC(
             Text(
                 text = stringResource(Resource.string.screen_coc),
                 style = MaterialTheme.typography.headlineLarge,
-                color = MaterialTheme.colorScheme.onSurface,
+                color = MaterialTheme.colorScheme.onSurface
             )
         }
         item {
@@ -52,7 +52,7 @@ fun CoC(
                 textStyle = { MaterialTheme.typography.bodyMedium },
                 ProvideTextStyle = null,
                 contentColor = { MaterialTheme.colorScheme.onBackground },
-                ProvideContentColor = null,
+                ProvideContentColor = null
             ) {
                 RichText(
                     modifier = Modifier.clearAndSetSemantics {

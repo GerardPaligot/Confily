@@ -24,12 +24,15 @@ class EventDao(
 
     suspend fun createOrUpdate(event: EventDb) {
         val existing = database.get<EventDb>(projectName, event.slugId)
-        if (existing == null) database.insert(projectName, event.slugId, event)
-        else database.update(
-            projectName,
-            event.slugId,
-            event.copy(updatedAt = System.currentTimeMillis())
-        )
+        if (existing == null) {
+            database.insert(projectName, event.slugId, event)
+        } else {
+            database.update(
+                projectName,
+                event.slugId,
+                event.copy(updatedAt = System.currentTimeMillis())
+            )
+        }
     }
 
     suspend fun updateMenus(eventId: String, apiKey: String, menus: List<LunchMenuDb>) {

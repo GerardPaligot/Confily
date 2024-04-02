@@ -6,11 +6,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import org.gdglille.devfest.android.theme.m3.schedules.screens.AgendaFiltersScreen
 import org.gdglille.devfest.android.shared.resources.Resource
-import org.gdglille.devfest.android.theme.m3.style.appbars.AppBarIcons
 import org.gdglille.devfest.android.shared.resources.text_error
 import org.gdglille.devfest.android.shared.resources.text_loading
+import org.gdglille.devfest.android.theme.m3.schedules.screens.AgendaFiltersScreen
+import org.gdglille.devfest.android.theme.m3.style.appbars.AppBarIcons
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 import org.koin.androidx.compose.koinViewModel
@@ -20,7 +20,7 @@ import org.koin.androidx.compose.koinViewModel
 fun AgendaFiltersCompactVM(
     modifier: Modifier = Modifier,
     containerColor: Color = MaterialTheme.colorScheme.background,
-    navigationIcon: @Composable() (AppBarIcons.() -> Unit)? = null,
+    navigationIcon: @Composable (AppBarIcons.() -> Unit)? = null,
     viewModel: AgendaFiltersViewModel = koinViewModel()
 ) {
     when (val uiState = viewModel.uiState.collectAsState().value) {

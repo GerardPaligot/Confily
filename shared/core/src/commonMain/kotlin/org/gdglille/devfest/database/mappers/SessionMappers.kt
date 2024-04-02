@@ -39,27 +39,44 @@ private const val BREAK_TITLE = "break"
 private const val MaxSpeakersCount = 3
 
 fun SelectSessions.convertCategoryUi() = CategoryUi(
-    id = category_id, name = categoryName, color = categoryColor, icon = categoryIcon
+    id = category_id,
+    name = categoryName,
+    color = categoryColor,
+    icon = categoryIcon
 )
 
 fun SelectBreakSessions.convertCategoryUi() = CategoryUi(
-    id = id, name = BREAK_TITLE, color = "", icon = null
+    id = id,
+    name = BREAK_TITLE,
+    color = "",
+    icon = null
 )
 
 fun SelectTalksBySpeakerId.convertCategoryUi() = CategoryUi(
-    id = category_id, name = categoryName, color = categoryColor, icon = categoryIcon
+    id = category_id,
+    name = categoryName,
+    color = categoryColor,
+    icon = categoryIcon
 )
 
 fun SelectSessionByTalkId.convertCategoryUi() = CategoryUi(
-    id = category_id, name = categoryName, color = categoryColor, icon = categoryIcon
+    id = category_id,
+    name = categoryName,
+    color = categoryColor,
+    icon = categoryIcon
 )
 
 fun SelectCategories.convertCategoryUi() = CategoryUi(
-    id = id, name = name, color = color, icon = icon
+    id = id,
+    name = name,
+    color = color,
+    icon = icon
 )
 
 fun SelectFormats.convertFormatUi() = FormatUi(
-    id = id, name = name, time = time.toInt()
+    id = id,
+    name = name,
+    time = time.toInt()
 )
 
 @OptIn(ExperimentalResourceApi::class)
@@ -192,8 +209,9 @@ suspend fun SelectSessionByTalkId.convertTalkUi(
         room = room,
         speakers = speakers.map { it.convertSpeakerItemUi() }.toImmutableList(),
         speakersSharing = speakers.joinToString(", ") { speaker ->
-            if (speaker.twitter == null) speaker.display_name
-            else {
+            if (speaker.twitter == null) {
+                speaker.display_name
+            } else {
                 val twitter = speaker.twitter.split("twitter.com/").get(1)
                 "${speaker.display_name} (@$twitter)"
             }

@@ -25,12 +25,12 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
-import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.action_networking_delete
-import org.gdglille.devfest.android.theme.m3.style.buttons.IconButton
 import org.gdglille.devfest.android.shared.resources.semantic_user_item_company
 import org.gdglille.devfest.android.shared.resources.semantic_user_item_email
+import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
+import org.gdglille.devfest.android.theme.m3.style.buttons.IconButton
 import org.gdglille.devfest.android.theme.m3.style.toDp
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource

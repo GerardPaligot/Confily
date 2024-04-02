@@ -23,7 +23,7 @@ data class TicketUi(
             info = TicketInfoUi(
                 id = "T264-8780-E519953",
                 firstName = "Gérard Pierre Martin Adrien",
-                lastName = "Paligot",
+                lastName = "Paligot"
             ),
             qrCode = null
         )

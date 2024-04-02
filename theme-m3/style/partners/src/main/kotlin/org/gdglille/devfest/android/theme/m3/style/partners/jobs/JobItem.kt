@@ -16,14 +16,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
-import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.shared.resources.Resource
-import org.gdglille.devfest.android.theme.m3.style.tags.MediumTag
-import org.gdglille.devfest.android.theme.m3.style.tags.TagDefaults
 import org.gdglille.devfest.android.shared.resources.text_job_propulsed
 import org.gdglille.devfest.android.shared.resources.text_job_requirements_many
 import org.gdglille.devfest.android.shared.resources.text_job_requirements_one
 import org.gdglille.devfest.android.shared.resources.text_job_salary
+import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
+import org.gdglille.devfest.android.theme.m3.style.tags.MediumTag
+import org.gdglille.devfest.android.theme.m3.style.tags.TagDefaults
 import org.gdglille.devfest.android.theme.m3.style.toDp
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
@@ -78,11 +78,14 @@ fun JobItem(
                     )
                 }
                 MediumTag(
-                    text = if (requirements <= 1) stringResource(
-                        Resource.string.text_job_requirements_one,
-                        requirements
-                    )
-                    else stringResource(Resource.string.text_job_requirements_many, requirements),
+                    text = if (requirements <= 1) {
+                        stringResource(
+                            Resource.string.text_job_requirements_one,
+                            requirements
+                        )
+                    } else {
+                        stringResource(Resource.string.text_job_requirements_many, requirements)
+                    },
                     icon = Icons.Outlined.Work,
                     colors = TagDefaults.unStyledColors()
                 )

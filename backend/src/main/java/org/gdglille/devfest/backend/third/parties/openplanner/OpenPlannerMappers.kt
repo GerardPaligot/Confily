@@ -45,13 +45,21 @@ fun SpeakerOP.convertToDb(): SpeakerDb {
         company = company,
         photoUrl = photoUrl ?: "",
         website = null,
-        twitter = if (twitter?.contains("twitter.com") == true) twitter
-        else if (twitter == null) null
-        else "https://twitter.com/$twitter",
+        twitter = if (twitter?.contains("twitter.com") == true) {
+            twitter
+        } else if (twitter != null) {
+            "https://twitter.com/$twitter"
+        } else {
+            null
+        },
         mastodon = null,
-        github = if (github?.contains("github.com") == true) github
-        else if (github == null) null
-        else "https://github.com/$github",
+        github = if (github?.contains("github.com") == true) {
+            github
+        } else if (github != null) {
+            "https://github.com/$github"
+        } else {
+            null
+        },
         linkedin = null
     )
 }
@@ -69,14 +77,24 @@ fun SpeakerDb.mergeWith(speakerOP: SpeakerOP): SpeakerDb {
         company = if (this.company == speakerOP.company) this.company else speakerOP.company,
         photoUrl = if (this.photoUrl == speakerOP.photoUrl) this.photoUrl else speakerOP.photoUrl ?: "",
         website = null,
-        twitter = if (this.twitter == twitter) this.twitter
-        else if (twitter?.contains("twitter.com") == true) twitter
-        else if (twitter == null) null
-        else "https://twitter.com/$twitter",
-        github = if (this.github == github) this.github
-        else if (github?.contains("github.com") == true) github
-        else if (github == null) null
-        else "https://github.com/$github",
+        twitter = if (this.twitter == twitter) {
+            this.twitter
+        } else if (twitter?.contains("twitter.com") == true) {
+            twitter
+        } else if (twitter != null) {
+            "https://twitter.com/$twitter"
+        } else {
+            null
+        },
+        github = if (this.github == github) {
+            this.github
+        } else if (github?.contains("github.com") == true) {
+            github
+        } else if (github != null) {
+            "https://github.com/$github"
+        } else {
+            null
+        },
         linkedin = null
     )
 }

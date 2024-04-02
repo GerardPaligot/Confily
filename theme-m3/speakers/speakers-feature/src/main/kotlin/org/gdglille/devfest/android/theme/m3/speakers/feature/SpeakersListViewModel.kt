@@ -1,21 +1,17 @@
 package org.gdglille.devfest.android.theme.m3.speakers.feature
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
 import org.gdglille.devfest.models.ui.SpeakerItemUi
-import org.gdglille.devfest.models.ui.SpeakerUi
 import org.gdglille.devfest.repositories.SpeakerRepository
 
 sealed class SpeakersUiState {
@@ -35,7 +31,8 @@ class SpeakersListViewModel(repository: SpeakerRepository) : ViewModel() {
             scope = viewModelScope,
             initialValue = SpeakersUiState.Loading(
                 persistentListOf(
-                    SpeakerItemUi.fake.copy(id = "1"), SpeakerItemUi.fake.copy(id = "2")
+                    SpeakerItemUi.fake.copy(id = "1"),
+                    SpeakerItemUi.fake.copy(id = "2")
                 )
             ),
             started = SharingStarted.WhileSubscribed()

@@ -7,7 +7,7 @@ import org.jlleitschuh.gradle.ktlint.KtlintExtension
 internal fun Project.configureKtlint() {
     configure<KtlintExtension> {
         debug.set(false)
-        version.set("0.42.1")
+        version.set("0.47.1")
         verbose.set(true)
         android.set(false)
         outputToConsole.set(true)

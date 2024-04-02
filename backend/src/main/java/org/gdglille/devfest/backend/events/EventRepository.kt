@@ -124,8 +124,9 @@ class EventRepository(
                 async {
                     val scheduleItems = it.value.map {
                         async {
-                            if (it.talkId == null) it.convertToModel(null)
-                            else {
+                            if (it.talkId == null) {
+                                it.convertToModel(null)
+                            } else {
                                 val talk = talkDao.get(eventDb.slugId, it.talkId)
                                     ?: return@async it.convertToModel(null)
                                 it.convertToModel(

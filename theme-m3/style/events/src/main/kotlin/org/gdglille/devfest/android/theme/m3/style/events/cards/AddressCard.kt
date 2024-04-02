@@ -23,10 +23,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
-import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.shared.resources.Resource
-import org.gdglille.devfest.android.theme.m3.style.placeholder.placeholder
 import org.gdglille.devfest.android.shared.resources.semantic_start_itinerary
+import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
+import org.gdglille.devfest.android.theme.m3.style.placeholder.placeholder
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 
@@ -38,11 +38,11 @@ fun AddressCard(
     modifier: Modifier = Modifier,
     isLoading: Boolean = false,
     hasGpsLocation: Boolean = true,
-    shape: Shape = MaterialTheme.shapes.small,
+    shape: Shape = MaterialTheme.shapes.small
 ) {
     Card(
         modifier = modifier.wrapContentHeight(),
-        shape = shape,
+        shape = shape
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,

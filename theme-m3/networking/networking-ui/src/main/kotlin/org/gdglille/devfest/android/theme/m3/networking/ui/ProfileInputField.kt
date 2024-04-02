@@ -24,7 +24,7 @@ fun ProfileInputField(
     modifier: Modifier = Modifier,
     keyboardType: KeyboardType = KeyboardType.Text,
     onDone: (KeyboardActionScope.() -> Unit)? = null,
-    onValueChanged: (Field, String) -> Unit,
+    onValueChanged: (Field, String) -> Unit
 ) {
     OutlinedTextField(
         value = value,

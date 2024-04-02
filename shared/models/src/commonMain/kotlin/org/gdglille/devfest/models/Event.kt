@@ -97,7 +97,7 @@ data class EventItemList(
     @SerialName("start_date")
     val startDate: String,
     @SerialName("end_date")
-    val endDate: String,
+    val endDate: String
 )
 
 @Serializable

@@ -19,12 +19,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
-import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.action_submit_accept
 import org.gdglille.devfest.android.shared.resources.action_submit_deny
-import org.gdglille.devfest.android.theme.m3.style.networking.UserItem
 import org.gdglille.devfest.android.shared.resources.text_networking_ask_to_delete
+import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
+import org.gdglille.devfest.android.theme.m3.style.networking.UserItem
 import org.gdglille.devfest.models.ui.NetworkingUi
 import org.gdglille.devfest.models.ui.UserNetworkingUi
 import org.jetbrains.compose.resources.ExperimentalResourceApi
@@ -35,7 +35,7 @@ import org.jetbrains.compose.resources.stringResource
 fun ContactsScreen(
     users: ImmutableList<UserNetworkingUi>,
     onNetworkDeleted: (String) -> Unit,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     if (users.isEmpty()) {
         EmptyContactsScreen(modifier = modifier)

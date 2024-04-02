@@ -15,7 +15,7 @@ data class EventInfoUi(
     val linkedin: String?,
     val linkedinUrl: String?,
     val faqLink: String,
-    val codeOfConductLink: String,
+    val codeOfConductLink: String
 ) {
     companion object {
         val fake = EventInfoUi(

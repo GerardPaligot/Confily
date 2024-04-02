@@ -10,12 +10,20 @@ fun org.gdglille.devfest.backend.third.parties.conferencehall.Speaker.convertToD
         bio = this.bio ?: "",
         company = this.company,
         photoUrl = url,
-        twitter = if (this.twitter == null) null
-        else if (this.twitter.contains("twitter.com")) this.twitter
-        else "https://twitter.com/${this.twitter}",
-        github = if (this.github == null) null
-        else if (this.github.contains("github.com")) this.github
-        else "https://github.com/${this.github}",
+        twitter = if (this.twitter == null) {
+            null
+        } else if (this.twitter.contains("twitter.com")) {
+            this.twitter
+        } else {
+            "https://twitter.com/${this.twitter}"
+        },
+        github = if (this.github == null) {
+            null
+        } else if (this.github.contains("github.com")) {
+            this.github
+        } else {
+            "https://github.com/${this.github}"
+        },
         linkedin = null
     )
 

@@ -3,11 +3,11 @@ package org.gdglille.devfest.android.theme.m3.navigation
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.QrCodeScanner
-import org.gdglille.devfest.android.theme.m3.style.actions.FabAction
 import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.action_contacts_scanner
 import org.gdglille.devfest.android.shared.resources.action_ticket_scanner
 import org.gdglille.devfest.android.shared.resources.screen_profile
+import org.gdglille.devfest.android.theme.m3.style.actions.FabAction
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 
 @OptIn(ExperimentalResourceApi::class)

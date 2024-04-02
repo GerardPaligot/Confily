@@ -19,14 +19,14 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.gdglille.devfest.android.theme.m3.style.events.cards.AddressCard
-import org.gdglille.devfest.android.theme.m3.partners.ui.partners.PartnerDetailSectionVertical
-import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.shared.resources.Resource
-import org.gdglille.devfest.android.theme.m3.style.partners.jobs.JobItem
-import org.gdglille.devfest.android.theme.m3.style.placeholder.placeholder
 import org.gdglille.devfest.android.shared.resources.title_jobs
 import org.gdglille.devfest.android.shared.resources.title_plan_partner
+import org.gdglille.devfest.android.theme.m3.partners.ui.partners.PartnerDetailSectionVertical
+import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
+import org.gdglille.devfest.android.theme.m3.style.events.cards.AddressCard
+import org.gdglille.devfest.android.theme.m3.style.partners.jobs.JobItem
+import org.gdglille.devfest.android.theme.m3.style.placeholder.placeholder
 import org.gdglille.devfest.models.ui.PartnerItemUi
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
@@ -41,7 +41,7 @@ fun PartnerDetailVerticalScreen(
     state: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(0.dp),
     isLoading: Boolean = false,
-    displayAvatar: Boolean = true,
+    displayAvatar: Boolean = true
 ) {
     LazyColumn(
         modifier = modifier.padding(contentPadding),

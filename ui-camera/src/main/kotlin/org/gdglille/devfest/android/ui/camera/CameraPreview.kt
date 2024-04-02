@@ -70,6 +70,6 @@ fun CameraPreview(
                 )
             }, executor)
             previewView
-        },
+        }
     )
 }

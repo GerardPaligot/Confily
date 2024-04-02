@@ -67,7 +67,9 @@ fun PartnersAdaptive(
                                     }
                                 }
                             }
-                        } else null
+                        } else {
+                            null
+                        }
                     )
                 }
             }

@@ -34,7 +34,7 @@ fun ScheduleDetailScreen(
     onSpeakerClicked: (id: String) -> Unit,
     modifier: Modifier = Modifier,
     state: LazyListState = rememberLazyListState(),
-    contentPadding: PaddingValues = PaddingValues(SpacingTokens.None.toDp()),
+    contentPadding: PaddingValues = PaddingValues(SpacingTokens.None.toDp())
 ) {
     LazyColumn(
         modifier = modifier
@@ -52,9 +52,9 @@ fun ScheduleDetailScreen(
             TalkAbstract(abstract = talk.abstract)
         }
         if (
-            talk.openFeedbackProjectId != null
-            && talk.openFeedbackSessionId != null
-            && openFeedbackFirebaseConfig != null
+            talk.openFeedbackProjectId != null &&
+            talk.openFeedbackSessionId != null &&
+            openFeedbackFirebaseConfig != null
         ) {
             item {
                 if (!LocalInspectionMode.current) {

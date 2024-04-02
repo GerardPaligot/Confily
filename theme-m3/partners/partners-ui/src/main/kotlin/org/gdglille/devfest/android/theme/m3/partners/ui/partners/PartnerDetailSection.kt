@@ -24,7 +24,7 @@ fun PartnerDetailSectionVertical(
     onLinkClicked: (url: String) -> Unit,
     modifier: Modifier = Modifier,
     isLoading: Boolean = false,
-    displayAvatar: Boolean = true,
+    displayAvatar: Boolean = true
 ) {
     Column(
         modifier = modifier
