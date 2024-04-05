@@ -60,4 +60,9 @@ class TalkDao(private val database: Database) {
         else database.update(eventId = eventId, collectionName = CollectionName, id = talk.id, item = talk)
         return@coroutineScope talk.id
     }
+
+    suspend fun deleteDiff(eventId: String, ids: List<String>) {
+        val diff = database.diff(eventId, CollectionName, ids)
+        database.deleteAll(eventId, CollectionName, diff)
+    }
 }

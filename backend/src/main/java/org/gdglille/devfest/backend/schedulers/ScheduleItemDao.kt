@@ -34,4 +34,9 @@ class ScheduleItemDao(private val database: Database) {
         collectionName = CollectionName,
         id = id
     )
+
+    suspend fun deleteDiff(eventId: String, ids: List<String>) {
+        val diff = database.diff(eventId, CollectionName, ids)
+        database.deleteAll(eventId, CollectionName, diff)
+    }
 }

@@ -79,4 +79,9 @@ class SpeakerDao(private val database: Database, private val storage: Storage) {
         filename = "$eventId/speakers/$id.png",
         content = content
     )
+
+    suspend fun deleteDiff(eventId: String, ids: List<String>) {
+        val diff = database.diff(eventId, CollectionName, ids)
+        database.deleteAll(eventId, CollectionName, diff)
+    }
 }

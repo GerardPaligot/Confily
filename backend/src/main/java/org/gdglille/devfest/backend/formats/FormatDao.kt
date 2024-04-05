@@ -30,4 +30,9 @@ class FormatDao(private val database: Database) {
             item = item
         )
     }
+
+    suspend fun deleteDiff(eventId: String, ids: List<String>) {
+        val diff = database.diff(eventId, CollectionName, ids)
+        database.deleteAll(eventId, CollectionName, diff)
+    }
 }

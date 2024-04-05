@@ -17,7 +17,10 @@ import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.put
-import org.gdglille.devfest.backend.NotAuthorized
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
 import org.gdglille.devfest.backend.NotFoundException
 import org.gdglille.devfest.backend.categories.CategoryDao
 import org.gdglille.devfest.backend.formats.FormatDao
@@ -28,22 +31,16 @@ import org.gdglille.devfest.backend.schedulers.ScheduleItemDao
 import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.talks.TalkDao
 import org.gdglille.devfest.backend.third.parties.geocode.GeocodeApi
-import org.gdglille.devfest.backend.third.parties.openplanner.OpenPlannerApi
 import org.gdglille.devfest.backend.version
 import org.gdglille.devfest.models.inputs.CoCInput
 import org.gdglille.devfest.models.inputs.CreatingEventInput
 import org.gdglille.devfest.models.inputs.EventInput
 import org.gdglille.devfest.models.inputs.FeaturesActivatedInput
 import org.gdglille.devfest.models.inputs.LunchMenuInput
-import java.time.Instant
-import java.time.LocalDateTime
-import java.time.ZoneId
-import java.time.ZonedDateTime
 
 @Suppress("LongMethod", "LongParameterList", "MagicNumber")
 fun Route.registerEventRoutes(
     geocodeApi: GeocodeApi,
-    openPlannerApi: OpenPlannerApi,
     eventDao: EventDao,
     speakerDao: SpeakerDao,
     qAndADao: QAndADao,
@@ -55,7 +52,6 @@ fun Route.registerEventRoutes(
 ) {
     val repository = EventRepository(
         geocodeApi,
-        openPlannerApi,
         eventDao,
         speakerDao,
         qAndADao,
@@ -154,10 +150,5 @@ fun Route.registerEventRoutes(
     get("/events/{eventId}/openfeedback") {
         val eventId = call.parameters["eventId"]!!
         call.respond(HttpStatusCode.OK, repositoryV2.openFeedback(eventId))
-    }
-    post("/events/{eventId}/openplanner") {
-        val eventId = call.parameters["eventId"]!!
-        val apiKey = call.request.queryParameters["api_key"] ?: throw NotAuthorized
-        call.respond(HttpStatusCode.Created, repository.openPlanner(eventId, apiKey))
     }
 }

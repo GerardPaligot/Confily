@@ -19,6 +19,8 @@ interface Database {
     suspend fun <T : Any> update(eventId: String, collectionName: String, id: String, item: T)
     suspend fun delete(eventId: String, collectionName: String, id: String)
     suspend fun delete(eventId: String, collectionName: String)
+    suspend fun deleteAll(eventId: String, collectionName: String, ids: List<String>)
+    suspend fun diff(eventId: String, collectionName: String, ids: List<String>): List<String>
 
     object Factory {
         fun create(firestore: Firestore, projectName: String): Database = FirestoreDatabase(firestore, projectName)

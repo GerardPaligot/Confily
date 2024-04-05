@@ -57,6 +57,7 @@ import org.gdglille.devfest.backend.third.parties.conferencehall.ConferenceHallA
 import org.gdglille.devfest.backend.third.parties.conferencehall.registerConferenceHallRoutes
 import org.gdglille.devfest.backend.third.parties.geocode.GeocodeApi
 import org.gdglille.devfest.backend.third.parties.openplanner.OpenPlannerApi
+import org.gdglille.devfest.backend.third.parties.openplanner.registerOpenPlannerRoutes
 import org.gdglille.devfest.backend.third.parties.welovedevs.WeLoveDevsApi
 import org.gdglille.devfest.backend.third.parties.welovedevs.registerWLDRoutes
 import org.gdglille.devfest.models.inputs.Validator
@@ -160,7 +161,6 @@ fun main() {
         routing {
             registerEventRoutes(
                 geocodeApi,
-                openPlannerApi,
                 eventDao,
                 speakerDao,
                 qAndADao,
@@ -208,6 +208,15 @@ fun main() {
                     talkDao,
                     categoryDao,
                     formatDao
+                )
+                registerOpenPlannerRoutes(
+                    openPlannerApi,
+                    eventDao,
+                    speakerDao,
+                    talkDao,
+                    categoryDao,
+                    formatDao,
+                    scheduleItemDao
                 )
                 registerWLDRoutes(wldApi, eventDao, partnerDao, jobDao)
             }
