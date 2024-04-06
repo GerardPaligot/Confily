@@ -1,6 +1,8 @@
 package org.gdglille.devfest.android.theme.m3.schedules.feature
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.lazy.grid.LazyGridState
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -9,10 +11,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import org.gdglille.devfest.android.theme.m3.schedules.screens.ScheduleGridPager
 import org.gdglille.devfest.android.shared.resources.Resource
-import org.gdglille.devfest.android.theme.m3.style.actions.TopActionsUi
 import org.gdglille.devfest.android.shared.resources.text_error
+import org.gdglille.devfest.android.theme.m3.schedules.screens.ScheduleGridPager
+import org.gdglille.devfest.android.theme.m3.style.actions.TopActionsUi
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 import org.koin.androidx.compose.koinViewModel
@@ -27,6 +29,7 @@ fun ScheduleGridVM(
     onTalkClicked: (id: String) -> Unit,
     showFilterIcon: Boolean,
     modifier: Modifier = Modifier,
+    state: LazyGridState = rememberLazyGridState(),
     isSmallSize: Boolean = false,
     viewModel: ScheduleGridViewModel = koinViewModel()
 ) {
@@ -40,7 +43,8 @@ fun ScheduleGridVM(
             onTalkClicked = {},
             onFilterClicked = {},
             onFavoriteClicked = {},
-            isLoading = true
+            isLoading = true,
+            state = state
         )
 
         is ScheduleGridUiState.Failure -> Text(text = stringResource(Resource.string.text_error))
@@ -55,7 +59,8 @@ fun ScheduleGridVM(
             },
             modifier = modifier,
             isSmallSize = isSmallSize,
-            isLoading = false
+            isLoading = false,
+            state = state
         )
     }
 }

@@ -1,13 +1,14 @@
 package org.gdglille.devfest.android.theme.m3.partners.feature
 
+import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import org.gdglille.devfest.android.theme.m3.partners.screens.PartnersGridScreen
 import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.text_error
+import org.gdglille.devfest.android.theme.m3.partners.screens.PartnersGridScreen
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 import org.koin.androidx.compose.koinViewModel
@@ -17,9 +18,9 @@ import org.koin.androidx.compose.koinViewModel
 fun PartnersGridVM(
     onPartnerClick: (id: String) -> Unit,
     modifier: Modifier = Modifier,
+    state: LazyGridState = rememberLazyGridState(),
     viewModel: PartnersViewModel = koinViewModel()
 ) {
-    val state = rememberLazyGridState()
     when (val uiState = viewModel.uiState.collectAsState().value) {
         is PartnersUiState.Loading -> PartnersGridScreen(
             partners = uiState.partners,

@@ -18,19 +18,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import kotlin.math.floor
+import org.gdglille.devfest.android.shared.resources.Resource
+import org.gdglille.devfest.android.shared.resources.screen_partners
 import org.gdglille.devfest.android.theme.m3.partners.ui.partners.PartnerDivider
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
-import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.theme.m3.style.Scaffold
 import org.gdglille.devfest.android.theme.m3.style.SpacingTokens
 import org.gdglille.devfest.android.theme.m3.style.partners.items.PartnerItem
 import org.gdglille.devfest.android.theme.m3.style.placeholder.placeholder
-import org.gdglille.devfest.android.shared.resources.screen_partners
 import org.gdglille.devfest.android.theme.m3.style.toDp
 import org.gdglille.devfest.models.ui.PartnerGroupsUi
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
+import kotlin.math.floor
 
 const val NbHorizontalPadding = 2
 

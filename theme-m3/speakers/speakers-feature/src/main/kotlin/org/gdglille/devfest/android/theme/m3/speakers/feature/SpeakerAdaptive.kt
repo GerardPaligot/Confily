@@ -1,6 +1,8 @@
 package org.gdglille.devfest.android.theme.m3.speakers.feature
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.lazy.grid.LazyGridState
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.adaptive.AnimatedPane
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.material3.adaptive.ListDetailPaneScaffold
@@ -23,7 +25,8 @@ fun SpeakerAdaptive(
     showBackInDetail: Boolean,
     onTalkClicked: (id: String) -> Unit,
     onLinkClicked: (url: String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    state: LazyGridState = rememberLazyGridState()
 ) {
     val scaffoldDirective =
         calculateStandardPaneScaffoldDirectiveAdaptive(currentWindowAdaptiveInfo())
@@ -39,7 +42,8 @@ fun SpeakerAdaptive(
                     onSpeakerClicked = {
                         selectedItem = it
                         navigator.navigateTo(ListDetailPaneScaffoldRole.Detail)
-                    }
+                    },
+                    state = state
                 )
             }
         },

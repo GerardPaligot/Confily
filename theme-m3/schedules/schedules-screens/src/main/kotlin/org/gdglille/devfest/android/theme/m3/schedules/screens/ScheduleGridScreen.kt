@@ -6,14 +6,15 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import kotlin.math.floor
 import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.MediumScheduleItem
 import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.NoFavoriteTalks
 import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.SmallScheduleItem
@@ -28,6 +29,7 @@ import org.gdglille.devfest.android.theme.m3.style.schedules.pause.SmallPauseIte
 import org.gdglille.devfest.android.theme.m3.style.toDp
 import org.gdglille.devfest.models.ui.AgendaUi
 import org.gdglille.devfest.models.ui.TalkItemUi
+import kotlin.math.floor
 
 const val NbHorizontalPadding = 2
 
@@ -37,6 +39,7 @@ fun ScheduleGridScreen(
     onTalkClicked: (id: String) -> Unit,
     onFavoriteClicked: (TalkItemUi) -> Unit,
     modifier: Modifier = Modifier,
+    state: LazyGridState = rememberLazyGridState(),
     isSmallSize: Boolean = false,
     isLoading: Boolean = false,
 ) {
@@ -51,6 +54,7 @@ fun ScheduleGridScreen(
             LazyVerticalGrid(
                 columns = GridCells.Adaptive(minSize = minSize),
                 modifier = modifier,
+                state = state,
                 contentPadding = PaddingValues(
                     vertical = SpacingTokens.LargeSpacing.toDp(),
                     horizontal = SpacingTokens.MediumSpacing.toDp()
