@@ -16,6 +16,7 @@ import org.gdglille.devfest.backend.speakers.SpeakerDb
 import org.gdglille.devfest.backend.talks.TalkDao
 import org.gdglille.devfest.backend.talks.TalkDb
 
+@Suppress("LongParameterList")
 class OpenPlannerRepository(
     private val openPlannerApi: OpenPlannerApi,
     private val eventDao: EventDao,
@@ -72,6 +73,7 @@ class OpenPlannerRepository(
         eventDao.updateAgendaUpdatedAt(event)
     }
 
+    @Suppress("LongParameterList")
     private suspend fun clean(
         eventId: String,
         categories: List<CategoryDb>,
@@ -140,7 +142,10 @@ class OpenPlannerRepository(
     }
 
     private suspend fun createOrMergeSchedule(
-        eventId: String, order: Int, session: SessionOP, tracks: List<TrackOP>
+        eventId: String,
+        order: Int,
+        session: SessionOP,
+        tracks: List<TrackOP>
     ): ScheduleDb {
         val item = session.convertToScheduleDb(order, tracks)
         scheduleItemDao.createOrUpdate(eventId, item)

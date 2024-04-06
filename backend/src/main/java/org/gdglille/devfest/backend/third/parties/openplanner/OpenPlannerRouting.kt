@@ -13,6 +13,7 @@ import org.gdglille.devfest.backend.schedulers.ScheduleItemDao
 import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.talks.TalkDao
 
+@Suppress("LongParameterList")
 fun Route.registerOpenPlannerRoutes(
     openPlannerApi: OpenPlannerApi,
     eventDao: EventDao,

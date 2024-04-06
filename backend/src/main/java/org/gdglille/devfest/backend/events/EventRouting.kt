@@ -17,10 +17,6 @@ import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.put
-import java.time.Instant
-import java.time.LocalDateTime
-import java.time.ZoneId
-import java.time.ZonedDateTime
 import org.gdglille.devfest.backend.NotFoundException
 import org.gdglille.devfest.backend.categories.CategoryDao
 import org.gdglille.devfest.backend.formats.FormatDao
@@ -37,6 +33,10 @@ import org.gdglille.devfest.models.inputs.CreatingEventInput
 import org.gdglille.devfest.models.inputs.EventInput
 import org.gdglille.devfest.models.inputs.FeaturesActivatedInput
 import org.gdglille.devfest.models.inputs.LunchMenuInput
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
 
 @Suppress("LongMethod", "LongParameterList", "MagicNumber")
 fun Route.registerEventRoutes(
