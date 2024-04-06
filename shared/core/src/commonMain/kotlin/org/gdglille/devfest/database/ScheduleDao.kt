@@ -11,7 +11,6 @@ import kotlinx.collections.immutable.toImmutableMap
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import org.gdglille.devfest.database.mappers.convertCategoryUi
@@ -194,6 +193,35 @@ class ScheduleDao(
         agendaV3.sessions.forEach { session ->
             db.sessionQueries.upsertSession(session.convertToDb(eventId))
         }
+        clean(eventId, agendaV3)
+    }
+
+    private fun clean(eventId: String, agendaV3: AgendaV3) = db.transaction {
+        val diffSpeakers = db.speakerQueries
+            .diffSpeakers(event_id = eventId, id = agendaV3.speakers.map { it.id })
+            .executeAsList()
+        db.speakerQueries.deleteSpeakers(event_id = eventId, id = diffSpeakers)
+        val diffCategories = db.categoryQueries
+            .diffCategories(event_id = eventId, id = agendaV3.categories.map { it.id })
+            .executeAsList()
+        db.categoryQueries.deleteCategories(event_id = eventId, id = diffCategories)
+        val diffFormats = db.formatQueries
+            .diffFormats(event_id = eventId, id = agendaV3.formats.map { it.id })
+            .executeAsList()
+        db.formatQueries.deleteFormats(event_id = eventId, id = diffFormats)
+        val talkIds = agendaV3.talks.map { it.id }
+        val diffTalkSession = db.sessionQueries
+            .diffTalkSessions(event_id = eventId, id = talkIds)
+            .executeAsList()
+        db.sessionQueries.deleteTalkSessions(event_id = eventId, id = diffTalkSession)
+        val diffTalkWithSpeakers = db.sessionQueries
+            .diffTalkWithSpeakers(event_id = eventId, talk_id = talkIds)
+            .executeAsList()
+        db.sessionQueries.deleteTalkWithSpeakers(event_id = eventId, talk_id = diffTalkWithSpeakers)
+        val diffSessions = db.sessionQueries
+            .diffSessions(event_id = eventId, id = talkIds)
+            .executeAsList()
+        db.sessionQueries.deleteSessions(event_id = eventId, id = diffSessions)
     }
 
     fun lastEtag(eventId: String): String? = settings.getStringOrNull("AGENDA_ETAG_$eventId")

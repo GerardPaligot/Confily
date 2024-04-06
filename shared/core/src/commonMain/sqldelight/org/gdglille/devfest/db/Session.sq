@@ -104,3 +104,27 @@ INSERT OR REPLACE INTO TalkSession VALUES ?;
 
 upsertTalkWithSpeakersSession:
 INSERT OR REPLACE INTO TalkSessionWithSpeakers(speaker_id, talk_id, event_id) VALUES ?;
+
+diffTalkSessions:
+SELECT id
+FROM TalkSession
+WHERE event_id == ? AND id NOT IN ?;
+
+deleteTalkSessions:
+DELETE FROM TalkSession WHERE event_id == ? AND id IN ?;
+
+diffTalkWithSpeakers:
+SELECT talk_id
+FROM TalkSessionWithSpeakers
+WHERE event_id == ? AND talk_id NOT IN ?;
+
+deleteTalkWithSpeakers:
+DELETE FROM TalkSessionWithSpeakers WHERE event_id == ? AND talk_id IN ?;
+
+diffSessions:
+SELECT id
+FROM Session
+WHERE event_id == ? AND id NOT IN ?;
+
+deleteSessions:
+DELETE FROM Session WHERE event_id == ? AND id IN ?;

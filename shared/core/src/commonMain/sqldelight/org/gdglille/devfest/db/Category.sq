@@ -22,3 +22,11 @@ WHERE event_id = ? AND selected = 1;
 
 upsertCategory:
 INSERT OR REPLACE INTO Category VALUES ?;
+
+diffCategories:
+SELECT id
+FROM Category
+WHERE event_id == ? AND id NOT IN ?;
+
+deleteCategories:
+DELETE FROM Category WHERE event_id == ? AND id IN ?;

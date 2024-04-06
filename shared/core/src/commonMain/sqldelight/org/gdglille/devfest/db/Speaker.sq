@@ -24,3 +24,9 @@ FROM Speaker WHERE id == ? AND event_id == ?;
 selectSpeakersByEvent:
 SELECT id, display_name, pronouns, bio, job_title, company, photo_url, twitter, mastodon, github, linkedin, website, event_id
 FROM Speaker WHERE event_id == ?;
+
+diffSpeakers:
+SELECT id FROM Speaker WHERE event_id == ? AND id NOT IN ?;
+
+deleteSpeakers:
+DELETE FROM Speaker WHERE event_id == ? AND id IN ?;

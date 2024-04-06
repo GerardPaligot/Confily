@@ -21,3 +21,11 @@ WHERE event_id = ? AND selected = 1;
 
 upsertFormat:
 INSERT OR REPLACE INTO Format VALUES ?;
+
+diffFormats:
+SELECT id
+FROM Format
+WHERE event_id == ? AND id NOT IN ?;
+
+deleteFormats:
+DELETE FROM Format WHERE event_id == ? AND id IN ?;
