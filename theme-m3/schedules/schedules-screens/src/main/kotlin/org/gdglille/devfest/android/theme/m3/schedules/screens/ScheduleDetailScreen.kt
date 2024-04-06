@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.tooling.preview.Preview
-import io.openfeedback.android.viewmodels.OpenFeedbackFirebaseConfig
+import io.openfeedback.viewmodels.OpenFeedbackFirebaseConfig
 import org.gdglille.devfest.android.theme.m3.schedules.ui.schedule.OpenFeedbackSection
 import org.gdglille.devfest.android.theme.m3.schedules.ui.schedule.TalkAbstract
 import org.gdglille.devfest.android.theme.m3.schedules.ui.schedule.TalkSection

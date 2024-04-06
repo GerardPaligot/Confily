@@ -25,7 +25,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
-import io.openfeedback.android.viewmodels.OpenFeedbackFirebaseConfig
+import io.openfeedback.viewmodels.OpenFeedbackFirebaseConfig
 import org.gdglille.devfest.android.theme.m3.events.feature.EventListVM
 import org.gdglille.devfest.android.theme.m3.infos.feature.InfoCompactVM
 import org.gdglille.devfest.android.theme.m3.infos.feature.TicketQrCodeScanner

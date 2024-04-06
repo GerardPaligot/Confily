@@ -6,7 +6,7 @@ import coil.ImageLoaderFactory
 import coil.decode.SvgDecoder
 import coil.disk.DiskCache
 import coil.memory.MemoryCache
-import io.openfeedback.android.viewmodels.OpenFeedbackFirebaseConfig
+import io.openfeedback.viewmodels.OpenFeedbackFirebaseConfig
 import org.gdglille.devfest.android.di.appModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.workmanager.koin.workManagerFactory

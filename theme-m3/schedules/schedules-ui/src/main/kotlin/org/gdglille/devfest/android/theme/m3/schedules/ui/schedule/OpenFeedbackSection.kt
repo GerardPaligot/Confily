@@ -8,8 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import io.openfeedback.android.m3.OpenFeedback
-import io.openfeedback.android.viewmodels.OpenFeedbackFirebaseConfig
+import io.openfeedback.m3.OpenFeedback
+import io.openfeedback.viewmodels.OpenFeedbackFirebaseConfig
 import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.text_openfeedback_title
 import org.jetbrains.compose.resources.ExperimentalResourceApi

@@ -3,7 +3,7 @@ package org.gdglille.devfest.android.theme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.navigation.NavHostController
-import io.openfeedback.android.viewmodels.OpenFeedbackFirebaseConfig
+import io.openfeedback.viewmodels.OpenFeedbackFirebaseConfig
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme

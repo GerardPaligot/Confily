@@ -5,11 +5,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import io.openfeedback.android.viewmodels.OpenFeedbackFirebaseConfig
-import org.gdglille.devfest.android.theme.m3.schedules.screens.ScheduleDetailOrientableScreen
+import io.openfeedback.viewmodels.OpenFeedbackFirebaseConfig
 import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.text_error
 import org.gdglille.devfest.android.shared.resources.text_loading
+import org.gdglille.devfest.android.theme.m3.schedules.screens.ScheduleDetailOrientableScreen
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 import org.koin.androidx.compose.koinViewModel
