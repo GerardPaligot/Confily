@@ -21,7 +21,7 @@ dependencies {
     implementation(libs.jetbrains.kotlinx.collections)
 
     implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.compose.material3.adaptive)
+    implementation(libs.bundles.androidx.compose.adaptive)
     implementation(compose.material3)
     implementation(compose.components.resources)
     implementation(compose.preview)

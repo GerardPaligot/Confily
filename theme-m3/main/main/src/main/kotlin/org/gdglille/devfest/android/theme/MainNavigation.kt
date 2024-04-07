@@ -4,10 +4,13 @@ import android.content.res.Configuration
 import androidx.compose.material3.Icon
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
-import androidx.compose.material3.adaptive.navigation.suite.ExperimentalMaterial3AdaptiveNavigationSuiteApi
-import androidx.compose.material3.adaptive.navigation.suite.NavigationSuiteScaffold
-import androidx.compose.material3.adaptive.navigation.suite.NavigationSuiteScaffoldDefaults
-import androidx.compose.material3.adaptive.navigation.suite.NavigationSuiteType
+import androidx.compose.material3.adaptive.currentWindowSize
+import androidx.compose.material3.adaptive.navigationsuite.ExperimentalMaterial3AdaptiveNavigationSuiteApi
+import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
+import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffoldDefaults
+import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteType
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -16,8 +19,10 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
+import androidx.compose.ui.unit.toSize
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -58,7 +63,8 @@ import org.koin.androidx.compose.koinViewModel
     ExperimentalMaterial3AdaptiveNavigationSuiteApi::class,
     ExperimentalMaterial3AdaptiveApi::class,
     ExperimentalResourceApi::class,
-    ExperimentalComposeUiApi::class
+    ExperimentalComposeUiApi::class,
+    ExperimentalMaterial3WindowSizeClassApi::class
 )
 @Composable
 fun MainNavigation(
@@ -98,12 +104,13 @@ fun MainNavigation(
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
     val route = currentDestination?.route ?: Screen.ScheduleList.route
-    val adaptiveInfo = currentWindowAdaptiveInfo()
-    val heightCompact = adaptiveInfo.windowSizeClass.heightSizeClass.isCompat
+    val windowSize = with(LocalDensity.current) { currentWindowSize().toSize().toDpSize() }
+    val adaptiveInfo = WindowSizeClass.calculateFromSize(windowSize)
+    val heightCompact = adaptiveInfo.heightSizeClass.isCompat
     val layoutType = if (heightCompact) {
         NavigationSuiteType.NavigationRail
     } else {
-        NavigationSuiteScaffoldDefaults.calculateFromAdaptiveInfo(adaptiveInfo)
+        NavigationSuiteScaffoldDefaults.calculateFromAdaptiveInfo(currentWindowAdaptiveInfo())
     }
     NavigationSuiteScaffold(
         layoutType = layoutType,
@@ -158,9 +165,9 @@ fun MainNavigation(
                     )
                 }
                 composable(Screen.ScheduleList.route) {
-                    val showFilterIcon = adaptiveInfo.windowSizeClass.widthSizeClass.isCompat ||
-                        (adaptiveInfo.windowSizeClass.widthSizeClass.isMedium && config.isPortrait)
-                    val isSmallSize = adaptiveInfo.windowSizeClass.heightSizeClass.isCompat
+                    val showFilterIcon = adaptiveInfo.widthSizeClass.isCompat ||
+                        (adaptiveInfo.widthSizeClass.isMedium && config.isPortrait)
+                    val isSmallSize = adaptiveInfo.heightSizeClass.isCompat
                     ScheduleGridAdaptive(
                         onScheduleStarted = onScheduleStarted,
                         onFilterClicked = { navController.navigate(Screen.ScheduleFilters.route) },
@@ -188,7 +195,7 @@ fun MainNavigation(
                 }
                 composable(Screen.SpeakerList.route) {
                     SpeakerAdaptive(
-                        showBackInDetail = adaptiveInfo.windowSizeClass.widthSizeClass.isCompat,
+                        showBackInDetail = adaptiveInfo.widthSizeClass.isCompat,
                         onTalkClicked = { navController.navigate(Screen.Schedule.route(it)) },
                         onLinkClicked = { launchUrl(it) }
                     )
@@ -219,7 +226,7 @@ fun MainNavigation(
                 }
                 composable(Screen.PartnerList.route) {
                     PartnersAdaptive(
-                        showBackInDetail = adaptiveInfo.windowSizeClass.widthSizeClass.isCompat,
+                        showBackInDetail = adaptiveInfo.widthSizeClass.isCompat,
                         onItineraryClicked = onItineraryClicked,
                         onLinkClicked = { launchUrl(it) }
                     )

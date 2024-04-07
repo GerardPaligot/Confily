@@ -28,7 +28,7 @@ dependencies {
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.material3.windowsizeclass)
-    implementation(libs.androidx.compose.material3.adaptive)
+    implementation(libs.bundles.androidx.compose.adaptive)
     implementation(libs.androidx.compose.material3.adaptive.navigation.suite)
     implementation(libs.androidx.compose.runtime.livedata)
     implementation(compose.material3)

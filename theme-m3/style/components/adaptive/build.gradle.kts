@@ -10,6 +10,6 @@ android {
 
 dependencies {
     implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.compose.material3.adaptive)
+    implementation(libs.bundles.androidx.compose.adaptive)
     implementation(libs.androidx.compose.material3.windowsizeclass)
 }
