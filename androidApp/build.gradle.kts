@@ -8,9 +8,9 @@ plugins {
     id("androidx.baselineprofile")
 }
 
-val versionMajor = 2
+val versionMajor = 3
 val versionMinor = 0
-val versionPatch = 3
+val versionPatch = 0
 android {
     namespace = "org.gdglille.devfest.android"
     defaultConfig {
