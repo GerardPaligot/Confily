@@ -5,7 +5,6 @@ import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOne
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapConcat
@@ -18,8 +17,13 @@ import org.gdglille.devfest.models.ui.PartnerGroupUi
 import org.gdglille.devfest.models.ui.PartnerGroupsUi
 import org.gdglille.devfest.models.ui.PartnerItemUi
 import org.gdglille.devfest.models.ui.SalaryUi
+import kotlin.coroutines.CoroutineContext
 
-class PartnerDao(private val db: Conferences4HallDatabase, private val platform: Platform) {
+class PartnerDao(
+    private val db: Conferences4HallDatabase,
+    private val platform: Platform,
+    private val dispatcher: CoroutineContext
+) {
     private val partnerMapper =
         { id: String, name: String, description: String, logoUrl: String, siteUrl: String?,
             twitterUrl: String?, twitterMessage: String?, linkedinUrl: String?,
@@ -67,12 +71,12 @@ class PartnerDao(private val db: Conferences4HallDatabase, private val platform:
 
     fun fetchPartners(eventId: String): Flow<PartnerGroupsUi> = db.transactionWithResult {
         return@transactionWithResult db.partnerQueries.selectPartnerTypes(eventId).asFlow()
-            .mapToList(Dispatchers.IO).flatMapConcat { types ->
+            .mapToList(dispatcher).flatMapConcat { types ->
                 return@flatMapConcat combine(
                     types.map { type ->
                         db.partnerQueries.selectPartners(eventId, type.name, partnerMapper)
                             .asFlow()
-                            .mapToList(Dispatchers.IO)
+                            .mapToList(dispatcher)
                             .map { type.name to it }
                     },
                     transform = { results ->
@@ -91,9 +95,9 @@ class PartnerDao(private val db: Conferences4HallDatabase, private val platform:
     }
 
     fun fetchPartner(eventId: String, id: String): Flow<PartnerItemUi> =
-        db.partnerQueries.selectPartner(eventId, id, partnerMapper).asFlow().mapToOne(Dispatchers.IO)
+        db.partnerQueries.selectPartner(eventId, id, partnerMapper).asFlow().mapToOne(dispatcher)
             .combine(
-                db.partnerQueries.selectJobs(eventId, id, jobsMapper).asFlow().mapToList(Dispatchers.IO)
+                db.partnerQueries.selectJobs(eventId, id, jobsMapper).asFlow().mapToList(dispatcher)
             ) { partner, jobs ->
                 partner.copy(jobs = jobs.toImmutableList())
             }

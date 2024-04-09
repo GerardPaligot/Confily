@@ -8,7 +8,6 @@ import com.russhwolf.settings.coroutines.getBooleanFlow
 import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.collections.immutable.toImmutableMap
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
@@ -24,31 +23,33 @@ import org.gdglille.devfest.models.ui.AgendaUi
 import org.gdglille.devfest.models.ui.CategoryUi
 import org.gdglille.devfest.models.ui.FiltersUi
 import org.gdglille.devfest.models.ui.FormatUi
+import kotlin.coroutines.CoroutineContext
 
 @FlowPreview
 @ExperimentalCoroutinesApi
 @ExperimentalSettingsApi
 class ScheduleDao(
     private val db: Conferences4HallDatabase,
-    private val settings: ObservableSettings
+    private val settings: ObservableSettings,
+    private val dispatcher: CoroutineContext
 ) {
     fun fetchSchedules(eventId: String): Flow<ImmutableMap<String, AgendaUi>> = combine(
         db.sessionQueries
             .selectSessions(eventId)
             .asFlow()
-            .mapToList(Dispatchers.IO),
+            .mapToList(dispatcher),
         db.sessionQueries
             .selectBreakSessions(eventId)
             .asFlow()
-            .mapToList(Dispatchers.IO),
+            .mapToList(dispatcher),
         db.categoryQueries
             .selectSelectedCategories(eventId)
             .asFlow()
-            .mapToList(Dispatchers.IO),
+            .mapToList(dispatcher),
         db.formatQueries
             .selectSelectedFormats(eventId)
             .asFlow()
-            .mapToList(Dispatchers.IO),
+            .mapToList(dispatcher),
         settings.getBooleanFlow("ONLY_FAVORITES", false),
         transform = { sessions, breaks, selectedCategories, selectedFormats, hasFavFilter ->
             val selectedCategoryIds = selectedCategories.map { it.id }
@@ -106,11 +107,11 @@ class ScheduleDao(
             db.categoryQueries
                 .selectCategories(eventId)
                 .asFlow()
-                .mapToList(Dispatchers.IO),
+                .mapToList(dispatcher),
             db.formatQueries
                 .selectFormats(eventId)
                 .asFlow()
-                .mapToList(Dispatchers.IO),
+                .mapToList(dispatcher),
             settings.getBooleanFlow("ONLY_FAVORITES", false),
             transform = { categories, formats, onlyFavorites ->
                 FiltersUi(
@@ -131,11 +132,11 @@ class ScheduleDao(
             db.categoryQueries
                 .selectSelectedCategories(eventId)
                 .asFlow()
-                .mapToList(Dispatchers.IO),
+                .mapToList(dispatcher),
             db.formatQueries
                 .selectSelectedFormats(eventId)
                 .asFlow()
-                .mapToList(Dispatchers.IO),
+                .mapToList(dispatcher),
             settings.getBooleanFlow("ONLY_FAVORITES", false),
             transform = { selectedCategories, selectedFormats, hasFavFilter ->
                 return@combine selectedCategories.count() + selectedFormats.count() + if (hasFavFilter) 1 else 0

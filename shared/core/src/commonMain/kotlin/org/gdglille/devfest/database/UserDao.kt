@@ -5,7 +5,6 @@ import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOneOrNull
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.datetime.Clock
@@ -16,10 +15,12 @@ import org.gdglille.devfest.models.ui.UserNetworkingUi
 import org.gdglille.devfest.models.ui.UserProfileUi
 import org.gdglille.devfest.toByteArray
 import org.gdglille.devfest.toNativeImage
+import kotlin.coroutines.CoroutineContext
 
 class UserDao(
     private val db: Conferences4HallDatabase,
-    private val platform: Platform
+    private val platform: Platform,
+    private val dispatcher: CoroutineContext
 ) {
     fun getEmailProfile(eventId: String): String? = db.userQueries
         .selectProfile(eventId)
@@ -38,7 +39,7 @@ class UserDao(
                     qrCode = qrcode.toNativeImage()
                 )
             }
-        ).asFlow().mapToOneOrNull(Dispatchers.IO)
+        ).asFlow().mapToOneOrNull(dispatcher)
 
     fun fetchUserPreview(eventId: String): Flow<UserProfileUi?> =
         db.ticketQueries.selectTicket(eventId, mapper = { _, _, _, _, firstname, lastname, _, _ ->
@@ -49,7 +50,7 @@ class UserDao(
                 company = "",
                 qrCode = null
             )
-        }).asFlow().mapToOneOrNull(Dispatchers.IO)
+        }).asFlow().mapToOneOrNull(dispatcher)
 
     fun insertUser(eventId: String, user: UserProfileUi) {
         db.userQueries.insertProfile(
@@ -70,7 +71,7 @@ class UserDao(
                 lastName,
                 company ?: ""
             )
-        }.asFlow().mapToList(Dispatchers.IO).map { it.toImmutableList() }
+        }.asFlow().mapToList(dispatcher).map { it.toImmutableList() }
 
     fun insertEmailNetworking(eventId: String, userNetworkingUi: UserNetworkingUi) =
         db.userQueries.insertNetwork(

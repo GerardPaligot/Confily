@@ -7,7 +7,6 @@ import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.combineTransform
@@ -31,11 +30,13 @@ import org.gdglille.devfest.models.ui.TicketInfoUi
 import org.gdglille.devfest.models.ui.TicketUi
 import org.gdglille.devfest.toByteArray
 import org.gdglille.devfest.toNativeImage
+import kotlin.coroutines.CoroutineContext
 
 @OptIn(ExperimentalSettingsApi::class)
 class EventDao(
     private val db: Conferences4HallDatabase,
-    private val settings: ObservableSettings
+    private val settings: ObservableSettings,
+    private val dispatcher: CoroutineContext
 ) {
     private val eventMapper =
         { _: String, name: String, formattedAddress: List<String>, address: String, latitude: Double, longitude: Double,
@@ -86,8 +87,8 @@ class EventDao(
         }
 
     fun fetchEventList(): Flow<EventItemListUi> = combine(
-        db.eventQueries.selectEventItem(true, eventItemMapper).asFlow().mapToList(Dispatchers.IO),
-        db.eventQueries.selectEventItem(false, eventItemMapper).asFlow().mapToList(Dispatchers.IO),
+        db.eventQueries.selectEventItem(true, eventItemMapper).asFlow().mapToList(dispatcher),
+        db.eventQueries.selectEventItem(false, eventItemMapper).asFlow().mapToList(dispatcher),
         transform = { past, future ->
             EventItemListUi(future = future.toImmutableList(), past = past.toImmutableList())
         }
@@ -112,8 +113,8 @@ class EventDao(
 
     fun fetchQAndA(eventId: String): Flow<ImmutableList<QuestionAndResponseUi>> = db.transactionWithResult {
         return@transactionWithResult combine(
-            db.qAndAQueries.selectQAndA(eventId).asFlow().mapToList(Dispatchers.IO),
-            db.qAndAQueries.selectQAndAActions(eventId).asFlow().mapToList(Dispatchers.IO),
+            db.qAndAQueries.selectQAndA(eventId).asFlow().mapToList(dispatcher),
+            db.qAndAQueries.selectQAndAActions(eventId).asFlow().mapToList(dispatcher),
             transform = { qAndADb, actionsDb ->
                 qAndADb.map { qanda ->
                     QuestionAndResponseUi(
@@ -133,11 +134,11 @@ class EventDao(
     fun fetchMenus(eventId: String): Flow<ImmutableList<MenuItemUi>> =
         db.menuQueries.selectMenus(eventId, menuMapper)
             .asFlow()
-            .mapToList(Dispatchers.IO)
+            .mapToList(dispatcher)
             .map { it.toImmutableList() }
 
     fun fetchCoC(eventId: String): Flow<CoCUi> =
-        db.eventQueries.selectCoc(eventId, cocMapper).asFlow().mapToOne(Dispatchers.IO)
+        db.eventQueries.selectCoc(eventId, cocMapper).asFlow().mapToOne(dispatcher)
 
     fun insertEvent(event: EventV3, qAndA: List<QuestionAndResponse>) = db.transaction {
         val eventDb = event.convertToModelDb()

@@ -41,6 +41,8 @@ kotlin {
                 api(projects.shared.core)
 
                 implementation(libs.koin.core)
+
+                implementation(libs.jetbrains.kotlinx.coroutines)
             }
         }
         val androidMain by getting {
