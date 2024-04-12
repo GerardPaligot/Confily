@@ -4,9 +4,6 @@ import androidx.benchmark.macro.junit4.BaselineProfileRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry
-import androidx.test.uiautomator.By
-import androidx.test.uiautomator.UiDevice
-import androidx.test.uiautomator.Until
 import org.gdglille.devfest.baselineprofile.scenarios.AgendaPOM
 import org.gdglille.devfest.baselineprofile.scenarios.EventListPOM
 import org.gdglille.devfest.baselineprofile.scenarios.InfoPOM
@@ -73,16 +70,16 @@ class BaselineProfileGenerator {
             with(agendaPom) {
                 open()
                 openFilters()
-                device.pressBack()
+                back()
                 openFirstItem()
-                device.pressBack()
+                back()
                 scrollUpDown()
             }
 
             with(speakersPom) {
                 open()
                 openFirstItem()
-                device.pressBack()
+                back()
                 scrollUpDown()
             }
 
@@ -93,7 +90,7 @@ class BaselineProfileGenerator {
             with(partnersPom) {
                 open()
                 openFirstItem()
-                device.pressBack()
+                back()
                 scrollUpDown()
             }
 

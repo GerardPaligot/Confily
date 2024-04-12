@@ -23,4 +23,8 @@ class AgendaPOM(private val device: UiDevice) {
             fling(Direction.UP)
         }
     }
+
+    fun back() {
+        device.runAction(DevfestScenario.back) { click() }
+    }
 }

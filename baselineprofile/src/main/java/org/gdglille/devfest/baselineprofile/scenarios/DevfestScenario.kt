@@ -6,6 +6,7 @@ import org.gdglille.devfest.android.theme.m3.schedules.semantics.SchedulesSemant
 import org.gdglille.devfest.android.theme.m3.speakers.semantics.SpeakersSemantics
 
 object DevfestScenario {
+    val back = By.desc("Back")
     object Event {
         val pastEvents = By.text("Past events")
         val name = By.text("Devfest Lille 2023")
@@ -26,6 +27,7 @@ object DevfestScenario {
     }
     object Partners {
         val tabName = By.desc("Partners")
+        val detailName = By.text("Partner detail")
         val first = By.desc("SFEIR")
         val list = By.res(PartnersSemantics.list)
     }
