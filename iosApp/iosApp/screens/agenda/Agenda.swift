@@ -19,7 +19,7 @@ struct Agenda: View {
         agendas: [String: AgendaUi],
         onFavoriteClicked: @escaping (TalkItemUi) -> ()
     ) {
-        self.dates = agendas.keys.map({ key in key })
+        self.dates = agendas.keys.map({ key in key }).sorted()
         self.selectedDate = self.dates.first ?? ""
         self.agendas = agendas
         self.onFavoriteClicked = onFavoriteClicked
@@ -32,7 +32,7 @@ struct Agenda: View {
                 if (self.agendas.keys.count > 1) {
                     Picker("Days:", selection: $selectedDate) {
                         ForEach(self.dates.indices, id: \.self) { index in
-                            Text(self.dates[index]).tag(index)
+                            Text(self.dates[index]).tag(self.dates[index])
                         }
                     }
                     .pickerStyle(SegmentedPickerStyle())
