@@ -31,6 +31,8 @@ kotlin {
             dependencies {
                 implementation(compose.runtime)
                 implementation(compose.components.resources)
+
+                implementation(libs.lyricist)
             }
         }
         val commonTest by getting {

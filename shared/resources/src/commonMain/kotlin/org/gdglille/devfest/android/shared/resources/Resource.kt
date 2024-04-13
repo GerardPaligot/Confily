@@ -77,9 +77,6 @@ import conferences4hall.shared.resources.generated.resources.text_job_propulsed
 import conferences4hall.shared.resources.generated.resources.text_job_requirements_many
 import conferences4hall.shared.resources.generated.resources.text_job_requirements_one
 import conferences4hall.shared.resources.generated.resources.text_job_salary
-import conferences4hall.shared.resources.generated.resources.text_level_advanced
-import conferences4hall.shared.resources.generated.resources.text_level_beginner
-import conferences4hall.shared.resources.generated.resources.text_level_intermediate
 import conferences4hall.shared.resources.generated.resources.text_loading
 import conferences4hall.shared.resources.generated.resources.text_networking_ask_to_delete
 import conferences4hall.shared.resources.generated.resources.text_networking_consents
@@ -89,13 +86,9 @@ import conferences4hall.shared.resources.generated.resources.text_permission
 import conferences4hall.shared.resources.generated.resources.text_report_app_target
 import conferences4hall.shared.resources.generated.resources.text_report_subject
 import conferences4hall.shared.resources.generated.resources.text_schedule_minutes
-import conferences4hall.shared.resources.generated.resources.text_speaker_activity
 import conferences4hall.shared.resources.generated.resources.text_speaker_title
-import conferences4hall.shared.resources.generated.resources.text_speakers_list_many
-import conferences4hall.shared.resources.generated.resources.text_speakers_list_one
 import conferences4hall.shared.resources.generated.resources.text_ticket_firstname
 import conferences4hall.shared.resources.generated.resources.text_ticket_lastname
-import conferences4hall.shared.resources.generated.resources.title_agenda_break
 import conferences4hall.shared.resources.generated.resources.title_filters_categories
 import conferences4hall.shared.resources.generated.resources.title_filters_favorites
 import conferences4hall.shared.resources.generated.resources.title_filters_formats
@@ -422,18 +415,6 @@ val Resource.string.text_job_salary: StringResource
     get() = Res.string.text_job_salary
 
 @OptIn(ExperimentalResourceApi::class)
-val Resource.string.text_level_advanced: StringResource
-    get() = Res.string.text_level_advanced
-
-@OptIn(ExperimentalResourceApi::class)
-val Resource.string.text_level_beginner: StringResource
-    get() = Res.string.text_level_beginner
-
-@OptIn(ExperimentalResourceApi::class)
-val Resource.string.text_level_intermediate: StringResource
-    get() = Res.string.text_level_intermediate
-
-@OptIn(ExperimentalResourceApi::class)
 val Resource.string.text_loading: StringResource
     get() = Res.string.text_loading
 
@@ -466,20 +447,8 @@ val Resource.string.text_schedule_minutes: StringResource
     get() = Res.string.text_schedule_minutes
 
 @OptIn(ExperimentalResourceApi::class)
-val Resource.string.text_speaker_activity: StringResource
-    get() = Res.string.text_speaker_activity
-
-@OptIn(ExperimentalResourceApi::class)
 val Resource.string.text_speaker_title: StringResource
     get() = Res.string.text_speaker_title
-
-@OptIn(ExperimentalResourceApi::class)
-val Resource.string.text_speakers_list_many: StringResource
-    get() = Res.string.text_speakers_list_many
-
-@OptIn(ExperimentalResourceApi::class)
-val Resource.string.text_speakers_list_one: StringResource
-    get() = Res.string.text_speakers_list_one
 
 @OptIn(ExperimentalResourceApi::class)
 val Resource.string.text_ticket_firstname: StringResource
@@ -488,10 +457,6 @@ val Resource.string.text_ticket_firstname: StringResource
 @OptIn(ExperimentalResourceApi::class)
 val Resource.string.text_ticket_lastname: StringResource
     get() = Res.string.text_ticket_lastname
-
-@OptIn(ExperimentalResourceApi::class)
-val Resource.string.title_agenda_break: StringResource
-    get() = Res.string.title_agenda_break
 
 @OptIn(ExperimentalResourceApi::class)
 val Resource.string.title_filters_categories: StringResource

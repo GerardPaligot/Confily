@@ -39,10 +39,10 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(projects.shared.core)
-
+                api(projects.shared.resources)
                 implementation(libs.koin.core)
-
                 implementation(libs.jetbrains.kotlinx.coroutines)
+                implementation(libs.lyricist)
             }
         }
         val androidMain by getting {

@@ -60,6 +60,8 @@ kotlin {
                 implementation(libs.cash.sqldelight.coroutines)
                 implementation(libs.squareup.okio)
 
+                implementation(libs.lyricist)
+
                 api(libs.settings)
                 implementation(libs.settings.coroutines)
             }

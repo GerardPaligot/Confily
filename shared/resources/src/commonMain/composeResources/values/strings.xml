@@ -27,7 +27,6 @@
     <string name="title_plan">Go to the event</string>
     <string name="title_plan_partner">Go to the partner location</string>
     <string name="title_jobs">Jobs</string>
-    <string name="title_agenda_break">Break</string>
     <string name="title_filters_favorites">Favorites</string>
     <string name="title_filters_categories">Categories</string>
     <string name="title_filters_formats">Formats</string>
@@ -35,17 +34,6 @@
     <string name="text_loading">Loading…</string>
     <string name="text_error">Something wrong happened</string>
     <string name="text_schedule_minutes">%1$s minutes</string>
-    <string name="text_speakers_list_one">%1$s and %2$d other</string>
-    <string name="text_speakers_list_many">%1$s and %2$d others</string>
-    <!--
-    <plurals name="text_speakers_list">
-        <item quantity="one">%s and %d other</item>
-        <item quantity="other">%s and %d others</item>
-    </plurals>
-    -->
-    <string name="text_level_advanced">Advanced</string>
-    <string name="text_level_intermediate">Intermediate</string>
-    <string name="text_level_beginner">Beginner</string>
     <string name="text_openfeedback_title">Notes &amp; feedback</string>
     <string name="text_openfeedback_not_started">Wait a little, you will be able to give feedbacks when the session has started.</string>
     <string name="text_feedback_not_configured">No feedback module has been configured for this event.</string>

@@ -2,6 +2,7 @@ package org.gdglille.devfest.database
 
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
+import cafe.adriel.lyricist.Lyricist
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.coroutines.getBooleanFlow
@@ -24,6 +25,7 @@ import org.gdglille.devfest.models.ui.CategoryUi
 import org.gdglille.devfest.models.ui.FiltersUi
 import org.gdglille.devfest.models.ui.FormatUi
 import kotlin.coroutines.CoroutineContext
+import org.gdglille.devfest.android.shared.resources.Strings
 
 @FlowPreview
 @ExperimentalCoroutinesApi
@@ -31,6 +33,7 @@ import kotlin.coroutines.CoroutineContext
 class ScheduleDao(
     private val db: Conferences4HallDatabase,
     private val settings: ObservableSettings,
+    private val lyricist: Lyricist<Strings>,
     private val dispatcher: CoroutineContext
 ) {
     fun fetchSchedules(eventId: String): Flow<ImmutableMap<String, AgendaUi>> = combine(
@@ -82,8 +85,8 @@ class ScheduleDao(
                     } else {
                         emptyList()
                     }
-                    it.convertTalkItemUi(speakers = speakers)
-                } + breaks.map { it.convertTalkItemUi() }
+                    it.convertTalkItemUi(speakers = speakers, strings = lyricist.strings)
+                } + breaks.map { it.convertTalkItemUi(lyricist.strings) }
             sessions.distinctBy { it.date }
                 .associate { session ->
                     session.date to AgendaUi(

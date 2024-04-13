@@ -45,6 +45,7 @@ koin = "3.5.3"
 ktlint = "12.1.0"
 ktor = "2.3.3"
 logback = "1.3.5"
+lyricist = "1.7.0"
 openfeedback = "0.2.2"
 richtext-commonmark = "0.11.0"
 squareup-okio = "3.7.0"
@@ -147,6 +148,8 @@ ktor-serialization-json = { group = "io.ktor", name = "ktor-serialization-kotlin
 ktlint-gradlePlugin = { group = "org.jlleitschuh.gradle", name = "ktlint-gradle", version.ref = "ktlint" }
 
 logback = { group = "ch.qos.logback", name = "logback-classic", version.ref = "logback" }
+
+lyricist = { group = "cafe.adriel.lyricist", name = "lyricist", version.ref = "lyricist" }
 
 openfeedback-m3 = { group = "io.openfeedback", name = "openfeedback-m3", version.ref = "openfeedback" }
 
