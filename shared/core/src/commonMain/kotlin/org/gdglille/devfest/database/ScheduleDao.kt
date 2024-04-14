@@ -13,6 +13,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
+import org.gdglille.devfest.android.shared.resources.Strings
 import org.gdglille.devfest.database.mappers.convertCategoryUi
 import org.gdglille.devfest.database.mappers.convertFormatUi
 import org.gdglille.devfest.database.mappers.convertTalkItemUi
@@ -25,7 +26,6 @@ import org.gdglille.devfest.models.ui.CategoryUi
 import org.gdglille.devfest.models.ui.FiltersUi
 import org.gdglille.devfest.models.ui.FormatUi
 import kotlin.coroutines.CoroutineContext
-import org.gdglille.devfest.android.shared.resources.Strings
 
 @FlowPreview
 @ExperimentalCoroutinesApi

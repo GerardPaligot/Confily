@@ -6,11 +6,11 @@ import app.cash.sqldelight.coroutines.mapToOne
 import cafe.adriel.lyricist.Lyricist
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
+import org.gdglille.devfest.android.shared.resources.Strings
 import org.gdglille.devfest.database.mappers.convertTalkUi
 import org.gdglille.devfest.db.Conferences4HallDatabase
 import org.gdglille.devfest.models.ui.TalkUi
 import kotlin.coroutines.CoroutineContext
-import org.gdglille.devfest.android.shared.resources.Strings
 
 class TalkDao(
     private val db: Conferences4HallDatabase,

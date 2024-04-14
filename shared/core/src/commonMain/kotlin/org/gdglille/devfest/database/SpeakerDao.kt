@@ -9,6 +9,7 @@ import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
+import org.gdglille.devfest.android.shared.resources.Strings
 import org.gdglille.devfest.database.mappers.convertTalkItemUi
 import org.gdglille.devfest.database.mappers.convertToSpeakerItemUi
 import org.gdglille.devfest.database.mappers.convertToSpeakerUi
@@ -17,7 +18,6 @@ import org.gdglille.devfest.models.ui.SpeakerItemUi
 import org.gdglille.devfest.models.ui.SpeakerUi
 import org.gdglille.devfest.models.ui.TalkItemUi
 import kotlin.coroutines.CoroutineContext
-import org.gdglille.devfest.android.shared.resources.Strings
 
 class SpeakerDao(
     private val db: Conferences4HallDatabase,

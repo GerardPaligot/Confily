@@ -2,11 +2,11 @@ package org.gdglille.devfest.android.shared.resources
 
 data class Strings(
     val titles: TitleStrings,
-    val texts: TextStrings,
+    val texts: TextStrings
 )
 
 data class TitleStrings(
-    val agendaBreak: String,
+    val agendaBreak: String
 )
 
 data class TextStrings(
