@@ -39,6 +39,22 @@ class GoogleDriveDataSource(private val service: Drive) : DriveDataSource {
         }.execute().files.firstOrNull()?.id
     }
 
+    override fun createFolder(driveId: String, parentId: String?, name: String): String {
+        val fileMetadata = File().apply {
+            this.name = name
+            mimeType = "application/vnd.google-apps.folder"
+            parents = listOf(driveId)
+        }
+        val folderId = service.files().create(fileMetadata).apply {
+            supportsAllDrives = true
+            fields = "id"
+        }.execute().id
+        if (parentId != null) {
+            moveFile(driveId, folderId, parentId)
+        }
+        return folderId
+    }
+
     override fun copyFile(driveId: String, fileId: String, name: String): String {
         val file = File().apply {
             this.name = name

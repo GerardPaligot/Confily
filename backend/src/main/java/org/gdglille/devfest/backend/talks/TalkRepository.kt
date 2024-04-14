@@ -115,14 +115,14 @@ class TalkRepository(
         if (emailSpeakers.isEmpty()) {
             throw NotFoundException("No speakers in talk $talkId")
         }
-        val sheetName = "Verbatims ${talkDb.title}"
-        val sheetId = driveDataSource.findFileByName(driveId, targetFolderId, sheetName)
-        if (sheetId != null) {
-            return@coroutineScope sheetId
+        val talkFolderId = driveDataSource.findFolderByName(driveId, targetFolderId, talkDb.title)
+        if (talkFolderId != null) {
+            return@coroutineScope talkFolderId
         }
-        val fileId = driveDataSource.copyFile(driveId, templateId, sheetName)
-        driveDataSource.moveFile(driveId, fileId, targetFolderId)
-        emailSpeakers.forEach { driveDataSource.grantPermission(fileId = fileId, email = it) }
-        return@coroutineScope fileId
+        val fileId = driveDataSource.copyFile(driveId, templateId, "Verbatims")
+        val folderId = driveDataSource.createFolder(driveId, targetFolderId, talkDb.title)
+        driveDataSource.moveFile(driveId, fileId, folderId)
+        emailSpeakers.forEach { driveDataSource.grantPermission(fileId = folderId, email = it) }
+        return@coroutineScope folderId
     }
 }
