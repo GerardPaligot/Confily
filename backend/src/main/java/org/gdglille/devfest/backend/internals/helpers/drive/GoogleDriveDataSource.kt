@@ -15,51 +15,59 @@ class GoogleDriveDataSource(private val service: Drive) : DriveDataSource {
         return drives.drives.find { it.name == name }?.id
     }
 
-    override fun findFolderByName(driveId: String, parentId: String?, name: String): String? {
+    override fun findFolderByName(name: String, parentId: String?, driveId: String?): String? {
         return service.files().list().apply {
-            this.driveId = driveId
-            includeItemsFromAllDrives = true
-            supportsAllDrives = true
-            corpora = "drive"
+            if (driveId != null) {
+                this.driveId = driveId
+                includeItemsFromAllDrives = true
+                supportsAllDrives = true
+                corpora = "drive"
+            }
             pageSize = PageSize
             fields = "nextPageToken, files(id)"
             this.q = "name='$name'${parentId?.let { " and parents='$parentId'" } ?: run { "" }}"
         }.execute().files.firstOrNull()?.id
     }
 
-    override fun findFileByName(driveId: String, parentId: String?, name: String): String? {
+    override fun findFileByName(name: String, parentId: String?, driveId: String?): String? {
         return service.files().list().apply {
-            this.driveId = driveId
-            includeItemsFromAllDrives = true
-            supportsAllDrives = true
-            corpora = "drive"
+            if (driveId != null) {
+                this.driveId = driveId
+                includeItemsFromAllDrives = true
+                supportsAllDrives = true
+                corpora = "drive"
+            }
             pageSize = PageSize
             fields = "nextPageToken, files(id)"
             this.q = "name='$name'${parentId?.let { " and parents='$parentId'" } ?: run { "" }}"
         }.execute().files.firstOrNull()?.id
     }
 
-    override fun createFolder(driveId: String, parentId: String?, name: String): String {
+    override fun createFolder(name: String, parentId: String?, driveId: String?): String {
         val fileMetadata = File().apply {
             this.name = name
             mimeType = "application/vnd.google-apps.folder"
-            parents = listOf(driveId)
+            if (driveId != null) {
+                parents = listOf(driveId)
+            }
         }
         val folderId = service.files().create(fileMetadata).apply {
             supportsAllDrives = true
             fields = "id"
         }.execute().id
         if (parentId != null) {
-            moveFile(driveId, folderId, parentId)
+            moveFile(folderId, parentId)
         }
         return folderId
     }
 
-    override fun copyFile(driveId: String, fileId: String, name: String): String {
+    override fun copyFile(name: String, fileId: String, driveId: String?): String {
         val file = File().apply {
             this.name = name
             this.mimeType = "application/vnd.google-apps.spreadsheet"
-            parents = listOf(driveId)
+            if (driveId != null) {
+                parents = listOf(driveId)
+            }
         }
         return service.files().copy(fileId, file).apply {
             supportsAllDrives = true
@@ -67,7 +75,7 @@ class GoogleDriveDataSource(private val service: Drive) : DriveDataSource {
         }.execute().id
     }
 
-    override fun moveFile(driveId: String, fileId: String, folderId: String): List<String> {
+    override fun moveFile(fileId: String, folderId: String): List<String> {
         val file = service.files()[fileId].apply {
             supportsAllDrives = true
             fields = "parents"
@@ -80,11 +88,15 @@ class GoogleDriveDataSource(private val service: Drive) : DriveDataSource {
         }.execute().parents
     }
 
-    override fun grantPermission(fileId: String, email: String) {
-        val userPermission: Permission = Permission()
-            .setType("user")
-            .setRole("writer")
-        userPermission.setEmailAddress(email)
-        service.permissions().create(fileId, userPermission).setFields("id").execute()
+    override fun grantPermission(fileId: String, email: String): String? {
+        val userPermission: Permission = Permission().apply {
+            type = "user"
+            role = "writer"
+            emailAddress = email
+        }
+        return service.permissions().create(fileId, userPermission).apply {
+            supportsAllDrives = true
+            fields = "id"
+        }.execute().id
     }
 }

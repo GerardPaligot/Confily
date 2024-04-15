@@ -9,6 +9,7 @@ import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.formats.FormatDao
 import org.gdglille.devfest.backend.internals.helpers.drive.GoogleDriveDataSource
 import org.gdglille.devfest.backend.speakers.SpeakerDao
+import org.gdglille.devfest.backend.speakers.SpeakerDb
 import org.gdglille.devfest.models.inputs.TalkInput
 import org.gdglille.devfest.models.inputs.TalkVerbatimInput
 
@@ -71,15 +72,25 @@ class TalkRepository(
     suspend fun verbatim(eventId: String, verbatim: TalkVerbatimInput) = coroutineScope {
         val driveId = driveDataSource.findDriveByName(verbatim.driveName)
             ?: throw NotFoundException("Drive ${verbatim.driveName} doesn't exist")
-        val eventFolderId = driveDataSource.findFolderByName(driveId, null, verbatim.eventFolder)
+        val eventFolderId = driveDataSource.findFolderByName(verbatim.eventFolder, null, driveId)
             ?: throw NotFoundException("Folder ${verbatim.eventFolder} doesn't exist")
-        val targetFolderId = driveDataSource.findFolderByName(driveId, eventFolderId, verbatim.targetFolder)
+        val targetFolderId = driveDataSource.findFolderByName(verbatim.targetFolder, eventFolderId, driveId)
             ?: throw NotFoundException("Folder ${verbatim.targetFolder} doesn't exist")
-        val templateId = driveDataSource.findFileByName(driveId, null, verbatim.templateName)
+        val templateId = driveDataSource.findFileByName(verbatim.templateName, null, driveId)
             ?: throw NotFoundException("File ${verbatim.templateName} doesn't exist")
         val talks = talkDao.getAll(eventId)
+        val speakers = speakerDao.getAll(eventId)
         val asyncVerbatims = talks.map { talkDb ->
-            async { verbatimByTalk(eventId, talkDb.id, driveId, targetFolderId, templateId) }
+            async {
+                verbatimByTalk(
+                    targetFolderId = targetFolderId,
+                    talkId = talkDb.id,
+                    talkTitle = talkDb.title,
+                    speakers = speakers.filter { talkDb.speakerIds.contains(it.id) },
+                    driveId = driveId,
+                    templateId = templateId
+                )
+            }
         }
         return@coroutineScope asyncVerbatims.awaitAll()
     }
@@ -91,37 +102,34 @@ class TalkRepository(
     ) = coroutineScope {
         val driveId = driveDataSource.findDriveByName(verbatim.driveName)
             ?: throw NotFoundException("Drive ${verbatim.driveName} doesn't exist")
-        val eventFolderId = driveDataSource.findFolderByName(driveId, null, verbatim.eventFolder)
+        val eventFolderId = driveDataSource.findFolderByName(verbatim.eventFolder, null, driveId)
             ?: throw NotFoundException("Folder ${verbatim.eventFolder} doesn't exist")
-        val targetFolderId = driveDataSource.findFolderByName(driveId, eventFolderId, verbatim.targetFolder)
+        val targetFolderId = driveDataSource.findFolderByName(verbatim.targetFolder, eventFolderId, driveId)
             ?: throw NotFoundException("Folder ${verbatim.targetFolder} doesn't exist")
-        val templateId = driveDataSource.findFileByName(driveId, null, verbatim.templateName)
+        val templateId = driveDataSource.findFileByName(verbatim.templateName, null, driveId)
             ?: throw NotFoundException("File ${verbatim.templateName} doesn't exist")
-        return@coroutineScope verbatimByTalk(eventId, talkId, driveId, targetFolderId, templateId)
-    }
-
-    private suspend fun verbatimByTalk(
-        eventId: String,
-        talkId: String,
-        driveId: String,
-        targetFolderId: String,
-        templateId: String
-    ) = coroutineScope {
         val talkDb = talkDao.get(eventId, talkId)
             ?: throw NotFoundException("Talk $talkId doesn't exist")
-        val emailSpeakers = speakerDao.getByIds(eventId, talkDb.speakerIds)
-            .filter { it.email != null }
-            .map { it.email!! }
+        val speakers = speakerDao.getByIds(eventId, talkDb.speakerIds)
+        return@coroutineScope verbatimByTalk(targetFolderId, talkId, talkDb.title, speakers, driveId, templateId)
+    }
+
+    @Suppress("LongParameterList")
+    private suspend fun verbatimByTalk(
+        targetFolderId: String,
+        talkId: String,
+        talkTitle: String,
+        speakers: List<SpeakerDb>,
+        driveId: String,
+        templateId: String
+    ) = coroutineScope {
+        val emailSpeakers = speakers.filter { it.email != null }.map { it.email!! }
         if (emailSpeakers.isEmpty()) {
             throw NotFoundException("No speakers in talk $talkId")
         }
-        val talkFolderId = driveDataSource.findFolderByName(driveId, targetFolderId, talkDb.title)
-        if (talkFolderId != null) {
-            return@coroutineScope talkFolderId
-        }
-        val fileId = driveDataSource.copyFile(driveId, templateId, "Verbatims")
-        val folderId = driveDataSource.createFolder(driveId, targetFolderId, talkDb.title)
-        driveDataSource.moveFile(driveId, fileId, folderId)
+        val folderId = driveDataSource.createFolder(talkTitle, targetFolderId, driveId)
+        val fileId = driveDataSource.copyFile("Verbatims", templateId, driveId)
+        driveDataSource.moveFile(fileId, folderId)
         emailSpeakers.forEach { driveDataSource.grantPermission(fileId = folderId, email = it) }
         return@coroutineScope folderId
     }
