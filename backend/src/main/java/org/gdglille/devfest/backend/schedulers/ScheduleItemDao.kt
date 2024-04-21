@@ -1,6 +1,7 @@
 package org.gdglille.devfest.backend.schedulers
 
 import org.gdglille.devfest.backend.internals.helpers.database.Database
+import org.gdglille.devfest.backend.internals.helpers.database.diff
 import org.gdglille.devfest.backend.internals.helpers.database.get
 import org.gdglille.devfest.backend.internals.helpers.database.getAll
 
@@ -39,7 +40,9 @@ class ScheduleItemDao(private val database: Database) {
     )
 
     suspend fun deleteDiff(eventId: String, ids: List<String>) {
-        val diff = database.diff(eventId, CollectionName, ids)
-        database.deleteAll(eventId, CollectionName, diff)
+        val diff = database.diff<ScheduleDb>(eventId, CollectionName, ids)
+            // Don't remove break items.
+            .filter { it.talkId != null }
+        database.deleteAll(eventId, CollectionName, diff.map { it.id })
     }
 }

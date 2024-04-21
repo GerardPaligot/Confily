@@ -44,6 +44,7 @@ class FirestoreBasicDatabase(private val firestore: Firestore) : BasicDatabase {
                 is WhereOperation.WhereEquals<*> -> requester.whereEqualTo(it.left, it.right)
                 is WhereOperation.WhereNotEquals<*> -> requester.whereNotEqualTo(it.left, it.right)
                 is WhereOperation.WhereIn<*> -> requester.whereIn(it.left, it.right)
+                is WhereOperation.WhereNotIn<*> -> requester.whereNotIn(it.left, it.right)
             }
         }
         if (query == null) error("You can't create a query without any where condition")

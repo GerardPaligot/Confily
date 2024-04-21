@@ -3,6 +3,7 @@ package org.gdglille.devfest.backend.internals.helpers.database
 import com.google.cloud.firestore.Firestore
 import kotlin.reflect.KClass
 
+@Suppress("TooManyFunctions")
 interface Database {
     suspend fun count(eventId: String, collectionName: String): Long
     suspend fun <T : Any> get(eventId: String, collectionName: String, id: String, clazz: KClass<T>): T?
@@ -21,6 +22,7 @@ interface Database {
     suspend fun delete(eventId: String, collectionName: String)
     suspend fun deleteAll(eventId: String, collectionName: String, ids: List<String>)
     suspend fun diff(eventId: String, collectionName: String, ids: List<String>): List<String>
+    suspend fun <T : Any> diff(eventId: String, collectionName: String, ids: List<String>, clazz: KClass<T>): List<T>
 
     object Factory {
         fun create(firestore: Firestore, projectName: String): Database = FirestoreDatabase(firestore, projectName)
@@ -36,10 +38,14 @@ infix fun <R> String.whereNotEquals(that: R): WhereOperation.WhereNotEquals<R> =
 infix fun <R> String.whereIn(that: List<R>): WhereOperation.WhereIn<R> =
     WhereOperation.WhereIn(this, that)
 
+infix fun <R> String.whereNotIn(that: List<R>): WhereOperation.WhereNotIn<R> =
+    WhereOperation.WhereNotIn(this, that)
+
 sealed class WhereOperation(val left: String) {
     class WhereEquals<R>(left: String, val right: R) : WhereOperation(left)
     class WhereNotEquals<R>(left: String, val right: R) : WhereOperation(left)
     class WhereIn<R>(left: String, val right: List<R>) : WhereOperation(left)
+    class WhereNotIn<R>(left: String, val right: List<R>) : WhereOperation(left)
 }
 
 suspend inline fun <reified T : Any> Database.get(eventId: String, collectionName: String, id: String): T? =
@@ -53,3 +59,9 @@ suspend inline fun <reified T : Any> Database.query(
     collectionName: String,
     vararg ops: WhereOperation
 ): List<T> = query(eventId, collectionName, T::class, *ops)
+
+suspend inline fun <reified T : Any> Database.diff(
+    eventId: String,
+    collectionName: String,
+    ids: List<String>
+): List<T> = diff(eventId, collectionName, ids, T::class)

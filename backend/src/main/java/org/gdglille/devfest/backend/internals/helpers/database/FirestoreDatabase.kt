@@ -10,6 +10,7 @@ import kotlinx.coroutines.withContext
 import kotlin.reflect.KClass
 import kotlin.reflect.full.memberProperties
 
+@Suppress("TooManyFunctions")
 class FirestoreDatabase(private val firestore: Firestore, private val projectName: String) :
     Database {
     override suspend fun count(eventId: String, collectionName: String): Long =
@@ -70,6 +71,7 @@ class FirestoreDatabase(private val firestore: Firestore, private val projectNam
                 is WhereOperation.WhereEquals<*> -> requester.whereEqualTo(it.left, it.right)
                 is WhereOperation.WhereNotEquals<*> -> requester.whereNotEqualTo(it.left, it.right)
                 is WhereOperation.WhereIn<*> -> requester.whereIn(it.left, it.right)
+                is WhereOperation.WhereNotIn<*> -> requester.whereNotIn(it.left, it.right)
             }
         }
         if (query == null) error("You can't create a query without any where condition")
@@ -181,5 +183,21 @@ class FirestoreDatabase(private val firestore: Firestore, private val projectNam
             .listDocuments()
             .map { it.id }
         saved - ids.toSet()
+    }
+
+    override suspend fun <T : Any> diff(
+        eventId: String,
+        collectionName: String,
+        ids: List<String>,
+        clazz: KClass<T>
+    ): List<T> = withContext(Dispatchers.IO) {
+        val saved = firestore
+            .collection(projectName)
+            .document(eventId)
+            .collection(collectionName)
+            .listDocuments()
+        saved
+            .filterNot { it.id in ids }
+            .map { it.get().get().toObject(clazz.java)!! }
     }
 }
