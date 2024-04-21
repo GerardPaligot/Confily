@@ -33,8 +33,8 @@ fun FormatDb.mergeWith(formatOP: FormatOP) = FormatDb(
 )
 
 fun SpeakerOP.convertToDb(): SpeakerDb {
-    val twitter = socials.find { it.name == "Twitter" }?.link
-    val github = socials.find { it.name == "GitHub" }?.link
+    val twitter = socials.find { it.name.lowercase() == "twitter" }?.link
+    val github = socials.find { it.name.lowercase() == "gitHub" }?.link
     return SpeakerDb(
         id = id,
         displayName = name,
@@ -44,7 +44,7 @@ fun SpeakerOP.convertToDb(): SpeakerDb {
         jobTitle = jobTitle,
         company = company,
         photoUrl = photoUrl ?: "",
-        website = null,
+        website = socials.find { it.name.lowercase() == "website" }?.link,
         twitter = if (twitter?.contains("twitter.com") == true) {
             twitter
         } else if (twitter != null) {
@@ -52,7 +52,7 @@ fun SpeakerOP.convertToDb(): SpeakerDb {
         } else {
             null
         },
-        mastodon = null,
+        mastodon = socials.find { it.name.lowercase() == "mastodon" }?.link,
         github = if (github?.contains("github.com") == true) {
             github
         } else if (github != null) {
@@ -60,23 +60,26 @@ fun SpeakerOP.convertToDb(): SpeakerDb {
         } else {
             null
         },
-        linkedin = null
+        linkedin = socials.find { it.name.lowercase() == "linkedin" }?.link
     )
 }
 
 fun SpeakerDb.mergeWith(speakerOP: SpeakerOP): SpeakerDb {
-    val twitter = speakerOP.socials.find { it.name == "Twitter" }?.link
-    val github = speakerOP.socials.find { it.name == "GitHub" }?.link
+    val twitter = speakerOP.socials.find { it.name.lowercase() == "twitter" }?.link
+    val github = speakerOP.socials.find { it.name.lowercase() == "gitHub" }?.link
+    val website = speakerOP.socials.find { it.name.lowercase() == "website" }?.link
+    val mastodon = speakerOP.socials.find { it.name.lowercase() == "mastodon" }?.link
+    val linkedin = speakerOP.socials.find { it.name.lowercase() == "linkedin" }?.link
     return SpeakerDb(
         id = speakerOP.id,
         displayName = if (this.displayName == speakerOP.name) this.displayName else speakerOP.name,
-        pronouns = null,
+        pronouns = pronouns,
         bio = if (this.bio == speakerOP.bio) this.bio else speakerOP.bio ?: "",
         email = if (this.email == speakerOP.email) this.email else speakerOP.email,
         jobTitle = if (this.jobTitle == speakerOP.jobTitle) this.jobTitle else speakerOP.jobTitle,
         company = if (this.company == speakerOP.company) this.company else speakerOP.company,
         photoUrl = if (this.photoUrl == speakerOP.photoUrl) this.photoUrl else speakerOP.photoUrl ?: "",
-        website = null,
+        website = if (this.website == website) this.website else website,
         twitter = if (this.twitter == twitter) {
             this.twitter
         } else if (twitter?.contains("twitter.com") == true) {
@@ -86,6 +89,7 @@ fun SpeakerDb.mergeWith(speakerOP: SpeakerOP): SpeakerDb {
         } else {
             null
         },
+        mastodon = if (this.mastodon == mastodon) this.mastodon else mastodon,
         github = if (this.github == github) {
             this.github
         } else if (github?.contains("github.com") == true) {
@@ -95,7 +99,7 @@ fun SpeakerDb.mergeWith(speakerOP: SpeakerOP): SpeakerDb {
         } else {
             null
         },
-        linkedin = null
+        linkedin = if (this.linkedin == linkedin) this.linkedin else linkedin
     )
 }
 
