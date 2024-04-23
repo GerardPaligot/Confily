@@ -124,7 +124,7 @@ DELETE FROM TalkSessionWithSpeakers WHERE event_id == ? AND talk_id IN ?;
 diffSessions:
 SELECT id
 FROM Session
-WHERE event_id == ? AND id NOT IN ?;
+WHERE event_id == ? AND id NOT IN ? AND talk_id != "";
 
 deleteSessions:
 DELETE FROM Session WHERE event_id == ? AND id IN ?;
