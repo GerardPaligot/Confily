@@ -74,10 +74,11 @@ class PartnerDao(
             .mapToList(dispatcher).flatMapConcat { types ->
                 return@flatMapConcat combine(
                     types.map { type ->
-                        db.partnerQueries.selectPartners(eventId, type.name, partnerMapper)
-                            .asFlow()
-                            .mapToList(dispatcher)
-                            .map { type.name to it }
+                        db.partnerQueries.selectPartners(
+                            event_id = eventId,
+                            name = type.name,
+                            mapper = partnerMapper
+                        ).asFlow().mapToList(dispatcher).map { type.name to it }
                     },
                     transform = { results ->
                         PartnerGroupsUi(
@@ -135,6 +136,11 @@ class PartnerDao(
                     address = partner.address?.address,
                     latitude = partner.address?.lat,
                     longitude = partner.address?.lng
+                )
+                db.partnerQueries.insertPartnerAndType(
+                    partner_id = partner.id,
+                    sponsor_id = entry.key,
+                    event_id = eventId
                 )
                 partner.jobs.forEach {
                     db.partnerQueries.insertJob(

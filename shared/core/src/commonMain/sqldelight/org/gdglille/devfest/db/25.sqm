@@ -1,0 +1,6 @@
+CREATE TABLE PartnerAndType (
+id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+partner_id TEXT NOT NULL,
+sponsor_id TEXT NOT NULL,
+event_id TEXT NOT NULL
+);
