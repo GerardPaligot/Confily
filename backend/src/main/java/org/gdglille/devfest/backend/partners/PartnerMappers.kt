@@ -93,7 +93,8 @@ fun PartnerInput.convertToDb(id: String? = null, addressDb: AddressDb, uploads: 
     linkedinUrl = linkedinUrl,
     linkedinMessage = linkedinMessage,
     address = addressDb,
-    sponsoring = sponsoring,
+    sponsoring = sponsorings.first(),
+    sponsorings = sponsorings,
     wldId = wldId,
     creationDate = Timestamp.now()
 )

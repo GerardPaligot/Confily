@@ -20,7 +20,7 @@ data class PartnerInput(
     @SerialName("linkedin_message")
     val linkedinMessage: String?,
     val address: String,
-    val sponsoring: String,
+    val sponsorings: List<String>,
     @SerialName("wld_id")
     val wldId: String?
 ) : Validator {

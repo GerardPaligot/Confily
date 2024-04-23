@@ -27,7 +27,7 @@ class PartnerRepository(
         val jobs = jobDao.getAll(eventId)
         return event.sponsoringTypes.associateWith { sponsoring ->
             partners
-                .filter { it.sponsoring == sponsoring }
+                .filter { it.sponsorings.contains(sponsoring) }
                 .map { partner ->
                     partner.convertToModelV2(
                         jobs.filter { it.partnerId == partner.id }
@@ -41,7 +41,7 @@ class PartnerRepository(
     suspend fun create(eventId: String, apiKey: String, partnerInput: PartnerInput): String =
         coroutineScope {
             val event = eventDao.getVerified(eventId, apiKey)
-            if (event.sponsoringTypes.contains(partnerInput.sponsoring).not()) {
+            if (event.sponsoringTypes.any { partnerInput.sponsorings.contains(it) }.not()) {
                 throw NotAcceptableException("Your sponsoring isn't valid")
             }
             val addressDb = geocodeApi.geocode(partnerInput.address).convertToDb()
@@ -72,7 +72,7 @@ class PartnerRepository(
         partnerInput: PartnerInput
     ): String = coroutineScope {
         val event = eventDao.getVerified(eventId, apiKey)
-        if (event.sponsoringTypes.contains(partnerInput.sponsoring).not()) {
+        if (event.sponsoringTypes.any { partnerInput.sponsorings.contains(it) }.not()) {
             throw NotAcceptableException("Your sponsoring isn't valid")
         }
         val addressDb = geocodeApi.geocode(partnerInput.address).convertToDb()

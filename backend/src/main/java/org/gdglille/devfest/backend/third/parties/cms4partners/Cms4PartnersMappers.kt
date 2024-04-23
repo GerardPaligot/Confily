@@ -16,7 +16,7 @@ fun WebhookInput.mapToPartnerInput(): PartnerInput {
         linkedinUrl = if (hasLinkedIn) data.linkedinAccount else null,
         linkedinMessage = data.linkedin ?: "",
         address = data.address ?: "",
-        sponsoring = data.sponsoring!!,
+        sponsorings = listOf(data.sponsoring!!),
         wldId = data.wldId
     )
 }
