@@ -8,6 +8,7 @@ import io.ktor.server.routing.post
 import org.gdglille.devfest.backend.categories.CategoryDao
 import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.formats.FormatDao
+import org.gdglille.devfest.backend.internals.CommonApi
 import org.gdglille.devfest.backend.receiveValidated
 import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.talks.TalkDao
@@ -16,6 +17,7 @@ import org.gdglille.devfest.models.inputs.third.parties.conferencehall.ImportTal
 @Suppress("LongParameterList")
 fun Route.registerConferenceHallRoutes(
     conferenceHallApi: ConferenceHallApi,
+    commonApi: CommonApi,
     eventDao: EventDao,
     speakerDao: SpeakerDao,
     talkDao: TalkDao,
@@ -24,6 +26,7 @@ fun Route.registerConferenceHallRoutes(
 ) {
     val conferenceHallRepo = ConferenceHallRepository(
         conferenceHallApi,
+        commonApi,
         eventDao,
         speakerDao,
         talkDao,

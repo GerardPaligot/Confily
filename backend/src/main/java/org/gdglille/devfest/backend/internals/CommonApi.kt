@@ -1,4 +1,4 @@
-package org.gdglille.devfest.backend.third.parties.conferencehall
+package org.gdglille.devfest.backend.internals
 
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -12,16 +12,14 @@ import io.ktor.client.request.get
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
-class ConferenceHallApi(
-    private val client: HttpClient,
-    private val baseUrl: String = "https://${System.getenv("BASE_URL_CONFERENCE_HALL")}/api"
+class CommonApi(
+    private val client: HttpClient
 ) {
-    suspend fun fetchEventConfirmed(eventId: String, apiKey: String) =
-        client.get("$baseUrl/v1/event/$eventId?key=$apiKey&state=confirmed").body<Event>()
+    suspend fun fetchByteArray(url: String) = client.get(url).body<ByteArray>()
 
     object Factory {
-        fun create(enableNetworkLogs: Boolean): ConferenceHallApi =
-            ConferenceHallApi(
+        fun create(enableNetworkLogs: Boolean): CommonApi =
+            CommonApi(
                 client = HttpClient(Java.create()) {
                     install(ContentNegotiation) {
                         json(

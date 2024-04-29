@@ -9,6 +9,7 @@ import org.gdglille.devfest.backend.NotAuthorized
 import org.gdglille.devfest.backend.categories.CategoryDao
 import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.formats.FormatDao
+import org.gdglille.devfest.backend.internals.CommonApi
 import org.gdglille.devfest.backend.schedulers.ScheduleItemDao
 import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.talks.TalkDao
@@ -16,6 +17,7 @@ import org.gdglille.devfest.backend.talks.TalkDao
 @Suppress("LongParameterList")
 fun Route.registerOpenPlannerRoutes(
     openPlannerApi: OpenPlannerApi,
+    commonApi: CommonApi,
     eventDao: EventDao,
     speakerDao: SpeakerDao,
     talkDao: TalkDao,
@@ -25,6 +27,7 @@ fun Route.registerOpenPlannerRoutes(
 ) {
     val repository = OpenPlannerRepository(
         openPlannerApi,
+        commonApi,
         eventDao,
         speakerDao,
         talkDao,

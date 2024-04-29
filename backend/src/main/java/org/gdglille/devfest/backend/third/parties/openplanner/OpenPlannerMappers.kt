@@ -32,9 +32,9 @@ fun FormatDb.mergeWith(formatOP: FormatOP) = FormatDb(
     time = if (this.time != 0) this.time else formatOP.durationMinutes
 )
 
-fun SpeakerOP.convertToDb(): SpeakerDb {
+fun SpeakerOP.convertToDb(photoUrl: String?): SpeakerDb {
     val twitter = socials.find { it.name.lowercase() == "twitter" }?.link
-    val github = socials.find { it.name.lowercase() == "gitHub" }?.link
+    val github = socials.find { it.name.lowercase() == "github" }?.link
     return SpeakerDb(
         id = id,
         displayName = name,
@@ -64,7 +64,7 @@ fun SpeakerOP.convertToDb(): SpeakerDb {
     )
 }
 
-fun SpeakerDb.mergeWith(speakerOP: SpeakerOP): SpeakerDb {
+fun SpeakerDb.mergeWith(photoUrl: String?, speakerOP: SpeakerOP): SpeakerDb {
     val twitter = speakerOP.socials.find { it.name.lowercase() == "twitter" }?.link
     val github = speakerOP.socials.find { it.name.lowercase() == "gitHub" }?.link
     val website = speakerOP.socials.find { it.name.lowercase() == "website" }?.link
@@ -78,7 +78,7 @@ fun SpeakerDb.mergeWith(speakerOP: SpeakerOP): SpeakerDb {
         email = if (this.email == speakerOP.email) this.email else speakerOP.email,
         jobTitle = if (this.jobTitle == speakerOP.jobTitle) this.jobTitle else speakerOP.jobTitle,
         company = if (this.company == speakerOP.company) this.company else speakerOP.company,
-        photoUrl = if (this.photoUrl == speakerOP.photoUrl) this.photoUrl else speakerOP.photoUrl ?: "",
+        photoUrl = if (this.photoUrl == photoUrl) this.photoUrl else photoUrl ?: "",
         website = if (this.website == website) this.website else website,
         twitter = if (this.twitter == twitter) {
             this.twitter

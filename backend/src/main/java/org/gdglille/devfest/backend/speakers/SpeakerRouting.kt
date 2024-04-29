@@ -8,14 +8,16 @@ import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.put
 import org.gdglille.devfest.backend.events.EventDao
+import org.gdglille.devfest.backend.internals.CommonApi
 import org.gdglille.devfest.backend.receiveValidated
 import org.gdglille.devfest.models.inputs.SpeakerInput
 
 fun Route.registerSpeakersRoutes(
+    commonApi: CommonApi,
     eventDao: EventDao,
     speakerDao: SpeakerDao
 ) {
-    val repository = SpeakerRepository(eventDao, speakerDao)
+    val repository = SpeakerRepository(commonApi, eventDao, speakerDao)
 
     get("/speakers") {
         val eventId = call.parameters["eventId"]!!

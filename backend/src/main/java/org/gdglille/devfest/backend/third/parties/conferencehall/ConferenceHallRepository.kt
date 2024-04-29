@@ -8,14 +8,17 @@ import org.gdglille.devfest.backend.NotFoundException
 import org.gdglille.devfest.backend.categories.CategoryDao
 import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.formats.FormatDao
+import org.gdglille.devfest.backend.internals.CommonApi
 import org.gdglille.devfest.backend.internals.slug
 import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.speakers.convertToDb
 import org.gdglille.devfest.backend.talks.TalkDao
 import org.gdglille.devfest.models.inputs.third.parties.conferencehall.ImportTalkInput
 
+@Suppress("LongParameterList")
 class ConferenceHallRepository(
     private val api: ConferenceHallApi,
+    private val commonApi: CommonApi,
     private val eventDao: EventDao,
     private val speakerDao: SpeakerDao,
     private val talkDao: TalkDao,
@@ -71,7 +74,7 @@ class ConferenceHallRepository(
             .map {
                 async {
                     try {
-                        val avatar = api.fetchSpeakerAvatar(it.photoURL!!)
+                        val avatar = commonApi.fetchByteArray(it.photoURL!!)
                         val bucketItem = speakerDao.saveProfile(eventId, it.uid, avatar)
                         it.uid to bucketItem.url
                     } catch (ignored: Throwable) {
@@ -95,7 +98,7 @@ class ConferenceHallRepository(
         val speaker = eventConfirmed.speakers.find { it.uid == speakerId }
             ?: throw NotFoundException("Speaker $speakerId not found in confirmed talks")
         if (speaker.photoURL == null) throw NotAcceptableException("Speaker $speakerId doesn't have a photo")
-        val avatar = api.fetchSpeakerAvatar(speaker.photoURL)
+        val avatar = commonApi.fetchByteArray(speaker.photoURL)
         val bucketItem = speakerDao.saveProfile(eventId, speaker.uid, avatar)
         speakerDao.insert(eventId, speaker.convertToDb(bucketItem.url))
     }

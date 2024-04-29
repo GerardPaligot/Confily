@@ -34,6 +34,7 @@ import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.events.registerEventRoutes
 import org.gdglille.devfest.backend.formats.FormatDao
 import org.gdglille.devfest.backend.formats.registerFormatsRoutes
+import org.gdglille.devfest.backend.internals.CommonApi
 import org.gdglille.devfest.backend.internals.helpers.database.BasicDatabase
 import org.gdglille.devfest.backend.internals.helpers.database.Database
 import org.gdglille.devfest.backend.internals.helpers.drive.GoogleDriveDataSource
@@ -125,6 +126,7 @@ fun main() {
     )
     val openPlannerApi = OpenPlannerApi.Factory.create(enableNetworkLogs = true)
     val conferenceHallApi = ConferenceHallApi.Factory.create(enableNetworkLogs = true)
+    val commonApi = CommonApi.Factory.create(enableNetworkLogs = true)
     val imageTranscoder = TranscoderImage()
     embeddedServer(Netty, PORT) {
         install(CORS) {
@@ -172,7 +174,7 @@ fun main() {
             )
             route("/events/{eventId}") {
                 registerQAndAsRoutes(eventDao, qAndADao)
-                registerSpeakersRoutes(eventDao, speakerDao)
+                registerSpeakersRoutes(commonApi, eventDao, speakerDao)
                 registerTalksRoutes(
                     eventDao,
                     speakerDao,
@@ -203,6 +205,7 @@ fun main() {
                 )
                 registerConferenceHallRoutes(
                     conferenceHallApi,
+                    commonApi,
                     eventDao,
                     speakerDao,
                     talkDao,
@@ -211,6 +214,7 @@ fun main() {
                 )
                 registerOpenPlannerRoutes(
                     openPlannerApi,
+                    commonApi,
                     eventDao,
                     speakerDao,
                     talkDao,

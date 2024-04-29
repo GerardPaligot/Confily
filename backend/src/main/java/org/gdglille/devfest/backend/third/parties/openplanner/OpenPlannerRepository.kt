@@ -9,6 +9,7 @@ import org.gdglille.devfest.backend.categories.CategoryDb
 import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.formats.FormatDao
 import org.gdglille.devfest.backend.formats.FormatDb
+import org.gdglille.devfest.backend.internals.CommonApi
 import org.gdglille.devfest.backend.schedulers.ScheduleDb
 import org.gdglille.devfest.backend.schedulers.ScheduleItemDao
 import org.gdglille.devfest.backend.speakers.SpeakerDao
@@ -19,6 +20,7 @@ import org.gdglille.devfest.backend.talks.TalkDb
 @Suppress("LongParameterList")
 class OpenPlannerRepository(
     private val openPlannerApi: OpenPlannerApi,
+    private val commonApi: CommonApi,
     private val eventDao: EventDao,
     private val speakerDao: SpeakerDao,
     private val talkDao: TalkDao,
@@ -118,14 +120,28 @@ class OpenPlannerRepository(
     private suspend fun createOrMergeSpeaker(eventId: String, speaker: SpeakerOP): SpeakerDb {
         val existing = speakerDao.get(eventId, speaker.id)
         return if (existing == null) {
-            val item = speaker.convertToDb()
+            val photoUrl = getAvatarUrl(eventId, speaker)
+            val item = speaker.convertToDb(photoUrl)
             speakerDao.createOrUpdate(eventId, item)
             item
         } else {
-            val item = existing.mergeWith(speaker)
+            val photoUrl = getAvatarUrl(eventId, speaker)
+            val item = existing.mergeWith(photoUrl, speaker)
             speakerDao.createOrUpdate(eventId, item)
             item
         }
+    }
+
+    private suspend fun getAvatarUrl(eventId: String, speaker: SpeakerOP) = try {
+        if (speaker.photoUrl != null) {
+            val avatar = commonApi.fetchByteArray(speaker.photoUrl)
+            val bucketItem = speakerDao.saveProfile(eventId, speaker.id, avatar)
+            bucketItem.url
+        } else {
+            null
+        }
+    } catch (_: Throwable) {
+        speaker.photoUrl
     }
 
     private suspend fun createOrMergeTalks(eventId: String, session: SessionOP): TalkDb {

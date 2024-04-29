@@ -42,7 +42,7 @@ fun SpeakerDb.convertToModel(): Speaker = Speaker(
     linkedin = this.linkedin
 )
 
-fun SpeakerInput.convertToDb(id: String? = null) = SpeakerDb(
+fun SpeakerInput.convertToDb(photoUrl: String, id: String? = null) = SpeakerDb(
     id = id ?: "",
     displayName = this.displayName,
     pronouns = this.pronouns,
@@ -50,7 +50,7 @@ fun SpeakerInput.convertToDb(id: String? = null) = SpeakerDb(
     email = this.email,
     jobTitle = this.jobTitle,
     company = this.company,
-    photoUrl = this.photoUrl,
+    photoUrl = photoUrl,
     website = this.website,
     twitter = this.twitter,
     mastodon = this.mastodon,
