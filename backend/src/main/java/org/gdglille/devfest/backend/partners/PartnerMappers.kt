@@ -57,9 +57,9 @@ fun PartnerDb.convertToModelV2(jobs: List<Job>) = PartnerV2(
     logoUrl = this.logoUrl,
     media = convertToPartnerMediaModel(),
     siteUrl = this.siteUrl,
-    twitterUrl = this.twitterUrl,
+    twitterUrl = if (this.twitterUrl == "") null else this.twitterUrl,
     twitterMessage = this.twitterMessage,
-    linkedinUrl = this.linkedinUrl,
+    linkedinUrl = if (this.linkedinUrl == "") null else this.linkedinUrl,
     linkedinMessage = this.linkedinMessage,
     address = this.address.convertToModel(),
     jobs = jobs
