@@ -138,6 +138,7 @@ class PartnerDao(
                     longitude = partner.address?.lng
                 )
                 db.partnerQueries.insertPartnerAndType(
+                    id = "${partner.id}-${entry.key}",
                     partner_id = partner.id,
                     sponsor_id = entry.key,
                     event_id = eventId

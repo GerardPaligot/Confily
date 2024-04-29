@@ -27,7 +27,7 @@ event_id TEXT NOT NULL
 );
 
 CREATE TABLE PartnerAndType (
-id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+id TEXT NOT NULL PRIMARY KEY,
 partner_id TEXT NOT NULL,
 sponsor_id TEXT NOT NULL,
 event_id TEXT NOT NULL
@@ -59,7 +59,7 @@ id, name, description, event_id, type_id, type, logo_url, site_url, twitter_url,
 ) VALUES (?, ?,?,?, ?,?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
 
 insertPartnerAndType:
-INSERT OR REPLACE INTO PartnerAndType(partner_id, sponsor_id, event_id) VALUES (?, ?, ?);
+INSERT OR REPLACE INTO PartnerAndType(id, partner_id, sponsor_id, event_id) VALUES (?, ?, ?, ?);
 
 insertJob:
 INSERT OR REPLACE INTO Job(
