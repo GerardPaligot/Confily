@@ -50,7 +50,8 @@ class BaselineProfileGenerator {
             packageName = InstrumentationRegistry.getArguments().getString("targetAppId")
                 ?: throw Exception("targetAppId not passed as instrumentation runner arg"),
             // See: https://d.android.com/topic/performance/baselineprofiles/dex-layout-optimizations
-            includeInStartupProfile = true
+            includeInStartupProfile = true,
+            maxIterations = 1
         ) {
             val eventListPom = EventListPOM(device)
             val agendaPom = AgendaPOM(device)
@@ -68,6 +69,7 @@ class BaselineProfileGenerator {
             }
 
             with(agendaPom) {
+                waitDataFetched()
                 open()
                 openFilters()
                 back()

@@ -2,9 +2,15 @@ package org.gdglille.devfest.baselineprofile.scenarios
 
 import androidx.test.uiautomator.Direction
 import androidx.test.uiautomator.UiDevice
+import kotlin.time.Duration.Companion.seconds
 import org.gdglille.devfest.baselineprofile.runAction
+import org.gdglille.devfest.baselineprofile.waitForObject
 
 class AgendaPOM(private val device: UiDevice) {
+    fun waitDataFetched() {
+        device.waitForObject(DevfestScenario.Partners.tabName, 20.seconds)
+    }
+
     fun open() {
         device.runAction(DevfestScenario.Agenda.tabName) { click() }
     }

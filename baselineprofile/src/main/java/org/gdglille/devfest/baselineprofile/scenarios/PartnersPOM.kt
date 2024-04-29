@@ -12,7 +12,7 @@ class PartnersPOM(private val device: UiDevice) {
 
     fun openFirstItem() {
         device.runAction(DevfestScenario.Partners.first) { click() }
-        device.waitForObject(DevfestScenario.Partners.detailName)
+        device.waitForObject(DevfestScenario.Partners.detailTitle)
     }
 
     fun scrollUpDown() {

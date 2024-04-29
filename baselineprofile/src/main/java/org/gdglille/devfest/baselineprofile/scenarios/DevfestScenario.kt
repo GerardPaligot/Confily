@@ -27,8 +27,8 @@ object DevfestScenario {
     }
     object Partners {
         val tabName = By.desc("Partners")
-        val detailName = By.text("Partner detail")
         val first = By.desc("SFEIR")
+        val detailTitle = By.text("Partner detail")
         val list = By.res(PartnersSemantics.list)
     }
     object Info {
