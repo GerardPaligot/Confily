@@ -45,6 +45,9 @@ struct ProfileInputView: View {
                         UIApplication.shared.endEditing()
                         onValidation(email, firstName, lastName, company)
                     }
+                    Text("textNetworkingConsents")
+                        .foregroundColor(.secondary)
+                        .font(Font.caption)
                 }
             }
         }

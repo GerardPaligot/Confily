@@ -47,6 +47,7 @@
 "textNetworkingWarning" = "If you create your profile and share your qrcode, you accept the prospecting that this scan may represent by one of our partners.";
 "textNetworkingHereWeGo" = "Here we go!";
 "textNetworkingAskToDelete %@ %@" = "Are you sure you want to delete %@ %@ from your networking space?";
+"textNetworkingConsents" = "By creating your profile, you give consent for the information provided in this form to be shared with other attendees or event partners through the QR code generated in the app.";
 "textTicketFirstname" = "First Name";
 "textTicketLastname" = "Last Name";
 "textAgendaNoFavorites" = "You don't have any talks in favorites";

@@ -52,7 +52,7 @@
     <string name="text_empty_networking">Here is the networking space. Create your profile to be able to add attendees you will meet and with who you want to keep contact after the event!</string>
     <string name="text_empty_networking_warning">If you create your profile and share your qrcode, you accept the prospecting that this scan may represent by one of our partners.</string>
     <string name="text_empty_contacts">Scan qrcode of the attendee to add her or him in your contact list.</string>
-    <string name="text_networking_consents">By creating your profile, you consent to the information you provide in this form being shared with other attendees or event partners by the qrcode generated in the app.</string>
+    <string name="text_networking_consents">By creating your profile, you give consent for the information provided in this form to be shared with other attendees or event partners through the QR code generated in the app.</string>
     <string name="text_job_salary">%1$dK - %2$dK/%3$s</string>
     <string name="text_job_requirements_one">%1$d year min</string>
     <string name="text_job_requirements_many">%1$d years min</string>
