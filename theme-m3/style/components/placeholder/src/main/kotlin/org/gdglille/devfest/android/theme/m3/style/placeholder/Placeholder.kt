@@ -5,12 +5,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import com.google.accompanist.placeholder.PlaceholderHighlight
 import com.google.accompanist.placeholder.material.placeholder
-import com.google.accompanist.placeholder.material.shimmer
+import com.google.accompanist.placeholder.shimmer
 
 fun Modifier.placeholder(visible: Boolean) = composed {
-    placeholder(
-        visible = visible,
-        color = MaterialTheme.colorScheme.surface.copy(alpha = .5f),
-        highlight = PlaceholderHighlight.shimmer()
+    then(
+        placeholder(
+            visible = visible,
+            color = MaterialTheme.colorScheme.secondaryContainer,
+            highlight = PlaceholderHighlight.shimmer(
+                highlightColor = MaterialTheme.colorScheme.background
+            )
+        )
     )
 }

@@ -3,6 +3,7 @@ package org.gdglille.devfest.android.theme.m3.schedules.feature
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -40,6 +41,7 @@ fun ScheduleGridVM(
     when (val uiState = viewModel.uiState.collectAsState().value) {
         is ScheduleGridUiState.Loading -> ScheduleGridPager(
             agendas = uiState.agenda,
+            pagerState = rememberPagerState(pageCount = { 1 }),
             onTalkClicked = {},
             onFilterClicked = {},
             onFavoriteClicked = {},
