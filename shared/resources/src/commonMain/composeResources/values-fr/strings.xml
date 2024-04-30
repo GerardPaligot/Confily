@@ -22,9 +22,9 @@
     <string name="screen_my_profile">Mon profile</string>
     <string name="screen_contacts">Contacts</string>
 
-    <string name="title_notif_reminder_talk">Talk dans 10 minutes en %s</string>
+    <string name="title_notif_reminder_talk">Talk dans 10 minutes en %1$s</string>
     <string name="title_ticket">Ton ticket</string>
-    <string name="title_plan">Se rendre à l\'évènement</string>
+    <string name="title_plan">Se rendre à l'évènement</string>
     <string name="title_plan_partner">Se rendre chez le partenaire</string>
     <string name="title_jobs">Emplois</string>
     <string name="title_filters_favorites">Favoris</string>
@@ -33,29 +33,29 @@
 
     <string name="text_loading">Chargement…</string>
     <string name="text_error">Une erreur inconnue est survenue</string>
-    <string name="text_schedule_minutes">%s minutes</string>
+    <string name="text_schedule_minutes">%1$s minutes</string>
     <string name="text_openfeedback_title">Notes &amp; avis</string>
     <string name="text_openfeedback_not_started">Encore un peu de patience, vous pourrez partagez vos feedbacks lorsque la session démarrera.</string>
-    <string name="text_feedback_not_configured">Aucun module de feedback n\'a été configuré pour cet évènement.</string>
+    <string name="text_feedback_not_configured">Aucun module de feedback n'a été configuré pour cet évènement.</string>
     <string name="text_speaker_title">A propos des speakers</string>
     <string name="text_permission">Permission requise</string>
     <string name="text_camera_permission_explaination">La caméra est importante pour scanner des Qrcode. Pense à accepter la permission.</string>
-    <string name="text_camera_permission_deny">La permission pour la caméra a été refusée. Pense à donner l\'accès via les paramètres systèmes.</string>
+    <string name="text_camera_permission_deny">La permission pour la caméra a été refusée. Pense à donner l'accès via les paramètres systèmes.</string>
     <string name="text_export_subject">Export de votre espace networking</string>
-    <string name="text_report_subject">Report aux organisateurs depuis l\'app Devfest Lille</string>
+    <string name="text_report_subject">Report aux organisateurs depuis l'app Devfest Lille</string>
     <string name="text_report_app_target">Choisissez une app pour envoyer un email</string>
-    <string name="text_networking_ask_to_delete">Es-tu sûr de vouloir supprimer %s de ton espace de networking ?</string>
+    <string name="text_networking_ask_to_delete">Es-tu sûr de vouloir supprimer %1$s de ton espace de networking ?</string>
     <string name="text_ticket_firstname">Prénom</string>
     <string name="text_ticket_lastname">Nom</string>
-    <string name="text_agenda_no_favorites">Vous n\'avez pas de conférences en favoris</string>
-    <string name="text_here_we_go">C\'est parti !</string>
-    <string name="text_empty_networking">Ici c\'est la zone de networking. Créer ton profil pour pouvoir ajouter les profils que tu croiseras et avec qui tu veux garder contact après l\'événement !</string>
+    <string name="text_agenda_no_favorites">Vous n'avez pas de conférences en favoris</string>
+    <string name="text_here_we_go">C'est parti !</string>
+    <string name="text_empty_networking">Ici c'est la zone de networking. Créer ton profil pour pouvoir ajouter les profils que tu croiseras et avec qui tu veux garder contact après l'événement !</string>
     <string name="text_empty_networking_warning">Si vous créez votre profil et que vous partagez votre qrcode, vous acceptez la prospection que peut représenter ce scan par l’un de nos partenaires.</string>
     <string name="text_empty_contacts">Scanne le QR code de ton interlocuteur pour l’ajouter à ton répertoire de contact.</string>
     <string name="text_networking_consents">Si vous créez votre profil, vous consentez à ce que les informations que vous avez fournies dans ce formulaire soient partagées avec d'autres participants ou les partenaires de l'événement via le qrcode généré dans l'application.</string>
-    <string name="text_job_salary">%dK - %dK/%s</string>
-    <string name="text_job_requirements_one">%d année min</string>
-    <string name="text_job_requirements_many">%d années min</string>
+    <string name="text_job_salary">%1$dK - %2$dK/%3$s</string>
+    <string name="text_job_requirements_one">%1$d année min</string>
+    <string name="text_job_requirements_many">%1$d années min</string>
     <!--
     <plurals name="text_job_requirements">
         <item quantity="one">%d année min</item>
@@ -63,13 +63,13 @@
         <item quantity="other">%d années min</item>
     </plurals>
     -->
-    <string name="text_job_propulsed">Propulsé par %s</string>
-    <string name="text_speaker_activity">%s à %s</string>
+    <string name="text_job_propulsed">Propulsé par %1$s</string>
+    <string name="text_speaker_activity">%1$s à %2$s</string>
 
     <string name="action_back">Retour</string>
     <string name="action_expanded_menu">Afficher le menu</string>
     <string name="action_share_talk">Partage la session</string>
-    <string name="action_filtering">Ouvrir l\'écran des filtres</string>
+    <string name="action_filtering">Ouvrir l'écran des filtres</string>
     <string name="action_filtering_favorites">Seulement les talks favoris</string>
     <string name="action_qrcode_scanner">Scan de Qrcode</string>
     <string name="action_system_settings">Ouvre les préférences systèmes</string>
@@ -85,28 +85,28 @@
     <string name="action_contact_organizers_phone">Contacter par téléphone</string>
     <string name="action_contact_organizers_mail">Contacter par mail</string>
     <string name="action_edit_profile">Modifier mes informations</string>
-    <string name="action_power_off">Changer d\'évènement</string>
+    <string name="action_power_off">Changer d'évènement</string>
     <string name="action_export">Exporter les contacts</string>
 
     <string name="input_email">E-mail (Mandatory)</string>
     <string name="input_firstname">Prénom (Mandatory)</string>
     <string name="input_lastname">Nom (Mandatory)</string>
     <string name="input_company">Entreprise</string>
-    <string name="input_share_talk">%s par %s</string>
+    <string name="input_share_talk">%1$s par %2$s</string>
 
     <string name="semantic_profile_qrcode">Ton Qrcode est affiché et prêt pour être scanné</string>
-    <string name="semantic_ticket_id">Identifiant de ton billet %s</string>
+    <string name="semantic_ticket_id">Identifiant de ton billet %1$s</string>
     <string name="semantic_ticket_qrcode">Qrcode de ton billet prêt à être scanné</string>
-    <string name="semantic_twitter">Twitter de %s</string>
-    <string name="semantic_mastodon">Mastodon de %s</string>
-    <string name="semantic_github">GitHub de %s</string>
-    <string name="semantic_linkedin">LinkedIn de %s</string>
-    <string name="semantic_website">Site de %s</string>
-    <string name="semantic_start_itinerary">Démarrer l\'itinéraire vers l\'évènement</string>
-    <string name="semantic_talk_item">%s %s dans la salle %s pendant %d minutes dans la catégorie %s %s</string>
-    <string name="semantic_pause_item">Pause dans %s pendant %s</string>
-    <string name="semantic_talk_item_speakers">avec %s comme speaker</string>
-    <string name="semantic_talk_item_level">pour niveau %s</string>
-    <string name="semantic_user_item_email">Addresse e-mail %s</string>
-    <string name="semantic_user_item_company">Travaille à %s</string>
+    <string name="semantic_twitter">Twitter de %1$s</string>
+    <string name="semantic_mastodon">Mastodon de %1$s</string>
+    <string name="semantic_github">GitHub de %1$s</string>
+    <string name="semantic_linkedin">LinkedIn de %1$s</string>
+    <string name="semantic_website">Site de %1$s</string>
+    <string name="semantic_start_itinerary">Démarrer l'itinéraire vers l'évènement</string>
+    <string name="semantic_talk_item">%1$s %2$s dans la salle %3$s pendant %4$d minutes dans la catégorie %5$s %6$s</string>
+    <string name="semantic_pause_item">Pause dans %1$s pendant %2$s</string>
+    <string name="semantic_talk_item_speakers">avec %1$s comme speaker</string>
+    <string name="semantic_talk_item_level">pour niveau %1$s</string>
+    <string name="semantic_user_item_email">Addresse e-mail %1$s</string>
+    <string name="semantic_user_item_company">Travaille à %1$s</string>
 </resources>
