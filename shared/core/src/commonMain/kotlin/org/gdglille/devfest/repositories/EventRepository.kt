@@ -7,12 +7,14 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import org.gdglille.devfest.database.EventDao
 import org.gdglille.devfest.exceptions.EventSavedException
+import org.gdglille.devfest.models.ui.EventInfoUi
 import org.gdglille.devfest.models.ui.EventItemListUi
 import org.gdglille.devfest.network.ConferenceApi
 
 interface EventRepository {
     suspend fun fetchAndStoreEventList()
     fun events(): Flow<EventItemListUi>
+    fun currentEvent(): Flow<EventInfoUi?>
     fun isInitialized(): Boolean
     fun saveEventId(eventId: String)
     fun deleteEventId()
@@ -36,9 +38,10 @@ class EventRepositoryImpl(
     }
 
     override fun events(): Flow<EventItemListUi> = eventDao.fetchEventList()
+    override fun currentEvent(): Flow<EventInfoUi?> = eventDao.fetchCurrentEvent()
 
     override fun isInitialized(): Boolean = try {
-        eventDao.fetchEventId()
+        eventDao.getEventId()
         true
     } catch (_: EventSavedException) {
         false

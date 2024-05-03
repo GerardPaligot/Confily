@@ -6,6 +6,7 @@ import cafe.adriel.lyricist.Lyricist
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.coroutines.getBooleanFlow
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.collections.immutable.toImmutableMap
@@ -13,6 +14,8 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
+import kotlinx.datetime.toLocalDateTime
 import org.gdglille.devfest.android.shared.resources.Strings
 import org.gdglille.devfest.database.mappers.convertCategoryUi
 import org.gdglille.devfest.database.mappers.convertFormatUi
@@ -25,6 +28,7 @@ import org.gdglille.devfest.models.ui.AgendaUi
 import org.gdglille.devfest.models.ui.CategoryUi
 import org.gdglille.devfest.models.ui.FiltersUi
 import org.gdglille.devfest.models.ui.FormatUi
+import org.gdglille.devfest.models.ui.TalkItemUi
 import kotlin.coroutines.CoroutineContext
 
 @FlowPreview
@@ -104,6 +108,31 @@ class ScheduleDao(
                 .toImmutableMap()
         }
     )
+
+    fun fetchNextTalks(eventId: String, date: String): Flow<ImmutableList<TalkItemUi>> {
+        val dateTime = date.toLocalDateTime()
+        return db.sessionQueries
+            .selectSessions(eventId)
+            .asFlow()
+            .mapToList(dispatcher)
+            .map { sessions ->
+                val nextAgenda = sessions
+                    .filter { dateTime < it.start_time.toLocalDateTime() }
+                    .map {
+                        val speakers = if (it.talk_id != null) {
+                            db.sessionQueries
+                                .selectSpeakersByTalkId(eventId, it.talk_id)
+                                .executeAsList()
+                        } else {
+                            emptyList()
+                        }
+                        it.convertTalkItemUi(speakers = speakers, strings = lyricist.strings)
+                    }
+                    .groupBy { it.startTime }
+                val toImmutableList = nextAgenda.values.first().toImmutableList()
+                return@map toImmutableList
+            }
+    }
 
     fun fetchFilters(eventId: String): Flow<FiltersUi> {
         return combine(

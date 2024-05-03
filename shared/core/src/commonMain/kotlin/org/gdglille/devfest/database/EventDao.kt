@@ -3,13 +3,16 @@ package org.gdglille.devfest.database
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOne
+import app.cash.sqldelight.coroutines.mapToOneOrNull
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
+import com.russhwolf.settings.coroutines.getStringOrNullFlow
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.combineTransform
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import org.gdglille.devfest.db.Conferences4HallDatabase
 import org.gdglille.devfest.exceptions.EventSavedException
@@ -98,8 +101,11 @@ class EventDao(
 
     fun deleteEventId() = settings.remove("EVENT_ID")
 
-    fun fetchEventId(): String =
+    fun getEventId(): String =
         settings.getStringOrNull("EVENT_ID") ?: throw EventSavedException()
+
+    fun fetchEventId(): Flow<String> =
+        settings.getStringOrNullFlow("EVENT_ID").map { it ?: throw EventSavedException() }
 
     fun fetchEvent(eventId: String): Flow<EventUi> = db.transactionWithResult {
         return@transactionWithResult db.eventQueries.selectEvent(eventId, eventMapper).asFlow()
@@ -109,6 +115,13 @@ class EventDao(
                 val eventInfo = event.executeAsOneOrNull() ?: return@combineTransform
                 emit(EventUi(eventInfo = eventInfo, ticket = ticket.executeAsOneOrNull()))
             }
+    }
+
+    fun fetchCurrentEvent(): Flow<EventInfoUi?> {
+        val eventId = settings.getStringOrNull("EVENT_ID") ?: return flow { emit(null) }
+        return db.eventQueries.selectEvent(eventId, eventMapper)
+            .asFlow()
+            .mapToOneOrNull(dispatcher)
     }
 
     fun fetchQAndA(eventId: String): Flow<ImmutableList<QuestionAndResponseUi>> = db.transactionWithResult {

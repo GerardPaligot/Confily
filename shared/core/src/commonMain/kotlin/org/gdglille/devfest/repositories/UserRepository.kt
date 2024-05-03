@@ -3,9 +3,11 @@ package org.gdglille.devfest.repositories
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutineScope
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flatMapConcat
 import org.gdglille.devfest.database.EventDao
 import org.gdglille.devfest.database.UserDao
 import org.gdglille.devfest.models.ui.ExportNetworkingUi
@@ -44,8 +46,8 @@ class UserRepositoryImpl(
     private val coroutineScope: CoroutineScope = MainScope()
 
     override fun fetchProfile(): Flow<UserProfileUi?> = combine(
-        userDao.fetchProfile(eventId = eventDao.fetchEventId()),
-        userDao.fetchUserPreview(eventId = eventDao.fetchEventId()),
+        userDao.fetchProfile(eventId = eventDao.getEventId()),
+        userDao.fetchUserPreview(eventId = eventDao.getEventId()),
         transform = { profile, preview ->
             return@combine profile ?: preview
         }
@@ -56,27 +58,27 @@ class UserRepositoryImpl(
             UserNetworkingUi(email, firstName, lastName, company).encodeToString()
         )
         val profile = UserProfileUi(email, firstName, lastName, company, qrCode)
-        userDao.insertUser(eventId = eventDao.fetchEventId(), user = profile)
+        userDao.insertUser(eventId = eventDao.getEventId(), user = profile)
     }
 
-    override fun fetchNetworking(): Flow<ImmutableList<UserNetworkingUi>> = userDao.fetchNetworking(
-        eventId = eventDao.fetchEventId()
-    )
+    @OptIn(ExperimentalCoroutinesApi::class)
+    override fun fetchNetworking(): Flow<ImmutableList<UserNetworkingUi>> = eventDao.fetchEventId()
+        .flatMapConcat { userDao.fetchNetworking(eventId = it) }
 
     override fun insertNetworkingProfile(user: UserNetworkingUi): Boolean {
         val hasRequiredFields = user.email != "" && user.lastName != "" && user.firstName != ""
         if (!hasRequiredFields) return false
-        userDao.insertEmailNetworking(eventId = eventDao.fetchEventId(), userNetworkingUi = user)
+        userDao.insertEmailNetworking(eventId = eventDao.getEventId(), userNetworkingUi = user)
         return true
     }
 
     override fun deleteNetworkProfile(email: String) = userDao.deleteNetworking(
-        eventId = eventDao.fetchEventId(),
+        eventId = eventDao.getEventId(),
         email = email
     )
 
     override fun exportNetworking(): ExportNetworkingUi = ExportNetworkingUi(
-        mailto = userDao.getEmailProfile(eventDao.fetchEventId()),
-        filePath = userDao.exportNetworking(eventId = eventDao.fetchEventId())
+        mailto = userDao.getEmailProfile(eventDao.getEventId()),
+        filePath = userDao.exportNetworking(eventId = eventDao.getEventId())
     )
 }

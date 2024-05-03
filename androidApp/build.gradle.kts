@@ -70,6 +70,8 @@ android {
 dependencies {
     implementation(projects.themeM3.main.main)
     implementation(projects.themeM3.main.mainDi)
+    implementation(projects.themeM3.navigation)
+    implementation(projects.widgets.widgetsFeature)
     implementation(projects.shared.core)
     implementation(projects.shared.coreDi)
     implementation(projects.shared.resources)
@@ -88,6 +90,7 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.profile)
     implementation(libs.androidx.workmanager.ktx)
+    implementation(libs.bundles.androidx.glance)
 
     implementation(libs.koin.core)
     implementation(libs.koin.android)

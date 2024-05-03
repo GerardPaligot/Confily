@@ -183,7 +183,12 @@ fun MainNavigation(
                 }
                 composable(
                     route = Screen.Schedule.route,
-                    arguments = listOf(navArgument("scheduleId") { type = NavType.StringType })
+                    arguments = listOf(navArgument("scheduleId") { type = NavType.StringType }),
+                    deepLinks = listOf(
+                        navDeepLink {
+                            uriPattern = "$rootUri/${Screen.Schedule.route}"
+                        }
+                    )
                 ) {
                     ScheduleDetailOrientableVM(
                         scheduleId = it.arguments?.getString("scheduleId")!!,

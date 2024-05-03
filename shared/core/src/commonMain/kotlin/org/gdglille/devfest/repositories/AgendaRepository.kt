@@ -9,6 +9,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.map
 import org.gdglille.devfest.database.EventDao
 import org.gdglille.devfest.database.FeaturesActivatedDao
@@ -29,6 +30,7 @@ import org.gdglille.devfest.models.ui.PartnerItemUi
 import org.gdglille.devfest.models.ui.QuestionAndResponseUi
 import org.gdglille.devfest.models.ui.ScaffoldConfigUi
 import org.gdglille.devfest.models.ui.SpeakerUi
+import org.gdglille.devfest.models.ui.TalkItemUi
 import org.gdglille.devfest.models.ui.TalkUi
 import org.gdglille.devfest.network.ConferenceApi
 
@@ -43,6 +45,7 @@ interface AgendaRepository {
     fun menus(): Flow<ImmutableList<MenuItemUi>>
     fun coc(): Flow<CoCUi>
     fun agenda(): Flow<ImmutableMap<String, AgendaUi>>
+    fun fetchNextTalks(date: String): Flow<ImmutableList<TalkItemUi>>
     fun filters(): Flow<FiltersUi>
     fun scheduleItem(scheduleId: String): Flow<TalkUi>
     fun hasFilterApplied(): Flow<Boolean>
@@ -95,7 +98,7 @@ class AgendaRepositoryImpl(
     private val coroutineScope: CoroutineScope = MainScope()
 
     override suspend fun fetchAndStoreAgenda() {
-        val eventId = eventDao.fetchEventId()
+        val eventId = eventDao.getEventId()
         val etag = scheduleDao.lastEtag(eventId)
         try {
             val (newEtag, agenda) = api.fetchAgenda(eventId, etag)
@@ -112,7 +115,7 @@ class AgendaRepositoryImpl(
     }
 
     override suspend fun insertOrUpdateTicket(barcode: String) {
-        val eventId = eventDao.fetchEventId()
+        val eventId = eventDao.getEventId()
         val attendee = try {
             val attendee = api.fetchAttendee(eventId, barcode)
             attendee
@@ -125,64 +128,55 @@ class AgendaRepositoryImpl(
 
     override fun scaffoldConfig(): Flow<ScaffoldConfigUi> = featuresDao.fetchFeatures()
 
-    override fun event(): Flow<EventUi> = eventDao.fetchEvent(
-        eventId = eventDao.fetchEventId()
-    )
+    override fun event(): Flow<EventUi> = eventDao.fetchEventId()
+        .flatMapConcat { eventDao.fetchEvent(eventId = it) }
 
-    override fun partners(): Flow<PartnerGroupsUi> = partnerDao.fetchPartners(
-        eventId = eventDao.fetchEventId()
-    )
+    override fun partners(): Flow<PartnerGroupsUi> = eventDao.fetchEventId()
+        .flatMapConcat { partnerDao.fetchPartners(eventId = it) }
 
-    override fun partner(id: String): Flow<PartnerItemUi> = partnerDao.fetchPartner(
-        eventId = eventDao.fetchEventId(),
-        id = id
-    )
+    override fun partner(id: String): Flow<PartnerItemUi> = eventDao.fetchEventId()
+        .flatMapConcat { partnerDao.fetchPartner(eventId = it, id = id) }
 
-    override fun qanda(): Flow<ImmutableList<QuestionAndResponseUi>> = eventDao.fetchQAndA(
-        eventId = eventDao.fetchEventId()
-    )
+    override fun qanda(): Flow<ImmutableList<QuestionAndResponseUi>> = eventDao.fetchEventId()
+        .flatMapConcat { eventDao.fetchQAndA(eventId = it) }
 
-    override fun menus(): Flow<ImmutableList<MenuItemUi>> = eventDao.fetchMenus(
-        eventId = eventDao.fetchEventId()
-    )
+    override fun menus(): Flow<ImmutableList<MenuItemUi>> = eventDao.fetchEventId()
+        .flatMapConcat { eventDao.fetchMenus(eventId = it) }
 
-    override fun coc(): Flow<CoCUi> = eventDao.fetchCoC(
-        eventId = eventDao.fetchEventId()
-    )
+    override fun coc(): Flow<CoCUi> = eventDao.fetchEventId()
+        .flatMapConcat { eventDao.fetchCoC(eventId = it) }
 
-    override fun agenda(): Flow<ImmutableMap<String, AgendaUi>> = scheduleDao.fetchSchedules(
-        eventId = eventDao.fetchEventId()
-    )
+    override fun agenda(): Flow<ImmutableMap<String, AgendaUi>> = eventDao.fetchEventId()
+        .flatMapConcat { scheduleDao.fetchSchedules(eventId = it) }
 
-    override fun filters(): Flow<FiltersUi> = scheduleDao.fetchFilters(
-        eventId = eventDao.fetchEventId()
-    )
+    override fun fetchNextTalks(date: String): Flow<ImmutableList<TalkItemUi>> =
+        eventDao.fetchEventId()
+            .flatMapConcat { scheduleDao.fetchNextTalks(eventId = it, date = date) }
 
-    override fun hasFilterApplied(): Flow<Boolean> = scheduleDao.fetchFiltersAppliedCount(
-        eventId = eventDao.fetchEventId()
-    ).map { it > 0 }
+    override fun filters(): Flow<FiltersUi> = eventDao.fetchEventId()
+        .flatMapConcat { scheduleDao.fetchFilters(it) }
+
+    override fun hasFilterApplied(): Flow<Boolean> = eventDao.fetchEventId()
+        .flatMapConcat { scheduleDao.fetchFiltersAppliedCount(eventId = it) }
+        .map { it > 0 }
 
     override fun applyFavoriteFilter(selected: Boolean) = scheduleDao.applyFavoriteFilter(selected)
 
     override fun applyCategoryFilter(categoryUi: CategoryUi, selected: Boolean) =
-        scheduleDao.applyCategoryFilter(categoryUi, eventDao.fetchEventId(), selected)
+        scheduleDao.applyCategoryFilter(categoryUi, eventDao.getEventId(), selected)
 
     override fun applyFormatFilter(formatUi: FormatUi, selected: Boolean) =
-        scheduleDao.applyFormatFilter(formatUi, eventDao.fetchEventId(), selected)
+        scheduleDao.applyFormatFilter(formatUi, eventDao.getEventId(), selected)
 
-    override fun speaker(speakerId: String): Flow<SpeakerUi> = speakerDao.fetchSpeaker(
-        eventId = eventDao.fetchEventId(),
-        speakerId = speakerId
-    )
+    override fun speaker(speakerId: String): Flow<SpeakerUi> = eventDao.fetchEventId()
+        .flatMapConcat { speakerDao.fetchSpeaker(eventId = it, speakerId = speakerId) }
 
     override fun markAsRead(sessionId: String, isFavorite: Boolean) = scheduleDao.markAsFavorite(
-        eventId = eventDao.fetchEventId(),
+        eventId = eventDao.getEventId(),
         sessionId = sessionId,
         isFavorite = isFavorite
     )
 
-    override fun scheduleItem(scheduleId: String): Flow<TalkUi> = talkDao.fetchTalk(
-        eventId = eventDao.fetchEventId(),
-        talkId = scheduleId
-    )
+    override fun scheduleItem(scheduleId: String): Flow<TalkUi> = eventDao.fetchEventId()
+        .flatMapConcat { talkDao.fetchTalk(eventId = it, talkId = scheduleId) }
 }

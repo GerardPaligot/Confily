@@ -28,6 +28,6 @@ class SpeakerRepositoryImpl(
     private val coroutineScope: CoroutineScope = MainScope()
 
     override fun speakers(): Flow<ImmutableList<SpeakerItemUi>> = speakerDao.fetchSpeakers(
-        eventId = eventDao.fetchEventId()
+        eventId = eventDao.getEventId()
     )
 }

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_title_no_event">No event</string>
+    <string name="widget_text_no_event">No event configured. Please select an event from the app.</string>
+    <string name="widget_text_loading">Loading…</string>
+    <string name="widget_semantic_refresh">Refresh widget</string>
+</resources>
