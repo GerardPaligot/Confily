@@ -28,6 +28,14 @@ fun NoEvent(modifier: GlanceModifier = GlanceModifier) {
 }
 
 @Composable
+fun NoProfile(modifier: GlanceModifier = GlanceModifier) {
+    PlainMessage(
+        text = LocalContext.current.getString(R.string.widget_text_no_profile),
+        modifier = modifier
+    )
+}
+
+@Composable
 private fun PlainMessage(
     text: String,
     modifier: GlanceModifier = GlanceModifier,

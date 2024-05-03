@@ -23,6 +23,7 @@ fun Main(
     onShareClicked: (text: String) -> Unit,
     onItineraryClicked: (lat: Double, lng: Double) -> Unit,
     onScheduleStarted: () -> Unit,
+    onProfileCreated: () -> Unit,
     navController: NavHostController,
     viewModel: MainViewModel = koinViewModel()
 ) {
@@ -40,6 +41,7 @@ fun Main(
                     onShareClicked = onShareClicked,
                     onItineraryClicked = onItineraryClicked,
                     onScheduleStarted = onScheduleStarted,
+                    onProfileCreated = onProfileCreated,
                     savedStateHandle = navController.currentBackStackEntry?.savedStateHandle,
                     navController = navController
                 )

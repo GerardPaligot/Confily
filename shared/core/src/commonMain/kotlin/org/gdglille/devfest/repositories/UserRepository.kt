@@ -45,13 +45,16 @@ class UserRepositoryImpl(
     @NativeCoroutineScope
     private val coroutineScope: CoroutineScope = MainScope()
 
-    override fun fetchProfile(): Flow<UserProfileUi?> = combine(
-        userDao.fetchProfile(eventId = eventDao.getEventId()),
-        userDao.fetchUserPreview(eventId = eventDao.getEventId()),
-        transform = { profile, preview ->
-            return@combine profile ?: preview
+    override fun fetchProfile(): Flow<UserProfileUi?> = eventDao.fetchEventId()
+        .flatMapConcat {
+            combine(
+                userDao.fetchProfile(eventId = it),
+                userDao.fetchUserPreview(eventId = it),
+                transform = { profile, preview ->
+                    return@combine profile ?: preview
+                }
+            )
         }
-    )
 
     override fun saveProfile(email: String, firstName: String, lastName: String, company: String) {
         val qrCode = qrCodeGenerator.generate(

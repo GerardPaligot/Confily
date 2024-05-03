@@ -77,6 +77,7 @@ fun MainNavigation(
     onShareClicked: (text: String) -> Unit,
     onItineraryClicked: (lat: Double, lng: Double) -> Unit,
     onScheduleStarted: () -> Unit,
+    onProfileCreated: () -> Unit,
     modifier: Modifier = Modifier,
     savedStateHandle: SavedStateHandle? = null,
     navController: NavHostController = rememberNavController(),
@@ -217,16 +218,34 @@ fun MainNavigation(
                         isLandscape = config.orientation == Configuration.ORIENTATION_LANDSCAPE
                     )
                 }
-                composable(Screen.MyProfile.route) {
+                composable(
+                    route = Screen.MyProfile.route,
+                    deepLinks = listOf(
+                        navDeepLink {
+                            uriPattern = "$rootUri/${Screen.MyProfile.route}"
+                        }
+                    )
+                ) {
                     NetworkingCompactVM(
                         onCreateProfileClicked = { navController.navigate(Screen.NewProfile.route) },
                         onContactScannerClicked = { navController.navigate(Screen.ScannerVCard.route) },
                         onContactExportClicked = onContactExportClicked
                     )
                 }
-                composable(route = Screen.NewProfile.route) {
+                composable(
+                    route = Screen.NewProfile.route,
+                    deepLinks = listOf(
+                        navDeepLink {
+                            uriPattern = "$rootUri/${Screen.NewProfile.route}"
+                        }
+                    )
+                ) {
                     ProfileInputVM(
-                        onBackClicked = { navController.popBackStack() }
+                        onBackClicked = { navController.popBackStack() },
+                        onProfileCreated = {
+                            onProfileCreated()
+                            navController.popBackStack()
+                        }
                     )
                 }
                 composable(Screen.PartnerList.route) {

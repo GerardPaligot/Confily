@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="widget_label_networking">Networking</string>
+    <string name="widget_label_agenda">Next talks</string>
     <string name="widget_title_no_event">No event</string>
-    <string name="widget_text_no_event">No event configured. Please select an event from the app.</string>
+    <string name="widget_title_no_profile">No profile</string>
+    <string name="widget_text_no_event">No event configured. Please select an event in the app.</string>
+    <string name="widget_text_no_profile">No profile configured. Please create your profile in the app.</string>
     <string name="widget_text_loading">Loading…</string>
     <string name="widget_semantic_refresh">Refresh widget</string>
+    <string name="widget_semantic_qrcode">Profile qrcode. Ready to scan.</string>
 </resources>

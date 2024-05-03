@@ -10,8 +10,10 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.core.app.ShareCompat
 import androidx.core.content.FileProvider
+import androidx.glance.appwidget.updateAll
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import androidx.work.Constraints
@@ -21,11 +23,13 @@ import androidx.work.WorkManager
 import com.russhwolf.settings.ExperimentalSettingsApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.launch
 import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.text_export_subject
 import org.gdglille.devfest.android.shared.resources.text_report_app_target
 import org.gdglille.devfest.android.shared.resources.text_report_subject
 import org.gdglille.devfest.android.theme.Main
+import org.gdglille.devfest.android.widgets.NetworkingAppWidget
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 import java.io.File
@@ -61,6 +65,7 @@ class MainActivity : ComponentActivity() {
                 onDispose {}
             }
             navController = rememberNavController()
+            val scope = rememberCoroutineScope()
             val exportSubject = stringResource(Resource.string.text_export_subject)
             val reportSubject = stringResource(Resource.string.text_report_subject)
             val reportAppTarget = stringResource(Resource.string.text_report_app_target)
@@ -118,6 +123,9 @@ class MainActivity : ComponentActivity() {
                         .setConstraints(constraints)
                         .build()
                     workManager.enqueue(request)
+                },
+                onProfileCreated = {
+                    scope.launch { NetworkingAppWidget().updateAll(context = this@MainActivity) }
                 },
                 navController = navController
             )

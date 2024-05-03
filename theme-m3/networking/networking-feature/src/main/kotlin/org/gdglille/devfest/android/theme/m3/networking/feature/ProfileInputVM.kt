@@ -17,6 +17,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun ProfileInputVM(
     onBackClicked: () -> Unit,
+    onProfileCreated: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ProfileInputViewModel = koinViewModel()
 ) {
@@ -30,7 +31,7 @@ fun ProfileInputVM(
             onValueChanged = viewModel::fieldChanged,
             onValidation = {
                 viewModel.saveProfile()
-                onBackClicked()
+                onProfileCreated()
             }
         )
     }

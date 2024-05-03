@@ -19,6 +19,7 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import org.gdglille.devfest.android.R
+import org.gdglille.devfest.android.theme.m3.navigation.Screen
 import org.gdglille.devfest.android.widgets.feature.SessionsWidget
 import org.gdglille.devfest.repositories.AgendaRepository
 import org.gdglille.devfest.repositories.EventRepository
@@ -46,9 +47,9 @@ class AgendaAppWidget : GlanceAppWidget(), KoinComponent {
                     iconId = R.drawable.ic_launcher_foreground,
                     onUpdate = {
                         prefs.toMutablePreferences().apply {
-                            this.lastUpdate =
-                                Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-                                    .toString()
+                            this.lastUpdate = Clock.System.now()
+                                .toLocalDateTime(TimeZone.currentSystemDefault())
+                                .toString()
                         }
                         update(context, id)
                     },
@@ -56,7 +57,7 @@ class AgendaAppWidget : GlanceAppWidget(), KoinComponent {
                         actionStartActivity(
                             intent = Intent(
                                 Intent.ACTION_VIEW,
-                                "c4h://event/schedules/$it".toUri()
+                                "c4h://event/${Screen.Schedule.route(it)}".toUri()
                             )
                         )
                     }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_label_networking">Networking</string>
+    <string name="widget_label_agenda">Prochaines sessions</string>
+    <string name="widget_title_no_event">Aucun évènement</string>
+    <string name="widget_title_no_profile">Aucun profil</string>
+    <string name="widget_text_no_event">Pas d\'évènement configuré. Veuillez sélectionner un évènement dans l\'application.</string>
+    <string name="widget_text_no_profile">Pas de profil configuré. Veuillez créer votre profil dans l\'application.</string>
+    <string name="widget_text_loading">Chargement…</string>
+    <string name="widget_semantic_refresh">Rafraichissement du widget</string>
+    <string name="widget_semantic_qrcode">QRCode du profil. Prêt pour être scanné.</string>
+</resources>
