@@ -1,5 +1,11 @@
 package org.gdglille.devfest.android.theme.m3.schedules.screens
 
+import android.annotation.SuppressLint
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -26,12 +32,15 @@ import org.gdglille.devfest.android.theme.m3.style.SpacingTokens
 import org.gdglille.devfest.android.theme.m3.style.toDp
 import org.gdglille.devfest.models.ui.TalkUi
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @ExperimentalMaterial3Api
 @Composable
 fun ScheduleDetailScreen(
     talk: TalkUi,
     openFeedbackFirebaseConfig: OpenFeedbackFirebaseConfig?,
     onSpeakerClicked: (id: String) -> Unit,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope,
     modifier: Modifier = Modifier,
     state: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(SpacingTokens.None.toDp())
@@ -46,7 +55,11 @@ fun ScheduleDetailScreen(
     ) {
         item {
             Spacer(modifier = Modifier.height(SpacingTokens.LargeSpacing.toDp()))
-            TalkSection(talk = talk)
+            TalkSection(
+                talk = talk,
+                sharedTransitionScope = sharedTransitionScope,
+                animatedContentScope = animatedContentScope
+            )
         }
         item {
             TalkAbstract(abstract = talk.abstract)
@@ -70,7 +83,9 @@ fun ScheduleDetailScreen(
         item {
             SpeakerSection(
                 speakers = talk.speakers,
-                onSpeakerItemClick = onSpeakerClicked
+                onSpeakerItemClick = onSpeakerClicked,
+                sharedTransitionScope = sharedTransitionScope,
+                animatedContentScope = animatedContentScope
             )
         }
         item {
@@ -79,23 +94,31 @@ fun ScheduleDetailScreen(
     }
 }
 
+@SuppressLint("UnusedContentLambdaTargetStateParameter")
+@OptIn(ExperimentalSharedTransitionApi::class)
 @ExperimentalMaterial3Api
 @Preview
 @Composable
 private fun ScheduleDetailPreview() {
     Conferences4HallTheme {
-        Surface {
-            ScheduleDetailScreen(
-                talk = TalkUi.fake,
-                openFeedbackFirebaseConfig = OpenFeedbackFirebaseConfig(
-                    context = LocalContext.current,
-                    projectId = "",
-                    applicationId = "",
-                    apiKey = "",
-                    databaseUrl = ""
-                ),
-                onSpeakerClicked = {}
-            )
+        SharedTransitionLayout {
+            AnimatedContent(targetState = "", label = "") {
+                Surface {
+                    ScheduleDetailScreen(
+                        talk = TalkUi.fake,
+                        openFeedbackFirebaseConfig = OpenFeedbackFirebaseConfig(
+                            context = LocalContext.current,
+                            projectId = "",
+                            applicationId = "",
+                            apiKey = "",
+                            databaseUrl = ""
+                        ),
+                        onSpeakerClicked = {},
+                        sharedTransitionScope = this@SharedTransitionLayout,
+                        animatedContentScope = this@AnimatedContent
+                    )
+                }
+            }
         }
     }
 }

@@ -1,5 +1,11 @@
 package org.gdglille.devfest.android.theme.m3.schedules.ui.speakers
 
+import android.annotation.SuppressLint
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Row
@@ -17,9 +23,12 @@ import org.gdglille.devfest.android.theme.m3.style.speakers.items.LargeSpeakerIt
 import org.gdglille.devfest.android.theme.m3.style.toDp
 import org.gdglille.devfest.models.ui.SpeakerItemUi
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun SpeakerItemRow(
     speakers: ImmutableList<SpeakerItemUi>,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope,
     modifier: Modifier = Modifier,
     maxItems: Int = 2,
     isLoading: Boolean = false,
@@ -34,6 +43,8 @@ fun SpeakerItemRow(
                     name = it.name,
                     description = it.company,
                     url = it.url,
+                    sharedTransitionScope = sharedTransitionScope,
+                    animatedContentScope = animatedContentScope,
                     modifier = Modifier
                         .width(width)
                         .placeholder(isLoading),
@@ -44,13 +55,21 @@ fun SpeakerItemRow(
     }
 }
 
+@SuppressLint("UnusedContentLambdaTargetStateParameter")
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Preview
 @Composable
 private fun SpeakerItemRowPreview() {
     Conferences4HallTheme {
-        SpeakerItemRow(
-            speakers = persistentListOf(SpeakerItemUi.fake, SpeakerItemUi.fake),
-            onSpeakerItemClick = {}
-        )
+        SharedTransitionLayout {
+            AnimatedContent(targetState = "", label = "") {
+                SpeakerItemRow(
+                    speakers = persistentListOf(SpeakerItemUi.fake, SpeakerItemUi.fake),
+                    onSpeakerItemClick = {},
+                    sharedTransitionScope = this@SharedTransitionLayout,
+                    animatedContentScope = this@AnimatedContent
+                )
+            }
+        }
     }
 }

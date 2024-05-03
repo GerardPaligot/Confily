@@ -1,5 +1,8 @@
 package org.gdglille.devfest.android.theme.m3.schedules.screens
 
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -23,13 +26,19 @@ import org.gdglille.devfest.models.ui.TalkItemUi
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalResourceApi::class)
+@OptIn(
+    ExperimentalFoundationApi::class,
+    ExperimentalResourceApi::class,
+    ExperimentalSharedTransitionApi::class
+)
 @Composable
 fun ScheduleGridPager(
     agendas: ImmutableList<AgendaUi>,
     onTalkClicked: (id: String) -> Unit,
     onFilterClicked: () -> Unit,
     onFavoriteClicked: (TalkItemUi) -> Unit,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope,
     modifier: Modifier = Modifier,
     state: LazyGridState = rememberLazyGridState(),
     topActionsUi: TopActionsUi = TopActionsUi(),
@@ -64,6 +73,8 @@ fun ScheduleGridPager(
                 agenda = agendas[page],
                 onTalkClicked = onTalkClicked,
                 onFavoriteClicked = onFavoriteClicked,
+                sharedTransitionScope = sharedTransitionScope,
+                animatedContentScope = animatedContentScope,
                 isSmallSize = isSmallSize,
                 isLoading = isLoading,
                 state = state

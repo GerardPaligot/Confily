@@ -1,5 +1,8 @@
 package org.gdglille.devfest.android.theme.m3.speakers.screens
 
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -16,13 +19,19 @@ import org.gdglille.devfest.models.ui.TalkItemUi
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalResourceApi::class)
+@OptIn(
+    ExperimentalFoundationApi::class,
+    ExperimentalResourceApi::class,
+    ExperimentalSharedTransitionApi::class
+)
 @Composable
 fun SpeakerDetailOrientable(
     speaker: SpeakerUi,
     onTalkClicked: (id: String) -> Unit,
     onFavoriteClicked: (TalkItemUi) -> Unit,
     onLinkClicked: (url: String) -> Unit,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope,
     modifier: Modifier = Modifier,
     navigationIcon: @Composable (AppBarIcons.() -> Unit)? = null,
     isLandscape: Boolean = false,
@@ -41,6 +50,8 @@ fun SpeakerDetailOrientable(
             ) {
                 SpeakerAvatarScreen(
                     url = speaker.url,
+                    sharedTransitionScope = sharedTransitionScope,
+                    animatedContentScope = animatedContentScope,
                     isLoading = isLoading,
                     modifier = Modifier.weight(1f)
                 )
@@ -49,6 +60,8 @@ fun SpeakerDetailOrientable(
                     onTalkClicked = onTalkClicked,
                     onFavoriteClicked = onFavoriteClicked,
                     onLinkClicked = onLinkClicked,
+                    sharedTransitionScope = sharedTransitionScope,
+                    animatedContentScope = animatedContentScope,
                     modifier = Modifier.weight(1f),
                     state = state,
                     isLoading = isLoading,
@@ -63,7 +76,9 @@ fun SpeakerDetailOrientable(
                 onLinkClicked = onLinkClicked,
                 state = state,
                 contentPadding = it,
-                isLoading = isLoading
+                isLoading = isLoading,
+                sharedTransitionScope = sharedTransitionScope,
+                animatedContentScope = animatedContentScope,
             )
         }
     }

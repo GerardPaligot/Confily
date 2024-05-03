@@ -1,5 +1,11 @@
 package org.gdglille.devfest.android.theme.m3.speakers.ui
 
+import android.annotation.SuppressLint
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -17,10 +23,13 @@ import org.gdglille.devfest.android.theme.m3.style.placeholder.placeholder
 import org.gdglille.devfest.android.theme.m3.style.speakers.avatar.MediumSpeakerAvatar
 import org.gdglille.devfest.models.ui.SpeakerUi
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun SpeakerDetailSectionVertical(
     speaker: SpeakerUi,
     onLinkClicked: (url: String) -> Unit,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope,
     modifier: Modifier = Modifier,
     isLoading: Boolean = false,
     displayAvatar: Boolean = true
@@ -34,6 +43,8 @@ fun SpeakerDetailSectionVertical(
             MediumSpeakerAvatar(
                 url = speaker.url,
                 contentDescription = null,
+                sharedTransitionScope = sharedTransitionScope,
+                animatedContentScope = animatedContentScope,
                 modifier = Modifier.placeholder(visible = isLoading)
             )
             Spacer(modifier = Modifier.height(16.dp))
@@ -58,14 +69,22 @@ fun SpeakerDetailSectionVertical(
     }
 }
 
+@SuppressLint("UnusedContentLambdaTargetStateParameter")
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Suppress("UnusedPrivateMember")
 @Preview
 @Composable
 private fun SpeakerDetailSectionVerticalPreview() {
     Conferences4HallTheme {
-        SpeakerDetailSectionVertical(
-            speaker = SpeakerUi.fake,
-            onLinkClicked = {}
-        )
+        SharedTransitionLayout {
+            AnimatedContent(targetState = "", label = "") {
+                SpeakerDetailSectionVertical(
+                    speaker = SpeakerUi.fake,
+                    onLinkClicked = {},
+                    sharedTransitionScope = this@SharedTransitionLayout,
+                    animatedContentScope = this@AnimatedContent
+                )
+            }
+        }
     }
 }

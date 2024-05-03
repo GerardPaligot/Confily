@@ -1,6 +1,9 @@
 package org.gdglille.devfest.android.theme.m3.schedules.screens
 
 import android.content.res.Configuration
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -25,7 +28,7 @@ import org.gdglille.devfest.models.ui.TalkUi
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalResourceApi::class)
+@OptIn(ExperimentalResourceApi::class, ExperimentalSharedTransitionApi::class)
 @ExperimentalMaterial3Api
 @Composable
 fun ScheduleDetailOrientableScreen(
@@ -34,6 +37,8 @@ fun ScheduleDetailOrientableScreen(
     onBackClicked: () -> Unit,
     onSpeakerClicked: (id: String) -> Unit,
     onShareClicked: (text: String) -> Unit,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope,
     modifier: Modifier = Modifier
 ) {
     val orientation = LocalConfiguration.current
@@ -70,6 +75,8 @@ fun ScheduleDetailOrientableScreen(
                         talk = talk,
                         openFeedbackFirebaseConfig = null,
                         onSpeakerClicked = onSpeakerClicked,
+                        sharedTransitionScope = sharedTransitionScope,
+                        animatedContentScope = animatedContentScope,
                         modifier = Modifier.weight(1f),
                         state = state
                     )
@@ -86,6 +93,8 @@ fun ScheduleDetailOrientableScreen(
                     talk = talk,
                     openFeedbackFirebaseConfig = openFeedbackFirebaseConfig,
                     onSpeakerClicked = onSpeakerClicked,
+                    sharedTransitionScope = sharedTransitionScope,
+                    animatedContentScope = animatedContentScope,
                     contentPadding = it,
                     state = state
                 )

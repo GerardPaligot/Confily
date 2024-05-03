@@ -1,5 +1,11 @@
 package org.gdglille.devfest.android.theme.m3.schedules.ui.talks
 
+import android.annotation.SuppressLint
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Videocam
@@ -24,10 +30,16 @@ import org.gdglille.devfest.models.ui.TalkItemUi
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalLayoutApi::class, ExperimentalResourceApi::class)
+@OptIn(
+    ExperimentalLayoutApi::class,
+    ExperimentalResourceApi::class,
+    ExperimentalSharedTransitionApi::class
+)
 @Composable
 fun SmallScheduleItem(
     talk: TalkItemUi,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope,
     modifier: Modifier = Modifier,
     onFavoriteClicked: (TalkItemUi) -> Unit = {},
     onTalkClicked: (String) -> Unit
@@ -79,14 +91,18 @@ fun SmallScheduleItem(
                 colors = TagDefaults.unStyledColors()
             )
         },
+        sharedTransitionScope = sharedTransitionScope,
+        animatedContentScope = animatedContentScope,
         modifier = modifier
     )
 }
 
-@OptIn(ExperimentalResourceApi::class)
+@OptIn(ExperimentalResourceApi::class, ExperimentalSharedTransitionApi::class)
 @Composable
 fun MediumScheduleItem(
     talk: TalkItemUi,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope,
     modifier: Modifier = Modifier,
     onFavoriteClicked: (TalkItemUi) -> Unit = {},
     onTalkClicked: (String) -> Unit
@@ -140,24 +156,50 @@ fun MediumScheduleItem(
                 colors = TagDefaults.unStyledColors()
             )
         },
+        sharedTransitionScope = sharedTransitionScope,
+        animatedContentScope = animatedContentScope,
         modifier = modifier
     )
 }
 
+@SuppressLint("UnusedContentLambdaTargetStateParameter")
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Suppress("UnusedPrivateMember")
 @Preview
 @Composable
 private fun SmallTalkItemPreview() {
     Conferences4HallTheme {
-        SmallScheduleItem(talk = TalkItemUi.fake) { }
+        SharedTransitionLayout {
+            AnimatedContent(targetState = "", label = "") {
+                SmallScheduleItem(
+                    talk = TalkItemUi.fake,
+                    sharedTransitionScope = this@SharedTransitionLayout,
+                    animatedContentScope = this@AnimatedContent,
+                    onFavoriteClicked = {},
+                    onTalkClicked = {}
+                )
+            }
+        }
     }
 }
 
+@SuppressLint("UnusedContentLambdaTargetStateParameter")
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Suppress("UnusedPrivateMember")
 @Preview
 @Composable
 private fun MediumTalkItemPreview() {
     Conferences4HallTheme {
-        MediumScheduleItem(talk = TalkItemUi.fake) { }
+        SharedTransitionLayout {
+            AnimatedContent(targetState = "", label = "") {
+                MediumScheduleItem(
+                    talk = TalkItemUi.fake,
+                    sharedTransitionScope = this@SharedTransitionLayout,
+                    animatedContentScope = this@AnimatedContent,
+                    onFavoriteClicked = {},
+                    onTalkClicked = {}
+                )
+            }
+        }
     }
 }

@@ -15,6 +15,7 @@ dependencies {
     implementation(compose.preview)
     debugImplementation(compose.uiTooling)
     implementation(compose.materialIconsExtended)
+    implementation(libs.androidx.compose.animation)
 
     implementation(libs.coil.compose)
 

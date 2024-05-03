@@ -1,5 +1,8 @@
 package org.gdglille.devfest.android.theme.m3.speakers.feature
 
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.Text
@@ -13,10 +16,12 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 import org.koin.androidx.compose.koinViewModel
 
-@OptIn(ExperimentalResourceApi::class)
+@OptIn(ExperimentalResourceApi::class, ExperimentalSharedTransitionApi::class)
 @Composable
 fun SpeakersGridVM(
     onSpeakerClicked: (id: String) -> Unit,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope,
     modifier: Modifier = Modifier,
     state: LazyGridState = rememberLazyGridState(),
     viewModel: SpeakersListViewModel = koinViewModel()
@@ -25,6 +30,8 @@ fun SpeakersGridVM(
         is SpeakersUiState.Loading -> SpeakersGridScreen(
             speakers = uiState.speakers,
             onSpeakerClicked = onSpeakerClicked,
+            sharedTransitionScope = sharedTransitionScope,
+            animatedContentScope = animatedContentScope,
             modifier = modifier,
             state = state,
             isLoading = true
@@ -34,6 +41,8 @@ fun SpeakersGridVM(
         is SpeakersUiState.Success -> SpeakersGridScreen(
             speakers = uiState.speakers,
             onSpeakerClicked = onSpeakerClicked,
+            sharedTransitionScope = sharedTransitionScope,
+            animatedContentScope = animatedContentScope,
             modifier = modifier,
             state = state,
             isLoading = false

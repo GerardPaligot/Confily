@@ -1,5 +1,8 @@
 package org.gdglille.devfest.android.theme.m3.speakers.feature
 
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -14,12 +17,14 @@ import org.jetbrains.compose.resources.stringResource
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
 
-@OptIn(ExperimentalResourceApi::class)
+@OptIn(ExperimentalResourceApi::class, ExperimentalSharedTransitionApi::class)
 @Composable
 fun SpeakerDetailVM(
     speakerId: String,
     onTalkClicked: (id: String) -> Unit,
     onLinkClicked: (url: String) -> Unit,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope,
     modifier: Modifier = Modifier,
     navigationIcon: @Composable (AppBarIcons.() -> Unit)? = null,
     isLandscape: Boolean = false,
@@ -35,6 +40,8 @@ fun SpeakerDetailVM(
             onTalkClicked = {},
             onFavoriteClicked = {},
             onLinkClicked = {},
+            sharedTransitionScope = sharedTransitionScope,
+            animatedContentScope = animatedContentScope,
             modifier = modifier,
             navigationIcon = navigationIcon,
             isLandscape = isLandscape
@@ -48,6 +55,8 @@ fun SpeakerDetailVM(
                 viewModel.markAsFavorite(context, it)
             },
             onLinkClicked = onLinkClicked,
+            sharedTransitionScope = sharedTransitionScope,
+            animatedContentScope = animatedContentScope,
             modifier = modifier,
             navigationIcon = navigationIcon,
             isLandscape = isLandscape

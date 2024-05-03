@@ -1,5 +1,8 @@
 package org.gdglille.devfest.android.theme.m3.schedules.feature
 
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
@@ -20,7 +23,11 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 import org.koin.androidx.compose.koinViewModel
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalResourceApi::class)
+@OptIn(
+    ExperimentalFoundationApi::class,
+    ExperimentalResourceApi::class,
+    ExperimentalSharedTransitionApi::class
+)
 @ExperimentalCoroutinesApi
 @FlowPreview
 @Composable
@@ -29,6 +36,8 @@ fun ScheduleGridVM(
     onFilterClicked: () -> Unit,
     onTalkClicked: (id: String) -> Unit,
     showFilterIcon: Boolean,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope,
     modifier: Modifier = Modifier,
     state: LazyGridState = rememberLazyGridState(),
     isSmallSize: Boolean = false,
@@ -46,7 +55,9 @@ fun ScheduleGridVM(
             onFilterClicked = {},
             onFavoriteClicked = {},
             isLoading = true,
-            state = state
+            state = state,
+            sharedTransitionScope = sharedTransitionScope,
+            animatedContentScope = animatedContentScope,
         )
 
         is ScheduleGridUiState.Failure -> Text(text = stringResource(Resource.string.text_error))
@@ -62,7 +73,9 @@ fun ScheduleGridVM(
             modifier = modifier,
             isSmallSize = isSmallSize,
             isLoading = false,
-            state = state
+            state = state,
+            sharedTransitionScope = sharedTransitionScope,
+            animatedContentScope = animatedContentScope,
         )
     }
 }

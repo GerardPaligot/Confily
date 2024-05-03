@@ -1,6 +1,11 @@
 package org.gdglille.devfest.android.theme.m3.schedules.screens
 
 import android.annotation.SuppressLint
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.PaddingValues
@@ -35,11 +40,14 @@ import kotlin.math.floor
 
 const val NbHorizontalPadding = 2
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun ScheduleGridScreen(
     agenda: AgendaUi,
     onTalkClicked: (id: String) -> Unit,
     onFavoriteClicked: (TalkItemUi) -> Unit,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope,
     modifier: Modifier = Modifier,
     state: LazyGridState = rememberLazyGridState(),
     isSmallSize: Boolean = false,
@@ -93,14 +101,18 @@ fun ScheduleGridScreen(
                                     talk = it,
                                     modifier = Modifier.placeholder(visible = isLoading),
                                     onFavoriteClicked = onFavoriteClicked,
-                                    onTalkClicked = onTalkClicked
+                                    onTalkClicked = onTalkClicked,
+                                    sharedTransitionScope = sharedTransitionScope,
+                                    animatedContentScope = animatedContentScope
                                 )
                             } else {
                                 MediumScheduleItem(
                                     talk = it,
                                     modifier = Modifier.placeholder(visible = isLoading),
                                     onFavoriteClicked = onFavoriteClicked,
-                                    onTalkClicked = onTalkClicked
+                                    onTalkClicked = onTalkClicked,
+                                    sharedTransitionScope = sharedTransitionScope,
+                                    animatedContentScope = animatedContentScope
                                 )
                             }
                         }
@@ -111,32 +123,46 @@ fun ScheduleGridScreen(
     }
 }
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@OptIn(ExperimentalSharedTransitionApi::class)
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "UnusedContentLambdaTargetStateParameter")
 @Preview
 @Composable
 private fun ScheduleListScreenPreview() {
     Conferences4HallTheme {
-        Scaffold {
-            ScheduleGridScreen(
-                agenda = AgendaUi.fake,
-                onTalkClicked = {},
-                onFavoriteClicked = { }
-            )
+        SharedTransitionLayout {
+            AnimatedContent(targetState = true, label = "") {
+                Scaffold {
+                    ScheduleGridScreen(
+                        agenda = AgendaUi.fake,
+                        onTalkClicked = {},
+                        onFavoriteClicked = { },
+                        sharedTransitionScope = this@SharedTransitionLayout,
+                        animatedContentScope = this@AnimatedContent
+                    )
+                }
+            }
         }
     }
 }
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@OptIn(ExperimentalSharedTransitionApi::class)
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "UnusedContentLambdaTargetStateParameter")
 @Preview(device = PHONE_LANDSCAPE)
 @Composable
 private fun ScheduleListScreenLandscapePreview() {
     Conferences4HallTheme {
-        Scaffold {
-            ScheduleGridScreen(
-                agenda = AgendaUi.fake,
-                onTalkClicked = {},
-                onFavoriteClicked = { }
-            )
+        SharedTransitionLayout {
+            AnimatedContent(targetState = true, label = "") {
+                Scaffold {
+                    ScheduleGridScreen(
+                        agenda = AgendaUi.fake,
+                        onTalkClicked = {},
+                        onFavoriteClicked = { },
+                        sharedTransitionScope = this@SharedTransitionLayout,
+                        animatedContentScope = this@AnimatedContent
+                    )
+                }
+            }
         }
     }
 }

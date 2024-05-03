@@ -1,5 +1,11 @@
 package org.gdglille.devfest.android.theme.m3.speakers.screens
 
+import android.annotation.SuppressLint
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -20,12 +26,15 @@ import org.gdglille.devfest.android.theme.m3.style.placeholder.placeholder
 import org.gdglille.devfest.models.ui.SpeakerUi
 import org.gdglille.devfest.models.ui.TalkItemUi
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun SpeakerDetailScreen(
     speaker: SpeakerUi,
     onTalkClicked: (id: String) -> Unit,
     onFavoriteClicked: (TalkItemUi) -> Unit,
     onLinkClicked: (url: String) -> Unit,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope,
     modifier: Modifier = Modifier,
     state: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(0.dp),
@@ -42,7 +51,9 @@ fun SpeakerDetailScreen(
                 speaker = speaker,
                 isLoading = isLoading,
                 displayAvatar = displayAvatar,
-                onLinkClicked = onLinkClicked
+                onLinkClicked = onLinkClicked,
+                sharedTransitionScope = sharedTransitionScope,
+                animatedContentScope = animatedContentScope
             )
         }
         item {
@@ -51,6 +62,8 @@ fun SpeakerDetailScreen(
         items(speaker.talks) {
             MediumScheduleItem(
                 talk = it,
+                sharedTransitionScope = sharedTransitionScope,
+                animatedContentScope = animatedContentScope,
                 modifier = Modifier
                     .placeholder(visible = isLoading),
                 onFavoriteClicked = onFavoriteClicked,
@@ -61,19 +74,27 @@ fun SpeakerDetailScreen(
     }
 }
 
+@SuppressLint("UnusedContentLambdaTargetStateParameter")
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Suppress("UnusedPrivateMember")
 @Preview
 @Composable
 private fun SpeakerDetailScreenPreview() {
     Conferences4HallTheme {
-        Scaffold {
-            SpeakerDetailScreen(
-                speaker = SpeakerUi.fake,
-                onTalkClicked = {},
-                onFavoriteClicked = {},
-                onLinkClicked = {},
-                contentPadding = it
-            )
+        SharedTransitionLayout {
+            AnimatedContent(targetState = "", label = "") {
+                Scaffold {
+                    SpeakerDetailScreen(
+                        speaker = SpeakerUi.fake,
+                        onTalkClicked = {},
+                        onFavoriteClicked = {},
+                        onLinkClicked = {},
+                        contentPadding = it,
+                        sharedTransitionScope = this@SharedTransitionLayout,
+                        animatedContentScope = this@AnimatedContent
+                    )
+                }
+            }
         }
     }
 }

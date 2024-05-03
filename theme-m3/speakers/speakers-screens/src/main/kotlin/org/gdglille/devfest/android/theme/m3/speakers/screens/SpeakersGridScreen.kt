@@ -1,5 +1,11 @@
 package org.gdglille.devfest.android.theme.m3.speakers.screens
 
+import android.annotation.SuppressLint
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -30,11 +36,17 @@ import org.gdglille.devfest.models.ui.SpeakerItemUi
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalResourceApi::class)
+@OptIn(
+    ExperimentalFoundationApi::class,
+    ExperimentalResourceApi::class,
+    ExperimentalSharedTransitionApi::class
+)
 @Composable
 fun SpeakersGridScreen(
     speakers: ImmutableList<SpeakerItemUi>,
     onSpeakerClicked: (id: String) -> Unit,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope,
     modifier: Modifier = Modifier,
     state: LazyGridState = rememberLazyGridState(),
     isLoading: Boolean = false
@@ -63,6 +75,8 @@ fun SpeakersGridScreen(
                         name = it.name,
                         description = it.company,
                         url = it.url,
+                        sharedTransitionScope = sharedTransitionScope,
+                        animatedContentScope = animatedContentScope,
                         onClick = { onSpeakerClicked(it.id) },
                         modifier = Modifier.placeholder(isLoading)
                     )
@@ -72,18 +86,26 @@ fun SpeakersGridScreen(
     }
 }
 
+@SuppressLint("UnusedContentLambdaTargetStateParameter")
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Preview
 @Composable
 private fun SpeakersGridPreview() {
     Conferences4HallTheme {
-        SpeakersGridScreen(
-            speakers = persistentListOf(
-                SpeakerItemUi.fake.copy(id = "1"),
-                SpeakerItemUi.fake.copy(id = "2"),
-                SpeakerItemUi.fake.copy(id = "3"),
-                SpeakerItemUi.fake.copy(id = "4")
-            ),
-            onSpeakerClicked = {}
-        )
+        SharedTransitionLayout {
+            AnimatedContent(targetState = "", label = "") {
+                SpeakersGridScreen(
+                    speakers = persistentListOf(
+                        SpeakerItemUi.fake.copy(id = "1"),
+                        SpeakerItemUi.fake.copy(id = "2"),
+                        SpeakerItemUi.fake.copy(id = "3"),
+                        SpeakerItemUi.fake.copy(id = "4")
+                    ),
+                    onSpeakerClicked = {},
+                    sharedTransitionScope = this@SharedTransitionLayout,
+                    animatedContentScope = this@AnimatedContent
+                )
+            }
+        }
     }
 }

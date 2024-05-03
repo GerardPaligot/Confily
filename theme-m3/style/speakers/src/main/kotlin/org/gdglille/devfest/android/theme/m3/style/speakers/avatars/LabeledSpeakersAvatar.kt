@@ -1,5 +1,11 @@
 package org.gdglille.devfest.android.theme.m3.style.speakers.avatars
 
+import android.annotation.SuppressLint
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.Text
@@ -14,10 +20,13 @@ import kotlinx.collections.immutable.persistentListOf
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.toDp
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun SmallLabeledSpeakersAvatar(
     label: String,
     urls: ImmutableList<String>,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope,
     modifier: Modifier = Modifier,
     color: Color = LabeledSpeakersAvatarDefaults.contentColor,
     style: TextStyle = LabeledSpeakersAvatarDefaults.smallTextStyle
@@ -27,18 +36,31 @@ fun SmallLabeledSpeakersAvatar(
         horizontalArrangement = Arrangement.spacedBy(LabeledSpeakersAvatarSmallTokens.SpacingBetween.toDp()),
         modifier = modifier
     ) {
-        SmallBorderedSpeakersAvatar(urls = urls, descriptions = null)
+        SmallBorderedSpeakersAvatar(
+            urls = urls,
+            descriptions = null,
+            sharedTransitionScope = sharedTransitionScope,
+            animatedContentScope = animatedContentScope
+        )
         Text(text = label, style = style, color = color)
     }
 }
 
+@SuppressLint("UnusedContentLambdaTargetStateParameter")
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Preview(showBackground = true)
 @Composable
 private fun HorizontalSpeakersListPreview() {
     Conferences4HallTheme {
-        SmallLabeledSpeakersAvatar(
-            label = "John Doe and Janne Doe",
-            urls = persistentListOf("", "")
-        )
+        SharedTransitionLayout {
+            AnimatedContent(targetState = "", label = "") {
+                SmallLabeledSpeakersAvatar(
+                    label = "John Doe and Janne Doe",
+                    urls = persistentListOf("", ""),
+                    sharedTransitionScope = this@SharedTransitionLayout,
+                    animatedContentScope = this@AnimatedContent
+                )
+            }
+        }
     }
 }

@@ -1,6 +1,8 @@
 package org.gdglille.devfest.android.theme
 
 import android.content.res.Configuration
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.material3.Icon
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
@@ -64,10 +66,11 @@ import org.koin.androidx.compose.koinViewModel
     ExperimentalMaterial3AdaptiveApi::class,
     ExperimentalResourceApi::class,
     ExperimentalComposeUiApi::class,
-    ExperimentalMaterial3WindowSizeClassApi::class
+    ExperimentalMaterial3WindowSizeClassApi::class,
+    ExperimentalSharedTransitionApi::class
 )
 @Composable
-fun MainNavigation(
+fun SharedTransitionScope.MainNavigation(
     startDestination: String,
     openfeedbackFirebaseConfig: OpenFeedbackFirebaseConfig,
     launchUrl: (String) -> Unit,
@@ -174,7 +177,9 @@ fun MainNavigation(
                         onFilterClicked = { navController.navigate(Screen.ScheduleFilters.route) },
                         onTalkClicked = { navController.navigate(Screen.Schedule.route(it)) },
                         showFilterIcon = showFilterIcon,
-                        isSmallSize = isSmallSize
+                        isSmallSize = isSmallSize,
+                        sharedTransitionScope = this@MainNavigation,
+                        animatedContentScope = this@composable
                     )
                 }
                 composable(route = Screen.ScheduleFilters.route) {
@@ -196,12 +201,16 @@ fun MainNavigation(
                         openfeedbackFirebaseConfig = openfeedbackFirebaseConfig,
                         onBackClicked = { navController.popBackStack() },
                         onSpeakerClicked = { navController.navigate(Screen.Speaker.route(it)) },
-                        onShareClicked = onShareClicked
+                        onShareClicked = onShareClicked,
+                        sharedTransitionScope = this@MainNavigation,
+                        animatedContentScope = this@composable
                     )
                 }
                 composable(Screen.SpeakerList.route) {
                     SpeakerAdaptive(
                         showBackInDetail = adaptiveInfo.widthSizeClass.isCompat,
+                        sharedTransitionScope = this@MainNavigation,
+                        animatedContentScope = this@composable,
                         onTalkClicked = { navController.navigate(Screen.Schedule.route(it)) },
                         onLinkClicked = { launchUrl(it) }
                     )
@@ -215,7 +224,9 @@ fun MainNavigation(
                         onTalkClicked = { navController.navigate(Screen.Schedule.route(it)) },
                         onLinkClicked = { launchUrl(it) },
                         navigationIcon = { Back { navController.popBackStack() } },
-                        isLandscape = config.orientation == Configuration.ORIENTATION_LANDSCAPE
+                        isLandscape = config.orientation == Configuration.ORIENTATION_LANDSCAPE,
+                        sharedTransitionScope = this@MainNavigation,
+                        animatedContentScope = this@composable
                     )
                 }
                 composable(

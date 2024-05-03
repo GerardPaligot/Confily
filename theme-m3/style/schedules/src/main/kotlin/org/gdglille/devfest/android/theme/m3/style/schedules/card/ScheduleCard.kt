@@ -1,5 +1,11 @@
 package org.gdglille.devfest.android.theme.m3.style.schedules.card
 
+import android.annotation.SuppressLint
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -39,7 +45,11 @@ import org.gdglille.devfest.android.theme.m3.style.toDp
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalLayoutApi::class, ExperimentalResourceApi::class)
+@OptIn(
+    ExperimentalLayoutApi::class,
+    ExperimentalResourceApi::class,
+    ExperimentalSharedTransitionApi::class
+)
 @Composable
 fun SmallScheduleCard(
     title: String,
@@ -47,6 +57,8 @@ fun SmallScheduleCard(
     speakersLabel: String,
     contentDescription: String?,
     onClick: () -> Unit,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope,
     modifier: Modifier = Modifier,
     isFavorite: Boolean = false,
     colors: ScheduleCardColors = ScheduleCardDefaults.cardColors(),
@@ -77,7 +89,12 @@ fun SmallScheduleCard(
                     Text(text = title, color = colors.titleColor, style = style)
                     if (speakersUrls.isNotEmpty()) {
                         Spacer(modifier = Modifier.height(ScheduleCardSmallTokens.SpeakersTopPadding.toDp()))
-                        SmallLabeledSpeakersAvatar(label = speakersLabel, urls = speakersUrls)
+                        SmallLabeledSpeakersAvatar(
+                            label = speakersLabel,
+                            urls = speakersUrls,
+                            sharedTransitionScope = sharedTransitionScope,
+                            animatedContentScope = animatedContentScope
+                        )
                     }
                 }
                 if (onFavoriteClick != null) {
@@ -113,7 +130,7 @@ fun SmallScheduleCard(
     }
 }
 
-@OptIn(ExperimentalResourceApi::class)
+@OptIn(ExperimentalResourceApi::class, ExperimentalSharedTransitionApi::class)
 @Composable
 fun MediumScheduleCard(
     title: String,
@@ -121,6 +138,8 @@ fun MediumScheduleCard(
     speakersLabel: String,
     contentDescription: String?,
     onClick: () -> Unit,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope,
     modifier: Modifier = Modifier,
     isFavorite: Boolean = false,
     colors: ScheduleCardColors = ScheduleCardDefaults.cardColors(),
@@ -153,7 +172,12 @@ fun MediumScheduleCard(
                 Text(text = title, color = colors.titleColor, style = style)
                 if (speakersUrls.isNotEmpty()) {
                     Spacer(modifier = Modifier.height(ScheduleCardMediumTokens.SpeakersTopPadding.toDp()))
-                    SmallLabeledSpeakersAvatar(label = speakersLabel, urls = speakersUrls)
+                    SmallLabeledSpeakersAvatar(
+                        label = speakersLabel,
+                        urls = speakersUrls,
+                        sharedTransitionScope = sharedTransitionScope,
+                        animatedContentScope = animatedContentScope
+                    )
                 }
                 Spacer(modifier = Modifier.height(ScheduleCardMediumTokens.SpeakersBottomPadding.toDp()))
                 if (bottomBar != null) {
@@ -182,52 +206,75 @@ fun MediumScheduleCard(
     }
 }
 
-@OptIn(ExperimentalLayoutApi::class)
+@SuppressLint("UnusedContentLambdaTargetStateParameter")
+@OptIn(ExperimentalLayoutApi::class, ExperimentalSharedTransitionApi::class)
 @Suppress("UnusedPrivateMember")
 @Preview
 @Composable
 private fun SmallScheduleCardPreview() {
     Conferences4HallTheme {
-        SmallScheduleCard(
-            title = "Designers x Developers : Ça match \uD83D\uDC99 ou ça match \uD83E\uDD4A ?",
-            speakersUrls = persistentListOf("", ""),
-            speakersLabel = "John Doe and Jeanne Doe",
-            contentDescription = null,
-            onClick = {},
-            onFavoriteClick = {}
-        )
+        SharedTransitionLayout {
+            AnimatedContent(targetState = "", label = "") {
+                SmallScheduleCard(
+                    title = "Designers x Developers : Ça match \uD83D\uDC99 ou ça match \uD83E\uDD4A ?",
+                    speakersUrls = persistentListOf("", ""),
+                    speakersLabel = "John Doe and Jeanne Doe",
+                    contentDescription = null,
+                    onClick = {},
+                    onFavoriteClick = {},
+                    sharedTransitionScope = this@SharedTransitionLayout,
+                    animatedContentScope = this@AnimatedContent
+                )
+            }
+        }
     }
 }
 
+@SuppressLint("UnusedContentLambdaTargetStateParameter")
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Suppress("UnusedPrivateMember")
 @Preview
 @Composable
 private fun ScheduleCardPreview() {
     Conferences4HallTheme {
-        MediumScheduleCard(
-            title = "Designers x Developers : Ça match \uD83D\uDC99 ou ça match \uD83E\uDD4A ?",
-            speakersUrls = persistentListOf("", ""),
-            speakersLabel = "John Doe and Jeanne Doe",
-            contentDescription = null,
-            onClick = {},
-            onFavoriteClick = {}
-        )
+        SharedTransitionLayout {
+            AnimatedContent(targetState = "", label = "") {
+                MediumScheduleCard(
+                    title = "Designers x Developers : Ça match \uD83D\uDC99 ou ça match \uD83E\uDD4A ?",
+                    speakersUrls = persistentListOf("", ""),
+                    speakersLabel = "John Doe and Jeanne Doe",
+                    contentDescription = null,
+                    onClick = {},
+                    onFavoriteClick = {},
+                    sharedTransitionScope = this@SharedTransitionLayout,
+                    animatedContentScope = this@AnimatedContent
+                )
+            }
+        }
     }
 }
 
+@SuppressLint("UnusedContentLambdaTargetStateParameter")
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Suppress("UnusedPrivateMember")
 @Preview
 @Composable
 private fun ScheduleCardFavoritePreview() {
     Conferences4HallTheme {
-        MediumScheduleCard(
-            title = "Designers x Developers : Ça match \uD83D\uDC99 ou ça match \uD83E\uDD4A ?",
-            speakersUrls = persistentListOf("", ""),
-            speakersLabel = "John Doe and Jeanne Doe",
-            isFavorite = true,
-            contentDescription = null,
-            onClick = {},
-            onFavoriteClick = {}
-        )
+        SharedTransitionLayout {
+            AnimatedContent(targetState = "", label = "") {
+                MediumScheduleCard(
+                    title = "Designers x Developers : Ça match \uD83D\uDC99 ou ça match \uD83E\uDD4A ?",
+                    speakersUrls = persistentListOf("", ""),
+                    speakersLabel = "John Doe and Jeanne Doe",
+                    isFavorite = true,
+                    contentDescription = null,
+                    onClick = {},
+                    onFavoriteClick = {},
+                    sharedTransitionScope = this@SharedTransitionLayout,
+                    animatedContentScope = this@AnimatedContent
+                )
+            }
+        }
     }
 }

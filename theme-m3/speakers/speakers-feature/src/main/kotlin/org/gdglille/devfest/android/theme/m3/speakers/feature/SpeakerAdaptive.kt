@@ -1,6 +1,9 @@
 package org.gdglille.devfest.android.theme.m3.speakers.feature
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
@@ -17,12 +20,14 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 
-@OptIn(ExperimentalMaterial3AdaptiveApi::class)
+@OptIn(ExperimentalMaterial3AdaptiveApi::class, ExperimentalSharedTransitionApi::class)
 @Composable
 fun SpeakerAdaptive(
     showBackInDetail: Boolean,
     onTalkClicked: (id: String) -> Unit,
     onLinkClicked: (url: String) -> Unit,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope,
     modifier: Modifier = Modifier,
     state: LazyGridState = rememberLazyGridState()
 ) {
@@ -40,7 +45,9 @@ fun SpeakerAdaptive(
                         selectedItem = it
                         navigator.navigateTo(ListDetailPaneScaffoldRole.Detail)
                     },
-                    state = state
+                    state = state,
+                    sharedTransitionScope = sharedTransitionScope,
+                    animatedContentScope = animatedContentScope
                 )
             }
         },
@@ -56,6 +63,8 @@ fun SpeakerAdaptive(
                         speakerId = item,
                         onTalkClicked = onTalkClicked,
                         onLinkClicked = onLinkClicked,
+                        sharedTransitionScope = sharedTransitionScope,
+                        animatedContentScope = animatedContentScope,
                         navigationIcon = if (showBackInDetail) {
                             @Composable {
                                 Back {

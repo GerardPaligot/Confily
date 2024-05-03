@@ -1,5 +1,11 @@
 package org.gdglille.devfest.android.theme.m3.schedules.ui.schedule
 
+import android.annotation.SuppressLint
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -35,10 +41,12 @@ import org.gdglille.devfest.models.ui.TalkUi
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalResourceApi::class)
+@OptIn(ExperimentalResourceApi::class, ExperimentalSharedTransitionApi::class)
 @Composable
 fun TalkSection(
     talk: TalkUi,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope,
     modifier: Modifier = Modifier,
     color: Color = MaterialTheme.colorScheme.onBackground,
     titleTextStyle: TextStyle = MaterialTheme.typography.headlineMedium
@@ -74,7 +82,9 @@ fun TalkSection(
             Spacer(modifier = Modifier.weight(1f))
             MediumBorderedSpeakersAvatar(
                 urls = talk.speakers.map { it.url }.toImmutableList(),
-                descriptions = talk.speakers.map { it.name }.toImmutableList()
+                descriptions = talk.speakers.map { it.name }.toImmutableList(),
+                sharedTransitionScope = sharedTransitionScope,
+                animatedContentScope = animatedContentScope
             )
         }
         Text(text = talk.title, color = color, style = titleTextStyle)
@@ -101,10 +111,20 @@ fun TalkSection(
     }
 }
 
+@SuppressLint("UnusedContentLambdaTargetStateParameter")
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Preview
 @Composable
-fun TalkSectionPreview() {
+private fun TalkSectionPreview() {
     Conferences4HallTheme {
-        TalkSection(talk = TalkUi.fake)
+        SharedTransitionLayout {
+            AnimatedContent(targetState = "", label = "") {
+                TalkSection(
+                    talk = TalkUi.fake,
+                    sharedTransitionScope = this@SharedTransitionLayout,
+                    animatedContentScope = this@AnimatedContent
+                )
+            }
+        }
     }
 }

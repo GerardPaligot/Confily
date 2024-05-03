@@ -31,6 +31,7 @@ dependencies {
     implementation(libs.bundles.androidx.compose.adaptive)
     implementation(libs.androidx.compose.material3.adaptive.navigation.suite)
     implementation(libs.androidx.compose.runtime.livedata)
+    implementation(libs.androidx.compose.animation)
     implementation(compose.material3)
     implementation(compose.components.resources)
     implementation(compose.preview)

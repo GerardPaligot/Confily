@@ -1,5 +1,11 @@
 package org.gdglille.devfest.android.theme.m3.schedules.ui.speakers
 
+import android.annotation.SuppressLint
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.MaterialTheme
@@ -20,11 +26,13 @@ import org.gdglille.devfest.models.ui.SpeakerItemUi
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalResourceApi::class)
+@OptIn(ExperimentalResourceApi::class, ExperimentalSharedTransitionApi::class)
 @Composable
 fun SpeakerSection(
     speakers: ImmutableList<SpeakerItemUi>,
     onSpeakerItemClick: (String) -> Unit,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope,
     modifier: Modifier = Modifier,
     subtitleTextStyle: TextStyle = MaterialTheme.typography.titleLarge
 ) {
@@ -43,20 +51,30 @@ fun SpeakerSection(
             speakersChunked.forEach {
                 SpeakerItemRow(
                     speakers = it,
-                    onSpeakerItemClick = { onSpeakerItemClick(it.id) }
+                    onSpeakerItemClick = { onSpeakerItemClick(it.id) },
+                    sharedTransitionScope = sharedTransitionScope,
+                    animatedContentScope = animatedContentScope
                 )
             }
         }
     }
 }
 
+@SuppressLint("UnusedContentLambdaTargetStateParameter")
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Preview
 @Composable
 private fun SpeakerSectionPreview() {
     Conferences4HallTheme {
-        SpeakerSection(
-            speakers = persistentListOf(SpeakerItemUi.fake, SpeakerItemUi.fake),
-            onSpeakerItemClick = {}
-        )
+        SharedTransitionLayout {
+            AnimatedContent(targetState = "", label = "") {
+                SpeakerSection(
+                    speakers = persistentListOf(SpeakerItemUi.fake, SpeakerItemUi.fake),
+                    onSpeakerItemClick = {},
+                    sharedTransitionScope = this@SharedTransitionLayout,
+                    animatedContentScope = this@AnimatedContent
+                )
+            }
+        }
     }
 }
