@@ -23,7 +23,7 @@ fun WebhookInput.mapToPartnerInput(): PartnerInput {
 fun CmsPartnerInput.getTwitterUrl(): String? {
     return if (twitterAccount != null && twitterAccount != "") {
         if (twitterAccount.contains("twitter.com").not()) {
-            "https://twitter.com/${twitterAccount}"
+            "https://twitter.com/$twitterAccount"
         } else {
             twitterAccount
         }
@@ -35,7 +35,7 @@ fun CmsPartnerInput.getTwitterUrl(): String? {
 fun CmsPartnerInput.getLinkedInUrl(): String? {
     return if (linkedinAccount != null && linkedinAccount != "") {
         if (linkedinAccount.contains("linkedin.com").not()) {
-            "https://linkedin.com/company/${linkedinAccount}"
+            "https://linkedin.com/company/$linkedinAccount"
         } else {
             linkedinAccount
         }
