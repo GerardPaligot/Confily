@@ -19,6 +19,8 @@ class MultiplatformLibraryPlugin: Plugin<Project> {
                 sourceSets.getByName("main").manifest.srcFile("src/androidMain/AndroidManifest.xml")
                 defaultConfig.targetSdk = 34
             }
+            // FIXME Android Studio build is looking for a testClasses task but it doesn't exist.
+            tasks.register("testClasses")
         }
     }
 }
