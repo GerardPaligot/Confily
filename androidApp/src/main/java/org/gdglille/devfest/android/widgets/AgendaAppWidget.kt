@@ -7,7 +7,6 @@ import androidx.datastore.preferences.core.MutablePreferences
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.glance.GlanceId
-import androidx.glance.GlanceTheme
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.SizeMode
 import androidx.glance.appwidget.action.actionStartActivity
@@ -21,6 +20,7 @@ import kotlinx.datetime.toLocalDateTime
 import org.gdglille.devfest.android.R
 import org.gdglille.devfest.android.theme.m3.navigation.Screen
 import org.gdglille.devfest.android.widgets.feature.SessionsWidget
+import org.gdglille.devfest.android.widgets.style.Conferences4HallGlanceTheme
 import org.gdglille.devfest.repositories.AgendaRepository
 import org.gdglille.devfest.repositories.EventRepository
 import org.koin.core.component.KoinComponent
@@ -38,7 +38,7 @@ class AgendaAppWidget : GlanceAppWidget(), KoinComponent {
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         val date = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).toString()
         provideContent {
-            GlanceTheme {
+            Conferences4HallGlanceTheme {
                 val prefs = currentState<Preferences>()
                 SessionsWidget(
                     eventRepository = eventRepository,

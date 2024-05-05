@@ -72,6 +72,7 @@ dependencies {
     implementation(projects.themeM3.main.mainDi)
     implementation(projects.themeM3.navigation)
     implementation(projects.widgets.widgetsFeature)
+    implementation(projects.widgets.widgetsStyle)
     implementation(projects.shared.core)
     implementation(projects.shared.coreDi)
     implementation(projects.shared.resources)
