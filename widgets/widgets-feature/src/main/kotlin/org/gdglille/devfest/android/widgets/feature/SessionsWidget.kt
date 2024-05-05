@@ -6,7 +6,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.glance.GlanceModifier
+import androidx.glance.GlanceTheme
 import androidx.glance.action.Action
+import androidx.glance.background
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.gdglille.devfest.android.widgets.screens.SessionsScreen
@@ -21,13 +24,14 @@ fun SessionsWidget(
     date: String,
     @DrawableRes iconId: Int,
     onUpdate: suspend CoroutineScope.() -> Unit,
-    onItemClick: (String) -> Action
+    onItemClick: (String) -> Action,
+    modifier: GlanceModifier = GlanceModifier
 ) {
     val scope = rememberCoroutineScope()
     val viewModel = remember(date) { SessionsViewModel(agendaRepository, eventRepository, date) }
     when (val uiState = viewModel.uiState.collectAsState().value) {
         is SessionsUiState.Loading -> {
-            Loading()
+            Loading(modifier = modifier.background(GlanceTheme.colors.widgetBackground))
         }
 
         is SessionsUiState.Success -> {
@@ -39,7 +43,8 @@ fun SessionsWidget(
                 onClick = { scope.launch { onUpdate() } },
                 onItemClick = onItemClick,
                 eventInfoUi = uiState.event,
-                talks = uiState.sessions
+                talks = uiState.sessions,
+                modifier = modifier
             )
         }
     }
