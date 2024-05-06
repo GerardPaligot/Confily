@@ -118,9 +118,13 @@ fun SharedTransitionScope.MainNavigation(
     }
     NavigationSuiteScaffold(
         layoutType = layoutType,
-        modifier = modifier.semantics {
-            testTagsAsResourceId = true
-        },
+        modifier = modifier
+            .semantics {
+                testTagsAsResourceId = true
+            }
+            .renderInSharedTransitionScopeOverlay(
+                zIndexInOverlay = 1f,
+            ),
         navigationSuiteItems = {
             when (uiState.value) {
                 is MainNavigationUiState.Success -> {
