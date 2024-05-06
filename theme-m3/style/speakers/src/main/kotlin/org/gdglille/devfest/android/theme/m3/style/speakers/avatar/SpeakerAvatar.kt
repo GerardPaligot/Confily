@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -99,11 +100,11 @@ internal fun SpeakerAvatar(
             contentDescription = contentDescription,
             modifier = modifier
                 .then(if (border != null) Modifier.border(border, shape) else Modifier)
-                .clip(shape)
                 .sharedElement(
                     state = sharedTransitionScope.rememberSharedContentState(key = "avatar-$url"),
                     animatedVisibilityScope = animatedContentScope
-                ),
+                )
+                .clip(shape),
             contentScale = contentScale
         )
     }
