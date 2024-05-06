@@ -84,7 +84,7 @@ dependencies {
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.material3.windowsizeclass)
-    implementation(compose.ui)
+    implementation(libs.androidx.compose.ui)
     implementation(compose.components.resources)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.navigation.compose)

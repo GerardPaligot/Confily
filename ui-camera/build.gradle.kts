@@ -9,7 +9,7 @@ android {
 }
 
 dependencies {
-    implementation(compose.ui)
+    implementation(libs.androidx.compose.ui)
     implementation(compose.foundation)
 
     api(libs.google.mlkit.barcode.scanning)

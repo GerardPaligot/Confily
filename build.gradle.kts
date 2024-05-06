@@ -27,3 +27,9 @@ allprojects {
 tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)
 }
+
+configurations.all {
+    resolutionStrategy {
+        force(libs.androidx.compose.ui)
+    }
+}
