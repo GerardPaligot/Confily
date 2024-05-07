@@ -56,6 +56,7 @@ data class EventDb(
     val apiKey: String = "",
     val name: String = "",
     val defaultLanguage: String = "",
+    val eventSessionTracks: List<String> = emptyList(),
     val address: AddressDb = AddressDb(),
     val startDate: String = "",
     val endDate: String = "",

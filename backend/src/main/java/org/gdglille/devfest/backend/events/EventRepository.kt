@@ -15,9 +15,9 @@ import org.gdglille.devfest.backend.partners.convertToModel
 import org.gdglille.devfest.backend.qanda.QAndADao
 import org.gdglille.devfest.backend.schedulers.ScheduleItemDao
 import org.gdglille.devfest.backend.schedulers.convertToModel
+import org.gdglille.devfest.backend.sessions.SessionDao
+import org.gdglille.devfest.backend.sessions.convertToModel
 import org.gdglille.devfest.backend.speakers.SpeakerDao
-import org.gdglille.devfest.backend.talks.TalkDao
-import org.gdglille.devfest.backend.talks.convertToModel
 import org.gdglille.devfest.backend.third.parties.geocode.GeocodeApi
 import org.gdglille.devfest.backend.third.parties.geocode.convertToDb
 import org.gdglille.devfest.models.Agenda
@@ -38,7 +38,7 @@ class EventRepository(
     private val eventDao: EventDao,
     private val speakerDao: SpeakerDao,
     private val qAndADao: QAndADao,
-    private val talkDao: TalkDao,
+    private val sessionDao: SessionDao,
     private val categoryDao: CategoryDao,
     private val formatDao: FormatDao,
     private val scheduleItemDao: ScheduleItemDao,
@@ -127,7 +127,7 @@ class EventRepository(
                             if (it.talkId == null) {
                                 it.convertToModel(null)
                             } else {
-                                val talk = talkDao.get(eventDb.slugId, it.talkId)
+                                val talk = sessionDao.getTalkSession(eventDb.slugId, it.talkId)
                                     ?: return@async it.convertToModel(null)
                                 it.convertToModel(
                                     talk.convertToModel(

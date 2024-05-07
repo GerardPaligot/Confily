@@ -10,9 +10,9 @@ import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.formats.FormatDao
 import org.gdglille.devfest.backend.internals.CommonApi
 import org.gdglille.devfest.backend.internals.slug
+import org.gdglille.devfest.backend.sessions.SessionDao
 import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.speakers.convertToDb
-import org.gdglille.devfest.backend.talks.TalkDao
 import org.gdglille.devfest.models.inputs.third.parties.conferencehall.ImportTalkInput
 
 @Suppress("LongParameterList")
@@ -21,7 +21,7 @@ class ConferenceHallRepository(
     private val commonApi: CommonApi,
     private val eventDao: EventDao,
     private val speakerDao: SpeakerDao,
-    private val talkDao: TalkDao,
+    private val sessionDao: SessionDao,
     private val categoryDao: CategoryDao,
     private val formatDao: FormatDao
 ) {
@@ -40,7 +40,7 @@ class ConferenceHallRepository(
         eventConfirmed.formats
             .map { async { formatDao.createOrUpdate(eventId, it.convertToDb(input.formats)) } }
             .awaitAll()
-        talkDao.insertAll(eventId, eventConfirmed.talks.map { it.convertToDb() })
+        sessionDao.insertAll(eventId, eventConfirmed.talks.map { it.convertToDb() })
     }
 
     suspend fun importTalk(
@@ -61,7 +61,7 @@ class ConferenceHallRepository(
         eventConfirmed.formats
             .map { async { formatDao.createOrUpdate(eventId, it.convertToDb(input.formats)) } }
             .awaitAll()
-        talkDao.insert(eventId, talk.convertToDb())
+        sessionDao.insert(eventId, talk.convertToDb())
     }
 
     suspend fun importSpeakers(eventId: String, apiKey: String) = coroutineScope {

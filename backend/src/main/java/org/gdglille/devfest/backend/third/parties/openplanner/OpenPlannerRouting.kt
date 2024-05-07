@@ -11,8 +11,8 @@ import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.formats.FormatDao
 import org.gdglille.devfest.backend.internals.CommonApi
 import org.gdglille.devfest.backend.schedulers.ScheduleItemDao
+import org.gdglille.devfest.backend.sessions.SessionDao
 import org.gdglille.devfest.backend.speakers.SpeakerDao
-import org.gdglille.devfest.backend.talks.TalkDao
 
 @Suppress("LongParameterList")
 fun Route.registerOpenPlannerRoutes(
@@ -20,7 +20,7 @@ fun Route.registerOpenPlannerRoutes(
     commonApi: CommonApi,
     eventDao: EventDao,
     speakerDao: SpeakerDao,
-    talkDao: TalkDao,
+    sessionDao: SessionDao,
     categoryDao: CategoryDao,
     formatDao: FormatDao,
     scheduleItemDao: ScheduleItemDao
@@ -30,7 +30,7 @@ fun Route.registerOpenPlannerRoutes(
         commonApi,
         eventDao,
         speakerDao,
-        talkDao,
+        sessionDao,
         categoryDao,
         formatDao,
         scheduleItemDao

@@ -12,6 +12,7 @@ import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.formats.FormatDao
 import org.gdglille.devfest.backend.internals.helpers.drive.GoogleDriveDataSource
 import org.gdglille.devfest.backend.receiveValidated
+import org.gdglille.devfest.backend.sessions.SessionDao
 import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.models.inputs.TalkInput
 import org.gdglille.devfest.models.inputs.TalkVerbatimInput
@@ -20,7 +21,7 @@ import org.gdglille.devfest.models.inputs.TalkVerbatimInput
 fun Route.registerTalksRoutes(
     eventDao: EventDao,
     speakerDao: SpeakerDao,
-    talkDao: TalkDao,
+    sessionDao: SessionDao,
     categoryDao: CategoryDao,
     formatDao: FormatDao,
     driveDataSource: GoogleDriveDataSource
@@ -28,7 +29,7 @@ fun Route.registerTalksRoutes(
     val repository = TalkRepository(
         eventDao,
         speakerDao,
-        talkDao,
+        sessionDao,
         categoryDao,
         formatDao,
         driveDataSource

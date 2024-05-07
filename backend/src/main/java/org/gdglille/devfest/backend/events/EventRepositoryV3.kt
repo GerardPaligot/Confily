@@ -10,11 +10,11 @@ import org.gdglille.devfest.backend.formats.convertToModel
 import org.gdglille.devfest.backend.partners.PartnerDao
 import org.gdglille.devfest.backend.qanda.QAndADao
 import org.gdglille.devfest.backend.schedulers.ScheduleItemDao
-import org.gdglille.devfest.backend.schedulers.convertToModel
+import org.gdglille.devfest.backend.schedulers.convertToModelV3
+import org.gdglille.devfest.backend.sessions.SessionDao
+import org.gdglille.devfest.backend.sessions.convertToModel
 import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.speakers.convertToModel
-import org.gdglille.devfest.backend.talks.TalkDao
-import org.gdglille.devfest.backend.talks.convertToModel
 import org.gdglille.devfest.models.AgendaV3
 import org.gdglille.devfest.models.EventV3
 
@@ -22,7 +22,7 @@ import org.gdglille.devfest.models.EventV3
 class EventRepositoryV3(
     private val eventDao: EventDao,
     private val speakerDao: SpeakerDao,
-    private val talkDao: TalkDao,
+    private val sessionDao: SessionDao,
     private val categoryDao: CategoryDao,
     private val formatDao: FormatDao,
     private val scheduleItemDao: ScheduleItemDao,
@@ -42,10 +42,10 @@ class EventRepositoryV3(
     suspend fun agenda(eventDb: EventDb) = coroutineScope {
         return@coroutineScope AgendaV3(
             sessions = async {
-                scheduleItemDao.getAll(eventDb.slugId).map { it.convertToModel() }
+                scheduleItemDao.getAll(eventDb.slugId).map { it.convertToModelV3() }
             }.await(),
             talks = async {
-                talkDao.getAll(eventDb.slugId).map { it.convertToModel(eventDb) }
+                sessionDao.getAllTalkSessions(eventDb.slugId).map { it.convertToModel(eventDb) }
             }.await(),
             formats = async {
                 formatDao.getAll(eventDb.slugId).map { it.convertToModel() }

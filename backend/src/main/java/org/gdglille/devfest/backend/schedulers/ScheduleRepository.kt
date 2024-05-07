@@ -7,16 +7,15 @@ import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.formats.FormatDao
 import org.gdglille.devfest.backend.internals.date.FormatterPattern
 import org.gdglille.devfest.backend.internals.date.format
+import org.gdglille.devfest.backend.sessions.SessionDao
+import org.gdglille.devfest.backend.sessions.convertToModel
 import org.gdglille.devfest.backend.speakers.SpeakerDao
-import org.gdglille.devfest.backend.speakers.convertToModel
-import org.gdglille.devfest.backend.talks.TalkDao
-import org.gdglille.devfest.backend.talks.convertToModel
 import org.gdglille.devfest.models.inputs.ScheduleInput
 import java.time.LocalDateTime
 
 class ScheduleRepository(
     private val eventDao: EventDao,
-    private val talkDao: TalkDao,
+    private val sessionDao: SessionDao,
     private val categoryDao: CategoryDao,
     private val formatDao: FormatDao,
     private val speakerDao: SpeakerDao,
@@ -31,7 +30,7 @@ class ScheduleRepository(
                 eventDao.updateAgendaUpdatedAt(event)
                 scheduleItem.id
             } else {
-                val talk = talkDao.get(eventId, scheduleInput.talkId!!)
+                val talk = sessionDao.getTalkSession(eventId, scheduleInput.talkId!!)
                     ?: throw NotFoundException("Talk ${scheduleInput.talkId} not found")
                 val format = formatDao.get(eventId, talk.format)
                     ?: throw NotFoundException("Format ${talk.category} not found")
@@ -52,7 +51,7 @@ class ScheduleRepository(
         val scheduleItem = scheduleItemDao.get(eventId, scheduleId)
             ?: throw NotFoundException("Schedule item $scheduleId not found")
         val talk = if (scheduleItem.talkId != null) {
-            val talkDb = talkDao.get(eventId, scheduleItem.talkId)
+            val talkDb = sessionDao.getTalkSession(eventId, scheduleItem.talkId)
                 ?: throw NotFoundException("Talk ${scheduleItem.talkId} not found")
             val speakers = speakerDao.getByIds(eventId, talkDb.speakerIds)
             val category = categoryDao.get(eventId, talkDb.category)

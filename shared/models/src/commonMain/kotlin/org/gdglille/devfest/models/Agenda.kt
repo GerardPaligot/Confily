@@ -15,3 +15,12 @@ data class AgendaV3(
     val categories: List<Category>,
     val speakers: List<Speaker>
 )
+
+@Serializable
+data class AgendaV4(
+    val schedules: List<ScheduleItemV4>,
+    val sessions: List<Session>,
+    val formats: List<Format>,
+    val categories: List<Category>,
+    val speakers: List<Speaker>
+)

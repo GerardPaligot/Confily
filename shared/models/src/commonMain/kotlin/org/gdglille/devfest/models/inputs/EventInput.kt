@@ -85,6 +85,8 @@ data class EventInput(
     val billetWebConfig: BilletWebConfigInput?,
     @SerialName("wld_config")
     val wldConfig: WldConfigInput?,
+    @SerialName("event_session_tracks")
+    val eventSessionTracks: List<String> = emptyList(),
     @SerialName("start_date")
     val startDate: String,
     @SerialName("end_date")

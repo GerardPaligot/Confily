@@ -10,8 +10,8 @@ import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.formats.FormatDao
 import org.gdglille.devfest.backend.internals.CommonApi
 import org.gdglille.devfest.backend.receiveValidated
+import org.gdglille.devfest.backend.sessions.SessionDao
 import org.gdglille.devfest.backend.speakers.SpeakerDao
-import org.gdglille.devfest.backend.talks.TalkDao
 import org.gdglille.devfest.models.inputs.third.parties.conferencehall.ImportTalkInput
 
 @Suppress("LongParameterList")
@@ -20,7 +20,7 @@ fun Route.registerConferenceHallRoutes(
     commonApi: CommonApi,
     eventDao: EventDao,
     speakerDao: SpeakerDao,
-    talkDao: TalkDao,
+    sessionDao: SessionDao,
     categoryDao: CategoryDao,
     formatDao: FormatDao
 ) {
@@ -29,7 +29,7 @@ fun Route.registerConferenceHallRoutes(
         commonApi,
         eventDao,
         speakerDao,
-        talkDao,
+        sessionDao,
         categoryDao,
         formatDao
     )

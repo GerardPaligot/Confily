@@ -16,11 +16,11 @@ import org.gdglille.devfest.backend.qanda.QAndADao
 import org.gdglille.devfest.backend.schedulers.ScheduleDb
 import org.gdglille.devfest.backend.schedulers.ScheduleItemDao
 import org.gdglille.devfest.backend.schedulers.convertToModel
+import org.gdglille.devfest.backend.sessions.SessionDao
+import org.gdglille.devfest.backend.sessions.TalkDb
+import org.gdglille.devfest.backend.sessions.convertToModel
 import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.speakers.SpeakerDb
-import org.gdglille.devfest.backend.talks.TalkDao
-import org.gdglille.devfest.backend.talks.TalkDb
-import org.gdglille.devfest.backend.talks.convertToModel
 import org.gdglille.devfest.models.EventV2
 import org.gdglille.devfest.models.OpenFeedback
 import org.gdglille.devfest.models.SessionOF
@@ -32,7 +32,7 @@ import java.time.LocalDateTime
 class EventRepositoryV2(
     private val eventDao: EventDao,
     private val speakerDao: SpeakerDao,
-    private val talkDao: TalkDao,
+    private val sessionDao: SessionDao,
     private val categoryDao: CategoryDao,
     private val formatDao: FormatDao,
     private val scheduleItemDao: ScheduleItemDao,
@@ -50,7 +50,7 @@ class EventRepositoryV2(
     }
 
     suspend fun agenda(eventDb: EventDb) = coroutineScope {
-        val talks = talkDao.getAll(eventDb.slugId)
+        val talks = sessionDao.getAllTalkSessions(eventDb.slugId)
         val speakers = speakerDao.getAll(eventDb.slugId)
         val categories = categoryDao.getAll(eventDb.slugId)
         val formats = formatDao.getAll(eventDb.slugId)

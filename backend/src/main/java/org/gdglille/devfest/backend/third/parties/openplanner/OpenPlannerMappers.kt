@@ -3,8 +3,10 @@ package org.gdglille.devfest.backend.third.parties.openplanner
 import org.gdglille.devfest.backend.categories.CategoryDb
 import org.gdglille.devfest.backend.formats.FormatDb
 import org.gdglille.devfest.backend.schedulers.ScheduleDb
+import org.gdglille.devfest.backend.sessions.EventSessionDb
+import org.gdglille.devfest.backend.sessions.TalkDb
 import org.gdglille.devfest.backend.speakers.SpeakerDb
-import org.gdglille.devfest.backend.talks.TalkDb
+import org.gdglille.devfest.models.inputs.ValidatorException
 
 fun CategoryOP.convertToDb() = CategoryDb(
     id = id,
@@ -107,26 +109,54 @@ fun SessionOP.convertToTalkDb() = TalkDb(
     id = id,
     title = title,
     level = level,
-    abstract = abstract,
-    category = categoryId,
-    format = formatId,
-    language = language,
+    abstract = abstract ?: throw ValidatorException("Abstract shouldn't be null"),
+    category = categoryId ?: throw ValidatorException("Category id shouldn't be null"),
+    format = formatId ?: throw ValidatorException("Format id shouldn't be null"),
+    language = language ?: throw ValidatorException("Language shouldn't be null"),
     speakerIds = speakerIds,
     linkSlides = null,
     linkReplay = null
+)
+
+fun SessionOP.convertToEventSessionDb() = EventSessionDb(
+    id = id,
+    title = title,
+    description = abstract
 )
 
 fun TalkDb.mergeWith(sessionOP: SessionOP) = TalkDb(
     id = sessionOP.id,
     title = if (title == sessionOP.title) title else sessionOP.title,
     level = if (level == sessionOP.level) level else sessionOP.level,
-    abstract = if (abstract == sessionOP.abstract) abstract else sessionOP.abstract,
-    category = if (category == sessionOP.categoryId) category else sessionOP.categoryId,
-    format = if (format == sessionOP.formatId) format else sessionOP.formatId,
-    language = if (language == sessionOP.language) language else sessionOP.language,
+    abstract = if (abstract == sessionOP.abstract) {
+        abstract
+    } else {
+        sessionOP.abstract ?: throw ValidatorException("Abstract shouldn't be null")
+    },
+    category = if (category == sessionOP.categoryId) {
+        category
+    } else {
+        sessionOP.categoryId ?: throw ValidatorException("Category id shouldn't be null")
+    },
+    format = if (format == sessionOP.formatId) {
+        format
+    } else {
+        sessionOP.formatId ?: throw ValidatorException("Format id shouldn't be null")
+    },
+    language = if (language == sessionOP.language) {
+        language
+    } else {
+        sessionOP.language ?: throw ValidatorException("Language shouldn't be null")
+    },
     speakerIds = if (speakerIds == sessionOP.speakerIds) speakerIds else sessionOP.speakerIds,
     linkSlides = linkSlides,
     linkReplay = linkReplay
+)
+
+fun EventSessionDb.mergeWith(sessionOP: SessionOP) = EventSessionDb(
+    id = sessionOP.id,
+    title = if (title == sessionOP.title) title else sessionOP.title,
+    description = if (description == sessionOP.abstract) description else sessionOP.abstract
 )
 
 fun SessionOP.convertToScheduleDb(order: Int, tracks: List<TrackOP>) = ScheduleDb(

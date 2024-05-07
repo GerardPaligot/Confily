@@ -8,6 +8,9 @@ import org.gdglille.devfest.backend.categories.CategoryDao
 import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.formats.FormatDao
 import org.gdglille.devfest.backend.internals.helpers.drive.GoogleDriveDataSource
+import org.gdglille.devfest.backend.sessions.SessionDao
+import org.gdglille.devfest.backend.sessions.convertToDb
+import org.gdglille.devfest.backend.sessions.convertToModel
 import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.speakers.SpeakerDb
 import org.gdglille.devfest.models.inputs.TalkInput
@@ -16,14 +19,14 @@ import org.gdglille.devfest.models.inputs.TalkVerbatimInput
 class TalkRepository(
     private val eventDao: EventDao,
     private val speakerDao: SpeakerDao,
-    private val talkDao: TalkDao,
+    private val sessionDao: SessionDao,
     private val categoryDao: CategoryDao,
     private val formatDao: FormatDao,
     private val driveDataSource: GoogleDriveDataSource
 ) {
     suspend fun list(eventId: String) = coroutineScope {
         val eventDb = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
-        val talks = talkDao.getAll(eventId)
+        val talks = sessionDao.getAllTalkSessions(eventId)
         val speakers = speakerDao.getAll(eventId)
         val categories = categoryDao.getAll(eventId)
         val formats = formatDao.getAll(eventId)
@@ -43,14 +46,15 @@ class TalkRepository(
     suspend fun create(eventId: String, apiKey: String, talkInput: TalkInput) = coroutineScope {
         val event = eventDao.getVerified(eventId, apiKey)
         val talkDb = talkInput.convertToDb()
-        val id = talkDao.createOrUpdate(eventId, talkDb)
+        val id = sessionDao.createOrUpdate(eventId, talkDb)
         eventDao.updateAgendaUpdatedAt(event)
         return@coroutineScope id
     }
 
     suspend fun get(eventId: String, talkId: String) = coroutineScope {
         val eventDb = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
-        val talk = talkDao.get(eventId, talkId) ?: throw NotFoundException("Talk $talkId Not Found")
+        val talk = sessionDao.getTalkSession(eventId, talkId)
+            ?: throw NotFoundException("Talk $talkId Not Found")
         val categoryDb = categoryDao.get(eventId, talk.category)
         val formatDb = formatDao.get(eventId, talk.format)
         return@coroutineScope talk.convertToModel(
@@ -64,7 +68,7 @@ class TalkRepository(
     suspend fun update(eventId: String, apiKey: String, talkId: String, talkInput: TalkInput) =
         coroutineScope {
             val event = eventDao.getVerified(eventId, apiKey)
-            talkDao.createOrUpdate(eventId, talkInput.convertToDb(id = talkId))
+            sessionDao.createOrUpdate(eventId, talkInput.convertToDb(id = talkId))
             eventDao.updateAgendaUpdatedAt(event)
             return@coroutineScope talkId
         }
@@ -78,7 +82,7 @@ class TalkRepository(
             ?: throw NotFoundException("Folder ${verbatim.targetFolder} doesn't exist")
         val templateId = driveDataSource.findFileByName(verbatim.templateName, null, driveId)
             ?: throw NotFoundException("File ${verbatim.templateName} doesn't exist")
-        val talks = talkDao.getAll(eventId)
+        val talks = sessionDao.getAllTalkSessions(eventId)
         val speakers = speakerDao.getAll(eventId)
         val asyncVerbatims = talks.map { talkDb ->
             async {
@@ -108,7 +112,7 @@ class TalkRepository(
             ?: throw NotFoundException("Folder ${verbatim.targetFolder} doesn't exist")
         val templateId = driveDataSource.findFileByName(verbatim.templateName, null, driveId)
             ?: throw NotFoundException("File ${verbatim.templateName} doesn't exist")
-        val talkDb = talkDao.get(eventId, talkId)
+        val talkDb = sessionDao.getTalkSession(eventId, talkId)
             ?: throw NotFoundException("Talk $talkId doesn't exist")
         val speakers = speakerDao.getByIds(eventId, talkDb.speakerIds)
         return@coroutineScope verbatimByTalk(targetFolderId, talkId, talkDb.title, speakers, driveId, templateId)

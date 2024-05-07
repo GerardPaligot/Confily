@@ -2,7 +2,7 @@ package org.gdglille.devfest.backend.third.parties.conferencehall
 
 import org.gdglille.devfest.backend.categories.CategoryDb
 import org.gdglille.devfest.backend.formats.FormatDb
-import org.gdglille.devfest.backend.talks.TalkDb
+import org.gdglille.devfest.backend.sessions.TalkDb
 import org.gdglille.devfest.models.inputs.third.parties.conferencehall.CategoryInput
 import org.gdglille.devfest.models.inputs.third.parties.conferencehall.FormatInput
 

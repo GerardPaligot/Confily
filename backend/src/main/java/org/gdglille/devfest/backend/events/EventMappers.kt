@@ -157,6 +157,7 @@ fun EventInput.convertToDb(event: EventDb, addressDb: AddressDb) = EventDb(
     openPlannerConfig = this.openPlannerConfigInput?.convertToDb(),
     billetWebConfig = this.billetWebConfig?.convertToDb(),
     wldConfig = this.wldConfig?.convertToDb(),
+    eventSessionTracks = eventSessionTracks,
     menus = event.menus,
     coc = event.coc,
     startDate = this.startDate,

@@ -11,14 +11,14 @@ import org.gdglille.devfest.backend.categories.CategoryDao
 import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.formats.FormatDao
 import org.gdglille.devfest.backend.receiveValidated
+import org.gdglille.devfest.backend.sessions.SessionDao
 import org.gdglille.devfest.backend.speakers.SpeakerDao
-import org.gdglille.devfest.backend.talks.TalkDao
 import org.gdglille.devfest.models.inputs.ScheduleInput
 
 @Suppress("LongParameterList")
 fun Route.registerSchedulersRoutes(
     eventDao: EventDao,
-    talkDao: TalkDao,
+    sessionDao: SessionDao,
     categoryDao: CategoryDao,
     formatDao: FormatDao,
     speakerDao: SpeakerDao,
@@ -26,7 +26,7 @@ fun Route.registerSchedulersRoutes(
 ) {
     val repository = ScheduleRepository(
         eventDao,
-        talkDao,
+        sessionDao,
         categoryDao,
         formatDao,
         speakerDao,

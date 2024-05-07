@@ -24,8 +24,8 @@ import org.gdglille.devfest.backend.partners.PartnerDao
 import org.gdglille.devfest.backend.qanda.QAndADao
 import org.gdglille.devfest.backend.receiveValidated
 import org.gdglille.devfest.backend.schedulers.ScheduleItemDao
+import org.gdglille.devfest.backend.sessions.SessionDao
 import org.gdglille.devfest.backend.speakers.SpeakerDao
-import org.gdglille.devfest.backend.talks.TalkDao
 import org.gdglille.devfest.backend.third.parties.geocode.GeocodeApi
 import org.gdglille.devfest.backend.version
 import org.gdglille.devfest.models.inputs.CoCInput
@@ -44,7 +44,7 @@ fun Route.registerEventRoutes(
     eventDao: EventDao,
     speakerDao: SpeakerDao,
     qAndADao: QAndADao,
-    talkDao: TalkDao,
+    sessionDao: SessionDao,
     categoryDao: CategoryDao,
     formatDao: FormatDao,
     scheduleItemDao: ScheduleItemDao,
@@ -55,7 +55,7 @@ fun Route.registerEventRoutes(
         eventDao,
         speakerDao,
         qAndADao,
-        talkDao,
+        sessionDao,
         categoryDao,
         formatDao,
         scheduleItemDao,
@@ -64,7 +64,7 @@ fun Route.registerEventRoutes(
     val repositoryV2 = EventRepositoryV2(
         eventDao,
         speakerDao,
-        talkDao,
+        sessionDao,
         categoryDao,
         formatDao,
         scheduleItemDao,
@@ -74,12 +74,19 @@ fun Route.registerEventRoutes(
     val repositoryV3 = EventRepositoryV3(
         eventDao,
         speakerDao,
-        talkDao,
+        sessionDao,
         categoryDao,
         formatDao,
         scheduleItemDao,
         partnerDao,
         qAndADao
+    )
+    val repositoryV4 = EventRepositoryV4(
+        speakerDao,
+        sessionDao,
+        categoryDao,
+        formatDao,
+        scheduleItemDao
     )
 
     get("/events") {
@@ -143,6 +150,7 @@ fun Route.registerEventRoutes(
                 1 -> call.respond(HttpStatusCode.OK, repository.agenda(event))
                 2 -> call.respond(HttpStatusCode.OK, repositoryV2.agenda(event))
                 3 -> call.respond(HttpStatusCode.OK, repositoryV3.agenda(event))
+                4 -> call.respond(HttpStatusCode.OK, repositoryV4.agenda(event))
                 else -> call.respond(HttpStatusCode.NotImplemented)
             }
         }

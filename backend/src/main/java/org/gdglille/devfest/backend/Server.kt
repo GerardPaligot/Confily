@@ -28,6 +28,9 @@ import io.ktor.server.response.respond
 import io.ktor.server.routing.route
 import io.ktor.server.routing.routing
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.modules.SerializersModule
+import kotlinx.serialization.modules.polymorphic
+import kotlinx.serialization.modules.subclass
 import org.gdglille.devfest.backend.categories.CategoryDao
 import org.gdglille.devfest.backend.categories.registerCategoriesRoutes
 import org.gdglille.devfest.backend.events.EventDao
@@ -48,9 +51,9 @@ import org.gdglille.devfest.backend.qanda.QAndADao
 import org.gdglille.devfest.backend.qanda.registerQAndAsRoutes
 import org.gdglille.devfest.backend.schedulers.ScheduleItemDao
 import org.gdglille.devfest.backend.schedulers.registerSchedulersRoutes
+import org.gdglille.devfest.backend.sessions.SessionDao
 import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.speakers.registerSpeakersRoutes
-import org.gdglille.devfest.backend.talks.TalkDao
 import org.gdglille.devfest.backend.talks.registerTalksRoutes
 import org.gdglille.devfest.backend.third.parties.billetweb.registerBilletWebRoutes
 import org.gdglille.devfest.backend.third.parties.cms4partners.registerCms4PartnersRoutes
@@ -61,6 +64,7 @@ import org.gdglille.devfest.backend.third.parties.openplanner.OpenPlannerApi
 import org.gdglille.devfest.backend.third.parties.openplanner.registerOpenPlannerRoutes
 import org.gdglille.devfest.backend.third.parties.welovedevs.WeLoveDevsApi
 import org.gdglille.devfest.backend.third.parties.welovedevs.registerWLDRoutes
+import org.gdglille.devfest.models.Session
 import org.gdglille.devfest.models.inputs.Validator
 import org.gdglille.devfest.models.inputs.ValidatorException
 
@@ -110,7 +114,7 @@ fun main() {
         isAppEngine = isCloud
     )
     val speakerDao = SpeakerDao(database, storage)
-    val talkDao = TalkDao(database)
+    val sessionDao = SessionDao(database)
     val categoryDao = CategoryDao(database)
     val formatDao = FormatDao(database)
     val scheduleItemDao = ScheduleItemDao(database)
@@ -142,7 +146,15 @@ fun main() {
         }
         install(ContentNegotiation) {
             json(
-                Json { ignoreUnknownKeys = true }
+                Json {
+                    ignoreUnknownKeys = true
+                    serializersModule = SerializersModule {
+                        polymorphic(Session::class) {
+                            this.subclass(Session.Talk::class)
+                            this.subclass(Session.Event::class)
+                        }
+                    }
+                }
             )
         }
         install(ConditionalHeaders)
@@ -166,7 +178,7 @@ fun main() {
                 eventDao,
                 speakerDao,
                 qAndADao,
-                talkDao,
+                sessionDao,
                 categoryDao,
                 formatDao,
                 scheduleItemDao,
@@ -178,7 +190,7 @@ fun main() {
                 registerTalksRoutes(
                     eventDao,
                     speakerDao,
-                    talkDao,
+                    sessionDao,
                     categoryDao,
                     formatDao,
                     driveDataSource
@@ -187,7 +199,7 @@ fun main() {
                 registerFormatsRoutes(eventDao, formatDao)
                 registerSchedulersRoutes(
                     eventDao,
-                    talkDao,
+                    sessionDao,
                     categoryDao,
                     formatDao,
                     speakerDao,
@@ -208,7 +220,7 @@ fun main() {
                     commonApi,
                     eventDao,
                     speakerDao,
-                    talkDao,
+                    sessionDao,
                     categoryDao,
                     formatDao
                 )
@@ -217,7 +229,7 @@ fun main() {
                     commonApi,
                     eventDao,
                     speakerDao,
-                    talkDao,
+                    sessionDao,
                     categoryDao,
                     formatDao,
                     scheduleItemDao

@@ -28,3 +28,17 @@ data class ScheduleItemV3(
     @SerialName("talk_id")
     val talkId: String?
 )
+
+@Serializable
+data class ScheduleItemV4(
+    val id: String,
+    val order: Int,
+    val date: String,
+    @SerialName("start_time")
+    val startTime: String,
+    @SerialName("end_time")
+    val endTime: String,
+    val room: String,
+    @SerialName("session_id")
+    val sessionId: String?
+)

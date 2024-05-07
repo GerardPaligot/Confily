@@ -68,14 +68,14 @@ data class SocialOP(
 data class SessionOP(
     val id: String,
     val title: String,
-    val abstract: String,
+    val abstract: String?,
     val dateStart: String? = null,
     val dateEnd: String? = null,
     val durationMinutes: Int,
     val speakerIds: List<String>,
     val trackId: String?,
-    val language: String,
-    val level: String,
-    val formatId: String,
-    val categoryId: String
+    val language: String?,
+    val level: String?,
+    val formatId: String?,
+    val categoryId: String?
 )
