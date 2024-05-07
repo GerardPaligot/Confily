@@ -1,23 +1,34 @@
 package org.gdglille.devfest.backend.events
 
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import org.gdglille.devfest.backend.NotAcceptableException
 import org.gdglille.devfest.backend.NotFoundException
 import org.gdglille.devfest.backend.categories.CategoryDao
+import org.gdglille.devfest.backend.categories.CategoryDb
 import org.gdglille.devfest.backend.formats.FormatDao
+import org.gdglille.devfest.backend.formats.FormatDb
 import org.gdglille.devfest.backend.internals.date.FormatterPattern
 import org.gdglille.devfest.backend.internals.date.format
 import org.gdglille.devfest.backend.partners.PartnerDao
 import org.gdglille.devfest.backend.partners.Sponsorship
 import org.gdglille.devfest.backend.partners.convertToModel
 import org.gdglille.devfest.backend.qanda.QAndADao
+import org.gdglille.devfest.backend.schedulers.ScheduleDb
 import org.gdglille.devfest.backend.schedulers.ScheduleItemDao
 import org.gdglille.devfest.backend.schedulers.convertToModel
+import org.gdglille.devfest.backend.schedulers.convertToPlanningEventModel
+import org.gdglille.devfest.backend.schedulers.convertToPlanningTalkModel
+import org.gdglille.devfest.backend.sessions.EventSessionDb
 import org.gdglille.devfest.backend.sessions.SessionDao
+import org.gdglille.devfest.backend.sessions.SessionDb
+import org.gdglille.devfest.backend.sessions.TalkDb
 import org.gdglille.devfest.backend.sessions.convertToModel
+import org.gdglille.devfest.backend.sessions.convertToModelInfo
 import org.gdglille.devfest.backend.speakers.SpeakerDao
+import org.gdglille.devfest.backend.speakers.SpeakerDb
 import org.gdglille.devfest.backend.third.parties.geocode.GeocodeApi
 import org.gdglille.devfest.backend.third.parties.geocode.convertToDb
 import org.gdglille.devfest.models.Agenda
@@ -25,6 +36,7 @@ import org.gdglille.devfest.models.CreatedEvent
 import org.gdglille.devfest.models.Event
 import org.gdglille.devfest.models.EventList
 import org.gdglille.devfest.models.EventPartners
+import org.gdglille.devfest.models.PlanningItem
 import org.gdglille.devfest.models.inputs.CoCInput
 import org.gdglille.devfest.models.inputs.CreatingEventInput
 import org.gdglille.devfest.models.inputs.EventInput
@@ -145,5 +157,70 @@ class EventRepository(
                 }
             }.awaitAll().associate { it }.toSortedMap()
         return@coroutineScope Agenda(talks = schedules)
+    }
+
+    suspend fun planning(eventDb: EventDb): Map<String, Map<String, List<PlanningItem>>> = coroutineScope {
+        val sessions = sessionDao.getAll(eventDb.slugId)
+        val speakers = speakerDao.getAll(eventDb.slugId)
+        val categories = categoryDao.getAll(eventDb.slugId)
+        val formats = formatDao.getAll(eventDb.slugId)
+        return@coroutineScope scheduleItemDao.getAll(eventDb.slugId)
+            .groupBy { LocalDateTime.parse(it.startTime).format(FormatterPattern.YearMonthDay) }
+            .entries.map { schedulesByDay ->
+                schedulesByDay(schedulesByDay, sessions, speakers, categories, formats, eventDb)
+            }
+            .awaitAll()
+            .sortedBy { it.first }
+            .associate { it }
+            .toMap()
+    }
+
+    @Suppress("LongParameterList")
+    private fun CoroutineScope.schedulesByDay(
+        schedulesByDay: Map.Entry<String, List<ScheduleDb>>,
+        sessions: List<SessionDb>,
+        speakers: List<SpeakerDb>,
+        categories: List<CategoryDb>,
+        formats: List<FormatDb>,
+        eventDb: EventDb
+    ) = async {
+        return@async schedulesByDay.key to schedulesByDay.value
+            .groupBy { LocalDateTime.parse(it.startTime).format(FormatterPattern.HoursMinutes) }
+            .entries.map { schedulesBySlot ->
+                schedulesBySlot.key to schedulesBySlot.value
+                    .map { schedule ->
+                        schedulesBySlot(schedule, sessions, speakers, categories, formats, eventDb)
+                    }
+                    .awaitAll()
+                    .sortedBy { it.order }
+            }
+            .sortedBy { it.first }
+            .associate { it }
+            .toMap()
+    }
+
+    @Suppress("LongParameterList")
+    private fun CoroutineScope.schedulesBySlot(
+        schedule: ScheduleDb,
+        sessions: List<SessionDb>,
+        speakers: List<SpeakerDb>,
+        categories: List<CategoryDb>,
+        formats: List<FormatDb>,
+        eventDb: EventDb
+    ) = async {
+        val session = sessions.find { it.id == schedule.talkId }
+            ?: throw NotFoundException("Session ${schedule.id} not found")
+        when (session) {
+            is EventSessionDb -> schedule.convertToPlanningEventModel(session.convertToModelInfo())
+
+            is TalkDb -> {
+                val speakersTalk = speakers.filter { session.speakerIds.contains(it.id) }
+                val category = categories.find { it.id == session.category }
+                val format = formats.find { it.id == session.format }
+                schedule.convertToPlanningTalkModel(
+                    session.convertToModel(speakersTalk, category, format, eventDb)
+                )
+            }
+        }
     }
 }

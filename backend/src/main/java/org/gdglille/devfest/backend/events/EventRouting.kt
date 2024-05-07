@@ -130,6 +130,25 @@ fun Route.registerEventRoutes(
         val input = call.receiveValidated<FeaturesActivatedInput>()
         call.respond(HttpStatusCode.OK, repository.updateFeatures(eventId, apiKey, input))
     }
+    get("/events/{eventId}/planning") {
+        val eventId = call.parameters["eventId"]!!
+        val event = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
+        val zoneId = ZoneId.of("Europe/Paris")
+        val lastModified = ZonedDateTime.of(
+            LocalDateTime.ofInstant(Instant.ofEpochMilli(event.agendaUpdatedAt), zoneId),
+            zoneId
+        )
+        val etag = lastModified.hashCode().toString()
+        val version = EntityTagVersion(etag)
+        val result = version.check(call.request.headers)
+        if (result == VersionCheckResult.NOT_MODIFIED) {
+            call.respond(HttpStatusCode.NotModified)
+        } else {
+            call.response.lastModified(lastModified)
+            call.response.etag(etag)
+            call.respond(HttpStatusCode.OK, repository.planning(event))
+        }
+    }
     get("/events/{eventId}/agenda") {
         val eventId = call.parameters["eventId"]!!
         val event = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")

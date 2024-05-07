@@ -7,6 +7,7 @@ import org.gdglille.devfest.backend.events.openFeedbackUrl
 import org.gdglille.devfest.backend.formats.FormatDb
 import org.gdglille.devfest.backend.speakers.SpeakerDb
 import org.gdglille.devfest.backend.speakers.convertToModel
+import org.gdglille.devfest.models.Info
 import org.gdglille.devfest.models.Session
 import org.gdglille.devfest.models.Talk
 import org.gdglille.devfest.models.TalkV3
@@ -34,6 +35,12 @@ fun TalkDb.convertToModelTalkSession(eventDb: EventDb): Session = Session.Talk(
 )
 
 fun EventSessionDb.convertToModelEventSession(): Session = Session.Event(
+    id = id,
+    title = title,
+    description = description
+)
+
+fun EventSessionDb.convertToModelInfo(): Info = Info(
     id = id,
     title = title,
     description = description

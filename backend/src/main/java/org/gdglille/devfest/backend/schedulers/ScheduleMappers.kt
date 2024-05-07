@@ -1,13 +1,34 @@
 package org.gdglille.devfest.backend.schedulers
 
+import org.gdglille.devfest.backend.NotAcceptableException
 import org.gdglille.devfest.backend.internals.date.FormatterPattern
 import org.gdglille.devfest.backend.internals.date.format
+import org.gdglille.devfest.models.Info
+import org.gdglille.devfest.models.PlanningItem
 import org.gdglille.devfest.models.ScheduleItem
 import org.gdglille.devfest.models.ScheduleItemV3
 import org.gdglille.devfest.models.ScheduleItemV4
 import org.gdglille.devfest.models.Talk
 import org.gdglille.devfest.models.inputs.ScheduleInput
 import java.time.LocalDateTime
+
+fun ScheduleDb.convertToPlanningTalkModel(talk: Talk) = PlanningItem.TalkItem(
+    id = this.id,
+    order = order ?: 0,
+    startTime = this.startTime,
+    endTime = this.endTime,
+    room = this.room,
+    talk = talk
+)
+
+fun ScheduleDb.convertToPlanningEventModel(info: Info) = PlanningItem.EventItem(
+    id = this.id,
+    order = order ?: 0,
+    startTime = this.startTime,
+    endTime = this.endTime,
+    room = this.room,
+    info = info
+)
 
 fun ScheduleDb.convertToModel(talk: Talk?) = ScheduleItem(
     id = this.id,
@@ -36,7 +57,7 @@ fun ScheduleDb.convertToModelV4() = ScheduleItemV4(
     startTime = this.startTime,
     endTime = this.endTime,
     room = this.room,
-    sessionId = talkId
+    sessionId = talkId ?: throw NotAcceptableException("Talk id can't be null with version 4")
 )
 
 fun ScheduleInput.convertToDb(endTime: String, talkId: String? = null) = ScheduleDb(

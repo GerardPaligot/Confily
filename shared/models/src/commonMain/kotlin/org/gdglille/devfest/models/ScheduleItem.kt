@@ -40,5 +40,5 @@ data class ScheduleItemV4(
     val endTime: String,
     val room: String,
     @SerialName("session_id")
-    val sessionId: String?
+    val sessionId: String
 )
