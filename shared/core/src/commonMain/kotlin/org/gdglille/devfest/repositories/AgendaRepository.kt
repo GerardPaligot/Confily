@@ -21,6 +21,7 @@ import org.gdglille.devfest.exceptions.AgendaNotModifiedException
 import org.gdglille.devfest.models.ui.AgendaUi
 import org.gdglille.devfest.models.ui.CategoryUi
 import org.gdglille.devfest.models.ui.CoCUi
+import org.gdglille.devfest.models.ui.EventSessionItemUi
 import org.gdglille.devfest.models.ui.EventUi
 import org.gdglille.devfest.models.ui.FiltersUi
 import org.gdglille.devfest.models.ui.FormatUi
@@ -48,6 +49,7 @@ interface AgendaRepository {
     fun fetchNextTalks(date: String): Flow<ImmutableList<TalkItemUi>>
     fun filters(): Flow<FiltersUi>
     fun scheduleItem(scheduleId: String): Flow<TalkUi>
+    fun scheduleEventSessionItem(scheduleId: String): Flow<EventSessionItemUi>
     fun hasFilterApplied(): Flow<Boolean>
     fun applyFavoriteFilter(selected: Boolean)
     fun applyCategoryFilter(categoryUi: CategoryUi, selected: Boolean)
@@ -179,4 +181,8 @@ class AgendaRepositoryImpl(
 
     override fun scheduleItem(scheduleId: String): Flow<TalkUi> = eventDao.fetchEventId()
         .flatMapConcat { talkDao.fetchTalk(eventId = it, talkId = scheduleId) }
+
+    override fun scheduleEventSessionItem(scheduleId: String): Flow<EventSessionItemUi> =
+        eventDao.fetchEventId()
+            .flatMapConcat { talkDao.fetchEventSession(eventId = it, sessionId = scheduleId) }
 }

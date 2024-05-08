@@ -40,6 +40,7 @@ const val NbHorizontalPadding = 2
 fun ScheduleGridScreen(
     agenda: AgendaUi,
     onTalkClicked: (id: String) -> Unit,
+    onEventSessionClicked: (id: String) -> Unit,
     onFavoriteClicked: (TalkItemUi) -> Unit,
     modifier: Modifier = Modifier,
     state: LazyGridState = rememberLazyGridState(),
@@ -86,7 +87,14 @@ fun ScheduleGridScreen(
                                         room = it.room,
                                         time = it.time,
                                         timeImageVector = it.timeInMinutes.findTimeImageVector(),
-                                        modifier = Modifier.placeholder(visible = isLoading)
+                                        modifier = Modifier.placeholder(visible = isLoading),
+                                        onClick = if (it.description != null) {
+                                            {
+                                                onEventSessionClicked(it.id)
+                                            }
+                                        } else {
+                                            null
+                                        }
                                     )
                                 }
                             }
@@ -125,6 +133,7 @@ private fun ScheduleListScreenPreview() {
             ScheduleGridScreen(
                 agenda = AgendaUi.fake,
                 onTalkClicked = {},
+                onEventSessionClicked = {},
                 onFavoriteClicked = { }
             )
         }
@@ -140,6 +149,7 @@ private fun ScheduleListScreenLandscapePreview() {
             ScheduleGridScreen(
                 agenda = AgendaUi.fake,
                 onTalkClicked = {},
+                onEventSessionClicked = {},
                 onFavoriteClicked = { }
             )
         }

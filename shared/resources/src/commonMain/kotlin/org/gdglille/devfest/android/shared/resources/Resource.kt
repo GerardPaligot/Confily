@@ -45,6 +45,7 @@ import conferences4hall.shared.resources.generated.resources.screen_profile
 import conferences4hall.shared.resources.generated.resources.screen_qanda
 import conferences4hall.shared.resources.generated.resources.screen_qrcode_scanner
 import conferences4hall.shared.resources.generated.resources.screen_schedule_detail
+import conferences4hall.shared.resources.generated.resources.screen_schedule_detail_event_session
 import conferences4hall.shared.resources.generated.resources.screen_speaker_detail
 import conferences4hall.shared.resources.generated.resources.screen_speakers
 import conferences4hall.shared.resources.generated.resources.screen_ticket_qrcode_scanner
@@ -96,6 +97,7 @@ import conferences4hall.shared.resources.generated.resources.title_jobs
 import conferences4hall.shared.resources.generated.resources.title_notif_reminder_talk
 import conferences4hall.shared.resources.generated.resources.title_plan
 import conferences4hall.shared.resources.generated.resources.title_plan_partner
+import conferences4hall.shared.resources.generated.resources.title_schedule_detail
 import conferences4hall.shared.resources.generated.resources.title_ticket
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.StringResource
@@ -343,6 +345,10 @@ val Resource.string.screen_schedule_detail: StringResource
     get() = Res.string.screen_schedule_detail
 
 @OptIn(ExperimentalResourceApi::class)
+val Resource.string.screen_schedule_detail_event_session: StringResource
+    get() = Res.string.screen_schedule_detail_event_session
+
+@OptIn(ExperimentalResourceApi::class)
 val Resource.string.screen_speakers: StringResource
     get() = Res.string.screen_speakers
 
@@ -489,3 +495,7 @@ val Resource.string.title_notif_reminder_talk: StringResource
 @OptIn(ExperimentalResourceApi::class)
 val Resource.string.title_ticket: StringResource
     get() = Res.string.title_ticket
+
+@OptIn(ExperimentalResourceApi::class)
+val Resource.string.title_schedule_detail: StringResource
+    get() = Res.string.title_schedule_detail

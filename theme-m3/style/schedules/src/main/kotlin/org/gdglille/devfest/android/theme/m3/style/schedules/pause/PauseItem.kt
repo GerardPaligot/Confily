@@ -1,5 +1,6 @@
 package org.gdglille.devfest.android.theme.m3.style.schedules.pause
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -37,14 +38,20 @@ fun SmallPauseItem(
     room: String,
     time: String,
     modifier: Modifier = Modifier,
+    onClick: (() -> Unit)? = null,
     timeImageVector: ImageVector = Icons.Outlined.Timer,
-    containerColor: Color = PauseItemDefaults.smallContainerColor,
+    containerColor: Color = PauseItemDefaults.smallContainerColor(onClick != null),
     titleColor: Color = contentColorFor(backgroundColor = containerColor),
     titleTextStyle: TextStyle = PauseItemDefaults.smallTitleTextStyle,
     shape: Shape = PauseItemDefaults.smallShape
 ) {
     val contentDescription = stringResource(Resource.string.semantic_pause_item, room, time)
-    Surface(shape = shape, color = containerColor, modifier = modifier) {
+    val clickable = if (onClick != null) {
+        Modifier.clickable(onClick = onClick)
+    } else {
+        Modifier
+    }
+    Surface(shape = shape, color = containerColor, modifier = modifier.then(clickable)) {
         Column(
             verticalArrangement = Arrangement.spacedBy(PauseItemSmallTokens.BetweenSpacing.toDp()),
             modifier = Modifier
@@ -80,14 +87,20 @@ fun MediumPauseItem(
     room: String,
     time: String,
     modifier: Modifier = Modifier,
+    onClick: (() -> Unit)? = null,
     timeImageVector: ImageVector = Icons.Outlined.Timer,
-    containerColor: Color = PauseItemDefaults.mediumContainerColor,
+    containerColor: Color = PauseItemDefaults.mediumContainerColor(onClick != null),
     titleColor: Color = contentColorFor(backgroundColor = containerColor),
     titleTextStyle: TextStyle = PauseItemDefaults.mediumTitleTextStyle,
     shape: Shape = PauseItemDefaults.mediumShape
 ) {
     val contentDescription = stringResource(Resource.string.semantic_pause_item, room, time)
-    Surface(shape = shape, color = containerColor, modifier = modifier) {
+    val clickable = if (onClick != null) {
+        Modifier.clickable(onClick = onClick)
+    } else {
+        Modifier
+    }
+    Surface(shape = shape, color = containerColor, modifier = modifier.then(clickable)) {
         Column(
             verticalArrangement = Arrangement.spacedBy(PauseItemMediumTokens.BetweenSpacing.toDp()),
             modifier = Modifier

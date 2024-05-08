@@ -9,6 +9,7 @@ import org.gdglille.devfest.android.shared.resources.Strings
 import org.gdglille.devfest.db.EventSession
 import org.gdglille.devfest.db.SelectBreakSessions
 import org.gdglille.devfest.db.SelectCategories
+import org.gdglille.devfest.db.SelectEventSessionById
 import org.gdglille.devfest.db.SelectFormats
 import org.gdglille.devfest.db.SelectOpenfeedbackProjectId
 import org.gdglille.devfest.db.SelectSessionByTalkId
@@ -109,7 +110,26 @@ fun SelectSessions.convertTalkItemUi(
     )
 }
 
-fun SelectBreakSessions.convertTalkItemUi(strings: Strings): EventSessionItemUi {
+fun SelectBreakSessions.convertEventSessionItemUi(strings: Strings): EventSessionItemUi {
+    val startDateTime = start_time.toLocalDateTime()
+    val endDateTime = end_time.toLocalDateTime()
+    val diff = endDateTime.toInstant(TimeZone.UTC).minus(startDateTime.toInstant(TimeZone.UTC))
+    val timeInMinutes = diff.inWholeMinutes.toInt()
+    return EventSessionItemUi(
+        id = id,
+        title = title,
+        description = description,
+        order = 0,
+        room = room,
+        slotTime = startDateTime.formatHoursMinutes(),
+        startTime = start_time,
+        endTime = end_time,
+        timeInMinutes = timeInMinutes,
+        time = strings.texts.scheduleMinutes(timeInMinutes)
+    )
+}
+
+fun SelectEventSessionById.convertEventSessionItemUi(strings: Strings): EventSessionItemUi {
     val startDateTime = start_time.toLocalDateTime()
     val endDateTime = end_time.toLocalDateTime()
     val diff = endDateTime.toInstant(TimeZone.UTC).minus(startDateTime.toInstant(TimeZone.UTC))

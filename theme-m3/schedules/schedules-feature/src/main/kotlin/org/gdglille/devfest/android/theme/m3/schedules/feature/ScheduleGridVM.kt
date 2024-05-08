@@ -28,6 +28,7 @@ fun ScheduleGridVM(
     onScheduleStarted: () -> Unit,
     onFilterClicked: () -> Unit,
     onTalkClicked: (id: String) -> Unit,
+    onEventSessionClicked: (id: String) -> Unit,
     showFilterIcon: Boolean,
     modifier: Modifier = Modifier,
     state: LazyGridState = rememberLazyGridState(),
@@ -43,6 +44,7 @@ fun ScheduleGridVM(
             agendas = uiState.agenda,
             pagerState = rememberPagerState(pageCount = { 1 }),
             onTalkClicked = {},
+            onEventSessionClicked = {},
             onFilterClicked = {},
             onFavoriteClicked = {},
             isLoading = true,
@@ -55,6 +57,7 @@ fun ScheduleGridVM(
             topActionsUi = if (!showFilterIcon) TopActionsUi() else uiState.scheduleUi.topActionsUi,
             tabActionsUi = uiState.scheduleUi.tabActionsUi,
             onTalkClicked = onTalkClicked,
+            onEventSessionClicked = onEventSessionClicked,
             onFilterClicked = onFilterClicked,
             onFavoriteClicked = { talkItem ->
                 viewModel.markAsFavorite(context, talkItem)

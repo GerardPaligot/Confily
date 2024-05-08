@@ -72,6 +72,13 @@ INNER JOIN EventSession ON Session.session_event_id = EventSession.id
 WHERE Session.event_id = ?
 ORDER BY start_time;
 
+selectEventSessionById:
+SELECT Session.id, Session.order_, Session.event_id, Session.start_time, Session.end_time,
+Session.room, Session.session_event_id, EventSession.title, EventSession.description
+FROM Session
+INNER JOIN EventSession ON Session.session_event_id = EventSession.id
+WHERE Session.event_id = ? AND Session.session_event_id = ?;
+
 selectDays:
 SELECT DISTINCT date FROM Session WHERE event_id = ?;
 

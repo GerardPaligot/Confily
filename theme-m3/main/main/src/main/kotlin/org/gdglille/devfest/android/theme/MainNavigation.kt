@@ -44,6 +44,7 @@ import org.gdglille.devfest.android.theme.m3.networking.feature.VCardQrCodeScann
 import org.gdglille.devfest.android.theme.m3.partners.feature.PartnerDetailVM
 import org.gdglille.devfest.android.theme.m3.partners.feature.PartnersAdaptive
 import org.gdglille.devfest.android.theme.m3.schedules.feature.AgendaFiltersCompactVM
+import org.gdglille.devfest.android.theme.m3.schedules.feature.ScheduleDetailEventSessionVM
 import org.gdglille.devfest.android.theme.m3.schedules.feature.ScheduleDetailOrientableVM
 import org.gdglille.devfest.android.theme.m3.schedules.feature.ScheduleGridAdaptive
 import org.gdglille.devfest.android.theme.m3.speakers.feature.SpeakerAdaptive
@@ -173,6 +174,7 @@ fun MainNavigation(
                         onScheduleStarted = onScheduleStarted,
                         onFilterClicked = { navController.navigate(Screen.ScheduleFilters.route) },
                         onTalkClicked = { navController.navigate(Screen.Schedule.route(it)) },
+                        onEventSessionClicked = { navController.navigate(Screen.ScheduleEvent.route(it)) },
                         showFilterIcon = showFilterIcon,
                         isSmallSize = isSmallSize
                     )
@@ -197,6 +199,15 @@ fun MainNavigation(
                         onBackClicked = { navController.popBackStack() },
                         onSpeakerClicked = { navController.navigate(Screen.Speaker.route(it)) },
                         onShareClicked = onShareClicked
+                    )
+                }
+                composable(
+                    route = Screen.ScheduleEvent.route,
+                    arguments = listOf(navArgument("scheduleId") { type = NavType.StringType })
+                ) {
+                    ScheduleDetailEventSessionVM(
+                        scheduleId = it.arguments?.getString("scheduleId")!!,
+                        onBackClicked = { navController.popBackStack() }
                     )
                 }
                 composable(Screen.SpeakerList.route) {

@@ -15,7 +15,7 @@ import com.halilibo.richtext.markdown.Markdown
 import com.halilibo.richtext.ui.RichText
 import com.halilibo.richtext.ui.RichTextThemeIntegration
 import org.gdglille.devfest.android.shared.resources.Resource
-import org.gdglille.devfest.android.shared.resources.screen_schedule_detail
+import org.gdglille.devfest.android.shared.resources.title_schedule_detail
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 
@@ -33,7 +33,7 @@ fun TalkAbstract(
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Text(
-            text = stringResource(Resource.string.screen_schedule_detail),
+            text = stringResource(Resource.string.title_schedule_detail),
             color = color,
             style = subtitleTextStyle
         )

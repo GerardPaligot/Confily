@@ -23,6 +23,7 @@ fun ScheduleGridAdaptive(
     onScheduleStarted: () -> Unit,
     onFilterClicked: () -> Unit,
     onTalkClicked: (id: String) -> Unit,
+    onEventSessionClicked: (id: String) -> Unit,
     showFilterIcon: Boolean,
     modifier: Modifier = Modifier,
     state: LazyGridState = rememberLazyGridState(),
@@ -39,6 +40,7 @@ fun ScheduleGridAdaptive(
                 onScheduleStarted = onScheduleStarted,
                 onFilterClicked = onFilterClicked,
                 onTalkClicked = onTalkClicked,
+                onEventSessionClicked = onEventSessionClicked,
                 showFilterIcon = showFilterIcon,
                 isSmallSize = isSmallSize,
                 state = state

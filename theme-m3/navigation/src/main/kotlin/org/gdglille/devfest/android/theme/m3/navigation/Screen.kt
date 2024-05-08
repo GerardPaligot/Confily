@@ -9,6 +9,9 @@ sealed class Screen(val route: String) {
     data object Schedule : Screen(route = "schedules/{scheduleId}") {
         fun route(scheduleId: String) = "schedules/$scheduleId"
     }
+    data object ScheduleEvent : Screen(route = "schedules/{scheduleId}/event") {
+        fun route(scheduleId: String) = "schedules/$scheduleId/event"
+    }
 
     data object SpeakerList : Screen(route = "speakers")
     data object Speaker : Screen(route = "speakers/{speakerId}") {

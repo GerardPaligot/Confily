@@ -16,6 +16,7 @@
     <string name="screen_partners">Partenaires</string>
     <string name="screen_partners_detail">Détail du partenaire</string>
     <string name="screen_schedule_detail">A propos du talk</string>
+    <string name="screen_schedule_detail_event_session">A propos de la session</string>
     <string name="screen_profile">Création de mon profil</string>
     <string name="screen_qrcode_scanner">Scan Qrcode</string>
     <string name="screen_ticket_qrcode_scanner">Scan Qrcode Ticket</string>
@@ -30,6 +31,7 @@
     <string name="title_filters_favorites">Favoris</string>
     <string name="title_filters_categories">Catégories</string>
     <string name="title_filters_formats">Formats</string>
+    <string name="title_schedule_detail">About</string>
 
     <string name="text_loading">Chargement…</string>
     <string name="text_error">Une erreur inconnue est survenue</string>

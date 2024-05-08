@@ -11,9 +11,12 @@ import org.gdglille.devfest.android.theme.m3.style.toShape
 import org.gdglille.devfest.android.theme.m3.style.toTextStyle
 
 object PauseItemDefaults {
-    val smallContainerColor: Color
-        @Composable
-        get() = PauseItemSmallTokens.ContainerColor.toColor()
+    @Composable
+    fun smallContainerColor(clickable: Boolean): Color = if (clickable) {
+        PauseItemSmallTokens.ClickableContainerColor.toColor()
+    } else {
+        PauseItemSmallTokens.ContainerColor.toColor()
+    }
 
     val smallTitleTextStyle: TextStyle
         @Composable
@@ -30,9 +33,12 @@ object PauseItemDefaults {
             vertical = PauseItemSmallTokens.ContainerPadding.toDp()
         )
 
-    val mediumContainerColor: Color
-        @Composable
-        get() = PauseItemMediumTokens.ContainerColor.toColor()
+    @Composable
+    fun mediumContainerColor(clickable: Boolean): Color = if (clickable) {
+        PauseItemMediumTokens.ClickableContainerColor.toColor()
+    } else {
+        PauseItemMediumTokens.ContainerColor.toColor()
+    }
 
     val mediumTitleTextStyle: TextStyle
         @Composable

@@ -28,6 +28,7 @@ import org.jetbrains.compose.resources.stringResource
 fun ScheduleGridPager(
     agendas: ImmutableList<AgendaUi>,
     onTalkClicked: (id: String) -> Unit,
+    onEventSessionClicked: (id: String) -> Unit,
     onFilterClicked: () -> Unit,
     onFavoriteClicked: (TalkItemUi) -> Unit,
     modifier: Modifier = Modifier,
@@ -63,6 +64,7 @@ fun ScheduleGridPager(
             ScheduleGridScreen(
                 agenda = agendas[page],
                 onTalkClicked = onTalkClicked,
+                onEventSessionClicked = onEventSessionClicked,
                 onFavoriteClicked = onFavoriteClicked,
                 isSmallSize = isSmallSize,
                 isLoading = isLoading,

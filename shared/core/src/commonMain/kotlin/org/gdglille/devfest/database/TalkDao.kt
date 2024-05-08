@@ -6,9 +6,12 @@ import app.cash.sqldelight.coroutines.mapToOne
 import cafe.adriel.lyricist.Lyricist
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
 import org.gdglille.devfest.android.shared.resources.Strings
+import org.gdglille.devfest.database.mappers.convertEventSessionItemUi
 import org.gdglille.devfest.database.mappers.convertTalkUi
 import org.gdglille.devfest.db.Conferences4HallDatabase
+import org.gdglille.devfest.models.ui.EventSessionItemUi
 import org.gdglille.devfest.models.ui.TalkUi
 import kotlin.coroutines.CoroutineContext
 
@@ -36,4 +39,10 @@ class TalkDao(
             }
         )
     }
+
+    fun fetchEventSession(eventId: String, sessionId: String): Flow<EventSessionItemUi> =
+        db.sessionQueries.selectEventSessionById(event_id = eventId, session_event_id = sessionId)
+            .asFlow()
+            .mapToOne(dispatcher)
+            .map { it.convertEventSessionItemUi(lyricist.strings) }
 }

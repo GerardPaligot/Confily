@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.datetime.toLocalDateTime
 import org.gdglille.devfest.android.shared.resources.Strings
 import org.gdglille.devfest.database.mappers.convertCategoryUi
+import org.gdglille.devfest.database.mappers.convertEventSessionItemUi
 import org.gdglille.devfest.database.mappers.convertFormatUi
 import org.gdglille.devfest.database.mappers.convertTalkItemUi
 import org.gdglille.devfest.database.mappers.convertToDb
@@ -91,7 +92,7 @@ class ScheduleDao(
                         emptyList()
                     }
                     it.convertTalkItemUi(speakers = speakers, strings = lyricist.strings)
-                } + breaks.map { it.convertTalkItemUi(lyricist.strings) }
+                } + breaks.map { it.convertEventSessionItemUi(lyricist.strings) }
             sessions.distinctBy { it.date }
                 .associate { session ->
                     session.date to AgendaUi(
