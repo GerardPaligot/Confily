@@ -23,7 +23,8 @@ import org.gdglille.devfest.database.mappers.convertTalkItemUi
 import org.gdglille.devfest.database.mappers.convertToDb
 import org.gdglille.devfest.database.mappers.convertToEntity
 import org.gdglille.devfest.db.Conferences4HallDatabase
-import org.gdglille.devfest.models.AgendaV3
+import org.gdglille.devfest.models.AgendaV4
+import org.gdglille.devfest.models.Session
 import org.gdglille.devfest.models.ui.AgendaUi
 import org.gdglille.devfest.models.ui.CategoryUi
 import org.gdglille.devfest.models.ui.FiltersUi
@@ -63,7 +64,7 @@ class ScheduleDao(
             val selectedFormatIds = selectedFormats.map { it.id }
             val hasCategoryFilter = selectedCategories.isNotEmpty()
             val hasFormatFilter = selectedFormats.isNotEmpty()
-            val talkItems = sessions
+            val sessionItems = sessions
                 .filter {
                     val selectedCategory =
                         if (hasCategoryFilter) selectedCategoryIds.contains(it.category_id) else true
@@ -82,9 +83,9 @@ class ScheduleDao(
                     }
                 }
                 .map {
-                    val speakers = if (it.talk_id != null) {
+                    val speakers = if (it.session_talk_id != null) {
                         db.sessionQueries
-                            .selectSpeakersByTalkId(eventId, it.talk_id)
+                            .selectSpeakersByTalkId(eventId, it.session_talk_id)
                             .executeAsList()
                     } else {
                         emptyList()
@@ -95,7 +96,7 @@ class ScheduleDao(
                 .associate { session ->
                     session.date to AgendaUi(
                         onlyFavorites = hasFavFilter,
-                        talks = talkItems
+                        sessions = sessionItems
                             .filter { it.startTime.startsWith(session.date) }
                             .sortedBy { it.slotTime }
                             .groupBy { it.slotTime }
@@ -119,9 +120,9 @@ class ScheduleDao(
                 val nextAgenda = sessions
                     .filter { dateTime < it.start_time.toLocalDateTime() }
                     .map {
-                        val speakers = if (it.talk_id != null) {
+                        val speakers = if (it.session_talk_id != null) {
                             db.sessionQueries
-                                .selectSpeakersByTalkId(eventId, it.talk_id)
+                                .selectSpeakersByTalkId(eventId, it.session_talk_id)
                                 .executeAsList()
                         } else {
                             emptyList()
@@ -205,44 +206,56 @@ class ScheduleDao(
         settings.putBoolean("ONLY_FAVORITES", false)
     }
 
-    fun saveAgenda(eventId: String, agendaV3: AgendaV3) = db.transaction {
-        agendaV3.speakers.forEach { speaker ->
+    fun saveAgenda(eventId: String, agenda: AgendaV4) = db.transaction {
+        agenda.speakers.forEach { speaker ->
             db.speakerQueries.upsertSpeaker(speaker.convertToDb(eventId))
         }
-        agendaV3.categories.forEach { category ->
+        agenda.categories.forEach { category ->
             db.categoryQueries.upsertCategory(category.convertToDb(eventId))
         }
-        agendaV3.formats.forEach { format ->
+        agenda.formats.forEach { format ->
             db.formatQueries.upsertFormat(format.convertToDb(eventId))
         }
-        agendaV3.talks.forEach { talk ->
-            db.sessionQueries.upsertTalkSession(talk.convertToDb(eventId))
-        }
-        agendaV3.talks.forEach { talk ->
-            talk.speakers.forEach {
-                db.sessionQueries.upsertTalkWithSpeakersSession(talk.convertToDb(eventId, it))
+        agenda.sessions.forEach { session ->
+            when (session) {
+                is Session.Talk -> {
+                    db.sessionQueries.upsertTalkSession(session.convertToDb(eventId))
+                }
+                is Session.Event -> {
+                    db.sessionQueries.upsertEventSession(session.convertToDb(eventId))
+                }
             }
         }
-        agendaV3.sessions.forEach { session ->
-            db.sessionQueries.upsertSession(session.convertToDb(eventId))
+        agenda.sessions.filterIsInstance<Session.Talk>().forEach { session ->
+            session.speakers.forEach {
+                db.sessionQueries.upsertTalkWithSpeakersSession(session.convertToDb(eventId, it))
+            }
         }
-        clean(eventId, agendaV3)
+        agenda.schedules.forEach { schedule ->
+            val clazz = if (agenda.sessions.find { it.id == schedule.sessionId } is Session.Talk) {
+                Session.Talk::class
+            } else {
+                Session.Event::class
+            }
+            db.sessionQueries.upsertSession(schedule.convertToDb(eventId, clazz))
+        }
+        clean(eventId, agenda)
     }
 
-    private fun clean(eventId: String, agendaV3: AgendaV3) = db.transaction {
+    private fun clean(eventId: String, agenda: AgendaV4) = db.transaction {
         val diffSpeakers = db.speakerQueries
-            .diffSpeakers(event_id = eventId, id = agendaV3.speakers.map { it.id })
+            .diffSpeakers(event_id = eventId, id = agenda.speakers.map { it.id })
             .executeAsList()
         db.speakerQueries.deleteSpeakers(event_id = eventId, id = diffSpeakers)
         val diffCategories = db.categoryQueries
-            .diffCategories(event_id = eventId, id = agendaV3.categories.map { it.id })
+            .diffCategories(event_id = eventId, id = agenda.categories.map { it.id })
             .executeAsList()
         db.categoryQueries.deleteCategories(event_id = eventId, id = diffCategories)
         val diffFormats = db.formatQueries
-            .diffFormats(event_id = eventId, id = agendaV3.formats.map { it.id })
+            .diffFormats(event_id = eventId, id = agenda.formats.map { it.id })
             .executeAsList()
         db.formatQueries.deleteFormats(event_id = eventId, id = diffFormats)
-        val talkIds = agendaV3.talks.map { it.id }
+        val talkIds = agenda.sessions.map { it.id }
         val diffTalkSession = db.sessionQueries
             .diffTalkSessions(event_id = eventId, id = talkIds)
             .executeAsList()

@@ -3,11 +3,18 @@ package org.gdglille.devfest.models.ui
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
+sealed class SessionItemUi {
+    abstract val id: String
+    abstract val order: Int
+    abstract val slotTime: String
+    abstract val startTime: String
+}
+
 data class TalkItemUi(
-    val id: String,
-    val order: Int,
-    val slotTime: String,
-    val startTime: String,
+    override val id: String,
+    override val order: Int,
+    override val slotTime: String,
+    override val startTime: String,
     val endTime: String,
     val timeInMinutes: Int,
     val time: String,
@@ -20,8 +27,7 @@ data class TalkItemUi(
     val speakersAvatar: ImmutableList<String>,
     val speakersLabel: String,
     val isFavorite: Boolean
-) {
-    val isPause: Boolean = id.contains("-pause")
+) : SessionItemUi() {
     companion object {
         val fake = TalkItemUi(
             id = "7TTU2GNH3fOu76Q5MrxNkV3ry7l1",
@@ -44,7 +50,23 @@ data class TalkItemUi(
             speakersLabel = "Sabrina and Simon",
             isFavorite = false
         )
-        val fakePause = TalkItemUi(
+    }
+}
+
+data class EventSessionItemUi(
+    override val id: String,
+    override val order: Int,
+    val title: String,
+    val description: String?,
+    override val slotTime: String,
+    override val startTime: String,
+    val endTime: String,
+    val timeInMinutes: Int,
+    val time: String,
+    val room: String
+) : SessionItemUi() {
+    companion object {
+        val fakePause = EventSessionItemUi(
             id = "12:00-pause",
             order = 0,
             slotTime = "12:00",
@@ -53,14 +75,8 @@ data class TalkItemUi(
             timeInMinutes = 20,
             time = "20 minutes",
             room = "Salle Lumière",
-            level = null,
             title = "Pause ☕️",
-            abstract = "",
-            category = CategoryUi.fake,
-            speakers = persistentListOf(),
-            speakersAvatar = persistentListOf(),
-            speakersLabel = "",
-            isFavorite = false
+            description = null
         )
     }
 }

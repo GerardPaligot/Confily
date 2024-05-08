@@ -30,6 +30,7 @@ import org.gdglille.devfest.android.theme.m3.style.schedules.pause.MediumPauseIt
 import org.gdglille.devfest.android.theme.m3.style.schedules.pause.SmallPauseItem
 import org.gdglille.devfest.android.theme.m3.style.toDp
 import org.gdglille.devfest.models.ui.AgendaUi
+import org.gdglille.devfest.models.ui.EventSessionItemUi
 import org.gdglille.devfest.models.ui.TalkItemUi
 import kotlin.math.floor
 
@@ -45,7 +46,7 @@ fun ScheduleGridScreen(
     isSmallSize: Boolean = false,
     isLoading: Boolean = false
 ) {
-    if (agenda.onlyFavorites && !isLoading && agenda.talks.keys.isEmpty()) {
+    if (agenda.onlyFavorites && !isLoading && agenda.sessions.keys.isEmpty()) {
         NoFavoriteTalks(modifier = modifier)
     } else {
         BoxWithConstraints(modifier = modifier) {
@@ -64,44 +65,48 @@ fun ScheduleGridScreen(
                 verticalArrangement = Arrangement.spacedBy(mediumSpacing),
                 horizontalArrangement = Arrangement.spacedBy(mediumSpacing)
             ) {
-                agenda.talks.entries.forEach { slot ->
+                agenda.sessions.entries.forEach { slot ->
                     item(span = { GridItemSpan(count) }) {
                         Time(time = slot.key, modifier = Modifier.placeholder(visible = isLoading))
                     }
                     items(slot.value.toList(), key = { it.id }) {
-                        if (it.isPause) {
-                            if (isSmallSize) {
-                                SmallPauseItem(
-                                    title = it.title,
-                                    room = it.room,
-                                    time = it.time,
-                                    timeImageVector = it.timeInMinutes.findTimeImageVector(),
-                                    modifier = Modifier.placeholder(visible = isLoading)
-                                )
-                            } else {
-                                MediumPauseItem(
-                                    title = it.title,
-                                    room = it.room,
-                                    time = it.time,
-                                    timeImageVector = it.timeInMinutes.findTimeImageVector(),
-                                    modifier = Modifier.placeholder(visible = isLoading)
-                                )
+                        when (it) {
+                            is EventSessionItemUi -> {
+                                if (isSmallSize) {
+                                    SmallPauseItem(
+                                        title = it.title,
+                                        room = it.room,
+                                        time = it.time,
+                                        timeImageVector = it.timeInMinutes.findTimeImageVector(),
+                                        modifier = Modifier.placeholder(visible = isLoading)
+                                    )
+                                } else {
+                                    MediumPauseItem(
+                                        title = it.title,
+                                        room = it.room,
+                                        time = it.time,
+                                        timeImageVector = it.timeInMinutes.findTimeImageVector(),
+                                        modifier = Modifier.placeholder(visible = isLoading)
+                                    )
+                                }
                             }
-                        } else {
-                            if (isSmallSize) {
-                                SmallScheduleItem(
-                                    talk = it,
-                                    modifier = Modifier.placeholder(visible = isLoading),
-                                    onFavoriteClicked = onFavoriteClicked,
-                                    onTalkClicked = onTalkClicked
-                                )
-                            } else {
-                                MediumScheduleItem(
-                                    talk = it,
-                                    modifier = Modifier.placeholder(visible = isLoading),
-                                    onFavoriteClicked = onFavoriteClicked,
-                                    onTalkClicked = onTalkClicked
-                                )
+
+                            is TalkItemUi -> {
+                                if (isSmallSize) {
+                                    SmallScheduleItem(
+                                        talk = it,
+                                        modifier = Modifier.placeholder(visible = isLoading),
+                                        onFavoriteClicked = onFavoriteClicked,
+                                        onTalkClicked = onTalkClicked
+                                    )
+                                } else {
+                                    MediumScheduleItem(
+                                        talk = it,
+                                        modifier = Modifier.placeholder(visible = isLoading),
+                                        onFavoriteClicked = onFavoriteClicked,
+                                        onTalkClicked = onTalkClicked
+                                    )
+                                }
                             }
                         }
                     }

@@ -18,7 +18,7 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.gdglille.devfest.Platform
 import org.gdglille.devfest.exceptions.AgendaNotModifiedException
-import org.gdglille.devfest.models.AgendaV3
+import org.gdglille.devfest.models.AgendaV4
 import org.gdglille.devfest.models.Attendee
 import org.gdglille.devfest.models.EventList
 import org.gdglille.devfest.models.EventV3
@@ -52,10 +52,10 @@ class ConferenceApi(
         client.get("$baseUrl/events/$eventId/billet-web/$barcode")
             .body<Attendee>()
 
-    suspend fun fetchAgenda(eventId: String, etag: String?): Pair<String, AgendaV3> {
+    suspend fun fetchAgenda(eventId: String, etag: String?): Pair<String, AgendaV4> {
         val response = client.get("$baseUrl/events/$eventId/agenda") {
             contentType(ContentType.parse("application/json"))
-            accept(ContentType.parse("application/json; version=3"))
+            accept(ContentType.parse("application/json; version=4"))
             etag?.let { ifNoneMatch(etag) }
         }
         if (response.status == HttpStatusCode.NotModified) {

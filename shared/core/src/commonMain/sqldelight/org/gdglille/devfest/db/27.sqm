@@ -1,0 +1,24 @@
+import kotlin.Boolean;
+
+CREATE TABLE EventSession(
+id TEXT NOT NULL PRIMARY KEY,
+title TEXT NOT NULL,
+description TEXT,
+event_id TEXT NOT NULL
+);
+CREATE TABLE Session_New (
+id TEXT NOT NULL PRIMARY KEY,
+order_ INTEGER NOT NULL,
+event_id TEXT NOT NULL,
+date TEXT NOT NULL,
+start_time TEXT NOT NULL,
+end_time TEXT NOT NULL,
+room TEXT NOT NULL,
+is_favorite INTEGER AS Boolean NOT NULL DEFAULT 0,
+session_event_id TEXT,
+session_talk_id TEXT,
+FOREIGN KEY (session_event_id) REFERENCES EventSession(id),
+FOREIGN KEY (session_talk_id) REFERENCES TalkSession(id)
+);
+DROP TABLE Session;
+ALTER TABLE Session_New RENAME TO Session;

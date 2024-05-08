@@ -1,12 +1,12 @@
 package org.gdglille.devfest.database.mappers
 
-import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 import org.gdglille.devfest.android.shared.resources.Strings
+import org.gdglille.devfest.db.EventSession
 import org.gdglille.devfest.db.SelectBreakSessions
 import org.gdglille.devfest.db.SelectCategories
 import org.gdglille.devfest.db.SelectFormats
@@ -15,16 +15,18 @@ import org.gdglille.devfest.db.SelectSessionByTalkId
 import org.gdglille.devfest.db.SelectSessions
 import org.gdglille.devfest.db.SelectSpeakersByTalkId
 import org.gdglille.devfest.db.SelectTalksBySpeakerId
-import org.gdglille.devfest.db.Session
 import org.gdglille.devfest.db.TalkSession
 import org.gdglille.devfest.db.TalkSessionWithSpeakers
 import org.gdglille.devfest.extensions.formatHoursMinutes
-import org.gdglille.devfest.models.ScheduleItemV3
-import org.gdglille.devfest.models.TalkV3
+import org.gdglille.devfest.models.ScheduleItemV4
+import org.gdglille.devfest.models.Session
 import org.gdglille.devfest.models.ui.CategoryUi
+import org.gdglille.devfest.models.ui.EventSessionItemUi
 import org.gdglille.devfest.models.ui.FormatUi
 import org.gdglille.devfest.models.ui.TalkItemUi
 import org.gdglille.devfest.models.ui.TalkUi
+import kotlin.reflect.KClass
+import org.gdglille.devfest.db.Session as SessionDb
 
 private const val BREAK_TITLE = "break"
 private const val MaxSpeakersCount = 3
@@ -107,28 +109,22 @@ fun SelectSessions.convertTalkItemUi(
     )
 }
 
-fun SelectBreakSessions.convertTalkItemUi(strings: Strings): TalkItemUi {
+fun SelectBreakSessions.convertTalkItemUi(strings: Strings): EventSessionItemUi {
     val startDateTime = start_time.toLocalDateTime()
     val endDateTime = end_time.toLocalDateTime()
     val diff = endDateTime.toInstant(TimeZone.UTC).minus(startDateTime.toInstant(TimeZone.UTC))
     val timeInMinutes = diff.inWholeMinutes.toInt()
-    return TalkItemUi(
+    return EventSessionItemUi(
         id = id,
-        order = order_.toInt(),
-        title = strings.titles.agendaBreak,
-        abstract = "",
+        title = title,
+        description = description,
+        order = 0,
         room = room,
-        level = null,
         slotTime = startDateTime.formatHoursMinutes(),
         startTime = start_time,
         endTime = end_time,
         timeInMinutes = timeInMinutes,
-        time = strings.texts.scheduleMinutes(timeInMinutes),
-        category = convertCategoryUi(),
-        speakers = persistentListOf(),
-        speakersAvatar = persistentListOf(),
-        speakersLabel = "",
-        isFavorite = false
+        time = strings.texts.scheduleMinutes(timeInMinutes)
     )
 }
 
@@ -204,19 +200,20 @@ fun SelectSessionByTalkId.convertTalkUi(
     )
 }
 
-fun ScheduleItemV3.convertToDb(eventId: String): Session = Session(
+fun <T : Session> ScheduleItemV4.convertToDb(eventId: String, type: KClass<T>): SessionDb = SessionDb(
     id = this.id,
     order_ = order.toLong(),
     room = this.room,
     date = this.date,
     start_time = this.startTime,
     end_time = this.endTime,
-    talk_id = talkId,
+    session_talk_id = if (type == Session.Talk::class) sessionId else null,
+    session_event_id = if (type == Session.Event::class) sessionId else null,
     event_id = eventId,
     is_favorite = false
 )
 
-fun TalkV3.convertToDb(eventId: String): TalkSession = TalkSession(
+fun Session.Talk.convertToDb(eventId: String): TalkSession = TalkSession(
     id = this.id,
     title = this.title,
     level = this.level,
@@ -230,9 +227,16 @@ fun TalkV3.convertToDb(eventId: String): TalkSession = TalkSession(
     event_id = eventId
 )
 
-fun TalkV3.convertToDb(eventId: String, speakerId: String) = TalkSessionWithSpeakers(
+fun Session.Talk.convertToDb(eventId: String, speakerId: String) = TalkSessionWithSpeakers(
     id = 0L,
     speaker_id = speakerId,
     talk_id = id,
+    event_id = eventId
+)
+
+fun Session.Event.convertToDb(eventId: String): EventSession = EventSession(
+    id = this.id,
+    title = this.title,
+    description = this.description,
     event_id = eventId
 )

@@ -5,10 +5,12 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 sealed class Session {
+    abstract val id: String
+
     @Serializable
     @SerialName("talk-session")
     data class Talk(
-        val id: String,
+        override val id: String,
         val title: String,
         val level: String?,
         val abstract: String,
@@ -27,7 +29,7 @@ sealed class Session {
     @Serializable
     @SerialName("event-session")
     data class Event(
-        val id: String,
+        override val id: String,
         val title: String,
         val description: String?
     ) : Session()
