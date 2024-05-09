@@ -20,7 +20,7 @@
     <string name="screen_profile">Création de mon profil</string>
     <string name="screen_qrcode_scanner">Scan Qrcode</string>
     <string name="screen_ticket_qrcode_scanner">Scan Qrcode Ticket</string>
-    <string name="screen_my_profile">Mon profile</string>
+    <string name="screen_my_profile">Mon profil</string>
     <string name="screen_contacts">Contacts</string>
 
     <string name="title_notif_reminder_talk">Talk dans 10 minutes en %1$s</string>
@@ -83,16 +83,17 @@
     <string name="action_submit_accept">OK</string>
     <string name="action_submit_deny">Non</string>
     <string name="action_submit_later">Plus tard</string>
-    <string name="action_networking_delete">Supprimer le profile</string>
+    <string name="action_networking_delete">Supprimer le profil</string>
     <string name="action_contact_organizers_phone">Contacter par téléphone</string>
     <string name="action_contact_organizers_mail">Contacter par mail</string>
     <string name="action_edit_profile">Modifier mes informations</string>
     <string name="action_power_off">Changer d'évènement</string>
     <string name="action_export">Exporter les contacts</string>
 
-    <string name="input_email">E-mail (Mandatory)</string>
-    <string name="input_firstname">Prénom (Mandatory)</string>
-    <string name="input_lastname">Nom (Mandatory)</string>
+    <string name="input_email">E-mail (Obligatoire)</string>
+    <string name="input_firstname">Prénom (Obligatoire)</string>
+    <string name="input_lastname">Nom (Obligatoire)</string>
+    <string name="input_lastname">Nom (Obligatoire)</string>
     <string name="input_company">Entreprise</string>
     <string name="input_share_talk">%1$s par %2$s</string>
 
