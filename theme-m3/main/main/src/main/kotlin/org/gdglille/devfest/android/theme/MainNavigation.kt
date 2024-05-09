@@ -1,6 +1,15 @@
 package org.gdglille.devfest.android.theme
 
 import android.content.res.Configuration
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.core.EaseIn
+import androidx.compose.animation.core.EaseOut
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.material3.Icon
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
@@ -154,6 +163,8 @@ fun MainNavigation(
         NavHost(
             navController = navController,
             startDestination = startDestination,
+            enterTransition = { EnterTransition.None },
+            exitTransition = { ExitTransition.None },
             builder = {
                 composable(route = Screen.EventList.route) {
                     EventListVM(
@@ -191,7 +202,23 @@ fun MainNavigation(
                         navDeepLink {
                             uriPattern = "$rootUri/${Screen.Schedule.route}"
                         }
-                    )
+                    ),
+                    enterTransition = {
+                        fadeIn(
+                            animationSpec = tween(durationMillis = 300, easing = LinearEasing)
+                        ) + slideIntoContainer(
+                            animationSpec = tween(durationMillis = 300, easing = EaseIn),
+                            towards = AnimatedContentTransitionScope.SlideDirection.Start
+                        )
+                    },
+                    exitTransition = {
+                        fadeOut(
+                            animationSpec = tween(durationMillis = 300, easing = LinearEasing)
+                        ) + slideOutOfContainer(
+                            animationSpec = tween(durationMillis = 300, easing = EaseOut),
+                            towards = AnimatedContentTransitionScope.SlideDirection.End
+                        )
+                    }
                 ) {
                     ScheduleDetailOrientableVM(
                         scheduleId = it.arguments?.getString("scheduleId")!!,
@@ -203,7 +230,23 @@ fun MainNavigation(
                 }
                 composable(
                     route = Screen.ScheduleEvent.route,
-                    arguments = listOf(navArgument("scheduleId") { type = NavType.StringType })
+                    arguments = listOf(navArgument("scheduleId") { type = NavType.StringType }),
+                    enterTransition = {
+                        fadeIn(
+                            animationSpec = tween(durationMillis = 300, easing = LinearEasing)
+                        ) + slideIntoContainer(
+                            animationSpec = tween(durationMillis = 300, easing = EaseIn),
+                            towards = AnimatedContentTransitionScope.SlideDirection.Start
+                        )
+                    },
+                    exitTransition = {
+                        fadeOut(
+                            animationSpec = tween(durationMillis = 300, easing = LinearEasing)
+                        ) + slideOutOfContainer(
+                            animationSpec = tween(durationMillis = 300, easing = EaseOut),
+                            towards = AnimatedContentTransitionScope.SlideDirection.End
+                        )
+                    }
                 ) {
                     ScheduleDetailEventSessionVM(
                         scheduleId = it.arguments?.getString("scheduleId")!!,
@@ -219,7 +262,23 @@ fun MainNavigation(
                 }
                 composable(
                     route = Screen.Speaker.route,
-                    arguments = listOf(navArgument("speakerId") { type = NavType.StringType })
+                    arguments = listOf(navArgument("speakerId") { type = NavType.StringType }),
+                    enterTransition = {
+                        fadeIn(
+                            animationSpec = tween(durationMillis = 300, easing = LinearEasing)
+                        ) + slideIntoContainer(
+                            animationSpec = tween(durationMillis = 300, easing = EaseIn),
+                            towards = AnimatedContentTransitionScope.SlideDirection.Start
+                        )
+                    },
+                    exitTransition = {
+                        fadeOut(
+                            animationSpec = tween(durationMillis = 300, easing = LinearEasing)
+                        ) + slideOutOfContainer(
+                            animationSpec = tween(durationMillis = 300, easing = EaseOut),
+                            towards = AnimatedContentTransitionScope.SlideDirection.End
+                        )
+                    }
                 ) {
                     SpeakerDetailVM(
                         speakerId = it.arguments?.getString("speakerId")!!,
@@ -273,7 +332,23 @@ fun MainNavigation(
                         navDeepLink {
                             uriPattern = "$rootUri/${Screen.Partner.route}"
                         }
-                    )
+                    ),
+                    enterTransition = {
+                        fadeIn(
+                            animationSpec = tween(durationMillis = 300, easing = LinearEasing)
+                        ) + slideIntoContainer(
+                            animationSpec = tween(durationMillis = 300, easing = EaseIn),
+                            towards = AnimatedContentTransitionScope.SlideDirection.Start
+                        )
+                    },
+                    exitTransition = {
+                        fadeOut(
+                            animationSpec = tween(durationMillis = 300, easing = LinearEasing)
+                        ) + slideOutOfContainer(
+                            animationSpec = tween(durationMillis = 300, easing = EaseOut),
+                            towards = AnimatedContentTransitionScope.SlideDirection.End
+                        )
+                    }
                 ) {
                     PartnerDetailVM(
                         partnerId = it.arguments?.getString("partnerId")!!,
