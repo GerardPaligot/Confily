@@ -15,8 +15,11 @@ sealed class MainUiState {
     data class Success(val startDestination: String) : MainUiState()
 }
 
-class MainViewModel(private val repository: EventRepository) : ViewModel() {
-    val uiState: StateFlow<MainUiState> = flow { emit(repository.isInitialized()) }
+class MainViewModel(
+    defaultEvent: String?,
+    private val repository: EventRepository
+) : ViewModel() {
+    val uiState: StateFlow<MainUiState> = flow { emit(repository.isInitialized(defaultEvent)) }
         .map { MainUiState.Success(if (it) Screen.ScheduleList.route else Screen.EventList.route) }
         .stateIn(
             scope = viewModelScope,

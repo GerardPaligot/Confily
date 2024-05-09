@@ -9,12 +9,14 @@ import kotlinx.coroutines.FlowPreview
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.models.ui.ExportNetworkingUi
 import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 @Suppress("LongMethod", "UnusedPrivateMember")
 @ExperimentalCoroutinesApi
 @FlowPreview
 @Composable
 fun Main(
+    defaultEvent: String?,
     openfeedbackFirebaseConfig: OpenFeedbackFirebaseConfig,
     launchUrl: (String) -> Unit,
     onContactExportClicked: (ExportNetworkingUi) -> Unit,
@@ -25,7 +27,7 @@ fun Main(
     onScheduleStarted: () -> Unit,
     onProfileCreated: () -> Unit,
     navController: NavHostController,
-    viewModel: MainViewModel = koinViewModel()
+    viewModel: MainViewModel = koinViewModel(parameters = { parametersOf(defaultEvent) })
 ) {
     Conferences4HallTheme {
         val uiState = viewModel.uiState.collectAsState()

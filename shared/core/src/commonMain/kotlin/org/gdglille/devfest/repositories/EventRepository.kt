@@ -15,7 +15,7 @@ interface EventRepository {
     suspend fun fetchAndStoreEventList()
     fun events(): Flow<EventItemListUi>
     fun currentEvent(): Flow<EventInfoUi?>
-    fun isInitialized(): Boolean
+    fun isInitialized(defaultEvent: String? = null): Boolean
     fun saveEventId(eventId: String)
     fun deleteEventId()
 
@@ -40,11 +40,16 @@ class EventRepositoryImpl(
     override fun events(): Flow<EventItemListUi> = eventDao.fetchEventList()
     override fun currentEvent(): Flow<EventInfoUi?> = eventDao.fetchCurrentEvent()
 
-    override fun isInitialized(): Boolean = try {
+    override fun isInitialized(defaultEvent: String?): Boolean = try {
         eventDao.getEventId()
         true
     } catch (_: EventSavedException) {
-        false
+        if (defaultEvent != null) {
+            eventDao.insertEventId(defaultEvent)
+            true
+        } else {
+            false
+        }
     }
 
     override fun saveEventId(eventId: String) {

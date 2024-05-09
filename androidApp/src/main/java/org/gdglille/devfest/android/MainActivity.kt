@@ -70,6 +70,7 @@ class MainActivity : ComponentActivity() {
             val reportSubject = stringResource(Resource.string.text_report_subject)
             val reportAppTarget = stringResource(Resource.string.text_report_app_target)
             Main(
+                defaultEvent = BuildConfig.DEFAULT_EVENT,
                 openfeedbackFirebaseConfig = openfeedbackFirebaseConfig,
                 launchUrl = { launchUrl(it) },
                 onContactExportClicked = { export ->

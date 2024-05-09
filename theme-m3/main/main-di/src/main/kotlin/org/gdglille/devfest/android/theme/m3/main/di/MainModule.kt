@@ -23,5 +23,5 @@ val mainModule = module {
         speakersModule
     )
     viewModel { MainNavigationViewModel(get(), get()) }
-    viewModel { MainViewModel(get()) }
+    viewModel { parameters -> MainViewModel(parameters.get(), get()) }
 }

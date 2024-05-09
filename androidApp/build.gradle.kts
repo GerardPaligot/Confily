@@ -51,6 +51,7 @@ android {
             stringBuildConfigField("FIREBASE_PROJECT_ID", appProps)
             stringBuildConfigField("FIREBASE_APP_ID", appProps)
             stringBuildConfigField("FIREBASE_API_KEY", appProps)
+            stringBuildConfigField("DEFAULT_EVENT", appProps)
         }
         getByName("debug") {
             stringBuildConfigField("BASE_URL", appProps)
@@ -59,6 +60,7 @@ android {
             stringBuildConfigField("FIREBASE_PROJECT_ID", appProps)
             stringBuildConfigField("FIREBASE_APP_ID", appProps)
             stringBuildConfigField("FIREBASE_API_KEY", appProps)
+            stringBuildConfigField("DEFAULT_EVENT", appProps)
         }
     }
 
