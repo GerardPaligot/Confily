@@ -9,6 +9,7 @@ import org.gdglille.devfest.backend.categories.convertToModel
 import org.gdglille.devfest.backend.formats.FormatDao
 import org.gdglille.devfest.backend.formats.convertToModel
 import org.gdglille.devfest.backend.schedulers.ScheduleItemDao
+import org.gdglille.devfest.backend.schedulers.convertToEventSession
 import org.gdglille.devfest.backend.schedulers.convertToModelV4
 import org.gdglille.devfest.backend.sessions.SessionDao
 import org.gdglille.devfest.backend.sessions.convertToModel
@@ -27,7 +28,11 @@ class EventRepositoryV4(
     suspend fun agenda(eventDb: EventDb) = coroutineScope {
         val schedules = async(context = dispatcher) {
             scheduleItemDao.getAll(eventDb.slugId).map { it.convertToModelV4() }
-        }
+        }.await()
+        // For older event, get their break sessions
+        val breaks = schedules
+            .filter { it.id.contains("-pause") }
+            .map { it.convertToEventSession() }
         val sessions = async(context = dispatcher) {
             sessionDao.getAll(eventDb.slugId).map { it.convertToModel(eventDb) }
         }
@@ -41,8 +46,8 @@ class EventRepositoryV4(
             speakerDao.getAll(eventDb.slugId).map { it.convertToModel() }
         }
         return@coroutineScope AgendaV4(
-            schedules = schedules.await(),
-            sessions = sessions.await(),
+            schedules = schedules,
+            sessions = sessions.await() + breaks,
             formats = formats.await(),
             categories = categories.await(),
             speakers = speakers.await()
