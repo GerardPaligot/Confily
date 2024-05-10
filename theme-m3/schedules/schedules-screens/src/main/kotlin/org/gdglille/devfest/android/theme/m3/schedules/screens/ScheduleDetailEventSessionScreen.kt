@@ -21,6 +21,7 @@ import org.gdglille.devfest.android.theme.m3.schedules.ui.schedule.EventSessionS
 import org.gdglille.devfest.android.theme.m3.schedules.ui.schedule.TalkAbstract
 import org.gdglille.devfest.android.theme.m3.style.SpacingTokens
 import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBar
+import org.gdglille.devfest.android.theme.m3.style.events.cards.AddressCard
 import org.gdglille.devfest.android.theme.m3.style.toDp
 import org.gdglille.devfest.models.ui.EventSessionItemUi
 import org.jetbrains.compose.resources.ExperimentalResourceApi
@@ -31,6 +32,7 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun ScheduleDetailEventSessionScreen(
     session: EventSessionItemUi,
+    onItineraryClicked: (lat: Double, lng: Double) -> Unit,
     onBackClicked: () -> Unit,
     modifier: Modifier = Modifier,
     state: LazyListState = rememberLazyListState()
@@ -61,6 +63,17 @@ fun ScheduleDetailEventSessionScreen(
                 session.description?.let {
                     item {
                         TalkAbstract(abstract = it)
+                    }
+                }
+                session.addressUi?.let {
+                    item {
+                        AddressCard(
+                            formattedAddress = it.formattedAddress,
+                            onItineraryClicked = {
+                                onItineraryClicked(it.latitude, it.longitude)
+                            },
+                            hasGpsLocation = true
+                        )
                     }
                 }
                 item {

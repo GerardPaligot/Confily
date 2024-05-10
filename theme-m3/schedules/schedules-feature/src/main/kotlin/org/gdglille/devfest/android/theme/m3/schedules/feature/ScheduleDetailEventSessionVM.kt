@@ -18,6 +18,7 @@ import org.koin.core.parameter.parametersOf
 @Composable
 fun ScheduleDetailEventSessionVM(
     scheduleId: String,
+    onItineraryClicked: (lat: Double, lng: Double) -> Unit,
     onBackClicked: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ScheduleDetailEventSessionViewModel =
@@ -29,6 +30,7 @@ fun ScheduleDetailEventSessionVM(
         is ScheduleEventUiState.Success -> ScheduleDetailEventSessionScreen(
             session = uiState.session,
             modifier = modifier,
+            onItineraryClicked = onItineraryClicked,
             onBackClicked = onBackClicked
         )
     }

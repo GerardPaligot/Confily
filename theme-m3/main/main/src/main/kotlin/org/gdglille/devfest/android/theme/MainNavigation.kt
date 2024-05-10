@@ -250,6 +250,7 @@ fun MainNavigation(
                 ) {
                     ScheduleDetailEventSessionVM(
                         scheduleId = it.arguments?.getString("scheduleId")!!,
+                        onItineraryClicked = onItineraryClicked,
                         onBackClicked = { navController.popBackStack() }
                     )
                 }

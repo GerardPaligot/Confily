@@ -15,6 +15,7 @@ dependencies {
     implementation(projects.themeM3.schedules.schedulesSemantics)
     implementation(projects.themeM3.navigation)
     implementation(projects.themeM3.style.components.placeholder)
+    implementation(projects.themeM3.style.events)
     implementation(projects.themeM3.style.schedules)
     implementation(projects.themeM3.style.speakers)
     implementation(projects.themeM3.style.theme)
