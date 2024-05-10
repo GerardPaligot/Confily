@@ -23,7 +23,8 @@ class AppViewModel: ObservableObject {
     @Published var uiState: AppUiState = AppUiState.loading
 
     func fetchEventId() {
-        self.uiState = repository.isInitialized() ? .agenda : .events
+        let defaultEvent = Bundle.main.object(forInfoDictionaryKey: "DEFAULT_EVENT") as! String
+        self.uiState = repository.isInitialized(defaultEvent: defaultEvent) ? .agenda : .events
     }
 
     func saveEventId(eventId: String) {

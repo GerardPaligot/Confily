@@ -9,11 +9,14 @@ import org.koin.core.component.inject
 import org.koin.core.context.startKoin
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
+import platform.Foundation.NSBundle
 
 val buildConfigModule = module {
     single(named(IsDebugNamed)) { false }
     single(named(ApplicationIdNamed)) { "org.gdglille.devfest.ios" }
-    single(named(Conference4HallBaseUrlNamed)) { "https://cms4partners-ce427.nw.r.appspot.com" }
+    single(named(Conference4HallBaseUrlNamed)) {
+        NSBundle.mainBundle.objectForInfoDictionaryKey(key = "BASE_URL_C4H") as String
+    }
 }
 
 class RepositoryHelper : KoinComponent {
