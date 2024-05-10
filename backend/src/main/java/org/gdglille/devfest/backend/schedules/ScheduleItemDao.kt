@@ -1,4 +1,4 @@
-package org.gdglille.devfest.backend.schedulers
+package org.gdglille.devfest.backend.schedules
 
 import org.gdglille.devfest.backend.internals.helpers.database.Database
 import org.gdglille.devfest.backend.internals.helpers.database.diff

@@ -2,7 +2,7 @@ package org.gdglille.devfest.backend.third.parties.openplanner
 
 import org.gdglille.devfest.backend.categories.CategoryDb
 import org.gdglille.devfest.backend.formats.FormatDb
-import org.gdglille.devfest.backend.schedulers.ScheduleDb
+import org.gdglille.devfest.backend.schedules.ScheduleDb
 import org.gdglille.devfest.backend.sessions.EventSessionDb
 import org.gdglille.devfest.backend.sessions.TalkDb
 import org.gdglille.devfest.backend.speakers.SpeakerDb

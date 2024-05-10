@@ -13,9 +13,9 @@ import org.gdglille.devfest.backend.internals.date.FormatterPattern
 import org.gdglille.devfest.backend.internals.date.format
 import org.gdglille.devfest.backend.partners.PartnerDao
 import org.gdglille.devfest.backend.qanda.QAndADao
-import org.gdglille.devfest.backend.schedulers.ScheduleDb
-import org.gdglille.devfest.backend.schedulers.ScheduleItemDao
-import org.gdglille.devfest.backend.schedulers.convertToModel
+import org.gdglille.devfest.backend.schedules.ScheduleDb
+import org.gdglille.devfest.backend.schedules.ScheduleItemDao
+import org.gdglille.devfest.backend.schedules.convertToModel
 import org.gdglille.devfest.backend.sessions.SessionDao
 import org.gdglille.devfest.backend.sessions.TalkDb
 import org.gdglille.devfest.backend.sessions.convertToModel

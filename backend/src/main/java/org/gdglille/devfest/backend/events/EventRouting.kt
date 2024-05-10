@@ -23,7 +23,7 @@ import org.gdglille.devfest.backend.formats.FormatDao
 import org.gdglille.devfest.backend.partners.PartnerDao
 import org.gdglille.devfest.backend.qanda.QAndADao
 import org.gdglille.devfest.backend.receiveValidated
-import org.gdglille.devfest.backend.schedulers.ScheduleItemDao
+import org.gdglille.devfest.backend.schedules.ScheduleItemDao
 import org.gdglille.devfest.backend.sessions.SessionDao
 import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.third.parties.geocode.GeocodeApi

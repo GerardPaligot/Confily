@@ -11,8 +11,8 @@ import org.gdglille.devfest.backend.events.EventDb
 import org.gdglille.devfest.backend.formats.FormatDao
 import org.gdglille.devfest.backend.formats.FormatDb
 import org.gdglille.devfest.backend.internals.CommonApi
-import org.gdglille.devfest.backend.schedulers.ScheduleDb
-import org.gdglille.devfest.backend.schedulers.ScheduleItemDao
+import org.gdglille.devfest.backend.schedules.ScheduleDb
+import org.gdglille.devfest.backend.schedules.ScheduleItemDao
 import org.gdglille.devfest.backend.sessions.SessionDao
 import org.gdglille.devfest.backend.sessions.SessionDb
 import org.gdglille.devfest.backend.speakers.SpeakerDao

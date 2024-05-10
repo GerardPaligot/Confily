@@ -1,4 +1,4 @@
-package org.gdglille.devfest.backend.schedulers
+package org.gdglille.devfest.backend.schedules
 
 data class ScheduleDb(
     val order: Int? = 0,

@@ -1,4 +1,4 @@
-package org.gdglille.devfest.backend.schedulers
+package org.gdglille.devfest.backend.schedules
 
 import kotlinx.coroutines.coroutineScope
 import org.gdglille.devfest.backend.NotFoundException

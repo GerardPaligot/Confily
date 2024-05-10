@@ -9,8 +9,8 @@ import org.gdglille.devfest.backend.formats.FormatDao
 import org.gdglille.devfest.backend.formats.convertToModel
 import org.gdglille.devfest.backend.partners.PartnerDao
 import org.gdglille.devfest.backend.qanda.QAndADao
-import org.gdglille.devfest.backend.schedulers.ScheduleItemDao
-import org.gdglille.devfest.backend.schedulers.convertToModelV3
+import org.gdglille.devfest.backend.schedules.ScheduleItemDao
+import org.gdglille.devfest.backend.schedules.convertToModelV3
 import org.gdglille.devfest.backend.sessions.SessionDao
 import org.gdglille.devfest.backend.sessions.convertToModel
 import org.gdglille.devfest.backend.speakers.SpeakerDao

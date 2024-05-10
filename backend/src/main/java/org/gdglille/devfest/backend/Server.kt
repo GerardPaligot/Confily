@@ -49,8 +49,8 @@ import org.gdglille.devfest.backend.partners.PartnerDao
 import org.gdglille.devfest.backend.partners.registerPartnersRoutes
 import org.gdglille.devfest.backend.qanda.QAndADao
 import org.gdglille.devfest.backend.qanda.registerQAndAsRoutes
-import org.gdglille.devfest.backend.schedulers.ScheduleItemDao
-import org.gdglille.devfest.backend.schedulers.registerSchedulersRoutes
+import org.gdglille.devfest.backend.schedules.ScheduleItemDao
+import org.gdglille.devfest.backend.schedules.registerSchedulersRoutes
 import org.gdglille.devfest.backend.sessions.SessionDao
 import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.speakers.registerSpeakersRoutes

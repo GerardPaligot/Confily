@@ -1,4 +1,4 @@
-package org.gdglille.devfest.backend.schedulers
+package org.gdglille.devfest.backend.schedules
 
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.call

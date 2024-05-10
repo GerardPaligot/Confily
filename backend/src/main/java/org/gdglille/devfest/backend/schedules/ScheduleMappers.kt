@@ -1,4 +1,4 @@
-package org.gdglille.devfest.backend.schedulers
+package org.gdglille.devfest.backend.schedules
 
 import org.gdglille.devfest.backend.internals.date.FormatterPattern
 import org.gdglille.devfest.backend.internals.date.format

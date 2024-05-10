@@ -8,9 +8,9 @@ import org.gdglille.devfest.backend.categories.CategoryDao
 import org.gdglille.devfest.backend.categories.convertToModel
 import org.gdglille.devfest.backend.formats.FormatDao
 import org.gdglille.devfest.backend.formats.convertToModel
-import org.gdglille.devfest.backend.schedulers.ScheduleItemDao
-import org.gdglille.devfest.backend.schedulers.convertToEventSession
-import org.gdglille.devfest.backend.schedulers.convertToModelV4
+import org.gdglille.devfest.backend.schedules.ScheduleItemDao
+import org.gdglille.devfest.backend.schedules.convertToEventSession
+import org.gdglille.devfest.backend.schedules.convertToModelV4
 import org.gdglille.devfest.backend.sessions.SessionDao
 import org.gdglille.devfest.backend.sessions.convertToModel
 import org.gdglille.devfest.backend.speakers.SpeakerDao
