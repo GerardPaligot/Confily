@@ -4,6 +4,7 @@ import app.cash.sqldelight.driver.native.NativeSqliteDriver
 import co.touchlab.sqliter.DatabaseConfiguration
 import org.gdglille.devfest.db.Conferences4HallDatabase
 import org.gdglille.devfest.db.Event
+import org.gdglille.devfest.db.EventSession
 import org.gdglille.devfest.db.Partner
 
 actual class DatabaseWrapper {
@@ -18,9 +19,10 @@ actual class DatabaseWrapper {
             }
         )
         return Conferences4HallDatabase.invoke(
-            driver,
-            Event.Adapter(formatted_addressAdapter = listOfStringsAdapter),
-            Partner.Adapter(formatted_addressAdapter = listOfStringsAdapter)
+            driver = driver,
+            EventAdapter = Event.Adapter(formatted_addressAdapter = listOfStringsAdapter),
+            EventSessionAdapter = EventSession.Adapter(formatted_addressAdapter = listOfStringsAdapter),
+            PartnerAdapter = Partner.Adapter(formatted_addressAdapter = listOfStringsAdapter)
         )
     }
 }

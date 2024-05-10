@@ -21,6 +21,7 @@ import org.gdglille.devfest.db.TalkSessionWithSpeakers
 import org.gdglille.devfest.extensions.formatHoursMinutes
 import org.gdglille.devfest.models.ScheduleItemV4
 import org.gdglille.devfest.models.Session
+import org.gdglille.devfest.models.ui.AddressUi
 import org.gdglille.devfest.models.ui.CategoryUi
 import org.gdglille.devfest.models.ui.EventSessionItemUi
 import org.gdglille.devfest.models.ui.FormatUi
@@ -115,6 +116,11 @@ fun SelectBreakSessions.convertEventSessionItemUi(strings: Strings): EventSessio
     val endDateTime = end_time.toLocalDateTime()
     val diff = endDateTime.toInstant(TimeZone.UTC).minus(startDateTime.toInstant(TimeZone.UTC))
     val timeInMinutes = diff.inWholeMinutes.toInt()
+    val address = if (formatted_address != null && address != null && latitude != null && longitude != null) {
+        AddressUi(formatted_address.toImmutableList(), address, latitude, longitude)
+    } else {
+        null
+    }
     return EventSessionItemUi(
         id = id,
         title = title,
@@ -125,7 +131,8 @@ fun SelectBreakSessions.convertEventSessionItemUi(strings: Strings): EventSessio
         startTime = start_time,
         endTime = end_time,
         timeInMinutes = timeInMinutes,
-        time = strings.texts.scheduleMinutes(timeInMinutes)
+        time = strings.texts.scheduleMinutes(timeInMinutes),
+        addressUi = address
     )
 }
 
@@ -134,6 +141,11 @@ fun SelectEventSessionById.convertEventSessionItemUi(strings: Strings): EventSes
     val endDateTime = end_time.toLocalDateTime()
     val diff = endDateTime.toInstant(TimeZone.UTC).minus(startDateTime.toInstant(TimeZone.UTC))
     val timeInMinutes = diff.inWholeMinutes.toInt()
+    val address = if (formatted_address != null && address != null && latitude != null && longitude != null) {
+        AddressUi(formatted_address.toImmutableList(), address, latitude, longitude)
+    } else {
+        null
+    }
     return EventSessionItemUi(
         id = id,
         title = title,
@@ -144,7 +156,8 @@ fun SelectEventSessionById.convertEventSessionItemUi(strings: Strings): EventSes
         startTime = start_time,
         endTime = end_time,
         timeInMinutes = timeInMinutes,
-        time = strings.texts.scheduleMinutes(timeInMinutes)
+        time = strings.texts.scheduleMinutes(timeInMinutes),
+        addressUi = address
     )
 }
 
@@ -258,5 +271,9 @@ fun Session.Event.convertToDb(eventId: String): EventSession = EventSession(
     id = this.id,
     title = this.title,
     description = this.description,
+    formatted_address = address?.formatted,
+    address = address?.address,
+    latitude = address?.lat,
+    longitude = address?.lng,
     event_id = eventId
 )

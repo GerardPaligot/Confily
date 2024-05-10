@@ -5,6 +5,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
 import org.gdglille.devfest.db.Conferences4HallDatabase
 import org.gdglille.devfest.db.Event
+import org.gdglille.devfest.db.EventSession
 import org.gdglille.devfest.db.Partner
 
 actual class DatabaseWrapper(val context: Context) {
@@ -20,9 +21,10 @@ actual class DatabaseWrapper(val context: Context) {
             }
         )
         return Conferences4HallDatabase.invoke(
-            driver,
-            Event.Adapter(formatted_addressAdapter = listOfStringsAdapter),
-            Partner.Adapter(formatted_addressAdapter = listOfStringsAdapter)
+            driver = driver,
+            EventAdapter = Event.Adapter(formatted_addressAdapter = listOfStringsAdapter),
+            EventSessionAdapter = EventSession.Adapter(formatted_addressAdapter = listOfStringsAdapter),
+            PartnerAdapter = Partner.Adapter(formatted_addressAdapter = listOfStringsAdapter)
         )
     }
 }

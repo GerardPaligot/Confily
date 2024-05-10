@@ -63,7 +63,8 @@ data class EventSessionItemUi(
     val endTime: String,
     val timeInMinutes: Int,
     val time: String,
-    val room: String
+    val room: String,
+    val addressUi: AddressUi?
 ) : SessionItemUi() {
     companion object {
         val fakePause = EventSessionItemUi(
@@ -76,7 +77,8 @@ data class EventSessionItemUi(
             time = "20 minutes",
             room = "Salle Lumière",
             title = "Pause ☕️",
-            description = null
+            description = null,
+            addressUi = null
         )
     }
 }

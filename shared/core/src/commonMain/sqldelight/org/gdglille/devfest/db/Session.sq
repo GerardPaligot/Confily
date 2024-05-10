@@ -1,4 +1,6 @@
+import kotlin.collections.List;
 import kotlin.Boolean;
+import kotlin.String;
 
 CREATE TABLE Session (
 id TEXT NOT NULL PRIMARY KEY,
@@ -19,6 +21,10 @@ CREATE TABLE EventSession(
 id TEXT NOT NULL PRIMARY KEY,
 title TEXT NOT NULL,
 description TEXT,
+formatted_address TEXT AS List<String>,
+address TEXT,
+latitude REAL,
+longitude REAL,
 event_id TEXT NOT NULL
 );
 
@@ -66,7 +72,8 @@ ORDER BY start_time;
 selectBreakSessions:
 SELECT Session.id, Session.order_, Session.event_id, Session.date, Session.start_time,
 Session.end_time, Session.room, Session.session_event_id, EventSession.title,
-EventSession.description
+EventSession.description, EventSession.formatted_address, EventSession.address,
+EventSession.latitude, EventSession.longitude
 FROM Session
 INNER JOIN EventSession ON Session.session_event_id = EventSession.id
 WHERE Session.event_id = ?
@@ -74,7 +81,8 @@ ORDER BY start_time;
 
 selectEventSessionById:
 SELECT Session.id, Session.order_, Session.event_id, Session.start_time, Session.end_time,
-Session.room, Session.session_event_id, EventSession.title, EventSession.description
+Session.room, Session.session_event_id, EventSession.title, EventSession.description,
+EventSession.formatted_address, EventSession.address, EventSession.latitude, EventSession.longitude
 FROM Session
 INNER JOIN EventSession ON Session.session_event_id = EventSession.id
 WHERE Session.event_id = ? AND Session.session_event_id = ?;
