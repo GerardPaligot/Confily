@@ -1,5 +1,7 @@
 package org.gdglille.devfest.backend.sessions
 
+import org.gdglille.devfest.backend.events.AddressDb
+
 sealed class SessionDb(
     open val id: String = "",
     open val title: String = ""
@@ -21,5 +23,6 @@ data class TalkDb(
 data class EventSessionDb(
     override val id: String = "",
     override val title: String = "",
-    val description: String? = null
+    val description: String? = null,
+    val address: AddressDb? = null
 ) : SessionDb(id, title)

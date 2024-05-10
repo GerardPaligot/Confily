@@ -2,7 +2,9 @@ package org.gdglille.devfest.backend.sessions
 
 import org.gdglille.devfest.backend.categories.CategoryDb
 import org.gdglille.devfest.backend.categories.convertToModel
+import org.gdglille.devfest.backend.events.AddressDb
 import org.gdglille.devfest.backend.events.EventDb
+import org.gdglille.devfest.backend.events.convertToModel
 import org.gdglille.devfest.backend.events.openFeedbackUrl
 import org.gdglille.devfest.backend.formats.FormatDb
 import org.gdglille.devfest.backend.speakers.SpeakerDb
@@ -11,6 +13,7 @@ import org.gdglille.devfest.models.Info
 import org.gdglille.devfest.models.Session
 import org.gdglille.devfest.models.Talk
 import org.gdglille.devfest.models.TalkV3
+import org.gdglille.devfest.models.inputs.EventSessionInput
 import org.gdglille.devfest.models.inputs.TalkInput
 
 fun SessionDb.convertToModel(eventDb: EventDb): Session {
@@ -37,13 +40,28 @@ fun TalkDb.convertToModelTalkSession(eventDb: EventDb): Session = Session.Talk(
 fun EventSessionDb.convertToModelEventSession(): Session = Session.Event(
     id = id,
     title = title,
-    description = description
+    description = description,
+    address = address?.convertToModel()
 )
 
 fun EventSessionDb.convertToModelInfo(): Info = Info(
     id = id,
     title = title,
     description = description
+)
+
+fun EventSessionInput.convertToDb(
+    session: EventSessionDb? = null,
+    address: AddressDb? = null
+): EventSessionDb = EventSessionDb(
+    id = session?.id ?: "",
+    title = if (title != null && title != session?.title) title!! else session?.title ?: "",
+    description = if (description != null && description != session?.description) {
+        description!!
+    } else {
+        session?.description ?: ""
+    },
+    address = address ?: session?.address
 )
 
 fun TalkDb.convertToModel(

@@ -52,6 +52,7 @@ import org.gdglille.devfest.backend.qanda.registerQAndAsRoutes
 import org.gdglille.devfest.backend.schedules.ScheduleItemDao
 import org.gdglille.devfest.backend.schedules.registerSchedulersRoutes
 import org.gdglille.devfest.backend.sessions.SessionDao
+import org.gdglille.devfest.backend.sessions.registerSessionsRoutes
 import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.speakers.registerSpeakersRoutes
 import org.gdglille.devfest.backend.talks.registerTalksRoutes
@@ -187,6 +188,7 @@ fun main() {
             route("/events/{eventId}") {
                 registerQAndAsRoutes(eventDao, qAndADao)
                 registerSpeakersRoutes(commonApi, eventDao, speakerDao)
+                registerSessionsRoutes(geocodeApi, eventDao, sessionDao)
                 registerTalksRoutes(
                     eventDao,
                     speakerDao,

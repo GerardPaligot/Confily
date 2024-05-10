@@ -156,7 +156,8 @@ fun TalkDb.mergeWith(sessionOP: SessionOP) = TalkDb(
 fun EventSessionDb.mergeWith(sessionOP: SessionOP) = EventSessionDb(
     id = sessionOP.id,
     title = if (title == sessionOP.title) title else sessionOP.title,
-    description = if (description == sessionOP.abstract) description else sessionOP.abstract
+    description = if (description == sessionOP.abstract) description else sessionOP.abstract,
+    address = address
 )
 
 fun SessionOP.convertToScheduleDb(order: Int, tracks: List<TrackOP>) = ScheduleDb(

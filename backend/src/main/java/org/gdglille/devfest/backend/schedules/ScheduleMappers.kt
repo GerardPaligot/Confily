@@ -63,7 +63,8 @@ fun ScheduleDb.convertToModelV4() = ScheduleItemV4(
 fun ScheduleItemV4.convertToEventSession(): Session = Session.Event(
     id = id,
     title = "Break",
-    description = null
+    description = null,
+    address = null
 )
 
 fun ScheduleInput.convertToDb(endTime: String, talkId: String? = null) = ScheduleDb(

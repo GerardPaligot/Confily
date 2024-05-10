@@ -31,6 +31,7 @@ sealed class Session {
     data class Event(
         override val id: String,
         val title: String,
-        val description: String?
+        val description: String?,
+        val address: Address?
     ) : Session()
 }
