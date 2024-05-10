@@ -1,0 +1,61 @@
+//
+//  ScheduleEventSessionDetail.swift
+//  iosApp
+//
+//  Created by GERARD on 10/05/2024.
+//  Copyright © 2024 orgName. All rights reserved.
+//
+
+import SwiftUI
+import SharedDi
+
+struct ScheduleEventSessionDetail: View {
+    let session: EventSessionItemUi
+    var color: Color = Color.c4hOnBackground
+    var titleFont: Font = Font.title
+    var bodyFont: Font = Font.callout
+    
+    var body: some View {
+        ScrollView {
+            LazyVStack(spacing: 8) {
+                VStack(alignment: .leading) {
+                    VStack(alignment: .leading, spacing: 24) {
+                        Text(session.title)
+                            .font(titleFont)
+                            .padding(.top, 8)
+                        HStack {
+                            TagUnStyledView(
+                                text: session.slotTime,
+                                icon: "deskclock"
+                            )
+                            TagUnStyledView(
+                                text: session.room,
+                                icon: "mappin"
+                            )
+                            TagUnStyledView(
+                                text: "\(session.timeInMinutes) minutes",
+                                icon: session.timeInMinutes <= 30 ? "bolt.badge.clock" : "clock"
+                            )
+                        }
+                    }
+                    .accessibilityElement(children: .combine)
+                    if (session.description_ != nil) {
+                        Text(session.description_!)
+                            .foregroundColor(color.opacity(0.74))
+                            .padding(.top, 8)
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .topLeading)
+                .foregroundColor(color)
+                .font(bodyFont)
+            }
+            .padding(.horizontal, 16)
+        }
+    }
+}
+
+#Preview {
+    ScheduleEventSessionDetail(
+        session: EventSessionItemUi.companion.fakePause
+    )
+}

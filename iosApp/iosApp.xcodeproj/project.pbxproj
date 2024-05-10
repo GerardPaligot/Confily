@@ -52,7 +52,7 @@
 		D567C00B29B4D6B700D427D6 /* ProfileItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D567C00A29B4D6B700D427D6 /* ProfileItemView.swift */; };
 		D57028AA27B550BF008EF4AD /* PartnerDividerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57028A927B550BF008EF4AD /* PartnerDividerView.swift */; };
 		D57028AD27B5535F008EF4AD /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57028AC27B5535F008EF4AD /* Event.swift */; };
-		D574DE1A292446AE00468074 /* PauseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D574DE19292446AE00468074 /* PauseView.swift */; };
+		D574DE1A292446AE00468074 /* EventSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D574DE19292446AE00468074 /* EventSessionView.swift */; };
 		D5768D6027C11E2A00FB081C /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5768D5F27C11E2A00FB081C /* Networking.swift */; };
 		D581504229B2299C0058D057 /* PartnerItemNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D581504129B2299C0058D057 /* PartnerItemNavigation.swift */; };
 		D581504429B22B2B0058D057 /* MenusNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D581504329B22B2B0058D057 /* MenusNavigation.swift */; };
@@ -95,6 +95,10 @@
 		D5CAA6512821BCC7005BB242 /* RemoteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CAA6502821BCC7005BB242 /* RemoteImage.swift */; };
 		D5D5ABF5282071D2004E2F78 /* ShareSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D5ABF4282071D2004E2F78 /* ShareSheetView.swift */; };
 		D5D6166C27B15C7400C59EC9 /* AgendaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D6166B27B15C7400C59EC9 /* AgendaViewModel.swift */; };
+		D5D7E1092BEE4CF40027071D /* EventSessionItemNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D7E1082BEE4CF40027071D /* EventSessionItemNavigation.swift */; };
+		D5D7E10B2BEE4D9F0027071D /* ScheduleEventSessionDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D7E10A2BEE4D9F0027071D /* ScheduleEventSessionDetail.swift */; };
+		D5D7E10D2BEE4F1D0027071D /* ScheduleEventSessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D7E10C2BEE4F1D0027071D /* ScheduleEventSessionViewModel.swift */; };
+		D5D7E10F2BEE4FB40027071D /* ScheduleEventSessionVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D7E10E2BEE4FB40027071D /* ScheduleEventSessionVM.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -156,7 +160,7 @@
 		D567C00A29B4D6B700D427D6 /* ProfileItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileItemView.swift; sourceTree = "<group>"; };
 		D57028A927B550BF008EF4AD /* PartnerDividerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnerDividerView.swift; sourceTree = "<group>"; };
 		D57028AC27B5535F008EF4AD /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
-		D574DE19292446AE00468074 /* PauseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseView.swift; sourceTree = "<group>"; };
+		D574DE19292446AE00468074 /* EventSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSessionView.swift; sourceTree = "<group>"; };
 		D5768D5F27C11E2A00FB081C /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		D581504129B2299C0058D057 /* PartnerItemNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnerItemNavigation.swift; sourceTree = "<group>"; };
 		D581504329B22B2B0058D057 /* MenusNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenusNavigation.swift; sourceTree = "<group>"; };
@@ -193,6 +197,10 @@
 		D5D5ABF328207025004E2F78 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D5D5ABF4282071D2004E2F78 /* ShareSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetView.swift; sourceTree = "<group>"; };
 		D5D6166B27B15C7400C59EC9 /* AgendaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaViewModel.swift; sourceTree = "<group>"; };
+		D5D7E1082BEE4CF40027071D /* EventSessionItemNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSessionItemNavigation.swift; sourceTree = "<group>"; };
+		D5D7E10A2BEE4D9F0027071D /* ScheduleEventSessionDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleEventSessionDetail.swift; sourceTree = "<group>"; };
+		D5D7E10C2BEE4F1D0027071D /* ScheduleEventSessionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleEventSessionViewModel.swift; sourceTree = "<group>"; };
+		D5D7E10E2BEE4FB40027071D /* ScheduleEventSessionVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleEventSessionVM.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -352,6 +360,9 @@
 				D524D73B27BBFC530078DF0D /* ScheduleDetail.swift */,
 				D524D73D27BBFFF30078DF0D /* ScheduleItemViewModel.swift */,
 				D524D73F27BC00FF0078DF0D /* ScheduleDetailVM.swift */,
+				D5D7E10A2BEE4D9F0027071D /* ScheduleEventSessionDetail.swift */,
+				D5D7E10C2BEE4F1D0027071D /* ScheduleEventSessionViewModel.swift */,
+				D5D7E10E2BEE4FB40027071D /* ScheduleEventSessionVM.swift */,
 			);
 			path = schedule;
 			sourceTree = "<group>";
@@ -374,6 +385,7 @@
 				D581504129B2299C0058D057 /* PartnerItemNavigation.swift */,
 				D581504329B22B2B0058D057 /* MenusNavigation.swift */,
 				D5B5E8572B4CA63900129758 /* AgendaFiltersNavigation.swift */,
+				D5D7E1082BEE4CF40027071D /* EventSessionItemNavigation.swift */,
 			);
 			path = navigations;
 			sourceTree = "<group>";
@@ -471,7 +483,7 @@
 				D58F1D4E27AFF40A00FB59C7 /* TalkItemView.swift */,
 				D524D72B27BBEC6F0078DF0D /* TalkSectionView.swift */,
 				D5C92ED4283ADDC900D5CF2D /* NoFavoriteTalksView.swift */,
-				D574DE19292446AE00468074 /* PauseView.swift */,
+				D574DE19292446AE00468074 /* EventSessionView.swift */,
 			);
 			path = talks;
 			sourceTree = "<group>";
@@ -706,12 +718,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D574DE1A292446AE00468074 /* PauseView.swift in Sources */,
+				D574DE1A292446AE00468074 /* EventSessionView.swift in Sources */,
 				D59944BE2833CDC900F59C1B /* TicketDetailedView.swift in Sources */,
 				D5BC483229B0CC98002CC517 /* ViewModelFactory.swift in Sources */,
 				D5B5E8522B4C972D00129758 /* AgendaFiltersViewModel.swift in Sources */,
 				D53256C22921946600EA0DE7 /* TagView.swift in Sources */,
 				D560789927BE965200D4012C /* SpeakerItemNavigation.swift in Sources */,
+				D5D7E10B2BEE4D9F0027071D /* ScheduleEventSessionDetail.swift in Sources */,
 				D562CF5E27BD9DCB00CF54AF /* HomeViewModel.swift in Sources */,
 				D560789327BE8E1400D4012C /* SpeakerDetail.swift in Sources */,
 				D50E9B0327C12AE400B7B9B9 /* NetworkingVM.swift in Sources */,
@@ -741,6 +754,7 @@
 				D5C753292975E7BC00E2FD0B /* EventListVM.swift in Sources */,
 				D524D74027BC00FF0078DF0D /* ScheduleDetailVM.swift in Sources */,
 				D560789727BE906500D4012C /* SpeakerDetailVM.swift in Sources */,
+				D5D7E1092BEE4CF40027071D /* EventSessionItemNavigation.swift in Sources */,
 				D50E9B0527C12AF000B7B9B9 /* NetworkingViewModel.swift in Sources */,
 				D5B5E8542B4C98E600129758 /* AgendaFiltersVM.swift in Sources */,
 				D544C7E929548B460038CB80 /* SpeakersAvatarView.swift in Sources */,
@@ -757,6 +771,7 @@
 				D52F3B9A2961CDCC00535233 /* ViewExt.swift in Sources */,
 				D5C92ECF283ACE6000D5CF2D /* MenusViewModel.swift in Sources */,
 				D563E2EA29755B2700B5FCA0 /* EventListView.swift in Sources */,
+				D5D7E10D2BEE4F1D0027071D /* ScheduleEventSessionViewModel.swift in Sources */,
 				D538BED72954F6B700F25CBE /* AlarmScheduler.swift in Sources */,
 				D59944C02833D45A00F59C1B /* TicketQrCodeView.swift in Sources */,
 				D5B5E8582B4CA63900129758 /* AgendaFiltersNavigation.swift in Sources */,
@@ -770,6 +785,7 @@
 				D58F1D5427B0057300FB59C7 /* Color.swift in Sources */,
 				D5C92EC5283AC56F00D5CF2D /* Partners.swift in Sources */,
 				D5C92ED3283AD00800D5CF2D /* MenusVM.swift in Sources */,
+				D5D7E10F2BEE4FB40027071D /* ScheduleEventSessionVM.swift in Sources */,
 				D58F1D4F27AFF40A00FB59C7 /* TalkItemView.swift in Sources */,
 				D57028AA27B550BF008EF4AD /* PartnerDividerView.swift in Sources */,
 				D55D7A79295F8E1F008EA04B /* PartnerDetailVM.swift in Sources */,

@@ -63,7 +63,7 @@ struct Agenda: View {
                                         }
                                     }
                                     if let eventSession = session as? EventSessionItemUi {
-                                        PauseView(title: eventSession.title)
+                                        EventSessionItemNavigation(session: eventSession)
                                     }
                                 }
                             } header: {

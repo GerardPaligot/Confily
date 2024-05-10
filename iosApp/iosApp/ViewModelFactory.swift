@@ -34,6 +34,10 @@ class ViewModelFactory: ObservableObject {
     func makeScheduleItemViewModel(scheduleId: String) -> ScheduleItemViewModel {
         return ScheduleItemViewModel(scheduleId: scheduleId)
     }
+    
+    func makeScheduleEventSessionViewModel(scheduleId: String) -> ScheduleEventSessionViewModel {
+        return ScheduleEventSessionViewModel(scheduleId: scheduleId)
+    }
 
     func makeSpeakerViewModel(speakerId: String) -> SpeakerViewModel {
         return SpeakerViewModel(speakerId: speakerId)
