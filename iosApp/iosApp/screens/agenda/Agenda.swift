@@ -38,13 +38,15 @@ struct Agenda: View {
                     .pickerStyle(SegmentedPickerStyle())
                 }
                 List {
-                    if (selectedAgenda != nil && selectedAgenda!.onlyFavorites && selectedAgenda!.talks.isEmpty) {
+                    if (selectedAgenda != nil && selectedAgenda!.onlyFavorites && selectedAgenda!.sessions.isEmpty) {
                         NoFavoriteTalksView()
                     } else if (selectedAgenda != nil) {
-                        ForEach(selectedAgenda!.talks.keys.sorted(), id: \.self) { time in
+                        ForEach(selectedAgenda!.sessions.keys.sorted(), id: \.self) { time in
                             Section {
-                                ForEach(selectedAgenda!.talks[time]!, id: \.id) { talk in
-                                    if (!talk.isPause) {
+                                let sessionItems = selectedAgenda!.sessions[time]!
+                                ForEach(0..<sessionItems.count, id: \.self) { talkIndex in
+                                    let session = sessionItems[talkIndex]
+                                    if let talk = session as? TalkItemUi {
                                         TalkItemNavigation(
                                             talk: talk,
                                             onFavoriteClicked: onFavoriteClicked
@@ -59,8 +61,9 @@ struct Agenda: View {
                                             .tint(iconColor)
                                             .accessibilityLabel(Text(iconAction))
                                         }
-                                    } else {
-                                        PauseView(title: talk.title)
+                                    }
+                                    if let eventSession = session as? EventSessionItemUi {
+                                        PauseView(title: eventSession.title)
                                     }
                                 }
                             } header: {
