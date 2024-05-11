@@ -16,41 +16,43 @@ struct ScheduleEventSessionDetail: View {
     var bodyFont: Font = Font.callout
     
     var body: some View {
-        ScrollView {
-            LazyVStack(spacing: 8) {
-                VStack(alignment: .leading) {
-                    VStack(alignment: .leading, spacing: 24) {
-                        Text(session.title)
-                            .font(titleFont)
-                            .padding(.top, 8)
-                        HStack {
-                            TagUnStyledView(
-                                text: session.slotTime,
-                                icon: "deskclock"
-                            )
-                            TagUnStyledView(
-                                text: session.room,
-                                icon: "mappin"
-                            )
-                            TagUnStyledView(
-                                text: "\(session.timeInMinutes) minutes",
-                                icon: session.timeInMinutes <= 30 ? "bolt.badge.clock" : "clock"
-                            )
-                        }
-                    }
-                    .accessibilityElement(children: .combine)
-                    if (session.description_ != nil) {
-                        Text(session.description_!)
-                            .foregroundColor(color.opacity(0.74))
-                            .padding(.top, 8)
+        List {
+            VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 24) {
+                    Text(session.title)
+                        .font(titleFont)
+                        .padding(.top, 8)
+                    HStack {
+                        TagUnStyledView(
+                            text: session.slotTime,
+                            icon: "deskclock"
+                        )
+                        TagUnStyledView(
+                            text: session.room,
+                            icon: "mappin"
+                        )
+                        TagUnStyledView(
+                            text: "\(session.timeInMinutes) minutes",
+                            icon: session.timeInMinutes <= 30 ? "bolt.badge.clock" : "clock"
+                        )
                     }
                 }
-                .frame(maxWidth: .infinity, alignment: .topLeading)
-                .foregroundColor(color)
-                .font(bodyFont)
+                .accessibilityElement(children: .combine)
+                if (session.description_ != nil) {
+                    Text(session.description_!)
+                        .foregroundColor(color.opacity(0.74))
+                        .padding(.top, 8)
+                }
             }
-            .padding(.horizontal, 16)
+            .frame(maxWidth: .infinity, alignment: .topLeading)
+            .foregroundColor(color)
+            .font(bodyFont)
+            if let addressUi = session.addressUi {
+                AddressCardView(formattedAddress: addressUi.formattedAddress)
+                Link("actionItinerary", destination: URL(string: "maps://?saddr=&daddr=\(addressUi.latitude),\(addressUi.longitude)")!)
+            }
         }
+        .listStyle(.plain)
     }
 }
 
