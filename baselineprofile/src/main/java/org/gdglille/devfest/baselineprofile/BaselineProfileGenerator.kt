@@ -63,6 +63,12 @@ class BaselineProfileGenerator {
             pressHome()
             startActivityAndWait()
 
+            with(infoPom) {
+                open()
+                expandOverflowMenu()
+                changeEventAction()
+            }
+
             with(eventListPom) {
                 goToPastEvents()
                 clickDevfest()

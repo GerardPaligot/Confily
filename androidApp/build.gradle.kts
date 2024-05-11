@@ -105,5 +105,5 @@ dependencies {
 }
 
 baselineProfile {
-    automaticGenerationDuringBuild = false
+    automaticGenerationDuringBuild = true
 }
