@@ -47,7 +47,7 @@ struct TalkSectionView: View {
                 }
             }
             .accessibilityElement(children: .combine)
-            Text(talkUi.abstract)
+            Text(.init(talkUi.abstract))
                 .foregroundColor(color.opacity(0.74))
                 .padding(.top, 8)
         }

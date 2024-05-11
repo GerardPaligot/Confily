@@ -39,7 +39,7 @@ struct ScheduleEventSessionDetail: View {
                 }
                 .accessibilityElement(children: .combine)
                 if (session.description_ != nil) {
-                    Text(session.description_!)
+                    Text(.init(session.description_!))
                         .foregroundColor(color.opacity(0.74))
                         .padding(.top, 8)
                 }
