@@ -9,8 +9,8 @@ plugins {
 }
 
 val versionMajor = 3
-val versionMinor = 2
-val versionPatch = 1
+val versionMinor = 3
+val versionPatch = 0
 android {
     namespace = "org.gdglille.devfest.android"
     defaultConfig {
