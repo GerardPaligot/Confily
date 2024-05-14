@@ -44,7 +44,6 @@ fun Main(
                     onItineraryClicked = onItineraryClicked,
                     onScheduleStarted = onScheduleStarted,
                     onProfileCreated = onProfileCreated,
-                    savedStateHandle = navController.currentBackStackEntry?.savedStateHandle,
                     navController = navController
                 )
             }

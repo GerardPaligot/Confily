@@ -21,10 +21,8 @@ import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteType
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
@@ -32,7 +30,6 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.unit.toSize
-import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -62,7 +59,6 @@ import org.gdglille.devfest.android.theme.m3.style.adaptive.isCompat
 import org.gdglille.devfest.android.theme.m3.style.adaptive.isMedium
 import org.gdglille.devfest.android.theme.m3.style.appbars.iconColor
 import org.gdglille.devfest.models.ui.ExportNetworkingUi
-import org.gdglille.devfest.models.ui.VCardModel
 import org.gdglille.devfest.models.ui.convertToModelUi
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
@@ -89,26 +85,9 @@ fun MainNavigation(
     onScheduleStarted: () -> Unit,
     onProfileCreated: () -> Unit,
     modifier: Modifier = Modifier,
-    savedStateHandle: SavedStateHandle? = null,
     navController: NavHostController = rememberNavController(),
     viewModel: MainNavigationViewModel = koinViewModel()
 ) {
-    if (savedStateHandle != null) {
-        val qrCodeTicket by savedStateHandle.getLiveData<String>(ResultKey.QR_CODE_TICKET)
-            .observeAsState()
-        val qrCodeVCard by savedStateHandle.getLiveData<VCardModel>(ResultKey.QR_CODE_VCARD)
-            .observeAsState()
-        LaunchedEffect(qrCodeTicket, qrCodeVCard) {
-            qrCodeTicket?.let {
-                viewModel.saveTicket(it)
-                savedStateHandle.remove<String>(ResultKey.QR_CODE_TICKET)
-            }
-            qrCodeVCard?.let {
-                viewModel.saveNetworkingProfile(it.convertToModelUi())
-                savedStateHandle.remove<String>(ResultKey.QR_CODE_VCARD)
-            }
-        }
-    }
     val rootUri = "c4h://event"
     val config = LocalConfiguration.current
     val uiState = viewModel.uiState.collectAsState()
@@ -379,10 +358,7 @@ fun MainNavigation(
                     VCardQrCodeScanner(
                         navigateToSettingsScreen = {},
                         onQrCodeDetected = { vcard ->
-                            navController
-                                .previousBackStackEntry
-                                ?.savedStateHandle
-                                ?.set(ResultKey.QR_CODE_VCARD, vcard)
+                            viewModel.saveNetworkingProfile(vcard.convertToModelUi())
                             navController.popBackStack()
                         },
                         onBackClicked = { navController.popBackStack() }
@@ -392,10 +368,7 @@ fun MainNavigation(
                     TicketQrCodeScanner(
                         navigateToSettingsScreen = {},
                         onQrCodeDetected = { barcode ->
-                            navController
-                                .previousBackStackEntry
-                                ?.savedStateHandle
-                                ?.set(ResultKey.QR_CODE_TICKET, barcode)
+                            viewModel.saveTicket(barcode)
                             navController.popBackStack()
                         },
                         onBackClicked = { navController.popBackStack() }

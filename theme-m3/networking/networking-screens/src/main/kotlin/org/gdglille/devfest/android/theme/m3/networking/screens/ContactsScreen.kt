@@ -50,7 +50,7 @@ fun ContactsScreen(
                 UserItem(
                     displayName = "${user.firstName} ${user.lastName}",
                     email = user.email,
-                    company = user.email,
+                    company = user.company,
                     onClick = { openDialog.value = true }
                 )
                 if (index < users.size - 1) {

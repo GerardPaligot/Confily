@@ -41,7 +41,7 @@ fun Event(
 ) {
     LazyColumn(
         modifier = modifier,
-        contentPadding = PaddingValues(vertical = 24.dp),
+        contentPadding = PaddingValues(top = 24.dp, bottom = 72.dp),
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
         item {
