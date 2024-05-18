@@ -68,7 +68,7 @@ fun SpeakerOP.convertToDb(photoUrl: String?): SpeakerDb {
 
 fun SpeakerDb.mergeWith(photoUrl: String?, speakerOP: SpeakerOP): SpeakerDb {
     val twitter = speakerOP.socials.find { it.name.lowercase() == "twitter" }?.link
-    val github = speakerOP.socials.find { it.name.lowercase() == "gitHub" }?.link
+    val github = speakerOP.socials.find { it.name.lowercase() == "github" }?.link
     val website = speakerOP.socials.find { it.name.lowercase() == "website" }?.link
     val mastodon = speakerOP.socials.find { it.name.lowercase() == "mastodon" }?.link
     val linkedin = speakerOP.socials.find { it.name.lowercase() == "linkedin" }?.link
