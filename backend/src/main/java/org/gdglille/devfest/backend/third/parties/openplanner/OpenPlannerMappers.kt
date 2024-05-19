@@ -40,7 +40,7 @@ fun SpeakerOP.convertToDb(photoUrl: String?): SpeakerDb {
     return SpeakerDb(
         id = id,
         displayName = name,
-        pronouns = null,
+        pronouns = pronouns,
         bio = bio ?: "",
         email = email,
         jobTitle = jobTitle,
@@ -75,7 +75,7 @@ fun SpeakerDb.mergeWith(photoUrl: String?, speakerOP: SpeakerOP): SpeakerDb {
     return SpeakerDb(
         id = speakerOP.id,
         displayName = if (this.displayName == speakerOP.name) this.displayName else speakerOP.name,
-        pronouns = pronouns,
+        pronouns = if (this.pronouns == speakerOP.pronouns) this.pronouns else speakerOP.pronouns,
         bio = if (this.bio == speakerOP.bio) this.bio else speakerOP.bio ?: "",
         email = if (this.email == speakerOP.email) this.email else speakerOP.email,
         jobTitle = if (this.jobTitle == speakerOP.jobTitle) this.jobTitle else speakerOP.jobTitle,

@@ -52,6 +52,7 @@ data class SpeakerOP(
     val email: String,
     val phone: String?,
     val company: String?,
+    val pronouns: String? = null,
     val geolocation: String?,
     val jobTitle: String?,
     val socials: List<SocialOP>
