@@ -63,6 +63,8 @@ class BaselineProfileGenerator {
             pressHome()
             startActivityAndWait()
 
+            agendaPom.waitDataFetched()
+
             with(infoPom) {
                 open()
                 expandOverflowMenu()
@@ -75,7 +77,6 @@ class BaselineProfileGenerator {
             }
 
             with(agendaPom) {
-                waitDataFetched()
                 open()
                 openFilters()
                 back()
