@@ -17,6 +17,7 @@ local.properties
 
 #Android Studio
 .gradle
+.kotlin
 build/
 
 *.apk

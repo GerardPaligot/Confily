@@ -93,7 +93,6 @@
     <string name="input_email">E-mail (Obligatoire)</string>
     <string name="input_firstname">Prénom (Obligatoire)</string>
     <string name="input_lastname">Nom (Obligatoire)</string>
-    <string name="input_lastname">Nom (Obligatoire)</string>
     <string name="input_company">Entreprise</string>
     <string name="input_share_talk">%1$s par %2$s</string>
 

@@ -30,7 +30,6 @@ import org.gdglille.devfest.android.shared.resources.text_report_app_target
 import org.gdglille.devfest.android.shared.resources.text_report_subject
 import org.gdglille.devfest.android.theme.Main
 import org.gdglille.devfest.android.widgets.NetworkingAppWidget
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 import java.io.File
 
@@ -41,12 +40,11 @@ import java.io.File
 class MainActivity : ComponentActivity() {
     private lateinit var navController: NavHostController
 
-    override fun onNewIntent(intent: Intent?) {
+    override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         navController.handleDeepLink(intent)
     }
 
-    @OptIn(ExperimentalResourceApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

@@ -1,7 +1,7 @@
 package org.gdglille.devfest.android.di
 
 import android.app.AlarmManager
-import androidx.activity.ComponentActivity
+import android.content.Context
 import org.gdglille.devfest.AlarmScheduler
 import org.gdglille.devfest.android.AlarmIntentFactoryImpl
 import org.gdglille.devfest.android.ScheduleWorkManager
@@ -15,7 +15,7 @@ val appModule = module {
     single {
         AlarmScheduler(
             get(),
-            androidContext().getSystemService(ComponentActivity.ALARM_SERVICE) as AlarmManager,
+            androidContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager,
             AlarmIntentFactoryImpl
         )
     }

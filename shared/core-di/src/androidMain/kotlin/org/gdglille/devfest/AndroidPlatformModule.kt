@@ -1,6 +1,6 @@
 package org.gdglille.devfest
 
-import androidx.activity.ComponentActivity
+import android.content.Context
 import com.russhwolf.settings.AndroidSettings
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
@@ -23,7 +23,7 @@ actual val platformModule = module {
                 /* name = */
                 "org.gdglille.devfest.android",
                 /* mode = */
-                ComponentActivity.MODE_PRIVATE
+                Context.MODE_PRIVATE
             )
         )
     }

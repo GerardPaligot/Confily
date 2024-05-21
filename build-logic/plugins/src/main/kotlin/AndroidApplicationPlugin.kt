@@ -16,6 +16,7 @@ class AndroidApplicationPlugin: Plugin<Project> {
                 apply("com.android.application")
                 apply("org.jetbrains.kotlin.android")
                 apply("org.jetbrains.compose")
+                apply("org.jetbrains.kotlin.plugin.compose")
                 apply("kotlin-parcelize")
                 apply("com.google.gms.google-services")
                 apply("com.google.firebase.crashlytics")

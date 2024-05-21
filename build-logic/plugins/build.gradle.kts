@@ -12,6 +12,7 @@ dependencies {
     implementation(gradleApi())
     implementation(libs.android.gradlePlugin)
     implementation(libs.jetbrains.compose.gradlePlugin)
+    implementation(libs.jetbrains.compose.compiler.gradlePlugin)
     implementation(libs.jetbrains.kotlin.gradlePlugin)
     implementation(libs.ktlint.gradlePlugin)
     implementation(libs.detekt.gradlePlugin)
