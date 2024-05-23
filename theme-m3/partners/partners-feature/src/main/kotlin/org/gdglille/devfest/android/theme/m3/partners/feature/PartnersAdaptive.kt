@@ -11,10 +11,6 @@ import androidx.compose.material3.adaptive.layout.ListDetailPaneScaffoldRole
 import androidx.compose.material3.adaptive.layout.calculatePaneScaffoldDirective
 import androidx.compose.material3.adaptive.navigation.rememberListDetailPaneScaffoldNavigator
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 
 @OptIn(ExperimentalMaterial3AdaptiveApi::class)
@@ -27,33 +23,29 @@ fun PartnersAdaptive(
     state: LazyGridState = rememberLazyGridState()
 ) {
     val scaffoldDirective = calculatePaneScaffoldDirective(currentWindowAdaptiveInfo())
-    val navigator = rememberListDetailPaneScaffoldNavigator(scaffoldDirective)
-    var selectedItem: String? by rememberSaveable { mutableStateOf(null) }
+    val navigator = rememberListDetailPaneScaffoldNavigator<String>(scaffoldDirective)
+    BackHandler(navigator.canNavigateBack()) {
+        navigator.navigateBack()
+    }
     ListDetailPaneScaffold(
         directive = navigator.scaffoldDirective,
         value = navigator.scaffoldValue,
         modifier = modifier,
         listPane = {
-            AnimatedPane(Modifier) {
+            AnimatedPane {
                 PartnersGridVM(
                     onPartnerClick = {
-                        selectedItem = it
-                        navigator.navigateTo(ListDetailPaneScaffoldRole.Detail)
+                        navigator.navigateTo(ListDetailPaneScaffoldRole.Detail, content = it)
                     },
                     state = state
                 )
             }
         },
         detailPane = {
-            AnimatedPane(modifier = Modifier) {
-                selectedItem?.let { item ->
-                    BackHandler {
-                        if (navigator.canNavigateBack()) {
-                            navigator.navigateBack()
-                        }
-                    }
+            navigator.currentDestination?.content?.let {
+                AnimatedPane {
                     PartnerDetailVM(
-                        partnerId = item,
+                        partnerId = it,
                         onLinkClicked = onLinkClicked,
                         onItineraryClicked = onItineraryClicked,
                         navigationIcon = if (showBackInDetail) {
