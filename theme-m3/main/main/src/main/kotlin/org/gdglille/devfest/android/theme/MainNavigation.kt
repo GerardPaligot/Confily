@@ -1,20 +1,12 @@
 package org.gdglille.devfest.android.theme
 
 import android.content.res.Configuration
-import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
-import androidx.compose.animation.core.EaseIn
-import androidx.compose.animation.core.EaseOut
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.material3.Icon
-import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.material3.adaptive.currentWindowSize
-import androidx.compose.material3.adaptive.navigationsuite.ExperimentalMaterial3AdaptiveNavigationSuiteApi
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffoldDefaults
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteType
@@ -60,18 +52,11 @@ import org.gdglille.devfest.android.theme.m3.style.adaptive.isMedium
 import org.gdglille.devfest.android.theme.m3.style.appbars.iconColor
 import org.gdglille.devfest.models.ui.ExportNetworkingUi
 import org.gdglille.devfest.models.ui.convertToModelUi
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 import org.koin.androidx.compose.koinViewModel
 
 @Suppress("LongMethod")
-@OptIn(
-    ExperimentalMaterial3AdaptiveNavigationSuiteApi::class,
-    ExperimentalMaterial3AdaptiveApi::class,
-    ExperimentalResourceApi::class,
-    ExperimentalComposeUiApi::class,
-    ExperimentalMaterial3WindowSizeClassApi::class
-)
+@OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
 fun MainNavigation(
     startDestination: String,
@@ -156,7 +141,11 @@ fun MainNavigation(
                         }
                     )
                 }
-                composable(Screen.ScheduleList.route) {
+                composable(
+                    route = Screen.ScheduleList.route,
+                    enterTransition = { fadeIn() },
+                    exitTransition = { exitSlideInHorizontal() }
+                ) {
                     val showFilterIcon = adaptiveInfo.widthSizeClass.isCompat ||
                         (adaptiveInfo.widthSizeClass.isMedium && config.isPortrait)
                     val isSmallSize = adaptiveInfo.heightSizeClass.isCompat
@@ -182,22 +171,10 @@ fun MainNavigation(
                             uriPattern = "$rootUri/${Screen.Schedule.route}"
                         }
                     ),
-                    enterTransition = {
-                        fadeIn(
-                            animationSpec = tween(durationMillis = 300, easing = LinearEasing)
-                        ) + slideIntoContainer(
-                            animationSpec = tween(durationMillis = 300, easing = EaseIn),
-                            towards = AnimatedContentTransitionScope.SlideDirection.Start
-                        )
-                    },
-                    exitTransition = {
-                        fadeOut(
-                            animationSpec = tween(durationMillis = 300, easing = LinearEasing)
-                        ) + slideOutOfContainer(
-                            animationSpec = tween(durationMillis = 300, easing = EaseOut),
-                            towards = AnimatedContentTransitionScope.SlideDirection.End
-                        )
-                    }
+                    enterTransition = { enterSlideInHorizontal() },
+                    popEnterTransition = { popEnterSlideInHorizontal() },
+                    exitTransition = { exitSlideInHorizontal() },
+                    popExitTransition = { popExistSlideInHorizontal() }
                 ) {
                     ScheduleDetailOrientableVM(
                         scheduleId = it.arguments?.getString("scheduleId")!!,
@@ -210,22 +187,10 @@ fun MainNavigation(
                 composable(
                     route = Screen.ScheduleEvent.route,
                     arguments = listOf(navArgument("scheduleId") { type = NavType.StringType }),
-                    enterTransition = {
-                        fadeIn(
-                            animationSpec = tween(durationMillis = 300, easing = LinearEasing)
-                        ) + slideIntoContainer(
-                            animationSpec = tween(durationMillis = 300, easing = EaseIn),
-                            towards = AnimatedContentTransitionScope.SlideDirection.Start
-                        )
-                    },
-                    exitTransition = {
-                        fadeOut(
-                            animationSpec = tween(durationMillis = 300, easing = LinearEasing)
-                        ) + slideOutOfContainer(
-                            animationSpec = tween(durationMillis = 300, easing = EaseOut),
-                            towards = AnimatedContentTransitionScope.SlideDirection.End
-                        )
-                    }
+                    enterTransition = { enterSlideInHorizontal() },
+                    popEnterTransition = { popEnterSlideInHorizontal() },
+                    exitTransition = { exitSlideInHorizontal() },
+                    popExitTransition = { popExistSlideInHorizontal() }
                 ) {
                     ScheduleDetailEventSessionVM(
                         scheduleId = it.arguments?.getString("scheduleId")!!,
@@ -233,7 +198,10 @@ fun MainNavigation(
                         onBackClicked = { navController.popBackStack() }
                     )
                 }
-                composable(Screen.SpeakerList.route) {
+                composable(
+                    route = Screen.SpeakerList.route,
+                    enterTransition = { fadeIn() }
+                ) {
                     SpeakerAdaptive(
                         showBackInDetail = adaptiveInfo.widthSizeClass.isCompat,
                         onTalkClicked = { navController.navigate(Screen.Schedule.route(it)) },
@@ -243,22 +211,10 @@ fun MainNavigation(
                 composable(
                     route = Screen.Speaker.route,
                     arguments = listOf(navArgument("speakerId") { type = NavType.StringType }),
-                    enterTransition = {
-                        fadeIn(
-                            animationSpec = tween(durationMillis = 300, easing = LinearEasing)
-                        ) + slideIntoContainer(
-                            animationSpec = tween(durationMillis = 300, easing = EaseIn),
-                            towards = AnimatedContentTransitionScope.SlideDirection.Start
-                        )
-                    },
-                    exitTransition = {
-                        fadeOut(
-                            animationSpec = tween(durationMillis = 300, easing = LinearEasing)
-                        ) + slideOutOfContainer(
-                            animationSpec = tween(durationMillis = 300, easing = EaseOut),
-                            towards = AnimatedContentTransitionScope.SlideDirection.End
-                        )
-                    }
+                    enterTransition = { enterSlideInHorizontal() },
+                    popEnterTransition = { popEnterSlideInHorizontal() },
+                    exitTransition = { exitSlideInHorizontal() },
+                    popExitTransition = { popExistSlideInHorizontal() }
                 ) {
                     SpeakerDetailVM(
                         speakerId = it.arguments?.getString("speakerId")!!,
@@ -270,6 +226,7 @@ fun MainNavigation(
                 }
                 composable(
                     route = Screen.MyProfile.route,
+                    enterTransition = { fadeIn() },
                     deepLinks = listOf(
                         navDeepLink {
                             uriPattern = "$rootUri/${Screen.MyProfile.route}"
@@ -298,7 +255,10 @@ fun MainNavigation(
                         }
                     )
                 }
-                composable(Screen.PartnerList.route) {
+                composable(
+                    route = Screen.PartnerList.route,
+                    enterTransition = { fadeIn() }
+                ) {
                     PartnersAdaptive(
                         showBackInDetail = adaptiveInfo.widthSizeClass.isCompat,
                         onItineraryClicked = onItineraryClicked,
@@ -313,22 +273,10 @@ fun MainNavigation(
                             uriPattern = "$rootUri/${Screen.Partner.route}"
                         }
                     ),
-                    enterTransition = {
-                        fadeIn(
-                            animationSpec = tween(durationMillis = 300, easing = LinearEasing)
-                        ) + slideIntoContainer(
-                            animationSpec = tween(durationMillis = 300, easing = EaseIn),
-                            towards = AnimatedContentTransitionScope.SlideDirection.Start
-                        )
-                    },
-                    exitTransition = {
-                        fadeOut(
-                            animationSpec = tween(durationMillis = 300, easing = LinearEasing)
-                        ) + slideOutOfContainer(
-                            animationSpec = tween(durationMillis = 300, easing = EaseOut),
-                            towards = AnimatedContentTransitionScope.SlideDirection.End
-                        )
-                    }
+                    enterTransition = { enterSlideInHorizontal() },
+                    popEnterTransition = { popEnterSlideInHorizontal() },
+                    exitTransition = { exitSlideInHorizontal() },
+                    popExitTransition = { popExistSlideInHorizontal() }
                 ) {
                     PartnerDetailVM(
                         partnerId = it.arguments?.getString("partnerId")!!,
@@ -338,7 +286,10 @@ fun MainNavigation(
                         isLandscape = config.orientation == Configuration.ORIENTATION_LANDSCAPE
                     )
                 }
-                composable(Screen.Event.route) {
+                composable(
+                    route = Screen.Event.route,
+                    enterTransition = { fadeIn() }
+                ) {
                     InfoCompactVM(
                         onItineraryClicked = onItineraryClicked,
                         onLinkClicked = { url -> url?.let { launchUrl(it) } },

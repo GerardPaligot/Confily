@@ -1,5 +1,7 @@
 package org.gdglille.devfest.android.theme.m3.schedules.feature
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -9,12 +11,11 @@ import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.text_error
 import org.gdglille.devfest.android.shared.resources.text_loading
 import org.gdglille.devfest.android.theme.m3.schedules.screens.ScheduleDetailEventSessionScreen
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalResourceApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ScheduleDetailEventSessionVM(
     scheduleId: String,
@@ -24,14 +25,19 @@ fun ScheduleDetailEventSessionVM(
     viewModel: ScheduleDetailEventSessionViewModel =
         koinViewModel(parameters = { parametersOf(scheduleId) })
 ) {
-    when (val uiState = viewModel.uiState.collectAsState().value) {
-        is ScheduleEventUiState.Loading -> Text(text = stringResource(Resource.string.text_loading))
-        is ScheduleEventUiState.Failure -> Text(text = stringResource(Resource.string.text_error))
-        is ScheduleEventUiState.Success -> ScheduleDetailEventSessionScreen(
-            session = uiState.session,
-            modifier = modifier,
-            onItineraryClicked = onItineraryClicked,
-            onBackClicked = onBackClicked
-        )
-    }
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        content = {
+            when (val uiState = viewModel.uiState.collectAsState().value) {
+                is ScheduleEventUiState.Loading -> Text(text = stringResource(Resource.string.text_loading))
+                is ScheduleEventUiState.Failure -> Text(text = stringResource(Resource.string.text_error))
+                is ScheduleEventUiState.Success -> ScheduleDetailEventSessionScreen(
+                    session = uiState.session,
+                    modifier = modifier,
+                    onItineraryClicked = onItineraryClicked,
+                    onBackClicked = onBackClicked
+                )
+            }
+        }
+    )
 }
