@@ -21,7 +21,7 @@ class JobRepository(
         val event = eventDao.getVerified(eventId, apiKey)
         if (event.wldConfig == null) throw NotAcceptableException("Wld config not initialized")
         val partners = partnerDao.getAll(eventId).filter { it.wldId != null }
-        val companyIds = partners.map { it.wldId!! }
+        val companyIds = partners.map { it.wldId!! }.filter { it.isNotEmpty() }
         if (companyIds.isEmpty()) throw NotFoundException("No partner has WLD config")
         val jobs = api.fetchPublicJobs(companyIds, event.wldConfig.appId, event.wldConfig.apiKey)
         val jobsDb = jobs.hits
