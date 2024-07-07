@@ -48,7 +48,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        val openfeedbackFirebaseConfig = (application as MainApplication).openFeedbackConfig
         val workManager = WorkManager.getInstance(this)
         setContent {
             val inDarkTheme = isSystemInDarkTheme()
@@ -69,7 +68,6 @@ class MainActivity : ComponentActivity() {
             val reportAppTarget = stringResource(Resource.string.text_report_app_target)
             Main(
                 defaultEvent = BuildConfig.DEFAULT_EVENT,
-                openfeedbackFirebaseConfig = openfeedbackFirebaseConfig,
                 launchUrl = { launchUrl(it) },
                 onContactExportClicked = { export ->
                     val uri: Uri = FileProvider.getUriForFile(

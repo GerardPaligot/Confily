@@ -13,10 +13,8 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.tooling.preview.Preview
-import io.openfeedback.viewmodels.OpenFeedbackFirebaseConfig
 import org.gdglille.devfest.android.theme.m3.schedules.ui.schedule.OpenFeedbackSection
 import org.gdglille.devfest.android.theme.m3.schedules.ui.schedule.TalkAbstract
 import org.gdglille.devfest.android.theme.m3.schedules.ui.schedule.TalkSection
@@ -30,7 +28,6 @@ import org.gdglille.devfest.models.ui.TalkUi
 @Composable
 fun ScheduleDetailScreen(
     talk: TalkUi,
-    openFeedbackFirebaseConfig: OpenFeedbackFirebaseConfig?,
     onSpeakerClicked: (id: String) -> Unit,
     modifier: Modifier = Modifier,
     state: LazyListState = rememberLazyListState(),
@@ -51,17 +48,12 @@ fun ScheduleDetailScreen(
         item {
             TalkAbstract(abstract = talk.abstract)
         }
-        if (
-            talk.openFeedbackProjectId != null &&
-            talk.openFeedbackSessionId != null &&
-            openFeedbackFirebaseConfig != null
-        ) {
+        if (talk.openFeedbackProjectId != null && talk.openFeedbackSessionId != null) {
             item {
                 if (!LocalInspectionMode.current) {
                     OpenFeedbackSection(
                         openFeedbackProjectId = talk.openFeedbackProjectId!!,
                         openFeedbackSessionId = talk.openFeedbackSessionId!!,
-                        openFeedbackFirebaseConfig = openFeedbackFirebaseConfig,
                         canGiveFeedback = talk.canGiveFeedback
                     )
                 }
@@ -87,13 +79,6 @@ private fun ScheduleDetailPreview() {
         Surface {
             ScheduleDetailScreen(
                 talk = TalkUi.fake,
-                openFeedbackFirebaseConfig = OpenFeedbackFirebaseConfig(
-                    context = LocalContext.current,
-                    projectId = "",
-                    applicationId = "",
-                    apiKey = "",
-                    databaseUrl = ""
-                ),
                 onSpeakerClicked = {}
             )
         }

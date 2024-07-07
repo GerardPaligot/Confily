@@ -13,7 +13,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalConfiguration
-import io.openfeedback.viewmodels.OpenFeedbackFirebaseConfig
 import kotlinx.collections.immutable.persistentListOf
 import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.input_share_talk
@@ -22,15 +21,12 @@ import org.gdglille.devfest.android.theme.m3.navigation.TopActions
 import org.gdglille.devfest.android.theme.m3.style.actions.TopActionsUi
 import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBar
 import org.gdglille.devfest.models.ui.TalkUi
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalResourceApi::class)
 @ExperimentalMaterial3Api
 @Composable
 fun ScheduleDetailOrientableScreen(
     talk: TalkUi,
-    openFeedbackFirebaseConfig: OpenFeedbackFirebaseConfig,
     onBackClicked: () -> Unit,
     onSpeakerClicked: (id: String) -> Unit,
     onShareClicked: (text: String) -> Unit,
@@ -68,7 +64,6 @@ fun ScheduleDetailOrientableScreen(
                 ) {
                     ScheduleDetailScreen(
                         talk = talk,
-                        openFeedbackFirebaseConfig = null,
                         onSpeakerClicked = onSpeakerClicked,
                         modifier = Modifier.weight(1f),
                         state = state
@@ -77,17 +72,15 @@ fun ScheduleDetailOrientableScreen(
                         openFeedbackProjectId = talk.openFeedbackProjectId,
                         openFeedbackSessionId = talk.openFeedbackSessionId,
                         canGiveFeedback = talk.canGiveFeedback,
-                        openFeedbackFirebaseConfig = openFeedbackFirebaseConfig,
                         modifier = Modifier.weight(1f)
                     )
                 }
             } else {
                 ScheduleDetailScreen(
                     talk = talk,
-                    openFeedbackFirebaseConfig = openFeedbackFirebaseConfig,
                     onSpeakerClicked = onSpeakerClicked,
-                    contentPadding = it,
-                    state = state
+                    state = state,
+                    contentPadding = it
                 )
             }
         }

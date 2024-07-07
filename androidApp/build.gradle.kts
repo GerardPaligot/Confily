@@ -95,6 +95,8 @@ dependencies {
     implementation(libs.androidx.workmanager.ktx)
     implementation(libs.bundles.androidx.glance)
 
+    implementation(libs.jetbrains.kotlinx.datetime)
+
     implementation(libs.koin.core)
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.workmanager)

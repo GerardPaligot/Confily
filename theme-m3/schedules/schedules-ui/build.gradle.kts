@@ -27,5 +27,5 @@ dependencies {
     implementation(compose.materialIconsExtended)
 
     implementation(libs.richtext.commonmark)
-    api(libs.openfeedback.m3)
+    api(libs.openfeedback.viewmodel)
 }

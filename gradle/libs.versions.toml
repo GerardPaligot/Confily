@@ -46,7 +46,7 @@ ktlint = "12.1.0"
 ktor = "2.3.3"
 logback = "1.3.5"
 lyricist = "1.7.0"
-openfeedback = "0.2.2"
+openfeedback = "1.0.0-alpha.3"
 richtext-commonmark = "0.11.0"
 squareup-okio = "3.7.0"
 settings = "0.8.1"
@@ -155,6 +155,7 @@ logback = { group = "ch.qos.logback", name = "logback-classic", version.ref = "l
 lyricist = { group = "cafe.adriel.lyricist", name = "lyricist", version.ref = "lyricist" }
 
 openfeedback-m3 = { group = "io.openfeedback", name = "openfeedback-m3", version.ref = "openfeedback" }
+openfeedback-viewmodel = { group = "io.openfeedback", name = "openfeedback-viewmodel", version.ref = "openfeedback" }
 
 richtext-commonmark = { group = "com.halilibo.compose-richtext", name = "richtext-commonmark", version.ref = "richtext-commonmark" }
 

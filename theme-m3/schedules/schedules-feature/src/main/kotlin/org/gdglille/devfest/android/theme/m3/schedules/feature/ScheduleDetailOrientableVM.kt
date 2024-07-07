@@ -7,7 +7,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import io.openfeedback.viewmodels.OpenFeedbackFirebaseConfig
 import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.text_error
 import org.gdglille.devfest.android.shared.resources.text_loading
@@ -20,7 +19,6 @@ import org.koin.core.parameter.parametersOf
 @Composable
 fun ScheduleDetailOrientableVM(
     scheduleId: String,
-    openfeedbackFirebaseConfig: OpenFeedbackFirebaseConfig,
     onBackClicked: () -> Unit,
     onSpeakerClicked: (id: String) -> Unit,
     onShareClicked: (text: String) -> Unit,
@@ -35,11 +33,10 @@ fun ScheduleDetailOrientableVM(
                 is ScheduleUiState.Failure -> Text(text = stringResource(Resource.string.text_error))
                 is ScheduleUiState.Success -> ScheduleDetailOrientableScreen(
                     talk = uiState.talk,
-                    openFeedbackFirebaseConfig = openfeedbackFirebaseConfig,
-                    modifier = modifier,
                     onBackClicked = onBackClicked,
                     onSpeakerClicked = onSpeakerClicked,
-                    onShareClicked = onShareClicked
+                    onShareClicked = onShareClicked,
+                    modifier = modifier
                 )
             }
         }

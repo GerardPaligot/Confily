@@ -7,6 +7,7 @@ import coil.decode.SvgDecoder
 import coil.disk.DiskCache
 import coil.memory.MemoryCache
 import io.openfeedback.viewmodels.OpenFeedbackFirebaseConfig
+import io.openfeedback.viewmodels.initializeOpenFeedback
 import org.gdglille.devfest.android.di.appModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.workmanager.koin.workManagerFactory
@@ -17,16 +18,16 @@ private const val MemoryCacheSize = 0.25
 private const val DiskCacheSize = 0.10
 
 class MainApplication : Application(), ImageLoaderFactory, KoinComponent {
-    lateinit var openFeedbackConfig: OpenFeedbackFirebaseConfig
-
     override fun onCreate() {
         super.onCreate()
-        openFeedbackConfig = OpenFeedbackFirebaseConfig(
-            context = this,
-            projectId = BuildConfig.FIREBASE_PROJECT_ID,
-            applicationId = BuildConfig.APPLICATION_ID,
-            apiKey = BuildConfig.FIREBASE_API_KEY,
-            databaseUrl = "https://${BuildConfig.FIREBASE_PROJECT_ID}.firebaseio.com"
+        initializeOpenFeedback(
+            OpenFeedbackFirebaseConfig(
+                context = this,
+                projectId = BuildConfig.FIREBASE_PROJECT_ID,
+                applicationId = BuildConfig.APPLICATION_ID,
+                apiKey = BuildConfig.FIREBASE_API_KEY,
+                databaseUrl = "https://${BuildConfig.FIREBASE_PROJECT_ID}.firebaseio.com"
+            )
         )
 
         startKoin {
