@@ -39,7 +39,7 @@ google-services = "4.3.15"
 google-zxing = "3.5.1"
 jetbrains-compose = "1.6.10"
 jetbrains-kotlin = "2.0.0"
-jetbrains-kotlinx-collections = "0.3.6"
+jetbrains-kotlinx-collections = "0.3.7"
 jetbrains-kotlinx-coroutines = "1.8.1"
 jetbrains-kotlinx-datetime = "0.6.0"
 kmp-nativecoroutines-gradlePlugin = "1.0.0-ALPHA-33"
@@ -185,3 +185,8 @@ androidx-glance = [
     "androidx-glance-appwidget",
     "androidx-glance-material3"
 ]
+
+[plugins]
+jetbrains-kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "jetbrains-kotlin" }
+jetbrains-compose = { id = "org.jetbrains.compose", version.ref = "jetbrains-compose" }
+jetbrains-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "jetbrains-kotlin" }
