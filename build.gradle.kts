@@ -17,14 +17,16 @@ buildscript {
     }
 }
 
+plugins {
+    alias(libs.plugins.jetbrains.kotlin.multiplatform) apply false
+    alias(libs.plugins.jetbrains.compose) apply false
+    alias(libs.plugins.jetbrains.compose.compiler) apply false
+}
+
 allprojects {
     repositories {
         google()
         mavenCentral()
         maven(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
     }
-}
-
-tasks.register("clean", Delete::class) {
-    delete(rootProject.buildDir)
 }
