@@ -10,6 +10,10 @@ android {
 
 kotlin {
     androidTarget()
+    wasmJs {
+        useCommonJs()
+        browser()
+    }
 
     sourceSets {
         val commonMain by getting {
