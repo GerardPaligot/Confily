@@ -24,7 +24,7 @@ import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.Scaffold
 import org.gdglille.devfest.android.theme.m3.style.SpacingTokens
 import org.gdglille.devfest.android.theme.m3.style.placeholder.placeholder
-import org.gdglille.devfest.android.theme.m3.style.speakers.items.LargeSpeakerItem
+import org.gdglille.devfest.theme.m3.style.speakers.items.LargeSpeakerItem
 import org.gdglille.devfest.android.theme.m3.style.toDp
 import org.gdglille.devfest.models.ui.SpeakerItemUi
 import org.jetbrains.compose.resources.ExperimentalResourceApi

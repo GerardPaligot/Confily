@@ -34,7 +34,7 @@ import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.action_favorites_add
 import org.gdglille.devfest.android.shared.resources.action_favorites_remove
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
-import org.gdglille.devfest.android.theme.m3.style.speakers.avatars.SmallLabeledSpeakersAvatar
+import org.gdglille.devfest.theme.m3.style.speakers.avatars.SmallLabeledSpeakersAvatar
 import org.gdglille.devfest.android.theme.m3.style.toDp
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
