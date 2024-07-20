@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.MediumScheduleItem
-import org.gdglille.devfest.android.theme.m3.speakers.ui.SpeakerDetailSectionVertical
+import org.gdglille.devfest.theme.m3.speakers.ui.SpeakerDetailSectionVertical
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.theme.m3.style.placeholder.placeholder
 import org.gdglille.devfest.models.ui.SpeakerUi
