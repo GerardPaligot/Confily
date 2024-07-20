@@ -15,7 +15,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.text_schedule_minutes
-import org.gdglille.devfest.android.theme.m3.style.schedules.findTimeImageVector
+import org.gdglille.devfest.theme.m3.style.schedules.findTimeImageVector
 import org.gdglille.devfest.android.theme.m3.style.tags.MediumTag
 import org.gdglille.devfest.android.theme.m3.style.tags.TagDefaults
 import org.gdglille.devfest.models.ui.EventSessionItemUi

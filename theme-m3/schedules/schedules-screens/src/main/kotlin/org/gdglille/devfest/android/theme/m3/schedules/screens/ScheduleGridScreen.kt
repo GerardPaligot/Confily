@@ -25,9 +25,9 @@ import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.SpacingTokens
 import org.gdglille.devfest.theme.m3.style.placeholder.placeholder
 import org.gdglille.devfest.android.theme.m3.style.previews.PHONE_LANDSCAPE
-import org.gdglille.devfest.android.theme.m3.style.schedules.findTimeImageVector
-import org.gdglille.devfest.android.theme.m3.style.schedules.pause.MediumPauseItem
-import org.gdglille.devfest.android.theme.m3.style.schedules.pause.SmallPauseItem
+import org.gdglille.devfest.theme.m3.style.schedules.findTimeImageVector
+import org.gdglille.devfest.theme.m3.style.schedules.pause.MediumPauseItem
+import org.gdglille.devfest.theme.m3.style.schedules.pause.SmallPauseItem
 import org.gdglille.devfest.android.theme.m3.style.toDp
 import org.gdglille.devfest.models.ui.AgendaUi
 import org.gdglille.devfest.models.ui.EventSessionItemUi
