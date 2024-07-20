@@ -1,11 +1,11 @@
-package org.gdglille.devfest.android.theme.m3.style.placeholder
+package org.gdglille.devfest.theme.m3.style.placeholder
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
-import com.google.accompanist.placeholder.PlaceholderHighlight
-import com.google.accompanist.placeholder.material.placeholder
-import com.google.accompanist.placeholder.shimmer
+import com.eygraber.compose.placeholder.PlaceholderHighlight
+import com.eygraber.compose.placeholder.placeholder
+import com.eygraber.compose.placeholder.shimmer
 
 fun Modifier.placeholder(visible: Boolean) = composed {
     then(

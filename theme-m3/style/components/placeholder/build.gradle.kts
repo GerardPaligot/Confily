@@ -1,5 +1,7 @@
+import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
+
 plugins {
-    id("conferences4hall.android.library")
+    id("conferences4hall.multiplatform.library")
     id("conferences4hall.android.library.compose")
     id("conferences4hall.quality")
 }
@@ -8,12 +10,24 @@ android {
     namespace = "org.gdglille.devfest.android.theme.m3.style.placeholder"
 }
 
-dependencies {
-    implementation(projects.themeM3.style.theme)
+kotlin {
+    androidTarget()
 
-    implementation(compose.material3)
-    implementation(compose.preview)
-    debugImplementation(compose.uiTooling)
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmJs {
+        useCommonJs()
+        browser()
+    }
 
-    implementation(libs.google.accompanist.placeholder)
+    sourceSets {
+        val commonMain by getting {
+            dependencies {
+                implementation(projects.themeM3.style.theme)
+
+                implementation(compose.material3)
+
+                implementation(libs.placeholder.material3)
+            }
+        }
+    }
 }
