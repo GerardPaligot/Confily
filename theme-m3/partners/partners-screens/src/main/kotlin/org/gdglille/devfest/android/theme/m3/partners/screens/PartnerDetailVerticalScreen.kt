@@ -24,9 +24,9 @@ import org.gdglille.devfest.android.shared.resources.title_jobs
 import org.gdglille.devfest.android.shared.resources.title_plan_partner
 import org.gdglille.devfest.android.theme.m3.partners.ui.partners.PartnerDetailSectionVertical
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
-import org.gdglille.devfest.android.theme.m3.style.events.cards.AddressCard
 import org.gdglille.devfest.android.theme.m3.style.partners.jobs.JobItem
 import org.gdglille.devfest.models.ui.PartnerItemUi
+import org.gdglille.devfest.theme.m3.style.events.cards.AddressCard
 import org.gdglille.devfest.theme.m3.style.placeholder.placeholder
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource

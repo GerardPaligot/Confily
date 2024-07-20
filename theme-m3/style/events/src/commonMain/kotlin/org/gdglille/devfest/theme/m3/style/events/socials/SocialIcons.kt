@@ -1,31 +1,24 @@
-package org.gdglille.devfest.android.theme.m3.style.events.socials
+package org.gdglille.devfest.theme.m3.style.events.socials
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Language
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import compose.icons.FontAwesomeIcons
-import compose.icons.fontawesomeicons.Brands
-import compose.icons.fontawesomeicons.brands.Github
-import compose.icons.fontawesomeicons.brands.LinkedinIn
-import compose.icons.fontawesomeicons.brands.Mastodon
-import compose.icons.fontawesomeicons.brands.Twitter
 import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.semantic_github
 import org.gdglille.devfest.android.shared.resources.semantic_linkedin
 import org.gdglille.devfest.android.shared.resources.semantic_mastodon
 import org.gdglille.devfest.android.shared.resources.semantic_twitter
 import org.gdglille.devfest.android.shared.resources.semantic_website
-import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.buttons.IconButton
-import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.gdglille.devfest.theme.m3.style.events.Res
+import org.gdglille.devfest.theme.m3.style.events.ic_github
+import org.gdglille.devfest.theme.m3.style.events.ic_linkedin
+import org.gdglille.devfest.theme.m3.style.events.ic_mastodon
+import org.gdglille.devfest.theme.m3.style.events.ic_x
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.resources.vectorResource
 
-@OptIn(ExperimentalResourceApi::class)
 object SocialIcons {
     @Composable
     fun Twitter(
@@ -34,7 +27,7 @@ object SocialIcons {
         onClick: () -> Unit
     ) {
         IconButton(
-            imageVector = FontAwesomeIcons.Brands.Twitter,
+            imageVector = vectorResource(Res.drawable.ic_x),
             contentDescription = stringResource(Resource.string.semantic_twitter, text),
             modifier = modifier,
             onClick = onClick
@@ -48,7 +41,7 @@ object SocialIcons {
         onClick: () -> Unit
     ) {
         IconButton(
-            imageVector = FontAwesomeIcons.Brands.Mastodon,
+            imageVector = vectorResource(Res.drawable.ic_mastodon),
             contentDescription = stringResource(Resource.string.semantic_mastodon, text),
             modifier = modifier,
             onClick = onClick
@@ -62,7 +55,7 @@ object SocialIcons {
         onClick: () -> Unit
     ) {
         IconButton(
-            imageVector = FontAwesomeIcons.Brands.Github,
+            imageVector = vectorResource(Res.drawable.ic_github),
             contentDescription = stringResource(Resource.string.semantic_github, text),
             modifier = modifier,
             onClick = onClick
@@ -76,7 +69,7 @@ object SocialIcons {
         onClick: () -> Unit
     ) {
         IconButton(
-            imageVector = FontAwesomeIcons.Brands.LinkedinIn,
+            imageVector = vectorResource(Res.drawable.ic_linkedin),
             contentDescription = stringResource(Resource.string.semantic_linkedin, text),
             modifier = modifier,
             onClick = onClick
@@ -95,19 +88,5 @@ object SocialIcons {
             modifier = modifier,
             onClick = onClick
         )
-    }
-}
-
-@Preview
-@Composable
-private fun SocialItemPreview() {
-    Conferences4HallTheme {
-        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            SocialIcons.Twitter(text = "", onClick = {})
-            SocialIcons.Mastodon(text = "", onClick = {})
-            SocialIcons.GitHub(text = "", onClick = {})
-            SocialIcons.LinkedIn(text = "", onClick = {})
-            SocialIcons.Website(text = "", onClick = {})
-        }
     }
 }

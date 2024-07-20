@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.style.events.socials
+package org.gdglille.devfest.theme.m3.style.events.socials
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,10 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.tooling.preview.Preview
-import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
-import org.gdglille.devfest.theme.m3.style.placeholder.placeholder
 import org.gdglille.devfest.android.theme.m3.style.toDp
+import org.gdglille.devfest.theme.m3.style.placeholder.placeholder
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -114,22 +112,5 @@ fun SocialsSection(
                 }
             }
         }
-    }
-}
-
-@Preview
-@Composable
-internal fun SocialsSectionPreview() {
-    Conferences4HallTheme {
-        SocialsSection(
-            title = "Gérard Paligot",
-            pronouns = "Him/He",
-            subtitle = null,
-            onLinkClicked = {},
-            twitterUrl = "",
-            githubUrl = "",
-            linkedinUrl = "",
-            websiteUrl = ""
-        )
     }
 }

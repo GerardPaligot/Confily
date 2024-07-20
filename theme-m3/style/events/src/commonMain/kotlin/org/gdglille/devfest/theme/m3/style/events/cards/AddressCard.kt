@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.style.events.cards
+package org.gdglille.devfest.theme.m3.style.events.cards
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,18 +19,13 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.persistentListOf
 import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.semantic_start_itinerary
-import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.theme.m3.style.placeholder.placeholder
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun AddressCard(
     formattedAddress: ImmutableList<String>,
@@ -81,20 +76,5 @@ fun AddressCard(
                 }
             }
         }
-    }
-}
-
-@Preview
-@Composable
-private fun AddressCardPreview() {
-    Conferences4HallTheme {
-        AddressCard(
-            formattedAddress = persistentListOf(
-                "Lille Grand Palais",
-                "Bd des Cités Unies 1",
-                "Lille"
-            ),
-            onItineraryClicked = {}
-        )
     }
 }
