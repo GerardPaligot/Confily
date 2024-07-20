@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.navigation
+package org.gdglille.devfest.theme.m3.navigation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Event
@@ -18,9 +18,7 @@ import org.gdglille.devfest.android.shared.resources.screen_networking
 import org.gdglille.devfest.android.shared.resources.screen_partners
 import org.gdglille.devfest.android.shared.resources.screen_speakers
 import org.gdglille.devfest.android.theme.m3.style.actions.NavigationAction
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 
-@OptIn(ExperimentalResourceApi::class)
 object BottomActions {
     val agenda = NavigationAction(
         route = Screen.ScheduleList.route,

@@ -1,7 +1,6 @@
 [versions]
 android-gradlePlugin = "8.3.2"
 androidx-activity-compose = "1.9.0"
-androidx-annotation = "1.8.0"
 androidx-appcompat = "1.6.1"
 androidx-benchmark = "1.2.3"
 androidx-browser = "1.8.0"
@@ -60,7 +59,6 @@ zxing-android-embedded = "4.3.0"
 [libraries]
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "android-gradlePlugin" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidx-activity-compose" }
-androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "androidx-annotation" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidx-appcompat" }
 androidx-benchmark-baseline-profile-gradlePlugin = { group = "androidx.benchmark", name = "benchmark-baseline-profile-gradle-plugin", version.ref = "androidx-benchmark" }
 androidx-benchmark-macro-junit4 = { group = "androidx.benchmark", name = "benchmark-macro-junit4", version.ref = "androidx-benchmark" }

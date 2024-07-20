@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.navigation
+package org.gdglille.devfest.theme.m3.navigation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FilterList
@@ -12,9 +12,7 @@ import org.gdglille.devfest.android.shared.resources.action_filtering
 import org.gdglille.devfest.android.shared.resources.action_power_off
 import org.gdglille.devfest.android.shared.resources.action_share_talk
 import org.gdglille.devfest.android.theme.m3.style.actions.TopAction
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 
-@OptIn(ExperimentalResourceApi::class)
 object TopActions {
     val share = TopAction(
         id = ActionIds.SHARE_ID,

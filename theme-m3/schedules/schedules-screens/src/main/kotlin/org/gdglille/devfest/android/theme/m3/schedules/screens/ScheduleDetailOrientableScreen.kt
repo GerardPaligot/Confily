@@ -17,7 +17,7 @@ import kotlinx.collections.immutable.persistentListOf
 import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.input_share_talk
 import org.gdglille.devfest.android.shared.resources.screen_schedule_detail
-import org.gdglille.devfest.android.theme.m3.navigation.TopActions
+import org.gdglille.devfest.theme.m3.navigation.TopActions
 import org.gdglille.devfest.android.theme.m3.style.actions.TopActionsUi
 import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBar
 import org.gdglille.devfest.models.ui.TalkUi
