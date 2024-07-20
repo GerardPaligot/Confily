@@ -25,9 +25,14 @@ kotlin {
                 implementation(projects.themeM3.style.theme)
 
                 implementation(compose.material3)
-                implementation(compose.preview)
 
                 implementation(libs.markdown.renderer.m3)
+            }
+        }
+        val androidMain by getting {
+            dependencies {
+                implementation(compose.preview)
+                implementation(compose.uiTooling)
             }
         }
     }
