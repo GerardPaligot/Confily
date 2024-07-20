@@ -20,9 +20,9 @@ import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import org.gdglille.devfest.android.core.sample.ScheduleWorkManager
-import org.gdglille.devfest.android.theme.m3.navigation.Screen
 import org.gdglille.devfest.android.theme.m3.schedules.feature.scheduleGraph
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
+import org.gdglille.devfest.theme.m3.navigation.Screen
 import org.koin.compose.KoinContext
 import org.koin.mp.KoinPlatformTools
 

@@ -15,14 +15,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.tooling.preview.Preview
-import org.gdglille.devfest.android.theme.m3.schedules.ui.schedule.OpenFeedbackSection
-import org.gdglille.devfest.android.theme.m3.schedules.ui.schedule.TalkAbstract
-import org.gdglille.devfest.android.theme.m3.schedules.ui.schedule.TalkSection
-import org.gdglille.devfest.android.theme.m3.schedules.ui.speakers.SpeakerSection
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.SpacingTokens
 import org.gdglille.devfest.android.theme.m3.style.toDp
 import org.gdglille.devfest.models.ui.TalkUi
+import org.gdglille.devfest.theme.m3.schedules.ui.schedule.OpenFeedbackSection
+import org.gdglille.devfest.theme.m3.schedules.ui.schedule.TalkAbstract
+import org.gdglille.devfest.theme.m3.schedules.ui.schedule.TalkSection
+import org.gdglille.devfest.theme.m3.schedules.ui.speakers.SpeakerSection
 
 @ExperimentalMaterial3Api
 @Composable

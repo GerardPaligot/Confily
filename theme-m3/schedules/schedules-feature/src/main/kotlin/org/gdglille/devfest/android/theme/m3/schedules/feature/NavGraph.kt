@@ -10,9 +10,9 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
-import org.gdglille.devfest.android.theme.m3.navigation.Screen
 import org.gdglille.devfest.android.theme.m3.style.adaptive.isCompat
 import org.gdglille.devfest.android.theme.m3.style.adaptive.isMedium
+import org.gdglille.devfest.theme.m3.navigation.Screen
 
 @Suppress("LongParameterList")
 fun NavGraphBuilder.scheduleGraph(

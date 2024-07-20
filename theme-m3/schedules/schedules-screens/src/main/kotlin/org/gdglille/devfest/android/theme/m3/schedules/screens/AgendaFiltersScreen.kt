@@ -13,9 +13,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.screen_agenda_filters
-import org.gdglille.devfest.android.theme.m3.schedules.ui.filters.CategoryListFilters
-import org.gdglille.devfest.android.theme.m3.schedules.ui.filters.FavoriteFilter
-import org.gdglille.devfest.android.theme.m3.schedules.ui.filters.FormatListFilters
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.Scaffold
 import org.gdglille.devfest.android.theme.m3.style.SpacingTokens
@@ -24,6 +21,9 @@ import org.gdglille.devfest.android.theme.m3.style.toDp
 import org.gdglille.devfest.models.ui.CategoryUi
 import org.gdglille.devfest.models.ui.FiltersUi
 import org.gdglille.devfest.models.ui.FormatUi
+import org.gdglille.devfest.theme.m3.schedules.ui.filters.CategoryListFilters
+import org.gdglille.devfest.theme.m3.schedules.ui.filters.FavoriteFilter
+import org.gdglille.devfest.theme.m3.schedules.ui.filters.FormatListFilters
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 
