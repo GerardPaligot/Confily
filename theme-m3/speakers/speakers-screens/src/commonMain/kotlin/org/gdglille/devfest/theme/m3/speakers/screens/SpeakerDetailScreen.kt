@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.speakers.screens
+package org.gdglille.devfest.theme.m3.speakers.screens
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -8,17 +8,14 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.gdglille.devfest.theme.m3.schedules.ui.talks.MediumScheduleItem
-import org.gdglille.devfest.theme.m3.speakers.ui.SpeakerDetailSectionVertical
-import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
-import org.gdglille.devfest.theme.m3.style.placeholder.placeholder
 import org.gdglille.devfest.models.ui.SpeakerUi
 import org.gdglille.devfest.models.ui.TalkItemUi
+import org.gdglille.devfest.theme.m3.schedules.ui.talks.MediumScheduleItem
+import org.gdglille.devfest.theme.m3.speakers.ui.SpeakerDetailSectionVertical
+import org.gdglille.devfest.theme.m3.style.placeholder.placeholder
 
 @Composable
 fun SpeakerDetailScreen(
@@ -57,23 +54,6 @@ fun SpeakerDetailScreen(
                 onTalkClicked = onTalkClicked
             )
             Spacer(modifier = Modifier.height(8.dp))
-        }
-    }
-}
-
-@Suppress("UnusedPrivateMember")
-@Preview
-@Composable
-private fun SpeakerDetailScreenPreview() {
-    Conferences4HallTheme {
-        Scaffold {
-            SpeakerDetailScreen(
-                speaker = SpeakerUi.fake,
-                onTalkClicked = {},
-                onFavoriteClicked = {},
-                onLinkClicked = {},
-                contentPadding = it
-            )
         }
     }
 }

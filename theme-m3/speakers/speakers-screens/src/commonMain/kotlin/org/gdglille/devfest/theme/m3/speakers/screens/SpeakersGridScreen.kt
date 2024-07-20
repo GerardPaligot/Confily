@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.speakers.screens
+package org.gdglille.devfest.theme.m3.speakers.screens
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
@@ -13,24 +13,20 @@ import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.persistentListOf
 import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.screen_speakers
 import org.gdglille.devfest.android.theme.m3.speakers.semantics.SpeakersSemantics
-import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.Scaffold
 import org.gdglille.devfest.android.theme.m3.style.SpacingTokens
-import org.gdglille.devfest.theme.m3.style.placeholder.placeholder
-import org.gdglille.devfest.theme.m3.style.speakers.items.LargeSpeakerItem
 import org.gdglille.devfest.android.theme.m3.style.toDp
 import org.gdglille.devfest.models.ui.SpeakerItemUi
-import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.gdglille.devfest.theme.m3.style.placeholder.placeholder
+import org.gdglille.devfest.theme.m3.style.speakers.items.LargeSpeakerItem
 import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalResourceApi::class)
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun SpeakersGridScreen(
     speakers: ImmutableList<SpeakerItemUi>,
@@ -68,22 +64,6 @@ fun SpeakersGridScreen(
                     )
                 }
             }
-        )
-    }
-}
-
-@Preview
-@Composable
-private fun SpeakersGridPreview() {
-    Conferences4HallTheme {
-        SpeakersGridScreen(
-            speakers = persistentListOf(
-                SpeakerItemUi.fake.copy(id = "1"),
-                SpeakerItemUi.fake.copy(id = "2"),
-                SpeakerItemUi.fake.copy(id = "3"),
-                SpeakerItemUi.fake.copy(id = "4")
-            ),
-            onSpeakerClicked = {}
         )
     }
 }

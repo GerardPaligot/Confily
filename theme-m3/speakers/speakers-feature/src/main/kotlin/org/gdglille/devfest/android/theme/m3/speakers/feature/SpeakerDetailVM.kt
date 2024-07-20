@@ -7,8 +7,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.text_error
-import org.gdglille.devfest.android.theme.m3.speakers.screens.SpeakerDetailOrientable
 import org.gdglille.devfest.android.theme.m3.style.appbars.AppBarIcons
+import org.gdglille.devfest.theme.m3.speakers.screens.SpeakerDetailOrientable
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 import org.koin.androidx.compose.koinViewModel
