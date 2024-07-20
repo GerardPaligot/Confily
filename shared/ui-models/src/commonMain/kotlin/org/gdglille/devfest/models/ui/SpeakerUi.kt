@@ -20,7 +20,7 @@ data class SpeakerUi(
 ) {
     companion object {
         val fake = SpeakerUi(
-            url = "https://pbs.twimg.com/profile_images/1465658195767136257/zdYQWsTj_400x400.jpg",
+            url = "https://pbs.twimg.com/profile_images/1790809511353110528/DDHZYoEB_400x400.jpg",
             name = "Gérard Paligot",
             pronouns = "He/Him",
             jobTitle = "Staff Engineer",

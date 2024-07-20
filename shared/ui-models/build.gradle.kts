@@ -1,4 +1,5 @@
 import org.gradle.internal.os.OperatingSystem
+import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 
 plugins {
     id("conferences4hall.multiplatform.library")
@@ -13,6 +14,12 @@ android {
 
 kotlin {
     androidTarget()
+
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmJs {
+        useCommonJs()
+        browser()
+    }
 
     if (OperatingSystem.current().isMacOsX) {
         listOf(
