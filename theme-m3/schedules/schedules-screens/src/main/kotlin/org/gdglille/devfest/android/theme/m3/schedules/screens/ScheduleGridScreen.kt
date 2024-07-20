@@ -17,21 +17,21 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.android.theme.m3.schedules.semantics.SchedulesSemantics
-import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.MediumScheduleItem
-import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.NoFavoriteTalks
-import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.SmallScheduleItem
-import org.gdglille.devfest.android.theme.m3.schedules.ui.talks.Time
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.SpacingTokens
-import org.gdglille.devfest.theme.m3.style.placeholder.placeholder
 import org.gdglille.devfest.android.theme.m3.style.previews.PHONE_LANDSCAPE
-import org.gdglille.devfest.theme.m3.style.schedules.findTimeImageVector
-import org.gdglille.devfest.theme.m3.style.schedules.pause.MediumPauseItem
-import org.gdglille.devfest.theme.m3.style.schedules.pause.SmallPauseItem
 import org.gdglille.devfest.android.theme.m3.style.toDp
 import org.gdglille.devfest.models.ui.AgendaUi
 import org.gdglille.devfest.models.ui.EventSessionItemUi
 import org.gdglille.devfest.models.ui.TalkItemUi
+import org.gdglille.devfest.theme.m3.schedules.ui.talks.MediumScheduleItem
+import org.gdglille.devfest.theme.m3.schedules.ui.talks.NoFavoriteTalks
+import org.gdglille.devfest.theme.m3.schedules.ui.talks.SmallScheduleItem
+import org.gdglille.devfest.theme.m3.schedules.ui.talks.Time
+import org.gdglille.devfest.theme.m3.style.placeholder.placeholder
+import org.gdglille.devfest.theme.m3.style.schedules.findTimeImageVector
+import org.gdglille.devfest.theme.m3.style.schedules.pause.MediumPauseItem
+import org.gdglille.devfest.theme.m3.style.schedules.pause.SmallPauseItem
 import kotlin.math.floor
 
 const val NbHorizontalPadding = 2

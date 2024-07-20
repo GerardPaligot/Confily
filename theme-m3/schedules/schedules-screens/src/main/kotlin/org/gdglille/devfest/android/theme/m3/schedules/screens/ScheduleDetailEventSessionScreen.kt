@@ -17,13 +17,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.screen_schedule_detail_event_session
-import org.gdglille.devfest.android.theme.m3.schedules.ui.schedule.EventSessionSection
-import org.gdglille.devfest.android.theme.m3.schedules.ui.schedule.TalkAbstract
 import org.gdglille.devfest.android.theme.m3.style.SpacingTokens
 import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBar
-import org.gdglille.devfest.theme.m3.style.events.cards.AddressCard
 import org.gdglille.devfest.android.theme.m3.style.toDp
 import org.gdglille.devfest.models.ui.EventSessionItemUi
+import org.gdglille.devfest.theme.m3.schedules.ui.schedule.EventSessionSection
+import org.gdglille.devfest.theme.m3.schedules.ui.schedule.TalkAbstract
+import org.gdglille.devfest.theme.m3.style.events.cards.AddressCard
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 

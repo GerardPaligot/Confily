@@ -14,12 +14,12 @@ import androidx.compose.ui.Modifier
 import kotlinx.collections.immutable.ImmutableList
 import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.screen_agenda
-import org.gdglille.devfest.theme.m3.navigation.ActionIds
 import org.gdglille.devfest.android.theme.m3.style.Scaffold
 import org.gdglille.devfest.android.theme.m3.style.actions.TabActionsUi
 import org.gdglille.devfest.android.theme.m3.style.actions.TopActionsUi
 import org.gdglille.devfest.models.ui.AgendaUi
 import org.gdglille.devfest.models.ui.TalkItemUi
+import org.gdglille.devfest.theme.m3.navigation.ActionIds
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 
