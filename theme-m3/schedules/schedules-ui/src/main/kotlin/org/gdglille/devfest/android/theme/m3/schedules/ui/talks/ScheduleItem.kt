@@ -11,10 +11,10 @@ import org.gdglille.devfest.android.shared.resources.semantic_talk_item
 import org.gdglille.devfest.android.shared.resources.semantic_talk_item_level
 import org.gdglille.devfest.android.shared.resources.semantic_talk_item_speakers
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
-import org.gdglille.devfest.android.theme.m3.style.schedules.card.MediumScheduleCard
-import org.gdglille.devfest.android.theme.m3.style.schedules.card.SmallScheduleCard
-import org.gdglille.devfest.android.theme.m3.style.schedules.findCategoryImageVector
-import org.gdglille.devfest.android.theme.m3.style.schedules.findTimeImageVector
+import org.gdglille.devfest.theme.m3.style.schedules.card.MediumScheduleCard
+import org.gdglille.devfest.theme.m3.style.schedules.card.SmallScheduleCard
+import org.gdglille.devfest.theme.m3.style.schedules.findCategoryImageVector
+import org.gdglille.devfest.theme.m3.style.schedules.findTimeImageVector
 import org.gdglille.devfest.android.theme.m3.style.tags.MediumAutoColoredTag
 import org.gdglille.devfest.android.theme.m3.style.tags.MediumTag
 import org.gdglille.devfest.android.theme.m3.style.tags.SmallAutoColoredTag

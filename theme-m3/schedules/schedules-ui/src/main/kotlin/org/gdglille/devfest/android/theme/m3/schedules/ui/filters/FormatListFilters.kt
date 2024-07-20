@@ -15,8 +15,8 @@ import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.title_filters_formats
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.chips.FilterChip
-import org.gdglille.devfest.android.theme.m3.style.schedules.filters.FilterSection
-import org.gdglille.devfest.android.theme.m3.style.schedules.findTimeImageVector
+import org.gdglille.devfest.theme.m3.style.schedules.filters.FilterSection
+import org.gdglille.devfest.theme.m3.style.schedules.findTimeImageVector
 import org.gdglille.devfest.models.ui.FormatUi
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
