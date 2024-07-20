@@ -21,7 +21,7 @@ import org.gdglille.devfest.android.theme.m3.schedules.ui.schedule.EventSessionS
 import org.gdglille.devfest.android.theme.m3.schedules.ui.schedule.TalkAbstract
 import org.gdglille.devfest.android.theme.m3.style.SpacingTokens
 import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBar
-import org.gdglille.devfest.android.theme.m3.style.events.cards.AddressCard
+import org.gdglille.devfest.theme.m3.style.events.cards.AddressCard
 import org.gdglille.devfest.android.theme.m3.style.toDp
 import org.gdglille.devfest.models.ui.EventSessionItemUi
 import org.jetbrains.compose.resources.ExperimentalResourceApi
