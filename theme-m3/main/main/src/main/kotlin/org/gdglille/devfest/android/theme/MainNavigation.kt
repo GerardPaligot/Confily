@@ -34,7 +34,6 @@ import androidx.navigation.navDeepLink
 import org.gdglille.devfest.android.theme.m3.events.feature.EventListVM
 import org.gdglille.devfest.android.theme.m3.infos.feature.InfoCompactVM
 import org.gdglille.devfest.android.theme.m3.infos.feature.TicketQrCodeScanner
-import org.gdglille.devfest.android.theme.m3.navigation.Screen
 import org.gdglille.devfest.android.theme.m3.networking.feature.NetworkingCompactVM
 import org.gdglille.devfest.android.theme.m3.networking.feature.ProfileInputVM
 import org.gdglille.devfest.android.theme.m3.networking.feature.VCardQrCodeScanner
@@ -46,6 +45,7 @@ import org.gdglille.devfest.android.theme.m3.style.adaptive.isCompat
 import org.gdglille.devfest.android.theme.m3.style.appbars.iconColor
 import org.gdglille.devfest.models.ui.ExportNetworkingUi
 import org.gdglille.devfest.models.ui.convertToModelUi
+import org.gdglille.devfest.theme.m3.navigation.Screen
 import org.jetbrains.compose.resources.stringResource
 import org.koin.androidx.compose.koinViewModel
 

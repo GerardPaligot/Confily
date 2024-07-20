@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.navigation
+package org.gdglille.devfest.theme.m3.navigation
 
 sealed class Screen(val route: String) {
     data object EventList : Screen(route = "events")

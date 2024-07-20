@@ -11,13 +11,13 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import org.gdglille.devfest.android.theme.m3.navigation.BottomActions
 import org.gdglille.devfest.android.theme.m3.style.actions.NavigationAction
 import org.gdglille.devfest.android.theme.m3.style.actions.NavigationActionsUi
 import org.gdglille.devfest.models.ui.ScaffoldConfigUi
 import org.gdglille.devfest.models.ui.UserNetworkingUi
 import org.gdglille.devfest.repositories.AgendaRepository
 import org.gdglille.devfest.repositories.UserRepository
+import org.gdglille.devfest.theme.m3.navigation.BottomActions
 
 sealed class MainNavigationUiState {
     data object Loading : MainNavigationUiState()

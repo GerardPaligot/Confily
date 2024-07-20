@@ -24,9 +24,9 @@ import org.gdglille.devfest.android.shared.resources.title_ticket
 import org.gdglille.devfest.android.theme.m3.infos.ui.tickets.TicketDetailed
 import org.gdglille.devfest.android.theme.m3.infos.ui.tickets.TicketQrCode
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
+import org.gdglille.devfest.models.ui.EventUi
 import org.gdglille.devfest.theme.m3.style.events.cards.AddressCard
 import org.gdglille.devfest.theme.m3.style.events.socials.SocialsSection
-import org.gdglille.devfest.models.ui.EventUi
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 

@@ -13,16 +13,16 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.gdglille.devfest.android.theme.m3.navigation.FabActions
-import org.gdglille.devfest.android.theme.m3.navigation.Screen
-import org.gdglille.devfest.android.theme.m3.navigation.TabActions
-import org.gdglille.devfest.android.theme.m3.navigation.TopActions
 import org.gdglille.devfest.android.theme.m3.style.actions.FabAction
 import org.gdglille.devfest.android.theme.m3.style.actions.TabAction
 import org.gdglille.devfest.android.theme.m3.style.actions.TabActionsUi
 import org.gdglille.devfest.android.theme.m3.style.actions.TopActionsUi
 import org.gdglille.devfest.repositories.AgendaRepository
 import org.gdglille.devfest.repositories.EventRepository
+import org.gdglille.devfest.theme.m3.navigation.FabActions
+import org.gdglille.devfest.theme.m3.navigation.Screen
+import org.gdglille.devfest.theme.m3.navigation.TabActions
+import org.gdglille.devfest.theme.m3.navigation.TopActions
 
 sealed class InfoUiState {
     data object Loading : InfoUiState()
