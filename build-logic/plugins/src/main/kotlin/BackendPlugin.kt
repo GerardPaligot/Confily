@@ -9,7 +9,7 @@ class BackendPlugin : Plugin<Project> {
                 apply("org.jetbrains.kotlin.jvm")
                 apply("org.gradle.application")
             }
-            configureKotlinCompiler()
+            configureKotlinCompiler(jvmVersion = 21)
         }
     }
 }

@@ -15,7 +15,7 @@ class MultiplatformLibraryPlugin: Plugin<Project> {
             }
             extensions.configure<LibraryExtension> {
                 configureKotlinAndroid(this)
-                configureKotlinCompiler()
+                configureKotlinCompiler(jvmVersion = 17)
                 sourceSets.getByName("main").manifest.srcFile("src/androidMain/AndroidManifest.xml")
                 defaultConfig.targetSdk = 34
             }
