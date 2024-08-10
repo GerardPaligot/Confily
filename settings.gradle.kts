@@ -14,6 +14,14 @@ pluginManagement {
     }
 }
 
+plugins {
+    // This plugin is used because we can't configure a jvm toolchain version that isn't installed
+    // on the local machine without this plugin. e.g. JVM 21 installed but JVM toolchain 17
+    // configured in the project.
+    // https://youtrack.jetbrains.com/issue/KTIJ-24981/Gradle-8.-project-sync-fails-with-an-error-No-matching-toolchains-found-for-requested-specification-if-there-is-no-necessary-JDK
+    id("org.gradle.toolchains.foojay-resolver-convention") version "0.4.0"
+}
+
 rootProject.name = "conferences4hall"
 include(":androidApp")
 include(":shared:core")

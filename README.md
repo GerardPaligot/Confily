@@ -103,15 +103,15 @@ gcloud config set project $PROJECT_ID
 gcloud auth login
 gcloud config set project $PROJECT_ID
 # Deploy in production
-gcloud builds submit --timeout 1h --tag gcr.io/$PROJECT_ID/$IMAGE:$TAG .
-gcloud run deploy $IMAGE --image=eu.gcr.io/$PROJECT_ID/$IMAGE:$TAG \
+gcloud run deploy conferences4hall \
+  --source . \
   --platform managed \
   --port 8080 \
   --region europe-west1 \
   --set-env-vars=IS_CLOUD=true \
   --set-env-vars=BASE_URL_CONFERENCE_HALL=conference-hall.io \
   --set-env-vars=PROJECT_ID=$PROJECT_ID \
-  --set-env-vars=GOOGLE_APPLICATION_CREDENTIALS=$GOOGLE_APPLICATION_CREDENTIALS
+  --allow-unauthenticated
 ```
 
 ## References
