@@ -27,7 +27,7 @@ class EventViewModel: ObservableObject {
     func fetchEvent() {
         eventTask = Task {
             do {
-                let stream = asyncStream(for: agendaRepository.eventNative())
+                let stream = asyncSequence(for: agendaRepository.event())
                 for try await event in stream {
                     self.uiState = .success(event)
                 }
@@ -42,10 +42,8 @@ class EventViewModel: ObservableObject {
     }
 
     func saveTicket(barcode: String) async {
-        do {
-            try await agendaRepository.insertOrUpdateTicket(barcode: barcode)
-        } catch {
-            // ignored
+        if let error = await asyncError(for: agendaRepository.insertOrUpdateTicket(barcode: barcode)) {
+            // ignore
         }
     }
 }

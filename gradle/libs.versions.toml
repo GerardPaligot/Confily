@@ -31,6 +31,7 @@ google-cloud-storage = "2.34.0"
 google-oauth-client = "1.35.0"
 google-firebase = "32.2.3"
 google-firebase-crashlytics-gradlePlugin = "2.9.9"
+google-ksp = "2.0.0-1.0.24"
 google-material = "1.11.0"
 google-mlkit-barcode-scanning = "17.2.0"
 google-services = "4.3.15"
@@ -40,7 +41,7 @@ jetbrains-kotlin = "2.0.0"
 jetbrains-kotlinx-collections = "0.3.6"
 jetbrains-kotlinx-coroutines = "1.8.1"
 jetbrains-kotlinx-datetime = "0.6.0"
-kmp-nativecoroutines-gradlePlugin = "1.0.0-ALPHA-30-kotlin-2.0.0-RC3"
+kmp-nativecoroutines-gradlePlugin = "1.0.0-ALPHA-33"
 koin = "3.6.0-Beta4"
 ktlint = "12.1.0"
 ktor = "2.3.3"
@@ -118,6 +119,7 @@ google-auth-client = { group = "com.google.oauth-client", name = "google-oauth-c
 google-drive = { group = "com.google.apis", name = "google-api-services-drive", version.ref = "google-api-services-drive" }
 google-firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "google-firebase" }
 google-firebase-crashlytics-gradlePlugin = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "google-firebase-crashlytics-gradlePlugin" }
+google-ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "google-ksp" }
 google-material = { group = "com.google.android.material", name = "material", version.ref = "google-material" }
 google-mlkit-barcode-scanning = { group = "com.google.mlkit", name = "barcode-scanning", version.ref = "google-mlkit-barcode-scanning" }
 google-services-gradlePlugin = { group = "com.google.gms", name = "google-services", version.ref = "google-services" }

@@ -5,6 +5,7 @@ plugins {
     id("conferences4hall.android.library.compose")
     id("conferences4hall.quality")
     id("kotlinx-serialization")
+    id("com.google.devtools.ksp")
     id("com.rickclephas.kmp.nativecoroutines")
     id("app.cash.sqldelight")
 }
@@ -110,6 +111,10 @@ kotlin {
                 iosSimulatorArm64Test.dependsOn(this)
             }
         }
+    }
+
+    sourceSets.all {
+        languageSettings.optIn("kotlin.experimental.ExperimentalObjCName")
     }
 }
 

@@ -1,10 +1,8 @@
 package org.gdglille.devfest.repositories
 
-import com.rickclephas.kmp.nativecoroutines.NativeCoroutineScope
+import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
 import kotlinx.collections.immutable.ImmutableList
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapConcat
@@ -17,8 +15,11 @@ import org.gdglille.devfest.models.ui.UserProfileUi
 import org.gdglille.devfest.vcard.encodeToString
 
 interface UserRepository {
+    @NativeCoroutines
     fun fetchProfile(): Flow<UserProfileUi?>
     fun saveProfile(email: String, firstName: String, lastName: String, company: String)
+
+    @NativeCoroutines
     fun fetchNetworking(): Flow<ImmutableList<UserNetworkingUi>>
     fun insertNetworkingProfile(user: UserNetworkingUi): Boolean
     fun deleteNetworkProfile(email: String)
@@ -42,9 +43,6 @@ class UserRepositoryImpl(
     private val eventDao: EventDao,
     private val qrCodeGenerator: QrCodeGenerator
 ) : UserRepository {
-    @NativeCoroutineScope
-    private val coroutineScope: CoroutineScope = MainScope()
-
     override fun fetchProfile(): Flow<UserProfileUi?> = eventDao.fetchEventId()
         .flatMapConcat {
             combine(

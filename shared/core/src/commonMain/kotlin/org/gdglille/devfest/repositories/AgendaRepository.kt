@@ -1,13 +1,11 @@
 package org.gdglille.devfest.repositories
 
-import com.rickclephas.kmp.nativecoroutines.NativeCoroutineScope
+import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
 import com.russhwolf.settings.ExperimentalSettingsApi
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.ImmutableMap
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.map
@@ -36,24 +34,55 @@ import org.gdglille.devfest.models.ui.TalkUi
 import org.gdglille.devfest.network.ConferenceApi
 
 interface AgendaRepository {
+    @NativeCoroutines
     suspend fun fetchAndStoreAgenda()
+
+    @NativeCoroutines
     suspend fun insertOrUpdateTicket(barcode: String)
+
+    @NativeCoroutines
     fun scaffoldConfig(): Flow<ScaffoldConfigUi>
+
+    @NativeCoroutines
     fun event(): Flow<EventUi>
+
+    @NativeCoroutines
     fun partners(): Flow<PartnerGroupsUi>
+
+    @NativeCoroutines
     fun partner(id: String): Flow<PartnerItemUi>
+
+    @NativeCoroutines
     fun qanda(): Flow<ImmutableList<QuestionAndResponseUi>>
+
+    @NativeCoroutines
     fun menus(): Flow<ImmutableList<MenuItemUi>>
+
+    @NativeCoroutines
     fun coc(): Flow<CoCUi>
+
+    @NativeCoroutines
     fun agenda(): Flow<ImmutableMap<String, AgendaUi>>
+
+    @NativeCoroutines
     fun fetchNextTalks(date: String): Flow<ImmutableList<TalkItemUi>>
+
+    @NativeCoroutines
     fun filters(): Flow<FiltersUi>
+
+    @NativeCoroutines
     fun scheduleItem(scheduleId: String): Flow<TalkUi>
+
+    @NativeCoroutines
     fun scheduleEventSessionItem(scheduleId: String): Flow<EventSessionItemUi>
+
+    @NativeCoroutines
     fun hasFilterApplied(): Flow<Boolean>
     fun applyFavoriteFilter(selected: Boolean)
     fun applyCategoryFilter(categoryUi: CategoryUi, selected: Boolean)
     fun applyFormatFilter(formatUi: FormatUi, selected: Boolean)
+
+    @NativeCoroutines
     fun speaker(speakerId: String): Flow<SpeakerUi>
     fun markAsRead(sessionId: String, isFavorite: Boolean)
 
@@ -96,9 +125,6 @@ class AgendaRepositoryImpl(
     private val featuresDao: FeaturesActivatedDao,
     private val qrCodeGenerator: QrCodeGenerator
 ) : AgendaRepository {
-    @NativeCoroutineScope
-    private val coroutineScope: CoroutineScope = MainScope()
-
     override suspend fun fetchAndStoreAgenda() {
         val eventId = eventDao.getEventId()
         val etag = scheduleDao.lastEtag(eventId)

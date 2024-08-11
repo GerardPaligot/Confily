@@ -11,6 +11,7 @@ buildscript {
         classpath(libs.cash.sqldelight.gradlePlugin)
         classpath(libs.google.services.gradlePlugin)
         classpath(libs.google.firebase.crashlytics.gradlePlugin)
+        classpath(libs.google.ksp.gradlePlugin)
         classpath(libs.android.gradlePlugin)
         classpath(libs.androidx.benchmark.baseline.profile.gradlePlugin)
     }

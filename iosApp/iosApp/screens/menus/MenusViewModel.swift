@@ -27,7 +27,7 @@ class MenusViewModel: ObservableObject {
     func fetchMenus() {
         menusTask = Task {
             do {
-                let stream = asyncStream(for: repository.menusNative())
+                let stream = asyncSequence(for: repository.menus())
                 for try await menus in stream {
                     self.uiState = MenusUiState.success(menus)
                 }

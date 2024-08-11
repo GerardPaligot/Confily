@@ -18,13 +18,8 @@ class HomeViewModel: ObservableObject {
 
     func fetchAgenda() {
         task = Task {
-            do {
-                let stream = asyncStream(for: repository.fetchAndStoreAgendaNative())
-                for try await _ in stream {
-                    // Nothing to do
-                }
-            } catch {
-                // Ignore failure
+            if let error = await asyncError(for: repository.fetchAndStoreAgenda()) {
+                // ignore
             }
         }
     }

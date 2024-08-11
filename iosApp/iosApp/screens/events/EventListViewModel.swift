@@ -25,11 +25,12 @@ class EventListViewModel: ObservableObject {
     private var eventListTask: Task<(), Never>?
 
     func fetchEventList() {
-        repository.fetchAndStoreEventList { _ in
-        }
         eventListTask = Task {
+            if let error = await asyncError(for: repository.fetchAndStoreEventList()) {
+                // ignored
+            }
             do {
-                let stream = asyncStream(for: repository.eventsNative())
+                let stream = asyncSequence(for: repository.events())
                 for try await events in stream {
                     self.uiState = .success(events)
                 }

@@ -26,7 +26,7 @@ class AgendaFiltersViewModel: ObservableObject {
     func fetchFilters() {
         filtersTask = Task {
             do {
-                let stream = asyncStream(for: agendaRepository.filtersNative())
+                let stream = asyncSequence(for: agendaRepository.filters())
                 for try await filters in stream {
                     self.uiState = .success(filters)
                 }

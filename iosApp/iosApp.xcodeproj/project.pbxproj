@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		009DACF52C69384200A7F42E /* AgendaRepositoryExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009DACF42C69384200A7F42E /* AgendaRepositoryExt.swift */; };
+		009DACF72C693A5A00A7F42E /* EventRepositoryExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009DACF62C693A5A00A7F42E /* EventRepositoryExt.swift */; };
+		009DACF92C693B0900A7F42E /* UserRepositoryExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009DACF82C693B0900A7F42E /* UserRepositoryExt.swift */; };
+		009DACFB2C693B6000A7F42E /* SpeakerRepositoryExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009DACFA2C693B6000A7F42E /* SpeakerRepositoryExt.swift */; };
 		058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
@@ -115,6 +119,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		009DACF42C69384200A7F42E /* AgendaRepositoryExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaRepositoryExt.swift; sourceTree = "<group>"; };
+		009DACF62C693A5A00A7F42E /* EventRepositoryExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRepositoryExt.swift; sourceTree = "<group>"; };
+		009DACF82C693B0900A7F42E /* UserRepositoryExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositoryExt.swift; sourceTree = "<group>"; };
+		009DACFA2C693B6000A7F42E /* SpeakerRepositoryExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakerRepositoryExt.swift; sourceTree = "<group>"; };
 		058557BA273AAA24004C7B11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2152FB032600AC8F00CF470E /* iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
@@ -339,6 +347,10 @@
 				D51C2CD028383719006EED5D /* UIApplicationExt.swift */,
 				D52F3B992961CDCC00535233 /* ViewExt.swift */,
 				D5C1B3BA29F26D9E00D94391 /* BundleExt.swift */,
+				009DACF42C69384200A7F42E /* AgendaRepositoryExt.swift */,
+				009DACF62C693A5A00A7F42E /* EventRepositoryExt.swift */,
+				009DACF82C693B0900A7F42E /* UserRepositoryExt.swift */,
+				009DACFA2C693B6000A7F42E /* SpeakerRepositoryExt.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -719,6 +731,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D574DE1A292446AE00468074 /* EventSessionView.swift in Sources */,
+				009DACF92C693B0900A7F42E /* UserRepositoryExt.swift in Sources */,
 				D59944BE2833CDC900F59C1B /* TicketDetailedView.swift in Sources */,
 				D5BC483229B0CC98002CC517 /* ViewModelFactory.swift in Sources */,
 				D5B5E8522B4C972D00129758 /* AgendaFiltersViewModel.swift in Sources */,
@@ -734,12 +747,14 @@
 				D55D7A77295F8D63008EA04B /* PartnerDetailViewModel.swift in Sources */,
 				D524D72E27BBF0DB0078DF0D /* SpeakerItemView.swift in Sources */,
 				D563E2E72975596D00B5FCA0 /* EventItemView.swift in Sources */,
+				009DACFB2C693B6000A7F42E /* SpeakerRepositoryExt.swift in Sources */,
 				D5CAA6512821BCC7005BB242 /* RemoteImage.swift in Sources */,
 				D587A25C29AB90120074E4B9 /* JobItemView.swift in Sources */,
 				D581504429B22B2B0058D057 /* MenusNavigation.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				D5C92EC7283AC66D00D5CF2D /* PartnersVM.swift in Sources */,
 				D556ADBB29C5F7D200242680 /* ComposeMailData.swift in Sources */,
+				009DACF72C693A5A00A7F42E /* EventRepositoryExt.swift in Sources */,
 				D5289FE329B7C5E600D1FE7B /* MailView.swift in Sources */,
 				D560788E27BE86D900D4012C /* SpeakerAvatarView.swift in Sources */,
 				D5C7532E2975F56000E2FD0B /* AppViewModel.swift in Sources */,
@@ -775,6 +790,7 @@
 				D538BED72954F6B700F25CBE /* AlarmScheduler.swift in Sources */,
 				D59944C02833D45A00F59C1B /* TicketQrCodeView.swift in Sources */,
 				D5B5E8582B4CA63900129758 /* AgendaFiltersNavigation.swift in Sources */,
+				009DACF52C69384200A7F42E /* AgendaRepositoryExt.swift in Sources */,
 				D53256C429219DF200EA0DE7 /* DecorativeTagView.swift in Sources */,
 				D5C92ECC283ACBB000D5CF2D /* MenuItemView.swift in Sources */,
 				D5C92EC9283AC6D400D5CF2D /* PartnersViewModel.swift in Sources */,
@@ -1026,56 +1042,56 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-async-algorithms.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.0.3;
+				kind = exactVersion;
+				version = 1.0.0;
 			};
 		};
 		D55B3BC927BEF349006184D1 /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/twostraws/CodeScanner";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
+				kind = exactVersion;
+				version = 2.5.0;
 			};
 		};
 		D5868A562823139E008EE6E3 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
+				kind = exactVersion;
+				version = 3.1.1;
 			};
 		};
 		D5868A59282313F2008EE6E3 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSVGCoder";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				kind = exactVersion;
+				version = 1.7.0;
 			};
 		};
 		D58A307129C7C340000998CA /* XCRemoteSwiftPackageReference "WrappingHStack" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/dkk/WrappingHStack";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
+				kind = exactVersion;
+				version = 2.2.11;
 			};
 		};
 		D5A226BA2921336E000D14AB /* XCRemoteSwiftPackageReference "KMP-NativeCoroutines" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rickclephas/KMP-NativeCoroutines.git";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = exactVersion;
+				version = "1.0.0-ALPHA-33";
 			};
 		};
 		D5AEA3A728341C630023245B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 10.0.0;
+				kind = exactVersion;
+				version = 11.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

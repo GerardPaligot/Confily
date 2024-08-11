@@ -27,7 +27,7 @@ class PartnersViewModel: ObservableObject {
     func fetchPartners() {
         partnersTask = Task {
             do {
-                let stream = asyncStream(for: repository.partnersNative())
+                let stream = asyncSequence(for: repository.partners())
                 for try await partners in stream {
                     self.uiState = PartnersUiState.success(partners)
                 }

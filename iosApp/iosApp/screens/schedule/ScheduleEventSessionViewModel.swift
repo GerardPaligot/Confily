@@ -32,7 +32,7 @@ class ScheduleEventSessionViewModel: ObservableObject {
     func fetchScheduleDetails() {
         scheduleTask = Task {
             do {
-                let stream = asyncStream(for: self.repository.scheduleEventSessionItemNative(scheduleId: scheduleId))
+                let stream = asyncSequence(for: self.repository.scheduleEventSessionItem(scheduleId: scheduleId))
                 for try await schedule in stream {
                     self.uiState = .success(schedule)
                 }

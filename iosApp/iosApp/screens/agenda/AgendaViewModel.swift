@@ -28,7 +28,7 @@ class AgendaViewModel: ObservableObject {
     func fetchAgenda() {
         agendaTask = Task {
             do {
-                let stream = asyncStream(for: repository.agendaNative())
+                let stream = asyncSequence(for: repository.agenda())
                 for try await agenda in stream {
                     if (!agenda.isEmpty) {
                         self.uiState = AgendaUiState.success(agenda)

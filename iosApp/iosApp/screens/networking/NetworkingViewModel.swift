@@ -31,8 +31,8 @@ class NetworkingViewModel: ObservableObject {
     func fetchNetworking() {
         networkingTask = Task {
             do {
-                let networkingStream = asyncStream(for: repository.fetchNetworkingNative())
-                let profileStream = asyncStream(for: repository.fetchProfileNative())
+                let networkingStream = asyncSequence(for: repository.fetchNetworking())
+                let profileStream = asyncSequence(for: repository.fetchProfile())
                 for try await (networkings, profile) in combineLatest(networkingStream, profileStream) {
                     self.uiState = .success(NetworkingUi(userProfileUi: profile, showQrCode: false, users: networkings))
                 }
