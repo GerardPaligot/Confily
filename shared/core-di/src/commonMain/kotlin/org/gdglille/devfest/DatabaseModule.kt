@@ -16,6 +16,7 @@ import org.gdglille.devfest.database.TalkDao
 import org.gdglille.devfest.database.UserDao
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
+import kotlin.coroutines.CoroutineContext
 
 @OptIn(ExperimentalSettingsApi::class)
 val databasesModule = module {
@@ -28,13 +29,12 @@ val databasesModule = module {
             this.languageTag = get<LanguageTag>(named(AcceptLanguageNamed)).split("-").first()
         }
     }
-    single { EventDao(db = get(), settings = get(), dispatcher = Dispatchers.IO) }
-    single { FeaturesActivatedDao(db = get(), settings = get(), dispatcher = Dispatchers.IO) }
-    single { PartnerDao(db = get(), platform = get(), dispatcher = Dispatchers.IO) }
-    single {
-        ScheduleDao(db = get(), settings = get(), lyricist = get(), dispatcher = Dispatchers.IO)
-    }
-    single { SpeakerDao(db = get(), lyricist = get(), dispatcher = Dispatchers.IO) }
-    single { TalkDao(db = get(), lyricist = get(), dispatcher = Dispatchers.IO) }
-    single { UserDao(db = get(), platform = get(), dispatcher = Dispatchers.IO) }
+    single<CoroutineContext> { Dispatchers.IO }
+    single { EventDao(db = get(), settings = get(), dispatcher = get()) }
+    single { FeaturesActivatedDao(db = get(), settings = get(), dispatcher = get()) }
+    single { PartnerDao(db = get(), platform = get(), dispatcher = get()) }
+    single { ScheduleDao(db = get(), settings = get(), lyricist = get(), dispatcher = get()) }
+    single { SpeakerDao(db = get(), lyricist = get(), dispatcher = get()) }
+    single { TalkDao(db = get(), lyricist = get(), dispatcher = get()) }
+    single { UserDao(db = get(), platform = get(), dispatcher = get()) }
 }
