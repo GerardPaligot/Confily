@@ -24,6 +24,10 @@ gradlePlugin {
             id = "conferences4hall.android.application"
             implementationClass = "AndroidApplicationPlugin"
         }
+        register("androidSampleApplication") {
+            id = "conferences4hall.android.sample"
+            implementationClass = "AndroidSampleApplicationPlugin"
+        }
         register("androidLibrary") {
             id = "conferences4hall.android.library"
             implementationClass = "AndroidLibraryPlugin"

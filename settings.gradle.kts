@@ -24,6 +24,7 @@ plugins {
 
 rootProject.name = "conferences4hall"
 include(":androidApp")
+include(":android-core:core-sample")
 include(":shared:core")
 include(":shared:core-di")
 include(":shared:models")
@@ -33,6 +34,7 @@ include(":backend")
 include(":theme-m3:main:main")
 include(":theme-m3:main:main-di")
 include(":theme-m3:schedules:schedules-ui")
+include(":theme-m3:schedules:schedules-sample")
 include(":theme-m3:schedules:schedules-screens")
 include(":theme-m3:schedules:schedules-feature")
 include(":theme-m3:schedules:schedules-di")
