@@ -40,14 +40,10 @@ import org.gdglille.devfest.android.theme.m3.networking.feature.ProfileInputVM
 import org.gdglille.devfest.android.theme.m3.networking.feature.VCardQrCodeScanner
 import org.gdglille.devfest.android.theme.m3.partners.feature.PartnerDetailVM
 import org.gdglille.devfest.android.theme.m3.partners.feature.PartnersAdaptive
-import org.gdglille.devfest.android.theme.m3.schedules.feature.AgendaFiltersCompactVM
-import org.gdglille.devfest.android.theme.m3.schedules.feature.ScheduleDetailEventSessionVM
-import org.gdglille.devfest.android.theme.m3.schedules.feature.ScheduleDetailOrientableVM
-import org.gdglille.devfest.android.theme.m3.schedules.feature.ScheduleGridAdaptive
+import org.gdglille.devfest.android.theme.m3.schedules.feature.scheduleGraph
 import org.gdglille.devfest.android.theme.m3.speakers.feature.SpeakerAdaptive
 import org.gdglille.devfest.android.theme.m3.speakers.feature.SpeakerDetailVM
 import org.gdglille.devfest.android.theme.m3.style.adaptive.isCompat
-import org.gdglille.devfest.android.theme.m3.style.adaptive.isMedium
 import org.gdglille.devfest.android.theme.m3.style.appbars.iconColor
 import org.gdglille.devfest.models.ui.ExportNetworkingUi
 import org.gdglille.devfest.models.ui.convertToModelUi
@@ -139,62 +135,19 @@ fun MainNavigation(
                         }
                     )
                 }
-                composable(
-                    route = Screen.ScheduleList.route,
-                    enterTransition = { fadeIn() },
-                    exitTransition = { exitSlideInHorizontal() }
-                ) {
-                    val showFilterIcon = adaptiveInfo.widthSizeClass.isCompat ||
-                        (adaptiveInfo.widthSizeClass.isMedium && config.isPortrait)
-                    val isSmallSize = adaptiveInfo.heightSizeClass.isCompat
-                    ScheduleGridAdaptive(
-                        onScheduleStarted = onScheduleStarted,
-                        onFilterClicked = { navController.navigate(Screen.ScheduleFilters.route) },
-                        onTalkClicked = { navController.navigate(Screen.Schedule.route(it)) },
-                        onEventSessionClicked = { navController.navigate(Screen.ScheduleEvent.route(it)) },
-                        showFilterIcon = showFilterIcon,
-                        isSmallSize = isSmallSize
-                    )
-                }
-                composable(route = Screen.ScheduleFilters.route) {
-                    AgendaFiltersCompactVM(
-                        navigationIcon = { Back { navController.popBackStack() } }
-                    )
-                }
-                composable(
-                    route = Screen.Schedule.route,
-                    arguments = listOf(navArgument("scheduleId") { type = NavType.StringType }),
-                    deepLinks = listOf(
-                        navDeepLink {
-                            uriPattern = "$rootUri/${Screen.Schedule.route}"
-                        }
-                    ),
-                    enterTransition = { enterSlideInHorizontal() },
-                    popEnterTransition = { popEnterSlideInHorizontal() },
-                    exitTransition = { exitSlideInHorizontal() },
-                    popExitTransition = { popExistSlideInHorizontal() }
-                ) {
-                    ScheduleDetailOrientableVM(
-                        scheduleId = it.arguments?.getString("scheduleId")!!,
-                        onBackClicked = { navController.popBackStack() },
-                        onSpeakerClicked = { navController.navigate(Screen.Speaker.route(it)) },
-                        onShareClicked = onShareClicked
-                    )
-                }
-                composable(
-                    route = Screen.ScheduleEvent.route,
-                    arguments = listOf(navArgument("scheduleId") { type = NavType.StringType }),
-                    enterTransition = { enterSlideInHorizontal() },
-                    popEnterTransition = { popEnterSlideInHorizontal() },
-                    exitTransition = { exitSlideInHorizontal() },
-                    popExitTransition = { popExistSlideInHorizontal() }
-                ) {
-                    ScheduleDetailEventSessionVM(
-                        scheduleId = it.arguments?.getString("scheduleId")!!,
-                        onItineraryClicked = onItineraryClicked,
-                        onBackClicked = { navController.popBackStack() }
-                    )
-                }
+                scheduleGraph(
+                    rootUri = rootUri,
+                    isPortrait = config.isPortrait,
+                    adaptiveInfo = adaptiveInfo,
+                    navController = navController,
+                    enterTransition = enterSlideInHorizontal(),
+                    popEnterTransition = popEnterSlideInHorizontal(),
+                    exitTransition = exitSlideInHorizontal(),
+                    popExitTransition = popExistSlideInHorizontal(),
+                    onShareClicked = onShareClicked,
+                    onItineraryClicked = onItineraryClicked,
+                    onScheduleStarted = onScheduleStarted
+                )
                 composable(
                     route = Screen.SpeakerList.route,
                     enterTransition = { fadeIn() }
