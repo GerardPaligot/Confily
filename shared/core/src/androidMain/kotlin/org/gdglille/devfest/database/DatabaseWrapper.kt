@@ -8,12 +8,12 @@ import org.gdglille.devfest.db.Event
 import org.gdglille.devfest.db.EventSession
 import org.gdglille.devfest.db.Partner
 
-actual class DatabaseWrapper(val context: Context) {
+actual class DatabaseWrapper(val context: Context, val name: String?) {
     actual fun createDb(): Conferences4HallDatabase {
         val driver = AndroidSqliteDriver(
             schema = Conferences4HallDatabase.Schema,
             context = context,
-            name = "conferences4hall.db",
+            name = name,
             callback = object : AndroidSqliteDriver.Callback(Conferences4HallDatabase.Schema) {
                 override fun onOpen(db: SupportSQLiteDatabase) {
                     db.setForeignKeyConstraintsEnabled(true)
