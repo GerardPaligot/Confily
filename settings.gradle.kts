@@ -24,6 +24,7 @@ plugins {
 
 rootProject.name = "conferences4hall"
 include(":androidApp")
+include(":android-core:core-models-factory")
 include(":android-core:core-sample")
 include(":android-core:core-test")
 include(":android-core:core-test-patterns")
@@ -40,6 +41,8 @@ include(":theme-m3:schedules:schedules-sample")
 include(":theme-m3:schedules:schedules-screens")
 include(":theme-m3:schedules:schedules-feature")
 include(":theme-m3:schedules:schedules-di")
+include(":theme-m3:schedules:schedules-test")
+include(":theme-m3:schedules:schedules-test-scopes")
 include(":theme-m3:schedules:schedules-semantics")
 include(":theme-m3:speakers:speakers-ui")
 include(":theme-m3:speakers:speakers-screens")

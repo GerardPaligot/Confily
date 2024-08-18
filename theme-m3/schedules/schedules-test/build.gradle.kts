@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalComposeLibrary::class)
+
 import org.jetbrains.compose.ExperimentalComposeLibrary
 
 plugins {
@@ -7,10 +9,12 @@ plugins {
 }
 
 android {
-    namespace = "org.gdglille.devfest.android.core.test.patterns"
+    namespace = "org.gdglille.devfest.android.theme.m3.schedules.test"
 }
 
 dependencies {
-    @OptIn(ExperimentalComposeLibrary::class)
+    api(projects.themeM3.schedules.schedulesTestScopes)
+    api(projects.androidCore.coreTestPatterns)
+    api(libs.androidx.espresso.core)
     api(compose.uiTestJUnit4)
 }

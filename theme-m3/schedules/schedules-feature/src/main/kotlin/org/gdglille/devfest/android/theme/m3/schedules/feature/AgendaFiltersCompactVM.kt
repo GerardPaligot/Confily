@@ -11,11 +11,9 @@ import org.gdglille.devfest.android.shared.resources.text_error
 import org.gdglille.devfest.android.shared.resources.text_loading
 import org.gdglille.devfest.android.theme.m3.schedules.screens.AgendaFiltersScreen
 import org.gdglille.devfest.android.theme.m3.style.appbars.AppBarIcons
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 import org.koin.androidx.compose.koinViewModel
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun AgendaFiltersCompactVM(
     modifier: Modifier = Modifier,

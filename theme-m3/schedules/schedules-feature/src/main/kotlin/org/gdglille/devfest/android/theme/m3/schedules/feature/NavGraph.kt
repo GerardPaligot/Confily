@@ -14,6 +14,7 @@ import org.gdglille.devfest.android.theme.m3.navigation.Screen
 import org.gdglille.devfest.android.theme.m3.style.adaptive.isCompat
 import org.gdglille.devfest.android.theme.m3.style.adaptive.isMedium
 
+@Suppress("LongParameterList")
 fun NavGraphBuilder.scheduleGraph(
     rootUri: String,
     isPortrait: Boolean,
@@ -25,7 +26,7 @@ fun NavGraphBuilder.scheduleGraph(
     popExitTransition: ExitTransition,
     onShareClicked: (text: String) -> Unit,
     onItineraryClicked: (lat: Double, lng: Double) -> Unit,
-    onScheduleStarted: () -> Unit,
+    onScheduleStarted: () -> Unit
 ) {
     composable(
         route = Screen.ScheduleList.route,
@@ -33,7 +34,7 @@ fun NavGraphBuilder.scheduleGraph(
         exitTransition = { exitTransition }
     ) {
         val showFilterIcon = adaptiveInfo.widthSizeClass.isCompat ||
-                (adaptiveInfo.widthSizeClass.isMedium && isPortrait)
+            (adaptiveInfo.widthSizeClass.isMedium && isPortrait)
         val isSmallSize = adaptiveInfo.heightSizeClass.isCompat
         ScheduleGridAdaptive(
             onScheduleStarted = onScheduleStarted,

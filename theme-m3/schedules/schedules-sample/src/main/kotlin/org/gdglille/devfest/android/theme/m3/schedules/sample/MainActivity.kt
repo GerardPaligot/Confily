@@ -23,8 +23,10 @@ import org.gdglille.devfest.android.core.sample.ScheduleWorkManager
 import org.gdglille.devfest.android.theme.m3.navigation.Screen
 import org.gdglille.devfest.android.theme.m3.schedules.feature.scheduleGraph
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
+import org.koin.compose.KoinContext
+import org.koin.mp.KoinPlatformTools
 
-class MainActivity: ComponentActivity() {
+class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,37 +38,42 @@ class MainActivity: ComponentActivity() {
             val windowSize = with(LocalDensity.current) { currentWindowSize().toSize().toDpSize() }
             val adaptiveInfo = WindowSizeClass.calculateFromSize(windowSize)
             Conferences4HallTheme {
-                NavHost(
-                    navController = navController,
-                    startDestination = Screen.ScheduleList.route,
-                    enterTransition = { EnterTransition.None },
-                    exitTransition = { ExitTransition.None },
-                    builder = {
-                        scheduleGraph(
-                            rootUri = "schedule",
-                            isPortrait = config.orientation == Configuration.ORIENTATION_PORTRAIT,
-                            adaptiveInfo = adaptiveInfo,
-                            navController = navController,
-                            enterTransition = EnterTransition.None,
-                            popEnterTransition = EnterTransition.None,
-                            exitTransition = ExitTransition.None,
-                            popExitTransition = ExitTransition.None,
-                            onShareClicked = {
-                            },
-                            onItineraryClicked = { _, _ ->
-                            },
-                            onScheduleStarted = {
-                                val constraints = Constraints.Builder()
-                                    .setRequiredNetworkType(NetworkType.CONNECTED)
-                                    .build()
-                                val request = OneTimeWorkRequestBuilder<ScheduleWorkManager>()
-                                    .setConstraints(constraints)
-                                    .build()
-                                workManager.enqueue(request)
-                            }
-                        )
-                    }
-                )
+                // FIXME This is necessary due to a bug in Koin.
+                //  The scope isn't well updated between two test cases in the same process.
+                //  https://github.com/InsertKoinIO/koin/issues/1844#issuecomment-2295385215
+                KoinContext(context = KoinPlatformTools.defaultContext().get()) {
+                    NavHost(
+                        navController = navController,
+                        startDestination = Screen.ScheduleList.route,
+                        enterTransition = { EnterTransition.None },
+                        exitTransition = { ExitTransition.None },
+                        builder = {
+                            scheduleGraph(
+                                rootUri = "schedule",
+                                isPortrait = config.orientation == Configuration.ORIENTATION_PORTRAIT,
+                                adaptiveInfo = adaptiveInfo,
+                                navController = navController,
+                                enterTransition = EnterTransition.None,
+                                popEnterTransition = EnterTransition.None,
+                                exitTransition = ExitTransition.None,
+                                popExitTransition = ExitTransition.None,
+                                onShareClicked = {
+                                },
+                                onItineraryClicked = { _, _ ->
+                                },
+                                onScheduleStarted = {
+                                    val constraints = Constraints.Builder()
+                                        .setRequiredNetworkType(NetworkType.CONNECTED)
+                                        .build()
+                                    val request = OneTimeWorkRequestBuilder<ScheduleWorkManager>()
+                                        .setConstraints(constraints)
+                                        .build()
+                                    workManager.enqueue(request)
+                                }
+                            )
+                        }
+                    )
+                }
             }
         }
     }
