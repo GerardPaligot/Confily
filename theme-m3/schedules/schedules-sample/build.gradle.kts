@@ -17,6 +17,18 @@ android {
             )
         )
     }
+
+    testOptions {
+        managedDevices {
+            localDevices {
+                create("pixel8api34") {
+                    device = "Pixel 8"
+                    apiLevel = 34
+                    systemImageSource = "aosp"
+                }
+            }
+        }
+    }
 }
 
 dependencies {
@@ -40,5 +52,16 @@ dependencies {
     implementation(libs.androidx.workmanager.ktx)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
+
     androidTestImplementation(projects.androidCore.coreTest)
+    androidTestImplementation(projects.androidCore.coreModelsFactory)
+    androidTestImplementation(libs.jetbrains.kotlinx.datetime)
+    constraints {
+        implementation("androidx.tracing:tracing:1.2.0") {
+            because("AndroidX Test gets force-downgraded to 1.0.0 and breaks otherwise")
+        }
+    }
 }
