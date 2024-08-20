@@ -41,8 +41,7 @@ import org.gdglille.devfest.android.theme.m3.networking.feature.VCardQrCodeScann
 import org.gdglille.devfest.android.theme.m3.partners.feature.PartnerDetailVM
 import org.gdglille.devfest.android.theme.m3.partners.feature.PartnersAdaptive
 import org.gdglille.devfest.android.theme.m3.schedules.feature.scheduleGraph
-import org.gdglille.devfest.android.theme.m3.speakers.feature.SpeakerAdaptive
-import org.gdglille.devfest.android.theme.m3.speakers.feature.SpeakerDetailVM
+import org.gdglille.devfest.android.theme.m3.speakers.feature.speakerGraph
 import org.gdglille.devfest.android.theme.m3.style.adaptive.isCompat
 import org.gdglille.devfest.android.theme.m3.style.appbars.iconColor
 import org.gdglille.devfest.models.ui.ExportNetworkingUi
@@ -148,32 +147,16 @@ fun MainNavigation(
                     onItineraryClicked = onItineraryClicked,
                     onScheduleStarted = onScheduleStarted
                 )
-                composable(
-                    route = Screen.SpeakerList.route,
-                    enterTransition = { fadeIn() }
-                ) {
-                    SpeakerAdaptive(
-                        showBackInDetail = adaptiveInfo.widthSizeClass.isCompat,
-                        onTalkClicked = { navController.navigate(Screen.Schedule.route(it)) },
-                        onLinkClicked = { launchUrl(it) }
-                    )
-                }
-                composable(
-                    route = Screen.Speaker.route,
-                    arguments = listOf(navArgument("speakerId") { type = NavType.StringType }),
-                    enterTransition = { enterSlideInHorizontal() },
-                    popEnterTransition = { popEnterSlideInHorizontal() },
-                    exitTransition = { exitSlideInHorizontal() },
-                    popExitTransition = { popExistSlideInHorizontal() }
-                ) {
-                    SpeakerDetailVM(
-                        speakerId = it.arguments?.getString("speakerId")!!,
-                        onTalkClicked = { navController.navigate(Screen.Schedule.route(it)) },
-                        onLinkClicked = { launchUrl(it) },
-                        navigationIcon = { Back { navController.popBackStack() } },
-                        isLandscape = config.orientation == Configuration.ORIENTATION_LANDSCAPE
-                    )
-                }
+                speakerGraph(
+                    isLandscape = config.orientation == Configuration.ORIENTATION_LANDSCAPE,
+                    adaptiveInfo = adaptiveInfo,
+                    navController = navController,
+                    enterTransition = enterSlideInHorizontal(),
+                    popEnterTransition = popEnterSlideInHorizontal(),
+                    exitTransition = exitSlideInHorizontal(),
+                    popExitTransition = popExistSlideInHorizontal(),
+                    launchUrl = launchUrl
+                )
                 composable(
                     route = Screen.MyProfile.route,
                     enterTransition = { fadeIn() },
