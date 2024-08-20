@@ -25,6 +25,8 @@ plugins {
 rootProject.name = "conferences4hall"
 include(":androidApp")
 include(":android-core:core-sample")
+include(":android-core:core-test")
+include(":android-core:core-test-patterns")
 include(":shared:core")
 include(":shared:core-di")
 include(":shared:models")
