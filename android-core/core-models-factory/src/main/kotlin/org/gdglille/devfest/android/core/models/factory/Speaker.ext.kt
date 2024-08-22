@@ -4,11 +4,12 @@ import org.gdglille.devfest.models.Speaker
 
 fun Speaker.Companion.builder(): SpeakerBuilder = SpeakerBuilder()
 
+@Suppress("TooManyFunctions")
 class SpeakerBuilder {
     private var id: String = ""
     private var displayName: String = ""
     private var bio: String = ""
-    private var company: String = ""
+    private var company: String? = null
     private var photoUrl: String = ""
     private var pronouns: String? = null
     private var jobTitle: String? = null

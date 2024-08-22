@@ -8,6 +8,7 @@ import org.gdglille.devfest.models.FeaturesActivated
 
 fun EventV3.Companion.builder(): EventBuilder = EventBuilder()
 
+@Suppress("TooManyFunctions")
 class EventBuilder {
     private var id: String = ""
     private var name: String = ""
@@ -48,14 +49,18 @@ class EventBuilder {
     fun endDate(endDate: Instant) = apply { this.endDate = endDate.formatISO() }
     fun menus(menus: List<EventLunchMenu>) = apply { this.menus = menus }
     fun coc(coc: String) = apply { this.coc = coc }
-    fun openfeedbackProjectId(openfeedbackProjectId: String?) = apply { this.openfeedbackProjectId = openfeedbackProjectId }
+    fun openfeedbackProjectId(openfeedbackProjectId: String?) =
+        apply { this.openfeedbackProjectId = openfeedbackProjectId }
+
     fun features(features: FeaturesActivated) = apply { this.features = features }
     fun contactPhone(contactPhone: String?) = apply { this.contactPhone = contactPhone }
     fun contactEmail(contactEmail: String) = apply { this.contactEmail = contactEmail }
     fun twitterUrl(twitterUrl: String?) = apply { this.twitterUrl = twitterUrl }
     fun linkedinUrl(linkedinUrl: String?) = apply { this.linkedinUrl = linkedinUrl }
     fun faqLink(faqLink: String?) = apply { this.faqLink = faqLink }
-    fun codeOfConductLink(codeOfConductLink: String?) = apply { this.codeOfConductLink = codeOfConductLink }
+    fun codeOfConductLink(codeOfConductLink: String?) =
+        apply { this.codeOfConductLink = codeOfConductLink }
+
     fun updatedAt(updatedAt: Long) = apply { this.updatedAt = updatedAt }
 
     fun build(): EventV3 = EventV3(
