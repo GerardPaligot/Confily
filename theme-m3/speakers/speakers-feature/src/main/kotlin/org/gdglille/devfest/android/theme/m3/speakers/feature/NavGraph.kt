@@ -12,6 +12,7 @@ import androidx.navigation.navArgument
 import org.gdglille.devfest.android.theme.m3.navigation.Screen
 import org.gdglille.devfest.android.theme.m3.style.adaptive.isCompat
 
+@Suppress("LongParameterList")
 fun NavGraphBuilder.speakerGraph(
     isLandscape: Boolean,
     adaptiveInfo: WindowSizeClass,
@@ -20,7 +21,7 @@ fun NavGraphBuilder.speakerGraph(
     popEnterTransition: EnterTransition,
     exitTransition: ExitTransition,
     popExitTransition: ExitTransition,
-    launchUrl: (String) -> Unit,
+    launchUrl: (String) -> Unit
 ) {
     composable(
         route = Screen.SpeakerList.route,

@@ -20,5 +20,4 @@ dependencies {
     api(libs.koin.test.junit4)
     api(libs.jetbrains.kotlinx.collections)
     api(libs.jetbrains.kotlinx.coroutines.test)
-    api(projects.themeM3.schedules.schedulesTest)
 }

@@ -56,6 +56,7 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
 
+    androidTestImplementation(projects.themeM3.schedules.schedulesTest)
     androidTestImplementation(projects.androidCore.coreTest)
     androidTestImplementation(projects.androidCore.coreModelsFactory)
     androidTestImplementation(libs.jetbrains.kotlinx.datetime)

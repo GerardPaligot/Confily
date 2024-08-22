@@ -18,12 +18,6 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import kotlin.coroutines.CoroutineContext
 
-internal object AlarmIntentFactoryFake: AlarmIntentFactory {
-    override fun create(context: Context, id: String, title: String, text: String): Intent {
-        return Intent()
-    }
-}
-
 val instrumentedModule = module {
     single(named(IsDebugNamed)) { true }
     single(named(ApplicationIdNamed)) { "org.gdglille.devfest.android.core.test" }
@@ -32,7 +26,11 @@ val instrumentedModule = module {
         AlarmScheduler(
             get(),
             androidContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager,
-            AlarmIntentFactoryFake
+            object : AlarmIntentFactory {
+                override fun create(context: Context, id: String, title: String, text: String): Intent {
+                    return Intent()
+                }
+            }
         )
     }
     single<CoroutineContext> { UnconfinedTestDispatcher() }
