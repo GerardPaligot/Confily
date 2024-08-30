@@ -17,18 +17,6 @@ android {
             )
         )
     }
-
-    testOptions {
-        managedDevices {
-            localDevices {
-                create("pixel8api34") {
-                    device = "Pixel 8"
-                    apiLevel = 34
-                    systemImageSource = "aosp"
-                }
-            }
-        }
-    }
 }
 
 dependencies {
