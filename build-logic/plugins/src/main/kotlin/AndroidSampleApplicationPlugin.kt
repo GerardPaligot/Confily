@@ -38,6 +38,15 @@ class AndroidSampleApplicationPlugin: Plugin<Project> {
                         storePassword = "devfest"
                     }
                 }
+                testOptions {
+                    managedDevices {
+                        localDevices.create("pixel8api34") {
+                            device = "Pixel 8"
+                            apiLevel = 34
+                            systemImageSource = "aosp"
+                        }
+                    }
+                }
             }
         }
     }
