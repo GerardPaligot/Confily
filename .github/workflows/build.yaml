@@ -27,8 +27,14 @@ jobs:
         with:
           java-version: 21
 
+      - name: Check Kotlin lint
+        run: ./gradlew ktlintCheck detekt --stacktrace
+
+      - name: Check lint
+        run: ./gradlew lintDebug --stacktrace
+
       - name: Check and build android project
-        run: ./gradlew check :androidApp:assemble :androidApp:bundle -x assembleNonMinifiedRelease -x bundleNonMinifiedRelease -Pandroidx.baselineprofile.skipgeneration=true
+        run: ./gradlew :androidApp:assembleDebug :androidApp:bundleDebug --stacktrace
 
       - name: Upload build outputs
         if: always()
@@ -70,13 +76,26 @@ jobs:
         with:
           java-version: 21
 
-      - name: Run instrumented tests
-        run: ./gradlew pixel8api34DebugAndroidTest
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Build projects and run instrumentation tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          disable-animations: true
+          disk-size: 6000M
+          heap-size: 600M
+          emulator-build: 7425822 # https://github.com/ReactiveCircus/android-emulator-runner/issues/160
+          script: ./gradlew connectedDebugAndroidTest --daemon
 
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: android-test-results
+          name: android-instrumented-test-results
           path: |
             **/build/reports/androidTests
