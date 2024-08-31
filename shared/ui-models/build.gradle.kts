@@ -15,9 +15,15 @@ kotlin {
     androidTarget()
 
     if (OperatingSystem.current().isMacOsX) {
-        iosX64()
-        iosArm64()
-        iosSimulatorArm64()
+        listOf(
+            iosArm64(),
+            iosSimulatorArm64()
+        ).forEach {
+            it.binaries.framework {
+                baseName = "UiModels"
+                isStatic = false
+            }
+        }
     }
 
     sourceSets {
