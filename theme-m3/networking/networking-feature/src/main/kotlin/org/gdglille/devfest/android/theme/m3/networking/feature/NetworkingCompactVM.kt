@@ -13,11 +13,11 @@ import androidx.compose.ui.Modifier
 import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.screen_networking
 import org.gdglille.devfest.android.shared.resources.text_error
-import org.gdglille.devfest.android.theme.m3.networking.screens.EmptyNetworkingScreen
 import org.gdglille.devfest.android.theme.m3.style.Scaffold
 import org.gdglille.devfest.models.ui.ExportNetworkingUi
 import org.gdglille.devfest.theme.m3.navigation.ActionIds
 import org.gdglille.devfest.theme.m3.navigation.TabActions
+import org.gdglille.devfest.theme.m3.networking.screens.EmptyNetworkingScreen
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 import org.koin.androidx.compose.koinViewModel

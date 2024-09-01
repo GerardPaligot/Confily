@@ -1,6 +1,5 @@
-package org.gdglille.devfest.android.theme.m3.networking.screens
+package org.gdglille.devfest.theme.m3.networking.screens
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,28 +8,21 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.action_submit_accept
 import org.gdglille.devfest.android.shared.resources.action_submit_deny
 import org.gdglille.devfest.android.shared.resources.text_networking_ask_to_delete
-import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
-import org.gdglille.devfest.models.ui.NetworkingUi
 import org.gdglille.devfest.models.ui.UserNetworkingUi
 import org.gdglille.devfest.theme.m3.style.networking.UserItem
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun ContactsScreen(
     users: ImmutableList<UserNetworkingUi>,
@@ -86,21 +78,6 @@ fun ContactsScreen(
                     )
                 }
             }
-        }
-    }
-}
-
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@ExperimentalMaterial3Api
-@Preview
-@Composable
-private fun ContactsPreview() {
-    Conferences4HallTheme {
-        Scaffold {
-            ContactsScreen(
-                users = NetworkingUi.fake.users,
-                onNetworkDeleted = {}
-            )
         }
     }
 }
