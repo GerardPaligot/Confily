@@ -1,11 +1,10 @@
 package org.gdglille.devfest.backend.qanda
 
 import io.ktor.http.HttpStatusCode
-import io.ktor.server.application.call
 import io.ktor.server.plugins.BadRequestException
 import io.ktor.server.request.acceptLanguage
 import io.ktor.server.response.respond
-import io.ktor.server.routing.Route
+import io.ktor.server.routing.Routing
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.put
@@ -13,7 +12,7 @@ import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.receiveValidated
 import org.gdglille.devfest.models.inputs.QAndAInput
 
-fun Route.registerQAndAsRoutes(
+fun Routing.registerQAndAsRoutes(
     eventDao: EventDao,
     qAndADao: QAndADao
 ) {

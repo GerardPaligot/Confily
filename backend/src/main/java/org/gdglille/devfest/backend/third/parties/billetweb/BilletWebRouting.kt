@@ -1,13 +1,12 @@
 package org.gdglille.devfest.backend.third.parties.billetweb
 
 import io.ktor.http.HttpStatusCode
-import io.ktor.server.application.call
 import io.ktor.server.response.respond
-import io.ktor.server.routing.Route
+import io.ktor.server.routing.Routing
 import io.ktor.server.routing.get
 import org.gdglille.devfest.backend.events.EventDao
 
-fun Route.registerBilletWebRoutes(
+fun Routing.registerBilletWebRoutes(
     eventDao: EventDao
 ) {
     get("billet-web/{barcode}") {

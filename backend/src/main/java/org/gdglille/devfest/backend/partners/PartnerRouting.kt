@@ -1,9 +1,8 @@
 package org.gdglille.devfest.backend.partners
 
 import io.ktor.http.HttpStatusCode
-import io.ktor.server.application.call
 import io.ktor.server.response.respond
-import io.ktor.server.routing.Route
+import io.ktor.server.routing.Routing
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.put
@@ -14,7 +13,7 @@ import org.gdglille.devfest.backend.receiveValidated
 import org.gdglille.devfest.backend.third.parties.geocode.GeocodeApi
 import org.gdglille.devfest.models.inputs.PartnerInput
 
-fun Route.registerPartnersRoutes(
+fun Routing.registerPartnersRoutes(
     geocodeApi: GeocodeApi,
     eventDao: EventDao,
     partnerDao: PartnerDao,
