@@ -23,6 +23,7 @@ fun ScheduleDetailOrientableVM(
     onSpeakerClicked: (id: String) -> Unit,
     onShareClicked: (text: String) -> Unit,
     modifier: Modifier = Modifier,
+    isLandscape: Boolean = false,
     viewModel: ScheduleDetailViewModel = koinViewModel(parameters = { parametersOf(scheduleId) })
 ) {
     Box(
@@ -36,7 +37,8 @@ fun ScheduleDetailOrientableVM(
                     onBackClicked = onBackClicked,
                     onSpeakerClicked = onSpeakerClicked,
                     onShareClicked = onShareClicked,
-                    modifier = modifier
+                    modifier = modifier,
+                    isLandscape = isLandscape
                 )
             }
         }
