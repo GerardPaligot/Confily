@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.partners.ui.partners
+package org.gdglille.devfest.theme.m3.partners.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,9 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 
 @Composable
 fun PartnerDivider(
@@ -47,13 +45,5 @@ fun PartnerDivider(
             Divider(color = dividerColor, thickness = 1.dp, modifier = Modifier.weight(1f))
         }
         Spacer(modifier = Modifier.height(8.dp))
-    }
-}
-
-@Preview
-@Composable
-private fun PartnerDividerPreview() {
-    Conferences4HallTheme {
-        PartnerDivider(title = "Gold")
     }
 }

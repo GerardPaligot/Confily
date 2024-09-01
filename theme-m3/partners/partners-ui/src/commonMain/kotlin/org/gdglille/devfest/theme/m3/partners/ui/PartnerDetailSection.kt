@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.partners.ui.partners
+package org.gdglille.devfest.theme.m3.partners.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -9,13 +9,11 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
-import org.gdglille.devfest.android.theme.m3.style.partners.items.PartnerItem
 import org.gdglille.devfest.models.ui.PartnerItemUi
 import org.gdglille.devfest.theme.m3.style.events.socials.SocialsSection
 import org.gdglille.devfest.theme.m3.style.markdown.MarkdownText
+import org.gdglille.devfest.theme.m3.style.partners.items.PartnerItem
 import org.gdglille.devfest.theme.m3.style.placeholder.placeholder
 
 @Composable
@@ -55,18 +53,6 @@ fun PartnerDetailSectionVertical(
         MarkdownText(
             text = partnerItemUi.description,
             modifier = Modifier.placeholder(visible = isLoading)
-        )
-    }
-}
-
-@Suppress("UnusedPrivateMember")
-@Preview
-@Composable
-private fun PartnerDetailSectionVerticalPreview() {
-    Conferences4HallTheme {
-        PartnerDetailSectionVertical(
-            partnerItemUi = PartnerItemUi.fake,
-            onLinkClicked = {}
         )
     }
 }
