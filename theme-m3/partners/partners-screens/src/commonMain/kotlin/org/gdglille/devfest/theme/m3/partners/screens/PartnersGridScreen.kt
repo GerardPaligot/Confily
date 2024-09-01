@@ -1,6 +1,5 @@
-package org.gdglille.devfest.android.theme.m3.partners.screens
+package org.gdglille.devfest.theme.m3.partners.screens
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -17,12 +16,10 @@ import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.screen_partners
 import org.gdglille.devfest.android.theme.m3.partners.semantics.PartnersSemantics
-import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.Scaffold
 import org.gdglille.devfest.android.theme.m3.style.SpacingTokens
 import org.gdglille.devfest.android.theme.m3.style.toDp
@@ -30,13 +27,12 @@ import org.gdglille.devfest.models.ui.PartnerGroupsUi
 import org.gdglille.devfest.theme.m3.partners.ui.PartnerDivider
 import org.gdglille.devfest.theme.m3.style.partners.items.PartnerItem
 import org.gdglille.devfest.theme.m3.style.placeholder.placeholder
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 import kotlin.math.floor
 
 const val NbHorizontalPadding = 2
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalResourceApi::class)
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun PartnersGridScreen(
     partners: PartnerGroupsUi,
@@ -84,17 +80,5 @@ fun PartnersGridScreen(
                 }
             }
         }
-    }
-}
-
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@Preview
-@Composable
-private fun PartnersGridScreenPreview() {
-    Conferences4HallTheme {
-        PartnersGridScreen(
-            partners = PartnerGroupsUi.fake,
-            onPartnerClick = {}
-        )
     }
 }
