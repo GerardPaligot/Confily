@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.style.partners.jobs
+package org.gdglille.devfest.theme.m3.style.partners.jobs
 
 import org.gdglille.devfest.android.theme.m3.style.ColorSchemeTokens
 import org.gdglille.devfest.android.theme.m3.style.ShapeTokens

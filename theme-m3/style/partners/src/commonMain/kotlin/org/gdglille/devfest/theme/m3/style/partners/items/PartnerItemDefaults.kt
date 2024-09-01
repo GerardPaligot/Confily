@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.style.partners.items
+package org.gdglille.devfest.theme.m3.style.partners.items
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color

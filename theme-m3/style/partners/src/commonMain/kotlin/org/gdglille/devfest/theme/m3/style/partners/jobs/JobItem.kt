@@ -1,8 +1,7 @@
-package org.gdglille.devfest.android.theme.m3.style.partners.jobs
+package org.gdglille.devfest.theme.m3.style.partners.jobs
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Payments
@@ -15,20 +14,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.tooling.preview.Preview
 import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.text_job_propulsed
 import org.gdglille.devfest.android.shared.resources.text_job_requirements_many
 import org.gdglille.devfest.android.shared.resources.text_job_requirements_one
 import org.gdglille.devfest.android.shared.resources.text_job_salary
-import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.tags.MediumTag
 import org.gdglille.devfest.android.theme.m3.style.tags.TagDefaults
 import org.gdglille.devfest.android.theme.m3.style.toDp
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun JobItem(
     title: String,
@@ -99,24 +94,5 @@ fun JobItem(
                 )
             )
         }
-    }
-}
-
-@Suppress("UnusedPrivateMember")
-@Preview
-@Composable
-private fun JobItemPreview() {
-    Conferences4HallTheme {
-        JobItem(
-            title = "Mobile Staff Engineer",
-            description = "Google - Paris, France",
-            requirements = 5,
-            propulsedBy = "WeLoveDevs",
-            salaryMin = 55,
-            salaryMax = 75,
-            salaryRecurrence = "year",
-            onClick = {},
-            modifier = Modifier.fillMaxWidth()
-        )
     }
 }
