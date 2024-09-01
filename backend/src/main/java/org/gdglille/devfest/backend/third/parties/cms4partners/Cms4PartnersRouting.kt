@@ -1,9 +1,8 @@
 package org.gdglille.devfest.backend.third.parties.cms4partners
 
 import io.ktor.http.HttpStatusCode
-import io.ktor.server.application.call
 import io.ktor.server.response.respond
-import io.ktor.server.routing.Route
+import io.ktor.server.routing.Routing
 import io.ktor.server.routing.post
 import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.internals.helpers.image.TranscoderImage
@@ -13,7 +12,7 @@ import org.gdglille.devfest.backend.partners.PartnerRepository
 import org.gdglille.devfest.backend.receiveValidated
 import org.gdglille.devfest.backend.third.parties.geocode.GeocodeApi
 
-fun Route.registerCms4PartnersRoutes(
+fun Routing.registerCms4PartnersRoutes(
     geocodeApi: GeocodeApi,
     eventDao: EventDao,
     partnerDao: PartnerDao,

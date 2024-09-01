@@ -1,9 +1,8 @@
 package org.gdglille.devfest.backend.speakers
 
 import io.ktor.http.HttpStatusCode
-import io.ktor.server.application.call
 import io.ktor.server.response.respond
-import io.ktor.server.routing.Route
+import io.ktor.server.routing.Routing
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.put
@@ -12,7 +11,7 @@ import org.gdglille.devfest.backend.internals.CommonApi
 import org.gdglille.devfest.backend.receiveValidated
 import org.gdglille.devfest.models.inputs.SpeakerInput
 
-fun Route.registerSpeakersRoutes(
+fun Routing.registerSpeakersRoutes(
     commonApi: CommonApi,
     eventDao: EventDao,
     speakerDao: SpeakerDao

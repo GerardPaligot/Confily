@@ -1,9 +1,8 @@
 package org.gdglille.devfest.backend.third.parties.openplanner
 
 import io.ktor.http.HttpStatusCode
-import io.ktor.server.application.call
 import io.ktor.server.response.respond
-import io.ktor.server.routing.Route
+import io.ktor.server.routing.Routing
 import io.ktor.server.routing.post
 import org.gdglille.devfest.backend.NotAuthorized
 import org.gdglille.devfest.backend.categories.CategoryDao
@@ -15,7 +14,7 @@ import org.gdglille.devfest.backend.sessions.SessionDao
 import org.gdglille.devfest.backend.speakers.SpeakerDao
 
 @Suppress("LongParameterList")
-fun Route.registerOpenPlannerRoutes(
+fun Routing.registerOpenPlannerRoutes(
     openPlannerApi: OpenPlannerApi,
     commonApi: CommonApi,
     eventDao: EventDao,

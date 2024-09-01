@@ -1,9 +1,8 @@
 package org.gdglille.devfest.backend.schedules
 
 import io.ktor.http.HttpStatusCode
-import io.ktor.server.application.call
 import io.ktor.server.response.respond
-import io.ktor.server.routing.Route
+import io.ktor.server.routing.Routing
 import io.ktor.server.routing.delete
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
@@ -16,7 +15,7 @@ import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.models.inputs.ScheduleInput
 
 @Suppress("LongParameterList")
-fun Route.registerSchedulersRoutes(
+fun Routing.registerSchedulersRoutes(
     eventDao: EventDao,
     sessionDao: SessionDao,
     categoryDao: CategoryDao,

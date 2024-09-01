@@ -1,9 +1,8 @@
 package org.gdglille.devfest.backend.sessions
 
 import io.ktor.http.HttpStatusCode
-import io.ktor.server.application.call
 import io.ktor.server.response.respond
-import io.ktor.server.routing.Route
+import io.ktor.server.routing.Routing
 import io.ktor.server.routing.get
 import io.ktor.server.routing.put
 import org.gdglille.devfest.backend.events.EventDao
@@ -11,7 +10,7 @@ import org.gdglille.devfest.backend.receiveValidated
 import org.gdglille.devfest.backend.third.parties.geocode.GeocodeApi
 import org.gdglille.devfest.models.inputs.EventSessionInput
 
-fun Route.registerSessionsRoutes(
+fun Routing.registerSessionsRoutes(
     geocodeApi: GeocodeApi,
     eventDao: EventDao,
     sessionDao: SessionDao

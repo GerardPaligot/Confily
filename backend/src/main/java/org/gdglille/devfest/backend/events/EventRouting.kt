@@ -13,7 +13,7 @@ import io.ktor.server.request.receive
 import io.ktor.server.response.etag
 import io.ktor.server.response.lastModified
 import io.ktor.server.response.respond
-import io.ktor.server.routing.Route
+import io.ktor.server.routing.Routing
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.put
@@ -39,7 +39,7 @@ import java.time.ZoneId
 import java.time.ZonedDateTime
 
 @Suppress("LongMethod", "LongParameterList", "MagicNumber")
-fun Route.registerEventRoutes(
+fun Routing.registerEventRoutes(
     geocodeApi: GeocodeApi,
     eventDao: EventDao,
     speakerDao: SpeakerDao,
