@@ -1,6 +1,5 @@
-package org.gdglille.devfest.android.theme.m3.style.networking
+package org.gdglille.devfest.theme.m3.style.networking
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -12,10 +11,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.BusinessCenter
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material.icons.outlined.Email
-import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,18 +20,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.tooling.preview.Preview
 import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.action_networking_delete
 import org.gdglille.devfest.android.shared.resources.semantic_user_item_company
 import org.gdglille.devfest.android.shared.resources.semantic_user_item_email
-import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.buttons.IconButton
 import org.gdglille.devfest.android.theme.m3.style.toDp
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun UserItem(
     displayName: String,
@@ -99,30 +91,5 @@ fun UserItem(
             contentDescription = stringResource(Resource.string.action_networking_delete),
             onClick = onClick
         )
-    }
-}
-
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@Preview
-@Composable
-private fun UserItemPreview() {
-    Conferences4HallTheme {
-        Surface {
-            Column {
-                UserItem(
-                    displayName = "Gerard Paligot",
-                    email = "gerard@gmail.com",
-                    company = "Decathlon",
-                    onClick = {}
-                )
-                Divider(color = MaterialTheme.colorScheme.onBackground)
-                UserItem(
-                    displayName = "Gerard Paligot",
-                    email = "gerard@gmail.com",
-                    company = null,
-                    onClick = {}
-                )
-            }
-        }
     }
 }

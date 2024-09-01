@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.style.networking
+package org.gdglille.devfest.theme.m3.style.networking
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable

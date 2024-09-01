@@ -24,9 +24,9 @@ import org.gdglille.devfest.android.shared.resources.action_submit_accept
 import org.gdglille.devfest.android.shared.resources.action_submit_deny
 import org.gdglille.devfest.android.shared.resources.text_networking_ask_to_delete
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
-import org.gdglille.devfest.android.theme.m3.style.networking.UserItem
 import org.gdglille.devfest.models.ui.NetworkingUi
 import org.gdglille.devfest.models.ui.UserNetworkingUi
+import org.gdglille.devfest.theme.m3.style.networking.UserItem
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 

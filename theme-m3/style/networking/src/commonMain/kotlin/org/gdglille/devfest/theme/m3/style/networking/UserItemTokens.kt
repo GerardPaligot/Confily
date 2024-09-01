@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.style.networking
+package org.gdglille.devfest.theme.m3.style.networking
 
 import org.gdglille.devfest.android.theme.m3.style.ColorSchemeTokens
 import org.gdglille.devfest.android.theme.m3.style.SpacingTokens
