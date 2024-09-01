@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.partners.screens
+package org.gdglille.devfest.theme.m3.partners.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -11,27 +11,22 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.title_jobs
 import org.gdglille.devfest.android.shared.resources.title_plan_partner
-import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.models.ui.PartnerItemUi
 import org.gdglille.devfest.theme.m3.partners.ui.PartnerDetailSectionVertical
 import org.gdglille.devfest.theme.m3.style.events.cards.AddressCard
 import org.gdglille.devfest.theme.m3.style.partners.jobs.JobItem
 import org.gdglille.devfest.theme.m3.style.placeholder.placeholder
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun PartnerDetailVerticalScreen(
     partnerItemUi: PartnerItemUi,
@@ -102,21 +97,6 @@ fun PartnerDetailVerticalScreen(
         }
         item {
             Spacer(modifier = Modifier.height(16.dp))
-        }
-    }
-}
-
-@Preview
-@Composable
-private fun PartnerDetailVerticalScreenPreview() {
-    Conferences4HallTheme {
-        Scaffold {
-            PartnerDetailVerticalScreen(
-                partnerItemUi = PartnerItemUi.fake,
-                onLinkClicked = {},
-                onItineraryClicked = { _, _ -> },
-                contentPadding = it
-            )
         }
     }
 }

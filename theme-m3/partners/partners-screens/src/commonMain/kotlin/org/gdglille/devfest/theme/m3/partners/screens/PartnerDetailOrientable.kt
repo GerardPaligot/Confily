@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.partners.screens
+package org.gdglille.devfest.theme.m3.partners.screens
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -16,10 +16,9 @@ import org.gdglille.devfest.android.shared.resources.screen_partners_detail
 import org.gdglille.devfest.android.theme.m3.style.appbars.AppBarIcons
 import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBar
 import org.gdglille.devfest.models.ui.PartnerItemUi
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalResourceApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PartnerDetailOrientable(
     partnerItemUi: PartnerItemUi,
