@@ -1,9 +1,11 @@
 package org.gdglille.devfest.android.theme.m3.schedules.feature
 
+import android.content.res.Configuration
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.fadeIn
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
@@ -63,11 +65,13 @@ fun NavGraphBuilder.scheduleGraph(
         exitTransition = { exitTransition },
         popExitTransition = { popExitTransition }
     ) {
+        val orientation = LocalConfiguration.current
         ScheduleDetailOrientableVM(
             scheduleId = it.arguments?.getString("scheduleId")!!,
             onBackClicked = { navController.popBackStack() },
             onSpeakerClicked = { navController.navigate(Screen.Speaker.route(it)) },
-            onShareClicked = onShareClicked
+            onShareClicked = onShareClicked,
+            isLandscape = orientation.orientation == Configuration.ORIENTATION_LANDSCAPE
         )
     }
     composable(

@@ -10,12 +10,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalInspectionMode
-import androidx.compose.ui.tooling.preview.Preview
-import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.SpacingTokens
 import org.gdglille.devfest.android.theme.m3.style.toDp
 import org.gdglille.devfest.models.ui.TalkUi
@@ -67,20 +64,6 @@ fun ScheduleDetailScreen(
         }
         item {
             Spacer(modifier = Modifier.height(SpacingTokens.ExtraLargeSpacing.toDp()))
-        }
-    }
-}
-
-@ExperimentalMaterial3Api
-@Preview
-@Composable
-private fun ScheduleDetailPreview() {
-    Conferences4HallTheme {
-        Surface {
-            ScheduleDetailScreen(
-                talk = TalkUi.fake,
-                onSpeakerClicked = {}
-            )
         }
     }
 }

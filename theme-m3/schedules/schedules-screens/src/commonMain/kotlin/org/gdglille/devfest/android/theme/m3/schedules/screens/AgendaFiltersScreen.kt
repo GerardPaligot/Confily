@@ -10,10 +10,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.screen_agenda_filters
-import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.Scaffold
 import org.gdglille.devfest.android.theme.m3.style.SpacingTokens
 import org.gdglille.devfest.android.theme.m3.style.appbars.AppBarIcons
@@ -24,10 +22,9 @@ import org.gdglille.devfest.models.ui.FormatUi
 import org.gdglille.devfest.theme.m3.schedules.ui.filters.CategoryListFilters
 import org.gdglille.devfest.theme.m3.schedules.ui.filters.FavoriteFilter
 import org.gdglille.devfest.theme.m3.schedules.ui.filters.FormatListFilters
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalResourceApi::class)
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun AgendaFiltersScreen(
     filtersUi: FiltersUi,
@@ -65,18 +62,5 @@ fun AgendaFiltersScreen(
                 FormatListFilters(formats = filtersUi.formats, onClick = onFormatClick)
             }
         }
-    }
-}
-
-@Preview
-@Composable
-private fun AgendaFiltersPreview() {
-    Conferences4HallTheme {
-        AgendaFiltersScreen(
-            filtersUi = FiltersUi.fake,
-            onFavoriteClick = {},
-            onCategoryClick = { _, _ -> },
-            onFormatClick = { _, _ -> }
-        )
     }
 }

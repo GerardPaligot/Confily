@@ -1,6 +1,5 @@
 package org.gdglille.devfest.android.theme.m3.schedules.screens
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -12,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.platform.LocalConfiguration
 import kotlinx.collections.immutable.persistentListOf
 import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.input_share_talk
@@ -30,9 +28,9 @@ fun ScheduleDetailOrientableScreen(
     onBackClicked: () -> Unit,
     onSpeakerClicked: (id: String) -> Unit,
     onShareClicked: (text: String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    isLandscape: Boolean = false
 ) {
-    val orientation = LocalConfiguration.current
     val textShared =
         stringResource(Resource.string.input_share_talk, talk.title, talk.speakersSharing)
     val state = rememberLazyListState()
@@ -57,7 +55,7 @@ fun ScheduleDetailOrientableScreen(
             )
         },
         content = {
-            if (orientation.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            if (isLandscape) {
                 Row(
                     verticalAlignment = Alignment.Top,
                     modifier = Modifier.padding(it)

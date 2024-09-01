@@ -24,10 +24,8 @@ import org.gdglille.devfest.models.ui.EventSessionItemUi
 import org.gdglille.devfest.theme.m3.schedules.ui.schedule.EventSessionSection
 import org.gdglille.devfest.theme.m3.schedules.ui.schedule.TalkAbstract
 import org.gdglille.devfest.theme.m3.style.events.cards.AddressCard
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalResourceApi::class)
 @ExperimentalMaterial3Api
 @Composable
 fun ScheduleDetailEventSessionScreen(
