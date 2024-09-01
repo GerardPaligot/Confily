@@ -18,19 +18,15 @@ import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.action_edit_profile
 import org.gdglille.devfest.android.shared.resources.semantic_profile_qrcode
 import org.gdglille.devfest.android.shared.resources.semantic_user_item_company
 import org.gdglille.devfest.android.shared.resources.semantic_user_item_email
-import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.models.ui.UserProfileUi
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun MyProfileScreen(
     profileUi: UserProfileUi,
@@ -94,16 +90,5 @@ fun MyProfileScreen(
                 Text(text = stringResource(Resource.string.action_edit_profile))
             }
         }
-    }
-}
-
-@Preview
-@Composable
-private fun MyProfilePreview() {
-    Conferences4HallTheme {
-        MyProfileScreen(
-            profileUi = UserProfileUi.fake,
-            onEditInformation = {}
-        )
     }
 }

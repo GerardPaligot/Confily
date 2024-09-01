@@ -7,8 +7,8 @@ import androidx.compose.ui.Modifier
 import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.text_error
 import org.gdglille.devfest.android.shared.resources.text_loading
-import org.gdglille.devfest.android.theme.m3.networking.screens.EmptyNetworkingScreen
 import org.gdglille.devfest.android.theme.m3.networking.screens.MyProfileScreen
+import org.gdglille.devfest.theme.m3.networking.screens.EmptyNetworkingScreen
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 import org.koin.androidx.compose.koinViewModel
