@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.networking.ui
+package org.gdglille.devfest.theme.m3.networking.ui
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardActionScope
@@ -11,11 +11,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import org.gdglille.devfest.models.ui.Field
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun ProfileInputField(
     label: StringResource,

@@ -24,11 +24,11 @@ import org.gdglille.devfest.android.shared.resources.input_firstname
 import org.gdglille.devfest.android.shared.resources.input_lastname
 import org.gdglille.devfest.android.shared.resources.screen_profile
 import org.gdglille.devfest.android.shared.resources.text_networking_consents
-import org.gdglille.devfest.android.theme.m3.networking.ui.ProfileInputField
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBar
 import org.gdglille.devfest.models.ui.Field
 import org.gdglille.devfest.models.ui.UserProfileUi
+import org.gdglille.devfest.theme.m3.networking.ui.ProfileInputField
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 
