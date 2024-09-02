@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.infos.feature
+package org.gdglille.devfest.android.theme.m3.infos.screens
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
@@ -11,10 +11,9 @@ import org.gdglille.devfest.android.shared.resources.screen_ticket_qrcode_scanne
 import org.gdglille.devfest.android.theme.m3.infos.ui.tickets.TicketCameraPreview
 import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBar
 import org.gdglille.devfest.android.theme.m3.style.permissions.FeatureThatRequiresCameraPermission
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalResourceApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TicketQrCodeScanner(
     navigateToSettingsScreen: () -> Unit,

@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.infos.feature
+package org.gdglille.devfest.theme.m3.infos.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -8,16 +8,13 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.persistentListOf
-import org.gdglille.devfest.theme.m3.infos.ui.qanda.QAndAItem
-import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.models.ui.QuestionAndResponseUi
+import org.gdglille.devfest.theme.m3.infos.ui.qanda.QAndAItem
 
 @Composable
-fun QAndAList(
+fun QAndAListScreen(
     qAndA: ImmutableList<QuestionAndResponseUi>,
     onExpandedClicked: (QuestionAndResponseUi) -> Unit,
     onLinkClicked: (url: String) -> Unit,
@@ -44,20 +41,5 @@ fun QAndAList(
                 }
             }
         }
-    }
-}
-
-@Preview
-@Composable
-private fun QAndAListPreview() {
-    Conferences4HallTheme {
-        QAndAList(
-            qAndA = persistentListOf(
-                QuestionAndResponseUi.fake,
-                QuestionAndResponseUi.fake.copy(expanded = true)
-            ),
-            onExpandedClicked = {},
-            onLinkClicked = {}
-        )
     }
 }

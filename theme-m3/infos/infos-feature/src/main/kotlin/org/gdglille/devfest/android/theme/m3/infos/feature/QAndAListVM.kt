@@ -6,6 +6,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.text_error
+import org.gdglille.devfest.theme.m3.infos.screens.QAndAListScreen
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 import org.koin.androidx.compose.koinViewModel
@@ -18,7 +19,7 @@ fun QAndAListVM(
     viewModel: QAndAListViewModel = koinViewModel()
 ) {
     when (val uiState = viewModel.uiState.collectAsState().value) {
-        is QAndAUiState.Loading -> QAndAList(
+        is QAndAUiState.Loading -> QAndAListScreen(
             qAndA = uiState.qanda,
             modifier = modifier,
             isLoading = true,
@@ -27,7 +28,7 @@ fun QAndAListVM(
         )
 
         is QAndAUiState.Failure -> Text(text = stringResource(Resource.string.text_error))
-        is QAndAUiState.Success -> QAndAList(
+        is QAndAUiState.Success -> QAndAListScreen(
             qAndA = uiState.qanda,
             modifier = modifier,
             isLoading = false,

@@ -6,11 +6,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.text_error
-import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.gdglille.devfest.android.theme.m3.infos.screens.Event
 import org.jetbrains.compose.resources.stringResource
 import org.koin.androidx.compose.koinViewModel
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun EventVM(
     onLinkClicked: (url: String?) -> Unit,

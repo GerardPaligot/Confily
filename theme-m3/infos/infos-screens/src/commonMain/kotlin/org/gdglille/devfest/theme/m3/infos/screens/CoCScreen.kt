@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.infos.feature
+package org.gdglille.devfest.theme.m3.infos.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,23 +13,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.halilibo.richtext.markdown.Markdown
-import com.halilibo.richtext.ui.RichText
-import com.halilibo.richtext.ui.RichTextThemeIntegration
 import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.action_contact_organizers_mail
 import org.gdglille.devfest.android.shared.resources.action_contact_organizers_phone
 import org.gdglille.devfest.android.shared.resources.screen_coc
-import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.models.ui.CoCUi
-import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.gdglille.devfest.theme.m3.style.markdown.MarkdownText
 import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
-fun CoC(
+fun CoCScreen(
     coc: CoCUi,
     onReportByPhoneClicked: (String) -> Unit,
     onReportByEmailClicked: (String) -> Unit,
@@ -48,20 +42,12 @@ fun CoC(
             )
         }
         item {
-            RichTextThemeIntegration(
-                textStyle = { MaterialTheme.typography.bodyMedium },
-                ProvideTextStyle = null,
-                contentColor = { MaterialTheme.colorScheme.onBackground },
-                ProvideContentColor = null
-            ) {
-                RichText(
-                    modifier = Modifier.clearAndSetSemantics {
-                        contentDescription = coc.text
-                    }
-                ) {
-                    Markdown(coc.text)
+            MarkdownText(
+                text = coc.text,
+                modifier = Modifier.clearAndSetSemantics {
+                    contentDescription = coc.text
                 }
-            }
+            )
         }
         item {
             Column(
@@ -79,17 +65,5 @@ fun CoC(
                 }
             }
         }
-    }
-}
-
-@Preview
-@Composable
-private fun CoCPreview() {
-    Conferences4HallTheme {
-        CoC(
-            coc = CoCUi.fake,
-            onReportByPhoneClicked = {},
-            onReportByEmailClicked = {}
-        )
     }
 }
