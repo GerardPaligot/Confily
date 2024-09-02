@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: gradle/actions/setup-gradle@v4
 
@@ -63,7 +63,24 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
-      - uses: actions/checkout@v3
+      - name: Delete unnecessary tools 🔧
+        uses: jlumbroso/free-disk-space@v1.3.1
+        with:
+          android: false # Don't remove Android tools
+          tool-cache: true # Remove image tool cache - rm -rf "$AGENT_TOOLSDIRECTORY"
+          dotnet: true # rm -rf /usr/share/dotnet
+          haskell: true # rm -rf /opt/ghc...
+          swap-storage: true # rm -f /mnt/swapfile (4GiB)
+          docker-images: false # Takes 16s, enable if needed in the future
+          large-packages: false # includes google-cloud-sdk and it's slow
+
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - uses: actions/checkout@v4
 
       - uses: gradle/actions/setup-gradle@v4
 
@@ -74,12 +91,6 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 21
-
-      - name: Enable KVM
-        run: |
-          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
-          sudo udevadm control --reload-rules
-          sudo udevadm trigger --name-match=kvm
 
       - name: Build projects and run instrumentation tests
         uses: reactivecircus/android-emulator-runner@v2
@@ -104,7 +115,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: gradle/actions/setup-gradle@v4
 
