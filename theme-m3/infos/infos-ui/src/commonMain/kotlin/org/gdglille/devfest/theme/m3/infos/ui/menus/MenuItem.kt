@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.infos.ui.menus
+package org.gdglille.devfest.theme.m3.infos.ui.menus
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,9 +10,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.models.ui.MenuItemUi
 import org.gdglille.devfest.theme.m3.style.placeholder.placeholder
 
@@ -44,15 +42,5 @@ fun MenuItem(
                 Text(menuItem.dessert)
             }
         }
-    }
-}
-
-@Preview
-@Composable
-private fun MenuItemPreview() {
-    Conferences4HallTheme {
-        MenuItem(
-            menuItem = MenuItemUi.fake
-        )
     }
 }

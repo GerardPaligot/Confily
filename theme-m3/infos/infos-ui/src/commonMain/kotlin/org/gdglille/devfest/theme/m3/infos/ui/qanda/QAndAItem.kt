@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.infos.ui.qanda
+package org.gdglille.devfest.theme.m3.infos.ui.qanda
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
@@ -12,7 +12,6 @@ import androidx.compose.material.icons.outlined.ExpandMore
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -24,19 +23,14 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.halilibo.richtext.markdown.Markdown
-import com.halilibo.richtext.ui.RichText
-import com.halilibo.richtext.ui.RichTextThemeIntegration
-import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.models.ui.QuestionAndResponseUi
+import org.gdglille.devfest.theme.m3.style.markdown.MarkdownText
 import org.gdglille.devfest.theme.m3.style.placeholder.placeholder
 
 private const val ExpandedDegrees = 180f
 private const val ClosedDegrees = 0f
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun QAndAItem(
     qAndA: QuestionAndResponseUi,
@@ -80,16 +74,7 @@ fun QAndAItem(
                 visible = qAndA.expanded,
                 content = {
                     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                        RichTextThemeIntegration(
-                            textStyle = { MaterialTheme.typography.bodyMedium },
-                            ProvideTextStyle = null,
-                            contentColor = { MaterialTheme.colorScheme.onSurface },
-                            ProvideContentColor = null
-                        ) {
-                            RichText {
-                                Markdown(qAndA.response)
-                            }
-                        }
+                        MarkdownText(text = qAndA.response)
                         qAndA.actions.forEach {
                             Button(
                                 onClick = { onLinkClicked(it.url) },
@@ -103,29 +88,5 @@ fun QAndAItem(
                 }
             )
         }
-    }
-}
-
-@Preview
-@Composable
-private fun QAndAItemPreview() {
-    Conferences4HallTheme {
-        QAndAItem(
-            qAndA = QuestionAndResponseUi.fake,
-            onExpandedClicked = {},
-            onLinkClicked = {}
-        )
-    }
-}
-
-@Preview
-@Composable
-private fun QAndAItemExpandedPreview() {
-    Conferences4HallTheme {
-        QAndAItem(
-            qAndA = QuestionAndResponseUi.fake.copy(expanded = true),
-            onExpandedClicked = {},
-            onLinkClicked = {}
-        )
     }
 }
