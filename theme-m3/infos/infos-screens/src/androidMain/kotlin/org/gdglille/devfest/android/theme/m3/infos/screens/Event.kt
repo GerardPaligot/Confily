@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.infos.feature
+package org.gdglille.devfest.android.theme.m3.infos.screens
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -27,10 +27,8 @@ import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.models.ui.EventUi
 import org.gdglille.devfest.theme.m3.style.events.cards.AddressCard
 import org.gdglille.devfest.theme.m3.style.events.socials.SocialsSection
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun Event(
     event: EventUi,
