@@ -1,8 +1,5 @@
-@file:OptIn(ExperimentalResourceApi::class)
+package org.gdglille.devfest.theme.m3.events.screens
 
-package org.gdglille.devfest.android.theme.m3.events.feature
-
-import androidx.activity.compose.ReportDrawnWhen
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,21 +11,18 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.persistentListOf
 import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.screen_events
-import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.Scaffold
 import org.gdglille.devfest.android.theme.m3.style.actions.TabActionsUi
 import org.gdglille.devfest.models.ui.EventItemListUi
 import org.gdglille.devfest.theme.m3.events.ui.EventItem
 import org.gdglille.devfest.theme.m3.navigation.TabActions
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalResourceApi::class)
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun EventList(
     events: EventItemListUi,
@@ -36,7 +30,6 @@ fun EventList(
     modifier: Modifier = Modifier,
     isLoading: Boolean = false
 ) {
-    ReportDrawnWhen { isLoading }
     val tabActions = remember {
         TabActionsUi(actions = persistentListOf(TabActions.futureEvents, TabActions.pastEvents))
     }
@@ -64,13 +57,5 @@ fun EventList(
                 }
             }
         }
-    }
-}
-
-@Preview
-@Composable
-private fun EventListPreview() {
-    Conferences4HallTheme {
-        EventList(events = EventItemListUi.fake, onEventClicked = {})
     }
 }
