@@ -12,6 +12,7 @@ dependencies {
     implementation(projects.shared.core)
     implementation(projects.shared.resources)
     implementation(projects.themeM3.eventList.eventListUi)
+    implementation(projects.themeM3.eventList.eventListScreens)
     implementation(projects.themeM3.navigation)
     implementation(projects.themeM3.style.theme)
 
