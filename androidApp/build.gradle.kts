@@ -101,8 +101,9 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.workmanager)
 
-    implementation(libs.coil.compose)
-    implementation(libs.coil.svg)
+    implementation(libs.coil3.compose)
+    implementation(libs.coil3.network.ktor)
+    implementation(libs.coil3.svg)
     baselineProfile(projects.baselineprofile)
 }
 
