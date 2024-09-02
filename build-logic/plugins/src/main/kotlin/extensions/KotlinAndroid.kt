@@ -9,6 +9,9 @@ import org.gradle.api.plugins.ExtensionAware
 import org.gradle.kotlin.dsl.dependencies
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 
+private val CommonExtension<*, *, *, *, *, *>.hasKotlinOptionsExt: Boolean
+    get() = (this is ExtensionAware) && this.extensions.findByName("kotlinOptions") != null
+
 internal fun configureKotlinAndroid(
     commonExtension: CommonExtension<*, *, *, *, *, *>,
 ) {
@@ -23,6 +26,13 @@ internal fun configureKotlinAndroid(
             sourceCompatibility = JavaVersion.VERSION_17
             targetCompatibility = JavaVersion.VERSION_17
         }
+
+        // KMP modules don't have an access to the `kotlinOptions` extension
+        if (hasKotlinOptionsExt) {
+            kotlinOptions {
+                jvmTarget = JavaVersion.VERSION_17.toString()
+            }
+        }
     }
 }
 
@@ -32,13 +42,6 @@ internal fun Project.configureDesugaring(
     commonExtension.apply {
         compileOptions {
             isCoreLibraryDesugaringEnabled = true
-        }
-
-        kotlinOptions {
-            freeCompilerArgs = freeCompilerArgs + listOf(
-                "-opt-in=kotlin.RequiresOptIn"
-            )
-            jvmTarget = JavaVersion.VERSION_17.toString()
         }
     }
 

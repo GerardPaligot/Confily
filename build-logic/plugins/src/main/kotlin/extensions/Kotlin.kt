@@ -11,7 +11,12 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 internal fun Project.configureKotlinCompiler(jvmVersion: Int) {
     this.tasks.withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = JavaVersion.toVersion(jvmVersion).toString()
+        kotlinOptions {
+            freeCompilerArgs = freeCompilerArgs + listOf(
+                "-opt-in=kotlin.RequiresOptIn"
+            )
+            jvmTarget = JavaVersion.toVersion(jvmVersion).toString()
+        }
     }
     tasks.withType<JavaCompile> {
         val javaToolchains  = project.extensions.getByType<JavaToolchainService>()
