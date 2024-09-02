@@ -1,27 +1,51 @@
+import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
+
 plugins {
-    id("conferences4hall.android.library")
+    id("conferences4hall.multiplatform.library")
     id("conferences4hall.android.library.compose")
     id("conferences4hall.quality")
 }
 
 android {
     namespace = "org.gdglille.devfest.android.theme.m3.infos.ui"
+
+    dependencies {
+        debugImplementation(compose.uiTooling)
+    }
 }
 
-dependencies {
-    implementation(projects.shared.uiModels)
-    implementation(projects.shared.resources)
-    implementation(projects.uiCamera)
-    implementation(projects.themeM3.navigation)
-    implementation(projects.themeM3.style.components.placeholder)
-    implementation(projects.themeM3.style.theme)
+kotlin {
+    androidTarget()
 
-    implementation(libs.jetbrains.kotlinx.collections)
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmJs {
+        useCommonJs()
+        browser()
+    }
 
-    implementation(compose.material3)
-    implementation(compose.components.resources)
-    implementation(compose.preview)
-    debugImplementation(compose.uiTooling)
-    implementation(compose.materialIconsExtended)
-    implementation(libs.richtext.commonmark)
+    sourceSets {
+        val commonMain by getting {
+            dependencies {
+                implementation(projects.shared.uiModels)
+                implementation(projects.shared.resources)
+                implementation(projects.themeM3.navigation)
+                implementation(projects.themeM3.style.components.markdown)
+                implementation(projects.themeM3.style.components.placeholder)
+                implementation(projects.themeM3.style.theme)
+
+                implementation(compose.material3)
+                implementation(compose.components.resources)
+                implementation(compose.materialIconsExtended)
+
+                implementation(libs.jetbrains.kotlinx.collections)
+            }
+        }
+        val androidMain by getting {
+            dependencies {
+                implementation(projects.uiCamera)
+
+                implementation(compose.preview)
+            }
+        }
+    }
 }

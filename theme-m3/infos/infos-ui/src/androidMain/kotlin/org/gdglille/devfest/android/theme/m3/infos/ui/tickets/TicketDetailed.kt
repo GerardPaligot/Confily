@@ -41,12 +41,8 @@ import org.gdglille.devfest.models.ui.Image
 import org.gdglille.devfest.models.ui.TicketInfoUi
 import org.gdglille.devfest.models.ui.TicketUi
 import org.gdglille.devfest.theme.m3.style.placeholder.placeholder
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 
-private const val TicketRatio = 2 / 3
-
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun TicketDetailed(
     ticket: TicketInfoUi,
