@@ -19,11 +19,11 @@ import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.persistentListOf
 import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.screen_events
-import org.gdglille.devfest.android.theme.m3.events.ui.EventItem
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.Scaffold
 import org.gdglille.devfest.android.theme.m3.style.actions.TabActionsUi
 import org.gdglille.devfest.models.ui.EventItemListUi
+import org.gdglille.devfest.theme.m3.events.ui.EventItem
 import org.gdglille.devfest.theme.m3.navigation.TabActions
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
