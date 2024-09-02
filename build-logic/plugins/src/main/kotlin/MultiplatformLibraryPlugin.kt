@@ -1,5 +1,6 @@
 
 import com.android.build.gradle.LibraryExtension
+import extensions.configureDesugaring
 import extensions.configureKotlinAndroid
 import extensions.configureKotlinCompiler
 import org.gradle.api.Plugin
@@ -16,6 +17,7 @@ class MultiplatformLibraryPlugin: Plugin<Project> {
             extensions.configure<LibraryExtension> {
                 configureKotlinAndroid(this)
                 configureKotlinCompiler(jvmVersion = 17)
+                configureDesugaring(this)
                 sourceSets.getByName("main").manifest.srcFile("src/androidMain/AndroidManifest.xml")
                 defaultConfig.targetSdk = 34
             }
