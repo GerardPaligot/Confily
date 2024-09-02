@@ -1,11 +1,14 @@
 package org.gdglille.devfest.android.core.sample
 
 import android.app.Application
-import coil.ImageLoader
-import coil.ImageLoaderFactory
-import coil.decode.SvgDecoder
-import coil.disk.DiskCache
-import coil.memory.MemoryCache
+import coil3.ImageLoader
+import coil3.PlatformContext
+import coil3.SingletonImageLoader
+import coil3.disk.DiskCache
+import coil3.disk.directory
+import coil3.memory.MemoryCache
+import coil3.network.ktor3.KtorNetworkFetcherFactory
+import coil3.svg.SvgDecoder
 import io.openfeedback.viewmodels.OpenFeedbackFirebaseConfig
 import io.openfeedback.viewmodels.initializeOpenFeedback
 import org.gdglille.devfest.repositories.EventRepository
@@ -17,7 +20,7 @@ import org.koin.core.module.Module
 
 open class SampleApplication(
     private val koinModules: List<Module>
-) : Application(), ImageLoaderFactory {
+) : Application(), SingletonImageLoader.Factory {
     private val eventRepository: EventRepository by inject()
 
     override fun onCreate() {
@@ -41,19 +44,17 @@ open class SampleApplication(
         eventRepository.isInitialized(BuildConfig.DEFAULT_EVENT)
     }
 
-    override fun newImageLoader(): ImageLoader = ImageLoader.Builder(this)
-        .components {
-            add(SvgDecoder.Factory())
-        }
-        .memoryCache {
-            MemoryCache.Builder(this)
-                .build()
-        }
-        .diskCache {
-            DiskCache.Builder()
-                .directory(this.cacheDir.resolve("image_cache"))
-                .build()
-        }
-        .respectCacheHeaders(false)
-        .build()
+    override fun newImageLoader(context: PlatformContext): ImageLoader =
+        ImageLoader.Builder(context)
+            .components {
+                add(SvgDecoder.Factory())
+                add(KtorNetworkFetcherFactory())
+            }
+            .memoryCache { MemoryCache.Builder().build() }
+            .diskCache {
+                DiskCache.Builder()
+                    .directory(context.cacheDir.resolve("image_cache"))
+                    .build()
+            }
+            .build()
 }

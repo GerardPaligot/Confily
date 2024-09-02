@@ -1,11 +1,14 @@
 package org.gdglille.devfest.android
 
 import android.app.Application
-import coil.ImageLoader
-import coil.ImageLoaderFactory
-import coil.decode.SvgDecoder
-import coil.disk.DiskCache
-import coil.memory.MemoryCache
+import coil3.ImageLoader
+import coil3.PlatformContext
+import coil3.SingletonImageLoader
+import coil3.disk.DiskCache
+import coil3.disk.directory
+import coil3.memory.MemoryCache
+import coil3.network.ktor3.KtorNetworkFetcherFactory
+import coil3.svg.SvgDecoder
 import io.openfeedback.viewmodels.OpenFeedbackFirebaseConfig
 import io.openfeedback.viewmodels.initializeOpenFeedback
 import org.gdglille.devfest.android.di.appModule
@@ -17,7 +20,7 @@ import org.koin.core.context.startKoin
 private const val MemoryCacheSize = 0.25
 private const val DiskCacheSize = 0.10
 
-class MainApplication : Application(), ImageLoaderFactory, KoinComponent {
+class MainApplication : Application(), SingletonImageLoader.Factory, KoinComponent {
     override fun onCreate() {
         super.onCreate()
         initializeOpenFeedback(
@@ -37,21 +40,22 @@ class MainApplication : Application(), ImageLoaderFactory, KoinComponent {
         }
     }
 
-    override fun newImageLoader(): ImageLoader = ImageLoader.Builder(this)
-        .components {
-            add(SvgDecoder.Factory())
-        }
-        .memoryCache {
-            MemoryCache.Builder(this)
-                .maxSizePercent(MemoryCacheSize)
-                .build()
-        }
-        .diskCache {
-            DiskCache.Builder()
-                .directory(this.cacheDir.resolve("image_cache"))
-                .maxSizePercent(DiskCacheSize)
-                .build()
-        }
-        .respectCacheHeaders(false)
-        .build()
+    override fun newImageLoader(context: PlatformContext): ImageLoader =
+        ImageLoader.Builder(context)
+            .components {
+                add(SvgDecoder.Factory())
+                add(KtorNetworkFetcherFactory())
+            }
+            .memoryCache {
+                MemoryCache.Builder()
+                    .maxSizePercent(context, MemoryCacheSize)
+                    .build()
+            }
+            .diskCache {
+                DiskCache.Builder()
+                    .directory(context.cacheDir.resolve("image_cache"))
+                    .maxSizePercent(DiskCacheSize)
+                    .build()
+            }
+            .build()
 }

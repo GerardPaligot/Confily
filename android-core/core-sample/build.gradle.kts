@@ -46,8 +46,9 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.workmanager)
 
-    api(libs.coil.compose)
-    api(libs.coil.svg)
+    api(libs.coil3.compose)
+    api(libs.coil3.network.ktor)
+    api(libs.coil3.svg)
 
     implementation(libs.openfeedback.viewmodel)
 }
