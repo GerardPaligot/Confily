@@ -7,7 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "org.gdglille.devfest.android.theme.m3.style.markdown"
+    namespace = "com.paligot.confily.style.components.markdown"
+
+    dependencies {
+        debugImplementation(compose.uiTooling)
+    }
 }
 
 kotlin {
@@ -32,7 +36,6 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation(compose.preview)
-                implementation(compose.uiTooling)
             }
         }
     }

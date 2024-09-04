@@ -1,4 +1,4 @@
-package org.gdglille.devfest.theme.m3.style.markdown
+package com.paligot.confily.style.components.markdown
 
 import com.paligot.confily.style.theme.ColorSchemeTokens
 import com.paligot.confily.style.theme.TextStyleTokens
