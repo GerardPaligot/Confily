@@ -11,8 +11,8 @@ android {
 dependencies {
     implementation(projects.shared.core)
     implementation(projects.shared.resources)
-    implementation(projects.themeM3.eventList.eventListUi)
-    implementation(projects.themeM3.eventList.eventListPanes)
+    implementation(projects.features.eventList.eventListUi)
+    implementation(projects.features.eventList.eventListPanes)
     implementation(projects.themeM3.navigation)
     implementation(projects.style.theme)
 

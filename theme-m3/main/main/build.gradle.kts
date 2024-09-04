@@ -18,7 +18,7 @@ dependencies {
     implementation(projects.features.networking.networkingPresentation)
     implementation(projects.features.infos.infosPresentation)
     implementation(projects.features.infos.infosPanes)
-    implementation(projects.themeM3.eventList.eventListPresentation)
+    implementation(projects.features.eventList.eventListPresentation)
     implementation(projects.themeM3.navigation)
     implementation(projects.style.components.adaptive)
     implementation(projects.shared.core)
