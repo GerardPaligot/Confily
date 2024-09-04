@@ -10,6 +10,9 @@ import com.google.cloud.firestore.FirestoreOptions
 import com.google.cloud.secretmanager.v1.SecretManagerServiceClient
 import com.google.cloud.secretmanager.v1.SecretManagerServiceSettings
 import com.google.cloud.storage.StorageOptions
+import com.paligot.confily.models.Session
+import com.paligot.confily.models.inputs.Validator
+import com.paligot.confily.models.inputs.ValidatorException
 import io.ktor.http.HeaderValue
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpMethod
@@ -65,9 +68,6 @@ import org.gdglille.devfest.backend.third.parties.openplanner.OpenPlannerApi
 import org.gdglille.devfest.backend.third.parties.openplanner.registerOpenPlannerRoutes
 import org.gdglille.devfest.backend.third.parties.welovedevs.WeLoveDevsApi
 import org.gdglille.devfest.backend.third.parties.welovedevs.registerWLDRoutes
-import org.gdglille.devfest.models.Session
-import org.gdglille.devfest.models.inputs.Validator
-import org.gdglille.devfest.models.inputs.ValidatorException
 
 const val PORT = 8080
 

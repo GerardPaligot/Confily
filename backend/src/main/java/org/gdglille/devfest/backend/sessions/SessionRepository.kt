@@ -1,12 +1,12 @@
 package org.gdglille.devfest.backend.sessions
 
+import com.paligot.confily.models.Session
+import com.paligot.confily.models.inputs.EventSessionInput
 import org.gdglille.devfest.backend.NotAcceptableException
 import org.gdglille.devfest.backend.NotFoundException
 import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.third.parties.geocode.GeocodeApi
 import org.gdglille.devfest.backend.third.parties.geocode.convertToDb
-import org.gdglille.devfest.models.Session
-import org.gdglille.devfest.models.inputs.EventSessionInput
 
 class SessionRepository(
     private val geocodeApi: GeocodeApi,

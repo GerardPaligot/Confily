@@ -3,6 +3,8 @@ package org.gdglille.devfest.database
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import cafe.adriel.lyricist.Lyricist
+import com.paligot.confily.models.AgendaV4
+import com.paligot.confily.models.Session
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.coroutines.getBooleanFlow
@@ -24,8 +26,6 @@ import org.gdglille.devfest.database.mappers.convertTalkItemUi
 import org.gdglille.devfest.database.mappers.convertToDb
 import org.gdglille.devfest.database.mappers.convertToEntity
 import org.gdglille.devfest.db.Conferences4HallDatabase
-import org.gdglille.devfest.models.AgendaV4
-import org.gdglille.devfest.models.Session
 import org.gdglille.devfest.models.ui.AgendaUi
 import org.gdglille.devfest.models.ui.CategoryUi
 import org.gdglille.devfest.models.ui.FiltersUi

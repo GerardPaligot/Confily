@@ -1,12 +1,12 @@
 package org.gdglille.devfest.database
 
+import com.paligot.confily.models.EventItemList
+import com.paligot.confily.models.EventV3
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 import org.gdglille.devfest.db.Event
 import org.gdglille.devfest.db.EventItem
-import org.gdglille.devfest.models.EventItemList
-import org.gdglille.devfest.models.EventV3
 
 fun EventV3.convertToModelDb(): Event = Event(
     id = this.id,

@@ -1,5 +1,6 @@
 package org.gdglille.devfest.backend.qanda
 
+import com.paligot.confily.models.inputs.QAndAInput
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.plugins.BadRequestException
 import io.ktor.server.request.acceptLanguage
@@ -10,7 +11,6 @@ import io.ktor.server.routing.post
 import io.ktor.server.routing.put
 import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.receiveValidated
-import org.gdglille.devfest.models.inputs.QAndAInput
 
 fun Routing.registerQAndAsRoutes(
     eventDao: EventDao,

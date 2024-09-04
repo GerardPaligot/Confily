@@ -1,5 +1,6 @@
 package org.gdglille.devfest.backend.sessions
 
+import com.paligot.confily.models.inputs.EventSessionInput
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.response.respond
 import io.ktor.server.routing.Routing
@@ -8,7 +9,6 @@ import io.ktor.server.routing.put
 import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.receiveValidated
 import org.gdglille.devfest.backend.third.parties.geocode.GeocodeApi
-import org.gdglille.devfest.models.inputs.EventSessionInput
 
 fun Routing.registerSessionsRoutes(
     geocodeApi: GeocodeApi,

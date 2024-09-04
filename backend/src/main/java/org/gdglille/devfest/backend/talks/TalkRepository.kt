@@ -1,5 +1,7 @@
 package org.gdglille.devfest.backend.talks
 
+import com.paligot.confily.models.inputs.TalkInput
+import com.paligot.confily.models.inputs.TalkVerbatimInput
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
@@ -13,8 +15,6 @@ import org.gdglille.devfest.backend.sessions.convertToDb
 import org.gdglille.devfest.backend.sessions.convertToModel
 import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.speakers.SpeakerDb
-import org.gdglille.devfest.models.inputs.TalkInput
-import org.gdglille.devfest.models.inputs.TalkVerbatimInput
 
 class TalkRepository(
     private val eventDao: EventDao,

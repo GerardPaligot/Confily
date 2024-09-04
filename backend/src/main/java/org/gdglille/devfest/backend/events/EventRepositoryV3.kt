@@ -1,5 +1,7 @@
 package org.gdglille.devfest.backend.events
 
+import com.paligot.confily.models.AgendaV3
+import com.paligot.confily.models.EventV3
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import org.gdglille.devfest.backend.NotFoundException
@@ -15,8 +17,6 @@ import org.gdglille.devfest.backend.sessions.SessionDao
 import org.gdglille.devfest.backend.sessions.convertToModel
 import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.speakers.convertToModel
-import org.gdglille.devfest.models.AgendaV3
-import org.gdglille.devfest.models.EventV3
 
 @Suppress("LongParameterList")
 class EventRepositoryV3(

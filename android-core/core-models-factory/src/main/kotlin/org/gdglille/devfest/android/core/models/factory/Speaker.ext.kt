@@ -1,6 +1,6 @@
 package org.gdglille.devfest.android.core.models.factory
 
-import org.gdglille.devfest.models.Speaker
+import com.paligot.confily.models.Speaker
 
 fun Speaker.Companion.builder(): SpeakerBuilder = SpeakerBuilder()
 

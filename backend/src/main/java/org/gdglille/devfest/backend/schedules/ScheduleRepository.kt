@@ -1,5 +1,6 @@
 package org.gdglille.devfest.backend.schedules
 
+import com.paligot.confily.models.inputs.ScheduleInput
 import kotlinx.coroutines.coroutineScope
 import org.gdglille.devfest.backend.NotFoundException
 import org.gdglille.devfest.backend.categories.CategoryDao
@@ -10,7 +11,6 @@ import org.gdglille.devfest.backend.internals.date.format
 import org.gdglille.devfest.backend.sessions.SessionDao
 import org.gdglille.devfest.backend.sessions.convertToModel
 import org.gdglille.devfest.backend.speakers.SpeakerDao
-import org.gdglille.devfest.models.inputs.ScheduleInput
 import java.time.LocalDateTime
 
 class ScheduleRepository(

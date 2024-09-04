@@ -1,15 +1,15 @@
 package org.gdglille.devfest.backend.partners
 
 import com.google.cloud.Timestamp
+import com.paligot.confily.models.Job
+import com.paligot.confily.models.Partner
+import com.paligot.confily.models.PartnerMedia
+import com.paligot.confily.models.PartnerMediaPngs
+import com.paligot.confily.models.PartnerV2
+import com.paligot.confily.models.inputs.PartnerInput
 import org.gdglille.devfest.backend.events.AddressDb
 import org.gdglille.devfest.backend.events.convertToModel
 import org.gdglille.devfest.backend.internals.helpers.storage.Upload
-import org.gdglille.devfest.models.Job
-import org.gdglille.devfest.models.Partner
-import org.gdglille.devfest.models.PartnerMedia
-import org.gdglille.devfest.models.PartnerMediaPngs
-import org.gdglille.devfest.models.PartnerV2
-import org.gdglille.devfest.models.inputs.PartnerInput
 import java.net.URI
 
 fun PartnerDb.convertToModel() = Partner(

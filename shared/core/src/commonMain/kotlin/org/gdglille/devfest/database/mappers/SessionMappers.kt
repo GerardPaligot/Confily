@@ -1,5 +1,7 @@
 package org.gdglille.devfest.database.mappers
 
+import com.paligot.confily.models.ScheduleItemV4
+import com.paligot.confily.models.Session
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
@@ -19,8 +21,6 @@ import org.gdglille.devfest.db.SelectTalksBySpeakerId
 import org.gdglille.devfest.db.TalkSession
 import org.gdglille.devfest.db.TalkSessionWithSpeakers
 import org.gdglille.devfest.extensions.formatHoursMinutes
-import org.gdglille.devfest.models.ScheduleItemV4
-import org.gdglille.devfest.models.Session
 import org.gdglille.devfest.models.ui.AddressUi
 import org.gdglille.devfest.models.ui.CategoryUi
 import org.gdglille.devfest.models.ui.EventSessionItemUi
@@ -240,8 +240,8 @@ fun <T : Session> ScheduleItemV4.convertToDb(eventId: String, type: KClass<T>): 
     date = this.date,
     start_time = this.startTime,
     end_time = this.endTime,
-    session_talk_id = if (type == Session.Talk::class) sessionId else null,
-    session_event_id = if (type == Session.Event::class) sessionId else null,
+    session_talk_id = if (type == com.paligot.models.Session.Talk::class) sessionId else null,
+    session_event_id = if (type == com.paligot.models.Session.Event::class) sessionId else null,
     event_id = eventId,
     is_favorite = false
 )

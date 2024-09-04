@@ -1,5 +1,6 @@
 package org.gdglille.devfest.backend.formats
 
+import com.paligot.confily.models.inputs.FormatInput
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.response.respond
 import io.ktor.server.routing.Routing
@@ -8,7 +9,6 @@ import io.ktor.server.routing.post
 import io.ktor.server.routing.put
 import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.receiveValidated
-import org.gdglille.devfest.models.inputs.FormatInput
 
 fun Routing.registerFormatsRoutes(
     eventDao: EventDao,

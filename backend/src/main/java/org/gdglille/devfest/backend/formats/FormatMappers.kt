@@ -1,7 +1,7 @@
 package org.gdglille.devfest.backend.formats
 
-import org.gdglille.devfest.models.Format
-import org.gdglille.devfest.models.inputs.FormatInput
+import com.paligot.confily.models.Format
+import com.paligot.confily.models.inputs.FormatInput
 
 fun FormatDb.convertToModel() = Format(
     id = id ?: "",

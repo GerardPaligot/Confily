@@ -1,10 +1,10 @@
 package org.gdglille.devfest.android.core.models.factory
 
+import com.paligot.confily.models.Address
+import com.paligot.confily.models.EventLunchMenu
+import com.paligot.confily.models.EventV3
+import com.paligot.confily.models.FeaturesActivated
 import kotlinx.datetime.Instant
-import org.gdglille.devfest.models.Address
-import org.gdglille.devfest.models.EventLunchMenu
-import org.gdglille.devfest.models.EventV3
-import org.gdglille.devfest.models.FeaturesActivated
 
 fun EventV3.Companion.builder(): EventBuilder = EventBuilder()
 

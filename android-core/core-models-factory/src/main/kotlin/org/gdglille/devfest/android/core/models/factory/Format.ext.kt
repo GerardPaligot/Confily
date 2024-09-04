@@ -1,6 +1,6 @@
 package org.gdglille.devfest.android.core.models.factory
 
-import org.gdglille.devfest.models.Format
+import com.paligot.confily.models.Format
 
 fun Format.Companion.builder(): FormatBuilder = FormatBuilder()
 

@@ -1,5 +1,6 @@
 package org.gdglille.devfest.backend.schedules
 
+import com.paligot.confily.models.inputs.ScheduleInput
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.response.respond
 import io.ktor.server.routing.Routing
@@ -12,7 +13,6 @@ import org.gdglille.devfest.backend.formats.FormatDao
 import org.gdglille.devfest.backend.receiveValidated
 import org.gdglille.devfest.backend.sessions.SessionDao
 import org.gdglille.devfest.backend.speakers.SpeakerDao
-import org.gdglille.devfest.models.inputs.ScheduleInput
 
 @Suppress("LongParameterList")
 fun Routing.registerSchedulersRoutes(

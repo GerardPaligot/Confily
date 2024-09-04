@@ -1,5 +1,11 @@
 package org.gdglille.devfest.backend.sessions
 
+import com.paligot.confily.models.Info
+import com.paligot.confily.models.Session
+import com.paligot.confily.models.Talk
+import com.paligot.confily.models.TalkV3
+import com.paligot.confily.models.inputs.EventSessionInput
+import com.paligot.confily.models.inputs.TalkInput
 import org.gdglille.devfest.backend.categories.CategoryDb
 import org.gdglille.devfest.backend.categories.convertToModel
 import org.gdglille.devfest.backend.events.AddressDb
@@ -9,12 +15,6 @@ import org.gdglille.devfest.backend.events.openFeedbackUrl
 import org.gdglille.devfest.backend.formats.FormatDb
 import org.gdglille.devfest.backend.speakers.SpeakerDb
 import org.gdglille.devfest.backend.speakers.convertToModel
-import org.gdglille.devfest.models.Info
-import org.gdglille.devfest.models.Session
-import org.gdglille.devfest.models.Talk
-import org.gdglille.devfest.models.TalkV3
-import org.gdglille.devfest.models.inputs.EventSessionInput
-import org.gdglille.devfest.models.inputs.TalkInput
 
 fun SessionDb.convertToModel(eventDb: EventDb): Session {
     return when (this) {

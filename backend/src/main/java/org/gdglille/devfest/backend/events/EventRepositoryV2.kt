@@ -1,5 +1,10 @@
 package org.gdglille.devfest.backend.events
 
+import com.paligot.confily.models.EventV2
+import com.paligot.confily.models.OpenFeedback
+import com.paligot.confily.models.SessionOF
+import com.paligot.confily.models.SocialOF
+import com.paligot.confily.models.SpeakerOF
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -21,11 +26,6 @@ import org.gdglille.devfest.backend.sessions.TalkDb
 import org.gdglille.devfest.backend.sessions.convertToModel
 import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.speakers.SpeakerDb
-import org.gdglille.devfest.models.EventV2
-import org.gdglille.devfest.models.OpenFeedback
-import org.gdglille.devfest.models.SessionOF
-import org.gdglille.devfest.models.SocialOF
-import org.gdglille.devfest.models.SpeakerOF
 import java.time.LocalDateTime
 
 @Suppress("LongParameterList")

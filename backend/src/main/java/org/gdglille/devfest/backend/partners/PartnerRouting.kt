@@ -1,5 +1,6 @@
 package org.gdglille.devfest.backend.partners
 
+import com.paligot.confily.models.inputs.PartnerInput
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.response.respond
 import io.ktor.server.routing.Routing
@@ -11,7 +12,6 @@ import org.gdglille.devfest.backend.internals.helpers.image.TranscoderImage
 import org.gdglille.devfest.backend.jobs.JobDao
 import org.gdglille.devfest.backend.receiveValidated
 import org.gdglille.devfest.backend.third.parties.geocode.GeocodeApi
-import org.gdglille.devfest.models.inputs.PartnerInput
 
 fun Routing.registerPartnersRoutes(
     geocodeApi: GeocodeApi,
