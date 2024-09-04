@@ -3,7 +3,7 @@ package org.gdglille.devfest.baselineprofile.scenarios
 import androidx.test.uiautomator.By
 import org.gdglille.devfest.android.theme.m3.partners.semantics.PartnersSemantics
 import org.gdglille.devfest.android.theme.m3.schedules.semantics.SchedulesSemantics
-import org.gdglille.devfest.android.theme.m3.speakers.semantics.SpeakersSemantics
+import com.paligot.confily.speakers.semantics.SpeakersSemantics
 
 object DevfestScenario {
     val back = By.desc("Back")
