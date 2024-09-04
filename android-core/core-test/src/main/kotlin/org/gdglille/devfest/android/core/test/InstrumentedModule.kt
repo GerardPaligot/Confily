@@ -9,9 +9,9 @@ import com.paligot.confily.core.database.DatabaseWrapper
 import com.paligot.confily.core.di.ApplicationIdNamed
 import com.paligot.confily.core.di.Conference4HallBaseUrlNamed
 import com.paligot.confily.core.di.IsDebugNamed
+import com.paligot.confily.core.sample.ScheduleWorkManager
 import com.paligot.confily.db.Conferences4HallDatabase
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
-import org.gdglille.devfest.android.core.sample.ScheduleWorkManager
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.workmanager.dsl.worker
 import org.koin.core.qualifier.named

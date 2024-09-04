@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.core.sample
+package com.paligot.confily.core.sample
 
 import android.content.Context
 import androidx.work.CoroutineWorker

@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "org.gdglille.devfest.android.core.sample"
+    namespace = "com.paligot.confily.core.sample"
 
     val appProps = rootProject.file("androidApp/app.properties").toProperties()
     buildTypes {
