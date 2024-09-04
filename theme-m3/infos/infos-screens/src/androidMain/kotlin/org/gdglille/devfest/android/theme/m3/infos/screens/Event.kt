@@ -18,6 +18,8 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.paligot.confily.infos.ui.tickets.TicketDetailed
+import com.paligot.confily.infos.ui.tickets.TicketQrCode
 import com.paligot.confily.models.ui.EventUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.title_plan
@@ -25,8 +27,6 @@ import com.paligot.confily.resources.title_ticket
 import com.paligot.confily.style.events.cards.AddressCard
 import com.paligot.confily.style.events.socials.SocialsSection
 import com.paligot.confily.style.theme.Conferences4HallTheme
-import org.gdglille.devfest.android.theme.m3.infos.ui.tickets.TicketDetailed
-import org.gdglille.devfest.android.theme.m3.infos.ui.tickets.TicketQrCode
 import org.jetbrains.compose.resources.stringResource
 
 @Composable

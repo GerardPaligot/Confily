@@ -1,4 +1,4 @@
-package org.gdglille.devfest.theme.m3.infos.ui.menus
+package com.paligot.confily.infos.ui.menus
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
