@@ -1,4 +1,4 @@
-package org.gdglille.devfest.theme.m3.partners.ui
+package com.paligot.confily.partners.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
