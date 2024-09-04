@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.partners.di
+package com.paligot.confily.partners.di
 
 import com.paligot.confily.core.di.repositoriesModule
 import com.paligot.confily.partners.presentation.PartnerDetailViewModel
