@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.style.permissions
+package com.paligot.confily.style.components.permissions
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,10 +18,8 @@ import com.paligot.confily.resources.action_system_settings
 import com.paligot.confily.resources.text_camera_permission_deny
 import com.paligot.confily.resources.text_permission
 import com.paligot.confily.style.theme.Conferences4HallTheme
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 internal fun FeatureThatRequiresCameraPermissionDenied(
     modifier: Modifier = Modifier,

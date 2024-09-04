@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.style.permissions
+package com.paligot.confily.style.components.permissions
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
