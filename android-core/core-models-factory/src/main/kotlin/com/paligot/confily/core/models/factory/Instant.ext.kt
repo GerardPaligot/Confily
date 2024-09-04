@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.core.models.factory
+package com.paligot.confily.core.models.factory
 
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime

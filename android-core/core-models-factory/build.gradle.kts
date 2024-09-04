@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "org.gdglille.devfest.android.core.models.factory"
+    namespace = "com.paligot.confily.core.models.factory"
 }
 
 dependencies {

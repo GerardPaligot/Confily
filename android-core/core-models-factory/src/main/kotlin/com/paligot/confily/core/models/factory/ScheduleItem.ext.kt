@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.core.models.factory
+package com.paligot.confily.core.models.factory
 
 import com.paligot.confily.models.ScheduleItemV4
 import kotlinx.datetime.Instant
