@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.networking.feature
+package com.paligot.confily.networking.presentation
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable

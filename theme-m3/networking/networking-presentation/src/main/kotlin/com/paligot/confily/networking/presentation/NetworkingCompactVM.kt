@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.networking.feature
+package com.paligot.confily.networking.presentation
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.padding

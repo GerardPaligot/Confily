@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "org.gdglille.devfest.android.theme.m3.networking.feature"
+    namespace = "com.paligot.confily.networking.presentation"
 }
 
 dependencies {
