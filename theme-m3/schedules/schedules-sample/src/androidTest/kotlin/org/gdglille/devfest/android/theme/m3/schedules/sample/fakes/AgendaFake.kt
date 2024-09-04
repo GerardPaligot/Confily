@@ -1,5 +1,6 @@
 package org.gdglille.devfest.android.theme.m3.schedules.sample.fakes
 
+import com.paligot.confily.core.models.factory.builder
 import com.paligot.confily.models.AgendaV4
 import com.paligot.confily.models.Category
 import com.paligot.confily.models.Format
@@ -7,7 +8,6 @@ import com.paligot.confily.models.ScheduleItemV4
 import com.paligot.confily.models.Session
 import com.paligot.confily.models.Speaker
 import kotlinx.datetime.Clock
-import com.paligot.confily.core.models.factory.builder
 import kotlin.time.Duration
 
 object AgendaFake {

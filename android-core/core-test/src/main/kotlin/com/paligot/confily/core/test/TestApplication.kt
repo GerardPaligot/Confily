@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.core.test
+package com.paligot.confily.core.test
 
 import android.app.Application
 import android.util.Log

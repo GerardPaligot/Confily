@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.core.test
+package com.paligot.confily.core.test
 
 import android.app.AlarmManager
 import android.content.Context
@@ -20,7 +20,7 @@ import kotlin.coroutines.CoroutineContext
 
 val instrumentedModule = module {
     single(named(IsDebugNamed)) { true }
-    single(named(ApplicationIdNamed)) { "org.gdglille.devfest.android.core.test" }
+    single(named(ApplicationIdNamed)) { "com.paligot.confily.core.test" }
     single(named(Conference4HallBaseUrlNamed)) { "" }
     single {
         AlarmScheduler(

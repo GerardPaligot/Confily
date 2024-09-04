@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "org.gdglille.devfest.android.core.test"
+    namespace = "com.paligot.confily.core.test"
 }
 
 dependencies {

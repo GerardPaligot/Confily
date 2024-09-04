@@ -5,10 +5,10 @@ import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import com.paligot.confily.core.database.EventDao
 import com.paligot.confily.core.database.ScheduleDao
+import com.paligot.confily.core.sample.BuildConfig
+import com.paligot.confily.core.test.instrumentedModule
 import com.paligot.confily.core.test.patterns.navigation.RobotNavigator
 import com.paligot.confily.core.test.patterns.navigation.robotHost
-import org.gdglille.devfest.android.core.sample.BuildConfig
-import org.gdglille.devfest.android.core.test.instrumentedModule
 import org.gdglille.devfest.android.theme.m3.speakers.di.speakersModule
 import org.gdglille.devfest.android.theme.m3.speakers.sample.fakes.AgendaFake.agenda
 import org.gdglille.devfest.android.theme.m3.speakers.sample.fakes.AgendaFake.category
