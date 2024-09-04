@@ -17,13 +17,13 @@ import androidx.compose.ui.unit.dp
 import com.paligot.confily.models.ui.SpeakerItemUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.screen_speakers
+import com.paligot.confily.speakers.semantics.SpeakersSemantics
 import com.paligot.confily.style.components.placeholder.placeholder
 import com.paligot.confily.style.speakers.items.LargeSpeakerItem
 import com.paligot.confily.style.theme.Scaffold
 import com.paligot.confily.style.theme.SpacingTokens
 import com.paligot.confily.style.theme.toDp
 import kotlinx.collections.immutable.ImmutableList
-import org.gdglille.devfest.android.theme.m3.speakers.semantics.SpeakersSemantics
 import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalFoundationApi::class)
