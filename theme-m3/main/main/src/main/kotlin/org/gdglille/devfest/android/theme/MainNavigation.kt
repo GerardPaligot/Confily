@@ -44,7 +44,7 @@ import com.paligot.confily.schedules.presentation.scheduleGraph
 import com.paligot.confily.speakers.presentation.speakerGraph
 import com.paligot.confily.style.components.adaptive.isCompat
 import com.paligot.confily.style.theme.appbars.iconColor
-import org.gdglille.devfest.android.theme.m3.events.feature.EventListVM
+import com.paligot.confily.events.presentation.EventListVM
 import org.gdglille.devfest.theme.m3.navigation.Screen
 import org.jetbrains.compose.resources.stringResource
 import org.koin.androidx.compose.koinViewModel

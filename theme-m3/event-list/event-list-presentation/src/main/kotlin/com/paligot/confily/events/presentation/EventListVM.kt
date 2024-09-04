@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.events.feature
+package com.paligot.confily.events.presentation
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
