@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.schedules.feature
+package com.paligot.confily.schedules.presentation
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text

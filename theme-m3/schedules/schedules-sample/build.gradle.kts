@@ -21,7 +21,7 @@ android {
 
 dependencies {
     implementation(projects.androidCore.coreSample)
-    implementation(projects.themeM3.schedules.schedulesFeature)
+    implementation(projects.themeM3.schedules.schedulesPresentation)
     implementation(projects.themeM3.schedules.schedulesDi)
     implementation(projects.themeM3.navigation)
     implementation(projects.shared.core)

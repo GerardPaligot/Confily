@@ -3,10 +3,10 @@ package org.gdglille.devfest.android.theme.m3.schedules.di
 import com.paligot.confily.core.di.repositoriesModule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import org.gdglille.devfest.android.theme.m3.schedules.feature.AgendaFiltersViewModel
-import org.gdglille.devfest.android.theme.m3.schedules.feature.ScheduleDetailEventSessionViewModel
-import org.gdglille.devfest.android.theme.m3.schedules.feature.ScheduleDetailViewModel
-import org.gdglille.devfest.android.theme.m3.schedules.feature.ScheduleGridViewModel
+import com.paligot.confily.schedules.presentation.AgendaFiltersViewModel
+import com.paligot.confily.schedules.presentation.ScheduleDetailEventSessionViewModel
+import com.paligot.confily.schedules.presentation.ScheduleDetailViewModel
+import com.paligot.confily.schedules.presentation.ScheduleGridViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

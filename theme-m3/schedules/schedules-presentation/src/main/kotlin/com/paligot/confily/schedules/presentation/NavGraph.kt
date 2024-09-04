@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.schedules.feature
+package com.paligot.confily.schedules.presentation
 
 import android.content.res.Configuration
 import androidx.compose.animation.EnterTransition

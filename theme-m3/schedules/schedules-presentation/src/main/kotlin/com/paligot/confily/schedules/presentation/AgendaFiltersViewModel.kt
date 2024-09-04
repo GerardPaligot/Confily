@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.schedules.feature
+package com.paligot.confily.schedules.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

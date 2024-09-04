@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.schedules.feature
+package com.paligot.confily.schedules.presentation
 
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState

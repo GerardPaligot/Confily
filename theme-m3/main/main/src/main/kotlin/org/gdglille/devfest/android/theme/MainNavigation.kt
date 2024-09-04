@@ -44,7 +44,7 @@ import org.gdglille.devfest.android.theme.m3.networking.feature.ProfileInputVM
 import org.gdglille.devfest.android.theme.m3.networking.feature.VCardQrCodeScanner
 import org.gdglille.devfest.android.theme.m3.partners.feature.PartnerDetailVM
 import org.gdglille.devfest.android.theme.m3.partners.feature.PartnersAdaptive
-import org.gdglille.devfest.android.theme.m3.schedules.feature.scheduleGraph
+import com.paligot.confily.schedules.presentation.scheduleGraph
 import org.gdglille.devfest.theme.m3.navigation.Screen
 import org.jetbrains.compose.resources.stringResource
 import org.koin.androidx.compose.koinViewModel
