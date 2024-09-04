@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "org.gdglille.devfest.android.theme.m3.schedules.semantics"
+    namespace = "com.paligot.confily.schedules.semantics"
 }
 
 kotlin {

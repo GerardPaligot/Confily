@@ -15,6 +15,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.paligot.confily.models.ui.EventSessionItemUi
 import com.paligot.confily.models.ui.TalkItemUi
+import com.paligot.confily.schedules.semantics.SchedulesSemantics
 import com.paligot.confily.schedules.ui.talks.MediumScheduleItem
 import com.paligot.confily.schedules.ui.talks.NoFavoriteTalks
 import com.paligot.confily.schedules.ui.talks.SmallScheduleItem
@@ -25,7 +26,6 @@ import com.paligot.confily.style.schedules.pause.MediumPauseItem
 import com.paligot.confily.style.schedules.pause.SmallPauseItem
 import com.paligot.confily.style.theme.SpacingTokens
 import com.paligot.confily.style.theme.toDp
-import org.gdglille.devfest.android.theme.m3.schedules.semantics.SchedulesSemantics
 import kotlin.math.floor
 
 const val NbHorizontalPadding = 2
