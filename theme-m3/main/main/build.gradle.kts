@@ -14,7 +14,7 @@ dependencies {
     api(projects.style.theme)
     implementation(projects.features.schedules.schedulesPresentation)
     implementation(projects.features.speakers.speakersPresentation)
-    implementation(projects.themeM3.partners.partnersPresentation)
+    implementation(projects.features.partners.partnersPresentation)
     implementation(projects.themeM3.networking.networkingFeature)
     implementation(projects.themeM3.infos.infosFeature)
     implementation(projects.themeM3.infos.infosScreens)

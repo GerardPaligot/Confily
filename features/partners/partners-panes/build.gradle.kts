@@ -28,8 +28,8 @@ kotlin {
             dependencies {
                 implementation(projects.shared.uiModels)
                 implementation(projects.shared.resources)
-                implementation(projects.themeM3.partners.partnersUi)
-                implementation(projects.themeM3.partners.partnersSemantics)
+                implementation(projects.features.partners.partnersUi)
+                implementation(projects.features.partners.partnersSemantics)
                 implementation(projects.themeM3.navigation)
                 implementation(projects.style.components.placeholder)
                 implementation(projects.style.events)
