@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "org.gdglille.devfest.android.theme.m3.events.feature"
+    namespace = "com.paligot.confily.events.presentation"
 }
 
 dependencies {
