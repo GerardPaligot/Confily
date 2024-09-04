@@ -1,9 +1,9 @@
 package org.gdglille.devfest.theme.m3.style.speakers.items
 
-import org.gdglille.devfest.android.theme.m3.style.ColorSchemeTokens
-import org.gdglille.devfest.android.theme.m3.style.ShapeTokens
-import org.gdglille.devfest.android.theme.m3.style.SpacingTokens
-import org.gdglille.devfest.android.theme.m3.style.TextStyleTokens
+import com.paligot.confily.style.theme.ColorSchemeTokens
+import com.paligot.confily.style.theme.ShapeTokens
+import com.paligot.confily.style.theme.SpacingTokens
+import com.paligot.confily.style.theme.TextStyleTokens
 
 object SpeakerItemLargeTokens {
     val ContainerColor = ColorSchemeTokens.OnSurfaceColor

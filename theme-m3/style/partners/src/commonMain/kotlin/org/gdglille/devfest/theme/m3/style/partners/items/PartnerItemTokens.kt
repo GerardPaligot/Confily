@@ -1,8 +1,8 @@
 package org.gdglille.devfest.theme.m3.style.partners.items
 
-import org.gdglille.devfest.android.theme.m3.style.ColorSchemeTokens
-import org.gdglille.devfest.android.theme.m3.style.ShapeTokens
-import org.gdglille.devfest.android.theme.m3.style.SpacingTokens
+import com.paligot.confily.style.theme.ColorSchemeTokens
+import com.paligot.confily.style.theme.ShapeTokens
+import com.paligot.confily.style.theme.SpacingTokens
 
 object PartnerItemTokens {
     val ContainerColor = ColorSchemeTokens.WhiteBackgroundColor

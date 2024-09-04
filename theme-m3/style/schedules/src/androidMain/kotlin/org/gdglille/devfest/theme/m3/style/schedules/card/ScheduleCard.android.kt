@@ -3,8 +3,8 @@ package org.gdglille.devfest.theme.m3.style.schedules.card
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import com.paligot.confily.style.theme.Conferences4HallTheme
 import kotlinx.collections.immutable.persistentListOf
-import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 
 @OptIn(ExperimentalLayoutApi::class)
 @Suppress("UnusedPrivateMember")

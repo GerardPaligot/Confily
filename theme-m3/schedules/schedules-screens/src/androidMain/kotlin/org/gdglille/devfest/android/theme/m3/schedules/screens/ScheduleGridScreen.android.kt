@@ -5,8 +5,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.paligot.confily.models.ui.AgendaUi
-import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
-import org.gdglille.devfest.android.theme.m3.style.previews.PHONE_LANDSCAPE
+import com.paligot.confily.style.theme.Conferences4HallTheme
+import com.paligot.confily.style.theme.previews.PHONE_LANDSCAPE
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Preview
@@ -15,7 +15,7 @@ private fun ScheduleListScreenPreview() {
     Conferences4HallTheme {
         Scaffold {
             ScheduleGridScreen(
-                agenda = com.paligot.confily.models.ui.AgendaUi.fake,
+                agenda = AgendaUi.fake,
                 onTalkClicked = {},
                 onEventSessionClicked = {},
                 onFavoriteClicked = { }
@@ -31,7 +31,7 @@ private fun ScheduleListScreenLandscapePreview() {
     Conferences4HallTheme {
         Scaffold {
             ScheduleGridScreen(
-                agenda = com.paligot.confily.models.ui.AgendaUi.fake,
+                agenda = AgendaUi.fake,
                 onTalkClicked = {},
                 onEventSessionClicked = {},
                 onFavoriteClicked = { }

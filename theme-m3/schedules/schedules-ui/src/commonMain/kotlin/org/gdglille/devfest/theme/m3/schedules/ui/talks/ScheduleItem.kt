@@ -10,11 +10,11 @@ import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.semantic_talk_item
 import com.paligot.confily.resources.semantic_talk_item_level
 import com.paligot.confily.resources.semantic_talk_item_speakers
-import org.gdglille.devfest.android.theme.m3.style.tags.MediumAutoColoredTag
-import org.gdglille.devfest.android.theme.m3.style.tags.MediumTag
-import org.gdglille.devfest.android.theme.m3.style.tags.SmallAutoColoredTag
-import org.gdglille.devfest.android.theme.m3.style.tags.SmallTag
-import org.gdglille.devfest.android.theme.m3.style.tags.TagDefaults
+import com.paligot.confily.style.theme.tags.MediumAutoColoredTag
+import com.paligot.confily.style.theme.tags.MediumTag
+import com.paligot.confily.style.theme.tags.SmallAutoColoredTag
+import com.paligot.confily.style.theme.tags.SmallTag
+import com.paligot.confily.style.theme.tags.TagDefaults
 import org.gdglille.devfest.theme.m3.style.schedules.card.MediumScheduleCard
 import org.gdglille.devfest.theme.m3.style.schedules.card.SmallScheduleCard
 import org.gdglille.devfest.theme.m3.style.schedules.findCategoryImageVector

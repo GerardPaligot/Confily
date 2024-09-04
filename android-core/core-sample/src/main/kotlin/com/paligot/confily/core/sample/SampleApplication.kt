@@ -12,7 +12,6 @@ import coil3.svg.SvgDecoder
 import com.paligot.confily.core.repositories.EventRepository
 import io.openfeedback.viewmodels.OpenFeedbackFirebaseConfig
 import io.openfeedback.viewmodels.initializeOpenFeedback
-import org.gdglille.devfest.android.core.sample.BuildConfig
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.workmanager.koin.workManagerFactory

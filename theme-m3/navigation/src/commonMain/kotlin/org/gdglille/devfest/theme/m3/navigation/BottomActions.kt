@@ -17,7 +17,7 @@ import com.paligot.confily.resources.screen_info
 import com.paligot.confily.resources.screen_networking
 import com.paligot.confily.resources.screen_partners
 import com.paligot.confily.resources.screen_speakers
-import org.gdglille.devfest.android.theme.m3.style.actions.NavigationAction
+import com.paligot.confily.style.theme.actions.NavigationAction
 
 object BottomActions {
     val agenda = NavigationAction(

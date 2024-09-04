@@ -38,8 +38,8 @@ import com.paligot.confily.resources.semantic_ticket_id
 import com.paligot.confily.resources.semantic_ticket_qrcode
 import com.paligot.confily.resources.text_ticket_firstname
 import com.paligot.confily.resources.text_ticket_lastname
-import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
-import org.gdglille.devfest.android.theme.m3.style.shapes.DottedShape
+import com.paligot.confily.style.theme.Conferences4HallTheme
+import com.paligot.confily.style.theme.shapes.DottedShape
 import org.gdglille.devfest.theme.m3.style.placeholder.placeholder
 import org.jetbrains.compose.resources.stringResource
 

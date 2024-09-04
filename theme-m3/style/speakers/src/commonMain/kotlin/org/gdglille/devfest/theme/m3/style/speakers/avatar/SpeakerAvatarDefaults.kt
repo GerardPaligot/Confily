@@ -6,8 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.graphics.painter.Painter
-import org.gdglille.devfest.android.theme.m3.style.toColor
-import org.gdglille.devfest.android.theme.m3.style.toShape
+import com.paligot.confily.style.theme.toColor
+import com.paligot.confily.style.theme.toShape
 
 object SpeakerAvatarDefaults {
     val placeholder: Painter

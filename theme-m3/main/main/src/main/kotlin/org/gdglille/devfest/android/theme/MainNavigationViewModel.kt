@@ -8,6 +8,8 @@ import com.paligot.confily.core.repositories.AgendaRepository
 import com.paligot.confily.core.repositories.UserRepository
 import com.paligot.confily.models.ui.ScaffoldConfigUi
 import com.paligot.confily.models.ui.UserNetworkingUi
+import com.paligot.confily.style.theme.actions.NavigationAction
+import com.paligot.confily.style.theme.actions.NavigationActionsUi
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -15,8 +17,6 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import org.gdglille.devfest.android.theme.m3.style.actions.NavigationAction
-import org.gdglille.devfest.android.theme.m3.style.actions.NavigationActionsUi
 import org.gdglille.devfest.theme.m3.navigation.BottomActions
 
 sealed class MainNavigationUiState {
@@ -49,17 +49,18 @@ class MainNavigationViewModel(
         userRepository.insertNetworkingProfile(user)
     }
 
-    private fun navActions(config: ScaffoldConfigUi): NavigationActionsUi = NavigationActionsUi(
-        actions = arrayListOf<NavigationAction>().apply {
-            add(BottomActions.agenda)
-            add(BottomActions.speakers)
-            if (config.hasNetworking) {
-                add(BottomActions.myProfile)
-            }
-            if (config.hasPartnerList) {
-                add(BottomActions.partners)
-            }
-            add(BottomActions.event)
-        }.toImmutableList()
-    )
+    private fun navActions(config: ScaffoldConfigUi): NavigationActionsUi =
+        NavigationActionsUi(
+            actions = arrayListOf<NavigationAction>().apply {
+                add(BottomActions.agenda)
+                add(BottomActions.speakers)
+                if (config.hasNetworking) {
+                    add(BottomActions.myProfile)
+                }
+                if (config.hasPartnerList) {
+                    add(BottomActions.partners)
+                }
+                add(BottomActions.event)
+            }.toImmutableList()
+        )
 }

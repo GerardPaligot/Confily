@@ -4,9 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.navigation.NavHostController
 import com.paligot.confily.models.ui.ExportNetworkingUi
+import com.paligot.confily.style.theme.Conferences4HallTheme
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
 
