@@ -13,7 +13,7 @@ import androidx.compose.ui.semantics.Role
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.action_filtering_favorites
 import com.paligot.confily.resources.title_filters_favorites
-import org.gdglille.devfest.theme.m3.style.schedules.filters.FilterSection
+import com.paligot.confily.style.schedules.filters.FilterSection
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
