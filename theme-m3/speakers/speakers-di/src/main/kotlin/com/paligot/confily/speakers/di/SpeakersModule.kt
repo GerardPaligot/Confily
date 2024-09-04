@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.speakers.di
+package com.paligot.confily.speakers.di
 
 import com.paligot.confily.core.di.repositoriesModule
 import com.paligot.confily.speakers.presentation.SpeakerDetailViewModel
