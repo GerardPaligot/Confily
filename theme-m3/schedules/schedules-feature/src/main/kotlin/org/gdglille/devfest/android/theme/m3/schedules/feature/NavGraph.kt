@@ -12,8 +12,8 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
-import org.gdglille.devfest.android.theme.m3.style.adaptive.isCompat
-import org.gdglille.devfest.android.theme.m3.style.adaptive.isMedium
+import com.paligot.confily.style.components.adaptive.isCompat
+import com.paligot.confily.style.components.adaptive.isMedium
 import org.gdglille.devfest.theme.m3.navigation.Screen
 
 @Suppress("LongParameterList")

@@ -9,7 +9,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import org.gdglille.devfest.android.theme.m3.style.adaptive.isCompat
+import com.paligot.confily.style.components.adaptive.isCompat
 import org.gdglille.devfest.theme.m3.navigation.Screen
 
 @Suppress("LongParameterList")
