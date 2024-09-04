@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "org.gdglille.devfest.android.theme.m3.partners.semantics"
+    namespace = "com.paligot.confily.partners.semantics"
 }
 
 kotlin {

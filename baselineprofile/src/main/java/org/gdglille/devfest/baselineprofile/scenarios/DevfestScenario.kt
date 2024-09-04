@@ -1,7 +1,7 @@
 package org.gdglille.devfest.baselineprofile.scenarios
 
 import androidx.test.uiautomator.By
-import org.gdglille.devfest.android.theme.m3.partners.semantics.PartnersSemantics
+import com.paligot.confily.partners.semantics.PartnersSemantics
 import com.paligot.confily.schedules.semantics.SchedulesSemantics
 import com.paligot.confily.speakers.semantics.SpeakersSemantics
 
