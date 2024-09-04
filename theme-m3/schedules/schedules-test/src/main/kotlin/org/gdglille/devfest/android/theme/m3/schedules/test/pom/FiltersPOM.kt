@@ -7,7 +7,7 @@ import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.ComposeTestRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import org.gdglille.devfest.android.core.test.patterns.withRole
+import com.paligot.confily.core.test.patterns.withRole
 
 class FiltersPOM(private val composeTestRule: ComposeTestRule) {
     private val filterTitleScreen = composeTestRule.onNodeWithText("Filters")

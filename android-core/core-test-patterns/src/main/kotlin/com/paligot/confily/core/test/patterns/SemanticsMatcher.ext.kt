@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.core.test.patterns
+package com.paligot.confily.core.test.patterns
 
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.SemanticsProperties

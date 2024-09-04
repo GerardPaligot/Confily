@@ -1,8 +1,8 @@
 package org.gdglille.devfest.android.theme.m3.speakers.test.robot
 
 import androidx.compose.ui.test.junit4.ComposeTestRule
-import org.gdglille.devfest.android.core.test.patterns.navigation.RobotNavigator
-import org.gdglille.devfest.android.core.test.patterns.navigation.navigateTo
+import com.paligot.confily.core.test.patterns.navigation.RobotNavigator
+import com.paligot.confily.core.test.patterns.navigation.navigateTo
 import org.gdglille.devfest.android.theme.m3.speakers.test.pom.SpeakersGridPOM
 import org.gdglille.devfest.android.theme.m3.speakers.test.scopes.SpeakerDetailRobotScope
 import org.gdglille.devfest.android.theme.m3.speakers.test.scopes.SpeakersGridRobotScope
