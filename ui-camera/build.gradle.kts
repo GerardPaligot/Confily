@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "org.gdglille.devfest.android.ui.camera"
+    namespace = "com.paligot.confily.ui.camera"
 }
 
 dependencies {

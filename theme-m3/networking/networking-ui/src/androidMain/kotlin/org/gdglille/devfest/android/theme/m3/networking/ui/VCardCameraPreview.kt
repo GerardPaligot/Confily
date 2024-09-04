@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.paligot.confily.models.ui.VCardModel
-import org.gdglille.devfest.android.ui.camera.CameraPreview
+import com.paligot.confily.ui.camera.CameraPreview
 
 @Composable
 fun VCardCameraPreview(
