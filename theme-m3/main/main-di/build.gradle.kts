@@ -9,7 +9,7 @@ android {
 
 dependencies {
     implementation(projects.themeM3.main.main)
-    implementation(projects.themeM3.eventList.eventListDi)
+    implementation(projects.features.eventList.eventListDi)
     implementation(projects.features.infos.infosDi)
     implementation(projects.features.networking.networkingDi)
     implementation(projects.features.partners.partnersDi)

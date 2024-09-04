@@ -8,7 +8,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.themeM3.eventList.eventListPresentation)
+    implementation(projects.features.eventList.eventListPresentation)
     implementation(projects.shared.coreDi)
 
     implementation(libs.koin.core)
