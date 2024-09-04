@@ -11,11 +11,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import com.paligot.confily.models.ui.PartnerItemUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.screen_partners_detail
 import org.gdglille.devfest.android.theme.m3.style.appbars.AppBarIcons
 import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBar
-import org.gdglille.devfest.models.ui.PartnerItemUi
 import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)

@@ -9,10 +9,10 @@ import androidx.glance.appwidget.lazy.items
 import androidx.glance.layout.Box
 import androidx.glance.layout.fillMaxWidth
 import androidx.glance.layout.padding
+import com.paligot.confily.core.extensions.formatHoursMinutes
+import com.paligot.confily.models.ui.TalkItemUi
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.datetime.LocalDateTime
-import org.gdglille.devfest.extensions.formatHoursMinutes
-import org.gdglille.devfest.models.ui.TalkItemUi
 
 @Composable
 fun SessionList(

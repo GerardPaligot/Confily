@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
+import com.paligot.confily.models.ui.SpeakerItemUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.screen_speakers
 import kotlinx.collections.immutable.ImmutableList
@@ -20,7 +21,6 @@ import org.gdglille.devfest.android.theme.m3.speakers.semantics.SpeakersSemantic
 import org.gdglille.devfest.android.theme.m3.style.Scaffold
 import org.gdglille.devfest.android.theme.m3.style.SpacingTokens
 import org.gdglille.devfest.android.theme.m3.style.toDp
-import org.gdglille.devfest.models.ui.SpeakerItemUi
 import org.gdglille.devfest.theme.m3.style.placeholder.placeholder
 import org.gdglille.devfest.theme.m3.style.speakers.items.LargeSpeakerItem
 import org.jetbrains.compose.resources.stringResource

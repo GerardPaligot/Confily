@@ -3,6 +3,8 @@ package org.gdglille.devfest.android.theme.m3.speakers.sample
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
+import com.paligot.confily.core.database.EventDao
+import com.paligot.confily.core.database.ScheduleDao
 import org.gdglille.devfest.android.core.sample.BuildConfig
 import org.gdglille.devfest.android.core.test.instrumentedModule
 import org.gdglille.devfest.android.core.test.patterns.navigation.RobotNavigator
@@ -18,8 +20,6 @@ import org.gdglille.devfest.android.theme.m3.speakers.sample.fakes.AgendaFake.sp
 import org.gdglille.devfest.android.theme.m3.speakers.sample.fakes.EventFake.event
 import org.gdglille.devfest.android.theme.m3.speakers.test.robot.speakers
 import org.gdglille.devfest.android.theme.m3.speakers.test.speakerRobotGraph
-import org.gdglille.devfest.database.EventDao
-import org.gdglille.devfest.database.ScheduleDao
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

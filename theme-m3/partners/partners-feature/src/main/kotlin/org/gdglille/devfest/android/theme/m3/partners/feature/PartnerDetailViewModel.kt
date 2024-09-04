@@ -4,13 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
+import com.paligot.confily.core.repositories.AgendaRepository
+import com.paligot.confily.models.ui.PartnerItemUi
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import org.gdglille.devfest.models.ui.PartnerItemUi
-import org.gdglille.devfest.repositories.AgendaRepository
 
 sealed class PartnerUiState {
     data class Loading(val partner: PartnerItemUi) : PartnerUiState()

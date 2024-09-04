@@ -1,11 +1,14 @@
 package org.gdglille.devfest
 
+import com.paligot.confily.core.Platform
+import com.paligot.confily.core.PlatformContext
+import com.paligot.confily.core.QrCodeGeneratoriOS
+import com.paligot.confily.core.database.DatabaseWrapper
+import com.paligot.confily.core.repositories.QrCodeGenerator
+import com.paligot.confily.db.Conferences4HallDatabase
 import com.russhwolf.settings.AppleSettings
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
-import org.gdglille.devfest.database.DatabaseWrapper
-import org.gdglille.devfest.db.Conferences4HallDatabase
-import org.gdglille.devfest.repositories.QrCodeGenerator
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import platform.Foundation.NSLocale

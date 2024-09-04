@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.glance.appwidget.updateAll
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import com.paligot.confily.core.repositories.AgendaRepository
 import org.gdglille.devfest.android.widgets.AgendaAppWidget
-import org.gdglille.devfest.repositories.AgendaRepository
 import org.koin.core.component.KoinComponent
 
 class ScheduleWorkManager(

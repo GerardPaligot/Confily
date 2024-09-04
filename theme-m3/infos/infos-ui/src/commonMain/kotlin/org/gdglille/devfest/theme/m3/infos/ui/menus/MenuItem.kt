@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import org.gdglille.devfest.models.ui.MenuItemUi
+import com.paligot.confily.models.ui.MenuItemUi
 import org.gdglille.devfest.theme.m3.style.placeholder.placeholder
 
 @Composable

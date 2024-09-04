@@ -1,9 +1,9 @@
 package org.gdglille.devfest
 
-import org.gdglille.devfest.repositories.AgendaRepository
-import org.gdglille.devfest.repositories.EventRepository
-import org.gdglille.devfest.repositories.SpeakerRepository
-import org.gdglille.devfest.repositories.UserRepository
+import com.paligot.confily.core.repositories.AgendaRepository
+import com.paligot.confily.core.repositories.EventRepository
+import com.paligot.confily.core.repositories.SpeakerRepository
+import com.paligot.confily.core.repositories.UserRepository
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.context.startKoin

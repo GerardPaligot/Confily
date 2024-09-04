@@ -15,12 +15,12 @@ import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import com.paligot.confily.models.ui.EventSessionItemUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.screen_schedule_detail_event_session
 import org.gdglille.devfest.android.theme.m3.style.SpacingTokens
 import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBar
 import org.gdglille.devfest.android.theme.m3.style.toDp
-import org.gdglille.devfest.models.ui.EventSessionItemUi
 import org.gdglille.devfest.theme.m3.schedules.ui.schedule.EventSessionSection
 import org.gdglille.devfest.theme.m3.schedules.ui.schedule.TalkAbstract
 import org.gdglille.devfest.theme.m3.style.events.cards.AddressCard

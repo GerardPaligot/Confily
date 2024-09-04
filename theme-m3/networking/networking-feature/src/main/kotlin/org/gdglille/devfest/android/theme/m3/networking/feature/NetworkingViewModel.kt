@@ -4,6 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
+import com.paligot.confily.core.repositories.AgendaRepository
+import com.paligot.confily.core.repositories.UserRepository
+import com.paligot.confily.models.ui.ExportNetworkingUi
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,9 +20,6 @@ import kotlinx.coroutines.launch
 import org.gdglille.devfest.android.theme.m3.style.actions.FabAction
 import org.gdglille.devfest.android.theme.m3.style.actions.TabActionsUi
 import org.gdglille.devfest.android.theme.m3.style.actions.TopActionsUi
-import org.gdglille.devfest.models.ui.ExportNetworkingUi
-import org.gdglille.devfest.repositories.AgendaRepository
-import org.gdglille.devfest.repositories.UserRepository
 import org.gdglille.devfest.theme.m3.navigation.FabActions
 import org.gdglille.devfest.theme.m3.navigation.Screen
 import org.gdglille.devfest.theme.m3.navigation.TabActions

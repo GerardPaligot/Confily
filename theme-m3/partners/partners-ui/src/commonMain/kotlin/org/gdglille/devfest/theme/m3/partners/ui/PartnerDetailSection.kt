@@ -10,7 +10,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import org.gdglille.devfest.models.ui.PartnerItemUi
+import com.paligot.confily.models.ui.PartnerItemUi
 import org.gdglille.devfest.theme.m3.style.events.socials.SocialsSection
 import org.gdglille.devfest.theme.m3.style.markdown.MarkdownText
 import org.gdglille.devfest.theme.m3.style.partners.items.PartnerItem

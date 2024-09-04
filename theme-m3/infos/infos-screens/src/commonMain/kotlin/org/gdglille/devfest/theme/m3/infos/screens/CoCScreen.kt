@@ -14,11 +14,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.unit.dp
+import com.paligot.confily.models.ui.CoCUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.action_contact_organizers_mail
 import com.paligot.confily.resources.action_contact_organizers_phone
 import com.paligot.confily.resources.screen_coc
-import org.gdglille.devfest.models.ui.CoCUi
 import org.gdglille.devfest.theme.m3.style.markdown.MarkdownText
 import org.jetbrains.compose.resources.stringResource
 

@@ -7,12 +7,12 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.paligot.confily.models.ui.SpeakerUi
+import com.paligot.confily.models.ui.TalkItemUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.screen_speaker_detail
 import org.gdglille.devfest.android.theme.m3.style.Scaffold
 import org.gdglille.devfest.android.theme.m3.style.appbars.AppBarIcons
-import org.gdglille.devfest.models.ui.SpeakerUi
-import org.gdglille.devfest.models.ui.TalkItemUi
 import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalFoundationApi::class)

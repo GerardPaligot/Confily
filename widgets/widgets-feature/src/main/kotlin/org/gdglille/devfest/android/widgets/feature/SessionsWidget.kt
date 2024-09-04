@@ -10,12 +10,12 @@ import androidx.glance.GlanceModifier
 import androidx.glance.GlanceTheme
 import androidx.glance.action.Action
 import androidx.glance.background
+import com.paligot.confily.core.repositories.AgendaRepository
+import com.paligot.confily.core.repositories.EventRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.gdglille.devfest.android.widgets.screens.SessionsScreen
 import org.gdglille.devfest.android.widgets.ui.Loading
-import org.gdglille.devfest.repositories.AgendaRepository
-import org.gdglille.devfest.repositories.EventRepository
 
 @Composable
 fun SessionsWidget(

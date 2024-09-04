@@ -8,9 +8,9 @@ import androidx.glance.GlanceModifier
 import androidx.glance.GlanceTheme
 import androidx.glance.action.Action
 import androidx.glance.background
+import com.paligot.confily.core.repositories.UserRepository
 import org.gdglille.devfest.android.widgets.screens.NetworkingScreen
 import org.gdglille.devfest.android.widgets.ui.Loading
-import org.gdglille.devfest.repositories.UserRepository
 
 @Composable
 fun NetworkingWidget(

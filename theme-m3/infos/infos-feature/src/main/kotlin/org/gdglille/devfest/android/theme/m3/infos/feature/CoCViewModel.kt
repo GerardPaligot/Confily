@@ -4,11 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
+import com.paligot.confily.core.repositories.AgendaRepository
+import com.paligot.confily.models.ui.CoCUi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import org.gdglille.devfest.models.ui.CoCUi
-import org.gdglille.devfest.repositories.AgendaRepository
 
 sealed class CoCUiState {
     data object Loading : CoCUiState()

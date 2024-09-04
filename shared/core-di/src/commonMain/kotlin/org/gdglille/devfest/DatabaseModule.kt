@@ -2,18 +2,18 @@ package org.gdglille.devfest
 
 import cafe.adriel.lyricist.LanguageTag
 import cafe.adriel.lyricist.Lyricist
+import com.paligot.confily.core.database.EventDao
+import com.paligot.confily.core.database.FeaturesActivatedDao
+import com.paligot.confily.core.database.PartnerDao
+import com.paligot.confily.core.database.ScheduleDao
+import com.paligot.confily.core.database.SpeakerDao
+import com.paligot.confily.core.database.TalkDao
+import com.paligot.confily.core.database.UserDao
 import com.paligot.confily.resources.EnStrings
 import com.paligot.confily.resources.FrStrings
 import com.russhwolf.settings.ExperimentalSettingsApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
-import org.gdglille.devfest.database.EventDao
-import org.gdglille.devfest.database.FeaturesActivatedDao
-import org.gdglille.devfest.database.PartnerDao
-import org.gdglille.devfest.database.ScheduleDao
-import org.gdglille.devfest.database.SpeakerDao
-import org.gdglille.devfest.database.TalkDao
-import org.gdglille.devfest.database.UserDao
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import kotlin.coroutines.CoroutineContext

@@ -13,9 +13,9 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalInspectionMode
+import com.paligot.confily.models.ui.TalkUi
 import org.gdglille.devfest.android.theme.m3.style.SpacingTokens
 import org.gdglille.devfest.android.theme.m3.style.toDp
-import org.gdglille.devfest.models.ui.TalkUi
 import org.gdglille.devfest.theme.m3.schedules.ui.schedule.OpenFeedbackSection
 import org.gdglille.devfest.theme.m3.schedules.ui.schedule.TalkAbstract
 import org.gdglille.devfest.theme.m3.schedules.ui.schedule.TalkSection

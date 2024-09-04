@@ -4,6 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
+import com.paligot.confily.core.repositories.AgendaRepository
+import com.paligot.confily.core.repositories.UserRepository
+import com.paligot.confily.models.ui.ScaffoldConfigUi
+import com.paligot.confily.models.ui.UserNetworkingUi
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -13,10 +17,6 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.gdglille.devfest.android.theme.m3.style.actions.NavigationAction
 import org.gdglille.devfest.android.theme.m3.style.actions.NavigationActionsUi
-import org.gdglille.devfest.models.ui.ScaffoldConfigUi
-import org.gdglille.devfest.models.ui.UserNetworkingUi
-import org.gdglille.devfest.repositories.AgendaRepository
-import org.gdglille.devfest.repositories.UserRepository
 import org.gdglille.devfest.theme.m3.navigation.BottomActions
 
 sealed class MainNavigationUiState {

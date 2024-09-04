@@ -4,12 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
+import com.paligot.confily.core.repositories.UserRepository
+import com.paligot.confily.models.ui.UserNetworkingUi
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import org.gdglille.devfest.models.ui.UserNetworkingUi
-import org.gdglille.devfest.repositories.UserRepository
 
 sealed class ContactsUiState {
     data object Loading : ContactsUiState()

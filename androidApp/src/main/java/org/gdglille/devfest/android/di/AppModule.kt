@@ -2,7 +2,7 @@ package org.gdglille.devfest.android.di
 
 import android.app.AlarmManager
 import android.content.Context
-import org.gdglille.devfest.AlarmScheduler
+import com.paligot.confily.core.AlarmScheduler
 import org.gdglille.devfest.android.AlarmIntentFactoryImpl
 import org.gdglille.devfest.android.ScheduleWorkManager
 import org.gdglille.devfest.android.theme.m3.main.di.mainModule

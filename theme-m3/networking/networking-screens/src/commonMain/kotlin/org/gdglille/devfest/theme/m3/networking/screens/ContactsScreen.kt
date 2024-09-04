@@ -14,12 +14,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.paligot.confily.models.ui.UserNetworkingUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.action_submit_accept
 import com.paligot.confily.resources.action_submit_deny
 import com.paligot.confily.resources.text_networking_ask_to_delete
 import kotlinx.collections.immutable.ImmutableList
-import org.gdglille.devfest.models.ui.UserNetworkingUi
 import org.gdglille.devfest.theme.m3.style.networking.UserItem
 import org.jetbrains.compose.resources.stringResource
 
