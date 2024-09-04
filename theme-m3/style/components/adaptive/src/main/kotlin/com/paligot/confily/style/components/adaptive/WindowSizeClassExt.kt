@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.style.adaptive
+package com.paligot.confily.style.components.adaptive
 
 import androidx.compose.material3.windowsizeclass.WindowHeightSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass

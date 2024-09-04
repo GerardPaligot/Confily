@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "org.gdglille.devfest.android.theme.m3.style.adaptive"
+    namespace = "com.paligot.confily.style.components.adaptive"
 }
 
 dependencies {
