@@ -11,7 +11,7 @@ android {
 dependencies {
     implementation(projects.shared.core)
     implementation(projects.shared.resources)
-    implementation(projects.themeM3.speakers.speakersScreens)
+    implementation(projects.themeM3.speakers.speakersPanes)
     implementation(projects.themeM3.navigation)
     implementation(projects.style.theme)
     implementation(projects.style.components.adaptive)

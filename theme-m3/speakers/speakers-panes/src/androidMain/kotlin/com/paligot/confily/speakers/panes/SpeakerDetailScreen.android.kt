@@ -1,4 +1,4 @@
-package org.gdglille.devfest.theme.m3.speakers.screens
+package com.paligot.confily.speakers.panes
 
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable

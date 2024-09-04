@@ -7,8 +7,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.text_error
+import com.paligot.confily.speakers.panes.SpeakerDetailOrientable
 import com.paligot.confily.style.theme.appbars.AppBarIcons
-import org.gdglille.devfest.theme.m3.speakers.screens.SpeakerDetailOrientable
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 import org.koin.androidx.compose.koinViewModel
