@@ -8,7 +8,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.themeM3.main.main)
+    implementation(projects.features.main.main)
     implementation(projects.features.eventList.eventListDi)
     implementation(projects.features.infos.infosDi)
     implementation(projects.features.networking.networkingDi)
