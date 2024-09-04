@@ -11,8 +11,8 @@ android {
 dependencies {
     implementation(projects.shared.core)
     implementation(projects.shared.resources)
-    implementation(projects.themeM3.schedules.schedulesPanes)
-    implementation(projects.themeM3.schedules.schedulesUi)
+    implementation(projects.features.schedules.schedulesPanes)
+    implementation(projects.features.schedules.schedulesUi)
     implementation(projects.themeM3.navigation)
     implementation(projects.style.schedules)
     implementation(projects.style.theme)
