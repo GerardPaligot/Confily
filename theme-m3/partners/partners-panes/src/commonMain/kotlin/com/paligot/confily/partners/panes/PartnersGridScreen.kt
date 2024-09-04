@@ -1,4 +1,4 @@
-package org.gdglille.devfest.theme.m3.partners.screens
+package com.paligot.confily.partners.panes
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
