@@ -5,7 +5,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.paligot.confily.models.ui.TalkUi
-import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
+import com.paligot.confily.style.theme.Conferences4HallTheme
 
 @ExperimentalMaterial3Api
 @Preview

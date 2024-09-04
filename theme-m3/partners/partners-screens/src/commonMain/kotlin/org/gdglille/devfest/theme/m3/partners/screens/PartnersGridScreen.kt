@@ -20,10 +20,10 @@ import androidx.compose.ui.unit.dp
 import com.paligot.confily.models.ui.PartnerGroupsUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.screen_partners
+import com.paligot.confily.style.theme.Scaffold
+import com.paligot.confily.style.theme.SpacingTokens
+import com.paligot.confily.style.theme.toDp
 import org.gdglille.devfest.android.theme.m3.partners.semantics.PartnersSemantics
-import org.gdglille.devfest.android.theme.m3.style.Scaffold
-import org.gdglille.devfest.android.theme.m3.style.SpacingTokens
-import org.gdglille.devfest.android.theme.m3.style.toDp
 import org.gdglille.devfest.theme.m3.partners.ui.PartnerDivider
 import org.gdglille.devfest.theme.m3.style.partners.items.PartnerItem
 import org.gdglille.devfest.theme.m3.style.placeholder.placeholder

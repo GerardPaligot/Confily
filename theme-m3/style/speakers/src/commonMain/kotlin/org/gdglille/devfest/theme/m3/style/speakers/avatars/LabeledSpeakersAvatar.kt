@@ -8,8 +8,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import com.paligot.confily.style.theme.toDp
 import kotlinx.collections.immutable.ImmutableList
-import org.gdglille.devfest.android.theme.m3.style.toDp
 
 @Composable
 fun SmallLabeledSpeakersAvatar(

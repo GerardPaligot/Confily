@@ -7,7 +7,7 @@ import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.action_contacts_scanner
 import com.paligot.confily.resources.action_ticket_scanner
 import com.paligot.confily.resources.screen_profile
-import org.gdglille.devfest.android.theme.m3.style.actions.FabAction
+import com.paligot.confily.style.theme.actions.FabAction
 
 object FabActions {
     val scanTicket = FabAction(

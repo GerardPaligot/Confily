@@ -6,9 +6,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import org.gdglille.devfest.android.theme.m3.style.toColor
-import org.gdglille.devfest.android.theme.m3.style.toDp
-import org.gdglille.devfest.android.theme.m3.style.toTextStyle
+import com.paligot.confily.style.theme.toColor
+import com.paligot.confily.style.theme.toDp
+import com.paligot.confily.style.theme.toTextStyle
 
 object UserItemDefaults {
     val contentColor: Color

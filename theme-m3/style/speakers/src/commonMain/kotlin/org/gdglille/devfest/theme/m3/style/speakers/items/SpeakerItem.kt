@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
-import org.gdglille.devfest.android.theme.m3.style.toDp
+import com.paligot.confily.style.theme.toDp
 import org.gdglille.devfest.theme.m3.style.speakers.avatar.LargeSpeakerAvatar
 
 @Composable

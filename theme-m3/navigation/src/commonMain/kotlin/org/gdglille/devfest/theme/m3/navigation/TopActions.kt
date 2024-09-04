@@ -11,7 +11,7 @@ import com.paligot.confily.resources.action_export
 import com.paligot.confily.resources.action_filtering
 import com.paligot.confily.resources.action_power_off
 import com.paligot.confily.resources.action_share_talk
-import org.gdglille.devfest.android.theme.m3.style.actions.TopAction
+import com.paligot.confily.style.theme.actions.TopAction
 
 object TopActions {
     val share = TopAction(

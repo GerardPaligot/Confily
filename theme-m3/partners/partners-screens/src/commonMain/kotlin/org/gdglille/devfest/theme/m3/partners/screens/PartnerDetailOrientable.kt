@@ -14,8 +14,8 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import com.paligot.confily.models.ui.PartnerItemUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.screen_partners_detail
-import org.gdglille.devfest.android.theme.m3.style.appbars.AppBarIcons
-import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBar
+import com.paligot.confily.style.theme.appbars.AppBarIcons
+import com.paligot.confily.style.theme.appbars.TopAppBar
 import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)

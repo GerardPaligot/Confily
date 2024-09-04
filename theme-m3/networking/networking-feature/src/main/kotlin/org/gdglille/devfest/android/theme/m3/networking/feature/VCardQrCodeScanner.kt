@@ -9,8 +9,8 @@ import androidx.compose.ui.Modifier
 import com.paligot.confily.models.ui.VCardModel
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.screen_qrcode_scanner
+import com.paligot.confily.style.theme.appbars.TopAppBar
 import org.gdglille.devfest.android.theme.m3.networking.ui.VCardCameraPreview
-import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBar
 import org.gdglille.devfest.android.theme.m3.style.permissions.FeatureThatRequiresCameraPermission
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource

@@ -15,9 +15,9 @@ import androidx.compose.ui.unit.dp
 import com.paligot.confily.models.ui.EventItemListUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.screen_events
+import com.paligot.confily.style.theme.Scaffold
+import com.paligot.confily.style.theme.actions.TabActionsUi
 import kotlinx.collections.immutable.persistentListOf
-import org.gdglille.devfest.android.theme.m3.style.Scaffold
-import org.gdglille.devfest.android.theme.m3.style.actions.TabActionsUi
 import org.gdglille.devfest.theme.m3.events.ui.EventItem
 import org.gdglille.devfest.theme.m3.navigation.TabActions
 import org.jetbrains.compose.resources.stringResource
@@ -31,7 +31,12 @@ fun EventList(
     isLoading: Boolean = false
 ) {
     val tabActions = remember {
-        TabActionsUi(actions = persistentListOf(TabActions.futureEvents, TabActions.pastEvents))
+        TabActionsUi(
+            actions = persistentListOf(
+                TabActions.futureEvents,
+                TabActions.pastEvents
+            )
+        )
     }
     val pagerState = rememberPagerState(pageCount = { tabActions.actions.count() })
     Scaffold(

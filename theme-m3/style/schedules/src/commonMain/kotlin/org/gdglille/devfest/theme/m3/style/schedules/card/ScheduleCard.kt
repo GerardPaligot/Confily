@@ -30,8 +30,8 @@ import androidx.compose.ui.unit.dp
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.action_favorites_add
 import com.paligot.confily.resources.action_favorites_remove
+import com.paligot.confily.style.theme.toDp
 import kotlinx.collections.immutable.ImmutableList
-import org.gdglille.devfest.android.theme.m3.style.toDp
 import org.gdglille.devfest.theme.m3.style.speakers.avatars.SmallLabeledSpeakersAvatar
 import org.jetbrains.compose.resources.stringResource
 

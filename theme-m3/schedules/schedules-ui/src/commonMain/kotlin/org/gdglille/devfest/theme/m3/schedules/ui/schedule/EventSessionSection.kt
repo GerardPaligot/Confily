@@ -16,8 +16,8 @@ import androidx.compose.ui.unit.dp
 import com.paligot.confily.models.ui.EventSessionItemUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.text_schedule_minutes
-import org.gdglille.devfest.android.theme.m3.style.tags.MediumTag
-import org.gdglille.devfest.android.theme.m3.style.tags.TagDefaults
+import com.paligot.confily.style.theme.tags.MediumTag
+import com.paligot.confily.style.theme.tags.TagDefaults
 import org.gdglille.devfest.theme.m3.style.schedules.findTimeImageVector
 import org.jetbrains.compose.resources.stringResource
 

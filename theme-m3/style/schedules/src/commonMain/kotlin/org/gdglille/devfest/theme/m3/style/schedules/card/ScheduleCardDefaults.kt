@@ -5,9 +5,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
-import org.gdglille.devfest.android.theme.m3.style.toColor
-import org.gdglille.devfest.android.theme.m3.style.toShape
-import org.gdglille.devfest.android.theme.m3.style.toTextStyle
+import com.paligot.confily.style.theme.toColor
+import com.paligot.confily.style.theme.toShape
+import com.paligot.confily.style.theme.toTextStyle
 
 object ScheduleCardDefaults {
     val smallTextStyle: TextStyle

@@ -11,8 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.text_feedback_not_configured
-import org.gdglille.devfest.android.theme.m3.style.SpacingTokens
-import org.gdglille.devfest.android.theme.m3.style.toDp
+import com.paligot.confily.style.theme.SpacingTokens
+import com.paligot.confily.style.theme.toDp
 import org.gdglille.devfest.theme.m3.schedules.ui.schedule.OpenFeedbackSection
 import org.jetbrains.compose.resources.stringResource
 

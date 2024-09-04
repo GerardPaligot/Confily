@@ -24,7 +24,7 @@ import com.paligot.confily.resources.input_firstname
 import com.paligot.confily.resources.input_lastname
 import com.paligot.confily.resources.screen_profile
 import com.paligot.confily.resources.text_networking_consents
-import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBar
+import com.paligot.confily.style.theme.appbars.TopAppBar
 import org.gdglille.devfest.theme.m3.networking.ui.ProfileInputField
 import org.jetbrains.compose.resources.stringResource
 

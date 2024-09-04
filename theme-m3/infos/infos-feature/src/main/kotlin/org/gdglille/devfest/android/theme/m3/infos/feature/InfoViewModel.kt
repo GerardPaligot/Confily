@@ -6,6 +6,10 @@ import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
 import com.paligot.confily.core.repositories.AgendaRepository
 import com.paligot.confily.core.repositories.EventRepository
+import com.paligot.confily.style.theme.actions.FabAction
+import com.paligot.confily.style.theme.actions.TabAction
+import com.paligot.confily.style.theme.actions.TabActionsUi
+import com.paligot.confily.style.theme.actions.TopActionsUi
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,10 +19,6 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.gdglille.devfest.android.theme.m3.style.actions.FabAction
-import org.gdglille.devfest.android.theme.m3.style.actions.TabAction
-import org.gdglille.devfest.android.theme.m3.style.actions.TabActionsUi
-import org.gdglille.devfest.android.theme.m3.style.actions.TopActionsUi
 import org.gdglille.devfest.theme.m3.navigation.FabActions
 import org.gdglille.devfest.theme.m3.navigation.Screen
 import org.gdglille.devfest.theme.m3.navigation.TabActions

@@ -12,7 +12,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import coil3.compose.rememberAsyncImagePainter
-import org.gdglille.devfest.android.theme.m3.style.toDp
+import com.paligot.confily.style.theme.toDp
 
 @Composable
 fun PartnerItem(

@@ -15,10 +15,10 @@ import com.paligot.confily.models.ui.FiltersUi
 import com.paligot.confily.models.ui.FormatUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.screen_agenda_filters
-import org.gdglille.devfest.android.theme.m3.style.Scaffold
-import org.gdglille.devfest.android.theme.m3.style.SpacingTokens
-import org.gdglille.devfest.android.theme.m3.style.appbars.AppBarIcons
-import org.gdglille.devfest.android.theme.m3.style.toDp
+import com.paligot.confily.style.theme.Scaffold
+import com.paligot.confily.style.theme.SpacingTokens
+import com.paligot.confily.style.theme.appbars.AppBarIcons
+import com.paligot.confily.style.theme.toDp
 import org.gdglille.devfest.theme.m3.schedules.ui.filters.CategoryListFilters
 import org.gdglille.devfest.theme.m3.schedules.ui.filters.FavoriteFilter
 import org.gdglille.devfest.theme.m3.schedules.ui.filters.FormatListFilters

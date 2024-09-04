@@ -10,7 +10,7 @@ import com.paligot.confily.resources.semantic_linkedin
 import com.paligot.confily.resources.semantic_mastodon
 import com.paligot.confily.resources.semantic_twitter
 import com.paligot.confily.resources.semantic_website
-import org.gdglille.devfest.android.theme.m3.style.buttons.IconButton
+import com.paligot.confily.style.theme.buttons.IconButton
 import org.gdglille.devfest.theme.m3.style.events.Res
 import org.gdglille.devfest.theme.m3.style.events.ic_github
 import org.gdglille.devfest.theme.m3.style.events.ic_linkedin

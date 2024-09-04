@@ -7,7 +7,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
+import com.paligot.confily.style.theme.Conferences4HallTheme
 import org.gdglille.devfest.theme.m3.style.networking.UserItem
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")

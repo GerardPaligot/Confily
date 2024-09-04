@@ -9,8 +9,8 @@ import androidx.compose.ui.unit.dp
 import com.paligot.confily.models.ui.FormatUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.title_filters_formats
+import com.paligot.confily.style.theme.chips.FilterChip
 import kotlinx.collections.immutable.ImmutableMap
-import org.gdglille.devfest.android.theme.m3.style.chips.FilterChip
 import org.gdglille.devfest.theme.m3.style.schedules.filters.FilterSection
 import org.gdglille.devfest.theme.m3.style.schedules.findTimeImageVector
 import org.jetbrains.compose.resources.stringResource

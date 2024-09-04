@@ -7,7 +7,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
-import org.gdglille.devfest.android.theme.m3.style.toDp
+import com.paligot.confily.style.theme.toDp
 
 @Composable
 fun FilterSection(

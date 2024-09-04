@@ -3,8 +3,8 @@ package org.gdglille.devfest.theme.m3.style.events.socials
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
-import org.gdglille.devfest.android.theme.m3.style.toColor
-import org.gdglille.devfest.android.theme.m3.style.toTextStyle
+import com.paligot.confily.style.theme.toColor
+import com.paligot.confily.style.theme.toTextStyle
 
 object SocialsSectionDefaults {
     val titleColor: Color

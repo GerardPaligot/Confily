@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
-import org.gdglille.devfest.android.theme.m3.style.toDp
+import com.paligot.confily.style.theme.toDp
 import org.gdglille.devfest.theme.m3.style.placeholder.placeholder
 
 @OptIn(ExperimentalLayoutApi::class)

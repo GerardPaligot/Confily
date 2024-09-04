@@ -19,9 +19,9 @@ import com.paligot.confily.resources.text_job_propulsed
 import com.paligot.confily.resources.text_job_requirements_many
 import com.paligot.confily.resources.text_job_requirements_one
 import com.paligot.confily.resources.text_job_salary
-import org.gdglille.devfest.android.theme.m3.style.tags.MediumTag
-import org.gdglille.devfest.android.theme.m3.style.tags.TagDefaults
-import org.gdglille.devfest.android.theme.m3.style.toDp
+import com.paligot.confily.style.theme.tags.MediumTag
+import com.paligot.confily.style.theme.tags.TagDefaults
+import com.paligot.confily.style.theme.toDp
 import org.jetbrains.compose.resources.stringResource
 
 @Composable

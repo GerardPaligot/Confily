@@ -1,8 +1,8 @@
 package org.gdglille.devfest.android.widgets.style
 
 import androidx.glance.material3.ColorProviders
-import org.gdglille.devfest.android.theme.m3.style.DarkColors
-import org.gdglille.devfest.android.theme.m3.style.LightColors
+import com.paligot.confily.style.theme.DarkColors
+import com.paligot.confily.style.theme.LightColors
 
 object Conferences4HallGlanceColorScheme {
     val colors = ColorProviders(

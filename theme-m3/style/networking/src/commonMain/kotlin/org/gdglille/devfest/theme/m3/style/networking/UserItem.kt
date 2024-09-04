@@ -24,8 +24,8 @@ import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.action_networking_delete
 import com.paligot.confily.resources.semantic_user_item_company
 import com.paligot.confily.resources.semantic_user_item_email
-import org.gdglille.devfest.android.theme.m3.style.buttons.IconButton
-import org.gdglille.devfest.android.theme.m3.style.toDp
+import com.paligot.confily.style.theme.buttons.IconButton
+import com.paligot.confily.style.theme.toDp
 import org.jetbrains.compose.resources.stringResource
 
 @Composable

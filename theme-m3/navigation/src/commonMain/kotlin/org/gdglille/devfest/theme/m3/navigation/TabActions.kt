@@ -9,7 +9,7 @@ import com.paligot.confily.resources.screen_events_past
 import com.paligot.confily.resources.screen_menus
 import com.paligot.confily.resources.screen_my_profile
 import com.paligot.confily.resources.screen_qanda
-import org.gdglille.devfest.android.theme.m3.style.actions.TabAction
+import com.paligot.confily.style.theme.actions.TabAction
 
 object TabActions {
     val futureEvents = TabAction(

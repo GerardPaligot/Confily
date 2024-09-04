@@ -1,7 +1,7 @@
 package org.gdglille.devfest.theme.m3.style.markdown
 
-import org.gdglille.devfest.android.theme.m3.style.ColorSchemeTokens
-import org.gdglille.devfest.android.theme.m3.style.TextStyleTokens
+import com.paligot.confily.style.theme.ColorSchemeTokens
+import com.paligot.confily.style.theme.TextStyleTokens
 
 object MarkdownTextTokens {
     val BodyTextStyle = TextStyleTokens.BodyMedium

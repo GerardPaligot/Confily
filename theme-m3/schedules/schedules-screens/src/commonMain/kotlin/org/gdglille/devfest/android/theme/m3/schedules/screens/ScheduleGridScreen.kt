@@ -13,12 +13,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
-import com.paligot.confily.models.ui.AgendaUi
 import com.paligot.confily.models.ui.EventSessionItemUi
 import com.paligot.confily.models.ui.TalkItemUi
+import com.paligot.confily.style.theme.SpacingTokens
+import com.paligot.confily.style.theme.toDp
 import org.gdglille.devfest.android.theme.m3.schedules.semantics.SchedulesSemantics
-import org.gdglille.devfest.android.theme.m3.style.SpacingTokens
-import org.gdglille.devfest.android.theme.m3.style.toDp
 import org.gdglille.devfest.theme.m3.schedules.ui.talks.MediumScheduleItem
 import org.gdglille.devfest.theme.m3.schedules.ui.talks.NoFavoriteTalks
 import org.gdglille.devfest.theme.m3.schedules.ui.talks.SmallScheduleItem

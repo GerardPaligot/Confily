@@ -1,8 +1,8 @@
 package org.gdglille.devfest.theme.m3.style.networking
 
-import org.gdglille.devfest.android.theme.m3.style.ColorSchemeTokens
-import org.gdglille.devfest.android.theme.m3.style.SpacingTokens
-import org.gdglille.devfest.android.theme.m3.style.TextStyleTokens
+import com.paligot.confily.style.theme.ColorSchemeTokens
+import com.paligot.confily.style.theme.SpacingTokens
+import com.paligot.confily.style.theme.TextStyleTokens
 
 object UserItemTokens {
     val ContentColor = ColorSchemeTokens.OnBackgroundColor

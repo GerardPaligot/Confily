@@ -20,7 +20,7 @@ import com.paligot.confily.resources.action_submit_accept
 import com.paligot.confily.resources.action_submit_later
 import com.paligot.confily.resources.text_camera_permission_explaination
 import com.paligot.confily.resources.text_permission
-import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
+import com.paligot.confily.style.theme.Conferences4HallTheme
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 

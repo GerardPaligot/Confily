@@ -1,7 +1,7 @@
 package org.gdglille.devfest.theme.m3.style.speakers.avatar
 
 import androidx.compose.ui.unit.dp
-import org.gdglille.devfest.android.theme.m3.style.ShapeTokens
+import com.paligot.confily.style.theme.ShapeTokens
 
 internal object BorderedSpeakerAvatarSmallTokens {
     val ContainerShape = ShapeTokens.CircleShape
