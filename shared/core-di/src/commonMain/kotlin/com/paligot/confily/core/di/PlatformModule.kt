@@ -1,4 +1,4 @@
-package org.gdglille.devfest
+package com.paligot.confily.core.di
 
 import org.koin.core.module.Module
 

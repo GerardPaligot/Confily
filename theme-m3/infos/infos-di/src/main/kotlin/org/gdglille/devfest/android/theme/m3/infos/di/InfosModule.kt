@@ -1,6 +1,6 @@
 package org.gdglille.devfest.android.theme.m3.infos.di
 
-import com.paligot.confily.core.repositoriesModule
+import com.paligot.confily.core.di.repositoriesModule
 import org.gdglille.devfest.android.theme.m3.infos.feature.CoCViewModel
 import org.gdglille.devfest.android.theme.m3.infos.feature.EventViewModel
 import org.gdglille.devfest.android.theme.m3.infos.feature.InfoViewModel

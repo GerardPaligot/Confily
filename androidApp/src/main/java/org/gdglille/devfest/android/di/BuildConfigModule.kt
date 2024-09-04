@@ -1,8 +1,8 @@
 package org.gdglille.devfest.android.di
 
-import org.gdglille.devfest.ApplicationIdNamed
-import org.gdglille.devfest.Conference4HallBaseUrlNamed
-import org.gdglille.devfest.IsDebugNamed
+import com.paligot.confily.core.di.ApplicationIdNamed
+import com.paligot.confily.core.di.Conference4HallBaseUrlNamed
+import com.paligot.confily.core.di.IsDebugNamed
 import org.gdglille.devfest.android.BuildConfig
 import org.koin.core.qualifier.named
 import org.koin.dsl.module

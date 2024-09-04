@@ -1,4 +1,4 @@
-package org.gdglille.devfest
+package com.paligot.confily.core.di
 
 import cafe.adriel.lyricist.LanguageTag
 import cafe.adriel.lyricist.Lyricist

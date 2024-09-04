@@ -1,4 +1,4 @@
-package org.gdglille.devfest
+package com.paligot.confily.core.di
 
 import android.content.Context
 import com.paligot.confily.core.AndroidContext
@@ -24,7 +24,7 @@ actual val platformModule = module {
         AndroidSettings(
             androidContext().getSharedPreferences(
                 /* name = */
-                "org.gdglille.devfest.android",
+                "com.paligot.confily.android",
                 /* mode = */
                 Context.MODE_PRIVATE
             )

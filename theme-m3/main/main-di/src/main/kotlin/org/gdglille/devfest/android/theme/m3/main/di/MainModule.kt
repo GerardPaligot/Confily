@@ -1,6 +1,6 @@
 package org.gdglille.devfest.android.theme.m3.main.di
 
-import com.paligot.confily.core.repositoriesModule
+import com.paligot.confily.core.di.repositoriesModule
 import org.gdglille.devfest.android.theme.MainNavigationViewModel
 import org.gdglille.devfest.android.theme.MainViewModel
 import org.gdglille.devfest.android.theme.m3.events.di.eventListModule

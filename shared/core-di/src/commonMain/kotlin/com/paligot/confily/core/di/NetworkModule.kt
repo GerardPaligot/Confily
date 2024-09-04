@@ -1,6 +1,6 @@
-package org.gdglille.devfest
+package com.paligot.confily.core.di
 
-import org.gdglille.devfest.network.ConferenceApi
+import com.paligot.confily.core.network.ConferenceApi
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 

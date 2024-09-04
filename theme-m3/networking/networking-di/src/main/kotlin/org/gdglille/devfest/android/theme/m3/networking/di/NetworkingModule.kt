@@ -1,6 +1,6 @@
 package org.gdglille.devfest.android.theme.m3.networking.di
 
-import com.paligot.confily.core.repositoriesModule
+import com.paligot.confily.core.di.repositoriesModule
 import org.gdglille.devfest.android.theme.m3.networking.feature.ContactsViewModel
 import org.gdglille.devfest.android.theme.m3.networking.feature.MyProfileViewModel
 import org.gdglille.devfest.android.theme.m3.networking.feature.NetworkingViewModel

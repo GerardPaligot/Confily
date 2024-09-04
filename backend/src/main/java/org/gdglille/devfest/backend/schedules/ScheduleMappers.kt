@@ -60,7 +60,7 @@ fun ScheduleDb.convertToModelV4() = ScheduleItemV4(
     sessionId = talkId ?: this.id
 )
 
-fun ScheduleItemV4.convertToEventSession(): Session = com.paligot.models.Session.Event(
+fun ScheduleItemV4.convertToEventSession(): Session = Session.Event(
     id = id,
     title = "Break",
     description = null,
