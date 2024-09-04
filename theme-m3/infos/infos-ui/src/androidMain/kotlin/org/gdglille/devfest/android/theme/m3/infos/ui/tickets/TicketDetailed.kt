@@ -30,6 +30,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.paligot.confily.models.ui.Image
 import org.gdglille.devfest.android.shared.resources.Resource
 import org.gdglille.devfest.android.shared.resources.semantic_ticket_id
 import org.gdglille.devfest.android.shared.resources.semantic_ticket_qrcode
@@ -37,7 +38,6 @@ import org.gdglille.devfest.android.shared.resources.text_ticket_firstname
 import org.gdglille.devfest.android.shared.resources.text_ticket_lastname
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.shapes.DottedShape
-import org.gdglille.devfest.models.ui.Image
 import org.gdglille.devfest.models.ui.TicketInfoUi
 import org.gdglille.devfest.models.ui.TicketUi
 import org.gdglille.devfest.theme.m3.style.placeholder.placeholder

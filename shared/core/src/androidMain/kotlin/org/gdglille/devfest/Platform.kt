@@ -3,11 +3,11 @@ package org.gdglille.devfest
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import com.paligot.confily.models.ui.Image
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.engine.android.Android
 import okio.FileSystem
 import okio.Path.Companion.toPath
-import org.gdglille.devfest.models.ui.Image
 import java.io.ByteArrayOutputStream
 
 data class AndroidContext(val context: Context)

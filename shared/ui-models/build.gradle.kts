@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = "org.gdglille.devfest.models.ui"
+    namespace = "com.paligot.confily.models.ui"
 }
 
 kotlin {

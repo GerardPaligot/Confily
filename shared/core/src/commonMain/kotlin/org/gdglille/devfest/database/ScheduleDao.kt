@@ -5,6 +5,7 @@ import app.cash.sqldelight.coroutines.mapToList
 import cafe.adriel.lyricist.Lyricist
 import com.paligot.confily.models.AgendaV4
 import com.paligot.confily.models.Session
+import com.paligot.confily.models.ui.AgendaUi
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.coroutines.getBooleanFlow
@@ -26,7 +27,6 @@ import org.gdglille.devfest.database.mappers.convertTalkItemUi
 import org.gdglille.devfest.database.mappers.convertToDb
 import org.gdglille.devfest.database.mappers.convertToEntity
 import org.gdglille.devfest.db.Conferences4HallDatabase
-import org.gdglille.devfest.models.ui.AgendaUi
 import org.gdglille.devfest.models.ui.CategoryUi
 import org.gdglille.devfest.models.ui.FiltersUi
 import org.gdglille.devfest.models.ui.FormatUi
@@ -42,7 +42,7 @@ class ScheduleDao(
     private val lyricist: Lyricist<Strings>,
     private val dispatcher: CoroutineContext
 ) {
-    fun fetchSchedules(eventId: String): Flow<ImmutableMap<String, AgendaUi>> = combine(
+    fun fetchSchedules(eventId: String): Flow<ImmutableMap<String, com.paligot.confily.models.ui.AgendaUi>> = combine(
         db.sessionQueries
             .selectSessions(eventId)
             .asFlow()
@@ -95,7 +95,7 @@ class ScheduleDao(
                 } + breaks.map { it.convertEventSessionItemUi(lyricist.strings) }
             sessions.distinctBy { it.date }
                 .associate { session ->
-                    session.date to AgendaUi(
+                    session.date to com.paligot.confily.models.ui.AgendaUi(
                         onlyFavorites = hasFavFilter,
                         sessions = sessionItems
                             .filter { it.startTime.startsWith(session.date) }

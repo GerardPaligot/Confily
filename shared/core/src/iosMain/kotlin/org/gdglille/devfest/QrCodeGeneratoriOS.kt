@@ -1,7 +1,7 @@
 package org.gdglille.devfest
 
+import com.paligot.confily.models.ui.Image
 import kotlinx.cinterop.ExperimentalForeignApi
-import org.gdglille.devfest.models.ui.Image
 import org.gdglille.devfest.repositories.QrCodeGenerator
 import platform.CoreGraphics.CGColorSpaceCreateDeviceRGB
 import platform.CoreImage.CIContext
