@@ -7,7 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "org.gdglille.devfest.android.theme.m3.networking.ui"
+    namespace = "com.paligot.confily.networking.ui"
+
+    dependencies {
+        debugImplementation(compose.uiTooling)
+    }
 }
 
 kotlin {
@@ -39,7 +43,6 @@ kotlin {
                 implementation(projects.uiCamera)
 
                 implementation(compose.preview)
-                implementation(compose.uiTooling)
             }
         }
     }
