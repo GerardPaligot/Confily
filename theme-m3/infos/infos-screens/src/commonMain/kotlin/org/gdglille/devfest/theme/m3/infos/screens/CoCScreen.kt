@@ -19,7 +19,7 @@ import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.action_contact_organizers_mail
 import com.paligot.confily.resources.action_contact_organizers_phone
 import com.paligot.confily.resources.screen_coc
-import org.gdglille.devfest.theme.m3.style.markdown.MarkdownText
+import com.paligot.confily.style.components.markdown.MarkdownText
 import org.jetbrains.compose.resources.stringResource
 
 @Composable

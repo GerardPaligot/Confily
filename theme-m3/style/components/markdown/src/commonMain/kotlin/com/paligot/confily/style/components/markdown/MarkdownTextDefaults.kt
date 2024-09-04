@@ -1,4 +1,4 @@
-package org.gdglille.devfest.theme.m3.style.markdown
+package com.paligot.confily.style.components.markdown
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color

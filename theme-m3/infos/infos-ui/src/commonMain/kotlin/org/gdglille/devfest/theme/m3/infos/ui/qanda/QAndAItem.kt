@@ -25,8 +25,8 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
 import com.paligot.confily.models.ui.QuestionAndResponseUi
+import com.paligot.confily.style.components.markdown.MarkdownText
 import com.paligot.confily.style.components.placeholder.placeholder
-import org.gdglille.devfest.theme.m3.style.markdown.MarkdownText
 
 private const val ExpandedDegrees = 180f
 private const val ClosedDegrees = 0f

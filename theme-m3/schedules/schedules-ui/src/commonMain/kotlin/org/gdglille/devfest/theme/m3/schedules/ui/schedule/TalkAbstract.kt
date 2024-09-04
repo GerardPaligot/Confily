@@ -13,7 +13,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.title_schedule_detail
-import org.gdglille.devfest.theme.m3.style.markdown.MarkdownText
+import com.paligot.confily.style.components.markdown.MarkdownText
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
