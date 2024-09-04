@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.infos.di
+package com.paligot.confily.infos.di
 
 import com.paligot.confily.core.di.repositoriesModule
 import com.paligot.confily.infos.presentation.CoCViewModel
