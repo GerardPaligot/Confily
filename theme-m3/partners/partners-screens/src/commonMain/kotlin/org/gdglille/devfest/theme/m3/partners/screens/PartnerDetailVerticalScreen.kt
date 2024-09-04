@@ -18,13 +18,13 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.paligot.confily.models.ui.PartnerItemUi
+import com.paligot.confily.partners.ui.PartnerDetailSectionVertical
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.title_jobs
 import com.paligot.confily.resources.title_plan_partner
 import com.paligot.confily.style.components.placeholder.placeholder
 import com.paligot.confily.style.events.cards.AddressCard
 import com.paligot.confily.style.partners.jobs.JobItem
-import org.gdglille.devfest.theme.m3.partners.ui.PartnerDetailSectionVertical
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
