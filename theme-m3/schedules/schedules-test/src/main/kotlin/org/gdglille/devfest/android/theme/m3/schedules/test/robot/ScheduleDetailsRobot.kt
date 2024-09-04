@@ -3,9 +3,9 @@ package org.gdglille.devfest.android.theme.m3.schedules.test.robot
 import androidx.compose.ui.test.junit4.ComposeTestRule
 import com.paligot.confily.core.test.patterns.navigation.RobotNavigator
 import com.paligot.confily.core.test.patterns.navigation.navigateTo
+import com.paligot.confily.schedules.test.scopes.ScheduleDetailsRobotScope
+import com.paligot.confily.schedules.test.scopes.ScheduleGridRobotScope
 import org.gdglille.devfest.android.theme.m3.schedules.test.pom.ScheduleDetailsPOM
-import org.gdglille.devfest.android.theme.m3.schedules.test.scopes.ScheduleDetailsRobotScope
-import org.gdglille.devfest.android.theme.m3.schedules.test.scopes.ScheduleGridRobotScope
 
 class ScheduleDetailsRobot(
     private val navigator: RobotNavigator,
