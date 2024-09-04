@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.infos.screens
+package com.paligot.confily.infos.panes
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
