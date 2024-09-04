@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.speakers.test.scopes
+package com.paligot.confily.speakers.test.scopes
 
 interface SpeakerDetailRobotScope {
     fun assertSpeakerInfoAreDisplayed(name: String, company: String?, bio: String)
