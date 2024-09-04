@@ -1,4 +1,4 @@
-package org.gdglille.devfest.theme.m3.style.events.socials
+package com.paligot.confily.style.events.socials
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

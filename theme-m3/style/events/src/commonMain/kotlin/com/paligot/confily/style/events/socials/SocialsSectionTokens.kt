@@ -1,4 +1,4 @@
-package org.gdglille.devfest.theme.m3.style.events.socials
+package com.paligot.confily.style.events.socials
 
 import com.paligot.confily.style.theme.ColorSchemeTokens
 import com.paligot.confily.style.theme.SpacingTokens

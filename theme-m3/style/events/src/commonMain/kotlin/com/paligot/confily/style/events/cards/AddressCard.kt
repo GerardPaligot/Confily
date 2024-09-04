@@ -1,4 +1,4 @@
-package org.gdglille.devfest.theme.m3.style.events.cards
+package com.paligot.confily.style.events.cards
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
