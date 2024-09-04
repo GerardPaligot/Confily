@@ -9,9 +9,9 @@ import com.paligot.confily.core.sample.BuildConfig
 import com.paligot.confily.core.test.instrumentedModule
 import com.paligot.confily.core.test.patterns.navigation.RobotNavigator
 import com.paligot.confily.core.test.patterns.navigation.robotHost
+import com.paligot.confily.schedules.di.scheduleModule
 import com.paligot.confily.schedules.test.robot.schedules
 import com.paligot.confily.schedules.test.scheduleRobotGraph
-import org.gdglille.devfest.android.theme.m3.schedules.di.scheduleModule
 import org.gdglille.devfest.android.theme.m3.schedules.sample.fakes.AgendaFake.agenda
 import org.gdglille.devfest.android.theme.m3.schedules.sample.fakes.AgendaFake.category
 import org.gdglille.devfest.android.theme.m3.schedules.sample.fakes.AgendaFake.format

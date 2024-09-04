@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "org.gdglille.devfest.android.theme.m3.schedules.di"
+    namespace = "com.paligot.confily.schedules.di"
 }
 
 dependencies {
