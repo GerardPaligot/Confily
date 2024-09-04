@@ -11,7 +11,7 @@ android {
 dependencies {
     implementation(projects.shared.core)
     implementation(projects.shared.resources)
-    implementation(projects.themeM3.networking.networkingScreens)
+    implementation(projects.themeM3.networking.networkingPanes)
     implementation(projects.themeM3.networking.networkingUi)
     implementation(projects.themeM3.navigation)
     implementation(projects.style.components.permissions)
