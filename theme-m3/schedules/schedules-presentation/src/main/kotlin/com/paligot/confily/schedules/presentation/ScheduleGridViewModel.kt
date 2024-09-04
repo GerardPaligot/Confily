@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.schedules.feature
+package com.paligot.confily.schedules.presentation
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -8,6 +8,7 @@ import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
 import com.paligot.confily.core.AlarmScheduler
 import com.paligot.confily.core.repositories.AgendaRepository
+import com.paligot.confily.models.ui.AgendaUi
 import com.paligot.confily.models.ui.TalkItemUi
 import com.paligot.confily.style.theme.actions.TabAction
 import com.paligot.confily.style.theme.actions.TabActionsUi
@@ -86,7 +87,7 @@ class ScheduleGridViewModel(
                         )
                     )
                 } else {
-                    ScheduleGridUiState.Loading(persistentListOf(com.paligot.confily.models.ui.AgendaUi.fake))
+                    ScheduleGridUiState.Loading(persistentListOf(AgendaUi.fake))
                 }
             }
         ).catch {
@@ -94,7 +95,7 @@ class ScheduleGridViewModel(
             ScheduleGridUiState.Failure(it)
         }.stateIn(
             scope = viewModelScope,
-            initialValue = ScheduleGridUiState.Loading(persistentListOf(com.paligot.confily.models.ui.AgendaUi.fake)),
+            initialValue = ScheduleGridUiState.Loading(persistentListOf(AgendaUi.fake)),
             started = SharingStarted.WhileSubscribed()
         )
 

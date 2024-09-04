@@ -8,7 +8,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.themeM3.schedules.schedulesFeature)
+    implementation(projects.themeM3.schedules.schedulesPresentation)
     implementation(projects.shared.coreDi)
 
     implementation(libs.koin.core)

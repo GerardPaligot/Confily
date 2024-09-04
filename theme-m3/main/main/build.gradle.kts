@@ -12,7 +12,7 @@ dependencies {
     api(projects.themeM3.schedules.schedulesUi)
     api(projects.features.speakers.speakersUi)
     api(projects.style.theme)
-    implementation(projects.themeM3.schedules.schedulesFeature)
+    implementation(projects.themeM3.schedules.schedulesPresentation)
     implementation(projects.features.speakers.speakersPresentation)
     implementation(projects.themeM3.networking.networkingFeature)
     implementation(projects.themeM3.partners.partnersFeature)
