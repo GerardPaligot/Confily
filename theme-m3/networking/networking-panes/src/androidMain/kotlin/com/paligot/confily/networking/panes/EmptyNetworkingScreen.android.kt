@@ -1,14 +1,13 @@
-package org.gdglille.devfest.android.theme.m3.networking.screens
+package com.paligot.confily.networking.panes
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.paligot.confily.style.theme.Conferences4HallTheme
-import org.gdglille.devfest.theme.m3.networking.screens.EmptyContactsScreen
 
 @Preview(showBackground = true)
 @Composable
-fun EmptyContactsScreenPreview() {
+private fun EmptyNetworkingScreenPreview() {
     Conferences4HallTheme {
-        EmptyContactsScreen()
+        EmptyNetworkingScreen()
     }
 }

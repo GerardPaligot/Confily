@@ -11,13 +11,13 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import com.paligot.confily.models.ui.ExportNetworkingUi
+import com.paligot.confily.networking.panes.EmptyNetworkingScreen
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.screen_networking
 import com.paligot.confily.resources.text_error
 import com.paligot.confily.style.theme.Scaffold
 import org.gdglille.devfest.theme.m3.navigation.ActionIds
 import org.gdglille.devfest.theme.m3.navigation.TabActions
-import org.gdglille.devfest.theme.m3.networking.screens.EmptyNetworkingScreen
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 import org.koin.androidx.compose.koinViewModel

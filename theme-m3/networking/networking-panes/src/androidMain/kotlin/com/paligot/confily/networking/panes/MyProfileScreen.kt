@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.networking.screens
+package com.paligot.confily.networking.panes
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
