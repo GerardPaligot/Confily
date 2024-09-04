@@ -10,10 +10,10 @@ android {
 
 dependencies {
     api(projects.themeM3.schedules.schedulesUi)
-    api(projects.themeM3.speakers.speakersUi)
+    api(projects.features.speakers.speakersUi)
     api(projects.style.theme)
     implementation(projects.themeM3.schedules.schedulesFeature)
-    implementation(projects.themeM3.speakers.speakersPresentation)
+    implementation(projects.features.speakers.speakersPresentation)
     implementation(projects.themeM3.networking.networkingFeature)
     implementation(projects.themeM3.partners.partnersFeature)
     implementation(projects.themeM3.infos.infosFeature)

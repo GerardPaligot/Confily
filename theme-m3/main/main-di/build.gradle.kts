@@ -14,7 +14,7 @@ dependencies {
     implementation(projects.themeM3.networking.networkingDi)
     implementation(projects.themeM3.partners.partnersDi)
     implementation(projects.themeM3.schedules.schedulesDi)
-    implementation(projects.themeM3.speakers.speakersDi)
+    implementation(projects.features.speakers.speakersDi)
     implementation(projects.shared.coreDi)
 
     implementation(libs.koin.core)
