@@ -1,7 +1,7 @@
 package org.gdglille.devfest.backend.categories
 
-import org.gdglille.devfest.models.Category
-import org.gdglille.devfest.models.inputs.CategoryInput
+import com.paligot.confily.models.Category
+import com.paligot.confily.models.inputs.CategoryInput
 
 fun CategoryDb.convertToModel() = Category(
     id = id ?: "",

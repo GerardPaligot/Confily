@@ -4,6 +4,10 @@ import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOne
 import app.cash.sqldelight.coroutines.mapToOneOrNull
+import com.paligot.confily.models.Attendee
+import com.paligot.confily.models.EventItemList
+import com.paligot.confily.models.EventV3
+import com.paligot.confily.models.QuestionAndResponse
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.coroutines.getStringOrNullFlow
@@ -16,10 +20,6 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import org.gdglille.devfest.db.Conferences4HallDatabase
 import org.gdglille.devfest.exceptions.EventSavedException
-import org.gdglille.devfest.models.Attendee
-import org.gdglille.devfest.models.EventItemList
-import org.gdglille.devfest.models.EventV3
-import org.gdglille.devfest.models.QuestionAndResponse
 import org.gdglille.devfest.models.ui.CoCUi
 import org.gdglille.devfest.models.ui.EventInfoUi
 import org.gdglille.devfest.models.ui.EventItemListUi

@@ -1,15 +1,15 @@
 package org.gdglille.devfest.backend.schedules
 
+import com.paligot.confily.models.Info
+import com.paligot.confily.models.PlanningItem
+import com.paligot.confily.models.ScheduleItem
+import com.paligot.confily.models.ScheduleItemV3
+import com.paligot.confily.models.ScheduleItemV4
+import com.paligot.confily.models.Session
+import com.paligot.confily.models.Talk
+import com.paligot.confily.models.inputs.ScheduleInput
 import org.gdglille.devfest.backend.internals.date.FormatterPattern
 import org.gdglille.devfest.backend.internals.date.format
-import org.gdglille.devfest.models.Info
-import org.gdglille.devfest.models.PlanningItem
-import org.gdglille.devfest.models.ScheduleItem
-import org.gdglille.devfest.models.ScheduleItemV3
-import org.gdglille.devfest.models.ScheduleItemV4
-import org.gdglille.devfest.models.Session
-import org.gdglille.devfest.models.Talk
-import org.gdglille.devfest.models.inputs.ScheduleInput
 import java.time.LocalDateTime
 
 fun ScheduleDb.convertToPlanningTalkModel(talk: Talk) = PlanningItem.TalkItem(
@@ -60,7 +60,7 @@ fun ScheduleDb.convertToModelV4() = ScheduleItemV4(
     sessionId = talkId ?: this.id
 )
 
-fun ScheduleItemV4.convertToEventSession(): Session = Session.Event(
+fun ScheduleItemV4.convertToEventSession(): Session = com.paligot.models.Session.Event(
     id = id,
     title = "Break",
     description = null,

@@ -1,7 +1,7 @@
 package org.gdglille.devfest.backend.third.parties.cms4partners
 
+import com.paligot.confily.models.inputs.Validator
 import kotlinx.serialization.Serializable
-import org.gdglille.devfest.models.inputs.Validator
 
 @Serializable
 data class WebhookInput(

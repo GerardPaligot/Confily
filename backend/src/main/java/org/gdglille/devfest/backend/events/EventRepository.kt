@@ -1,5 +1,16 @@
 package org.gdglille.devfest.backend.events
 
+import com.paligot.confily.models.Agenda
+import com.paligot.confily.models.CreatedEvent
+import com.paligot.confily.models.Event
+import com.paligot.confily.models.EventList
+import com.paligot.confily.models.EventPartners
+import com.paligot.confily.models.PlanningItem
+import com.paligot.confily.models.inputs.CoCInput
+import com.paligot.confily.models.inputs.CreatingEventInput
+import com.paligot.confily.models.inputs.EventInput
+import com.paligot.confily.models.inputs.FeaturesActivatedInput
+import com.paligot.confily.models.inputs.LunchMenuInput
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -31,17 +42,6 @@ import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.speakers.SpeakerDb
 import org.gdglille.devfest.backend.third.parties.geocode.GeocodeApi
 import org.gdglille.devfest.backend.third.parties.geocode.convertToDb
-import org.gdglille.devfest.models.Agenda
-import org.gdglille.devfest.models.CreatedEvent
-import org.gdglille.devfest.models.Event
-import org.gdglille.devfest.models.EventList
-import org.gdglille.devfest.models.EventPartners
-import org.gdglille.devfest.models.PlanningItem
-import org.gdglille.devfest.models.inputs.CoCInput
-import org.gdglille.devfest.models.inputs.CreatingEventInput
-import org.gdglille.devfest.models.inputs.EventInput
-import org.gdglille.devfest.models.inputs.FeaturesActivatedInput
-import org.gdglille.devfest.models.inputs.LunchMenuInput
 import java.time.LocalDateTime
 
 @Suppress("LongParameterList")
@@ -92,7 +92,7 @@ class EventRepository(
         )
     }
 
-    suspend fun create(eventInput: CreatingEventInput, language: String) = coroutineScope {
+    suspend fun create(eventInput: com.paligot.confily.models.inputs.CreatingEventInput, language: String) = coroutineScope {
         val addressDb = geocodeApi.geocode(eventInput.address).convertToDb()
             ?: throw NotAcceptableException("Your address information isn't found")
         val event = eventInput.convertToDb(addressDb, language)

@@ -1,6 +1,6 @@
 package org.gdglille.devfest.backend.third.parties.cms4partners
 
-import org.gdglille.devfest.models.inputs.PartnerInput
+import com.paligot.confily.models.inputs.PartnerInput
 import org.gdglille.devfest.backend.third.parties.cms4partners.PartnerInput as CmsPartnerInput
 
 fun WebhookInput.mapToPartnerInput(): PartnerInput {

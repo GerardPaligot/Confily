@@ -1,11 +1,11 @@
 package org.gdglille.devfest.backend.qanda
 
-import org.gdglille.devfest.models.Acronym
-import org.gdglille.devfest.models.QuestionAndResponse
-import org.gdglille.devfest.models.QuestionAndResponseAction
-import org.gdglille.devfest.models.inputs.AcronymInput
-import org.gdglille.devfest.models.inputs.QAndAActionInput
-import org.gdglille.devfest.models.inputs.QAndAInput
+import com.paligot.confily.models.Acronym
+import com.paligot.confily.models.QuestionAndResponse
+import com.paligot.confily.models.QuestionAndResponseAction
+import com.paligot.confily.models.inputs.AcronymInput
+import com.paligot.confily.models.inputs.QAndAActionInput
+import com.paligot.confily.models.inputs.QAndAInput
 
 fun AcronymInput.convertToDb() = AcronymDb(
     key = key,

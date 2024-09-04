@@ -1,9 +1,9 @@
 package org.gdglille.devfest.database.mappers
 
+import com.paligot.confily.models.Speaker
 import kotlinx.collections.immutable.ImmutableList
 import org.gdglille.devfest.android.shared.resources.Strings
 import org.gdglille.devfest.db.SelectSpeakersByTalkId
-import org.gdglille.devfest.models.Speaker
 import org.gdglille.devfest.models.ui.SpeakerItemUi
 import org.gdglille.devfest.models.ui.SpeakerUi
 import org.gdglille.devfest.models.ui.TalkItemUi

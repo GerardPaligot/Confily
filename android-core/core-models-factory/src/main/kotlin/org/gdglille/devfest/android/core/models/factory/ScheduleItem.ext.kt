@@ -1,10 +1,10 @@
 package org.gdglille.devfest.android.core.models.factory
 
+import com.paligot.confily.models.ScheduleItemV4
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.format
 import kotlinx.datetime.format.char
-import org.gdglille.devfest.models.ScheduleItemV4
 
 fun ScheduleItemV4.Companion.builder(): ScheduleBuilder = ScheduleBuilder()
 

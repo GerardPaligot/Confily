@@ -1,7 +1,7 @@
 package org.gdglille.devfest.backend.speakers
 
-import org.gdglille.devfest.models.Speaker
-import org.gdglille.devfest.models.inputs.SpeakerInput
+import com.paligot.confily.models.Speaker
+import com.paligot.confily.models.inputs.SpeakerInput
 
 fun org.gdglille.devfest.backend.third.parties.conferencehall.Speaker.convertToDb(url: String): SpeakerDb =
     SpeakerDb(

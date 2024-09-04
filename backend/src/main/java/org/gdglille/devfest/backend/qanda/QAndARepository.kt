@@ -1,9 +1,9 @@
 package org.gdglille.devfest.backend.qanda
 
+import com.paligot.confily.models.inputs.QAndAInput
 import kotlinx.coroutines.coroutineScope
 import org.gdglille.devfest.backend.NotFoundException
 import org.gdglille.devfest.backend.events.EventDao
-import org.gdglille.devfest.models.inputs.QAndAInput
 
 class QAndARepository(
     private val eventDao: EventDao,

@@ -2,10 +2,14 @@
 
 package org.gdglille.devfest.backend.events
 
+import com.paligot.confily.models.inputs.CoCInput
+import com.paligot.confily.models.inputs.CreatingEventInput
+import com.paligot.confily.models.inputs.EventInput
+import com.paligot.confily.models.inputs.FeaturesActivatedInput
+import com.paligot.confily.models.inputs.LunchMenuInput
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.content.EntityTagVersion
 import io.ktor.http.content.VersionCheckResult
-import io.ktor.server.application.call
 import io.ktor.server.plugins.BadRequestException
 import io.ktor.server.request.acceptItems
 import io.ktor.server.request.acceptLanguage
@@ -28,11 +32,6 @@ import org.gdglille.devfest.backend.sessions.SessionDao
 import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.third.parties.geocode.GeocodeApi
 import org.gdglille.devfest.backend.version
-import org.gdglille.devfest.models.inputs.CoCInput
-import org.gdglille.devfest.models.inputs.CreatingEventInput
-import org.gdglille.devfest.models.inputs.EventInput
-import org.gdglille.devfest.models.inputs.FeaturesActivatedInput
-import org.gdglille.devfest.models.inputs.LunchMenuInput
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -93,7 +92,7 @@ fun Routing.registerEventRoutes(
         call.respond(HttpStatusCode.OK, repository.list())
     }
     post("/events") {
-        val input = call.receiveValidated<CreatingEventInput>()
+        val input = call.receiveValidated<com.paligot.confily.models.inputs.CreatingEventInput>()
         val language = call.request.acceptLanguage()
             ?: throw BadRequestException("Accept Language required for this api")
         call.respond(HttpStatusCode.Created, repository.create(input, language))

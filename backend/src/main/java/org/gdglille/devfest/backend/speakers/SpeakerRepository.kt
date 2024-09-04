@@ -1,10 +1,10 @@
 package org.gdglille.devfest.backend.speakers
 
+import com.paligot.confily.models.inputs.SpeakerInput
 import kotlinx.coroutines.coroutineScope
 import org.gdglille.devfest.backend.NotFoundException
 import org.gdglille.devfest.backend.events.EventDao
 import org.gdglille.devfest.backend.internals.CommonApi
-import org.gdglille.devfest.models.inputs.SpeakerInput
 
 class SpeakerRepository(
     private val commonApi: CommonApi,

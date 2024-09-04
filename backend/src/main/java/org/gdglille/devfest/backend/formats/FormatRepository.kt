@@ -1,9 +1,9 @@
 package org.gdglille.devfest.backend.formats
 
+import com.paligot.confily.models.inputs.FormatInput
 import kotlinx.coroutines.coroutineScope
 import org.gdglille.devfest.backend.NotFoundException
 import org.gdglille.devfest.backend.events.EventDao
-import org.gdglille.devfest.models.inputs.FormatInput
 
 class FormatRepository(
     private val eventDao: EventDao,

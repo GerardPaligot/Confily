@@ -1,9 +1,9 @@
 package org.gdglille.devfest.backend.third.parties.welovedevs
 
+import com.paligot.confily.models.Job
+import com.paligot.confily.models.Salary
 import org.gdglille.devfest.backend.jobs.JobDb
 import org.gdglille.devfest.backend.jobs.SalaryDb
-import org.gdglille.devfest.models.Job
-import org.gdglille.devfest.models.Salary
 
 fun Hit.convertToDb(id: String, partnerId: String) = JobDb(
     id = id,

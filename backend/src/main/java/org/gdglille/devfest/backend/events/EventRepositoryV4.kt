@@ -1,5 +1,6 @@
 package org.gdglille.devfest.backend.events
 
+import com.paligot.confily.models.AgendaV4
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -15,7 +16,6 @@ import org.gdglille.devfest.backend.sessions.SessionDao
 import org.gdglille.devfest.backend.sessions.convertToModel
 import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.speakers.convertToModel
-import org.gdglille.devfest.models.AgendaV4
 
 class EventRepositoryV4(
     private val speakerDao: SpeakerDao,

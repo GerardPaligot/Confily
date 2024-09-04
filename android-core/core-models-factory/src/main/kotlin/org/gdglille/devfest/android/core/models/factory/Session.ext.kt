@@ -1,6 +1,6 @@
 package org.gdglille.devfest.android.core.models.factory
 
-import org.gdglille.devfest.models.Session
+import com.paligot.confily.models.Session
 
 fun Session.Talk.Companion.builder(): TalkBuilder = TalkBuilder()
 

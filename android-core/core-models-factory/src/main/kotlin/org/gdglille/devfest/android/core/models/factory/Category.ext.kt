@@ -1,6 +1,6 @@
 package org.gdglille.devfest.android.core.models.factory
 
-import org.gdglille.devfest.models.Category
+import com.paligot.confily.models.Category
 
 fun Category.Companion.builder(): CategoryBuilder = CategoryBuilder()
 

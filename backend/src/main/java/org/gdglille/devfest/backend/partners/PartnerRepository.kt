@@ -1,5 +1,7 @@
 package org.gdglille.devfest.backend.partners
 
+import com.paligot.confily.models.PartnerV2
+import com.paligot.confily.models.inputs.PartnerInput
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
@@ -11,8 +13,6 @@ import org.gdglille.devfest.backend.jobs.JobDao
 import org.gdglille.devfest.backend.third.parties.geocode.GeocodeApi
 import org.gdglille.devfest.backend.third.parties.geocode.convertToDb
 import org.gdglille.devfest.backend.third.parties.welovedevs.convertToModel
-import org.gdglille.devfest.models.PartnerV2
-import org.gdglille.devfest.models.inputs.PartnerInput
 
 class PartnerRepository(
     private val geocodeApi: GeocodeApi,

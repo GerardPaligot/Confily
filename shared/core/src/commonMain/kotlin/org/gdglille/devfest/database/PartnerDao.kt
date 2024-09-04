@@ -3,6 +3,7 @@ package org.gdglille.devfest.database
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOne
+import com.paligot.confily.models.PartnerV2
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.Flow
@@ -11,7 +12,6 @@ import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.map
 import org.gdglille.devfest.Platform
 import org.gdglille.devfest.db.Conferences4HallDatabase
-import org.gdglille.devfest.models.PartnerV2
 import org.gdglille.devfest.models.ui.JobUi
 import org.gdglille.devfest.models.ui.PartnerGroupUi
 import org.gdglille.devfest.models.ui.PartnerGroupsUi

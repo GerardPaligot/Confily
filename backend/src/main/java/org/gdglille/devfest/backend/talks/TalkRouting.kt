@@ -1,5 +1,7 @@
 package org.gdglille.devfest.backend.talks
 
+import com.paligot.confily.models.inputs.TalkInput
+import com.paligot.confily.models.inputs.TalkVerbatimInput
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.response.respond
 import io.ktor.server.routing.Routing
@@ -13,8 +15,6 @@ import org.gdglille.devfest.backend.internals.helpers.drive.GoogleDriveDataSourc
 import org.gdglille.devfest.backend.receiveValidated
 import org.gdglille.devfest.backend.sessions.SessionDao
 import org.gdglille.devfest.backend.speakers.SpeakerDao
-import org.gdglille.devfest.models.inputs.TalkInput
-import org.gdglille.devfest.models.inputs.TalkVerbatimInput
 
 @Suppress("LongParameterList")
 fun Routing.registerTalksRoutes(

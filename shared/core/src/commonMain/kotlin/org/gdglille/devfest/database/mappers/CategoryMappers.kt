@@ -1,6 +1,6 @@
 package org.gdglille.devfest.database.mappers
 
-import org.gdglille.devfest.models.Category
+import com.paligot.confily.models.Category
 import org.gdglille.devfest.models.ui.CategoryUi
 import org.gdglille.devfest.db.Category as CategoryDb
 

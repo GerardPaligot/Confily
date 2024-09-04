@@ -1,13 +1,13 @@
 package org.gdglille.devfest.android.theme.m3.speakers.sample.fakes
 
+import com.paligot.confily.models.AgendaV4
+import com.paligot.confily.models.Category
+import com.paligot.confily.models.Format
+import com.paligot.confily.models.ScheduleItemV4
+import com.paligot.confily.models.Session
+import com.paligot.confily.models.Speaker
 import kotlinx.datetime.Clock
 import org.gdglille.devfest.android.core.models.factory.builder
-import org.gdglille.devfest.models.AgendaV4
-import org.gdglille.devfest.models.Category
-import org.gdglille.devfest.models.Format
-import org.gdglille.devfest.models.ScheduleItemV4
-import org.gdglille.devfest.models.Session
-import org.gdglille.devfest.models.Speaker
 import kotlin.time.Duration
 
 object AgendaFake {

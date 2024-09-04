@@ -1,5 +1,6 @@
 package org.gdglille.devfest.backend.third.parties.conferencehall
 
+import com.paligot.confily.models.inputs.conferencehall.ImportTalkInput
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.response.respond
 import io.ktor.server.routing.Routing
@@ -11,7 +12,6 @@ import org.gdglille.devfest.backend.internals.CommonApi
 import org.gdglille.devfest.backend.receiveValidated
 import org.gdglille.devfest.backend.sessions.SessionDao
 import org.gdglille.devfest.backend.speakers.SpeakerDao
-import org.gdglille.devfest.models.inputs.third.parties.conferencehall.ImportTalkInput
 
 @Suppress("LongParameterList")
 fun Routing.registerConferenceHallRoutes(

@@ -1,9 +1,9 @@
 package org.gdglille.devfest.backend.categories
 
+import com.paligot.confily.models.inputs.CategoryInput
 import kotlinx.coroutines.coroutineScope
 import org.gdglille.devfest.backend.NotFoundException
 import org.gdglille.devfest.backend.events.EventDao
-import org.gdglille.devfest.models.inputs.CategoryInput
 
 class CategoryRepository(
     private val eventDao: EventDao,

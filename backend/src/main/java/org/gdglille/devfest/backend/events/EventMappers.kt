@@ -2,23 +2,24 @@
 
 package org.gdglille.devfest.backend.events
 
+import com.paligot.confily.models.Address
+import com.paligot.confily.models.Event
+import com.paligot.confily.models.EventItemList
+import com.paligot.confily.models.EventLunchMenu
+import com.paligot.confily.models.EventPartners
+import com.paligot.confily.models.EventV2
+import com.paligot.confily.models.EventV3
+import com.paligot.confily.models.FeaturesActivated
+import com.paligot.confily.models.inputs.BilletWebConfigInput
+import com.paligot.confily.models.inputs.ConferenceHallConfigInput
+import com.paligot.confily.models.inputs.CreatingEventInput
+import com.paligot.confily.models.inputs.EventInput
+import com.paligot.confily.models.inputs.LunchMenuInput
+import com.paligot.confily.models.inputs.OpenPlannerConfigInput
+import com.paligot.confily.models.inputs.WldConfigInput
 import org.gdglille.devfest.backend.internals.slug
 import org.gdglille.devfest.backend.qanda.QAndADb
 import org.gdglille.devfest.backend.qanda.convertToModel
-import org.gdglille.devfest.models.Address
-import org.gdglille.devfest.models.EventItemList
-import org.gdglille.devfest.models.EventLunchMenu
-import org.gdglille.devfest.models.EventPartners
-import org.gdglille.devfest.models.EventV2
-import org.gdglille.devfest.models.EventV3
-import org.gdglille.devfest.models.FeaturesActivated
-import org.gdglille.devfest.models.inputs.BilletWebConfigInput
-import org.gdglille.devfest.models.inputs.ConferenceHallConfigInput
-import org.gdglille.devfest.models.inputs.CreatingEventInput
-import org.gdglille.devfest.models.inputs.EventInput
-import org.gdglille.devfest.models.inputs.LunchMenuInput
-import org.gdglille.devfest.models.inputs.OpenPlannerConfigInput
-import org.gdglille.devfest.models.inputs.WldConfigInput
 import java.util.UUID
 
 fun LunchMenuDb.convertToModel() = EventLunchMenu(
@@ -47,7 +48,7 @@ fun EventDb.convertToFeaturesActivatedModel(hasPartnerList: Boolean, hasQandA: B
     hasBilletWebTicket = billetWebConfig != null
 )
 
-fun EventDb.convertToModel(partners: EventPartners, qanda: List<QAndADb>) = org.gdglille.devfest.models.Event(
+fun EventDb.convertToModel(partners: EventPartners, qanda: List<QAndADb>) = Event(
     id = this.slugId,
     name = this.name,
     address = this.address.convertToModel(),
@@ -173,7 +174,7 @@ fun EventInput.convertToDb(event: EventDb, addressDb: AddressDb) = EventDb(
     updatedAt = this.updatedAt
 )
 
-fun CreatingEventInput.convertToDb(addressDb: AddressDb, language: String) = EventDb(
+fun com.paligot.confily.models.inputs.CreatingEventInput.convertToDb(addressDb: AddressDb, language: String) = EventDb(
     slugId = name.slug(),
     year = year,
     apiKey = UUID.randomUUID().toString(),

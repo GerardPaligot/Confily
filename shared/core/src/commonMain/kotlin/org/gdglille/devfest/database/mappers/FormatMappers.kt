@@ -1,6 +1,6 @@
 package org.gdglille.devfest.database.mappers
 
-import org.gdglille.devfest.models.Format
+import com.paligot.confily.models.Format
 import org.gdglille.devfest.models.ui.FormatUi
 import org.gdglille.devfest.db.Format as FormatDb
 

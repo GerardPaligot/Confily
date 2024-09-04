@@ -1,5 +1,11 @@
 package org.gdglille.devfest.network
 
+import com.paligot.confily.models.AgendaV4
+import com.paligot.confily.models.Attendee
+import com.paligot.confily.models.EventList
+import com.paligot.confily.models.EventV3
+import com.paligot.confily.models.PartnerV2
+import com.paligot.confily.models.QuestionAndResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -18,12 +24,6 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.gdglille.devfest.Platform
 import org.gdglille.devfest.exceptions.AgendaNotModifiedException
-import org.gdglille.devfest.models.AgendaV4
-import org.gdglille.devfest.models.Attendee
-import org.gdglille.devfest.models.EventList
-import org.gdglille.devfest.models.EventV3
-import org.gdglille.devfest.models.PartnerV2
-import org.gdglille.devfest.models.QuestionAndResponse
 
 class ConferenceApi(
     private val client: HttpClient,

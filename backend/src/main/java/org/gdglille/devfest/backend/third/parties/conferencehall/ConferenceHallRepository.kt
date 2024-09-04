@@ -1,5 +1,6 @@
 package org.gdglille.devfest.backend.third.parties.conferencehall
 
+import com.paligot.confily.models.inputs.conferencehall.ImportTalkInput
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
@@ -13,7 +14,6 @@ import org.gdglille.devfest.backend.internals.slug
 import org.gdglille.devfest.backend.sessions.SessionDao
 import org.gdglille.devfest.backend.speakers.SpeakerDao
 import org.gdglille.devfest.backend.speakers.convertToDb
-import org.gdglille.devfest.models.inputs.third.parties.conferencehall.ImportTalkInput
 
 @Suppress("LongParameterList")
 class ConferenceHallRepository(
