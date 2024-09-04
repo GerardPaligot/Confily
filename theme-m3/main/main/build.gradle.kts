@@ -15,7 +15,7 @@ dependencies {
     implementation(projects.features.schedules.schedulesPresentation)
     implementation(projects.features.speakers.speakersPresentation)
     implementation(projects.features.partners.partnersPresentation)
-    implementation(projects.themeM3.networking.networkingPresentation)
+    implementation(projects.features.networking.networkingPresentation)
     implementation(projects.themeM3.infos.infosFeature)
     implementation(projects.themeM3.infos.infosScreens)
     implementation(projects.themeM3.eventList.eventListFeature)

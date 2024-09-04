@@ -8,7 +8,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.themeM3.networking.networkingPresentation)
+    implementation(projects.features.networking.networkingPresentation)
     implementation(projects.shared.coreDi)
 
     implementation(libs.koin.core)
