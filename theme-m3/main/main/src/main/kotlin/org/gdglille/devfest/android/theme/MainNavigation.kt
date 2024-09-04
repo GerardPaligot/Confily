@@ -33,6 +33,9 @@ import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 import com.paligot.confily.models.ui.ExportNetworkingUi
 import com.paligot.confily.models.ui.convertToModelUi
+import com.paligot.confily.networking.presentation.NetworkingCompactVM
+import com.paligot.confily.networking.presentation.ProfileInputVM
+import com.paligot.confily.networking.presentation.VCardQrCodeScanner
 import com.paligot.confily.partners.presentation.PartnerDetailVM
 import com.paligot.confily.partners.presentation.PartnersAdaptive
 import com.paligot.confily.schedules.presentation.scheduleGraph
@@ -42,9 +45,6 @@ import com.paligot.confily.style.theme.appbars.iconColor
 import org.gdglille.devfest.android.theme.m3.events.feature.EventListVM
 import org.gdglille.devfest.android.theme.m3.infos.feature.InfoCompactVM
 import org.gdglille.devfest.android.theme.m3.infos.screens.TicketQrCodeScanner
-import com.paligot.confily.networking.presentation.NetworkingCompactVM
-import com.paligot.confily.networking.presentation.ProfileInputVM
-import com.paligot.confily.networking.presentation.VCardQrCodeScanner
 import org.gdglille.devfest.theme.m3.navigation.Screen
 import org.jetbrains.compose.resources.stringResource
 import org.koin.androidx.compose.koinViewModel

@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.networking.di
+package com.paligot.confily.networking.di
 
 import com.paligot.confily.core.di.repositoriesModule
 import com.paligot.confily.networking.presentation.ContactsViewModel
