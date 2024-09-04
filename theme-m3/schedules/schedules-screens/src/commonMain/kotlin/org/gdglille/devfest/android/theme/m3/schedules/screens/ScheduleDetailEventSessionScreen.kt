@@ -18,12 +18,12 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import com.paligot.confily.models.ui.EventSessionItemUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.screen_schedule_detail_event_session
+import com.paligot.confily.schedules.ui.schedule.EventSessionSection
+import com.paligot.confily.schedules.ui.schedule.TalkAbstract
 import com.paligot.confily.style.events.cards.AddressCard
 import com.paligot.confily.style.theme.SpacingTokens
 import com.paligot.confily.style.theme.appbars.TopAppBar
 import com.paligot.confily.style.theme.toDp
-import org.gdglille.devfest.theme.m3.schedules.ui.schedule.EventSessionSection
-import org.gdglille.devfest.theme.m3.schedules.ui.schedule.TalkAbstract
 import org.jetbrains.compose.resources.stringResource
 
 @ExperimentalMaterial3Api

@@ -14,12 +14,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalInspectionMode
 import com.paligot.confily.models.ui.TalkUi
+import com.paligot.confily.schedules.ui.schedule.OpenFeedbackSection
+import com.paligot.confily.schedules.ui.schedule.TalkAbstract
+import com.paligot.confily.schedules.ui.schedule.TalkSection
+import com.paligot.confily.schedules.ui.speakers.SpeakerSection
 import com.paligot.confily.style.theme.SpacingTokens
 import com.paligot.confily.style.theme.toDp
-import org.gdglille.devfest.theme.m3.schedules.ui.schedule.OpenFeedbackSection
-import org.gdglille.devfest.theme.m3.schedules.ui.schedule.TalkAbstract
-import org.gdglille.devfest.theme.m3.schedules.ui.schedule.TalkSection
-import org.gdglille.devfest.theme.m3.schedules.ui.speakers.SpeakerSection
 
 @ExperimentalMaterial3Api
 @Composable
