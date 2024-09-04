@@ -11,7 +11,7 @@ android {
 dependencies {
     implementation(projects.shared.core)
     implementation(projects.shared.resources)
-    implementation(projects.themeM3.partners.partnersScreens)
+    implementation(projects.themeM3.partners.partnersPanes)
     implementation(projects.themeM3.partners.partnersUi)
     implementation(projects.themeM3.navigation)
     implementation(projects.style.components.adaptive)
