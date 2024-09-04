@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "org.gdglille.devfest.android.theme.m3.events.ui"
+    namespace = "com.paligot.confily.events.ui"
 
     dependencies {
         debugImplementation(compose.uiTooling)
