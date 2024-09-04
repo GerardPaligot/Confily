@@ -1,4 +1,4 @@
-package org.gdglille.devfest.theme.m3.networking.ui
+package com.paligot.confily.networking.ui
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardActionScope

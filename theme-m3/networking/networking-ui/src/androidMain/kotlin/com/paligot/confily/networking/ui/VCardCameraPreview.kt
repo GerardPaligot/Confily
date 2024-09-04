@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.networking.ui
+package com.paligot.confily.networking.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
