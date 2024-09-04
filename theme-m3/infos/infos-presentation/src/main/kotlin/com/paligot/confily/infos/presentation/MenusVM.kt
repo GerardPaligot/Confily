@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.infos.feature
+package com.paligot.confily.infos.presentation
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text

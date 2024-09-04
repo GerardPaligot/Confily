@@ -1,11 +1,11 @@
 package org.gdglille.devfest.android.theme.m3.infos.di
 
 import com.paligot.confily.core.di.repositoriesModule
-import org.gdglille.devfest.android.theme.m3.infos.feature.CoCViewModel
-import org.gdglille.devfest.android.theme.m3.infos.feature.EventViewModel
-import org.gdglille.devfest.android.theme.m3.infos.feature.InfoViewModel
-import org.gdglille.devfest.android.theme.m3.infos.feature.MenusViewModel
-import org.gdglille.devfest.android.theme.m3.infos.feature.QAndAListViewModel
+import com.paligot.confily.infos.presentation.CoCViewModel
+import com.paligot.confily.infos.presentation.EventViewModel
+import com.paligot.confily.infos.presentation.InfoViewModel
+import com.paligot.confily.infos.presentation.MenusViewModel
+import com.paligot.confily.infos.presentation.QAndAListViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

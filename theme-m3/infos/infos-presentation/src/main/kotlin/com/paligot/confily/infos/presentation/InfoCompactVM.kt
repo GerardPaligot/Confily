@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.infos.feature
+package com.paligot.confily.infos.presentation
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.fillMaxSize
