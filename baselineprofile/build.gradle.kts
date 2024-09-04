@@ -56,7 +56,7 @@ androidComponents {
 }
 
 dependencies {
-    implementation(projects.themeM3.partners.partnersSemantics)
+    implementation(projects.features.partners.partnersSemantics)
     implementation(projects.features.schedules.schedulesSemantics)
     implementation(projects.features.speakers.speakersSemantics)
 
