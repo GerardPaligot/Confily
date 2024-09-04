@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
+import com.paligot.confily.models.ui.AgendaUi
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
@@ -22,7 +23,6 @@ import org.gdglille.devfest.AlarmScheduler
 import org.gdglille.devfest.android.theme.m3.style.actions.TabAction
 import org.gdglille.devfest.android.theme.m3.style.actions.TabActionsUi
 import org.gdglille.devfest.android.theme.m3.style.actions.TopActionsUi
-import org.gdglille.devfest.models.ui.AgendaUi
 import org.gdglille.devfest.models.ui.TalkItemUi
 import org.gdglille.devfest.repositories.AgendaRepository
 import org.gdglille.devfest.theme.m3.navigation.TopActions
@@ -35,11 +35,11 @@ import java.time.format.DateTimeFormatter
 data class ScheduleUi(
     val topActionsUi: TopActionsUi,
     val tabActionsUi: TabActionsUi,
-    val schedules: ImmutableList<AgendaUi>
+    val schedules: ImmutableList<com.paligot.confily.models.ui.AgendaUi>
 )
 
 sealed class ScheduleGridUiState {
-    data class Loading(val agenda: ImmutableList<AgendaUi>) : ScheduleGridUiState()
+    data class Loading(val agenda: ImmutableList<com.paligot.confily.models.ui.AgendaUi>) : ScheduleGridUiState()
     data class Success(val scheduleUi: ScheduleUi) : ScheduleGridUiState()
     data class Failure(val throwable: Throwable) : ScheduleGridUiState()
 }
@@ -83,7 +83,7 @@ class ScheduleGridViewModel(
                         )
                     )
                 } else {
-                    ScheduleGridUiState.Loading(persistentListOf(AgendaUi.fake))
+                    ScheduleGridUiState.Loading(persistentListOf(com.paligot.confily.models.ui.AgendaUi.fake))
                 }
             }
         ).catch {
@@ -91,7 +91,7 @@ class ScheduleGridViewModel(
             ScheduleGridUiState.Failure(it)
         }.stateIn(
             scope = viewModelScope,
-            initialValue = ScheduleGridUiState.Loading(persistentListOf(AgendaUi.fake)),
+            initialValue = ScheduleGridUiState.Loading(persistentListOf(com.paligot.confily.models.ui.AgendaUi.fake)),
             started = SharingStarted.WhileSubscribed()
         )
 

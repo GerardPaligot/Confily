@@ -5,12 +5,12 @@ import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import org.gdglille.devfest.models.ui.EventItemUi
+import com.paligot.confily.models.ui.EventItemUi
 import org.gdglille.devfest.theme.m3.style.placeholder.placeholder
 
 @Composable
 fun EventItem(
-    item: EventItemUi,
+    item: com.paligot.confily.models.ui.EventItemUi,
     modifier: Modifier = Modifier,
     isLoading: Boolean = false,
     onClick: (String) -> Unit

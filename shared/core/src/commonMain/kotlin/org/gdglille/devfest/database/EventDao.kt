@@ -8,6 +8,7 @@ import com.paligot.confily.models.Attendee
 import com.paligot.confily.models.EventItemList
 import com.paligot.confily.models.EventV3
 import com.paligot.confily.models.QuestionAndResponse
+import com.paligot.confily.models.ui.EventItemUi
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.coroutines.getStringOrNullFlow
@@ -23,7 +24,6 @@ import org.gdglille.devfest.exceptions.EventSavedException
 import org.gdglille.devfest.models.ui.CoCUi
 import org.gdglille.devfest.models.ui.EventInfoUi
 import org.gdglille.devfest.models.ui.EventItemListUi
-import org.gdglille.devfest.models.ui.EventItemUi
 import org.gdglille.devfest.models.ui.EventUi
 import org.gdglille.devfest.models.ui.Image
 import org.gdglille.devfest.models.ui.MenuItemUi
@@ -62,7 +62,7 @@ class EventDao(
         }
 
     private val eventItemMapper = { id: String, name: String, date: String, _: Long, _: Boolean ->
-        EventItemUi(id = id, name = name, date = date)
+        com.paligot.confily.models.ui.EventItemUi(id = id, name = name, date = date)
     }
 
     private val menuMapper = { name: String, dish: String, accompaniment: String, dessert: String ->

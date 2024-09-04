@@ -1,5 +1,6 @@
 package org.gdglille.devfest
 
+import com.paligot.confily.models.ui.Image
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.engine.darwin.Darwin
 import kotlinx.cinterop.ExperimentalForeignApi
@@ -8,7 +9,6 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.toCValues
 import kotlinx.cinterop.usePinned
 import okio.FileSystem
-import org.gdglille.devfest.models.ui.Image
 import platform.Foundation.NSData
 import platform.Foundation.NSNumber
 import platform.Foundation.NSNumberFormatter

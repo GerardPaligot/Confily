@@ -1,5 +1,6 @@
 package org.gdglille.devfest.repositories
 
+import com.paligot.confily.models.ui.AgendaUi
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
 import com.russhwolf.settings.ExperimentalSettingsApi
 import kotlinx.collections.immutable.ImmutableList
@@ -16,7 +17,6 @@ import org.gdglille.devfest.database.ScheduleDao
 import org.gdglille.devfest.database.SpeakerDao
 import org.gdglille.devfest.database.TalkDao
 import org.gdglille.devfest.exceptions.AgendaNotModifiedException
-import org.gdglille.devfest.models.ui.AgendaUi
 import org.gdglille.devfest.models.ui.CategoryUi
 import org.gdglille.devfest.models.ui.CoCUi
 import org.gdglille.devfest.models.ui.EventSessionItemUi
@@ -62,7 +62,7 @@ interface AgendaRepository {
     fun coc(): Flow<CoCUi>
 
     @NativeCoroutines
-    fun agenda(): Flow<ImmutableMap<String, AgendaUi>>
+    fun agenda(): Flow<ImmutableMap<String, com.paligot.confily.models.ui.AgendaUi>>
 
     @NativeCoroutines
     fun fetchNextTalks(date: String): Flow<ImmutableList<TalkItemUi>>
@@ -174,7 +174,7 @@ class AgendaRepositoryImpl(
     override fun coc(): Flow<CoCUi> = eventDao.fetchEventId()
         .flatMapConcat { eventDao.fetchCoC(eventId = it) }
 
-    override fun agenda(): Flow<ImmutableMap<String, AgendaUi>> = eventDao.fetchEventId()
+    override fun agenda(): Flow<ImmutableMap<String, com.paligot.confily.models.ui.AgendaUi>> = eventDao.fetchEventId()
         .flatMapConcat { scheduleDao.fetchSchedules(eventId = it) }
 
     override fun fetchNextTalks(date: String): Flow<ImmutableList<TalkItemUi>> =
