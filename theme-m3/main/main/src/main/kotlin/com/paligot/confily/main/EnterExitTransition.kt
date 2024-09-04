@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme
+package com.paligot.confily.main
 
 import androidx.compose.animation.core.EaseIn
 import androidx.compose.animation.core.EaseOut

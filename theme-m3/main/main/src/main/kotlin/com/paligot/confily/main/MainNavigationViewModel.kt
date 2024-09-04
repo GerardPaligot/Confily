@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme
+package com.paligot.confily.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
