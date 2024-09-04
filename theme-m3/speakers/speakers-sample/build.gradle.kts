@@ -6,7 +6,7 @@ plugins {
 android {
     namespace = "org.gdglille.devfest.android.theme.m3.speakers.sample"
     defaultConfig {
-        testInstrumentationRunner = "org.gdglille.devfest.android.core.test.TestJUnitRunner"
+        testInstrumentationRunner = "com.paligot.confily.core.test.TestJUnitRunner"
     }
 
     packaging {
