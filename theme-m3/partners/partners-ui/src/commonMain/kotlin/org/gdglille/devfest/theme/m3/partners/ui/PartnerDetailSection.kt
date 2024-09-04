@@ -11,10 +11,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.paligot.confily.models.ui.PartnerItemUi
+import com.paligot.confily.style.components.placeholder.placeholder
 import com.paligot.confily.style.events.socials.SocialsSection
 import com.paligot.confily.style.partners.items.PartnerItem
 import org.gdglille.devfest.theme.m3.style.markdown.MarkdownText
-import org.gdglille.devfest.theme.m3.style.placeholder.placeholder
 
 @Composable
 fun PartnerDetailSectionVertical(

@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "org.gdglille.devfest.android.theme.m3.style.placeholder"
+    namespace = "com.paligot.confily.style.components.placeholder"
 }
 
 kotlin {

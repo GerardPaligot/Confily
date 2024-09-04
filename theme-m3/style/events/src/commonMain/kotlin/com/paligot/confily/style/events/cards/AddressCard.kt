@@ -22,8 +22,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.semantic_start_itinerary
+import com.paligot.confily.style.components.placeholder.placeholder
 import kotlinx.collections.immutable.ImmutableList
-import org.gdglille.devfest.theme.m3.style.placeholder.placeholder
 import org.jetbrains.compose.resources.stringResource
 
 @Composable

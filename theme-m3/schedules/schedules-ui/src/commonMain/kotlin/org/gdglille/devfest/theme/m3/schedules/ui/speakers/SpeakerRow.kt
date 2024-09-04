@@ -8,11 +8,11 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.paligot.confily.models.ui.SpeakerItemUi
+import com.paligot.confily.style.components.placeholder.placeholder
 import com.paligot.confily.style.speakers.items.LargeSpeakerItem
 import com.paligot.confily.style.theme.SpacingTokens
 import com.paligot.confily.style.theme.toDp
 import kotlinx.collections.immutable.ImmutableList
-import org.gdglille.devfest.theme.m3.style.placeholder.placeholder
 
 @Composable
 fun SpeakerItemRow(

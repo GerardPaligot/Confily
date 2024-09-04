@@ -5,8 +5,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.paligot.confily.style.components.placeholder.placeholder
 import com.paligot.confily.style.speakers.avatar.MediumSpeakerAvatar
-import org.gdglille.devfest.theme.m3.style.placeholder.placeholder
 
 @Composable
 fun SpeakerAvatarScreen(

@@ -21,10 +21,10 @@ import com.paligot.confily.models.ui.PartnerItemUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.title_jobs
 import com.paligot.confily.resources.title_plan_partner
+import com.paligot.confily.style.components.placeholder.placeholder
 import com.paligot.confily.style.events.cards.AddressCard
 import com.paligot.confily.style.partners.jobs.JobItem
 import org.gdglille.devfest.theme.m3.partners.ui.PartnerDetailSectionVertical
-import org.gdglille.devfest.theme.m3.style.placeholder.placeholder
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
