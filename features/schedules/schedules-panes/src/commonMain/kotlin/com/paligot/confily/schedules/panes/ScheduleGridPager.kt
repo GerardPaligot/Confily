@@ -12,13 +12,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.paligot.confily.models.ui.TalkItemUi
+import com.paligot.confily.navigation.ActionIds
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.screen_agenda
 import com.paligot.confily.style.theme.Scaffold
 import com.paligot.confily.style.theme.actions.TabActionsUi
 import com.paligot.confily.style.theme.actions.TopActionsUi
 import kotlinx.collections.immutable.ImmutableList
-import org.gdglille.devfest.theme.m3.navigation.ActionIds
 import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalFoundationApi::class)

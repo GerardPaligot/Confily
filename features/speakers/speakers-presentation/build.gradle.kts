@@ -12,7 +12,7 @@ dependencies {
     implementation(projects.shared.core)
     implementation(projects.shared.resources)
     implementation(projects.features.speakers.speakersPanes)
-    implementation(projects.themeM3.navigation)
+    implementation(projects.features.navigation)
     implementation(projects.style.theme)
     implementation(projects.style.components.adaptive)
 

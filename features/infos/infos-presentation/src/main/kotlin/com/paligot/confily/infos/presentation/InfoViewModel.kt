@@ -6,6 +6,10 @@ import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
 import com.paligot.confily.core.repositories.AgendaRepository
 import com.paligot.confily.core.repositories.EventRepository
+import com.paligot.confily.navigation.FabActions
+import com.paligot.confily.navigation.Screen
+import com.paligot.confily.navigation.TabActions
+import com.paligot.confily.navigation.TopActions
 import com.paligot.confily.style.theme.actions.FabAction
 import com.paligot.confily.style.theme.actions.TabAction
 import com.paligot.confily.style.theme.actions.TabActionsUi
@@ -19,10 +23,6 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.gdglille.devfest.theme.m3.navigation.FabActions
-import org.gdglille.devfest.theme.m3.navigation.Screen
-import org.gdglille.devfest.theme.m3.navigation.TabActions
-import org.gdglille.devfest.theme.m3.navigation.TopActions
 
 sealed class InfoUiState {
     data object Loading : InfoUiState()

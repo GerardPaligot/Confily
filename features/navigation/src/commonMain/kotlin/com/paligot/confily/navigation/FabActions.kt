@@ -1,4 +1,4 @@
-package org.gdglille.devfest.theme.m3.navigation
+package com.paligot.confily.navigation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add

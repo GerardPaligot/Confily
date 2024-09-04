@@ -1,4 +1,4 @@
-package org.gdglille.devfest.theme.m3.navigation
+package com.paligot.confily.navigation
 
 object ActionIds {
     const val SHARE_ID = 0

@@ -9,8 +9,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.paligot.confily.navigation.Screen
 import com.paligot.confily.style.components.adaptive.isCompat
-import org.gdglille.devfest.theme.m3.navigation.Screen
 
 @Suppress("LongParameterList")
 fun NavGraphBuilder.speakerGraph(

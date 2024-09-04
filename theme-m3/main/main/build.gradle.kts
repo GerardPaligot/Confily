@@ -19,7 +19,7 @@ dependencies {
     implementation(projects.features.infos.infosPresentation)
     implementation(projects.features.infos.infosPanes)
     implementation(projects.features.eventList.eventListPresentation)
-    implementation(projects.themeM3.navigation)
+    implementation(projects.features.navigation)
     implementation(projects.style.components.adaptive)
     implementation(projects.shared.core)
     implementation(projects.shared.uiModels)

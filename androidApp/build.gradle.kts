@@ -72,7 +72,7 @@ android {
 dependencies {
     implementation(projects.themeM3.main.main)
     implementation(projects.themeM3.main.mainDi)
-    implementation(projects.themeM3.navigation)
+    implementation(projects.features.navigation)
     implementation(projects.widgets.widgetsFeature)
     implementation(projects.widgets.widgetsStyle)
     implementation(projects.shared.core)

@@ -27,7 +27,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(projects.shared.uiModels)
-                implementation(projects.themeM3.navigation)
+                implementation(projects.features.navigation)
                 implementation(projects.style.components.markdown)
                 implementation(projects.style.components.placeholder)
                 implementation(projects.style.events)

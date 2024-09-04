@@ -29,7 +29,7 @@ kotlin {
                 implementation(projects.shared.uiModels)
                 implementation(projects.shared.resources)
                 implementation(projects.features.eventList.eventListUi)
-                implementation(projects.themeM3.navigation)
+                implementation(projects.features.navigation)
                 implementation(projects.style.theme)
 
                 implementation(compose.material3)

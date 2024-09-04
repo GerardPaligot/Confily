@@ -24,7 +24,7 @@ dependencies {
     implementation(projects.androidCore.coreSample)
     implementation(projects.features.speakers.speakersPresentation)
     implementation(projects.features.speakers.speakersDi)
-    implementation(projects.themeM3.navigation)
+    implementation(projects.features.navigation)
     implementation(projects.shared.core)
     implementation(projects.shared.coreDi)
     implementation(projects.shared.resources)

@@ -12,13 +12,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import com.paligot.confily.models.ui.TalkUi
+import com.paligot.confily.navigation.TopActions
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.input_share_talk
 import com.paligot.confily.resources.screen_schedule_detail
 import com.paligot.confily.style.theme.actions.TopActionsUi
 import com.paligot.confily.style.theme.appbars.TopAppBar
 import kotlinx.collections.immutable.persistentListOf
-import org.gdglille.devfest.theme.m3.navigation.TopActions
 import org.jetbrains.compose.resources.stringResource
 
 @ExperimentalMaterial3Api

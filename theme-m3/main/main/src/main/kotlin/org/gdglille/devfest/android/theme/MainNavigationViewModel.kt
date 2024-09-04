@@ -8,6 +8,7 @@ import com.paligot.confily.core.repositories.AgendaRepository
 import com.paligot.confily.core.repositories.UserRepository
 import com.paligot.confily.models.ui.ScaffoldConfigUi
 import com.paligot.confily.models.ui.UserNetworkingUi
+import com.paligot.confily.navigation.BottomActions
 import com.paligot.confily.style.theme.actions.NavigationAction
 import com.paligot.confily.style.theme.actions.NavigationActionsUi
 import kotlinx.collections.immutable.toImmutableList
@@ -17,7 +18,6 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import org.gdglille.devfest.theme.m3.navigation.BottomActions
 
 sealed class MainNavigationUiState {
     data object Loading : MainNavigationUiState()

@@ -30,7 +30,7 @@ kotlin {
                 implementation(projects.shared.resources)
                 implementation(projects.features.partners.partnersUi)
                 implementation(projects.features.partners.partnersSemantics)
-                implementation(projects.themeM3.navigation)
+                implementation(projects.features.navigation)
                 implementation(projects.style.components.placeholder)
                 implementation(projects.style.events)
                 implementation(projects.style.partners)

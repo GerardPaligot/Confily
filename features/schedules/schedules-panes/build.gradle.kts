@@ -30,7 +30,7 @@ kotlin {
                 implementation(projects.shared.resources)
                 implementation(projects.features.schedules.schedulesUi)
                 implementation(projects.features.schedules.schedulesSemantics)
-                implementation(projects.themeM3.navigation)
+                implementation(projects.features.navigation)
                 implementation(projects.style.components.placeholder)
                 implementation(projects.style.events)
                 implementation(projects.style.schedules)

@@ -25,7 +25,7 @@ kotlin {
                 implementation(projects.shared.uiModels)
                 implementation(projects.shared.resources)
                 implementation(projects.features.infos.infosUi)
-                implementation(projects.themeM3.navigation)
+                implementation(projects.features.navigation)
                 implementation(projects.style.components.markdown)
                 implementation(projects.style.events)
                 implementation(projects.style.theme)

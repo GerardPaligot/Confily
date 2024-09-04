@@ -8,10 +8,10 @@ import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.action.actionStartActivity
 import androidx.glance.appwidget.provideContent
 import com.paligot.confily.core.repositories.UserRepository
+import com.paligot.confily.navigation.Screen
 import org.gdglille.devfest.android.R
 import org.gdglille.devfest.android.widgets.feature.NetworkingWidget
 import org.gdglille.devfest.android.widgets.style.Conferences4HallGlanceTheme
-import org.gdglille.devfest.theme.m3.navigation.Screen
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
