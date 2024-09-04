@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = "org.gdglille.devfest.android.theme.m3.speakers.test"
+    namespace = "com.paligot.confily.speakers.test"
 }
 
 dependencies {

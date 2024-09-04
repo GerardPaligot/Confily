@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.speakers.test.pom
+package com.paligot.confily.speakers.test.pom
 
 import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.assertIsDisplayed
