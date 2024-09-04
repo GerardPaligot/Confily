@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.main.di
+package com.paligot.confily.main.di
 
 import com.paligot.confily.core.di.repositoriesModule
 import com.paligot.confily.events.di.eventListModule
