@@ -6,8 +6,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import org.gdglille.devfest.android.shared.resources.Resource
-import org.gdglille.devfest.android.shared.resources.text_error
+import com.paligot.confily.resources.Resource
+import com.paligot.confily.resources.text_error
 import org.gdglille.devfest.theme.m3.speakers.screens.SpeakersGridScreen
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource

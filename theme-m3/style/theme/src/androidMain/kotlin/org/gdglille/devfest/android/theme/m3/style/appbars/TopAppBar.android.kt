@@ -8,9 +8,9 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.paligot.confily.resources.Resource
+import com.paligot.confily.resources.action_qrcode_scanner
 import kotlinx.collections.immutable.persistentListOf
-import org.gdglille.devfest.android.shared.resources.Resource
-import org.gdglille.devfest.android.shared.resources.action_qrcode_scanner
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.android.theme.m3.style.actions.TopAction
 import org.gdglille.devfest.android.theme.m3.style.actions.TopActionsUi

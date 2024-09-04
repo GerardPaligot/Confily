@@ -8,15 +8,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
+import com.paligot.confily.resources.Resource
+import com.paligot.confily.resources.screen_speakers
 import kotlinx.collections.immutable.ImmutableList
-import org.gdglille.devfest.android.shared.resources.Resource
-import org.gdglille.devfest.android.shared.resources.screen_speakers
 import org.gdglille.devfest.android.theme.m3.speakers.semantics.SpeakersSemantics
 import org.gdglille.devfest.android.theme.m3.style.Scaffold
 import org.gdglille.devfest.android.theme.m3.style.SpacingTokens

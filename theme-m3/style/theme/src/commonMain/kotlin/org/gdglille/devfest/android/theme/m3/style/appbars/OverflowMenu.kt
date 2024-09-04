@@ -11,8 +11,8 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import org.gdglille.devfest.android.shared.resources.Resource
-import org.gdglille.devfest.android.shared.resources.action_expanded_menu
+import com.paligot.confily.resources.Resource
+import com.paligot.confily.resources.action_expanded_menu
 import org.gdglille.devfest.android.theme.m3.style.actions.TopAction
 import org.gdglille.devfest.android.theme.m3.style.actions.TopActionsUi
 import org.gdglille.devfest.android.theme.m3.style.menus.Dropdown

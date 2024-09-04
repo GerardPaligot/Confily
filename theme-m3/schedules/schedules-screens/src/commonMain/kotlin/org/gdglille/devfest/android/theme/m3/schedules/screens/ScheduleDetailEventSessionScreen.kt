@@ -15,8 +15,8 @@ import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import org.gdglille.devfest.android.shared.resources.Resource
-import org.gdglille.devfest.android.shared.resources.screen_schedule_detail_event_session
+import com.paligot.confily.resources.Resource
+import com.paligot.confily.resources.screen_schedule_detail_event_session
 import org.gdglille.devfest.android.theme.m3.style.SpacingTokens
 import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBar
 import org.gdglille.devfest.android.theme.m3.style.toDp

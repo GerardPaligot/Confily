@@ -11,10 +11,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import com.paligot.confily.resources.Resource
+import com.paligot.confily.resources.input_share_talk
+import com.paligot.confily.resources.screen_schedule_detail
 import kotlinx.collections.immutable.persistentListOf
-import org.gdglille.devfest.android.shared.resources.Resource
-import org.gdglille.devfest.android.shared.resources.input_share_talk
-import org.gdglille.devfest.android.shared.resources.screen_schedule_detail
 import org.gdglille.devfest.android.theme.m3.style.actions.TopActionsUi
 import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBar
 import org.gdglille.devfest.models.ui.TalkUi

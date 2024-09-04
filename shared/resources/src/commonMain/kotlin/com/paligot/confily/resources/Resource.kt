@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.shared.resources
+package com.paligot.confily.resources
 
 import conferences4hall.shared.resources.generated.resources.Res
 import conferences4hall.shared.resources.generated.resources.action_back

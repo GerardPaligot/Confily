@@ -27,10 +27,10 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import com.paligot.confily.resources.Resource
+import com.paligot.confily.resources.action_favorites_add
+import com.paligot.confily.resources.action_favorites_remove
 import kotlinx.collections.immutable.ImmutableList
-import org.gdglille.devfest.android.shared.resources.Resource
-import org.gdglille.devfest.android.shared.resources.action_favorites_add
-import org.gdglille.devfest.android.shared.resources.action_favorites_remove
 import org.gdglille.devfest.android.theme.m3.style.toDp
 import org.gdglille.devfest.theme.m3.style.speakers.avatars.SmallLabeledSpeakersAvatar
 import org.jetbrains.compose.resources.stringResource

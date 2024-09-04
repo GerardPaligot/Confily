@@ -6,8 +6,8 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import org.gdglille.devfest.android.shared.resources.Resource
-import org.gdglille.devfest.android.shared.resources.screen_ticket_qrcode_scanner
+import com.paligot.confily.resources.Resource
+import com.paligot.confily.resources.screen_ticket_qrcode_scanner
 import org.gdglille.devfest.android.theme.m3.infos.ui.tickets.TicketCameraPreview
 import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBar
 import org.gdglille.devfest.android.theme.m3.style.permissions.FeatureThatRequiresCameraPermission

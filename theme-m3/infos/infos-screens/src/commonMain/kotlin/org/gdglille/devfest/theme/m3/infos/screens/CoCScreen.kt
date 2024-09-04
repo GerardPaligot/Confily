@@ -14,10 +14,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.unit.dp
-import org.gdglille.devfest.android.shared.resources.Resource
-import org.gdglille.devfest.android.shared.resources.action_contact_organizers_mail
-import org.gdglille.devfest.android.shared.resources.action_contact_organizers_phone
-import org.gdglille.devfest.android.shared.resources.screen_coc
+import com.paligot.confily.resources.Resource
+import com.paligot.confily.resources.action_contact_organizers_mail
+import com.paligot.confily.resources.action_contact_organizers_phone
+import com.paligot.confily.resources.screen_coc
 import org.gdglille.devfest.models.ui.CoCUi
 import org.gdglille.devfest.theme.m3.style.markdown.MarkdownText
 import org.jetbrains.compose.resources.stringResource

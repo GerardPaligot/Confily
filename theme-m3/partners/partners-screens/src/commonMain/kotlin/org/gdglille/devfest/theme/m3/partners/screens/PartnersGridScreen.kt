@@ -11,14 +11,13 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
-import org.gdglille.devfest.android.shared.resources.Resource
-import org.gdglille.devfest.android.shared.resources.screen_partners
+import com.paligot.confily.resources.Resource
+import com.paligot.confily.resources.screen_partners
 import org.gdglille.devfest.android.theme.m3.partners.semantics.PartnersSemantics
 import org.gdglille.devfest.android.theme.m3.style.Scaffold
 import org.gdglille.devfest.android.theme.m3.style.SpacingTokens

@@ -15,11 +15,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.gdglille.devfest.android.shared.resources.Resource
-import org.gdglille.devfest.android.shared.resources.action_submit_accept
-import org.gdglille.devfest.android.shared.resources.action_submit_later
-import org.gdglille.devfest.android.shared.resources.text_camera_permission_explaination
-import org.gdglille.devfest.android.shared.resources.text_permission
+import com.paligot.confily.resources.Resource
+import com.paligot.confily.resources.action_submit_accept
+import com.paligot.confily.resources.action_submit_later
+import com.paligot.confily.resources.text_camera_permission_explaination
+import com.paligot.confily.resources.text_permission
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource

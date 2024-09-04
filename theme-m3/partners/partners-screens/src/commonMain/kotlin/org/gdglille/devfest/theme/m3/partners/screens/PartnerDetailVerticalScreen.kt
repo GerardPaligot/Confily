@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -17,9 +16,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import org.gdglille.devfest.android.shared.resources.Resource
-import org.gdglille.devfest.android.shared.resources.title_jobs
-import org.gdglille.devfest.android.shared.resources.title_plan_partner
+import com.paligot.confily.resources.Resource
+import com.paligot.confily.resources.title_jobs
+import com.paligot.confily.resources.title_plan_partner
 import org.gdglille.devfest.models.ui.PartnerItemUi
 import org.gdglille.devfest.theme.m3.partners.ui.PartnerDetailSectionVertical
 import org.gdglille.devfest.theme.m3.style.events.cards.AddressCard

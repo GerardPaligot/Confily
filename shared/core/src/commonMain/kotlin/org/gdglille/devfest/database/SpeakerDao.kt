@@ -4,12 +4,12 @@ import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOne
 import cafe.adriel.lyricist.Lyricist
+import com.paligot.confily.resources.Strings
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
-import org.gdglille.devfest.android.shared.resources.Strings
 import org.gdglille.devfest.database.mappers.convertTalkItemUi
 import org.gdglille.devfest.database.mappers.convertToSpeakerItemUi
 import org.gdglille.devfest.database.mappers.convertToSpeakerUi

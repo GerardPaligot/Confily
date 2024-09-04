@@ -6,11 +6,11 @@ import androidx.compose.material.icons.outlined.FilterList
 import androidx.compose.material.icons.outlined.PowerOff
 import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material.icons.outlined.Upgrade
-import org.gdglille.devfest.android.shared.resources.Resource
-import org.gdglille.devfest.android.shared.resources.action_export
-import org.gdglille.devfest.android.shared.resources.action_filtering
-import org.gdglille.devfest.android.shared.resources.action_power_off
-import org.gdglille.devfest.android.shared.resources.action_share_talk
+import com.paligot.confily.resources.Resource
+import com.paligot.confily.resources.action_export
+import com.paligot.confily.resources.action_filtering
+import com.paligot.confily.resources.action_power_off
+import com.paligot.confily.resources.action_share_talk
 import org.gdglille.devfest.android.theme.m3.style.actions.TopAction
 
 object TopActions {

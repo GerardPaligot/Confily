@@ -11,8 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import org.gdglille.devfest.android.shared.resources.Resource
-import org.gdglille.devfest.android.shared.resources.screen_partners_detail
+import com.paligot.confily.resources.Resource
+import com.paligot.confily.resources.screen_partners_detail
 import org.gdglille.devfest.android.theme.m3.style.appbars.AppBarIcons
 import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBar
 import org.gdglille.devfest.models.ui.PartnerItemUi

@@ -18,11 +18,11 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import com.paligot.confily.resources.Resource
+import com.paligot.confily.resources.semantic_talk_item
+import com.paligot.confily.resources.semantic_talk_item_level
+import com.paligot.confily.resources.text_schedule_minutes
 import kotlinx.collections.immutable.toImmutableList
-import org.gdglille.devfest.android.shared.resources.Resource
-import org.gdglille.devfest.android.shared.resources.semantic_talk_item
-import org.gdglille.devfest.android.shared.resources.semantic_talk_item_level
-import org.gdglille.devfest.android.shared.resources.text_schedule_minutes
 import org.gdglille.devfest.android.theme.m3.style.tags.MediumAutoColoredTag
 import org.gdglille.devfest.android.theme.m3.style.tags.MediumTag
 import org.gdglille.devfest.android.theme.m3.style.tags.TagDefaults

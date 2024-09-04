@@ -5,7 +5,7 @@ import app.cash.sqldelight.coroutines.mapToList
 import cafe.adriel.lyricist.Lyricist
 import com.paligot.confily.models.AgendaV4
 import com.paligot.confily.models.Session
-import com.paligot.confily.models.ui.AgendaUi
+import com.paligot.confily.resources.Strings
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.coroutines.getBooleanFlow
@@ -19,7 +19,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.datetime.toLocalDateTime
-import org.gdglille.devfest.android.shared.resources.Strings
 import org.gdglille.devfest.database.mappers.convertCategoryUi
 import org.gdglille.devfest.database.mappers.convertEventSessionItemUi
 import org.gdglille.devfest.database.mappers.convertFormatUi

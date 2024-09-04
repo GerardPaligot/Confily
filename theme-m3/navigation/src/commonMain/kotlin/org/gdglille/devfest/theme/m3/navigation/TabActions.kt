@@ -1,14 +1,14 @@
 package org.gdglille.devfest.theme.m3.navigation
 
-import org.gdglille.devfest.android.shared.resources.Resource
-import org.gdglille.devfest.android.shared.resources.screen_coc
-import org.gdglille.devfest.android.shared.resources.screen_contacts
-import org.gdglille.devfest.android.shared.resources.screen_event
-import org.gdglille.devfest.android.shared.resources.screen_events_future
-import org.gdglille.devfest.android.shared.resources.screen_events_past
-import org.gdglille.devfest.android.shared.resources.screen_menus
-import org.gdglille.devfest.android.shared.resources.screen_my_profile
-import org.gdglille.devfest.android.shared.resources.screen_qanda
+import com.paligot.confily.resources.Resource
+import com.paligot.confily.resources.screen_coc
+import com.paligot.confily.resources.screen_contacts
+import com.paligot.confily.resources.screen_event
+import com.paligot.confily.resources.screen_events_future
+import com.paligot.confily.resources.screen_events_past
+import com.paligot.confily.resources.screen_menus
+import com.paligot.confily.resources.screen_my_profile
+import com.paligot.confily.resources.screen_qanda
 import org.gdglille.devfest.android.theme.m3.style.actions.TabAction
 
 object TabActions {

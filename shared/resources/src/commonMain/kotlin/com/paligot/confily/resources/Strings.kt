@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.shared.resources
+package com.paligot.confily.resources
 
 data class Strings(
     val titles: TitleStrings,

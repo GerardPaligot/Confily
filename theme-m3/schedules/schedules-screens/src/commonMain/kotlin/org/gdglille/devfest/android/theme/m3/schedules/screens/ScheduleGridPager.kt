@@ -11,10 +11,9 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.paligot.confily.models.ui.AgendaUi
+import com.paligot.confily.resources.Resource
+import com.paligot.confily.resources.screen_agenda
 import kotlinx.collections.immutable.ImmutableList
-import org.gdglille.devfest.android.shared.resources.Resource
-import org.gdglille.devfest.android.shared.resources.screen_agenda
 import org.gdglille.devfest.android.theme.m3.style.Scaffold
 import org.gdglille.devfest.android.theme.m3.style.actions.TabActionsUi
 import org.gdglille.devfest.android.theme.m3.style.actions.TopActionsUi
