@@ -24,7 +24,7 @@ kotlin {
             dependencies {
                 implementation(projects.shared.uiModels)
                 implementation(projects.shared.resources)
-                implementation(projects.themeM3.infos.infosUi)
+                implementation(projects.features.infos.infosUi)
                 implementation(projects.themeM3.navigation)
                 implementation(projects.style.components.markdown)
                 implementation(projects.style.events)
