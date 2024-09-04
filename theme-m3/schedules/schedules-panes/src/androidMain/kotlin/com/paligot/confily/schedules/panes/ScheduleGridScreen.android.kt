@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.schedules.screens
+package com.paligot.confily.schedules.panes
 
 import android.annotation.SuppressLint
 import androidx.compose.material3.Scaffold

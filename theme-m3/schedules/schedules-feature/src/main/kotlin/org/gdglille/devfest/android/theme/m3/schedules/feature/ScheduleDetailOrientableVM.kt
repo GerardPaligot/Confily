@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.text_error
 import com.paligot.confily.resources.text_loading
-import org.gdglille.devfest.android.theme.m3.schedules.screens.ScheduleDetailOrientableScreen
+import com.paligot.confily.schedules.panes.ScheduleDetailOrientableScreen
 import org.jetbrains.compose.resources.stringResource
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
