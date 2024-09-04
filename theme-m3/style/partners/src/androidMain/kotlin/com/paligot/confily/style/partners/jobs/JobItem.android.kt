@@ -1,11 +1,10 @@
-package org.gdglille.devfest.android.theme.m3.style.partners.jobs
+package com.paligot.confily.style.partners.jobs
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.paligot.confily.style.theme.Conferences4HallTheme
-import org.gdglille.devfest.theme.m3.style.partners.jobs.JobItem
 
 @Suppress("UnusedPrivateMember")
 @Preview

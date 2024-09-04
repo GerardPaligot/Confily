@@ -1,4 +1,4 @@
-package org.gdglille.devfest.theme.m3.style.partners.items
+package com.paligot.confily.style.partners.items
 
 import com.paligot.confily.style.theme.ColorSchemeTokens
 import com.paligot.confily.style.theme.ShapeTokens

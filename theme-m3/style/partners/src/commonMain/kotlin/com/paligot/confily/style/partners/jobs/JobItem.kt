@@ -1,4 +1,4 @@
-package org.gdglille.devfest.theme.m3.style.partners.jobs
+package com.paligot.confily.style.partners.jobs
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
