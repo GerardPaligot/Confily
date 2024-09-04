@@ -13,7 +13,7 @@ android {
 }
 
 dependencies {
-    api(projects.themeM3.speakers.speakersTestScopes)
+    api(projects.features.speakers.speakersTestScopes)
     api(projects.androidCore.coreTestPatterns)
     api(libs.androidx.espresso.core)
     api(compose.uiTestJUnit4)

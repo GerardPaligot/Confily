@@ -8,7 +8,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.themeM3.speakers.speakersPresentation)
+    implementation(projects.features.speakers.speakersPresentation)
     implementation(projects.shared.coreDi)
 
     implementation(libs.koin.core)

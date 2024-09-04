@@ -22,8 +22,8 @@ android {
 
 dependencies {
     implementation(projects.androidCore.coreSample)
-    implementation(projects.themeM3.speakers.speakersPresentation)
-    implementation(projects.themeM3.speakers.speakersDi)
+    implementation(projects.features.speakers.speakersPresentation)
+    implementation(projects.features.speakers.speakersDi)
     implementation(projects.themeM3.navigation)
     implementation(projects.shared.core)
     implementation(projects.shared.coreDi)
@@ -45,7 +45,7 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
 
-    androidTestImplementation(projects.themeM3.speakers.speakersTest)
+    androidTestImplementation(projects.features.speakers.speakersTest)
     androidTestImplementation(projects.androidCore.coreTest)
     androidTestImplementation(projects.androidCore.coreModelsFactory)
     androidTestImplementation(libs.jetbrains.kotlinx.datetime)
