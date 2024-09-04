@@ -18,6 +18,7 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import com.paligot.confily.models.ui.TalkUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.semantic_talk_item
 import com.paligot.confily.resources.semantic_talk_item_level
@@ -26,7 +27,6 @@ import kotlinx.collections.immutable.toImmutableList
 import org.gdglille.devfest.android.theme.m3.style.tags.MediumAutoColoredTag
 import org.gdglille.devfest.android.theme.m3.style.tags.MediumTag
 import org.gdglille.devfest.android.theme.m3.style.tags.TagDefaults
-import org.gdglille.devfest.models.ui.TalkUi
 import org.gdglille.devfest.theme.m3.style.schedules.findCategoryImageVector
 import org.gdglille.devfest.theme.m3.style.schedules.findTimeImageVector
 import org.gdglille.devfest.theme.m3.style.speakers.avatars.MediumBorderedSpeakersAvatar

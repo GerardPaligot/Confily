@@ -2,12 +2,12 @@ package org.gdglille.devfest.android.theme
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.paligot.confily.core.repositories.EventRepository
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import org.gdglille.devfest.repositories.EventRepository
 import org.gdglille.devfest.theme.m3.navigation.Screen
 
 sealed class MainUiState {

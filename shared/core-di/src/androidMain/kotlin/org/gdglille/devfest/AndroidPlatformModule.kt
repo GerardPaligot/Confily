@@ -1,12 +1,15 @@
 package org.gdglille.devfest
 
 import android.content.Context
+import com.paligot.confily.core.AndroidContext
+import com.paligot.confily.core.Platform
+import com.paligot.confily.core.QrCodeGeneratorAndroid
+import com.paligot.confily.core.database.DatabaseWrapper
+import com.paligot.confily.core.repositories.QrCodeGenerator
+import com.paligot.confily.db.Conferences4HallDatabase
 import com.russhwolf.settings.AndroidSettings
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
-import org.gdglille.devfest.database.DatabaseWrapper
-import org.gdglille.devfest.db.Conferences4HallDatabase
-import org.gdglille.devfest.repositories.QrCodeGenerator
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.qualifier.named

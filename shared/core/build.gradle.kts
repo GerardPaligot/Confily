@@ -11,7 +11,7 @@ plugins {
 }
 
 android {
-    namespace = "org.gdglille.devfest.android.shared"
+    namespace = "com.paligot.confily.core"
 }
 
 kotlin {
@@ -116,8 +116,7 @@ kotlin {
 sqldelight {
     databases {
         create("Conferences4HallDatabase") {
-            packageName.set("org.gdglille.devfest.db")
+            packageName.set("com.paligot.confily.db")
         }
-        // sourceFolders = listOf("sqldelight")
     }
 }

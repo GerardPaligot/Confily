@@ -2,9 +2,9 @@ package org.gdglille.devfest.android
 
 import android.content.Context
 import android.content.Intent
+import com.paligot.confily.core.AlarmIntentFactory
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import org.gdglille.devfest.AlarmIntentFactory
 
 object AlarmIntentFactoryImpl : AlarmIntentFactory {
     const val CHANNEL_ID = "alarm.notification"

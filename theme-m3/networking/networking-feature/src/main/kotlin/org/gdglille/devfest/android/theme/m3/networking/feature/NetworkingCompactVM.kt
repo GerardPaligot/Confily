@@ -10,11 +10,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import com.paligot.confily.models.ui.ExportNetworkingUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.screen_networking
 import com.paligot.confily.resources.text_error
 import org.gdglille.devfest.android.theme.m3.style.Scaffold
-import org.gdglille.devfest.models.ui.ExportNetworkingUi
 import org.gdglille.devfest.theme.m3.navigation.ActionIds
 import org.gdglille.devfest.theme.m3.navigation.TabActions
 import org.gdglille.devfest.theme.m3.networking.screens.EmptyNetworkingScreen

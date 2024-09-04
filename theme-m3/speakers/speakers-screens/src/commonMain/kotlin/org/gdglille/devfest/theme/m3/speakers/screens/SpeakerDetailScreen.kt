@@ -11,8 +11,8 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import org.gdglille.devfest.models.ui.SpeakerUi
-import org.gdglille.devfest.models.ui.TalkItemUi
+import com.paligot.confily.models.ui.SpeakerUi
+import com.paligot.confily.models.ui.TalkItemUi
 import org.gdglille.devfest.theme.m3.schedules.ui.talks.MediumScheduleItem
 import org.gdglille.devfest.theme.m3.speakers.ui.SpeakerDetailSectionVertical
 import org.gdglille.devfest.theme.m3.style.placeholder.placeholder

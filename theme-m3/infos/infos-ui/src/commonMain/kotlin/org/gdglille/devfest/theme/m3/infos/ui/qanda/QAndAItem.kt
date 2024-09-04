@@ -24,7 +24,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
-import org.gdglille.devfest.models.ui.QuestionAndResponseUi
+import com.paligot.confily.models.ui.QuestionAndResponseUi
 import org.gdglille.devfest.theme.m3.style.markdown.MarkdownText
 import org.gdglille.devfest.theme.m3.style.placeholder.placeholder
 

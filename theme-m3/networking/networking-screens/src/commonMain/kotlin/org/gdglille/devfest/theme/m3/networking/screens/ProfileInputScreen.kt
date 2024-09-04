@@ -14,6 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.paligot.confily.models.ui.Field
+import com.paligot.confily.models.ui.UserProfileUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.action_generate_qrcode
 import com.paligot.confily.resources.input_company
@@ -23,8 +25,6 @@ import com.paligot.confily.resources.input_lastname
 import com.paligot.confily.resources.screen_profile
 import com.paligot.confily.resources.text_networking_consents
 import org.gdglille.devfest.android.theme.m3.style.appbars.TopAppBar
-import org.gdglille.devfest.models.ui.Field
-import org.gdglille.devfest.models.ui.UserProfileUi
 import org.gdglille.devfest.theme.m3.networking.ui.ProfileInputField
 import org.jetbrains.compose.resources.stringResource
 

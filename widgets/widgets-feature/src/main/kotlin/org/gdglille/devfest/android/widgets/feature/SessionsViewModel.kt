@@ -1,5 +1,9 @@
 package org.gdglille.devfest.android.widgets.feature
 
+import com.paligot.confily.core.repositories.AgendaRepository
+import com.paligot.confily.core.repositories.EventRepository
+import com.paligot.confily.models.ui.EventInfoUi
+import com.paligot.confily.models.ui.TalkItemUi
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.CoroutineScope
@@ -9,10 +13,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
-import org.gdglille.devfest.models.ui.EventInfoUi
-import org.gdglille.devfest.models.ui.TalkItemUi
-import org.gdglille.devfest.repositories.AgendaRepository
-import org.gdglille.devfest.repositories.EventRepository
 
 sealed class SessionsUiState {
     data object Loading : SessionsUiState()

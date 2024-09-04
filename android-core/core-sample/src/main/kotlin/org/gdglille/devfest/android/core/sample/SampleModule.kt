@@ -3,8 +3,8 @@ package org.gdglille.devfest.android.core.sample
 import android.app.AlarmManager
 import android.content.Context
 import android.content.Intent
-import org.gdglille.devfest.AlarmIntentFactory
-import org.gdglille.devfest.AlarmScheduler
+import com.paligot.confily.core.AlarmIntentFactory
+import com.paligot.confily.core.AlarmScheduler
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.workmanager.dsl.worker
 import org.koin.dsl.module

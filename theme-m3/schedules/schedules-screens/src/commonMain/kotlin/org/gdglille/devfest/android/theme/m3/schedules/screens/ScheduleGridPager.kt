@@ -11,13 +11,13 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.paligot.confily.models.ui.TalkItemUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.screen_agenda
 import kotlinx.collections.immutable.ImmutableList
 import org.gdglille.devfest.android.theme.m3.style.Scaffold
 import org.gdglille.devfest.android.theme.m3.style.actions.TabActionsUi
 import org.gdglille.devfest.android.theme.m3.style.actions.TopActionsUi
-import org.gdglille.devfest.models.ui.TalkItemUi
 import org.gdglille.devfest.theme.m3.navigation.ActionIds
 import org.jetbrains.compose.resources.stringResource
 

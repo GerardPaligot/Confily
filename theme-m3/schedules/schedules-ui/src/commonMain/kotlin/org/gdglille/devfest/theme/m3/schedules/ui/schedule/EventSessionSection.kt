@@ -13,11 +13,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import com.paligot.confily.models.ui.EventSessionItemUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.text_schedule_minutes
 import org.gdglille.devfest.android.theme.m3.style.tags.MediumTag
 import org.gdglille.devfest.android.theme.m3.style.tags.TagDefaults
-import org.gdglille.devfest.models.ui.EventSessionItemUi
 import org.gdglille.devfest.theme.m3.style.schedules.findTimeImageVector
 import org.jetbrains.compose.resources.stringResource
 

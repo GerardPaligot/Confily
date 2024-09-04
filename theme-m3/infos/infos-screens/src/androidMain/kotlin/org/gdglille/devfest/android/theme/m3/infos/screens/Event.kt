@@ -18,13 +18,13 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.paligot.confily.models.ui.EventUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.title_plan
 import com.paligot.confily.resources.title_ticket
 import org.gdglille.devfest.android.theme.m3.infos.ui.tickets.TicketDetailed
 import org.gdglille.devfest.android.theme.m3.infos.ui.tickets.TicketQrCode
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
-import org.gdglille.devfest.models.ui.EventUi
 import org.gdglille.devfest.theme.m3.style.events.cards.AddressCard
 import org.gdglille.devfest.theme.m3.style.events.socials.SocialsSection
 import org.jetbrains.compose.resources.stringResource

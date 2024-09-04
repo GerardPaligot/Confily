@@ -11,9 +11,9 @@ import androidx.glance.action.clickable
 import androidx.glance.appwidget.components.Scaffold
 import androidx.glance.appwidget.components.TitleBar
 import androidx.glance.layout.fillMaxSize
+import com.paligot.confily.models.ui.UserProfileUi
 import org.gdglille.devfest.android.widgets.ui.NoProfile
 import org.gdglille.devfest.android.widgets.ui.R
-import org.gdglille.devfest.models.ui.UserProfileUi
 
 @Composable
 fun NetworkingScreen(

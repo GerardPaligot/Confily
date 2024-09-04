@@ -8,8 +8,8 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.paligot.confily.models.ui.MenuItemUi
 import kotlinx.collections.immutable.ImmutableList
-import org.gdglille.devfest.models.ui.MenuItemUi
 import org.gdglille.devfest.theme.m3.infos.ui.menus.MenuItem
 
 @ExperimentalMaterial3Api

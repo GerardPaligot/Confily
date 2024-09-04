@@ -12,12 +12,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.paligot.confily.models.ui.EventItemListUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.screen_events
 import kotlinx.collections.immutable.persistentListOf
 import org.gdglille.devfest.android.theme.m3.style.Scaffold
 import org.gdglille.devfest.android.theme.m3.style.actions.TabActionsUi
-import org.gdglille.devfest.models.ui.EventItemListUi
 import org.gdglille.devfest.theme.m3.events.ui.EventItem
 import org.gdglille.devfest.theme.m3.navigation.TabActions
 import org.jetbrains.compose.resources.stringResource

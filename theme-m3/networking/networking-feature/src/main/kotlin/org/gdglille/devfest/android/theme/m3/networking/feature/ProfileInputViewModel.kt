@@ -4,12 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
+import com.paligot.confily.core.repositories.UserRepository
+import com.paligot.confily.models.ui.Field
+import com.paligot.confily.models.ui.UserProfileUi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import org.gdglille.devfest.models.ui.Field
-import org.gdglille.devfest.models.ui.UserProfileUi
-import org.gdglille.devfest.repositories.UserRepository
 
 sealed class ProfileInputUiState {
     data object Loading : ProfileInputUiState()

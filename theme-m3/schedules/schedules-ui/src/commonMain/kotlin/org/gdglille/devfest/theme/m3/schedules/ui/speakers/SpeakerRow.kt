@@ -7,10 +7,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.paligot.confily.models.ui.SpeakerItemUi
 import kotlinx.collections.immutable.ImmutableList
 import org.gdglille.devfest.android.theme.m3.style.SpacingTokens
 import org.gdglille.devfest.android.theme.m3.style.toDp
-import org.gdglille.devfest.models.ui.SpeakerItemUi
 import org.gdglille.devfest.theme.m3.style.placeholder.placeholder
 import org.gdglille.devfest.theme.m3.style.speakers.items.LargeSpeakerItem
 

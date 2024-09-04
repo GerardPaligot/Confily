@@ -6,7 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
-import com.paligot.confily.models.ui.AgendaUi
+import com.paligot.confily.core.AlarmScheduler
+import com.paligot.confily.core.repositories.AgendaRepository
+import com.paligot.confily.models.ui.TalkItemUi
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
@@ -19,12 +21,9 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import org.gdglille.devfest.AlarmScheduler
 import org.gdglille.devfest.android.theme.m3.style.actions.TabAction
 import org.gdglille.devfest.android.theme.m3.style.actions.TabActionsUi
 import org.gdglille.devfest.android.theme.m3.style.actions.TopActionsUi
-import org.gdglille.devfest.models.ui.TalkItemUi
-import org.gdglille.devfest.repositories.AgendaRepository
 import org.gdglille.devfest.theme.m3.navigation.TopActions
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.InternalResourceApi

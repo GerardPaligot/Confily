@@ -3,7 +3,7 @@ package org.gdglille.devfest.android.core.sample
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import org.gdglille.devfest.repositories.AgendaRepository
+import com.paligot.confily.core.repositories.AgendaRepository
 import org.koin.core.component.KoinComponent
 
 class ScheduleWorkManager(

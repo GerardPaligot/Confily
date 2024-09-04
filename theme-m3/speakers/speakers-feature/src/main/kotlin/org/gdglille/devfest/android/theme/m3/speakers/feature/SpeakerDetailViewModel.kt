@@ -6,16 +6,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
+import com.paligot.confily.core.AlarmScheduler
+import com.paligot.confily.core.repositories.AgendaRepository
+import com.paligot.confily.models.ui.SpeakerUi
+import com.paligot.confily.models.ui.TalkItemUi
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import org.gdglille.devfest.AlarmScheduler
-import org.gdglille.devfest.models.ui.SpeakerUi
-import org.gdglille.devfest.models.ui.TalkItemUi
-import org.gdglille.devfest.repositories.AgendaRepository
 
 sealed class SpeakerUiState {
     data class Loading(val speaker: SpeakerUi) : SpeakerUiState()

@@ -5,6 +5,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Videocam
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.paligot.confily.models.ui.TalkItemUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.semantic_talk_item
 import com.paligot.confily.resources.semantic_talk_item_level
@@ -14,7 +15,6 @@ import org.gdglille.devfest.android.theme.m3.style.tags.MediumTag
 import org.gdglille.devfest.android.theme.m3.style.tags.SmallAutoColoredTag
 import org.gdglille.devfest.android.theme.m3.style.tags.SmallTag
 import org.gdglille.devfest.android.theme.m3.style.tags.TagDefaults
-import org.gdglille.devfest.models.ui.TalkItemUi
 import org.gdglille.devfest.theme.m3.style.schedules.card.MediumScheduleCard
 import org.gdglille.devfest.theme.m3.style.schedules.card.SmallScheduleCard
 import org.gdglille.devfest.theme.m3.style.schedules.findCategoryImageVector

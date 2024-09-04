@@ -2,15 +2,15 @@ package org.gdglille.devfest.android.theme.m3.schedules.feature
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.paligot.confily.core.repositories.AgendaRepository
+import com.paligot.confily.models.ui.CategoryUi
+import com.paligot.confily.models.ui.FiltersUi
+import com.paligot.confily.models.ui.FormatUi
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import org.gdglille.devfest.models.ui.CategoryUi
-import org.gdglille.devfest.models.ui.FiltersUi
-import org.gdglille.devfest.models.ui.FormatUi
-import org.gdglille.devfest.repositories.AgendaRepository
 
 sealed class AgendaFiltersUiState {
     data object Loading : AgendaFiltersUiState()
