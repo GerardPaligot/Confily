@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.partners.feature
+package com.paligot.confily.partners.presentation
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.lazy.grid.LazyGridState

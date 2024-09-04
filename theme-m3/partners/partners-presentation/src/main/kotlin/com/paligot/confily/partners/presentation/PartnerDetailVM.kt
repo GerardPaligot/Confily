@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.partners.feature
+package com.paligot.confily.partners.presentation
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -8,12 +8,10 @@ import com.paligot.confily.partners.panes.PartnerDetailOrientable
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.text_error
 import com.paligot.confily.style.theme.appbars.AppBarIcons
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun PartnerDetailVM(
     partnerId: String,
