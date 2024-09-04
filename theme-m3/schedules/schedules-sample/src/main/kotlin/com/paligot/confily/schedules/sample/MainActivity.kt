@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.schedules.sample
+package com.paligot.confily.schedules.sample
 
 import android.content.res.Configuration
 import android.os.Bundle

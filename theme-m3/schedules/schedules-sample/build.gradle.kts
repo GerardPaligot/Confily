@@ -4,7 +4,8 @@ plugins {
 }
 
 android {
-    namespace = "org.gdglille.devfest.android.theme.m3.schedules.sample"
+    namespace = "com.paligot.confily.schedules.sample"
+
     defaultConfig {
         testInstrumentationRunner = "com.paligot.confily.core.test.TestJUnitRunner"
     }
