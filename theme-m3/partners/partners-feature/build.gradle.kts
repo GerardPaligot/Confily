@@ -14,9 +14,9 @@ dependencies {
     implementation(projects.themeM3.partners.partnersScreens)
     implementation(projects.themeM3.partners.partnersUi)
     implementation(projects.themeM3.navigation)
-    implementation(projects.themeM3.style.components.adaptive)
-    implementation(projects.themeM3.style.partners)
-    implementation(projects.themeM3.style.theme)
+    implementation(projects.style.components.adaptive)
+    implementation(projects.style.partners)
+    implementation(projects.style.theme)
 
     implementation(libs.koin.androidx.compose)
 

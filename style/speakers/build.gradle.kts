@@ -7,7 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.paligot.confily.style.components.placeholder"
+    namespace = "com.paligot.confily.style.speakers"
+
+    dependencies {
+        debugImplementation(compose.uiTooling)
+    }
 }
 
 kotlin {
@@ -22,11 +26,19 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(projects.themeM3.style.theme)
+                implementation(projects.style.theme)
 
                 implementation(compose.material3)
+                implementation(compose.materialIconsExtended)
 
-                implementation(libs.placeholder.material3)
+                implementation(libs.coil3.compose)
+
+                implementation(libs.jetbrains.kotlinx.collections)
+            }
+        }
+        val androidMain by getting {
+            dependencies {
+                implementation(compose.preview)
             }
         }
     }

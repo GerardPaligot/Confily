@@ -14,7 +14,7 @@ dependencies {
     implementation(projects.themeM3.eventList.eventListUi)
     implementation(projects.themeM3.eventList.eventListScreens)
     implementation(projects.themeM3.navigation)
-    implementation(projects.themeM3.style.theme)
+    implementation(projects.style.theme)
 
     implementation(libs.koin.androidx.compose)
 

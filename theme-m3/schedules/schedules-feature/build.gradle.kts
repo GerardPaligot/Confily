@@ -14,9 +14,9 @@ dependencies {
     implementation(projects.themeM3.schedules.schedulesScreens)
     implementation(projects.themeM3.schedules.schedulesUi)
     implementation(projects.themeM3.navigation)
-    implementation(projects.themeM3.style.schedules)
-    implementation(projects.themeM3.style.theme)
-    implementation(projects.themeM3.style.components.adaptive)
+    implementation(projects.style.schedules)
+    implementation(projects.style.theme)
+    implementation(projects.style.components.adaptive)
 
     implementation(libs.koin.androidx.compose)
 

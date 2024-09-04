@@ -14,10 +14,10 @@ dependencies {
     implementation(projects.themeM3.infos.infosUi)
     implementation(projects.themeM3.infos.infosScreens)
     implementation(projects.themeM3.navigation)
-    implementation(projects.themeM3.style.components.markdown)
-    implementation(projects.themeM3.style.components.permissions)
-    implementation(projects.themeM3.style.events)
-    implementation(projects.themeM3.style.theme)
+    implementation(projects.style.components.markdown)
+    implementation(projects.style.components.permissions)
+    implementation(projects.style.events)
+    implementation(projects.style.theme)
 
     implementation(libs.koin.androidx.compose)
 

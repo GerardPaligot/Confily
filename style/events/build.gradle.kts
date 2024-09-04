@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.paligot.confily.style.speakers"
+    namespace = "com.paligot.confily.style.events"
 
     dependencies {
         debugImplementation(compose.uiTooling)
@@ -26,14 +26,15 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(projects.themeM3.style.theme)
+                implementation(projects.shared.resources)
+                implementation(projects.style.components.placeholder)
+                implementation(projects.style.theme)
 
                 implementation(compose.material3)
+                implementation(compose.components.resources)
                 implementation(compose.materialIconsExtended)
 
-                implementation(libs.coil3.compose)
-
-                implementation(libs.jetbrains.kotlinx.collections)
+                api(libs.jetbrains.kotlinx.collections)
             }
         }
         val androidMain by getting {
@@ -42,4 +43,10 @@ kotlin {
             }
         }
     }
+}
+
+compose.resources {
+    publicResClass = true
+    packageOfResClass = "com.paligot.confily.style.events"
+    generateResClass = always
 }

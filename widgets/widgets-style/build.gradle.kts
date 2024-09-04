@@ -9,7 +9,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.themeM3.style.theme)
+    implementation(projects.style.theme)
 
     implementation(compose.material3)
     implementation(libs.bundles.androidx.glance)

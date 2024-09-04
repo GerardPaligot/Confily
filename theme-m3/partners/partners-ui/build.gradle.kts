@@ -24,11 +24,11 @@ kotlin {
             dependencies {
                 implementation(projects.shared.uiModels)
                 implementation(projects.themeM3.navigation)
-                implementation(projects.themeM3.style.components.markdown)
-                implementation(projects.themeM3.style.components.placeholder)
-                implementation(projects.themeM3.style.events)
-                implementation(projects.themeM3.style.partners)
-                implementation(projects.themeM3.style.theme)
+                implementation(projects.style.components.markdown)
+                implementation(projects.style.components.placeholder)
+                implementation(projects.style.events)
+                implementation(projects.style.partners)
+                implementation(projects.style.theme)
 
                 implementation(compose.material3)
                 implementation(compose.materialIconsExtended)

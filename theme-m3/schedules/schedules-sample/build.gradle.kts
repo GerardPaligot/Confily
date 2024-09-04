@@ -27,7 +27,7 @@ dependencies {
     implementation(projects.shared.core)
     implementation(projects.shared.coreDi)
     implementation(projects.shared.resources)
-    implementation(projects.themeM3.style.theme)
+    implementation(projects.style.theme)
 
     implementation(libs.androidx.appcompat)
 
