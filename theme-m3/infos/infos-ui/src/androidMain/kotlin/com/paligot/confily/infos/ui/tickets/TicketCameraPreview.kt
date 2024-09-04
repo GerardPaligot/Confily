@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.infos.ui.tickets
+package com.paligot.confily.infos.ui.tickets
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf

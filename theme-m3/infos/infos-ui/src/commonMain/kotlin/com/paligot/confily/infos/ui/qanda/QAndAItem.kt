@@ -1,4 +1,4 @@
-package org.gdglille.devfest.theme.m3.infos.ui.qanda
+package com.paligot.confily.infos.ui.qanda
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
