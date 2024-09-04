@@ -7,7 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "org.gdglille.devfest.android.theme.m3.style.events"
+    namespace = "com.paligot.confily.style.events"
+
+    dependencies {
+        debugImplementation(compose.uiTooling)
+    }
 }
 
 kotlin {
@@ -36,7 +40,6 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation(compose.preview)
-                implementation(compose.uiTooling)
             }
         }
     }
@@ -44,6 +47,6 @@ kotlin {
 
 compose.resources {
     publicResClass = true
-    packageOfResClass = "org.gdglille.devfest.theme.m3.style.events"
+    packageOfResClass = "com.paligot.confily.style.events"
     generateResClass = always
 }

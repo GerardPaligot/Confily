@@ -1,4 +1,4 @@
-package org.gdglille.devfest.theme.m3.style.events.socials
+package com.paligot.confily.style.events.socials
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Language
@@ -10,12 +10,12 @@ import com.paligot.confily.resources.semantic_linkedin
 import com.paligot.confily.resources.semantic_mastodon
 import com.paligot.confily.resources.semantic_twitter
 import com.paligot.confily.resources.semantic_website
+import com.paligot.confily.style.events.Res
+import com.paligot.confily.style.events.ic_github
+import com.paligot.confily.style.events.ic_linkedin
+import com.paligot.confily.style.events.ic_mastodon
+import com.paligot.confily.style.events.ic_x
 import com.paligot.confily.style.theme.buttons.IconButton
-import org.gdglille.devfest.theme.m3.style.events.Res
-import org.gdglille.devfest.theme.m3.style.events.ic_github
-import org.gdglille.devfest.theme.m3.style.events.ic_linkedin
-import org.gdglille.devfest.theme.m3.style.events.ic_mastodon
-import org.gdglille.devfest.theme.m3.style.events.ic_x
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 

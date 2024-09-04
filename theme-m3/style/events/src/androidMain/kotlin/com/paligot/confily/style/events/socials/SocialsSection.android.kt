@@ -1,9 +1,8 @@
-package org.gdglille.devfest.android.theme.m3.style.events.socials
+package com.paligot.confily.style.events.socials
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.paligot.confily.style.theme.Conferences4HallTheme
-import org.gdglille.devfest.theme.m3.style.events.socials.SocialsSection
 
 @Preview
 @Composable
