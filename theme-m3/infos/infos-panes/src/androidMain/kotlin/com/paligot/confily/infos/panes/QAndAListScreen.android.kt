@@ -1,11 +1,10 @@
-package org.gdglille.devfest.android.theme.m3.infos.screens
+package com.paligot.confily.infos.panes
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.paligot.confily.models.ui.QuestionAndResponseUi
 import com.paligot.confily.style.theme.Conferences4HallTheme
 import kotlinx.collections.immutable.persistentListOf
-import org.gdglille.devfest.theme.m3.infos.screens.QAndAListScreen
 
 @Preview
 @Composable

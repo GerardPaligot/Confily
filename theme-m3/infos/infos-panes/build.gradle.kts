@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "org.gdglille.devfest.android.theme.m3.infos.screens"
+    namespace = "com.paligot.confily.infos.panes"
 }
 
 kotlin {

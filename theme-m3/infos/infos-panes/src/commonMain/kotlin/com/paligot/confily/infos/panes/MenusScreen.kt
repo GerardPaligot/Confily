@@ -1,4 +1,4 @@
-package org.gdglille.devfest.theme.m3.infos.screens
+package com.paligot.confily.infos.panes
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
