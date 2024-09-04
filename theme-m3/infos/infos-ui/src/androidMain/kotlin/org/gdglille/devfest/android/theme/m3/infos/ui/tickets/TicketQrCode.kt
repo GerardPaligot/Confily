@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.paligot.confily.models.ui.Image
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.semantic_ticket_qrcode
-import org.gdglille.devfest.theme.m3.style.placeholder.placeholder
+import com.paligot.confily.style.components.placeholder.placeholder
 import org.jetbrains.compose.resources.stringResource
 
 private const val TicketRatio = 3 / 4

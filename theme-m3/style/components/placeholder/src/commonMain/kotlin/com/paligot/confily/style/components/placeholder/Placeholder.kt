@@ -1,4 +1,4 @@
-package org.gdglille.devfest.theme.m3.style.placeholder
+package com.paligot.confily.style.components.placeholder
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Modifier

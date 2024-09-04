@@ -12,7 +12,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.paligot.confily.models.ui.MenuItemUi
-import org.gdglille.devfest.theme.m3.style.placeholder.placeholder
+import com.paligot.confily.style.components.placeholder.placeholder
 
 @Composable
 fun MenuItem(

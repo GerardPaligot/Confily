@@ -15,6 +15,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.paligot.confily.models.ui.EventSessionItemUi
 import com.paligot.confily.models.ui.TalkItemUi
+import com.paligot.confily.style.components.placeholder.placeholder
 import com.paligot.confily.style.schedules.findTimeImageVector
 import com.paligot.confily.style.schedules.pause.MediumPauseItem
 import com.paligot.confily.style.schedules.pause.SmallPauseItem
@@ -25,7 +26,6 @@ import org.gdglille.devfest.theme.m3.schedules.ui.talks.MediumScheduleItem
 import org.gdglille.devfest.theme.m3.schedules.ui.talks.NoFavoriteTalks
 import org.gdglille.devfest.theme.m3.schedules.ui.talks.SmallScheduleItem
 import org.gdglille.devfest.theme.m3.schedules.ui.talks.Time
-import org.gdglille.devfest.theme.m3.style.placeholder.placeholder
 import kotlin.math.floor
 
 const val NbHorizontalPadding = 2

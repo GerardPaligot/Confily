@@ -5,8 +5,7 @@ import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.paligot.confily.models.ui.EventItemUi
-import org.gdglille.devfest.theme.m3.style.placeholder.placeholder
+import com.paligot.confily.style.components.placeholder.placeholder
 
 @Composable
 fun EventItem(
