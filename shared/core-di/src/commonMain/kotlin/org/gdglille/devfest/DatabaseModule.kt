@@ -2,11 +2,11 @@ package org.gdglille.devfest
 
 import cafe.adriel.lyricist.LanguageTag
 import cafe.adriel.lyricist.Lyricist
+import com.paligot.confily.resources.EnStrings
+import com.paligot.confily.resources.FrStrings
 import com.russhwolf.settings.ExperimentalSettingsApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
-import org.gdglille.devfest.android.shared.resources.EnStrings
-import org.gdglille.devfest.android.shared.resources.FrStrings
 import org.gdglille.devfest.database.EventDao
 import org.gdglille.devfest.database.FeaturesActivatedDao
 import org.gdglille.devfest.database.PartnerDao

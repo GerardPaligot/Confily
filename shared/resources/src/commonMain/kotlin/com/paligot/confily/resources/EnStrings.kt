@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.shared.resources
+package com.paligot.confily.resources
 
 import cafe.adriel.lyricist.LyricistStrings
 

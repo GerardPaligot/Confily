@@ -20,10 +20,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.TextStyle
-import org.gdglille.devfest.android.shared.resources.Resource
-import org.gdglille.devfest.android.shared.resources.action_networking_delete
-import org.gdglille.devfest.android.shared.resources.semantic_user_item_company
-import org.gdglille.devfest.android.shared.resources.semantic_user_item_email
+import com.paligot.confily.resources.Resource
+import com.paligot.confily.resources.action_networking_delete
+import com.paligot.confily.resources.semantic_user_item_company
+import com.paligot.confily.resources.semantic_user_item_email
 import org.gdglille.devfest.android.theme.m3.style.buttons.IconButton
 import org.gdglille.devfest.android.theme.m3.style.toDp
 import org.jetbrains.compose.resources.stringResource

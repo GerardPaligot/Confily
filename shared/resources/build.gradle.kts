@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "org.gdglille.devfest.android.shared.resources"
+    namespace = "com.paligot.confily.resources"
 }
 
 kotlin {

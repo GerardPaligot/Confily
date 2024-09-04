@@ -11,8 +11,8 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import org.gdglille.devfest.android.shared.resources.Resource
-import org.gdglille.devfest.android.shared.resources.title_schedule_detail
+import com.paligot.confily.resources.Resource
+import com.paligot.confily.resources.title_schedule_detail
 import org.gdglille.devfest.theme.m3.style.markdown.MarkdownText
 import org.jetbrains.compose.resources.stringResource
 

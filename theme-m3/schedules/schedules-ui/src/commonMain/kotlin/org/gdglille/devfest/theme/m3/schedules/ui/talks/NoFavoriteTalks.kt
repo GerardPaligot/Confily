@@ -11,8 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import org.gdglille.devfest.android.shared.resources.Resource
-import org.gdglille.devfest.android.shared.resources.text_agenda_no_favorites
+import com.paligot.confily.resources.Resource
+import com.paligot.confily.resources.text_agenda_no_favorites
 import org.jetbrains.compose.resources.stringResource
 
 @Composable

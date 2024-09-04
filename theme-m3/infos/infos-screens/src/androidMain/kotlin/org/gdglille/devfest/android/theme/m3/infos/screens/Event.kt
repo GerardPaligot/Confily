@@ -18,9 +18,9 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.gdglille.devfest.android.shared.resources.Resource
-import org.gdglille.devfest.android.shared.resources.title_plan
-import org.gdglille.devfest.android.shared.resources.title_ticket
+import com.paligot.confily.resources.Resource
+import com.paligot.confily.resources.title_plan
+import com.paligot.confily.resources.title_ticket
 import org.gdglille.devfest.android.theme.m3.infos.ui.tickets.TicketDetailed
 import org.gdglille.devfest.android.theme.m3.infos.ui.tickets.TicketQrCode
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme

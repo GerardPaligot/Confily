@@ -10,9 +10,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
-import org.gdglille.devfest.android.shared.resources.Resource
-import org.gdglille.devfest.android.shared.resources.action_filtering_favorites
-import org.gdglille.devfest.android.shared.resources.title_filters_favorites
+import com.paligot.confily.resources.Resource
+import com.paligot.confily.resources.action_filtering_favorites
+import com.paligot.confily.resources.title_filters_favorites
 import org.gdglille.devfest.theme.m3.style.schedules.filters.FilterSection
 import org.jetbrains.compose.resources.stringResource
 

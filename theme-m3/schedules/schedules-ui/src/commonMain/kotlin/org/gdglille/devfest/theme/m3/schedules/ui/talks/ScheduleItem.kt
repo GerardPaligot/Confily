@@ -5,10 +5,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Videocam
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import org.gdglille.devfest.android.shared.resources.Resource
-import org.gdglille.devfest.android.shared.resources.semantic_talk_item
-import org.gdglille.devfest.android.shared.resources.semantic_talk_item_level
-import org.gdglille.devfest.android.shared.resources.semantic_talk_item_speakers
+import com.paligot.confily.resources.Resource
+import com.paligot.confily.resources.semantic_talk_item
+import com.paligot.confily.resources.semantic_talk_item_level
+import com.paligot.confily.resources.semantic_talk_item_speakers
 import org.gdglille.devfest.android.theme.m3.style.tags.MediumAutoColoredTag
 import org.gdglille.devfest.android.theme.m3.style.tags.MediumTag
 import org.gdglille.devfest.android.theme.m3.style.tags.SmallAutoColoredTag

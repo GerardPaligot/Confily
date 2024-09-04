@@ -2,12 +2,12 @@ package org.gdglille.devfest.database.mappers
 
 import com.paligot.confily.models.ScheduleItemV4
 import com.paligot.confily.models.Session
+import com.paligot.confily.resources.Strings
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
-import org.gdglille.devfest.android.shared.resources.Strings
 import org.gdglille.devfest.db.EventSession
 import org.gdglille.devfest.db.SelectBreakSessions
 import org.gdglille.devfest.db.SelectCategories

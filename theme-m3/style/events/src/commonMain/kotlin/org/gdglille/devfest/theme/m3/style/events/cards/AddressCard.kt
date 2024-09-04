@@ -20,9 +20,9 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.paligot.confily.resources.Resource
+import com.paligot.confily.resources.semantic_start_itinerary
 import kotlinx.collections.immutable.ImmutableList
-import org.gdglille.devfest.android.shared.resources.Resource
-import org.gdglille.devfest.android.shared.resources.semantic_start_itinerary
 import org.gdglille.devfest.theme.m3.style.placeholder.placeholder
 import org.jetbrains.compose.resources.stringResource
 

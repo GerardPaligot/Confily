@@ -6,9 +6,9 @@ import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.paligot.confily.resources.Resource
+import com.paligot.confily.resources.title_filters_categories
 import kotlinx.collections.immutable.ImmutableMap
-import org.gdglille.devfest.android.shared.resources.Resource
-import org.gdglille.devfest.android.shared.resources.title_filters_categories
 import org.gdglille.devfest.android.theme.m3.style.chips.FilterChip
 import org.gdglille.devfest.models.ui.CategoryUi
 import org.gdglille.devfest.theme.m3.style.schedules.filters.FilterSection

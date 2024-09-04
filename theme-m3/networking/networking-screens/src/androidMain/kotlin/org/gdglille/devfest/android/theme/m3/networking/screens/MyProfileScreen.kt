@@ -19,11 +19,11 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import org.gdglille.devfest.android.shared.resources.Resource
-import org.gdglille.devfest.android.shared.resources.action_edit_profile
-import org.gdglille.devfest.android.shared.resources.semantic_profile_qrcode
-import org.gdglille.devfest.android.shared.resources.semantic_user_item_company
-import org.gdglille.devfest.android.shared.resources.semantic_user_item_email
+import com.paligot.confily.resources.Resource
+import com.paligot.confily.resources.action_edit_profile
+import com.paligot.confily.resources.semantic_profile_qrcode
+import com.paligot.confily.resources.semantic_user_item_company
+import com.paligot.confily.resources.semantic_user_item_email
 import org.gdglille.devfest.models.ui.UserProfileUi
 import org.jetbrains.compose.resources.stringResource
 

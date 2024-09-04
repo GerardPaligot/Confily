@@ -11,12 +11,12 @@ import androidx.compose.material.icons.outlined.Handshake
 import androidx.compose.material.icons.outlined.Hub
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.InterpreterMode
-import org.gdglille.devfest.android.shared.resources.Resource
-import org.gdglille.devfest.android.shared.resources.screen_agenda
-import org.gdglille.devfest.android.shared.resources.screen_info
-import org.gdglille.devfest.android.shared.resources.screen_networking
-import org.gdglille.devfest.android.shared.resources.screen_partners
-import org.gdglille.devfest.android.shared.resources.screen_speakers
+import com.paligot.confily.resources.Resource
+import com.paligot.confily.resources.screen_agenda
+import com.paligot.confily.resources.screen_info
+import com.paligot.confily.resources.screen_networking
+import com.paligot.confily.resources.screen_partners
+import com.paligot.confily.resources.screen_speakers
 import org.gdglille.devfest.android.theme.m3.style.actions.NavigationAction
 
 object BottomActions {

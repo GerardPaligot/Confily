@@ -6,6 +6,8 @@ import android.app.PendingIntent
 import android.content.Context
 import android.os.Build
 import android.os.SystemClock
+import com.paligot.confily.resources.Resource
+import com.paligot.confily.resources.title_notif_reminder_talk
 import kotlinx.coroutines.coroutineScope
 import kotlinx.datetime.Clock
 import kotlinx.datetime.DateTimeUnit
@@ -13,8 +15,6 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.minus
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
-import org.gdglille.devfest.android.shared.resources.Resource
-import org.gdglille.devfest.android.shared.resources.title_notif_reminder_talk
 import org.gdglille.devfest.models.ui.TalkItemUi
 import org.gdglille.devfest.repositories.AgendaRepository
 import org.jetbrains.compose.resources.ExperimentalResourceApi

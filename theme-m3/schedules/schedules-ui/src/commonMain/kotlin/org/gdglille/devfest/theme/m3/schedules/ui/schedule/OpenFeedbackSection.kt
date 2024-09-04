@@ -8,8 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import org.gdglille.devfest.android.shared.resources.Resource
-import org.gdglille.devfest.android.shared.resources.text_openfeedback_title
+import com.paligot.confily.resources.Resource
+import com.paligot.confily.resources.text_openfeedback_title
 import org.jetbrains.compose.resources.stringResource
 
 @Composable

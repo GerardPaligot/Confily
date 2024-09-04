@@ -10,10 +10,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import com.paligot.confily.resources.Resource
+import com.paligot.confily.resources.text_error
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import org.gdglille.devfest.android.shared.resources.Resource
-import org.gdglille.devfest.android.shared.resources.text_error
 import org.gdglille.devfest.android.theme.m3.schedules.screens.ScheduleGridPager
 import org.gdglille.devfest.android.theme.m3.style.actions.TopActionsUi
 import org.jetbrains.compose.resources.ExperimentalResourceApi

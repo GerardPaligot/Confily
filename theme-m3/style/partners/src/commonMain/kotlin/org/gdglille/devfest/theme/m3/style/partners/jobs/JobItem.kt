@@ -14,11 +14,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
-import org.gdglille.devfest.android.shared.resources.Resource
-import org.gdglille.devfest.android.shared.resources.text_job_propulsed
-import org.gdglille.devfest.android.shared.resources.text_job_requirements_many
-import org.gdglille.devfest.android.shared.resources.text_job_requirements_one
-import org.gdglille.devfest.android.shared.resources.text_job_salary
+import com.paligot.confily.resources.Resource
+import com.paligot.confily.resources.text_job_propulsed
+import com.paligot.confily.resources.text_job_requirements_many
+import com.paligot.confily.resources.text_job_requirements_one
+import com.paligot.confily.resources.text_job_salary
 import org.gdglille.devfest.android.theme.m3.style.tags.MediumTag
 import org.gdglille.devfest.android.theme.m3.style.tags.TagDefaults
 import org.gdglille.devfest.android.theme.m3.style.toDp
