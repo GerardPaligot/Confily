@@ -9,6 +9,8 @@ import com.paligot.confily.core.sample.BuildConfig
 import com.paligot.confily.core.test.instrumentedModule
 import com.paligot.confily.core.test.patterns.navigation.RobotNavigator
 import com.paligot.confily.core.test.patterns.navigation.robotHost
+import com.paligot.confily.speakers.test.robot.speakers
+import com.paligot.confily.speakers.test.speakerRobotGraph
 import org.gdglille.devfest.android.theme.m3.speakers.di.speakersModule
 import org.gdglille.devfest.android.theme.m3.speakers.sample.fakes.AgendaFake.agenda
 import org.gdglille.devfest.android.theme.m3.speakers.sample.fakes.AgendaFake.category
@@ -18,8 +20,6 @@ import org.gdglille.devfest.android.theme.m3.speakers.sample.fakes.AgendaFake.se
 import org.gdglille.devfest.android.theme.m3.speakers.sample.fakes.AgendaFake.speakerAu
 import org.gdglille.devfest.android.theme.m3.speakers.sample.fakes.AgendaFake.speakerGe
 import org.gdglille.devfest.android.theme.m3.speakers.sample.fakes.EventFake.event
-import org.gdglille.devfest.android.theme.m3.speakers.test.robot.speakers
-import org.gdglille.devfest.android.theme.m3.speakers.test.speakerRobotGraph
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

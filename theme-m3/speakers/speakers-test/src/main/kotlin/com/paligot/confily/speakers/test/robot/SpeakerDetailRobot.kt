@@ -1,11 +1,11 @@
-package org.gdglille.devfest.android.theme.m3.speakers.test.robot
+package com.paligot.confily.speakers.test.robot
 
 import androidx.compose.ui.test.junit4.ComposeTestRule
 import com.paligot.confily.core.test.patterns.navigation.RobotNavigator
 import com.paligot.confily.core.test.patterns.navigation.navigateTo
+import com.paligot.confily.speakers.test.pom.SpeakerDetailPOM
 import com.paligot.confily.speakers.test.scopes.SpeakerDetailRobotScope
 import com.paligot.confily.speakers.test.scopes.SpeakersGridRobotScope
-import org.gdglille.devfest.android.theme.m3.speakers.test.pom.SpeakerDetailPOM
 
 class SpeakerDetailRobot(
     private val navigator: RobotNavigator,
