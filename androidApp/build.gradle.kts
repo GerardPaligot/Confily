@@ -70,8 +70,8 @@ android {
 }
 
 dependencies {
-    implementation(projects.themeM3.main.main)
-    implementation(projects.themeM3.main.mainDi)
+    implementation(projects.features.main.main)
+    implementation(projects.features.main.mainDi)
     implementation(projects.features.navigation)
     implementation(projects.widgets.widgetsFeature)
     implementation(projects.widgets.widgetsStyle)
