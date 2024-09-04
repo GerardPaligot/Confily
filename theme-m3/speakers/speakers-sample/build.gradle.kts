@@ -21,7 +21,7 @@ android {
 
 dependencies {
     implementation(projects.androidCore.coreSample)
-    implementation(projects.themeM3.speakers.speakersFeature)
+    implementation(projects.themeM3.speakers.speakersPresentation)
     implementation(projects.themeM3.speakers.speakersDi)
     implementation(projects.themeM3.navigation)
     implementation(projects.shared.core)
