@@ -1,4 +1,4 @@
-package org.gdglille.devfest.theme.m3.events.ui
+package com.paligot.confily.events.ui
 
 import androidx.compose.foundation.clickable
 import androidx.compose.material3.ListItem
