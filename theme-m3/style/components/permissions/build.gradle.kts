@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "org.gdglille.devfest.android.theme.m3.style.permissions"
+    namespace = "com.paligot.confily.style.components.permissions"
 }
 
 dependencies {
