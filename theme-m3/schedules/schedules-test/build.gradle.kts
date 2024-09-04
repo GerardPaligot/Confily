@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = "org.gdglille.devfest.android.theme.m3.schedules.test"
+    namespace = "com.paligot.confily.schedules.test"
 }
 
 dependencies {
