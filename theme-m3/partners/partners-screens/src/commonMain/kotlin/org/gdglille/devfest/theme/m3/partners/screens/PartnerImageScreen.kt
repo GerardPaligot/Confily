@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import org.gdglille.devfest.theme.m3.style.partners.items.PartnerItem
+import com.paligot.confily.style.partners.items.PartnerItem
 import org.gdglille.devfest.theme.m3.style.placeholder.placeholder
 
 @Composable
