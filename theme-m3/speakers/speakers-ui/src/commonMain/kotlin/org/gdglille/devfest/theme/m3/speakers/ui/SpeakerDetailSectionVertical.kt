@@ -10,10 +10,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.paligot.confily.models.ui.SpeakerUi
+import com.paligot.confily.style.speakers.avatar.MediumSpeakerAvatar
 import org.gdglille.devfest.theme.m3.style.events.socials.SocialsSection
 import org.gdglille.devfest.theme.m3.style.markdown.MarkdownText
 import org.gdglille.devfest.theme.m3.style.placeholder.placeholder
-import org.gdglille.devfest.theme.m3.style.speakers.avatar.MediumSpeakerAvatar
 
 @Composable
 fun SpeakerDetailSectionVertical(
