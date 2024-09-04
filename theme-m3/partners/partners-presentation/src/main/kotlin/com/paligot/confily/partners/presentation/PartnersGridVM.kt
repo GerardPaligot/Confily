@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.partners.feature
+package com.paligot.confily.partners.presentation
 
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
@@ -9,11 +9,9 @@ import androidx.compose.ui.Modifier
 import com.paligot.confily.partners.panes.PartnersGridScreen
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.text_error
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 import org.koin.androidx.compose.koinViewModel
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun PartnersGridVM(
     onPartnerClick: (id: String) -> Unit,
