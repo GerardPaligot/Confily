@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "org.gdglille.devfest.android.core.test.patterns"
+    namespace = "com.paligot.confily.core.test.patterns"
 }
 
 dependencies {

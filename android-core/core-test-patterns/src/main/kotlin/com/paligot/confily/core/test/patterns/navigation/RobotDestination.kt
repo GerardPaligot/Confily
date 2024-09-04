@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.core.test.patterns.navigation
+package com.paligot.confily.core.test.patterns.navigation
 
 import kotlin.reflect.KClass
 
