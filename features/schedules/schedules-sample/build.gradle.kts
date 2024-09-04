@@ -24,7 +24,7 @@ dependencies {
     implementation(projects.androidCore.coreSample)
     implementation(projects.features.schedules.schedulesPresentation)
     implementation(projects.features.schedules.schedulesDi)
-    implementation(projects.themeM3.navigation)
+    implementation(projects.features.navigation)
     implementation(projects.shared.core)
     implementation(projects.shared.coreDi)
     implementation(projects.shared.resources)

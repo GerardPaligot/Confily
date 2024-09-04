@@ -10,6 +10,7 @@ import com.paligot.confily.core.AlarmScheduler
 import com.paligot.confily.core.repositories.AgendaRepository
 import com.paligot.confily.models.ui.AgendaUi
 import com.paligot.confily.models.ui.TalkItemUi
+import com.paligot.confily.navigation.TopActions
 import com.paligot.confily.style.theme.actions.TabAction
 import com.paligot.confily.style.theme.actions.TabActionsUi
 import com.paligot.confily.style.theme.actions.TopActionsUi
@@ -25,7 +26,6 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import org.gdglille.devfest.theme.m3.navigation.TopActions
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.InternalResourceApi
 import org.jetbrains.compose.resources.StringResource

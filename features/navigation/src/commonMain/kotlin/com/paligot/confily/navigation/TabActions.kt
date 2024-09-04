@@ -1,4 +1,4 @@
-package org.gdglille.devfest.theme.m3.navigation
+package com.paligot.confily.navigation
 
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.screen_coc

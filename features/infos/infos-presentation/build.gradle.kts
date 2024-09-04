@@ -13,7 +13,7 @@ dependencies {
     implementation(projects.shared.resources)
     implementation(projects.features.infos.infosUi)
     implementation(projects.features.infos.infosPanes)
-    implementation(projects.themeM3.navigation)
+    implementation(projects.features.navigation)
     implementation(projects.style.components.markdown)
     implementation(projects.style.components.permissions)
     implementation(projects.style.events)

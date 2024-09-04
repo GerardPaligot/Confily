@@ -13,7 +13,7 @@ dependencies {
     implementation(projects.shared.resources)
     implementation(projects.features.partners.partnersPanes)
     implementation(projects.features.partners.partnersUi)
-    implementation(projects.themeM3.navigation)
+    implementation(projects.features.navigation)
     implementation(projects.style.components.adaptive)
     implementation(projects.style.partners)
     implementation(projects.style.theme)

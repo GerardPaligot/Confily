@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "org.gdglille.devfest.android.theme.m3.navigation"
+    namespace = "com.paligot.confily.navigation"
 }
 
 kotlin {

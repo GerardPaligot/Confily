@@ -13,7 +13,7 @@ dependencies {
     implementation(projects.shared.resources)
     implementation(projects.features.schedules.schedulesPanes)
     implementation(projects.features.schedules.schedulesUi)
-    implementation(projects.themeM3.navigation)
+    implementation(projects.features.navigation)
     implementation(projects.style.schedules)
     implementation(projects.style.theme)
     implementation(projects.style.components.adaptive)

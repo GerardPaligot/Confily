@@ -29,7 +29,7 @@ kotlin {
                 implementation(projects.shared.uiModels)
                 implementation(projects.shared.resources)
                 implementation(projects.features.speakers.speakersUi)
-                implementation(projects.themeM3.navigation)
+                implementation(projects.features.navigation)
                 implementation(projects.style.components.markdown)
                 implementation(projects.style.components.placeholder)
                 implementation(projects.style.schedules)
