@@ -1,4 +1,4 @@
-package org.gdglille.devfest.theme.m3.style.networking
+package com.paligot.confily.style.networking
 
 import com.paligot.confily.style.theme.ColorSchemeTokens
 import com.paligot.confily.style.theme.SpacingTokens

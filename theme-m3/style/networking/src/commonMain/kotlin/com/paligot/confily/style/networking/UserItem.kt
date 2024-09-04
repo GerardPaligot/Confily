@@ -1,4 +1,4 @@
-package org.gdglille.devfest.theme.m3.style.networking
+package com.paligot.confily.style.networking
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

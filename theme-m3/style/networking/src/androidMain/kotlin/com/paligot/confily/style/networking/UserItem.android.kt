@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.style.networking
+package com.paligot.confily.style.networking
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
@@ -8,7 +8,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.paligot.confily.style.theme.Conferences4HallTheme
-import org.gdglille.devfest.theme.m3.style.networking.UserItem
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Preview
