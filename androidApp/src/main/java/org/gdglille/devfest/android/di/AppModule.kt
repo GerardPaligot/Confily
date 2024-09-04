@@ -3,9 +3,9 @@ package org.gdglille.devfest.android.di
 import android.app.AlarmManager
 import android.content.Context
 import com.paligot.confily.core.AlarmScheduler
+import com.paligot.confily.main.di.mainModule
 import org.gdglille.devfest.android.AlarmIntentFactoryImpl
 import org.gdglille.devfest.android.ScheduleWorkManager
-import org.gdglille.devfest.android.theme.m3.main.di.mainModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.workmanager.dsl.worker
 import org.koin.dsl.module
