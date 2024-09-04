@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme
+package com.paligot.confily.main
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState

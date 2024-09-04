@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme
+package com.paligot.confily.main
 
 import android.content.res.Configuration
 import androidx.compose.animation.EnterTransition

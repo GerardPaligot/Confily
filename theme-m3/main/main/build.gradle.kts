@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "org.gdglille.devfest.android.theme.m3.main"
+    namespace = "com.paligot.confily.main"
 }
 
 dependencies {

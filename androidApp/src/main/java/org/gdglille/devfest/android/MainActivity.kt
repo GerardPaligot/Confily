@@ -20,6 +20,7 @@ import androidx.work.Constraints
 import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
+import com.paligot.confily.main.Main
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.text_export_subject
 import com.paligot.confily.resources.text_report_app_target
@@ -28,7 +29,6 @@ import com.russhwolf.settings.ExperimentalSettingsApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.launch
-import org.gdglille.devfest.android.theme.Main
 import org.gdglille.devfest.android.widgets.NetworkingAppWidget
 import org.jetbrains.compose.resources.stringResource
 import java.io.File
