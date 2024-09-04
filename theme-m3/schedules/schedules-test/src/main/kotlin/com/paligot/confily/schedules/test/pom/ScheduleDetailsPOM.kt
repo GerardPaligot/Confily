@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.schedules.test.pom
+package com.paligot.confily.schedules.test.pom
 
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.test.assertIsDisplayed
