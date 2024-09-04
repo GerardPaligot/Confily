@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.speakers.feature
+package com.paligot.confily.speakers.presentation
 
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
