@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.paligot.confily.models.ui.PartnerGroupsUi
+import com.paligot.confily.partners.semantics.PartnersSemantics
 import com.paligot.confily.partners.ui.PartnerDivider
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.screen_partners
@@ -26,7 +27,6 @@ import com.paligot.confily.style.partners.items.PartnerItem
 import com.paligot.confily.style.theme.Scaffold
 import com.paligot.confily.style.theme.SpacingTokens
 import com.paligot.confily.style.theme.toDp
-import org.gdglille.devfest.android.theme.m3.partners.semantics.PartnersSemantics
 import org.jetbrains.compose.resources.stringResource
 import kotlin.math.floor
 
