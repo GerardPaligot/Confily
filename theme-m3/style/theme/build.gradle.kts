@@ -8,6 +8,10 @@ plugins {
 
 android {
     namespace = "com.paligot.confily.style.theme"
+
+    dependencies {
+        debugImplementation(compose.uiTooling)
+    }
 }
 
 kotlin {
@@ -35,7 +39,6 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation(compose.preview)
-                implementation(compose.uiTooling)
             }
         }
     }

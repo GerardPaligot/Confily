@@ -19,8 +19,8 @@ import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.action_submit_accept
 import com.paligot.confily.resources.action_submit_deny
 import com.paligot.confily.resources.text_networking_ask_to_delete
+import com.paligot.confily.style.networking.UserItem
 import kotlinx.collections.immutable.ImmutableList
-import org.gdglille.devfest.theme.m3.style.networking.UserItem
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
