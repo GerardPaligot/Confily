@@ -1,4 +1,4 @@
-package org.gdglille.devfest.theme.m3.events.screens
+package com.paligot.confily.events.panes
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.PaddingValues
