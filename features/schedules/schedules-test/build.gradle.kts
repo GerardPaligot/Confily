@@ -13,7 +13,7 @@ android {
 }
 
 dependencies {
-    api(projects.themeM3.schedules.schedulesTestScopes)
+    api(projects.features.schedules.schedulesTestScopes)
     api(projects.androidCore.coreTestPatterns)
     api(libs.androidx.espresso.core)
     api(compose.uiTestJUnit4)

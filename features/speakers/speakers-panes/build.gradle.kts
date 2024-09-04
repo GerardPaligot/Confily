@@ -28,7 +28,7 @@ kotlin {
             dependencies {
                 implementation(projects.shared.uiModels)
                 implementation(projects.shared.resources)
-                implementation(projects.themeM3.schedules.schedulesUi)
+                implementation(projects.features.schedules.schedulesUi)
                 implementation(projects.features.speakers.speakersUi)
                 implementation(projects.features.speakers.speakersSemantics)
                 implementation(projects.style.components.placeholder)

@@ -22,8 +22,8 @@ android {
 
 dependencies {
     implementation(projects.androidCore.coreSample)
-    implementation(projects.themeM3.schedules.schedulesPresentation)
-    implementation(projects.themeM3.schedules.schedulesDi)
+    implementation(projects.features.schedules.schedulesPresentation)
+    implementation(projects.features.schedules.schedulesDi)
     implementation(projects.themeM3.navigation)
     implementation(projects.shared.core)
     implementation(projects.shared.coreDi)
@@ -45,7 +45,7 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
 
-    androidTestImplementation(projects.themeM3.schedules.schedulesTest)
+    androidTestImplementation(projects.features.schedules.schedulesTest)
     androidTestImplementation(projects.androidCore.coreTest)
     androidTestImplementation(projects.androidCore.coreModelsFactory)
     androidTestImplementation(libs.jetbrains.kotlinx.datetime)
