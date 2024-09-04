@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "org.gdglille.devfest.android.theme.m3.schedules.test.scopes"
+    namespace = "com.paligot.confily.schedules.test.scopes"
 }
 
 kotlin {

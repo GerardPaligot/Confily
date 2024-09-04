@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.schedules.test.scopes
+package com.paligot.confily.schedules.test.scopes
 
 interface ScheduleGridRobotScope {
     fun addSessionToFavorites(
