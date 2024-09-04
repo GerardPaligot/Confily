@@ -1,4 +1,4 @@
-package org.gdglille.devfest.theme.m3.speakers.ui
+package com.paligot.confily.speakers.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview

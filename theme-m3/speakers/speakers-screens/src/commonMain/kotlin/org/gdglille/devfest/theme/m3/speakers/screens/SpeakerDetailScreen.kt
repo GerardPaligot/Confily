@@ -13,9 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.paligot.confily.models.ui.SpeakerUi
 import com.paligot.confily.models.ui.TalkItemUi
+import com.paligot.confily.speakers.ui.SpeakerDetailSectionVertical
 import com.paligot.confily.style.components.placeholder.placeholder
 import org.gdglille.devfest.theme.m3.schedules.ui.talks.MediumScheduleItem
-import org.gdglille.devfest.theme.m3.speakers.ui.SpeakerDetailSectionVertical
 
 @Composable
 fun SpeakerDetailScreen(
