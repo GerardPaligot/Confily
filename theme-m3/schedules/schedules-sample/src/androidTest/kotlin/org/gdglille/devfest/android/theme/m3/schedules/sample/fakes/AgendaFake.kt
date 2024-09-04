@@ -7,7 +7,7 @@ import com.paligot.confily.models.ScheduleItemV4
 import com.paligot.confily.models.Session
 import com.paligot.confily.models.Speaker
 import kotlinx.datetime.Clock
-import org.gdglille.devfest.android.core.models.factory.builder
+import com.paligot.confily.core.models.factory.builder
 import kotlin.time.Duration
 
 object AgendaFake {
