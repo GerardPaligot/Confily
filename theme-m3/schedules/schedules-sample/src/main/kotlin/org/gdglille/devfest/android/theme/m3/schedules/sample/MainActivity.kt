@@ -20,8 +20,8 @@ import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.paligot.confily.core.sample.ScheduleWorkManager
-import com.paligot.confily.style.theme.Conferences4HallTheme
 import com.paligot.confily.schedules.presentation.scheduleGraph
+import com.paligot.confily.style.theme.Conferences4HallTheme
 import org.gdglille.devfest.theme.m3.navigation.Screen
 import org.koin.compose.KoinContext
 import org.koin.mp.KoinPlatformTools
