@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.speakers.sample.fakes
+package com.paligot.confily.speakers.sample.fakes
 
 import com.paligot.confily.core.models.factory.builder
 import com.paligot.confily.models.AgendaV4

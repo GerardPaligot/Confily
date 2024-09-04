@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.speakers.sample
+package com.paligot.confily.speakers.sample
 
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.core.app.ActivityScenario
@@ -10,16 +10,16 @@ import com.paligot.confily.core.test.instrumentedModule
 import com.paligot.confily.core.test.patterns.navigation.RobotNavigator
 import com.paligot.confily.core.test.patterns.navigation.robotHost
 import com.paligot.confily.speakers.di.speakersModule
+import com.paligot.confily.speakers.sample.fakes.AgendaFake.agenda
+import com.paligot.confily.speakers.sample.fakes.AgendaFake.category
+import com.paligot.confily.speakers.sample.fakes.AgendaFake.format
+import com.paligot.confily.speakers.sample.fakes.AgendaFake.schedule
+import com.paligot.confily.speakers.sample.fakes.AgendaFake.session
+import com.paligot.confily.speakers.sample.fakes.AgendaFake.speakerAu
+import com.paligot.confily.speakers.sample.fakes.AgendaFake.speakerGe
+import com.paligot.confily.speakers.sample.fakes.EventFake.event
 import com.paligot.confily.speakers.test.robot.speakers
 import com.paligot.confily.speakers.test.speakerRobotGraph
-import org.gdglille.devfest.android.theme.m3.speakers.sample.fakes.AgendaFake.agenda
-import org.gdglille.devfest.android.theme.m3.speakers.sample.fakes.AgendaFake.category
-import org.gdglille.devfest.android.theme.m3.speakers.sample.fakes.AgendaFake.format
-import org.gdglille.devfest.android.theme.m3.speakers.sample.fakes.AgendaFake.schedule
-import org.gdglille.devfest.android.theme.m3.speakers.sample.fakes.AgendaFake.session
-import org.gdglille.devfest.android.theme.m3.speakers.sample.fakes.AgendaFake.speakerAu
-import org.gdglille.devfest.android.theme.m3.speakers.sample.fakes.AgendaFake.speakerGe
-import org.gdglille.devfest.android.theme.m3.speakers.sample.fakes.EventFake.event
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

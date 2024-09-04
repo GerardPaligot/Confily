@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.speakers.sample
+package com.paligot.confily.speakers.sample
 
 import android.content.res.Configuration
 import android.os.Bundle
