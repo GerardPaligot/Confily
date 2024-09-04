@@ -1,4 +1,4 @@
-package org.gdglille.devfest
+package com.paligot.confily.core.di
 
 import com.paligot.confily.core.repositories.AgendaRepository
 import com.paligot.confily.core.repositories.EventRepository

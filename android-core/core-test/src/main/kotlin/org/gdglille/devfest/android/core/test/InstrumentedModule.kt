@@ -6,11 +6,11 @@ import android.content.Intent
 import com.paligot.confily.core.AlarmIntentFactory
 import com.paligot.confily.core.AlarmScheduler
 import com.paligot.confily.core.database.DatabaseWrapper
+import com.paligot.confily.core.di.ApplicationIdNamed
+import com.paligot.confily.core.di.Conference4HallBaseUrlNamed
+import com.paligot.confily.core.di.IsDebugNamed
 import com.paligot.confily.db.Conferences4HallDatabase
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
-import org.gdglille.devfest.ApplicationIdNamed
-import org.gdglille.devfest.Conference4HallBaseUrlNamed
-import org.gdglille.devfest.IsDebugNamed
 import org.gdglille.devfest.android.core.sample.ScheduleWorkManager
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.workmanager.dsl.worker

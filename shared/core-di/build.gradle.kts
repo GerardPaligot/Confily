@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "org.gdglille.devfest.android.shared.di"
+    namespace = "com.paligot.confily.core.di"
     buildFeatures {
         buildConfig = true
     }

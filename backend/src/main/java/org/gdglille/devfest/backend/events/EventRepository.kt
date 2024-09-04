@@ -92,7 +92,7 @@ class EventRepository(
         )
     }
 
-    suspend fun create(eventInput: com.paligot.confily.models.inputs.CreatingEventInput, language: String) = coroutineScope {
+    suspend fun create(eventInput: CreatingEventInput, language: String) = coroutineScope {
         val addressDb = geocodeApi.geocode(eventInput.address).convertToDb()
             ?: throw NotAcceptableException("Your address information isn't found")
         val event = eventInput.convertToDb(addressDb, language)

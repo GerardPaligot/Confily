@@ -1,6 +1,6 @@
 package org.gdglille.devfest.android.theme.m3.schedules.di
 
-import com.paligot.confily.core.repositoriesModule
+import com.paligot.confily.core.di.repositoriesModule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import org.gdglille.devfest.android.theme.m3.schedules.feature.AgendaFiltersViewModel
