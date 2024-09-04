@@ -11,8 +11,8 @@ android {
 dependencies {
     implementation(projects.shared.core)
     implementation(projects.shared.resources)
-    implementation(projects.themeM3.infos.infosUi)
-    implementation(projects.themeM3.infos.infosPanes)
+    implementation(projects.features.infos.infosUi)
+    implementation(projects.features.infos.infosPanes)
     implementation(projects.themeM3.navigation)
     implementation(projects.style.components.markdown)
     implementation(projects.style.components.permissions)
