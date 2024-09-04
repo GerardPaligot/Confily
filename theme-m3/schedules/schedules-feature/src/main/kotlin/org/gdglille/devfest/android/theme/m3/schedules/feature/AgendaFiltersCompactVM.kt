@@ -9,8 +9,8 @@ import androidx.compose.ui.graphics.Color
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.text_error
 import com.paligot.confily.resources.text_loading
+import com.paligot.confily.schedules.panes.AgendaFiltersScreen
 import com.paligot.confily.style.theme.appbars.AppBarIcons
-import org.gdglille.devfest.android.theme.m3.schedules.screens.AgendaFiltersScreen
 import org.jetbrains.compose.resources.stringResource
 import org.koin.androidx.compose.koinViewModel
 

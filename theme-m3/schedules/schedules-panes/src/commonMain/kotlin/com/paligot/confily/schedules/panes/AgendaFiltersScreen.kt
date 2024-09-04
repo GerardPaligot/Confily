@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.theme.m3.schedules.screens
+package com.paligot.confily.schedules.panes
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
