@@ -7,11 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.paligot.confily.style.components.markdown"
-
-    dependencies {
-        debugImplementation(compose.uiTooling)
-    }
+    namespace = "com.paligot.confily.style.components.placeholder"
 }
 
 kotlin {
@@ -26,16 +22,11 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(projects.themeM3.style.theme)
+                implementation(projects.style.theme)
 
                 implementation(compose.material3)
 
-                implementation(libs.markdown.renderer.m3)
-            }
-        }
-        val androidMain by getting {
-            dependencies {
-                implementation(compose.preview)
+                implementation(libs.placeholder.material3)
             }
         }
     }

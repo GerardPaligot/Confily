@@ -11,7 +11,7 @@ android {
 dependencies {
     api(projects.themeM3.schedules.schedulesUi)
     api(projects.themeM3.speakers.speakersUi)
-    api(projects.themeM3.style.theme)
+    api(projects.style.theme)
     implementation(projects.themeM3.schedules.schedulesFeature)
     implementation(projects.themeM3.speakers.speakersFeature)
     implementation(projects.themeM3.networking.networkingFeature)
@@ -20,7 +20,7 @@ dependencies {
     implementation(projects.themeM3.infos.infosScreens)
     implementation(projects.themeM3.eventList.eventListFeature)
     implementation(projects.themeM3.navigation)
-    implementation(projects.themeM3.style.components.adaptive)
+    implementation(projects.style.components.adaptive)
     implementation(projects.shared.core)
     implementation(projects.shared.uiModels)
     implementation(projects.shared.resources)

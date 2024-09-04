@@ -23,7 +23,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(projects.shared.resources)
-                implementation(projects.themeM3.style.theme)
+                implementation(projects.style.theme)
 
                 implementation(compose.components.resources)
                 implementation(compose.materialIconsExtended)

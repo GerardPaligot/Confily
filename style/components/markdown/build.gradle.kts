@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.paligot.confily.style.events"
+    namespace = "com.paligot.confily.style.components.markdown"
 
     dependencies {
         debugImplementation(compose.uiTooling)
@@ -26,15 +26,11 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(projects.shared.resources)
-                implementation(projects.themeM3.style.components.placeholder)
-                implementation(projects.themeM3.style.theme)
+                implementation(projects.style.theme)
 
                 implementation(compose.material3)
-                implementation(compose.components.resources)
-                implementation(compose.materialIconsExtended)
 
-                api(libs.jetbrains.kotlinx.collections)
+                implementation(libs.markdown.renderer.m3)
             }
         }
         val androidMain by getting {
@@ -43,10 +39,4 @@ kotlin {
             }
         }
     }
-}
-
-compose.resources {
-    publicResClass = true
-    packageOfResClass = "com.paligot.confily.style.events"
-    generateResClass = always
 }

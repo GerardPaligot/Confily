@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.paligot.confily.style.networking"
+    namespace = "com.paligot.confily.style.schedules"
 
     dependencies {
         debugImplementation(compose.uiTooling)
@@ -27,11 +27,14 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(projects.shared.resources)
-                implementation(projects.themeM3.style.theme)
+                implementation(projects.style.speakers)
+                implementation(projects.style.theme)
 
                 implementation(compose.material3)
-                implementation(compose.components.resources)
                 implementation(compose.materialIconsExtended)
+                implementation(compose.components.resources)
+
+                implementation(libs.jetbrains.kotlinx.collections)
             }
         }
         val androidMain by getting {

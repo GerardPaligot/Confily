@@ -26,9 +26,9 @@ kotlin {
                 implementation(projects.shared.resources)
                 implementation(projects.themeM3.infos.infosUi)
                 implementation(projects.themeM3.navigation)
-                implementation(projects.themeM3.style.components.markdown)
-                implementation(projects.themeM3.style.events)
-                implementation(projects.themeM3.style.theme)
+                implementation(projects.style.components.markdown)
+                implementation(projects.style.events)
+                implementation(projects.style.theme)
 
                 implementation(compose.material3)
                 implementation(compose.components.resources)
@@ -38,7 +38,7 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                implementation(projects.themeM3.style.components.permissions)
+                implementation(projects.style.components.permissions)
                 implementation(compose.preview)
             }
         }
