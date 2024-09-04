@@ -7,7 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "org.gdglille.devfest.android.theme.m3.schedules.ui"
+    namespace = "com.paligot.confily.schedules.ui"
+
+    dependencies {
+        debugImplementation(compose.uiTooling)
+    }
 }
 
 kotlin {
@@ -42,7 +46,6 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation(compose.preview)
-                implementation(compose.uiTooling)
 
                 api(libs.openfeedback.viewmodel)
             }

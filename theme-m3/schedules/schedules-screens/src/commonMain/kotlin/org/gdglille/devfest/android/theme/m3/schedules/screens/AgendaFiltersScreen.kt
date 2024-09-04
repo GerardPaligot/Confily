@@ -15,13 +15,13 @@ import com.paligot.confily.models.ui.FiltersUi
 import com.paligot.confily.models.ui.FormatUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.screen_agenda_filters
+import com.paligot.confily.schedules.ui.filters.CategoryListFilters
+import com.paligot.confily.schedules.ui.filters.FavoriteFilter
+import com.paligot.confily.schedules.ui.filters.FormatListFilters
 import com.paligot.confily.style.theme.Scaffold
 import com.paligot.confily.style.theme.SpacingTokens
 import com.paligot.confily.style.theme.appbars.AppBarIcons
 import com.paligot.confily.style.theme.toDp
-import org.gdglille.devfest.theme.m3.schedules.ui.filters.CategoryListFilters
-import org.gdglille.devfest.theme.m3.schedules.ui.filters.FavoriteFilter
-import org.gdglille.devfest.theme.m3.schedules.ui.filters.FormatListFilters
 import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalFoundationApi::class)
