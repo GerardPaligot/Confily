@@ -19,7 +19,7 @@ import androidx.work.Constraints
 import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
-import org.gdglille.devfest.android.core.sample.ScheduleWorkManager
+import com.paligot.confily.core.sample.ScheduleWorkManager
 import org.gdglille.devfest.android.theme.m3.speakers.feature.speakerGraph
 import org.gdglille.devfest.android.theme.m3.style.Conferences4HallTheme
 import org.gdglille.devfest.theme.m3.navigation.Screen
