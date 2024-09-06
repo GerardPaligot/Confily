@@ -51,5 +51,5 @@ appengine {
 }
 
 application {
-    mainClass.set("org.gdglille.devfest.backend.ServerKt")
+    mainClass.set("com.paligot.confily.backend.ServerKt")
 }
