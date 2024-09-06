@@ -8,12 +8,12 @@ import androidx.glance.action.Action
 import androidx.glance.appwidget.components.Scaffold
 import com.paligot.confily.models.ui.EventInfoUi
 import com.paligot.confily.models.ui.TalkItemUi
+import com.paligot.confily.widgets.ui.Loading
+import com.paligot.confily.widgets.ui.NoEvent
+import com.paligot.confily.widgets.ui.SessionList
+import com.paligot.confily.widgets.ui.TopBar
 import kotlinx.collections.immutable.ImmutableList
-import org.gdglille.devfest.android.widgets.ui.Loading
-import org.gdglille.devfest.android.widgets.ui.NoEvent
 import org.gdglille.devfest.android.widgets.ui.R
-import org.gdglille.devfest.android.widgets.ui.SessionList
-import org.gdglille.devfest.android.widgets.ui.TopBar
 
 @Composable
 fun SessionsScreen(

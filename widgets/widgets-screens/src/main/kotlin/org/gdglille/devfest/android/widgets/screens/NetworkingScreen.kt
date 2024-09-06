@@ -12,7 +12,7 @@ import androidx.glance.appwidget.components.Scaffold
 import androidx.glance.appwidget.components.TitleBar
 import androidx.glance.layout.fillMaxSize
 import com.paligot.confily.models.ui.UserProfileUi
-import org.gdglille.devfest.android.widgets.ui.NoProfile
+import com.paligot.confily.widgets.ui.NoProfile
 import org.gdglille.devfest.android.widgets.ui.R
 
 @Composable
