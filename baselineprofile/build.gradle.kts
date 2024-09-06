@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "org.gdglille.devfest.baselineprofile"
+    namespace = "com.paligot.confily.baselineprofile"
     compileSdk = 34
 
     compileOptions {

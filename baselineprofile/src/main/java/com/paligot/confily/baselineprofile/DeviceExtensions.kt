@@ -1,4 +1,4 @@
-package org.gdglille.devfest.baselineprofile
+package com.paligot.confily.baselineprofile
 
 import android.os.SystemClock
 import androidx.test.uiautomator.BySelector

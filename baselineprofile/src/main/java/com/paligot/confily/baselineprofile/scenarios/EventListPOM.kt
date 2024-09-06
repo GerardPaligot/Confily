@@ -1,7 +1,7 @@
-package org.gdglille.devfest.baselineprofile.scenarios
+package com.paligot.confily.baselineprofile.scenarios
 
 import androidx.test.uiautomator.UiDevice
-import org.gdglille.devfest.baselineprofile.runAction
+import com.paligot.confily.baselineprofile.runAction
 
 class EventListPOM(private val device: UiDevice) {
     fun goToPastEvents() {
