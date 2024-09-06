@@ -1,5 +1,5 @@
 // ktlint-disable filename
-package org.gdglille.devfest.web
+package com.paligot.confily.web
 
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.window.ComposeViewport
