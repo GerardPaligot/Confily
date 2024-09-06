@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.widgets.style
+package com.paligot.confily.widgets.style
 
 import androidx.glance.material3.ColorProviders
 import com.paligot.confily.style.theme.DarkColors
