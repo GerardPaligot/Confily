@@ -68,7 +68,7 @@
 
         <provider
                 android:name="androidx.core.content.FileProvider"
-                android:authorities="org.gdglille.devfest.android.provider"
+                android:authorities="com.paligot.confily.android.provider"
                 android:grantUriPermissions="true"
                 android:exported="false">
             <meta-data
@@ -77,7 +77,7 @@
         </provider>
         <provider
                 android:name="androidx.startup.InitializationProvider"
-                android:authorities="org.gdglille.devfest.android.androidx-startup"
+                android:authorities="${applicationId}.androidx-startup"
                 android:exported="false"
                 tools:node="merge">
             <meta-data

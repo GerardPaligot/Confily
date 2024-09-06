@@ -12,9 +12,9 @@ val versionMajor = 3
 val versionMinor = 4
 val versionPatch = 1
 android {
-    namespace = "org.gdglille.devfest.android"
+    namespace = "com.paligot.confily.android"
     defaultConfig {
-        applicationId = "org.gdglille.devfest.android"
+        applicationId = "com.paligot.confily.android"
         versionCode = versionMajor * 1000 + versionMinor * 100 + versionPatch * 10
         versionName = "$versionMajor.$versionMinor.$versionPatch"
     }
@@ -30,9 +30,9 @@ android {
         }
         getByName("debug") {
             keyAlias = "debug"
-            keyPassword = "devfest"
+            keyPassword = "android"
             storeFile = file("./keystore.debug")
-            storePassword = "devfest"
+            storePassword = "android"
         }
     }
 
@@ -54,6 +54,7 @@ android {
             stringBuildConfigField("DEFAULT_EVENT", appProps)
         }
         getByName("debug") {
+            applicationIdSuffix = ".debug"
             stringBuildConfigField("BASE_URL", appProps)
             stringBuildConfigField("EVENT_ID", appProps)
             stringBuildConfigField("CONTACT_MAIL", appProps)
