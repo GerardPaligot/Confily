@@ -17,12 +17,12 @@ import androidx.glance.state.PreferencesGlanceStateDefinition
 import com.paligot.confily.core.repositories.AgendaRepository
 import com.paligot.confily.core.repositories.EventRepository
 import com.paligot.confily.navigation.Screen
+import com.paligot.confily.widgets.presentation.SessionsWidget
 import com.paligot.confily.widgets.style.Conferences4HallGlanceTheme
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import org.gdglille.devfest.android.R
-import org.gdglille.devfest.android.widgets.feature.SessionsWidget
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 

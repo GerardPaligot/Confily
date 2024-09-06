@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.widgets.feature
+package com.paligot.confily.widgets.presentation
 
 import com.paligot.confily.core.repositories.UserRepository
 import com.paligot.confily.models.ui.UserProfileUi

@@ -73,7 +73,7 @@ dependencies {
     implementation(projects.features.main.main)
     implementation(projects.features.main.mainDi)
     implementation(projects.features.navigation)
-    implementation(projects.widgets.widgetsFeature)
+    implementation(projects.widgets.widgetsPresentation)
     implementation(projects.widgets.widgetsStyle)
     implementation(projects.shared.core)
     implementation(projects.shared.coreDi)

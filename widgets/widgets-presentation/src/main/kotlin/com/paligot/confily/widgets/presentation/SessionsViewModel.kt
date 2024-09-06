@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.widgets.feature
+package com.paligot.confily.widgets.presentation
 
 import com.paligot.confily.core.repositories.AgendaRepository
 import com.paligot.confily.core.repositories.EventRepository

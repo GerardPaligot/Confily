@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "org.gdglille.devfest.android.widgets.feature"
+    namespace = "com.paligot.confily.widgets.presentation"
 }
 
 dependencies {
