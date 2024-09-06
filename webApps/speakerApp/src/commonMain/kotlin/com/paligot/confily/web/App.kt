@@ -1,4 +1,4 @@
-package org.gdglille.devfest.web
+package com.paligot.confily.web
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
