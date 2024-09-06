@@ -9,8 +9,8 @@ import androidx.glance.GlanceTheme
 import androidx.glance.action.Action
 import androidx.glance.background
 import com.paligot.confily.core.repositories.UserRepository
+import com.paligot.confily.widgets.panes.NetworkingScreen
 import com.paligot.confily.widgets.ui.Loading
-import org.gdglille.devfest.android.widgets.screens.NetworkingScreen
 
 @Composable
 fun NetworkingWidget(
