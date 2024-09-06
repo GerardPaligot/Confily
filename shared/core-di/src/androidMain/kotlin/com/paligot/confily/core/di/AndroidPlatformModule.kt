@@ -18,7 +18,7 @@ import java.util.Locale
 
 @OptIn(ExperimentalSettingsApi::class)
 actual val platformModule = module {
-    single<Conferences4HallDatabase> { DatabaseWrapper(androidContext(), "conferences4hall.db").createDb() }
+    single<Conferences4HallDatabase> { DatabaseWrapper(androidContext(), "confily.db").createDb() }
     single<Platform> { Platform(AndroidContext(androidApplication())) }
     single<ObservableSettings> {
         AndroidSettings(

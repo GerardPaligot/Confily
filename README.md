@@ -1,4 +1,4 @@
-# Conferences4Hall
+# Confily
 
 Real life Kotlin Multiplatform project with an iOS application
 developed in Swift with SwiftUI, an Android application developed
@@ -103,7 +103,7 @@ gcloud config set project $PROJECT_ID
 gcloud auth login
 gcloud config set project $PROJECT_ID
 # Deploy in production
-gcloud run deploy conferences4hall \
+gcloud run deploy confily \
   --source . \
   --platform managed \
   --port 8080 \
