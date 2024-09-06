@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0060F46B2C8BC231000BCD06 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0060F46A2C8BC231000BCD06 /* GoogleService-Info.plist */; };
 		009DACF52C69384200A7F42E /* AgendaRepositoryExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009DACF42C69384200A7F42E /* AgendaRepositoryExt.swift */; };
 		009DACF72C693A5A00A7F42E /* EventRepositoryExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009DACF62C693A5A00A7F42E /* EventRepositoryExt.swift */; };
 		009DACF92C693B0900A7F42E /* UserRepositoryExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009DACF82C693B0900A7F42E /* UserRepositoryExt.swift */; };
@@ -60,7 +61,6 @@
 		D5768D6027C11E2A00FB081C /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5768D5F27C11E2A00FB081C /* Networking.swift */; };
 		D581504229B2299C0058D057 /* PartnerItemNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D581504129B2299C0058D057 /* PartnerItemNavigation.swift */; };
 		D581504429B22B2B0058D057 /* MenusNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D581504329B22B2B0058D057 /* MenusNavigation.swift */; };
-		D582B741283421DE009391C8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D582B740283421DE009391C8 /* GoogleService-Info.plist */; };
 		D5868A582823139E008EE6E3 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = D5868A572823139E008EE6E3 /* SDWebImageSwiftUI */; };
 		D5868A5B282313F2008EE6E3 /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = D5868A5A282313F2008EE6E3 /* SDWebImageSVGCoder */; };
 		D587A25C29AB90120074E4B9 /* JobItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D587A25B29AB90120074E4B9 /* JobItemView.swift */; };
@@ -119,6 +119,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0060F46A2C8BC231000BCD06 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		009DACF42C69384200A7F42E /* AgendaRepositoryExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaRepositoryExt.swift; sourceTree = "<group>"; };
 		009DACF62C693A5A00A7F42E /* EventRepositoryExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRepositoryExt.swift; sourceTree = "<group>"; };
 		009DACF82C693B0900A7F42E /* UserRepositoryExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositoryExt.swift; sourceTree = "<group>"; };
@@ -172,7 +173,6 @@
 		D5768D5F27C11E2A00FB081C /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		D581504129B2299C0058D057 /* PartnerItemNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnerItemNavigation.swift; sourceTree = "<group>"; };
 		D581504329B22B2B0058D057 /* MenusNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenusNavigation.swift; sourceTree = "<group>"; };
-		D582B740283421DE009391C8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D587A25B29AB90120074E4B9 /* JobItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobItemView.swift; sourceTree = "<group>"; };
 		D58F1D4E27AFF40A00FB59C7 /* TalkItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkItemView.swift; sourceTree = "<group>"; };
 		D58F1D5027B001CE00FB59C7 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
@@ -259,7 +259,7 @@
 		7555FF7D242A565900829871 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
-				D582B740283421DE009391C8 /* GoogleService-Info.plist */,
+				0060F46A2C8BC231000BCD06 /* GoogleService-Info.plist */,
 				D5F324A127C6E2C6007CA4C1 /* data */,
 				D50A458C27B0818F00C9A43C /* components */,
 				D51C2CCF28383706006EED5D /* extensions */,
@@ -674,7 +674,7 @@
 			files = (
 				D58F1D5127B001CE00FB59C7 /* Colors.xcassets in Resources */,
 				D553D579281F2FE600D39A5B /* Localizable.strings in Resources */,
-				D582B741283421DE009391C8 /* GoogleService-Info.plist in Resources */,
+				0060F46B2C8BC231000BCD06 /* GoogleService-Info.plist in Resources */,
 				058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */,
 				058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */,
 			);
@@ -972,7 +972,7 @@
 					"-framework",
 					SharedDi,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.gdglille.devfest.ios.debug;
+				PRODUCT_BUNDLE_IDENTIFIER = com.paligot.confily.ios.debug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1007,7 +1007,7 @@
 					"-framework",
 					SharedDi,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.gdglille.devfest.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.paligot.confily.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
