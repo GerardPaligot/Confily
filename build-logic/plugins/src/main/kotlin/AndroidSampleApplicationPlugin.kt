@@ -20,7 +20,7 @@ class AndroidSampleApplicationPlugin: Plugin<Project> {
                 configureKotlinAndroid(this)
                 configureDesugaring(this)
                 defaultConfig {
-                    applicationId = "org.gdglille.devfest.android"
+                    applicationId = "com.paligot.confily.android"
                     versionCode = 100
                     versionName = "1.0.0"
                     targetSdk = 34
@@ -28,9 +28,9 @@ class AndroidSampleApplicationPlugin: Plugin<Project> {
                 signingConfigs {
                     getByName("debug") {
                         keyAlias = "debug"
-                        keyPassword = "devfest"
+                        keyPassword = "android"
                         storeFile = rootProject.file("androidApp/keystore.debug")
-                        storePassword = "devfest"
+                        storePassword = "android"
                     }
                 }
                 testOptions {

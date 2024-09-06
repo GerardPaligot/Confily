@@ -21,31 +21,31 @@ dependencies {
 gradlePlugin {
     plugins {
         register("androidApplication") {
-            id = "conferences4hall.android.application"
+            id = "confily.android.application"
             implementationClass = "AndroidApplicationPlugin"
         }
         register("androidSampleApplication") {
-            id = "conferences4hall.android.sample"
+            id = "confily.android.sample"
             implementationClass = "AndroidSampleApplicationPlugin"
         }
         register("androidLibrary") {
-            id = "conferences4hall.android.library"
+            id = "confily.android.library"
             implementationClass = "AndroidLibraryPlugin"
         }
         register("androidLibraryCompose") {
-            id = "conferences4hall.android.library.compose"
+            id = "confily.android.library.compose"
             implementationClass = "AndroidLibraryComposePlugin"
         }
         register("multiplatformLibrary") {
-            id = "conferences4hall.multiplatform.library"
+            id = "confily.multiplatform.library"
             implementationClass = "MultiplatformLibraryPlugin"
         }
         register("backendApplication") {
-            id = "conferences4hall.backend.application"
+            id = "confily.backend.application"
             implementationClass = "BackendPlugin"
         }
         register("kotlinQuality") {
-            id = "conferences4hall.quality"
+            id = "confily.quality"
             implementationClass = "KotlinQualityPlugin"
         }
     }

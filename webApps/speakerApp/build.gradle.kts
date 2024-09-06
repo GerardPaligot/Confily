@@ -5,7 +5,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.multiplatform)
     alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.jetbrains.compose.compiler)
-    id("conferences4hall.quality")
+    id("confily.quality")
 }
 
 kotlin {
