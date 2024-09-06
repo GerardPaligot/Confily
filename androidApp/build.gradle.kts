@@ -2,8 +2,8 @@ import extensions.stringBuildConfigField
 import extensions.toProperties
 
 plugins {
-    id("conferences4hall.android.application")
-    id("conferences4hall.quality")
+    id("confily.android.application")
+    id("confily.quality")
     id("com.android.application")
     id("androidx.baselineprofile")
 }

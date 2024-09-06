@@ -1,9 +1,9 @@
 import org.gradle.internal.os.OperatingSystem
 
 plugins {
-    id("conferences4hall.multiplatform.library")
-    id("conferences4hall.android.library.compose")
-    id("conferences4hall.quality")
+    id("confily.multiplatform.library")
+    id("confily.android.library.compose")
+    id("confily.quality")
     id("kotlinx-serialization")
     id("com.google.devtools.ksp")
     id("com.rickclephas.kmp.nativecoroutines")

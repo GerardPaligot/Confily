@@ -1,6 +1,6 @@
 plugins {
-    id("conferences4hall.android.sample")
-    id("conferences4hall.quality")
+    id("confily.android.sample")
+    id("confily.quality")
 }
 
 android {

@@ -1,9 +1,9 @@
 import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 
 plugins {
-    id("conferences4hall.multiplatform.library")
-    id("conferences4hall.android.library.compose")
-    id("conferences4hall.quality")
+    id("confily.multiplatform.library")
+    id("confily.android.library.compose")
+    id("confily.quality")
 }
 
 android {

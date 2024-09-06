@@ -1,8 +1,8 @@
 import org.gradle.internal.os.OperatingSystem
 
 plugins {
-    id("conferences4hall.multiplatform.library")
-    id("conferences4hall.quality")
+    id("confily.multiplatform.library")
+    id("confily.quality")
 }
 
 android {
