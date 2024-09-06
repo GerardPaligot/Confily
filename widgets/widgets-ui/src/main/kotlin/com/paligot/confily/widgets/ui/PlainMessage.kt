@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.widgets.ui
+package com.paligot.confily.widgets.ui
 
 import androidx.compose.runtime.Composable
 import androidx.glance.GlanceModifier
