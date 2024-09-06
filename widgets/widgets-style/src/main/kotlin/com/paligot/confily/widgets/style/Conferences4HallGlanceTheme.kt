@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.widgets.style
+package com.paligot.confily.widgets.style
 
 import android.os.Build
 import androidx.compose.runtime.Composable
