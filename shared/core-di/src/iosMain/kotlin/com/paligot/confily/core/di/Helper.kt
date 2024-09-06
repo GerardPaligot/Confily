@@ -13,7 +13,7 @@ import platform.Foundation.NSBundle
 
 val buildConfigModule = module {
     single(named(IsDebugNamed)) { false }
-    single(named(ApplicationIdNamed)) { "org.gdglille.devfest.ios" }
+    single(named(ApplicationIdNamed)) { "com.paligot.confily.ios" }
     single(named(Conference4HallBaseUrlNamed)) {
         NSBundle.mainBundle.objectForInfoDictionaryKey(key = "BASE_URL_C4H") as String
     }

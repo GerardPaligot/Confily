@@ -2,37 +2,29 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CLIENT_ID</key>
-	<string>486924521070-2a5l1v5nar135ltr7ddgldq175h018ud.apps.googleusercontent.com</string>
-	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.486924521070-2a5l1v5nar135ltr7ddgldq175h018ud</string>
-	<key>ANDROID_CLIENT_ID</key>
-	<string>486924521070-u7qsr3ijm54qu37fo8nljvdfo54uef25.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyB7lpWxcY8le_nUY-3m-VTtWtYvm5SsPL4</string>
+	<string>AIzaSyAzMhuc4aNk4fOosq_MqbuCX0qXLg3AgY0</string>
 	<key>GCM_SENDER_ID</key>
-	<string>486924521070</string>
+	<string>619943890215</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>org.gdglille.devfest.ios</string>
+	<string>com.paligot.confily.ios</string>
 	<key>PROJECT_ID</key>
-	<string>cms4partners-ce427</string>
+	<string>confily-b8b7e</string>
 	<key>STORAGE_BUCKET</key>
-	<string>cms4partners-ce427.appspot.com</string>
+	<string>confily-b8b7e.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_GCM_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:486924521070:ios:e58933c84c29861396207f</string>
-	<key>DATABASE_URL</key>
-	<string>https://cms4partners-ce427.firebaseio.com</string>
+	<string>1:619943890215:ios:a77791b383d031e5302d02</string>
 </dict>
 </plist>
