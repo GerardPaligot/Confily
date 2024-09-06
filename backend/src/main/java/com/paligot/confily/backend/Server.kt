@@ -72,7 +72,7 @@ const val PORT = 8080
 
 @Suppress("LongMethod")
 fun main() {
-    val projectName = "conferences4hall"
+    val projectName = "confily"
     val gcpProjectId = System.getenv("PROJECT_ID")
     val isCloud = System.getenv("IS_CLOUD") == "true"
     val firestore = FirestoreOptions.getDefaultInstance().toBuilder().run {

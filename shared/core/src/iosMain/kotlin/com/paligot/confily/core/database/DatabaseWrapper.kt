@@ -11,7 +11,7 @@ actual class DatabaseWrapper {
     actual fun createDb(): Conferences4HallDatabase {
         val driver = NativeSqliteDriver(
             schema = Conferences4HallDatabase.Schema,
-            name = "conferences4hall.db",
+            name = "confily.db",
             onConfiguration = { config: DatabaseConfiguration ->
                 config.copy(
                     extendedConfig = DatabaseConfiguration.Extended(foreignKeyConstraints = true)
