@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.widgets.feature
+package com.paligot.confily.widgets.presentation
 
 import androidx.annotation.DrawableRes
 import androidx.compose.runtime.Composable
