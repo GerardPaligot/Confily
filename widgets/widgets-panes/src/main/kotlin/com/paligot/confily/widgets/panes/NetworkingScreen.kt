@@ -1,4 +1,4 @@
-package org.gdglille.devfest.android.widgets.screens
+package com.paligot.confily.widgets.panes
 
 import androidx.annotation.DrawableRes
 import androidx.compose.runtime.Composable
@@ -13,7 +13,7 @@ import androidx.glance.appwidget.components.TitleBar
 import androidx.glance.layout.fillMaxSize
 import com.paligot.confily.models.ui.UserProfileUi
 import com.paligot.confily.widgets.ui.NoProfile
-import org.gdglille.devfest.android.widgets.ui.R
+import com.paligot.confily.widgets.ui.R
 
 @Composable
 fun NetworkingScreen(

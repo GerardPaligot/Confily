@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "org.gdglille.devfest.android.widgets.screens"
+    namespace = "com.paligot.confily.widgets.panes"
 }
 
 dependencies {

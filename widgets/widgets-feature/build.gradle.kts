@@ -10,7 +10,7 @@ android {
 
 dependencies {
     implementation(projects.widgets.widgetsUi)
-    implementation(projects.widgets.widgetsScreens)
+    implementation(projects.widgets.widgetsPanes)
     implementation(projects.shared.core)
 
     implementation(libs.bundles.androidx.glance)
