@@ -1,4 +1,4 @@
-package org.gdglille.devfest.baselineprofile
+package com.paligot.confily.baselineprofile
 
 import androidx.benchmark.macro.BaselineProfileMode
 import androidx.benchmark.macro.CompilationMode

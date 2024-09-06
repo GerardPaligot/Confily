@@ -1,10 +1,10 @@
-package org.gdglille.devfest.baselineprofile.scenarios
+package com.paligot.confily.baselineprofile.scenarios
 
 import androidx.test.uiautomator.Direction
 import androidx.test.uiautomator.UiDevice
 import kotlin.time.Duration.Companion.seconds
-import org.gdglille.devfest.baselineprofile.runAction
-import org.gdglille.devfest.baselineprofile.waitForObject
+import com.paligot.confily.baselineprofile.runAction
+import com.paligot.confily.baselineprofile.waitForObject
 
 class AgendaPOM(private val device: UiDevice) {
     fun waitDataFetched() {

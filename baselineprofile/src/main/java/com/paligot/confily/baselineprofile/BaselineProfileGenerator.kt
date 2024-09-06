@@ -1,15 +1,15 @@
-package org.gdglille.devfest.baselineprofile
+package com.paligot.confily.baselineprofile
 
 import androidx.benchmark.macro.junit4.BaselineProfileRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry
-import org.gdglille.devfest.baselineprofile.scenarios.AgendaPOM
-import org.gdglille.devfest.baselineprofile.scenarios.EventListPOM
-import org.gdglille.devfest.baselineprofile.scenarios.InfoPOM
-import org.gdglille.devfest.baselineprofile.scenarios.NetworkingPOM
-import org.gdglille.devfest.baselineprofile.scenarios.PartnersPOM
-import org.gdglille.devfest.baselineprofile.scenarios.SpeakersPOM
+import com.paligot.confily.baselineprofile.scenarios.AgendaPOM
+import com.paligot.confily.baselineprofile.scenarios.EventListPOM
+import com.paligot.confily.baselineprofile.scenarios.InfoPOM
+import com.paligot.confily.baselineprofile.scenarios.NetworkingPOM
+import com.paligot.confily.baselineprofile.scenarios.PartnersPOM
+import com.paligot.confily.baselineprofile.scenarios.SpeakersPOM
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith

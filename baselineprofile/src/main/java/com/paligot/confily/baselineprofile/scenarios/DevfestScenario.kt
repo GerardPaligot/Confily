@@ -1,4 +1,4 @@
-package org.gdglille.devfest.baselineprofile.scenarios
+package com.paligot.confily.baselineprofile.scenarios
 
 import androidx.test.uiautomator.By
 import com.paligot.confily.partners.semantics.PartnersSemantics
