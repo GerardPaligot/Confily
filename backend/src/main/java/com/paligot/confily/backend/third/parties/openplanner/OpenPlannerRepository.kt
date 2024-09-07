@@ -5,6 +5,7 @@ import com.paligot.confily.backend.categories.CategoryDao
 import com.paligot.confily.backend.categories.CategoryDb
 import com.paligot.confily.backend.events.EventDao
 import com.paligot.confily.backend.events.EventDb
+import com.paligot.confily.backend.formats.FormatDao
 import com.paligot.confily.backend.formats.FormatDb
 import com.paligot.confily.backend.internals.CommonApi
 import com.paligot.confily.backend.schedules.ScheduleDb
@@ -25,7 +26,7 @@ class OpenPlannerRepository(
     private val speakerDao: SpeakerDao,
     private val sessionDao: SessionDao,
     private val categoryDao: CategoryDao,
-    private val formatDao: com.paligot.confily.backend.formats.FormatDao,
+    private val formatDao: FormatDao,
     private val scheduleItemDao: ScheduleItemDao
 ) {
     suspend fun update(eventId: String, apiKey: String) = coroutineScope {

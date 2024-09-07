@@ -1,6 +1,6 @@
 package com.paligot.confily.backend.qanda
 
-import com.paligot.confily.backend.events.EventDao
+import com.paligot.confily.backend.qanda.QAndAModule.qAndARepository
 import com.paligot.confily.backend.receiveValidated
 import com.paligot.confily.models.inputs.QAndAInput
 import io.ktor.http.HttpStatusCode
@@ -12,11 +12,8 @@ import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.put
 
-fun Routing.registerQAndAsRoutes(
-    eventDao: EventDao,
-    qAndADao: QAndADao
-) {
-    val repository = QAndARepository(eventDao, qAndADao)
+fun Routing.registerQAndAsRoutes() {
+    val repository by qAndARepository
 
     get("/qanda") {
         val eventId = call.parameters["eventId"]!!

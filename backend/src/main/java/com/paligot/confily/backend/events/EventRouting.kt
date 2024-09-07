@@ -3,14 +3,12 @@
 package com.paligot.confily.backend.events
 
 import com.paligot.confily.backend.NotFoundException
-import com.paligot.confily.backend.categories.CategoryDao
-import com.paligot.confily.backend.partners.PartnerDao
-import com.paligot.confily.backend.qanda.QAndADao
+import com.paligot.confily.backend.events.EventModule.eventDao
+import com.paligot.confily.backend.events.EventModule.eventRepository
+import com.paligot.confily.backend.events.EventModule.eventRepositoryV2
+import com.paligot.confily.backend.events.EventModule.eventRepositoryV3
+import com.paligot.confily.backend.events.EventModule.eventRepositoryV4
 import com.paligot.confily.backend.receiveValidated
-import com.paligot.confily.backend.schedules.ScheduleItemDao
-import com.paligot.confily.backend.sessions.SessionDao
-import com.paligot.confily.backend.speakers.SpeakerDao
-import com.paligot.confily.backend.third.parties.geocode.GeocodeApi
 import com.paligot.confily.backend.version
 import com.paligot.confily.models.inputs.CoCInput
 import com.paligot.confily.models.inputs.EventInput
@@ -35,56 +33,13 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
-@Suppress("LongMethod", "LongParameterList", "MagicNumber")
-fun Routing.registerEventRoutes(
-    geocodeApi: GeocodeApi,
-    eventDao: EventDao,
-    speakerDao: SpeakerDao,
-    qAndADao: QAndADao,
-    sessionDao: SessionDao,
-    categoryDao: CategoryDao,
-    formatDao: com.paligot.confily.backend.formats.FormatDao,
-    scheduleItemDao: ScheduleItemDao,
-    partnerDao: PartnerDao
-) {
-    val repository = EventRepository(
-        geocodeApi,
-        eventDao,
-        speakerDao,
-        qAndADao,
-        sessionDao,
-        categoryDao,
-        formatDao,
-        scheduleItemDao,
-        partnerDao
-    )
-    val repositoryV2 = EventRepositoryV2(
-        eventDao,
-        speakerDao,
-        sessionDao,
-        categoryDao,
-        formatDao,
-        scheduleItemDao,
-        partnerDao,
-        qAndADao
-    )
-    val repositoryV3 = EventRepositoryV3(
-        eventDao,
-        speakerDao,
-        sessionDao,
-        categoryDao,
-        formatDao,
-        scheduleItemDao,
-        partnerDao,
-        qAndADao
-    )
-    val repositoryV4 = EventRepositoryV4(
-        speakerDao,
-        sessionDao,
-        categoryDao,
-        formatDao,
-        scheduleItemDao
-    )
+@Suppress("LongMethod", "MagicNumber")
+fun Routing.registerEventRoutes() {
+    val eventDao by eventDao
+    val repository by eventRepository
+    val repositoryV2 by eventRepositoryV2
+    val repositoryV3 by eventRepositoryV3
+    val repositoryV4 by eventRepositoryV4
 
     get("/events") {
         call.respond(HttpStatusCode.OK, repository.list())

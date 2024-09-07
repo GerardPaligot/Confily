@@ -3,6 +3,7 @@ package com.paligot.confily.backend.events
 import com.paligot.confily.backend.NotFoundException
 import com.paligot.confily.backend.categories.CategoryDao
 import com.paligot.confily.backend.categories.convertToModel
+import com.paligot.confily.backend.formats.FormatDao
 import com.paligot.confily.backend.formats.convertToModel
 import com.paligot.confily.backend.partners.PartnerDao
 import com.paligot.confily.backend.qanda.QAndADao
@@ -23,7 +24,7 @@ class EventRepositoryV3(
     private val speakerDao: SpeakerDao,
     private val sessionDao: SessionDao,
     private val categoryDao: CategoryDao,
-    private val formatDao: com.paligot.confily.backend.formats.FormatDao,
+    private val formatDao: FormatDao,
     private val scheduleItemDao: ScheduleItemDao,
     private val partnerDao: PartnerDao,
     private val qAndADao: QAndADao

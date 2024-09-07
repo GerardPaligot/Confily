@@ -1,6 +1,6 @@
 package com.paligot.confily.backend.categories
 
-import com.paligot.confily.backend.events.EventDao
+import com.paligot.confily.backend.categories.CategoryModule.categoryRepository
 import com.paligot.confily.backend.receiveValidated
 import com.paligot.confily.models.inputs.CategoryInput
 import io.ktor.http.HttpStatusCode
@@ -10,11 +10,8 @@ import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.put
 
-fun Routing.registerCategoriesRoutes(
-    eventDao: EventDao,
-    categoryDao: CategoryDao
-) {
-    val repository = CategoryRepository(eventDao, categoryDao)
+fun Routing.registerCategoriesRoutes() {
+    val repository by categoryRepository
 
     get("/categories") {
         val eventId = call.parameters["eventId"]!!
