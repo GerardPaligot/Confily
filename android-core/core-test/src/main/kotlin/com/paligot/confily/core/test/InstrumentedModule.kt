@@ -7,10 +7,10 @@ import com.paligot.confily.core.AlarmIntentFactory
 import com.paligot.confily.core.AlarmScheduler
 import com.paligot.confily.core.database.DatabaseWrapper
 import com.paligot.confily.core.di.ApplicationIdNamed
-import com.paligot.confily.core.di.Conference4HallBaseUrlNamed
+import com.paligot.confily.core.di.ConfilyBaseUrlNamed
 import com.paligot.confily.core.di.IsDebugNamed
 import com.paligot.confily.core.sample.ScheduleWorkManager
-import com.paligot.confily.db.Conferences4HallDatabase
+import com.paligot.confily.db.ConfilyDatabase
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.workmanager.dsl.worker
@@ -21,7 +21,7 @@ import kotlin.coroutines.CoroutineContext
 val instrumentedModule = module {
     single(named(IsDebugNamed)) { true }
     single(named(ApplicationIdNamed)) { "com.paligot.confily.core.test" }
-    single(named(Conference4HallBaseUrlNamed)) { "" }
+    single(named(ConfilyBaseUrlNamed)) { "" }
     single {
         AlarmScheduler(
             get(),
@@ -34,6 +34,6 @@ val instrumentedModule = module {
         )
     }
     single<CoroutineContext> { UnconfinedTestDispatcher() }
-    single<Conferences4HallDatabase> { DatabaseWrapper(androidContext(), null).createDb() }
+    single<ConfilyDatabase> { DatabaseWrapper(androidContext(), null).createDb() }
     worker { ScheduleWorkManager(androidContext(), get(), get()) }
 }

@@ -4,7 +4,7 @@ import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOneOrDefault
 import app.cash.sqldelight.coroutines.mapToOneOrNull
-import com.paligot.confily.db.Conferences4HallDatabase
+import com.paligot.confily.db.ConfilyDatabase
 import com.paligot.confily.models.ui.ScaffoldConfigUi
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
@@ -19,7 +19,7 @@ import kotlin.coroutines.CoroutineContext
 
 @OptIn(ExperimentalSettingsApi::class)
 class FeaturesActivatedDao(
-    private val db: Conferences4HallDatabase,
+    private val db: ConfilyDatabase,
     private val settings: ObservableSettings,
     private val dispatcher: CoroutineContext
 ) {

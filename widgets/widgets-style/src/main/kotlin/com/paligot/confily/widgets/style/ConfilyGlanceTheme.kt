@@ -6,7 +6,7 @@ import androidx.glance.GlanceComposable
 import androidx.glance.GlanceTheme
 
 @Composable
-fun Conferences4HallGlanceTheme(
+fun ConfilyGlanceTheme(
     content: @GlanceComposable
     @Composable
     () -> Unit
@@ -15,7 +15,7 @@ fun Conferences4HallGlanceTheme(
         colors = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             GlanceTheme.colors
         } else {
-            Conferences4HallGlanceColorScheme.colors
+            ConfilyGlanceColorScheme.colors
         },
         content = content
     )

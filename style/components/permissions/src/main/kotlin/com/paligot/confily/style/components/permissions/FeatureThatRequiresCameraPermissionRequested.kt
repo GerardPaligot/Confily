@@ -20,7 +20,7 @@ import com.paligot.confily.resources.action_submit_accept
 import com.paligot.confily.resources.action_submit_later
 import com.paligot.confily.resources.text_camera_permission_explaination
 import com.paligot.confily.resources.text_permission
-import com.paligot.confily.style.theme.Conferences4HallTheme
+import com.paligot.confily.style.theme.ConfilyTheme
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -55,7 +55,7 @@ internal fun FeatureThatRequiresCameraPermissionRequested(
 @Preview
 @Composable
 private fun FeatureThatRequiresCameraPermissionRequestedPreview() {
-    Conferences4HallTheme {
+    ConfilyTheme {
         FeatureThatRequiresCameraPermissionRequested(
             onAcceptPermissionClicked = {},
             onRefusePermissionClicked = {}

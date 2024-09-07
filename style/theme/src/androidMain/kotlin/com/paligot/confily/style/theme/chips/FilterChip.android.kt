@@ -6,12 +6,12 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.paligot.confily.style.theme.Conferences4HallTheme
+import com.paligot.confily.style.theme.ConfilyTheme
 
 @Preview
 @Composable
 private fun FilterChipPreview() {
-    Conferences4HallTheme {
+    ConfilyTheme {
         Surface {
             Column {
                 FilterChip(

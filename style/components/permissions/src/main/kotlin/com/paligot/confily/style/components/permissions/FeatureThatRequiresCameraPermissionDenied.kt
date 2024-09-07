@@ -17,7 +17,7 @@ import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.action_system_settings
 import com.paligot.confily.resources.text_camera_permission_deny
 import com.paligot.confily.resources.text_permission
-import com.paligot.confily.style.theme.Conferences4HallTheme
+import com.paligot.confily.style.theme.ConfilyTheme
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -46,7 +46,7 @@ internal fun FeatureThatRequiresCameraPermissionDenied(
 @Preview
 @Composable
 private fun FeatureThatRequiresCameraPermissionDeniedPreview() {
-    Conferences4HallTheme {
+    ConfilyTheme {
         FeatureThatRequiresCameraPermissionDenied(
             navigateToSettingsScreen = {}
         )

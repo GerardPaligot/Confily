@@ -9,7 +9,7 @@ import com.paligot.confily.core.database.mappers.convertFormatUi
 import com.paligot.confily.core.database.mappers.convertTalkItemUi
 import com.paligot.confily.core.database.mappers.convertToDb
 import com.paligot.confily.core.database.mappers.convertToEntity
-import com.paligot.confily.db.Conferences4HallDatabase
+import com.paligot.confily.db.ConfilyDatabase
 import com.paligot.confily.models.AgendaV4
 import com.paligot.confily.models.Session
 import com.paligot.confily.models.ui.CategoryUi
@@ -36,7 +36,7 @@ import kotlin.coroutines.CoroutineContext
 @ExperimentalCoroutinesApi
 @ExperimentalSettingsApi
 class ScheduleDao(
-    private val db: Conferences4HallDatabase,
+    private val db: ConfilyDatabase,
     private val settings: ObservableSettings,
     private val lyricist: Lyricist<Strings>,
     private val dispatcher: CoroutineContext

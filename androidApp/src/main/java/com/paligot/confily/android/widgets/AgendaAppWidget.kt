@@ -19,7 +19,7 @@ import com.paligot.confily.core.repositories.AgendaRepository
 import com.paligot.confily.core.repositories.EventRepository
 import com.paligot.confily.navigation.Screen
 import com.paligot.confily.widgets.presentation.SessionsWidget
-import com.paligot.confily.widgets.style.Conferences4HallGlanceTheme
+import com.paligot.confily.widgets.style.ConfilyGlanceTheme
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
@@ -38,7 +38,7 @@ class AgendaAppWidget : GlanceAppWidget(), KoinComponent {
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         val date = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).toString()
         provideContent {
-            Conferences4HallGlanceTheme {
+            ConfilyGlanceTheme {
                 val prefs = currentState<Preferences>()
                 SessionsWidget(
                     eventRepository = eventRepository,

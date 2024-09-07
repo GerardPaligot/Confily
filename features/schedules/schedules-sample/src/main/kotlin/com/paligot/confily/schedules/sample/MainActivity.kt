@@ -22,7 +22,7 @@ import androidx.work.WorkManager
 import com.paligot.confily.core.sample.ScheduleWorkManager
 import com.paligot.confily.navigation.Screen
 import com.paligot.confily.schedules.presentation.scheduleGraph
-import com.paligot.confily.style.theme.Conferences4HallTheme
+import com.paligot.confily.style.theme.ConfilyTheme
 import org.koin.compose.KoinContext
 import org.koin.mp.KoinPlatformTools
 
@@ -37,7 +37,7 @@ class MainActivity : ComponentActivity() {
             val config = LocalConfiguration.current
             val windowSize = with(LocalDensity.current) { currentWindowSize().toSize().toDpSize() }
             val adaptiveInfo = WindowSizeClass.calculateFromSize(windowSize)
-            Conferences4HallTheme {
+            ConfilyTheme {
                 // FIXME This is necessary due to a bug in Koin.
                 //  The scope isn't well updated between two test cases in the same process.
                 //  https://github.com/InsertKoinIO/koin/issues/1844#issuecomment-2295385215

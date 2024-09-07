@@ -6,7 +6,7 @@ import app.cash.sqldelight.coroutines.mapToOneOrNull
 import com.paligot.confily.core.Platform
 import com.paligot.confily.core.toByteArray
 import com.paligot.confily.core.toNativeImage
-import com.paligot.confily.db.Conferences4HallDatabase
+import com.paligot.confily.db.ConfilyDatabase
 import com.paligot.confily.models.ui.UserNetworkingUi
 import com.paligot.confily.models.ui.UserProfileUi
 import kotlinx.collections.immutable.ImmutableList
@@ -18,7 +18,7 @@ import okio.Path.Companion.toPath
 import kotlin.coroutines.CoroutineContext
 
 class UserDao(
-    private val db: Conferences4HallDatabase,
+    private val db: ConfilyDatabase,
     private val platform: Platform,
     private val dispatcher: CoroutineContext
 ) {

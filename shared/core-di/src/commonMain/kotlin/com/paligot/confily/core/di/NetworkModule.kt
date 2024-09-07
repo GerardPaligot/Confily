@@ -9,7 +9,7 @@ val networksModule = module {
     single {
         ConferenceApi.create(
             platform = get(),
-            baseUrl = get(named(Conference4HallBaseUrlNamed)),
+            baseUrl = get(named(ConfilyBaseUrlNamed)),
             acceptLanguage = get(named(AcceptLanguageNamed)),
             enableNetworkLogs = get(named(IsDebugNamed))
         )

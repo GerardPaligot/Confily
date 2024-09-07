@@ -5,12 +5,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.paligot.confily.style.theme.Conferences4HallTheme
+import com.paligot.confily.style.theme.ConfilyTheme
 
 @Preview
 @Composable
 private fun SocialItemPreview() {
-    Conferences4HallTheme {
+    ConfilyTheme {
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             SocialIcons.Twitter(text = "", onClick = {})
             SocialIcons.Mastodon(text = "", onClick = {})

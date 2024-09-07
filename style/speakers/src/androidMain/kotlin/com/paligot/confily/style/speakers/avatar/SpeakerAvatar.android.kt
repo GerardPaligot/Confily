@@ -7,12 +7,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.paligot.confily.style.theme.Conferences4HallTheme
+import com.paligot.confily.style.theme.ConfilyTheme
 
 @Preview
 @Composable
 private fun MediumSpeakerAvatarPreview() {
-    Conferences4HallTheme {
+    ConfilyTheme {
         Column {
             MediumSpeakerAvatar(
                 url = "",
@@ -25,7 +25,7 @@ private fun MediumSpeakerAvatarPreview() {
 @Preview
 @Composable
 private fun LargeSpeakerAvatarPreview() {
-    Conferences4HallTheme {
+    ConfilyTheme {
         Column {
             LargeSpeakerAvatar(
                 url = "",

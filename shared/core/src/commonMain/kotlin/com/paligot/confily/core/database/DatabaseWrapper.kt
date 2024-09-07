@@ -1,7 +1,7 @@
 package com.paligot.confily.core.database
 
-import com.paligot.confily.db.Conferences4HallDatabase
+import com.paligot.confily.db.ConfilyDatabase
 
 expect class DatabaseWrapper {
-    fun createDb(): Conferences4HallDatabase
+    fun createDb(): ConfilyDatabase
 }

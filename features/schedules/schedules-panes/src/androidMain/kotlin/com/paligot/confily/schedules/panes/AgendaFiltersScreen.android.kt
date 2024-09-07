@@ -3,12 +3,12 @@ package com.paligot.confily.schedules.panes
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.paligot.confily.models.ui.FiltersUi
-import com.paligot.confily.style.theme.Conferences4HallTheme
+import com.paligot.confily.style.theme.ConfilyTheme
 
 @Preview
 @Composable
 private fun AgendaFiltersPreview() {
-    Conferences4HallTheme {
+    ConfilyTheme {
         AgendaFiltersScreen(
             filtersUi = FiltersUi.fake,
             onFavoriteClick = {},

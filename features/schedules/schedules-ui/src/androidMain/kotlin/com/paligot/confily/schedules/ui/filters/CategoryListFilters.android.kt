@@ -3,13 +3,13 @@ package com.paligot.confily.schedules.ui.filters
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.paligot.confily.models.ui.CategoryUi
-import com.paligot.confily.style.theme.Conferences4HallTheme
+import com.paligot.confily.style.theme.ConfilyTheme
 import kotlinx.collections.immutable.persistentMapOf
 
 @Preview
 @Composable
 private fun CategoryListPreview() {
-    Conferences4HallTheme {
+    ConfilyTheme {
         CategoryListFilters(
             categories = persistentMapOf(
                 CategoryUi.fake to true,

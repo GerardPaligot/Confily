@@ -7,7 +7,7 @@ import app.cash.sqldelight.coroutines.mapToOneOrNull
 import com.paligot.confily.core.exceptions.EventSavedException
 import com.paligot.confily.core.toByteArray
 import com.paligot.confily.core.toNativeImage
-import com.paligot.confily.db.Conferences4HallDatabase
+import com.paligot.confily.db.ConfilyDatabase
 import com.paligot.confily.models.Attendee
 import com.paligot.confily.models.EventItemList
 import com.paligot.confily.models.EventV3
@@ -37,7 +37,7 @@ import kotlin.coroutines.CoroutineContext
 
 @OptIn(ExperimentalSettingsApi::class)
 class EventDao(
-    private val db: Conferences4HallDatabase,
+    private val db: ConfilyDatabase,
     private val settings: ObservableSettings,
     private val dispatcher: CoroutineContext
 ) {
@@ -62,7 +62,7 @@ class EventDao(
         }
 
     private val eventItemMapper = { id: String, name: String, date: String, _: Long, _: Boolean ->
-        com.paligot.confily.models.ui.EventItemUi(id = id, name = name, date = date)
+        EventItemUi(id = id, name = name, date = date)
     }
 
     private val menuMapper = { name: String, dish: String, accompaniment: String, dessert: String ->

@@ -1,6 +1,6 @@
 # Privacy Policy
 
-The Conference4Hall team built the DevfestLille app as an Open Source app. This SERVICE is provided by The Conference4Hall team at no cost and is intended for use as is.
+The Confily team built the mobile app as an Open Source app. This SERVICE is provided by The Confily team at no cost and is intended for use as is.
 
 This page is used to inform visitors regarding our policies with the collection, use, and disclosure of Personal Information if anyone decided to use our Service.
 

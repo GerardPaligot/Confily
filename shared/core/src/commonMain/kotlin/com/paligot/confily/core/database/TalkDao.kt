@@ -6,7 +6,7 @@ import app.cash.sqldelight.coroutines.mapToOne
 import cafe.adriel.lyricist.Lyricist
 import com.paligot.confily.core.database.mappers.convertEventSessionItemUi
 import com.paligot.confily.core.database.mappers.convertTalkUi
-import com.paligot.confily.db.Conferences4HallDatabase
+import com.paligot.confily.db.ConfilyDatabase
 import com.paligot.confily.models.ui.EventSessionItemUi
 import com.paligot.confily.models.ui.TalkUi
 import com.paligot.confily.resources.Strings
@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.map
 import kotlin.coroutines.CoroutineContext
 
 class TalkDao(
-    private val db: Conferences4HallDatabase,
+    private val db: ConfilyDatabase,
     private val lyricist: Lyricist<Strings>,
     private val dispatcher: CoroutineContext
 ) {

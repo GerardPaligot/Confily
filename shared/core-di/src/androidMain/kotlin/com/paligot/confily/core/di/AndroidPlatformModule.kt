@@ -6,7 +6,7 @@ import com.paligot.confily.core.Platform
 import com.paligot.confily.core.QrCodeGeneratorAndroid
 import com.paligot.confily.core.database.DatabaseWrapper
 import com.paligot.confily.core.repositories.QrCodeGenerator
-import com.paligot.confily.db.Conferences4HallDatabase
+import com.paligot.confily.db.ConfilyDatabase
 import com.russhwolf.settings.AndroidSettings
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
@@ -18,7 +18,7 @@ import java.util.Locale
 
 @OptIn(ExperimentalSettingsApi::class)
 actual val platformModule = module {
-    single<Conferences4HallDatabase> { DatabaseWrapper(androidContext(), "confily.db").createDb() }
+    single<ConfilyDatabase> { DatabaseWrapper(androidContext(), "confily.db").createDb() }
     single<Platform> { Platform(AndroidContext(androidApplication())) }
     single<ObservableSettings> {
         AndroidSettings(

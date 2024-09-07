@@ -2,13 +2,13 @@ package com.paligot.confily.style.schedules.pause
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.paligot.confily.style.theme.Conferences4HallTheme
+import com.paligot.confily.style.theme.ConfilyTheme
 
 @Suppress("UnusedPrivateMember")
 @Preview
 @Composable
 private fun SmallPauseItemPreview() {
-    Conferences4HallTheme {
+    ConfilyTheme {
         SmallPauseItem(
             title = "Break",
             room = "Exposition room",
@@ -21,7 +21,7 @@ private fun SmallPauseItemPreview() {
 @Preview
 @Composable
 private fun MediumPauseItemPreview() {
-    Conferences4HallTheme {
+    ConfilyTheme {
         MediumPauseItem(
             title = "Break",
             room = "Exposition room",

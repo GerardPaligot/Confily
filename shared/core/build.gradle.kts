@@ -115,7 +115,7 @@ kotlin {
 
 sqldelight {
     databases {
-        create("Conferences4HallDatabase") {
+        create("ConfilyDatabase") {
             packageName.set("com.paligot.confily.db")
         }
     }
