@@ -21,7 +21,7 @@ class EventRepositoryV4(
     private val speakerDao: SpeakerDao,
     private val sessionDao: SessionDao,
     private val categoryDao: CategoryDao,
-    private val formatDao: com.paligot.confily.backend.formats.FormatDao,
+    private val formatDao: FormatDao,
     private val scheduleItemDao: ScheduleItemDao,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {

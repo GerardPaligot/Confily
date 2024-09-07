@@ -3,7 +3,8 @@ package com.paligot.confily.backend.talks
 import com.paligot.confily.backend.NotFoundException
 import com.paligot.confily.backend.categories.CategoryDao
 import com.paligot.confily.backend.events.EventDao
-import com.paligot.confily.backend.internals.helpers.drive.GoogleDriveDataSource
+import com.paligot.confily.backend.formats.FormatDao
+import com.paligot.confily.backend.internals.helpers.drive.DriveDataSource
 import com.paligot.confily.backend.sessions.SessionDao
 import com.paligot.confily.backend.sessions.convertToDb
 import com.paligot.confily.backend.sessions.convertToModel
@@ -20,8 +21,8 @@ class TalkRepository(
     private val speakerDao: SpeakerDao,
     private val sessionDao: SessionDao,
     private val categoryDao: CategoryDao,
-    private val formatDao: com.paligot.confily.backend.formats.FormatDao,
-    private val driveDataSource: GoogleDriveDataSource
+    private val formatDao: FormatDao,
+    private val driveDataSource: DriveDataSource
 ) {
     suspend fun list(eventId: String) = coroutineScope {
         val eventDb = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")

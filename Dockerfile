@@ -5,6 +5,7 @@ WORKDIR /usr/src/app
 
 COPY . .
 
+RUN microdnf install -y findutils
 RUN ./gradlew :backend:assemble --stacktrace --info --no-daemon
 
 # Running the application in OpenJDK container

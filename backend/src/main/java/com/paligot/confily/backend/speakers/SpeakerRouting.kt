@@ -1,8 +1,7 @@
 package com.paligot.confily.backend.speakers
 
-import com.paligot.confily.backend.events.EventDao
-import com.paligot.confily.backend.internals.CommonApi
 import com.paligot.confily.backend.receiveValidated
+import com.paligot.confily.backend.speakers.SpeakerModule.speakerRepository
 import com.paligot.confily.models.inputs.SpeakerInput
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.response.respond
@@ -11,12 +10,8 @@ import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.put
 
-fun Routing.registerSpeakersRoutes(
-    commonApi: CommonApi,
-    eventDao: EventDao,
-    speakerDao: SpeakerDao
-) {
-    val repository = SpeakerRepository(commonApi, eventDao, speakerDao)
+fun Routing.registerSpeakersRoutes() {
+    val repository by speakerRepository
 
     get("/speakers") {
         val eventId = call.parameters["eventId"]!!

@@ -1,11 +1,7 @@
 package com.paligot.confily.backend.talks
 
-import com.paligot.confily.backend.categories.CategoryDao
-import com.paligot.confily.backend.events.EventDao
-import com.paligot.confily.backend.internals.helpers.drive.GoogleDriveDataSource
 import com.paligot.confily.backend.receiveValidated
-import com.paligot.confily.backend.sessions.SessionDao
-import com.paligot.confily.backend.speakers.SpeakerDao
+import com.paligot.confily.backend.talks.TalkModule.talkRepository
 import com.paligot.confily.models.inputs.TalkInput
 import com.paligot.confily.models.inputs.TalkVerbatimInput
 import io.ktor.http.HttpStatusCode
@@ -16,22 +12,8 @@ import io.ktor.server.routing.post
 import io.ktor.server.routing.put
 
 @Suppress("LongParameterList")
-fun Routing.registerTalksRoutes(
-    eventDao: EventDao,
-    speakerDao: SpeakerDao,
-    sessionDao: SessionDao,
-    categoryDao: CategoryDao,
-    formatDao: com.paligot.confily.backend.formats.FormatDao,
-    driveDataSource: GoogleDriveDataSource
-) {
-    val repository = TalkRepository(
-        eventDao,
-        speakerDao,
-        sessionDao,
-        categoryDao,
-        formatDao,
-        driveDataSource
-    )
+fun Routing.registerTalksRoutes() {
+    val repository by talkRepository
 
     get("/talks") {
         val eventId = call.parameters["eventId"]!!

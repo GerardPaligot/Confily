@@ -4,6 +4,7 @@ import com.paligot.confily.backend.NotAcceptableException
 import com.paligot.confily.backend.NotFoundException
 import com.paligot.confily.backend.categories.CategoryDao
 import com.paligot.confily.backend.events.EventDao
+import com.paligot.confily.backend.formats.FormatDao
 import com.paligot.confily.backend.internals.CommonApi
 import com.paligot.confily.backend.internals.slug
 import com.paligot.confily.backend.sessions.SessionDao
@@ -22,7 +23,7 @@ class ConferenceHallRepository(
     private val speakerDao: SpeakerDao,
     private val sessionDao: SessionDao,
     private val categoryDao: CategoryDao,
-    private val formatDao: com.paligot.confily.backend.formats.FormatDao
+    private val formatDao: FormatDao
 ) {
     suspend fun importTalks(
         eventId: String,

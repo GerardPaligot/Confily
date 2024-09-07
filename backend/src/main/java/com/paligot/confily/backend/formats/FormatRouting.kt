@@ -1,6 +1,6 @@
 package com.paligot.confily.backend.formats
 
-import com.paligot.confily.backend.events.EventDao
+import com.paligot.confily.backend.formats.FormatModule.formatRepository
 import com.paligot.confily.backend.receiveValidated
 import com.paligot.confily.models.inputs.FormatInput
 import io.ktor.http.HttpStatusCode
@@ -10,11 +10,8 @@ import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.put
 
-fun Routing.registerFormatsRoutes(
-    eventDao: EventDao,
-    formatDao: FormatDao
-) {
-    val repository = FormatRepository(eventDao, formatDao)
+fun Routing.registerFormatsRoutes() {
+    val repository by formatRepository
 
     get("/formats") {
         val eventId = call.parameters["eventId"]!!

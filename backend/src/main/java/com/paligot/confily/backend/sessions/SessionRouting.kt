@@ -1,8 +1,7 @@
 package com.paligot.confily.backend.sessions
 
-import com.paligot.confily.backend.events.EventDao
 import com.paligot.confily.backend.receiveValidated
-import com.paligot.confily.backend.third.parties.geocode.GeocodeApi
+import com.paligot.confily.backend.sessions.SessionModule.sessionRepository
 import com.paligot.confily.models.inputs.EventSessionInput
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.response.respond
@@ -10,16 +9,8 @@ import io.ktor.server.routing.Routing
 import io.ktor.server.routing.get
 import io.ktor.server.routing.put
 
-fun Routing.registerSessionsRoutes(
-    geocodeApi: GeocodeApi,
-    eventDao: EventDao,
-    sessionDao: SessionDao
-) {
-    val repository = SessionRepository(
-        geocodeApi,
-        eventDao,
-        sessionDao
-    )
+fun Routing.registerSessionsRoutes() {
+    val repository by sessionRepository
 
     get("/sessions") {
         val eventId = call.parameters["eventId"]!!

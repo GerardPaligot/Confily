@@ -1,10 +1,7 @@
 package com.paligot.confily.backend.schedules
 
-import com.paligot.confily.backend.categories.CategoryDao
-import com.paligot.confily.backend.events.EventDao
 import com.paligot.confily.backend.receiveValidated
-import com.paligot.confily.backend.sessions.SessionDao
-import com.paligot.confily.backend.speakers.SpeakerDao
+import com.paligot.confily.backend.schedules.ScheduleModule.scheduleRepository
 import com.paligot.confily.models.inputs.ScheduleInput
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.response.respond
@@ -14,22 +11,8 @@ import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 
 @Suppress("LongParameterList")
-fun Routing.registerSchedulersRoutes(
-    eventDao: EventDao,
-    sessionDao: SessionDao,
-    categoryDao: CategoryDao,
-    formatDao: com.paligot.confily.backend.formats.FormatDao,
-    speakerDao: SpeakerDao,
-    scheduleItemDao: ScheduleItemDao
-) {
-    val repository = ScheduleRepository(
-        eventDao,
-        sessionDao,
-        categoryDao,
-        formatDao,
-        speakerDao,
-        scheduleItemDao
-    )
+fun Routing.registerSchedulersRoutes() {
+    val repository by scheduleRepository
 
     post("/schedulers") {
         val eventId = call.parameters["eventId"]!!

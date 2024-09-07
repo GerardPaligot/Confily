@@ -1,47 +1,18 @@
 package com.paligot.confily.backend
 
-import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport
-import com.google.api.client.json.gson.GsonFactory
-import com.google.api.services.drive.Drive
-import com.google.api.services.drive.DriveScopes
-import com.google.auth.http.HttpCredentialsAdapter
-import com.google.auth.oauth2.GoogleCredentials
-import com.google.cloud.firestore.FirestoreOptions
-import com.google.cloud.secretmanager.v1.SecretManagerServiceClient
-import com.google.cloud.secretmanager.v1.SecretManagerServiceSettings
-import com.google.cloud.storage.StorageOptions
-import com.paligot.confily.backend.categories.CategoryDao
 import com.paligot.confily.backend.categories.registerCategoriesRoutes
-import com.paligot.confily.backend.events.EventDao
 import com.paligot.confily.backend.events.registerEventRoutes
 import com.paligot.confily.backend.formats.registerFormatsRoutes
-import com.paligot.confily.backend.internals.CommonApi
-import com.paligot.confily.backend.internals.helpers.database.BasicDatabase
-import com.paligot.confily.backend.internals.helpers.database.Database
-import com.paligot.confily.backend.internals.helpers.drive.GoogleDriveDataSource
-import com.paligot.confily.backend.internals.helpers.image.TranscoderImage
-import com.paligot.confily.backend.internals.helpers.secret.Secret
-import com.paligot.confily.backend.internals.helpers.storage.Storage
-import com.paligot.confily.backend.jobs.JobDao
-import com.paligot.confily.backend.partners.PartnerDao
 import com.paligot.confily.backend.partners.registerPartnersRoutes
-import com.paligot.confily.backend.qanda.QAndADao
 import com.paligot.confily.backend.qanda.registerQAndAsRoutes
-import com.paligot.confily.backend.schedules.ScheduleItemDao
 import com.paligot.confily.backend.schedules.registerSchedulersRoutes
-import com.paligot.confily.backend.sessions.SessionDao
 import com.paligot.confily.backend.sessions.registerSessionsRoutes
-import com.paligot.confily.backend.speakers.SpeakerDao
 import com.paligot.confily.backend.speakers.registerSpeakersRoutes
 import com.paligot.confily.backend.talks.registerTalksRoutes
 import com.paligot.confily.backend.third.parties.billetweb.registerBilletWebRoutes
 import com.paligot.confily.backend.third.parties.cms4partners.registerCms4PartnersRoutes
-import com.paligot.confily.backend.third.parties.conferencehall.ConferenceHallApi
 import com.paligot.confily.backend.third.parties.conferencehall.registerConferenceHallRoutes
-import com.paligot.confily.backend.third.parties.geocode.GeocodeApi
-import com.paligot.confily.backend.third.parties.openplanner.OpenPlannerApi
 import com.paligot.confily.backend.third.parties.openplanner.registerOpenPlannerRoutes
-import com.paligot.confily.backend.third.parties.welovedevs.WeLoveDevsApi
 import com.paligot.confily.backend.third.parties.welovedevs.registerWLDRoutes
 import com.paligot.confily.models.Session
 import com.paligot.confily.models.inputs.Validator
@@ -72,66 +43,6 @@ const val PORT = 8080
 
 @Suppress("LongMethod")
 fun main() {
-    val projectName = "confily"
-    val gcpProjectId = System.getenv("PROJECT_ID")
-    val isCloud = System.getenv("IS_CLOUD") == "true"
-    val firestore = FirestoreOptions.getDefaultInstance().toBuilder().run {
-        if (!isCloud) {
-            setEmulatorHost("localhost:8081")
-        }
-        setProjectId(gcpProjectId)
-        setCredentials(GoogleCredentials.getApplicationDefault())
-        build()
-    }.service
-    val cloudStorage = StorageOptions.getDefaultInstance().toBuilder().run {
-        setProjectId(gcpProjectId)
-        setCredentials(GoogleCredentials.getApplicationDefault())
-        build()
-    }.service
-    val secret = Secret.Factory.create(
-        projectId = gcpProjectId,
-        client = SecretManagerServiceClient.create(
-            SecretManagerServiceSettings.newBuilder().apply {
-                this.credentialsProvider =
-                    SecretManagerServiceSettings.defaultCredentialsProviderBuilder().build()
-            }.build()
-        )
-    )
-    val driveService = Drive.Builder(
-        GoogleNetHttpTransport.newTrustedTransport(),
-        GsonFactory.getDefaultInstance(),
-        HttpCredentialsAdapter(
-            GoogleCredentials.getApplicationDefault().createScoped(setOf(DriveScopes.DRIVE))
-        )
-    )
-        .setApplicationName(gcpProjectId)
-        .build()
-    val database = Database.Factory.create(firestore = firestore, projectName = projectName)
-    val basicDatabase = BasicDatabase.Factory.create(firestore = firestore)
-    val storage = Storage.Factory.create(
-        storage = cloudStorage,
-        bucketName = projectName,
-        isAppEngine = isCloud
-    )
-    val speakerDao = SpeakerDao(database, storage)
-    val sessionDao = SessionDao(database)
-    val categoryDao = CategoryDao(database)
-    val formatDao = com.paligot.confily.backend.formats.FormatDao(database)
-    val scheduleItemDao = ScheduleItemDao(database)
-    val eventDao = EventDao(projectName, basicDatabase)
-    val partnerDao = PartnerDao(database, storage)
-    val jobDao = JobDao(database)
-    val qAndADao = QAndADao(database)
-    val driveDataSource = GoogleDriveDataSource(driveService)
-    val wldApi = WeLoveDevsApi.Factory.create(enableNetworkLogs = true)
-    val geocodeApi = GeocodeApi.Factory.create(
-        apiKey = secret["GEOCODE_API_KEY"],
-        enableNetworkLogs = true
-    )
-    val openPlannerApi = OpenPlannerApi.Factory.create(enableNetworkLogs = true)
-    val conferenceHallApi = ConferenceHallApi.Factory.create(enableNetworkLogs = true)
-    val commonApi = CommonApi.Factory.create(enableNetworkLogs = true)
-    val imageTranscoder = TranscoderImage()
     embeddedServer(Netty, PORT) {
         install(CORS) {
             allowMethod(HttpMethod.Options)
@@ -173,69 +84,22 @@ fun main() {
             }
         }
         routing {
-            registerEventRoutes(
-                geocodeApi,
-                eventDao,
-                speakerDao,
-                qAndADao,
-                sessionDao,
-                categoryDao,
-                formatDao,
-                scheduleItemDao,
-                partnerDao
-            )
+            registerEventRoutes()
             route("/events/{eventId}") {
-                registerQAndAsRoutes(eventDao, qAndADao)
-                registerSpeakersRoutes(commonApi, eventDao, speakerDao)
-                registerSessionsRoutes(geocodeApi, eventDao, sessionDao)
-                registerTalksRoutes(
-                    eventDao,
-                    speakerDao,
-                    sessionDao,
-                    categoryDao,
-                    formatDao,
-                    driveDataSource
-                )
-                registerCategoriesRoutes(eventDao, categoryDao)
-                registerFormatsRoutes(eventDao, formatDao)
-                registerSchedulersRoutes(
-                    eventDao,
-                    sessionDao,
-                    categoryDao,
-                    formatDao,
-                    speakerDao,
-                    scheduleItemDao
-                )
-                registerPartnersRoutes(geocodeApi, eventDao, partnerDao, jobDao, imageTranscoder)
+                registerQAndAsRoutes()
+                registerSpeakersRoutes()
+                registerSessionsRoutes()
+                registerTalksRoutes()
+                registerCategoriesRoutes()
+                registerFormatsRoutes()
+                registerSchedulersRoutes()
+                registerPartnersRoutes()
                 // Third parties
-                registerBilletWebRoutes(eventDao)
-                registerCms4PartnersRoutes(
-                    geocodeApi,
-                    eventDao,
-                    partnerDao,
-                    jobDao,
-                    imageTranscoder
-                )
-                registerConferenceHallRoutes(
-                    conferenceHallApi,
-                    commonApi,
-                    eventDao,
-                    speakerDao,
-                    sessionDao,
-                    categoryDao,
-                    formatDao
-                )
-                registerOpenPlannerRoutes(
-                    openPlannerApi,
-                    commonApi,
-                    eventDao,
-                    speakerDao,
-                    sessionDao,
-                    categoryDao,
-                    formatDao,
-                    scheduleItemDao
-                )
-                registerWLDRoutes(wldApi, eventDao, partnerDao, jobDao)
+                registerBilletWebRoutes()
+                registerCms4PartnersRoutes()
+                registerConferenceHallRoutes()
+                registerOpenPlannerRoutes()
+                registerWLDRoutes()
             }
         }
     }.start(wait = true)

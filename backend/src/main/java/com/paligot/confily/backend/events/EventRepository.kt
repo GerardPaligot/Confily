@@ -4,6 +4,7 @@ import com.paligot.confily.backend.NotAcceptableException
 import com.paligot.confily.backend.NotFoundException
 import com.paligot.confily.backend.categories.CategoryDao
 import com.paligot.confily.backend.categories.CategoryDb
+import com.paligot.confily.backend.formats.FormatDao
 import com.paligot.confily.backend.formats.FormatDb
 import com.paligot.confily.backend.internals.date.FormatterPattern
 import com.paligot.confily.backend.internals.date.format
@@ -51,7 +52,7 @@ class EventRepository(
     private val qAndADao: QAndADao,
     private val sessionDao: SessionDao,
     private val categoryDao: CategoryDao,
-    private val formatDao: com.paligot.confily.backend.formats.FormatDao,
+    private val formatDao: FormatDao,
     private val scheduleItemDao: ScheduleItemDao,
     private val partnerDao: PartnerDao
 ) {
