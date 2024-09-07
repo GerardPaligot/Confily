@@ -39,7 +39,7 @@ import com.paligot.confily.resources.semantic_ticket_qrcode
 import com.paligot.confily.resources.text_ticket_firstname
 import com.paligot.confily.resources.text_ticket_lastname
 import com.paligot.confily.style.components.placeholder.placeholder
-import com.paligot.confily.style.theme.Conferences4HallTheme
+import com.paligot.confily.style.theme.ConfilyTheme
 import com.paligot.confily.style.theme.shapes.DottedShape
 import org.jetbrains.compose.resources.stringResource
 
@@ -139,7 +139,7 @@ fun TicketDetailed(
 @Preview
 @Composable
 private fun TicketPreview() {
-    Conferences4HallTheme {
+    ConfilyTheme {
         BoxWithConstraints(
             modifier = Modifier.fillMaxWidth(),
             contentAlignment = Alignment.Center
@@ -156,7 +156,7 @@ private fun TicketPreview() {
 @Preview
 @Composable
 private fun TicketPreviewLongText() {
-    Conferences4HallTheme {
+    ConfilyTheme {
         BoxWithConstraints(
             modifier = Modifier.fillMaxWidth(),
             contentAlignment = Alignment.Center

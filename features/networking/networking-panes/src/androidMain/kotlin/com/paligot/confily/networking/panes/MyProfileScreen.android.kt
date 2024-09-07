@@ -3,12 +3,12 @@ package com.paligot.confily.networking.panes
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.paligot.confily.models.ui.UserProfileUi
-import com.paligot.confily.style.theme.Conferences4HallTheme
+import com.paligot.confily.style.theme.ConfilyTheme
 
 @Preview
 @Composable
 private fun MyProfilePreview() {
-    Conferences4HallTheme {
+    ConfilyTheme {
         MyProfileScreen(
             profileUi = UserProfileUi.fake,
             onEditInformation = {}

@@ -4,13 +4,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.paligot.confily.style.theme.Conferences4HallTheme
+import com.paligot.confily.style.theme.ConfilyTheme
 
 @Suppress("UnusedPrivateMember")
 @Preview
 @Composable
 private fun JobItemPreview() {
-    Conferences4HallTheme {
+    ConfilyTheme {
         JobItem(
             title = "Mobile Staff Engineer",
             description = "Google - Paris, France",

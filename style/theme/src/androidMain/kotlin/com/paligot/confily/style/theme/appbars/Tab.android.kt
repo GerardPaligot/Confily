@@ -5,12 +5,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.paligot.confily.style.theme.Conferences4HallTheme
+import com.paligot.confily.style.theme.ConfilyTheme
 
 @Preview
 @Composable
 fun TabPreview() {
-    Conferences4HallTheme {
+    ConfilyTheme {
         Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
             Tab(
                 text = "10 June",

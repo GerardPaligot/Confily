@@ -4,12 +4,12 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.paligot.confily.style.theme.Conferences4HallTheme
+import com.paligot.confily.style.theme.ConfilyTheme
 
 @Preview
 @Composable
 private fun IconButtonPreview() {
-    Conferences4HallTheme {
+    ConfilyTheme {
         IconButton(
             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
             contentDescription = null,

@@ -5,7 +5,7 @@ import com.paligot.confily.core.PlatformContext
 import com.paligot.confily.core.QrCodeGeneratoriOS
 import com.paligot.confily.core.database.DatabaseWrapper
 import com.paligot.confily.core.repositories.QrCodeGenerator
-import com.paligot.confily.db.Conferences4HallDatabase
+import com.paligot.confily.db.ConfilyDatabase
 import com.russhwolf.settings.AppleSettings
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
@@ -17,7 +17,7 @@ import platform.Foundation.preferredLanguages
 
 @OptIn(ExperimentalSettingsApi::class)
 actual val platformModule = module {
-    single<Conferences4HallDatabase> { DatabaseWrapper().createDb() }
+    single<ConfilyDatabase> { DatabaseWrapper().createDb() }
     single<Platform> { Platform(PlatformContext()) }
     single<ObservableSettings> { AppleSettings(standardUserDefaults) }
     single<String>(named(AcceptLanguageNamed)) { NSLocale.preferredLanguages.first().toString() }

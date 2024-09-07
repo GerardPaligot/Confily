@@ -3,13 +3,13 @@ package com.paligot.confily.schedules.ui.talks
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.paligot.confily.models.ui.TalkItemUi
-import com.paligot.confily.style.theme.Conferences4HallTheme
+import com.paligot.confily.style.theme.ConfilyTheme
 
 @Suppress("UnusedPrivateMember")
 @Preview
 @Composable
 private fun SmallTalkItemPreview() {
-    Conferences4HallTheme {
+    ConfilyTheme {
         SmallScheduleItem(talk = TalkItemUi.fake) { }
     }
 }
@@ -18,7 +18,7 @@ private fun SmallTalkItemPreview() {
 @Preview
 @Composable
 private fun MediumTalkItemPreview() {
-    Conferences4HallTheme {
+    ConfilyTheme {
         MediumScheduleItem(talk = TalkItemUi.fake) { }
     }
 }

@@ -3,7 +3,7 @@ package com.paligot.confily.style.schedules.card
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.paligot.confily.style.theme.Conferences4HallTheme
+import com.paligot.confily.style.theme.ConfilyTheme
 import kotlinx.collections.immutable.persistentListOf
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -11,7 +11,7 @@ import kotlinx.collections.immutable.persistentListOf
 @Preview
 @Composable
 private fun SmallScheduleCardPreview() {
-    Conferences4HallTheme {
+    ConfilyTheme {
         SmallScheduleCard(
             title = "Designers x Developers : Ça match \uD83D\uDC99 ou ça match \uD83E\uDD4A ?",
             speakersUrls = persistentListOf("", ""),
@@ -27,7 +27,7 @@ private fun SmallScheduleCardPreview() {
 @Preview
 @Composable
 private fun ScheduleCardPreview() {
-    Conferences4HallTheme {
+    ConfilyTheme {
         MediumScheduleCard(
             title = "Designers x Developers : Ça match \uD83D\uDC99 ou ça match \uD83E\uDD4A ?",
             speakersUrls = persistentListOf("", ""),
@@ -43,7 +43,7 @@ private fun ScheduleCardPreview() {
 @Preview
 @Composable
 private fun ScheduleCardFavoritePreview() {
-    Conferences4HallTheme {
+    ConfilyTheme {
         MediumScheduleCard(
             title = "Designers x Developers : Ça match \uD83D\uDC99 ou ça match \uD83E\uDD4A ?",
             speakersUrls = persistentListOf("", ""),

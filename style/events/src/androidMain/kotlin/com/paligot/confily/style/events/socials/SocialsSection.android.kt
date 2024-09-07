@@ -2,12 +2,12 @@ package com.paligot.confily.style.events.socials
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.paligot.confily.style.theme.Conferences4HallTheme
+import com.paligot.confily.style.theme.ConfilyTheme
 
 @Preview
 @Composable
 internal fun SocialsSectionPreview() {
-    Conferences4HallTheme {
+    ConfilyTheme {
         SocialsSection(
             title = "Gérard Paligot",
             pronouns = "Him/He",

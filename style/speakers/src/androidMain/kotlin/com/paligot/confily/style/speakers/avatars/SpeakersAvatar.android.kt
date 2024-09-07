@@ -2,13 +2,13 @@ package com.paligot.confily.style.speakers.avatars
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.paligot.confily.style.theme.Conferences4HallTheme
+import com.paligot.confily.style.theme.ConfilyTheme
 import kotlinx.collections.immutable.persistentListOf
 
 @Preview
 @Composable
 private fun SmallBorderedSpeakersAvatarPreview() {
-    Conferences4HallTheme {
+    ConfilyTheme {
         SmallBorderedSpeakersAvatar(
             urls = persistentListOf("", ""),
             descriptions = persistentListOf("", "")
@@ -19,7 +19,7 @@ private fun SmallBorderedSpeakersAvatarPreview() {
 @Preview
 @Composable
 private fun MediumBorderedSpeakersAvatarPreview() {
-    Conferences4HallTheme {
+    ConfilyTheme {
         MediumBorderedSpeakersAvatar(
             urls = persistentListOf("", ""),
             descriptions = persistentListOf("", "")

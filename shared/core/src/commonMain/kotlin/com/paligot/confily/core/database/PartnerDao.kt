@@ -4,7 +4,7 @@ import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOne
 import com.paligot.confily.core.Platform
-import com.paligot.confily.db.Conferences4HallDatabase
+import com.paligot.confily.db.ConfilyDatabase
 import com.paligot.confily.models.PartnerV2
 import com.paligot.confily.models.ui.JobUi
 import com.paligot.confily.models.ui.PartnerGroupUi
@@ -20,7 +20,7 @@ import kotlinx.coroutines.flow.map
 import kotlin.coroutines.CoroutineContext
 
 class PartnerDao(
-    private val db: Conferences4HallDatabase,
+    private val db: ConfilyDatabase,
     private val platform: Platform,
     private val dispatcher: CoroutineContext
 ) {

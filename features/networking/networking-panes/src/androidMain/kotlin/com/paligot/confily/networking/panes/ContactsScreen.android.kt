@@ -6,14 +6,14 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.paligot.confily.models.ui.NetworkingUi
-import com.paligot.confily.style.theme.Conferences4HallTheme
+import com.paligot.confily.style.theme.ConfilyTheme
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @ExperimentalMaterial3Api
 @Preview
 @Composable
 private fun ContactsPreview() {
-    Conferences4HallTheme {
+    ConfilyTheme {
         Scaffold {
             ContactsScreen(
                 users = NetworkingUi.fake.users,

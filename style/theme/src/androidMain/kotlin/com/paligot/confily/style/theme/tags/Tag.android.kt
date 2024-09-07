@@ -10,14 +10,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.paligot.confily.style.theme.Conferences4HallTheme
+import com.paligot.confily.style.theme.ConfilyTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Suppress("LongMethod", "UnusedPrivateMember")
 @Preview
 @Composable
 private fun MediumTagPreview() {
-    Conferences4HallTheme {
+    ConfilyTheme {
         Column(
             verticalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier
@@ -71,7 +71,7 @@ private fun MediumTagPreview() {
 @Preview
 @Composable
 private fun SmallTagPreview() {
-    Conferences4HallTheme {
+    ConfilyTheme {
         Column(
             verticalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier

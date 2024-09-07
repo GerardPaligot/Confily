@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.navigation.NavHostController
 import com.paligot.confily.models.ui.ExportNetworkingUi
-import com.paligot.confily.style.theme.Conferences4HallTheme
+import com.paligot.confily.style.theme.ConfilyTheme
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import org.koin.androidx.compose.koinViewModel
@@ -27,7 +27,7 @@ fun Main(
     navController: NavHostController,
     viewModel: MainViewModel = koinViewModel(parameters = { parametersOf(defaultEvent) })
 ) {
-    Conferences4HallTheme {
+    ConfilyTheme {
         val uiState = viewModel.uiState.collectAsState()
         when (uiState.value) {
             is MainUiState.Success -> {

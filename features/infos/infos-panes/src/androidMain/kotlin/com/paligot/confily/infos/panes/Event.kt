@@ -26,7 +26,7 @@ import com.paligot.confily.resources.title_plan
 import com.paligot.confily.resources.title_ticket
 import com.paligot.confily.style.events.cards.AddressCard
 import com.paligot.confily.style.events.socials.SocialsSection
-import com.paligot.confily.style.theme.Conferences4HallTheme
+import com.paligot.confily.style.theme.ConfilyTheme
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -102,7 +102,7 @@ fun Event(
 @Preview
 @Composable
 private fun EventPreview() {
-    Conferences4HallTheme {
+    ConfilyTheme {
         Scaffold {
             Event(
                 event = EventUi.fake,

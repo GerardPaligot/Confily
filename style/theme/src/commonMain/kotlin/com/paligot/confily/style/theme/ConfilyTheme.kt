@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 
 @Composable
-fun Conferences4HallTheme(
+fun ConfilyTheme(
     useDarkTheme: Boolean = isSystemInDarkTheme(),
     colorScheme: ColorScheme = colorScheme(),
     content: @Composable () -> Unit

@@ -11,7 +11,7 @@ import com.paligot.confily.android.R
 import com.paligot.confily.core.repositories.UserRepository
 import com.paligot.confily.navigation.Screen
 import com.paligot.confily.widgets.presentation.NetworkingWidget
-import com.paligot.confily.widgets.style.Conferences4HallGlanceTheme
+import com.paligot.confily.widgets.style.ConfilyGlanceTheme
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -20,7 +20,7 @@ class NetworkingAppWidget : GlanceAppWidget(), KoinComponent {
 
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         provideContent {
-            Conferences4HallGlanceTheme {
+            ConfilyGlanceTheme {
                 NetworkingWidget(
                     userRepository = userRepository,
                     iconId = R.drawable.ic_campaign,

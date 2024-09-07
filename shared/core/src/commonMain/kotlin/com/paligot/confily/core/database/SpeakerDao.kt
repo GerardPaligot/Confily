@@ -7,7 +7,7 @@ import cafe.adriel.lyricist.Lyricist
 import com.paligot.confily.core.database.mappers.convertTalkItemUi
 import com.paligot.confily.core.database.mappers.convertToSpeakerItemUi
 import com.paligot.confily.core.database.mappers.convertToSpeakerUi
-import com.paligot.confily.db.Conferences4HallDatabase
+import com.paligot.confily.db.ConfilyDatabase
 import com.paligot.confily.models.ui.SpeakerItemUi
 import com.paligot.confily.models.ui.SpeakerUi
 import com.paligot.confily.models.ui.TalkItemUi
@@ -20,7 +20,7 @@ import kotlinx.coroutines.flow.map
 import kotlin.coroutines.CoroutineContext
 
 class SpeakerDao(
-    private val db: Conferences4HallDatabase,
+    private val db: ConfilyDatabase,
     private val lyricist: Lyricist<Strings>,
     private val dispatcher: CoroutineContext
 ) {

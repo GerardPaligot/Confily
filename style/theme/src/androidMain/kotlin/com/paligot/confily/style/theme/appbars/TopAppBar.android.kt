@@ -10,7 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.action_qrcode_scanner
-import com.paligot.confily.style.theme.Conferences4HallTheme
+import com.paligot.confily.style.theme.ConfilyTheme
 import com.paligot.confily.style.theme.actions.TopAction
 import com.paligot.confily.style.theme.actions.TopActionsUi
 import kotlinx.collections.immutable.persistentListOf
@@ -20,7 +20,7 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
 @Preview
 @Composable
 private fun TopAppBarPreview() {
-    Conferences4HallTheme {
+    ConfilyTheme {
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             TopAppBar(
                 title = "Speakers"
