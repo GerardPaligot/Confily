@@ -75,13 +75,18 @@ Now, you can start to interact with the backend.
 
 #### Prerequisites
 
-* Billing account enabled on your GCP project
 * Gcloud app created: `gcloud app create`
+* Billing account enabled on your GCP project
 * Cloud Build service enabled
 * Cloud Firestore service enabled
 * Secret Manager enabled
 * Geocoding enabled
 * Add secret `GEOCODE_API_KEY` in Secret Manager with geocoding api key
+* Grant your GCP service account with these permissions:
+  * Cloud Run Invoker
+  * Secret Manager Secret Accessor
+  * Storage Object Creator
+  * Storage Object Viewer
 
 #### Deploy in GCP with AppEngine
 
@@ -89,20 +94,22 @@ Be sure to edit the `app.yaml` file in `backend/src/main/appengine` folder with 
 before to deploy.
 
 ```bash
+export PROJECT_ID=<your-project-id>
 # If you are not yet logged
 gcloud auth login
 gcloud config set project $PROJECT_ID
-# Deploy in production
+# Deploy
 ./gradlew :backend:appengineDeploy
 ```
 
 #### Deploy in GCP with Cloud Run
 
 ```bash
+export PROJECT_ID=<your-project-id>
 # If you are not yet logged
 gcloud auth login
 gcloud config set project $PROJECT_ID
-# Deploy in production
+# Deploy
 gcloud run deploy confily \
   --source . \
   --platform managed \
