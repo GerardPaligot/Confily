@@ -1,5 +1,6 @@
 package com.paligot.confily.backend.third.parties.openplanner
 
+import com.paligot.confily.backend.internals.SystemEnv
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.engine.java.Java
@@ -15,7 +16,7 @@ import kotlinx.serialization.json.Json
 
 class OpenPlannerApi(
     private val client: HttpClient,
-    private val baseUrl: String = "https://storage.googleapis.com/conferencecenterr.appspot.com"
+    private val baseUrl: String = "https://${SystemEnv.openPlannerUrl}"
 ) {
     suspend fun fetchPrivateJson(eventId: String, privateId: String): OpenPlanner =
         client.get("$baseUrl/events/$eventId/$privateId.json?t=${Clock.System.now().epochSeconds}")

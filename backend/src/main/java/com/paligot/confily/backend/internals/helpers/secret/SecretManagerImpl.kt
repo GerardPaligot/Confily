@@ -8,6 +8,7 @@ class SecretManagerImpl(
     private val projectId: String,
     private val client: SecretManagerServiceClient
 ) : Secret {
+    @Suppress("SwallowedException")
     override fun get(id: String): String? {
         return try {
             val data = client

@@ -1,5 +1,6 @@
 package com.paligot.confily.backend.third.parties.conferencehall
 
+import com.paligot.confily.backend.internals.SystemEnv
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.engine.java.Java
@@ -14,7 +15,7 @@ import kotlinx.serialization.json.Json
 
 class ConferenceHallApi(
     private val client: HttpClient,
-    private val baseUrl: String = "https://${System.getenv("BASE_URL_CONFERENCE_HALL")}/api"
+    private val baseUrl: String = "https://${SystemEnv.conferenceHallUrl}/api"
 ) {
     suspend fun fetchEventConfirmed(eventId: String, apiKey: String) =
         client.get("$baseUrl/v1/event/$eventId?key=$apiKey&state=confirmed").body<Event>()
