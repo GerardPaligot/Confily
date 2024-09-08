@@ -1,5 +1,6 @@
 package com.paligot.confily.backend.third.parties.geocode
 
+import com.paligot.confily.backend.NotAuthorized
 import com.paligot.confily.backend.internals.helpers.secret.Secret
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -22,7 +23,7 @@ class GeocodeApi(
 ) {
     suspend fun geocode(query: String): Geocode = coroutineScope {
         val encodeQuery = URLEncoder.encode(query, "utf-8")
-        val apiKey = secret["GEOCODE_API_KEY"]
+        val apiKey = secret["GEOCODE_API_KEY"] ?: throw NotAuthorized
         return@coroutineScope client
             .get("$baseUrl/geocode/json?address=$encodeQuery&key=$apiKey")
             .body()
