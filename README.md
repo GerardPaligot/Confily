@@ -115,8 +115,6 @@ gcloud run deploy confily \
   --platform managed \
   --port 8080 \
   --region europe-west1 \
-  --set-env-vars=IS_CLOUD=true \
-  --set-env-vars=BASE_URL_CONFERENCE_HALL=conference-hall.io \
   --set-env-vars=PROJECT_ID=$PROJECT_ID \
   --allow-unauthenticated
 ```

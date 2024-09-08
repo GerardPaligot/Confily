@@ -1,5 +1,6 @@
 package com.paligot.confily.backend.events
 
+import com.paligot.confily.backend.internals.SystemEnv
 import java.text.DecimalFormat
 import java.time.LocalDateTime
 
@@ -83,7 +84,7 @@ fun EventDb.openFeedbackUrl(): String? {
         val formatMonth = formatter.format(startDate.monthValue)
         val formatDay = formatter.format(startDate.dayOfMonth)
         val dateFormatted = "${startDate.year}-$formatMonth-$formatDay"
-        "https://openfeedback.io/${this.openFeedbackId}/$dateFormatted"
+        "https://${SystemEnv.openFeedbackUrl}/${this.openFeedbackId}/$dateFormatted"
     } catch (ignored: Throwable) {
         null
     }
