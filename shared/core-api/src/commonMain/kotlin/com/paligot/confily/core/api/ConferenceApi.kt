@@ -1,7 +1,6 @@
-package com.paligot.confily.core.network
+package com.paligot.confily.core.api
 
-import com.paligot.confily.core.Platform
-import com.paligot.confily.core.exceptions.AgendaNotModifiedException
+import com.paligot.confily.core.api.exceptions.AgendaNotModifiedException
 import com.paligot.confily.models.AgendaV4
 import com.paligot.confily.models.Attendee
 import com.paligot.confily.models.EventList
@@ -10,6 +9,7 @@ import com.paligot.confily.models.PartnerV2
 import com.paligot.confily.models.QuestionAndResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
+import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.logging.DEFAULT
 import io.ktor.client.plugins.logging.LogLevel
@@ -24,6 +24,8 @@ import io.ktor.http.etag
 import io.ktor.http.ifNoneMatch
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
+
+expect val httpClientEngine: HttpClientEngine
 
 class ConferenceApi(
     private val client: HttpClient,
@@ -66,13 +68,13 @@ class ConferenceApi(
 
     companion object {
         fun create(
-            platform: Platform,
             baseUrl: String,
             acceptLanguage: String,
-            enableNetworkLogs: Boolean
+            enableNetworkLogs: Boolean,
+            httpEngine: HttpClientEngine = httpClientEngine
         ): ConferenceApi =
             ConferenceApi(
-                client = HttpClient(platform.httpEngine) {
+                client = HttpClient(httpEngine) {
                     install(
                         ContentNegotiation
                     ) {

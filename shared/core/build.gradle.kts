@@ -26,6 +26,7 @@ kotlin {
                 baseName = "Shared"
                 isStatic = false
                 export(libs.settings)
+                export(projects.shared.coreApi)
                 export(projects.shared.models)
                 export(projects.shared.uiModels)
                 export(projects.shared.resources)
@@ -38,19 +39,13 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                api(projects.shared.coreApi)
                 api(projects.shared.models)
                 api(projects.shared.uiModels)
                 api(projects.shared.resources)
 
                 implementation(compose.runtime)
                 implementation(compose.components.resources)
-
-                implementation(libs.ktor.client.core)
-                implementation(libs.ktor.client.json)
-                implementation(libs.ktor.client.logging)
-                implementation(libs.ktor.client.serialization)
-                implementation(libs.ktor.client.negotiation)
-                implementation(libs.ktor.serialization.json)
 
                 implementation(libs.jetbrains.kotlinx.datetime)
                 implementation(libs.jetbrains.kotlinx.collections)
@@ -75,7 +70,6 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation(libs.cash.sqldelight.android)
-                implementation(libs.ktor.client.android)
                 implementation(libs.google.zxing)
                 implementation(libs.zxing.android.embedded)
             }
@@ -94,7 +88,6 @@ kotlin {
                 iosArm64Main.dependsOn(this)
                 iosSimulatorArm64Main.dependsOn(this)
                 dependencies {
-                    implementation(libs.ktor.client.ios)
                     implementation(libs.cash.sqldelight.native)
                 }
             }

@@ -4,8 +4,6 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import com.paligot.confily.models.ui.Image
-import io.ktor.client.engine.HttpClientEngine
-import io.ktor.client.engine.android.Android
 import okio.FileSystem
 import okio.Path.Companion.toPath
 import java.io.ByteArrayOutputStream
@@ -14,7 +12,6 @@ data class AndroidContext(val context: Context)
 actual typealias PlatformContext = AndroidContext
 
 actual class Platform actual constructor(context: PlatformContext) {
-    actual val httpEngine: HttpClientEngine = Android.create()
     actual val fileEngine = FileEngine(
         fileSystem = FileSystem.SYSTEM,
         tempFolderPath = context.context.cacheDir?.absolutePath?.toPath()

@@ -1,8 +1,6 @@
 package com.paligot.confily.core
 
 import com.paligot.confily.models.ui.Image
-import io.ktor.client.engine.HttpClientEngine
-import io.ktor.client.engine.darwin.Darwin
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.addressOf
 import kotlinx.cinterop.memScoped
@@ -21,7 +19,6 @@ class IOSContext
 actual typealias PlatformContext = IOSContext
 
 actual class Platform actual constructor(context: PlatformContext) {
-    actual val httpEngine: HttpClientEngine = Darwin.create()
     actual val fileEngine = FileEngine(
         fileSystem = FileSystem.SYSTEM,
         tempFolderPath = FileSystem.SYSTEM_TEMPORARY_DIRECTORY

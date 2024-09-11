@@ -1,8 +1,8 @@
 package com.paligot.confily.core.repositories
 
+import com.paligot.confily.core.api.ConferenceApi
 import com.paligot.confily.core.database.EventDao
 import com.paligot.confily.core.exceptions.EventSavedException
-import com.paligot.confily.core.network.ConferenceApi
 import com.paligot.confily.models.ui.EventInfoUi
 import com.paligot.confily.models.ui.EventItemListUi
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutines

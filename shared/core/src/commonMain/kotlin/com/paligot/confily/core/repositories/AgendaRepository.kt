@@ -1,14 +1,13 @@
 package com.paligot.confily.core.repositories
 
+import com.paligot.confily.core.api.ConferenceApi
+import com.paligot.confily.core.api.exceptions.AgendaNotModifiedException
 import com.paligot.confily.core.database.EventDao
 import com.paligot.confily.core.database.FeaturesActivatedDao
 import com.paligot.confily.core.database.PartnerDao
 import com.paligot.confily.core.database.ScheduleDao
 import com.paligot.confily.core.database.SpeakerDao
 import com.paligot.confily.core.database.TalkDao
-import com.paligot.confily.core.exceptions.AgendaNotModifiedException
-import com.paligot.confily.core.network.ConferenceApi
-import com.paligot.confily.models.ui.AgendaUi
 import com.paligot.confily.models.ui.CategoryUi
 import com.paligot.confily.models.ui.CoCUi
 import com.paligot.confily.models.ui.EventSessionItemUi

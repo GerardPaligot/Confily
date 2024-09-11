@@ -1,3 +1,3 @@
-package com.paligot.confily.core.exceptions
+package com.paligot.confily.core.api.exceptions
 
 class AgendaNotModifiedException : Throwable()
