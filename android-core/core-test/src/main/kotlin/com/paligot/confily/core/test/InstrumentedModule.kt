@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 import com.paligot.confily.core.AlarmIntentFactory
 import com.paligot.confily.core.AlarmScheduler
-import com.paligot.confily.core.database.DatabaseWrapper
+import com.paligot.confily.core.db.DatabaseWrapper
 import com.paligot.confily.core.di.ApplicationIdNamed
 import com.paligot.confily.core.di.ConfilyBaseUrlNamed
 import com.paligot.confily.core.di.IsDebugNamed

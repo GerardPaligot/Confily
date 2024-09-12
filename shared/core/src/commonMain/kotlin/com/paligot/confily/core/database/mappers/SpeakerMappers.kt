@@ -45,14 +45,14 @@ fun SelectSpeakersByTalkId.convertSpeakerItemUi(strings: Strings) = SpeakerItemU
 )
 
 fun SpeakerDb.displayActivity(strings: Strings) = when {
-    job_title != null && company != null -> strings.texts.speakerActivity(job_title, company)
+    job_title != null && company != null -> strings.texts.speakerActivity(job_title!!, company!!)
     job_title == null && company != null -> company
     job_title != null && company == null -> job_title
     else -> null
 }
 
 fun SelectSpeakersByTalkId.displayActivity(strings: Strings) = when {
-    job_title != null && company != null -> strings.texts.speakerActivity(job_title, company)
+    job_title != null && company != null -> strings.texts.speakerActivity(job_title!!, company!!)
     job_title == null && company != null -> company
     job_title != null && company == null -> job_title
     else -> null

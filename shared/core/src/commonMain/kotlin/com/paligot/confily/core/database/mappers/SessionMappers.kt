@@ -117,7 +117,7 @@ fun SelectBreakSessions.convertEventSessionItemUi(strings: Strings): EventSessio
     val diff = endDateTime.toInstant(TimeZone.UTC).minus(startDateTime.toInstant(TimeZone.UTC))
     val timeInMinutes = diff.inWholeMinutes.toInt()
     val address = if (formatted_address != null && address != null && latitude != null && longitude != null) {
-        AddressUi(formatted_address.toImmutableList(), address, latitude, longitude)
+        AddressUi(formatted_address!!.toImmutableList(), address!!, latitude!!, longitude!!)
     } else {
         null
     }
@@ -142,7 +142,7 @@ fun SelectEventSessionById.convertEventSessionItemUi(strings: Strings): EventSes
     val diff = endDateTime.toInstant(TimeZone.UTC).minus(startDateTime.toInstant(TimeZone.UTC))
     val timeInMinutes = diff.inWholeMinutes.toInt()
     val address = if (formatted_address != null && address != null && latitude != null && longitude != null) {
-        AddressUi(formatted_address.toImmutableList(), address, latitude, longitude)
+        AddressUi(formatted_address!!.toImmutableList(), address!!, latitude!!, longitude!!)
     } else {
         null
     }
@@ -219,12 +219,10 @@ fun SelectSessionByTalkId.convertTalkUi(
         room = room,
         speakers = speakers.map { it.convertSpeakerItemUi(strings) }.toImmutableList(),
         speakersSharing = speakers.joinToString(", ") { speaker ->
-            if (speaker.twitter == null) {
-                speaker.display_name
-            } else {
-                val twitter = speaker.twitter.split("twitter.com/").get(1)
-                "${speaker.display_name} (@$twitter)"
-            }
+            speaker.twitter?.let { twitterName ->
+                val username = twitterName.split("twitter.com/")[1]
+                "${speaker.display_name} (@$username)"
+            } ?: run { speaker.display_name }
         },
         canGiveFeedback = now > startTime,
         openFeedbackProjectId = openfeedbackProjectId.openfeedback_project_id,

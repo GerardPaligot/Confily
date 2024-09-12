@@ -3,13 +3,12 @@ import org.gradle.internal.os.OperatingSystem
 plugins {
     id("confily.multiplatform.library")
     id("confily.quality")
+    id("kotlinx-serialization")
+    id("app.cash.sqldelight")
 }
 
 android {
-    namespace = "com.paligot.confily.core.di"
-    buildFeatures {
-        buildConfig = true
-    }
+    namespace = "com.paligot.confily.core.db"
 }
 
 kotlin {
@@ -21,15 +20,8 @@ kotlin {
             iosSimulatorArm64()
         ).forEach {
             it.binaries.framework {
-                baseName = "SharedDi"
+                baseName = "SharedDb"
                 isStatic = false
-                export(libs.settings)
-                export(projects.shared.coreApi)
-                export(projects.shared.coreDb)
-                export(projects.shared.core)
-                export(projects.shared.models)
-                export(projects.shared.uiModels)
-                export(projects.shared.resources)
                 // Required https://github.com/cashapp/sqldelight/issues/1442
                 linkerOpts.add("-lsqlite3")
             }
@@ -39,19 +31,12 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(projects.shared.core)
-                api(projects.shared.coreApi)
-                api(projects.shared.coreDb)
-                api(projects.shared.resources)
-                implementation(libs.koin.core)
-                implementation(libs.ktor.client.core)
-                implementation(libs.jetbrains.kotlinx.coroutines)
-                implementation(libs.lyricist)
+                implementation(libs.cash.sqldelight.runtime)
             }
         }
         val androidMain by getting {
             dependencies {
-                implementation(libs.koin.android)
+                implementation(libs.cash.sqldelight.android)
             }
         }
         if (OperatingSystem.current().isMacOsX) {
@@ -61,7 +46,18 @@ kotlin {
                 dependsOn(commonMain)
                 iosArm64Main.dependsOn(this)
                 iosSimulatorArm64Main.dependsOn(this)
+                dependencies {
+                    implementation(libs.cash.sqldelight.native)
+                }
             }
+        }
+    }
+}
+
+sqldelight {
+    databases {
+        create("ConfilyDatabase") {
+            packageName.set("com.paligot.confily.db")
         }
     }
 }

@@ -1,4 +1,0 @@
-ALTER TABLE EventSession ADD COLUMN formatted_address TEXT;
-ALTER TABLE EventSession ADD COLUMN address TEXT;
-ALTER TABLE EventSession ADD COLUMN latitude TEXT;
-ALTER TABLE EventSession ADD COLUMN longitude TEXT;

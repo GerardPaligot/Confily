@@ -12,6 +12,7 @@ import com.paligot.confily.core.database.mappers.convertToEntity
 import com.paligot.confily.db.ConfilyDatabase
 import com.paligot.confily.models.AgendaV4
 import com.paligot.confily.models.Session
+import com.paligot.confily.models.ui.AgendaUi
 import com.paligot.confily.models.ui.CategoryUi
 import com.paligot.confily.models.ui.FiltersUi
 import com.paligot.confily.models.ui.FormatUi
@@ -41,7 +42,7 @@ class ScheduleDao(
     private val lyricist: Lyricist<Strings>,
     private val dispatcher: CoroutineContext
 ) {
-    fun fetchSchedules(eventId: String): Flow<ImmutableMap<String, com.paligot.confily.models.ui.AgendaUi>> = combine(
+    fun fetchSchedules(eventId: String): Flow<ImmutableMap<String, AgendaUi>> = combine(
         db.sessionQueries
             .selectSessions(eventId)
             .asFlow()
@@ -83,13 +84,11 @@ class ScheduleDao(
                     }
                 }
                 .map {
-                    val speakers = if (it.session_talk_id != null) {
+                    val speakers = it.session_talk_id?.let { talkId ->
                         db.sessionQueries
-                            .selectSpeakersByTalkId(eventId, it.session_talk_id)
+                            .selectSpeakersByTalkId(eventId, talkId)
                             .executeAsList()
-                    } else {
-                        emptyList()
-                    }
+                    } ?: run { emptyList() }
                     it.convertTalkItemUi(speakers = speakers, strings = lyricist.strings)
                 } + breaks.map { it.convertEventSessionItemUi(lyricist.strings) }
             sessions.distinctBy { it.date }
@@ -120,13 +119,11 @@ class ScheduleDao(
                 val nextAgenda = sessions
                     .filter { dateTime < it.start_time.toLocalDateTime() }
                     .map {
-                        val speakers = if (it.session_talk_id != null) {
+                        val speakers = it.session_talk_id?.let { talkId ->
                             db.sessionQueries
-                                .selectSpeakersByTalkId(eventId, it.session_talk_id)
+                                .selectSpeakersByTalkId(eventId, talkId)
                                 .executeAsList()
-                        } else {
-                            emptyList()
-                        }
+                        } ?: run { emptyList() }
                         it.convertTalkItemUi(speakers = speakers, strings = lyricist.strings)
                     }
                     .groupBy { it.startTime }

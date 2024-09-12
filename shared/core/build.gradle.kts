@@ -7,7 +7,6 @@ plugins {
     id("kotlinx-serialization")
     id("com.google.devtools.ksp")
     id("com.rickclephas.kmp.nativecoroutines")
-    id("app.cash.sqldelight")
 }
 
 android {
@@ -27,6 +26,7 @@ kotlin {
                 isStatic = false
                 export(libs.settings)
                 export(projects.shared.coreApi)
+                export(projects.shared.coreDb)
                 export(projects.shared.models)
                 export(projects.shared.uiModels)
                 export(projects.shared.resources)
@@ -40,6 +40,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(projects.shared.coreApi)
+                api(projects.shared.coreDb)
                 api(projects.shared.models)
                 api(projects.shared.uiModels)
                 api(projects.shared.resources)
@@ -51,7 +52,6 @@ kotlin {
                 implementation(libs.jetbrains.kotlinx.collections)
                 implementation(libs.jetbrains.kotlinx.coroutines)
 
-                implementation(libs.cash.sqldelight.runtime)
                 implementation(libs.cash.sqldelight.coroutines)
                 implementation(libs.squareup.okio)
 
@@ -69,7 +69,6 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                implementation(libs.cash.sqldelight.android)
                 implementation(libs.google.zxing)
                 implementation(libs.zxing.android.embedded)
             }
@@ -87,9 +86,6 @@ kotlin {
                 dependsOn(commonMain)
                 iosArm64Main.dependsOn(this)
                 iosSimulatorArm64Main.dependsOn(this)
-                dependencies {
-                    implementation(libs.cash.sqldelight.native)
-                }
             }
             val iosArm64Test by getting
             val iosSimulatorArm64Test by getting
@@ -103,13 +99,5 @@ kotlin {
 
     sourceSets.all {
         languageSettings.optIn("kotlin.experimental.ExperimentalObjCName")
-    }
-}
-
-sqldelight {
-    databases {
-        create("ConfilyDatabase") {
-            packageName.set("com.paligot.confily.db")
-        }
     }
 }

@@ -10,6 +10,7 @@ android {
 dependencies {
     api(projects.androidCore.coreSample)
     api(projects.shared.core)
+    api(projects.shared.coreDb)
     api(projects.shared.coreDi)
     api(libs.androidx.rules)
     api(libs.androidx.runner)

@@ -3,7 +3,7 @@ package com.paligot.confily.core.di
 import com.paligot.confily.core.Platform
 import com.paligot.confily.core.PlatformContext
 import com.paligot.confily.core.QrCodeGeneratoriOS
-import com.paligot.confily.core.database.DatabaseWrapper
+import com.paligot.confily.core.db.DatabaseWrapper
 import com.paligot.confily.core.repositories.QrCodeGenerator
 import com.paligot.confily.db.ConfilyDatabase
 import com.russhwolf.settings.AppleSettings
