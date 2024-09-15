@@ -4,6 +4,7 @@ import com.paligot.confily.backend.internals.helpers.database.Database
 import com.paligot.confily.backend.internals.helpers.database.get
 import com.paligot.confily.backend.internals.helpers.database.getAll
 import com.paligot.confily.backend.internals.helpers.image.Png
+import com.paligot.confily.backend.internals.helpers.storage.MimeType
 import com.paligot.confily.backend.internals.helpers.storage.Storage
 import com.paligot.confily.backend.internals.helpers.storage.Upload
 import kotlinx.coroutines.async
@@ -53,7 +54,8 @@ class PartnerDao(private val database: Database, private val storage: Storage) {
                 async {
                     storage.upload(
                         filename = "$eventId/partners/$partnerId/${png.size}.png",
-                        content = png.content!!
+                        content = png.content!!,
+                        mimeType = MimeType.PNG
                     )
                 }
             }

@@ -5,6 +5,7 @@ import com.paligot.confily.backend.internals.helpers.database.get
 import com.paligot.confily.backend.internals.helpers.database.getAll
 import com.paligot.confily.backend.internals.helpers.database.query
 import com.paligot.confily.backend.internals.helpers.database.whereIn
+import com.paligot.confily.backend.internals.helpers.storage.MimeType
 import com.paligot.confily.backend.internals.helpers.storage.Storage
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -80,10 +81,12 @@ class SpeakerDao(private val database: Database, private val storage: Storage) {
         return@coroutineScope speaker.id
     }
 
-    suspend fun saveProfile(eventId: String, id: String, content: ByteArray) = storage.upload(
-        filename = "$eventId/speakers/$id.png",
-        content = content
-    )
+    suspend fun saveProfile(eventId: String, id: String, content: ByteArray, mimeType: MimeType) =
+        storage.upload(
+            filename = "$eventId/speakers/$id.png",
+            content = content,
+            mimeType = mimeType
+        )
 
     suspend fun deleteDiff(eventId: String, ids: List<String>) {
         val diff = database.diff(eventId, CollectionName, ids)

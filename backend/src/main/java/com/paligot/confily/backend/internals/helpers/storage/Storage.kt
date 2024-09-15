@@ -3,7 +3,7 @@ package com.paligot.confily.backend.internals.helpers.storage
 import com.google.cloud.storage.Storage as CloudStorage
 
 interface Storage {
-    suspend fun upload(filename: String, content: ByteArray): Upload
+    suspend fun upload(filename: String, content: ByteArray, mimeType: MimeType): Upload
 
     object Factory {
         fun create(storage: CloudStorage, bucketName: String, isAppEngine: Boolean): Storage {
@@ -14,6 +14,15 @@ interface Storage {
             }
         }
     }
+}
+
+enum class MimeType(val value: String) {
+    PNG("image/png"),
+    JPEG("image/jpeg"),
+    GIF("image/gif"),
+    SVG("image/svg+xml"),
+    WEBP("image/webp"),
+    OCTET_STREAM("application/octet-stream")
 }
 
 data class Upload(

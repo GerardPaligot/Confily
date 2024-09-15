@@ -10,7 +10,11 @@ class LocalStorage(
     private val location: String = "/tmp",
     private val dispatcher: CoroutineDispatcher = Dispatchers.Default
 ) : Storage {
-    override suspend fun upload(filename: String, content: ByteArray) = withContext(dispatcher) {
+    override suspend fun upload(
+        filename: String,
+        content: ByteArray,
+        mimeType: MimeType
+    ) = withContext(dispatcher) {
         File("$location/$filename").apply {
             writeBytes(content)
             createNewFile()

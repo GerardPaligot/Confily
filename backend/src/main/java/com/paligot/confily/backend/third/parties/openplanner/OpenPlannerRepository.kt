@@ -8,6 +8,7 @@ import com.paligot.confily.backend.events.EventDb
 import com.paligot.confily.backend.formats.FormatDao
 import com.paligot.confily.backend.formats.FormatDb
 import com.paligot.confily.backend.internals.CommonApi
+import com.paligot.confily.backend.internals.mimeType
 import com.paligot.confily.backend.qanda.QAndADao
 import com.paligot.confily.backend.qanda.QAndADb
 import com.paligot.confily.backend.schedules.ScheduleDb
@@ -168,7 +169,12 @@ class OpenPlannerRepository(
     private suspend fun getAvatarUrl(eventId: String, speaker: SpeakerOP) = try {
         if (speaker.photoUrl != null) {
             val avatar = commonApi.fetchByteArray(speaker.photoUrl)
-            val bucketItem = speakerDao.saveProfile(eventId, speaker.id, avatar)
+            val bucketItem = speakerDao.saveProfile(
+                eventId = eventId,
+                id = speaker.id,
+                content = avatar,
+                mimeType = speaker.photoUrl.mimeType
+            )
             bucketItem.url
         } else {
             null

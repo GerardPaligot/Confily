@@ -6,6 +6,7 @@ import com.paligot.confily.backend.categories.CategoryDao
 import com.paligot.confily.backend.events.EventDao
 import com.paligot.confily.backend.formats.FormatDao
 import com.paligot.confily.backend.internals.CommonApi
+import com.paligot.confily.backend.internals.mimeType
 import com.paligot.confily.backend.internals.slug
 import com.paligot.confily.backend.sessions.SessionDao
 import com.paligot.confily.backend.speakers.SpeakerDao
@@ -75,7 +76,12 @@ class ConferenceHallRepository(
                 async {
                     try {
                         val avatar = commonApi.fetchByteArray(it.photoURL!!)
-                        val bucketItem = speakerDao.saveProfile(eventId, it.uid, avatar)
+                        val bucketItem = speakerDao.saveProfile(
+                            eventId = eventId,
+                            id = it.uid,
+                            content = avatar,
+                            mimeType = it.photoURL.mimeType
+                        )
                         it.uid to bucketItem.url
                     } catch (ignored: Throwable) {
                         it.uid to ""
@@ -99,7 +105,12 @@ class ConferenceHallRepository(
             ?: throw NotFoundException("Speaker $speakerId not found in confirmed talks")
         if (speaker.photoURL == null) throw NotAcceptableException("Speaker $speakerId doesn't have a photo")
         val avatar = commonApi.fetchByteArray(speaker.photoURL)
-        val bucketItem = speakerDao.saveProfile(eventId, speaker.uid, avatar)
+        val bucketItem = speakerDao.saveProfile(
+            eventId = eventId,
+            id = speaker.uid,
+            content = avatar,
+            mimeType = speaker.photoURL.mimeType
+        )
         speakerDao.insert(eventId, speaker.convertToDb(bucketItem.url))
     }
 }

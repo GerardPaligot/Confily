@@ -13,12 +13,14 @@ class BucketStorage(
     private val bucketName: String,
     private val dispatcher: CoroutineDispatcher = Dispatchers.Default
 ) : Storage {
-    override suspend fun upload(filename: String, content: ByteArray): Upload =
+    override suspend fun upload(filename: String, content: ByteArray, mimeType: MimeType): Upload =
         withContext(dispatcher) {
             val blobId = BlobId.of(bucketName, filename)
             val blobInfo = BlobInfo
                 .newBuilder(blobId)
                 .setAcl(arrayListOf(Acl.of(Acl.User.ofAllUsers(), Acl.Role.READER)))
+                .setCacheControl("public")
+                .setContentType(mimeType.value)
                 .build()
             storage.create(blobInfo, content)
             return@withContext Upload(
