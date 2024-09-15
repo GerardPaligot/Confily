@@ -88,6 +88,8 @@ Now, you can start to interact with the backend.
   * Secret Manager Secret Accessor
   * Storage Object Creator
   * Storage Object Viewer
+* Grant cors permissions on your bucket:
+  * `gcloud storage buckets update gs://confily --cors-file=cors_config.json` 
 
 #### Deploy in GCP with AppEngine
 

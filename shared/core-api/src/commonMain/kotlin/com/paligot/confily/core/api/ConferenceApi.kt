@@ -63,7 +63,7 @@ class ConferenceApi(
         if (response.status == HttpStatusCode.NotModified) {
             throw AgendaNotModifiedException()
         }
-        return response.etag()!! to response.body()
+        return (response.etag() ?: "") to response.body()
     }
 
     companion object {

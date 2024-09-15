@@ -11,12 +11,16 @@ import org.koin.core.module.Module
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
+/*
+private val language = js("navigator.language || navigator.userLanguage")
+    .unsafeCast<JsString>()
+    .toString()
+ */
+
 actual val platformModule: Module = module {
     single(named(TempFolderPathNamed)) { FileSystem.SYSTEM_TEMPORARY_DIRECTORY }
     single<Platform> { Platform() }
     single<ObservableSettings> { StorageSettings().makeObservable() }
-    single<String>(named(AcceptLanguageNamed)) {
-        js("navigator.language || navigator.userLanguage").unsafeCast<JsString>().toString()
-    }
+    single<String>(named(AcceptLanguageNamed)) { "fr-FR" }
     single<QrCodeGenerator> { QrCodeGeneratorWasm() }
 }

@@ -1,6 +1,5 @@
 package com.paligot.confily.events.panes
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -22,7 +21,6 @@ import com.paligot.confily.style.theme.actions.TabActionsUi
 import kotlinx.collections.immutable.persistentListOf
 import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun EventList(
     events: EventItemListUi,

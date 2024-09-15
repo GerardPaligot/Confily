@@ -27,8 +27,12 @@ fun EventItem(
                 modifier = Modifier.placeholder(visible = isLoading)
             )
         },
-        modifier = modifier.clickable {
-            onClick(item.id)
+        modifier = if (isLoading) {
+            modifier
+        } else {
+            modifier.clickable {
+                onClick(item.id)
+            }
         }
     )
 }

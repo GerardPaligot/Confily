@@ -38,7 +38,7 @@ kotlin {
             dependencies {
                 api(projects.shared.models)
 
-                implementation(libs.ktor.client.core)
+                api(libs.ktor.client.core)
                 implementation(libs.ktor.client.json)
                 implementation(libs.ktor.client.logging)
                 implementation(libs.ktor.client.serialization)
