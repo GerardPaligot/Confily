@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "619943890215",
+    "project_id": "confily-b8b7e",
+    "storage_bucket": "confily-b8b7e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:619943890215:android:748c979d7aa61e1f302d02",
+        "android_client_info": {
+          "package_name": "com.paligot.confily.wear"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-q-brkXiGrhuGKhIBG5c3tVmMZC1VO0E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:619943890215:android:c69877d6146e31a0302d02",
+        "android_client_info": {
+          "package_name": "com.paligot.confily.wear.debug"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-q-brkXiGrhuGKhIBG5c3tVmMZC1VO0E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

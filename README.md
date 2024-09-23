@@ -24,6 +24,7 @@ AppEngine.
 * Partners with description, socials, jobs and location
 * Event page with socials, location, menus, q&a and code of conduct
 * Scan your event ticket
+* Android wearable companion app
 * Enjoy your conference!
 
 ## Build With
