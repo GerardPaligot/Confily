@@ -19,7 +19,7 @@ import platform.Foundation.preferredLanguages
 actual val platformModule = module {
     single<ConfilyDatabase> { DatabaseWrapper().createDb() }
     single<Platform> { Platform() }
-    single(named(TempFolderPath)) { FileSystem.SYSTEM_TEMPORARY_DIRECTORY }
+    single(named(TempFolderPathNamed)) { FileSystem.SYSTEM_TEMPORARY_DIRECTORY }
     single<ObservableSettings> { NSUserDefaultsSettings(standardUserDefaults) }
     single<String>(named(AcceptLanguageNamed)) { NSLocale.preferredLanguages.first().toString() }
     single<QrCodeGenerator> { QrCodeGeneratoriOS() }

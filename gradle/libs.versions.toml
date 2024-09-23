@@ -13,9 +13,17 @@ androidx-glance = "1.1.0"
 androidx-junit = "1.2.1"
 androidx-navigation-compose = "2.8.1"
 androidx-profile = "1.4.0"
+androidx-splashscreen = "1.0.1"
 androidx-test-rules = "1.6.1"
 androidx-test-runner = "1.6.2"
 androidx-uiautomator = "2.3.0"
+androidx-wear-material3 = "1.0.0-alpha25"
+androidx-wear-foundation = "1.4.0"
+androidx-wear-preview = "1.0.0"
+androidx-wear-navigation = "1.4.0"
+androidx-wear-tiles = "1.4.0"
+androidx-wear-tiles-material = "1.4.0"
+androidx-wear-watchface = "1.2.1"
 androidx-work = "2.9.1"
 apache-xmlgraphics-batik = "1.17"
 cash-sqldelight = "2.0.2"
@@ -30,10 +38,13 @@ google-cloud-storage = "2.34.0"
 google-oauth-client = "1.35.0"
 google-firebase = "32.2.3"
 google-firebase-crashlytics-gradlePlugin = "2.9.9"
+google-horlogist-compose-tools = "0.4.8"
+google-horlogist-tiles = "0.4.8"
 google-ksp = "2.0.20-1.0.25"
 google-material = "1.12.0"
 google-mlkit-barcode-scanning = "17.2.0"
 google-services = "4.3.15"
+google-services-wearable = "18.2.0"
 google-zxing = "3.5.1"
 jetbrains-compose = "1.7.0-beta02"
 jetbrains-lifecycle = "2.8.0"
@@ -74,6 +85,7 @@ androidx-compose-material3-adaptive-layout = { group = "androidx.compose.materia
 androidx-compose-material3-adaptive-navigation = { group = "androidx.compose.material3.adaptive", name = "adaptive-navigation", version.ref = "androidx-compose-adaptive" }
 androidx-compose-material3-adaptive-navigation-suite = { group = "androidx.compose.material3", name = "material3-adaptive-navigation-suite", version.ref = "androidx-compose-adaptive-navigation" }
 androidx-compose-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata" }
+androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "androidx-splashscreen" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "androidx-espresso" }
 androidx-glance-appwidget = { group = "androidx.glance", name = "glance-appwidget", version.ref = "androidx-glance" }
 androidx-glance-material3 = { group = "androidx.glance", name = "glance-material3", version.ref = "androidx-glance" }
@@ -83,6 +95,13 @@ androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "a
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidx-navigation-compose" }
 androidx-profile = { group = "androidx.profileinstaller", name = "profileinstaller", version.ref = "androidx-profile" }
 androidx-uiautomator = { group = "androidx.test.uiautomator", name = "uiautomator", version.ref = "androidx-uiautomator" }
+androidx-wear-compose-material = { group = "androidx.wear.compose", name = "compose-material3", version.ref = "androidx-wear-material3" }
+androidx-wear-compose-foundation = { group = "androidx.wear.compose", name = "compose-foundation", version.ref = "androidx-wear-foundation" }
+androidx-wear-navigation = { group = "androidx.wear.compose", name = "compose-navigation", version.ref = "androidx-wear-navigation" }
+androidx-wear-tooling-preview = { group = "androidx.wear", name = "wear-tooling-preview", version.ref = "androidx-wear-preview" }
+androidx-wear-tiles = { group = "androidx.wear.tiles", name = "tiles", version.ref = "androidx-wear-tiles" }
+androidx-wear-tiles-material = { group = "androidx.wear.tiles", name = "tiles-material", version.ref = "androidx-wear-tiles-material" }
+androidx-wear-watchface-complications = { group = "androidx.wear.watchface", name = "watchface-complications-data-source-ktx", version.ref = "androidx-wear-watchface" }
 androidx-workmanager-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "androidx-work" }
 androidx-workmanager-test = { group = "androidx.work", name = "work-testing", version.ref = "androidx-work" }
 
@@ -125,10 +144,13 @@ google-auth-client = { group = "com.google.oauth-client", name = "google-oauth-c
 google-drive = { group = "com.google.apis", name = "google-api-services-drive", version.ref = "google-api-services-drive" }
 google-firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "google-firebase" }
 google-firebase-crashlytics-gradlePlugin = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "google-firebase-crashlytics-gradlePlugin" }
+google-horologist-compose-tools = { group = "com.google.android.horologist", name = "horologist-compose-tools", version.ref = "google-horlogist-compose-tools" }
+google-horologist-tiles = { group = "com.google.android.horologist", name = "horologist-tiles", version.ref = "google-horlogist-tiles" }
 google-ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "google-ksp" }
 google-material = { group = "com.google.android.material", name = "material", version.ref = "google-material" }
 google-mlkit-barcode-scanning = { group = "com.google.mlkit", name = "barcode-scanning", version.ref = "google-mlkit-barcode-scanning" }
 google-services-gradlePlugin = { group = "com.google.gms", name = "google-services", version.ref = "google-services" }
+google-services-wearable = { group = "com.google.android.gms", name = "play-services-wearable", version.ref = "google-services-wearable" }
 google-zxing = { group = "com.google.zxing", name = "core", version.ref = "google-zxing" }
 
 kmp-nativecoroutines-gradlePlugin = { group = "com.rickclephas.kmp", name = "kmp-nativecoroutines-gradle-plugin", version.ref = "kmp-nativecoroutines-gradlePlugin" }
@@ -165,6 +187,7 @@ logback = { group = "ch.qos.logback", name = "logback-classic", version.ref = "l
 
 lyricist = { group = "cafe.adriel.lyricist", name = "lyricist", version.ref = "lyricist" }
 
+markdown-renderer = { group = "com.mikepenz", name = "multiplatform-markdown-renderer", version.ref = "markdown-renderer" }
 markdown-renderer-m3 = { group = "com.mikepenz", name = "multiplatform-markdown-renderer-m3", version.ref = "markdown-renderer" }
 
 openfeedback-m3 = { group = "io.openfeedback", name = "openfeedback-m3", version.ref = "openfeedback" }
@@ -191,6 +214,14 @@ androidx-compose-adaptive = [
 androidx-glance = [
     "androidx-glance-appwidget",
     "androidx-glance-material3"
+]
+androidx-wear = [
+    "androidx-wear-compose-material",
+    "androidx-wear-compose-foundation",
+    "androidx-wear-tooling-preview",
+    "androidx-wear-tiles",
+    "androidx-wear-tiles-material",
+    "androidx-wear-watchface-complications"
 ]
 
 [plugins]

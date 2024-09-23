@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Confily</string>
+    <string name="screen_speakers">Speakers</string>
+    <string name="screen_menus">Menus</string>
+    <string name="screen_coc">Code de conduite</string>
+    <string name="action_schedules">Agenda</string>
+    <string name="action_speakers">Speakers</string>
+    <string name="action_partners">Partenaires</string>
+    <string name="action_change_event">Changer d\'évènement</string>
+    <string name="text_no_event_loaded">Pas d\'évènement chargé</string>
+    <string name="tile_label">Exemple de tile</string>
+    <string name="complication_label">Exemple de complication</string>
+</resources>

@@ -7,6 +7,6 @@ data class CategoryUi(
     val icon: String?
 ) {
     companion object {
-        val fake = CategoryUi(id = "", name = "Cloud", color = "default", icon = null)
+        val fake = CategoryUi(id = "", name = "Cloud", color = "default", icon = "cloud")
     }
 }

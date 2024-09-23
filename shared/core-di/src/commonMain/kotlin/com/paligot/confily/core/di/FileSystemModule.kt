@@ -6,5 +6,5 @@ import org.koin.dsl.module
 
 val fileSystemModule = module {
     includes(platformModule)
-    single { ConferenceFileSystem.create(tempFolderPath = get(named(TempFolderPath))) }
+    single { ConferenceFileSystem.create(tempFolderPath = get(named(TempFolderPathNamed))) }
 }
