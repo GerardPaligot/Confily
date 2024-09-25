@@ -8,6 +8,8 @@ import com.paligot.confily.backend.events.EventDb
 import com.paligot.confily.backend.formats.FormatDao
 import com.paligot.confily.backend.formats.FormatDb
 import com.paligot.confily.backend.internals.CommonApi
+import com.paligot.confily.backend.qanda.QAndADao
+import com.paligot.confily.backend.qanda.QAndADb
 import com.paligot.confily.backend.schedules.ScheduleDb
 import com.paligot.confily.backend.schedules.ScheduleItemDao
 import com.paligot.confily.backend.sessions.SessionDao
@@ -27,13 +29,24 @@ class OpenPlannerRepository(
     private val sessionDao: SessionDao,
     private val categoryDao: CategoryDao,
     private val formatDao: FormatDao,
-    private val scheduleItemDao: ScheduleItemDao
+    private val scheduleItemDao: ScheduleItemDao,
+    private val qAndADao: QAndADao
 ) {
     suspend fun update(eventId: String, apiKey: String) = coroutineScope {
         val event = eventDao.getVerified(eventId, apiKey)
         val config = event.openPlannerConfig
             ?: throw NotAcceptableException("OpenPlanner config not initialized")
         val openPlanner = openPlannerApi.fetchPrivateJson(config.eventId, config.privateId)
+        val qandas = openPlanner.faq
+            .sortedBy { it.order }
+            .fold(mutableListOf<FaqItemOP>()) { acc, qAndA ->
+                acc.addAll(qAndA.items.sortedBy { it.order })
+                acc
+            }
+            .mapIndexed { index, faqItemOP ->
+                async { createOrMergeQAndA(eventId, index, event.defaultLanguage, faqItemOP) }
+            }
+            .awaitAll()
         val categories = openPlanner.event.categories
             .map { async { createOrMergeCategory(eventId, it) } }
             .awaitAll()
@@ -72,18 +85,20 @@ class OpenPlannerRepository(
             }
             .awaitAll()
             .flatten()
-        clean(event, categories, formats, speakers, schedules)
+        clean(event, qandas, categories, formats, speakers, schedules)
         eventDao.updateAgendaUpdatedAt(event)
     }
 
     @Suppress("LongParameterList")
     private suspend fun clean(
         event: EventDb,
+        qandas: List<QAndADb>,
         categories: List<CategoryDb>,
         formats: List<FormatDb>,
         speakers: List<SpeakerDb>,
         schedules: List<ScheduleDb>
     ) = coroutineScope {
+        qAndADao.deleteDiff(event.slugId, qandas.map { it.id!! })
         categoryDao.deleteDiff(event.slugId, categories.map { it.id!! })
         formatDao.deleteDiff(event.slugId, formats.map { it.id!! })
         speakerDao.deleteDiff(event.slugId, speakers.map { it.id })
@@ -96,6 +111,17 @@ class OpenPlannerRepository(
             .filter { it.talkId != null && event.eventSessionTracks.contains(it.room) }
             .map { it.talkId!! }
         sessionDao.deleteDiffEventSessions(event.slugId, eventSessionIds)
+    }
+
+    private suspend fun createOrMergeQAndA(
+        eventId: String,
+        order: Int,
+        language: String,
+        faqItemOP: FaqItemOP
+    ): QAndADb {
+        val item = faqItemOP.convertToQAndADb(order = order, language = language)
+        qAndADao.createOrUpdate(eventId, item)
+        return item
     }
 
     private suspend fun createOrMergeCategory(eventId: String, category: CategoryOP): CategoryDb {

@@ -1,7 +1,12 @@
+@file:Suppress("TooManyFunctions")
+
 package com.paligot.confily.backend.third.parties.openplanner
 
 import com.paligot.confily.backend.categories.CategoryDb
 import com.paligot.confily.backend.formats.FormatDb
+import com.paligot.confily.backend.qanda.AcronymDb
+import com.paligot.confily.backend.qanda.QAndAActionDb
+import com.paligot.confily.backend.qanda.QAndADb
 import com.paligot.confily.backend.schedules.ScheduleDb
 import com.paligot.confily.backend.sessions.EventSessionDb
 import com.paligot.confily.backend.sessions.TalkDb
@@ -170,3 +175,34 @@ fun SessionOP.convertToScheduleDb(order: Int, tracks: List<TrackOP>) = ScheduleD
         ?: error("Can't schedule a talk without a room"),
     talkId = id
 )
+
+fun FaqItemOP.convertToQAndADb(order: Int, language: String): QAndADb {
+    val links = Regex("\\[(.*?)\\]\\((.*?)\\)").findAll(answer)
+    var response = answer
+    links.forEach {
+        response = answer.replaceRange(it.range, it.groupValues[1])
+    }
+    val acronyms = Regex("\n\\*\\[(.*?)\\]: (.*)").findAll(answer)
+    acronyms.forEach {
+        response = answer.replaceRange(it.range, "")
+    }
+    return QAndADb(
+        id = id,
+        order = order,
+        language = language,
+        question = question,
+        response = response.replace("\n$".toRegex(), ""),
+        actions = links
+            .mapIndexed { index, matchResult ->
+                val (text, url) = matchResult.destructured
+                QAndAActionDb(index, text, url)
+            }
+            .toList(),
+        acronyms = acronyms
+            .map { matchResult ->
+                val (acronym, definition) = matchResult.destructured
+                AcronymDb(acronym, definition)
+            }
+            .toList()
+    )
+}

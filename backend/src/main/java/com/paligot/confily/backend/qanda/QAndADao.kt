@@ -38,4 +38,9 @@ class QAndADao(private val database: Database) {
 
     suspend fun hasQAndA(eventId: String): Boolean =
         database.count(eventId = eventId, collectionName = CollectionName) > 0
+
+    suspend fun deleteDiff(eventId: String, ids: List<String>) {
+        val diff = database.diff(eventId, CollectionName, ids)
+        database.deleteAll(eventId, CollectionName, diff)
+    }
 }
