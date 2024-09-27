@@ -14,6 +14,11 @@ android {
 kotlin {
     androidTarget()
 
+    js {
+        binaries.executable()
+        browser()
+    }
+
     if (OperatingSystem.current().isMacOsX) {
         listOf(
             iosArm64(),
@@ -41,6 +46,12 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation(libs.cash.sqldelight.android)
+            }
+        }
+        val jsMain by getting {
+            dependencies {
+                implementation(libs.cash.sqldelight.web)
+                implementation(devNpm("copy-webpack-plugin", "9.1.0"))
             }
         }
         if (OperatingSystem.current().isMacOsX) {

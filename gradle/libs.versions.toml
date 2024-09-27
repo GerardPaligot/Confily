@@ -91,9 +91,10 @@ apache-xmlgraphics-batik-transcoder = { group = "org.apache.xmlgraphics", name =
 apache-xmlgraphics-batik-codec = { group = "org.apache.xmlgraphics", name = "batik-codec", version.ref = "apache-xmlgraphics-batik" }
 
 cash-sqldelight-android = { group = "app.cash.sqldelight", name = "android-driver", version.ref = "cash-sqldelight" }
+cash-sqldelight-native = { group = "app.cash.sqldelight", name = "native-driver", version.ref = "cash-sqldelight" }
+cash-sqldelight-web = { group = "app.cash.sqldelight", name = "web-worker-driver", version.ref = "cash-sqldelight" }
 cash-sqldelight-coroutines = { group = "app.cash.sqldelight", name = "coroutines-extensions", version.ref = "cash-sqldelight" }
 cash-sqldelight-gradlePlugin = { group = "app.cash.sqldelight", name = "gradle-plugin", version.ref = "cash-sqldelight" }
-cash-sqldelight-native = { group = "app.cash.sqldelight", name = "native-driver", version.ref = "cash-sqldelight" }
 cash-sqldelight-runtime = { group = "app.cash.sqldelight", name = "runtime", version.ref = "cash-sqldelight" }
 
 coil3-core = { group = "io.coil-kt.coil3", name = "coil-core", version.ref = "coil3" }
