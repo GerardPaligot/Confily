@@ -18,7 +18,7 @@ enum ScheduleUiState {
 
 @MainActor
 class ScheduleItemViewModel: ObservableObject {
-    private let repository: AgendaRepository = RepositoryHelper().agendaRepository
+    private let repository: SchedulesRepository = RepositoryHelper().schedulesRepository
     let scheduleId: String
 
     init(scheduleId: String) {

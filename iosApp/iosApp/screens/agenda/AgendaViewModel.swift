@@ -18,7 +18,7 @@ enum AgendaUiState {
 
 @MainActor
 class AgendaViewModel: ObservableObject {
-    private let repository: AgendaRepository = RepositoryHelper().agendaRepository
+    private let repository: SchedulesRepository = RepositoryHelper().schedulesRepository
     private let alarmScheduler: AlarmScheduler = AlarmScheduler()
 
     @Published var uiState: AgendaUiState = AgendaUiState.loading

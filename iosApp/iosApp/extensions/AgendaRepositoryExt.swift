@@ -41,20 +41,4 @@ extension AgendaRepository {
     func coc() -> NativeFlow<CoCUi, Error, KotlinUnit> {
         AgendaRepositoryNativeKt.coc(self)
     }
-    
-    func agenda() -> NativeFlow<Dictionary<String, AgendaUi>, Error, KotlinUnit> {
-        AgendaRepositoryNativeKt.agenda(self)
-    }
-    
-    func filters() -> NativeFlow<FiltersUi, Error, KotlinUnit> {
-        AgendaRepositoryNativeKt.filters(self)
-    }
-    
-    func scheduleItem(scheduleId: String) -> NativeFlow<TalkUi, Error, KotlinUnit> {
-        AgendaRepositoryNativeKt.scheduleItem(self, scheduleId: scheduleId)
-    }
-    
-    func scheduleEventSessionItem(scheduleId: String) -> NativeFlow<EventSessionItemUi, Error, KotlinUnit> {
-        AgendaRepositoryNativeKt.scheduleEventSessionItem(self, scheduleId: scheduleId)
-    }
 }

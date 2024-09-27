@@ -2,7 +2,7 @@ package com.paligot.confily.schedules.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.paligot.confily.core.repositories.AgendaRepository
+import com.paligot.confily.core.schedules.SchedulesRepository
 import com.paligot.confily.models.ui.CategoryUi
 import com.paligot.confily.models.ui.FiltersUi
 import com.paligot.confily.models.ui.FormatUi
@@ -19,7 +19,7 @@ sealed class AgendaFiltersUiState {
 }
 
 class AgendaFiltersViewModel(
-    private val repository: AgendaRepository
+    private val repository: SchedulesRepository
 ) : ViewModel() {
     val uiState: StateFlow<AgendaFiltersUiState> = repository.filters()
         .map { result -> AgendaFiltersUiState.Success(result) }

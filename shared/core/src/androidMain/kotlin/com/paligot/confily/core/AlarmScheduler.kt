@@ -6,7 +6,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.os.Build
 import android.os.SystemClock
-import com.paligot.confily.core.repositories.AgendaRepository
+import com.paligot.confily.core.schedules.SchedulesRepository
 import com.paligot.confily.models.ui.TalkItemUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.title_notif_reminder_talk
@@ -22,7 +22,7 @@ import org.jetbrains.compose.resources.getString
 import java.util.Locale
 
 class AlarmScheduler(
-    private val repository: AgendaRepository,
+    private val repository: SchedulesRepository,
     private val alarmManager: AlarmManager,
     private val alarmIntentFactory: AlarmIntentFactory
 ) {

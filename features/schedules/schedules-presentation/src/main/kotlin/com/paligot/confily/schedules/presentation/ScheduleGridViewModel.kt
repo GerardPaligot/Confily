@@ -8,6 +8,7 @@ import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
 import com.paligot.confily.core.AlarmScheduler
 import com.paligot.confily.core.repositories.AgendaRepository
+import com.paligot.confily.core.schedules.SchedulesRepository
 import com.paligot.confily.models.ui.AgendaUi
 import com.paligot.confily.models.ui.TalkItemUi
 import com.paligot.confily.navigation.TopActions
@@ -26,7 +27,6 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.InternalResourceApi
 import org.jetbrains.compose.resources.StringResource
 import java.time.LocalDate
@@ -35,23 +35,24 @@ import java.time.format.DateTimeFormatter
 data class ScheduleUi(
     val topActionsUi: TopActionsUi,
     val tabActionsUi: TabActionsUi,
-    val schedules: ImmutableList<com.paligot.confily.models.ui.AgendaUi>
+    val schedules: ImmutableList<AgendaUi>
 )
 
 sealed class ScheduleGridUiState {
-    data class Loading(val agenda: ImmutableList<com.paligot.confily.models.ui.AgendaUi>) : ScheduleGridUiState()
+    data class Loading(val agenda: ImmutableList<AgendaUi>) : ScheduleGridUiState()
     data class Success(val scheduleUi: ScheduleUi) : ScheduleGridUiState()
     data class Failure(val throwable: Throwable) : ScheduleGridUiState()
 }
 
-@OptIn(InternalResourceApi::class, ExperimentalResourceApi::class)
+@OptIn(InternalResourceApi::class)
 @FlowPreview
 @ExperimentalCoroutinesApi
 class ScheduleGridViewModel(
-    repository: AgendaRepository,
+    agendaRepository: AgendaRepository,
+    schedulesRepository: SchedulesRepository,
     private val alarmScheduler: AlarmScheduler
 ) : ViewModel() {
-    private val _tabsStates = repository.scaffoldConfig()
+    private val _tabsStates = agendaRepository.scaffoldConfig()
         .map {
             TabActionsUi(
                 scrollable = true,
@@ -65,13 +66,13 @@ class ScheduleGridViewModel(
                 }.toImmutableList()
             )
         }
-    private val _uiHasFiltersState = repository.hasFilterApplied()
+    private val _uiHasFiltersState = schedulesRepository.hasFilterApplied()
         .map {
             TopActionsUi(
                 actions = persistentListOf(if (it) TopActions.filtersFilled else TopActions.filters)
             )
         }
-    private val _schedules = repository.agenda()
+    private val _schedules = schedulesRepository.agenda()
     val uiState: StateFlow<ScheduleGridUiState> =
         combine(
             _tabsStates,

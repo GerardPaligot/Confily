@@ -16,5 +16,5 @@ val scheduleModule = module {
     viewModel { AgendaFiltersViewModel(get()) }
     viewModel { parameters -> ScheduleDetailViewModel(parameters.get(), get()) }
     viewModel { parameters -> ScheduleDetailEventSessionViewModel(parameters.get(), get()) }
-    viewModel { ScheduleGridViewModel(get(), get()) }
+    viewModel { ScheduleGridViewModel(get(), get(), get()) }
 }

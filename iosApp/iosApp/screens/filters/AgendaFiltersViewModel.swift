@@ -17,7 +17,7 @@ enum AgendaFiltersUiState {
 
 @MainActor
 class AgendaFiltersViewModel: ObservableObject {
-    private let agendaRepository: AgendaRepository = RepositoryHelper().agendaRepository
+    private let agendaRepository: SchedulesRepository = RepositoryHelper().schedulesRepository
 
     @Published var uiState: AgendaFiltersUiState = AgendaFiltersUiState.loading
 

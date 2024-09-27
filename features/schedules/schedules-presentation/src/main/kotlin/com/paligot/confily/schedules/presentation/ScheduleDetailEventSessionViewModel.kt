@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
-import com.paligot.confily.core.repositories.AgendaRepository
+import com.paligot.confily.core.schedules.SchedulesRepository
 import com.paligot.confily.models.ui.EventSessionItemUi
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -20,7 +20,7 @@ sealed class ScheduleEventUiState {
 
 class ScheduleDetailEventSessionViewModel(
     scheduleId: String,
-    repository: AgendaRepository
+    repository: SchedulesRepository
 ) : ViewModel() {
     val uiState: StateFlow<ScheduleEventUiState> = repository.scheduleEventSessionItem(scheduleId)
         .map { ScheduleEventUiState.Success(it) }

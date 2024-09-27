@@ -2,12 +2,12 @@ package com.paligot.confily.core.di
 
 import cafe.adriel.lyricist.LanguageTag
 import cafe.adriel.lyricist.Lyricist
+import com.paligot.confily.core.database.AgendaDao
 import com.paligot.confily.core.database.EventDao
 import com.paligot.confily.core.database.FeaturesActivatedDao
 import com.paligot.confily.core.database.PartnerDao
-import com.paligot.confily.core.database.ScheduleDao
-import com.paligot.confily.core.database.TalkDao
 import com.paligot.confily.core.database.UserDao
+import com.paligot.confily.core.schedules.ScheduleDao
 import com.paligot.confily.core.speakers.SpeakerDao
 import com.paligot.confily.resources.EnStrings
 import com.paligot.confily.resources.FrStrings
@@ -30,11 +30,11 @@ val databasesModule = module {
         }
     }
     single<CoroutineContext> { Dispatchers.IO }
+    single { AgendaDao(db = get(), settings = get()) }
     single { EventDao(db = get(), settings = get(), dispatcher = get()) }
     single { FeaturesActivatedDao(db = get(), settings = get(), dispatcher = get()) }
     single { PartnerDao(db = get(), platform = get(), dispatcher = get()) }
     single { ScheduleDao(db = get(), settings = get(), lyricist = get(), dispatcher = get()) }
     single { SpeakerDao(db = get(), lyricist = get(), dispatcher = get()) }
-    single { TalkDao(db = get(), lyricist = get(), dispatcher = get()) }
     single { UserDao(db = get(), platform = get(), dispatcher = get()) }
 }
