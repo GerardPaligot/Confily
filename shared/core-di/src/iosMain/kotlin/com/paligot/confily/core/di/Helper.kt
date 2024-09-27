@@ -1,9 +1,9 @@
 package com.paligot.confily.core.di
 
+import com.paligot.confily.core.networking.NetworkingRepository
 import com.paligot.confily.core.partners.PartnerRepository
 import com.paligot.confily.core.repositories.AgendaRepository
 import com.paligot.confily.core.repositories.EventRepository
-import com.paligot.confily.core.repositories.UserRepository
 import com.paligot.confily.core.schedules.SchedulesRepository
 import com.paligot.confily.core.speakers.SpeakerRepository
 import org.koin.core.component.KoinComponent
@@ -27,7 +27,7 @@ class RepositoryHelper : KoinComponent {
     val partnerRepository: PartnerRepository by inject()
     val eventRepository: EventRepository by inject()
     val speakerRepository: SpeakerRepository by inject()
-    val userRepository: UserRepository by inject()
+    val networkingRepository: NetworkingRepository by inject()
 }
 
 fun initKoin() {

@@ -4,11 +4,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
-import com.paligot.confily.core.repositories.UserRepository
+import com.paligot.confily.core.networking.NetworkingRepository
 import com.paligot.confily.models.ui.UserNetworkingUi
 import kotlinx.collections.immutable.ImmutableList
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 sealed class ContactsUiState {
@@ -18,25 +21,21 @@ sealed class ContactsUiState {
 }
 
 class ContactsViewModel(
-    private val userRepository: UserRepository
+    private val repository: NetworkingRepository
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow<ContactsUiState>(ContactsUiState.Loading)
-    val uiState: StateFlow<ContactsUiState> = _uiState
-
-    init {
-        viewModelScope.launch {
-            try {
-                userRepository.fetchNetworking().collect {
-                    _uiState.value = ContactsUiState.Success(users = it)
-                }
-            } catch (error: Throwable) {
-                Firebase.crashlytics.recordException(error)
-                _uiState.value = ContactsUiState.Failure(throwable = error)
-            }
+    val uiState: StateFlow<ContactsUiState> = repository.fetchNetworking()
+        .map { ContactsUiState.Success(users = it) }
+        .catch {
+            Firebase.crashlytics.recordException(it)
+            ContactsUiState.Failure(it)
         }
-    }
+        .stateIn(
+            scope = viewModelScope,
+            initialValue = ContactsUiState.Loading,
+            started = SharingStarted.WhileSubscribed()
+        )
 
     fun deleteNetworking(email: String) = viewModelScope.launch {
-        userRepository.deleteNetworkProfile(email)
+        repository.deleteNetworkProfile(email)
     }
 }

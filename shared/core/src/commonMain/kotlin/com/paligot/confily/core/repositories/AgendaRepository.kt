@@ -1,5 +1,6 @@
 package com.paligot.confily.core.repositories
 
+import com.paligot.confily.core.QrCodeGenerator
 import com.paligot.confily.core.api.ConferenceApi
 import com.paligot.confily.core.api.exceptions.AgendaNotModifiedException
 import com.paligot.confily.core.database.AgendaDao

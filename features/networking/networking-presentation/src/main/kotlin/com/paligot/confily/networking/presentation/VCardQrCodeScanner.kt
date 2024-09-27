@@ -12,10 +12,9 @@ import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.screen_qrcode_scanner
 import com.paligot.confily.style.components.permissions.FeatureThatRequiresCameraPermission
 import com.paligot.confily.style.theme.appbars.TopAppBar
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalResourceApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun VCardQrCodeScanner(
     navigateToSettingsScreen: () -> Unit,

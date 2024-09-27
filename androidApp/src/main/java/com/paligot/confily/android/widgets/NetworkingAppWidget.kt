@@ -8,7 +8,7 @@ import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.action.actionStartActivity
 import androidx.glance.appwidget.provideContent
 import com.paligot.confily.android.R
-import com.paligot.confily.core.repositories.UserRepository
+import com.paligot.confily.core.networking.NetworkingRepository
 import com.paligot.confily.navigation.Screen
 import com.paligot.confily.widgets.presentation.NetworkingWidget
 import com.paligot.confily.widgets.style.ConfilyGlanceTheme
@@ -16,7 +16,7 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 class NetworkingAppWidget : GlanceAppWidget(), KoinComponent {
-    private val userRepository: UserRepository by inject()
+    private val userRepository: NetworkingRepository by inject()
 
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         provideContent {

@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
-import com.paligot.confily.core.repositories.UserRepository
+import com.paligot.confily.core.networking.NetworkingRepository
 import com.paligot.confily.models.ui.Field
 import com.paligot.confily.models.ui.UserProfileUi
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,7 +18,7 @@ sealed class ProfileInputUiState {
 }
 
 class ProfileInputViewModel(
-    private val userRepository: UserRepository
+    private val repository: NetworkingRepository
 ) : ViewModel() {
     private val _uiState = MutableStateFlow<ProfileInputUiState>(ProfileInputUiState.Loading)
     val uiState: StateFlow<ProfileInputUiState> = _uiState
@@ -26,7 +26,7 @@ class ProfileInputViewModel(
     init {
         viewModelScope.launch {
             try {
-                userRepository.fetchProfile().collect {
+                repository.fetchProfile().collect {
                     _uiState.value = ProfileInputUiState.Success(
                         profile = it ?: UserProfileUi(
                             email = "",
@@ -61,7 +61,7 @@ class ProfileInputViewModel(
         val profile = (_uiState.value as ProfileInputUiState.Success).profile
         val email = profile.email
         if (email == "") return@launch
-        userRepository.saveProfile(
+        repository.saveProfile(
             email,
             profile.firstName,
             profile.lastName,

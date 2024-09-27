@@ -3,9 +3,9 @@ package com.paligot.confily.core.di
 import android.content.Context
 import com.paligot.confily.core.AndroidContext
 import com.paligot.confily.core.Platform
+import com.paligot.confily.core.QrCodeGenerator
 import com.paligot.confily.core.QrCodeGeneratorAndroid
 import com.paligot.confily.core.db.DatabaseWrapper
-import com.paligot.confily.core.repositories.QrCodeGenerator
 import com.paligot.confily.db.ConfilyDatabase
 import com.russhwolf.settings.AndroidSettings
 import com.russhwolf.settings.ExperimentalSettingsApi

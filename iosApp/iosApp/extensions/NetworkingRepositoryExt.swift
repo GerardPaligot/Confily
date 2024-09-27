@@ -9,12 +9,12 @@
 import SharedDi
 import KMPNativeCoroutinesCore
 
-extension UserRepository {
+extension NetworkingRepository {
     func fetchProfile() -> NativeFlow<UserProfileUi?, Error, KotlinUnit> {
-        UserRepositoryNativeKt.fetchProfile(self)
+        NetworkingRepositoryNativeKt.fetchProfile(self)
     }
     
     func fetchNetworking() -> NativeFlow<Array<UserNetworkingUi>, Error, KotlinUnit> {
-        UserRepositoryNativeKt.fetchNetworking(self)
+        NetworkingRepositoryNativeKt.fetchNetworking(self)
     }
 }

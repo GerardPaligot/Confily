@@ -8,13 +8,13 @@ import androidx.glance.GlanceModifier
 import androidx.glance.GlanceTheme
 import androidx.glance.action.Action
 import androidx.glance.background
-import com.paligot.confily.core.repositories.UserRepository
+import com.paligot.confily.core.networking.NetworkingRepository
 import com.paligot.confily.widgets.panes.NetworkingScreen
 import com.paligot.confily.widgets.ui.Loading
 
 @Composable
 fun NetworkingWidget(
-    userRepository: UserRepository,
+    userRepository: NetworkingRepository,
     @DrawableRes iconId: Int,
     onNewProfile: Action,
     onMyProfile: Action,

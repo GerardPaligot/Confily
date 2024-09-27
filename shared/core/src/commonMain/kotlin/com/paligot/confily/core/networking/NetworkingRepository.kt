@@ -1,10 +1,9 @@
-package com.paligot.confily.core.repositories
+package com.paligot.confily.core.networking
 
+import com.paligot.confily.core.QrCodeGenerator
 import com.paligot.confily.core.database.EventDao
-import com.paligot.confily.core.database.UserDao
 import com.paligot.confily.core.vcard.encodeToString
 import com.paligot.confily.models.ui.ExportNetworkingUi
-import com.paligot.confily.models.ui.Image
 import com.paligot.confily.models.ui.UserNetworkingUi
 import com.paligot.confily.models.ui.UserProfileUi
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
@@ -14,13 +13,14 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapConcat
 
-interface UserRepository {
+interface NetworkingRepository {
     @NativeCoroutines
     fun fetchProfile(): Flow<UserProfileUi?>
-    fun saveProfile(email: String, firstName: String, lastName: String, company: String)
 
     @NativeCoroutines
     fun fetchNetworking(): Flow<ImmutableList<UserNetworkingUi>>
+
+    fun saveProfile(email: String, firstName: String, lastName: String, company: String)
     fun insertNetworkingProfile(user: UserNetworkingUi): Boolean
     fun deleteNetworkProfile(email: String)
     fun exportNetworking(): ExportNetworkingUi
@@ -30,19 +30,16 @@ interface UserRepository {
             userDao: UserDao,
             eventDao: EventDao,
             qrCodeGenerator: QrCodeGenerator
-        ): UserRepository = UserRepositoryImpl(userDao, eventDao, qrCodeGenerator)
+        ): NetworkingRepository = NetworkingRepositoryImpl(userDao, eventDao, qrCodeGenerator)
     }
 }
 
-interface QrCodeGenerator {
-    fun generate(text: String): Image
-}
-
-class UserRepositoryImpl(
+class NetworkingRepositoryImpl(
     private val userDao: UserDao,
     private val eventDao: EventDao,
     private val qrCodeGenerator: QrCodeGenerator
-) : UserRepository {
+) : NetworkingRepository {
+    @OptIn(ExperimentalCoroutinesApi::class)
     override fun fetchProfile(): Flow<UserProfileUi?> = eventDao.fetchEventId()
         .flatMapConcat {
             combine(
@@ -54,6 +51,10 @@ class UserRepositoryImpl(
             )
         }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
+    override fun fetchNetworking(): Flow<ImmutableList<UserNetworkingUi>> = eventDao.fetchEventId()
+        .flatMapConcat { userDao.fetchNetworking(eventId = it) }
+
     override fun saveProfile(email: String, firstName: String, lastName: String, company: String) {
         val qrCode = qrCodeGenerator.generate(
             UserNetworkingUi(email, firstName, lastName, company).encodeToString()
@@ -61,10 +62,6 @@ class UserRepositoryImpl(
         val profile = UserProfileUi(email, firstName, lastName, company, qrCode)
         userDao.insertUser(eventId = eventDao.getEventId(), user = profile)
     }
-
-    @OptIn(ExperimentalCoroutinesApi::class)
-    override fun fetchNetworking(): Flow<ImmutableList<UserNetworkingUi>> = eventDao.fetchEventId()
-        .flatMapConcat { userDao.fetchNetworking(eventId = it) }
 
     override fun insertNetworkingProfile(user: UserNetworkingUi): Boolean {
         val hasRequiredFields = user.email != "" && user.lastName != "" && user.firstName != ""

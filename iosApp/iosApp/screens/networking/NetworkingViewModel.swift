@@ -22,7 +22,7 @@ enum UserProfileUiState {
 
 @MainActor
 class NetworkingViewModel: ObservableObject {
-    private let repository: UserRepository = RepositoryHelper().userRepository
+    private let repository: NetworkingRepository = RepositoryHelper().networkingRepository
 
     @Published var uiState: UserProfileUiState = UserProfileUiState.loading
 

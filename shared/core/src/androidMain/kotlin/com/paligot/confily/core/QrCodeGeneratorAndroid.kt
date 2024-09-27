@@ -2,7 +2,6 @@ package com.paligot.confily.core
 
 import com.google.zxing.BarcodeFormat
 import com.journeyapps.barcodescanner.BarcodeEncoder
-import com.paligot.confily.core.repositories.QrCodeGenerator
 import com.paligot.confily.models.ui.Image
 
 class QrCodeGeneratorAndroid : QrCodeGenerator {

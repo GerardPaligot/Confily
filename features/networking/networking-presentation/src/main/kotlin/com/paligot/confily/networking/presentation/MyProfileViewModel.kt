@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
-import com.paligot.confily.core.repositories.UserRepository
+import com.paligot.confily.core.networking.NetworkingRepository
 import com.paligot.confily.models.ui.UserProfileUi
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -18,8 +18,8 @@ sealed class MyProfileUiState {
     data class Failure(val throwable: Throwable) : MyProfileUiState()
 }
 
-class MyProfileViewModel(userRepository: UserRepository) : ViewModel() {
-    val uiState: StateFlow<MyProfileUiState> = userRepository.fetchProfile()
+class MyProfileViewModel(repository: NetworkingRepository) : ViewModel() {
+    val uiState: StateFlow<MyProfileUiState> = repository.fetchProfile()
         .map {
             MyProfileUiState.Success(
                 profile = it ?: UserProfileUi(

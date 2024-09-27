@@ -1,11 +1,10 @@
-package com.paligot.confily.core.database
+package com.paligot.confily.core.networking
 
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOneOrNull
 import com.paligot.confily.core.Platform
 import com.paligot.confily.core.toByteArray
-import com.paligot.confily.core.toNativeImage
 import com.paligot.confily.db.ConfilyDatabase
 import com.paligot.confily.models.ui.UserNetworkingUi
 import com.paligot.confily.models.ui.UserProfileUi
@@ -22,35 +21,16 @@ class UserDao(
     private val platform: Platform,
     private val dispatcher: CoroutineContext
 ) {
-    fun getEmailProfile(eventId: String): String? = db.userQueries
-        .selectProfile(eventId)
-        .executeAsOneOrNull()
-        ?.email
-
     fun fetchProfile(eventId: String): Flow<UserProfileUi?> =
-        db.userQueries.selectProfile(
-            eventId,
-            mapper = { _, email, firstname, lastname, company, qrcode ->
-                return@selectProfile UserProfileUi(
-                    email = email,
-                    firstName = firstname,
-                    lastName = lastname,
-                    company = company ?: "",
-                    qrCode = qrcode.toNativeImage()
-                )
-            }
-        ).asFlow().mapToOneOrNull(dispatcher)
+        db.userQueries.selectProfile(eventId, profileMapper).asFlow().mapToOneOrNull(dispatcher)
 
     fun fetchUserPreview(eventId: String): Flow<UserProfileUi?> =
-        db.ticketQueries.selectTicket(eventId, mapper = { _, _, _, _, firstname, lastname, _, _ ->
-            return@selectTicket UserProfileUi(
-                email = "",
-                firstName = firstname ?: "",
-                lastName = lastname ?: "",
-                company = "",
-                qrCode = null
-            )
-        }).asFlow().mapToOneOrNull(dispatcher)
+        db.ticketQueries.selectTicket(eventId, tickerMapper).asFlow().mapToOneOrNull(dispatcher)
+
+    fun fetchNetworking(eventId: String): Flow<ImmutableList<UserNetworkingUi>> =
+        db.userQueries.selectAll(eventId, userItemMapper).asFlow()
+            .mapToList(dispatcher)
+            .map { it.toImmutableList() }
 
     fun insertUser(eventId: String, user: UserProfileUi) {
         db.userQueries.insertProfile(
@@ -62,16 +42,6 @@ class UserDao(
             user.qrCode!!.toByteArray()
         )
     }
-
-    fun fetchNetworking(eventId: String): Flow<ImmutableList<UserNetworkingUi>> =
-        db.userQueries.selectAll(eventId) { email, firstName, lastName, company, _, _ ->
-            UserNetworkingUi(
-                email,
-                firstName,
-                lastName,
-                company ?: ""
-            )
-        }.asFlow().mapToList(dispatcher).map { it.toImmutableList() }
 
     fun insertEmailNetworking(eventId: String, userNetworkingUi: UserNetworkingUi) =
         db.userQueries.insertNetwork(
@@ -96,4 +66,9 @@ class UserDao(
         }
         return path
     }
+
+    fun getEmailProfile(eventId: String): String? = db.userQueries
+        .selectProfile(eventId)
+        .executeAsOneOrNull()
+        ?.email
 }

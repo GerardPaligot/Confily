@@ -1,6 +1,5 @@
 package com.paligot.confily.core
 
-import com.paligot.confily.core.repositories.QrCodeGenerator
 import com.paligot.confily.models.ui.Image
 import kotlinx.cinterop.ExperimentalForeignApi
 import platform.CoreGraphics.CGColorSpaceCreateDeviceRGB
