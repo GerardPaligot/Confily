@@ -13,6 +13,7 @@
 		009DACF92C693B0900A7F42E /* UserRepositoryExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009DACF82C693B0900A7F42E /* UserRepositoryExt.swift */; };
 		009DACFB2C693B6000A7F42E /* SpeakerRepositoryExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009DACFA2C693B6000A7F42E /* SpeakerRepositoryExt.swift */; };
 		00F30E5A2CA6B0210049641A /* SchedulesRepositoryExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F30E592CA6B0210049641A /* SchedulesRepositoryExt.swift */; };
+		00F30E5C2CA6B68B0049641A /* PartnerRepositoryExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F30E5B2CA6B68B0049641A /* PartnerRepositoryExt.swift */; };
 		058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
@@ -126,6 +127,7 @@
 		009DACF82C693B0900A7F42E /* UserRepositoryExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositoryExt.swift; sourceTree = "<group>"; };
 		009DACFA2C693B6000A7F42E /* SpeakerRepositoryExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakerRepositoryExt.swift; sourceTree = "<group>"; };
 		00F30E592CA6B0210049641A /* SchedulesRepositoryExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulesRepositoryExt.swift; sourceTree = "<group>"; };
+		00F30E5B2CA6B68B0049641A /* PartnerRepositoryExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnerRepositoryExt.swift; sourceTree = "<group>"; };
 		058557BA273AAA24004C7B11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2152FB032600AC8F00CF470E /* iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
@@ -354,6 +356,7 @@
 				009DACF82C693B0900A7F42E /* UserRepositoryExt.swift */,
 				009DACFA2C693B6000A7F42E /* SpeakerRepositoryExt.swift */,
 				00F30E592CA6B0210049641A /* SchedulesRepositoryExt.swift */,
+				00F30E5B2CA6B68B0049641A /* PartnerRepositoryExt.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -787,6 +790,7 @@
 				D524D73C27BBFC530078DF0D /* ScheduleDetail.swift in Sources */,
 				D567C00B29B4D6B700D427D6 /* ProfileItemView.swift in Sources */,
 				D52F3B9A2961CDCC00535233 /* ViewExt.swift in Sources */,
+				00F30E5C2CA6B68B0049641A /* PartnerRepositoryExt.swift in Sources */,
 				00F30E5A2CA6B0210049641A /* SchedulesRepositoryExt.swift in Sources */,
 				D5C92ECF283ACE6000D5CF2D /* MenusViewModel.swift in Sources */,
 				D563E2EA29755B2700B5FCA0 /* EventListView.swift in Sources */,

@@ -5,12 +5,9 @@ import com.paligot.confily.core.api.exceptions.AgendaNotModifiedException
 import com.paligot.confily.core.database.AgendaDao
 import com.paligot.confily.core.database.EventDao
 import com.paligot.confily.core.database.FeaturesActivatedDao
-import com.paligot.confily.core.database.PartnerDao
 import com.paligot.confily.models.ui.CoCUi
 import com.paligot.confily.models.ui.EventUi
 import com.paligot.confily.models.ui.MenuItemUi
-import com.paligot.confily.models.ui.PartnerGroupsUi
-import com.paligot.confily.models.ui.PartnerItemUi
 import com.paligot.confily.models.ui.QuestionAndResponseUi
 import com.paligot.confily.models.ui.ScaffoldConfigUi
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
@@ -35,12 +32,6 @@ interface AgendaRepository {
     fun event(): Flow<EventUi>
 
     @NativeCoroutines
-    fun partners(): Flow<PartnerGroupsUi>
-
-    @NativeCoroutines
-    fun partner(id: String): Flow<PartnerItemUi>
-
-    @NativeCoroutines
     fun qanda(): Flow<ImmutableList<QuestionAndResponseUi>>
 
     @NativeCoroutines
@@ -57,14 +48,12 @@ interface AgendaRepository {
             api: ConferenceApi,
             agendaDao: AgendaDao,
             eventDao: EventDao,
-            partnerDao: PartnerDao,
             featuresDao: FeaturesActivatedDao,
             qrCodeGenerator: QrCodeGenerator
         ): AgendaRepository = AgendaRepositoryImpl(
             api,
             agendaDao,
             eventDao,
-            partnerDao,
             featuresDao,
             qrCodeGenerator
         )
@@ -78,7 +67,6 @@ class AgendaRepositoryImpl(
     private val api: ConferenceApi,
     private val agendaDao: AgendaDao,
     private val eventDao: EventDao,
-    private val partnerDao: PartnerDao,
     private val featuresDao: FeaturesActivatedDao,
     private val qrCodeGenerator: QrCodeGenerator
 ) : AgendaRepository {
@@ -96,7 +84,7 @@ class AgendaRepositoryImpl(
         val qanda = api.fetchQAndA(eventId)
         val partners = api.fetchPartners(eventId)
         eventDao.insertEvent(event, qanda)
-        partnerDao.insertPartners(eventId, partners)
+        agendaDao.insertPartners(eventId, partners)
     }
 
     override suspend fun insertOrUpdateTicket(barcode: String) {
@@ -115,12 +103,6 @@ class AgendaRepositoryImpl(
 
     override fun event(): Flow<EventUi> = eventDao.fetchEventId()
         .flatMapConcat { eventDao.fetchEvent(eventId = it) }
-
-    override fun partners(): Flow<PartnerGroupsUi> = eventDao.fetchEventId()
-        .flatMapConcat { partnerDao.fetchPartners(eventId = it) }
-
-    override fun partner(id: String): Flow<PartnerItemUi> = eventDao.fetchEventId()
-        .flatMapConcat { partnerDao.fetchPartner(eventId = it, id = id) }
 
     override fun qanda(): Flow<ImmutableList<QuestionAndResponseUi>> = eventDao.fetchEventId()
         .flatMapConcat { eventDao.fetchQAndA(eventId = it) }

@@ -18,7 +18,7 @@ enum PartnerUiState {
 
 @MainActor
 class PartnerDetailViewModel: ObservableObject {
-    private let repository: AgendaRepository = RepositoryHelper().agendaRepository
+    private let repository: PartnerRepository = RepositoryHelper().partnerRepository
     let partnerId: String
 
     init(partnerId: String) {

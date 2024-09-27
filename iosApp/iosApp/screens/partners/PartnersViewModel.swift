@@ -18,7 +18,7 @@ enum PartnersUiState {
 
 @MainActor
 class PartnersViewModel: ObservableObject {
-    private let repository: AgendaRepository = RepositoryHelper().agendaRepository
+    private let repository: PartnerRepository = RepositoryHelper().partnerRepository
 
     @Published var uiState: PartnersUiState = PartnersUiState.loading
 

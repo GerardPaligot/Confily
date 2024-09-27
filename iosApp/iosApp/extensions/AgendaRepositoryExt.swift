@@ -22,14 +22,6 @@ extension AgendaRepository {
         AgendaRepositoryNativeKt.event(self)
     }
     
-    func partners() -> NativeFlow<PartnerGroupsUi, Error, KotlinUnit> {
-        AgendaRepositoryNativeKt.partners(self)
-    }
-
-    func partner(id: String) -> NativeFlow<PartnerItemUi, Error, KotlinUnit> {
-        AgendaRepositoryNativeKt.partner(self, id: id)
-    }
-    
     func qanda() -> NativeFlow<Array<QuestionAndResponseUi>, Error, KotlinUnit> {
         AgendaRepositoryNativeKt.qanda(self)
     }
