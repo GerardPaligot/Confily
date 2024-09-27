@@ -5,7 +5,7 @@ data class UserProfileUi(
     val firstName: String,
     val lastName: String,
     val company: String,
-    val qrCode: Image?
+    val qrCode: ByteArray?
 ) {
     companion object {
         val fake = UserProfileUi(

@@ -1,7 +1,9 @@
 package com.paligot.confily.widgets.panes
 
+import android.graphics.BitmapFactory
 import androidx.annotation.DrawableRes
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.glance.GlanceModifier
 import androidx.glance.Image
 import androidx.glance.ImageProvider
@@ -37,8 +39,11 @@ fun NetworkingScreen(
         },
         content = {
             if (userInfo?.qrCode != null) {
+                val qrCodeBitmap = remember(userInfo.qrCode) {
+                    BitmapFactory.decodeByteArray(userInfo.qrCode, 0, userInfo.qrCode!!.size)
+                }
                 Image(
-                    provider = ImageProvider(userInfo.qrCode!!),
+                    provider = ImageProvider(qrCodeBitmap),
                     contentDescription = LocalContext.current.getString(R.string.widget_semantic_qrcode),
                     modifier = GlanceModifier.fillMaxSize().clickable(onMyProfile)
                 )

@@ -96,6 +96,7 @@ cash-sqldelight-gradlePlugin = { group = "app.cash.sqldelight", name = "gradle-p
 cash-sqldelight-native = { group = "app.cash.sqldelight", name = "native-driver", version.ref = "cash-sqldelight" }
 cash-sqldelight-runtime = { group = "app.cash.sqldelight", name = "runtime", version.ref = "cash-sqldelight" }
 
+coil3-core = { group = "io.coil-kt.coil3", name = "coil-core", version.ref = "coil3" }
 coil3-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil3" }
 coil3-svg = { group = "io.coil-kt.coil3", name = "coil-svg", version.ref = "coil3" }
 coil3-network-ktor = { group = "io.coil-kt.coil3", name = "coil-network-ktor3", version.ref = "coil3" }

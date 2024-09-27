@@ -38,6 +38,8 @@ kotlin {
                 implementation(compose.materialIconsExtended)
 
                 implementation(libs.jetbrains.kotlinx.collections)
+
+                implementation(libs.coil3.compose)
             }
         }
         val androidMain by getting {

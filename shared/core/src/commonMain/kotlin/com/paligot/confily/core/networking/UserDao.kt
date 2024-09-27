@@ -4,7 +4,6 @@ import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOneOrNull
 import com.paligot.confily.core.Platform
-import com.paligot.confily.core.toByteArray
 import com.paligot.confily.db.ConfilyDatabase
 import com.paligot.confily.models.ui.UserNetworkingUi
 import com.paligot.confily.models.ui.UserProfileUi
@@ -32,15 +31,15 @@ class UserDao(
             .mapToList(dispatcher)
             .map { it.toImmutableList() }
 
-    fun insertUser(eventId: String, user: UserProfileUi) {
-        db.userQueries.insertProfile(
-            eventId,
-            user.email,
-            user.firstName,
-            user.lastName,
-            user.company,
-            user.qrCode!!.toByteArray()
-        )
+    fun insertUser(
+        eventId: String,
+        email: String,
+        firstName: String,
+        lastName: String,
+        company: String?,
+        qrCode: ByteArray
+    ) {
+        db.userQueries.insertProfile(eventId, email, firstName, lastName, company, qrCode)
     }
 
     fun insertEmailNetworking(eventId: String, userNetworkingUi: UserNetworkingUi) =

@@ -34,6 +34,7 @@ kotlin {
                 implementation(compose.components.resources)
 
                 api(libs.jetbrains.kotlinx.collections)
+                api(libs.coil3.compose)
             }
         }
         val androidMain by getting {

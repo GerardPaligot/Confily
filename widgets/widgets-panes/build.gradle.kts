@@ -15,4 +15,5 @@ dependencies {
     implementation(libs.bundles.androidx.glance)
 
     implementation(libs.jetbrains.kotlinx.collections)
+    implementation(libs.coil3.compose)
 }

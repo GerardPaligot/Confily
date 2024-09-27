@@ -34,11 +34,11 @@ struct Event: View {
                     if (event.ticket?.info != nil) {
                         TicketDetailedView(
                             ticket: (event.ticket?.info)!,
-                            qrCode: event.ticket!.qrCode
+                            qrCode: ImageTransformer().toUIImage(event.ticket!.qrCode!)
                         )
                         .padding()
                     } else if (event.ticket?.qrCode != nil) {
-                        TicketQrCodeView(qrCode: (event.ticket?.qrCode)!)
+                        TicketQrCodeView(qrCode: ImageTransformer().toUIImage(event.ticket!.qrCode!))
                             .padding()
                     }
                 }

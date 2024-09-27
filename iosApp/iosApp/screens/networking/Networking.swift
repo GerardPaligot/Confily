@@ -24,14 +24,15 @@ struct Networking: View {
             if (networkingUi.userProfileUi != nil) {
                 List {
                     if let profileUi = networkingUi.userProfileUi {
+                        let qrCode = profileUi.qrCode != nil ? ImageTransformer().toUIImage(profileUi.qrCode!) : nil
                         Section {
                             NavigationLink {
                                 ProfileInputView(
-                                    email: networkingUi.userProfileUi?.email ?? "",
-                                    firstName: networkingUi.userProfileUi?.firstName ?? "",
-                                    lastName: networkingUi.userProfileUi?.lastName ?? "",
-                                    company: networkingUi.userProfileUi?.company ?? "",
-                                    qrCode: networkingUi.userProfileUi?.qrCode ?? nil,
+                                    email: profileUi.email,
+                                    firstName: profileUi.firstName,
+                                    lastName: profileUi.lastName,
+                                    company: profileUi.company,
+                                    qrCode: qrCode,
                                     onValidation: onValidation
                                 )
                             } label: {

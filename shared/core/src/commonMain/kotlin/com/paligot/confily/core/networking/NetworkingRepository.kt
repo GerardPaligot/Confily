@@ -59,8 +59,14 @@ class NetworkingRepositoryImpl(
         val qrCode = qrCodeGenerator.generate(
             UserNetworkingUi(email, firstName, lastName, company).encodeToString()
         )
-        val profile = UserProfileUi(email, firstName, lastName, company, qrCode)
-        userDao.insertUser(eventId = eventDao.getEventId(), user = profile)
+        userDao.insertUser(
+            eventId = eventDao.getEventId(),
+            email = email,
+            firstName = firstName,
+            lastName = lastName,
+            company = company,
+            qrCode = qrCode
+        )
     }
 
     override fun insertNetworkingProfile(user: UserNetworkingUi): Boolean {

@@ -8,7 +8,7 @@ data class TicketInfoUi(
 
 data class TicketUi(
     val info: TicketInfoUi?,
-    val qrCode: Image?
+    val qrCode: ByteArray?
 ) {
     companion object {
         val fake = TicketUi(

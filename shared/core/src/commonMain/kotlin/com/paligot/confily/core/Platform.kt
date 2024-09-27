@@ -1,6 +1,5 @@
 package com.paligot.confily.core
 
-import com.paligot.confily.models.ui.Image
 import okio.FileSystem
 import okio.Path
 
@@ -19,6 +18,3 @@ expect class Platform(context: PlatformContext) {
 expect class DecimalFormat() {
     fun format(number: Int): String
 }
-
-expect fun ByteArray.toNativeImage(): Image
-expect fun Image.toByteArray(): ByteArray

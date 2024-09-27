@@ -1,12 +1,8 @@
 package com.paligot.confily.core
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import com.paligot.confily.models.ui.Image
 import okio.FileSystem
 import okio.Path.Companion.toPath
-import java.io.ByteArrayOutputStream
 
 data class AndroidContext(val context: Context)
 actual typealias PlatformContext = AndroidContext
@@ -29,11 +25,4 @@ actual class DecimalFormat {
         formatter.isDecimalSeparatorAlwaysShown = false
         return formatter.format(number)
     }
-}
-
-actual fun ByteArray.toNativeImage(): Image = BitmapFactory.decodeByteArray(this, 0, this.size)
-actual fun Image.toByteArray(): ByteArray {
-    val stream = ByteArrayOutputStream()
-    compress(Bitmap.CompressFormat.PNG, 90, stream)
-    return stream.toByteArray()
 }

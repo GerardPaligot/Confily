@@ -1,6 +1,5 @@
 package com.paligot.confily.core.networking
 
-import com.paligot.confily.core.toNativeImage
 import com.paligot.confily.models.ui.UserNetworkingUi
 import com.paligot.confily.models.ui.UserProfileUi
 
@@ -11,7 +10,7 @@ internal val profileMapper = { _: String, email: String, firstname: String, last
         firstName = firstname,
         lastName = lastname,
         company = company ?: "",
-        qrCode = qrcode.toNativeImage()
+        qrCode = qrcode
     )
 }
 

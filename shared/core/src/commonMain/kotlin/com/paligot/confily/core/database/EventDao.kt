@@ -5,8 +5,6 @@ import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOne
 import app.cash.sqldelight.coroutines.mapToOneOrNull
 import com.paligot.confily.core.exceptions.EventSavedException
-import com.paligot.confily.core.toByteArray
-import com.paligot.confily.core.toNativeImage
 import com.paligot.confily.db.ConfilyDatabase
 import com.paligot.confily.models.Attendee
 import com.paligot.confily.models.EventItemList
@@ -17,7 +15,6 @@ import com.paligot.confily.models.ui.EventInfoUi
 import com.paligot.confily.models.ui.EventItemListUi
 import com.paligot.confily.models.ui.EventItemUi
 import com.paligot.confily.models.ui.EventUi
-import com.paligot.confily.models.ui.Image
 import com.paligot.confily.models.ui.MenuItemUi
 import com.paligot.confily.models.ui.QuestionAndResponseActionUi
 import com.paligot.confily.models.ui.QuestionAndResponseUi
@@ -85,7 +82,7 @@ class EventDao(
                 } else {
                     null
                 },
-                qrCode = qrcode.toNativeImage()
+                qrCode = qrcode
             )
         }
 
@@ -230,7 +227,7 @@ class EventDao(
         }
     }
 
-    fun updateTicket(eventId: String, qrCode: Image, barcode: String, attendee: Attendee?) =
+    fun updateTicket(eventId: String, qrCode: ByteArray, barcode: String, attendee: Attendee?) =
         db.ticketQueries.insertUser(
             id = attendee?.id,
             ext_id = attendee?.idExt,
@@ -239,6 +236,6 @@ class EventDao(
             firstname = attendee?.firstname,
             lastname = attendee?.name,
             barcode = barcode,
-            qrcode = qrCode.toByteArray()
+            qrcode = qrCode
         )
 }

@@ -1,5 +1,6 @@
 package com.paligot.confily.networking.panes
 
+import android.graphics.BitmapFactory
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,6 +12,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
@@ -50,8 +52,12 @@ fun MyProfileScreen(
     ) {
         if (!isInPreview && profileUi.qrCode != null) {
             item {
+                val qrCodeBitmap = remember(profileUi.qrCode) {
+                    BitmapFactory.decodeByteArray(profileUi.qrCode, 0, profileUi.qrCode!!.size)
+                        .asImageBitmap()
+                }
                 Image(
-                    bitmap = profileUi.qrCode!!.asImageBitmap(),
+                    bitmap = qrCodeBitmap,
                     contentDescription = stringResource(Resource.string.semantic_profile_qrcode),
                     modifier = Modifier.size(196.dp)
                 )

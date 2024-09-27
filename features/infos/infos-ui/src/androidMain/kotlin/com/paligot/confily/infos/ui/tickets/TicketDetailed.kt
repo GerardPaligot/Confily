@@ -1,5 +1,6 @@
 package com.paligot.confily.infos.ui.tickets
 
+import android.graphics.BitmapFactory
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -18,6 +19,7 @@ import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
@@ -30,7 +32,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.paligot.confily.models.ui.Image
 import com.paligot.confily.models.ui.TicketInfoUi
 import com.paligot.confily.models.ui.TicketUi
 import com.paligot.confily.resources.Resource
@@ -46,12 +47,16 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun TicketDetailed(
     ticket: TicketInfoUi,
-    qrCode: Image?,
+    qrCode: ByteArray?,
     modifier: Modifier = Modifier,
     isLoading: Boolean = false,
     shape: Shape = RoundedCornerShape(16.dp),
     elevation: Dp = 8.dp
 ) {
+    val qrCodeBitmap = remember(qrCode) {
+        BitmapFactory.decodeByteArray(qrCode, 0, qrCode?.size ?: 0)
+            .asImageBitmap()
+    }
     val cdTicketId = stringResource(Resource.string.semantic_ticket_id, ticket.id)
     Surface(
         modifier = modifier.wrapContentHeight(),
@@ -121,7 +126,7 @@ fun TicketDetailed(
                 )
                 if (qrCode != null) {
                     Image(
-                        bitmap = qrCode.asImageBitmap(),
+                        bitmap = qrCodeBitmap,
                         contentDescription = stringResource(
                             Resource.string.semantic_ticket_qrcode
                         ),

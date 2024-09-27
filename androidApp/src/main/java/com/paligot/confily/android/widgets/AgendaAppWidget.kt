@@ -15,8 +15,8 @@ import androidx.glance.currentState
 import androidx.glance.state.GlanceStateDefinition
 import androidx.glance.state.PreferencesGlanceStateDefinition
 import com.paligot.confily.android.R
-import com.paligot.confily.core.repositories.AgendaRepository
 import com.paligot.confily.core.repositories.EventRepository
+import com.paligot.confily.core.schedules.SchedulesRepository
 import com.paligot.confily.navigation.Screen
 import com.paligot.confily.widgets.presentation.SessionsWidget
 import com.paligot.confily.widgets.style.ConfilyGlanceTheme
@@ -27,7 +27,7 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 class AgendaAppWidget : GlanceAppWidget(), KoinComponent {
-    private val agendaRepository: AgendaRepository by inject()
+    private val schedulesRepository: SchedulesRepository by inject()
     private val eventRepository: EventRepository by inject()
 
     override val sizeMode = SizeMode.Exact
@@ -42,7 +42,7 @@ class AgendaAppWidget : GlanceAppWidget(), KoinComponent {
                 val prefs = currentState<Preferences>()
                 SessionsWidget(
                     eventRepository = eventRepository,
-                    agendaRepository = agendaRepository,
+                    schedulesRepository = schedulesRepository,
                     date = prefs.lastUpdate ?: date,
                     iconId = R.drawable.ic_campaign,
                     onUpdate = {

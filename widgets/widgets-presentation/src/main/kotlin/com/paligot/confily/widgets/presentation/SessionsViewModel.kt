@@ -1,7 +1,7 @@
 package com.paligot.confily.widgets.presentation
 
-import com.paligot.confily.core.repositories.AgendaRepository
 import com.paligot.confily.core.repositories.EventRepository
+import com.paligot.confily.core.schedules.SchedulesRepository
 import com.paligot.confily.models.ui.EventInfoUi
 import com.paligot.confily.models.ui.TalkItemUi
 import kotlinx.collections.immutable.ImmutableList
@@ -21,7 +21,7 @@ sealed class SessionsUiState {
 }
 
 class SessionsViewModel(
-    agendaRepository: AgendaRepository,
+    schedulesRepository: SchedulesRepository,
     eventRepository: EventRepository,
     date: String,
     coroutineScope: CoroutineScope = CoroutineScope(Job())
@@ -29,7 +29,7 @@ class SessionsViewModel(
     val uiState: StateFlow<SessionsUiState> = combine(
         flow = eventRepository.currentEvent()
             .catch { emit(null) },
-        flow2 = agendaRepository.fetchNextTalks(date)
+        flow2 = schedulesRepository.fetchNextTalks(date)
             .catch { emit(persistentListOf()) },
         transform = { event, sessions ->
             if (sessions.isEmpty()) {
