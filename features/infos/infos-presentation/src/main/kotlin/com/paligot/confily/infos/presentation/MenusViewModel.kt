@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
-import com.paligot.confily.core.repositories.AgendaRepository
+import com.paligot.confily.core.events.EventRepository
 import com.paligot.confily.models.ui.MenuItemUi
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
@@ -20,7 +20,7 @@ sealed class MenusUiState {
     data class Failure(val throwable: Throwable) : MenusUiState()
 }
 
-class MenusViewModel(repository: AgendaRepository) : ViewModel() {
+class MenusViewModel(repository: EventRepository) : ViewModel() {
     val uiState: StateFlow<MenusUiState> = repository.menus()
         .map { MenusUiState.Success(it) }
         .catch {

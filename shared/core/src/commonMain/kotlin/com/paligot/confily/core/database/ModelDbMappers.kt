@@ -1,11 +1,8 @@
 package com.paligot.confily.core.database
 
+import com.paligot.confily.core.extensions.format
 import com.paligot.confily.db.Event
-import com.paligot.confily.db.EventItem
-import com.paligot.confily.models.EventItemList
 import com.paligot.confily.models.EventV3
-import kotlinx.datetime.LocalDateTime
-import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 
 fun EventV3.convertToModelDb(): Event = Event(
@@ -27,15 +24,4 @@ fun EventV3.convertToModelDb(): Event = Event(
     faq_url = this.faqLink!!,
     coc_url = this.codeOfConductLink!!,
     updated_at = this.updatedAt
-)
-
-private fun LocalDateTime.format(): String =
-    "${this.dayOfWeek.name} ${this.dayOfMonth}, ${this.month.name} ${this.year}"
-
-fun EventItemList.convertToModelDb(past: Boolean): EventItem = EventItem(
-    id = this.id,
-    name = this.name,
-    date = this.startDate.dropLast(1).toLocalDateTime().format(),
-    timestamp = this.startDate.toInstant().toEpochMilliseconds(),
-    past = past
 )

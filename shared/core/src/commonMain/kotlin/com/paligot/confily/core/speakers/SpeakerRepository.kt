@@ -1,6 +1,6 @@
 package com.paligot.confily.core.speakers
 
-import com.paligot.confily.core.database.EventDao
+import com.paligot.confily.core.events.EventDao
 import com.paligot.confily.models.ui.SpeakerItemUi
 import com.paligot.confily.models.ui.SpeakerUi
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutines

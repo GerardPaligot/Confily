@@ -1,6 +1,6 @@
 package com.paligot.confily.widgets.presentation
 
-import com.paligot.confily.core.repositories.EventRepository
+import com.paligot.confily.core.events.EventRepository
 import com.paligot.confily.core.schedules.SchedulesRepository
 import com.paligot.confily.models.ui.EventInfoUi
 import com.paligot.confily.models.ui.TalkItemUi
@@ -27,7 +27,7 @@ class SessionsViewModel(
     coroutineScope: CoroutineScope = CoroutineScope(Job())
 ) {
     val uiState: StateFlow<SessionsUiState> = combine(
-        flow = eventRepository.currentEvent()
+        flow = eventRepository.event()
             .catch { emit(null) },
         flow2 = schedulesRepository.fetchNextTalks(date)
             .catch { emit(persistentListOf()) },

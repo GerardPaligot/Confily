@@ -18,7 +18,7 @@ enum EventUiState {
 
 @MainActor
 class EventViewModel: ObservableObject {
-    private let agendaRepository: AgendaRepository = RepositoryHelper().agendaRepository
+    private let eventRepository: EventRepository = RepositoryHelper().eventRepository
 
     @Published var uiState: EventUiState = EventUiState.loading
 
@@ -27,7 +27,7 @@ class EventViewModel: ObservableObject {
     func fetchEvent() {
         eventTask = Task {
             do {
-                let stream = asyncSequence(for: agendaRepository.event())
+                let stream = asyncSequence(for: eventRepository.event())
                 for try await event in stream {
                     self.uiState = .success(event)
                 }
@@ -42,7 +42,7 @@ class EventViewModel: ObservableObject {
     }
 
     func saveTicket(barcode: String) async {
-        if let error = await asyncError(for: agendaRepository.insertOrUpdateTicket(barcode: barcode)) {
+        if let error = await asyncError(for: eventRepository.insertOrUpdateTicket(barcode: barcode)) {
             // ignore
         }
     }

@@ -2,7 +2,7 @@ package com.paligot.confily.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.paligot.confily.core.repositories.EventRepository
+import com.paligot.confily.core.events.EventRepository
 import com.paligot.confily.navigation.Screen
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -15,10 +15,7 @@ sealed class MainUiState {
     data class Success(val startDestination: String) : MainUiState()
 }
 
-class MainViewModel(
-    defaultEvent: String?,
-    private val repository: EventRepository
-) : ViewModel() {
+class MainViewModel(defaultEvent: String?, repository: EventRepository) : ViewModel() {
     val uiState: StateFlow<MainUiState> = flow { emit(repository.isInitialized(defaultEvent)) }
         .map { MainUiState.Success(if (it) Screen.ScheduleList.route else Screen.EventList.route) }
         .stateIn(

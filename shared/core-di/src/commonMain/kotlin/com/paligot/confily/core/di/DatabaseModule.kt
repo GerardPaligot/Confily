@@ -3,8 +3,8 @@ package com.paligot.confily.core.di
 import cafe.adriel.lyricist.LanguageTag
 import cafe.adriel.lyricist.Lyricist
 import com.paligot.confily.core.database.AgendaDao
-import com.paligot.confily.core.database.EventDao
 import com.paligot.confily.core.database.FeaturesActivatedDao
+import com.paligot.confily.core.events.EventDao
 import com.paligot.confily.core.networking.UserDao
 import com.paligot.confily.core.partners.PartnerDao
 import com.paligot.confily.core.schedules.ScheduleDao

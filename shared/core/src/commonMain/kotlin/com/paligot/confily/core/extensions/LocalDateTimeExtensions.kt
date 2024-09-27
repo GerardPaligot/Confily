@@ -7,3 +7,6 @@ fun LocalDateTime.formatHoursMinutes(): String {
     val formatter = DecimalFormat()
     return "${formatter.format(hour)}:${formatter.format(minute)}"
 }
+
+fun LocalDateTime.format(): String =
+    "${this.dayOfWeek.name} ${this.dayOfMonth}, ${this.month.name} ${this.year}"

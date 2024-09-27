@@ -4,7 +4,9 @@ import com.paligot.confily.core.Platform
 import com.paligot.confily.core.database.mappers.convertToDb
 import com.paligot.confily.db.ConfilyDatabase
 import com.paligot.confily.models.AgendaV4
+import com.paligot.confily.models.EventV3
 import com.paligot.confily.models.PartnerV2
+import com.paligot.confily.models.QuestionAndResponse
 import com.paligot.confily.models.Session
 import com.russhwolf.settings.ObservableSettings
 
@@ -77,10 +79,59 @@ class AgendaDao(
         db.sessionQueries.deleteSessions(event_id = eventId, id = diffSessions)
     }
 
-    fun lastEtag(eventId: String): String? = settings.getStringOrNull("AGENDA_ETAG_$eventId")
-
-    fun updateEtag(eventId: String, etag: String?) =
-        etag?.let { settings.putString("AGENDA_ETAG_$eventId", it) }
+    fun insertEvent(event: EventV3, qAndA: List<QuestionAndResponse>) = db.transaction {
+        val eventDb = event.convertToModelDb()
+        db.eventQueries.insertEvent(
+            id = eventDb.id,
+            name = eventDb.name,
+            formatted_address = eventDb.formatted_address,
+            address = eventDb.address,
+            latitude = eventDb.latitude,
+            longitude = eventDb.longitude,
+            date = eventDb.date,
+            coc = eventDb.coc,
+            openfeedback_project_id = eventDb.openfeedback_project_id,
+            contact_email = eventDb.contact_email,
+            contact_phone = eventDb.contact_phone,
+            twitter = eventDb.twitter,
+            twitter_url = eventDb.twitter_url,
+            linkedin = eventDb.linkedin,
+            linkedin_url = eventDb.linkedin_url,
+            faq_url = eventDb.faq_url,
+            coc_url = eventDb.coc_url,
+            updated_at = eventDb.updated_at
+        )
+        qAndA.forEach { qAndA ->
+            db.qAndAQueries.insertQAndA(
+                qAndA.order.toLong(),
+                eventDb.id,
+                qAndA.question,
+                qAndA.response
+            )
+            qAndA.actions.forEach {
+                db.qAndAQueries.insertQAndAAction(
+                    id = "${qAndA.id}-${it.order}",
+                    order_ = it.order.toLong(),
+                    event_id = eventDb.id,
+                    qanda_id = qAndA.order.toLong(),
+                    label = it.label,
+                    url = it.url
+                )
+            }
+        }
+        event.menus.forEach {
+            db.menuQueries.insertMenu(it.name, it.dish, it.accompaniment, it.dessert, event.id)
+        }
+        db.featuresActivatedQueries.insertFeatures(
+            event_id = eventDb.id,
+            has_networking = event.features.hasNetworking,
+            has_speaker_list = event.features.hasSpeakerList,
+            has_partner_list = event.features.hasPartnerList,
+            has_menus = event.features.hasMenus,
+            has_qanda = event.features.hasQAndA,
+            has_billet_web_ticket = event.features.hasBilletWebTicket
+        )
+    }
 
     fun insertPartners(eventId: String, partners: Map<String, List<PartnerV2>>) = db.transaction {
         partners.keys.forEachIndexed { index, type ->
@@ -141,4 +192,9 @@ class AgendaDao(
             }
         }
     }
+
+    fun lastEtag(eventId: String): String? = settings.getStringOrNull("AGENDA_ETAG_$eventId")
+
+    fun updateEtag(eventId: String, etag: String?) =
+        etag?.let { settings.putString("AGENDA_ETAG_$eventId", it) }
 }

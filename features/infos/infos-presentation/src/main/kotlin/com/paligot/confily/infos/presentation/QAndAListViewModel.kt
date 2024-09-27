@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
-import com.paligot.confily.core.repositories.AgendaRepository
+import com.paligot.confily.core.events.EventRepository
 import com.paligot.confily.models.ui.QuestionAndResponseUi
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
@@ -19,7 +19,7 @@ sealed class QAndAUiState {
     data class Failure(val throwable: Throwable) : QAndAUiState()
 }
 
-class QAndAListViewModel(private val repository: AgendaRepository) : ViewModel() {
+class QAndAListViewModel(repository: EventRepository) : ViewModel() {
     private val _uiState =
         MutableStateFlow<QAndAUiState>(
             QAndAUiState.Loading(

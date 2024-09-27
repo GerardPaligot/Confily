@@ -1,6 +1,6 @@
 package com.paligot.confily.core.partners
 
-import com.paligot.confily.core.database.EventDao
+import com.paligot.confily.core.events.EventDao
 import com.paligot.confily.models.ui.PartnerGroupsUi
 import com.paligot.confily.models.ui.PartnerItemUi
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutines

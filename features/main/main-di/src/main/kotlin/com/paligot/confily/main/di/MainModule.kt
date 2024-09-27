@@ -22,6 +22,6 @@ val mainModule = module {
         scheduleModule,
         speakersModule
     )
-    viewModel { MainNavigationViewModel(get(), get()) }
+    viewModel { MainNavigationViewModel(get(), get(), get()) }
     viewModel { parameters -> MainViewModel(parameters.get(), get()) }
 }

@@ -15,7 +15,7 @@ import androidx.glance.currentState
 import androidx.glance.state.GlanceStateDefinition
 import androidx.glance.state.PreferencesGlanceStateDefinition
 import com.paligot.confily.android.R
-import com.paligot.confily.core.repositories.EventRepository
+import com.paligot.confily.core.events.EventRepository
 import com.paligot.confily.core.schedules.SchedulesRepository
 import com.paligot.confily.navigation.Screen
 import com.paligot.confily.widgets.presentation.SessionsWidget

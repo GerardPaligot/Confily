@@ -13,24 +13,4 @@ extension AgendaRepository {
     func fetchAndStoreAgenda() -> NativeSuspend<KotlinUnit, Error, KotlinUnit> {
         AgendaRepositoryNativeKt.fetchAndStoreAgenda(self)
     }
-    
-    func insertOrUpdateTicket(barcode: String) -> NativeSuspend<KotlinUnit, Error, KotlinUnit> {
-        AgendaRepositoryNativeKt.insertOrUpdateTicket(self, barcode: barcode)
-    }
-    
-    func event() -> NativeFlow<EventUi, Error, KotlinUnit> {
-        AgendaRepositoryNativeKt.event(self)
-    }
-    
-    func qanda() -> NativeFlow<Array<QuestionAndResponseUi>, Error, KotlinUnit> {
-        AgendaRepositoryNativeKt.qanda(self)
-    }
-    
-    func menus() -> NativeFlow<Array<MenuItemUi>, Error, KotlinUnit> {
-        AgendaRepositoryNativeKt.menus(self)
-    }
-    
-    func coc() -> NativeFlow<CoCUi, Error, KotlinUnit> {
-        AgendaRepositoryNativeKt.coc(self)
-    }
 }

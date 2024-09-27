@@ -18,7 +18,7 @@ enum MenusUiState {
 
 @MainActor
 class MenusViewModel: ObservableObject {
-    private let repository: AgendaRepository = RepositoryHelper().agendaRepository
+    private let repository: EventRepository = RepositoryHelper().eventRepository
 
     @Published var uiState: MenusUiState = MenusUiState.loading
 

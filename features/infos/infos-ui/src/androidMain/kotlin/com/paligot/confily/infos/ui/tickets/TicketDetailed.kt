@@ -54,8 +54,11 @@ fun TicketDetailed(
     elevation: Dp = 8.dp
 ) {
     val qrCodeBitmap = remember(qrCode) {
-        BitmapFactory.decodeByteArray(qrCode, 0, qrCode?.size ?: 0)
-            .asImageBitmap()
+        if (qrCode != null) {
+            BitmapFactory.decodeByteArray(qrCode, 0, qrCode.size).asImageBitmap()
+        } else {
+            null
+        }
     }
     val cdTicketId = stringResource(Resource.string.semantic_ticket_id, ticket.id)
     Surface(
@@ -124,7 +127,7 @@ fun TicketDetailed(
                         .semantics { text = AnnotatedString(cdTicketId) }
                         .placeholder(isLoading)
                 )
-                if (qrCode != null) {
+                if (qrCodeBitmap != null) {
                     Image(
                         bitmap = qrCodeBitmap,
                         contentDescription = stringResource(

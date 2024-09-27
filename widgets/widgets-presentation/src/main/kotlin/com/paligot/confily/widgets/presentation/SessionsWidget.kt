@@ -10,7 +10,7 @@ import androidx.glance.GlanceModifier
 import androidx.glance.GlanceTheme
 import androidx.glance.action.Action
 import androidx.glance.background
-import com.paligot.confily.core.repositories.EventRepository
+import com.paligot.confily.core.events.EventRepository
 import com.paligot.confily.core.schedules.SchedulesRepository
 import com.paligot.confily.widgets.panes.SessionsScreen
 import com.paligot.confily.widgets.ui.Loading
