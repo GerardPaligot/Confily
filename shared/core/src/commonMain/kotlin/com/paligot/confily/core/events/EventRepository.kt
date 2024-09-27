@@ -2,7 +2,8 @@ package com.paligot.confily.core.events
 
 import com.paligot.confily.core.QrCodeGenerator
 import com.paligot.confily.core.api.ConferenceApi
-import com.paligot.confily.core.exceptions.EventSavedException
+import com.paligot.confily.core.db.ConferenceSettings
+import com.paligot.confily.core.db.EventSavedException
 import com.paligot.confily.models.ui.CoCUi
 import com.paligot.confily.models.ui.EventInfoUi
 import com.paligot.confily.models.ui.EventItemListUi
@@ -48,15 +49,17 @@ interface EventRepository {
     object Factory {
         fun create(
             api: ConferenceApi,
+            settings: ConferenceSettings,
             eventDao: EventDao,
             qrCodeGenerator: QrCodeGenerator
-        ): EventRepository = EventRepositoryImpl(api, eventDao, qrCodeGenerator)
+        ): EventRepository = EventRepositoryImpl(api, settings, eventDao, qrCodeGenerator)
     }
 }
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class EventRepositoryImpl(
     private val api: ConferenceApi,
+    private val settings: ConferenceSettings,
     private val eventDao: EventDao,
     private val qrCodeGenerator: QrCodeGenerator
 ) : EventRepository {
@@ -67,27 +70,27 @@ class EventRepositoryImpl(
 
     override fun events(): Flow<EventItemListUi> = eventDao.fetchEventList()
 
-    override fun event(): Flow<EventInfoUi?> = eventDao.fetchEventId()
+    override fun event(): Flow<EventInfoUi?> = settings.fetchEventId()
         .flatMapConcat { eventDao.fetchEvent(eventId = it) }
 
-    override fun eventAndTicket(): Flow<EventUi> = eventDao.fetchEventId()
+    override fun eventAndTicket(): Flow<EventUi> = settings.fetchEventId()
         .flatMapConcat { eventDao.fetchEventAndTicket(eventId = it) }
 
-    override fun qanda(): Flow<ImmutableList<QuestionAndResponseUi>> = eventDao.fetchEventId()
+    override fun qanda(): Flow<ImmutableList<QuestionAndResponseUi>> = settings.fetchEventId()
         .flatMapConcat { eventDao.fetchQAndA(eventId = it) }
 
-    override fun menus(): Flow<ImmutableList<MenuItemUi>> = eventDao.fetchEventId()
+    override fun menus(): Flow<ImmutableList<MenuItemUi>> = settings.fetchEventId()
         .flatMapConcat { eventDao.fetchMenus(eventId = it) }
 
-    override fun coc(): Flow<CoCUi> = eventDao.fetchEventId()
+    override fun coc(): Flow<CoCUi> = settings.fetchEventId()
         .flatMapConcat { eventDao.fetchCoC(eventId = it) }
 
     override fun isInitialized(defaultEvent: String?): Boolean = try {
-        eventDao.getEventId()
+        settings.getEventId()
         true
     } catch (_: EventSavedException) {
         if (defaultEvent != null) {
-            eventDao.insertEventId(defaultEvent)
+            settings.insertEventId(defaultEvent)
             true
         } else {
             false
@@ -95,15 +98,15 @@ class EventRepositoryImpl(
     }
 
     override fun saveEventId(eventId: String) {
-        eventDao.insertEventId(eventId)
+        settings.insertEventId(eventId)
     }
 
     override fun deleteEventId() {
-        eventDao.deleteEventId()
+        settings.deleteEventId()
     }
 
     override suspend fun insertOrUpdateTicket(barcode: String) {
-        val eventId = eventDao.getEventId()
+        val eventId = settings.getEventId()
         val attendee = try {
             val attendee = api.fetchAttendee(eventId, barcode)
             attendee

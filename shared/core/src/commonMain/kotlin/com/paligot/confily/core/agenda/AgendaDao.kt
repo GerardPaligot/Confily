@@ -1,18 +1,15 @@
 package com.paligot.confily.core.agenda
 
-import com.paligot.confily.core.Platform
 import com.paligot.confily.db.ConfilyDatabase
 import com.paligot.confily.models.AgendaV4
 import com.paligot.confily.models.EventV3
 import com.paligot.confily.models.PartnerV2
 import com.paligot.confily.models.QuestionAndResponse
 import com.paligot.confily.models.Session
-import com.russhwolf.settings.ObservableSettings
 
 class AgendaDao(
     private val db: ConfilyDatabase,
-    private val settings: ObservableSettings,
-    private val platform: Platform
+    private val hasSvgSupport: Boolean
 ) {
     fun saveAgenda(eventId: String, agenda: AgendaV4) = db.transaction {
         agenda.speakers.forEach { speaker ->
@@ -29,6 +26,7 @@ class AgendaDao(
                 is Session.Talk -> {
                     db.sessionQueries.upsertTalkSession(session.convertToDb(eventId))
                 }
+
                 is Session.Event -> {
                     db.sessionQueries.upsertEventSession(session.convertToDb(eventId))
                 }
@@ -149,7 +147,7 @@ class AgendaDao(
                     event_id = eventId,
                     type_id = entry.key,
                     type = entry.key,
-                    logo_url = if (platform.hasSupportSVG) {
+                    logo_url = if (hasSvgSupport) {
                         partner.media.svg
                     } else if (partner.media.pngs != null) {
                         partner.media.pngs!!._250
@@ -191,9 +189,4 @@ class AgendaDao(
             }
         }
     }
-
-    fun lastEtag(eventId: String): String? = settings.getStringOrNull("AGENDA_ETAG_$eventId")
-
-    fun updateEtag(eventId: String, etag: String?) =
-        etag?.let { settings.putString("AGENDA_ETAG_$eventId", it) }
 }

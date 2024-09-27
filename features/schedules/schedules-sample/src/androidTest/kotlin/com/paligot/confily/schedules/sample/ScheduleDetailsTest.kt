@@ -4,7 +4,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import com.paligot.confily.core.agenda.AgendaDao
-import com.paligot.confily.core.events.EventDao
+import com.paligot.confily.core.db.ConferenceSettings
 import com.paligot.confily.core.sample.BuildConfig
 import com.paligot.confily.core.test.instrumentedModule
 import com.paligot.confily.core.test.patterns.navigation.RobotNavigator
@@ -37,13 +37,13 @@ class ScheduleDetailsTest : KoinTest {
         modules(listOf(scheduleModule, instrumentedModule))
     }
 
-    private val eventDao by inject<EventDao>()
+    private val settings by inject<ConferenceSettings>()
     private val agendaDao by inject<AgendaDao>()
 
     @Before
     fun setup() {
-        eventDao.insertEventId(BuildConfig.DEFAULT_EVENT)
-        eventDao.insertEvent(event, emptyList())
+        settings.insertEventId(BuildConfig.DEFAULT_EVENT)
+        agendaDao.insertEvent(event, emptyList())
         agendaDao.saveAgenda(BuildConfig.DEFAULT_EVENT, agenda)
     }
 

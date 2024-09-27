@@ -1,6 +1,6 @@
 package com.paligot.confily.core.partners
 
-import com.paligot.confily.core.events.EventDao
+import com.paligot.confily.core.db.ConferenceSettings
 import com.paligot.confily.models.ui.PartnerGroupsUi
 import com.paligot.confily.models.ui.PartnerItemUi
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
@@ -16,20 +16,20 @@ interface PartnerRepository {
     fun partner(id: String): Flow<PartnerItemUi>
 
     object Factory {
-        fun create(eventDao: EventDao, partnerDao: PartnerDao): PartnerRepository =
-            PartnerRepositoryImpl(eventDao, partnerDao)
+        fun create(settings: ConferenceSettings, partnerDao: PartnerDao): PartnerRepository =
+            PartnerRepositoryImpl(settings, partnerDao)
     }
 }
 
 class PartnerRepositoryImpl(
-    private val eventDao: EventDao,
+    private val settings: ConferenceSettings,
     private val partnerDao: PartnerDao
 ) : PartnerRepository {
     @OptIn(ExperimentalCoroutinesApi::class)
-    override fun partners(): Flow<PartnerGroupsUi> = eventDao.fetchEventId()
+    override fun partners(): Flow<PartnerGroupsUi> = settings.fetchEventId()
         .flatMapConcat { partnerDao.fetchPartners(eventId = it) }
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    override fun partner(id: String): Flow<PartnerItemUi> = eventDao.fetchEventId()
+    override fun partner(id: String): Flow<PartnerItemUi> = settings.fetchEventId()
         .flatMapConcat { partnerDao.fetchPartner(eventId = it, id = id) }
 }

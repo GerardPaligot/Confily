@@ -14,24 +14,26 @@ val repositoriesModule = module {
         AgendaRepository.Factory.create(
             api = get(),
             agendaDao = get(),
-            eventDao = get(),
+            settings = get(),
             featuresDao = get()
         )
     }
-    single { SchedulesRepository.Factory.create(scheduleDao = get(), eventDao = get()) }
+    single { SchedulesRepository.Factory.create(scheduleDao = get(), settings = get()) }
     single {
         EventRepository.Factory.create(
             api = get(),
+            settings = get(),
             eventDao = get(),
             qrCodeGenerator = get()
         )
     }
-    single { SpeakerRepository.Factory.create(get(), eventDao = get()) }
-    single { PartnerRepository.Factory.create(eventDao = get(), partnerDao = get()) }
+    single { SpeakerRepository.Factory.create(speakerDao = get(), settings = get()) }
+    single { PartnerRepository.Factory.create(settings = get(), partnerDao = get()) }
     single {
         NetworkingRepository.Factory.create(
             userDao = get(),
-            eventDao = get(),
+            settings = get(),
+            conferenceFs = get(),
             qrCodeGenerator = get()
         )
     }

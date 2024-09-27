@@ -2,8 +2,10 @@ package com.paligot.confily.core.di
 
 import cafe.adriel.lyricist.LanguageTag
 import cafe.adriel.lyricist.Lyricist
+import com.paligot.confily.core.Platform
 import com.paligot.confily.core.agenda.AgendaDao
 import com.paligot.confily.core.agenda.FeaturesActivatedDao
+import com.paligot.confily.core.db.ConferenceSettings
 import com.paligot.confily.core.events.EventDao
 import com.paligot.confily.core.networking.UserDao
 import com.paligot.confily.core.partners.PartnerDao
@@ -29,12 +31,13 @@ val databasesModule = module {
             this.languageTag = get<LanguageTag>(named(AcceptLanguageNamed)).split("-").first()
         }
     }
+    single { ConferenceSettings(get()) }
     single<CoroutineContext> { Dispatchers.IO }
-    single { AgendaDao(db = get(), settings = get(), platform = get()) }
-    single { EventDao(db = get(), settings = get(), dispatcher = get()) }
-    single { FeaturesActivatedDao(db = get(), settings = get(), dispatcher = get()) }
+    single { AgendaDao(db = get(), hasSvgSupport = get<Platform>().hasSupportSVG) }
+    single { EventDao(db = get(), dispatcher = get()) }
+    single { FeaturesActivatedDao(db = get(), dispatcher = get()) }
     single { PartnerDao(db = get(), dispatcher = get()) }
     single { ScheduleDao(db = get(), settings = get(), lyricist = get(), dispatcher = get()) }
     single { SpeakerDao(db = get(), lyricist = get(), dispatcher = get()) }
-    single { UserDao(db = get(), conferenceFileSystem = get(), dispatcher = get()) }
+    single { UserDao(db = get(), dispatcher = get()) }
 }

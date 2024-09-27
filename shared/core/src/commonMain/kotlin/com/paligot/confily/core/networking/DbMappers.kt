@@ -1,7 +1,6 @@
 package com.paligot.confily.core.networking
 
 import com.paligot.confily.core.fs.User
-import com.paligot.confily.db.Networking
 import com.paligot.confily.models.ui.UserNetworkingUi
 import com.paligot.confily.models.ui.UserProfileUi
 
@@ -37,9 +36,9 @@ internal val userItemMapper = { email: String, firstName: String, lastName: Stri
     )
 }
 
-fun Networking.toUser(): User = User(
+fun UserNetworkingUi.toUser(): User = User(
     email = email,
-    firstname = firstname,
-    lastname = lastname,
+    firstname = firstName,
+    lastname = lastName,
     company = company ?: ""
 )

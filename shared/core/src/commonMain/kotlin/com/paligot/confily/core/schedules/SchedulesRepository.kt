@@ -1,6 +1,6 @@
 package com.paligot.confily.core.schedules
 
-import com.paligot.confily.core.events.EventDao
+import com.paligot.confily.core.db.ConferenceSettings
 import com.paligot.confily.models.ui.AgendaUi
 import com.paligot.confily.models.ui.CategoryUi
 import com.paligot.confily.models.ui.EventSessionItemUi
@@ -46,47 +46,47 @@ interface SchedulesRepository {
         @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class, ExperimentalSettingsApi::class)
         fun create(
             scheduleDao: ScheduleDao,
-            eventDao: EventDao
-        ): SchedulesRepository = SchedulesRepositoryImpl(scheduleDao, eventDao)
+            settings: ConferenceSettings
+        ): SchedulesRepository = SchedulesRepositoryImpl(scheduleDao, settings)
     }
 }
 
 @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class, ExperimentalSettingsApi::class)
 class SchedulesRepositoryImpl(
     private val scheduleDao: ScheduleDao,
-    private val eventDao: EventDao
+    private val settings: ConferenceSettings
 ) : SchedulesRepository {
-    override fun agenda(): Flow<ImmutableMap<String, AgendaUi>> = eventDao.fetchEventId()
+    override fun agenda(): Flow<ImmutableMap<String, AgendaUi>> = settings.fetchEventId()
         .flatMapConcat { scheduleDao.fetchSchedules(eventId = it) }
 
-    override fun scheduleItem(scheduleId: String): Flow<TalkUi> = eventDao.fetchEventId()
+    override fun scheduleItem(scheduleId: String): Flow<TalkUi> = settings.fetchEventId()
         .flatMapConcat { scheduleDao.fetchSchedule(eventId = it, talkId = scheduleId) }
 
     override fun scheduleEventSessionItem(scheduleId: String): Flow<EventSessionItemUi> =
-        eventDao.fetchEventId()
+        settings.fetchEventId()
             .flatMapConcat { scheduleDao.fetchEventSession(eventId = it, sessionId = scheduleId) }
 
     override fun fetchNextTalks(date: String): Flow<ImmutableList<TalkItemUi>> =
-        eventDao.fetchEventId()
+        settings.fetchEventId()
             .flatMapConcat { scheduleDao.fetchNextScheduleItems(eventId = it, date = date) }
 
-    override fun filters(): Flow<FiltersUi> = eventDao.fetchEventId()
+    override fun filters(): Flow<FiltersUi> = settings.fetchEventId()
         .flatMapConcat { scheduleDao.fetchFilters(it) }
 
-    override fun hasFilterApplied(): Flow<Boolean> = eventDao.fetchEventId()
+    override fun hasFilterApplied(): Flow<Boolean> = settings.fetchEventId()
         .flatMapConcat { scheduleDao.fetchFiltersAppliedCount(eventId = it) }
         .map { it > 0 }
 
     override fun applyFavoriteFilter(selected: Boolean) = scheduleDao.applyFavoriteFilter(selected)
 
     override fun applyCategoryFilter(categoryUi: CategoryUi, selected: Boolean) =
-        scheduleDao.applyCategoryFilter(categoryUi, eventDao.getEventId(), selected)
+        scheduleDao.applyCategoryFilter(categoryUi, settings.getEventId(), selected)
 
     override fun applyFormatFilter(formatUi: FormatUi, selected: Boolean) =
-        scheduleDao.applyFormatFilter(formatUi, eventDao.getEventId(), selected)
+        scheduleDao.applyFormatFilter(formatUi, settings.getEventId(), selected)
 
     override fun markAsRead(sessionId: String, isFavorite: Boolean) = scheduleDao.markAsFavorite(
-        eventId = eventDao.getEventId(),
+        eventId = settings.getEventId(),
         sessionId = sessionId,
         isFavorite = isFavorite
     )

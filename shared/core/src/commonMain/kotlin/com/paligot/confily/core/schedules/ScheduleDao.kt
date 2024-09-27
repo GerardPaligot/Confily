@@ -4,6 +4,7 @@ import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOne
 import cafe.adriel.lyricist.Lyricist
+import com.paligot.confily.core.db.ConferenceSettings
 import com.paligot.confily.db.ConfilyDatabase
 import com.paligot.confily.models.ui.AgendaUi
 import com.paligot.confily.models.ui.CategoryUi
@@ -14,8 +15,6 @@ import com.paligot.confily.models.ui.TalkItemUi
 import com.paligot.confily.models.ui.TalkUi
 import com.paligot.confily.resources.Strings
 import com.russhwolf.settings.ExperimentalSettingsApi
-import com.russhwolf.settings.ObservableSettings
-import com.russhwolf.settings.coroutines.getBooleanFlow
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.collections.immutable.toImmutableList
@@ -33,7 +32,7 @@ import kotlin.coroutines.CoroutineContext
 @ExperimentalSettingsApi
 class ScheduleDao(
     private val db: ConfilyDatabase,
-    private val settings: ObservableSettings,
+    private val settings: ConferenceSettings,
     private val lyricist: Lyricist<Strings>,
     private val dispatcher: CoroutineContext
 ) {
@@ -54,7 +53,7 @@ class ScheduleDao(
             .selectSelectedFormats(eventId)
             .asFlow()
             .mapToList(dispatcher),
-        settings.getBooleanFlow("ONLY_FAVORITES", false),
+        settings.fetchOnlyFavoritesFlag(),
         transform = { sessions, breaks, selectedCategories, selectedFormats, hasFavFilter ->
             val selectedCategoryIds = selectedCategories.map { it.id }
             val selectedFormatIds = selectedFormats.map { it.id }
@@ -162,7 +161,7 @@ class ScheduleDao(
             .selectFormats(eventId)
             .asFlow()
             .mapToList(dispatcher),
-        settings.getBooleanFlow("ONLY_FAVORITES", false),
+        settings.fetchOnlyFavoritesFlag(),
         transform = { categories, formats, onlyFavorites ->
             FiltersUi(
                 onlyFavorites = onlyFavorites,
@@ -185,14 +184,14 @@ class ScheduleDao(
             .selectSelectedFormats(eventId)
             .asFlow()
             .mapToList(dispatcher),
-        settings.getBooleanFlow("ONLY_FAVORITES", false),
+        settings.fetchOnlyFavoritesFlag(),
         transform = { selectedCategories, selectedFormats, hasFavFilter ->
             return@combine selectedCategories.count() + selectedFormats.count() + if (hasFavFilter) 1 else 0
         }
     )
 
     fun applyFavoriteFilter(selected: Boolean) {
-        settings.putBoolean("ONLY_FAVORITES", selected)
+        settings.upsertOnlyFavoritesFlag(selected)
     }
 
     fun applyCategoryFilter(categoryUi: CategoryUi, eventId: String, selected: Boolean) =
@@ -212,11 +211,11 @@ class ScheduleDao(
             event_id = eventId
         )
         if (isFavorite) return@transaction
-        val onlyFavorites = settings.getBoolean("ONLY_FAVORITES", false)
+        val onlyFavorites = settings.getOnlyFavoritesFlag()
         if (!onlyFavorites) return@transaction
-        val countFavorites =
-            db.sessionQueries.countSessionsByFavorite(eventId, true).executeAsOneOrNull()
+        val countFavorites = db.sessionQueries.countSessionsByFavorite(eventId, true)
+            .executeAsOneOrNull()
         if (countFavorites != null && countFavorites != 0L) return@transaction
-        settings.putBoolean("ONLY_FAVORITES", false)
+        settings.upsertOnlyFavoritesFlag(false)
     }
 }

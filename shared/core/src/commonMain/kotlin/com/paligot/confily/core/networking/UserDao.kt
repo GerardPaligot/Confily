@@ -3,7 +3,6 @@ package com.paligot.confily.core.networking
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOneOrNull
-import com.paligot.confily.core.fs.ConferenceFileSystem
 import com.paligot.confily.db.ConfilyDatabase
 import com.paligot.confily.models.ui.UserNetworkingUi
 import com.paligot.confily.models.ui.UserProfileUi
@@ -16,7 +15,6 @@ import kotlin.coroutines.CoroutineContext
 
 class UserDao(
     private val db: ConfilyDatabase,
-    private val conferenceFileSystem: ConferenceFileSystem,
     private val dispatcher: CoroutineContext
 ) {
     fun fetchProfile(eventId: String): Flow<UserProfileUi?> =
@@ -29,6 +27,11 @@ class UserDao(
         db.userQueries.selectAll(eventId, userItemMapper).asFlow()
             .mapToList(dispatcher)
             .map { it.toImmutableList() }
+
+    fun getUsers(eventId: String): ImmutableList<UserNetworkingUi> =
+        db.userQueries.selectAll(eventId, userItemMapper)
+            .executeAsList()
+            .toImmutableList()
 
     fun insertUser(
         eventId: String,
@@ -53,11 +56,6 @@ class UserDao(
 
     fun deleteNetworking(eventId: String, email: String) =
         db.userQueries.deleteNetwork(eventId, email)
-
-    fun exportNetworking(eventId: String): String {
-        val users = db.userQueries.selectAll(eventId).executeAsList()
-        return conferenceFileSystem.exportUsers(users.map { it.toUser() })
-    }
 
     fun getEmailProfile(eventId: String): String? = db.userQueries
         .selectProfile(eventId)

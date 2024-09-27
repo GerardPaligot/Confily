@@ -1,6 +1,6 @@
 package com.paligot.confily.core.speakers
 
-import com.paligot.confily.core.events.EventDao
+import com.paligot.confily.core.db.ConferenceSettings
 import com.paligot.confily.models.ui.SpeakerItemUi
 import com.paligot.confily.models.ui.SpeakerUi
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
@@ -19,20 +19,20 @@ interface SpeakerRepository {
     object Factory {
         fun create(
             speakerDao: SpeakerDao,
-            eventDao: EventDao
-        ): SpeakerRepository = SpeakerRepositoryImpl(speakerDao, eventDao)
+            settings: ConferenceSettings
+        ): SpeakerRepository = SpeakerRepositoryImpl(speakerDao, settings)
     }
 }
 
 class SpeakerRepositoryImpl(
     private val speakerDao: SpeakerDao,
-    private val eventDao: EventDao
+    private val settings: ConferenceSettings
 ) : SpeakerRepository {
     @OptIn(ExperimentalCoroutinesApi::class)
-    override fun speaker(speakerId: String): Flow<SpeakerUi> = eventDao.fetchEventId()
+    override fun speaker(speakerId: String): Flow<SpeakerUi> = settings.fetchEventId()
         .flatMapConcat { speakerDao.fetchSpeaker(eventId = it, speakerId = speakerId) }
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    override fun speakers(): Flow<ImmutableList<SpeakerItemUi>> = eventDao.fetchEventId()
+    override fun speakers(): Flow<ImmutableList<SpeakerItemUi>> = settings.fetchEventId()
         .flatMapConcat { speakerDao.fetchSpeakers(eventId = it) }
 }

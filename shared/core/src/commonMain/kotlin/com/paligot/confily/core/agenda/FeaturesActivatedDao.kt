@@ -6,32 +6,23 @@ import app.cash.sqldelight.coroutines.mapToOneOrDefault
 import app.cash.sqldelight.coroutines.mapToOneOrNull
 import com.paligot.confily.db.ConfilyDatabase
 import com.paligot.confily.models.ui.ScaffoldConfigUi
-import com.russhwolf.settings.ExperimentalSettingsApi
-import com.russhwolf.settings.ObservableSettings
-import com.russhwolf.settings.coroutines.getStringOrNullFlow
 import kotlinx.collections.immutable.toImmutableList
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.flow
 import kotlin.coroutines.CoroutineContext
 
-@OptIn(ExperimentalSettingsApi::class)
 class FeaturesActivatedDao(
     private val db: ConfilyDatabase,
-    private val settings: ObservableSettings,
     private val dispatcher: CoroutineContext
 ) {
-    @OptIn(ExperimentalCoroutinesApi::class)
-    fun fetchFeatures(): Flow<ScaffoldConfigUi> = settings.getStringOrNullFlow("EVENT_ID")
-        .flatMapConcat {
-            if (it != null) {
-                fetchFeatures(it)
-            } else {
-                flow { ScaffoldConfigUi() }
-            }
+    fun fetchScaffoldConfig(eventId: String?): Flow<ScaffoldConfigUi> {
+        return if (eventId != null) {
+            fetchFeatures(eventId)
+        } else {
+            flow { ScaffoldConfigUi() }
         }
+    }
 
     private fun fetchFeatures(eventId: String): Flow<ScaffoldConfigUi> = combine(
         db.featuresActivatedQueries.selectFeatures(eventId).asFlow().mapToOneOrNull(dispatcher),
