@@ -1,9 +1,7 @@
-package com.paligot.confily.core.repositories
+package com.paligot.confily.core.agenda
 
 import com.paligot.confily.core.api.ConferenceApi
 import com.paligot.confily.core.api.exceptions.AgendaNotModifiedException
-import com.paligot.confily.core.database.AgendaDao
-import com.paligot.confily.core.database.FeaturesActivatedDao
 import com.paligot.confily.core.events.EventDao
 import com.paligot.confily.models.ui.ScaffoldConfigUi
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutines

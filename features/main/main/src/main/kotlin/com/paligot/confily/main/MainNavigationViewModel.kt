@@ -4,9 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
+import com.paligot.confily.core.agenda.AgendaRepository
 import com.paligot.confily.core.events.EventRepository
 import com.paligot.confily.core.networking.NetworkingRepository
-import com.paligot.confily.core.repositories.AgendaRepository
 import com.paligot.confily.models.ui.ScaffoldConfigUi
 import com.paligot.confily.models.ui.UserNetworkingUi
 import com.paligot.confily.navigation.BottomActions

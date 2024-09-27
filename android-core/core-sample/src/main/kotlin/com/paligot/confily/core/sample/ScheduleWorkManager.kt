@@ -3,7 +3,7 @@ package com.paligot.confily.core.sample
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.paligot.confily.core.repositories.AgendaRepository
+import com.paligot.confily.core.agenda.AgendaRepository
 import org.koin.core.component.KoinComponent
 
 class ScheduleWorkManager(

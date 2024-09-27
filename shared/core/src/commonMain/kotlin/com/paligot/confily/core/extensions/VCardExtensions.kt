@@ -1,4 +1,4 @@
-package com.paligot.confily.core.vcard
+package com.paligot.confily.core.extensions
 
 import com.paligot.confily.models.ui.UserNetworkingUi
 

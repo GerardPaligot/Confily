@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
 import com.paligot.confily.core.AlarmScheduler
-import com.paligot.confily.core.repositories.AgendaRepository
+import com.paligot.confily.core.agenda.AgendaRepository
 import com.paligot.confily.core.schedules.SchedulesRepository
 import com.paligot.confily.models.ui.AgendaUi
 import com.paligot.confily.models.ui.TalkItemUi

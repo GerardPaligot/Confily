@@ -1,9 +1,9 @@
 package com.paligot.confily.core.di
 
+import com.paligot.confily.core.agenda.AgendaRepository
 import com.paligot.confily.core.events.EventRepository
 import com.paligot.confily.core.networking.NetworkingRepository
 import com.paligot.confily.core.partners.PartnerRepository
-import com.paligot.confily.core.repositories.AgendaRepository
 import com.paligot.confily.core.schedules.SchedulesRepository
 import com.paligot.confily.core.speakers.SpeakerRepository
 import org.koin.core.component.KoinComponent

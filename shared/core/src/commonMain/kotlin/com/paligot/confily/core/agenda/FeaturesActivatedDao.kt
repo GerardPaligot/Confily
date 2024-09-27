@@ -1,4 +1,4 @@
-package com.paligot.confily.core.database
+package com.paligot.confily.core.agenda
 
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList

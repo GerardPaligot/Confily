@@ -2,7 +2,7 @@ package com.paligot.confily.core.networking
 
 import com.paligot.confily.core.QrCodeGenerator
 import com.paligot.confily.core.events.EventDao
-import com.paligot.confily.core.vcard.encodeToString
+import com.paligot.confily.core.extensions.encodeToString
 import com.paligot.confily.models.ui.ExportNetworkingUi
 import com.paligot.confily.models.ui.UserNetworkingUi
 import com.paligot.confily.models.ui.UserProfileUi

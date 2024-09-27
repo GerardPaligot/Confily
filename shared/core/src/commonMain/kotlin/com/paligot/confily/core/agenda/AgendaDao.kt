@@ -1,7 +1,6 @@
-package com.paligot.confily.core.database
+package com.paligot.confily.core.agenda
 
 import com.paligot.confily.core.Platform
-import com.paligot.confily.core.database.mappers.convertToDb
 import com.paligot.confily.db.ConfilyDatabase
 import com.paligot.confily.models.AgendaV4
 import com.paligot.confily.models.EventV3
