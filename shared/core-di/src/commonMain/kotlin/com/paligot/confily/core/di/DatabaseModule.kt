@@ -6,9 +6,9 @@ import com.paligot.confily.core.database.EventDao
 import com.paligot.confily.core.database.FeaturesActivatedDao
 import com.paligot.confily.core.database.PartnerDao
 import com.paligot.confily.core.database.ScheduleDao
-import com.paligot.confily.core.database.SpeakerDao
 import com.paligot.confily.core.database.TalkDao
 import com.paligot.confily.core.database.UserDao
+import com.paligot.confily.core.speakers.SpeakerDao
 import com.paligot.confily.resources.EnStrings
 import com.paligot.confily.resources.FrStrings
 import com.russhwolf.settings.ExperimentalSettingsApi

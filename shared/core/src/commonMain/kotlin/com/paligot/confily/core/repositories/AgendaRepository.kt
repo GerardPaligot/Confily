@@ -6,8 +6,8 @@ import com.paligot.confily.core.database.EventDao
 import com.paligot.confily.core.database.FeaturesActivatedDao
 import com.paligot.confily.core.database.PartnerDao
 import com.paligot.confily.core.database.ScheduleDao
-import com.paligot.confily.core.database.SpeakerDao
 import com.paligot.confily.core.database.TalkDao
+import com.paligot.confily.core.speakers.SpeakerDao
 import com.paligot.confily.models.ui.CategoryUi
 import com.paligot.confily.models.ui.CoCUi
 import com.paligot.confily.models.ui.EventSessionItemUi
@@ -19,7 +19,6 @@ import com.paligot.confily.models.ui.PartnerGroupsUi
 import com.paligot.confily.models.ui.PartnerItemUi
 import com.paligot.confily.models.ui.QuestionAndResponseUi
 import com.paligot.confily.models.ui.ScaffoldConfigUi
-import com.paligot.confily.models.ui.SpeakerUi
 import com.paligot.confily.models.ui.TalkItemUi
 import com.paligot.confily.models.ui.TalkUi
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
@@ -81,8 +80,6 @@ interface AgendaRepository {
     fun applyCategoryFilter(categoryUi: CategoryUi, selected: Boolean)
     fun applyFormatFilter(formatUi: FormatUi, selected: Boolean)
 
-    @NativeCoroutines
-    fun speaker(speakerId: String): Flow<SpeakerUi>
     fun markAsRead(sessionId: String, isFavorite: Boolean)
 
     @FlowPreview
@@ -194,9 +191,6 @@ class AgendaRepositoryImpl(
 
     override fun applyFormatFilter(formatUi: FormatUi, selected: Boolean) =
         scheduleDao.applyFormatFilter(formatUi, eventDao.getEventId(), selected)
-
-    override fun speaker(speakerId: String): Flow<SpeakerUi> = eventDao.fetchEventId()
-        .flatMapConcat { speakerDao.fetchSpeaker(eventId = it, speakerId = speakerId) }
 
     override fun markAsRead(sessionId: String, isFavorite: Boolean) = scheduleDao.markAsFavorite(
         eventId = eventDao.getEventId(),

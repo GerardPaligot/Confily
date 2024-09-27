@@ -57,8 +57,4 @@ extension AgendaRepository {
     func scheduleEventSessionItem(scheduleId: String) -> NativeFlow<EventSessionItemUi, Error, KotlinUnit> {
         AgendaRepositoryNativeKt.scheduleEventSessionItem(self, scheduleId: scheduleId)
     }
-    
-    func speaker(speakerId: String) -> NativeFlow<SpeakerUi, Error, KotlinUnit> {
-        AgendaRepositoryNativeKt.speaker(self, speakerId: speakerId)
-    }
 }

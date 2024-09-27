@@ -18,7 +18,7 @@ enum SpeakerUiState {
 
 @MainActor
 class SpeakerViewModel: ObservableObject {
-    private let repository: AgendaRepository = RepositoryHelper().agendaRepository
+    private let repository: SpeakerRepository = RepositoryHelper().speakerRepository
     private let alarmScheduler: AlarmScheduler = AlarmScheduler()
     let speakerId: String
 

@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
 import com.paligot.confily.core.AlarmScheduler
-import com.paligot.confily.core.repositories.AgendaRepository
+import com.paligot.confily.core.speakers.SpeakerRepository
 import com.paligot.confily.models.ui.SpeakerUi
 import com.paligot.confily.models.ui.TalkItemUi
 import kotlinx.coroutines.flow.SharingStarted
@@ -25,7 +25,7 @@ sealed class SpeakerUiState {
 
 class SpeakerDetailViewModel(
     speakerId: String,
-    repository: AgendaRepository,
+    repository: SpeakerRepository,
     private val alarmScheduler: AlarmScheduler
 ) : ViewModel() {
     val uiState: StateFlow<SpeakerUiState> = repository.speaker(speakerId)

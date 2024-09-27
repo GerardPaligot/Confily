@@ -2,8 +2,8 @@ package com.paligot.confily.core.di
 
 import com.paligot.confily.core.repositories.AgendaRepository
 import com.paligot.confily.core.repositories.EventRepository
-import com.paligot.confily.core.repositories.SpeakerRepository
 import com.paligot.confily.core.repositories.UserRepository
+import com.paligot.confily.core.speakers.SpeakerRepository
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.context.startKoin
