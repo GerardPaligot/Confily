@@ -3,7 +3,7 @@ package com.paligot.confily.core.networking
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOneOrNull
-import com.paligot.confily.core.Platform
+import com.paligot.confily.core.fs.ConferenceFileSystem
 import com.paligot.confily.db.ConfilyDatabase
 import com.paligot.confily.models.ui.UserNetworkingUi
 import com.paligot.confily.models.ui.UserProfileUi
@@ -12,12 +12,11 @@ import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.datetime.Clock
-import okio.Path.Companion.toPath
 import kotlin.coroutines.CoroutineContext
 
 class UserDao(
     private val db: ConfilyDatabase,
-    private val platform: Platform,
+    private val conferenceFileSystem: ConferenceFileSystem,
     private val dispatcher: CoroutineContext
 ) {
     fun fetchProfile(eventId: String): Flow<UserProfileUi?> =
@@ -57,13 +56,7 @@ class UserDao(
 
     fun exportNetworking(eventId: String): String {
         val users = db.userQueries.selectAll(eventId).executeAsList()
-        val path = "${platform.fileEngine.tempFolderPath}/${Clock.System.now().epochSeconds}.csv"
-        platform.fileEngine.fileSystem.write(path.toPath()) {
-            users.forEach { user ->
-                writeUtf8("${user.email};${user.firstname};${user.lastname};${user.company}")
-            }
-        }
-        return path
+        return conferenceFileSystem.exportUsers(users.map { it.toUser() })
     }
 
     fun getEmailProfile(eventId: String): String? = db.userQueries

@@ -27,6 +27,7 @@ kotlin {
                 export(libs.settings)
                 export(projects.shared.coreApi)
                 export(projects.shared.coreDb)
+                export(projects.shared.coreFs)
                 export(projects.shared.models)
                 export(projects.shared.uiModels)
                 export(projects.shared.resources)
@@ -41,6 +42,7 @@ kotlin {
             dependencies {
                 api(projects.shared.coreApi)
                 api(projects.shared.coreDb)
+                api(projects.shared.coreFs)
                 api(projects.shared.models)
                 api(projects.shared.uiModels)
                 api(projects.shared.resources)
@@ -53,7 +55,6 @@ kotlin {
                 implementation(libs.jetbrains.kotlinx.coroutines)
 
                 implementation(libs.cash.sqldelight.coroutines)
-                implementation(libs.squareup.okio)
 
                 implementation(libs.lyricist)
 

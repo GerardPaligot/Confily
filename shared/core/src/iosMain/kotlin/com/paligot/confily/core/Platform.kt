@@ -1,17 +1,9 @@
 package com.paligot.confily.core
 
-import okio.FileSystem
 import platform.Foundation.NSNumber
 import platform.Foundation.NSNumberFormatter
 
-class IOSContext
-actual typealias PlatformContext = IOSContext
-
-actual class Platform actual constructor(context: PlatformContext) {
-    actual val fileEngine = FileEngine(
-        fileSystem = FileSystem.SYSTEM,
-        tempFolderPath = FileSystem.SYSTEM_TEMPORARY_DIRECTORY
-    )
+actual class Platform {
     actual val hasSupportSVG: Boolean = false
 }
 

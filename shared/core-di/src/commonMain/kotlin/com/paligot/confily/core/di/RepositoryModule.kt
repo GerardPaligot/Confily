@@ -9,7 +9,7 @@ import com.paligot.confily.core.speakers.SpeakerRepository
 import org.koin.dsl.module
 
 val repositoriesModule = module {
-    includes(databasesModule, networksModule)
+    includes(databasesModule, networksModule, fileSystemModule)
     single {
         AgendaRepository.Factory.create(
             api = get(),

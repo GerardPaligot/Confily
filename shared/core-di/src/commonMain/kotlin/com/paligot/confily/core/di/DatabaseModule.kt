@@ -36,5 +36,5 @@ val databasesModule = module {
     single { PartnerDao(db = get(), dispatcher = get()) }
     single { ScheduleDao(db = get(), settings = get(), lyricist = get(), dispatcher = get()) }
     single { SpeakerDao(db = get(), lyricist = get(), dispatcher = get()) }
-    single { UserDao(db = get(), platform = get(), dispatcher = get()) }
+    single { UserDao(db = get(), conferenceFileSystem = get(), dispatcher = get()) }
 }

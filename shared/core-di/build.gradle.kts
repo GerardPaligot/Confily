@@ -45,6 +45,7 @@ kotlin {
                 api(projects.shared.resources)
                 implementation(libs.koin.core)
                 implementation(libs.ktor.client.core)
+                implementation(libs.squareup.okio)
                 implementation(libs.jetbrains.kotlinx.coroutines)
                 implementation(libs.lyricist)
             }

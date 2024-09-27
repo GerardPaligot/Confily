@@ -1,18 +1,6 @@
 package com.paligot.confily.core
 
-import android.content.Context
-import okio.FileSystem
-import okio.Path.Companion.toPath
-
-data class AndroidContext(val context: Context)
-actual typealias PlatformContext = AndroidContext
-
-actual class Platform actual constructor(context: PlatformContext) {
-    actual val fileEngine = FileEngine(
-        fileSystem = FileSystem.SYSTEM,
-        tempFolderPath = context.context.cacheDir?.absolutePath?.toPath()
-            ?: FileSystem.SYSTEM_TEMPORARY_DIRECTORY
-    )
+actual class Platform {
     actual val hasSupportSVG: Boolean = true
 }
 
