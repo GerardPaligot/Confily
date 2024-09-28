@@ -5,8 +5,8 @@ import com.paligot.confily.core.QrCodeGenerator
 import com.paligot.confily.core.QrCodeGeneratoriOS
 import com.paligot.confily.core.db.DatabaseWrapper
 import com.paligot.confily.db.ConfilyDatabase
-import com.russhwolf.settings.AppleSettings
 import com.russhwolf.settings.ExperimentalSettingsApi
+import com.russhwolf.settings.NSUserDefaultsSettings
 import com.russhwolf.settings.ObservableSettings
 import okio.FileSystem
 import org.koin.core.qualifier.named
@@ -20,7 +20,7 @@ actual val platformModule = module {
     single<ConfilyDatabase> { DatabaseWrapper().createDb() }
     single<Platform> { Platform() }
     single(named(TempFolderPath)) { FileSystem.SYSTEM_TEMPORARY_DIRECTORY }
-    single<ObservableSettings> { AppleSettings(standardUserDefaults) }
+    single<ObservableSettings> { NSUserDefaultsSettings(standardUserDefaults) }
     single<String>(named(AcceptLanguageNamed)) { NSLocale.preferredLanguages.first().toString() }
     single<QrCodeGenerator> { QrCodeGeneratoriOS() }
 }

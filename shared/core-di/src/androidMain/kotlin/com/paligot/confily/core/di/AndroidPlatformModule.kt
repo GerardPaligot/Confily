@@ -6,9 +6,9 @@ import com.paligot.confily.core.QrCodeGenerator
 import com.paligot.confily.core.QrCodeGeneratorAndroid
 import com.paligot.confily.core.db.DatabaseWrapper
 import com.paligot.confily.db.ConfilyDatabase
-import com.russhwolf.settings.AndroidSettings
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
+import com.russhwolf.settings.SharedPreferencesSettings
 import okio.FileSystem
 import okio.Path.Companion.toPath
 import org.koin.android.ext.koin.androidContext
@@ -24,7 +24,7 @@ actual val platformModule = module {
     }
     single<Platform> { Platform() }
     single<ObservableSettings> {
-        AndroidSettings(
+        SharedPreferencesSettings(
             androidContext().getSharedPreferences(
                 /* name = */
                 "com.paligot.confily.android",

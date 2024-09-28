@@ -18,7 +18,7 @@ androidx-test = "1.6.1"
 androidx-uiautomator = "2.3.0"
 androidx-work = "2.9.0"
 apache-xmlgraphics-batik = "1.17"
-cash-sqldelight = "2.0.1"
+cash-sqldelight = "2.0.2"
 coil3 = "3.0.0-alpha10"
 detekt = "1.23.4"
 google-accompanist = "0.32.0"
@@ -51,7 +51,7 @@ openfeedback = "1.0.0-alpha.3"
 placeholder = "1.0.8"
 richtext-commonmark = "0.11.0"
 squareup-okio = "3.7.0"
-settings = "0.8.1"
+settings = "1.2.0"
 slack-compose-lint-checks = "1.1.1"
 zxing-android-embedded = "4.3.0"
 
@@ -177,7 +177,7 @@ placeholder-material3 = { group = "com.eygraber", name = "compose-placeholder-ma
 richtext-commonmark = { group = "com.halilibo.compose-richtext", name = "richtext-commonmark", version.ref = "richtext-commonmark" }
 
 settings = { group = "com.russhwolf", name = "multiplatform-settings", version.ref = "settings" }
-settings-coroutines = { group = "com.russhwolf", name = "multiplatform-settings-coroutines-native-mt", version.ref = "settings" }
+settings-coroutines = { group = "com.russhwolf", name = "multiplatform-settings-coroutines", version.ref = "settings" }
 squareup-okio = { group = "com.squareup.okio", name = "okio", version.ref = "squareup-okio" }
 
 zxing-android-embedded = { group = "com.journeyapps", name = "zxing-android-embedded", version.ref = "zxing-android-embedded" }
