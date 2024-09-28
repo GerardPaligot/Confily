@@ -21,6 +21,7 @@ dependencies {
     implementation(libs.koin.androidx.compose)
 
     implementation(libs.jetbrains.kotlinx.collections)
+    implementation(libs.jetbrains.lifecycle.viewmodel.compose)
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.androidx.compose.adaptive)
@@ -29,8 +30,6 @@ dependencies {
     implementation(compose.preview)
     debugImplementation(compose.uiTooling)
     implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
     implementation(platform(libs.google.firebase.bom))
     implementation("com.google.firebase:firebase-crashlytics-ktx")

@@ -36,10 +36,10 @@ dependencies {
     implementation(compose.components.resources)
     implementation(compose.preview)
     debugImplementation(compose.uiTooling)
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.navigation.compose)
 
     implementation(libs.jetbrains.kotlinx.collections)
+    implementation(libs.jetbrains.lifecycle.viewmodel.compose)
 
     implementation(platform(libs.google.firebase.bom))
     implementation("com.google.firebase:firebase-crashlytics-ktx")
