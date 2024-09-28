@@ -9,7 +9,7 @@ import com.paligot.confily.networking.di.networkingModule
 import com.paligot.confily.partners.di.partnersModule
 import com.paligot.confily.schedules.di.scheduleModule
 import com.paligot.confily.speakers.di.speakersModule
-import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
 val mainModule = module {

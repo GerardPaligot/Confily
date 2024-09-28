@@ -62,38 +62,10 @@ kotlin {
                 implementation(libs.settings.coroutines)
             }
         }
-        val commonTest by getting {
-            dependencies {
-                implementation(kotlin("test-common"))
-                implementation(kotlin("test-annotations-common"))
-            }
-        }
         val androidMain by getting {
             dependencies {
                 implementation(libs.google.zxing)
                 implementation(libs.zxing.android.embedded)
-            }
-        }
-        val androidUnitTest by getting {
-            dependencies {
-                implementation(kotlin("test-junit"))
-                implementation("junit:junit:4.13.2")
-            }
-        }
-        if (OperatingSystem.current().isMacOsX) {
-            val iosArm64Main by getting
-            val iosSimulatorArm64Main by getting
-            val iosMain by creating {
-                dependsOn(commonMain)
-                iosArm64Main.dependsOn(this)
-                iosSimulatorArm64Main.dependsOn(this)
-            }
-            val iosArm64Test by getting
-            val iosSimulatorArm64Test by getting
-            val iosTest by creating {
-                dependsOn(commonTest)
-                iosArm64Test.dependsOn(this)
-                iosSimulatorArm64Test.dependsOn(this)
             }
         }
     }

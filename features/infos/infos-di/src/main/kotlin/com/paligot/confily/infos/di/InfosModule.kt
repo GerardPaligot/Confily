@@ -6,7 +6,7 @@ import com.paligot.confily.infos.presentation.EventViewModel
 import com.paligot.confily.infos.presentation.InfoViewModel
 import com.paligot.confily.infos.presentation.MenusViewModel
 import com.paligot.confily.infos.presentation.QAndAListViewModel
-import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
 val infosModule = module {

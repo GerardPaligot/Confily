@@ -1,4 +1,5 @@
 import org.gradle.internal.os.OperatingSystem
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
     id("confily.multiplatform.library")
@@ -25,6 +26,7 @@ kotlin {
         }
     }
 
+    @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         useCommonJs()
         browser()
@@ -37,28 +39,6 @@ kotlin {
                 implementation(compose.components.resources)
 
                 implementation(libs.lyricist)
-            }
-        }
-        val commonTest by getting {
-            dependencies {
-                implementation(kotlin("test-common"))
-                implementation(kotlin("test-annotations-common"))
-            }
-        }
-        if (OperatingSystem.current().isMacOsX) {
-            val iosArm64Main by getting
-            val iosSimulatorArm64Main by getting
-            val iosMain by creating {
-                dependsOn(commonMain)
-                iosArm64Main.dependsOn(this)
-                iosSimulatorArm64Main.dependsOn(this)
-            }
-            val iosArm64Test by getting
-            val iosSimulatorArm64Test by getting
-            val iosTest by creating {
-                dependsOn(commonTest)
-                iosArm64Test.dependsOn(this)
-                iosSimulatorArm64Test.dependsOn(this)
             }
         }
     }

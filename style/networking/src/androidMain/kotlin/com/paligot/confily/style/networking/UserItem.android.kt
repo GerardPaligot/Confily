@@ -2,7 +2,7 @@ package com.paligot.confily.style.networking
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -22,7 +22,7 @@ private fun UserItemPreview() {
                     company = "Decathlon",
                     onClick = {}
                 )
-                Divider(color = MaterialTheme.colorScheme.onBackground)
+                HorizontalDivider(color = MaterialTheme.colorScheme.onBackground)
                 UserItem(
                     displayName = "Gerard Paligot",
                     email = "gerard@gmail.com",

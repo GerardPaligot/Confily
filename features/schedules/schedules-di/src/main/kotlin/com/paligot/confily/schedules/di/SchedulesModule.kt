@@ -7,7 +7,7 @@ import com.paligot.confily.schedules.presentation.ScheduleDetailViewModel
 import com.paligot.confily.schedules.presentation.ScheduleGridViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
 @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)

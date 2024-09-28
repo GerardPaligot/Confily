@@ -7,7 +7,7 @@ import com.paligot.confily.style.theme.ConfilyTheme
 
 @Preview
 @Composable
-fun TalkSectionPreview() {
+private fun TalkSectionPreview() {
     ConfilyTheme {
         TalkSection(talk = TalkUi.fake)
     }

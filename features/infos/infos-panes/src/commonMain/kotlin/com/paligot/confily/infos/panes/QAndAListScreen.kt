@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -33,10 +33,10 @@ fun QAndAListScreen(
                     onLinkClicked = onLinkClicked
                 )
                 if (index != qAndA.size - 1) {
-                    Divider(
+                    HorizontalDivider(
                         modifier = Modifier.fillMaxWidth(),
-                        color = MaterialTheme.colorScheme.background,
-                        thickness = 1.dp
+                        thickness = 1.dp,
+                        color = MaterialTheme.colorScheme.background
                     )
                 }
             }

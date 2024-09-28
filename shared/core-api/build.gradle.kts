@@ -1,5 +1,5 @@
 import org.gradle.internal.os.OperatingSystem
-import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
     id("confily.multiplatform.library")
@@ -55,21 +55,14 @@ kotlin {
                 implementation(libs.ktor.client.android)
             }
         }
+        iosMain {
+            dependencies {
+                implementation(libs.ktor.client.ios)
+            }
+        }
         val wasmJsMain by getting {
             dependencies {
                 implementation(libs.ktor.client.js)
-            }
-        }
-        if (OperatingSystem.current().isMacOsX) {
-            val iosArm64Main by getting
-            val iosSimulatorArm64Main by getting
-            val iosMain by creating {
-                dependsOn(commonMain)
-                iosArm64Main.dependsOn(this)
-                iosSimulatorArm64Main.dependsOn(this)
-                dependencies {
-                    implementation(libs.ktor.client.ios)
-                }
             }
         }
     }

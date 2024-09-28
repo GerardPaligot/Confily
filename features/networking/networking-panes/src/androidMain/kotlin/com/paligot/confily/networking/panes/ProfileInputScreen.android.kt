@@ -12,7 +12,7 @@ import com.paligot.confily.style.theme.ConfilyTheme
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Preview
 @Composable
-fun ProfileInputScreenPreview() {
+private fun ProfileInputScreenPreview() {
     ConfilyTheme {
         Scaffold {
             ProfileInputScreen(

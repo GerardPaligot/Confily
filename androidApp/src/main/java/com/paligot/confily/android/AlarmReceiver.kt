@@ -9,12 +9,15 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import com.russhwolf.settings.ExperimentalSettingsApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 
+@Suppress("DEPRECATION")
 @FlowPreview
 @ExperimentalCoroutinesApi
 class AlarmReceiver : BroadcastReceiver() {
+    @OptIn(ExperimentalSettingsApi::class)
     @SuppressLint("UnspecifiedImmutableFlag")
     override fun onReceive(context: Context?, intent: Intent?) {
         if (intent == null || context == null) return

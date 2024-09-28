@@ -6,7 +6,7 @@ import com.paligot.confily.style.theme.ConfilyTheme
 
 @Preview
 @Composable
-fun AppBarIconPreview() {
+private fun AppBarIconPreview() {
     ConfilyTheme {
         AppBarIcons.Back {
         }

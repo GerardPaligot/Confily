@@ -6,11 +6,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectable
-import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.contentColorFor
+import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -33,7 +33,7 @@ fun Tab(
     unselectedContentColor: Color = LocalContentColor.current,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
-    val ripple = rememberRipple(bounded = true, color = selectedBackgroundColor)
+    val ripple = ripple(bounded = true, color = selectedBackgroundColor)
     val backgroundColor = if (selected) selectedBackgroundColor else unselectedBackgroundColor
     val contentColor = if (selected) selectedContentColor else unselectedContentColor
     Box(

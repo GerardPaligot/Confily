@@ -6,7 +6,7 @@ import com.paligot.confily.style.theme.ConfilyTheme
 
 @Preview(showBackground = true)
 @Composable
-fun EmptyContactsScreenPreview() {
+private fun EmptyContactsScreenPreview() {
     ConfilyTheme {
         EmptyContactsScreen()
     }

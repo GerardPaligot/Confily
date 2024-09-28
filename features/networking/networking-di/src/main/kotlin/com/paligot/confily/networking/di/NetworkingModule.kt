@@ -5,7 +5,7 @@ import com.paligot.confily.networking.presentation.ContactsViewModel
 import com.paligot.confily.networking.presentation.MyProfileViewModel
 import com.paligot.confily.networking.presentation.NetworkingViewModel
 import com.paligot.confily.networking.presentation.ProfileInputViewModel
-import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
 val networkingModule = module {

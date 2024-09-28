@@ -6,7 +6,7 @@ import com.paligot.confily.style.theme.ConfilyTheme
 
 @Preview
 @Composable
-internal fun MarkdownTextPreview() {
+private fun MarkdownTextPreview() {
     ConfilyTheme {
         MarkdownText(
             text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry."

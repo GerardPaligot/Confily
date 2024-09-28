@@ -57,7 +57,7 @@ fun EventList(
                         item = item,
                         isLoading = isLoading,
                         onClick = onEventClicked,
-                        modifier = Modifier.animateItemPlacement()
+                        modifier = Modifier.animateItem(fadeInSpec = null, fadeOutSpec = null)
                     )
                 }
             }

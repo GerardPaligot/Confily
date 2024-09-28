@@ -6,7 +6,7 @@ import com.paligot.confily.style.theme.ConfilyTheme
 
 @Preview
 @Composable
-internal fun SocialsSectionPreview() {
+private fun SocialsSectionPreview() {
     ConfilyTheme {
         SocialsSection(
             title = "Gérard Paligot",

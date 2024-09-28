@@ -48,22 +48,15 @@ kotlin {
                 implementation(libs.cash.sqldelight.android)
             }
         }
+        iosMain {
+            dependencies {
+                implementation(libs.cash.sqldelight.native)
+            }
+        }
         val jsMain by getting {
             dependencies {
                 implementation(libs.cash.sqldelight.web)
                 implementation(devNpm("copy-webpack-plugin", "9.1.0"))
-            }
-        }
-        if (OperatingSystem.current().isMacOsX) {
-            val iosArm64Main by getting
-            val iosSimulatorArm64Main by getting
-            val iosMain by creating {
-                dependsOn(commonMain)
-                iosArm64Main.dependsOn(this)
-                iosSimulatorArm64Main.dependsOn(this)
-                dependencies {
-                    implementation(libs.cash.sqldelight.native)
-                }
             }
         }
     }

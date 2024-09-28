@@ -7,7 +7,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -46,7 +46,7 @@ fun ContactsScreen(
                     onClick = { openDialog.value = true }
                 )
                 if (index < users.size - 1) {
-                    Divider()
+                    HorizontalDivider()
                 }
                 if (openDialog.value) {
                     AlertDialog(

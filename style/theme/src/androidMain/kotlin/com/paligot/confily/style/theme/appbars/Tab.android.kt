@@ -9,7 +9,7 @@ import com.paligot.confily.style.theme.ConfilyTheme
 
 @Preview
 @Composable
-fun TabPreview() {
+private fun TabPreview() {
     ConfilyTheme {
         Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
             Tab(
