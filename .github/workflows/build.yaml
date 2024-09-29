@@ -58,6 +58,53 @@ jobs:
           path: |
             **/build/test-results/*
 
+  wear:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Copy CI gradle.properties
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v1
+        with:
+          java-version: 21
+
+      - name: Check Kotlin lint
+        run: ./gradlew ktlintCheck detekt --stacktrace
+
+      - name: Check lint
+        run: ./gradlew lintDebug --stacktrace
+
+      - name: Check and build android project
+        run: ./gradlew :wear:wear-app:assembleDebug :wear:wear-app:bundleDebug --stacktrace
+
+      - name: Upload build outputs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wear-build-outputs
+          path: wear/wear-app/build/outputs
+
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wear-reports
+          path: |
+            **/build/reports/*
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wear-test-results
+          path: |
+            **/build/test-results/*
 
   androidTest:
     runs-on: ubuntu-latest
