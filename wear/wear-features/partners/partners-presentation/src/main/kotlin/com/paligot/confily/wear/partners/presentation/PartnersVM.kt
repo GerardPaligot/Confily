@@ -1,8 +1,9 @@
-package com.paligot.confily.wear.presentation.partners.presentation
+package com.paligot.confily.wear.partners.presentation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.paligot.confily.wear.partners.panes.HorizontalPartnersPager
 import com.paligot.confily.wear.theme.loading.LoadingPane
 import org.koin.androidx.compose.koinViewModel
 

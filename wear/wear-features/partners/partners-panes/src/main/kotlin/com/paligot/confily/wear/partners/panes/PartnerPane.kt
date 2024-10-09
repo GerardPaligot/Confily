@@ -1,4 +1,4 @@
-package com.paligot.confily.wear.presentation.partners.presentation
+package com.paligot.confily.wear.partners.panes
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
