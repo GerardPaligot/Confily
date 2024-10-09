@@ -1,7 +1,7 @@
-package com.paligot.confily.wear.presentation.schedules
+package com.paligot.confily.wear.schedules.di
 
-import com.paligot.confily.wear.presentation.schedules.presentation.ScheduleViewModel
-import com.paligot.confily.wear.presentation.schedules.presentation.SchedulesViewModel
+import com.paligot.confily.wear.schedules.presentation.ScheduleViewModel
+import com.paligot.confily.wear.schedules.presentation.SchedulesViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 

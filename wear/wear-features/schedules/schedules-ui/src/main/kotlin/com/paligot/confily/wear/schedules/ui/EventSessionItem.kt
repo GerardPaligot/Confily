@@ -1,4 +1,4 @@
-package com.paligot.confily.wear.presentation.schedules.ui
+package com.paligot.confily.wear.schedules.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

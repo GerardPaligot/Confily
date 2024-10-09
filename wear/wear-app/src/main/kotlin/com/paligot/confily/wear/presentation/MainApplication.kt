@@ -15,8 +15,8 @@ import com.paligot.confily.wear.buildConfigModule
 import com.paligot.confily.wear.events.di.eventsModule
 import com.paligot.confily.wear.presentation.main.mainModule
 import com.paligot.confily.wear.presentation.partners.partnersModule
-import com.paligot.confily.wear.presentation.schedules.schedulesModule
 import com.paligot.confily.wear.presentation.speakers.speakersModule
+import com.paligot.confily.wear.schedules.di.schedulesModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 

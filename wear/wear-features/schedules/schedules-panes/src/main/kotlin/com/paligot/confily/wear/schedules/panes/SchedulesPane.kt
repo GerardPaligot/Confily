@@ -1,4 +1,4 @@
-package com.paligot.confily.wear.presentation.schedules.presentation
+package com.paligot.confily.wear.schedules.panes
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -13,8 +13,8 @@ import androidx.wear.compose.material3.ListHeader
 import androidx.wear.compose.material3.ScreenScaffold
 import androidx.wear.compose.material3.ScrollIndicator
 import androidx.wear.compose.material3.Text
-import com.paligot.confily.wear.presentation.schedules.ui.EventSessionItem
-import com.paligot.confily.wear.presentation.schedules.ui.ScheduleCardItem
+import com.paligot.confily.wear.schedules.ui.EventSessionItem
+import com.paligot.confily.wear.schedules.ui.ScheduleCardItem
 import com.paligot.confily.wear.theme.tags.Tag
 import com.paligot.confily.wear.theme.tags.findCategoryImageVector
 import kotlinx.collections.immutable.ImmutableList

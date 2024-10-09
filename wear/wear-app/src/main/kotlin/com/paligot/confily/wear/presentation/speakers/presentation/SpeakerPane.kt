@@ -17,7 +17,7 @@ import androidx.wear.compose.material3.Text
 import coil3.compose.rememberAsyncImagePainter
 import com.paligot.confily.models.ui.SpeakerUi
 import com.paligot.confily.models.ui.TalkItemUi
-import com.paligot.confily.wear.presentation.schedules.ui.ScheduleCardItem
+import com.paligot.confily.wear.schedules.ui.ScheduleCardItem
 import com.paligot.confily.wear.theme.buttons.IconActionButton
 import com.paligot.confily.wear.theme.markdown.MarkdownText
 import com.paligot.confily.wear.theme.tags.Tag
