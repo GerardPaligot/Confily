@@ -1,4 +1,4 @@
-package com.paligot.confily.wear.presentation.main
+package com.paligot.confily.wear.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

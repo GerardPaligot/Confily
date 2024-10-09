@@ -47,19 +47,13 @@ android {
 }
 
 dependencies {
-    implementation(projects.shared.core)
     implementation(projects.shared.coreDi)
-    implementation(projects.shared.uiModels)
     implementation(projects.wear.wearFeatures.events.eventsDi)
-    implementation(projects.wear.wearFeatures.events.eventsPresentation)
+    implementation(projects.wear.wearFeatures.main.main)
+    implementation(projects.wear.wearFeatures.main.mainDi)
     implementation(projects.wear.wearFeatures.partners.partnersDi)
-    implementation(projects.wear.wearFeatures.partners.partnersPanes)
-    implementation(projects.wear.wearFeatures.partners.partnersPresentation)
     implementation(projects.wear.wearFeatures.schedules.schedulesDi)
-    implementation(projects.wear.wearFeatures.schedules.schedulesPresentation)
     implementation(projects.wear.wearFeatures.speakers.speakersDi)
-    implementation(projects.wear.wearFeatures.speakers.speakersPresentation)
-    implementation(projects.wear.wearResources)
     implementation(projects.wear.wearTheme)
 
     implementation(platform(libs.androidx.compose.bom))
