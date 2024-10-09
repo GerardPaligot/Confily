@@ -1,4 +1,4 @@
-package com.paligot.confily.wear.presentation.schedules.presentation
+package com.paligot.confily.wear.schedules.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -6,6 +6,10 @@ import com.paligot.confily.core.schedules.SchedulesRepository
 import com.paligot.confily.models.ui.AgendaUi
 import com.paligot.confily.models.ui.EventSessionItemUi
 import com.paligot.confily.models.ui.TalkItemUi
+import com.paligot.confily.wear.schedules.panes.EventSessionModelUi
+import com.paligot.confily.wear.schedules.panes.ScheduleModelUi
+import com.paligot.confily.wear.schedules.panes.ScheduleSessionModelUi
+import com.paligot.confily.wear.schedules.panes.SessionModelUi
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.collections.immutable.toImmutableMap

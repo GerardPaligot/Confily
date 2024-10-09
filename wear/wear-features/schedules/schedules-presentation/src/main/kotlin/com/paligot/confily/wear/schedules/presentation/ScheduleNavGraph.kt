@@ -1,10 +1,8 @@
-package com.paligot.confily.wear.presentation.schedules
+package com.paligot.confily.wear.schedules.presentation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.wear.compose.navigation.composable
-import com.paligot.confily.wear.presentation.schedules.presentation.ScheduleVM
-import com.paligot.confily.wear.presentation.schedules.presentation.SchedulesVM
 
 fun NavGraphBuilder.scheduleGraph(
     navController: NavController

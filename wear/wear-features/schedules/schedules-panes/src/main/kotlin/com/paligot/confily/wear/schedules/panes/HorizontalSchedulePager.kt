@@ -1,4 +1,4 @@
-package com.paligot.confily.wear.presentation.schedules.presentation
+package com.paligot.confily.wear.schedules.panes
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

@@ -1,8 +1,9 @@
-package com.paligot.confily.wear.presentation.schedules.presentation
+package com.paligot.confily.wear.schedules.presentation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.paligot.confily.wear.schedules.panes.HorizontalSchedulePager
 import com.paligot.confily.wear.theme.loading.LoadingPane
 import org.koin.androidx.compose.koinViewModel
 

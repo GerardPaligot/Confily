@@ -52,6 +52,8 @@ dependencies {
     implementation(projects.shared.uiModels)
     implementation(projects.wear.wearFeatures.events.eventsDi)
     implementation(projects.wear.wearFeatures.events.eventsPresentation)
+    implementation(projects.wear.wearFeatures.schedules.schedulesDi)
+    implementation(projects.wear.wearFeatures.schedules.schedulesPresentation)
     implementation(projects.wear.wearResources)
     implementation(projects.wear.wearTheme)
 

@@ -1,4 +1,4 @@
-package com.paligot.confily.wear.presentation.schedules.presentation
+package com.paligot.confily.wear.schedules.panes
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
