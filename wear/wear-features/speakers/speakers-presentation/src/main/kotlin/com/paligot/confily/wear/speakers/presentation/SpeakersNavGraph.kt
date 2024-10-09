@@ -1,10 +1,8 @@
-package com.paligot.confily.wear.presentation.speakers
+package com.paligot.confily.wear.speakers.presentation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.wear.compose.navigation.composable
-import com.paligot.confily.wear.presentation.speakers.presentation.SpeakerVM
-import com.paligot.confily.wear.presentation.speakers.presentation.SpeakersVM
 
 fun NavGraphBuilder.speakersGraph(
     navController: NavController

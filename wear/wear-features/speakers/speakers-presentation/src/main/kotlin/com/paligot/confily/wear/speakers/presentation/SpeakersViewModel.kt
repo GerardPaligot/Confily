@@ -1,9 +1,11 @@
-package com.paligot.confily.wear.presentation.speakers.presentation
+package com.paligot.confily.wear.speakers.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paligot.confily.core.speakers.SpeakerRepository
 import com.paligot.confily.models.ui.SpeakerItemUi
+import com.paligot.confily.wear.speakers.panes.SpeakerModelUi
+import com.paligot.confily.wear.speakers.panes.SpeakersModelUi
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
