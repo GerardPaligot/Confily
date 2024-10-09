@@ -1,5 +1,6 @@
-package com.paligot.confily.wear.presentation.main
+package com.paligot.confily.wear.main.di
 
+import com.paligot.confily.wear.main.MainViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 

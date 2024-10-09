@@ -1,4 +1,4 @@
-package com.paligot.confily.wear.presentation.main
+package com.paligot.confily.wear.main
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
