@@ -6,8 +6,8 @@ import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.paligot.confily.wear.events.presentation.eventsGraph
 import com.paligot.confily.wear.presentation.partners.partnersGraph
-import com.paligot.confily.wear.presentation.speakers.speakersGraph
 import com.paligot.confily.wear.schedules.presentation.scheduleGraph
+import com.paligot.confily.wear.speakers.presentation.speakersGraph
 
 @Composable
 fun MainNavigation(

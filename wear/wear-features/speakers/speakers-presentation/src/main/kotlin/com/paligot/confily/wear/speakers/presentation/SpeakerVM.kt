@@ -1,26 +1,29 @@
-package com.paligot.confily.wear.presentation.speakers.presentation
+package com.paligot.confily.wear.speakers.presentation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.paligot.confily.wear.speakers.panes.SpeakerPane
 import com.paligot.confily.wear.theme.loading.LoadingPane
 import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 @Composable
-fun SpeakersVM(
-    onClick: (String) -> Unit,
+fun SpeakerVM(
+    speakerId: String,
+    onSessionClick: (String) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: SpeakersViewModel = koinViewModel()
+    viewModel: SpeakerViewModel = koinViewModel(parameters = { parametersOf(speakerId) })
 ) {
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
     when (val state = uiState.value) {
-        is SpeakersUiState.Loading -> LoadingPane()
+        is SpeakerUiState.Loading -> LoadingPane()
 
-        is SpeakersUiState.Success -> {
-            SpeakersPane(
+        is SpeakerUiState.Success -> {
+            SpeakerPane(
                 modelUi = state.modelUi,
                 modifier = modifier,
-                onClick = onClick
+                onSessionClick = onSessionClick
             )
         }
     }

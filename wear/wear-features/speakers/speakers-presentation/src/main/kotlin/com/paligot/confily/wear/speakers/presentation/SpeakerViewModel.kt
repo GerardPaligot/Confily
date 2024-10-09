@@ -1,4 +1,4 @@
-package com.paligot.confily.wear.presentation.speakers.presentation
+package com.paligot.confily.wear.speakers.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

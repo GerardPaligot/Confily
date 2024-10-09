@@ -1,4 +1,4 @@
-package com.paligot.confily.wear.presentation.speakers.presentation
+package com.paligot.confily.wear.speakers.panes
 
 import androidx.compose.runtime.Immutable
 import kotlinx.collections.immutable.ImmutableList

@@ -1,7 +1,7 @@
-package com.paligot.confily.wear.presentation.speakers
+package com.paligot.confily.wear.speakers.di
 
-import com.paligot.confily.wear.presentation.speakers.presentation.SpeakerViewModel
-import com.paligot.confily.wear.presentation.speakers.presentation.SpeakersViewModel
+import com.paligot.confily.wear.speakers.presentation.SpeakerViewModel
+import com.paligot.confily.wear.speakers.presentation.SpeakersViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 

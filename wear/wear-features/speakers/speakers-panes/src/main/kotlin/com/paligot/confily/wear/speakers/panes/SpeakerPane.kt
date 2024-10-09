@@ -1,4 +1,4 @@
-package com.paligot.confily.wear.presentation.speakers.presentation
+package com.paligot.confily.wear.speakers.panes
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
