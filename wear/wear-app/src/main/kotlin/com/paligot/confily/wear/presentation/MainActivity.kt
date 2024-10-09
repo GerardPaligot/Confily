@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.wear.compose.material3.AppScaffold
 import com.paligot.confily.wear.presentation.main.Main
-import com.paligot.confily.wear.presentation.theme.ConfilyTheme
+import com.paligot.confily.wear.theme.ConfilyTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

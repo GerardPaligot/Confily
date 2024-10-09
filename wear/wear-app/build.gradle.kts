@@ -50,6 +50,10 @@ dependencies {
     implementation(projects.shared.core)
     implementation(projects.shared.coreDi)
     implementation(projects.shared.uiModels)
+    implementation(projects.wear.wearFeatures.events.eventsDi)
+    implementation(projects.wear.wearFeatures.events.eventsPresentation)
+    implementation(projects.wear.wearResources)
+    implementation(projects.wear.wearTheme)
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(compose.ui)
@@ -76,5 +80,4 @@ dependencies {
     implementation(libs.coil3.compose)
     implementation(libs.coil3.network.ktor)
     implementation(libs.coil3.svg)
-    implementation(libs.markdown.renderer)
 }

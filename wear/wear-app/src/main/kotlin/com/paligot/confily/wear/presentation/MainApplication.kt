@@ -12,7 +12,7 @@ import coil3.svg.SvgDecoder
 import com.paligot.confily.core.di.platformModule
 import com.paligot.confily.core.di.repositoriesModule
 import com.paligot.confily.wear.buildConfigModule
-import com.paligot.confily.wear.presentation.events.eventsModule
+import com.paligot.confily.wear.events.di.eventsModule
 import com.paligot.confily.wear.presentation.main.mainModule
 import com.paligot.confily.wear.presentation.partners.partnersModule
 import com.paligot.confily.wear.presentation.schedules.schedulesModule

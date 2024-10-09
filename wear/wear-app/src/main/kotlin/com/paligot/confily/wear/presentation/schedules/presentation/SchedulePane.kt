@@ -24,8 +24,8 @@ import androidx.wear.compose.material3.ScrollIndicator
 import androidx.wear.compose.material3.Text
 import coil3.compose.rememberAsyncImagePainter
 import com.paligot.confily.models.ui.TalkUi
-import com.paligot.confily.wear.presentation.theme.buttons.ExtendedActionButton
-import com.paligot.confily.wear.presentation.theme.markdown.MarkdownText
+import com.paligot.confily.wear.theme.buttons.ExtendedActionButton
+import com.paligot.confily.wear.theme.markdown.MarkdownText
 
 @Composable
 fun SchedulePane(
