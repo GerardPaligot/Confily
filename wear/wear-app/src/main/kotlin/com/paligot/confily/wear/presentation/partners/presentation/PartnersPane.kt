@@ -16,8 +16,8 @@ import androidx.wear.compose.material3.ScreenScaffold
 import androidx.wear.compose.material3.ScrollIndicator
 import androidx.wear.compose.material3.Text
 import coil3.compose.rememberAsyncImagePainter
-import com.paligot.confily.wear.presentation.theme.buttons.ExtendedActionButton
-import com.paligot.confily.wear.presentation.theme.buttons.IconActionButton
+import com.paligot.confily.wear.theme.buttons.ExtendedActionButton
+import com.paligot.confily.wear.theme.buttons.IconActionButton
 import kotlinx.collections.immutable.ImmutableList
 
 @Composable

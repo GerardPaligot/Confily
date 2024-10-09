@@ -17,7 +17,7 @@ import androidx.wear.compose.material3.LocalContentColor
 import androidx.wear.compose.material3.LocalTextStyle
 import androidx.wear.compose.material3.MaterialTheme
 import androidx.wear.compose.material3.Text
-import com.paligot.confily.wear.presentation.theme.ConfilyTheme
+import com.paligot.confily.wear.theme.ConfilyTheme
 
 @Composable
 fun EventSessionItem(

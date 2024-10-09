@@ -15,8 +15,8 @@ import androidx.wear.compose.material3.ScrollIndicator
 import androidx.wear.compose.material3.Text
 import com.paligot.confily.wear.presentation.schedules.ui.EventSessionItem
 import com.paligot.confily.wear.presentation.schedules.ui.ScheduleCardItem
-import com.paligot.confily.wear.presentation.theme.tags.Tag
-import com.paligot.confily.wear.presentation.theme.tags.findCategoryImageVector
+import com.paligot.confily.wear.theme.tags.Tag
+import com.paligot.confily.wear.theme.tags.findCategoryImageVector
 import kotlinx.collections.immutable.ImmutableList
 
 @Composable
