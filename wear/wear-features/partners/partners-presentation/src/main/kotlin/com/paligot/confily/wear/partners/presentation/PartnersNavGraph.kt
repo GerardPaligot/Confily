@@ -1,10 +1,8 @@
-package com.paligot.confily.wear.presentation.partners
+package com.paligot.confily.wear.partners.presentation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.wear.compose.navigation.composable
-import com.paligot.confily.wear.presentation.partners.presentation.PartnerVM
-import com.paligot.confily.wear.presentation.partners.presentation.PartnersVM
 
 fun NavGraphBuilder.partnersGraph(
     navController: NavController

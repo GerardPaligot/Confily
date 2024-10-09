@@ -1,7 +1,7 @@
-package com.paligot.confily.wear.presentation.partners
+package com.paligot.confily.wear.partners.di
 
-import com.paligot.confily.wear.presentation.partners.presentation.PartnerViewModel
-import com.paligot.confily.wear.presentation.partners.presentation.PartnersViewModel
+import com.paligot.confily.wear.partners.presentation.PartnerViewModel
+import com.paligot.confily.wear.partners.presentation.PartnersViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
