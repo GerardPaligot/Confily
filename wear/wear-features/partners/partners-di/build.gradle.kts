@@ -1,5 +1,5 @@
 plugins {
-    id("confily.android.library")
+    id("confily.android.wear.library")
     id("confily.quality")
 }
 
