@@ -40,6 +40,10 @@ gradlePlugin {
             id = "confily.multiplatform.library"
             implementationClass = "MultiplatformLibraryPlugin"
         }
+        register("androidWearLibrary") {
+            id = "confily.android.wear.library"
+            implementationClass = "AndroidWearLibraryPlugin"
+        }
         register("backendApplication") {
             id = "confily.backend.application"
             implementationClass = "BackendPlugin"
