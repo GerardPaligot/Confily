@@ -1,3 +1,3 @@
-package com.paligot.confily.core.db
+package com.paligot.confily.core.kvalue
 
 class EventSavedException : Throwable()

@@ -4,7 +4,7 @@ import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOne
 import cafe.adriel.lyricist.Lyricist
-import com.paligot.confily.core.db.ConferenceSettings
+import com.paligot.confily.core.kvalue.ConferenceSettings
 import com.paligot.confily.db.ConfilyDatabase
 import com.paligot.confily.models.ui.AgendaUi
 import com.paligot.confily.models.ui.CategoryUi

@@ -5,7 +5,7 @@ import cafe.adriel.lyricist.Lyricist
 import com.paligot.confily.core.Platform
 import com.paligot.confily.core.agenda.AgendaDao
 import com.paligot.confily.core.agenda.FeaturesActivatedDao
-import com.paligot.confily.core.db.ConferenceSettings
+import com.paligot.confily.core.kvalue.ConferenceSettings
 import com.paligot.confily.core.events.EventDao
 import com.paligot.confily.core.networking.UserDao
 import com.paligot.confily.core.partners.PartnerDao

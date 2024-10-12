@@ -1,14 +1,13 @@
-package com.paligot.confily.core.db
+package com.paligot.confily.core.kvalue
 
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.coroutines.getBooleanFlow
 import com.russhwolf.settings.coroutines.getStringOrNullFlow
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-@OptIn(ExperimentalSettingsApi::class, ExperimentalCoroutinesApi::class)
+@OptIn(ExperimentalSettingsApi::class)
 class ConferenceSettings(
     private val settings: ObservableSettings
 ) {

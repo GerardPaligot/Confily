@@ -2,7 +2,7 @@ package com.paligot.confily.core.agenda
 
 import com.paligot.confily.core.api.ConferenceApi
 import com.paligot.confily.core.api.exceptions.AgendaNotModifiedException
-import com.paligot.confily.core.db.ConferenceSettings
+import com.paligot.confily.core.kvalue.ConferenceSettings
 import com.paligot.confily.models.ui.ScaffoldConfigUi
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
 import com.russhwolf.settings.ExperimentalSettingsApi
