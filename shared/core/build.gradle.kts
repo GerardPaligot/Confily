@@ -42,7 +42,6 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(projects.shared.coreApi)
-                api(projects.shared.coreDb)
                 api(projects.shared.coreFs)
                 api(projects.shared.coreKvalue)
                 api(projects.shared.models)
@@ -56,19 +55,31 @@ kotlin {
                 implementation(libs.jetbrains.kotlinx.collections)
                 implementation(libs.jetbrains.kotlinx.coroutines)
 
-                implementation(libs.cash.sqldelight.coroutines)
-
                 implementation(libs.lyricist)
-
-                api(libs.settings)
-                implementation(libs.settings.coroutines)
+            }
+        }
+        val mobileMain by creating {
+            kotlin.srcDir("src/mobileMain/kotlin")
+            dependsOn(commonMain)
+            dependencies {
+                api(projects.shared.coreDb)
+                implementation(libs.cash.sqldelight.coroutines)
             }
         }
         val androidMain by getting {
+            dependsOn(mobileMain)
             dependencies {
                 implementation(libs.google.zxing)
                 implementation(libs.zxing.android.embedded)
             }
+        }
+        val iosArm64Main by getting
+        val iosSimulatorArm64Main by getting
+        val iosMain by creating {
+            dependsOn(commonMain)
+            dependsOn(mobileMain)
+            iosArm64Main.dependsOn(this)
+            iosSimulatorArm64Main.dependsOn(this)
         }
     }
 
