@@ -1,6 +1,6 @@
 package com.paligot.confily.core.schedules
 
-import com.paligot.confily.core.db.ConferenceSettings
+import com.paligot.confily.core.kvalue.ConferenceSettings
 import com.paligot.confily.models.ui.AgendaUi
 import com.paligot.confily.models.ui.CategoryUi
 import com.paligot.confily.models.ui.EventSessionItemUi

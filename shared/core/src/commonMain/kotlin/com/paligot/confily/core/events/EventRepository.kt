@@ -2,8 +2,8 @@ package com.paligot.confily.core.events
 
 import com.paligot.confily.core.QrCodeGenerator
 import com.paligot.confily.core.api.ConferenceApi
-import com.paligot.confily.core.db.ConferenceSettings
-import com.paligot.confily.core.db.EventSavedException
+import com.paligot.confily.core.kvalue.ConferenceSettings
+import com.paligot.confily.core.kvalue.EventSavedException
 import com.paligot.confily.models.ui.CoCUi
 import com.paligot.confily.models.ui.EventInfoUi
 import com.paligot.confily.models.ui.EventItemListUi

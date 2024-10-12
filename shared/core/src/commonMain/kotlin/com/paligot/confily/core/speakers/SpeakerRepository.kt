@@ -1,6 +1,6 @@
 package com.paligot.confily.core.speakers
 
-import com.paligot.confily.core.db.ConferenceSettings
+import com.paligot.confily.core.kvalue.ConferenceSettings
 import com.paligot.confily.models.ui.SpeakerItemUi
 import com.paligot.confily.models.ui.SpeakerUi
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
