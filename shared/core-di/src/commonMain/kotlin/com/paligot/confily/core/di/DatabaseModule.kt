@@ -4,13 +4,20 @@ import cafe.adriel.lyricist.LanguageTag
 import cafe.adriel.lyricist.Lyricist
 import com.paligot.confily.core.Platform
 import com.paligot.confily.core.agenda.AgendaDao
+import com.paligot.confily.core.agenda.AgendaDaoSQLDelight
 import com.paligot.confily.core.agenda.FeaturesActivatedDao
-import com.paligot.confily.core.kvalue.ConferenceSettings
+import com.paligot.confily.core.agenda.FeaturesActivatedDaoSQLDelight
 import com.paligot.confily.core.events.EventDao
+import com.paligot.confily.core.kvalue.ConferenceSettings
+import com.paligot.confily.core.events.EventDaoSQLDelight
 import com.paligot.confily.core.networking.UserDao
+import com.paligot.confily.core.networking.UserDaoSQLDelight
 import com.paligot.confily.core.partners.PartnerDao
+import com.paligot.confily.core.partners.PartnerDaoSQLDelight
 import com.paligot.confily.core.schedules.ScheduleDao
+import com.paligot.confily.core.schedules.ScheduleDaoSQLDelight
 import com.paligot.confily.core.speakers.SpeakerDao
+import com.paligot.confily.core.speakers.SpeakerDaoSQLDelight
 import com.paligot.confily.resources.EnStrings
 import com.paligot.confily.resources.FrStrings
 import com.russhwolf.settings.ExperimentalSettingsApi
@@ -33,11 +40,15 @@ val databasesModule = module {
     }
     single { ConferenceSettings(get()) }
     single<CoroutineContext> { Dispatchers.IO }
-    single { AgendaDao(db = get(), hasSvgSupport = get<Platform>().hasSupportSVG) }
-    single { EventDao(db = get(), dispatcher = get()) }
-    single { FeaturesActivatedDao(db = get(), dispatcher = get()) }
-    single { PartnerDao(db = get(), dispatcher = get()) }
-    single { ScheduleDao(db = get(), settings = get(), lyricist = get(), dispatcher = get()) }
-    single { SpeakerDao(db = get(), lyricist = get(), dispatcher = get()) }
-    single { UserDao(db = get(), dispatcher = get()) }
+    single<AgendaDao> {
+        AgendaDaoSQLDelight(db = get(), hasSvgSupport = get<Platform>().hasSupportSVG)
+    }
+    single<EventDao> { EventDaoSQLDelight(db = get(), dispatcher = get()) }
+    single<FeaturesActivatedDao> { FeaturesActivatedDaoSQLDelight(db = get(), dispatcher = get()) }
+    single<PartnerDao> { PartnerDaoSQLDelight(db = get(), dispatcher = get()) }
+    single<ScheduleDao> {
+        ScheduleDaoSQLDelight(db = get(), settings = get(), lyricist = get(), dispatcher = get())
+    }
+    single<SpeakerDao> { SpeakerDaoSQLDelight(db = get(), lyricist = get(), dispatcher = get()) }
+    single<UserDao> { UserDaoSQLDelight(db = get(), dispatcher = get()) }
 }

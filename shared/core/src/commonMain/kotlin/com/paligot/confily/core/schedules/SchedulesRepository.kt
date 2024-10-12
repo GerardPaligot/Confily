@@ -9,11 +9,9 @@ import com.paligot.confily.models.ui.FormatUi
 import com.paligot.confily.models.ui.TalkItemUi
 import com.paligot.confily.models.ui.TalkUi
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
-import com.russhwolf.settings.ExperimentalSettingsApi
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.map
@@ -43,7 +41,6 @@ interface SchedulesRepository {
     fun markAsRead(sessionId: String, isFavorite: Boolean)
 
     object Factory {
-        @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class, ExperimentalSettingsApi::class)
         fun create(
             scheduleDao: ScheduleDao,
             settings: ConferenceSettings
@@ -51,7 +48,7 @@ interface SchedulesRepository {
     }
 }
 
-@OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class, ExperimentalSettingsApi::class)
+@OptIn(ExperimentalCoroutinesApi::class)
 class SchedulesRepositoryImpl(
     private val scheduleDao: ScheduleDao,
     private val settings: ConferenceSettings
