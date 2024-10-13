@@ -17,18 +17,17 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.minus
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.getString
 import java.util.Locale
 
-class AlarmScheduler(
+class AlarmSchedulerAndroid(
+    private val context: Context,
     private val repository: SchedulesRepository,
     private val alarmManager: AlarmManager,
     private val alarmIntentFactory: AlarmIntentFactory
-) {
-    @OptIn(ExperimentalResourceApi::class)
+) : AlarmScheduler {
     @SuppressLint("UnspecifiedImmutableFlag")
-    suspend fun schedule(context: Context, talkItem: TalkItemUi) = coroutineScope {
+    override suspend fun schedule(talkItem: TalkItemUi) = coroutineScope {
         val isFavorite = !talkItem.isFavorite
         repository.markAsRead(talkItem.id, isFavorite)
         val title = getString(

@@ -9,11 +9,9 @@ import androidx.compose.ui.Modifier
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.text_error
 import com.paligot.confily.speakers.panes.SpeakersGridScreen
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
-import org.koin.androidx.compose.koinViewModel
+import org.koin.compose.viewmodel.koinViewModel
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun SpeakersGridVM(
     onSpeakerClicked: (id: String) -> Unit,

@@ -1,7 +1,6 @@
 package com.paligot.confily.schedules.presentation
 
 import android.annotation.SuppressLint
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
@@ -101,7 +100,7 @@ class ScheduleGridViewModel(
         )
 
     @SuppressLint("UnspecifiedImmutableFlag")
-    fun markAsFavorite(context: Context, talkItem: TalkItemUi) = viewModelScope.launch {
-        alarmScheduler.schedule(context, talkItem)
+    fun markAsFavorite(talkItem: TalkItemUi) = viewModelScope.launch {
+        alarmScheduler.schedule(talkItem)
     }
 }
