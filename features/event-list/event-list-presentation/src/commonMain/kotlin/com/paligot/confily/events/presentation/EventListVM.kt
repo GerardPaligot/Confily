@@ -8,7 +8,7 @@ import com.paligot.confily.events.panes.EventList
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.text_error
 import org.jetbrains.compose.resources.stringResource
-import org.koin.androidx.compose.koinViewModel
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun EventListVM(
