@@ -37,7 +37,7 @@ kotlin {
             dependencies {
                 implementation(libs.jetbrains.kotlinx.coroutines)
                 api(libs.settings)
-                implementation(libs.settings.coroutines)
+                api(libs.settings.coroutines)
             }
         }
     }
