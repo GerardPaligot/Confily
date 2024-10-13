@@ -1,10 +1,10 @@
 package com.paligot.confily.core.networking
 
 import com.paligot.confily.core.QrCodeGenerator
-import com.paligot.confily.core.kvalue.ConferenceSettings
 import com.paligot.confily.core.extensions.encodeToString
 import com.paligot.confily.core.fs.ConferenceFileSystem
 import com.paligot.confily.core.fs.User
+import com.paligot.confily.core.kvalue.ConferenceSettings
 import com.paligot.confily.models.ui.ExportNetworkingUi
 import com.paligot.confily.models.ui.UserNetworkingUi
 import com.paligot.confily.models.ui.UserProfileUi

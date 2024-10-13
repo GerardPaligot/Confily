@@ -1,4 +1,5 @@
 import org.gradle.internal.os.OperatingSystem
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
     id("confily.multiplatform.library")
@@ -15,6 +16,12 @@ android {
 
 kotlin {
     androidTarget()
+
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmJs {
+        useCommonJs()
+        browser()
+    }
 
     if (OperatingSystem.current().isMacOsX) {
         listOf(
@@ -80,6 +87,11 @@ kotlin {
             dependsOn(mobileMain)
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
+        }
+        wasmJsMain {
+            dependencies {
+                implementation(libs.jetbrains.kotlinx.serialization.json)
+            }
         }
     }
 
