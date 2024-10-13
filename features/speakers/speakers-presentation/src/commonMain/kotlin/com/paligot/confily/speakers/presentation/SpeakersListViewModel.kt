@@ -2,8 +2,6 @@ package com.paligot.confily.speakers.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.crashlytics.ktx.crashlytics
-import com.google.firebase.ktx.Firebase
 import com.paligot.confily.core.speakers.SpeakerRepository
 import com.paligot.confily.models.ui.SpeakerItemUi
 import kotlinx.collections.immutable.ImmutableList
@@ -23,10 +21,7 @@ sealed class SpeakersUiState {
 class SpeakersListViewModel(repository: SpeakerRepository) : ViewModel() {
     val uiState: StateFlow<SpeakersUiState> = repository.speakers()
         .map { SpeakersUiState.Success(it) }
-        .catch {
-            Firebase.crashlytics.recordException(it)
-            SpeakersUiState.Failure(it)
-        }
+        .catch { SpeakersUiState.Failure(it) }
         .stateIn(
             scope = viewModelScope,
             initialValue = SpeakersUiState.Loading(

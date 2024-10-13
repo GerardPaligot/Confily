@@ -1,11 +1,7 @@
 package com.paligot.confily.speakers.presentation
 
-import android.annotation.SuppressLint
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.crashlytics.ktx.crashlytics
-import com.google.firebase.ktx.Firebase
 import com.paligot.confily.core.AlarmScheduler
 import com.paligot.confily.core.speakers.SpeakerRepository
 import com.paligot.confily.models.ui.SpeakerUi
@@ -30,18 +26,14 @@ class SpeakerDetailViewModel(
 ) : ViewModel() {
     val uiState: StateFlow<SpeakerUiState> = repository.speaker(speakerId)
         .map { SpeakerUiState.Success(it) }
-        .catch {
-            Firebase.crashlytics.recordException(it)
-            SpeakerUiState.Failure(it)
-        }
+        .catch { SpeakerUiState.Failure(it) }
         .stateIn(
             scope = viewModelScope,
             initialValue = SpeakerUiState.Loading(SpeakerUi.fake),
             started = SharingStarted.WhileSubscribed()
         )
 
-    @SuppressLint("UnspecifiedImmutableFlag")
-    fun markAsFavorite(context: Context, talkItem: TalkItemUi) = viewModelScope.launch {
-        alarmScheduler.schedule(context, talkItem)
+    fun markAsFavorite(talkItem: TalkItemUi) = viewModelScope.launch {
+        alarmScheduler.schedule(talkItem)
     }
 }

@@ -4,17 +4,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.text_error
 import com.paligot.confily.speakers.panes.SpeakerDetailOrientable
 import com.paligot.confily.style.theme.appbars.AppBarIcons
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
-import org.koin.androidx.compose.koinViewModel
+import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun SpeakerDetailVM(
     speakerId: String,
@@ -28,7 +25,6 @@ fun SpeakerDetailVM(
         parameters = { parametersOf(speakerId) }
     )
 ) {
-    val context = LocalContext.current
     when (val uiState = viewModel.uiState.collectAsState().value) {
         is SpeakerUiState.Loading -> SpeakerDetailOrientable(
             speaker = uiState.speaker,
@@ -44,9 +40,7 @@ fun SpeakerDetailVM(
         is SpeakerUiState.Success -> SpeakerDetailOrientable(
             speaker = uiState.speaker,
             onTalkClicked = onTalkClicked,
-            onFavoriteClicked = {
-                viewModel.markAsFavorite(context, it)
-            },
+            onFavoriteClicked = viewModel::markAsFavorite,
             onLinkClicked = onLinkClicked,
             modifier = modifier,
             navigationIcon = navigationIcon,

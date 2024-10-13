@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import com.paligot.confily.core.AlarmIntentFactory
 import com.paligot.confily.core.AlarmScheduler
+import com.paligot.confily.core.AlarmSchedulerAndroid
 import com.paligot.confily.core.db.DatabaseWrapper
 import com.paligot.confily.core.di.ApplicationIdNamed
 import com.paligot.confily.core.di.ConfilyBaseUrlNamed
@@ -22,8 +23,9 @@ val instrumentedModule = module {
     single(named(IsDebugNamed)) { true }
     single(named(ApplicationIdNamed)) { "com.paligot.confily.core.test" }
     single(named(ConfilyBaseUrlNamed)) { "" }
-    single {
-        AlarmScheduler(
+    single<AlarmScheduler> {
+        AlarmSchedulerAndroid(
+            androidContext(),
             get(),
             androidContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager,
             object : AlarmIntentFactory {

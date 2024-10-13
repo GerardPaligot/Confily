@@ -1,6 +1,5 @@
 package com.paligot.confily.schedules.presentation
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.pager.rememberPagerState
@@ -9,18 +8,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.text_error
 import com.paligot.confily.schedules.panes.ScheduleGridPager
 import com.paligot.confily.style.theme.actions.TopActionsUi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 import org.koin.androidx.compose.koinViewModel
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalResourceApi::class)
 @ExperimentalCoroutinesApi
 @FlowPreview
 @Composable
@@ -35,7 +31,6 @@ fun ScheduleGridVM(
     isSmallSize: Boolean = false,
     viewModel: ScheduleGridViewModel = koinViewModel()
 ) {
-    val context = LocalContext.current
     LaunchedEffect(key1 = Unit) {
         onScheduleStarted()
     }
@@ -59,9 +54,7 @@ fun ScheduleGridVM(
             onTalkClicked = onTalkClicked,
             onEventSessionClicked = onEventSessionClicked,
             onFilterClicked = onFilterClicked,
-            onFavoriteClicked = { talkItem ->
-                viewModel.markAsFavorite(context, talkItem)
-            },
+            onFavoriteClicked = viewModel::markAsFavorite,
             modifier = modifier,
             isSmallSize = isSmallSize,
             isLoading = false,
