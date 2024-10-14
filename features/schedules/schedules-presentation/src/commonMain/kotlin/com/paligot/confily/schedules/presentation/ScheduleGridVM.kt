@@ -15,7 +15,7 @@ import com.paligot.confily.style.theme.actions.TopActionsUi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import org.jetbrains.compose.resources.stringResource
-import org.koin.androidx.compose.koinViewModel
+import org.koin.compose.viewmodel.koinViewModel
 
 @ExperimentalCoroutinesApi
 @FlowPreview

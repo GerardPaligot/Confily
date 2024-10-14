@@ -2,8 +2,6 @@ package com.paligot.confily.schedules.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.crashlytics.ktx.crashlytics
-import com.google.firebase.ktx.Firebase
 import com.paligot.confily.core.schedules.SchedulesRepository
 import com.paligot.confily.models.ui.EventSessionItemUi
 import kotlinx.coroutines.flow.SharingStarted
@@ -23,11 +21,8 @@ class ScheduleDetailEventSessionViewModel(
     repository: SchedulesRepository
 ) : ViewModel() {
     val uiState: StateFlow<ScheduleEventUiState> = repository.scheduleEventSessionItem(scheduleId)
-        .map { ScheduleEventUiState.Success(it) }
-        .catch {
-            Firebase.crashlytics.recordException(it)
-            ScheduleEventUiState.Failure(it)
-        }
+        .map { ScheduleEventUiState.Success(it) as ScheduleEventUiState }
+        .catch { emit(ScheduleEventUiState.Failure(it)) }
         .stateIn(
             scope = viewModelScope,
             initialValue = ScheduleEventUiState.Loading,

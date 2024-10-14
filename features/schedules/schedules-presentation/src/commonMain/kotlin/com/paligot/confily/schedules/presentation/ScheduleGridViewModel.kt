@@ -1,10 +1,7 @@
 package com.paligot.confily.schedules.presentation
 
-import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.crashlytics.ktx.crashlytics
-import com.google.firebase.ktx.Firebase
 import com.paligot.confily.core.AlarmScheduler
 import com.paligot.confily.core.agenda.AgendaRepository
 import com.paligot.confily.core.schedules.SchedulesRepository
@@ -26,10 +23,11 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.format
+import kotlinx.datetime.format.byUnicodePattern
 import org.jetbrains.compose.resources.InternalResourceApi
 import org.jetbrains.compose.resources.StringResource
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 data class ScheduleUi(
     val topActionsUi: TopActionsUi,
@@ -56,7 +54,9 @@ class ScheduleGridViewModel(
             TabActionsUi(
                 scrollable = true,
                 actions = it.agendaTabs.sorted().map {
-                    val label = DateTimeFormatter.ofPattern("dd MMM").format(LocalDate.parse(it))
+                    val label = LocalDate.parse(it).format(LocalDate.Format {
+                        byUnicodePattern("dd MMM")
+                    })
                     TabAction(
                         route = it,
                         StringResource("", "", emptySet()),
@@ -91,15 +91,13 @@ class ScheduleGridViewModel(
                 }
             }
         ).catch {
-            Firebase.crashlytics.recordException(it)
-            ScheduleGridUiState.Failure(it)
+            emit(ScheduleGridUiState.Failure(it))
         }.stateIn(
             scope = viewModelScope,
             initialValue = ScheduleGridUiState.Loading(persistentListOf(AgendaUi.fake)),
             started = SharingStarted.WhileSubscribed()
         )
 
-    @SuppressLint("UnspecifiedImmutableFlag")
     fun markAsFavorite(talkItem: TalkItemUi) = viewModelScope.launch {
         alarmScheduler.schedule(talkItem)
     }

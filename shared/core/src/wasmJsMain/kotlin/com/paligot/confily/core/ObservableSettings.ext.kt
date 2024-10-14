@@ -33,7 +33,7 @@ inline fun <reified T> ObservableSettings.getSerializableScopedFlow(
 ): Flow<T> = getStringFlow("$scope:$id", "").map { Json.decodeFromString<T>(it) }
 
 inline fun <reified T> ObservableSettings.getAllSerializableScopedFlow(scope: String): List<Flow<T>> =
-    getScopes(scope).map { getSerializableScopedFlow(scope, it) }
+    getScopes(scope).map { getStringFlow(it, "").map { Json.decodeFromString(it) } }
 
 inline fun <reified T> ObservableSettings.combineAllSerializableScopedFlow(
     scope: String,
