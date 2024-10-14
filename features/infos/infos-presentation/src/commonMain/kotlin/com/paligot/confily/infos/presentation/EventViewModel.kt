@@ -2,8 +2,6 @@ package com.paligot.confily.infos.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.crashlytics.ktx.crashlytics
-import com.google.firebase.ktx.Firebase
 import com.paligot.confily.core.events.EventRepository
 import com.paligot.confily.models.ui.EventUi
 import kotlinx.coroutines.flow.SharingStarted
@@ -20,11 +18,8 @@ sealed class EventUiState {
 
 class EventViewModel(repository: EventRepository) : ViewModel() {
     val uiState: StateFlow<EventUiState> = repository.eventAndTicket()
-        .map { EventUiState.Success(it) }
-        .catch {
-            Firebase.crashlytics.recordException(it)
-            EventUiState.Failure(it)
-        }
+        .map { EventUiState.Success(it) as EventUiState }
+        .catch { emit(EventUiState.Failure(it)) }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(),

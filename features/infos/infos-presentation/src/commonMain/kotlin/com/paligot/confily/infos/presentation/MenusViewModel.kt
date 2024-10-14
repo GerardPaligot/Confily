@@ -2,8 +2,6 @@ package com.paligot.confily.infos.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.crashlytics.ktx.crashlytics
-import com.google.firebase.ktx.Firebase
 import com.paligot.confily.core.events.EventRepository
 import com.paligot.confily.models.ui.MenuItemUi
 import kotlinx.collections.immutable.ImmutableList
@@ -22,11 +20,8 @@ sealed class MenusUiState {
 
 class MenusViewModel(repository: EventRepository) : ViewModel() {
     val uiState: StateFlow<MenusUiState> = repository.menus()
-        .map { MenusUiState.Success(it) }
-        .catch {
-            Firebase.crashlytics.recordException(it)
-            MenusUiState.Failure(it)
-        }
+        .map { MenusUiState.Success(it) as MenusUiState }
+        .catch { emit(MenusUiState.Failure(it)) }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(),

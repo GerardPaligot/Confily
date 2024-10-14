@@ -7,11 +7,9 @@ import androidx.compose.ui.Modifier
 import com.paligot.confily.infos.panes.QAndAListScreen
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.text_error
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
-import org.koin.androidx.compose.koinViewModel
+import org.koin.compose.viewmodel.koinViewModel
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun QAndAListVM(
     onLinkClicked: (url: String) -> Unit,
