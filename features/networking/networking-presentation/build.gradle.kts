@@ -1,5 +1,7 @@
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
+
 plugins {
-    id("confily.android.library")
+    id("confily.multiplatform.library")
     id("confily.android.library.compose")
     id("confily.quality")
 }
@@ -8,26 +10,39 @@ android {
     namespace = "com.paligot.confily.networking.presentation"
 }
 
-dependencies {
-    implementation(projects.shared.core)
-    implementation(projects.shared.resources)
-    implementation(projects.features.networking.networkingPanes)
-    implementation(projects.features.networking.networkingUi)
-    implementation(projects.features.navigation)
-    implementation(projects.style.components.permissions)
-    implementation(projects.style.networking)
-    implementation(projects.style.theme)
+kotlin {
+    androidTarget()
 
-    implementation(libs.koin.androidx.compose)
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmJs {
+        useCommonJs()
+        browser()
+    }
 
-    implementation(libs.jetbrains.kotlinx.collections)
-    implementation(libs.jetbrains.lifecycle.viewmodel.compose)
+    sourceSets {
+        commonMain {
+            dependencies {
+                implementation(projects.shared.core)
+                implementation(projects.shared.resources)
+                implementation(projects.features.networking.networkingPanes)
+                implementation(projects.features.networking.networkingUi)
+                implementation(projects.features.navigation)
+                implementation(projects.style.networking)
+                implementation(projects.style.theme)
 
-    implementation(compose.material3)
-    implementation(compose.components.resources)
-    implementation(compose.preview)
-    debugImplementation(compose.uiTooling)
+                implementation(compose.material3)
+                implementation(compose.components.resources)
 
-    implementation(platform(libs.google.firebase.bom))
-    implementation("com.google.firebase:firebase-crashlytics-ktx")
+                implementation(libs.jetbrains.kotlinx.collections)
+                implementation(libs.jetbrains.lifecycle.viewmodel.compose)
+
+                implementation(libs.koin.compose.viewmodel)
+            }
+        }
+        androidMain {
+            dependencies {
+                implementation(projects.style.components.permissions)
+            }
+        }
+    }
 }

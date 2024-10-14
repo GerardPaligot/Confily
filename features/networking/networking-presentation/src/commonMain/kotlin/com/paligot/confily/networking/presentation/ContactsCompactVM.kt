@@ -8,11 +8,9 @@ import com.paligot.confily.networking.panes.ContactsScreen
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.text_error
 import com.paligot.confily.resources.text_loading
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
-import org.koin.androidx.compose.koinViewModel
+import org.koin.compose.viewmodel.koinViewModel
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun ContactsCompactVM(
     modifier: Modifier = Modifier,

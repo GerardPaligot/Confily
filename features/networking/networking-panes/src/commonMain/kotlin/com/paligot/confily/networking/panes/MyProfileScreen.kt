@@ -1,6 +1,5 @@
 package com.paligot.confily.networking.panes
 
-import android.graphics.BitmapFactory
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,7 +14,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
@@ -27,8 +25,11 @@ import com.paligot.confily.resources.action_edit_profile
 import com.paligot.confily.resources.semantic_profile_qrcode
 import com.paligot.confily.resources.semantic_user_item_company
 import com.paligot.confily.resources.semantic_user_item_email
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.decodeToImageBitmap
 import org.jetbrains.compose.resources.stringResource
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun MyProfileScreen(
     profileUi: UserProfileUi,
@@ -53,8 +54,7 @@ fun MyProfileScreen(
         if (!isInPreview && profileUi.qrCode != null) {
             item {
                 val qrCodeBitmap = remember(profileUi.qrCode) {
-                    BitmapFactory.decodeByteArray(profileUi.qrCode, 0, profileUi.qrCode!!.size)
-                        .asImageBitmap()
+                    profileUi.qrCode!!.decodeToImageBitmap()
                 }
                 Image(
                     bitmap = qrCodeBitmap,
