@@ -2,8 +2,6 @@ package com.paligot.confily.infos.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.crashlytics.ktx.crashlytics
-import com.google.firebase.ktx.Firebase
 import com.paligot.confily.core.agenda.AgendaRepository
 import com.paligot.confily.core.events.EventRepository
 import com.paligot.confily.navigation.FabActions
@@ -66,11 +64,10 @@ class InfoViewModel(
                     Screen.Event.route -> if (config.hasBilletWebTicket) FabActions.scanTicket else null
                     else -> null
                 }
-            )
+            ) as InfoUiState
         }
     ).catch {
-        Firebase.crashlytics.recordException(it)
-        InfoUiState.Failure(it)
+        emit(InfoUiState.Failure(it))
     }.stateIn(
         scope = viewModelScope,
         initialValue = InfoUiState.Loading,

@@ -1,7 +1,5 @@
 package com.paligot.confily.infos.panes
 
-import android.annotation.SuppressLint
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -10,13 +8,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.paligot.confily.infos.ui.tickets.TicketDetailed
 import com.paligot.confily.infos.ui.tickets.TicketQrCode
@@ -26,7 +22,6 @@ import com.paligot.confily.resources.title_plan
 import com.paligot.confily.resources.title_ticket
 import com.paligot.confily.style.events.cards.AddressCard
 import com.paligot.confily.style.events.socials.SocialsSection
-import com.paligot.confily.style.theme.ConfilyTheme
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -92,22 +87,6 @@ fun Event(
                     onItineraryClicked(event.eventInfo.latitude, event.eventInfo.longitude)
                 },
                 modifier = Modifier.padding(horizontal = 16.dp)
-            )
-        }
-    }
-}
-
-@ExperimentalFoundationApi
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@Preview
-@Composable
-private fun EventPreview() {
-    ConfilyTheme {
-        Scaffold {
-            Event(
-                event = EventUi.fake,
-                onLinkClicked = {},
-                onItineraryClicked = { _, _ -> }
             )
         }
     }

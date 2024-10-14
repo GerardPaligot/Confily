@@ -1,6 +1,5 @@
 package com.paligot.confily.infos.presentation
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
@@ -16,11 +15,9 @@ import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.screen_info
 import com.paligot.confily.resources.text_error
 import com.paligot.confily.style.theme.Scaffold
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
-import org.koin.androidx.compose.koinViewModel
+import org.koin.compose.viewmodel.koinViewModel
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalResourceApi::class)
 @Composable
 fun InfoCompactVM(
     onItineraryClicked: (lat: Double, lng: Double) -> Unit,

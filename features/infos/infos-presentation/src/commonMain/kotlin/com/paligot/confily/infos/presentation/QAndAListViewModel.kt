@@ -2,8 +2,6 @@ package com.paligot.confily.infos.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.crashlytics.ktx.crashlytics
-import com.google.firebase.ktx.Firebase
 import com.paligot.confily.core.events.EventRepository
 import com.paligot.confily.models.ui.QuestionAndResponseUi
 import kotlinx.collections.immutable.ImmutableList
@@ -38,7 +36,6 @@ class QAndAListViewModel(repository: EventRepository) : ViewModel() {
                     _uiState.value = QAndAUiState.Success(it)
                 }
             } catch (error: Throwable) {
-                Firebase.crashlytics.recordException(error)
                 _uiState.value = QAndAUiState.Failure(error)
             }
         }
