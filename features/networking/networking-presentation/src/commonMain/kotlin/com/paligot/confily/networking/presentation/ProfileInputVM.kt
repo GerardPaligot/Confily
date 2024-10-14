@@ -9,11 +9,10 @@ import com.paligot.confily.networking.panes.ProfileInputScreen
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.text_error
 import com.paligot.confily.resources.text_loading
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
-import org.koin.androidx.compose.koinViewModel
+import org.koin.compose.viewmodel.koinViewModel
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalResourceApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileInputVM(
     onBackClicked: () -> Unit,

@@ -2,8 +2,6 @@ package com.paligot.confily.networking.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.crashlytics.ktx.crashlytics
-import com.google.firebase.ktx.Firebase
 import com.paligot.confily.core.networking.NetworkingRepository
 import com.paligot.confily.models.ui.UserNetworkingUi
 import kotlinx.collections.immutable.ImmutableList
@@ -24,11 +22,8 @@ class ContactsViewModel(
     private val repository: NetworkingRepository
 ) : ViewModel() {
     val uiState: StateFlow<ContactsUiState> = repository.fetchNetworking()
-        .map { ContactsUiState.Success(users = it) }
-        .catch {
-            Firebase.crashlytics.recordException(it)
-            ContactsUiState.Failure(it)
-        }
+        .map { ContactsUiState.Success(users = it) as ContactsUiState }
+        .catch { emit(ContactsUiState.Failure(it)) }
         .stateIn(
             scope = viewModelScope,
             initialValue = ContactsUiState.Loading,

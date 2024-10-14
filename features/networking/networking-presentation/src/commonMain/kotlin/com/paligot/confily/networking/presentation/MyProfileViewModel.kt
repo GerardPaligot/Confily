@@ -2,8 +2,6 @@ package com.paligot.confily.networking.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.crashlytics.ktx.crashlytics
-import com.google.firebase.ktx.Firebase
 import com.paligot.confily.core.networking.NetworkingRepository
 import com.paligot.confily.models.ui.UserProfileUi
 import kotlinx.coroutines.flow.SharingStarted
@@ -29,12 +27,9 @@ class MyProfileViewModel(repository: NetworkingRepository) : ViewModel() {
                     company = "",
                     qrCode = null
                 )
-            )
+            ) as MyProfileUiState
         }
-        .catch {
-            Firebase.crashlytics.recordException(it)
-            MyProfileUiState.Failure(it)
-        }
+        .catch { emit(MyProfileUiState.Failure(it)) }
         .stateIn(
             scope = viewModelScope,
             initialValue = MyProfileUiState.Loading,

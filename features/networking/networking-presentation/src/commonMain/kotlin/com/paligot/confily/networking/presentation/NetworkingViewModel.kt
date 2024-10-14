@@ -2,8 +2,6 @@ package com.paligot.confily.networking.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.crashlytics.ktx.crashlytics
-import com.google.firebase.ktx.Firebase
 import com.paligot.confily.core.agenda.AgendaRepository
 import com.paligot.confily.core.networking.NetworkingRepository
 import com.paligot.confily.models.ui.ExportNetworkingUi
@@ -72,11 +70,10 @@ class NetworkingViewModel(
                     Screen.Contacts.route -> FabActions.scanContact
                     else -> null
                 }
-            )
+            ) as NetworkingUiState
         }
     ).catch {
-        Firebase.crashlytics.recordException(it)
-        NetworkingUiState.Failure(it)
+        emit(NetworkingUiState.Failure(it))
     }.stateIn(
         scope = viewModelScope,
         initialValue = NetworkingUiState.Loading,

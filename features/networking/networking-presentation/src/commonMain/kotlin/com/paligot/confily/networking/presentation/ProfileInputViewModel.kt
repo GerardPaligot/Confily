@@ -2,8 +2,6 @@ package com.paligot.confily.networking.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.crashlytics.ktx.crashlytics
-import com.google.firebase.ktx.Firebase
 import com.paligot.confily.core.networking.NetworkingRepository
 import com.paligot.confily.models.ui.Field
 import com.paligot.confily.models.ui.UserProfileUi
@@ -38,7 +36,6 @@ class ProfileInputViewModel(
                     )
                 }
             } catch (error: Throwable) {
-                Firebase.crashlytics.recordException(error)
                 _uiState.value = ProfileInputUiState.Failure(error)
             }
         }
