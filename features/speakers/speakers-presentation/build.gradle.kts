@@ -8,10 +8,6 @@ plugins {
 
 android {
     namespace = "com.paligot.confily.speakers.presentation"
-
-    dependencies {
-        debugImplementation(compose.uiTooling)
-    }
 }
 
 kotlin {
