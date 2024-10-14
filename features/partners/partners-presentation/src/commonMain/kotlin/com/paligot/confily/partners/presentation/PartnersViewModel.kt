@@ -2,8 +2,6 @@ package com.paligot.confily.partners.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.crashlytics.ktx.crashlytics
-import com.google.firebase.ktx.Firebase
 import com.paligot.confily.core.partners.PartnerRepository
 import com.paligot.confily.models.ui.PartnerGroupsUi
 import kotlinx.coroutines.flow.SharingStarted
@@ -20,11 +18,8 @@ sealed class PartnersUiState {
 
 class PartnersViewModel(repository: PartnerRepository) : ViewModel() {
     val uiState: StateFlow<PartnersUiState> = repository.partners()
-        .map { PartnersUiState.Success(it) }
-        .catch {
-            Firebase.crashlytics.recordException(it)
-            PartnersUiState.Failure(it)
-        }
+        .map { PartnersUiState.Success(it) as PartnersUiState }
+        .catch { emit(PartnersUiState.Failure(it)) }
         .stateIn(
             scope = viewModelScope,
             initialValue = PartnersUiState.Loading(PartnerGroupsUi.fake),
