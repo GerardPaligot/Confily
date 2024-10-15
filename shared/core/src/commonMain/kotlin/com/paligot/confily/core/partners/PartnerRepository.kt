@@ -1,6 +1,6 @@
 package com.paligot.confily.core.partners
 
-import com.paligot.confily.core.db.ConferenceSettings
+import com.paligot.confily.core.kvalue.ConferenceSettings
 import com.paligot.confily.models.ui.PartnerGroupsUi
 import com.paligot.confily.models.ui.PartnerItemUi
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutines

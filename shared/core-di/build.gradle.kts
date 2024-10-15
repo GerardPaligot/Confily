@@ -1,4 +1,5 @@
 import org.gradle.internal.os.OperatingSystem
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
     id("confily.multiplatform.library")
@@ -15,6 +16,12 @@ android {
 kotlin {
     androidTarget()
 
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmJs {
+        useCommonJs()
+        browser()
+    }
+
     if (OperatingSystem.current().isMacOsX) {
         listOf(
             iosArm64(),
@@ -27,6 +34,7 @@ kotlin {
                 export(projects.shared.coreApi)
                 export(projects.shared.coreDb)
                 export(projects.shared.core)
+                export(projects.shared.coreKvalue)
                 export(projects.shared.models)
                 export(projects.shared.uiModels)
                 export(projects.shared.resources)
@@ -41,7 +49,7 @@ kotlin {
             dependencies {
                 api(projects.shared.core)
                 api(projects.shared.coreApi)
-                api(projects.shared.coreDb)
+                api(projects.shared.coreKvalue)
                 api(projects.shared.resources)
                 implementation(libs.koin.core)
                 implementation(libs.ktor.client.core)
@@ -50,10 +58,35 @@ kotlin {
                 implementation(libs.lyricist)
             }
         }
+        val mobileMain by creating {
+            kotlin.srcDir("src/mobileMain/kotlin")
+            dependsOn(commonMain)
+            dependencies {
+                api(projects.shared.coreDb)
+            }
+        }
         val androidMain by getting {
             dependencies {
                 implementation(libs.koin.android)
             }
         }
+        val iosArm64Main by getting
+        val iosSimulatorArm64Main by getting
+        val iosMain by creating {
+            dependsOn(commonMain)
+            dependsOn(mobileMain)
+            iosArm64Main.dependsOn(this)
+            iosSimulatorArm64Main.dependsOn(this)
+        }
+        wasmJsMain {
+            dependencies {
+                implementation(libs.settings.make.observable)
+            }
+        }
     }
+}
+dependencies {
+    implementation(project(":shared:core"))
+    implementation(project(":shared:core"))
+    implementation(project(":shared:core"))
 }

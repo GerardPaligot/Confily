@@ -27,7 +27,6 @@ kotlin {
             it.binaries.framework {
                 baseName = "SharedDb"
                 isStatic = false
-                export(libs.settings)
                 // Required https://github.com/cashapp/sqldelight/issues/1442
                 linkerOpts.add("-lsqlite3")
             }
@@ -39,8 +38,6 @@ kotlin {
             dependencies {
                 implementation(libs.jetbrains.kotlinx.coroutines)
                 implementation(libs.cash.sqldelight.runtime)
-                api(libs.settings)
-                implementation(libs.settings.coroutines)
             }
         }
         val androidMain by getting {
