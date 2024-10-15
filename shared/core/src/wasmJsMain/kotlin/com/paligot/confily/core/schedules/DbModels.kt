@@ -45,7 +45,7 @@ class EventSessionDb(
 
 @Serializable
 class TalkSessionWithSpeakers(
-    val id: Long,
+    val id: String,
     val speakerId: String,
     val talkId: String,
     val eventId: String

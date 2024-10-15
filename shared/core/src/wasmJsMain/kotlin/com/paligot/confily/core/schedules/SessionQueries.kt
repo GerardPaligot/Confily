@@ -6,7 +6,6 @@ import com.paligot.confily.core.getScopes
 import com.paligot.confily.core.getSerializableScopedFlow
 import com.paligot.confily.core.getSerializableScopedOrNull
 import com.paligot.confily.core.putSerializableScoped
-import com.paligot.confily.core.removeScope
 import com.paligot.confily.core.removeScoped
 import com.paligot.confily.core.schedules.SessionQueries.Scopes.EVENTSESSIONS
 import com.paligot.confily.core.schedules.SessionQueries.Scopes.SESSIONS
@@ -123,8 +122,8 @@ class SessionQueries(
         val talks = settings.getAllSerializableScoped<TalkSessionWithSpeakers>(SESSIONWITHSPEAKERS)
             .filter { it.eventId == eventId && it.talkId == talkId }
         val speakers = speakerQueries.getAllSpeakers()
-        return talks.map { speaker ->
-            speakers.find { it.id == speaker.speakerId }!!
+        return talks.map { talk ->
+            speakers.find { it.id == talk.speakerId }!!
         }
     }
 
@@ -172,7 +171,7 @@ class SessionQueries(
 
     fun deleteSessions(ids: List<String>) {
         ids.forEach {
-            settings.removeScope(SESSIONS, it)
+            settings.removeScoped(SESSIONS, it)
         }
     }
 
@@ -197,7 +196,7 @@ class SessionQueries(
     }
 
     fun upsertTalkWithSpeakers(talk: TalkSessionWithSpeakers) {
-        settings.putSerializableScoped(SESSIONWITHSPEAKERS, talk.id.toString(), talk)
+        settings.putSerializableScoped(SESSIONWITHSPEAKERS, talk.id, talk)
     }
 
     fun diffTalkWithSpeakers(eventId: String, ids: List<String>): List<String> =

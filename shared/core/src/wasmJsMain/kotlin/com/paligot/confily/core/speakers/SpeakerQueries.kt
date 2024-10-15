@@ -5,7 +5,7 @@ import com.paligot.confily.core.getAllSerializableScoped
 import com.paligot.confily.core.getScopes
 import com.paligot.confily.core.getSerializableScopedFlow
 import com.paligot.confily.core.putSerializableScoped
-import com.paligot.confily.core.removeScope
+import com.paligot.confily.core.removeScoped
 import com.paligot.confily.core.speakers.SpeakerQueries.Scopes.SPEAKERS
 import com.russhwolf.settings.ObservableSettings
 import kotlinx.coroutines.flow.Flow
@@ -20,7 +20,7 @@ class SpeakerQueries(private val settings: ObservableSettings) {
     }
 
     fun deleteSpeakers(ids: List<String>) {
-        ids.forEach { settings.removeScope(SPEAKERS, it) }
+        ids.forEach { settings.removeScoped(SPEAKERS, it) }
     }
 
     fun diffSpeakers(eventId: String, ids: List<String>): List<String> =
