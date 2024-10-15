@@ -5,7 +5,7 @@ import com.paligot.confily.core.getAllSerializableScopedFlow
 import com.paligot.confily.core.getScopes
 import com.paligot.confily.core.getSerializableScopedOrNull
 import com.paligot.confily.core.putSerializableScoped
-import com.paligot.confily.core.removeScope
+import com.paligot.confily.core.removeScoped
 import com.paligot.confily.core.schedules.CategoryQueries.Scopes.CATEGORIES
 import com.russhwolf.settings.ObservableSettings
 import kotlinx.coroutines.flow.Flow
@@ -41,7 +41,7 @@ class CategoryQueries(private val settings: ObservableSettings) {
     }
 
     fun deleteCategories(ids: List<String>) {
-        ids.forEach { settings.removeScope(CATEGORIES, it) }
+        ids.forEach { settings.removeScoped(CATEGORIES, it) }
     }
 
     fun getCategory(categoryId: String): CategoryDb? =

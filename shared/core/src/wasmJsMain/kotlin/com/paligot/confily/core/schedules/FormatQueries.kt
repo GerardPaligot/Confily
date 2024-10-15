@@ -5,7 +5,7 @@ import com.paligot.confily.core.getAllSerializableScopedFlow
 import com.paligot.confily.core.getScopes
 import com.paligot.confily.core.getSerializableScopedOrNull
 import com.paligot.confily.core.putSerializableScoped
-import com.paligot.confily.core.removeScope
+import com.paligot.confily.core.removeScoped
 import com.paligot.confily.core.schedules.FormatQueries.Scopes.FORMATS
 import com.russhwolf.settings.ObservableSettings
 import kotlinx.coroutines.flow.Flow
@@ -39,7 +39,7 @@ class FormatQueries(private val settings: ObservableSettings) {
     }
 
     fun deleteFormats(ids: List<String>) {
-        ids.forEach { settings.removeScope(FORMATS, it) }
+        ids.forEach { settings.removeScoped(FORMATS, it) }
     }
 
     fun getFormat(formatId: String): FormatDb? =

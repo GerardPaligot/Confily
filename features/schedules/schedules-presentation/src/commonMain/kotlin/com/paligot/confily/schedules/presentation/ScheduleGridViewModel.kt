@@ -56,7 +56,7 @@ class ScheduleGridViewModel(
                 actions = it.agendaTabs.sorted().map {
                     val label = LocalDate.parse(it).format(
                         LocalDate.Format {
-                            byUnicodePattern("dd MMM")
+                            byUnicodePattern("dd/MM")
                         }
                     )
                     TabAction(

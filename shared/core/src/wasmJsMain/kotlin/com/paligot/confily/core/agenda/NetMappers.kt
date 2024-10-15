@@ -130,10 +130,10 @@ fun Session.Talk.convertToDb(eventId: String): TalkSessionDb = TalkSessionDb(
     eventId = eventId
 )
 
-fun Session.Talk.convertToDb(eventId: String, speakerId: String) = TalkSessionWithSpeakers(
-    id = 0L,
+fun Session.Talk.convertToDb(eventId: String, id: String, speakerId: String) = TalkSessionWithSpeakers(
+    id = id,
     speakerId = speakerId,
-    talkId = id,
+    talkId = this.id,
     eventId = eventId
 )
 

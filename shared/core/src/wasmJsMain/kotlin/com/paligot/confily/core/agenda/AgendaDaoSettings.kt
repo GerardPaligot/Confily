@@ -37,20 +37,20 @@ class AgendaDaoSettings(
         agenda.formats.forEach { format ->
             formatQueries.upsertFormat(format.convertToDb(eventId))
         }
-        agenda.sessions.forEach { session ->
+        agenda.sessions.forEachIndexed { indexSession, session ->
             when (session) {
                 is Session.Talk -> {
                     sessionQueries.upsertTalkSession(session.convertToDb(eventId))
+                    session.speakers.forEachIndexed { index, speaker ->
+                        sessionQueries.upsertTalkWithSpeakers(
+                            session.convertToDb(eventId, "$indexSession:$index", speaker)
+                        )
+                    }
                 }
 
                 is Session.Event -> {
                     sessionQueries.upsertEventSession(session.convertToDb(eventId))
                 }
-            }
-        }
-        agenda.sessions.filterIsInstance<Session.Talk>().forEach { session ->
-            session.speakers.forEach {
-                sessionQueries.upsertTalkWithSpeakers(session.convertToDb(eventId, it))
             }
         }
         agenda.schedules.forEach { schedule ->
