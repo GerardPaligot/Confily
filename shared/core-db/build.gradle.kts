@@ -1,5 +1,3 @@
-import org.gradle.internal.os.OperatingSystem
-
 plugins {
     id("confily.multiplatform.library")
     id("confily.quality")
@@ -19,17 +17,15 @@ kotlin {
         browser()
     }
 
-    if (OperatingSystem.current().isMacOsX) {
-        listOf(
-            iosArm64(),
-            iosSimulatorArm64()
-        ).forEach {
-            it.binaries.framework {
-                baseName = "SharedDb"
-                isStatic = false
-                // Required https://github.com/cashapp/sqldelight/issues/1442
-                linkerOpts.add("-lsqlite3")
-            }
+    listOf(
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach {
+        it.binaries.framework {
+            baseName = "SharedDb"
+            isStatic = false
+            // Required https://github.com/cashapp/sqldelight/issues/1442
+            linkerOpts.add("-lsqlite3")
         }
     }
 

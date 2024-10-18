@@ -1,4 +1,3 @@
-import org.gradle.internal.os.OperatingSystem
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
@@ -22,25 +21,23 @@ kotlin {
         browser()
     }
 
-    if (OperatingSystem.current().isMacOsX) {
-        listOf(
-            iosArm64(),
-            iosSimulatorArm64()
-        ).forEach {
-            it.binaries.framework {
-                baseName = "SharedDi"
-                isStatic = false
-                export(libs.settings)
-                export(projects.shared.coreApi)
-                export(projects.shared.coreDb)
-                export(projects.shared.core)
-                export(projects.shared.coreKvalue)
-                export(projects.shared.models)
-                export(projects.shared.uiModels)
-                export(projects.shared.resources)
-                // Required https://github.com/cashapp/sqldelight/issues/1442
-                linkerOpts.add("-lsqlite3")
-            }
+    listOf(
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach {
+        it.binaries.framework {
+            baseName = "SharedDi"
+            isStatic = false
+            export(libs.settings)
+            export(projects.shared.coreApi)
+            export(projects.shared.coreDb)
+            export(projects.shared.core)
+            export(projects.shared.coreKvalue)
+            export(projects.shared.models)
+            export(projects.shared.uiModels)
+            export(projects.shared.resources)
+            // Required https://github.com/cashapp/sqldelight/issues/1442
+            linkerOpts.add("-lsqlite3")
         }
     }
 
