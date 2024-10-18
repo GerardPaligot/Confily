@@ -1,4 +1,3 @@
-import org.gradle.internal.os.OperatingSystem
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
@@ -21,15 +20,13 @@ kotlin {
         browser()
     }
 
-    if (OperatingSystem.current().isMacOsX) {
-        listOf(
-            iosArm64(),
-            iosSimulatorArm64()
-        ).forEach {
-            it.binaries.framework {
-                baseName = "UiModels"
-                isStatic = false
-            }
+    listOf(
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach {
+        it.binaries.framework {
+            baseName = "UiModels"
+            isStatic = false
         }
     }
 
