@@ -1,26 +1,17 @@
 package com.paligot.confily.backend.internals
 
-import com.paligot.confily.backend.internals.GoogleServicesModule.cloudFirestore
 import com.paligot.confily.backend.internals.GoogleServicesModule.cloudStorage
 import com.paligot.confily.backend.internals.GoogleServicesModule.drive
 import com.paligot.confily.backend.internals.GoogleServicesModule.secretManager
 import com.paligot.confily.backend.internals.SystemEnv.gcpProjectId
 import com.paligot.confily.backend.internals.SystemEnv.isCloud
 import com.paligot.confily.backend.internals.SystemEnv.projectName
-import com.paligot.confily.backend.internals.helpers.database.BasicDatabase
-import com.paligot.confily.backend.internals.helpers.database.Database
 import com.paligot.confily.backend.internals.helpers.drive.DriveDataSource
 import com.paligot.confily.backend.internals.helpers.image.TranscoderImage
 import com.paligot.confily.backend.internals.helpers.secret.Secret
 import com.paligot.confily.backend.internals.helpers.storage.Storage
 
 object InternalModule {
-    val database: Lazy<Database> = lazy {
-        Database.Factory.create(cloudFirestore.value, projectName)
-    }
-    val basicDatabase: Lazy<BasicDatabase> = lazy {
-        BasicDatabase.Factory.create(cloudFirestore.value)
-    }
     val driveDataSource: Lazy<DriveDataSource> = lazy {
         DriveDataSource.Factory.create(drive.value)
     }

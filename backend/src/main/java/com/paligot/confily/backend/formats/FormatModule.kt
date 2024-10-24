@@ -1,9 +1,10 @@
 package com.paligot.confily.backend.formats
 
 import com.paligot.confily.backend.events.EventModule.eventDao
-import com.paligot.confily.backend.internals.InternalModule.database
+import com.paligot.confily.backend.internals.GoogleServicesModule.cloudFirestore
+import com.paligot.confily.backend.internals.SystemEnv.projectName
 
 object FormatModule {
-    val formatDao = lazy { FormatDao(database.value) }
+    val formatDao = lazy { FormatDao(projectName, cloudFirestore.value) }
     val formatRepository = lazy { FormatRepository(eventDao.value, formatDao.value) }
 }

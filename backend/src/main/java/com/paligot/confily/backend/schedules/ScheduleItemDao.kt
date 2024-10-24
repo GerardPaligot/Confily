@@ -1,48 +1,63 @@
 package com.paligot.confily.backend.schedules
 
-import com.paligot.confily.backend.internals.helpers.database.Database
+import com.google.cloud.firestore.Firestore
+import com.paligot.confily.backend.internals.helpers.database.batchDelete
+import com.paligot.confily.backend.internals.helpers.database.delete
 import com.paligot.confily.backend.internals.helpers.database.diff
-import com.paligot.confily.backend.internals.helpers.database.get
-import com.paligot.confily.backend.internals.helpers.database.getAll
+import com.paligot.confily.backend.internals.helpers.database.getDocument
+import com.paligot.confily.backend.internals.helpers.database.getDocuments
+import com.paligot.confily.backend.internals.helpers.database.upsert
 
 private const val CollectionName = "schedule-items"
 
-class ScheduleItemDao(private val database: Database) {
-    suspend fun get(eventId: String, id: String): ScheduleDb? = database.get(
-        eventId = eventId,
-        collectionName = CollectionName,
-        id = id
-    )
+class ScheduleItemDao(
+    private val projectName: String,
+    private val firestore: Firestore
+) {
+    fun get(eventId: String, id: String): ScheduleDb? = firestore
+        .collection(projectName)
+        .document(eventId)
+        .collection(CollectionName)
+        .getDocument(id)
 
-    suspend fun getAll(eventId: String): List<ScheduleDb> = database.getAll(
-        eventId = eventId,
-        collectionName = CollectionName
-    )
+    fun getAll(eventId: String): List<ScheduleDb> = firestore
+        .collection(projectName)
+        .document(eventId)
+        .collection(CollectionName)
+        .getDocuments<ScheduleDb>()
 
-    suspend fun createOrUpdate(eventId: String, item: ScheduleDb) {
-        val existing = database.get<ScheduleDb>(eventId = eventId, collectionName = CollectionName, id = item.id)
-        if (existing == null) {
-            database.insert(
-                eventId = eventId,
-                collectionName = CollectionName,
-                id = item.id,
-                item = item
-            )
-        } else {
-            database.update(eventId = eventId, collectionName = CollectionName, id = item.id, item = item)
-        }
+    fun createOrUpdate(eventId: String, item: ScheduleDb) {
+        firestore
+            .collection(projectName)
+            .document(eventId)
+            .collection(CollectionName)
+            .upsert(item.id, item)
     }
 
-    suspend fun delete(eventId: String, id: String) = database.delete(
-        eventId = eventId,
-        collectionName = CollectionName,
-        id = id
-    )
+    fun delete(eventId: String, id: String) {
+        firestore
+            .collection(projectName)
+            .document(eventId)
+            .collection(CollectionName)
+            .delete(id)
+    }
 
-    suspend fun deleteDiff(eventId: String, ids: List<String>) {
-        val diff = database.diff<ScheduleDb>(eventId, CollectionName, ids)
+    fun deleteDiff(eventId: String, ids: List<String>) {
+        val diff = firestore
+            .collection(projectName)
+            .document(eventId)
+            .collection(CollectionName)
+            .diff<ScheduleDb>(ids)
             // Don't remove break items.
             .filter { it.talkId != null }
-        database.deleteAll(eventId, CollectionName, diff.map { it.id })
+        firestore.batchDelete(
+            diff.map {
+                firestore
+                    .collection(projectName)
+                    .document(eventId)
+                    .collection(CollectionName)
+                    .document(it.id)
+            }
+        )
     }
 }

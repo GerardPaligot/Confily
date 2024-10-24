@@ -1,9 +1,13 @@
 package com.paligot.confily.backend.speakers
 
-import com.paligot.confily.backend.internals.helpers.database.Database
-import com.paligot.confily.backend.internals.helpers.database.get
-import com.paligot.confily.backend.internals.helpers.database.getAll
+import com.google.cloud.firestore.Firestore
+import com.paligot.confily.backend.internals.helpers.database.batchDelete
+import com.paligot.confily.backend.internals.helpers.database.diffRefs
+import com.paligot.confily.backend.internals.helpers.database.getDocument
+import com.paligot.confily.backend.internals.helpers.database.getDocuments
+import com.paligot.confily.backend.internals.helpers.database.insert
 import com.paligot.confily.backend.internals.helpers.database.query
+import com.paligot.confily.backend.internals.helpers.database.upsert
 import com.paligot.confily.backend.internals.helpers.database.whereIn
 import com.paligot.confily.backend.internals.helpers.storage.MimeType
 import com.paligot.confily.backend.internals.helpers.storage.Storage
@@ -13,72 +17,70 @@ import kotlinx.coroutines.coroutineScope
 
 private const val CollectionName = "speakers"
 
-class SpeakerDao(private val database: Database, private val storage: Storage) {
-    suspend fun get(eventId: String, id: String): SpeakerDb? = database.get(
-        eventId = eventId,
-        collectionName = CollectionName,
-        id = id
-    )
+class SpeakerDao(
+    private val projectName: String,
+    private val firestore: Firestore,
+    private val storage: Storage
+) {
+    fun get(eventId: String, id: String): SpeakerDb? = firestore
+        .collection(projectName)
+        .document(eventId)
+        .collection(CollectionName)
+        .getDocument(id)
 
-    suspend fun getByIds(eventId: String, ids: List<String>): List<SpeakerDb> =
+    fun getByIds(eventId: String, ids: List<String>): List<SpeakerDb> =
         try {
-            database.query(
-                eventId = eventId,
-                collectionName = CollectionName,
-                "id".whereIn(ids)
-            )
+            firestore
+                .collection(projectName)
+                .document(eventId)
+                .collection(CollectionName)
+                .query<SpeakerDb>("id".whereIn(ids))
         } catch (ignored: Throwable) {
             emptyList()
         }
 
-    suspend fun getAll(eventId: String): List<SpeakerDb> = database.getAll(
-        eventId = eventId,
-        collectionName = CollectionName
-    )
+    fun getAll(eventId: String): List<SpeakerDb> = firestore
+        .collection(projectName)
+        .document(eventId)
+        .collection(CollectionName)
+        .getDocuments()
 
-    suspend fun insert(eventId: String, speaker: SpeakerDb) = coroutineScope {
-        database.insert(eventId = eventId, collectionName = CollectionName, id = speaker.id, item = speaker)
+    fun insert(eventId: String, speaker: SpeakerDb) {
+        firestore
+            .collection(projectName)
+            .document(eventId)
+            .collection(CollectionName)
+            .insert(speaker.id, speaker)
     }
 
     suspend fun insertAll(eventId: String, speakers: List<SpeakerDb>) = coroutineScope {
         val asyncItems = speakers.map {
             async {
-                database.insert(
-                    eventId = eventId,
-                    collectionName = CollectionName,
-                    id = it.id,
-                    item = it
-                )
+                firestore
+                    .collection(projectName)
+                    .document(eventId)
+                    .collection(CollectionName)
+                    .insert(it.id, it)
             }
         }
         asyncItems.awaitAll()
         Unit
     }
 
-    suspend fun createOrUpdate(eventId: String, speaker: SpeakerDb): String = coroutineScope {
+    fun createOrUpdate(eventId: String, speaker: SpeakerDb): String {
         if (speaker.id == "") {
-            return@coroutineScope database.insert(
-                eventId = eventId,
-                collectionName = CollectionName
-            ) { speaker.copy(id = it) }
+            return firestore
+                .collection(projectName)
+                .document(eventId)
+                .collection(CollectionName)
+                .insert { speaker.copy(id = it) }
         }
-        val existing = database.get<SpeakerDb>(eventId = eventId, collectionName = CollectionName, id = speaker.id)
-        if (existing == null) {
-            database.insert(
-                eventId = eventId,
-                collectionName = CollectionName,
-                id = speaker.id,
-                item = speaker
-            )
-        } else {
-            database.update(
-                eventId = eventId,
-                collectionName = CollectionName,
-                id = speaker.id,
-                item = speaker
-            )
-        }
-        return@coroutineScope speaker.id
+        firestore
+            .collection(projectName)
+            .document(eventId)
+            .collection(CollectionName)
+            .upsert(speaker.id, speaker)
+        return speaker.id
     }
 
     suspend fun saveProfile(eventId: String, id: String, content: ByteArray, mimeType: MimeType) =
@@ -88,8 +90,12 @@ class SpeakerDao(private val database: Database, private val storage: Storage) {
             mimeType = mimeType
         )
 
-    suspend fun deleteDiff(eventId: String, ids: List<String>) {
-        val diff = database.diff(eventId, CollectionName, ids)
-        database.deleteAll(eventId, CollectionName, diff)
+    fun deleteDiff(eventId: String, ids: List<String>) {
+        val diff = firestore
+            .collection(projectName)
+            .document(eventId)
+            .collection(CollectionName)
+            .diffRefs(ids)
+        firestore.batchDelete(diff)
     }
 }

@@ -2,7 +2,7 @@ package com.paligot.confily.backend.events
 
 import com.paligot.confily.backend.categories.CategoryModule.categoryDao
 import com.paligot.confily.backend.formats.FormatModule.formatDao
-import com.paligot.confily.backend.internals.InternalModule.basicDatabase
+import com.paligot.confily.backend.internals.GoogleServicesModule.cloudFirestore
 import com.paligot.confily.backend.internals.SystemEnv.projectName
 import com.paligot.confily.backend.partners.PartnerModule.partnerDao
 import com.paligot.confily.backend.qanda.QAndAModule.qAndADao
@@ -12,7 +12,7 @@ import com.paligot.confily.backend.speakers.SpeakerModule.speakerDao
 import com.paligot.confily.backend.third.parties.geocode.GeocodeModule.geocodeApi
 
 object EventModule {
-    val eventDao = lazy { EventDao(projectName, basicDatabase.value) }
+    val eventDao = lazy { EventDao(projectName, cloudFirestore.value) }
     val eventRepository = lazy {
         EventRepository(
             geocodeApi.value,

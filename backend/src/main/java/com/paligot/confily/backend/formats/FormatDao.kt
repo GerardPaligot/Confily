@@ -1,41 +1,53 @@
 package com.paligot.confily.backend.formats
 
-import com.paligot.confily.backend.internals.helpers.database.Database
-import com.paligot.confily.backend.internals.helpers.database.get
-import com.paligot.confily.backend.internals.helpers.database.getAll
+import com.google.cloud.firestore.Firestore
+import com.paligot.confily.backend.internals.helpers.database.batchDelete
+import com.paligot.confily.backend.internals.helpers.database.diffRefs
+import com.paligot.confily.backend.internals.helpers.database.getDocument
+import com.paligot.confily.backend.internals.helpers.database.getDocuments
+import com.paligot.confily.backend.internals.helpers.database.insert
+import com.paligot.confily.backend.internals.helpers.database.update
 
 private const val CollectionName = "formats"
 
-class FormatDao(private val database: Database) {
-    suspend fun get(eventId: String, id: String): FormatDb? = database.get(
-        eventId = eventId,
-        collectionName = CollectionName,
-        id = id
-    )
+class FormatDao(
+    private val projectName: String,
+    private val firestore: Firestore
+) {
+    fun get(eventId: String, id: String): FormatDb? = firestore
+        .collection(projectName)
+        .document(eventId)
+        .collection(CollectionName)
+        .getDocument(id)
 
-    suspend fun getAll(eventId: String): List<FormatDb> = database.getAll(
-        eventId = eventId,
-        collectionName = CollectionName
-    )
+    fun getAll(eventId: String): List<FormatDb> = firestore
+        .collection(projectName)
+        .document(eventId)
+        .collection(CollectionName)
+        .getDocuments<FormatDb>()
 
-    suspend fun createOrUpdate(eventId: String, item: FormatDb) {
+    fun createOrUpdate(eventId: String, item: FormatDb) {
         if (item.id == null) {
-            database.insert(
-                eventId = eventId,
-                collectionName = CollectionName
-            ) { item.copy(id = it) }
+            firestore
+                .collection(projectName)
+                .document(eventId)
+                .collection(CollectionName)
+                .insert { item.copy(id = it) }
         } else {
-            database.update(
-                eventId = eventId,
-                collectionName = CollectionName,
-                id = item.id,
-                item = item
-            )
+            firestore
+                .collection(projectName)
+                .document(eventId)
+                .collection(CollectionName)
+                .update(item.id, item)
         }
     }
 
-    suspend fun deleteDiff(eventId: String, ids: List<String>) {
-        val diff = database.diff(eventId, CollectionName, ids)
-        database.deleteAll(eventId, CollectionName, diff)
+    fun deleteDiff(eventId: String, ids: List<String>) {
+        val diff = firestore
+            .collection(projectName)
+            .document(eventId)
+            .collection(CollectionName)
+            .diffRefs(ids)
+        firestore.batchDelete(diff)
     }
 }

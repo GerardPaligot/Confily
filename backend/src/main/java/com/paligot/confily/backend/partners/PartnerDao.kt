@@ -1,8 +1,10 @@
 package com.paligot.confily.backend.partners
 
-import com.paligot.confily.backend.internals.helpers.database.Database
-import com.paligot.confily.backend.internals.helpers.database.get
-import com.paligot.confily.backend.internals.helpers.database.getAll
+import com.google.cloud.firestore.Firestore
+import com.paligot.confily.backend.internals.helpers.database.insert
+import com.paligot.confily.backend.internals.helpers.database.isNotEmpty
+import com.paligot.confily.backend.internals.helpers.database.map
+import com.paligot.confily.backend.internals.helpers.database.upsert
 import com.paligot.confily.backend.internals.helpers.image.Png
 import com.paligot.confily.backend.internals.helpers.storage.MimeType
 import com.paligot.confily.backend.internals.helpers.storage.Storage
@@ -13,41 +15,41 @@ import kotlinx.coroutines.coroutineScope
 
 private const val CollectionName = "companies"
 
-class PartnerDao(private val database: Database, private val storage: Storage) {
-    suspend fun getAll(eventId: String): List<PartnerDb> = database
-        .getAll<PartnerDb>(eventId = eventId, collectionName = CollectionName)
-        .map {
+class PartnerDao(
+    private val projectName: String,
+    private val firestore: Firestore,
+    private val storage: Storage
+) {
+    fun getAll(eventId: String): List<PartnerDb> = firestore
+        .collection(projectName)
+        .document(eventId)
+        .collection(CollectionName)
+        .map<PartnerDb, PartnerDb> {
             if (it.siteUrl.contains(Regex("^http[s]{0,1}://"))) return@map it
             return@map it.copy(siteUrl = "https://${it.siteUrl}")
         }
 
-    suspend fun createOrUpdate(eventId: String, partner: PartnerDb): String = coroutineScope {
+    fun createOrUpdate(eventId: String, partner: PartnerDb): String {
         if (partner.id == "") {
-            return@coroutineScope database.insert(
-                eventId = eventId,
-                collectionName = CollectionName
-            ) { partner.copy(id = it) }
+            return firestore
+                .collection(projectName)
+                .document(eventId)
+                .collection(CollectionName)
+                .insert { partner.copy(id = it) }
         }
-        val existing = database.get<PartnerDb>(eventId = eventId, collectionName = CollectionName, id = partner.id)
-        if (existing == null) {
-            database.insert(
-                eventId = eventId,
-                collectionName = CollectionName,
-                id = partner.id,
-                item = partner
-            )
-        } else {
-            database.update(
-                eventId = eventId,
-                collectionName = CollectionName,
-                id = partner.id,
-                item = partner
-            )
-        }
-        return@coroutineScope partner.id
+        firestore
+            .collection(projectName)
+            .document(eventId)
+            .collection(CollectionName)
+            .upsert(partner.id, partner)
+        return partner.id
     }
 
-    suspend fun uploadPartnerLogos(eventId: String, partnerId: String, pngs: List<Png>): List<Upload> = coroutineScope {
+    suspend fun uploadPartnerLogos(
+        eventId: String,
+        partnerId: String,
+        pngs: List<Png>
+    ): List<Upload> = coroutineScope {
         return@coroutineScope pngs
             .filter { it.content != null }
             .map { png ->
@@ -62,6 +64,9 @@ class PartnerDao(private val database: Database, private val storage: Storage) {
             .awaitAll()
     }
 
-    suspend fun hasPartners(eventId: String): Boolean =
-        database.count(eventId = eventId, collectionName = CollectionName) > 0
+    fun hasPartners(eventId: String): Boolean = firestore
+        .collection(projectName)
+        .document(eventId)
+        .collection(CollectionName)
+        .isNotEmpty()
 }
