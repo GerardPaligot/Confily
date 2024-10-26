@@ -30,7 +30,7 @@ jobs:
         run: ./gradlew :androidApp:ktlintCheck :androidApp:detekt --stacktrace
 
       - name: Check lint
-        run: ./gradlew :androidApp::lintDebug --stacktrace
+        run: ./gradlew :androidApp:lintDebug --stacktrace
 
       - name: Check and build android project
         run: ./gradlew :androidApp:assembleDebug :androidApp:bundleDebug --stacktrace
