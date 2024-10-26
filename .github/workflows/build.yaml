@@ -27,10 +27,10 @@ jobs:
           java-version: 21
 
       - name: Check Kotlin lint
-        run: ./gradlew ktlintCheck detekt --stacktrace
+        run: ./gradlew :androidApp:ktlintCheck :androidApp:detekt --stacktrace
 
       - name: Check lint
-        run: ./gradlew lintDebug --stacktrace
+        run: ./gradlew :androidApp::lintDebug --stacktrace
 
       - name: Check and build android project
         run: ./gradlew :androidApp:assembleDebug :androidApp:bundleDebug --stacktrace
@@ -75,10 +75,10 @@ jobs:
           java-version: 21
 
       - name: Check Kotlin lint
-        run: ./gradlew ktlintCheck detekt --stacktrace
+        run: ./gradlew :wear:wear-app:ktlintCheck :wear:wear-app:detekt --stacktrace
 
       - name: Check lint
-        run: ./gradlew lintDebug --stacktrace
+        run: ./gradlew :wear:wear-app:lintDebug --stacktrace
 
       - name: Check and build android project
         run: ./gradlew :wear:wear-app:assembleDebug :wear:wear-app:bundleDebug --stacktrace
