@@ -19,6 +19,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 
+@Suppress("LongParameterList")
 class PartnerRepository(
     private val geocodeApi: GeocodeApi,
     private val eventDao: EventDao,
