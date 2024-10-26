@@ -1,6 +1,7 @@
 package com.paligot.confily.backend.partners
 
 import com.google.cloud.firestore.Firestore
+import com.paligot.confily.backend.internals.helpers.database.docExists
 import com.paligot.confily.backend.internals.helpers.database.insert
 import com.paligot.confily.backend.internals.helpers.database.isNotEmpty
 import com.paligot.confily.backend.internals.helpers.database.map
@@ -28,6 +29,12 @@ class PartnerDao(
             if (it.siteUrl.contains(Regex("^http[s]{0,1}://"))) return@map it
             return@map it.copy(siteUrl = "https://${it.siteUrl}")
         }
+
+    fun exists(eventId: String, partnerId: String): Boolean = firestore
+        .collection(projectName)
+        .document(eventId)
+        .collection(CollectionName)
+        .docExists(partnerId)
 
     fun createOrUpdate(eventId: String, partner: PartnerDb): String {
         if (partner.id == "") {

@@ -6,6 +6,7 @@ import com.paligot.confily.models.Attendee
 import com.paligot.confily.models.EventList
 import com.paligot.confily.models.EventV3
 import com.paligot.confily.models.PartnerV2
+import com.paligot.confily.models.PartnersActivities
 import com.paligot.confily.models.QuestionAndResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -49,6 +50,9 @@ class ConferenceApi(
 
     suspend fun fetchPartners(eventId: String): Map<String, List<PartnerV2>> =
         client.get("$baseUrl/events/$eventId/partners").body()
+
+    suspend fun fetchPartnersActivities(eventId: String): PartnersActivities =
+        client.get("$baseUrl/events/$eventId/partners/activities").body()
 
     suspend fun fetchAttendee(eventId: String, barcode: String) =
         client.get("$baseUrl/events/$eventId/billet-web/$barcode")

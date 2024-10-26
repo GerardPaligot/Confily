@@ -1,5 +1,6 @@
 package com.paligot.confily.backend
 
+import com.paligot.confily.backend.activities.registerActivitiesRoutes
 import com.paligot.confily.backend.categories.registerCategoriesRoutes
 import com.paligot.confily.backend.events.registerEventRoutes
 import com.paligot.confily.backend.formats.registerFormatsRoutes
@@ -93,6 +94,7 @@ fun main() {
                 registerCategoriesRoutes()
                 registerFormatsRoutes()
                 registerSchedulersRoutes()
+                registerActivitiesRoutes()
                 registerPartnersRoutes()
                 // Third parties
                 registerBilletWebRoutes()

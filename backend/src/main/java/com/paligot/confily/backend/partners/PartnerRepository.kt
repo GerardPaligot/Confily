@@ -2,6 +2,8 @@ package com.paligot.confily.backend.partners
 
 import com.paligot.confily.backend.NotAcceptableException
 import com.paligot.confily.backend.NotFoundException
+import com.paligot.confily.backend.activities.ActivityDao
+import com.paligot.confily.backend.activities.convertToModel
 import com.paligot.confily.backend.events.EventDao
 import com.paligot.confily.backend.internals.helpers.image.TranscoderImage
 import com.paligot.confily.backend.jobs.JobDao
@@ -9,7 +11,10 @@ import com.paligot.confily.backend.third.parties.geocode.GeocodeApi
 import com.paligot.confily.backend.third.parties.geocode.convertToDb
 import com.paligot.confily.backend.third.parties.welovedevs.convertToModel
 import com.paligot.confily.models.PartnerV2
+import com.paligot.confily.models.PartnersActivities
 import com.paligot.confily.models.inputs.PartnerInput
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
@@ -18,10 +23,12 @@ class PartnerRepository(
     private val geocodeApi: GeocodeApi,
     private val eventDao: EventDao,
     private val partnerDao: PartnerDao,
+    private val activityDao: ActivityDao,
     private val jobDao: JobDao,
-    private val imageTranscoder: TranscoderImage
+    private val imageTranscoder: TranscoderImage,
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
-    suspend fun list(eventId: String): Map<String, List<PartnerV2>> {
+    fun list(eventId: String): Map<String, List<PartnerV2>> {
         val event = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
         val partners = partnerDao.getAll(eventId)
         val jobs = jobDao.getAll(eventId)
@@ -36,6 +43,27 @@ class PartnerRepository(
                 }
                 .sortedBy { it.name }
         }
+    }
+
+    suspend fun activities(eventId: String): PartnersActivities = coroutineScope {
+        val event = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
+        val partners = async(dispatcher) { partnerDao.getAll(eventId) }
+        val jobs = async(dispatcher) { jobDao.getAll(eventId) }
+        val activities = async(dispatcher) { activityDao.getAll(eventId) }
+        val fetchedJobs = jobs.await()
+        return@coroutineScope PartnersActivities(
+            types = event.sponsoringTypes,
+            partners = partners.await().map { partner ->
+                partner.convertToModelV3(
+                    fetchedJobs
+                        .filter { it.partnerId == partner.id }
+                        .map { it.convertToModel() }
+                )
+            },
+            activities = activities.await()
+                .sortedBy { it.startTime }
+                .map { it.convertToModel() }
+        )
     }
 
     suspend fun create(eventId: String, apiKey: String, partnerInput: PartnerInput): String =

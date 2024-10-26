@@ -11,7 +11,7 @@ import com.paligot.confily.core.schedules.SessionQueries
 import com.paligot.confily.core.speakers.SpeakerQueries
 import com.paligot.confily.models.AgendaV4
 import com.paligot.confily.models.EventV3
-import com.paligot.confily.models.PartnerV2
+import com.paligot.confily.models.PartnersActivities
 import com.paligot.confily.models.QuestionAndResponse
 import com.paligot.confily.models.Session
 
@@ -101,15 +101,13 @@ class AgendaDaoSettings(
         featuresQueries.insertFeatures(event.features.convertToModelDb(eventDb.id))
     }
 
-    override fun insertPartners(eventId: String, partners: Map<String, List<PartnerV2>>) {
-        partners.entries.forEach { entry ->
-            entry.value.forEach { partner ->
-                partnerQueries.insertPartner(
-                    partner.convertToDb(eventId, entry.key, hasSvgSupport)
-                )
-                partner.jobs.forEach { job ->
-                    partnerQueries.insertJob(job.convertToDb(eventId, partner.id))
-                }
+    override fun insertPartners(eventId: String, partners: PartnersActivities) {
+        partners.partners.forEach { partner ->
+            partner.types.forEach { type ->
+                partnerQueries.insertPartner(partner.convertToDb(eventId, type, hasSvgSupport))
+            }
+            partner.jobs.forEach { job ->
+                partnerQueries.insertJob(job.convertToDb(eventId, partner.id))
             }
         }
     }

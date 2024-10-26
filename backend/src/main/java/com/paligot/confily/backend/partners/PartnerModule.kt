@@ -1,5 +1,6 @@
 package com.paligot.confily.backend.partners
 
+import com.paligot.confily.backend.activities.ActivityModule.activityDao
 import com.paligot.confily.backend.events.EventModule.eventDao
 import com.paligot.confily.backend.internals.GoogleServicesModule.cloudFirestore
 import com.paligot.confily.backend.internals.InternalModule.storage
@@ -15,6 +16,7 @@ object PartnerModule {
             geocodeApi.value,
             eventDao.value,
             partnerDao.value,
+            activityDao.value,
             jobDao.value,
             transcoder.value
         )

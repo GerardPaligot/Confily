@@ -47,3 +47,15 @@ data class PartnerV2(
     val address: Address?,
     val jobs: List<Job> = emptyList()
 )
+
+@Serializable
+data class PartnerV3(
+    val id: String,
+    val name: String,
+    val description: String,
+    val media: PartnerMedia,
+    val address: Address?,
+    val types: List<String>,
+    val socials: List<SocialItem> = emptyList(),
+    val jobs: List<Job> = emptyList()
+)

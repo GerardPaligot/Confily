@@ -3,9 +3,10 @@ package com.paligot.confily.core.agenda
 import com.paligot.confily.db.ConfilyDatabase
 import com.paligot.confily.models.AgendaV4
 import com.paligot.confily.models.EventV3
-import com.paligot.confily.models.PartnerV2
+import com.paligot.confily.models.PartnersActivities
 import com.paligot.confily.models.QuestionAndResponse
 import com.paligot.confily.models.Session
+import com.paligot.confily.models.SocialType
 
 class AgendaDaoSQLDelight(
     private val db: ConfilyDatabase,
@@ -130,26 +131,23 @@ class AgendaDaoSQLDelight(
         )
     }
 
-    override fun insertPartners(
-        eventId: String,
-        partners: Map<String, List<PartnerV2>>
-    ) = db.transaction {
-        partners.keys.forEachIndexed { index, type ->
+    override fun insertPartners(eventId: String, partners: PartnersActivities) = db.transaction {
+        partners.types.forEachIndexed { index, type ->
             db.partnerQueries.insertPartnerType(
                 order_ = index.toLong(),
                 name = type,
                 event_id = eventId
             )
         }
-        partners.entries.forEach { entry ->
-            entry.value.forEach { partner ->
+        partners.partners.forEach { partner ->
+            partner.types.forEach { type ->
                 db.partnerQueries.insertPartner(
                     id = partner.id,
                     name = partner.name,
                     description = partner.description,
                     event_id = eventId,
-                    type_id = entry.key,
-                    type = entry.key,
+                    type_id = type,
+                    type = type,
                     logo_url = if (hasSvgSupport) {
                         partner.media.svg
                     } else if (partner.media.pngs != null) {
@@ -157,38 +155,38 @@ class AgendaDaoSQLDelight(
                     } else {
                         partner.media.svg
                     },
-                    site_url = partner.siteUrl,
-                    twitter_url = partner.twitterUrl,
-                    twitter_message = partner.twitterMessage,
-                    linkedin_url = partner.linkedinUrl,
-                    linkedin_message = partner.linkedinMessage,
+                    site_url = partner.socials.find { it.type == SocialType.Website }?.url,
+                    twitter_url = partner.socials.find { it.type == SocialType.X }?.url,
+                    twitter_message = null,
+                    linkedin_url = partner.socials.find { it.type == SocialType.LinkedIn }?.url,
+                    linkedin_message = null,
                     formatted_address = partner.address?.formatted,
                     address = partner.address?.address,
                     latitude = partner.address?.lat,
                     longitude = partner.address?.lng
                 )
                 db.partnerQueries.insertPartnerAndType(
-                    id = "${partner.id}-${entry.key}",
+                    id = "${partner.id}-$type",
                     partner_id = partner.id,
-                    sponsor_id = entry.key,
+                    sponsor_id = type,
                     event_id = eventId
                 )
-                partner.jobs.forEach {
-                    db.partnerQueries.insertJob(
-                        url = it.url,
-                        partner_id = partner.id,
-                        event_id = eventId,
-                        title = it.title,
-                        company_name = it.companyName,
-                        location = it.location,
-                        salary_max = it.salary?.max?.toLong(),
-                        salary_min = it.salary?.min?.toLong(),
-                        salary_recurrence = it.salary?.recurrence,
-                        requirements = it.requirements,
-                        publish_date = it.publishDate,
-                        propulsed = it.propulsed
-                    )
-                }
+            }
+            partner.jobs.forEach { job ->
+                db.partnerQueries.insertJob(
+                    url = job.url,
+                    partner_id = partner.id,
+                    event_id = eventId,
+                    title = job.title,
+                    company_name = job.companyName,
+                    location = job.location,
+                    salary_max = job.salary?.max?.toLong(),
+                    salary_min = job.salary?.min?.toLong(),
+                    salary_recurrence = job.salary?.recurrence,
+                    requirements = job.requirements,
+                    publish_date = job.publishDate,
+                    propulsed = job.propulsed
+                )
             }
         }
     }

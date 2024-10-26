@@ -21,11 +21,12 @@ import com.paligot.confily.models.EventV3
 import com.paligot.confily.models.FeaturesActivated
 import com.paligot.confily.models.Format
 import com.paligot.confily.models.Job
-import com.paligot.confily.models.PartnerV2
+import com.paligot.confily.models.PartnerV3
 import com.paligot.confily.models.QuestionAndResponse
 import com.paligot.confily.models.QuestionAndResponseAction
 import com.paligot.confily.models.ScheduleItemV4
 import com.paligot.confily.models.Session
+import com.paligot.confily.models.SocialType
 import com.paligot.confily.models.Speaker
 import kotlinx.datetime.toLocalDateTime
 import kotlin.reflect.KClass
@@ -164,7 +165,7 @@ fun Speaker.convertToDb(eventId: String): SpeakerDb = SpeakerDb(
     eventId = eventId
 )
 
-fun PartnerV2.convertToDb(
+fun PartnerV3.convertToDb(
     eventId: String,
     type: String,
     hasSvgSupport: Boolean
@@ -182,11 +183,11 @@ fun PartnerV2.convertToDb(
     } else {
         media.svg
     },
-    siteUrl = siteUrl,
-    twitterUrl = twitterUrl,
-    twitterMessage = twitterMessage,
-    linkedinUrl = linkedinUrl,
-    linkedinMessage = linkedinMessage,
+    siteUrl = this.socials.find { it.type == SocialType.Website }?.url,
+    twitterUrl = this.socials.find { it.type == SocialType.X }?.url,
+    twitterMessage = null,
+    linkedinUrl = this.socials.find { it.type == SocialType.LinkedIn }?.url,
+    linkedinMessage = null,
     formattedAddress = address?.formatted,
     address = address?.address,
     latitude = address?.lat,

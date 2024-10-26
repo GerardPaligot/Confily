@@ -9,6 +9,9 @@ import com.paligot.confily.models.Partner
 import com.paligot.confily.models.PartnerMedia
 import com.paligot.confily.models.PartnerMediaPngs
 import com.paligot.confily.models.PartnerV2
+import com.paligot.confily.models.PartnerV3
+import com.paligot.confily.models.SocialItem
+import com.paligot.confily.models.SocialType
 import com.paligot.confily.models.inputs.PartnerInput
 import java.net.URI
 
@@ -65,6 +68,27 @@ fun PartnerDb.convertToModelV2(jobs: List<Job>) = PartnerV2(
     jobs = jobs
 )
 
+fun PartnerDb.convertToModelV3(jobs: List<Job>) = PartnerV3(
+    id = this.id,
+    name = this.name,
+    description = this.description,
+    media = convertToPartnerMediaModel(),
+    types = this.sponsorings,
+    socials = mutableListOf<SocialItem>().apply {
+        add(SocialItem(type = SocialType.Website, url = this@convertToModelV3.siteUrl))
+        val xUrl = this@convertToModelV3.twitterUrl
+        if (xUrl != null && xUrl != "") {
+            add(SocialItem(type = SocialType.X, url = xUrl))
+        }
+        val linkedUrl = this@convertToModelV3.linkedinUrl
+        if (linkedUrl != null && linkedUrl != "") {
+            add(SocialItem(type = SocialType.LinkedIn, url = linkedUrl))
+        }
+    },
+    address = this.address.convertToModel(),
+    jobs = jobs
+)
+
 @Suppress("ReturnCount")
 fun List<Upload>.convertToPartnerMediaDb(logoUrl: String): PartnerMediaDb? {
     if (isEmpty()) return null
@@ -81,7 +105,11 @@ fun List<Upload>.convertToPartnerMediaDb(logoUrl: String): PartnerMediaDb? {
     )
 }
 
-fun PartnerInput.convertToDb(id: String? = null, addressDb: AddressDb, uploads: List<Upload> = emptyList()) = PartnerDb(
+fun PartnerInput.convertToDb(
+    id: String? = null,
+    addressDb: AddressDb,
+    uploads: List<Upload> = emptyList()
+) = PartnerDb(
     id = id ?: "",
     name = name,
     description = description,

@@ -52,7 +52,7 @@ class AgendaRepositoryImpl(
         }
         val event = api.fetchEvent(eventId)
         val qanda = api.fetchQAndA(eventId)
-        val partners = api.fetchPartners(eventId)
+        val partners = api.fetchPartnersActivities(eventId)
         agendaDao.insertEvent(event, qanda)
         agendaDao.insertPartners(eventId, partners)
     }
