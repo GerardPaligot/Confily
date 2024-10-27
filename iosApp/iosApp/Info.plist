@@ -5,7 +5,7 @@
 	<key>BASE_URL</key>
 	<string>${BASE_URL}</string>
 	<key>BASE_URL_C4H</key>
-	<string>https://cms4partners-ce427.nw.r.appspot.com</string>
+	<string>https://api.devlille.fr</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
