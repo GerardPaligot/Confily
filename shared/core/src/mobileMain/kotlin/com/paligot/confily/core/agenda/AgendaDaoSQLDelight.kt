@@ -6,7 +6,6 @@ import com.paligot.confily.models.EventV3
 import com.paligot.confily.models.PartnersActivities
 import com.paligot.confily.models.QuestionAndResponse
 import com.paligot.confily.models.Session
-import com.paligot.confily.models.SocialType
 
 class AgendaDaoSQLDelight(
     private val db: ConfilyDatabase,
@@ -140,31 +139,32 @@ class AgendaDaoSQLDelight(
             )
         }
         partners.partners.forEach { partner ->
-            partner.types.forEach { type ->
-                db.partnerQueries.insertPartner(
-                    id = partner.id,
-                    name = partner.name,
-                    description = partner.description,
-                    event_id = eventId,
-                    type_id = type,
-                    type = type,
-                    logo_url = if (hasSvgSupport) {
-                        partner.media.svg
-                    } else if (partner.media.pngs != null) {
-                        partner.media.pngs!!._250
-                    } else {
-                        partner.media.svg
-                    },
-                    site_url = partner.socials.find { it.type == SocialType.Website }?.url,
-                    twitter_url = partner.socials.find { it.type == SocialType.X }?.url,
-                    twitter_message = null,
-                    linkedin_url = partner.socials.find { it.type == SocialType.LinkedIn }?.url,
-                    linkedin_message = null,
-                    formatted_address = partner.address?.formatted,
-                    address = partner.address?.address,
-                    latitude = partner.address?.lat,
-                    longitude = partner.address?.lng
+            db.partnerQueries.insertPartner(
+                id = partner.id,
+                name = partner.name,
+                description = partner.description,
+                event_id = eventId,
+                logo_url = if (hasSvgSupport) {
+                    partner.media.svg
+                } else if (partner.media.pngs != null) {
+                    partner.media.pngs!!._250
+                } else {
+                    partner.media.svg
+                },
+                formatted_address = partner.address?.formatted,
+                address = partner.address?.address,
+                latitude = partner.address?.lat,
+                longitude = partner.address?.lng
+            )
+            partner.socials.forEach { social ->
+                db.partnerQueries.insertPartnerSocial(
+                    url = social.url,
+                    type = social.type.name,
+                    partner_id = partner.id,
+                    event_id = eventId
                 )
+            }
+            partner.types.forEach { type ->
                 db.partnerQueries.insertPartnerAndType(
                     id = "${partner.id}-$type",
                     partner_id = partner.id,

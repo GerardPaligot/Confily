@@ -1,6 +1,5 @@
 package com.paligot.confily.partners.panes
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.PaddingValues
@@ -32,7 +31,6 @@ import kotlin.math.floor
 
 const val NbHorizontalPadding = 2
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun PartnersGridScreen(
     partners: PartnerGroupsUi,

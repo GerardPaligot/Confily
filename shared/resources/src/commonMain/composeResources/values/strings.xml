@@ -103,7 +103,12 @@
     <string name="semantic_mastodon">Mastodon of %1$s</string>
     <string name="semantic_github">GitHub of %1$s</string>
     <string name="semantic_linkedin">LinkedIn of %1$s</string>
+    <string name="semantic_bluesky">Bluesky of %1$s</string>
+    <string name="semantic_facebook">Facebook of %1$s</string>
+    <string name="semantic_instagram">Instagram of %1$s</string>
+    <string name="semantic_youtube">Youtube of %1$s</string>
     <string name="semantic_website">Website of %1$s</string>
+    <string name="semantic_email">Email of %1$s</string>
     <string name="semantic_start_itinerary">Start itinerary to the event</string>
     <string name="semantic_talk_item">%1$s %2$s in %3$s room during %4$d minutes in category %5$s %6$s</string>
     <string name="semantic_pause_item">Break in %1$s during %2$s</string>

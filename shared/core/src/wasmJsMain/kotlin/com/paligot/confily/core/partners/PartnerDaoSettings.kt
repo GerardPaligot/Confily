@@ -35,11 +35,15 @@ class PartnerDaoSettings(
                 )
             }
 
-    override fun fetchPartner(eventId: String, id: String): Flow<PartnerItemUi> =
-        partnerQueries.selectPartner(eventId, id)
-            .combine(
-                partnerQueries.selectJobs(eventId, id)
-            ) { partner, jobs ->
-                partner.toUi().copy(jobs = jobs.map { it.toUi() }.toImmutableList())
-            }
+    override fun fetchPartner(eventId: String, id: String): Flow<PartnerItemUi> = combine(
+        flow = partnerQueries.selectPartner(eventId, id),
+        flow2 = partnerQueries.selectJobs(eventId, id),
+        flow3 = partnerQueries.selectSocials(eventId, id),
+        transform = { partner, jobs, socials ->
+            partner.toUi().copy(
+                jobs = jobs.map { it.toUi() }.toImmutableList(),
+                socials = socials.map { it.toUi() }.toImmutableList()
+            )
+        }
+    )
 }

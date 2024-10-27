@@ -64,11 +64,16 @@
 
 "actionFeedback" = "Donne ton feedback";
 "actionItinerary" = "Itinéraire";
-"actionTwitter" = "Twitter";
+"actionX" = "X";
 "actionMastodon" = "Mastodon";
+"actionBluesky" = "Bluesky";
+"actionFacebook" = "Facebook";
+"actionInstagram" = "Instagram";
+"actionYouTube" = "YouTube";
 "actionLinkedin" = "LinkedIn";
 "actionGitHub" = "GitHub";
 "actionWebsite" = "Site web";
+"actionEmail" = "Email";
 "actionFaq" = "FAQ";
 "actionCoc" = "Code de Conduite";
 "actionProfile" = "Crée ton profil";
@@ -92,11 +97,16 @@
 
 "semanticHHmm %lld %lld" = "%lld heures %lld minutes";
 "semanticScheduleTime %lld %lld %lld %lld" = "De %lld heures %lld minutes à %lld heures %lld minutes";
-"semanticTwitter %@" = "Twitter de %@";
+"semanticX %@" = "X de %@";
 "semanticMastodon %@" = "Mastodon de %@";
+"semanticBluesky %@" = "Bluesky de %@";
+"semanticFacebook %@" = "Facebook de %@";
+"semanticInstagram %@" = "Instagram de %@";
+"semanticYouTube %@" = "YouTube de %@";
 "semanticGitHub %@" = "GitHub de %@";
 "semanticLinkedIn %@" = "LinkedIn de %@";
 "semanticWebsite %@" = "Site de %@";
+"semanticEmail %@" = "Email de %@";
 "semanticTicketId %@" = "Identifiant de ton billet %@";
 "semanticProfileQrcode" = "Ton Qrcode est affiché et prêt à être scanné";
 "semanticTicketQrcode" = "Qrcode de ton ticket prêt à être scanné";

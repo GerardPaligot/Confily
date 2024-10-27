@@ -5,38 +5,43 @@ CREATE TABLE Partner (
 id TEXT NOT NULL PRIMARY KEY,
 name TEXT NOT NULL,
 description TEXT NOT NULL,
-event_id TEXT NOT NULL,
-type_id TEXT NOT NULL,
-type TEXT NOT NULL,
 logo_url TEXT NOT NULL,
-site_url TEXT,
-twitter_url TEXT,
-twitter_message TEXT,
-linkedin_url TEXT,
-linkedin_message TEXT,
 formatted_address TEXT AS List<String>,
 address TEXT,
 latitude REAL,
-longitude REAL
+longitude REAL,
+event_id TEXT NOT NULL,
+FOREIGN KEY (event_id) REFERENCES Event(id)
 );
 
 CREATE TABLE PartnerType (
 order_ INTEGER NOT NULL,
 name TEXT NOT NULL PRIMARY KEY,
-event_id TEXT NOT NULL
+event_id TEXT NOT NULL,
+FOREIGN KEY (event_id) REFERENCES Event(id)
 );
 
 CREATE TABLE PartnerAndType (
 id TEXT NOT NULL PRIMARY KEY,
 partner_id TEXT NOT NULL,
 sponsor_id TEXT NOT NULL,
-event_id TEXT NOT NULL
+event_id TEXT NOT NULL,
+FOREIGN KEY (partner_id) REFERENCES Partner(id),
+FOREIGN KEY (sponsor_id) REFERENCES PartnerType(name),
+FOREIGN KEY (event_id) REFERENCES Event(id)
+);
+
+CREATE TABLE PartnerSocial (
+url TEXT NOT NULL PRIMARY KEY,
+type TEXT NOT NULL,
+partner_id TEXT NOT NULL,
+event_id TEXT NOT NULL,
+FOREIGN KEY (partner_id) REFERENCES Partner(id),
+FOREIGN KEY (event_id) REFERENCES Event(id)
 );
 
 CREATE TABLE Job (
 url TEXT NOT NULL PRIMARY KEY,
-partner_id TEXT NOT NULL,
-event_id TEXT NOT NULL,
 title TEXT NOT NULL,
 company_name TEXT NOT NULL,
 location TEXT NOT NULL,
@@ -45,7 +50,11 @@ salary_max INTEGER,
 salary_recurrence TEXT,
 requirements REAL NOT NULL,
 publish_date INTEGER NOT NULL,
-propulsed TEXT NOT NULL
+propulsed TEXT NOT NULL,
+partner_id TEXT NOT NULL,
+event_id TEXT NOT NULL,
+FOREIGN KEY (partner_id) REFERENCES Partner(id),
+FOREIGN KEY (event_id) REFERENCES Event(id)
 );
 
 insertPartnerType:
@@ -55,11 +64,14 @@ order_, name, event_id
 
 insertPartner:
 INSERT OR REPLACE INTO Partner(
-id, name, description, event_id, type_id, type, logo_url, site_url, twitter_url, twitter_message, linkedin_url, linkedin_message, formatted_address, address, latitude, longitude
-) VALUES (?, ?,?,?, ?,?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+id, name, description, event_id, logo_url, formatted_address, address, latitude, longitude
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
 
 insertPartnerAndType:
 INSERT OR REPLACE INTO PartnerAndType(id, partner_id, sponsor_id, event_id) VALUES (?, ?, ?, ?);
+
+insertPartnerSocial:
+INSERT OR REPLACE INTO PartnerSocial(url, type,partner_id, event_id) VALUES (?, ?, ?, ?);
 
 insertJob:
 INSERT OR REPLACE INTO Job(
@@ -70,15 +82,21 @@ selectPartnerTypes:
 SELECT order_, name FROM PartnerType WHERE event_id == ? ORDER BY order_ ASC;
 
 selectPartners:
-SELECT Partner.id, Partner.name, Partner.description, Partner.logo_url, Partner.site_url, Partner.twitter_url, Partner.twitter_message, Partner.linkedin_url, Partner.linkedin_message, Partner.formatted_address, Partner.address, Partner.latitude, Partner.longitude
+SELECT Partner.id, Partner.name, Partner.description, Partner.logo_url,Partner.formatted_address,
+Partner.address, Partner.latitude, Partner.longitude
 FROM PartnerAndType
 INNER JOIN Partner ON PartnerAndType.partner_id = Partner.id
 INNER JOIN PartnerType ON PartnerAndType.sponsor_id = PartnerType.name
 WHERE PartnerType.name == ? AND PartnerAndType.event_id == ?
 ORDER BY Partner.name ASC;
 
+selectSocials:
+SELECT PartnerSocial.url, PartnerSocial.type
+FROM PartnerSocial
+WHERE PartnerSocial.event_id == ? AND PartnerSocial.partner_id == ?;
+
 selectPartner:
-SELECT id, name, description, logo_url, site_url, twitter_url, twitter_message, linkedin_url, linkedin_message, formatted_address, address, latitude, longitude FROM Partner WHERE event_id == ? AND id == ? ORDER BY name ASC;
+SELECT id, name, description, logo_url, formatted_address, address, latitude, longitude FROM Partner WHERE event_id == ? AND id == ? ORDER BY name ASC;
 
 selectJobs:
 SELECT url, partner_id, event_id, title, company_name, location, salary_min, salary_max, salary_recurrence, requirements, publish_date, propulsed FROM Job WHERE event_id == ? AND partner_id == ? ORDER BY publish_date ASC;

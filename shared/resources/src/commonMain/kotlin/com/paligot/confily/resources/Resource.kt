@@ -49,7 +49,11 @@ import confily.shared.resources.generated.resources.screen_schedule_detail_event
 import confily.shared.resources.generated.resources.screen_speaker_detail
 import confily.shared.resources.generated.resources.screen_speakers
 import confily.shared.resources.generated.resources.screen_ticket_qrcode_scanner
+import confily.shared.resources.generated.resources.semantic_bluesky
+import confily.shared.resources.generated.resources.semantic_email
+import confily.shared.resources.generated.resources.semantic_facebook
 import confily.shared.resources.generated.resources.semantic_github
+import confily.shared.resources.generated.resources.semantic_instagram
 import confily.shared.resources.generated.resources.semantic_linkedin
 import confily.shared.resources.generated.resources.semantic_mastodon
 import confily.shared.resources.generated.resources.semantic_pause_item
@@ -64,6 +68,7 @@ import confily.shared.resources.generated.resources.semantic_twitter
 import confily.shared.resources.generated.resources.semantic_user_item_company
 import confily.shared.resources.generated.resources.semantic_user_item_email
 import confily.shared.resources.generated.resources.semantic_website
+import confily.shared.resources.generated.resources.semantic_youtube
 import confily.shared.resources.generated.resources.text_agenda_no_favorites
 import confily.shared.resources.generated.resources.text_camera_permission_deny
 import confily.shared.resources.generated.resources.text_camera_permission_explaination
@@ -223,6 +228,21 @@ val Resource.string.semantic_linkedin: StringResource
 @OptIn(ExperimentalResourceApi::class)
 val Resource.string.semantic_mastodon: StringResource
     get() = Res.string.semantic_mastodon
+
+val Resource.string.semantic_bluesky: StringResource
+    get() = Res.string.semantic_bluesky
+
+val Resource.string.semantic_facebook: StringResource
+    get() = Res.string.semantic_facebook
+
+val Resource.string.semantic_instagram: StringResource
+    get() = Res.string.semantic_instagram
+
+val Resource.string.semantic_youtube: StringResource
+    get() = Res.string.semantic_youtube
+
+val Resource.string.semantic_email: StringResource
+    get() = Res.string.semantic_email
 
 @OptIn(ExperimentalResourceApi::class)
 val Resource.string.semantic_pause_item: StringResource

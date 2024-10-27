@@ -14,11 +14,16 @@ struct SocialHeaderView: View {
     var title: String
     var pronouns: String? = nil
     var logoUrl: String? = nil
-    var twitterUrl: String? = nil
+    var xUrl: String? = nil
     var mastodonUrl: String? = nil
+    var blueskyUrl: String? = nil
+    var facebookUrl: String? = nil
+    var instagramUrl: String? = nil
+    var youtubeUrl: String? = nil
     var linkedInUrl: String? = nil
     var githubUrl: String? = nil
     var websiteUrl: String? = nil
+    var emailUrl: String? = nil
     var id: String? = nil
 
     var body: some View {
@@ -47,21 +52,21 @@ struct SocialHeaderView: View {
                 }
             }
             WrappingHStack(alignment: .center, lineSpacing: 8) {
-                if (twitterUrl != nil) {
-                    Link(destination: URL(string: twitterUrl!)!) {
+                if (xUrl != nil) {
+                    Link(destination: URL(string: xUrl!)!) {
                         VStack {
-                            Image("ic_twitter")
+                            Image("ic_x")
                                 .renderingMode(.template)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 24, height: 24, alignment: .center)
-                            Text("actionTwitter")
+                            Text("actionX")
                                 .font(.caption)
                         }
                         .frame(width: 64)
                     }
                     .buttonStyle(.bordered)
-                    .accessibility(label: Text(LocalizedStringKey("semanticTwitter \(title)")))
+                    .accessibility(label: Text(LocalizedStringKey("semanticX \(title)")))
                 }
                 if (mastodonUrl != nil) {
                     Link(destination: URL(string: mastodonUrl!)!) {
@@ -78,6 +83,70 @@ struct SocialHeaderView: View {
                     }
                     .buttonStyle(.bordered)
                     .accessibility(label: Text(LocalizedStringKey("semanticMastodon \(title)")))
+                }
+                if (blueskyUrl != nil) {
+                    Link(destination: URL(string: blueskyUrl!)!) {
+                        VStack {
+                            Image("ic_bluesky")
+                                .renderingMode(.template)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 24, height: 24, alignment: .center)
+                            Text("actionBluesky")
+                                .font(.caption)
+                        }
+                        .frame(width: 64)
+                    }
+                    .buttonStyle(.bordered)
+                    .accessibility(label: Text(LocalizedStringKey("semanticBluesky \(title)")))
+                }
+                if (facebookUrl != nil) {
+                    Link(destination: URL(string: facebookUrl!)!) {
+                        VStack {
+                            Image("ic_facebook")
+                                .renderingMode(.template)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 24, height: 24, alignment: .center)
+                            Text("actionFacebook")
+                                .font(.caption)
+                        }
+                        .frame(width: 64)
+                    }
+                    .buttonStyle(.bordered)
+                    .accessibility(label: Text(LocalizedStringKey("semanticFacebook \(title)")))
+                }
+                if (instagramUrl != nil) {
+                    Link(destination: URL(string: instagramUrl!)!) {
+                        VStack {
+                            Image("ic_instagram")
+                                .renderingMode(.template)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 24, height: 24, alignment: .center)
+                            Text("actionInstagram")
+                                .font(.caption)
+                        }
+                        .frame(width: 64)
+                    }
+                    .buttonStyle(.bordered)
+                    .accessibility(label: Text(LocalizedStringKey("semanticInstagram \(title)")))
+                }
+                if (youtubeUrl != nil) {
+                    Link(destination: URL(string: youtubeUrl!)!) {
+                        VStack {
+                            Image("ic_youtube")
+                                .renderingMode(.template)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 24, height: 24, alignment: .center)
+                            Text("actionYouTube")
+                                .font(.caption)
+                        }
+                        .frame(width: 64)
+                    }
+                    .buttonStyle(.bordered)
+                    .accessibility(label: Text(LocalizedStringKey("semanticYouTube \(title)")))
                 }
                 if (linkedInUrl != nil) {
                     Link(destination: URL(string: linkedInUrl!)!) {
@@ -127,6 +196,22 @@ struct SocialHeaderView: View {
                     .buttonStyle(.bordered)
                     .accessibility(label: Text(LocalizedStringKey("semanticWebsite \(title)")))
                 }
+                if (emailUrl != nil) {
+                    Link(destination: URL(string: emailUrl!)!) {
+                        VStack {
+                            Image("mail")
+                                .renderingMode(.template)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 24, height: 24, alignment: .center)
+                            Text("actionEmail")
+                                .font(.caption)
+                        }
+                        .frame(width: 64)
+                    }
+                    .buttonStyle(.bordered)
+                    .accessibility(label: Text(LocalizedStringKey("semanticEmail \(title)")))
+                }
             }
         }
     }
@@ -138,11 +223,11 @@ struct SocialHeaderView_Previews: PreviewProvider {
             title: PartnerItemUi.companion.fake.name,
             pronouns: SpeakerUi.companion.fake.pronouns,
             logoUrl: PartnerItemUi.companion.fake.logoUrl,
-            twitterUrl: PartnerItemUi.companion.fake.twitterUrl,
-            mastodonUrl: SpeakerUi.companion.fake.mastodonUrl,
-            linkedInUrl: PartnerItemUi.companion.fake.linkedinUrl,
-            githubUrl: SpeakerUi.companion.fake.githubUrl,
-            websiteUrl: PartnerItemUi.companion.fake.siteUrl
+            xUrl: PartnerItemUi.companion.fake.socials.first(where: { $0.type == SocialTypeUi.x })?.url,
+            mastodonUrl: PartnerItemUi.companion.fake.socials.first(where: { $0.type == SocialTypeUi.mastodon })?.url,
+            linkedInUrl: PartnerItemUi.companion.fake.socials.first(where: { $0.type == SocialTypeUi.linkedin })?.url,
+            githubUrl: PartnerItemUi.companion.fake.socials.first(where: { $0.type == SocialTypeUi.github })?.url,
+            websiteUrl: PartnerItemUi.companion.fake.socials.first(where: { $0.type == SocialTypeUi.website })?.url
         )
     }
 }

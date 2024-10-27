@@ -30,7 +30,7 @@ struct SpeakerDetail: View {
                         title: speaker.name,
                         pronouns: speaker.pronouns,
                         logoUrl: speaker.url,
-                        twitterUrl: speaker.twitterUrl,
+                        xUrl: speaker.twitterUrl,
                         mastodonUrl: speaker.mastodonUrl,
                         linkedInUrl: speaker.linkedinUrl,
                         githubUrl: speaker.githubUrl,

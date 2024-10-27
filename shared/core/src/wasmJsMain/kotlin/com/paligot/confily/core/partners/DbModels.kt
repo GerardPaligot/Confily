@@ -8,14 +8,8 @@ class PartnerDb(
     val name: String,
     val description: String,
     val eventId: String,
-    val typeId: String,
     val type: String,
     val logoUrl: String,
-    val siteUrl: String?,
-    val twitterUrl: String?,
-    val twitterMessage: String?,
-    val linkedinUrl: String?,
-    val linkedinMessage: String?,
     val formattedAddress: List<String>?,
     val address: String?,
     val latitude: Double?,
@@ -34,6 +28,14 @@ class PartnerAndTypeDb(
     val id: String,
     val partnerId: String,
     val sponsorId: String,
+    val eventId: String
+)
+
+@Serializable
+class PartnerSocialDb(
+    val url: String,
+    val type: String,
+    val partnerId: String,
     val eventId: String
 )
 

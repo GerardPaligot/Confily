@@ -20,9 +20,15 @@ struct PartnerDetailView: View {
                     SocialHeaderView(
                         title: partnerUi.name,
                         logoUrl: partnerUi.logoUrl,
-                        twitterUrl: partnerUi.twitterUrl,
-                        linkedInUrl: partnerUi.linkedinUrl,
-                        websiteUrl: partnerUi.siteUrl
+                        xUrl: partnerUi.socials.first(where: { $0.type == SocialTypeUi.x })?.url,
+                        mastodonUrl: partnerUi.socials.first(where: { $0.type == SocialTypeUi.mastodon })?.url,
+                        blueskyUrl: partnerUi.socials.first(where: { $0.type == SocialTypeUi.bluesky })?.url,
+                        facebookUrl: partnerUi.socials.first(where: { $0.type == SocialTypeUi.facebook })?.url,
+                        instagramUrl: partnerUi.socials.first(where: { $0.type == SocialTypeUi.instagram })?.url,
+                        youtubeUrl: partnerUi.socials.first(where: { $0.type == SocialTypeUi.youtube })?.url,
+                        linkedInUrl: partnerUi.socials.first(where: { $0.type == SocialTypeUi.linkedin })?.url,
+                        websiteUrl: partnerUi.socials.first(where: { $0.type == SocialTypeUi.website })?.url,
+                        emailUrl: partnerUi.socials.first(where: { $0.type == SocialTypeUi.email })?.url
                     )
                     Spacer()
                 }

@@ -13,7 +13,7 @@ private fun SocialsSectionPreview() {
             pronouns = "Him/He",
             subtitle = null,
             onLinkClicked = {},
-            twitterUrl = "",
+            xUrl = "",
             githubUrl = "",
             linkedinUrl = "",
             websiteUrl = ""

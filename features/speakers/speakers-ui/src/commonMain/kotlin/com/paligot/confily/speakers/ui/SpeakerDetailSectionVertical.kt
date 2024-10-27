@@ -42,7 +42,7 @@ fun SpeakerDetailSectionVertical(
             subtitle = speaker.activity,
             onLinkClicked = onLinkClicked,
             isLoading = isLoading,
-            twitterUrl = speaker.twitterUrl,
+            xUrl = speaker.twitterUrl,
             mastodonUrl = speaker.mastodonUrl,
             githubUrl = speaker.githubUrl,
             linkedinUrl = speaker.linkedinUrl,

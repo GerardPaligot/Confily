@@ -24,11 +24,16 @@ fun SocialsSection(
     onLinkClicked: (url: String) -> Unit,
     modifier: Modifier = Modifier,
     isLoading: Boolean = false,
-    twitterUrl: String? = null,
+    xUrl: String? = null,
     mastodonUrl: String? = null,
+    blueskyUrl: String? = null,
+    facebookUrl: String? = null,
+    instagramUrl: String? = null,
+    youtubeUrl: String? = null,
     githubUrl: String? = null,
     linkedinUrl: String? = null,
     websiteUrl: String? = null,
+    emailUrl: String? = null,
     titleColor: Color = SocialsSectionDefaults.titleColor,
     pronounsColor: Color = SocialsSectionDefaults.pronounsColor,
     subTitleColor: Color = SocialsSectionDefaults.subTitleColor,
@@ -65,7 +70,7 @@ fun SocialsSection(
         }
         Spacer(modifier = Modifier.height(SocialsSectionTokens.BetweenTitleAndSocialsSpacing.toDp()))
         val hasUrls =
-            twitterUrl != null || githubUrl != null || linkedinUrl != null || websiteUrl != null
+            xUrl != null || githubUrl != null || linkedinUrl != null || websiteUrl != null
         if (hasUrls) {
             FlowRow(
                 horizontalArrangement = Arrangement.spacedBy(
@@ -75,10 +80,10 @@ fun SocialsSection(
                     SocialsSectionTokens.BetweenSocialIconsSpacing.toDp()
                 )
             ) {
-                twitterUrl?.let {
-                    SocialIcons.Twitter(
+                xUrl?.let {
+                    SocialIcons.X(
                         text = title,
-                        onClick = { twitterUrl.let(onLinkClicked) },
+                        onClick = { xUrl.let(onLinkClicked) },
                         modifier = Modifier.placeholder(visible = isLoading)
                     )
                 }
@@ -86,6 +91,34 @@ fun SocialsSection(
                     SocialIcons.Mastodon(
                         text = title,
                         onClick = { mastodonUrl.let(onLinkClicked) },
+                        modifier = Modifier.placeholder(visible = isLoading)
+                    )
+                }
+                blueskyUrl?.let {
+                    SocialIcons.Bluesky(
+                        text = title,
+                        onClick = { blueskyUrl.let(onLinkClicked) },
+                        modifier = Modifier.placeholder(visible = isLoading)
+                    )
+                }
+                facebookUrl?.let {
+                    SocialIcons.Facebook(
+                        text = title,
+                        onClick = { facebookUrl.let(onLinkClicked) },
+                        modifier = Modifier.placeholder(visible = isLoading)
+                    )
+                }
+                instagramUrl?.let {
+                    SocialIcons.Instagram(
+                        text = title,
+                        onClick = { instagramUrl.let(onLinkClicked) },
+                        modifier = Modifier.placeholder(visible = isLoading)
+                    )
+                }
+                youtubeUrl?.let {
+                    SocialIcons.YouTube(
+                        text = title,
+                        onClick = { youtubeUrl.let(onLinkClicked) },
                         modifier = Modifier.placeholder(visible = isLoading)
                     )
                 }
@@ -107,6 +140,13 @@ fun SocialsSection(
                     SocialIcons.Website(
                         text = title,
                         onClick = { websiteUrl.let(onLinkClicked) },
+                        modifier = Modifier.placeholder(visible = isLoading)
+                    )
+                }
+                emailUrl?.let {
+                    SocialIcons.Email(
+                        text = title,
+                        onClick = { emailUrl.let(onLinkClicked) },
                         modifier = Modifier.placeholder(visible = isLoading)
                     )
                 }

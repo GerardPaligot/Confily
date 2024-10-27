@@ -12,7 +12,7 @@ import com.paligot.confily.style.theme.ConfilyTheme
 private fun SocialItemPreview() {
     ConfilyTheme {
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            SocialIcons.Twitter(text = "", onClick = {})
+            SocialIcons.X(text = "", onClick = {})
             SocialIcons.Mastodon(text = "", onClick = {})
             SocialIcons.GitHub(text = "", onClick = {})
             SocialIcons.LinkedIn(text = "", onClick = {})

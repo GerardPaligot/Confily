@@ -106,6 +106,9 @@ class AgendaDaoSettings(
             partner.types.forEach { type ->
                 partnerQueries.insertPartner(partner.convertToDb(eventId, type, hasSvgSupport))
             }
+            partner.socials.forEach { social ->
+                partnerQueries.insertPartnerSocial(social.convertToDb(eventId, partner.id))
+            }
             partner.jobs.forEach { job ->
                 partnerQueries.insertJob(job.convertToDb(eventId, partner.id))
             }

@@ -44,11 +44,18 @@ class PartnerDaoSQLDelight(
             }
     }
 
-    override fun fetchPartner(eventId: String, id: String): Flow<PartnerItemUi> =
-        db.partnerQueries.selectPartner(eventId, id, partnerMapper).asFlow().mapToOne(dispatcher)
-            .combine(
-                db.partnerQueries.selectJobs(eventId, id, jobsMapper).asFlow().mapToList(dispatcher)
-            ) { partner, jobs ->
-                partner.copy(jobs = jobs.toImmutableList())
-            }
+    override fun fetchPartner(eventId: String, id: String): Flow<PartnerItemUi> = combine(
+        flow = db.partnerQueries
+            .selectPartner(eventId, id, partnerMapper).asFlow().mapToOne(dispatcher),
+        flow2 = db.partnerQueries.selectJobs(eventId, id, jobsMapper)
+            .asFlow().mapToList(dispatcher),
+        flow3 = db.partnerQueries.selectSocials(eventId, id, socialMapper)
+            .asFlow().mapToList(dispatcher),
+        transform = { partner, jobs, socials ->
+            partner.copy(
+                jobs = jobs.toImmutableList(),
+                socials = socials.toImmutableList()
+            )
+        }
+    )
 }

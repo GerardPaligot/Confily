@@ -45,7 +45,7 @@ fun Event(
                 onLinkClicked = onLinkClicked,
                 modifier = Modifier.padding(horizontal = 16.dp),
                 isLoading = isLoading,
-                twitterUrl = event.eventInfo.twitterUrl,
+                xUrl = event.eventInfo.twitterUrl,
                 linkedinUrl = event.eventInfo.linkedinUrl
             )
         }

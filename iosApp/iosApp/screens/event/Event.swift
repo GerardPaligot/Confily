@@ -64,7 +64,7 @@ struct Event: View {
                 Link("actionFaq", destination: URL(string: event.eventInfo.faqLink)!)
                 Link("actionCoc", destination: URL(string: event.eventInfo.codeOfConductLink)!)
                 if (event.eventInfo.twitterUrl != nil) {
-                    Link("actionTwitter", destination: URL(string: event.eventInfo.twitterUrl!)!)
+                    Link("actionX", destination: URL(string: event.eventInfo.twitterUrl!)!)
                 }
                 if (event.eventInfo.linkedinUrl != nil) {
                     Link("actionLinkedin", destination: URL(string: event.eventInfo.linkedinUrl!)!)

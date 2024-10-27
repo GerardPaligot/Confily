@@ -5,7 +5,6 @@ import com.paligot.confily.models.AgendaV4
 import com.paligot.confily.models.Attendee
 import com.paligot.confily.models.EventList
 import com.paligot.confily.models.EventV3
-import com.paligot.confily.models.PartnerV2
 import com.paligot.confily.models.PartnersActivities
 import com.paligot.confily.models.QuestionAndResponse
 import io.ktor.client.HttpClient
@@ -47,9 +46,6 @@ class ConferenceApi(
         client.get("$baseUrl/events/$eventId/qanda") {
             headers["Accept-Language"] = acceptLanguage
         }.body()
-
-    suspend fun fetchPartners(eventId: String): Map<String, List<PartnerV2>> =
-        client.get("$baseUrl/events/$eventId/partners").body()
 
     suspend fun fetchPartnersActivities(eventId: String): PartnersActivities =
         client.get("$baseUrl/events/$eventId/partners/activities").body()

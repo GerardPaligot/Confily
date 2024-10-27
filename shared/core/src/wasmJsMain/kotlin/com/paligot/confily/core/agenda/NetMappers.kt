@@ -8,6 +8,7 @@ import com.paligot.confily.core.events.QAndADb
 import com.paligot.confily.core.extensions.format
 import com.paligot.confily.core.partners.JobDb
 import com.paligot.confily.core.partners.PartnerDb
+import com.paligot.confily.core.partners.PartnerSocialDb
 import com.paligot.confily.core.schedules.CategoryDb
 import com.paligot.confily.core.schedules.EventSessionDb
 import com.paligot.confily.core.schedules.FormatDb
@@ -26,7 +27,7 @@ import com.paligot.confily.models.QuestionAndResponse
 import com.paligot.confily.models.QuestionAndResponseAction
 import com.paligot.confily.models.ScheduleItemV4
 import com.paligot.confily.models.Session
-import com.paligot.confily.models.SocialType
+import com.paligot.confily.models.SocialItem
 import com.paligot.confily.models.Speaker
 import kotlinx.datetime.toLocalDateTime
 import kotlin.reflect.KClass
@@ -174,7 +175,6 @@ fun PartnerV3.convertToDb(
     name = name,
     description = description,
     eventId = eventId,
-    typeId = type,
     type = type,
     logoUrl = if (hasSvgSupport) {
         media.svg
@@ -183,15 +183,17 @@ fun PartnerV3.convertToDb(
     } else {
         media.svg
     },
-    siteUrl = this.socials.find { it.type == SocialType.Website }?.url,
-    twitterUrl = this.socials.find { it.type == SocialType.X }?.url,
-    twitterMessage = null,
-    linkedinUrl = this.socials.find { it.type == SocialType.LinkedIn }?.url,
-    linkedinMessage = null,
     formattedAddress = address?.formatted,
     address = address?.address,
     latitude = address?.lat,
     longitude = address?.lng
+)
+
+fun SocialItem.convertToDb(eventId: String, partnerId: String): PartnerSocialDb = PartnerSocialDb(
+    url = url,
+    type = type.name,
+    partnerId = partnerId,
+    eventId = eventId
 )
 
 fun Job.convertToDb(eventId: String, partnerId: String): JobDb = JobDb(
