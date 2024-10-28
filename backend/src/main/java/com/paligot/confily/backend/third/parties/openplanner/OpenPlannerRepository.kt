@@ -17,6 +17,8 @@ import com.paligot.confily.backend.sessions.SessionDao
 import com.paligot.confily.backend.sessions.SessionDb
 import com.paligot.confily.backend.speakers.SpeakerDao
 import com.paligot.confily.backend.speakers.SpeakerDb
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
@@ -31,7 +33,8 @@ class OpenPlannerRepository(
     private val categoryDao: CategoryDao,
     private val formatDao: FormatDao,
     private val scheduleItemDao: ScheduleItemDao,
-    private val qAndADao: QAndADao
+    private val qAndADao: QAndADao,
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
     suspend fun update(eventId: String, apiKey: String) = coroutineScope {
         val event = eventDao.getVerified(eventId, apiKey)
@@ -45,30 +48,32 @@ class OpenPlannerRepository(
                 acc
             }
             .mapIndexed { index, faqItemOP ->
-                async { createOrMergeQAndA(eventId, index, event.defaultLanguage, faqItemOP) }
+                async(dispatcher) {
+                    createOrMergeQAndA(eventId, index, event.defaultLanguage, faqItemOP)
+                }
             }
             .awaitAll()
         val categories = openPlanner.event.categories
-            .map { async { createOrMergeCategory(eventId, it) } }
+            .map { async(dispatcher) { createOrMergeCategory(eventId, it) } }
             .awaitAll()
         val formats = openPlanner.event.formats
-            .map { async { createOrMergeFormat(eventId, it) } }
+            .map { async(dispatcher) { createOrMergeFormat(eventId, it) } }
             .awaitAll()
         val allSpeakers = openPlanner.sessions
             .map { it.speakerIds }.flatten()
         val speakers = openPlanner.speakers
             .filter { allSpeakers.contains(it.id) }
-            .map { async { createOrMergeSpeaker(eventId, it) } }
+            .map { async(dispatcher) { createOrMergeSpeaker(eventId, it) } }
             .awaitAll()
         val trackIds = openPlanner.event.tracks.map { it.id }
         openPlanner.sessions
-            .map { async { createOrMergeTalks(event, openPlanner.event.tracks, it) } }
+            .map { async(dispatcher) { createOrMergeTalks(event, openPlanner.event.tracks, it) } }
             .awaitAll()
         val schedules = openPlanner.sessions
             .filter { it.trackId != null && it.dateStart != null && it.dateEnd != null }
             .groupBy { it.dateStart }
             .map {
-                async {
+                async(dispatcher) {
                     it.value
                         .sortedWith { sessionA, sessionB ->
                             trackIds.indexOf(sessionA.trackId)

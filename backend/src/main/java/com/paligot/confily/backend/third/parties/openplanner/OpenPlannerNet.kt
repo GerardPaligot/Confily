@@ -50,7 +50,7 @@ data class SpeakerOP(
     val name: String,
     val bio: String?,
     val photoUrl: String?,
-    val email: String,
+    val email: String?,
     val phone: String?,
     val company: String?,
     val pronouns: String? = null,
@@ -86,10 +86,10 @@ data class SessionOP(
 data class FaqSectionOP(
     val id: String,
     val name: String,
-    val privateId: String,
-    val private: Boolean,
+    val privateId: String? = null,
+    val private: Boolean? = null,
     val order: Int,
-    val share: Boolean,
+    val share: Boolean? = null,
     val items: List<FaqItemOP>
 )
 

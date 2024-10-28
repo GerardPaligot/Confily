@@ -23,10 +23,10 @@ inline fun <reified T, reified R> CollectionReference.map(transform: (T) -> R): 
     listDocuments().map { transform(it.getDocument<T>()!!) }
 
 fun CollectionReference.diffRefs(ids: List<String>): List<DocumentReference> =
-    listDocuments().filter { it.id in ids }
+    listDocuments().filter { it.id !in ids }
 
 inline fun <reified T : Any> CollectionReference.diff(ids: List<String>): List<T> =
-    listDocuments().filter { it.id in ids }.getDocuments<T>()
+    listDocuments().filter { it.id !in ids }.getDocuments<T>()
 
 inline fun <reified T : Any> CollectionReference.query(vararg ops: WhereOperation): List<T> =
     query(T::class, *ops)
