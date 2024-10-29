@@ -5,6 +5,8 @@ import com.paligot.confily.backend.NotFoundException
 import com.paligot.confily.backend.activities.ActivityDao
 import com.paligot.confily.backend.activities.convertToModel
 import com.paligot.confily.backend.events.EventDao
+import com.paligot.confily.backend.internals.CommonApi
+import com.paligot.confily.backend.internals.helpers.image.Png
 import com.paligot.confily.backend.internals.helpers.image.TranscoderImage
 import com.paligot.confily.backend.jobs.JobDao
 import com.paligot.confily.backend.third.parties.geocode.GeocodeApi
@@ -22,6 +24,7 @@ import kotlinx.coroutines.coroutineScope
 @Suppress("LongParameterList")
 class PartnerRepository(
     private val geocodeApi: GeocodeApi,
+    private val commonApi: CommonApi,
     private val eventDao: EventDao,
     private val partnerDao: PartnerDao,
     private val activityDao: ActivityDao,
@@ -77,11 +80,20 @@ class PartnerRepository(
                 ?: throw NotAcceptableException("Your address information isn't found")
             val partnerDb = partnerInput.convertToDb(addressDb = addressDb)
             val id = partnerDao.createOrUpdate(eventId, partnerDb)
-            val pngs = listOf(
-                async { imageTranscoder.convertSvgToPng(partnerInput.logoUrl, SIZE_250) },
-                async { imageTranscoder.convertSvgToPng(partnerInput.logoUrl, SIZE_500) },
-                async { imageTranscoder.convertSvgToPng(partnerInput.logoUrl, SIZE_1000) }
-            ).awaitAll()
+            val pngs = if (partnerInput.logoUrl.endsWith(".png")) {
+                val content = commonApi.fetchByteArray(partnerInput.logoUrl)
+                listOf(
+                    Png(content = content, size = 250),
+                    Png(content = content, size = 500),
+                    Png(content = content, size = 1000)
+                )
+            } else {
+                listOf(
+                    async { imageTranscoder.convertSvgToPng(partnerInput.logoUrl, SIZE_250) },
+                    async { imageTranscoder.convertSvgToPng(partnerInput.logoUrl, SIZE_500) },
+                    async { imageTranscoder.convertSvgToPng(partnerInput.logoUrl, SIZE_1000) }
+                ).awaitAll()
+            }
             val uploads = partnerDao.uploadPartnerLogos(eventId, id, pngs)
             partnerDao.createOrUpdate(
                 eventId,
