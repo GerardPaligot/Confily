@@ -23,10 +23,12 @@ class ActivityRepository(
         if (activityStartDate < eventStartDate) {
             throw IllegalArgumentException("Activity start date must be after event start date")
         }
-        val eventEndDate = LocalDateTime.parse(event.endDate.dropLast(1))
-        val activityEndDate = LocalDateTime.parse(activity.endTime)
-        if (activityEndDate > eventEndDate) {
-            throw IllegalArgumentException("Activity end date must be before event end date")
+        activity.endTime?.let { endTime ->
+            val eventEndDate = LocalDateTime.parse(event.endDate.dropLast(1))
+            val activityEndDate = LocalDateTime.parse(endTime)
+            if (activityEndDate > eventEndDate) {
+                throw IllegalArgumentException("Activity end date must be before event end date")
+            }
         }
         activityDao.createOrUpdate(eventId, activity.convertToDb())
         eventDao.updateUpdatedAt(event)

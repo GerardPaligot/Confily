@@ -10,7 +10,7 @@ data class Activity(
     @SerialName("start_time")
     val startTime: String,
     @SerialName("end_time")
-    val endTime: String,
+    val endTime: String?,
     @SerialName("partner_id")
     val partnerId: String
 )
