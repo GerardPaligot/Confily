@@ -19,7 +19,7 @@ import com.paligot.confily.schedules.semantics.SchedulesSemantics
 import com.paligot.confily.schedules.ui.talks.MediumScheduleItem
 import com.paligot.confily.schedules.ui.talks.NoFavoriteTalks
 import com.paligot.confily.schedules.ui.talks.SmallScheduleItem
-import com.paligot.confily.schedules.ui.talks.Time
+import com.paligot.confily.style.schedules.time.Time
 import com.paligot.confily.style.components.placeholder.placeholder
 import com.paligot.confily.style.schedules.findTimeImageVector
 import com.paligot.confily.style.schedules.pause.MediumPauseItem
