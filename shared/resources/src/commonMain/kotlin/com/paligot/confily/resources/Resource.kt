@@ -40,6 +40,7 @@ import confily.shared.resources.generated.resources.screen_menus
 import confily.shared.resources.generated.resources.screen_my_profile
 import confily.shared.resources.generated.resources.screen_networking
 import confily.shared.resources.generated.resources.screen_partners
+import confily.shared.resources.generated.resources.screen_partners_activities
 import confily.shared.resources.generated.resources.screen_partners_detail
 import confily.shared.resources.generated.resources.screen_profile
 import confily.shared.resources.generated.resources.screen_qanda
@@ -347,6 +348,9 @@ val Resource.string.screen_partners: StringResource
 @OptIn(ExperimentalResourceApi::class)
 val Resource.string.screen_partners_detail: StringResource
     get() = Res.string.screen_partners_detail
+
+val Resource.string.screen_partners_activities: StringResource
+    get() = Res.string.screen_partners_activities
 
 @OptIn(ExperimentalResourceApi::class)
 val Resource.string.screen_profile: StringResource

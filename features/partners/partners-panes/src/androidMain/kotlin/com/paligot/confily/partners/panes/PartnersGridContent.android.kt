@@ -9,9 +9,9 @@ import com.paligot.confily.style.theme.ConfilyTheme
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Preview
 @Composable
-private fun PartnersGridScreenPreview() {
+private fun PartnersGridContentPreview() {
     ConfilyTheme {
-        PartnersGridScreen(
+        PartnersGridContent(
             partners = PartnerGroupsUi.fake,
             onPartnerClick = {}
         )

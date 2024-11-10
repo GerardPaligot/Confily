@@ -1,6 +1,5 @@
 package com.paligot.confily.schedules.panes
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.LazyGridState
@@ -11,6 +10,7 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.paligot.confily.models.ui.AgendaUi
 import com.paligot.confily.models.ui.TalkItemUi
 import com.paligot.confily.navigation.ActionIds
 import com.paligot.confily.resources.Resource
@@ -21,10 +21,9 @@ import com.paligot.confily.style.theme.actions.TopActionsUi
 import kotlinx.collections.immutable.ImmutableList
 import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ScheduleGridPager(
-    agendas: ImmutableList<com.paligot.confily.models.ui.AgendaUi>,
+    agendas: ImmutableList<AgendaUi>,
     onTalkClicked: (id: String) -> Unit,
     onEventSessionClicked: (id: String) -> Unit,
     onFilterClicked: () -> Unit,

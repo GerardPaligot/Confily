@@ -32,10 +32,12 @@ kotlin {
                 implementation(projects.style.components.placeholder)
                 implementation(projects.style.events)
                 implementation(projects.style.partners)
+                implementation(projects.style.schedules)
                 implementation(projects.style.theme)
 
                 implementation(compose.material3)
                 implementation(compose.materialIconsExtended)
+                implementation(compose.components.uiToolingPreview)
 
                 implementation(libs.jetbrains.kotlinx.collections)
             }

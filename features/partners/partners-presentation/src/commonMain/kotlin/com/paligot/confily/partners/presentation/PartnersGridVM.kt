@@ -6,7 +6,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import com.paligot.confily.partners.panes.PartnersGridScreen
+import com.paligot.confily.partners.panes.PartnersActivitiesPager
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.text_error
 import org.jetbrains.compose.resources.stringResource
@@ -20,20 +20,22 @@ fun PartnersGridVM(
     viewModel: PartnersViewModel = koinViewModel()
 ) {
     when (val uiState = viewModel.uiState.collectAsState().value) {
-        is PartnersUiState.Loading -> PartnersGridScreen(
-            partners = uiState.partners,
-            state = state,
+        is PartnersUiState.Loading -> PartnersActivitiesPager(
+            uiModel = uiState.uiModel,
             isLoading = true,
             onPartnerClick = {},
-            modifier = modifier
+            modifier = modifier,
+            partnersState = state
         )
 
         is PartnersUiState.Failure -> Text(text = stringResource(Resource.string.text_error))
-        is PartnersUiState.Success -> PartnersGridScreen(
-            partners = uiState.partners,
-            state = state,
+        is PartnersUiState.Success -> PartnersActivitiesPager(
+            uiModel = uiState.uiModel,
+            tabActionsUi = uiState.tabActionsUi,
+            isLoading = false,
             onPartnerClick = onPartnerClick,
-            modifier = modifier
+            modifier = modifier,
+            partnersState = state
         )
     }
 }

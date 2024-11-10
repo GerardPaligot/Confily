@@ -9,6 +9,7 @@ sealed class Screen(val route: String) {
     data object Schedule : Screen(route = "schedules/{scheduleId}") {
         fun route(scheduleId: String) = "schedules/$scheduleId"
     }
+
     data object ScheduleEvent : Screen(route = "schedules/{scheduleId}/event") {
         fun route(scheduleId: String) = "schedules/$scheduleId/event"
     }
@@ -26,6 +27,7 @@ sealed class Screen(val route: String) {
         fun route(partnerId: String) = "partners/$partnerId"
     }
 
+    data object PartnerActivities : Screen(route = "partners/activities")
     data object Event : Screen(route = "event")
     data object Menus : Screen(route = "menus")
     data object QAndA : Screen(route = "qanda")

@@ -15,6 +15,7 @@
     <string name="screen_coc">Code de conduite</string>
     <string name="screen_partners">Partenaires</string>
     <string name="screen_partners_detail">Détail du partenaire</string>
+    <string name="screen_partners_activities">Activités</string>
     <string name="screen_schedule_detail">A propos du talk</string>
     <string name="screen_schedule_detail_event_session">A propos de la session</string>
     <string name="screen_profile">Création de mon profil</string>
