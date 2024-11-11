@@ -6,6 +6,9 @@ import com.paligot.confily.models.EventV3
 import com.paligot.confily.models.PartnersActivities
 import com.paligot.confily.models.QuestionAndResponse
 import com.paligot.confily.models.Session
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.format
 
 class AgendaDaoSQLDelight(
     private val db: ConfilyDatabase,
@@ -86,6 +89,8 @@ class AgendaDaoSQLDelight(
             latitude = eventDb.latitude,
             longitude = eventDb.longitude,
             date = eventDb.date,
+            start_date = eventDb.start_date,
+            end_date = eventDb.end_date,
             coc = eventDb.coc,
             openfeedback_project_id = eventDb.openfeedback_project_id,
             contact_email = eventDb.contact_email,
@@ -188,6 +193,17 @@ class AgendaDaoSQLDelight(
                     propulsed = job.propulsed
                 )
             }
+        }
+        partners.activities.forEach {
+            db.partnerQueries.insertPartnerActivity(
+                id = it.id,
+                name = it.name,
+                date = LocalDateTime.parse(it.startTime).date.format(LocalDate.Formats.ISO),
+                start_time = it.startTime,
+                end_time = it.endTime,
+                partner_id = it.partnerId,
+                event_id = eventId
+            )
         }
     }
 }

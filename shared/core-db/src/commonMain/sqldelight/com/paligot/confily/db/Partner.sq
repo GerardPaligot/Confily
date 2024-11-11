@@ -40,6 +40,18 @@ FOREIGN KEY (partner_id) REFERENCES Partner(id),
 FOREIGN KEY (event_id) REFERENCES Event(id)
 );
 
+CREATE TABLE PartnerActivity (
+id TEXT NOT NULL PRIMARY KEY,
+name TEXT NOT NULL,
+date TEXT NOT NULL,
+start_time TEXT NOT NULL,
+end_time TEXT,
+partner_id TEXT NOT NULL,
+event_id TEXT NOT NULL,
+FOREIGN KEY (partner_id) REFERENCES Partner(id),
+FOREIGN KEY (event_id) REFERENCES Event(id)
+);
+
 CREATE TABLE Job (
 url TEXT NOT NULL PRIMARY KEY,
 title TEXT NOT NULL,
@@ -68,10 +80,16 @@ id, name, description, event_id, logo_url, formatted_address, address, latitude,
 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
 
 insertPartnerAndType:
-INSERT OR REPLACE INTO PartnerAndType(id, partner_id, sponsor_id, event_id) VALUES (?, ?, ?, ?);
+INSERT OR REPLACE INTO PartnerAndType(id, partner_id, sponsor_id, event_id)
+VALUES (?, ?, ?, ?);
 
 insertPartnerSocial:
-INSERT OR REPLACE INTO PartnerSocial(url, type,partner_id, event_id) VALUES (?, ?, ?, ?);
+INSERT OR REPLACE INTO PartnerSocial(url, type,partner_id, event_id)
+VALUES (?, ?, ?, ?);
+
+insertPartnerActivity:
+INSERT OR REPLACE INTO PartnerActivity(id, name, date, start_time, end_time, partner_id, event_id)
+VALUES (?, ?, ?, ?, ?, ?, ?);
 
 insertJob:
 INSERT OR REPLACE INTO Job(
@@ -90,13 +108,33 @@ INNER JOIN PartnerType ON PartnerAndType.sponsor_id = PartnerType.name
 WHERE PartnerType.name == ? AND PartnerAndType.event_id == ?
 ORDER BY Partner.name ASC;
 
+selectPartner:
+SELECT id, name, description, logo_url, formatted_address, address, latitude, longitude
+FROM Partner
+WHERE event_id == ? AND id == ?
+ORDER BY name ASC;
+
 selectSocials:
 SELECT PartnerSocial.url, PartnerSocial.type
 FROM PartnerSocial
 WHERE PartnerSocial.event_id == ? AND PartnerSocial.partner_id == ?;
 
-selectPartner:
-SELECT id, name, description, logo_url, formatted_address, address, latitude, longitude FROM Partner WHERE event_id == ? AND id == ? ORDER BY name ASC;
+selectPartnerActivities:
+SELECT PartnerActivity.name, PartnerActivity.start_time, PartnerActivity.end_time, Partner.name
+FROM PartnerActivity
+INNER JOIN Partner ON PartnerActivity.partner_id = Partner.id
+WHERE PartnerActivity.event_id == ? AND PartnerActivity.date = ?
+ORDER BY PartnerActivity.start_time ASC;
+
+selectPartnerActivitiesByPartner:
+SELECT PartnerActivity.name, PartnerActivity.start_time, PartnerActivity.end_time, Partner.name
+FROM PartnerActivity
+INNER JOIN Partner ON PartnerActivity.partner_id = Partner.id
+WHERE PartnerActivity.event_id == ? AND PartnerActivity.partner_id == ?
+ORDER BY PartnerActivity.start_time ASC;
 
 selectJobs:
-SELECT url, partner_id, event_id, title, company_name, location, salary_min, salary_max, salary_recurrence, requirements, publish_date, propulsed FROM Job WHERE event_id == ? AND partner_id == ? ORDER BY publish_date ASC;
+SELECT url, partner_id, event_id, title, company_name, location, salary_min, salary_max, salary_recurrence, requirements, publish_date, propulsed
+FROM Job
+WHERE event_id == ? AND partner_id == ?
+ORDER BY publish_date ASC;

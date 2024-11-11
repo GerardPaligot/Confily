@@ -19,7 +19,7 @@ sealed class PartnersUiState {
 
 class PartnersViewModel(repository: PartnerRepository) : ViewModel() {
     val uiState = repository.partners()
-        .map { PartnersUiState.Success(it.toModelUi()) }
+        .map { PartnersUiState.Success(it.partners.toModelUi()) }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(),

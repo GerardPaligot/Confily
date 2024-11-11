@@ -14,7 +14,7 @@ import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 
 internal val eventMapper = { _: String, name: String, formattedAddress: List<String>,
-    address: String, latitude: Double, longitude: Double, date: String,
+    address: String, latitude: Double, longitude: Double, date: String, _: String, _: String,
     _: String, _: String, _: String?, twitter: String?,
     twitterUrl: String?, linkedin: String?, linkedinUrl: String?,
     faqUrl: String, cocUrl: String, _: Long ->

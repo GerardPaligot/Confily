@@ -1,5 +1,7 @@
 package com.paligot.confily.core.partners
 
+import com.paligot.confily.core.extensions.formatHoursMinutes
+import com.paligot.confily.models.ui.ActivityUi
 import com.paligot.confily.models.ui.JobUi
 import com.paligot.confily.models.ui.PartnerItemUi
 import com.paligot.confily.models.ui.SalaryUi
@@ -7,6 +9,7 @@ import com.paligot.confily.models.ui.SocialTypeUi
 import com.paligot.confily.models.ui.SocialUi
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
+import kotlinx.datetime.LocalDateTime
 
 internal val partnerMapper = { id: String, name: String, description: String, logoUrl: String,
     formattedAddress: List<String>?, address: String?,
@@ -22,6 +25,14 @@ internal val partnerMapper = { id: String, name: String, description: String, lo
         longitude = longitude,
         socials = persistentListOf(),
         jobs = persistentListOf()
+    )
+}
+
+internal val activityMapper = { name: String, startTime: String, _: String?, partnerName: String ->
+    ActivityUi(
+        activityName = name,
+        partnerName = partnerName,
+        startTime = LocalDateTime.parse(startTime).formatHoursMinutes()
     )
 }
 
