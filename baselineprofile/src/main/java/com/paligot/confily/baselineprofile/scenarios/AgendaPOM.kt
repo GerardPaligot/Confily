@@ -8,7 +8,7 @@ import com.paligot.confily.baselineprofile.waitForObject
 
 class AgendaPOM(private val device: UiDevice) {
     fun waitDataFetched() {
-        device.waitForObject(DevfestScenario.Partners.tabName, 20.seconds)
+        device.waitForObject(DevfestScenario.Partners.tabName, 40.seconds)
     }
 
     fun open() {

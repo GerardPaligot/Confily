@@ -9,17 +9,17 @@ object DevfestScenario {
     val back = By.desc("Back")
     object Event {
         val pastEvents = By.text("Past events")
-        val name = By.text("Devfest Lille 2023")
+        val name = By.text("Droidcon London")
     }
     object Agenda {
         val tabName = By.desc("Agenda")
         val filterAction = By.desc("Open filter screen")
-        val first = By.desc("Keynote d'ouverture  in Grand Théâtre room during 50 minutes in category Discovery for level Beginner")
+        val first = By.desc("Project Sparkles: how Compose is changing Android Studio with Sebastiano Poggi, Chris Sinco as speaker in Hangouts room during 45 minutes in category Jetpack Compose for level Beginner")
         val list = By.res(SchedulesSemantics.list)
     }
     object Speakers {
         val tabName = By.desc("Speakers")
-        val first = By.text("Thanh Lan DOUBLIER")
+        val first = By.text("Alex Vanyo")
         val list = By.res(SpeakersSemantics.list)
     }
     object Networking {
@@ -27,7 +27,7 @@ object DevfestScenario {
     }
     object Partners {
         val tabName = By.desc("Partners")
-        val first = By.desc("SFEIR")
+        val first = By.desc("appdome")
         val detailTitle = By.text("Partner detail")
         val list = By.res(PartnersSemantics.list)
     }

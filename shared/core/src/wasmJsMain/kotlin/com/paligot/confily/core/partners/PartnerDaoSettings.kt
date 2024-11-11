@@ -1,8 +1,11 @@
 package com.paligot.confily.core.partners
 
+import com.paligot.confily.models.ui.ActivityUi
 import com.paligot.confily.models.ui.PartnerGroupUi
 import com.paligot.confily.models.ui.PartnerGroupsUi
 import com.paligot.confily.models.ui.PartnerItemUi
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
@@ -46,4 +49,15 @@ class PartnerDaoSettings(
             )
         }
     )
+
+    override fun fetchActivitiesByDay(eventId: String): Flow<ImmutableMap<String, ImmutableList<ActivityUi>>> {
+        TODO("Not yet implemented")
+    }
+
+    override fun fetchActivitiesByPartner(
+        eventId: String,
+        partnerId: String
+    ): Flow<ImmutableList<ActivityUi>> {
+        TODO("Not yet implemented")
+    }
 }
