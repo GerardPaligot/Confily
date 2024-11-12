@@ -10,7 +10,7 @@ import SharedDi
 import KMPNativeCoroutinesCore
 
 extension PartnerRepository {
-    func partners() -> NativeFlow<PartnerGroupsUi, Error, KotlinUnit> {
+    func partners() -> NativeFlow<PartnersActivitiesUi, Error, KotlinUnit> {
         PartnerRepositoryNativeKt.partners(self)
     }
 

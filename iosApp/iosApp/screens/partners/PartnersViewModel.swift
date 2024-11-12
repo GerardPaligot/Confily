@@ -29,7 +29,7 @@ class PartnersViewModel: ObservableObject {
             do {
                 let stream = asyncSequence(for: repository.partners())
                 for try await partners in stream {
-                    self.uiState = PartnersUiState.success(partners)
+                    self.uiState = PartnersUiState.success(partners.partners)
                 }
             } catch {
                 self.uiState = PartnersUiState.failure
