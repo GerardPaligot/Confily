@@ -18,7 +18,7 @@ enum EventUiState {
 
 @MainActor
 class EventViewModel: ObservableObject {
-    private let eventRepository: EventRepository = RepositoryHelper().eventRepository
+    private let interactor: EventInteractor = InteractorHelper().eventInteractor
 
     @Published var uiState: EventUiState = EventUiState.loading
 
@@ -27,11 +27,16 @@ class EventViewModel: ObservableObject {
     func fetchEvent() {
         eventTask = Task {
             do {
-                let stream = asyncSequence(for: eventRepository.event())
+                let stream = asyncSequence(for: interactor.event())
                 for try await event in stream {
-                    self.uiState = .success(event)
+                    if (event != nil) {
+                        self.uiState = .success(event!)
+                    } else {
+                        print("Nullpointer")
+                    }
                 }
             } catch {
+                print(error)
                 self.uiState = .failure
             }
         }
@@ -42,7 +47,7 @@ class EventViewModel: ObservableObject {
     }
 
     func saveTicket(barcode: String) async {
-        if let error = await asyncError(for: eventRepository.insertOrUpdateTicket(barcode: barcode)) {
+        if (await asyncError(for: interactor.insertOrUpdateTicket(barcode: barcode))) != nil {
             // ignore
         }
     }

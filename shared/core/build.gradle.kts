@@ -55,9 +55,9 @@ kotlin {
                 implementation(compose.runtime)
                 implementation(compose.components.resources)
 
-                implementation(libs.jetbrains.kotlinx.datetime)
-                implementation(libs.jetbrains.kotlinx.collections)
-                implementation(libs.jetbrains.kotlinx.coroutines)
+                api(libs.jetbrains.kotlinx.datetime)
+                api(libs.jetbrains.kotlinx.collections)
+                api(libs.jetbrains.kotlinx.coroutines)
 
                 implementation(libs.lyricist)
             }

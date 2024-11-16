@@ -42,7 +42,7 @@ fun SessionsWidget(
                 iconId = iconId,
                 onClick = { scope.launch { onUpdate() } },
                 onItemClick = onItemClick,
-                eventInfoUi = uiState.event,
+                eventName = uiState.eventName,
                 talks = uiState.sessions,
                 modifier = modifier
             )

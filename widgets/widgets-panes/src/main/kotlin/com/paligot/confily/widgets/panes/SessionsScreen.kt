@@ -19,7 +19,7 @@ import kotlinx.collections.immutable.ImmutableList
 fun SessionsScreen(
     @DrawableRes iconId: Int,
     onClick: () -> Unit,
-    eventInfoUi: EventInfoUi?,
+    eventName: String?,
     talks: ImmutableList<TalkItemUi>,
     onItemClick: (String) -> Action,
     modifier: GlanceModifier = GlanceModifier
@@ -27,14 +27,14 @@ fun SessionsScreen(
     Scaffold(
         titleBar = {
             TopBar(
-                title = eventInfoUi?.name
+                title = eventName
                     ?: LocalContext.current.getString(R.string.widget_title_no_event),
                 iconId = iconId,
                 onClick = onClick
             )
         },
         content = {
-            if (eventInfoUi == null) {
+            if (eventName == null) {
                 NoEvent()
             } else if (talks.isEmpty()) {
                 Loading()

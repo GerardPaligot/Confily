@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.stateIn
 
 sealed class SessionsUiState {
     data object Loading : SessionsUiState()
-    data class Success(val event: EventInfoUi?, val sessions: ImmutableList<TalkItemUi>) :
+    data class Success(val eventName: String?, val sessions: ImmutableList<TalkItemUi>) :
         SessionsUiState()
 }
 
@@ -27,15 +27,13 @@ class SessionsViewModel(
     coroutineScope: CoroutineScope = CoroutineScope(Job())
 ) {
     val uiState: StateFlow<SessionsUiState> = combine(
-        flow = eventRepository.event()
-            .catch { emit(null) },
-        flow2 = schedulesRepository.fetchNextTalks(date)
-            .catch { emit(persistentListOf()) },
+        flow = eventRepository.event().catch { emit(null) },
+        flow2 = schedulesRepository.fetchNextTalks(date).catch { emit(persistentListOf()) },
         transform = { event, sessions ->
             if (sessions.isEmpty()) {
                 SessionsUiState.Loading
             } else {
-                SessionsUiState.Success(event, sessions)
+                SessionsUiState.Success(event?.name, sessions)
             }
         }
     ).stateIn(

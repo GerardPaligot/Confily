@@ -1,71 +1,70 @@
 package com.paligot.confily.core.events
 
-import com.paligot.confily.core.extensions.format
-import com.paligot.confily.db.EventItem
+import com.paligot.confily.core.events.entities.CodeOfConduct
+import com.paligot.confily.core.events.entities.Event
+import com.paligot.confily.core.events.entities.EventItem
+import com.paligot.confily.core.events.entities.MenuItem
+import com.paligot.confily.core.events.entities.Social
+import com.paligot.confily.core.events.entities.Ticket
 import com.paligot.confily.models.EventItemList
-import com.paligot.confily.models.ui.CoCUi
-import com.paligot.confily.models.ui.EventInfoUi
-import com.paligot.confily.models.ui.EventItemUi
-import com.paligot.confily.models.ui.MenuItemUi
-import com.paligot.confily.models.ui.TicketInfoUi
-import com.paligot.confily.models.ui.TicketUi
-import kotlinx.collections.immutable.toImmutableList
-import kotlinx.datetime.toInstant
+import kotlinx.datetime.Instant
+import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import com.paligot.confily.db.EventItem as EventItemDb
 
-internal val eventMapper = { _: String, name: String, formattedAddress: List<String>,
-    address: String, latitude: Double, longitude: Double, date: String, _: String, _: String,
-    _: String, _: String, _: String?, twitter: String?,
-    twitterUrl: String?, linkedin: String?, linkedinUrl: String?,
-    faqUrl: String, cocUrl: String, _: Long ->
-    EventInfoUi(
+internal val eventMapper = { id: String, name: String, formattedAddress: List<String>,
+    _: String, latitude: Double, longitude: Double, _: String, startDate: String, _: String,
+    _: String?, contactEmail: String?, contactPhone: String?, _: String?, twitterUrl: String?,
+    _: String?, linkedinUrl: String?, faqUrl: String, cocUrl: String, _: Long ->
+    Event(
+        id = id,
         name = name,
-        formattedAddress = formattedAddress.toImmutableList(),
-        address = address,
+        formattedAddress = formattedAddress,
         latitude = latitude,
         longitude = longitude,
-        date = date,
-        twitter = twitter,
-        twitterUrl = twitterUrl,
-        linkedin = linkedin,
-        linkedinUrl = linkedinUrl,
-        faqLink = faqUrl,
-        codeOfConductLink = cocUrl
+        startDate = Instant.parse(startDate).toLocalDateTime(TimeZone.currentSystemDefault()),
+        email = contactEmail,
+        phone = contactPhone,
+        socials = listOfNotNull(
+            twitterUrl?.let { Social(url = it, type = "twitter") },
+            linkedinUrl?.let { Social(url = it, type = "linkedin") }
+        ),
+        faqUrl = faqUrl,
+        cocUrl = cocUrl
     )
 }
 
-internal val eventItemMapper = { id: String, name: String, date: String, _: Long, _: Boolean ->
-    EventItemUi(id = id, name = name, date = date)
+internal val eventItemMapper = { id: String, name: String, date: String, _: Long, past: Boolean ->
+    EventItem(
+        id = id,
+        name = name,
+        date = Instant.parse(date).toLocalDateTime(TimeZone.currentSystemDefault()).date,
+        past = past
+    )
 }
 
 internal val menuMapper = { name: String, dish: String, accompaniment: String, dessert: String ->
-    MenuItemUi(name = name, dish = dish, accompaniment = accompaniment, dessert = dessert)
+    MenuItem(name = name, dish = dish, accompaniment = accompaniment, dessert = dessert)
 }
 
-internal val cocMapper = { coc: String, email: String, phone: String? ->
-    CoCUi(text = coc, phone = phone, email = email)
+internal val cocMapper = { url: String, coc: String?, email: String?, phone: String? ->
+    CodeOfConduct(url = url, content = coc, phone = phone, email = email)
 }
 
 internal val ticketMapper = { _: String, id: String?, _: String?, _: String?,
     firstname: String?, lastname: String?, _: String, qrcode: ByteArray ->
-    TicketUi(
-        info = if (id != null && firstname != null && lastname != null) {
-            TicketInfoUi(
-                id = id,
-                firstName = firstname,
-                lastName = lastname
-            )
-        } else {
-            null
-        },
+    Ticket(
+        id = id,
+        firstName = firstname,
+        lastName = lastname,
         qrCode = qrcode
     )
 }
 
-fun EventItemList.convertToModelDb(past: Boolean): EventItem = EventItem(
+fun EventItemList.convertToModelDb(past: Boolean): EventItemDb = EventItemDb(
     id = this.id,
     name = this.name,
-    date = this.startDate.dropLast(1).toLocalDateTime().format(),
-    timestamp = this.startDate.toInstant().toEpochMilliseconds(),
+    date = this.startDate,
+    timestamp = Instant.parse(this.startDate).toEpochMilliseconds(),
     past = past
 )

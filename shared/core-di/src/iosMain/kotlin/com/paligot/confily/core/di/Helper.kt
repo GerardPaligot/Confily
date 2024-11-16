@@ -1,6 +1,7 @@
 package com.paligot.confily.core.di
 
 import com.paligot.confily.core.agenda.AgendaRepository
+import com.paligot.confily.core.events.EventInteractor
 import com.paligot.confily.core.events.EventRepository
 import com.paligot.confily.core.networking.NetworkingRepository
 import com.paligot.confily.core.partners.PartnerRepository
@@ -30,8 +31,16 @@ class RepositoryHelper : KoinComponent {
     val networkingRepository: NetworkingRepository by inject()
 }
 
+class InteractorHelper : KoinComponent {
+    val eventInteractor: EventInteractor by inject()
+}
+
+val interactorsModule = module {
+    single { EventInteractor(get()) }
+}
+
 fun initKoin() {
     startKoin {
-        modules(buildConfigModule, repositoriesModule)
+        modules(buildConfigModule, repositoriesModule, interactorsModule)
     }
 }

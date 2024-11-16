@@ -34,6 +34,7 @@ kotlin {
 
                 implementation(libs.jetbrains.kotlinx.collections)
                 implementation(libs.jetbrains.lifecycle.viewmodel.compose)
+                implementation(libs.jetbrains.kotlinx.datetime)
 
                 implementation(libs.koin.compose.viewmodel)
             }

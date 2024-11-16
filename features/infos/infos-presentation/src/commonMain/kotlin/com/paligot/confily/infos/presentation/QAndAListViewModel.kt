@@ -3,13 +3,18 @@ package com.paligot.confily.infos.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paligot.confily.core.events.EventRepository
+import com.paligot.confily.core.events.entities.mapToUi
 import com.paligot.confily.models.ui.QuestionAndResponseUi
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 
 sealed class QAndAUiState {
     data class Loading(val qanda: ImmutableList<QuestionAndResponseUi>) : QAndAUiState()
@@ -18,37 +23,26 @@ sealed class QAndAUiState {
 }
 
 class QAndAListViewModel(repository: EventRepository) : ViewModel() {
-    private val _uiState =
-        MutableStateFlow<QAndAUiState>(
-            QAndAUiState.Loading(
-                persistentListOf(
-                    QuestionAndResponseUi.fake,
-                    QuestionAndResponseUi.fake
-                )
-            )
-        )
-    val uiState: StateFlow<QAndAUiState> = _uiState
-
-    init {
-        viewModelScope.launch {
-            try {
-                repository.qanda().collect {
-                    _uiState.value = QAndAUiState.Success(it)
-                }
-            } catch (error: Throwable) {
-                _uiState.value = QAndAUiState.Failure(error)
-            }
+    private val _selected = MutableStateFlow<QuestionAndResponseUi?>(null)
+    val uiState: StateFlow<QAndAUiState> = combine(
+        flow = _selected,
+        flow2 = repository.qanda(),
+        transform = { selected, qanda ->
+            QAndAUiState.Success(
+                qanda.map { it.mapToUi(selected) }.toImmutableList()
+            ) as QAndAUiState
         }
-    }
+    ).catch {
+        emit(QAndAUiState.Failure(it))
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(),
+        initialValue = QAndAUiState.Loading(
+            persistentListOf(QuestionAndResponseUi.fake, QuestionAndResponseUi.fake)
+        )
+    )
 
     fun expanded(qanda: QuestionAndResponseUi) {
-        val state = _uiState.value
-        if (state is QAndAUiState.Success) {
-            val index = state.qanda.indexOf(qanda)
-            val qandaUi = state.qanda[index]
-            val qandaList = state.qanda.toMutableList()
-            qandaList[index] = qandaUi.copy(expanded = qandaUi.expanded.not())
-            _uiState.value = QAndAUiState.Success(qandaList.toImmutableList())
-        }
+        _selected.update { if (it == qanda) null else qanda }
     }
 }

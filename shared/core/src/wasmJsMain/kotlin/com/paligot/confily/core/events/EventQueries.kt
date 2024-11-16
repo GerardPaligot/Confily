@@ -26,6 +26,7 @@ class EventQueries(private val settings: ObservableSettings) {
     fun selectCoc(id: String): Flow<CocDb> = settings.getSerializableScopedFlow<EventDb>(EVENTS, id)
         .map {
             CocDb(
+                url = it.cocUrl,
                 coc = it.coc,
                 email = it.contactEmail,
                 phone = it.contactPhone

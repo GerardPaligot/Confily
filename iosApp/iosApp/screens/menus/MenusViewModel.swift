@@ -18,7 +18,7 @@ enum MenusUiState {
 
 @MainActor
 class MenusViewModel: ObservableObject {
-    private let repository: EventRepository = RepositoryHelper().eventRepository
+    private let interactor: EventInteractor = InteractorHelper().eventInteractor
 
     @Published var uiState: MenusUiState = MenusUiState.loading
 
@@ -27,7 +27,7 @@ class MenusViewModel: ObservableObject {
     func fetchMenus() {
         menusTask = Task {
             do {
-                let stream = asyncSequence(for: repository.menus())
+                let stream = asyncSequence(for: interactor.menus())
                 for try await menus in stream {
                     self.uiState = MenusUiState.success(menus)
                 }

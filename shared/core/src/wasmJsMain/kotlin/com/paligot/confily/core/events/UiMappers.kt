@@ -1,28 +1,40 @@
 package com.paligot.confily.core.events
 
-import com.paligot.confily.models.ui.CoCUi
-import com.paligot.confily.models.ui.EventInfoUi
-import com.paligot.confily.models.ui.EventItemUi
-import com.paligot.confily.models.ui.MenuItemUi
+import com.paligot.confily.core.events.entities.CodeOfConduct
+import com.paligot.confily.core.events.entities.Event
+import com.paligot.confily.core.events.entities.EventItem
+import com.paligot.confily.core.events.entities.MenuItem
+import com.paligot.confily.core.events.entities.Social
 import kotlinx.collections.immutable.toImmutableList
+import kotlinx.datetime.Instant
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 
-fun EventItemDb.convertToUi(): EventItemUi = EventItemUi(id = id, name = name, date)
-
-fun EventDb.convertToEventInfoUi() = EventInfoUi(
+fun EventItemDb.convertToEntity(): EventItem = EventItem(
+    id = id,
     name = name,
-    formattedAddress = formattedAddress.toImmutableList(),
-    address = address,
-    latitude = latitude,
-    longitude = longitude,
-    date = date,
-    twitter = twitter,
-    twitterUrl = twitterUrl,
-    linkedin = linkedin,
-    linkedinUrl = linkedinUrl,
-    faqLink = faqUrl,
-    codeOfConductLink = cocUrl
+    date = Instant.parse(date).toLocalDateTime(TimeZone.currentSystemDefault()).date,
+    past = past
 )
 
-fun MenuDb.convertToUi() = MenuItemUi(name = name, dish = dish, accompaniment = accompaniment, dessert = dessert)
+fun EventDb.convertToEntity(): Event = Event(
+    id = id,
+    name = name,
+    formattedAddress = formattedAddress.toImmutableList(),
+    latitude = latitude,
+    longitude = longitude,
+    startDate = Instant.parse(date).toLocalDateTime(TimeZone.currentSystemDefault()),
+    email = contactEmail,
+    phone = contactPhone,
+    socials = listOfNotNull(
+        twitter?.let { Social(url = it, type = "twitter") },
+        linkedin?.let { Social(url = it, type = "linkedin") }
+    ),
+    faqUrl = faqUrl,
+    cocUrl = cocUrl
+)
 
-fun CocDb.convertToUi() = CoCUi(text = coc, phone = phone, email = email)
+fun MenuDb.convertToEntity() =
+    MenuItem(name = name, dish = dish, accompaniment = accompaniment, dessert = dessert)
+
+fun CocDb.convertToEntity() = CodeOfConduct(url = "", content = coc, phone = phone, email = email)

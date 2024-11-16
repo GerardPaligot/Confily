@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paligot.confily.core.agenda.AgendaRepository
 import com.paligot.confily.core.events.EventRepository
+import com.paligot.confily.core.events.entities.Event
 import com.paligot.confily.models.ui.EventInfoUi
 import com.paligot.confily.wear.events.panes.EventModelUi
 import kotlinx.coroutines.flow.SharingStarted
@@ -25,7 +26,7 @@ class EventViewModel(
             if (it == null) {
                 EventUiState.Loading
             } else {
-                EventUiState.Success(it.toModelUi())
+                EventUiState.Success(it.mapToUi())
             }
         }
         .stateIn(
@@ -45,4 +46,4 @@ class EventViewModel(
     }
 }
 
-private fun EventInfoUi.toModelUi() = EventModelUi(name = name)
+private fun Event.mapToUi() = EventModelUi(name = name)

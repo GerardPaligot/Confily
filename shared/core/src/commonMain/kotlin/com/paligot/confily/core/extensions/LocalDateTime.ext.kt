@@ -10,3 +10,5 @@ fun LocalDateTime.formatHoursMinutes(): String {
 
 fun LocalDateTime.format(): String =
     "${this.dayOfWeek.name} ${this.dayOfMonth}, ${this.month.name} ${this.year}"
+
+expect fun LocalDateTime.formatLocalizedFull(): String

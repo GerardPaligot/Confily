@@ -4,13 +4,13 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
 data class EventItemListUi(
-    val future: ImmutableList<com.paligot.confily.models.ui.EventItemUi>,
-    val past: ImmutableList<com.paligot.confily.models.ui.EventItemUi>
+    val future: ImmutableList<EventItemUi>,
+    val past: ImmutableList<EventItemUi>
 ) {
     companion object {
         val fake = EventItemListUi(
-            future = persistentListOf(com.paligot.confily.models.ui.EventItemUi.fake),
-            past = persistentListOf(com.paligot.confily.models.ui.EventItemUi.fake)
+            future = persistentListOf(EventItemUi.fake),
+            past = persistentListOf(EventItemUi.fake)
         )
     }
 }

@@ -46,8 +46,9 @@ class FeaturesActivatedDb(
 
 @Serializable
 class CocDb(
-    val coc: String,
-    val email: String,
+    val url: String,
+    val coc: String?,
+    val email: String?,
     val phone: String?
 )
 

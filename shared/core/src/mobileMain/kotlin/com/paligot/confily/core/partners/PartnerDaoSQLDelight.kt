@@ -17,8 +17,8 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.map
 import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate
-import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.format
 import kotlinx.datetime.toLocalDateTime
@@ -76,8 +76,12 @@ class PartnerDaoSQLDelight(
         val now = Clock.System.now()
             .toLocalDateTime(TimeZone.currentSystemDefault())
             .date
-        val startInstant = LocalDateTime.parse(event.start_date).date
-        val endInstant = LocalDateTime.parse(event.end_date).date
+        val startInstant = Instant.parse(event.start_date)
+            .toLocalDateTime(TimeZone.currentSystemDefault())
+            .date
+        val endInstant = Instant.parse(event.end_date)
+            .toLocalDateTime(TimeZone.currentSystemDefault())
+            .date
         val day = if (now < startInstant) {
             startInstant.format(LocalDate.Formats.ISO)
         } else if (now > endInstant) {

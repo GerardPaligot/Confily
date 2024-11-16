@@ -5,7 +5,7 @@
 	<key>BASE_URL</key>
 	<string>${BASE_URL}</string>
 	<key>BASE_URL_C4H</key>
-	<string>https://api.devlille.fr</string>
+	<string>https://confily-619943890215.europe-west1.run.app</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -38,7 +38,7 @@
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>DEFAULT_EVENT</key>
-	<string>devfest-lille-2024</string>
+	<string>droidcon-london</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>

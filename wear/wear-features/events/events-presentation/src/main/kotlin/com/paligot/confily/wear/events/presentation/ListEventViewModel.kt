@@ -3,7 +3,7 @@ package com.paligot.confily.wear.events.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paligot.confily.core.events.EventRepository
-import com.paligot.confily.models.ui.EventItemUi
+import com.paligot.confily.core.events.entities.EventItem
 import com.paligot.confily.wear.events.panes.EventItemModelUi
 import com.paligot.confily.wear.events.panes.EventsModelUi
 import kotlinx.collections.immutable.toImmutableList
@@ -19,7 +19,7 @@ sealed class ListEventUiState {
 
 class ListEventViewModel(private val repository: EventRepository) : ViewModel() {
     val uiState = repository.events()
-        .map { EventsModelUi(it.past.map { it.toModelUi() }.toImmutableList()) }
+        .map { EventsModelUi(it.past.map(EventItem::mapToUi).toImmutableList()) }
         .map { ListEventUiState.Success(it) }
         .stateIn(
             scope = viewModelScope,
@@ -38,4 +38,4 @@ class ListEventViewModel(private val repository: EventRepository) : ViewModel() 
     }
 }
 
-private fun EventItemUi.toModelUi() = EventItemModelUi(id = id, name = name)
+private fun EventItem.mapToUi() = EventItemModelUi(id = id, name = name)

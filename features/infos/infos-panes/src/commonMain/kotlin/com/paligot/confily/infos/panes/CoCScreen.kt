@@ -55,13 +55,15 @@ fun CoCScreen(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                coc.phone?.let { phone ->
-                    Button(onClick = { onReportByPhoneClicked(phone) }) {
+                if (coc.phone != null) {
+                    Button(onClick = { onReportByPhoneClicked(coc.phone!!) }) {
                         Text(text = stringResource(Resource.string.action_contact_organizers_phone))
                     }
                 }
-                Button(onClick = { onReportByEmailClicked(coc.email) }) {
-                    Text(text = stringResource(Resource.string.action_contact_organizers_mail))
+                if (coc.email != null) {
+                    Button(onClick = { onReportByEmailClicked(coc.email!!) }) {
+                        Text(text = stringResource(Resource.string.action_contact_organizers_mail))
+                    }
                 }
             }
         }

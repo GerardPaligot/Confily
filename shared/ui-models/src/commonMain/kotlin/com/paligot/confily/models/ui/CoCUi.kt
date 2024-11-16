@@ -3,7 +3,7 @@ package com.paligot.confily.models.ui
 data class CoCUi(
     val text: String,
     val phone: String?,
-    val email: String
+    val email: String?
 ) {
     companion object {
         val fake = CoCUi(

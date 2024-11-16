@@ -12,9 +12,9 @@ longitude REAL NOT NULL,
 date TEXT NOT NULL,
 start_date TEXT NOT NULL,
 end_date TEXT NOT NULL,
-coc TEXT NOT NULL,
+coc TEXT,
 openfeedback_project_id TEXT,
-contact_email TEXT NOT NULL,
+contact_email TEXT,
 contact_phone TEXT,
 twitter TEXT,
 twitter_url TEXT,
@@ -50,7 +50,7 @@ selectOpenfeedbackProjectId:
 SELECT openfeedback_project_id FROM Event WHERE id == ?;
 
 selectCoc:
-SELECT coc, contact_email, contact_phone FROM Event WHERE id == ?;
+SELECT coc_url, coc, contact_email, contact_phone FROM Event WHERE id == ?;
 
 insertEventItem:
 INSERT OR REPLACE INTO EventItem(id, name, date, timestamp, past) VALUES (?, ?, ?, ?, ?);

@@ -3,6 +3,7 @@ package com.paligot.confily.wear.events.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paligot.confily.core.events.EventRepository
+import com.paligot.confily.core.events.entities.CodeOfConduct
 import com.paligot.confily.models.ui.CoCUi
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.catch
@@ -17,7 +18,7 @@ sealed class CoCUiState {
 
 class CoCViewModel(repository: EventRepository) : ViewModel() {
     val uiState = repository.coc()
-        .map { CoCUiState.Success(it) }
+        .map { CoCUiState.Success(it.mapToUi()) }
         .catch { CoCUiState.Failure }
         .stateIn(
             scope = viewModelScope,
@@ -25,3 +26,9 @@ class CoCViewModel(repository: EventRepository) : ViewModel() {
             initialValue = CoCUiState.Loading
         )
 }
+
+internal fun CodeOfConduct.mapToUi(): CoCUi = CoCUi(
+    text = content!!,
+    phone = phone,
+    email = email
+)

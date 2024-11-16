@@ -20,6 +20,7 @@ class HomeViewModel: ObservableObject {
         task = Task {
             if let error = await asyncError(for: repository.fetchAndStoreAgenda()) {
                 // ignore
+                print("Failed with error: \(error)")
             }
         }
     }

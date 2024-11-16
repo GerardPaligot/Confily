@@ -18,7 +18,7 @@ enum EventListUiState {
 
 @MainActor
 class EventListViewModel: ObservableObject {
-    private let repository: EventRepository = RepositoryHelper().eventRepository
+    private let interactor: EventInteractor = InteractorHelper().eventInteractor
 
     @Published var uiState: EventListUiState = EventListUiState.loading
 
@@ -26,11 +26,11 @@ class EventListViewModel: ObservableObject {
 
     func fetchEventList() {
         eventListTask = Task {
-            if let error = await asyncError(for: repository.fetchAndStoreEventList()) {
+            if (await asyncError(for: interactor.fetchAndStoreEventList())) != nil {
                 // ignored
             }
             do {
-                let stream = asyncSequence(for: repository.events())
+                let stream = asyncSequence(for: interactor.events())
                 for try await events in stream {
                     self.uiState = .success(events)
                 }
