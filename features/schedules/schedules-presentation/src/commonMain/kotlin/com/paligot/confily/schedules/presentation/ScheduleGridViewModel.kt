@@ -2,12 +2,15 @@ package com.paligot.confily.schedules.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import cafe.adriel.lyricist.Lyricist
 import com.paligot.confily.core.AlarmScheduler
 import com.paligot.confily.core.agenda.AgendaRepository
-import com.paligot.confily.core.schedules.SchedulesRepository
+import com.paligot.confily.core.schedules.SessionRepository
+import com.paligot.confily.core.schedules.entities.mapToListUi
 import com.paligot.confily.models.ui.AgendaUi
 import com.paligot.confily.models.ui.TalkItemUi
 import com.paligot.confily.navigation.TopActions
+import com.paligot.confily.resources.Strings
 import com.paligot.confily.style.theme.actions.TabAction
 import com.paligot.confily.style.theme.actions.TabActionsUi
 import com.paligot.confily.style.theme.actions.TopActionsUi
@@ -46,7 +49,8 @@ sealed class ScheduleGridUiState {
 @ExperimentalCoroutinesApi
 class ScheduleGridViewModel(
     agendaRepository: AgendaRepository,
-    schedulesRepository: SchedulesRepository,
+    sessionRepository: SessionRepository,
+    lyricist: Lyricist<Strings>,
     private val alarmScheduler: AlarmScheduler
 ) : ViewModel() {
     private val _tabsStates = agendaRepository.scaffoldConfig()
@@ -67,25 +71,24 @@ class ScheduleGridViewModel(
                 }.toImmutableList()
             )
         }
-    private val _uiHasFiltersState = schedulesRepository.hasFilterApplied()
-        .map {
-            TopActionsUi(
-                actions = persistentListOf(if (it) TopActions.filtersFilled else TopActions.filters)
-            )
-        }
-    private val _schedules = schedulesRepository.agenda()
+    private val _uiHasFiltersState = sessionRepository.countFilters().map {
+        TopActionsUi(
+            actions = persistentListOf(if (it > 0) TopActions.filtersFilled else TopActions.filters)
+        )
+    }
+    private val _schedules = sessionRepository.sessions()
     val uiState: StateFlow<ScheduleGridUiState> =
         combine(
             _tabsStates,
             _uiHasFiltersState,
             _schedules,
             transform = { agendaTabs, topActions, schedules ->
-                if (schedules.isNotEmpty()) {
+                if (schedules.sessions.isNotEmpty()) {
                     ScheduleGridUiState.Success(
                         ScheduleUi(
                             topActionsUi = topActions,
                             tabActionsUi = agendaTabs,
-                            schedules = schedules.values.toImmutableList()
+                            schedules = schedules.mapToListUi(lyricist.strings)
                         )
                     )
                 } else {
@@ -93,6 +96,7 @@ class ScheduleGridViewModel(
                 }
             }
         ).catch {
+            it.printStackTrace()
             emit(ScheduleGridUiState.Failure(it))
         }.stateIn(
             scope = viewModelScope,

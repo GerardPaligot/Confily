@@ -38,8 +38,7 @@ fun Speaker.convertToSpeakerUi(
 fun Speaker.convertToSpeakerItemUi(strings: Strings): SpeakerItemUi = SpeakerItemUi(
     id = id,
     name = display_name,
-    pronouns = pronouns,
-    company = displayActivity(strings) ?: "",
+    activity = displayActivity(strings) ?: "",
     url = photo_url
 )
 
@@ -74,12 +73,10 @@ fun SelectTalksBySpeakerId.convertTalkItemUi(
         id = id,
         order = session.order_.toInt(),
         title = title,
-        abstract = abstract_,
         room = session.room,
         level = level,
         slotTime = startTime.formatHoursMinutes(),
         startTime = session.start_time,
-        endTime = session.end_time,
         timeInMinutes = timeInMinutes,
         time = strings.texts.scheduleMinutes(timeInMinutes),
         category = convertCategoryUi(),

@@ -2,8 +2,10 @@ package com.paligot.confily.schedules.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.paligot.confily.core.schedules.SchedulesRepository
+import com.paligot.confily.core.schedules.SessionRepository
+import com.paligot.confily.core.schedules.entities.mapToUi
 import com.paligot.confily.models.ui.TalkUi
+import com.paligot.confily.resources.Strings
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -18,10 +20,11 @@ sealed class ScheduleUiState {
 
 class ScheduleDetailViewModel(
     scheduleId: String,
-    repository: SchedulesRepository
+    repository: SessionRepository,
+    strings: Strings
 ) : ViewModel() {
-    val uiState: StateFlow<ScheduleUiState> = repository.scheduleItem(scheduleId)
-        .map { ScheduleUiState.Success(it) as ScheduleUiState }
+    val uiState: StateFlow<ScheduleUiState> = repository.session(scheduleId)
+        .map { ScheduleUiState.Success(it.mapToUi(strings)) as ScheduleUiState }
         .catch { emit(ScheduleUiState.Failure(it)) }
         .stateIn(
             scope = viewModelScope,

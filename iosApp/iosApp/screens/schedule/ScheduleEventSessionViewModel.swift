@@ -12,13 +12,13 @@ import KMPNativeCoroutinesAsync
 
 enum ScheduleEventSessionUiState {
     case loading
-    case success(EventSessionItemUi)
+    case success(EventSessionUi)
     case failure
 }
 
 @MainActor
 class ScheduleEventSessionViewModel: ObservableObject {
-    private let repository: SchedulesRepository = RepositoryHelper().schedulesRepository
+    private let interactor: SessionInteractor = InteractorHelper().sessionInteractor
     let scheduleId: String
 
     init(scheduleId: String) {
@@ -32,7 +32,7 @@ class ScheduleEventSessionViewModel: ObservableObject {
     func fetchScheduleDetails() {
         scheduleTask = Task {
             do {
-                let stream = asyncSequence(for: self.repository.scheduleEventSessionItem(scheduleId: scheduleId))
+                let stream = asyncSequence(for: self.interactor.eventSession(sessionId: scheduleId))
                 for try await schedule in stream {
                     self.uiState = .success(schedule)
                 }

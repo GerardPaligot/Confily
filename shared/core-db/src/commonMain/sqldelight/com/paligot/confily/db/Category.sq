@@ -20,8 +20,16 @@ SELECT id, name, color, icon, selected
 FROM Category
 WHERE event_id = ? AND selected = 1;
 
+countSelectedCategories:
+SELECT COUNT(*)
+FROM Category
+WHERE event_id = ? AND selected = 1;
+
 upsertCategory:
 INSERT OR REPLACE INTO Category VALUES ?;
+
+updateSelectedCategory:
+UPDATE Category SET selected = ? WHERE id = ? AND event_id = ?;
 
 diffCategories:
 SELECT id

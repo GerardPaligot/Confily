@@ -9,10 +9,8 @@
 /* Begin PBXBuildFile section */
 		0060F46B2C8BC231000BCD06 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0060F46A2C8BC231000BCD06 /* GoogleService-Info.plist */; };
 		009DACF52C69384200A7F42E /* AgendaRepositoryExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009DACF42C69384200A7F42E /* AgendaRepositoryExt.swift */; };
-		009DACF72C693A5A00A7F42E /* EventRepositoryExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009DACF62C693A5A00A7F42E /* EventRepositoryExt.swift */; };
 		009DACF92C693B0900A7F42E /* NetworkingRepositoryExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009DACF82C693B0900A7F42E /* NetworkingRepositoryExt.swift */; };
 		009DACFB2C693B6000A7F42E /* SpeakerRepositoryExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009DACFA2C693B6000A7F42E /* SpeakerRepositoryExt.swift */; };
-		00F30E5A2CA6B0210049641A /* SchedulesRepositoryExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F30E592CA6B0210049641A /* SchedulesRepositoryExt.swift */; };
 		00F30E5C2CA6B68B0049641A /* PartnerRepositoryExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F30E5B2CA6B68B0049641A /* PartnerRepositoryExt.swift */; };
 		058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
@@ -123,10 +121,8 @@
 /* Begin PBXFileReference section */
 		0060F46A2C8BC231000BCD06 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		009DACF42C69384200A7F42E /* AgendaRepositoryExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaRepositoryExt.swift; sourceTree = "<group>"; };
-		009DACF62C693A5A00A7F42E /* EventRepositoryExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRepositoryExt.swift; sourceTree = "<group>"; };
 		009DACF82C693B0900A7F42E /* NetworkingRepositoryExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingRepositoryExt.swift; sourceTree = "<group>"; };
 		009DACFA2C693B6000A7F42E /* SpeakerRepositoryExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakerRepositoryExt.swift; sourceTree = "<group>"; };
-		00F30E592CA6B0210049641A /* SchedulesRepositoryExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulesRepositoryExt.swift; sourceTree = "<group>"; };
 		00F30E5B2CA6B68B0049641A /* PartnerRepositoryExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnerRepositoryExt.swift; sourceTree = "<group>"; };
 		058557BA273AAA24004C7B11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -352,10 +348,8 @@
 				D52F3B992961CDCC00535233 /* ViewExt.swift */,
 				D5C1B3BA29F26D9E00D94391 /* BundleExt.swift */,
 				009DACF42C69384200A7F42E /* AgendaRepositoryExt.swift */,
-				009DACF62C693A5A00A7F42E /* EventRepositoryExt.swift */,
 				009DACF82C693B0900A7F42E /* NetworkingRepositoryExt.swift */,
 				009DACFA2C693B6000A7F42E /* SpeakerRepositoryExt.swift */,
-				00F30E592CA6B0210049641A /* SchedulesRepositoryExt.swift */,
 				00F30E5B2CA6B68B0049641A /* PartnerRepositoryExt.swift */,
 			);
 			path = extensions;
@@ -760,7 +754,6 @@
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				D5C92EC7283AC66D00D5CF2D /* PartnersVM.swift in Sources */,
 				D556ADBB29C5F7D200242680 /* ComposeMailData.swift in Sources */,
-				009DACF72C693A5A00A7F42E /* EventRepositoryExt.swift in Sources */,
 				D5289FE329B7C5E600D1FE7B /* MailView.swift in Sources */,
 				D560788E27BE86D900D4012C /* SpeakerAvatarView.swift in Sources */,
 				D5C7532E2975F56000E2FD0B /* AppViewModel.swift in Sources */,
@@ -791,7 +784,6 @@
 				D567C00B29B4D6B700D427D6 /* ProfileItemView.swift in Sources */,
 				D52F3B9A2961CDCC00535233 /* ViewExt.swift in Sources */,
 				00F30E5C2CA6B68B0049641A /* PartnerRepositoryExt.swift in Sources */,
-				00F30E5A2CA6B0210049641A /* SchedulesRepositoryExt.swift in Sources */,
 				D5C92ECF283ACE6000D5CF2D /* MenusViewModel.swift in Sources */,
 				D563E2EA29755B2700B5FCA0 /* EventListView.swift in Sources */,
 				D5D7E10D2BEE4F1D0027071D /* ScheduleEventSessionViewModel.swift in Sources */,

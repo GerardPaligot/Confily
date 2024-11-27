@@ -12,9 +12,12 @@ dependencies {
     implementation(projects.widgets.widgetsUi)
     implementation(projects.widgets.widgetsPanes)
     implementation(projects.shared.core)
+    implementation(projects.shared.resources)
 
     implementation(libs.bundles.androidx.glance)
 
     implementation(libs.jetbrains.kotlinx.collections)
     implementation(libs.jetbrains.kotlinx.datetime)
+
+    implementation(libs.lyricist)
 }

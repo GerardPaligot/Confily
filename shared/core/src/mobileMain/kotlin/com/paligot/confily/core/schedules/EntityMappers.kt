@@ -1,23 +1,168 @@
 package com.paligot.confily.core.schedules
 
-import com.paligot.confily.db.Category
-import com.paligot.confily.db.Format
-import com.paligot.confily.models.ui.CategoryUi
-import com.paligot.confily.models.ui.FormatUi
+import com.paligot.confily.core.schedules.entities.Address
+import com.paligot.confily.core.schedules.entities.EventSession
+import com.paligot.confily.core.schedules.entities.EventSessionItem
+import com.paligot.confily.core.schedules.entities.FeedbackConfig
+import com.paligot.confily.core.schedules.entities.Level
+import com.paligot.confily.core.schedules.entities.SelectableCategory
+import com.paligot.confily.core.schedules.entities.SelectableFormat
+import com.paligot.confily.core.schedules.entities.Session
+import com.paligot.confily.core.schedules.entities.SessionItem
+import com.paligot.confily.core.schedules.entities.SpeakerItem
+import com.paligot.confily.db.SelectOpenfeedbackProjectId
+import com.paligot.confily.db.SelectSessionByTalkId
+import com.paligot.confily.db.SelectSessions
+import com.paligot.confily.db.SelectSpeakersByTalkId
+import com.paligot.confily.db.SelectSpeakersByTalkIds
+import kotlinx.datetime.LocalDateTime
+import com.paligot.confily.core.schedules.entities.Category as CategoryEntity
+import com.paligot.confily.core.schedules.entities.Format as FormatEntity
 
-fun CategoryUi.convertToEntity(eventId: String, selected: Boolean) = Category(
+internal fun SelectSessionByTalkId.mapToEntity(
+    speakers: List<SpeakerItem>,
+    openfeedbackProjectId: SelectOpenfeedbackProjectId
+): Session = Session(
     id = id,
-    name = name,
-    color = color ?: "",
-    icon = icon ?: "",
-    selected = selected,
-    event_id = eventId
+    title = title,
+    abstract = abstract_,
+    category = CategoryEntity(
+        id = category_id,
+        name = categoryName,
+        color = categoryColor,
+        icon = categoryIcon
+    ),
+    format = FormatEntity(
+        id = format_id,
+        name = formatName,
+        time = time.toInt()
+    ),
+    level = when (level?.lowercase()) {
+        "advanced" -> Level.Advanced
+        "intermediate" -> Level.Intermediate
+        "beginner" -> Level.Beginner
+        else -> null
+    },
+    language = language,
+    startTime = LocalDateTime.parse(start_time),
+    endTime = LocalDateTime.parse(end_time),
+    room = room,
+    speakers = speakers,
+    feedback = if (openfeedbackProjectId.openfeedback_project_id != null && open_feedback_url != null) {
+        FeedbackConfig(
+            projectId = openfeedbackProjectId.openfeedback_project_id!!,
+            sessionId = id,
+            url = open_feedback_url!!
+        )
+    } else {
+        null
+    }
 )
 
-fun FormatUi.convertToEntity(eventId: String, selected: Boolean) = Format(
+internal fun SelectSessions.mapToEntity(speakers: List<SpeakerItem>): SessionItem {
+    val startTime = LocalDateTime.parse(start_time)
+    return SessionItem(
+        id = id,
+        order = order_.toInt(),
+        title = title,
+        category = CategoryEntity(
+            id = category_id,
+            name = categoryName,
+            color = categoryColor,
+            icon = categoryIcon
+        ),
+        format = FormatEntity(
+            id = format_id,
+            name = formatName,
+            time = time.toInt()
+        ),
+        level = when (level?.lowercase()) {
+            "advanced" -> Level.Advanced
+            "intermediate" -> Level.Intermediate
+            "beginner" -> Level.Beginner
+            else -> null
+        },
+        room = room,
+        language = language,
+        startTime = startTime,
+        endTime = LocalDateTime.parse(end_time),
+        speakers = speakers,
+        isFavorite = is_favorite
+    )
+}
+
+internal fun SelectSpeakersByTalkId.mapToEntity(): SpeakerItem = SpeakerItem(
     id = id,
-    name = name,
-    time = time.toLong(),
-    selected = selected,
-    event_id = eventId
+    displayName = display_name,
+    photoUrl = photo_url,
+    jobTitle = job_title,
+    company = company
 )
+
+internal fun SelectSpeakersByTalkIds.mapToEntity(): SpeakerItem = SpeakerItem(
+    id = id,
+    displayName = display_name,
+    photoUrl = photo_url,
+    jobTitle = job_title,
+    company = company
+)
+
+internal val eventSessionItemMapper = { id: String, order: Long, _: String, _: String,
+    start_time: String, end_time: String, room: String,
+    _: String?, title: String, description: String?,
+    _: List<String>?, _: String?, _: Double?, _: Double? ->
+    EventSessionItem(
+        id = id,
+        order = order.toInt(),
+        title = title,
+        description = description,
+        room = room,
+        startTime = LocalDateTime.parse(start_time),
+        endTime = LocalDateTime.parse(end_time)
+    )
+}
+
+internal val eventSessionMapper = { id: String, order_: Long, event_id: String, start_time: String,
+    end_time: String, room: String, session_event_id: String?,
+    title: String, description: String?,
+    formatted_address: List<String>?, address: String?,
+    latitude: Double?, longitude: Double? ->
+    val startTime = LocalDateTime.parse(start_time)
+    EventSession(
+        id = id,
+        title = title,
+        description = description ?: "",
+        room = room,
+        startTime = startTime,
+        endTime = LocalDateTime.parse(end_time),
+        address = if (formatted_address != null && latitude != null && longitude != null) {
+            Address(
+                formatted = formatted_address,
+                latitude = latitude,
+                longitude = longitude
+            )
+        } else {
+            null
+        }
+    )
+}
+
+internal val categoryMapper = { id: String, name: String, color: String, icon: String,
+    selected: Boolean ->
+    SelectableCategory(
+        id = id,
+        name = name,
+        color = color,
+        icon = icon,
+        selected = selected
+    )
+}
+
+internal val formatMapper = { id: String, name: String, time: Long, selected: Boolean ->
+    SelectableFormat(
+        id = id,
+        name = name,
+        time = time.toInt(),
+        selected = selected
+    )
+}

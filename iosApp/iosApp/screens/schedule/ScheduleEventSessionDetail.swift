@@ -10,7 +10,7 @@ import SwiftUI
 import SharedDi
 
 struct ScheduleEventSessionDetail: View {
-    let session: EventSessionItemUi
+    let session: EventSessionUi
     var color: Color = Color.c4hOnBackground
     var titleFont: Font = Font.title
     var bodyFont: Font = Font.callout
@@ -38,11 +38,9 @@ struct ScheduleEventSessionDetail: View {
                     }
                 }
                 .accessibilityElement(children: .combine)
-                if (session.description_ != nil) {
-                    Text(.init(session.description_!))
-                        .foregroundColor(color.opacity(0.74))
-                        .padding(.top, 8)
-                }
+                Text(.init(session.description_))
+                    .foregroundColor(color.opacity(0.74))
+                    .padding(.top, 8)
             }
             .frame(maxWidth: .infinity, alignment: .topLeading)
             .foregroundColor(color)
@@ -54,10 +52,4 @@ struct ScheduleEventSessionDetail: View {
         }
         .listStyle(.plain)
     }
-}
-
-#Preview {
-    ScheduleEventSessionDetail(
-        session: EventSessionItemUi.companion.fakePause
-    )
 }

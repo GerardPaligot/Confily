@@ -18,7 +18,7 @@ struct SpeakerItemView: View {
             VStack(alignment: .leading) {
                 Text(speakerUi.name)
                     .font(Font.callout.bold())
-                Text(speakerUi.company)
+                Text(speakerUi.activity)
                     .foregroundColor(.secondary)
                     .font(Font.caption)
             }

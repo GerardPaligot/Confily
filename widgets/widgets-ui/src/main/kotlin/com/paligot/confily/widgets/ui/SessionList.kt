@@ -9,25 +9,23 @@ import androidx.glance.appwidget.lazy.items
 import androidx.glance.layout.Box
 import androidx.glance.layout.fillMaxWidth
 import androidx.glance.layout.padding
-import com.paligot.confily.core.extensions.formatHoursMinutes
-import com.paligot.confily.models.ui.TalkItemUi
+import com.paligot.confily.widgets.ui.models.SessionItemUi
 import kotlinx.collections.immutable.ImmutableList
-import kotlinx.datetime.LocalDateTime
 
 @Composable
 fun SessionList(
-    talks: ImmutableList<TalkItemUi>,
+    sessions: ImmutableList<SessionItemUi>,
     onItemClick: (String) -> Action,
     modifier: GlanceModifier = GlanceModifier
 ) {
     LazyColumn(modifier = modifier) {
-        items(talks) {
+        items(sessions) {
             Box(modifier = GlanceModifier.padding(8.dp)) {
                 SessionItem(
                     title = it.title,
-                    time = LocalDateTime.parse(it.startTime).formatHoursMinutes(),
+                    time = it.slotTime,
                     room = it.room,
-                    duration = it.time,
+                    duration = it.duration,
                     modifier = GlanceModifier.fillMaxWidth(),
                     onClick = onItemClick(it.id)
                 )

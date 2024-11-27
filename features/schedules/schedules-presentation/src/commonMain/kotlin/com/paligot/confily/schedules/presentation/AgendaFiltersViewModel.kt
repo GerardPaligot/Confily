@@ -2,10 +2,9 @@ package com.paligot.confily.schedules.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.paligot.confily.core.schedules.SchedulesRepository
-import com.paligot.confily.models.ui.CategoryUi
+import com.paligot.confily.core.schedules.SessionRepository
+import com.paligot.confily.core.schedules.entities.mapToUi
 import com.paligot.confily.models.ui.FiltersUi
-import com.paligot.confily.models.ui.FormatUi
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -20,10 +19,10 @@ sealed class AgendaFiltersUiState {
 }
 
 class AgendaFiltersViewModel(
-    private val repository: SchedulesRepository
+    private val repository: SessionRepository
 ) : ViewModel() {
     val uiState: StateFlow<AgendaFiltersUiState> = repository.filters()
-        .map { result -> AgendaFiltersUiState.Success(result) as AgendaFiltersUiState }
+        .map { result -> AgendaFiltersUiState.Success(result.mapToUi()) as AgendaFiltersUiState }
         .catch { emit(AgendaFiltersUiState.Failure(it)) }
         .stateIn(
             scope = viewModelScope,
@@ -35,11 +34,11 @@ class AgendaFiltersViewModel(
         repository.applyFavoriteFilter(selected)
     }
 
-    fun applyCategoryFilter(categoryUi: CategoryUi, selected: Boolean) = viewModelScope.launch {
-        repository.applyCategoryFilter(categoryUi, selected)
+    fun applyCategoryFilter(categoryId: String, selected: Boolean) = viewModelScope.launch {
+        repository.applyCategoryFilter(categoryId, selected)
     }
 
-    fun applyFormatFilter(formatUi: FormatUi, selected: Boolean) = viewModelScope.launch {
-        repository.applyFormatFilter(formatUi, selected)
+    fun applyFormatFilter(formatId: String, selected: Boolean) = viewModelScope.launch {
+        repository.applyFormatFilter(formatId, selected)
     }
 }

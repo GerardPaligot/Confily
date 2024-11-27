@@ -82,7 +82,7 @@ fun ScheduleGridScreen(
                                         time = it.time,
                                         timeImageVector = it.timeInMinutes.findTimeImageVector(),
                                         modifier = Modifier.placeholder(visible = isLoading),
-                                        onClick = if (it.description != null) {
+                                        onClick = if (it.isClickable) {
                                             {
                                                 onEventSessionClicked(it.id)
                                             }

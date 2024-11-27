@@ -23,13 +23,12 @@ import androidx.wear.compose.material3.ScreenScaffold
 import androidx.wear.compose.material3.ScrollIndicator
 import androidx.wear.compose.material3.Text
 import coil3.compose.rememberAsyncImagePainter
-import com.paligot.confily.models.ui.TalkUi
 import com.paligot.confily.wear.theme.buttons.ExtendedActionButton
 import com.paligot.confily.wear.theme.markdown.MarkdownText
 
 @Composable
 fun SchedulePane(
-    modelUi: TalkUi,
+    modelUi: SessionDetailModelUi,
     modifier: Modifier = Modifier,
     onSpeakerClick: (String) -> Unit
 ) {
@@ -55,7 +54,7 @@ fun SchedulePane(
                         LocalTextStyle provides MaterialTheme.typography.bodySmall,
                         LocalContentColor provides MaterialTheme.colorScheme.onBackground
                     ) {
-                        Text(text = modelUi.startTime)
+                        Text(text = modelUi.slotTime)
                         Text(text = modelUi.room)
                     }
                 }
@@ -69,7 +68,7 @@ fun SchedulePane(
                     label = { Text(speaker.name, maxLines = 1, overflow = TextOverflow.Ellipsis) },
                     secondaryLabel = {
                         Text(
-                            text = speaker.company,
+                            text = speaker.activity,
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis
                         )

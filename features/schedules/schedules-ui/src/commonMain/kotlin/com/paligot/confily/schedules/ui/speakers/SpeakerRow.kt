@@ -29,7 +29,7 @@ fun SpeakerItemRow(
             speakers.forEach {
                 LargeSpeakerItem(
                     name = it.name,
-                    description = it.company,
+                    description = it.activity,
                     url = it.url,
                     modifier = Modifier
                         .width(width)

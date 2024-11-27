@@ -20,7 +20,7 @@ import org.jetbrains.compose.resources.stringResource
 fun FormatListFilters(
     formats: ImmutableMap<FormatUi, Boolean>,
     modifier: Modifier = Modifier,
-    onClick: (formatUi: FormatUi, selected: Boolean) -> Unit
+    onClick: (formatId: String, selected: Boolean) -> Unit
 ) {
     FilterSection(
         title = stringResource(Resource.string.title_filters_formats),
@@ -35,7 +35,7 @@ fun FormatListFilters(
                     label = entry.key.name,
                     selected = entry.value,
                     imageVector = entry.key.time.findTimeImageVector(),
-                    onClick = { onClick(entry.key, it) }
+                    onClick = { onClick(entry.key.id, it) }
                 )
             }
         }

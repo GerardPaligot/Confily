@@ -76,7 +76,7 @@ fun TalkSection(
         Text(text = talk.title, color = color, style = titleTextStyle)
         Row {
             MediumTag(
-                text = talk.startTime,
+                text = talk.slotTime,
                 icon = Icons.Outlined.Schedule,
                 colors = TagDefaults.unStyledColors()
             )

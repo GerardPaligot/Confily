@@ -14,7 +14,7 @@ struct EventSessionItemNavigation: View {
     let session: EventSessionItemUi
 
     var body: some View {
-        if (session.description_ == nil) {
+        if (session.isClickable) {
             EventSessionView(session: session)
         } else {
             NavigationLink {

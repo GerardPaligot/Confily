@@ -14,8 +14,8 @@ import com.paligot.confily.core.networking.UserDao
 import com.paligot.confily.core.networking.UserDaoSQLDelight
 import com.paligot.confily.core.partners.PartnerDao
 import com.paligot.confily.core.partners.PartnerDaoSQLDelight
-import com.paligot.confily.core.schedules.ScheduleDao
-import com.paligot.confily.core.schedules.ScheduleDaoSQLDelight
+import com.paligot.confily.core.schedules.SessionDao
+import com.paligot.confily.core.schedules.SessionDaoSQLDelight
 import com.paligot.confily.core.speakers.SpeakerDao
 import com.paligot.confily.core.speakers.SpeakerDaoSQLDelight
 import com.paligot.confily.resources.EnStrings
@@ -44,8 +44,8 @@ actual val databasesModule = module {
     single<EventDao> { EventDaoSQLDelight(db = get(), dispatcher = get()) }
     single<FeaturesActivatedDao> { FeaturesActivatedDaoSQLDelight(db = get(), dispatcher = get()) }
     single<PartnerDao> { PartnerDaoSQLDelight(db = get(), dispatcher = get()) }
-    single<ScheduleDao> {
-        ScheduleDaoSQLDelight(db = get(), settings = get(), lyricist = get(), dispatcher = get())
+    single<SessionDao> {
+        SessionDaoSQLDelight(db = get(), settings = get(), dispatcher = get())
     }
     single<SpeakerDao> { SpeakerDaoSQLDelight(db = get(), lyricist = get(), dispatcher = get()) }
     single<UserDao> { UserDaoSQLDelight(db = get(), dispatcher = get()) }

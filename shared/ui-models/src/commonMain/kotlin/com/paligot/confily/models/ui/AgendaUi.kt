@@ -7,24 +7,24 @@ import kotlinx.collections.immutable.persistentMapOf
 
 data class AgendaUi(
     val onlyFavorites: Boolean,
-    val sessions: ImmutableMap<String, ImmutableList<com.paligot.confily.models.ui.SessionItemUi>>
+    val sessions: ImmutableMap<String, ImmutableList<SessionItemUi>>
 ) {
     companion object {
-        val fake = com.paligot.confily.models.ui.AgendaUi(
+        val fake = AgendaUi(
             onlyFavorites = false,
             sessions = persistentMapOf(
                 "10:00" to persistentListOf(
-                    com.paligot.confily.models.ui.TalkItemUi.Companion.fake.copy(id = "1"),
-                    com.paligot.confily.models.ui.TalkItemUi.Companion.fake.copy(id = "2")
+                    TalkItemUi.fake.copy(id = "1"),
+                    TalkItemUi.fake.copy(id = "2")
                 ),
                 "11:00" to persistentListOf(
-                    com.paligot.confily.models.ui.TalkItemUi.Companion.fake.copy(id = "3"),
-                    com.paligot.confily.models.ui.TalkItemUi.Companion.fake.copy(id = "4")
+                    TalkItemUi.fake.copy(id = "3"),
+                    TalkItemUi.fake.copy(id = "4")
                 ),
-                "12:00" to persistentListOf(com.paligot.confily.models.ui.EventSessionItemUi.Companion.fakePause),
+                "12:00" to persistentListOf(EventSessionItemUi.fakePause),
                 "13:00" to persistentListOf(
-                    com.paligot.confily.models.ui.TalkItemUi.Companion.fake.copy(id = "5"),
-                    com.paligot.confily.models.ui.TalkItemUi.Companion.fake.copy(id = "6")
+                    TalkItemUi.fake.copy(id = "5"),
+                    TalkItemUi.fake.copy(id = "6")
                 )
             )
         )

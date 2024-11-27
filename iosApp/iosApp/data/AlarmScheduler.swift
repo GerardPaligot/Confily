@@ -10,7 +10,7 @@ import SwiftUI
 import SharedDi
 
 class AlarmScheduler {
-    private let repository: SchedulesRepository = RepositoryHelper().schedulesRepository
+    private let repository: SessionRepository = RepositoryHelper().sessionRepository
     
     func schedule(talkItem: TalkItemUi) async {
         let scheduleId = talkItem.id

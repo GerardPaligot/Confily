@@ -5,8 +5,7 @@ import kotlinx.collections.immutable.persistentListOf
 
 data class TalkUi(
     val title: String,
-    val startTime: String,
-    val endTime: String,
+    val slotTime: String,
     val timeInMinutes: Int,
     val room: String,
     val level: String?,
@@ -22,8 +21,7 @@ data class TalkUi(
     companion object {
         val fake = TalkUi(
             title = "L’intelligence artificielle au secours de l’accessibilité ",
-            startTime = "10:00",
-            endTime = "11:00",
+            slotTime = "10:00",
             timeInMinutes = 60,
             room = "Stage 1",
             level = "Beginner",

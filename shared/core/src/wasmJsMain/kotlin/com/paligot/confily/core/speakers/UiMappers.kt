@@ -28,8 +28,7 @@ fun SpeakerDb.convertToSpeakerUi(
 fun SpeakerDb.convertSpeakerItemUi(strings: Strings) = SpeakerItemUi(
     id = id,
     name = displayName,
-    pronouns = pronouns,
-    company = displayActivity(strings) ?: "",
+    activity = displayActivity(strings) ?: "",
     url = photoUrl
 )
 

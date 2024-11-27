@@ -6,7 +6,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.paligot.confily.core.agenda.AgendaDao
 import com.paligot.confily.core.kvalue.ConferenceSettings
 import com.paligot.confily.core.sample.BuildConfig
-import com.paligot.confily.core.schedules.ScheduleDao
+import com.paligot.confily.core.schedules.SessionDao
 import com.paligot.confily.core.test.instrumentedModule
 import com.paligot.confily.core.test.patterns.navigation.RobotNavigator
 import com.paligot.confily.core.test.patterns.navigation.robotHost
@@ -40,7 +40,7 @@ class FilteringScheduleTest : KoinTest {
 
     private val settings by inject<ConferenceSettings>()
     private val agendaDao by inject<AgendaDao>()
-    private val scheduleDao by inject<ScheduleDao>()
+    private val sessionDao by inject<SessionDao>()
 
     @Before
     fun setup() {
@@ -79,6 +79,6 @@ class FilteringScheduleTest : KoinTest {
 
     @After
     fun tearDown() {
-        scheduleDao.applyFavoriteFilter(false)
+        sessionDao.applyFavoriteFilter(false)
     }
 }

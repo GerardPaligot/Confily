@@ -73,7 +73,7 @@ class SelectTalksBySpeakerIdDb(
 )
 
 @Serializable
-class CategoryDb(
+data class CategoryDb(
     val id: String,
     val name: String,
     val color: String,
@@ -83,7 +83,7 @@ class CategoryDb(
 )
 
 @Serializable
-class FormatDb(
+data class FormatDb(
     val id: String,
     val name: String,
     val time: Long,

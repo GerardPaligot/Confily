@@ -20,7 +20,7 @@ import org.jetbrains.compose.resources.stringResource
 fun CategoryListFilters(
     categories: ImmutableMap<CategoryUi, Boolean>,
     modifier: Modifier = Modifier,
-    onClick: (categoryUi: CategoryUi, selected: Boolean) -> Unit
+    onClick: (categoryId: String, selected: Boolean) -> Unit
 ) {
     FilterSection(
         title = stringResource(Resource.string.title_filters_categories),
@@ -35,7 +35,7 @@ fun CategoryListFilters(
                     label = entry.key.name,
                     selected = entry.value,
                     imageVector = entry.key.icon?.findCategoryImageVector(),
-                    onClick = { onClick(entry.key, it) }
+                    onClick = { onClick(entry.key.id, it) }
                 )
             }
         }

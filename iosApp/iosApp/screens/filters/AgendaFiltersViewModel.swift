@@ -17,7 +17,8 @@ enum AgendaFiltersUiState {
 
 @MainActor
 class AgendaFiltersViewModel: ObservableObject {
-    private let agendaRepository: SchedulesRepository = RepositoryHelper().schedulesRepository
+    private let sessionRepository: SessionRepository = RepositoryHelper().sessionRepository
+    private let sessionInteractor: SessionInteractor = InteractorHelper().sessionInteractor
 
     @Published var uiState: AgendaFiltersUiState = AgendaFiltersUiState.loading
 
@@ -26,7 +27,7 @@ class AgendaFiltersViewModel: ObservableObject {
     func fetchFilters() {
         filtersTask = Task {
             do {
-                let stream = asyncSequence(for: agendaRepository.filters())
+                let stream = asyncSequence(for: sessionInteractor.filters())
                 for try await filters in stream {
                     self.uiState = .success(filters)
                 }
@@ -41,14 +42,14 @@ class AgendaFiltersViewModel: ObservableObject {
     }
 
     func applyFavoriteFilter(selected: Bool) async {
-        agendaRepository.applyFavoriteFilter(selected: selected)
+        sessionRepository.applyFavoriteFilter(selected: selected)
     }
     
     func applyCategoryFilter(categoryUi: CategoryUi, selected: Bool) async {
-        agendaRepository.applyCategoryFilter(categoryUi: categoryUi, selected: selected)
+        sessionRepository.applyCategoryFilter(categoryId: categoryUi.id, selected: selected)
     }
     
     func applyFormatFilter(formatUi: FormatUi, selected: Bool) async {
-        agendaRepository.applyFormatFilter(formatUi: formatUi, selected: selected)
+        sessionRepository.applyFormatFilter(formatId: formatUi.id, selected: selected)
     }
 }

@@ -20,8 +20,8 @@ import com.paligot.confily.core.partners.PartnerDaoSettings
 import com.paligot.confily.core.partners.PartnerQueries
 import com.paligot.confily.core.schedules.CategoryQueries
 import com.paligot.confily.core.schedules.FormatQueries
-import com.paligot.confily.core.schedules.ScheduleDao
-import com.paligot.confily.core.schedules.ScheduleDaoSettings
+import com.paligot.confily.core.schedules.SessionDao
+import com.paligot.confily.core.schedules.SessionDaoSettings
 import com.paligot.confily.core.schedules.SessionQueries
 import com.paligot.confily.core.speakers.SpeakerDao
 import com.paligot.confily.core.speakers.SpeakerDaoSettings
@@ -87,13 +87,12 @@ actual val databasesModule: Module = module {
         FeaturesActivatedDaoSettings(featuresActivatedQueries = get(), sessionQueries = get())
     }
     single<PartnerDao> { PartnerDaoSettings(partnerQueries = get()) }
-    single<ScheduleDao> {
-        ScheduleDaoSettings(
+    single<SessionDao> {
+        SessionDaoSettings(
             settings = get(),
             sessionQueries = get(),
             categoryQueries = get(),
-            formatQueries = get(),
-            lyricist = get()
+            formatQueries = get()
         )
     }
     single<SpeakerDao> {

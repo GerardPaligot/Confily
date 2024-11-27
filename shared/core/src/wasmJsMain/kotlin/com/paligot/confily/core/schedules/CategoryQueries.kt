@@ -40,6 +40,13 @@ class CategoryQueries(private val settings: ObservableSettings) {
         settings.putSerializableScoped(CATEGORIES, category.id, category)
     }
 
+    fun updateSelectedCategory(selected: Boolean, categoryId: String) {
+        val category: CategoryDb? = getCategory(categoryId)
+        if (category != null) {
+            upsertCategory(category.copy(selected = selected))
+        }
+    }
+
     fun deleteCategories(ids: List<String>) {
         ids.forEach { settings.removeScoped(CATEGORIES, it) }
     }

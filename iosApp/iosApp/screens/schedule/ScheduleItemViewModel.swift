@@ -18,7 +18,7 @@ enum ScheduleUiState {
 
 @MainActor
 class ScheduleItemViewModel: ObservableObject {
-    private let repository: SchedulesRepository = RepositoryHelper().schedulesRepository
+    private let interactor: SessionInteractor = InteractorHelper().sessionInteractor
     let scheduleId: String
 
     init(scheduleId: String) {
@@ -32,7 +32,7 @@ class ScheduleItemViewModel: ObservableObject {
     func fetchScheduleDetails() {
         scheduleTask = Task {
             do {
-                let stream = asyncSequence(for: repository.scheduleItem(scheduleId: scheduleId))
+                let stream = asyncSequence(for: interactor.session(sessionId: scheduleId))
                 for try await schedule in stream {
                     self.uiState = .success(schedule)
                 }

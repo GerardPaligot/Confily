@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.paligot.confily.core.agenda.AgendaRepository
 import com.paligot.confily.core.events.EventRepository
 import com.paligot.confily.core.events.entities.Event
-import com.paligot.confily.models.ui.EventInfoUi
 import com.paligot.confily.wear.events.panes.EventModelUi
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map

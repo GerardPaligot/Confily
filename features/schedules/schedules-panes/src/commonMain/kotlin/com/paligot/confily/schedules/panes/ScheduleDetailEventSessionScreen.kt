@@ -15,7 +15,7 @@ import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import com.paligot.confily.models.ui.EventSessionItemUi
+import com.paligot.confily.models.ui.EventSessionUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.screen_schedule_detail_event_session
 import com.paligot.confily.schedules.ui.schedule.EventSessionSection
@@ -29,7 +29,7 @@ import org.jetbrains.compose.resources.stringResource
 @ExperimentalMaterial3Api
 @Composable
 fun ScheduleDetailEventSessionScreen(
-    session: EventSessionItemUi,
+    session: EventSessionUi,
     onItineraryClicked: (lat: Double, lng: Double) -> Unit,
     onBackClicked: () -> Unit,
     modifier: Modifier = Modifier,
@@ -58,10 +58,8 @@ fun ScheduleDetailEventSessionScreen(
                     Spacer(modifier = Modifier.height(SpacingTokens.LargeSpacing.toDp()))
                     EventSessionSection(session = session)
                 }
-                session.description?.let {
-                    item {
-                        TalkAbstract(abstract = it)
-                    }
+                item {
+                    TalkAbstract(abstract = session.description)
                 }
                 session.addressUi?.let {
                     item {

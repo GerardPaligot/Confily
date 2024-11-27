@@ -38,6 +38,13 @@ class FormatQueries(private val settings: ObservableSettings) {
         settings.putSerializableScoped(FORMATS, format.id, format)
     }
 
+    fun updateSelectedFormat(selected: Boolean, formatId: String) {
+        val format: FormatDb? = getFormat(formatId)
+        if (format != null) {
+            upsertFormat(format.copy(selected = selected))
+        }
+    }
+
     fun deleteFormats(ids: List<String>) {
         ids.forEach { settings.removeScoped(FORMATS, it) }
     }

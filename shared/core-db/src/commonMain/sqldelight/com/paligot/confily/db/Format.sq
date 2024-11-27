@@ -19,8 +19,16 @@ SELECT id, name, time, selected
 FROM Format
 WHERE event_id = ? AND selected = 1;
 
+countSelectedFormats:
+SELECT COUNT(*)
+FROM Format
+WHERE event_id = ? AND selected = 1;
+
 upsertFormat:
 INSERT OR REPLACE INTO Format VALUES ?;
+
+updateSelectedFormat:
+UPDATE Format SET selected = ? WHERE id = ? AND event_id = ?;
 
 diffFormats:
 SELECT id

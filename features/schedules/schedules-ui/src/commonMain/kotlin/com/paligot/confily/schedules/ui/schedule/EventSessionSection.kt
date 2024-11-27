@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import com.paligot.confily.models.ui.EventSessionItemUi
+import com.paligot.confily.models.ui.EventSessionUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.text_schedule_minutes
 import com.paligot.confily.style.schedules.findTimeImageVector
@@ -23,7 +23,7 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun EventSessionSection(
-    session: EventSessionItemUi,
+    session: EventSessionUi,
     modifier: Modifier = Modifier,
     color: Color = MaterialTheme.colorScheme.onBackground,
     titleTextStyle: TextStyle = MaterialTheme.typography.headlineMedium

@@ -30,6 +30,6 @@ class SpeakersViewModel(repository: SpeakerRepository) : ViewModel() {
 fun SpeakerItemUi.toModelUi() = SpeakerModelUi(
     id = id,
     name = name,
-    job = company,
+    job = activity,
     url = url
 )

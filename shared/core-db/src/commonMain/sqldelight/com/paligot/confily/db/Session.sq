@@ -111,6 +111,13 @@ FROM TalkSessionWithSpeakers
 INNER JOIN Speaker ON TalkSessionWithSpeakers.speaker_id = Speaker.id
 WHERE TalkSessionWithSpeakers.event_id = ? AND TalkSessionWithSpeakers.talk_id = ?;
 
+selectSpeakersByTalkIds:
+SELECT Speaker.id, Speaker.display_name, Speaker.photo_url, Speaker.job_title, Speaker.company,
+TalkSessionWithSpeakers.talk_id
+FROM TalkSessionWithSpeakers
+INNER JOIN Speaker ON TalkSessionWithSpeakers.speaker_id = Speaker.id
+WHERE TalkSessionWithSpeakers.event_id = ? AND TalkSessionWithSpeakers.talk_id IN ?;
+
 selectTalksBySpeakerId:
 SELECT TalkSession.id, TalkSession.title, TalkSession.abstract, TalkSession.level,TalkSession.language,
 TalkSession.slide_url, TalkSession.replay_url, TalkSession.open_feedback_url,

@@ -18,7 +18,8 @@ enum AgendaUiState {
 
 @MainActor
 class AgendaViewModel: ObservableObject {
-    private let repository: SchedulesRepository = RepositoryHelper().schedulesRepository
+    private let repository: SessionRepository = RepositoryHelper().sessionRepository
+    private let interactor: SessionInteractor = InteractorHelper().sessionInteractor
     private let alarmScheduler: AlarmScheduler = AlarmScheduler()
 
     @Published var uiState: AgendaUiState = AgendaUiState.loading
@@ -28,7 +29,7 @@ class AgendaViewModel: ObservableObject {
     func fetchAgenda() {
         agendaTask = Task {
             do {
-                let stream = asyncSequence(for: repository.agenda())
+                let stream = asyncSequence(for: interactor.sessions())
                 for try await agenda in stream {
                     if (!agenda.isEmpty) {
                         self.uiState = AgendaUiState.success(agenda)

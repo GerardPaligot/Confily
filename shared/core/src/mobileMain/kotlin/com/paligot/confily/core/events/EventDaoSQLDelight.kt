@@ -13,7 +13,6 @@ import com.paligot.confily.core.events.entities.QAndAItem
 import com.paligot.confily.core.events.entities.Ticket
 import com.paligot.confily.db.ConfilyDatabase
 import com.paligot.confily.models.Attendee
-import com.paligot.confily.models.ui.CoCUi
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.Flow

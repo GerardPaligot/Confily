@@ -14,13 +14,15 @@ class EventItem(
     val date: LocalDate,
     val past: Boolean
 ) {
-    fun formattedDate(): String = date.format(LocalDate.Format {
-        dayOfMonth(Padding.NONE)
-        char('/')
-        monthNumber(Padding.NONE)
-        char('/')
-        year()
-    })
+    fun formattedDate(): String = date.format(
+        LocalDate.Format {
+            dayOfMonth(Padding.NONE)
+            char('/')
+            monthNumber(Padding.NONE)
+            char('/')
+            year()
+        }
+    )
 }
 
 fun EventItem.mapToUi(): EventItemUi = EventItemUi(

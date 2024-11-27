@@ -33,7 +33,7 @@ struct TalkSectionView: View {
                     .padding(.top, 8)
                 HStack {
                     TagUnStyledView(
-                        text: talkUi.startTime,
+                        text: talkUi.slotTime,
                         icon: "deskclock"
                     )
                     TagUnStyledView(

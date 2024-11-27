@@ -4,7 +4,7 @@ import com.paligot.confily.core.agenda.AgendaRepository
 import com.paligot.confily.core.events.EventRepository
 import com.paligot.confily.core.networking.NetworkingRepository
 import com.paligot.confily.core.partners.PartnerRepository
-import com.paligot.confily.core.schedules.SchedulesRepository
+import com.paligot.confily.core.schedules.SessionRepository
 import com.paligot.confily.core.speakers.SpeakerRepository
 import org.koin.dsl.module
 
@@ -18,7 +18,7 @@ val repositoriesModule = module {
             featuresDao = get()
         )
     }
-    single { SchedulesRepository.Factory.create(scheduleDao = get(), settings = get()) }
+    single { SessionRepository.Factory.create(sessionDao = get(), settings = get()) }
     single {
         EventRepository.Factory.create(
             api = get(),

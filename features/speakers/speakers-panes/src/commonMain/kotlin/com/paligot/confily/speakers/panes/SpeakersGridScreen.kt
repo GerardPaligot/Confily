@@ -57,7 +57,7 @@ fun SpeakersGridScreen(
                 items(speakers.toList(), key = { it.id }) {
                     LargeSpeakerItem(
                         name = it.name,
-                        description = it.company,
+                        description = it.activity,
                         url = it.url,
                         onClick = { onSpeakerClicked(it.id) },
                         modifier = Modifier.placeholder(isLoading)
