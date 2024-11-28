@@ -6,7 +6,7 @@ import com.paligot.confily.core.schedules.SessionRepository
 import com.paligot.confily.core.schedules.entities.EventSessionItem
 import com.paligot.confily.core.schedules.entities.SessionItem
 import com.paligot.confily.core.schedules.entities.Sessions
-import com.paligot.confily.core.schedules.entities.mapToUi
+import com.paligot.confily.core.speakers.entities.mapToUi
 import com.paligot.confily.wear.schedules.panes.EventSessionModelUi
 import com.paligot.confily.wear.schedules.panes.ScheduleModelUi
 import com.paligot.confily.wear.schedules.panes.ScheduleSessionModelUi

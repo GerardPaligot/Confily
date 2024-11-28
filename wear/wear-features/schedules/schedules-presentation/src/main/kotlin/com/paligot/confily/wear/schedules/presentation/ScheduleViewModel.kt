@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paligot.confily.core.schedules.SessionRepository
 import com.paligot.confily.core.schedules.entities.Session
-import com.paligot.confily.core.schedules.entities.SpeakerItem
+import com.paligot.confily.core.speakers.entities.SpeakerItem
 import com.paligot.confily.models.ui.SpeakerItemUi
 import com.paligot.confily.resources.Strings
 import com.paligot.confily.wear.schedules.panes.SessionDetailModelUi

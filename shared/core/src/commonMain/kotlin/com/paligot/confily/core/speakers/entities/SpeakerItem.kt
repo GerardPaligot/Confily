@@ -1,4 +1,4 @@
-package com.paligot.confily.core.schedules.entities
+package com.paligot.confily.core.speakers.entities
 
 import com.paligot.confily.models.ui.SpeakerItemUi
 import com.paligot.confily.resources.Strings

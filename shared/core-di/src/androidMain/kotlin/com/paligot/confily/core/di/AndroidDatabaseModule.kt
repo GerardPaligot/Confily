@@ -46,6 +46,6 @@ actual val databasesModule = module {
     single<SessionDao> {
         SessionDaoSQLDelight(db = get(), settings = get(), dispatcher = get())
     }
-    single<SpeakerDao> { SpeakerDaoSQLDelight(db = get(), lyricist = get(), dispatcher = get()) }
+    single<SpeakerDao> { SpeakerDaoSQLDelight(db = get(), dispatcher = get()) }
     single<UserDao> { UserDaoSQLDelight(db = get(), dispatcher = get()) }
 }

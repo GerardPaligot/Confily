@@ -27,7 +27,9 @@ val repositoriesModule = module {
             qrCodeGenerator = get()
         )
     }
-    single { SpeakerRepository.Factory.create(speakerDao = get(), settings = get()) }
+    single {
+        SpeakerRepository.Factory.create(speakerDao = get(), sessionDao = get(), settings = get())
+    }
     single { PartnerRepository.Factory.create(settings = get(), partnerDao = get()) }
     single {
         NetworkingRepository.Factory.create(

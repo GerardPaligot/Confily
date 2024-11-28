@@ -3,7 +3,7 @@ package com.paligot.confily.wear.speakers.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paligot.confily.core.speakers.SpeakerRepository
-import com.paligot.confily.models.ui.SpeakerItemUi
+import com.paligot.confily.core.speakers.entities.SpeakerItem
 import com.paligot.confily.wear.speakers.panes.SpeakerModelUi
 import com.paligot.confily.wear.speakers.panes.SpeakersModelUi
 import kotlinx.collections.immutable.toImmutableList
@@ -27,9 +27,9 @@ class SpeakersViewModel(repository: SpeakerRepository) : ViewModel() {
         )
 }
 
-fun SpeakerItemUi.toModelUi() = SpeakerModelUi(
+fun SpeakerItem.toModelUi() = SpeakerModelUi(
     id = id,
-    name = name,
-    job = activity,
-    url = url
+    name = displayName,
+    url = photoUrl,
+    job = jobTitle ?: company ?: ""
 )

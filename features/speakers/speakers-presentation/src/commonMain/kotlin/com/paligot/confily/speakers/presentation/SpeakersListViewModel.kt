@@ -2,10 +2,14 @@ package com.paligot.confily.speakers.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import cafe.adriel.lyricist.Lyricist
 import com.paligot.confily.core.speakers.SpeakerRepository
+import com.paligot.confily.core.speakers.entities.mapToUi
 import com.paligot.confily.models.ui.SpeakerItemUi
+import com.paligot.confily.resources.Strings
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -18,9 +22,12 @@ sealed class SpeakersUiState {
     data class Failure(val throwable: Throwable) : SpeakersUiState()
 }
 
-class SpeakersListViewModel(repository: SpeakerRepository) : ViewModel() {
+class SpeakersListViewModel(
+    repository: SpeakerRepository,
+    lyricist: Lyricist<Strings>
+) : ViewModel() {
     val uiState: StateFlow<SpeakersUiState> = repository.speakers()
-        .map { SpeakersUiState.Success(it) }
+        .map { SpeakersUiState.Success(it.map { it.mapToUi(lyricist.strings) }.toImmutableList()) }
         .catch { SpeakersUiState.Failure(it) }
         .stateIn(
             scope = viewModelScope,

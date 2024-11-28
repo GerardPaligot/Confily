@@ -1,5 +1,7 @@
 package com.paligot.confily.core.schedules.entities
 
+import com.paligot.confily.core.speakers.entities.SpeakerItem
+import com.paligot.confily.core.speakers.entities.mapToUi
 import com.paligot.confily.models.ui.TalkUi
 import com.paligot.confily.resources.Strings
 import kotlinx.collections.immutable.toImmutableList

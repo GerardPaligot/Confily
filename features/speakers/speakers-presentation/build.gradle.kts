@@ -35,6 +35,7 @@ kotlin {
                 implementation(libs.jetbrains.lifecycle.viewmodel.compose)
 
                 implementation(libs.koin.compose.viewmodel)
+                implementation(libs.lyricist)
             }
         }
         val androidMain by getting {

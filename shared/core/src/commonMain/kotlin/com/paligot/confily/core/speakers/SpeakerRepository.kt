@@ -1,38 +1,20 @@
 package com.paligot.confily.core.speakers
 
 import com.paligot.confily.core.kvalue.ConferenceSettings
-import com.paligot.confily.models.ui.SpeakerItemUi
-import com.paligot.confily.models.ui.SpeakerUi
-import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
-import kotlinx.collections.immutable.ImmutableList
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import com.paligot.confily.core.schedules.SessionDao
+import com.paligot.confily.core.speakers.entities.Speaker
+import com.paligot.confily.core.speakers.entities.SpeakerItem
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flatMapConcat
 
 interface SpeakerRepository {
-    @NativeCoroutines
-    fun speakers(): Flow<ImmutableList<SpeakerItemUi>>
-
-    @NativeCoroutines
-    fun speaker(speakerId: String): Flow<SpeakerUi>
+    fun speaker(speakerId: String): Flow<Speaker>
+    fun speakers(): Flow<List<SpeakerItem>>
 
     object Factory {
         fun create(
             speakerDao: SpeakerDao,
+            sessionDao: SessionDao,
             settings: ConferenceSettings
-        ): SpeakerRepository = SpeakerRepositoryImpl(speakerDao, settings)
+        ): SpeakerRepository = SpeakerRepositoryImpl(speakerDao, sessionDao, settings)
     }
-}
-
-class SpeakerRepositoryImpl(
-    private val speakerDao: SpeakerDao,
-    private val settings: ConferenceSettings
-) : SpeakerRepository {
-    @OptIn(ExperimentalCoroutinesApi::class)
-    override fun speaker(speakerId: String): Flow<SpeakerUi> = settings.fetchEventId()
-        .flatMapConcat { speakerDao.fetchSpeaker(eventId = it, speakerId = speakerId) }
-
-    @OptIn(ExperimentalCoroutinesApi::class)
-    override fun speakers(): Flow<ImmutableList<SpeakerItemUi>> = settings.fetchEventId()
-        .flatMapConcat { speakerDao.fetchSpeakers(eventId = it) }
 }

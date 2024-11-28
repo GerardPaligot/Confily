@@ -22,7 +22,7 @@ SELECT id, display_name, pronouns, bio, job_title, company, photo_url, twitter, 
 FROM Speaker WHERE id == ? AND event_id == ?;
 
 selectSpeakersByEvent:
-SELECT id, display_name, pronouns, bio, job_title, company, photo_url, twitter, mastodon, github, linkedin, website, event_id
+SELECT id, display_name, photo_url, job_title, company
 FROM Speaker WHERE event_id == ?;
 
 diffSpeakers:

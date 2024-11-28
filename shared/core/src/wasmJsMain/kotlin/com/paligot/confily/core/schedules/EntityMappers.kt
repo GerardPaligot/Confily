@@ -1,5 +1,6 @@
 package com.paligot.confily.core.schedules
 
+import com.paligot.confily.core.events.entities.Social
 import com.paligot.confily.core.schedules.entities.Address
 import com.paligot.confily.core.schedules.entities.Category
 import com.paligot.confily.core.schedules.entities.EventSession
@@ -10,9 +11,11 @@ import com.paligot.confily.core.schedules.entities.SelectableCategory
 import com.paligot.confily.core.schedules.entities.SelectableFormat
 import com.paligot.confily.core.schedules.entities.Session
 import com.paligot.confily.core.schedules.entities.SessionItem
-import com.paligot.confily.core.schedules.entities.SpeakerItem
 import com.paligot.confily.core.speakers.SpeakerDb
+import com.paligot.confily.core.speakers.entities.SpeakerInfo
+import com.paligot.confily.core.speakers.entities.SpeakerItem
 import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 
@@ -29,8 +32,8 @@ fun SelectSessionsDb.mapToSessionEntity(speakers: List<SpeakerItem>): Session = 
         else -> null
     },
     language = talk.language,
-    startTime = Instant.parse(session.startTime).toLocalDateTime(TimeZone.currentSystemDefault()),
-    endTime = Instant.parse(session.endTime).toLocalDateTime(TimeZone.currentSystemDefault()),
+    startTime = LocalDateTime.parse(session.startTime),
+    endTime = LocalDateTime.parse(session.endTime),
     room = session.room,
     speakers = speakers,
     feedback = null
@@ -64,6 +67,46 @@ fun SelectSessionsDb.mapToEntity(speakers: List<SpeakerItem>): SessionItem = Ses
     endTime = Instant.parse(session.endTime).toLocalDateTime(TimeZone.currentSystemDefault()),
     speakers = speakers,
     isFavorite = session.isFavorite
+)
+
+fun SelectTalksBySpeakerIdDb.mapToEntity(
+    session: SelectSessionsDb,
+    speakers: List<SpeakerDb>
+): SessionItem = SessionItem(
+    id = this.session.id,
+    title = this.session.title,
+    category = this.category.mapTopEntity(),
+    format = this.format.mapTopEntity(),
+    level = when (this.session.level?.lowercase()) {
+        "advanced" -> Level.Advanced
+        "intermediate" -> Level.Intermediate
+        "beginner" -> Level.Beginner
+        else -> null
+    },
+    room = session.session.room,
+    language = this.session.language,
+    order = session.session.order.toInt(),
+    startTime = LocalDateTime.parse(session.session.startTime),
+    endTime = LocalDateTime.parse(session.session.endTime),
+    speakers = speakers.map { it.mapToEntity() },
+    isFavorite = session.session.isFavorite
+)
+
+fun SpeakerDb.mapToInfoEntity(): SpeakerInfo = SpeakerInfo(
+    id = id,
+    displayName = displayName,
+    bio = bio,
+    photoUrl = photoUrl,
+    jobTitle = jobTitle,
+    company = company,
+    socials = listOfNotNull(
+        twitter?.let { Social(url = it, type = "twitter") },
+        mastodon?.let { Social(url = it, type = "mastodon") },
+        github?.let { Social(url = it, type = "github") },
+        linkedin?.let { Social(url = it, type = "linkedin") },
+        website?.let { Social(url = it, type = "website") }
+    ),
+    pronouns = pronouns
 )
 
 fun SpeakerDb.mapToEntity(): SpeakerItem = SpeakerItem(

@@ -1,6 +1,6 @@
 package com.paligot.confily.core.schedules.entities
 
-import com.paligot.confily.models.ui.SessionItemUi
+import com.paligot.confily.core.speakers.entities.SpeakerItem
 import com.paligot.confily.models.ui.TalkItemUi
 import com.paligot.confily.resources.Strings
 import kotlinx.collections.immutable.toImmutableList
@@ -29,7 +29,7 @@ class SessionItem(
 
 private const val MaxSpeakersCount = 3
 
-fun SessionItem.mapToUi(strings: Strings): SessionItemUi {
+fun SessionItem.mapToUi(strings: Strings): TalkItemUi {
     val diff = endTime.toInstant(TimeZone.currentSystemDefault())
         .minus(startTime.toInstant(TimeZone.currentSystemDefault()))
     val timeInMinutes = diff.inWholeMinutes.toInt()

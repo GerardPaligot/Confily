@@ -1,11 +1,10 @@
 package com.paligot.confily.core.speakers
 
-import com.paligot.confily.models.ui.SpeakerItemUi
-import com.paligot.confily.models.ui.SpeakerUi
-import kotlinx.collections.immutable.ImmutableList
+import com.paligot.confily.core.speakers.entities.SpeakerInfo
+import com.paligot.confily.core.speakers.entities.SpeakerItem
 import kotlinx.coroutines.flow.Flow
 
 interface SpeakerDao {
-    fun fetchSpeaker(eventId: String, speakerId: String): Flow<SpeakerUi>
-    fun fetchSpeakers(eventId: String): Flow<ImmutableList<SpeakerItemUi>>
+    fun fetchSpeaker(eventId: String, speakerId: String): Flow<SpeakerInfo>
+    fun fetchSpeakers(eventId: String): Flow<List<SpeakerItem>>
 }

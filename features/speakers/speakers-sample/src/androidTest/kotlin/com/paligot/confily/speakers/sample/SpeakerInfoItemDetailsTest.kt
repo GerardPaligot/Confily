@@ -28,7 +28,7 @@ import org.koin.test.KoinTest
 import org.koin.test.KoinTestRule
 import org.koin.test.inject
 
-class SpeakerItemDetailsTest : KoinTest {
+class SpeakerInfoItemDetailsTest : KoinTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 

@@ -96,7 +96,7 @@ actual val databasesModule: Module = module {
         )
     }
     single<SpeakerDao> {
-        SpeakerDaoSettings(sessionQueries = get(), speakerQueries = get(), lyricist = get())
+        SpeakerDaoSettings(speakerQueries = get())
     }
     single<UserDao> { UserDaoSettings() }
 }

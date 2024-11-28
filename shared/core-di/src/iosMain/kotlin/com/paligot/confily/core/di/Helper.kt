@@ -7,6 +7,7 @@ import com.paligot.confily.core.networking.NetworkingRepository
 import com.paligot.confily.core.partners.PartnerRepository
 import com.paligot.confily.core.schedules.SessionRepository
 import com.paligot.confily.core.sessions.SessionInteractor
+import com.paligot.confily.core.speakers.SpeakerInteractor
 import com.paligot.confily.core.speakers.SpeakerRepository
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -35,11 +36,13 @@ class RepositoryHelper : KoinComponent {
 class InteractorHelper : KoinComponent {
     val eventInteractor: EventInteractor by inject()
     val sessionInteractor: SessionInteractor by inject()
+    val speakerInteractor: SpeakerInteractor by inject()
 }
 
 val interactorsModule = module {
     single { EventInteractor(get()) }
     single { SessionInteractor(get(), get()) }
+    single { SpeakerInteractor(get(), get()) }
 }
 
 fun initKoin() {

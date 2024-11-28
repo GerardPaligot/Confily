@@ -151,6 +151,24 @@ class SessionDaoSQLDelight(
             }
     }
 
+    override fun fetchSessionsBySpeakerId(
+        eventId: String,
+        speakerId: String
+    ): Flow<List<SessionItem>> = db.sessionQueries
+        .selectTalksBySpeakerId(eventId, speakerId)
+        .asFlow()
+        .mapToList(dispatcher)
+        .map { sessions ->
+            sessions.map { session ->
+                session.mapToEntity(
+                    db.sessionQueries
+                        .selectSpeakersByTalkId(eventId, session.id)
+                        .executeAsList()
+                        .map { it.mapToEntity() }
+                )
+            }
+        }
+
     override fun fetchEventSessions(eventId: String): Flow<List<EventSessionItem>> =
         db.sessionQueries
             .selectBreakSessions(eventId, eventSessionItemMapper)

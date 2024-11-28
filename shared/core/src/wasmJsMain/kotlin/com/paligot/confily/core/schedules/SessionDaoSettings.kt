@@ -102,6 +102,25 @@ class SessionDaoSettings(
             }
     }
 
+    override fun fetchSessionsBySpeakerId(
+        eventId: String,
+        speakerId: String
+    ): Flow<List<SessionItem>> {
+        return sessionQueries
+            .selectTalksBySpeakerId(eventId, speakerId)
+            .map { talks ->
+                talks
+                    .map { talk ->
+                        talk.mapToEntity(
+                            session = sessionQueries
+                                .getSessionByTalkId(eventId, talk.session.id),
+                            speakers = sessionQueries
+                                .getSpeakersByTalkId(eventId, talk.session.id)
+                        )
+                    }
+            }
+    }
+
     override fun fetchEventSessions(eventId: String): Flow<List<EventSessionItem>> = sessionQueries
         .selectBreakSessions(eventId)
         .map { eventSessions -> eventSessions.map { it.mapToItemEntity() } }

@@ -7,5 +7,7 @@ import org.koin.dsl.module
 
 val speakersModule = module {
     viewModel { SpeakersViewModel(repository = get()) }
-    viewModel { params -> SpeakerViewModel(speakerId = params.get(), repository = get()) }
+    viewModel { params ->
+        SpeakerViewModel(speakerId = params.get(), repository = get(), lyricist = get())
+    }
 }

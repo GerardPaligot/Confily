@@ -10,7 +10,6 @@
 		0060F46B2C8BC231000BCD06 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0060F46A2C8BC231000BCD06 /* GoogleService-Info.plist */; };
 		009DACF52C69384200A7F42E /* AgendaRepositoryExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009DACF42C69384200A7F42E /* AgendaRepositoryExt.swift */; };
 		009DACF92C693B0900A7F42E /* NetworkingRepositoryExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009DACF82C693B0900A7F42E /* NetworkingRepositoryExt.swift */; };
-		009DACFB2C693B6000A7F42E /* SpeakerRepositoryExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009DACFA2C693B6000A7F42E /* SpeakerRepositoryExt.swift */; };
 		00F30E5C2CA6B68B0049641A /* PartnerRepositoryExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F30E5B2CA6B68B0049641A /* PartnerRepositoryExt.swift */; };
 		058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
@@ -122,7 +121,6 @@
 		0060F46A2C8BC231000BCD06 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		009DACF42C69384200A7F42E /* AgendaRepositoryExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaRepositoryExt.swift; sourceTree = "<group>"; };
 		009DACF82C693B0900A7F42E /* NetworkingRepositoryExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingRepositoryExt.swift; sourceTree = "<group>"; };
-		009DACFA2C693B6000A7F42E /* SpeakerRepositoryExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakerRepositoryExt.swift; sourceTree = "<group>"; };
 		00F30E5B2CA6B68B0049641A /* PartnerRepositoryExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnerRepositoryExt.swift; sourceTree = "<group>"; };
 		058557BA273AAA24004C7B11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -349,7 +347,6 @@
 				D5C1B3BA29F26D9E00D94391 /* BundleExt.swift */,
 				009DACF42C69384200A7F42E /* AgendaRepositoryExt.swift */,
 				009DACF82C693B0900A7F42E /* NetworkingRepositoryExt.swift */,
-				009DACFA2C693B6000A7F42E /* SpeakerRepositoryExt.swift */,
 				00F30E5B2CA6B68B0049641A /* PartnerRepositoryExt.swift */,
 			);
 			path = extensions;
@@ -747,7 +744,6 @@
 				D55D7A77295F8D63008EA04B /* PartnerDetailViewModel.swift in Sources */,
 				D524D72E27BBF0DB0078DF0D /* SpeakerItemView.swift in Sources */,
 				D563E2E72975596D00B5FCA0 /* EventItemView.swift in Sources */,
-				009DACFB2C693B6000A7F42E /* SpeakerRepositoryExt.swift in Sources */,
 				D5CAA6512821BCC7005BB242 /* RemoteImage.swift in Sources */,
 				D587A25C29AB90120074E4B9 /* JobItemView.swift in Sources */,
 				D581504429B22B2B0058D057 /* MenusNavigation.swift in Sources */,

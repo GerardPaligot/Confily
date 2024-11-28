@@ -18,4 +18,5 @@ dependencies {
     implementation(libs.androidx.wear.navigation)
 
     implementation(libs.koin.androidx.compose)
+    implementation(libs.lyricist)
 }

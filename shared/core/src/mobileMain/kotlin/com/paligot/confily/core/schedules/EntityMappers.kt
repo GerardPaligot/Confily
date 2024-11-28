@@ -9,12 +9,13 @@ import com.paligot.confily.core.schedules.entities.SelectableCategory
 import com.paligot.confily.core.schedules.entities.SelectableFormat
 import com.paligot.confily.core.schedules.entities.Session
 import com.paligot.confily.core.schedules.entities.SessionItem
-import com.paligot.confily.core.schedules.entities.SpeakerItem
+import com.paligot.confily.core.speakers.entities.SpeakerItem
 import com.paligot.confily.db.SelectOpenfeedbackProjectId
 import com.paligot.confily.db.SelectSessionByTalkId
 import com.paligot.confily.db.SelectSessions
 import com.paligot.confily.db.SelectSpeakersByTalkId
 import com.paligot.confily.db.SelectSpeakersByTalkIds
+import com.paligot.confily.db.SelectTalksBySpeakerId
 import kotlinx.datetime.LocalDateTime
 import com.paligot.confily.core.schedules.entities.Category as CategoryEntity
 import com.paligot.confily.core.schedules.entities.Format as FormatEntity
@@ -60,6 +61,38 @@ internal fun SelectSessionByTalkId.mapToEntity(
 )
 
 internal fun SelectSessions.mapToEntity(speakers: List<SpeakerItem>): SessionItem {
+    val startTime = LocalDateTime.parse(start_time)
+    return SessionItem(
+        id = id,
+        order = order_.toInt(),
+        title = title,
+        category = CategoryEntity(
+            id = category_id,
+            name = categoryName,
+            color = categoryColor,
+            icon = categoryIcon
+        ),
+        format = FormatEntity(
+            id = format_id,
+            name = formatName,
+            time = time.toInt()
+        ),
+        level = when (level?.lowercase()) {
+            "advanced" -> Level.Advanced
+            "intermediate" -> Level.Intermediate
+            "beginner" -> Level.Beginner
+            else -> null
+        },
+        room = room,
+        language = language,
+        startTime = startTime,
+        endTime = LocalDateTime.parse(end_time),
+        speakers = speakers,
+        isFavorite = is_favorite
+    )
+}
+
+internal fun SelectTalksBySpeakerId.mapToEntity(speakers: List<SpeakerItem>): SessionItem {
     val startTime = LocalDateTime.parse(start_time)
     return SessionItem(
         id = id,

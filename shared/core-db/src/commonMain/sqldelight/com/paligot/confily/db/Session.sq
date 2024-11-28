@@ -119,12 +119,14 @@ INNER JOIN Speaker ON TalkSessionWithSpeakers.speaker_id = Speaker.id
 WHERE TalkSessionWithSpeakers.event_id = ? AND TalkSessionWithSpeakers.talk_id IN ?;
 
 selectTalksBySpeakerId:
-SELECT TalkSession.id, TalkSession.title, TalkSession.abstract, TalkSession.level,TalkSession.language,
+SELECT TalkSession.id, TalkSession.title, TalkSession.abstract, TalkSession.level, TalkSession.language,
 TalkSession.slide_url, TalkSession.replay_url, TalkSession.open_feedback_url,
+Session.order_, Session.start_time, Session.end_time, Session.room, Session.is_favorite,
 TalkSession.category_id, Category.name AS categoryName, Category.color AS categoryColor, Category.icon AS categoryIcon,
 TalkSession.format_id, Format.name AS formatName, Format.time
 FROM TalkSessionWithSpeakers
 INNER JOIN TalkSession ON TalkSessionWithSpeakers.talk_id = TalkSession.id
+INNER JOIN Session ON TalkSession.id = Session.session_talk_id
 INNER JOIN Category ON TalkSession.category_id = Category.id
 INNER JOIN Format ON TalkSession.format_id = Format.id
 WHERE TalkSessionWithSpeakers.event_id = ? AND TalkSessionWithSpeakers.speaker_id = ?;

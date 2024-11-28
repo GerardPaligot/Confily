@@ -15,6 +15,7 @@ interface SessionDao {
     fun fetchEventSession(eventId: String, sessionId: String): Flow<EventSession>
     fun fetchSessionsFiltered(eventId: String): Flow<List<SessionItem>>
     fun fetchNextSessions(eventId: String, date: String): Flow<List<SessionItem>>
+    fun fetchSessionsBySpeakerId(eventId: String, speakerId: String): Flow<List<SessionItem>>
     fun fetchEventSessions(eventId: String): Flow<List<EventSessionItem>>
     fun fetchCategories(eventId: String): Flow<List<SelectableCategory>>
     fun fetchSelectedCategories(eventId: String): Flow<List<Category>>

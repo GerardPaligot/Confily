@@ -18,7 +18,7 @@ enum SpeakerUiState {
 
 @MainActor
 class SpeakerViewModel: ObservableObject {
-    private let repository: SpeakerRepository = RepositoryHelper().speakerRepository
+    private let interactor: SpeakerInteractor = InteractorHelper().speakerInteractor
     private let alarmScheduler: AlarmScheduler = AlarmScheduler()
     let speakerId: String
 
@@ -33,7 +33,7 @@ class SpeakerViewModel: ObservableObject {
     func fetchSpeakerDetails() {
         speakerTask = Task {
             do {
-                let stream = asyncSequence(for: repository.speaker(speakerId: self.speakerId))
+                let stream = asyncSequence(for: interactor.speaker(speakerId: self.speakerId))
                 for try await speaker in stream {
                     self.uiState = .success(speaker)
                 }
