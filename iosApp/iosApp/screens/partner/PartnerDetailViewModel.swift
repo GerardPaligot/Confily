@@ -12,13 +12,13 @@ import KMPNativeCoroutinesAsync
 
 enum PartnerUiState {
     case loading
-    case success(PartnerItemUi)
+    case success(PartnerUi)
     case failure
 }
 
 @MainActor
 class PartnerDetailViewModel: ObservableObject {
-    private let repository: PartnerRepository = RepositoryHelper().partnerRepository
+    private let interactor: PartnerInteractor = InteractorHelper().partnerInteractor
     let partnerId: String
 
     init(partnerId: String) {
@@ -32,7 +32,7 @@ class PartnerDetailViewModel: ObservableObject {
     func fetchPartner() {
         partnerTask = Task {
             do {
-                let stream = asyncSequence(for: repository.partner(id: self.partnerId))
+                let stream = asyncSequence(for: interactor.partner(partnerId: self.partnerId))
                 for try await partner in stream {
                     self.uiState = PartnerUiState.success(partner)
                 }

@@ -3,6 +3,7 @@ package com.paligot.confily.schedules.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paligot.confily.core.schedules.SessionRepository
+import com.paligot.confily.core.schedules.entities.mapToUi
 import com.paligot.confily.core.speakers.entities.mapToUi
 import com.paligot.confily.models.ui.FiltersUi
 import kotlinx.coroutines.flow.SharingStarted

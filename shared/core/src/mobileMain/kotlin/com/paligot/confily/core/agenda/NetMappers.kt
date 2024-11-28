@@ -1,6 +1,5 @@
 package com.paligot.confily.core.agenda
 
-import com.paligot.confily.core.extensions.format
 import com.paligot.confily.db.Event
 import com.paligot.confily.db.EventSession
 import com.paligot.confily.db.TalkSession
@@ -11,7 +10,6 @@ import com.paligot.confily.models.Format
 import com.paligot.confily.models.ScheduleItemV4
 import com.paligot.confily.models.Session
 import com.paligot.confily.models.Speaker
-import kotlinx.datetime.toLocalDateTime
 import kotlin.reflect.KClass
 import com.paligot.confily.db.Category as CategoryDb
 import com.paligot.confily.db.Format as FormatDb
@@ -25,7 +23,7 @@ fun EventV3.convertToModelDb(): Event = Event(
     address = this.address.address,
     latitude = this.address.lat,
     longitude = this.address.lng,
-    date = this.startDate.dropLast(1).toLocalDateTime().format(),
+    date = this.startDate,
     start_date = this.startDate,
     end_date = this.endDate,
     coc = this.coc,

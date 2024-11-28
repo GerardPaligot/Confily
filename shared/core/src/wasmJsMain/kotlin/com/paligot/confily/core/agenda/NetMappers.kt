@@ -5,7 +5,6 @@ import com.paligot.confily.core.events.FeaturesActivatedDb
 import com.paligot.confily.core.events.MenuDb
 import com.paligot.confily.core.events.QAndAActionDb
 import com.paligot.confily.core.events.QAndADb
-import com.paligot.confily.core.extensions.format
 import com.paligot.confily.core.partners.JobDb
 import com.paligot.confily.core.partners.PartnerDb
 import com.paligot.confily.core.partners.PartnerSocialDb
@@ -29,7 +28,6 @@ import com.paligot.confily.models.ScheduleItemV4
 import com.paligot.confily.models.Session
 import com.paligot.confily.models.SocialItem
 import com.paligot.confily.models.Speaker
-import kotlinx.datetime.toLocalDateTime
 import kotlin.reflect.KClass
 
 fun EventV3.convertToModelDb(): EventDb = EventDb(
@@ -39,7 +37,7 @@ fun EventV3.convertToModelDb(): EventDb = EventDb(
     address = this.address.address,
     latitude = this.address.lat,
     longitude = this.address.lng,
-    date = this.startDate.dropLast(1).toLocalDateTime().format(),
+    date = this.startDate,
     coc = this.coc,
     openfeedbackProjectId = this.openfeedbackProjectId,
     contactEmail = contactEmail,

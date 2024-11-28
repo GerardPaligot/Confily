@@ -18,7 +18,7 @@ enum PartnersUiState {
 
 @MainActor
 class PartnersViewModel: ObservableObject {
-    private let repository: PartnerRepository = RepositoryHelper().partnerRepository
+    private let interactor: PartnerInteractor = InteractorHelper().partnerInteractor
 
     @Published var uiState: PartnersUiState = PartnersUiState.loading
 
@@ -27,7 +27,7 @@ class PartnersViewModel: ObservableObject {
     func fetchPartners() {
         partnersTask = Task {
             do {
-                let stream = asyncSequence(for: repository.partners())
+                let stream = asyncSequence(for: interactor.partners())
                 for try await partners in stream {
                     self.uiState = PartnersUiState.success(partners.partners)
                 }

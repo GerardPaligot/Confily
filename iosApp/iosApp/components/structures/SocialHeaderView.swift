@@ -220,14 +220,14 @@ struct SocialHeaderView: View {
 struct SocialHeaderView_Previews: PreviewProvider {
     static var previews: some View {
         SocialHeaderView(
-            title: PartnerItemUi.companion.fake.name,
+            title: PartnerUi.companion.fake.name,
             pronouns: SpeakerUi.companion.fake.pronouns,
-            logoUrl: PartnerItemUi.companion.fake.logoUrl,
-            xUrl: PartnerItemUi.companion.fake.socials.first(where: { $0.type == SocialTypeUi.x })?.url,
-            mastodonUrl: PartnerItemUi.companion.fake.socials.first(where: { $0.type == SocialTypeUi.mastodon })?.url,
-            linkedInUrl: PartnerItemUi.companion.fake.socials.first(where: { $0.type == SocialTypeUi.linkedin })?.url,
-            githubUrl: PartnerItemUi.companion.fake.socials.first(where: { $0.type == SocialTypeUi.github })?.url,
-            websiteUrl: PartnerItemUi.companion.fake.socials.first(where: { $0.type == SocialTypeUi.website })?.url
+            logoUrl: PartnerUi.companion.fake.logoUrl,
+            xUrl: PartnerUi.companion.fake.socials.first(where: { $0.type == SocialTypeUi.x })?.url,
+            mastodonUrl: PartnerUi.companion.fake.socials.first(where: { $0.type == SocialTypeUi.mastodon })?.url,
+            linkedInUrl: PartnerUi.companion.fake.socials.first(where: { $0.type == SocialTypeUi.linkedin })?.url,
+            githubUrl: PartnerUi.companion.fake.socials.first(where: { $0.type == SocialTypeUi.github })?.url,
+            websiteUrl: PartnerUi.companion.fake.socials.first(where: { $0.type == SocialTypeUi.website })?.url
         )
     }
 }

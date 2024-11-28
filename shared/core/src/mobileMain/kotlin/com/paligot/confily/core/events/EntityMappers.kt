@@ -12,7 +12,7 @@ import kotlinx.datetime.toLocalDateTime
 
 internal val eventMapper = { id: String, name: String, formattedAddress: List<String>,
     _: String, latitude: Double, longitude: Double, _: String,
-    startDate: String, _: String, _: String?, contactEmail: String?,
+    startDate: String, endDate: String, _: String?, contactEmail: String?,
     contactPhone: String?, _: String?, twitterUrl: String?, _: String?,
     linkedinUrl: String?, faqUrl: String, cocUrl: String, _: Long ->
     Event(
@@ -21,7 +21,8 @@ internal val eventMapper = { id: String, name: String, formattedAddress: List<St
         formattedAddress = formattedAddress,
         latitude = latitude,
         longitude = longitude,
-        startDate = Instant.parse(startDate).toLocalDateTime(TimeZone.currentSystemDefault()),
+        startTime = Instant.parse(startDate).toLocalDateTime(TimeZone.currentSystemDefault()),
+        endTime = Instant.parse(endDate).toLocalDateTime(TimeZone.currentSystemDefault()),
         email = contactEmail,
         phone = contactPhone,
         socials = listOfNotNull(

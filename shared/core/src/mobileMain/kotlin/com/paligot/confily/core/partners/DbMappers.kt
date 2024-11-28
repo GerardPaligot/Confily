@@ -1,38 +1,49 @@
 package com.paligot.confily.core.partners
 
-import com.paligot.confily.core.extensions.formatHoursMinutes
-import com.paligot.confily.models.ui.ActivityUi
-import com.paligot.confily.models.ui.JobUi
-import com.paligot.confily.models.ui.PartnerItemUi
-import com.paligot.confily.models.ui.SalaryUi
-import com.paligot.confily.models.ui.SocialTypeUi
-import com.paligot.confily.models.ui.SocialUi
-import kotlinx.collections.immutable.persistentListOf
+import com.paligot.confily.core.events.entities.Social
+import com.paligot.confily.core.partners.entities.ActivityItem
+import com.paligot.confily.core.partners.entities.JobItem
+import com.paligot.confily.core.partners.entities.PartnerInfo
+import com.paligot.confily.core.partners.entities.PartnerItem
+import com.paligot.confily.core.partners.entities.PartnerType
+import com.paligot.confily.core.partners.entities.Salary
+import com.paligot.confily.core.schedules.entities.Address
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.datetime.LocalDateTime
 
+internal val partnerType = { order_: Long, name: String ->
+    PartnerType(order = order_.toInt(), name = name)
+}
+
+internal val partnerItemMapper = { id: String, name: String, logoUrl: String ->
+    PartnerItem(id = id, name = name, logoUrl = logoUrl)
+}
+
 internal val partnerMapper = { id: String, name: String, description: String, logoUrl: String,
-    formattedAddress: List<String>?, address: String?,
-    latitude: Double?, longitude: Double? ->
-    PartnerItemUi(
+    formattedAddress: List<String>?, _: String?, latitude: Double?,
+    longitude: Double? ->
+    PartnerInfo(
         id = id,
         name = name,
         description = description,
         logoUrl = logoUrl,
-        formattedAddress = formattedAddress?.toImmutableList(),
-        address = address,
-        latitude = latitude,
-        longitude = longitude,
-        socials = persistentListOf(),
-        jobs = persistentListOf()
+        address = if (formattedAddress != null && latitude != null && longitude != null) {
+            Address(
+                formatted = formattedAddress.toImmutableList(),
+                latitude = latitude,
+                longitude = longitude
+            )
+        } else {
+            null
+        }
     )
 }
 
 internal val activityMapper = { name: String, startTime: String, _: String?, partnerName: String ->
-    ActivityUi(
-        activityName = name,
+    ActivityItem(
+        name = name,
         partnerName = partnerName,
-        startTime = LocalDateTime.parse(startTime).formatHoursMinutes()
+        startTime = LocalDateTime.parse(startTime)
     )
 }
 
@@ -40,13 +51,13 @@ internal val jobsMapper = { url: String, _: String, _: String, title: String, co
     location: String, salaryMin: Long?, salaryMax: Long?,
     salaryRecurrence: String?, requirements: Double, _: Long,
     propulsed: String ->
-    JobUi(
+    JobItem(
         url = url,
         title = title,
-        companyName = companyName,
+        partnerName = companyName,
         location = location,
         salary = if (salaryMin != null && salaryMax != null && salaryRecurrence != null) {
-            SalaryUi(
+            Salary(
                 min = salaryMin.toInt(),
                 max = salaryMax.toInt(),
                 recurrence = salaryRecurrence
@@ -60,8 +71,5 @@ internal val jobsMapper = { url: String, _: String, _: String, title: String, co
 }
 
 internal val socialMapper = { url: String, type: String ->
-    SocialUi(
-        url = url,
-        type = SocialTypeUi.valueOf(type)
-    )
+    Social(url = url, type = type)
 }

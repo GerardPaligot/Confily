@@ -10,7 +10,7 @@ import SwiftUI
 import SharedDi
 
 struct PartnerDetailView: View {
-    let partnerUi: PartnerItemUi
+    let partnerUi: PartnerUi
 
     var body: some View {
         List {
@@ -62,6 +62,6 @@ struct PartnerDetailView: View {
 
 struct PartnerDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        PartnerDetailView(partnerUi: PartnerItemUi.companion.fake)
+        PartnerDetailView(partnerUi: PartnerUi.companion.fake)
     }
 }

@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import com.paligot.confily.models.ui.PartnerItemUi
+import com.paligot.confily.models.ui.PartnerUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.screen_partners_detail
 import com.paligot.confily.style.theme.appbars.AppBarIcons
@@ -21,7 +21,7 @@ import org.jetbrains.compose.resources.stringResource
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PartnerDetailOrientable(
-    partnerItemUi: PartnerItemUi,
+    partnerUi: PartnerUi,
     onLinkClicked: (url: String) -> Unit,
     onItineraryClicked: (lat: Double, lng: Double) -> Unit,
     modifier: Modifier = Modifier,
@@ -47,12 +47,12 @@ fun PartnerDetailOrientable(
                     modifier = Modifier.padding(it)
                 ) {
                     PartnerImageScreen(
-                        url = partnerItemUi.logoUrl,
+                        url = partnerUi.logoUrl,
                         isLoading = isLoading,
                         modifier = Modifier.weight(1f)
                     )
                     PartnerDetailVerticalScreen(
-                        partnerItemUi = partnerItemUi,
+                        partnerUi = partnerUi,
                         onLinkClicked = onLinkClicked,
                         onItineraryClicked = onItineraryClicked,
                         modifier = Modifier.weight(1f),
@@ -63,7 +63,7 @@ fun PartnerDetailOrientable(
                 }
             } else {
                 PartnerDetailVerticalScreen(
-                    partnerItemUi = partnerItemUi,
+                    partnerUi = partnerUi,
                     onLinkClicked = onLinkClicked,
                     onItineraryClicked = onItineraryClicked,
                     contentPadding = it,

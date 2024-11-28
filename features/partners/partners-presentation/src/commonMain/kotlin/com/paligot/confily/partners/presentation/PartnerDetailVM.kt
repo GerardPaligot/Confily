@@ -27,7 +27,7 @@ fun PartnerDetailVM(
 ) {
     when (val uiState = viewModel.uiState.collectAsState().value) {
         is PartnerUiState.Loading -> PartnerDetailOrientable(
-            partnerItemUi = uiState.partner,
+            partnerUi = uiState.partner,
             onLinkClicked = {},
             onItineraryClicked = { _, _ -> },
             modifier = modifier,
@@ -38,7 +38,7 @@ fun PartnerDetailVM(
 
         is PartnerUiState.Failure -> Text(text = stringResource(Resource.string.text_error))
         is PartnerUiState.Success -> PartnerDetailOrientable(
-            partnerItemUi = uiState.partner,
+            partnerUi = uiState.partner,
             onLinkClicked = onLinkClicked,
             onItineraryClicked = onItineraryClicked,
             modifier = modifier,

@@ -13,18 +13,13 @@ class Event(
     val formattedAddress: List<String>,
     val latitude: Double,
     val longitude: Double,
-    val startDate: LocalDateTime,
+    val startTime: LocalDateTime,
+    val endTime: LocalDateTime,
     val email: String?,
     val phone: String?,
     val socials: List<Social>,
     val faqUrl: String,
     val cocUrl: String
-)
-
-@ObjCName("SocialEntity")
-class Social(
-    val url: String,
-    val type: String
 )
 
 fun Event.mapToUi(): EventInfoUi = EventInfoUi(
@@ -33,7 +28,7 @@ fun Event.mapToUi(): EventInfoUi = EventInfoUi(
     address = formattedAddress.joinToString("\n"),
     latitude = latitude,
     longitude = longitude,
-    date = startDate.formatLocalizedFull(),
+    date = startTime.formatLocalizedFull(),
     twitterUrl = socials.first { it.type == "twitter" }.url,
     linkedinUrl = socials.first { it.type == "linkedin" }.url,
     faqLink = faqUrl,

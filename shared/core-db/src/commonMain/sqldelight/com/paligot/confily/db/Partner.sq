@@ -100,8 +100,7 @@ selectPartnerTypes:
 SELECT order_, name FROM PartnerType WHERE event_id == ? ORDER BY order_ ASC;
 
 selectPartners:
-SELECT Partner.id, Partner.name, Partner.description, Partner.logo_url,Partner.formatted_address,
-Partner.address, Partner.latitude, Partner.longitude
+SELECT Partner.id, Partner.name, Partner.logo_url
 FROM PartnerAndType
 INNER JOIN Partner ON PartnerAndType.partner_id = Partner.id
 INNER JOIN PartnerType ON PartnerAndType.sponsor_id = PartnerType.name

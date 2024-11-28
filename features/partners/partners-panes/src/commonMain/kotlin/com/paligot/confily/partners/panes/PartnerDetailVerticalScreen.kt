@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import com.paligot.confily.models.ui.PartnerItemUi
+import com.paligot.confily.models.ui.PartnerUi
 import com.paligot.confily.partners.ui.PartnerDetailSectionVertical
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.title_jobs
@@ -29,7 +29,7 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun PartnerDetailVerticalScreen(
-    partnerItemUi: PartnerItemUi,
+    partnerUi: PartnerUi,
     onLinkClicked: (url: String) -> Unit,
     onItineraryClicked: (lat: Double, lng: Double) -> Unit,
     modifier: Modifier = Modifier,
@@ -46,13 +46,13 @@ fun PartnerDetailVerticalScreen(
     ) {
         item {
             PartnerDetailSectionVertical(
-                partnerItemUi = partnerItemUi,
+                partnerUi = partnerUi,
                 isLoading = isLoading,
                 displayAvatar = displayAvatar,
                 onLinkClicked = onLinkClicked
             )
         }
-        if (partnerItemUi.jobs.isNotEmpty()) {
+        if (partnerUi.jobs.isNotEmpty()) {
             item {
                 Text(
                     text = stringResource(Resource.string.title_jobs),
@@ -60,7 +60,7 @@ fun PartnerDetailVerticalScreen(
                     modifier = Modifier.semantics { heading() }
                 )
             }
-            items(partnerItemUi.jobs) {
+            items(partnerUi.jobs) {
                 JobItem(
                     title = it.title,
                     description = "${it.companyName} - ${it.location}",
@@ -74,8 +74,8 @@ fun PartnerDetailVerticalScreen(
                 )
             }
         }
-        partnerItemUi.formattedAddress?.let {
-            val hasGpsLocation = partnerItemUi.latitude != null && partnerItemUi.longitude != null
+        partnerUi.formattedAddress?.let {
+            val hasGpsLocation = partnerUi.latitude != null && partnerUi.longitude != null
             item {
                 Text(
                     text = stringResource(Resource.string.title_plan_partner),
@@ -89,7 +89,7 @@ fun PartnerDetailVerticalScreen(
                     hasGpsLocation = hasGpsLocation,
                     onItineraryClicked = {
                         if (hasGpsLocation) {
-                            onItineraryClicked(partnerItemUi.latitude!!, partnerItemUi.longitude!!)
+                            onItineraryClicked(partnerUi.latitude!!, partnerUi.longitude!!)
                         }
                     }
                 )

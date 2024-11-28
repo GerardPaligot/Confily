@@ -3,6 +3,7 @@ package com.paligot.confily.partners.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paligot.confily.core.partners.PartnerRepository
+import com.paligot.confily.core.partners.entities.mapToUi
 import com.paligot.confily.models.ui.PartnersActivitiesUi
 import com.paligot.confily.navigation.TabActions
 import com.paligot.confily.style.theme.actions.TabAction
@@ -28,7 +29,7 @@ class PartnersViewModel(repository: PartnerRepository) : ViewModel() {
     val uiState: StateFlow<PartnersUiState> = repository.partners()
         .map {
             PartnersUiState.Success(
-                uiModel = it,
+                uiModel = it.mapToUi(),
                 tabActionsUi = TabActionsUi(
                     actions = mutableListOf<TabAction>().apply {
                         add(TabActions.partners)

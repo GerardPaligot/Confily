@@ -14,12 +14,12 @@ import androidx.wear.compose.material3.ScreenScaffold
 import androidx.wear.compose.material3.ScrollIndicator
 import androidx.wear.compose.material3.Text
 import coil3.compose.rememberAsyncImagePainter
-import com.paligot.confily.models.ui.PartnerItemUi
+import com.paligot.confily.models.ui.PartnerUi
 import com.paligot.confily.wear.theme.buttons.IconActionButton
 
 @Composable
 fun PartnerPane(
-    modelUi: PartnerItemUi,
+    modelUi: PartnerUi,
     modifier: Modifier = Modifier
 ) {
     val scrollState = rememberScalingLazyListState()
