@@ -2,7 +2,9 @@ package com.paligot.confily.networking.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.paligot.confily.core.networking.NetworkingRepository
+import com.paligot.confily.core.networking.UserRepository
+import com.paligot.confily.core.networking.entities.UserInfo
+import com.paligot.confily.core.networking.entities.mapToUi
 import com.paligot.confily.models.ui.Field
 import com.paligot.confily.models.ui.UserProfileUi
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,7 +18,7 @@ sealed class ProfileInputUiState {
 }
 
 class ProfileInputViewModel(
-    private val repository: NetworkingRepository
+    private val repository: UserRepository
 ) : ViewModel() {
     private val _uiState = MutableStateFlow<ProfileInputUiState>(ProfileInputUiState.Loading)
     val uiState: StateFlow<ProfileInputUiState> = _uiState
@@ -24,9 +26,9 @@ class ProfileInputViewModel(
     init {
         viewModelScope.launch {
             try {
-                repository.fetchProfile().collect {
+                repository.fetchUserProfile().collect {
                     _uiState.value = ProfileInputUiState.Success(
-                        profile = it ?: UserProfileUi(
+                        profile = it?.mapToUi() ?: UserProfileUi(
                             email = "",
                             firstName = "",
                             lastName = "",
@@ -58,11 +60,14 @@ class ProfileInputViewModel(
         val profile = (_uiState.value as ProfileInputUiState.Success).profile
         val email = profile.email
         if (email == "") return@launch
-        repository.saveProfile(
-            email,
-            profile.firstName,
-            profile.lastName,
-            profile.company
+        repository.insertUserInfo(
+            UserInfo(
+                firstName = email,
+                lastName = profile.firstName,
+                email = profile.lastName,
+                company = profile.company,
+                qrCode = null
+            )
         )
     }
 }

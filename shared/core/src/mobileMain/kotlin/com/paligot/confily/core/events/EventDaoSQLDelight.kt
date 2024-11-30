@@ -10,7 +10,6 @@ import com.paligot.confily.core.events.entities.EventItemList
 import com.paligot.confily.core.events.entities.MenuItem
 import com.paligot.confily.core.events.entities.QAndAAction
 import com.paligot.confily.core.events.entities.QAndAItem
-import com.paligot.confily.core.events.entities.Ticket
 import com.paligot.confily.db.ConfilyDatabase
 import com.paligot.confily.models.Attendee
 import kotlinx.collections.immutable.ImmutableList
@@ -33,11 +32,6 @@ class EventDaoSQLDelight(
 
     override fun fetchEvent(eventId: String): Flow<Event?> =
         db.eventQueries.selectEvent(eventId, eventMapper)
-            .asFlow()
-            .mapToOneOrNull(dispatcher)
-
-    override fun fetchTicket(eventId: String): Flow<Ticket?> =
-        db.ticketQueries.selectTicket(eventId, ticketMapper)
             .asFlow()
             .mapToOneOrNull(dispatcher)
 
@@ -101,7 +95,7 @@ class EventDaoSQLDelight(
         qrCode: ByteArray,
         barcode: String,
         attendee: Attendee?
-    ) = db.ticketQueries.insertUser(
+    ) = db.ticketQueries.insertTicket(
         id = attendee?.id,
         ext_id = attendee?.idExt,
         event_id = eventId,

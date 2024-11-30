@@ -3,7 +3,8 @@ package com.paligot.confily.networking.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paligot.confily.core.agenda.AgendaRepository
-import com.paligot.confily.core.networking.NetworkingRepository
+import com.paligot.confily.core.networking.UserRepository
+import com.paligot.confily.core.networking.entities.mapToUi
 import com.paligot.confily.models.ui.ExportNetworkingUi
 import com.paligot.confily.navigation.FabActions
 import com.paligot.confily.navigation.Screen
@@ -36,7 +37,7 @@ sealed class NetworkingUiState {
 
 class NetworkingViewModel(
     agendaRepository: AgendaRepository,
-    private val networkingRepository: NetworkingRepository
+    private val userRepository: UserRepository
 ) : ViewModel() {
     private val _exportPath = MutableSharedFlow<ExportNetworkingUi>(replay = 1)
     val exportPath: SharedFlow<ExportNetworkingUi> = _exportPath
@@ -85,6 +86,6 @@ class NetworkingViewModel(
     }
 
     fun exportNetworking() = viewModelScope.launch {
-        _exportPath.tryEmit(networkingRepository.exportNetworking())
+        _exportPath.tryEmit(userRepository.exportUserScanned().mapToUi())
     }
 }

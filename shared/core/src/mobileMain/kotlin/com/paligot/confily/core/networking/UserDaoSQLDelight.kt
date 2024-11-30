@@ -3,13 +3,11 @@ package com.paligot.confily.core.networking
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOneOrNull
+import com.paligot.confily.core.networking.entities.UserInfo
+import com.paligot.confily.core.networking.entities.UserItem
+import com.paligot.confily.core.networking.entities.UserTicket
 import com.paligot.confily.db.ConfilyDatabase
-import com.paligot.confily.models.ui.UserNetworkingUi
-import com.paligot.confily.models.ui.UserProfileUi
-import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import kotlinx.datetime.Clock
 import kotlin.coroutines.CoroutineContext
 
@@ -17,45 +15,48 @@ class UserDaoSQLDelight(
     private val db: ConfilyDatabase,
     private val dispatcher: CoroutineContext
 ) : UserDao {
-    override fun fetchProfile(eventId: String): Flow<UserProfileUi?> =
-        db.userQueries.selectProfile(eventId, profileMapper).asFlow().mapToOneOrNull(dispatcher)
+    override fun fetchUser(eventId: String): Flow<UserInfo?> = db.userQueries
+        .selectProfile(eventId, profileMapper)
+        .asFlow()
+        .mapToOneOrNull(dispatcher)
 
-    override fun fetchUserPreview(eventId: String): Flow<UserProfileUi?> =
-        db.ticketQueries.selectTicket(eventId, tickerMapper).asFlow().mapToOneOrNull(dispatcher)
+    override fun fetchUserTicket(eventId: String): Flow<UserTicket?> = db.ticketQueries
+        .selectTicket(eventId, tickerMapper)
+        .asFlow()
+        .mapToOneOrNull(dispatcher)
 
-    override fun fetchNetworking(eventId: String): Flow<ImmutableList<UserNetworkingUi>> =
-        db.userQueries.selectAll(eventId, userItemMapper).asFlow()
-            .mapToList(dispatcher)
-            .map { it.toImmutableList() }
+    override fun fetchUsersScanned(eventId: String): Flow<List<UserItem>> = db.userQueries
+        .selectAll(eventId, userItemMapper)
+        .asFlow()
+        .mapToList(dispatcher)
 
-    override fun getUsers(eventId: String): ImmutableList<UserNetworkingUi> =
-        db.userQueries.selectAll(eventId, userItemMapper)
-            .executeAsList()
-            .toImmutableList()
+    override fun getUsersScanned(eventId: String): List<UserItem> = db.userQueries
+        .selectAll(eventId, userItemMapper)
+        .executeAsList()
 
-    override fun insertUser(
-        eventId: String,
-        email: String,
-        firstName: String,
-        lastName: String,
-        company: String?,
-        qrCode: ByteArray
-    ) {
-        db.userQueries.insertProfile(eventId, email, firstName, lastName, company, qrCode)
+    override fun insertUser(eventId: String, user: UserInfo) {
+        db.userQueries.insertProfile(
+            event_id = eventId,
+            email = user.email,
+            firstname = user.firstName,
+            lastname = user.lastName,
+            company = user.company,
+            qrcode = user.qrCode ?: byteArrayOf()
+        )
     }
 
-    override fun insertEmailNetworking(eventId: String, userNetworkingUi: UserNetworkingUi) =
+    override fun insertUserScanned(eventId: String, user: UserItem) =
         db.userQueries.insertNetwork(
-            userNetworkingUi.email,
-            userNetworkingUi.firstName,
-            userNetworkingUi.lastName,
-            userNetworkingUi.company,
+            user.email,
+            user.firstName,
+            user.lastName,
+            user.company,
             eventId,
             Clock.System.now().epochSeconds
         )
 
-    override fun deleteNetworking(eventId: String, email: String) =
-        db.userQueries.deleteNetwork(eventId, email)
+    override fun deleteUserByEmail(eventId: String, email: String) = db.userQueries
+        .deleteNetwork(eventId, email)
 
     override fun getEmailProfile(eventId: String): String? = db.userQueries
         .selectProfile(eventId)

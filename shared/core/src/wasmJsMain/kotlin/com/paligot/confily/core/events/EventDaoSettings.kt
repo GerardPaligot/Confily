@@ -6,13 +6,11 @@ import com.paligot.confily.core.events.entities.EventItemList
 import com.paligot.confily.core.events.entities.MenuItem
 import com.paligot.confily.core.events.entities.QAndAAction
 import com.paligot.confily.core.events.entities.QAndAItem
-import com.paligot.confily.core.events.entities.Ticket
 import com.paligot.confily.models.Attendee
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import com.paligot.confily.models.EventItemList as EventItemListNetworking
 
@@ -34,10 +32,6 @@ class EventDaoSettings(
 
     override fun fetchEvent(eventId: String): Flow<Event?> =
         eventQueries.selectEvent(eventId).map(EventDb::convertToEntity)
-
-    override fun fetchTicket(eventId: String): Flow<Ticket?> {
-        return flowOf(null)
-    }
 
     override fun fetchQAndA(eventId: String): Flow<ImmutableList<QAndAItem>> = combine(
         flow = qAndAQueries.selectQAndA(eventId),

@@ -2,9 +2,11 @@ package com.paligot.confily.networking.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.paligot.confily.core.networking.NetworkingRepository
+import com.paligot.confily.core.networking.UserRepository
+import com.paligot.confily.core.networking.entities.mapToUi
 import com.paligot.confily.models.ui.UserNetworkingUi
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -19,10 +21,14 @@ sealed class ContactsUiState {
 }
 
 class ContactsViewModel(
-    private val repository: NetworkingRepository
+    private val repository: UserRepository
 ) : ViewModel() {
-    val uiState: StateFlow<ContactsUiState> = repository.fetchNetworking()
-        .map { ContactsUiState.Success(users = it) as ContactsUiState }
+    val uiState: StateFlow<ContactsUiState> = repository.fetchUsersScanned()
+        .map { users ->
+            ContactsUiState.Success(
+                users = users.map { it.mapToUi() }.toImmutableList()
+            ) as ContactsUiState
+        }
         .catch { emit(ContactsUiState.Failure(it)) }
         .stateIn(
             scope = viewModelScope,
@@ -31,6 +37,6 @@ class ContactsViewModel(
         )
 
     fun deleteNetworking(email: String) = viewModelScope.launch {
-        repository.deleteNetworkProfile(email)
+        repository.deleteUserScannedByEmail(email)
     }
 }

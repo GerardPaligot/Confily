@@ -3,7 +3,8 @@ package com.paligot.confily.core.di
 import com.paligot.confily.core.agenda.AgendaRepository
 import com.paligot.confily.core.events.EventInteractor
 import com.paligot.confily.core.events.EventRepository
-import com.paligot.confily.core.networking.NetworkingRepository
+import com.paligot.confily.core.networking.UserInteractor
+import com.paligot.confily.core.networking.UserRepository
 import com.paligot.confily.core.partners.PartnerInteractor
 import com.paligot.confily.core.partners.PartnerRepository
 import com.paligot.confily.core.schedules.SessionRepository
@@ -31,7 +32,7 @@ class RepositoryHelper : KoinComponent {
     val partnerRepository: PartnerRepository by inject()
     val eventRepository: EventRepository by inject()
     val speakerRepository: SpeakerRepository by inject()
-    val networkingRepository: NetworkingRepository by inject()
+    val userRepository: UserRepository by inject()
 }
 
 class InteractorHelper : KoinComponent {
@@ -39,6 +40,7 @@ class InteractorHelper : KoinComponent {
     val sessionInteractor: SessionInteractor by inject()
     val speakerInteractor: SpeakerInteractor by inject()
     val partnerInteractor: PartnerInteractor by inject()
+    val userInteractor: UserInteractor by inject()
 }
 
 val interactorsModule = module {
@@ -46,6 +48,7 @@ val interactorsModule = module {
     single { SessionInteractor(get(), get()) }
     single { SpeakerInteractor(get(), get()) }
     single { PartnerInteractor(get()) }
+    single { UserInteractor(get()) }
 }
 
 fun initKoin() {

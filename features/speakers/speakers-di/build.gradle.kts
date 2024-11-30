@@ -25,6 +25,7 @@ kotlin {
                 implementation(projects.shared.coreDi)
 
                 implementation(libs.koin.compose.viewmodel)
+                implementation(libs.lyricist)
             }
         }
     }

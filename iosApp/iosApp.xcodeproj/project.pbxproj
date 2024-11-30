@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0060F46B2C8BC231000BCD06 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0060F46A2C8BC231000BCD06 /* GoogleService-Info.plist */; };
 		009DACF52C69384200A7F42E /* AgendaRepositoryExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009DACF42C69384200A7F42E /* AgendaRepositoryExt.swift */; };
-		009DACF92C693B0900A7F42E /* NetworkingRepositoryExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009DACF82C693B0900A7F42E /* NetworkingRepositoryExt.swift */; };
 		058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
@@ -119,7 +118,6 @@
 /* Begin PBXFileReference section */
 		0060F46A2C8BC231000BCD06 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		009DACF42C69384200A7F42E /* AgendaRepositoryExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaRepositoryExt.swift; sourceTree = "<group>"; };
-		009DACF82C693B0900A7F42E /* NetworkingRepositoryExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingRepositoryExt.swift; sourceTree = "<group>"; };
 		058557BA273AAA24004C7B11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2152FB032600AC8F00CF470E /* iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
@@ -344,7 +342,6 @@
 				D52F3B992961CDCC00535233 /* ViewExt.swift */,
 				D5C1B3BA29F26D9E00D94391 /* BundleExt.swift */,
 				009DACF42C69384200A7F42E /* AgendaRepositoryExt.swift */,
-				009DACF82C693B0900A7F42E /* NetworkingRepositoryExt.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -725,7 +722,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D574DE1A292446AE00468074 /* EventSessionView.swift in Sources */,
-				009DACF92C693B0900A7F42E /* NetworkingRepositoryExt.swift in Sources */,
 				D59944BE2833CDC900F59C1B /* TicketDetailedView.swift in Sources */,
 				D5BC483229B0CC98002CC517 /* ViewModelFactory.swift in Sources */,
 				D5B5E8522B4C972D00129758 /* AgendaFiltersViewModel.swift in Sources */,

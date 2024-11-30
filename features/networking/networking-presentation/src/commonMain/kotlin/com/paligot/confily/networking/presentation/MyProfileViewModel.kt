@@ -2,7 +2,8 @@ package com.paligot.confily.networking.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.paligot.confily.core.networking.NetworkingRepository
+import com.paligot.confily.core.networking.UserRepository
+import com.paligot.confily.core.networking.entities.mapToUi
 import com.paligot.confily.models.ui.UserProfileUi
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -16,11 +17,11 @@ sealed class MyProfileUiState {
     data class Failure(val throwable: Throwable) : MyProfileUiState()
 }
 
-class MyProfileViewModel(repository: NetworkingRepository) : ViewModel() {
-    val uiState: StateFlow<MyProfileUiState> = repository.fetchProfile()
+class MyProfileViewModel(repository: UserRepository) : ViewModel() {
+    val uiState: StateFlow<MyProfileUiState> = repository.fetchUserProfile()
         .map {
             MyProfileUiState.Success(
-                profile = it ?: UserProfileUi(
+                profile = it?.mapToUi() ?: UserProfileUi(
                     email = "",
                     firstName = "",
                     lastName = "",

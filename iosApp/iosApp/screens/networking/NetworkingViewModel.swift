@@ -22,7 +22,8 @@ enum UserProfileUiState {
 
 @MainActor
 class NetworkingViewModel: ObservableObject {
-    private let repository: NetworkingRepository = RepositoryHelper().networkingRepository
+    private let repository: UserRepository = RepositoryHelper().userRepository
+    private let interactor: UserInteractor = InteractorHelper().userInteractor
 
     @Published var uiState: UserProfileUiState = UserProfileUiState.loading
 
@@ -31,8 +32,8 @@ class NetworkingViewModel: ObservableObject {
     func fetchNetworking() {
         networkingTask = Task {
             do {
-                let networkingStream = asyncSequence(for: repository.fetchNetworking())
-                let profileStream = asyncSequence(for: repository.fetchProfile())
+                let networkingStream = asyncSequence(for: interactor.fetchUsersScanned())
+                let profileStream = asyncSequence(for: interactor.fetchUserProfile())
                 for try await (networkings, profile) in combineLatest(networkingStream, profileStream) {
                     self.uiState = .success(NetworkingUi(userProfileUi: profile, showQrCode: false, users: networkings))
                 }
@@ -48,7 +49,9 @@ class NetworkingViewModel: ObservableObject {
 
     func saveProfile(email: String, firstName: String, lastName: String, company: String) {
         if (email == "") { return }
-        repository.saveProfile(email: email, firstName: firstName, lastName: lastName, company: company)
+        repository.insertUserInfo(
+            user: UserEntity(firstName: firstName, lastName: lastName, email: email, company: company, qrCode: nil)
+        )
     }
 
     func saveNetworkingProfile(text: String) {
@@ -56,13 +59,13 @@ class NetworkingViewModel: ObservableObject {
             do {
                 let contacts = try CNContactVCardSerialization.contacts(with: data)
                 let contact = contacts.first
-                let user = UserNetworkingUi(
+                let user = UserItemEntity(
                     email: (contact?.emailAddresses.first?.value ?? "") as String,
                     firstName: contact?.givenName ?? "",
                     lastName: contact?.familyName ?? "",
                     company: contact?.organizationName ?? ""
                 )
-                repository.insertNetworkingProfile(user: user)
+                repository.insertUserScanned(user: user)
                 if case .success(let networkingUi) = uiState {
                     self.uiState = .success(networkingUi.doCopy(
                         userProfileUi: networkingUi.userProfileUi,
@@ -88,11 +91,11 @@ class NetworkingViewModel: ObservableObject {
     }
 
     func deleteNetworkProfile(email: String) {
-        repository.deleteNetworkProfile(email: email)
+        repository.deleteUserScannedByEmail(email: email)
     }
 
     func exportNetworking() -> ComposeMailData {
-        let networking = repository.exportNetworking()
+        let networking = repository.exportUserScanned()
         let recipients = networking.mailto != nil ? [networking.mailto!] : []
         do {
             return ComposeMailData(

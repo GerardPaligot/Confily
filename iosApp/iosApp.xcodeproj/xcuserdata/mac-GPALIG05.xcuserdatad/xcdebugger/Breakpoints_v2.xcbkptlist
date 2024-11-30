@@ -14,8 +14,8 @@
             filePath = "iosApp/screens/networking/NetworkingViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
             landmarkName = "fetchNetworking()"
             landmarkType = "7">
          </BreakpointContent>

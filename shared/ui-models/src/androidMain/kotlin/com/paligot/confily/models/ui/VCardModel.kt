@@ -10,10 +10,3 @@ data class VCardModel(
     val lastName: String,
     val company: String
 ) : Parcelable
-
-fun VCardModel.convertToModelUi(): UserNetworkingUi = UserNetworkingUi(
-    email = email,
-    firstName = firstName,
-    lastName = lastName,
-    company = company
-)

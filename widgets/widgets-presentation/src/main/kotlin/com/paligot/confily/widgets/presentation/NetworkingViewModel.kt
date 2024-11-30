@@ -1,6 +1,7 @@
 package com.paligot.confily.widgets.presentation
 
-import com.paligot.confily.core.networking.NetworkingRepository
+import com.paligot.confily.core.networking.UserRepository
+import com.paligot.confily.core.networking.entities.mapToUi
 import com.paligot.confily.models.ui.UserProfileUi
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -16,11 +17,11 @@ sealed class NetworkingUiState {
 }
 
 class NetworkingViewModel(
-    userRepository: NetworkingRepository,
+    userRepository: UserRepository,
     coroutineScope: CoroutineScope = CoroutineScope(Job())
 ) {
-    val uiState: StateFlow<NetworkingUiState> = userRepository.fetchProfile()
-        .map { NetworkingUiState.Success(it) }
+    val uiState: StateFlow<NetworkingUiState> = userRepository.fetchUserProfile()
+        .map { NetworkingUiState.Success(it?.mapToUi()) }
         .catch { emit(NetworkingUiState.Success(null)) }
         .stateIn(
             scope = coroutineScope,

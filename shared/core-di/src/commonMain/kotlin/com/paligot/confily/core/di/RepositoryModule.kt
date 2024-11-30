@@ -2,7 +2,7 @@ package com.paligot.confily.core.di
 
 import com.paligot.confily.core.agenda.AgendaRepository
 import com.paligot.confily.core.events.EventRepository
-import com.paligot.confily.core.networking.NetworkingRepository
+import com.paligot.confily.core.networking.UserRepository
 import com.paligot.confily.core.partners.PartnerRepository
 import com.paligot.confily.core.schedules.SessionRepository
 import com.paligot.confily.core.speakers.SpeakerRepository
@@ -24,6 +24,7 @@ val repositoriesModule = module {
             api = get(),
             settings = get(),
             eventDao = get(),
+            userDao = get(),
             qrCodeGenerator = get()
         )
     }
@@ -34,7 +35,7 @@ val repositoriesModule = module {
         PartnerRepository.Factory.create(settings = get(), eventDao = get(), partnerDao = get())
     }
     single {
-        NetworkingRepository.Factory.create(
+        UserRepository.Factory.create(
             userDao = get(),
             settings = get(),
             conferenceFs = get(),

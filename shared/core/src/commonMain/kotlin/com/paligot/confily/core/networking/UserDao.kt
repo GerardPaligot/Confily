@@ -1,25 +1,17 @@
 package com.paligot.confily.core.networking
 
-import com.paligot.confily.models.ui.UserNetworkingUi
-import com.paligot.confily.models.ui.UserProfileUi
-import kotlinx.collections.immutable.ImmutableList
+import com.paligot.confily.core.networking.entities.UserInfo
+import com.paligot.confily.core.networking.entities.UserItem
+import com.paligot.confily.core.networking.entities.UserTicket
 import kotlinx.coroutines.flow.Flow
 
 interface UserDao {
-    fun fetchProfile(eventId: String): Flow<UserProfileUi?>
-    fun fetchUserPreview(eventId: String): Flow<UserProfileUi?>
-    fun fetchNetworking(eventId: String): Flow<ImmutableList<UserNetworkingUi>>
-    fun getUsers(eventId: String): ImmutableList<UserNetworkingUi>
-    fun insertUser(
-        eventId: String,
-        email: String,
-        firstName: String,
-        lastName: String,
-        company: String?,
-        qrCode: ByteArray
-    )
-
-    fun insertEmailNetworking(eventId: String, userNetworkingUi: UserNetworkingUi)
-    fun deleteNetworking(eventId: String, email: String)
+    fun fetchUser(eventId: String): Flow<UserInfo?>
+    fun fetchUserTicket(eventId: String): Flow<UserTicket?>
+    fun fetchUsersScanned(eventId: String): Flow<List<UserItem>>
+    fun getUsersScanned(eventId: String): List<UserItem>
+    fun insertUser(eventId: String, user: UserInfo)
+    fun insertUserScanned(eventId: String, user: UserItem)
+    fun deleteUserByEmail(eventId: String, email: String)
     fun getEmailProfile(eventId: String): String?
 }

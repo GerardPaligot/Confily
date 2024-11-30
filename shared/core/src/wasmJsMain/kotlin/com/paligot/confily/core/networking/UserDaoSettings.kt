@@ -1,43 +1,36 @@
 package com.paligot.confily.core.networking
 
-import com.paligot.confily.models.ui.UserNetworkingUi
-import com.paligot.confily.models.ui.UserProfileUi
-import kotlinx.collections.immutable.ImmutableList
+import com.paligot.confily.core.networking.entities.UserInfo
+import com.paligot.confily.core.networking.entities.UserItem
+import com.paligot.confily.core.networking.entities.UserTicket
 import kotlinx.coroutines.flow.Flow
 
 class UserDaoSettings : UserDao {
-    override fun fetchProfile(eventId: String): Flow<UserProfileUi?> {
+    override fun fetchUser(eventId: String): Flow<UserInfo?> {
         TODO("Not yet implemented")
     }
 
-    override fun fetchUserPreview(eventId: String): Flow<UserProfileUi?> {
+    override fun fetchUserTicket(eventId: String): Flow<UserTicket?> {
         TODO("Not yet implemented")
     }
 
-    override fun fetchNetworking(eventId: String): Flow<ImmutableList<UserNetworkingUi>> {
+    override fun fetchUsersScanned(eventId: String): Flow<List<UserItem>> {
         TODO("Not yet implemented")
     }
 
-    override fun getUsers(eventId: String): ImmutableList<UserNetworkingUi> {
+    override fun getUsersScanned(eventId: String): List<UserItem> {
         TODO("Not yet implemented")
     }
 
-    override fun insertUser(
-        eventId: String,
-        email: String,
-        firstName: String,
-        lastName: String,
-        company: String?,
-        qrCode: ByteArray
-    ) {
+    override fun insertUser(eventId: String, user: UserInfo) {
         TODO("Not yet implemented")
     }
 
-    override fun insertEmailNetworking(eventId: String, userNetworkingUi: UserNetworkingUi) {
+    override fun insertUserScanned(eventId: String, user: UserItem) {
         TODO("Not yet implemented")
     }
 
-    override fun deleteNetworking(eventId: String, email: String) {
+    override fun deleteUserByEmail(eventId: String, email: String) {
         TODO("Not yet implemented")
     }
 

@@ -7,9 +7,10 @@ import com.paligot.confily.core.events.entities.Event
 import com.paligot.confily.core.events.entities.EventItemList
 import com.paligot.confily.core.events.entities.MenuItem
 import com.paligot.confily.core.events.entities.QAndAItem
-import com.paligot.confily.core.events.entities.Ticket
 import com.paligot.confily.core.kvalue.ConferenceSettings
 import com.paligot.confily.core.kvalue.EventSavedException
+import com.paligot.confily.core.networking.UserDao
+import com.paligot.confily.core.networking.entities.UserTicket
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.coroutineScope
@@ -21,6 +22,7 @@ internal class EventRepositoryImpl(
     private val api: ConferenceApi,
     private val settings: ConferenceSettings,
     private val eventDao: EventDao,
+    private val userDao: UserDao,
     private val qrCodeGenerator: QrCodeGenerator
 ) : EventRepository {
     override suspend fun fetchAndStoreEventList() = coroutineScope {
@@ -33,8 +35,8 @@ internal class EventRepositoryImpl(
     override fun event(): Flow<Event?> = settings.fetchEventId()
         .flatMapConcat { eventDao.fetchEvent(eventId = it) }
 
-    override fun ticket(): Flow<Ticket?> = settings.fetchEventId()
-        .flatMapConcat { eventDao.fetchTicket(eventId = it) }
+    override fun ticket(): Flow<UserTicket?> = settings.fetchEventId()
+        .flatMapConcat { userDao.fetchUserTicket(eventId = it) }
 
     override fun qanda(): Flow<ImmutableList<QAndAItem>> = settings.fetchEventId()
         .flatMapConcat { eventDao.fetchQAndA(eventId = it) }

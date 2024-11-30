@@ -1,36 +1,38 @@
 package com.paligot.confily.core.networking
 
-import com.paligot.confily.models.ui.UserNetworkingUi
-import com.paligot.confily.models.ui.UserProfileUi
+import com.paligot.confily.core.networking.entities.UserInfo
+import com.paligot.confily.core.networking.entities.UserItem
+import com.paligot.confily.core.networking.entities.UserTicket
 
 internal val profileMapper = { _: String, email: String, firstname: String, lastname: String,
     company: String?, qrcode: ByteArray ->
-    UserProfileUi(
+    UserInfo(
         email = email,
         firstName = firstname,
         lastName = lastname,
-        company = company ?: "",
+        company = company,
         qrCode = qrcode
     )
 }
 
-internal val tickerMapper = { _: String, _: String?, _: String?, _: String?, firstname: String?,
-    lastname: String?, _: String, _: ByteArray ->
-    UserProfileUi(
-        email = "",
+internal val tickerMapper = { id: String?, email: String?, firstname: String?, lastname: String?,
+    barcode: String, qrcode: ByteArray ->
+    UserTicket(
+        id = id,
+        email = email ?: "",
         firstName = firstname ?: "",
         lastName = lastname ?: "",
-        company = "",
-        qrCode = null
+        barcode = barcode,
+        qrCode = qrcode
     )
 }
 
 internal val userItemMapper = { email: String, firstName: String, lastName: String,
     company: String?, _: String, _: Long ->
-    UserNetworkingUi(
+    UserItem(
         email = email,
         firstName = firstName,
         lastName = lastName,
-        company = company ?: ""
+        company = company
     )
 }

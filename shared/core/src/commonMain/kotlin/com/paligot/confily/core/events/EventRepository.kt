@@ -7,8 +7,9 @@ import com.paligot.confily.core.events.entities.Event
 import com.paligot.confily.core.events.entities.EventItemList
 import com.paligot.confily.core.events.entities.MenuItem
 import com.paligot.confily.core.events.entities.QAndAItem
-import com.paligot.confily.core.events.entities.Ticket
 import com.paligot.confily.core.kvalue.ConferenceSettings
+import com.paligot.confily.core.networking.UserDao
+import com.paligot.confily.core.networking.entities.UserTicket
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.flow.Flow
 
@@ -16,7 +17,7 @@ interface EventRepository {
     suspend fun fetchAndStoreEventList()
     fun events(): Flow<EventItemList>
     fun event(): Flow<Event?>
-    fun ticket(): Flow<Ticket?>
+    fun ticket(): Flow<UserTicket?>
     fun qanda(): Flow<ImmutableList<QAndAItem>>
     fun menus(): Flow<ImmutableList<MenuItem>>
     fun coc(): Flow<CodeOfConduct>
@@ -30,7 +31,8 @@ interface EventRepository {
             api: ConferenceApi,
             settings: ConferenceSettings,
             eventDao: EventDao,
+            userDao: UserDao,
             qrCodeGenerator: QrCodeGenerator
-        ): EventRepository = EventRepositoryImpl(api, settings, eventDao, qrCodeGenerator)
+        ): EventRepository = EventRepositoryImpl(api, settings, eventDao, userDao, qrCodeGenerator)
     }
 }

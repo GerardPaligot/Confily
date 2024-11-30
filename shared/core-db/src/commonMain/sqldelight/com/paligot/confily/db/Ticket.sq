@@ -10,9 +10,11 @@ qrcode BLOB NOT NULL
 );
 
 selectTicket:
-SELECT * FROM Ticket WHERE event_id == ?;
+SELECT id, email, firstname, lastname, barcode, qrcode
+FROM Ticket
+WHERE event_id == ?;
 
-insertUser:
+insertTicket:
 INSERT OR REPLACE INTO Ticket(
 id, ext_id, event_id, email, firstname, lastname, barcode, qrcode
 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?);

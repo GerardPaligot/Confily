@@ -6,9 +6,10 @@ import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
 import com.paligot.confily.core.agenda.AgendaRepository
 import com.paligot.confily.core.events.EventRepository
-import com.paligot.confily.core.networking.NetworkingRepository
+import com.paligot.confily.core.networking.UserRepository
+import com.paligot.confily.core.networking.entities.UserItem
 import com.paligot.confily.models.ui.ScaffoldConfigUi
-import com.paligot.confily.models.ui.UserNetworkingUi
+import com.paligot.confily.models.ui.VCardModel
 import com.paligot.confily.navigation.BottomActions
 import com.paligot.confily.style.theme.actions.NavigationAction
 import com.paligot.confily.style.theme.actions.NavigationActionsUi
@@ -29,7 +30,7 @@ sealed class MainNavigationUiState {
 class MainNavigationViewModel(
     agendaRepository: AgendaRepository,
     private val eventRepository: EventRepository,
-    private val userRepository: NetworkingRepository
+    private val userRepository: UserRepository
 ) : ViewModel() {
     val uiState: StateFlow<MainNavigationUiState> = agendaRepository.scaffoldConfig()
         .map { MainNavigationUiState.Success(navActions(it)) }
@@ -47,8 +48,8 @@ class MainNavigationViewModel(
         eventRepository.insertOrUpdateTicket(barcode)
     }
 
-    fun saveNetworkingProfile(user: UserNetworkingUi) = viewModelScope.launch {
-        userRepository.insertNetworkingProfile(user)
+    fun saveNetworkingProfile(model: VCardModel) = viewModelScope.launch {
+        userRepository.insertUserScanned(model.mapToEntity())
     }
 
     private fun navActions(config: ScaffoldConfigUi): NavigationActionsUi =
@@ -66,3 +67,10 @@ class MainNavigationViewModel(
             }.toImmutableList()
         )
 }
+
+private fun VCardModel.mapToEntity(): UserItem = UserItem(
+    email = email,
+    firstName = firstName,
+    lastName = lastName,
+    company = company
+)

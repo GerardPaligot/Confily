@@ -1,6 +1,7 @@
 package com.paligot.confily.core.events
 
 import com.paligot.confily.core.events.entities.mapToUi
+import com.paligot.confily.core.networking.entities.mapToUi
 import com.paligot.confily.models.ui.EventItemListUi
 import com.paligot.confily.models.ui.EventUi
 import com.paligot.confily.models.ui.MenuItemUi

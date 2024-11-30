@@ -5,7 +5,6 @@ import com.paligot.confily.core.events.entities.Event
 import com.paligot.confily.core.events.entities.EventItem
 import com.paligot.confily.core.events.entities.MenuItem
 import com.paligot.confily.core.events.entities.Social
-import com.paligot.confily.core.events.entities.Ticket
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
@@ -49,14 +48,4 @@ internal val menuMapper = { name: String, dish: String, accompaniment: String, d
 
 internal val cocMapper = { url: String, coc: String?, email: String?, phone: String? ->
     CodeOfConduct(url = url, content = coc, phone = phone, email = email)
-}
-
-internal val ticketMapper = { _: String, id: String?, _: String?, _: String?,
-    firstname: String?, lastname: String?, _: String, qrcode: ByteArray ->
-    Ticket(
-        id = id,
-        firstName = firstname,
-        lastName = lastname,
-        qrCode = qrcode
-    )
 }

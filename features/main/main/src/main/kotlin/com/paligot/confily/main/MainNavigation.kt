@@ -35,7 +35,6 @@ import com.paligot.confily.events.presentation.EventListVM
 import com.paligot.confily.infos.panes.TicketQrCodeScanner
 import com.paligot.confily.infos.presentation.InfoCompactVM
 import com.paligot.confily.models.ui.ExportNetworkingUi
-import com.paligot.confily.models.ui.convertToModelUi
 import com.paligot.confily.navigation.Screen
 import com.paligot.confily.networking.presentation.NetworkingCompactVM
 import com.paligot.confily.networking.presentation.ProfileInputVM
@@ -242,7 +241,7 @@ fun MainNavigation(
                     VCardQrCodeScanner(
                         navigateToSettingsScreen = {},
                         onQrCodeDetected = { vcard ->
-                            viewModel.saveNetworkingProfile(vcard.convertToModelUi())
+                            viewModel.saveNetworkingProfile(vcard)
                             navController.popBackStack()
                         },
                         onBackClicked = { navController.popBackStack() }
