@@ -2,7 +2,6 @@ package com.paligot.confily.wear.events.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.paligot.confily.core.agenda.AgendaRepository
 import com.paligot.confily.core.events.EventRepository
 import com.paligot.confily.core.events.entities.Event
 import com.paligot.confily.wear.events.panes.EventModelUi
@@ -17,7 +16,6 @@ sealed class EventUiState {
 }
 
 class EventViewModel(
-    agendaRepository: AgendaRepository,
     private val eventRepository: EventRepository
 ) : ViewModel() {
     val uiState = eventRepository.event()
@@ -36,7 +34,7 @@ class EventViewModel(
 
     init {
         viewModelScope.launch {
-            agendaRepository.fetchAndStoreAgenda()
+            eventRepository.fetchAndStoreAgenda()
         }
     }
 

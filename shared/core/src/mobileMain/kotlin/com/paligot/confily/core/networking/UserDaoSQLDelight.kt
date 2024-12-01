@@ -2,12 +2,14 @@ package com.paligot.confily.core.networking
 
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
+import app.cash.sqldelight.coroutines.mapToOneOrDefault
 import app.cash.sqldelight.coroutines.mapToOneOrNull
 import com.paligot.confily.core.networking.entities.UserInfo
 import com.paligot.confily.core.networking.entities.UserItem
 import com.paligot.confily.core.networking.entities.UserTicket
 import com.paligot.confily.db.ConfilyDatabase
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.datetime.Clock
 import kotlin.coroutines.CoroutineContext
 
@@ -29,6 +31,12 @@ class UserDaoSQLDelight(
         .selectAll(eventId, userItemMapper)
         .asFlow()
         .mapToList(dispatcher)
+
+    override fun fetchCountUserScanned(eventId: String): Flow<Int> = db.userQueries
+        .countNetworking(eventId)
+        .asFlow()
+        .mapToOneOrDefault(defaultValue = 0L, context = dispatcher)
+        .map { it.toInt() }
 
     override fun getUsersScanned(eventId: String): List<UserItem> = db.userQueries
         .selectAll(eventId, userItemMapper)

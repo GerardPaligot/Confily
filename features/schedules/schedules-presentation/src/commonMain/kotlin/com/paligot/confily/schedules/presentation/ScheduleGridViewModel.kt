@@ -4,7 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cafe.adriel.lyricist.Lyricist
 import com.paligot.confily.core.AlarmScheduler
-import com.paligot.confily.core.agenda.AgendaRepository
+import com.paligot.confily.core.events.EventRepository
+import com.paligot.confily.core.events.entities.mapToDays
 import com.paligot.confily.core.schedules.SessionRepository
 import com.paligot.confily.core.schedules.entities.mapToListUi
 import com.paligot.confily.models.ui.AgendaUi
@@ -26,9 +27,6 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import kotlinx.datetime.LocalDate
-import kotlinx.datetime.format
-import kotlinx.datetime.format.byUnicodePattern
 import org.jetbrains.compose.resources.InternalResourceApi
 import org.jetbrains.compose.resources.StringResource
 
@@ -48,29 +46,24 @@ sealed class ScheduleGridUiState {
 @FlowPreview
 @ExperimentalCoroutinesApi
 class ScheduleGridViewModel(
-    agendaRepository: AgendaRepository,
+    eventRepository: EventRepository,
     sessionRepository: SessionRepository,
     lyricist: Lyricist<Strings>,
     private val alarmScheduler: AlarmScheduler
 ) : ViewModel() {
-    private val _tabsStates = agendaRepository.scaffoldConfig()
-        .map {
-            TabActionsUi(
-                scrollable = true,
-                actions = it.agendaTabs.sorted().map {
-                    val label = LocalDate.parse(it).format(
-                        LocalDate.Format {
-                            byUnicodePattern("dd/MM")
-                        }
-                    )
-                    TabAction(
-                        route = it,
-                        StringResource("", "", emptySet()),
-                        label
-                    )
-                }.toImmutableList()
-            )
-        }
+    private val _tabsStates = eventRepository.event().map { event ->
+        if (event == null) return@map TabActionsUi()
+        return@map TabActionsUi(
+            scrollable = true,
+            actions = event.mapToDays().map {
+                TabAction(
+                    route = it,
+                    labelId = StringResource("", "", emptySet()),
+                    label = it
+                )
+            }.toImmutableList()
+        )
+    }
     private val _uiHasFiltersState = sessionRepository.countFilters().map {
         TopActionsUi(
             actions = persistentListOf(if (it > 0) TopActions.filtersFilled else TopActions.filters)

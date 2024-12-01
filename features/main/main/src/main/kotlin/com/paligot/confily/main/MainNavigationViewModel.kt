@@ -4,11 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
-import com.paligot.confily.core.agenda.AgendaRepository
 import com.paligot.confily.core.events.EventRepository
+import com.paligot.confily.core.events.entities.FeatureFlags
 import com.paligot.confily.core.networking.UserRepository
 import com.paligot.confily.core.networking.entities.UserItem
-import com.paligot.confily.models.ui.ScaffoldConfigUi
 import com.paligot.confily.models.ui.VCardModel
 import com.paligot.confily.navigation.BottomActions
 import com.paligot.confily.style.theme.actions.NavigationAction
@@ -28,11 +27,10 @@ sealed class MainNavigationUiState {
 }
 
 class MainNavigationViewModel(
-    agendaRepository: AgendaRepository,
     private val eventRepository: EventRepository,
     private val userRepository: UserRepository
 ) : ViewModel() {
-    val uiState: StateFlow<MainNavigationUiState> = agendaRepository.scaffoldConfig()
+    val uiState: StateFlow<MainNavigationUiState> = eventRepository.featureFlags()
         .map { MainNavigationUiState.Success(navActions(it)) }
         .catch {
             Firebase.crashlytics.recordException(it)
@@ -52,15 +50,15 @@ class MainNavigationViewModel(
         userRepository.insertUserScanned(model.mapToEntity())
     }
 
-    private fun navActions(config: ScaffoldConfigUi): NavigationActionsUi =
+    private fun navActions(features: FeatureFlags): NavigationActionsUi =
         NavigationActionsUi(
             actions = arrayListOf<NavigationAction>().apply {
                 add(BottomActions.agenda)
                 add(BottomActions.speakers)
-                if (config.hasNetworking) {
+                if (features.hasNetworking) {
                     add(BottomActions.myProfile)
                 }
-                if (config.hasPartnerList) {
+                if (features.hasPartnerList) {
                     add(BottomActions.partners)
                 }
                 add(BottomActions.event)

@@ -19,6 +19,9 @@ class EventInteractor(
     suspend fun fetchAndStoreEventList() = repository.fetchAndStoreEventList()
 
     @NativeCoroutines
+    suspend fun fetchAndStoreAgenda() = repository.fetchAndStoreAgenda()
+
+    @NativeCoroutines
     fun events(): Flow<EventItemListUi> = repository.events()
         .map { eventItemList -> eventItemList.mapToUi() }
 

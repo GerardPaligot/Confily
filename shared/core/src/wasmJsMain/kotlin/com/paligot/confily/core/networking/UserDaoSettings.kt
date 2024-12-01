@@ -18,6 +18,10 @@ class UserDaoSettings : UserDao {
         TODO("Not yet implemented")
     }
 
+    override fun fetchCountUserScanned(eventId: String): Flow<Int> {
+        TODO("Not yet implemented")
+    }
+
     override fun getUsersScanned(eventId: String): List<UserItem> {
         TODO("Not yet implemented")
     }

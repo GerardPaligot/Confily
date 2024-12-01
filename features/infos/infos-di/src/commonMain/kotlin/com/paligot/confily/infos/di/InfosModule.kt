@@ -13,7 +13,7 @@ val infosModule = module {
     includes(repositoriesModule)
     viewModel { CoCViewModel(get()) }
     viewModel { EventViewModel(get()) }
-    viewModel { InfoViewModel(get(), get()) }
+    viewModel { InfoViewModel(get()) }
     viewModel { MenusViewModel(get()) }
     viewModel { QAndAListViewModel(get()) }
 }

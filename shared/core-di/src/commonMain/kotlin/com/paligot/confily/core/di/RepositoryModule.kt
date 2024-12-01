@@ -1,6 +1,5 @@
 package com.paligot.confily.core.di
 
-import com.paligot.confily.core.agenda.AgendaRepository
 import com.paligot.confily.core.events.EventRepository
 import com.paligot.confily.core.networking.UserRepository
 import com.paligot.confily.core.partners.PartnerRepository
@@ -10,21 +9,15 @@ import org.koin.dsl.module
 
 val repositoriesModule = module {
     includes(databasesModule, networksModule, fileSystemModule)
-    single {
-        AgendaRepository.Factory.create(
-            api = get(),
-            agendaDao = get(),
-            settings = get(),
-            featuresDao = get()
-        )
-    }
     single { SessionRepository.Factory.create(sessionDao = get(), settings = get()) }
     single {
         EventRepository.Factory.create(
             api = get(),
             settings = get(),
             eventDao = get(),
+            sessionDao = get(),
             userDao = get(),
+            partnerDao = get(),
             qrCodeGenerator = get()
         )
     }

@@ -12,6 +12,6 @@ val networkingModule = module {
     includes(repositoriesModule)
     viewModel { ContactsViewModel(get()) }
     viewModel { MyProfileViewModel(get()) }
-    viewModel { NetworkingViewModel(get(), get()) }
+    viewModel { NetworkingViewModel(get()) }
     viewModel { ProfileInputViewModel(get()) }
 }

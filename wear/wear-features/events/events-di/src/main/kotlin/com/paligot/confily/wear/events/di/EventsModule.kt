@@ -9,7 +9,7 @@ import org.koin.dsl.module
 
 val eventsModule = module {
     viewModel { ListEventViewModel(repository = get()) }
-    viewModel { EventViewModel(agendaRepository = get(), eventRepository = get()) }
+    viewModel { EventViewModel(eventRepository = get()) }
     viewModel { MenusViewModel(repository = get()) }
     viewModel { CoCViewModel(repository = get()) }
 }

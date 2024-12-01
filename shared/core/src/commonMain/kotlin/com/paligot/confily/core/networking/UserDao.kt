@@ -9,6 +9,7 @@ interface UserDao {
     fun fetchUser(eventId: String): Flow<UserInfo?>
     fun fetchUserTicket(eventId: String): Flow<UserTicket?>
     fun fetchUsersScanned(eventId: String): Flow<List<UserItem>>
+    fun fetchCountUserScanned(eventId: String): Flow<Int>
     fun getUsersScanned(eventId: String): List<UserItem>
     fun insertUser(eventId: String, user: UserInfo)
     fun insertUserScanned(eventId: String, user: UserItem)

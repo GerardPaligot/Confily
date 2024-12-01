@@ -2,7 +2,6 @@ package com.paligot.confily.infos.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.paligot.confily.core.agenda.AgendaRepository
 import com.paligot.confily.core.events.EventRepository
 import com.paligot.confily.navigation.FabActions
 import com.paligot.confily.navigation.Screen
@@ -34,14 +33,13 @@ sealed class InfoUiState {
 }
 
 class InfoViewModel(
-    private val agendaRepository: AgendaRepository,
     private val eventRepository: EventRepository
 ) : ViewModel() {
     private val _innerRoute = MutableStateFlow<String?>(null)
     val uiState = combine(
-        _innerRoute,
-        agendaRepository.scaffoldConfig(),
-        transform = { route, config ->
+        flow = _innerRoute,
+        flow2 = eventRepository.featureFlags(),
+        transform = { route, features ->
             InfoUiState.Success(
                 topActionsUi = TopActionsUi(
                     actions = persistentListOf(TopActions.disconnect),
@@ -51,17 +49,17 @@ class InfoViewModel(
                     scrollable = true,
                     actions = arrayListOf<TabAction>().apply {
                         add(TabActions.event)
-                        if (config.hasMenus) {
+                        if (features.hasMenus) {
                             add(TabActions.menus)
                         }
-                        if (config.hasQAndA) {
+                        if (features.hasQAndA) {
                             add(TabActions.qanda)
                         }
                         add(TabActions.coc)
                     }.toImmutableList()
                 ),
                 fabAction = when (route) {
-                    Screen.Event.route -> if (config.hasBilletWebTicket) FabActions.scanTicket else null
+                    Screen.Event.route -> if (features.hasTicketIntegration) FabActions.scanTicket else null
                     else -> null
                 }
             ) as InfoUiState

@@ -3,10 +3,6 @@ package com.paligot.confily.core.di
 import cafe.adriel.lyricist.LanguageTag
 import cafe.adriel.lyricist.Lyricist
 import com.paligot.confily.core.Platform
-import com.paligot.confily.core.agenda.AgendaDao
-import com.paligot.confily.core.agenda.AgendaDaoSQLDelight
-import com.paligot.confily.core.agenda.FeaturesActivatedDao
-import com.paligot.confily.core.agenda.FeaturesActivatedDaoSQLDelight
 import com.paligot.confily.core.events.EventDao
 import com.paligot.confily.core.events.EventDaoSQLDelight
 import com.paligot.confily.core.kvalue.ConferenceSettings
@@ -37,12 +33,14 @@ actual val databasesModule = module {
     }
     single { ConferenceSettings(get()) }
     single<CoroutineContext> { Dispatchers.IO }
-    single<AgendaDao> {
-        AgendaDaoSQLDelight(db = get(), hasSvgSupport = get<Platform>().hasSupportSVG)
-    }
     single<EventDao> { EventDaoSQLDelight(db = get(), dispatcher = get()) }
-    single<FeaturesActivatedDao> { FeaturesActivatedDaoSQLDelight(db = get(), dispatcher = get()) }
-    single<PartnerDao> { PartnerDaoSQLDelight(db = get(), dispatcher = get()) }
+    single<PartnerDao> {
+        PartnerDaoSQLDelight(
+            db = get(),
+            hasSvgSupport = get<Platform>().hasSupportSVG,
+            dispatcher = get()
+        )
+    }
     single<SessionDao> {
         SessionDaoSQLDelight(db = get(), settings = get(), dispatcher = get())
     }

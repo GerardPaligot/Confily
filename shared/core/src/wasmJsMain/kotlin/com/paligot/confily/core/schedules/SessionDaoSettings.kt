@@ -1,5 +1,6 @@
 package com.paligot.confily.core.schedules
 
+import com.paligot.confily.core.agenda.convertToDb
 import com.paligot.confily.core.kvalue.ConferenceSettings
 import com.paligot.confily.core.schedules.entities.Category
 import com.paligot.confily.core.schedules.entities.EventSession
@@ -9,6 +10,8 @@ import com.paligot.confily.core.schedules.entities.SelectableCategory
 import com.paligot.confily.core.schedules.entities.SelectableFormat
 import com.paligot.confily.core.schedules.entities.Session
 import com.paligot.confily.core.schedules.entities.SessionItem
+import com.paligot.confily.core.speakers.SpeakerQueries
+import com.paligot.confily.models.AgendaV4
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOf
@@ -19,7 +22,8 @@ class SessionDaoSettings(
     private val settings: ConferenceSettings,
     private val sessionQueries: SessionQueries,
     private val categoryQueries: CategoryQueries,
-    private val formatQueries: FormatQueries
+    private val formatQueries: FormatQueries,
+    private val speakerQueries: SpeakerQueries
 ) : SessionDao {
     override fun fetchSession(eventId: String, sessionId: String): Flow<Session> = combine(
         flow = flowOf(sessionQueries.getSpeakersByTalkId(eventId, sessionId)),
@@ -169,5 +173,64 @@ class SessionDaoSettings(
         val countFavorites = sessionQueries.countSessionsByFavorite(eventId, true)
         if (countFavorites != 0) return
         settings.upsertOnlyFavoritesFlag(false)
+    }
+
+    override fun insertAgenda(eventId: String, agenda: AgendaV4) {
+        agenda.speakers.forEach { speaker ->
+            speakerQueries.upsertSpeaker(speaker.convertToDb(eventId))
+        }
+        agenda.categories.forEach { category ->
+            categoryQueries.upsertCategory(category.convertToDb(eventId))
+        }
+        agenda.formats.forEach { format ->
+            formatQueries.upsertFormat(format.convertToDb(eventId))
+        }
+        agenda.sessions.forEachIndexed { indexSession, session ->
+            when (session) {
+                is com.paligot.confily.models.Session.Talk -> {
+                    sessionQueries.upsertTalkSession(session.convertToDb(eventId))
+                    session.speakers.forEachIndexed { index, speaker ->
+                        sessionQueries.upsertTalkWithSpeakers(
+                            session.convertToDb(eventId, "$indexSession:$index", speaker)
+                        )
+                    }
+                }
+
+                is com.paligot.confily.models.Session.Event -> {
+                    sessionQueries.upsertEventSession(session.convertToDb(eventId))
+                }
+            }
+        }
+        agenda.schedules.forEach { schedule ->
+            val clazz = if (agenda.sessions.find { it.id == schedule.sessionId } is com.paligot.confily.models.Session.Talk) {
+                com.paligot.confily.models.Session.Talk::class
+            } else {
+                com.paligot.confily.models.Session.Event::class
+            }
+            sessionQueries.upsertSession(schedule.convertToDb(eventId, clazz))
+        }
+        clean(eventId, agenda)
+    }
+
+    private fun clean(eventId: String, agenda: AgendaV4) {
+        val diffSpeakers = speakerQueries
+            .diffSpeakers(eventId = eventId, ids = agenda.speakers.map { it.id })
+        speakerQueries.deleteSpeakers(ids = diffSpeakers)
+        val diffCategories = categoryQueries
+            .diffCategories(eventId = eventId, ids = agenda.categories.map { it.id })
+        categoryQueries.deleteCategories(ids = diffCategories)
+        val diffFormats = formatQueries
+            .diffFormats(eventId = eventId, ids = agenda.formats.map { it.id })
+        formatQueries.deleteFormats(ids = diffFormats)
+        val talkIds = agenda.sessions.map { it.id }
+        val diffTalkSession = sessionQueries
+            .diffTalkSessions(eventId = eventId, ids = talkIds)
+        sessionQueries.deleteTalkSessions(ids = diffTalkSession)
+        val diffTalkWithSpeakers = sessionQueries
+            .diffTalkWithSpeakers(eventId = eventId, ids = talkIds)
+        sessionQueries.deleteTalkWithSpeakers(ids = diffTalkWithSpeakers)
+        val diffSessions = sessionQueries
+            .diffSessions(eventId = eventId, ids = talkIds)
+        sessionQueries.deleteSessions(ids = diffSessions)
     }
 }

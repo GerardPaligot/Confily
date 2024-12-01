@@ -5,11 +5,13 @@ import com.paligot.confily.core.fs.ConferenceFileSystem
 import com.paligot.confily.core.kvalue.ConferenceSettings
 import com.paligot.confily.core.networking.entities.ExportUsers
 import com.paligot.confily.core.networking.entities.User
+import com.paligot.confily.core.networking.entities.UserConfiguration
 import com.paligot.confily.core.networking.entities.UserInfo
 import com.paligot.confily.core.networking.entities.UserItem
 import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {
+    fun fetchConfiguration(): Flow<UserConfiguration>
     fun fetchUserProfile(): Flow<User?>
     fun insertUserInfo(user: UserInfo)
     fun fetchUsersScanned(): Flow<List<UserItem>>

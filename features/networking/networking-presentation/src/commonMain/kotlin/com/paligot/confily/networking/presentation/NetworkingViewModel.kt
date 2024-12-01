@@ -2,7 +2,6 @@ package com.paligot.confily.networking.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.paligot.confily.core.agenda.AgendaRepository
 import com.paligot.confily.core.networking.UserRepository
 import com.paligot.confily.core.networking.entities.mapToUi
 import com.paligot.confily.models.ui.ExportNetworkingUi
@@ -36,7 +35,6 @@ sealed class NetworkingUiState {
 }
 
 class NetworkingViewModel(
-    agendaRepository: AgendaRepository,
     private val userRepository: UserRepository
 ) : ViewModel() {
     private val _exportPath = MutableSharedFlow<ExportNetworkingUi>(replay = 1)
@@ -44,12 +42,12 @@ class NetworkingViewModel(
 
     private val _innerRoute = MutableStateFlow<String?>(null)
     val uiState = combine(
-        _innerRoute,
-        agendaRepository.scaffoldConfig(),
+        flow = _innerRoute,
+        flow2 = userRepository.fetchConfiguration(),
         transform = { route, config ->
             NetworkingUiState.Success(
                 topActionsUi = TopActionsUi(
-                    actions = if (config.hasUsersInNetworking) {
+                    actions = if (config.countUsersScanned > 0) {
                         persistentListOf(TopActions.export)
                     } else {
                         persistentListOf()
@@ -57,7 +55,7 @@ class NetworkingViewModel(
                 ),
                 tabActionsUi = TabActionsUi(
                     scrollable = true,
-                    actions = if (config.hasProfile) {
+                    actions = if (config.hasProfileCompleted) {
                         persistentListOf(
                             TabActions.myProfile,
                             TabActions.contacts
@@ -67,7 +65,7 @@ class NetworkingViewModel(
                     }
                 ),
                 fabAction = when (route) {
-                    Screen.MyProfile.route -> if (!config.hasProfile) FabActions.createProfile else null
+                    Screen.MyProfile.route -> if (!config.hasProfileCompleted) FabActions.createProfile else null
                     Screen.Contacts.route -> FabActions.scanContact
                     else -> null
                 }

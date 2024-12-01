@@ -1,6 +1,5 @@
 package com.paligot.confily.core.di
 
-import com.paligot.confily.core.agenda.AgendaRepository
 import com.paligot.confily.core.events.EventInteractor
 import com.paligot.confily.core.events.EventRepository
 import com.paligot.confily.core.networking.UserInteractor
@@ -27,7 +26,6 @@ val buildConfigModule = module {
 }
 
 class RepositoryHelper : KoinComponent {
-    val agendaRepository: AgendaRepository by inject()
     val sessionRepository: SessionRepository by inject()
     val partnerRepository: PartnerRepository by inject()
     val eventRepository: EventRepository by inject()

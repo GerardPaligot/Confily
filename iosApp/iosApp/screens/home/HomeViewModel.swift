@@ -12,13 +12,13 @@ import KMPNativeCoroutinesAsync
 
 @MainActor
 class HomeViewModel: ObservableObject {
-    private let repository: AgendaRepository = RepositoryHelper().agendaRepository
+    private let interactor: EventInteractor = InteractorHelper().eventInteractor
 
     private var task: Task<(), Never>?
 
     func fetchAgenda() {
         task = Task {
-            if let error = await asyncError(for: repository.fetchAndStoreAgenda()) {
+            if let error = await asyncError(for: interactor.fetchAndStoreAgenda()) {
                 // ignore
                 print("Failed with error: \(error)")
             }

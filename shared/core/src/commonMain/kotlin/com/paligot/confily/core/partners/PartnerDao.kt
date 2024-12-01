@@ -6,6 +6,7 @@ import com.paligot.confily.core.partners.entities.JobItem
 import com.paligot.confily.core.partners.entities.PartnerInfo
 import com.paligot.confily.core.partners.entities.PartnerItem
 import com.paligot.confily.core.partners.entities.PartnerType
+import com.paligot.confily.models.PartnersActivities
 import kotlinx.coroutines.flow.Flow
 
 interface PartnerDao {
@@ -15,4 +16,5 @@ interface PartnerDao {
     fun fetchSocialsByPartner(eventId: String, partnerId: String): Flow<List<Social>>
     fun fetchActivitiesByDay(eventId: String, day: String): Flow<List<ActivityItem>>
     fun fetchActivitiesByPartner(eventId: String, partnerId: String): Flow<List<ActivityItem>>
+    fun insertPartners(eventId: String, partners: PartnersActivities)
 }

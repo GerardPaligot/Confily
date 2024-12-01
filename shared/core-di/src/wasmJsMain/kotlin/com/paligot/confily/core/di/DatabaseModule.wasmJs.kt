@@ -2,10 +2,6 @@ package com.paligot.confily.core.di
 
 import cafe.adriel.lyricist.LanguageTag
 import cafe.adriel.lyricist.Lyricist
-import com.paligot.confily.core.agenda.AgendaDao
-import com.paligot.confily.core.agenda.AgendaDaoSettings
-import com.paligot.confily.core.agenda.FeaturesActivatedDao
-import com.paligot.confily.core.agenda.FeaturesActivatedDaoSettings
 import com.paligot.confily.core.events.EventDao
 import com.paligot.confily.core.events.EventDaoSettings
 import com.paligot.confily.core.events.EventQueries
@@ -62,37 +58,22 @@ actual val databasesModule: Module = module {
             speakerQueries = get()
         )
     }
-    single<AgendaDao> {
-        AgendaDaoSettings(
-            eventQueries = get(),
-            featuresQueries = get(),
-            menusQueries = get(),
-            qAndAQueries = get(),
-            sessionQueries = get(),
-            speakerQueries = get(),
-            categoryQueries = get(),
-            formatQueries = get(),
-            partnerQueries = get(),
-            hasSvgSupport = true
-        )
-    }
     single<EventDao> {
         EventDaoSettings(
             eventQueries = get(),
             qAndAQueries = get(),
-            menuQueries = get()
+            menuQueries = get(),
+            featuresActivatedQueries = get()
         )
     }
-    single<FeaturesActivatedDao> {
-        FeaturesActivatedDaoSettings(featuresActivatedQueries = get(), sessionQueries = get())
-    }
-    single<PartnerDao> { PartnerDaoSettings(partnerQueries = get()) }
+    single<PartnerDao> { PartnerDaoSettings(partnerQueries = get(), hasSvgSupport = true) }
     single<SessionDao> {
         SessionDaoSettings(
             settings = get(),
             sessionQueries = get(),
             categoryQueries = get(),
-            formatQueries = get()
+            formatQueries = get(),
+            speakerQueries = get()
         )
     }
     single<SpeakerDao> {

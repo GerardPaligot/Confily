@@ -3,9 +3,10 @@ package com.paligot.confily.schedules.sample
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
-import com.paligot.confily.core.agenda.AgendaDao
+import com.paligot.confily.core.events.EventDao
 import com.paligot.confily.core.kvalue.ConferenceSettings
 import com.paligot.confily.core.sample.BuildConfig
+import com.paligot.confily.core.schedules.SessionDao
 import com.paligot.confily.core.test.instrumentedModule
 import com.paligot.confily.core.test.patterns.navigation.RobotNavigator
 import com.paligot.confily.core.test.patterns.navigation.robotHost
@@ -38,13 +39,14 @@ class ScheduleDetailsTest : KoinTest {
     }
 
     private val settings by inject<ConferenceSettings>()
-    private val agendaDao by inject<AgendaDao>()
+    private val eventDao by inject<EventDao>()
+    private val sessionDao by inject<SessionDao>()
 
     @Before
     fun setup() {
         settings.insertEventId(BuildConfig.DEFAULT_EVENT)
-        agendaDao.insertEvent(event, emptyList())
-        agendaDao.saveAgenda(BuildConfig.DEFAULT_EVENT, agenda)
+        eventDao.insertEvent(event, emptyList())
+        sessionDao.insertAgenda(BuildConfig.DEFAULT_EVENT, agenda)
     }
 
     @Test

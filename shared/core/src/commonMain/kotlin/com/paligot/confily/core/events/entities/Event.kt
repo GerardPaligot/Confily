@@ -3,7 +3,13 @@ package com.paligot.confily.core.events.entities
 import com.paligot.confily.core.extensions.formatLocalizedFull
 import com.paligot.confily.models.ui.EventInfoUi
 import kotlinx.collections.immutable.toImmutableList
+import kotlinx.datetime.DateTimeUnit
+import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.format
+import kotlinx.datetime.format.byUnicodePattern
+import kotlinx.datetime.plus
+import kotlinx.datetime.until
 import kotlin.native.ObjCName
 
 @ObjCName("EventEntity")
@@ -34,3 +40,14 @@ fun Event.mapToUi(): EventInfoUi = EventInfoUi(
     faqLink = faqUrl,
     codeOfConductLink = cocUrl
 )
+
+fun Event.mapToDays(): List<String> {
+    val startDate = startTime.date
+    val endDate = endTime.date
+    val days = mutableListOf<String>()
+    for (i in 0 until startDate.until(endDate, DateTimeUnit.DAY)) {
+        val currentDate = startDate.plus(i, DateTimeUnit.DAY)
+        days.add(currentDate.format(LocalDate.Format { byUnicodePattern("dd/MM") }))
+    }
+    return days
+}

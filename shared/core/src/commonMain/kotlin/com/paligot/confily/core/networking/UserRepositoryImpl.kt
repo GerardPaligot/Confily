@@ -6,6 +6,7 @@ import com.paligot.confily.core.fs.ConferenceFileSystem
 import com.paligot.confily.core.kvalue.ConferenceSettings
 import com.paligot.confily.core.networking.entities.ExportUsers
 import com.paligot.confily.core.networking.entities.User
+import com.paligot.confily.core.networking.entities.UserConfiguration
 import com.paligot.confily.core.networking.entities.UserInfo
 import com.paligot.confily.core.networking.entities.UserItem
 import com.paligot.confily.core.networking.entities.mapToFs
@@ -20,6 +21,20 @@ class UserRepositoryImpl(
     private val conferenceFs: ConferenceFileSystem,
     private val qrCodeGenerator: QrCodeGenerator
 ) : UserRepository {
+    override fun fetchConfiguration(): Flow<UserConfiguration> = settings.fetchEventId()
+        .flatMapConcat {
+            combine(
+                flow = userDao.fetchUser(eventId = it),
+                flow2 = userDao.fetchCountUserScanned(eventId = it),
+                transform = { user, count ->
+                    UserConfiguration(
+                        hasProfileCompleted = user?.qrCode != null,
+                        countUsersScanned = count
+                    )
+                }
+            )
+        }
+
     @OptIn(ExperimentalCoroutinesApi::class)
     override fun fetchUserProfile(): Flow<User?> = settings.fetchEventId()
         .flatMapConcat {

@@ -4,14 +4,18 @@ import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOne
 import app.cash.sqldelight.coroutines.mapToOneOrNull
+import com.paligot.confily.core.agenda.convertToModelDb
 import com.paligot.confily.core.events.entities.CodeOfConduct
 import com.paligot.confily.core.events.entities.Event
 import com.paligot.confily.core.events.entities.EventItemList
+import com.paligot.confily.core.events.entities.FeatureFlags
 import com.paligot.confily.core.events.entities.MenuItem
 import com.paligot.confily.core.events.entities.QAndAAction
 import com.paligot.confily.core.events.entities.QAndAItem
 import com.paligot.confily.db.ConfilyDatabase
 import com.paligot.confily.models.Attendee
+import com.paligot.confily.models.EventV3
+import com.paligot.confily.models.QuestionAndResponse
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.Flow
@@ -63,6 +67,78 @@ class EventDaoSQLDelight(
 
     override fun fetchCoC(eventId: String): Flow<CodeOfConduct> =
         db.eventQueries.selectCoc(eventId, cocMapper).asFlow().mapToOne(dispatcher)
+
+    override fun fetchFeatureFlags(eventId: String): Flow<FeatureFlags> = db
+        .featuresActivatedQueries
+        .selectFeatures(eventId)
+        .asFlow()
+        .mapToOneOrNull(dispatcher)
+        .map { features ->
+            FeatureFlags(
+                hasNetworking = features?.has_networking ?: false,
+                hasSpeakerList = features?.has_speaker_list ?: false,
+                hasPartnerList = features?.has_partner_list ?: false,
+                hasMenus = features?.has_menus ?: false,
+                hasQAndA = features?.has_qanda ?: false,
+                hasTicketIntegration = features?.has_billet_web_ticket ?: false
+            )
+        }
+
+    override fun insertEvent(event: EventV3, qAndA: List<QuestionAndResponse>) = db.transaction {
+        val eventDb = event.convertToModelDb()
+        db.eventQueries.insertEvent(
+            id = eventDb.id,
+            name = eventDb.name,
+            formatted_address = eventDb.formatted_address,
+            address = eventDb.address,
+            latitude = eventDb.latitude,
+            longitude = eventDb.longitude,
+            date = eventDb.date,
+            start_date = eventDb.start_date,
+            end_date = eventDb.end_date,
+            coc = eventDb.coc,
+            openfeedback_project_id = eventDb.openfeedback_project_id,
+            contact_email = eventDb.contact_email,
+            contact_phone = eventDb.contact_phone,
+            twitter = eventDb.twitter,
+            twitter_url = eventDb.twitter_url,
+            linkedin = eventDb.linkedin,
+            linkedin_url = eventDb.linkedin_url,
+            faq_url = eventDb.faq_url,
+            coc_url = eventDb.coc_url,
+            updated_at = eventDb.updated_at
+        )
+        qAndA.forEach { qAndA ->
+            db.qAndAQueries.insertQAndA(
+                qAndA.order.toLong(),
+                eventDb.id,
+                qAndA.question,
+                qAndA.response
+            )
+            qAndA.actions.forEach {
+                db.qAndAQueries.insertQAndAAction(
+                    id = "${qAndA.id}-${it.order}",
+                    order_ = it.order.toLong(),
+                    event_id = eventDb.id,
+                    qanda_id = qAndA.order.toLong(),
+                    label = it.label,
+                    url = it.url
+                )
+            }
+        }
+        event.menus.forEach {
+            db.menuQueries.insertMenu(it.name, it.dish, it.accompaniment, it.dessert, event.id)
+        }
+        db.featuresActivatedQueries.insertFeatures(
+            event_id = eventDb.id,
+            has_networking = event.features.hasNetworking,
+            has_speaker_list = event.features.hasSpeakerList,
+            has_partner_list = event.features.hasPartnerList,
+            has_menus = event.features.hasMenus,
+            has_qanda = event.features.hasQAndA,
+            has_billet_web_ticket = event.features.hasBilletWebTicket
+        )
+    }
 
     override fun insertEventItems(
         future: List<EventItemListNetworking>,
