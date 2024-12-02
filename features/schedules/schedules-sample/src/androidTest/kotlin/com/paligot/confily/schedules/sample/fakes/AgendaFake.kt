@@ -11,7 +11,7 @@ import kotlinx.datetime.Clock
 import kotlin.time.Duration
 
 object AgendaFake {
-    private val startInstant = Clock.System.now().plus(Duration.parse("1d"))
+    private val startInstant = Clock.System.now().plus(Duration.parse("1h"))
 
     val schedule = ScheduleItemV4.builder()
         .id("session-id")

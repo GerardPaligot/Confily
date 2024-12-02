@@ -1,5 +1,6 @@
 package com.paligot.confily.core.schedules
 
+import com.paligot.confily.core.events.EventDao
 import com.paligot.confily.core.kvalue.ConferenceSettings
 import com.paligot.confily.core.schedules.entities.EventSession
 import com.paligot.confily.core.schedules.entities.Filters
@@ -24,8 +25,9 @@ interface SessionRepository {
 
     object Factory {
         fun create(
+            eventDao: EventDao,
             sessionDao: SessionDao,
             settings: ConferenceSettings
-        ): SessionRepository = SessionRepositoryImpl(sessionDao, settings)
+        ): SessionRepository = SessionRepositoryImpl(eventDao, sessionDao, settings)
     }
 }

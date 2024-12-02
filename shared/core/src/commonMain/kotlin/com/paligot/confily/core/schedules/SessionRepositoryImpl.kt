@@ -1,5 +1,6 @@
 package com.paligot.confily.core.schedules
 
+import com.paligot.confily.core.events.EventDao
 import com.paligot.confily.core.kvalue.ConferenceSettings
 import com.paligot.confily.core.schedules.entities.EventSession
 import com.paligot.confily.core.schedules.entities.Filters
@@ -14,6 +15,7 @@ import kotlinx.coroutines.flow.flatMapConcat
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class SessionRepositoryImpl(
+    private val eventDao: EventDao,
     private val sessionDao: SessionDao,
     private val settings: ConferenceSettings
 ) : SessionRepository {
@@ -22,16 +24,18 @@ class SessionRepositoryImpl(
             flow = sessionDao.fetchSessionsFiltered(it),
             flow2 = sessionDao.fetchEventSessions(it),
             flow3 = filtersApplied(),
-            transform = { sessions, eventSessions, filters ->
+            flow4 = eventDao.fetchEvent(it),
+            transform = { sessions, eventSessions, filters, event ->
+                val allSessions = sessions + eventSessions
+                val days = event?.days() ?: emptyList()
                 Sessions(
                     filtersApplied = filters,
-                    sessions = (sessions + eventSessions)
-                        .groupBy { it.startTime.date }
-                        .map { entry ->
-                            entry.key to entry.value
+                    sessions = days
+                        .associateWith { day ->
+                            allSessions
+                                .filter { it.startTime.date == day }
                                 .sortedWith(compareBy({ it.startTime }, { it.order }))
                         }
-                        .associate { it }
                 )
             }
         )

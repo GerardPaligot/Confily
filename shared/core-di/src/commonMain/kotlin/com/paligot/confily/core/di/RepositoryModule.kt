@@ -9,7 +9,9 @@ import org.koin.dsl.module
 
 val repositoriesModule = module {
     includes(databasesModule, networksModule, fileSystemModule)
-    single { SessionRepository.Factory.create(sessionDao = get(), settings = get()) }
+    single {
+        SessionRepository.Factory.create(eventDao = get(), sessionDao = get(), settings = get())
+    }
     single {
         EventRepository.Factory.create(
             api = get(),

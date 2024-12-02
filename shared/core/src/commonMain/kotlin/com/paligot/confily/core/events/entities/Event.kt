@@ -26,7 +26,18 @@ class Event(
     val socials: List<Social>,
     val faqUrl: String,
     val cocUrl: String
-)
+) {
+    fun days(): List<LocalDate> {
+        val startDate = startTime.date
+        val endDate = endTime.date
+        val days = mutableListOf<LocalDate>()
+        for (i in 0 until startDate.until(endDate, DateTimeUnit.DAY)) {
+            val currentDate = startDate.plus(i, DateTimeUnit.DAY)
+            days.add(currentDate)
+        }
+        return days
+    }
+}
 
 fun Event.mapToUi(): EventInfoUi = EventInfoUi(
     name = name,
@@ -41,13 +52,5 @@ fun Event.mapToUi(): EventInfoUi = EventInfoUi(
     codeOfConductLink = cocUrl
 )
 
-fun Event.mapToDays(): List<String> {
-    val startDate = startTime.date
-    val endDate = endTime.date
-    val days = mutableListOf<String>()
-    for (i in 0 until startDate.until(endDate, DateTimeUnit.DAY)) {
-        val currentDate = startDate.plus(i, DateTimeUnit.DAY)
-        days.add(currentDate.format(LocalDate.Format { byUnicodePattern("dd/MM") }))
-    }
-    return days
-}
+fun Event.mapToDays(): List<String> =
+    days().map { it.format(LocalDate.Format { byUnicodePattern("dd/MM") }) }

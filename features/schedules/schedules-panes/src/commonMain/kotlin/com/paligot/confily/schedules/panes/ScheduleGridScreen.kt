@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
+import com.paligot.confily.models.ui.AgendaUi
 import com.paligot.confily.models.ui.EventSessionItemUi
 import com.paligot.confily.models.ui.TalkItemUi
 import com.paligot.confily.schedules.semantics.SchedulesSemantics
@@ -32,7 +33,7 @@ const val NbHorizontalPadding = 2
 
 @Composable
 fun ScheduleGridScreen(
-    agenda: com.paligot.confily.models.ui.AgendaUi,
+    agenda: AgendaUi,
     onTalkClicked: (id: String) -> Unit,
     onEventSessionClicked: (id: String) -> Unit,
     onFavoriteClicked: (TalkItemUi) -> Unit,

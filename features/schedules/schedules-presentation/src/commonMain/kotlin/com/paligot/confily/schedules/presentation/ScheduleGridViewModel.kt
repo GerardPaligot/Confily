@@ -72,9 +72,9 @@ class ScheduleGridViewModel(
     private val _schedules = sessionRepository.sessions()
     val uiState: StateFlow<ScheduleGridUiState> =
         combine(
-            _tabsStates,
-            _uiHasFiltersState,
-            _schedules,
+            flow = _tabsStates,
+            flow2 = _uiHasFiltersState,
+            flow3 = _schedules,
             transform = { agendaTabs, topActions, schedules ->
                 if (schedules.sessions.isNotEmpty()) {
                     ScheduleGridUiState.Success(

@@ -45,8 +45,8 @@ class EventBuilder {
     fun id(id: String) = apply { this.id = id }
     fun name(name: String) = apply { this.name = name }
     fun address(address: Address) = apply { this.address = address }
-    fun startDate(startDate: Instant) = apply { this.startDate = startDate.formatISO() }
-    fun endDate(endDate: Instant) = apply { this.endDate = endDate.formatISO() }
+    fun startDate(startDate: Instant) = apply { this.startDate = "${startDate.formatISO()}Z" }
+    fun endDate(endDate: Instant) = apply { this.endDate = "${endDate.formatISO()}Z" }
     fun menus(menus: List<EventLunchMenu>) = apply { this.menus = menus }
     fun coc(coc: String) = apply { this.coc = coc }
     fun openfeedbackProjectId(openfeedbackProjectId: String?) =
