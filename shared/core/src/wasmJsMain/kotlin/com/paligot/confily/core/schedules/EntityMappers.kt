@@ -63,8 +63,8 @@ fun SelectSessionsDb.mapToEntity(speakers: List<SpeakerItem>): SessionItem = Ses
     language = talk.language,
     order = session.order.toInt(),
     startTime = Instant.parse(session.startTime)
-        .toLocalDateTime(TimeZone.currentSystemDefault()),
-    endTime = Instant.parse(session.endTime).toLocalDateTime(TimeZone.currentSystemDefault()),
+        .toLocalDateTime(TimeZone.UTC),
+    endTime = Instant.parse(session.endTime).toLocalDateTime(TimeZone.UTC),
     speakers = speakers,
     isFavorite = session.isFavorite
 )
@@ -134,8 +134,8 @@ fun SelectEventSessionsDb.mapToEntity(): EventSession {
         description = event.description ?: "",
         room = session.room,
         startTime = Instant.parse(session.startTime)
-            .toLocalDateTime(TimeZone.currentSystemDefault()),
-        endTime = Instant.parse(session.endTime).toLocalDateTime(TimeZone.currentSystemDefault()),
+            .toLocalDateTime(TimeZone.UTC),
+        endTime = Instant.parse(session.endTime).toLocalDateTime(TimeZone.UTC),
         address = address
     )
 }
@@ -147,8 +147,8 @@ fun SelectEventSessionsDb.mapToItemEntity(): EventSessionItem = EventSessionItem
     description = event.description ?: "",
     room = session.room,
     startTime = Instant.parse(session.startTime)
-        .toLocalDateTime(TimeZone.currentSystemDefault()),
-    endTime = Instant.parse(session.endTime).toLocalDateTime(TimeZone.currentSystemDefault())
+        .toLocalDateTime(TimeZone.UTC),
+    endTime = Instant.parse(session.endTime).toLocalDateTime(TimeZone.UTC)
 )
 
 fun CategoryDb.mapToEntity() = Category(

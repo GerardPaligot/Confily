@@ -13,7 +13,7 @@ import kotlinx.datetime.toLocalDateTime
 fun EventItemDb.convertToEntity(): EventItem = EventItem(
     id = id,
     name = name,
-    date = Instant.parse(date).toLocalDateTime(TimeZone.currentSystemDefault()).date,
+    date = Instant.parse(date).toLocalDateTime(TimeZone.UTC).date,
     past = past
 )
 
@@ -23,8 +23,8 @@ fun EventDb.convertToEntity(): Event = Event(
     formattedAddress = formattedAddress.toImmutableList(),
     latitude = latitude,
     longitude = longitude,
-    startTime = Instant.parse(date).toLocalDateTime(TimeZone.currentSystemDefault()),
-    endTime = Instant.parse(date).toLocalDateTime(TimeZone.currentSystemDefault()),
+    startTime = Instant.parse(date).toLocalDateTime(TimeZone.UTC),
+    endTime = Instant.parse(date).toLocalDateTime(TimeZone.UTC),
     email = contactEmail,
     phone = contactPhone,
     socials = listOfNotNull(

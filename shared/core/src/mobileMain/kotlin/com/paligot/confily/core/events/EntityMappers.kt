@@ -20,8 +20,8 @@ internal val eventMapper = { id: String, name: String, formattedAddress: List<St
         formattedAddress = formattedAddress,
         latitude = latitude,
         longitude = longitude,
-        startTime = Instant.parse(startDate).toLocalDateTime(TimeZone.currentSystemDefault()),
-        endTime = Instant.parse(endDate).toLocalDateTime(TimeZone.currentSystemDefault()),
+        startTime = Instant.parse(startDate).toLocalDateTime(TimeZone.UTC),
+        endTime = Instant.parse(endDate).toLocalDateTime(TimeZone.UTC),
         email = contactEmail,
         phone = contactPhone,
         socials = listOfNotNull(
@@ -37,7 +37,7 @@ internal val eventItemMapper = { id: String, name: String, date: String, _: Long
     EventItem(
         id = id,
         name = name,
-        date = Instant.parse(date).toLocalDateTime(TimeZone.currentSystemDefault()).date,
+        date = Instant.parse(date).toLocalDateTime(TimeZone.UTC).date,
         past = past
     )
 }

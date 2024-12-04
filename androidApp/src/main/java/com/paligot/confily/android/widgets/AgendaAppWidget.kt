@@ -39,7 +39,7 @@ class AgendaAppWidget : GlanceAppWidget(), KoinComponent {
         get() = PreferencesGlanceStateDefinition
 
     override suspend fun provideGlance(context: Context, id: GlanceId) {
-        val date = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).toString()
+        val date = Clock.System.now().toLocalDateTime(TimeZone.UTC).toString()
         provideContent {
             ConfilyGlanceTheme {
                 val prefs = currentState<Preferences>()
@@ -52,7 +52,7 @@ class AgendaAppWidget : GlanceAppWidget(), KoinComponent {
                     onUpdate = {
                         prefs.toMutablePreferences().apply {
                             this.lastUpdate = Clock.System.now()
-                                .toLocalDateTime(TimeZone.currentSystemDefault())
+                                .toLocalDateTime(TimeZone.UTC)
                                 .toString()
                         }
                         update(context, id)

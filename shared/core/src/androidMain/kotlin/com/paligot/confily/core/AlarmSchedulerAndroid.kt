@@ -44,7 +44,7 @@ class AlarmSchedulerAndroid(
             PendingIntent.getBroadcast(context, talkItem.id.hashCode(), intent, flags)
         if (isFavorite) {
             val time =
-                talkItem.startTime.toLocalDateTime().toInstant(TimeZone.currentSystemDefault())
+                talkItem.startTime.toLocalDateTime().toInstant(TimeZone.UTC)
                     .minus(ReminderInMinutes, DateTimeUnit.MINUTE).toEpochMilliseconds()
             alarmManager.set(
                 AlarmManager.ELAPSED_REALTIME_WAKEUP,

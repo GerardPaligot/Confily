@@ -30,8 +30,8 @@ class SessionItem(
 private const val MaxSpeakersCount = 3
 
 fun SessionItem.mapToUi(strings: Strings): TalkItemUi {
-    val diff = endTime.toInstant(TimeZone.currentSystemDefault())
-        .minus(startTime.toInstant(TimeZone.currentSystemDefault()))
+    val diff = endTime.toInstant(TimeZone.UTC)
+        .minus(startTime.toInstant(TimeZone.UTC))
     val timeInMinutes = diff.inWholeMinutes.toInt()
     val count = (speakers.size - MaxSpeakersCount).coerceAtLeast(minimumValue = 0)
     val maxSpeakers = speakers.take(MaxSpeakersCount)

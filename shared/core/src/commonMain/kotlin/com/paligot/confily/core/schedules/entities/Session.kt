@@ -31,9 +31,9 @@ class Session(
 )
 
 fun Session.mapToUi(strings: Strings): TalkUi {
-    val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-    val diff = endTime.toInstant(TimeZone.currentSystemDefault())
-        .minus(startTime.toInstant(TimeZone.currentSystemDefault()))
+    val now = Clock.System.now().toLocalDateTime(TimeZone.UTC)
+    val diff = endTime.toInstant(TimeZone.UTC)
+        .minus(startTime.toInstant(TimeZone.UTC))
     return TalkUi(
         title = title,
         level = level.mapToUi(strings),

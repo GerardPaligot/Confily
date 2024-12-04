@@ -56,8 +56,8 @@ class SessionsViewModel(
 }
 
 private fun SessionItem.mapToUi(strings: Strings): SessionItemUi {
-    val diff = endTime.toInstant(TimeZone.currentSystemDefault())
-        .minus(startTime.toInstant(TimeZone.currentSystemDefault()))
+    val diff = endTime.toInstant(TimeZone.UTC)
+        .minus(startTime.toInstant(TimeZone.UTC))
     return SessionItemUi(
         id = id,
         title = title,

@@ -57,8 +57,8 @@ private fun Sessions.mapToUi(): ScheduleModelUi = ScheduleModelUi(
 )
 
 private fun SessionItem.mapToUi(): ScheduleSessionModelUi {
-    val diff = endTime.toInstant(TimeZone.currentSystemDefault())
-        .minus(startTime.toInstant(TimeZone.currentSystemDefault()))
+    val diff = endTime.toInstant(TimeZone.UTC)
+        .minus(startTime.toInstant(TimeZone.UTC))
     val timeInMinutes = diff.inWholeMinutes.toInt()
     return ScheduleSessionModelUi(
         id = this.id,
@@ -76,8 +76,8 @@ private fun SessionItem.mapToUi(): ScheduleSessionModelUi {
 }
 
 private fun EventSessionItem.mapToUi(): EventSessionModelUi {
-    val diff = endTime.toInstant(TimeZone.currentSystemDefault())
-        .minus(startTime.toInstant(TimeZone.currentSystemDefault()))
+    val diff = endTime.toInstant(TimeZone.UTC)
+        .minus(startTime.toInstant(TimeZone.UTC))
     val timeInMinutes = diff.inWholeMinutes.toInt()
     return EventSessionModelUi(
         title = this.title,

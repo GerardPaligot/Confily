@@ -29,7 +29,7 @@ class PartnerRepositoryImpl(
                     .flatMapConcat { event ->
                         if (event == null) return@flatMapConcat flowOf(emptyList())
                         val now = Clock.System.now()
-                            .toLocalDateTime(TimeZone.currentSystemDefault())
+                            .toLocalDateTime(TimeZone.UTC)
                             .date
                         val startInstant = event.startTime.date
                         val endInstant = event.endTime.date

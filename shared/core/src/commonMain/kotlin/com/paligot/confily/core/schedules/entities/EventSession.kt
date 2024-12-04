@@ -22,8 +22,8 @@ class EventSession(
 )
 
 fun EventSession.mapToUi(): EventSessionUi {
-    val timeInMinutes = startTime.toInstant(TimeZone.currentSystemDefault())
-        .minus(endTime.toInstant(TimeZone.currentSystemDefault()))
+    val timeInMinutes = startTime.toInstant(TimeZone.UTC)
+        .minus(endTime.toInstant(TimeZone.UTC))
     return EventSessionUi(
         title = title,
         description = description,

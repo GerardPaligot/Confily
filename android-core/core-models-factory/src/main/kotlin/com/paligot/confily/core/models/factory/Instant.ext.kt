@@ -7,5 +7,5 @@ import kotlinx.datetime.format
 import kotlinx.datetime.toLocalDateTime
 
 internal fun Instant.formatISO() = this
-    .toLocalDateTime(TimeZone.currentSystemDefault())
+    .toLocalDateTime(TimeZone.UTC)
     .format(LocalDateTime.Formats.ISO)

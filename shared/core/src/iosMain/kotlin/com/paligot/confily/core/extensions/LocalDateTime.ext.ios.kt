@@ -9,7 +9,7 @@ import platform.Foundation.NSDateFormatter
 import platform.Foundation.NSISO8601DateFormatter
 
 actual fun LocalDateTime.formatLocalizedFull(): String {
-    val dateInstant = this.toInstant(TimeZone.currentSystemDefault())
+    val dateInstant = this.toInstant(TimeZone.UTC)
         .format(DateTimeComponents.Formats.ISO_DATE_TIME_OFFSET)
     val formatter = NSDateFormatter()
     formatter.dateFormat = "EEEE, MMM d, yyyy"
