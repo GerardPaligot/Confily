@@ -10,28 +10,22 @@ import SwiftUI
 import SharedDi
 
 struct Partners: View {
-    let partners: PartnerGroupsUi
-    let horizontalSpacing: CGFloat = 16
-    let maxItems: Int = 3
+    var uiModel: PartnersActivitiesUi
+    @State private var selectedTab = "screenPartners"
 
     var body: some View {
-        GeometryReader { geometry in
-            let parentWidth = geometry.size.width  - (self.horizontalSpacing * 2)
-            ScrollView {
-                LazyVStack(spacing: 8) {
-                    ForEach(partners.groups, id: \.type) { partnerGroup in
-                        Section {
-                            LazyVGrid(columns: [GridItem(.adaptive(minimum: parentWidth)), GridItem(.adaptive(minimum: parentWidth)), GridItem(.adaptive(minimum: parentWidth))], content: {
-                                ForEach(partnerGroup.partners, id: \.id) { partner in
-                                    PartnerItemNavigation(partner: partner)
-                                }
-                            })
-                        } header : {
-                            PartnerDividerView(text: partnerGroup.type)
-                                .padding(.horizontal, self.horizontalSpacing)
-                        }
-                    }
+        VStack {
+            if (self.uiModel.activities.keys.count > 0) {
+                Picker("Options:", selection: $selectedTab) {
+                    Text("screenPartners").tag("screenPartners")
+                    Text("screenActivities").tag("screenActivities")
                 }
+                .pickerStyle(SegmentedPickerStyle())
+            }
+            if (selectedTab == "screenActivities") {
+                PartnersActivitiesView(activities: uiModel.activities)
+            } else {
+                PartnerListView(partners: uiModel.partners)
             }
         }
         .navigationTitle(Text("screenPartners"))
@@ -39,11 +33,6 @@ struct Partners: View {
     }
 }
 
-struct Partners_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            Partners(partners: PartnerGroupsUi.companion.fake)
-                .environmentObject(ViewModelFactory())
-        }
-    }
+#Preview {
+    Partners(uiModel: PartnersActivitiesUi.companion.fake)
 }

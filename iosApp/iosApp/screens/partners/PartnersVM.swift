@@ -17,7 +17,7 @@ struct PartnersVM: View {
             Group {
                 switch uiState {
                     case .success(let partners):
-                        Partners(partners: partners)
+                        Partners(uiModel: partners)
                     case .failure:
                         Text("textError")
                     case .loading:

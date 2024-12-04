@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0056BD6E2D00E29400098D38 /* ActivityItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0056BD6D2D00E29400098D38 /* ActivityItemView.swift */; };
+		0056BD702D00E58D00098D38 /* PartnersActivitiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0056BD6F2D00E58D00098D38 /* PartnersActivitiesView.swift */; };
+		0056BD742D00F0F700098D38 /* PartnerListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0056BD732D00F0F700098D38 /* PartnerListView.swift */; };
 		0060F46B2C8BC231000BCD06 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0060F46A2C8BC231000BCD06 /* GoogleService-Info.plist */; };
 		058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
@@ -115,6 +118,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0056BD6D2D00E29400098D38 /* ActivityItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityItemView.swift; sourceTree = "<group>"; };
+		0056BD6F2D00E58D00098D38 /* PartnersActivitiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnersActivitiesView.swift; sourceTree = "<group>"; };
+		0056BD732D00F0F700098D38 /* PartnerListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnerListView.swift; sourceTree = "<group>"; };
 		0060F46A2C8BC231000BCD06 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		058557BA273AAA24004C7B11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -528,6 +534,7 @@
 			isa = PBXGroup;
 			children = (
 				D57028A927B550BF008EF4AD /* PartnerDividerView.swift */,
+				0056BD6D2D00E29400098D38 /* ActivityItemView.swift */,
 			);
 			path = partners;
 			sourceTree = "<group>";
@@ -538,6 +545,8 @@
 				D5C92EC4283AC56F00D5CF2D /* Partners.swift */,
 				D5C92EC6283AC66D00D5CF2D /* PartnersVM.swift */,
 				D5C92EC8283AC6D400D5CF2D /* PartnersViewModel.swift */,
+				0056BD6F2D00E58D00098D38 /* PartnersActivitiesView.swift */,
+				0056BD732D00F0F700098D38 /* PartnerListView.swift */,
 			);
 			path = partners;
 			sourceTree = "<group>";
@@ -744,6 +753,7 @@
 				D560788E27BE86D900D4012C /* SpeakerAvatarView.swift in Sources */,
 				D5C7532E2975F56000E2FD0B /* AppViewModel.swift in Sources */,
 				D5768D6027C11E2A00FB081C /* Networking.swift in Sources */,
+				0056BD742D00F0F700098D38 /* PartnerListView.swift in Sources */,
 				D5C92ED1283ACEB500D5CF2D /* Menus.swift in Sources */,
 				D5C1B3BB29F26D9E00D94391 /* BundleExt.swift in Sources */,
 				D50A458F27B081B600C9A43C /* Agenda.swift in Sources */,
@@ -756,6 +766,7 @@
 				D560789727BE906500D4012C /* SpeakerDetailVM.swift in Sources */,
 				D5D7E1092BEE4CF40027071D /* EventSessionItemNavigation.swift in Sources */,
 				D50E9B0527C12AF000B7B9B9 /* NetworkingViewModel.swift in Sources */,
+				0056BD702D00E58D00098D38 /* PartnersActivitiesView.swift in Sources */,
 				D5B5E8542B4C98E600129758 /* AgendaFiltersVM.swift in Sources */,
 				D544C7E929548B460038CB80 /* SpeakersAvatarView.swift in Sources */,
 				D51C2CD128383719006EED5D /* UIApplicationExt.swift in Sources */,
@@ -784,6 +795,7 @@
 				D560789527BE8F4500D4012C /* SpeakerViewModel.swift in Sources */,
 				D58F1D5427B0057300FB59C7 /* Color.swift in Sources */,
 				D5C92EC5283AC56F00D5CF2D /* Partners.swift in Sources */,
+				0056BD6E2D00E29400098D38 /* ActivityItemView.swift in Sources */,
 				D5C92ED3283AD00800D5CF2D /* MenusVM.swift in Sources */,
 				D5D7E10F2BEE4FB40027071D /* ScheduleEventSessionVM.swift in Sources */,
 				D58F1D4F27AFF40A00FB59C7 /* TalkItemView.swift in Sources */,

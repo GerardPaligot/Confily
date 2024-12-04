@@ -12,7 +12,7 @@ import KMPNativeCoroutinesAsync
 
 enum PartnersUiState {
     case loading
-    case success(PartnerGroupsUi)
+    case success(PartnersActivitiesUi)
     case failure
 }
 
@@ -29,7 +29,7 @@ class PartnersViewModel: ObservableObject {
             do {
                 let stream = asyncSequence(for: interactor.partners())
                 for try await partners in stream {
-                    self.uiState = PartnersUiState.success(partners.partners)
+                    self.uiState = PartnersUiState.success(partners)
                 }
             } catch {
                 self.uiState = PartnersUiState.failure
