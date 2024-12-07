@@ -3,6 +3,7 @@ package com.paligot.confily.backend.internals.helpers.storage
 import com.google.cloud.storage.Acl
 import com.google.cloud.storage.BlobId
 import com.google.cloud.storage.BlobInfo
+import com.google.cloud.storage.StorageException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -13,6 +14,16 @@ class BucketStorage(
     private val bucketName: String,
     private val dispatcher: CoroutineDispatcher = Dispatchers.Default
 ) : Storage {
+    @Suppress("SwallowedException")
+    override suspend fun download(filename: String): ByteArray? = withContext(dispatcher) {
+        val blobId = BlobId.of(bucketName, filename)
+        return@withContext try {
+            storage.readAllBytes(blobId)
+        } catch (ex: StorageException) {
+            null
+        }
+    }
+
     override suspend fun upload(filename: String, content: ByteArray, mimeType: MimeType): Upload =
         withContext(dispatcher) {
             val blobId = BlobId.of(bucketName, filename)

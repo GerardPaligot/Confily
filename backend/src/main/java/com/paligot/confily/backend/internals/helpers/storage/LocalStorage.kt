@@ -10,6 +10,10 @@ class LocalStorage(
     private val location: String = "/tmp",
     private val dispatcher: CoroutineDispatcher = Dispatchers.Default
 ) : Storage {
+    override suspend fun download(filename: String): ByteArray? = withContext(dispatcher) {
+        File("$location/$directory/$filename").readBytes()
+    }
+
     override suspend fun upload(
         filename: String,
         content: ByteArray,

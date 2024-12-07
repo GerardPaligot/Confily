@@ -17,7 +17,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 
+@Suppress("LongParameterList")
 class EventRepositoryV4(
+    private val eventDao: EventDao,
     private val speakerDao: SpeakerDao,
     private val sessionDao: SessionDao,
     private val categoryDao: CategoryDao,
@@ -25,7 +27,17 @@ class EventRepositoryV4(
     private val scheduleItemDao: ScheduleItemDao,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
-    suspend fun agenda(eventDb: EventDb) = coroutineScope {
+    suspend fun agenda(eventDb: EventDb): AgendaV4 =
+        eventDao.getAgendaFile(eventDb.slugId, eventDb.agendaUpdatedAt) ?: buildAgenda(eventDb)
+
+    suspend fun generateAgenda(eventId: String, apiKey: String) = coroutineScope {
+        val eventDb = eventDao.getVerified(eventId, apiKey)
+        val agenda = buildAgenda(eventDb)
+        eventDao.uploadAgendaFile(eventId, eventDb.agendaUpdatedAt, agenda)
+        return@coroutineScope agenda
+    }
+
+    private suspend fun buildAgenda(eventDb: EventDb) = coroutineScope {
         val schedules = async(context = dispatcher) {
             scheduleItemDao.getAll(eventDb.slugId).map { it.convertToModelV4() }
         }.await()

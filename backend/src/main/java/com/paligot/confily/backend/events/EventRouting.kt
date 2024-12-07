@@ -126,6 +126,11 @@ fun Routing.registerEventRoutes() {
             }
         }
     }
+    put("/events/{eventId}/agenda") {
+        val eventId = call.parameters["eventId"]!!
+        val apiKey = call.request.headers["api_key"]!!
+        call.respond(HttpStatusCode.OK, repositoryV4.generateAgenda(eventId, apiKey))
+    }
     get("/events/{eventId}/openfeedback") {
         val eventId = call.parameters["eventId"]!!
         call.respond(HttpStatusCode.OK, repositoryV2.openFeedback(eventId))
