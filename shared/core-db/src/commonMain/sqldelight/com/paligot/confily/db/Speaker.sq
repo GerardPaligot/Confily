@@ -6,11 +6,6 @@ bio TEXT NOT NULL,
 job_title TEXT,
 company TEXT,
 photo_url TEXT NOT NULL,
-twitter TEXT,
-mastodon TEXT,
-github TEXT,
-linkedin TEXT,
-website TEXT,
 event_id TEXT NOT NULL
 );
 
@@ -18,7 +13,7 @@ upsertSpeaker:
 INSERT OR REPLACE INTO Speaker VALUES ?;
 
 selectSpeaker:
-SELECT id, display_name, pronouns, bio, job_title, company, photo_url, twitter, mastodon, github, linkedin, website, event_id
+SELECT id, display_name, pronouns, bio, job_title, company, photo_url, event_id
 FROM Speaker WHERE id == ? AND event_id == ?;
 
 selectSpeakersByEvent:

@@ -24,10 +24,20 @@ val repositoriesModule = module {
         )
     }
     single {
-        SpeakerRepository.Factory.create(speakerDao = get(), sessionDao = get(), settings = get())
+        SpeakerRepository.Factory.create(
+            speakerDao = get(),
+            sessionDao = get(),
+            socialDao = get(),
+            settings = get()
+        )
     }
     single {
-        PartnerRepository.Factory.create(settings = get(), eventDao = get(), partnerDao = get())
+        PartnerRepository.Factory.create(
+            settings = get(),
+            eventDao = get(),
+            partnerDao = get(),
+            socialDao = get()
+        )
     }
     single {
         UserRepository.Factory.create(

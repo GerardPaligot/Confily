@@ -1,6 +1,5 @@
 package com.paligot.confily.core.partners
 
-import com.paligot.confily.core.events.entities.Social
 import com.paligot.confily.core.partners.entities.ActivityItem
 import com.paligot.confily.core.partners.entities.JobItem
 import com.paligot.confily.core.partners.entities.PartnerInfo
@@ -8,6 +7,7 @@ import com.paligot.confily.core.partners.entities.PartnerItem
 import com.paligot.confily.core.partners.entities.PartnerType
 import com.paligot.confily.core.partners.entities.Salary
 import com.paligot.confily.core.schedules.entities.Address
+import com.paligot.confily.core.socials.entities.Social
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.datetime.LocalDateTime
 

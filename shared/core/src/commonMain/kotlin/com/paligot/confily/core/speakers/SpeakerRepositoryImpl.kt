@@ -2,6 +2,7 @@ package com.paligot.confily.core.speakers
 
 import com.paligot.confily.core.kvalue.ConferenceSettings
 import com.paligot.confily.core.schedules.SessionDao
+import com.paligot.confily.core.socials.SocialDao
 import com.paligot.confily.core.speakers.entities.Speaker
 import com.paligot.confily.core.speakers.entities.SpeakerItem
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -12,6 +13,7 @@ import kotlinx.coroutines.flow.flatMapConcat
 class SpeakerRepositoryImpl(
     private val speakerDao: SpeakerDao,
     private val sessionDao: SessionDao,
+    private val socialDao: SocialDao,
     private val settings: ConferenceSettings
 ) : SpeakerRepository {
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -20,7 +22,10 @@ class SpeakerRepositoryImpl(
             combine(
                 flow = speakerDao.fetchSpeaker(eventId = it, speakerId = speakerId),
                 flow2 = sessionDao.fetchSessionsBySpeakerId(eventId = it, speakerId = speakerId),
-                transform = { info, sessions -> Speaker(info = info, sessions = sessions) }
+                flow3 = socialDao.fetchSocials(eventId = it, extId = speakerId),
+                transform = { info, sessions, socials ->
+                    Speaker(info = info, sessions = sessions, socials = socials)
+                }
             )
         }
 

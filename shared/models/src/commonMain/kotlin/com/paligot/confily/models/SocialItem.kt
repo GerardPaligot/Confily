@@ -38,5 +38,22 @@ enum class SocialType {
     Email,
 
     @SerialName("website")
-    Website
+    Website,
+
+    @SerialName("unknown")
+    Unknown
+}
+
+fun String.mapToSocialType(): SocialType = when (this) {
+    "linkedin" -> SocialType.LinkedIn
+    "x" -> SocialType.X
+    "mastodon" -> SocialType.Mastodon
+    "bluesky" -> SocialType.Bluesky
+    "facebook" -> SocialType.Facebook
+    "instagram" -> SocialType.Instagram
+    "youtube" -> SocialType.YouTube
+    "github" -> SocialType.GitHub
+    "email" -> SocialType.Email
+    "website" -> SocialType.Website
+    else -> SocialType.Unknown
 }

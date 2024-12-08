@@ -19,6 +19,9 @@ import com.paligot.confily.core.schedules.FormatQueries
 import com.paligot.confily.core.schedules.SessionDao
 import com.paligot.confily.core.schedules.SessionDaoSettings
 import com.paligot.confily.core.schedules.SessionQueries
+import com.paligot.confily.core.socials.SocialDao
+import com.paligot.confily.core.socials.SocialDaoSettings
+import com.paligot.confily.core.socials.SocialQueries
 import com.paligot.confily.core.speakers.SpeakerDao
 import com.paligot.confily.core.speakers.SpeakerDaoSettings
 import com.paligot.confily.core.speakers.SpeakerQueries
@@ -43,6 +46,7 @@ actual val databasesModule: Module = module {
     single { ConferenceSettings(get()) }
     single<CoroutineContext> { Dispatchers.Default }
     single { EventQueries(settings = get()) }
+    single { SocialQueries(settings = get()) }
     single { FeaturesActivatedQueries(settings = get()) }
     single { MenuQueries(settings = get()) }
     single { QAndAQueries(settings = get()) }
@@ -66,14 +70,22 @@ actual val databasesModule: Module = module {
             featuresActivatedQueries = get()
         )
     }
-    single<PartnerDao> { PartnerDaoSettings(partnerQueries = get(), hasSvgSupport = true) }
+    single<SocialDao> { SocialDaoSettings(socialQueries = get()) }
+    single<PartnerDao> {
+        PartnerDaoSettings(
+            partnerQueries = get(),
+            socialQueries = get(),
+            hasSvgSupport = true
+        )
+    }
     single<SessionDao> {
         SessionDaoSettings(
             settings = get(),
             sessionQueries = get(),
             categoryQueries = get(),
             formatQueries = get(),
-            speakerQueries = get()
+            speakerQueries = get(),
+            socialQueries = get()
         )
     }
     single<SpeakerDao> {

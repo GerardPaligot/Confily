@@ -1,6 +1,5 @@
 package com.paligot.confily.core.speakers.entities
 
-import com.paligot.confily.core.events.entities.Social
 import com.paligot.confily.resources.Strings
 import kotlin.native.ObjCName
 
@@ -12,8 +11,7 @@ class SpeakerInfo(
     val photoUrl: String,
     val pronouns: String?,
     val jobTitle: String?,
-    val company: String?,
-    val socials: List<Social>
+    val company: String?
 )
 
 internal fun SpeakerInfo.displayActivity(strings: Strings) = when {

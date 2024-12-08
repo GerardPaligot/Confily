@@ -7,13 +7,13 @@ import com.paligot.confily.core.events.QAndAActionDb
 import com.paligot.confily.core.events.QAndADb
 import com.paligot.confily.core.partners.JobDb
 import com.paligot.confily.core.partners.PartnerDb
-import com.paligot.confily.core.partners.PartnerSocialDb
 import com.paligot.confily.core.schedules.CategoryDb
 import com.paligot.confily.core.schedules.EventSessionDb
 import com.paligot.confily.core.schedules.FormatDb
 import com.paligot.confily.core.schedules.SessionDb
 import com.paligot.confily.core.schedules.TalkSessionDb
 import com.paligot.confily.core.schedules.TalkSessionWithSpeakers
+import com.paligot.confily.core.socials.SocialDb
 import com.paligot.confily.core.speakers.SpeakerDb
 import com.paligot.confily.models.Category
 import com.paligot.confily.models.EventLunchMenu
@@ -130,12 +130,13 @@ fun Session.Talk.convertToDb(eventId: String): TalkSessionDb = TalkSessionDb(
     eventId = eventId
 )
 
-fun Session.Talk.convertToDb(eventId: String, id: String, speakerId: String) = TalkSessionWithSpeakers(
-    id = id,
-    speakerId = speakerId,
-    talkId = this.id,
-    eventId = eventId
-)
+fun Session.Talk.convertToDb(eventId: String, id: String, speakerId: String) =
+    TalkSessionWithSpeakers(
+        id = id,
+        speakerId = speakerId,
+        talkId = this.id,
+        eventId = eventId
+    )
 
 fun Session.Event.convertToDb(eventId: String): EventSessionDb = EventSessionDb(
     id = this.id,
@@ -156,11 +157,6 @@ fun Speaker.convertToDb(eventId: String): SpeakerDb = SpeakerDb(
     jobTitle = jobTitle,
     company = company,
     photoUrl = photoUrl,
-    twitter = twitter,
-    mastodon = mastodon,
-    github = github,
-    linkedin = linkedin,
-    website = website,
     eventId = eventId
 )
 
@@ -187,13 +183,6 @@ fun PartnerV3.convertToDb(
     longitude = address?.lng
 )
 
-fun SocialItem.convertToDb(eventId: String, partnerId: String): PartnerSocialDb = PartnerSocialDb(
-    url = url,
-    type = type.name,
-    partnerId = partnerId,
-    eventId = eventId
-)
-
 fun Job.convertToDb(eventId: String, partnerId: String): JobDb = JobDb(
     url = url,
     partnerId = partnerId,
@@ -207,4 +196,11 @@ fun Job.convertToDb(eventId: String, partnerId: String): JobDb = JobDb(
     requirements = requirements,
     publishDate = publishDate,
     propulsed = propulsed
+)
+
+fun SocialItem.convertToDb(eventId: String, extId: String): SocialDb = SocialDb(
+    url = url,
+    type = type.name.lowercase(),
+    extId = extId,
+    eventId = eventId
 )

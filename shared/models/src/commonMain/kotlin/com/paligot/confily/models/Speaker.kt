@@ -15,9 +15,15 @@ data class Speaker(
     val company: String?,
     @SerialName("photo_url")
     val photoUrl: String,
-    val website: String?,
-    val twitter: String?,
-    val mastodon: String?,
-    val github: String?,
-    val linkedin: String?
+    val socials: List<SocialItem>,
+    @Deprecated("use socials property instead")
+    val website: String? = null,
+    @Deprecated("use socials property instead")
+    val twitter: String? = null,
+    @Deprecated("use socials property instead")
+    val mastodon: String? = null,
+    @Deprecated("use socials property instead")
+    val github: String? = null,
+    @Deprecated("use socials property instead")
+    val linkedin: String? = null
 )

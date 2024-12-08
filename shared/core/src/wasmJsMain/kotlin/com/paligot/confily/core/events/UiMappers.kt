@@ -4,7 +4,7 @@ import com.paligot.confily.core.events.entities.CodeOfConduct
 import com.paligot.confily.core.events.entities.Event
 import com.paligot.confily.core.events.entities.EventItem
 import com.paligot.confily.core.events.entities.MenuItem
-import com.paligot.confily.core.events.entities.Social
+import com.paligot.confily.core.socials.entities.Social
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone

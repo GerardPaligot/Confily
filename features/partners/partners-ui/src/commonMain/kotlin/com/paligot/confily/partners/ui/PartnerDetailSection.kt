@@ -11,7 +11,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.paligot.confily.models.ui.PartnerUi
-import com.paligot.confily.models.ui.SocialTypeUi
+import com.paligot.confily.models.ui.findBluesky
+import com.paligot.confily.models.ui.findEmail
+import com.paligot.confily.models.ui.findFacebook
+import com.paligot.confily.models.ui.findGitHub
+import com.paligot.confily.models.ui.findInstagram
+import com.paligot.confily.models.ui.findLinkedIn
+import com.paligot.confily.models.ui.findMastodon
+import com.paligot.confily.models.ui.findWebsite
+import com.paligot.confily.models.ui.findX
+import com.paligot.confily.models.ui.findYouTube
 import com.paligot.confily.style.components.markdown.MarkdownText
 import com.paligot.confily.style.components.placeholder.placeholder
 import com.paligot.confily.style.events.socials.SocialsSection
@@ -45,16 +54,17 @@ fun PartnerDetailSectionVertical(
             subtitle = null,
             onLinkClicked = onLinkClicked,
             isLoading = isLoading,
-            xUrl = partnerUi.socials.find { it.type == SocialTypeUi.X }?.url,
-            mastodonUrl = partnerUi.socials.find { it.type == SocialTypeUi.Mastodon }?.url,
-            blueskyUrl = partnerUi.socials.find { it.type == SocialTypeUi.Bluesky }?.url,
-            facebookUrl = partnerUi.socials.find { it.type == SocialTypeUi.Facebook }?.url,
-            instagramUrl = partnerUi.socials.find { it.type == SocialTypeUi.Instagram }?.url,
-            youtubeUrl = partnerUi.socials.find { it.type == SocialTypeUi.YouTube }?.url,
-            githubUrl = partnerUi.socials.find { it.type == SocialTypeUi.GitHub }?.url,
-            linkedinUrl = partnerUi.socials.find { it.type == SocialTypeUi.LinkedIn }?.url,
-            websiteUrl = partnerUi.socials.find { it.type == SocialTypeUi.Website }?.url,
-            emailUrl = partnerUi.socials.find { it.type == SocialTypeUi.Email }?.url
+            hasSocials = partnerUi.socials.isNotEmpty(),
+            xUrl = partnerUi.socials.findX()?.url,
+            mastodonUrl = partnerUi.socials.findMastodon()?.url,
+            blueskyUrl = partnerUi.socials.findBluesky()?.url,
+            facebookUrl = partnerUi.socials.findFacebook()?.url,
+            instagramUrl = partnerUi.socials.findInstagram()?.url,
+            youtubeUrl = partnerUi.socials.findYouTube()?.url,
+            githubUrl = partnerUi.socials.findGitHub()?.url,
+            linkedinUrl = partnerUi.socials.findLinkedIn()?.url,
+            websiteUrl = partnerUi.socials.findWebsite()?.url,
+            emailUrl = partnerUi.socials.findEmail()?.url
         )
         Spacer(modifier = Modifier.height(8.dp))
         MarkdownText(

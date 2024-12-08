@@ -11,11 +11,7 @@ data class SpeakerUi(
     val company: String?,
     val activity: String?,
     val bio: String,
-    val websiteUrl: String?,
-    val twitterUrl: String?,
-    val mastodonUrl: String?,
-    val githubUrl: String?,
-    val linkedinUrl: String?,
+    val socials: ImmutableList<SocialUi>,
     val talks: ImmutableList<TalkItemUi>
 ) {
     companion object {
@@ -27,11 +23,18 @@ data class SpeakerUi(
             company = "Decathlon",
             activity = "Staff Engineer at Decathlon",
             bio = "Father and husband // Software Staff Engineer at Decathlon // Speaker // LAUG, FRAUG, GDGLille, DevfestLille organizer // Disney Fan!",
-            websiteUrl = "https://gerard.paligot.com/",
-            twitterUrl = "https://twitter.com/GerardPaligot",
-            mastodonUrl = "https://androiddev.social/@gerardpaligot",
-            githubUrl = "https://github.com/GerardPaligot",
-            linkedinUrl = "https://www.linkedin.com/in/gpaligot/",
+            socials = persistentListOf(
+                SocialUi(type = SocialTypeUi.Website, url = "https://gerard.paligot.com/"),
+                SocialUi(type = SocialTypeUi.X, url = "https://x.com/GerardPaligot"),
+                SocialUi(
+                    type = SocialTypeUi.LinkedIn,
+                    url = "https://www.linkedin.com/in/gpaligot/"
+                ),
+                SocialUi(
+                    type = SocialTypeUi.Mastodon,
+                    url = "https://androiddev.social/@gerardpaligot"
+                )
+            ),
             talks = persistentListOf(TalkItemUi.fake)
         )
     }

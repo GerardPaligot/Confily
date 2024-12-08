@@ -6,7 +6,6 @@ import com.paligot.confily.core.getSerializableScopedFlow
 import com.paligot.confily.core.partners.PartnerQueries.Scopes.JOBS
 import com.paligot.confily.core.partners.PartnerQueries.Scopes.PARTNERS
 import com.paligot.confily.core.partners.PartnerQueries.Scopes.PARTNER_TYPES
-import com.paligot.confily.core.partners.PartnerQueries.Scopes.SOCIALS
 import com.paligot.confily.core.putSerializableScoped
 import com.russhwolf.settings.ObservableSettings
 import kotlinx.coroutines.flow.Flow
@@ -16,7 +15,6 @@ class PartnerQueries(private val settings: ObservableSettings) {
     private object Scopes {
         const val PARTNERS = "partners"
         const val PARTNER_TYPES = "partnerTypes"
-        const val SOCIALS = "partnerSocials"
         const val JOBS = "jobs"
     }
 
@@ -42,17 +40,6 @@ class PartnerQueries(private val settings: ObservableSettings) {
 
     fun selectPartnerTypes(eventId: String): Flow<List<PartnerTypeDb>> =
         settings.combineAllSerializableScopedFlow(PARTNER_TYPES) { it.eventId == eventId }
-
-    fun insertPartnerSocial(partnerSocial: PartnerSocialDb) {
-        settings.putSerializableScoped(SOCIALS, partnerSocial.url, partnerSocial)
-    }
-
-    fun selectSocials(eventId: String, partnerId: String): Flow<List<PartnerSocialDb>> = combine(
-        flows = settings.getAllSerializableScopedFlow<PartnerSocialDb>(SOCIALS),
-        transform = { socials ->
-            socials.filter { it.eventId == eventId && it.partnerId == partnerId }
-        }
-    )
 
     fun insertJob(job: JobDb) {
         settings.putSerializableScoped(JOBS, job.url, job)

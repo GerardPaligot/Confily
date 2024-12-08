@@ -1,6 +1,5 @@
 package com.paligot.confily.core.schedules
 
-import com.paligot.confily.core.events.entities.Social
 import com.paligot.confily.core.schedules.entities.Address
 import com.paligot.confily.core.schedules.entities.Category
 import com.paligot.confily.core.schedules.entities.EventSession
@@ -99,13 +98,6 @@ fun SpeakerDb.mapToInfoEntity(): SpeakerInfo = SpeakerInfo(
     photoUrl = photoUrl,
     jobTitle = jobTitle,
     company = company,
-    socials = listOfNotNull(
-        twitter?.let { Social(url = it, type = "twitter") },
-        mastodon?.let { Social(url = it, type = "mastodon") },
-        github?.let { Social(url = it, type = "github") },
-        linkedin?.let { Social(url = it, type = "linkedin") },
-        website?.let { Social(url = it, type = "website") }
-    ),
     pronouns = pronouns
 )
 

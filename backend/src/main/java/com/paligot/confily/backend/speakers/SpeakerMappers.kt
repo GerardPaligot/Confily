@@ -1,6 +1,12 @@
 package com.paligot.confily.backend.speakers
 
+import com.paligot.confily.backend.internals.socials.SocialDb
+import com.paligot.confily.backend.internals.socials.convertToDb
+import com.paligot.confily.backend.internals.socials.convertToModel
+import com.paligot.confily.models.SocialItem
+import com.paligot.confily.models.SocialType
 import com.paligot.confily.models.Speaker
+import com.paligot.confily.models.inputs.SocialInput
 import com.paligot.confily.models.inputs.SpeakerInput
 
 fun com.paligot.confily.backend.third.parties.conferencehall.Speaker.convertToDb(url: String): SpeakerDb =
@@ -10,21 +16,21 @@ fun com.paligot.confily.backend.third.parties.conferencehall.Speaker.convertToDb
         bio = this.bio ?: "",
         company = this.company,
         photoUrl = url,
-        twitter = if (this.twitter == null) {
-            null
-        } else if (this.twitter.contains("twitter.com")) {
-            this.twitter
-        } else {
-            "https://twitter.com/${this.twitter}"
-        },
-        github = if (this.github == null) {
-            null
-        } else if (this.github.contains("github.com")) {
-            this.github
-        } else {
-            "https://github.com/${this.github}"
-        },
-        linkedin = null
+        socials = arrayListOf<SocialDb>().apply {
+            if (twitter?.contains("twitter.com") == true) {
+                this.add(SocialDb(SocialType.X.name.lowercase(), twitter))
+            } else if (twitter?.contains("x.com") == true) {
+                this.add(SocialDb(SocialType.X.name.lowercase(), twitter))
+            } else if (twitter != null) {
+                this.add(SocialDb(SocialType.X.name.lowercase(), "https://x.com/$twitter"))
+            }
+            if (github?.contains("github.com") == true) {
+                this.add(SocialDb(SocialType.GitHub.name.lowercase(), github))
+            } else if (github != null) {
+                val gitHubUrl = "https://github.com/$github"
+                this.add(SocialDb(SocialType.GitHub.name.lowercase(), gitHubUrl))
+            }
+        }
     )
 
 fun SpeakerDb.convertToModel(): Speaker = Speaker(
@@ -35,11 +41,23 @@ fun SpeakerDb.convertToModel(): Speaker = Speaker(
     jobTitle = this.jobTitle,
     company = this.company,
     photoUrl = this.photoUrl,
-    website = this.website,
-    twitter = this.twitter,
-    mastodon = this.mastodon,
-    github = this.github,
-    linkedin = this.linkedin
+    socials = socials.map(SocialDb::convertToModel).toMutableList().apply {
+        if (find { it.type == SocialType.LinkedIn } == null && linkedin != null) {
+            this.add(SocialItem(SocialType.LinkedIn, linkedin))
+        }
+        if (find { it.type == SocialType.X } == null && twitter != null) {
+            this.add(SocialItem(SocialType.X, twitter))
+        }
+        if (find { it.type == SocialType.Mastodon } == null && mastodon != null) {
+            this.add(SocialItem(SocialType.Mastodon, mastodon))
+        }
+        if (find { it.type == SocialType.Website } == null && website != null) {
+            this.add(SocialItem(SocialType.Website, website))
+        }
+        if (find { it.type == SocialType.GitHub } == null && github != null) {
+            this.add(SocialItem(SocialType.GitHub, github))
+        }
+    }.toList()
 )
 
 fun SpeakerInput.convertToDb(photoUrl: String, id: String? = null) = SpeakerDb(
@@ -51,9 +69,5 @@ fun SpeakerInput.convertToDb(photoUrl: String, id: String? = null) = SpeakerDb(
     jobTitle = this.jobTitle,
     company = this.company,
     photoUrl = photoUrl,
-    website = this.website,
-    twitter = this.twitter,
-    mastodon = this.mastodon,
-    github = this.github,
-    linkedin = this.linkedin
+    socials = socials.map(SocialInput::convertToDb)
 )

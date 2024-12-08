@@ -12,6 +12,8 @@ import com.paligot.confily.core.partners.PartnerDao
 import com.paligot.confily.core.partners.PartnerDaoSQLDelight
 import com.paligot.confily.core.schedules.SessionDao
 import com.paligot.confily.core.schedules.SessionDaoSQLDelight
+import com.paligot.confily.core.socials.SocialDao
+import com.paligot.confily.core.socials.SocialDaoSQLDelight
 import com.paligot.confily.core.speakers.SpeakerDao
 import com.paligot.confily.core.speakers.SpeakerDaoSQLDelight
 import com.paligot.confily.resources.EnStrings
@@ -33,6 +35,7 @@ actual val databasesModule = module {
     }
     single { ConferenceSettings(get()) }
     single<CoroutineContext> { Dispatchers.IO }
+    single<SocialDao> { SocialDaoSQLDelight(db = get(), dispatcher = get()) }
     single<EventDao> { EventDaoSQLDelight(db = get(), dispatcher = get()) }
     single<PartnerDao> {
         PartnerDaoSQLDelight(

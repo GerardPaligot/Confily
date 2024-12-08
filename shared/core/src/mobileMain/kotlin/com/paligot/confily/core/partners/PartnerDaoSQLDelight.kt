@@ -3,7 +3,6 @@ package com.paligot.confily.core.partners
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOne
-import com.paligot.confily.core.events.entities.Social
 import com.paligot.confily.core.partners.entities.ActivityItem
 import com.paligot.confily.core.partners.entities.JobItem
 import com.paligot.confily.core.partners.entities.PartnerInfo
@@ -63,11 +62,6 @@ class PartnerDaoSQLDelight(
             .asFlow()
             .mapToList(dispatcher)
 
-    override fun fetchSocialsByPartner(eventId: String, partnerId: String): Flow<List<Social>> =
-        db.partnerQueries.selectSocials(eventId, partnerId, socialMapper)
-            .asFlow()
-            .mapToList(dispatcher)
-
     override fun fetchActivitiesByDay(
         eventId: String,
         day: String
@@ -112,10 +106,10 @@ class PartnerDaoSQLDelight(
                 longitude = partner.address?.lng
             )
             partner.socials.forEach { social ->
-                db.partnerQueries.insertPartnerSocial(
+                db.socialQueries.insertSocial(
                     url = social.url,
                     type = social.type.name,
-                    partner_id = partner.id,
+                    ext_id = partner.id,
                     event_id = eventId
                 )
             }

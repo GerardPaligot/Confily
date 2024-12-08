@@ -10,6 +10,7 @@ import com.paligot.confily.core.schedules.entities.SelectableCategory
 import com.paligot.confily.core.schedules.entities.SelectableFormat
 import com.paligot.confily.core.schedules.entities.Session
 import com.paligot.confily.core.schedules.entities.SessionItem
+import com.paligot.confily.core.socials.SocialQueries
 import com.paligot.confily.core.speakers.SpeakerQueries
 import com.paligot.confily.models.AgendaV4
 import kotlinx.coroutines.flow.Flow
@@ -23,7 +24,8 @@ class SessionDaoSettings(
     private val sessionQueries: SessionQueries,
     private val categoryQueries: CategoryQueries,
     private val formatQueries: FormatQueries,
-    private val speakerQueries: SpeakerQueries
+    private val speakerQueries: SpeakerQueries,
+    private val socialQueries: SocialQueries
 ) : SessionDao {
     override fun fetchSession(eventId: String, sessionId: String): Flow<Session> = combine(
         flow = flowOf(sessionQueries.getSpeakersByTalkId(eventId, sessionId)),
@@ -178,6 +180,9 @@ class SessionDaoSettings(
     override fun insertAgenda(eventId: String, agenda: AgendaV4) {
         agenda.speakers.forEach { speaker ->
             speakerQueries.upsertSpeaker(speaker.convertToDb(eventId))
+            speaker.socials.forEach { social ->
+                socialQueries.upsertSocial(social.convertToDb(eventId, speaker.id))
+            }
         }
         agenda.categories.forEach { category ->
             categoryQueries.upsertCategory(category.convertToDb(eventId))

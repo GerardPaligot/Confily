@@ -31,15 +31,6 @@ FOREIGN KEY (sponsor_id) REFERENCES PartnerType(name),
 FOREIGN KEY (event_id) REFERENCES Event(id)
 );
 
-CREATE TABLE PartnerSocial (
-url TEXT NOT NULL PRIMARY KEY,
-type TEXT NOT NULL,
-partner_id TEXT NOT NULL,
-event_id TEXT NOT NULL,
-FOREIGN KEY (partner_id) REFERENCES Partner(id),
-FOREIGN KEY (event_id) REFERENCES Event(id)
-);
-
 CREATE TABLE PartnerActivity (
 id TEXT NOT NULL PRIMARY KEY,
 name TEXT NOT NULL,
@@ -83,10 +74,6 @@ insertPartnerAndType:
 INSERT OR REPLACE INTO PartnerAndType(id, partner_id, sponsor_id, event_id)
 VALUES (?, ?, ?, ?);
 
-insertPartnerSocial:
-INSERT OR REPLACE INTO PartnerSocial(url, type,partner_id, event_id)
-VALUES (?, ?, ?, ?);
-
 insertPartnerActivity:
 INSERT OR REPLACE INTO PartnerActivity(id, name, date, start_time, end_time, partner_id, event_id)
 VALUES (?, ?, ?, ?, ?, ?, ?);
@@ -112,11 +99,6 @@ SELECT id, name, description, logo_url, formatted_address, address, latitude, lo
 FROM Partner
 WHERE event_id == ? AND id == ?
 ORDER BY name ASC;
-
-selectSocials:
-SELECT PartnerSocial.url, PartnerSocial.type
-FROM PartnerSocial
-WHERE PartnerSocial.event_id == ? AND PartnerSocial.partner_id == ?;
 
 selectPartnerActivities:
 SELECT PartnerActivity.name, PartnerActivity.start_time, PartnerActivity.end_time, Partner.name

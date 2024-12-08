@@ -4,6 +4,7 @@ import com.paligot.confily.core.events.EventDao
 import com.paligot.confily.core.kvalue.ConferenceSettings
 import com.paligot.confily.core.partners.entities.Partner
 import com.paligot.confily.core.partners.entities.Partners
+import com.paligot.confily.core.socials.SocialDao
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
@@ -18,7 +19,8 @@ import kotlinx.datetime.toLocalDateTime
 class PartnerRepositoryImpl(
     private val settings: ConferenceSettings,
     private val eventDao: EventDao,
-    private val partnerDao: PartnerDao
+    private val partnerDao: PartnerDao,
+    private val socialDao: SocialDao
 ) : PartnerRepository {
     @OptIn(ExperimentalCoroutinesApi::class)
     override fun partners(): Flow<Partners> = settings.fetchEventId()
@@ -54,7 +56,7 @@ class PartnerRepositoryImpl(
             combine(
                 flow = partnerDao.fetchPartner(eventId = it, id = partnerId),
                 flow2 = partnerDao.fetchJobsByPartner(eventId = it, partnerId = partnerId),
-                flow3 = partnerDao.fetchSocialsByPartner(eventId = it, partnerId = partnerId),
+                flow3 = socialDao.fetchSocials(eventId = it, extId = partnerId),
                 transform = { info, jobs, socials ->
                     Partner(info = info, jobs = jobs, socials = socials)
                 }

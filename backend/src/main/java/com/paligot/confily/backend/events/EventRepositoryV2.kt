@@ -135,21 +135,13 @@ class EventRepositoryV2(
         }
         val asyncSpeakers = async {
             talks.map { it.talk!!.speakers }.flatten().map {
-                val socials = arrayListOf<SocialOF>()
-                it.github?.let { github -> socials.add(SocialOF(name = "github", link = github)) }
-                it.twitter?.let { twitter ->
-                    socials.add(
-                        SocialOF(
-                            name = "twitter",
-                            link = twitter
-                        )
-                    )
-                }
                 SpeakerOF(
                     id = it.id,
                     name = it.displayName,
                     photoUrl = it.photoUrl,
-                    socials = socials
+                    socials = it.socials.map {
+                        SocialOF(name = it.type.name.lowercase(), link = it.url)
+                    }
                 )
             }
         }

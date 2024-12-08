@@ -32,14 +32,6 @@ class PartnerAndTypeDb(
 )
 
 @Serializable
-class PartnerSocialDb(
-    val url: String,
-    val type: String,
-    val partnerId: String,
-    val eventId: String
-)
-
-@Serializable
 class JobDb(
     val url: String,
     val partnerId: String,

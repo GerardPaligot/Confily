@@ -1,5 +1,7 @@
 package com.paligot.confily.core.models.factory
 
+import com.paligot.confily.models.SocialItem
+import com.paligot.confily.models.SocialType
 import com.paligot.confily.models.Speaker
 
 fun Speaker.Companion.builder(): SpeakerBuilder = SpeakerBuilder()
@@ -13,11 +15,7 @@ class SpeakerBuilder {
     private var photoUrl: String = ""
     private var pronouns: String? = null
     private var jobTitle: String? = null
-    private var website: String? = null
-    private var twitter: String? = null
-    private var linkedin: String? = null
-    private var github: String? = null
-    private var mastodon: String? = null
+    private var socials: MutableList<SocialItem> = mutableListOf()
 
     fun id(id: String) = apply { this.id = id }
     fun displayName(displayName: String) = apply { this.displayName = displayName }
@@ -26,11 +24,16 @@ class SpeakerBuilder {
     fun photoUrl(photoUrl: String) = apply { this.photoUrl = photoUrl }
     fun pronouns(pronouns: String) = apply { this.pronouns = pronouns }
     fun jobTitle(jobTitle: String) = apply { this.jobTitle = jobTitle }
-    fun website(website: String) = apply { this.website = website }
-    fun twitter(twitter: String) = apply { this.twitter = twitter }
-    fun linkedin(linkedin: String) = apply { this.linkedin = linkedin }
-    fun github(github: String) = apply { this.github = github }
-    fun mastodon(mastodon: String) = apply { this.mastodon = mastodon }
+    fun website(website: String) = apply { socials.add(SocialItem(SocialType.Website, website)) }
+    fun x(x: String) = apply { socials.add(SocialItem(SocialType.X, x)) }
+    fun linkedin(linkedin: String) = apply {
+        socials.add(SocialItem(SocialType.LinkedIn, linkedin))
+    }
+
+    fun github(github: String) = apply { socials.add(SocialItem(SocialType.GitHub, github)) }
+    fun mastodon(mastodon: String) = apply {
+        socials.add(SocialItem(SocialType.Mastodon, mastodon))
+    }
 
     fun build(): Speaker = Speaker(
         id = id,
@@ -40,10 +43,6 @@ class SpeakerBuilder {
         photoUrl = photoUrl,
         pronouns = pronouns,
         jobTitle = jobTitle,
-        website = website,
-        twitter = twitter,
-        linkedin = linkedin,
-        github = github,
-        mastodon = mastodon
+        socials = socials
     )
 }

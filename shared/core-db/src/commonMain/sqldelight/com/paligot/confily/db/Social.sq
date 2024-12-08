@@ -1,0 +1,17 @@
+CREATE TABLE Social (
+url TEXT NOT NULL,
+type TEXT NOT NULL,
+ext_id TEXT NOT NULL,
+event_id TEXT NOT NULL,
+FOREIGN KEY (event_id) REFERENCES Event(id),
+PRIMARY KEY (url, type, ext_id)
+);
+
+insertSocial:
+INSERT OR REPLACE INTO Social(url, type, ext_id, event_id)
+VALUES (?, ?, ?, ?);
+
+selectSocials:
+SELECT Social.url, Social.type
+FROM Social
+WHERE Social.event_id == ? AND Social.ext_id == ?;

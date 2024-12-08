@@ -1,12 +1,12 @@
 package com.paligot.confily.core.partners
 
 import com.paligot.confily.core.agenda.convertToDb
-import com.paligot.confily.core.events.entities.Social
 import com.paligot.confily.core.partners.entities.ActivityItem
 import com.paligot.confily.core.partners.entities.JobItem
 import com.paligot.confily.core.partners.entities.PartnerInfo
 import com.paligot.confily.core.partners.entities.PartnerItem
 import com.paligot.confily.core.partners.entities.PartnerType
+import com.paligot.confily.core.socials.SocialQueries
 import com.paligot.confily.models.PartnersActivities
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.map
 
 class PartnerDaoSettings(
     private val partnerQueries: PartnerQueries,
+    private val socialQueries: SocialQueries,
     private val hasSvgSupport: Boolean
 ) : PartnerDao {
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -42,10 +43,6 @@ class PartnerDaoSettings(
         partnerQueries.selectJobs(eventId, partnerId)
             .map { it.map { it.mapToEntity() } }
 
-    override fun fetchSocialsByPartner(eventId: String, partnerId: String): Flow<List<Social>> =
-        partnerQueries.selectSocials(eventId, partnerId)
-            .map { it.map { it.mapToEntity() } }
-
     override fun fetchActivitiesByDay(eventId: String, day: String): Flow<List<ActivityItem>> {
         TODO("Not yet implemented")
     }
@@ -63,7 +60,7 @@ class PartnerDaoSettings(
                 partnerQueries.insertPartner(partner.convertToDb(eventId, type, hasSvgSupport))
             }
             partner.socials.forEach { social ->
-                partnerQueries.insertPartnerSocial(social.convertToDb(eventId, partner.id))
+                socialQueries.upsertSocial(social.convertToDb(eventId, partner.id))
             }
             partner.jobs.forEach { job ->
                 partnerQueries.insertJob(job.convertToDb(eventId, partner.id))

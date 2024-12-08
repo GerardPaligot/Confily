@@ -1,6 +1,5 @@
 package com.paligot.confily.core.partners
 
-import com.paligot.confily.core.events.entities.Social
 import com.paligot.confily.core.partners.entities.JobItem
 import com.paligot.confily.core.partners.entities.PartnerInfo
 import com.paligot.confily.core.partners.entities.PartnerItem
@@ -31,8 +30,6 @@ fun PartnerDb.mapToEntity(): PartnerItem = PartnerItem(
     name = name,
     logoUrl = logoUrl
 )
-
-fun PartnerSocialDb.mapToEntity(): Social = Social(url = url, type = type)
 
 fun JobDb.mapToEntity(): JobItem = JobItem(
     url = url,

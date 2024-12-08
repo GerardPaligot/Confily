@@ -4,6 +4,7 @@ import com.paligot.confily.core.events.EventDao
 import com.paligot.confily.core.kvalue.ConferenceSettings
 import com.paligot.confily.core.partners.entities.Partner
 import com.paligot.confily.core.partners.entities.Partners
+import com.paligot.confily.core.socials.SocialDao
 import kotlinx.coroutines.flow.Flow
 
 interface PartnerRepository {
@@ -14,7 +15,8 @@ interface PartnerRepository {
         fun create(
             settings: ConferenceSettings,
             eventDao: EventDao,
-            partnerDao: PartnerDao
-        ): PartnerRepository = PartnerRepositoryImpl(settings, eventDao, partnerDao)
+            partnerDao: PartnerDao,
+            socialDao: SocialDao
+        ): PartnerRepository = PartnerRepositoryImpl(settings, eventDao, partnerDao, socialDao)
     }
 }

@@ -110,10 +110,5 @@ fun Speaker.convertToDb(eventId: String): SpeakerDb = SpeakerDb(
     job_title = jobTitle,
     company = company,
     photo_url = photoUrl,
-    twitter = twitter,
-    mastodon = mastodon,
-    github = github,
-    linkedin = linkedin,
-    website = website,
     event_id = eventId
 )

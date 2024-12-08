@@ -24,6 +24,7 @@ fun SocialsSection(
     onLinkClicked: (url: String) -> Unit,
     modifier: Modifier = Modifier,
     isLoading: Boolean = false,
+    hasSocials: Boolean = false,
     xUrl: String? = null,
     mastodonUrl: String? = null,
     blueskyUrl: String? = null,
@@ -69,9 +70,7 @@ fun SocialsSection(
             )
         }
         Spacer(modifier = Modifier.height(SocialsSectionTokens.BetweenTitleAndSocialsSpacing.toDp()))
-        val hasUrls =
-            xUrl != null || githubUrl != null || linkedinUrl != null || websiteUrl != null
-        if (hasUrls) {
+        if (hasSocials) {
             FlowRow(
                 horizontalArrangement = Arrangement.spacedBy(
                     SocialsSectionTokens.BetweenSocialIconsSpacing.toDp()

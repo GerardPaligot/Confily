@@ -242,6 +242,9 @@ class SessionDaoSQLDelight(
     override fun insertAgenda(eventId: String, agenda: AgendaV4) = db.transaction {
         agenda.speakers.forEach { speaker ->
             db.speakerQueries.upsertSpeaker(speaker.convertToDb(eventId))
+            speaker.socials.forEach {
+                db.socialQueries.insertSocial(it.url, it.type.name.lowercase(), speaker.id, eventId)
+            }
         }
         agenda.categories.forEach { category ->
             db.categoryQueries.upsertCategory(category.convertToDb(eventId))
