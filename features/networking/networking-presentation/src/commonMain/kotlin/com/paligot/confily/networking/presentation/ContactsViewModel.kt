@@ -3,7 +3,7 @@ package com.paligot.confily.networking.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paligot.confily.core.networking.UserRepository
-import com.paligot.confily.core.networking.entities.mapToUi
+import com.paligot.confily.core.networking.entities.mapToUserNetworkingUi
 import com.paligot.confily.models.ui.UserNetworkingUi
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
@@ -26,7 +26,7 @@ class ContactsViewModel(
     val uiState: StateFlow<ContactsUiState> = repository.fetchUsersScanned()
         .map { users ->
             ContactsUiState.Success(
-                users = users.map { it.mapToUi() }.toImmutableList()
+                users = users.map { it.mapToUserNetworkingUi() }.toImmutableList()
             ) as ContactsUiState
         }
         .catch { emit(ContactsUiState.Failure(it)) }

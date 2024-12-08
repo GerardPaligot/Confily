@@ -3,7 +3,7 @@ package com.paligot.confily.networking.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paligot.confily.core.networking.UserRepository
-import com.paligot.confily.core.networking.entities.mapToUi
+import com.paligot.confily.core.networking.entities.mapToExportNetworkingUi
 import com.paligot.confily.models.ui.ExportNetworkingUi
 import com.paligot.confily.navigation.FabActions
 import com.paligot.confily.navigation.Screen
@@ -84,6 +84,6 @@ class NetworkingViewModel(
     }
 
     fun exportNetworking() = viewModelScope.launch {
-        _exportPath.tryEmit(userRepository.exportUserScanned().mapToUi())
+        _exportPath.tryEmit(userRepository.exportUserScanned().mapToExportNetworkingUi())
     }
 }

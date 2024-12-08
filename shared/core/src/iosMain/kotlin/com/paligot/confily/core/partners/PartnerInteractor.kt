@@ -1,6 +1,7 @@
 package com.paligot.confily.core.partners
 
-import com.paligot.confily.core.partners.entities.mapToUi
+import com.paligot.confily.core.partners.entities.mapToPartnerUi
+import com.paligot.confily.core.partners.entities.mapToPartnersActivitiesUi
 import com.paligot.confily.models.ui.PartnerUi
 import com.paligot.confily.models.ui.PartnersActivitiesUi
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
@@ -12,9 +13,9 @@ class PartnerInteractor(
 ) {
     @NativeCoroutines
     fun partners(): Flow<PartnersActivitiesUi> = repository.partners()
-        .map { it.mapToUi() }
+        .map { it.mapToPartnersActivitiesUi() }
 
     @NativeCoroutines
     fun partner(partnerId: String): Flow<PartnerUi> = repository.partner(partnerId)
-        .map { it.mapToUi() }
+        .map { it.mapToPartnerUi() }
 }

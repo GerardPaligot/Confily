@@ -3,7 +3,7 @@ package com.paligot.confily.wear.partners.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paligot.confily.core.partners.PartnerRepository
-import com.paligot.confily.core.partners.entities.mapToUi
+import com.paligot.confily.core.partners.entities.mapToPartnersActivitiesUi
 import com.paligot.confily.models.ui.PartnerGroupsUi
 import com.paligot.confily.wear.partners.panes.PartnerModelUi
 import com.paligot.confily.wear.partners.panes.PartnersModelUi
@@ -20,7 +20,7 @@ sealed class PartnersUiState {
 
 class PartnersViewModel(repository: PartnerRepository) : ViewModel() {
     val uiState = repository.partners()
-        .map { PartnersUiState.Success(it.mapToUi().partners.toModelUi()) }
+        .map { PartnersUiState.Success(it.mapToPartnersActivitiesUi().partners.toModelUi()) }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(),

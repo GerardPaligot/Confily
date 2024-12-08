@@ -29,7 +29,7 @@ class SessionItem(
 
 private const val MaxSpeakersCount = 3
 
-fun SessionItem.mapToUi(strings: Strings): TalkItemUi {
+fun SessionItem.mapToTalkItemUi(strings: Strings): TalkItemUi {
     val diff = endTime.toInstant(TimeZone.UTC)
         .minus(startTime.toInstant(TimeZone.UTC))
     val timeInMinutes = diff.inWholeMinutes.toInt()
@@ -41,7 +41,7 @@ fun SessionItem.mapToUi(strings: Strings): TalkItemUi {
         order = order,
         title = title,
         room = room,
-        level = level.mapToUi(strings),
+        level = level.mapToLocalizedString(strings),
         slotTime = startTime.format(
             LocalDateTime.Format {
                 hour()
@@ -52,7 +52,7 @@ fun SessionItem.mapToUi(strings: Strings): TalkItemUi {
         startTime = startTime.format(LocalDateTime.Formats.ISO),
         timeInMinutes = timeInMinutes,
         time = strings.texts.scheduleMinutes(timeInMinutes),
-        category = category.mapToUi(),
+        category = category.mapToCategoryUi(),
         speakers = maxSpeakers.map { it.displayName }.toImmutableList(),
         speakersAvatar = maxSpeakers.map { it.photoUrl }.toImmutableList(),
         speakersLabel = strings.texts.speakersList(count, speakersJoined),

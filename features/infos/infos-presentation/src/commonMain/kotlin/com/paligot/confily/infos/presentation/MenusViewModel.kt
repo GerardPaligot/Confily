@@ -3,7 +3,7 @@ package com.paligot.confily.infos.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paligot.confily.core.events.EventRepository
-import com.paligot.confily.core.events.entities.mapToUi
+import com.paligot.confily.core.events.entities.mapToMenuItemUi
 import com.paligot.confily.models.ui.MenuItemUi
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
@@ -22,7 +22,7 @@ sealed class MenusUiState {
 
 class MenusViewModel(repository: EventRepository) : ViewModel() {
     val uiState: StateFlow<MenusUiState> = repository.menus()
-        .map { MenusUiState.Success(it.map { it.mapToUi() }.toImmutableList()) as MenusUiState }
+        .map { MenusUiState.Success(it.map { it.mapToMenuItemUi() }.toImmutableList()) as MenusUiState }
         .catch { emit(MenusUiState.Failure(it)) }
         .stateIn(
             scope = viewModelScope,

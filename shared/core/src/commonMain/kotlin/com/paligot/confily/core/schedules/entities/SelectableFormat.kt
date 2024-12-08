@@ -14,4 +14,4 @@ class SelectableFormat(
     val selected: Boolean
 ) : Format(id, name, time)
 
-fun SelectableFormat.mapToUi() = FormatUi(id = id, name = name, time = time)
+fun SelectableFormat.mapToFormatUi() = FormatUi(id = id, name = name, time = time)

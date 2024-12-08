@@ -14,7 +14,7 @@ class UserTicket(
     val qrCode: ByteArray
 )
 
-fun UserTicket.mapToUi(): TicketUi = TicketUi(
+fun UserTicket.mapToTicketUi(): TicketUi = TicketUi(
     info = if (id != null && firstName != null && lastName != null) {
         TicketInfoUi(id = id, firstName = firstName, lastName = lastName)
     } else {

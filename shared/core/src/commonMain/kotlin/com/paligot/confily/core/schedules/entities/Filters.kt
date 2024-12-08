@@ -18,8 +18,8 @@ class FiltersApplied(
     val onlyFavorites: Boolean
 )
 
-fun Filters.mapToUi() = FiltersUi(
+fun Filters.mapToFiltersUi() = FiltersUi(
     onlyFavorites = onlyFavorites,
-    categories = categories.associate { it.mapToUi() to it.selected }.toImmutableMap(),
-    formats = formats.associate { it.mapToUi() to it.selected }.toImmutableMap()
+    categories = categories.associate { it.mapToCategoryUi() to it.selected }.toImmutableMap(),
+    formats = formats.associate { it.mapToFormatUi() to it.selected }.toImmutableMap()
 )

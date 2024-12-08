@@ -10,7 +10,7 @@ class EventItemList(
     val past: List<EventItem>
 )
 
-fun EventItemList.mapToUi(): EventItemListUi = EventItemListUi(
-    future = future.map { it.mapToUi() }.toImmutableList(),
-    past = past.map { it.mapToUi() }.toImmutableList()
+fun EventItemList.mapToEventItemListUi(): EventItemListUi = EventItemListUi(
+    future = future.map { it.mapToEventItemUi() }.toImmutableList(),
+    past = past.map { it.mapToEventItemUi() }.toImmutableList()
 )

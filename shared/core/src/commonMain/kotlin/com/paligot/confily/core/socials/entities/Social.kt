@@ -10,7 +10,7 @@ class Social(
     val type: String
 )
 
-fun Social.mapToUi(): SocialUi = SocialUi(
+fun Social.mapToSocialUi(): SocialUi = SocialUi(
     url = url,
     type = when (type) {
         "linkedin" -> SocialTypeUi.LinkedIn

@@ -1,7 +1,5 @@
 package com.paligot.confily.core.networking.entities
 
-import com.paligot.confily.models.ui.TicketInfoUi
-import com.paligot.confily.models.ui.TicketUi
 import kotlin.native.ObjCName
 
 @ObjCName("UserEntity")
@@ -20,8 +18,3 @@ class UserInfo(
         qrCode: ByteArray? = this.qrCode
     ) = UserInfo(firstName, lastName, email, company, qrCode)
 }
-
-fun UserInfo.mapToTicketUi() = TicketUi(
-    info = TicketInfoUi(id = email, firstName = firstName, lastName = lastName),
-    qrCode = qrCode
-)

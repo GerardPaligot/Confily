@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cafe.adriel.lyricist.Lyricist
 import com.paligot.confily.core.speakers.SpeakerRepository
-import com.paligot.confily.core.speakers.entities.mapToUi
+import com.paligot.confily.core.speakers.entities.mapToSpeakerUi
 import com.paligot.confily.models.ui.SpeakerUi
 import com.paligot.confily.resources.Strings
 import kotlinx.coroutines.flow.SharingStarted
@@ -22,7 +22,7 @@ class SpeakerViewModel(
     lyricist: Lyricist<Strings>
 ) : ViewModel() {
     val uiState = repository.speaker(speakerId)
-        .map { SpeakerUiState.Success(it.mapToUi(lyricist.strings)) }
+        .map { SpeakerUiState.Success(it.mapToSpeakerUi(lyricist.strings)) }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(),

@@ -20,7 +20,7 @@ class EventSessionItem(
     endTime: LocalDateTime
 ) : Item(id, order, title, room, startTime, endTime)
 
-fun EventSessionItem.mapToUi(strings: Strings): EventSessionItemUi {
+fun EventSessionItem.mapToEventSessionItemUi(strings: Strings): EventSessionItemUi {
     val diff = endTime.toInstant(TimeZone.UTC)
         .minus(startTime.toInstant(TimeZone.UTC))
     val timeInMinutes = diff.inWholeMinutes.toInt()

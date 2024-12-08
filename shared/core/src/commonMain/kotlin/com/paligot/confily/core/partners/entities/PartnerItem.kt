@@ -10,7 +10,7 @@ class PartnerItem(
     val logoUrl: String
 )
 
-fun PartnerItem.mapToUi() = PartnerItemUi(
+fun PartnerItem.mapToPartnerItemUi() = PartnerItemUi(
     id = id,
     name = name,
     logoUrl = logoUrl

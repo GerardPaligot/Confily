@@ -6,4 +6,4 @@ import kotlin.native.ObjCName
 @ObjCName("ExportUsersEntity")
 class ExportUsers(val mailto: String?, val filePath: String)
 
-fun ExportUsers.mapToUi(): ExportNetworkingUi = ExportNetworkingUi(mailto, filePath)
+fun ExportUsers.mapToExportNetworkingUi(): ExportNetworkingUi = ExportNetworkingUi(mailto, filePath)

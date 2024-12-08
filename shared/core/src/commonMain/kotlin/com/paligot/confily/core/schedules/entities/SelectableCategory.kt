@@ -20,12 +20,12 @@ class SelectableCategory(
     val selected: Boolean
 ) : Category(id, name, color, icon)
 
-fun Category.mapToUi() = CategoryUi(
+fun Category.mapToCategoryUi() = CategoryUi(
     id = id,
     name = name,
     color = color,
     icon = icon
 )
 
-fun SelectableCategory.mapToUi() =
+fun SelectableCategory.mapToCategoryUi() =
     CategoryUi(id = id, name = name, color = color, icon = icon)

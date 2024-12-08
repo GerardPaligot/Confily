@@ -13,7 +13,7 @@ class SpeakerItem(
     val company: String?
 )
 
-fun SpeakerItem.mapToUi(strings: Strings) = SpeakerItemUi(
+fun SpeakerItem.mapToSpeakerItemUi(strings: Strings) = SpeakerItemUi(
     id = id,
     name = displayName,
     activity = displayActivity(strings) ?: "",

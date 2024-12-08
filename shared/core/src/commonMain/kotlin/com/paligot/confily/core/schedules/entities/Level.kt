@@ -8,7 +8,7 @@ enum class Level {
     Advanced
 }
 
-fun Level?.mapToUi(strings: Strings): String? = when (this) {
+fun Level?.mapToLocalizedString(strings: Strings): String? = when (this) {
     Level.Advanced -> strings.texts.levelAdvanced
     Level.Intermediate -> strings.texts.levelIntermediate
     Level.Beginner -> strings.texts.levelBeginner

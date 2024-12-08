@@ -25,7 +25,7 @@ class EventItem(
     )
 }
 
-fun EventItem.mapToUi(): EventItemUi = EventItemUi(
+fun EventItem.mapToEventItemUi(): EventItemUi = EventItemUi(
     id = id,
     name = name,
     date = formattedDate()

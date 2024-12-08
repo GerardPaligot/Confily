@@ -12,7 +12,7 @@ class UserItem(
     val company: String?
 )
 
-fun UserItem.mapToUi(): UserNetworkingUi = UserNetworkingUi(
+fun UserItem.mapToUserNetworkingUi(): UserNetworkingUi = UserNetworkingUi(
     email = email,
     firstName = firstName,
     lastName = lastName,

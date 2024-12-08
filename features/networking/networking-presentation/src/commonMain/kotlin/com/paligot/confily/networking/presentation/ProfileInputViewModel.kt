@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paligot.confily.core.networking.UserRepository
 import com.paligot.confily.core.networking.entities.UserInfo
-import com.paligot.confily.core.networking.entities.mapToUi
+import com.paligot.confily.core.networking.entities.mapToUserProfileUi
 import com.paligot.confily.models.ui.Field
 import com.paligot.confily.models.ui.UserProfileUi
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,7 +28,7 @@ class ProfileInputViewModel(
             try {
                 repository.fetchUserProfile().collect {
                     _uiState.value = ProfileInputUiState.Success(
-                        profile = it?.mapToUi() ?: UserProfileUi(
+                        profile = it?.mapToUserProfileUi() ?: UserProfileUi(
                             email = "",
                             firstName = "",
                             lastName = "",

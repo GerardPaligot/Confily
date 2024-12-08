@@ -3,7 +3,7 @@ package com.paligot.confily.networking.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paligot.confily.core.networking.UserRepository
-import com.paligot.confily.core.networking.entities.mapToUi
+import com.paligot.confily.core.networking.entities.mapToUserProfileUi
 import com.paligot.confily.models.ui.UserProfileUi
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -21,7 +21,7 @@ class MyProfileViewModel(repository: UserRepository) : ViewModel() {
     val uiState: StateFlow<MyProfileUiState> = repository.fetchUserProfile()
         .map {
             MyProfileUiState.Success(
-                profile = it?.mapToUi() ?: UserProfileUi(
+                profile = it?.mapToUserProfileUi() ?: UserProfileUi(
                     email = "",
                     firstName = "",
                     lastName = "",

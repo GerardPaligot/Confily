@@ -40,7 +40,7 @@ class Event(
     }
 }
 
-fun Event.mapToUi(): EventInfoUi = EventInfoUi(
+fun Event.mapToEventInfoUi(): EventInfoUi = EventInfoUi(
     name = name,
     formattedAddress = formattedAddress.toImmutableList(),
     address = formattedAddress.joinToString("\n"),

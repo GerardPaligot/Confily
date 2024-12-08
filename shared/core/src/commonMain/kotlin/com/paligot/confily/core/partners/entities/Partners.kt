@@ -16,13 +16,13 @@ class Partners(
     val activities: List<ActivityItem>
 )
 
-fun Partners.mapToUi(): PartnersActivitiesUi = PartnersActivitiesUi(
+fun Partners.mapToPartnersActivitiesUi(): PartnersActivitiesUi = PartnersActivitiesUi(
     partners = PartnerGroupsUi(
         groups = groups
             .map { (type, partners) ->
                 PartnerGroupUi(
                     type = type.name,
-                    partners = partners.map { it.mapToUi() }.toImmutableList()
+                    partners = partners.map { it.mapToPartnerItemUi() }.toImmutableList()
                 )
             }
             .toImmutableList()
@@ -36,7 +36,7 @@ fun Partners.mapToUi(): PartnersActivitiesUi = PartnersActivitiesUi(
             )
         }
         .map { entry ->
-            entry.key to entry.value.map { it.mapToUi() }.toImmutableList()
+            entry.key to entry.value.map { it.mapToActivityUi() }.toImmutableList()
         }
         .associate { it }
         .toImmutableMap()

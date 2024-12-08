@@ -1,6 +1,7 @@
 package com.paligot.confily.core.networking
 
-import com.paligot.confily.core.networking.entities.mapToUi
+import com.paligot.confily.core.networking.entities.mapToUserNetworkingUi
+import com.paligot.confily.core.networking.entities.mapToUserProfileUi
 import com.paligot.confily.models.ui.UserNetworkingUi
 import com.paligot.confily.models.ui.UserProfileUi
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
@@ -16,7 +17,7 @@ class UserInteractor(
     fun fetchUserProfile(): Flow<UserProfileUi> = userRepository
         .fetchUserProfile()
         .map {
-            it?.mapToUi() ?: UserProfileUi(
+            it?.mapToUserProfileUi() ?: UserProfileUi(
                 email = "",
                 firstName = "",
                 lastName = "",
@@ -28,5 +29,5 @@ class UserInteractor(
     @NativeCoroutines
     fun fetchUsersScanned(): Flow<ImmutableList<UserNetworkingUi>> = userRepository
         .fetchUsersScanned()
-        .map { users -> users.map { it.mapToUi() }.toImmutableList() }
+        .map { users -> users.map { it.mapToUserNetworkingUi() }.toImmutableList() }
 }

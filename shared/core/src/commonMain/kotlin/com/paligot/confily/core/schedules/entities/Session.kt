@@ -1,7 +1,7 @@
 package com.paligot.confily.core.schedules.entities
 
 import com.paligot.confily.core.speakers.entities.SpeakerItem
-import com.paligot.confily.core.speakers.entities.mapToUi
+import com.paligot.confily.core.speakers.entities.mapToSpeakerItemUi
 import com.paligot.confily.models.ui.TalkUi
 import com.paligot.confily.resources.Strings
 import kotlinx.collections.immutable.toImmutableList
@@ -30,15 +30,15 @@ class Session(
     val feedback: FeedbackConfig?
 )
 
-fun Session.mapToUi(strings: Strings): TalkUi {
+fun Session.mapToTalkUi(strings: Strings): TalkUi {
     val now = Clock.System.now().toLocalDateTime(TimeZone.UTC)
     val diff = endTime.toInstant(TimeZone.UTC)
         .minus(startTime.toInstant(TimeZone.UTC))
     return TalkUi(
         title = title,
-        level = level.mapToUi(strings),
+        level = level.mapToLocalizedString(strings),
         abstract = abstract,
-        category = category.mapToUi(),
+        category = category.mapToCategoryUi(),
         slotTime = startTime.format(
             LocalDateTime.Format {
                 hour()
@@ -48,7 +48,7 @@ fun Session.mapToUi(strings: Strings): TalkUi {
         ),
         timeInMinutes = diff.inWholeMinutes.toInt(),
         room = room,
-        speakers = speakers.map { it.mapToUi(strings) }.toImmutableList(),
+        speakers = speakers.map { it.mapToSpeakerItemUi(strings) }.toImmutableList(),
         speakersSharing = speakers.joinToString(", ") { it.displayName },
         canGiveFeedback = now > startTime,
         openFeedbackProjectId = feedback?.projectId,

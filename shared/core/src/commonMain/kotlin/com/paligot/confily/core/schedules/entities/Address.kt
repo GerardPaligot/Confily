@@ -11,7 +11,7 @@ class Address(
     val longitude: Double
 )
 
-fun Address.mapToUi(): AddressUi = AddressUi(
+fun Address.mapToAddressUi(): AddressUi = AddressUi(
     formattedAddress = formatted.toImmutableList(),
     address = formatted.joinToString(", "),
     latitude = latitude,

@@ -6,7 +6,7 @@ import com.paligot.confily.core.schedules.SessionRepository
 import com.paligot.confily.core.schedules.entities.EventSessionItem
 import com.paligot.confily.core.schedules.entities.SessionItem
 import com.paligot.confily.core.schedules.entities.Sessions
-import com.paligot.confily.core.schedules.entities.mapToUi
+import com.paligot.confily.core.schedules.entities.mapToCategoryUi
 import com.paligot.confily.wear.schedules.panes.EventSessionModelUi
 import com.paligot.confily.wear.schedules.panes.ScheduleModelUi
 import com.paligot.confily.wear.schedules.panes.ScheduleSessionModelUi
@@ -30,7 +30,7 @@ sealed class SchedulesUiState {
 
 class SchedulesViewModel(repository: SessionRepository) : ViewModel() {
     val uiState = repository.sessions()
-        .map { SchedulesUiState.Success(it.mapToUi()) }
+        .map { SchedulesUiState.Success(it.mapToScheduleModelUi()) }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(),
@@ -38,7 +38,7 @@ class SchedulesViewModel(repository: SessionRepository) : ViewModel() {
         )
 }
 
-private fun Sessions.mapToUi(): ScheduleModelUi = ScheduleModelUi(
+private fun Sessions.mapToScheduleModelUi(): ScheduleModelUi = ScheduleModelUi(
     sessions = this.sessions
         .map {
             it.key.format(
@@ -47,8 +47,8 @@ private fun Sessions.mapToUi(): ScheduleModelUi = ScheduleModelUi(
                 }
             ) to it.value.map { session ->
                 when (session) {
-                    is SessionItem -> session.mapToUi()
-                    is EventSessionItem -> session.mapToUi()
+                    is SessionItem -> session.mapToScheduleSessionModelUi()
+                    is EventSessionItem -> session.mapToEventSessionModelUi()
                 }
             }.toImmutableList()
         }
@@ -56,7 +56,7 @@ private fun Sessions.mapToUi(): ScheduleModelUi = ScheduleModelUi(
         .toImmutableMap()
 )
 
-private fun SessionItem.mapToUi(): ScheduleSessionModelUi {
+private fun SessionItem.mapToScheduleSessionModelUi(): ScheduleSessionModelUi {
     val diff = endTime.toInstant(TimeZone.UTC)
         .minus(startTime.toInstant(TimeZone.UTC))
     val timeInMinutes = diff.inWholeMinutes.toInt()
@@ -71,11 +71,11 @@ private fun SessionItem.mapToUi(): ScheduleSessionModelUi {
             }
         ),
         timeDuration = timeInMinutes.toString(),
-        categoryUi = this.category.mapToUi()
+        categoryUi = this.category.mapToCategoryUi()
     )
 }
 
-private fun EventSessionItem.mapToUi(): EventSessionModelUi {
+private fun EventSessionItem.mapToEventSessionModelUi(): EventSessionModelUi {
     val diff = endTime.toInstant(TimeZone.UTC)
         .minus(startTime.toInstant(TimeZone.UTC))
     val timeInMinutes = diff.inWholeMinutes.toInt()

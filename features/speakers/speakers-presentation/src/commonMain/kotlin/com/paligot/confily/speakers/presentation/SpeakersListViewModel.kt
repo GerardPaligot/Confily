@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cafe.adriel.lyricist.Lyricist
 import com.paligot.confily.core.speakers.SpeakerRepository
-import com.paligot.confily.core.speakers.entities.mapToUi
+import com.paligot.confily.core.speakers.entities.mapToSpeakerItemUi
 import com.paligot.confily.models.ui.SpeakerItemUi
 import com.paligot.confily.resources.Strings
 import kotlinx.collections.immutable.ImmutableList
@@ -27,7 +27,7 @@ class SpeakersListViewModel(
     lyricist: Lyricist<Strings>
 ) : ViewModel() {
     val uiState: StateFlow<SpeakersUiState> = repository.speakers()
-        .map { SpeakersUiState.Success(it.map { it.mapToUi(lyricist.strings) }.toImmutableList()) }
+        .map { SpeakersUiState.Success(it.map { it.mapToSpeakerItemUi(lyricist.strings) }.toImmutableList()) }
         .catch { SpeakersUiState.Failure(it) }
         .stateIn(
             scope = viewModelScope,

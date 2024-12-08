@@ -23,7 +23,7 @@ class CoCViewModel(repository: EventRepository) : ViewModel() {
             if (it.content == null) {
                 throw IllegalStateException("No CoC found")
             }
-            CoCUiState.Success(it.mapToUi()) as CoCUiState
+            CoCUiState.Success(it.mapToCoCUi()) as CoCUiState
         }
         .catch { emit(CoCUiState.Failure(it)) }
         .stateIn(
@@ -33,7 +33,7 @@ class CoCViewModel(repository: EventRepository) : ViewModel() {
         )
 }
 
-internal fun CodeOfConduct.mapToUi(): CoCUi = CoCUi(
+internal fun CodeOfConduct.mapToCoCUi(): CoCUi = CoCUi(
     text = content!!,
     phone = phone,
     email = email

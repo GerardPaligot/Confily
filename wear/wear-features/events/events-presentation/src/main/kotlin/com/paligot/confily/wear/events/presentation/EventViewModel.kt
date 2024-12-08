@@ -23,7 +23,7 @@ class EventViewModel(
             if (it == null) {
                 EventUiState.Loading
             } else {
-                EventUiState.Success(it.mapToUi())
+                EventUiState.Success(it.mapToEventModelUi())
             }
         }
         .stateIn(
@@ -43,4 +43,4 @@ class EventViewModel(
     }
 }
 
-private fun Event.mapToUi() = EventModelUi(name = name)
+private fun Event.mapToEventModelUi() = EventModelUi(name = name)

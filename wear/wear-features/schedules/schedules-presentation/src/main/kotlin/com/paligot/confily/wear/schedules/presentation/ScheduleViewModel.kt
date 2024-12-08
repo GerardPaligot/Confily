@@ -27,7 +27,7 @@ class ScheduleViewModel(
     strings: Strings
 ) : ViewModel() {
     val uiState = repository.session(sessionId)
-        .map { ScheduleUiState.Success(it.mapToUi(strings)) }
+        .map { ScheduleUiState.Success(it.mapToSessionDetailModelUi(strings)) }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(),
@@ -35,7 +35,7 @@ class ScheduleViewModel(
         )
 }
 
-private fun Session.mapToUi(strings: Strings): SessionDetailModelUi = SessionDetailModelUi(
+private fun Session.mapToSessionDetailModelUi(strings: Strings) = SessionDetailModelUi(
     title = title,
     slotTime = startTime.format(
         LocalDateTime.Format {
@@ -46,10 +46,10 @@ private fun Session.mapToUi(strings: Strings): SessionDetailModelUi = SessionDet
     ),
     room = room,
     abstract = abstract,
-    speakers = speakers.map { it.mapToUi(strings) }.toImmutableList()
+    speakers = speakers.map { it.mapToSpeakerItemUi(strings) }.toImmutableList()
 )
 
-private fun SpeakerItem.mapToUi(strings: Strings) = SpeakerItemUi(
+private fun SpeakerItem.mapToSpeakerItemUi(strings: Strings) = SpeakerItemUi(
     id = id,
     name = displayName,
     activity = displayActivity(strings) ?: "",

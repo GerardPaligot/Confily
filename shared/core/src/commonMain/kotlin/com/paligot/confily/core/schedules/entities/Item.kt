@@ -13,7 +13,7 @@ sealed class Item(
     open val endTime: LocalDateTime
 )
 
-fun Item.mapToUi(strings: Strings): SessionItemUi = when (this) {
-    is SessionItem -> mapToUi(strings)
-    is EventSessionItem -> mapToUi(strings)
+fun Item.mapToSessionItemUi(strings: Strings): SessionItemUi = when (this) {
+    is SessionItem -> mapToTalkItemUi(strings)
+    is EventSessionItem -> mapToEventSessionItemUi(strings)
 }

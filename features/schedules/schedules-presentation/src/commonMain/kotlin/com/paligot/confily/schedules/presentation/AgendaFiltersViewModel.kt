@@ -3,8 +3,7 @@ package com.paligot.confily.schedules.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paligot.confily.core.schedules.SessionRepository
-import com.paligot.confily.core.schedules.entities.mapToUi
-import com.paligot.confily.core.speakers.entities.mapToUi
+import com.paligot.confily.core.schedules.entities.mapToFiltersUi
 import com.paligot.confily.models.ui.FiltersUi
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -23,7 +22,7 @@ class AgendaFiltersViewModel(
     private val repository: SessionRepository
 ) : ViewModel() {
     val uiState: StateFlow<AgendaFiltersUiState> = repository.filters()
-        .map { result -> AgendaFiltersUiState.Success(result.mapToUi()) as AgendaFiltersUiState }
+        .map { result -> AgendaFiltersUiState.Success(result.mapToFiltersUi()) as AgendaFiltersUiState }
         .catch { emit(AgendaFiltersUiState.Failure(it)) }
         .stateIn(
             scope = viewModelScope,

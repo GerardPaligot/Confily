@@ -3,7 +3,7 @@ package com.paligot.confily.partners.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paligot.confily.core.partners.PartnerRepository
-import com.paligot.confily.core.partners.entities.mapToUi
+import com.paligot.confily.core.partners.entities.mapToPartnerUi
 import com.paligot.confily.models.ui.PartnerUi
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -19,7 +19,7 @@ sealed class PartnerUiState {
 
 class PartnerDetailViewModel(partnerId: String, repository: PartnerRepository) : ViewModel() {
     val uiState: StateFlow<PartnerUiState> = repository.partner(partnerId)
-        .map { PartnerUiState.Success(it.mapToUi()) as PartnerUiState }
+        .map { PartnerUiState.Success(it.mapToPartnerUi()) as PartnerUiState }
         .catch { emit(PartnerUiState.Failure(it)) }
         .stateIn(
             scope = viewModelScope,

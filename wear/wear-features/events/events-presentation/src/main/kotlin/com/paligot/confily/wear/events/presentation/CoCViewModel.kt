@@ -18,7 +18,7 @@ sealed class CoCUiState {
 
 class CoCViewModel(repository: EventRepository) : ViewModel() {
     val uiState = repository.coc()
-        .map { CoCUiState.Success(it.mapToUi()) }
+        .map { CoCUiState.Success(it.mapToCoCUi()) }
         .catch { CoCUiState.Failure }
         .stateIn(
             scope = viewModelScope,
@@ -27,7 +27,7 @@ class CoCViewModel(repository: EventRepository) : ViewModel() {
         )
 }
 
-internal fun CodeOfConduct.mapToUi(): CoCUi = CoCUi(
+internal fun CodeOfConduct.mapToCoCUi(): CoCUi = CoCUi(
     text = content!!,
     phone = phone,
     email = email

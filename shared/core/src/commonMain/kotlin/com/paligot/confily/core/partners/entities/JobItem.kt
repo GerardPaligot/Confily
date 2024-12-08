@@ -14,12 +14,12 @@ class JobItem(
     val propulsed: String
 )
 
-fun JobItem.mapToUi(): JobUi = JobUi(
+fun JobItem.mapToJobUi(): JobUi = JobUi(
     title = title,
     url = url,
     companyName = partnerName,
     location = location,
-    salary = salary?.mapToUi(),
+    salary = salary?.mapToSalaryUi(),
     requirements = requirements,
     propulsed = propulsed
 )

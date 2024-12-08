@@ -3,7 +3,7 @@ package com.paligot.confily.events.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paligot.confily.core.events.EventRepository
-import com.paligot.confily.core.events.entities.mapToUi
+import com.paligot.confily.core.events.entities.mapToEventItemListUi
 import com.paligot.confily.models.ui.EventItemListUi
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -20,7 +20,7 @@ sealed class EventListUiState {
 
 class EventListViewModel(private val repository: EventRepository) : ViewModel() {
     val uiState: StateFlow<EventListUiState> = repository.events()
-        .map { EventListUiState.Success(it.mapToUi()) as EventListUiState }
+        .map { EventListUiState.Success(it.mapToEventItemListUi()) as EventListUiState }
         .catch { emit(EventListUiState.Failure(it)) }
         .stateIn(
             scope = viewModelScope,

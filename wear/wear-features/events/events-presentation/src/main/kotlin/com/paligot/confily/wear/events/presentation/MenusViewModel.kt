@@ -21,7 +21,7 @@ sealed class MenusUiState {
 
 class MenusViewModel(repository: EventRepository) : ViewModel() {
     val uiState = repository.menus()
-        .map { MenusUiState.Success(it.mapToUi()) }
+        .map { MenusUiState.Success(it.mapToMenusModelUi()) }
         .catch { MenusUiState.Failure }
         .stateIn(
             scope = viewModelScope,
@@ -30,7 +30,7 @@ class MenusViewModel(repository: EventRepository) : ViewModel() {
         )
 }
 
-fun ImmutableList<MenuItem>.mapToUi(): MenusModelUi = MenusModelUi(
+fun ImmutableList<MenuItem>.mapToMenusModelUi(): MenusModelUi = MenusModelUi(
     menus = this.map {
         MenuItemUi(
             name = it.name,

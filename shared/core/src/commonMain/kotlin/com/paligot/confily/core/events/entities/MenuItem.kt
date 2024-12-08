@@ -11,7 +11,7 @@ class MenuItem(
     val dessert: String
 )
 
-fun MenuItem.mapToUi(): MenuItemUi = MenuItemUi(
+fun MenuItem.mapToMenuItemUi(): MenuItemUi = MenuItemUi(
     name = name,
     dish = dish,
     accompaniment = accompaniment,

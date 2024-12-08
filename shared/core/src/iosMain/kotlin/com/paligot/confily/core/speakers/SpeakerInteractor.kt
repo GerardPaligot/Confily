@@ -1,7 +1,8 @@
 package com.paligot.confily.core.speakers
 
 import cafe.adriel.lyricist.Lyricist
-import com.paligot.confily.core.speakers.entities.mapToUi
+import com.paligot.confily.core.speakers.entities.mapToSpeakerItemUi
+import com.paligot.confily.core.speakers.entities.mapToSpeakerUi
 import com.paligot.confily.models.ui.SpeakerItemUi
 import com.paligot.confily.models.ui.SpeakerUi
 import com.paligot.confily.resources.Strings
@@ -17,9 +18,9 @@ class SpeakerInteractor(
 ) {
     @NativeCoroutines
     fun speaker(speakerId: String): Flow<SpeakerUi> = repository.speaker(speakerId)
-        .map { it.mapToUi(lyricist.strings) }
+        .map { it.mapToSpeakerUi(lyricist.strings) }
 
     @NativeCoroutines
     fun speakers(): Flow<ImmutableList<SpeakerItemUi>> = repository.speakers()
-        .map { speakers -> speakers.map { it.mapToUi(lyricist.strings) }.toImmutableList() }
+        .map { speakers -> speakers.map { it.mapToSpeakerItemUi(lyricist.strings) }.toImmutableList() }
 }

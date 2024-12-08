@@ -1,7 +1,9 @@
 package com.paligot.confily.core.events
 
-import com.paligot.confily.core.events.entities.mapToUi
-import com.paligot.confily.core.networking.entities.mapToUi
+import com.paligot.confily.core.events.entities.mapToEventInfoUi
+import com.paligot.confily.core.events.entities.mapToEventItemListUi
+import com.paligot.confily.core.events.entities.mapToMenuItemUi
+import com.paligot.confily.core.networking.entities.mapToTicketUi
 import com.paligot.confily.models.ui.EventItemListUi
 import com.paligot.confily.models.ui.EventUi
 import com.paligot.confily.models.ui.MenuItemUi
@@ -23,7 +25,7 @@ class EventInteractor(
 
     @NativeCoroutines
     fun events(): Flow<EventItemListUi> = repository.events()
-        .map { eventItemList -> eventItemList.mapToUi() }
+        .map { eventItemList -> eventItemList.mapToEventItemListUi() }
 
     @NativeCoroutines
     fun event(): Flow<EventUi?> = combine(
@@ -32,15 +34,15 @@ class EventInteractor(
         transform = { event, ticket ->
             if (event == null) return@combine null
             EventUi(
-                eventInfo = event.mapToUi(),
-                ticket = ticket?.mapToUi()
+                eventInfo = event.mapToEventInfoUi(),
+                ticket = ticket?.mapToTicketUi()
             )
         }
     )
 
     @NativeCoroutines
     fun menus(): Flow<ImmutableList<MenuItemUi>> = repository.menus()
-        .map { menus -> menus.map { it.mapToUi() }.toImmutableList() }
+        .map { menus -> menus.map { it.mapToMenuItemUi() }.toImmutableList() }
 
     @NativeCoroutines
     suspend fun insertOrUpdateTicket(barcode: String) = repository.insertOrUpdateTicket(barcode)

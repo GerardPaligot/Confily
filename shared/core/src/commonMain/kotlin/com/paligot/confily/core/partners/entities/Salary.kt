@@ -10,7 +10,7 @@ class Salary(
     val recurrence: String
 )
 
-fun Salary.mapToUi(): SalaryUi = SalaryUi(
+fun Salary.mapToSalaryUi(): SalaryUi = SalaryUi(
     min = min,
     max = max,
     recurrence = recurrence

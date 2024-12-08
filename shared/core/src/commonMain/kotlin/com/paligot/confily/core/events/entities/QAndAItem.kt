@@ -11,13 +11,13 @@ class QAndAItem(val question: String, val answer: String, val actions: List<QAnd
 @ObjCName("QAndAActionEntity")
 class QAndAAction(val label: String, val url: String)
 
-fun QAndAItem.mapToUi(selected: QuestionAndResponseUi?): QuestionAndResponseUi =
+fun QAndAItem.mapToQuestionAndResponseUi(selected: QuestionAndResponseUi?): QuestionAndResponseUi =
     QuestionAndResponseUi(
         question = question,
         response = answer,
         expanded = question == selected?.question,
-        actions = actions.map { it.mapToUi() }.toImmutableList()
+        actions = actions.map { it.mapToQuestionAndResponseActionUi() }.toImmutableList()
     )
 
-fun QAndAAction.mapToUi(): QuestionAndResponseActionUi =
+fun QAndAAction.mapToQuestionAndResponseActionUi(): QuestionAndResponseActionUi =
     QuestionAndResponseActionUi(label = label, url = url)

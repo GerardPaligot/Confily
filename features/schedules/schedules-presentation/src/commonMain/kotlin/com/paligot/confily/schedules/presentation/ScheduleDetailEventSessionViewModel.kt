@@ -3,8 +3,7 @@ package com.paligot.confily.schedules.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paligot.confily.core.schedules.SessionRepository
-import com.paligot.confily.core.schedules.entities.mapToUi
-import com.paligot.confily.core.speakers.entities.mapToUi
+import com.paligot.confily.core.schedules.entities.mapToEventSessionUi
 import com.paligot.confily.models.ui.EventSessionUi
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -23,7 +22,7 @@ class ScheduleDetailEventSessionViewModel(
     repository: SessionRepository
 ) : ViewModel() {
     val uiState: StateFlow<ScheduleEventUiState> = repository.eventSession(scheduleId)
-        .map { ScheduleEventUiState.Success(it.mapToUi()) as ScheduleEventUiState }
+        .map { ScheduleEventUiState.Success(it.mapToEventSessionUi()) as ScheduleEventUiState }
         .catch { emit(ScheduleEventUiState.Failure(it)) }
         .stateIn(
             scope = viewModelScope,

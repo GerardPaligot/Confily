@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import cafe.adriel.lyricist.Lyricist
 import com.paligot.confily.core.AlarmScheduler
 import com.paligot.confily.core.speakers.SpeakerRepository
-import com.paligot.confily.core.speakers.entities.mapToUi
+import com.paligot.confily.core.speakers.entities.mapToSpeakerUi
 import com.paligot.confily.models.ui.SpeakerUi
 import com.paligot.confily.models.ui.TalkItemUi
 import com.paligot.confily.resources.Strings
@@ -29,7 +29,7 @@ class SpeakerDetailViewModel(
     private val alarmScheduler: AlarmScheduler
 ) : ViewModel() {
     val uiState: StateFlow<SpeakerUiState> = repository.speaker(speakerId)
-        .map { SpeakerUiState.Success(it.mapToUi(lyricist.strings)) }
+        .map { SpeakerUiState.Success(it.mapToSpeakerUi(lyricist.strings)) }
         .catch { SpeakerUiState.Failure(it) }
         .stateIn(
             scope = viewModelScope,

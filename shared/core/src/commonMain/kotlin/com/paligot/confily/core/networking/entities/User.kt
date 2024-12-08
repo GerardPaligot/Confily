@@ -9,7 +9,7 @@ class User(
     val ticket: UserTicket?
 )
 
-fun User.mapToUi() = UserProfileUi(
+fun User.mapToUserProfileUi() = UserProfileUi(
     firstName = info?.firstName ?: ticket?.firstName ?: "",
     lastName = info?.lastName ?: ticket?.lastName ?: "",
     email = info?.email ?: ticket?.email ?: "",

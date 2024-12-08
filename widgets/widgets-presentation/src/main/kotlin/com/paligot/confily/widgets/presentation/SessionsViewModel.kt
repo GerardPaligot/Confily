@@ -44,7 +44,7 @@ class SessionsViewModel(
             } else {
                 SessionsUiState.Success(
                     event?.name,
-                    sessions.map { it.mapToUi(lyricist.strings) }.toImmutableList()
+                    sessions.map { it.mapToSessionItemUi(lyricist.strings) }.toImmutableList()
                 )
             }
         }
@@ -55,7 +55,7 @@ class SessionsViewModel(
     )
 }
 
-private fun SessionItem.mapToUi(strings: Strings): SessionItemUi {
+private fun SessionItem.mapToSessionItemUi(strings: Strings): SessionItemUi {
     val diff = endTime.toInstant(TimeZone.UTC)
         .minus(startTime.toInstant(TimeZone.UTC))
     return SessionItemUi(

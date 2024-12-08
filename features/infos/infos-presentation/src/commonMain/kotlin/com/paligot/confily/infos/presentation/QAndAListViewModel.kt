@@ -3,7 +3,7 @@ package com.paligot.confily.infos.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paligot.confily.core.events.EventRepository
-import com.paligot.confily.core.events.entities.mapToUi
+import com.paligot.confily.core.events.entities.mapToQuestionAndResponseUi
 import com.paligot.confily.models.ui.QuestionAndResponseUi
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
@@ -29,7 +29,7 @@ class QAndAListViewModel(repository: EventRepository) : ViewModel() {
         flow2 = repository.qanda(),
         transform = { selected, qanda ->
             QAndAUiState.Success(
-                qanda.map { it.mapToUi(selected) }.toImmutableList()
+                qanda.map { it.mapToQuestionAndResponseUi(selected) }.toImmutableList()
             ) as QAndAUiState
         }
     ).catch {

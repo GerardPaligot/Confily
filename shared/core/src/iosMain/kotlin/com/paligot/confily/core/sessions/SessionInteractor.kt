@@ -2,8 +2,10 @@ package com.paligot.confily.core.sessions
 
 import cafe.adriel.lyricist.Lyricist
 import com.paligot.confily.core.schedules.SessionRepository
+import com.paligot.confily.core.schedules.entities.mapToEventSessionUi
+import com.paligot.confily.core.schedules.entities.mapToFiltersUi
 import com.paligot.confily.core.schedules.entities.mapToMapUi
-import com.paligot.confily.core.schedules.entities.mapToUi
+import com.paligot.confily.core.schedules.entities.mapToTalkUi
 import com.paligot.confily.models.ui.AgendaUi
 import com.paligot.confily.models.ui.EventSessionUi
 import com.paligot.confily.models.ui.FiltersUi
@@ -24,12 +26,12 @@ class SessionInteractor(
 
     @NativeCoroutines
     fun session(sessionId: String): Flow<TalkUi> = repository.session(sessionId)
-        .map { it.mapToUi(lyricist.strings) }
+        .map { it.mapToTalkUi(lyricist.strings) }
 
     @NativeCoroutines
     fun eventSession(sessionId: String): Flow<EventSessionUi> = repository.eventSession(sessionId)
-        .map { it.mapToUi() }
+        .map { it.mapToEventSessionUi() }
 
     @NativeCoroutines
-    fun filters(): Flow<FiltersUi> = repository.filters().map { it.mapToUi() }
+    fun filters(): Flow<FiltersUi> = repository.filters().map { it.mapToFiltersUi() }
 }

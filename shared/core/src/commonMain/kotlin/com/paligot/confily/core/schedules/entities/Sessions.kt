@@ -37,7 +37,7 @@ fun Sessions.mapToMapUi(strings: Strings): ImmutableMap<String, AgendaUi> {
                         )
                         slotTime to entry.value
                             .sortedBy { it.order }
-                            .map { it.mapToUi(strings) }
+                            .map { it.mapToSessionItemUi(strings) }
                             .toImmutableList()
                     }
                     .associate { it }
@@ -63,7 +63,7 @@ fun Sessions.mapToListUi(strings: Strings): ImmutableList<AgendaUi> {
                         )
                         slotTime to entry.value
                             .sortedBy { it.order }
-                            .map { it.mapToUi(strings) }
+                            .map { it.mapToSessionItemUi(strings) }
                             .toImmutableList()
                     }
                     .associate { it }

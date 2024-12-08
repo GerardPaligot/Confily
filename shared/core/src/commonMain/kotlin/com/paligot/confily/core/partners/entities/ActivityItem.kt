@@ -13,7 +13,7 @@ class ActivityItem(
     val startTime: LocalDateTime
 )
 
-fun ActivityItem.mapToUi() = ActivityUi(
+fun ActivityItem.mapToActivityUi() = ActivityUi(
     activityName = name,
     partnerName = partnerName,
     startTime = startTime.format(
