@@ -3,7 +3,7 @@ package com.paligot.confily.wear.events.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paligot.confily.core.events.EventRepository
-import com.paligot.confily.core.events.entities.Event
+import com.paligot.confily.core.events.entities.EventInfo
 import com.paligot.confily.wear.events.panes.EventModelUi
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
@@ -23,7 +23,7 @@ class EventViewModel(
             if (it == null) {
                 EventUiState.Loading
             } else {
-                EventUiState.Success(it.mapToEventModelUi())
+                EventUiState.Success(it.info.mapToEventModelUi())
             }
         }
         .stateIn(
@@ -43,4 +43,4 @@ class EventViewModel(
     }
 }
 
-private fun Event.mapToEventModelUi() = EventModelUi(name = name)
+private fun EventInfo.mapToEventModelUi() = EventModelUi(name = name)

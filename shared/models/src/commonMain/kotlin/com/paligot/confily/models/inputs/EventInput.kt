@@ -97,10 +97,7 @@ data class EventInput(
     val contactPhone: String?,
     @SerialName("contact_email")
     val contactEmail: String,
-    @SerialName("twitter_url")
-    val twitterUrl: String?,
-    @SerialName("linkedin_url")
-    val linkedinUrl: String?,
+    val socials: List<SocialInput> = emptyList(),
     @SerialName("faq_link")
     val faqLink: String,
     val published: Boolean,
@@ -109,8 +106,5 @@ data class EventInput(
     @SerialName("update_at")
     val updatedAt: Long = Clock.System.now().epochSeconds
 ) : Validator {
-    override fun validate(): List<String> = mutableListOf<String>().apply {
-        if (twitterUrl?.contains("twitter.com") == false) add("Your twitter url is malformed")
-        if (linkedinUrl?.contains("linkedin.com") == false) add("Your linkedin url is malformed")
-    }
+    override fun validate(): List<String> = emptyList()
 }

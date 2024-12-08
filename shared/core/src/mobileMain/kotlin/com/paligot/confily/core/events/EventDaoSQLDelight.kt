@@ -6,7 +6,7 @@ import app.cash.sqldelight.coroutines.mapToOne
 import app.cash.sqldelight.coroutines.mapToOneOrNull
 import com.paligot.confily.core.agenda.convertToModelDb
 import com.paligot.confily.core.events.entities.CodeOfConduct
-import com.paligot.confily.core.events.entities.Event
+import com.paligot.confily.core.events.entities.EventInfo
 import com.paligot.confily.core.events.entities.EventItemList
 import com.paligot.confily.core.events.entities.FeatureFlags
 import com.paligot.confily.core.events.entities.MenuItem
@@ -14,7 +14,7 @@ import com.paligot.confily.core.events.entities.QAndAAction
 import com.paligot.confily.core.events.entities.QAndAItem
 import com.paligot.confily.db.ConfilyDatabase
 import com.paligot.confily.models.Attendee
-import com.paligot.confily.models.EventV3
+import com.paligot.confily.models.EventV4
 import com.paligot.confily.models.QuestionAndResponse
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
@@ -34,8 +34,8 @@ class EventDaoSQLDelight(
         transform = { past, future -> EventItemList(future = future, past = past) }
     )
 
-    override fun fetchEvent(eventId: String): Flow<Event?> =
-        db.eventQueries.selectEvent(eventId, eventMapper)
+    override fun fetchEvent(eventId: String): Flow<EventInfo?> =
+        db.eventQueries.selectEvent(eventId, eventInfoMapper)
             .asFlow()
             .mapToOneOrNull(dispatcher)
 
@@ -84,7 +84,7 @@ class EventDaoSQLDelight(
             )
         }
 
-    override fun insertEvent(event: EventV3, qAndA: List<QuestionAndResponse>) = db.transaction {
+    override fun insertEvent(event: EventV4, qAndA: List<QuestionAndResponse>) = db.transaction {
         val eventDb = event.convertToModelDb()
         db.eventQueries.insertEvent(
             id = eventDb.id,
@@ -100,14 +100,18 @@ class EventDaoSQLDelight(
             openfeedback_project_id = eventDb.openfeedback_project_id,
             contact_email = eventDb.contact_email,
             contact_phone = eventDb.contact_phone,
-            twitter = eventDb.twitter,
-            twitter_url = eventDb.twitter_url,
-            linkedin = eventDb.linkedin,
-            linkedin_url = eventDb.linkedin_url,
             faq_url = eventDb.faq_url,
             coc_url = eventDb.coc_url,
             updated_at = eventDb.updated_at
         )
+        event.socials.forEach {
+            db.socialQueries.insertSocial(
+                url = it.url,
+                type = it.type.name.lowercase(),
+                ext_id = eventDb.id,
+                event_id = eventDb.id
+            )
+        }
         qAndA.forEach { qAndA ->
             db.qAndAQueries.insertQAndA(
                 qAndA.order.toLong(),

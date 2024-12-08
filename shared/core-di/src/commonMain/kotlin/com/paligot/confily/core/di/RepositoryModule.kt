@@ -20,6 +20,7 @@ val repositoriesModule = module {
             sessionDao = get(),
             userDao = get(),
             partnerDao = get(),
+            socialDao = get(),
             qrCodeGenerator = get()
         )
     }

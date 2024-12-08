@@ -108,7 +108,7 @@ class PartnerDaoSQLDelight(
             partner.socials.forEach { social ->
                 db.socialQueries.insertSocial(
                     url = social.url,
-                    type = social.type.name,
+                    type = social.type.name.lowercase(),
                     ext_id = partner.id,
                     event_id = eventId
                 )

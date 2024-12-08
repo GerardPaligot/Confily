@@ -43,7 +43,7 @@ class SessionsViewModel(
                 SessionsUiState.Loading
             } else {
                 SessionsUiState.Success(
-                    event?.name,
+                    event?.info?.name,
                     sessions.map { it.mapToSessionItemUi(lyricist.strings) }.toImmutableList()
                 )
             }

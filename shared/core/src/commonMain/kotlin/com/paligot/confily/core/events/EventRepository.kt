@@ -13,6 +13,7 @@ import com.paligot.confily.core.networking.UserDao
 import com.paligot.confily.core.networking.entities.UserTicket
 import com.paligot.confily.core.partners.PartnerDao
 import com.paligot.confily.core.schedules.SessionDao
+import com.paligot.confily.core.socials.SocialDao
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.flow.Flow
 
@@ -39,6 +40,7 @@ interface EventRepository {
             sessionDao: SessionDao,
             userDao: UserDao,
             partnerDao: PartnerDao,
+            socialDao: SocialDao,
             qrCodeGenerator: QrCodeGenerator
         ): EventRepository = EventRepositoryImpl(
             api,
@@ -47,6 +49,7 @@ interface EventRepository {
             sessionDao,
             userDao,
             partnerDao,
+            socialDao,
             qrCodeGenerator
         )
     }

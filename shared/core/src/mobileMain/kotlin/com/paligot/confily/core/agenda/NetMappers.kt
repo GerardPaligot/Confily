@@ -5,7 +5,7 @@ import com.paligot.confily.db.EventSession
 import com.paligot.confily.db.TalkSession
 import com.paligot.confily.db.TalkSessionWithSpeakers
 import com.paligot.confily.models.Category
-import com.paligot.confily.models.EventV3
+import com.paligot.confily.models.EventV4
 import com.paligot.confily.models.Format
 import com.paligot.confily.models.ScheduleItemV4
 import com.paligot.confily.models.Session
@@ -16,7 +16,7 @@ import com.paligot.confily.db.Format as FormatDb
 import com.paligot.confily.db.Session as SessionDb
 import com.paligot.confily.db.Speaker as SpeakerDb
 
-fun EventV3.convertToModelDb(): Event = Event(
+fun EventV4.convertToModelDb(): Event = Event(
     id = this.id,
     name = this.name,
     formatted_address = this.address.formatted,
@@ -30,10 +30,6 @@ fun EventV3.convertToModelDb(): Event = Event(
     openfeedback_project_id = this.openfeedbackProjectId,
     contact_email = contactEmail,
     contact_phone = contactPhone,
-    twitter = this.twitterUrl?.split("twitter.com/")?.get(1),
-    twitter_url = this.twitterUrl,
-    linkedin = this.name,
-    linkedin_url = this.linkedinUrl,
     faq_url = this.faqLink!!,
     coc_url = this.codeOfConductLink!!,
     updated_at = this.updatedAt

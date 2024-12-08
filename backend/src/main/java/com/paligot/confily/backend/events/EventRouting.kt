@@ -56,6 +56,8 @@ fun Routing.registerEventRoutes() {
             1 -> call.respond(HttpStatusCode.OK, repository.getWithPartners(eventId))
             2 -> call.respond(HttpStatusCode.OK, repositoryV2.getV2(eventId))
             3 -> call.respond(HttpStatusCode.OK, repositoryV3.getV3(eventId))
+            4 -> call.respond(HttpStatusCode.OK, repositoryV4.getV4(eventId))
+            else -> call.respond(HttpStatusCode.NotImplemented)
         }
     }
     put("/events/{eventId}") {

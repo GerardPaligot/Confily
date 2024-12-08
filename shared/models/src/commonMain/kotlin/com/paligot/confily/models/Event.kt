@@ -160,3 +160,30 @@ data class EventV3(
     @SerialName("updated_at")
     val updatedAt: Long
 )
+
+@Serializable
+data class EventV4(
+    val id: String,
+    val name: String,
+    val address: Address,
+    @SerialName("start_date")
+    val startDate: String,
+    @SerialName("end_date")
+    val endDate: String,
+    val menus: List<EventLunchMenu>,
+    val coc: String,
+    @SerialName("openfeedback_project_id")
+    val openfeedbackProjectId: String?,
+    val features: FeaturesActivated,
+    @SerialName("contact_phone")
+    val contactPhone: String?,
+    @SerialName("contact_email")
+    val contactEmail: String,
+    val socials: List<SocialItem>,
+    @SerialName("faq_link")
+    val faqLink: String?,
+    @SerialName("code_of_conduct_link")
+    val codeOfConductLink: String?,
+    @SerialName("updated_at")
+    val updatedAt: Long
+)

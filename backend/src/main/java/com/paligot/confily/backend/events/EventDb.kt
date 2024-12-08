@@ -1,6 +1,7 @@
 package com.paligot.confily.backend.events
 
 import com.paligot.confily.backend.internals.SystemEnv
+import com.paligot.confily.backend.internals.socials.SocialDb
 import java.text.DecimalFormat
 import java.time.LocalDateTime
 
@@ -67,7 +68,10 @@ data class EventDb(
     val features: FeaturesActivatedDb = FeaturesActivatedDb(),
     val contactPhone: String? = null,
     val contactEmail: String = "",
+    val socials: List<SocialDb> = emptyList(),
+    @Deprecated("use socials property instead")
     val twitterUrl: String? = null,
+    @Deprecated("use socials property instead")
     val linkedinUrl: String? = null,
     val faqLink: String? = null,
     val codeOfConductLink: String? = null,

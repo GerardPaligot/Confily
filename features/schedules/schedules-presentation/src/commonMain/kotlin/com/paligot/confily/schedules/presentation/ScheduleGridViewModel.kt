@@ -55,7 +55,7 @@ class ScheduleGridViewModel(
         if (event == null) return@map TabActionsUi()
         return@map TabActionsUi(
             scrollable = true,
-            actions = event.mapToDays().map {
+            actions = event.info.mapToDays().map {
                 TabAction(
                     route = it,
                     labelId = StringResource("", "", emptySet()),

@@ -1,20 +1,18 @@
 package com.paligot.confily.core.events
 
 import com.paligot.confily.core.events.entities.CodeOfConduct
-import com.paligot.confily.core.events.entities.Event
+import com.paligot.confily.core.events.entities.EventInfo
 import com.paligot.confily.core.events.entities.EventItem
 import com.paligot.confily.core.events.entities.MenuItem
-import com.paligot.confily.core.socials.entities.Social
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 
-internal val eventMapper = { id: String, name: String, formattedAddress: List<String>,
+internal val eventInfoMapper = { id: String, name: String, formattedAddress: List<String>,
     _: String, latitude: Double, longitude: Double, _: String,
     startDate: String, endDate: String, _: String?, contactEmail: String?,
-    contactPhone: String?, _: String?, twitterUrl: String?, _: String?,
-    linkedinUrl: String?, faqUrl: String, cocUrl: String, _: Long ->
-    Event(
+    contactPhone: String?, faqUrl: String, cocUrl: String, _: Long ->
+    EventInfo(
         id = id,
         name = name,
         formattedAddress = formattedAddress,
@@ -24,10 +22,6 @@ internal val eventMapper = { id: String, name: String, formattedAddress: List<St
         endTime = Instant.parse(endDate).toLocalDateTime(TimeZone.UTC),
         email = contactEmail,
         phone = contactPhone,
-        socials = listOfNotNull(
-            twitterUrl?.let { Social(url = it, type = "twitter") },
-            linkedinUrl?.let { Social(url = it, type = "linkedin") }
-        ),
         faqUrl = faqUrl,
         cocUrl = cocUrl
     )

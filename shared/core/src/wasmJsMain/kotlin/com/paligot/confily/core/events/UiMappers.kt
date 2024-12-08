@@ -1,10 +1,9 @@
 package com.paligot.confily.core.events
 
 import com.paligot.confily.core.events.entities.CodeOfConduct
-import com.paligot.confily.core.events.entities.Event
+import com.paligot.confily.core.events.entities.EventInfo
 import com.paligot.confily.core.events.entities.EventItem
 import com.paligot.confily.core.events.entities.MenuItem
-import com.paligot.confily.core.socials.entities.Social
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
@@ -17,7 +16,7 @@ fun EventItemDb.convertToEntity(): EventItem = EventItem(
     past = past
 )
 
-fun EventDb.convertToEntity(): Event = Event(
+fun EventDb.convertToEntity(): EventInfo = EventInfo(
     id = id,
     name = name,
     formattedAddress = formattedAddress.toImmutableList(),
@@ -27,10 +26,6 @@ fun EventDb.convertToEntity(): Event = Event(
     endTime = Instant.parse(date).toLocalDateTime(TimeZone.UTC),
     email = contactEmail,
     phone = contactPhone,
-    socials = listOfNotNull(
-        twitter?.let { Social(url = it, type = "twitter") },
-        linkedin?.let { Social(url = it, type = "linkedin") }
-    ),
     faqUrl = faqUrl,
     cocUrl = cocUrl
 )

@@ -4,7 +4,7 @@ import com.paligot.confily.core.api.exceptions.AgendaNotModifiedException
 import com.paligot.confily.models.AgendaV4
 import com.paligot.confily.models.Attendee
 import com.paligot.confily.models.EventList
-import com.paligot.confily.models.EventV3
+import com.paligot.confily.models.EventV4
 import com.paligot.confily.models.PartnersActivities
 import com.paligot.confily.models.QuestionAndResponse
 import io.ktor.client.HttpClient
@@ -34,10 +34,10 @@ class ConferenceApi(
 ) {
     suspend fun fetchEventList(): EventList = client.get("$baseUrl/events").body()
 
-    suspend fun fetchEvent(eventId: String): EventV3 {
+    suspend fun fetchEvent(eventId: String): EventV4 {
         val response = client.get("$baseUrl/events/$eventId") {
             contentType(ContentType.parse("application/json"))
-            accept(ContentType.parse("application/json; version=3"))
+            accept(ContentType.parse("application/json; version=4"))
         }
         return response.body()
     }

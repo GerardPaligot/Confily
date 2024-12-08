@@ -17,7 +17,7 @@ import com.paligot.confily.core.socials.SocialDb
 import com.paligot.confily.core.speakers.SpeakerDb
 import com.paligot.confily.models.Category
 import com.paligot.confily.models.EventLunchMenu
-import com.paligot.confily.models.EventV3
+import com.paligot.confily.models.EventV4
 import com.paligot.confily.models.FeaturesActivated
 import com.paligot.confily.models.Format
 import com.paligot.confily.models.Job
@@ -30,7 +30,7 @@ import com.paligot.confily.models.SocialItem
 import com.paligot.confily.models.Speaker
 import kotlin.reflect.KClass
 
-fun EventV3.convertToModelDb(): EventDb = EventDb(
+fun EventV4.convertToModelDb(): EventDb = EventDb(
     id = this.id,
     name = this.name,
     formattedAddress = this.address.formatted,
@@ -42,10 +42,7 @@ fun EventV3.convertToModelDb(): EventDb = EventDb(
     openfeedbackProjectId = this.openfeedbackProjectId,
     contactEmail = contactEmail,
     contactPhone = contactPhone,
-    twitter = this.twitterUrl?.split("twitter.com/")?.get(1),
-    twitterUrl = this.twitterUrl,
-    linkedin = this.name,
-    linkedinUrl = this.linkedinUrl,
+    socials = this.socials.map { it.convertToDb(eventId = this.id, extId = this.id) },
     faqUrl = this.faqLink!!,
     cocUrl = this.codeOfConductLink!!,
     updatedAt = this.updatedAt

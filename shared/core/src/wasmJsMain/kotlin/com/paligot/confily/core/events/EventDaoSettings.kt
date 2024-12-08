@@ -2,14 +2,14 @@ package com.paligot.confily.core.events
 
 import com.paligot.confily.core.agenda.convertToModelDb
 import com.paligot.confily.core.events.entities.CodeOfConduct
-import com.paligot.confily.core.events.entities.Event
+import com.paligot.confily.core.events.entities.EventInfo
 import com.paligot.confily.core.events.entities.EventItemList
 import com.paligot.confily.core.events.entities.FeatureFlags
 import com.paligot.confily.core.events.entities.MenuItem
 import com.paligot.confily.core.events.entities.QAndAAction
 import com.paligot.confily.core.events.entities.QAndAItem
 import com.paligot.confily.models.Attendee
-import com.paligot.confily.models.EventV3
+import com.paligot.confily.models.EventV4
 import com.paligot.confily.models.QuestionAndResponse
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
@@ -35,7 +35,7 @@ class EventDaoSettings(
         }
     )
 
-    override fun fetchEvent(eventId: String): Flow<Event?> =
+    override fun fetchEvent(eventId: String): Flow<EventInfo?> =
         eventQueries.selectEvent(eventId).map(EventDb::convertToEntity)
 
     override fun fetchQAndA(eventId: String): Flow<ImmutableList<QAndAItem>> = combine(
@@ -75,7 +75,7 @@ class EventDaoSettings(
             )
         }
 
-    override fun insertEvent(event: EventV3, qAndA: List<QuestionAndResponse>) {
+    override fun insertEvent(event: EventV4, qAndA: List<QuestionAndResponse>) {
         val eventDb = event.convertToModelDb()
         eventQueries.insertEvent(eventDb)
         qAndA.forEach { qAndA ->

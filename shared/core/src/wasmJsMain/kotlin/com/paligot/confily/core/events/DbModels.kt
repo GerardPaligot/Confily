@@ -1,5 +1,6 @@
 package com.paligot.confily.core.events
 
+import com.paligot.confily.core.socials.SocialDb
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -15,10 +16,7 @@ class EventDb(
     val openfeedbackProjectId: String?,
     val contactEmail: String,
     val contactPhone: String?,
-    val twitter: String?,
-    val twitterUrl: String?,
-    val linkedin: String?,
-    val linkedinUrl: String?,
+    val socials: List<SocialDb>,
     val faqUrl: String,
     val cocUrl: String,
     val updatedAt: Long

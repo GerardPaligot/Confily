@@ -60,7 +60,9 @@ object EventModule {
             sessionDao.value,
             categoryDao.value,
             formatDao.value,
-            scheduleItemDao.value
+            scheduleItemDao.value,
+            partnerDao.value,
+            qAndADao.value
         )
     }
 }

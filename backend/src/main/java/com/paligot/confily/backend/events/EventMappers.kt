@@ -3,6 +3,9 @@
 package com.paligot.confily.backend.events
 
 import com.paligot.confily.backend.internals.slug
+import com.paligot.confily.backend.internals.socials.SocialDb
+import com.paligot.confily.backend.internals.socials.convertToDb
+import com.paligot.confily.backend.internals.socials.convertToModel
 import com.paligot.confily.backend.qanda.QAndADb
 import com.paligot.confily.backend.qanda.convertToModel
 import com.paligot.confily.models.Address
@@ -12,6 +15,7 @@ import com.paligot.confily.models.EventLunchMenu
 import com.paligot.confily.models.EventPartners
 import com.paligot.confily.models.EventV2
 import com.paligot.confily.models.EventV3
+import com.paligot.confily.models.EventV4
 import com.paligot.confily.models.FeaturesActivated
 import com.paligot.confily.models.inputs.BilletWebConfigInput
 import com.paligot.confily.models.inputs.ConferenceHallConfigInput
@@ -19,6 +23,7 @@ import com.paligot.confily.models.inputs.CreatingEventInput
 import com.paligot.confily.models.inputs.EventInput
 import com.paligot.confily.models.inputs.LunchMenuInput
 import com.paligot.confily.models.inputs.OpenPlannerConfigInput
+import com.paligot.confily.models.inputs.SocialInput
 import com.paligot.confily.models.inputs.WldConfigInput
 import java.util.UUID
 
@@ -118,6 +123,24 @@ fun EventDb.convertToModelV3(hasPartnerList: Boolean, hasQandA: Boolean) = Event
     updatedAt = this.updatedAt
 )
 
+fun EventDb.convertToModelV4(hasPartnerList: Boolean, hasQandA: Boolean) = EventV4(
+    id = this.slugId,
+    name = this.name,
+    address = this.address.convertToModel(),
+    startDate = this.startDate,
+    endDate = this.endDate,
+    menus = menus.map { it.convertToModel() },
+    coc = coc,
+    openfeedbackProjectId = this.openFeedbackId,
+    features = this.convertToFeaturesActivatedModel(hasPartnerList, hasQandA),
+    contactPhone = this.contactPhone,
+    contactEmail = this.contactEmail,
+    socials = this.socials.map(SocialDb::convertToModel),
+    faqLink = this.faqLink,
+    codeOfConductLink = this.codeOfConductLink,
+    updatedAt = this.updatedAt
+)
+
 fun LunchMenuInput.convertToDb() = LunchMenuDb(
     name = name,
     dish = dish,
@@ -166,15 +189,14 @@ fun EventInput.convertToDb(event: EventDb, addressDb: AddressDb) = EventDb(
     sponsoringTypes = this.sponsoringTypes,
     contactPhone = this.contactPhone,
     contactEmail = this.contactEmail,
-    twitterUrl = this.twitterUrl,
-    linkedinUrl = this.linkedinUrl,
+    socials = this.socials.map(SocialInput::convertToDb),
     faqLink = this.faqLink,
     codeOfConductLink = this.codeOfConductLink,
     published = published,
     updatedAt = this.updatedAt
 )
 
-fun com.paligot.confily.models.inputs.CreatingEventInput.convertToDb(addressDb: AddressDb, language: String) = EventDb(
+fun CreatingEventInput.convertToDb(addressDb: AddressDb, language: String) = EventDb(
     slugId = name.slug(),
     year = year,
     apiKey = UUID.randomUUID().toString(),
@@ -185,8 +207,7 @@ fun com.paligot.confily.models.inputs.CreatingEventInput.convertToDb(addressDb: 
     endDate = this.endDate,
     contactPhone = this.contactPhone,
     contactEmail = this.contactEmail,
-    twitterUrl = this.twitterUrl,
-    linkedinUrl = this.linkedinUrl,
+    socials = this.socials.map(SocialInput::convertToDb),
     faqLink = this.faqLink,
     codeOfConductLink = this.codeOfConductLink,
     updatedAt = this.updatedAt

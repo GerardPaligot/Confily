@@ -15,10 +15,12 @@ import com.paligot.confily.core.networking.UserDao
 import com.paligot.confily.core.networking.entities.UserTicket
 import com.paligot.confily.core.partners.PartnerDao
 import com.paligot.confily.core.schedules.SessionDao
+import com.paligot.confily.core.socials.SocialDao
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapConcat
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -29,6 +31,7 @@ internal class EventRepositoryImpl(
     private val sessionDao: SessionDao,
     private val userDao: UserDao,
     private val partnerDao: PartnerDao,
+    private val socialDao: SocialDao,
     private val qrCodeGenerator: QrCodeGenerator
 ) : EventRepository {
     override suspend fun fetchAndStoreEventList() = coroutineScope {
@@ -55,8 +58,16 @@ internal class EventRepositoryImpl(
 
     override fun events(): Flow<EventItemList> = eventDao.fetchEventList()
 
-    override fun event(): Flow<Event?> = settings.fetchEventId()
-        .flatMapConcat { eventDao.fetchEvent(eventId = it) }
+    override fun event(): Flow<Event?> = settings.fetchEventId().flatMapConcat {
+        combine(
+            flow = eventDao.fetchEvent(eventId = it),
+            flow2 = socialDao.fetchSocials(eventId = it, extId = it),
+            transform = { event, socials ->
+                if (event == null) return@combine null
+                Event(info = event, socials = socials)
+            }
+        )
+    }
 
     override fun ticket(): Flow<UserTicket?> = settings.fetchEventId()
         .flatMapConcat { userDao.fetchUserTicket(eventId = it) }
