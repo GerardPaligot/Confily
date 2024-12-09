@@ -2,11 +2,11 @@ package com.paligot.confily.core.models.factory
 
 import com.paligot.confily.models.Address
 import com.paligot.confily.models.EventLunchMenu
-import com.paligot.confily.models.EventV3
+import com.paligot.confily.models.EventV4
 import com.paligot.confily.models.FeaturesActivated
 import kotlinx.datetime.Instant
 
-fun EventV3.Companion.builder(): EventBuilder = EventBuilder()
+fun EventV4.Companion.builder(): EventBuilder = EventBuilder()
 
 @Suppress("TooManyFunctions")
 class EventBuilder {
@@ -36,8 +36,6 @@ class EventBuilder {
     )
     private var contactPhone: String? = null
     private var contactEmail: String = ""
-    private var twitterUrl: String? = null
-    private var linkedinUrl: String? = null
     private var faqLink: String? = ""
     private var codeOfConductLink: String? = ""
     private var updatedAt: Long = 0L
@@ -55,15 +53,13 @@ class EventBuilder {
     fun features(features: FeaturesActivated) = apply { this.features = features }
     fun contactPhone(contactPhone: String?) = apply { this.contactPhone = contactPhone }
     fun contactEmail(contactEmail: String) = apply { this.contactEmail = contactEmail }
-    fun twitterUrl(twitterUrl: String?) = apply { this.twitterUrl = twitterUrl }
-    fun linkedinUrl(linkedinUrl: String?) = apply { this.linkedinUrl = linkedinUrl }
     fun faqLink(faqLink: String?) = apply { this.faqLink = faqLink }
     fun codeOfConductLink(codeOfConductLink: String?) =
         apply { this.codeOfConductLink = codeOfConductLink }
 
     fun updatedAt(updatedAt: Long) = apply { this.updatedAt = updatedAt }
 
-    fun build(): EventV3 = EventV3(
+    fun build(): EventV4 = EventV4(
         id = id,
         name = name,
         address = address,
@@ -75,9 +71,8 @@ class EventBuilder {
         features = features,
         contactPhone = contactPhone,
         contactEmail = contactEmail,
-        twitterUrl = twitterUrl,
-        linkedinUrl = linkedinUrl,
         faqLink = faqLink,
+        socials = emptyList(),
         codeOfConductLink = codeOfConductLink,
         updatedAt = updatedAt
     )
