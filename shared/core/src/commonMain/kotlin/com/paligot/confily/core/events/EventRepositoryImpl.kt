@@ -41,6 +41,11 @@ internal class EventRepositoryImpl(
 
     override suspend fun fetchAndStoreAgenda() {
         val eventId = settings.getEventId()
+        val event = api.fetchEvent(eventId)
+        val qanda = api.fetchQAndA(eventId)
+        val partners = api.fetchPartnersActivities(eventId)
+        eventDao.insertEvent(event, qanda)
+        partnerDao.insertPartners(eventId, partners)
         val etag = settings.lastEtag(eventId)
         try {
             val (newEtag, agenda) = api.fetchAgenda(eventId, etag)
@@ -49,11 +54,6 @@ internal class EventRepositoryImpl(
         } catch (ex: AgendaNotModifiedException) {
             ex.printStackTrace()
         }
-        val event = api.fetchEvent(eventId)
-        val qanda = api.fetchQAndA(eventId)
-        val partners = api.fetchPartnersActivities(eventId)
-        eventDao.insertEvent(event, qanda)
-        partnerDao.insertPartners(eventId, partners)
     }
 
     override fun events(): Flow<EventItemList> = eventDao.fetchEventList()

@@ -14,6 +14,15 @@ struct Event: View {
     @State var showScanner = false
     @Environment(\.openURL) var openURL
     let event: EventUi
+    let linkedin: String?
+    let x: String?
+    let mastodon: String?
+    let bluesky: String?
+    let facebook: String?
+    let instagram: String?
+    let youtube: String?
+    let github: String?
+    let website: String?
     let barcodeScanned: (String) async -> ()
     let onDisconnectedClicked: () -> ()
     
@@ -23,6 +32,15 @@ struct Event: View {
         onDisconnectedClicked: @escaping () -> ()
     ) {
         self.event = event
+        self.linkedin = event.eventInfo.socials.first(where: { $0.type == SocialTypeUi.linkedin })?.url
+        self.x = event.eventInfo.socials.first(where: { $0.type == SocialTypeUi.x })?.url
+        self.mastodon = event.eventInfo.socials.first(where: { $0.type == SocialTypeUi.mastodon })?.url
+        self.bluesky = event.eventInfo.socials.first(where: { $0.type == SocialTypeUi.bluesky })?.url
+        self.facebook = event.eventInfo.socials.first(where: { $0.type == SocialTypeUi.facebook })?.url
+        self.instagram = event.eventInfo.socials.first(where: { $0.type == SocialTypeUi.instagram })?.url
+        self.youtube = event.eventInfo.socials.first(where: { $0.type == SocialTypeUi.youtube })?.url
+        self.github = event.eventInfo.socials.first(where: { $0.type == SocialTypeUi.github })?.url
+        self.website = event.eventInfo.socials.first(where: { $0.type == SocialTypeUi.website })?.url
         self.barcodeScanned = barcodeScanned
         self.onDisconnectedClicked = onDisconnectedClicked
     }
@@ -63,11 +81,32 @@ struct Event: View {
             Section(header: Text("titleLinks")) {
                 Link("actionFaq", destination: URL(string: event.eventInfo.faqLink)!)
                 Link("actionCoc", destination: URL(string: event.eventInfo.codeOfConductLink)!)
-                if (event.eventInfo.twitterUrl != nil) {
-                    Link("actionX", destination: URL(string: event.eventInfo.twitterUrl!)!)
+                if (self.linkedin != nil) {
+                    Link("actionLinkedin", destination: URL(string: self.linkedin!)!)
                 }
-                if (event.eventInfo.linkedinUrl != nil) {
-                    Link("actionLinkedin", destination: URL(string: event.eventInfo.linkedinUrl!)!)
+                if (self.x != nil) {
+                    Link("actionX", destination: URL(string: self.x!)!)
+                }
+                if (self.mastodon != nil) {
+                    Link("actionMastodon", destination: URL(string: self.mastodon!)!)
+                }
+                if (self.bluesky != nil) {
+                    Link("actionBluesky", destination: URL(string: self.bluesky!)!)
+                }
+                if (self.facebook != nil) {
+                    Link("actionFacebook", destination: URL(string: self.facebook!)!)
+                }
+                if (self.instagram != nil) {
+                    Link("actionInstagram", destination: URL(string: self.instagram!)!)
+                }
+                if (self.youtube != nil) {
+                    Link("actionYouTube", destination: URL(string: self.youtube!)!)
+                }
+                if (self.github != nil) {
+                    Link("actionGitHub", destination: URL(string: self.github!)!)
+                }
+                if (self.website != nil) {
+                    Link("actionWebsite", destination: URL(string: self.website!)!)
                 }
             }
             Section {

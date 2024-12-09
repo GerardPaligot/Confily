@@ -30,11 +30,15 @@ struct SpeakerDetail: View {
                         title: speaker.name,
                         pronouns: speaker.pronouns,
                         logoUrl: speaker.url,
-                        xUrl: speaker.twitterUrl,
-                        mastodonUrl: speaker.mastodonUrl,
-                        linkedInUrl: speaker.linkedinUrl,
-                        githubUrl: speaker.githubUrl,
-                        websiteUrl: speaker.websiteUrl
+                        xUrl: speaker.socials.first(where: { $0.type == SocialTypeUi.x })?.url,
+                        mastodonUrl: speaker.socials.first(where: { $0.type == SocialTypeUi.mastodon })?.url,
+                        blueskyUrl: speaker.socials.first(where: { $0.type == SocialTypeUi.bluesky })?.url,
+                        facebookUrl: speaker.socials.first(where: { $0.type == SocialTypeUi.facebook })?.url,
+                        instagramUrl: speaker.socials.first(where: { $0.type == SocialTypeUi.instagram })?.url,
+                        youtubeUrl: speaker.socials.first(where: { $0.type == SocialTypeUi.youtube })?.url,
+                        linkedInUrl: speaker.socials.first(where: { $0.type == SocialTypeUi.linkedin })?.url,
+                        websiteUrl: speaker.socials.first(where: { $0.type == SocialTypeUi.website })?.url,
+                        emailUrl: speaker.socials.first(where: { $0.type == SocialTypeUi.email })?.url
                     )
                     Spacer()
                 }
