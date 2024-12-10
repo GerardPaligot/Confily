@@ -2,6 +2,6 @@ package com.paligot.confily.core
 
 import com.paligot.confily.models.ui.TalkItemUi
 
-interface AlarmScheduler {
+expect class AlarmScheduler {
     suspend fun schedule(talkItem: TalkItemUi)
 }

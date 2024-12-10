@@ -15,7 +15,7 @@ import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
 import androidx.wear.compose.foundation.lazy.items
 import androidx.wear.compose.foundation.lazy.rememberScalingLazyListState
 import androidx.wear.compose.material3.ListHeader
-import androidx.wear.compose.material3.ListSubheader
+import androidx.wear.compose.material3.ListSubHeader
 import androidx.wear.compose.material3.ScreenScaffold
 import androidx.wear.compose.material3.ScrollIndicator
 import androidx.wear.compose.material3.Text
@@ -41,7 +41,7 @@ fun MenusPane(
             item { ListHeader { Text(stringResource(R.string.screen_menus)) } }
             items(modelUi.menus) { menu ->
                 Column(modifier = Modifier.fillMaxWidth()) {
-                    ListSubheader { Text(menu.name) }
+                    ListSubHeader { Text(menu.name) }
                     Text(menu.dish)
                     Text(menu.accompaniment)
                     Text(menu.dessert)

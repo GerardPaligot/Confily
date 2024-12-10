@@ -77,13 +77,10 @@ kotlin {
         }
         wasmJsMain {
             dependencies {
+                // Required https://github.com/russhwolf/multiplatform-settings/issues/209
+                implementation(libs.jetbrains.kotlinx.browser)
                 implementation(libs.settings.make.observable)
             }
         }
     }
-}
-dependencies {
-    implementation(project(":shared:core"))
-    implementation(project(":shared:core"))
-    implementation(project(":shared:core"))
 }

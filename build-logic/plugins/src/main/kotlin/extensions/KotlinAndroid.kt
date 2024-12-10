@@ -14,7 +14,7 @@ private val CommonExtension<*, *, *, *, *, *>.hasKotlinOptionsExt: Boolean
 
 internal fun configureKotlinAndroid(
     commonExtension: CommonExtension<*, *, *, *, *, *>,
-    compileSdk: Int = 34,
+    compileSdk: Int = 35,
     minSdk: Int = 23
 ) {
     commonExtension.apply {

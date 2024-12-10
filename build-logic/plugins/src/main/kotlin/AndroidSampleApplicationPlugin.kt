@@ -23,7 +23,7 @@ class AndroidSampleApplicationPlugin: Plugin<Project> {
                     applicationId = "com.paligot.confily.android"
                     versionCode = 100
                     versionName = "1.0.0"
-                    targetSdk = 34
+                    targetSdk = 35
                 }
                 signingConfigs {
                     getByName("debug") {

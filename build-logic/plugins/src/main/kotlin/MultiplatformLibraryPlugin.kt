@@ -19,7 +19,7 @@ class MultiplatformLibraryPlugin: Plugin<Project> {
                 configureKotlinCompiler(jvmVersion = 17)
                 configureDesugaring(this)
                 sourceSets.getByName("main").manifest.srcFile("src/androidMain/AndroidManifest.xml")
-                defaultConfig.targetSdk = 34
+                defaultConfig.targetSdk = 35
             }
             // FIXME Android Studio build is looking for a testClasses task but it doesn't exist.
             tasks.register("testClasses")

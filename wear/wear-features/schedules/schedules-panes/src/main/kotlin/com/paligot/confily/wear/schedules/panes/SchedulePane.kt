@@ -15,7 +15,7 @@ import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
 import androidx.wear.compose.foundation.lazy.items
 import androidx.wear.compose.foundation.lazy.rememberScalingLazyListState
 import androidx.wear.compose.material3.ListHeader
-import androidx.wear.compose.material3.ListSubheader
+import androidx.wear.compose.material3.ListSubHeader
 import androidx.wear.compose.material3.LocalContentColor
 import androidx.wear.compose.material3.LocalTextStyle
 import androidx.wear.compose.material3.MaterialTheme
@@ -59,9 +59,9 @@ fun SchedulePane(
                     }
                 }
             }
-            item { ListSubheader { Text("About") } }
+            item { ListSubHeader { Text("About") } }
             item { MarkdownText(text = modelUi.abstract) }
-            item { ListSubheader { Text("Speakers") } }
+            item { ListSubHeader { Text("Speakers") } }
             items(modelUi.speakers) { speaker ->
                 ExtendedActionButton(
                     painter = rememberAsyncImagePainter(model = speaker.url),

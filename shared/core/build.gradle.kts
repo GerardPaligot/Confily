@@ -53,7 +53,6 @@ kotlin {
                 api(projects.shared.resources)
 
                 implementation(compose.runtime)
-                implementation(compose.components.resources)
 
                 api(libs.jetbrains.kotlinx.datetime)
                 api(libs.jetbrains.kotlinx.collections)
@@ -73,6 +72,7 @@ kotlin {
         val androidMain by getting {
             dependsOn(mobileMain)
             dependencies {
+                implementation(compose.components.resources)
                 implementation(libs.google.zxing)
                 implementation(libs.zxing.android.embedded)
             }

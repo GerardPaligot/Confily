@@ -20,7 +20,7 @@ class AndroidWearLibraryPlugin: Plugin<Project> {
             extensions.configure<LibraryExtension> {
                 configureKotlinAndroid(this, compileSdk = 35, minSdk = 30)
                 configureDesugaring(this)
-                defaultConfig.targetSdk = 34
+                defaultConfig.targetSdk = 35
             }
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
             dependencies {
