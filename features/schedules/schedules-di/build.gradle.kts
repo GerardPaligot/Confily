@@ -1,8 +1,5 @@
-import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
-
 plugins {
-    id("confily.multiplatform.library")
-    id("confily.quality")
+    id("confily.di")
 }
 
 android {
@@ -10,22 +7,10 @@ android {
 }
 
 kotlin {
-    androidTarget()
-
-    @OptIn(ExperimentalWasmDsl::class)
-    wasmJs {
-        useCommonJs()
-        browser()
-    }
-
     sourceSets {
         val commonMain by getting {
             dependencies {
                 implementation(projects.features.schedules.schedulesPresentation)
-                implementation(projects.shared.coreDi)
-
-                implementation(libs.koin.compose.viewmodel)
-
                 implementation(libs.lyricist)
             }
         }
