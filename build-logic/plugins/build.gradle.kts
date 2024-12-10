@@ -60,6 +60,10 @@ gradlePlugin {
             id = "confily.semantics"
             implementationClass = "conventions.SemanticsLibraryPlugin"
         }
+        register("testScopesLibrary") {
+            id = "confily.test.scopes"
+            implementationClass = "conventions.TestScopesLibraryPlugin"
+        }
         register("androidWearLibrary") {
             id = "confily.android.wear.library"
             implementationClass = "AndroidWearLibraryPlugin"
