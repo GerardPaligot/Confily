@@ -44,6 +44,10 @@ gradlePlugin {
             id = "confily.ui"
             implementationClass = "conventions.UiLibraryPlugin"
         }
+        register("panesLibrary") {
+            id = "confily.panes"
+            implementationClass = "conventions.PanesLibraryPlugin"
+        }
         register("androidWearLibrary") {
             id = "confily.android.wear.library"
             implementationClass = "AndroidWearLibraryPlugin"
