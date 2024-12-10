@@ -1,11 +1,5 @@
-@file:OptIn(ExperimentalComposeLibrary::class)
-
-import org.jetbrains.compose.ExperimentalComposeLibrary
-
 plugins {
-    id("confily.android.library")
-    id("confily.android.library.compose")
-    id("confily.quality")
+    id("confily.test")
 }
 
 android {
@@ -14,7 +8,4 @@ android {
 
 dependencies {
     api(projects.features.schedules.schedulesTestScopes)
-    api(projects.androidCore.coreTestPatterns)
-    api(libs.androidx.espresso.core)
-    api(compose.uiTestJUnit4)
 }

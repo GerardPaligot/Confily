@@ -64,6 +64,10 @@ gradlePlugin {
             id = "confily.test.scopes"
             implementationClass = "conventions.TestScopesLibraryPlugin"
         }
+        register("testLibrary") {
+            id = "confily.test"
+            implementationClass = "conventions.TestLibraryPlugin"
+        }
         register("androidWearLibrary") {
             id = "confily.android.wear.library"
             implementationClass = "AndroidWearLibraryPlugin"
