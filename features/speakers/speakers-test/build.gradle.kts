@@ -8,4 +8,5 @@ android {
 
 dependencies {
     api(projects.features.speakers.speakersTestScopes)
+    api(projects.features.speakers.speakersSemantics)
 }

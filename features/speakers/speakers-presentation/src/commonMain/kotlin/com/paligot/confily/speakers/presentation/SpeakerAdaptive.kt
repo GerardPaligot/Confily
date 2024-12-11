@@ -12,6 +12,8 @@ import androidx.compose.material3.adaptive.navigation.rememberListDetailPaneScaf
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
+import com.paligot.confily.speakers.semantics.SpeakersSemantics
 import com.paligot.confily.style.components.adaptive.BackHandler
 import kotlinx.coroutines.launch
 
@@ -49,6 +51,7 @@ fun SpeakerAdaptive(
                 AnimatedPane {
                     SpeakerDetailVM(
                         speakerId = it,
+                        modifier = Modifier.testTag(SpeakersSemantics.pageDetail),
                         onTalkClicked = onTalkClicked,
                         onLinkClicked = onLinkClicked,
                         navigationIcon = if (showBackInDetail) {

@@ -2,18 +2,23 @@ package com.paligot.confily.speakers.test.pom
 
 import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.hasAnyAncestor
 import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.hasContentDescription
+import androidx.compose.ui.test.hasTestTag
+import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.ComposeTestRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import com.paligot.confily.speakers.semantics.SpeakersSemantics
 
 class SpeakerDetailPOM(private val composeTestRule: ComposeTestRule) {
     private val backIcon = composeTestRule.onNodeWithContentDescription("Back")
 
-    private fun findSpeakerName(name: String): SemanticsNodeInteraction =
-        composeTestRule.onNodeWithText(name)
+    private fun findSpeakerName(name: String): SemanticsNodeInteraction = composeTestRule.onNode(
+        hasText(name) and hasAnyAncestor(hasTestTag(SpeakersSemantics.pageDetail))
+    )
 
     private fun findSpeakerCompany(company: String): SemanticsNodeInteraction =
         composeTestRule.onNodeWithText(company)

@@ -13,6 +13,7 @@ kotlin {
                 implementation(projects.shared.core)
                 implementation(projects.shared.resources)
                 implementation(projects.features.speakers.speakersPanes)
+                implementation(projects.features.speakers.speakersSemantics)
                 implementation(projects.features.navigation)
                 implementation(projects.style.theme)
 
