@@ -1,5 +1,7 @@
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
+
 plugins {
-    id("confily.android.library")
+    id("confily.multiplatform.library")
     id("confily.android.library.compose")
     id("confily.quality")
 }
@@ -8,8 +10,25 @@ android {
     namespace = "com.paligot.confily.style.components.adaptive"
 }
 
-dependencies {
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.bundles.androidx.compose.adaptive)
-    implementation(libs.androidx.compose.material3.windowsizeclass)
+kotlin {
+    androidTarget()
+
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmJs {
+        useCommonJs()
+        browser()
+    }
+
+    sourceSets {
+        val commonMain by getting {
+            dependencies {
+                implementation(libs.bundles.jetbrains.compose.adaptive)
+            }
+        }
+        val androidMain by getting {
+            dependencies {
+                implementation(libs.androidx.activity.compose)
+            }
+        }
+    }
 }

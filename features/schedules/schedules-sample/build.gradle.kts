@@ -34,8 +34,7 @@ dependencies {
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(compose.material3)
-    implementation(libs.androidx.compose.material3.windowsizeclass)
-    implementation(libs.bundles.androidx.compose.adaptive)
+    implementation(libs.bundles.jetbrains.compose.adaptive)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.workmanager.ktx)

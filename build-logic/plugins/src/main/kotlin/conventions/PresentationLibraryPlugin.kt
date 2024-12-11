@@ -27,18 +27,14 @@ class PresentationLibraryPlugin: Plugin<Project> {
                     browser()
                 }
                 sourceSets.commonMain.dependencies {
+                    implementation(project(":style:components:adaptive"))
                     implementation(compose.dependencies.material3)
+                    implementation(libs.findBundle("jetbrains-compose-adaptive").get())
                     implementation(libs.findLibrary("jetbrains-kotlinx-collections").get())
                     implementation(libs.findLibrary("jetbrains-lifecycle-viewmodel-compose").get())
                     implementation(libs.findLibrary("koin-compose-viewmodel").get())
                 }
                 sourceSets.androidMain.dependencies {
-                    implementation(project(":style:components:adaptive"))
-
-                    implementation(project.dependencies.platform(libs.findLibrary("androidx-compose-bom").get()))
-                    implementation(libs.findLibrary("androidx-compose-material3-windowsizeclass").get())
-                    implementation(libs.findBundle("androidx-compose-adaptive").get())
-                    implementation(libs.findLibrary("androidx-activity-compose").get())
                     implementation(libs.findLibrary("androidx-navigation-compose").get())
 
                     implementation(project.dependencies.platform(libs.findLibrary("google-firebase-bom").get()))

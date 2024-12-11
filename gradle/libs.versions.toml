@@ -6,7 +6,6 @@ androidx-benchmark = "1.3.3"
 androidx-browser = "1.8.0"
 androidx-camera = "1.4.0"
 androidx-compose-bom = "2024.11.00"
-androidx-compose-adaptive = "1.0.0"
 androidx-compose-adaptive-navigation = "1.3.1"
 androidx-espresso = "3.6.1"
 androidx-glance = "1.1.1"
@@ -47,6 +46,7 @@ google-services = "4.4.2"
 google-services-wearable = "19.0.0"
 google-zxing = "3.5.3"
 jetbrains-compose = "1.7.1"
+jetbrains-compose-adaptive = "1.1.0-alpha01"
 jetbrains-lifecycle = "2.8.0"
 jetbrains-kotlin = "2.1.0"
 jetbrains-kotlinx-browser = "0.3"
@@ -81,10 +81,6 @@ androidx-camera-lifecycle = { group = "androidx.camera", name = "camera-lifecycl
 androidx-camera-view = { group = "androidx.camera", name = "camera-view", version.ref = "androidx-camera" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidx-compose-bom" }
 androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
-androidx-compose-material3-windowsizeclass = { group = "androidx.compose.material3", name = "material3-window-size-class" }
-androidx-compose-material3-adaptive = { group = "androidx.compose.material3.adaptive", name = "adaptive", version.ref = "androidx-compose-adaptive" }
-androidx-compose-material3-adaptive-layout = { group = "androidx.compose.material3.adaptive", name = "adaptive-layout", version.ref = "androidx-compose-adaptive" }
-androidx-compose-material3-adaptive-navigation = { group = "androidx.compose.material3.adaptive", name = "adaptive-navigation", version.ref = "androidx-compose-adaptive" }
 androidx-compose-material3-adaptive-navigation-suite = { group = "androidx.compose.material3", name = "material3-adaptive-navigation-suite", version.ref = "androidx-compose-adaptive-navigation" }
 androidx-compose-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata" }
 androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "androidx-splashscreen" }
@@ -128,6 +124,10 @@ detekt-gradlePlugin = { group = "io.gitlab.arturbosch.detekt", name = "detekt-gr
 
 jetbrains-compose-gradlePlugin = { group = "org.jetbrains.compose", name = "compose-gradle-plugin", version.ref = "jetbrains-compose" }
 jetbrains-compose-compiler-gradlePlugin = { group = "org.jetbrains.kotlin", name = "compose-compiler-gradle-plugin", version.ref = "jetbrains-kotlin" }
+jetbrains-compose-material3-adaptive = { group = "org.jetbrains.compose.material3.adaptive", name = "adaptive", version.ref = "jetbrains-compose-adaptive" }
+jetbrains-compose-material3-adaptive-layout = { group = "org.jetbrains.compose.material3.adaptive", name = "adaptive-layout", version.ref = "jetbrains-compose-adaptive" }
+jetbrains-compose-material3-adaptive-navigation = { group = "org.jetbrains.compose.material3.adaptive", name = "adaptive-navigation", version.ref = "jetbrains-compose-adaptive" }
+jetbrains-compose-material3-windowsizeclass = { group = "org.jetbrains.compose.material3", name = "material3-window-size-class", version.ref = "jetbrains-compose" }
 jetbrains-lifecycle-viewmodel-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "jetbrains-lifecycle" }
 jetbrains-kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "jetbrains-kotlin" }
 jetbrains-kotlin-serialization-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-serialization", version.ref = "jetbrains-kotlin" }
@@ -212,10 +212,11 @@ squareup-okio = { group = "com.squareup.okio", name = "okio", version.ref = "squ
 zxing-android-embedded = { group = "com.journeyapps", name = "zxing-android-embedded", version.ref = "zxing-android-embedded" }
 
 [bundles]
-androidx-compose-adaptive = [
-    "androidx-compose-material3-adaptive",
-    "androidx-compose-material3-adaptive-layout",
-    "androidx-compose-material3-adaptive-navigation"
+jetbrains-compose-adaptive = [
+    "jetbrains-compose-material3-adaptive",
+    "jetbrains-compose-material3-adaptive-layout",
+    "jetbrains-compose-material3-adaptive-navigation",
+    "jetbrains-compose-material3-windowsizeclass"
 ]
 androidx-glance = [
     "androidx-glance-appwidget",
