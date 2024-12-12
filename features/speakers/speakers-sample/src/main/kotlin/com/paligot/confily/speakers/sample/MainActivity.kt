@@ -20,8 +20,8 @@ import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.paligot.confily.core.sample.ScheduleWorkManager
-import com.paligot.confily.navigation.Screen
 import com.paligot.confily.speakers.presentation.speakerGraph
+import com.paligot.confily.speakers.routes.SpeakerList
 import com.paligot.confily.style.theme.ConfilyTheme
 import org.koin.compose.KoinContext
 import org.koin.mp.KoinPlatformTools
@@ -51,7 +51,7 @@ class MainActivity : ComponentActivity() {
                 KoinContext(context = KoinPlatformTools.defaultContext().get()) {
                     NavHost(
                         navController = navController,
-                        startDestination = Screen.SpeakerList.route,
+                        startDestination = SpeakerList::class,
                         enterTransition = { EnterTransition.None },
                         exitTransition = { ExitTransition.None },
                         builder = {

@@ -14,6 +14,8 @@ kotlin {
                 implementation(projects.shared.resources)
                 implementation(projects.features.eventList.eventListUi)
                 implementation(projects.features.eventList.eventListPanes)
+                implementation(projects.features.eventList.eventListRoutes)
+                implementation(projects.features.schedules.schedulesRoutes)
                 implementation(projects.features.navigation)
                 implementation(projects.style.theme)
 

@@ -74,6 +74,8 @@ dependencies {
     implementation(projects.features.main.main)
     implementation(projects.features.main.mainDi)
     implementation(projects.features.navigation)
+    implementation(projects.features.schedules.schedulesRoutes)
+    implementation(projects.features.networking.networkingRoutes)
     implementation(projects.widgets.widgetsPresentation)
     implementation(projects.widgets.widgetsStyle)
     implementation(projects.shared.core)
@@ -86,17 +88,17 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.browser)
 
+    implementation(libs.jetbrains.navigation.compose)
     implementation(libs.jetbrains.compose.material3.windowsizeclass)
+    implementation(libs.jetbrains.kotlinx.datetime)
+
     implementation(compose.ui)
     implementation(compose.components.resources)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.profile)
     implementation(libs.androidx.workmanager.ktx)
     implementation(libs.bundles.androidx.glance)
-
-    implementation(libs.jetbrains.kotlinx.datetime)
 
     implementation(libs.koin.core)
     implementation(libs.koin.android)

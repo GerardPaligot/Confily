@@ -13,6 +13,7 @@ kotlin {
                 implementation(projects.shared.core)
                 implementation(projects.shared.resources)
                 implementation(projects.features.networking.networkingPanes)
+                implementation(projects.features.networking.networkingRoutes)
                 implementation(projects.features.networking.networkingUi)
                 implementation(projects.features.navigation)
                 implementation(projects.style.networking)

@@ -52,6 +52,10 @@ gradlePlugin {
             id = "confily.presentation"
             implementationClass = "conventions.PresentationLibraryPlugin"
         }
+        register("routesLibrary") {
+            id = "confily.routes"
+            implementationClass = "conventions.RoutesLibraryPlugin"
+        }
         register("diLibrary") {
             id = "confily.di"
             implementationClass = "conventions.DiLibraryPlugin"

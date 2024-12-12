@@ -6,12 +6,13 @@ import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
 import com.paligot.confily.core.events.EventRepository
 import com.paligot.confily.core.events.entities.FeatureFlags
+import com.paligot.confily.core.navigation.NavigationAction
+import com.paligot.confily.core.navigation.NavigationActionsUi
+import com.paligot.confily.core.navigation.NavigationBar
 import com.paligot.confily.core.networking.UserRepository
 import com.paligot.confily.core.networking.entities.UserItem
 import com.paligot.confily.models.ui.VCardModel
 import com.paligot.confily.navigation.BottomActions
-import com.paligot.confily.style.theme.actions.NavigationAction
-import com.paligot.confily.style.theme.actions.NavigationActionsUi
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -52,7 +53,7 @@ class MainNavigationViewModel(
 
     private fun navActions(features: FeatureFlags): NavigationActionsUi =
         NavigationActionsUi(
-            actions = arrayListOf<NavigationAction>().apply {
+            actions = arrayListOf<NavigationAction<out NavigationBar>>().apply {
                 add(BottomActions.agenda)
                 add(BottomActions.speakers)
                 if (features.hasNetworking) {

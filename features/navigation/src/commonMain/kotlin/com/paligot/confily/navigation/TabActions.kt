@@ -1,5 +1,15 @@
 package com.paligot.confily.navigation
 
+import com.paligot.confily.events.routes.FutureEvents
+import com.paligot.confily.events.routes.PastEvents
+import com.paligot.confily.infos.routes.CoC
+import com.paligot.confily.infos.routes.Info
+import com.paligot.confily.infos.routes.Menus
+import com.paligot.confily.infos.routes.QAndA
+import com.paligot.confily.networking.routes.Contacts
+import com.paligot.confily.networking.routes.MyProfile
+import com.paligot.confily.partners.routes.Partner
+import com.paligot.confily.partners.routes.PartnerActivities
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.screen_coc
 import com.paligot.confily.resources.screen_contacts
@@ -15,43 +25,43 @@ import com.paligot.confily.style.theme.actions.TabAction
 
 object TabActions {
     val futureEvents = TabAction(
-        route = Screen.FutureEvents.route,
+        route = FutureEvents.navDeeplink(),
         labelId = Resource.string.screen_events_future
     )
     val pastEvents = TabAction(
-        route = Screen.PastEvents.route,
+        route = PastEvents.navDeeplink(),
         labelId = Resource.string.screen_events_past
     )
     val myProfile = TabAction(
-        route = Screen.MyProfile.route,
+        route = MyProfile.navDeeplink(),
         labelId = Resource.string.screen_my_profile
     )
     val contacts = TabAction(
-        route = Screen.Contacts.route,
+        route = Contacts.navDeeplink(),
         labelId = Resource.string.screen_contacts
     )
     val partners = TabAction(
-        route = Screen.Partner.route,
+        route = Partner.navDeeplink(),
         labelId = Resource.string.screen_partners
     )
     val activities = TabAction(
-        route = Screen.PartnerActivities.route,
+        route = PartnerActivities.navDeeplink(),
         labelId = Resource.string.screen_partners_activities
     )
     val event = TabAction(
-        route = Screen.Event.route,
+        route = Info.navDeeplink(),
         labelId = Resource.string.screen_event
     )
     val menus = TabAction(
-        route = Screen.Menus.route,
+        route = Menus.navDeeplink(),
         labelId = Resource.string.screen_menus
     )
     val qanda = TabAction(
-        route = Screen.QAndA.route,
+        route = QAndA.navDeeplink(),
         labelId = Resource.string.screen_qanda
     )
     val coc = TabAction(
-        route = Screen.CoC.route,
+        route = CoC.navDeeplink(),
         labelId = Resource.string.screen_coc
     )
 }

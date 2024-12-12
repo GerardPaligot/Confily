@@ -29,14 +29,13 @@ class PresentationLibraryPlugin: Plugin<Project> {
                 sourceSets.commonMain.dependencies {
                     implementation(project(":style:components:adaptive"))
                     implementation(compose.dependencies.material3)
-                    implementation(libs.findBundle("jetbrains-compose-adaptive").get())
                     implementation(libs.findLibrary("jetbrains-kotlinx-collections").get())
+                    implementation(libs.findBundle("jetbrains-compose-adaptive").get())
+                    implementation(libs.findLibrary("jetbrains-navigation-compose").get())
                     implementation(libs.findLibrary("jetbrains-lifecycle-viewmodel-compose").get())
                     implementation(libs.findLibrary("koin-compose-viewmodel").get())
                 }
                 sourceSets.androidMain.dependencies {
-                    implementation(libs.findLibrary("androidx-navigation-compose").get())
-
                     implementation(project.dependencies.platform(libs.findLibrary("google-firebase-bom").get()))
                     implementation("com.google.firebase:firebase-crashlytics-ktx")
                 }

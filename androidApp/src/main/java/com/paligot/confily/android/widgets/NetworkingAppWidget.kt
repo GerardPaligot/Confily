@@ -9,7 +9,8 @@ import androidx.glance.appwidget.action.actionStartActivity
 import androidx.glance.appwidget.provideContent
 import com.paligot.confily.android.R
 import com.paligot.confily.core.networking.UserRepository
-import com.paligot.confily.navigation.Screen
+import com.paligot.confily.networking.routes.MyProfile
+import com.paligot.confily.networking.routes.NewProfile
 import com.paligot.confily.widgets.presentation.NetworkingWidget
 import com.paligot.confily.widgets.style.ConfilyGlanceTheme
 import org.koin.core.component.KoinComponent
@@ -27,13 +28,13 @@ class NetworkingAppWidget : GlanceAppWidget(), KoinComponent {
                     onNewProfile = actionStartActivity(
                         intent = Intent(
                             Intent.ACTION_VIEW,
-                            "c4h://event/${Screen.NewProfile.route}".toUri()
+                            NewProfile.navDeeplink().toUri()
                         )
                     ),
                     onMyProfile = actionStartActivity(
                         intent = Intent(
                             Intent.ACTION_VIEW,
-                            "c4h://event/${Screen.MyProfile.route}".toUri()
+                            MyProfile.navDeeplink().toUri()
                         )
                     )
                 )

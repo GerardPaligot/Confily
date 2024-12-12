@@ -6,9 +6,10 @@ import com.paligot.confily.core.networking.UserRepository
 import com.paligot.confily.core.networking.entities.mapToExportNetworkingUi
 import com.paligot.confily.models.ui.ExportNetworkingUi
 import com.paligot.confily.navigation.FabActions
-import com.paligot.confily.navigation.Screen
 import com.paligot.confily.navigation.TabActions
 import com.paligot.confily.navigation.TopActions
+import com.paligot.confily.networking.routes.Contacts
+import com.paligot.confily.networking.routes.MyProfile
 import com.paligot.confily.style.theme.actions.FabAction
 import com.paligot.confily.style.theme.actions.TabActionsUi
 import com.paligot.confily.style.theme.actions.TopActionsUi
@@ -65,8 +66,8 @@ class NetworkingViewModel(
                     }
                 ),
                 fabAction = when (route) {
-                    Screen.MyProfile.route -> if (!config.hasProfileCompleted) FabActions.createProfile else null
-                    Screen.Contacts.route -> FabActions.scanContact
+                    MyProfile.navDeeplink() -> if (!config.hasProfileCompleted) FabActions.createProfile else null
+                    Contacts.navDeeplink() -> FabActions.scanContact
                     else -> null
                 }
             ) as NetworkingUiState

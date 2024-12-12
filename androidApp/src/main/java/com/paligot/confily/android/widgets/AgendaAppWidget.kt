@@ -18,8 +18,8 @@ import cafe.adriel.lyricist.Lyricist
 import com.paligot.confily.android.R
 import com.paligot.confily.core.events.EventRepository
 import com.paligot.confily.core.schedules.SessionRepository
-import com.paligot.confily.navigation.Screen
 import com.paligot.confily.resources.Strings
+import com.paligot.confily.schedules.routes.Schedule
 import com.paligot.confily.widgets.presentation.SessionsWidget
 import com.paligot.confily.widgets.style.ConfilyGlanceTheme
 import kotlinx.datetime.Clock
@@ -61,7 +61,7 @@ class AgendaAppWidget : GlanceAppWidget(), KoinComponent {
                         actionStartActivity(
                             intent = Intent(
                                 Intent.ACTION_VIEW,
-                                "c4h://event/${Screen.Schedule.route(it)}".toUri()
+                                Schedule(it).deeplink().toUri()
                             )
                         )
                     }

@@ -32,11 +32,12 @@ dependencies {
 
     implementation(libs.androidx.appcompat)
 
+    implementation(libs.bundles.jetbrains.compose.adaptive)
+    implementation(libs.jetbrains.navigation.compose)
+
     implementation(platform(libs.androidx.compose.bom))
     implementation(compose.material3)
-    implementation(libs.bundles.jetbrains.compose.adaptive)
     implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.workmanager.ktx)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 

@@ -3,8 +3,8 @@ package com.paligot.confily.infos.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paligot.confily.core.events.EventRepository
+import com.paligot.confily.infos.routes.Info
 import com.paligot.confily.navigation.FabActions
-import com.paligot.confily.navigation.Screen
 import com.paligot.confily.navigation.TabActions
 import com.paligot.confily.navigation.TopActions
 import com.paligot.confily.style.theme.actions.FabAction
@@ -59,7 +59,7 @@ class InfoViewModel(
                     }.toImmutableList()
                 ),
                 fabAction = when (route) {
-                    Screen.Event.route -> if (features.hasTicketIntegration) FabActions.scanTicket else null
+                    Info.navDeeplink() -> if (features.hasTicketIntegration) FabActions.scanTicket else null
                     else -> null
                 }
             ) as InfoUiState

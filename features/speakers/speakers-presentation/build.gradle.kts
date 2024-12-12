@@ -14,6 +14,8 @@ kotlin {
                 implementation(projects.shared.resources)
                 implementation(projects.features.speakers.speakersPanes)
                 implementation(projects.features.speakers.speakersSemantics)
+                api(projects.features.speakers.speakersRoutes)
+                implementation(projects.features.schedules.schedulesRoutes)
                 implementation(projects.features.navigation)
                 implementation(projects.style.theme)
 

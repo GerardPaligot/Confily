@@ -12,6 +12,8 @@ dependencies {
     api(projects.features.schedules.schedulesUi)
     api(projects.features.speakers.speakersUi)
     api(projects.style.theme)
+    implementation(projects.features.schedules.schedulesRoutes)
+    implementation(projects.features.eventList.eventListRoutes)
     implementation(projects.features.schedules.schedulesPresentation)
     implementation(projects.features.speakers.speakersPresentation)
     implementation(projects.features.partners.partnersPresentation)
@@ -22,6 +24,7 @@ dependencies {
     implementation(projects.features.navigation)
     implementation(projects.style.components.adaptive)
     implementation(projects.shared.core)
+    implementation(projects.shared.coreNavigation)
     implementation(projects.shared.uiModels)
     implementation(projects.shared.resources)
 
@@ -35,10 +38,10 @@ dependencies {
     implementation(compose.components.resources)
     implementation(compose.preview)
     debugImplementation(compose.uiTooling)
-    implementation(libs.androidx.navigation.compose)
 
     implementation(libs.jetbrains.kotlinx.collections)
     implementation(libs.jetbrains.lifecycle.viewmodel.compose)
+    implementation(libs.jetbrains.navigation.compose)
 
     implementation(platform(libs.google.firebase.bom))
     implementation("com.google.firebase:firebase-crashlytics-ktx")

@@ -47,6 +47,7 @@ google-services-wearable = "19.0.0"
 google-zxing = "3.5.3"
 jetbrains-compose = "1.8.0-alpha01"
 jetbrains-compose-adaptive = "1.1.0-alpha01"
+jetbrains-navigation-compose = "2.8.0-alpha11"
 jetbrains-lifecycle = "2.8.0"
 jetbrains-kotlin = "2.1.0"
 jetbrains-kotlinx-browser = "0.3"
@@ -129,6 +130,7 @@ jetbrains-compose-material3-adaptive-layout = { group = "org.jetbrains.compose.m
 jetbrains-compose-material3-adaptive-navigation = { group = "org.jetbrains.compose.material3.adaptive", name = "adaptive-navigation", version.ref = "jetbrains-compose-adaptive" }
 jetbrains-compose-material3-windowsizeclass = { group = "org.jetbrains.compose.material3", name = "material3-window-size-class", version.ref = "jetbrains-compose" }
 jetbrains-lifecycle-viewmodel-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "jetbrains-lifecycle" }
+jetbrains-navigation-compose = { group = "org.jetbrains.androidx.navigation", name = "navigation-compose", version.ref = "jetbrains-navigation-compose" }
 jetbrains-kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "jetbrains-kotlin" }
 jetbrains-kotlin-serialization-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-serialization", version.ref = "jetbrains-kotlin" }
 jetbrains-kotlinx-browser = { group = "org.jetbrains.kotlinx", name = "kotlinx-browser", version.ref = "jetbrains-kotlinx-browser" }

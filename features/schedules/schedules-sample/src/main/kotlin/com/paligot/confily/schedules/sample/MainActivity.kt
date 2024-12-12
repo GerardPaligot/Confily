@@ -20,8 +20,8 @@ import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.paligot.confily.core.sample.ScheduleWorkManager
-import com.paligot.confily.navigation.Screen
 import com.paligot.confily.schedules.presentation.scheduleGraph
+import com.paligot.confily.schedules.routes.ScheduleList
 import com.paligot.confily.style.theme.ConfilyTheme
 import org.koin.compose.KoinContext
 import org.koin.mp.KoinPlatformTools
@@ -44,12 +44,11 @@ class MainActivity : ComponentActivity() {
                 KoinContext(context = KoinPlatformTools.defaultContext().get()) {
                     NavHost(
                         navController = navController,
-                        startDestination = Screen.ScheduleList.route,
+                        startDestination = ScheduleList::class,
                         enterTransition = { EnterTransition.None },
                         exitTransition = { ExitTransition.None },
                         builder = {
                             scheduleGraph(
-                                rootUri = "schedule",
                                 isPortrait = config.orientation == Configuration.ORIENTATION_PORTRAIT,
                                 adaptiveInfo = adaptiveInfo,
                                 navController = navController,
