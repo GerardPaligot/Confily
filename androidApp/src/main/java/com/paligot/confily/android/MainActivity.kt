@@ -9,8 +9,17 @@ import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.adaptive.currentWindowSize
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTagsAsResourceId
+import androidx.compose.ui.unit.toSize
 import androidx.core.app.ShareCompat
 import androidx.core.content.FileProvider
 import androidx.glance.appwidget.updateAll
@@ -45,6 +54,7 @@ class MainActivity : ComponentActivity() {
         navController.handleDeepLink(intent)
     }
 
+    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -63,11 +73,16 @@ class MainActivity : ComponentActivity() {
             }
             navController = rememberNavController()
             val scope = rememberCoroutineScope()
+            val config = LocalConfiguration.current
+            val windowSize = with(LocalDensity.current) { currentWindowSize().toSize().toDpSize() }
+            val adaptiveInfo = WindowSizeClass.calculateFromSize(windowSize)
             val exportSubject = stringResource(Resource.string.text_export_subject)
             val reportSubject = stringResource(Resource.string.text_report_subject)
             val reportAppTarget = stringResource(Resource.string.text_report_app_target)
             Main(
                 defaultEvent = BuildConfig.DEFAULT_EVENT,
+                isPortrait = config.isPortrait,
+                adaptiveInfo = adaptiveInfo,
                 launchUrl = { launchUrl(it) },
                 onContactExportClicked = { export ->
                     val uri: Uri = FileProvider.getUriForFile(
@@ -124,7 +139,10 @@ class MainActivity : ComponentActivity() {
                 onProfileCreated = {
                     scope.launch { NetworkingAppWidget().updateAll(context = this@MainActivity) }
                 },
-                navController = navController
+                navController = navController,
+                modifier = Modifier.semantics {
+                    testTagsAsResourceId = true
+                }
             )
         }
     }

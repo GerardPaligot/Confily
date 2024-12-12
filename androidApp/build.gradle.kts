@@ -89,7 +89,7 @@ dependencies {
     implementation(libs.androidx.browser)
 
     implementation(libs.jetbrains.navigation.compose)
-    implementation(libs.jetbrains.compose.material3.windowsizeclass)
+    implementation(libs.bundles.jetbrains.compose.adaptive)
     implementation(libs.jetbrains.kotlinx.datetime)
 
     implementation(compose.ui)

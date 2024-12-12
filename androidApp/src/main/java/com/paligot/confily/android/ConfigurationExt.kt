@@ -1,4 +1,4 @@
-package com.paligot.confily.main
+package com.paligot.confily.android
 
 import android.content.res.Configuration
 

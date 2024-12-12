@@ -1,25 +1,17 @@
 package com.paligot.confily.main
 
-import android.content.res.Configuration
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.material3.Icon
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
-import androidx.compose.material3.adaptive.currentWindowSize
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffoldDefaults
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteType
-import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.semantics.testTagsAsResourceId
-import androidx.compose.ui.unit.toSize
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -36,14 +28,15 @@ import com.paligot.confily.speakers.presentation.speakerGraph
 import com.paligot.confily.style.components.adaptive.isCompat
 import com.paligot.confily.style.theme.appbars.iconColor
 import org.jetbrains.compose.resources.stringResource
-import org.koin.androidx.compose.koinViewModel
+import org.koin.compose.viewmodel.koinViewModel
 import kotlin.reflect.KClass
 
 @Suppress("LongMethod")
-@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
 fun MainNavigation(
     startDestination: KClass<*>,
+    isPortrait: Boolean,
+    adaptiveInfo: WindowSizeClass,
     launchUrl: (String) -> Unit,
     onContactExportClicked: (ExportNetworkingUi) -> Unit,
     onReportByPhoneClicked: (String) -> Unit,
@@ -56,12 +49,9 @@ fun MainNavigation(
     navController: NavHostController = rememberNavController(),
     viewModel: MainNavigationViewModel = koinViewModel()
 ) {
-    val config = LocalConfiguration.current
     val uiState = viewModel.uiState.collectAsState()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
-    val windowSize = with(LocalDensity.current) { currentWindowSize().toSize().toDpSize() }
-    val adaptiveInfo = WindowSizeClass.calculateFromSize(windowSize)
     val heightCompact = adaptiveInfo.heightSizeClass.isCompat
     val layoutType = if (heightCompact) {
         NavigationSuiteType.NavigationRail
@@ -70,9 +60,7 @@ fun MainNavigation(
     }
     NavigationSuiteScaffold(
         layoutType = layoutType,
-        modifier = modifier.semantics {
-            testTagsAsResourceId = true
-        },
+        modifier = modifier,
         navigationSuiteItems = {
             when (uiState.value) {
                 is MainNavigationUiState.Success -> {
@@ -90,7 +78,7 @@ fun MainNavigation(
                             },
                             onClick = {
                                 navController.navigate(action.route) {
-                                    popUpTo(navController.graph.findStartDestination().id) {
+                                    popUpTo(navController.graph.findStartDestination()) {
                                         saveState = true
                                     }
                                     launchSingleTop = true
@@ -113,7 +101,7 @@ fun MainNavigation(
             builder = {
                 eventGraph(navController)
                 scheduleGraph(
-                    isPortrait = config.isPortrait,
+                    isPortrait = isPortrait,
                     adaptiveInfo = adaptiveInfo,
                     navController = navController,
                     enterTransition = enterSlideInHorizontal(),
@@ -125,7 +113,7 @@ fun MainNavigation(
                     onScheduleStarted = onScheduleStarted
                 )
                 speakerGraph(
-                    isLandscape = config.orientation == Configuration.ORIENTATION_LANDSCAPE,
+                    isLandscape = isPortrait.not(),
                     adaptiveInfo = adaptiveInfo,
                     navController = navController,
                     enterTransition = enterSlideInHorizontal(),
@@ -144,7 +132,7 @@ fun MainNavigation(
                     }
                 )
                 partnerGraph(
-                    isLandscape = config.orientation == Configuration.ORIENTATION_LANDSCAPE,
+                    isLandscape = isPortrait.not(),
                     adaptiveInfo = adaptiveInfo,
                     navController = navController,
                     enterTransition = enterSlideInHorizontal(),

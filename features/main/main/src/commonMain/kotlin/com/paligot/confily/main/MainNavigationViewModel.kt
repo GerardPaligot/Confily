@@ -2,8 +2,6 @@ package com.paligot.confily.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.crashlytics.ktx.crashlytics
-import com.google.firebase.ktx.Firebase
 import com.paligot.confily.core.events.EventRepository
 import com.paligot.confily.core.events.entities.FeatureFlags
 import com.paligot.confily.core.navigation.NavigationAction
@@ -32,11 +30,8 @@ class MainNavigationViewModel(
     private val userRepository: UserRepository
 ) : ViewModel() {
     val uiState: StateFlow<MainNavigationUiState> = eventRepository.featureFlags()
-        .map { MainNavigationUiState.Success(navActions(it)) }
-        .catch {
-            Firebase.crashlytics.recordException(it)
-            MainNavigationUiState.Failure(it)
-        }
+        .map { MainNavigationUiState.Success(navActions(it)) as MainNavigationUiState }
+        .catch { emit(MainNavigationUiState.Failure(it)) }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(),
