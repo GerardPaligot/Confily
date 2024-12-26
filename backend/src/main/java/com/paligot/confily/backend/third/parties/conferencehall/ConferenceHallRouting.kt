@@ -5,10 +5,10 @@ import com.paligot.confily.backend.third.parties.conferencehall.ConferenceHallMo
 import com.paligot.confily.models.inputs.conferencehall.ImportTalkInput
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.response.respond
-import io.ktor.server.routing.Routing
+import io.ktor.server.routing.Route
 import io.ktor.server.routing.post
 
-fun Routing.registerConferenceHallRoutes() {
+fun Route.registerConferenceHallRoutes() {
     val conferenceHallRepo by conferenceHallRepository
 
     post("conference-hall/{eventId}/talks/import") {

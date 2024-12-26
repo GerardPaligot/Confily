@@ -5,11 +5,11 @@ import com.paligot.confily.backend.sessions.SessionModule.sessionRepository
 import com.paligot.confily.models.inputs.EventSessionInput
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.response.respond
-import io.ktor.server.routing.Routing
+import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 import io.ktor.server.routing.put
 
-fun Routing.registerSessionsRoutes() {
+fun Route.registerSessionsRoutes() {
     val repository by sessionRepository
 
     get("/sessions") {

@@ -7,12 +7,12 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.server.plugins.BadRequestException
 import io.ktor.server.request.acceptLanguage
 import io.ktor.server.response.respond
-import io.ktor.server.routing.Routing
+import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.put
 
-fun Routing.registerQAndAsRoutes() {
+fun Route.registerQAndAsRoutes() {
     val repository by qAndARepository
 
     get("/qanda") {

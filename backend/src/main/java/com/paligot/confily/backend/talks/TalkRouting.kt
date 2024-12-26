@@ -6,13 +6,13 @@ import com.paligot.confily.models.inputs.TalkInput
 import com.paligot.confily.models.inputs.TalkVerbatimInput
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.response.respond
-import io.ktor.server.routing.Routing
+import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.put
 
 @Suppress("LongParameterList")
-fun Routing.registerTalksRoutes() {
+fun Route.registerTalksRoutes() {
     val repository by talkRepository
 
     get("/talks") {

@@ -5,10 +5,10 @@ import com.paligot.confily.backend.events.EventModule.eventRepositoryV4
 import com.paligot.confily.backend.third.parties.openplanner.OpenPlannerModule.openPlannerRepository
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.response.respond
-import io.ktor.server.routing.Routing
+import io.ktor.server.routing.Route
 import io.ktor.server.routing.post
 
-fun Routing.registerOpenPlannerRoutes() {
+fun Route.registerOpenPlannerRoutes() {
     val repository by openPlannerRepository
     val eventRepository by eventRepositoryV4
 

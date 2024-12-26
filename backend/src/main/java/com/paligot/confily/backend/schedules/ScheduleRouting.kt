@@ -5,13 +5,13 @@ import com.paligot.confily.backend.schedules.ScheduleModule.scheduleRepository
 import com.paligot.confily.models.inputs.ScheduleInput
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.response.respond
-import io.ktor.server.routing.Routing
+import io.ktor.server.routing.Route
 import io.ktor.server.routing.delete
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 
 @Suppress("LongParameterList")
-fun Routing.registerSchedulersRoutes() {
+fun Route.registerSchedulersRoutes() {
     val repository by scheduleRepository
 
     post("/schedulers") {

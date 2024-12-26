@@ -5,12 +5,12 @@ import com.paligot.confily.backend.speakers.SpeakerModule.speakerRepository
 import com.paligot.confily.models.inputs.SpeakerInput
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.response.respond
-import io.ktor.server.routing.Routing
+import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.put
 
-fun Routing.registerSpeakersRoutes() {
+fun Route.registerSpeakersRoutes() {
     val repository by speakerRepository
 
     get("/speakers") {

@@ -4,10 +4,10 @@ import com.paligot.confily.backend.partners.PartnerModule.partnerRepository
 import com.paligot.confily.backend.receiveValidated
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.response.respond
-import io.ktor.server.routing.Routing
+import io.ktor.server.routing.Route
 import io.ktor.server.routing.post
 
-fun Routing.registerCms4PartnersRoutes() {
+fun Route.registerCms4PartnersRoutes() {
     val repository by partnerRepository
 
     post("cms4partners/webhook") {
