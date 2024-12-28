@@ -5,6 +5,7 @@ import com.paligot.confily.core.events.FeaturesActivatedDb
 import com.paligot.confily.core.events.MenuDb
 import com.paligot.confily.core.events.QAndAActionDb
 import com.paligot.confily.core.events.QAndADb
+import com.paligot.confily.core.events.TeamMemberDb
 import com.paligot.confily.core.partners.JobDb
 import com.paligot.confily.core.partners.PartnerDb
 import com.paligot.confily.core.schedules.CategoryDb
@@ -28,6 +29,7 @@ import com.paligot.confily.models.ScheduleItemV4
 import com.paligot.confily.models.Session
 import com.paligot.confily.models.SocialItem
 import com.paligot.confily.models.Speaker
+import com.paligot.confily.models.TeamMember
 import kotlin.reflect.KClass
 
 fun EventV4.convertToModelDb(): EventDb = EventDb(
@@ -72,15 +74,26 @@ fun EventLunchMenu.convertToModelDb(eventId: String) = MenuDb(
     eventId = eventId
 )
 
-fun FeaturesActivated.convertToModelDb(eventId: String) = FeaturesActivatedDb(
-    eventId = eventId,
-    hasNetworking = hasNetworking,
-    speakerList = hasSpeakerList,
-    hasPartnerList = hasPartnerList,
-    hasMenus = hasMenus,
-    hasQanda = hasQAndA,
-    hasBilletWebTicket = hasBilletWebTicket
+fun TeamMember.convertToModelDb(eventId: String) = TeamMemberDb(
+    id = id,
+    name = displayName,
+    bio = bio,
+    role = role,
+    photoUrl = photoUrl,
+    eventId = eventId
 )
+
+fun FeaturesActivated.convertToModelDb(eventId: String, hasTeamMembers: Boolean) =
+    FeaturesActivatedDb(
+        eventId = eventId,
+        hasNetworking = hasNetworking,
+        speakerList = hasSpeakerList,
+        hasPartnerList = hasPartnerList,
+        hasMenus = hasMenus,
+        hasQanda = hasQAndA,
+        hasBilletWebTicket = hasBilletWebTicket,
+        hasTeamMembers = hasTeamMembers
+    )
 
 fun Category.convertToDb(eventId: String): CategoryDb = CategoryDb(
     id = id,

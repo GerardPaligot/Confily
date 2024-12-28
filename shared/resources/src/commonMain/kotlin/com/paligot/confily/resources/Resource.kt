@@ -49,6 +49,7 @@ import confily.shared.resources.generated.resources.screen_schedule_detail
 import confily.shared.resources.generated.resources.screen_schedule_detail_event_session
 import confily.shared.resources.generated.resources.screen_speaker_detail
 import confily.shared.resources.generated.resources.screen_speakers
+import confily.shared.resources.generated.resources.screen_team
 import confily.shared.resources.generated.resources.screen_ticket_qrcode_scanner
 import confily.shared.resources.generated.resources.semantic_bluesky
 import confily.shared.resources.generated.resources.semantic_email
@@ -304,6 +305,10 @@ val Resource.string.screen_agenda_filters: StringResource
 @OptIn(ExperimentalResourceApi::class)
 val Resource.string.screen_coc: StringResource
     get() = Res.string.screen_coc
+
+@OptIn(ExperimentalResourceApi::class)
+val Resource.string.screen_team: StringResource
+    get() = Res.string.screen_team
 
 @OptIn(ExperimentalResourceApi::class)
 val Resource.string.screen_contacts: StringResource

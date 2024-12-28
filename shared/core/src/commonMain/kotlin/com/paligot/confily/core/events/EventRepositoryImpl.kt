@@ -9,6 +9,8 @@ import com.paligot.confily.core.events.entities.EventItemList
 import com.paligot.confily.core.events.entities.FeatureFlags
 import com.paligot.confily.core.events.entities.MenuItem
 import com.paligot.confily.core.events.entities.QAndAItem
+import com.paligot.confily.core.events.entities.TeamMember
+import com.paligot.confily.core.events.entities.TeamMemberItem
 import com.paligot.confily.core.kvalue.ConferenceSettings
 import com.paligot.confily.core.kvalue.EventSavedException
 import com.paligot.confily.core.networking.UserDao
@@ -44,7 +46,8 @@ internal class EventRepositoryImpl(
         val event = api.fetchEvent(eventId)
         val qanda = api.fetchQAndA(eventId)
         val partners = api.fetchPartnersActivities(eventId)
-        eventDao.insertEvent(event, qanda)
+        val teamMembers = api.fetchTeamMembers(eventId)
+        eventDao.insertEvent(event, qanda, teamMembers)
         partnerDao.insertPartners(eventId, partners)
         val etag = settings.lastEtag(eventId)
         try {
@@ -80,6 +83,21 @@ internal class EventRepositoryImpl(
 
     override fun coc(): Flow<CodeOfConduct> = settings.fetchEventId()
         .flatMapConcat { eventDao.fetchCoC(eventId = it) }
+
+    override fun teamMembers(): Flow<List<TeamMemberItem>> = settings.fetchEventId()
+        .flatMapConcat { eventDao.fetchTeamMembers(eventId = it) }
+
+    override fun teamMember(memberId: String): Flow<TeamMember?> = settings.fetchEventId()
+        .flatMapConcat {
+            combine(
+                flow = eventDao.fetchTeamMember(eventId = it, memberId = memberId),
+                flow2 = socialDao.fetchSocials(eventId = it, extId = memberId),
+                transform = { teamMember, socials ->
+                    if (teamMember == null) return@combine null
+                    TeamMember(info = teamMember, socials = socials)
+                }
+            )
+        }
 
     override fun featureFlags(): Flow<FeatureFlags> = settings.fetchEventId()
         .flatMapConcat { eventDao.fetchFeatureFlags(eventId = it) }

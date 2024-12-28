@@ -12,10 +12,13 @@ import com.paligot.confily.core.events.entities.FeatureFlags
 import com.paligot.confily.core.events.entities.MenuItem
 import com.paligot.confily.core.events.entities.QAndAAction
 import com.paligot.confily.core.events.entities.QAndAItem
+import com.paligot.confily.core.events.entities.TeamMemberInfo
+import com.paligot.confily.core.events.entities.TeamMemberItem
 import com.paligot.confily.db.ConfilyDatabase
 import com.paligot.confily.models.Attendee
 import com.paligot.confily.models.EventV4
 import com.paligot.confily.models.QuestionAndResponse
+import com.paligot.confily.models.TeamMember
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.Flow
@@ -68,6 +71,18 @@ class EventDaoSQLDelight(
     override fun fetchCoC(eventId: String): Flow<CodeOfConduct> =
         db.eventQueries.selectCoc(eventId, cocMapper).asFlow().mapToOne(dispatcher)
 
+    override fun fetchTeamMembers(eventId: String): Flow<List<TeamMemberItem>> = db
+        .teamMemberQueries
+        .selectTeamMembers(eventId, teamMemberItemMapper)
+        .asFlow()
+        .mapToList(dispatcher)
+
+    override fun fetchTeamMember(eventId: String, memberId: String): Flow<TeamMemberInfo?> = db
+        .teamMemberQueries
+        .selectTeamMember(eventId, memberId, teamMemberMapper)
+        .asFlow()
+        .mapToOneOrNull(dispatcher)
+
     override fun fetchFeatureFlags(eventId: String): Flow<FeatureFlags> = db
         .featuresActivatedQueries
         .selectFeatures(eventId)
@@ -80,11 +95,16 @@ class EventDaoSQLDelight(
                 hasPartnerList = features?.has_partner_list ?: false,
                 hasMenus = features?.has_menus ?: false,
                 hasQAndA = features?.has_qanda ?: false,
-                hasTicketIntegration = features?.has_billet_web_ticket ?: false
+                hasTicketIntegration = features?.has_billet_web_ticket ?: false,
+                hasTeamMembers = features?.has_team_members ?: false
             )
         }
 
-    override fun insertEvent(event: EventV4, qAndA: List<QuestionAndResponse>) = db.transaction {
+    override fun insertEvent(
+        event: EventV4,
+        qAndA: List<QuestionAndResponse>,
+        teamMembers: List<TeamMember>
+    ) = db.transaction {
         val eventDb = event.convertToModelDb()
         db.eventQueries.insertEvent(
             id = eventDb.id,
@@ -133,6 +153,25 @@ class EventDaoSQLDelight(
         event.menus.forEach {
             db.menuQueries.insertMenu(it.name, it.dish, it.accompaniment, it.dessert, event.id)
         }
+        teamMembers.forEach { teamMember ->
+            db.teamMemberQueries.insertTeamMember(
+                id = teamMember.id,
+                order_ = teamMember.order.toLong(),
+                event_id = eventDb.id,
+                name = teamMember.displayName,
+                role = teamMember.role,
+                bio = teamMember.bio,
+                photo_url = teamMember.photoUrl
+            )
+            teamMember.socials.forEach {
+                db.socialQueries.insertSocial(
+                    url = it.url,
+                    type = it.type.name.lowercase(),
+                    ext_id = teamMember.id,
+                    event_id = eventDb.id
+                )
+            }
+        }
         db.featuresActivatedQueries.insertFeatures(
             event_id = eventDb.id,
             has_networking = event.features.hasNetworking,
@@ -140,7 +179,8 @@ class EventDaoSQLDelight(
             has_partner_list = event.features.hasPartnerList,
             has_menus = event.features.hasMenus,
             has_qanda = event.features.hasQAndA,
-            has_billet_web_ticket = event.features.hasBilletWebTicket
+            has_billet_web_ticket = event.features.hasBilletWebTicket,
+            has_team_members = teamMembers.isNotEmpty()
         )
     }
 

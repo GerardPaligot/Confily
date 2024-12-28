@@ -8,6 +8,8 @@ import com.paligot.confily.core.events.entities.EventItemList
 import com.paligot.confily.core.events.entities.FeatureFlags
 import com.paligot.confily.core.events.entities.MenuItem
 import com.paligot.confily.core.events.entities.QAndAItem
+import com.paligot.confily.core.events.entities.TeamMember
+import com.paligot.confily.core.events.entities.TeamMemberItem
 import com.paligot.confily.core.kvalue.ConferenceSettings
 import com.paligot.confily.core.networking.UserDao
 import com.paligot.confily.core.networking.entities.UserTicket
@@ -26,6 +28,8 @@ interface EventRepository {
     fun qanda(): Flow<ImmutableList<QAndAItem>>
     fun menus(): Flow<ImmutableList<MenuItem>>
     fun coc(): Flow<CodeOfConduct>
+    fun teamMembers(): Flow<List<TeamMemberItem>>
+    fun teamMember(memberId: String): Flow<TeamMember?>
     fun featureFlags(): Flow<FeatureFlags>
     fun isInitialized(defaultEvent: String? = null): Boolean
     fun saveEventId(eventId: String)

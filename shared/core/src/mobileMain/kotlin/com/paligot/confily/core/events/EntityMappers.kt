@@ -4,6 +4,8 @@ import com.paligot.confily.core.events.entities.CodeOfConduct
 import com.paligot.confily.core.events.entities.EventInfo
 import com.paligot.confily.core.events.entities.EventItem
 import com.paligot.confily.core.events.entities.MenuItem
+import com.paligot.confily.core.events.entities.TeamMemberInfo
+import com.paligot.confily.core.events.entities.TeamMemberItem
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
@@ -42,4 +44,13 @@ internal val menuMapper = { name: String, dish: String, accompaniment: String, d
 
 internal val cocMapper = { url: String, coc: String?, email: String?, phone: String? ->
     CodeOfConduct(url = url, content = coc, phone = phone, email = email)
+}
+
+internal val teamMemberItemMapper = { id: String, name: String, role: String?, photoUrl: String? ->
+    TeamMemberItem(id = id, displayName = name, role = role, photoUrl = photoUrl)
+}
+
+internal val teamMemberMapper = { id: String, name: String, bio: String, role: String?,
+    photoUrl: String? ->
+    TeamMemberInfo(id = id, displayName = name, bio = bio, role = role, photoUrl = photoUrl)
 }

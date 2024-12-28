@@ -39,7 +39,8 @@ class FeaturesActivatedDb(
     val hasPartnerList: Boolean,
     val hasMenus: Boolean,
     val hasQanda: Boolean,
-    val hasBilletWebTicket: Boolean
+    val hasBilletWebTicket: Boolean,
+    val hasTeamMembers: Boolean
 )
 
 @Serializable
@@ -75,4 +76,13 @@ class QAndAActionDb(
     val eventId: String,
     val label: String,
     val url: String
+)
+
+class TeamMemberDb(
+    val eventId: String,
+    val id: String,
+    val name: String,
+    val bio: String,
+    val role: String?,
+    val photoUrl: String?
 )

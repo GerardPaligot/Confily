@@ -1,0 +1,25 @@
+CREATE TABLE TeamMember(
+id TEXT NOT NULL PRIMARY KEY,
+order_ INTEGER NOT NULL,
+event_id TEXT NOT NULL,
+name TEXT NOT NULL,
+bio TEXT NOT NULL,
+role TEXT,
+photo_url TEXT
+);
+
+insertTeamMember:
+INSERT OR REPLACE INTO TeamMember(
+id, order_, event_id, name, bio, role, photo_url
+) VALUES (?, ?, ?, ?, ?, ?, ?);
+
+selectTeamMembers:
+SELECT id, name, role, photo_url
+FROM TeamMember
+WHERE event_id == ?
+ORDER BY order_;
+
+selectTeamMember:
+SELECT id, name, bio, role, photo_url
+FROM TeamMember
+WHERE id == ? AND event_id == ?;

@@ -8,6 +8,7 @@ import com.paligot.confily.core.events.EventQueries
 import com.paligot.confily.core.events.FeaturesActivatedQueries
 import com.paligot.confily.core.events.MenuQueries
 import com.paligot.confily.core.events.QAndAQueries
+import com.paligot.confily.core.events.TeamMembersQueries
 import com.paligot.confily.core.kvalue.ConferenceSettings
 import com.paligot.confily.core.networking.UserDao
 import com.paligot.confily.core.networking.UserDaoSettings
@@ -54,6 +55,7 @@ actual val databasesModule: Module = module {
     single { CategoryQueries(settings = get()) }
     single { FormatQueries(settings = get()) }
     single { SpeakerQueries(settings = get()) }
+    single { TeamMembersQueries(settings = get()) }
     single {
         SessionQueries(
             settings = get(),
@@ -67,6 +69,8 @@ actual val databasesModule: Module = module {
             eventQueries = get(),
             qAndAQueries = get(),
             menuQueries = get(),
+            teamMembersQueries = get(),
+            socialQueries = get(),
             featuresActivatedQueries = get()
         )
     }

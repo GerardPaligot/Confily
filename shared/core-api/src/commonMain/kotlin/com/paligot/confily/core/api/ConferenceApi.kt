@@ -7,6 +7,7 @@ import com.paligot.confily.models.EventList
 import com.paligot.confily.models.EventV4
 import com.paligot.confily.models.PartnersActivities
 import com.paligot.confily.models.QuestionAndResponse
+import com.paligot.confily.models.TeamMember
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.engine.HttpClientEngine
@@ -50,9 +51,8 @@ class ConferenceApi(
     suspend fun fetchPartnersActivities(eventId: String): PartnersActivities =
         client.get("$baseUrl/events/$eventId/partners/activities").body()
 
-    suspend fun fetchAttendee(eventId: String, barcode: String) =
-        client.get("$baseUrl/events/$eventId/billet-web/$barcode")
-            .body<Attendee>()
+    suspend fun fetchAttendee(eventId: String, barcode: String): Attendee =
+        client.get("$baseUrl/events/$eventId/billet-web/$barcode").body()
 
     suspend fun fetchAgenda(eventId: String, etag: String?): Pair<String, AgendaV4> {
         val response = client.get("$baseUrl/events/$eventId/agenda") {
@@ -65,6 +65,9 @@ class ConferenceApi(
         }
         return response.etag()!! to response.body()
     }
+
+    suspend fun fetchTeamMembers(eventId: String): List<TeamMember> =
+        client.get("$baseUrl/events/$eventId/team-members").body()
 
     companion object {
         fun create(
