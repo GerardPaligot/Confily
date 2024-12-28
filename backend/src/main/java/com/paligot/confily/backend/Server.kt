@@ -10,6 +10,7 @@ import com.paligot.confily.backend.schedules.registerSchedulersRoutes
 import com.paligot.confily.backend.sessions.registerSessionsRoutes
 import com.paligot.confily.backend.speakers.registerSpeakersRoutes
 import com.paligot.confily.backend.talks.registerTalksRoutes
+import com.paligot.confily.backend.team.registerTeamRoutes
 import com.paligot.confily.backend.third.parties.billetweb.registerBilletWebRoutes
 import com.paligot.confily.backend.third.parties.cms4partners.registerCms4PartnersRoutes
 import com.paligot.confily.backend.third.parties.conferencehall.registerConferenceHallRoutes
@@ -96,6 +97,7 @@ fun main() {
                 registerSchedulersRoutes()
                 registerActivitiesRoutes()
                 registerPartnersRoutes()
+                registerTeamRoutes()
                 // Third parties
                 registerBilletWebRoutes()
                 registerCms4PartnersRoutes()

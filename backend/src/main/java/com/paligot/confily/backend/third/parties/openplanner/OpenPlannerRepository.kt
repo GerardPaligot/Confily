@@ -17,6 +17,8 @@ import com.paligot.confily.backend.sessions.SessionDao
 import com.paligot.confily.backend.sessions.SessionDb
 import com.paligot.confily.backend.speakers.SpeakerDao
 import com.paligot.confily.backend.speakers.SpeakerDb
+import com.paligot.confily.backend.team.TeamDao
+import com.paligot.confily.backend.team.TeamDb
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -34,6 +36,7 @@ class OpenPlannerRepository(
     private val formatDao: FormatDao,
     private val scheduleItemDao: ScheduleItemDao,
     private val qAndADao: QAndADao,
+    private val teamDao: TeamDao,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
     suspend fun update(eventId: String, apiKey: String) = coroutineScope {
@@ -52,6 +55,9 @@ class OpenPlannerRepository(
                     createOrMergeQAndA(eventId, index, event.defaultLanguage, faqItemOP)
                 }
             }
+            .awaitAll()
+        val teamMembers = openPlanner.team
+            .map { async(dispatcher) { createOrMergeTeamMember(eventId, it) } }
             .awaitAll()
         val categories = openPlanner.event.categories
             .map { async(dispatcher) { createOrMergeCategory(eventId, it) } }
@@ -91,7 +97,7 @@ class OpenPlannerRepository(
             }
             .awaitAll()
             .flatten()
-        clean(event, qandas, categories, formats, speakers, schedules)
+        clean(event, qandas, categories, formats, speakers, schedules, teamMembers)
         eventDao.updateAgendaUpdatedAt(event)
     }
 
@@ -102,9 +108,11 @@ class OpenPlannerRepository(
         categories: List<CategoryDb>,
         formats: List<FormatDb>,
         speakers: List<SpeakerDb>,
-        schedules: List<ScheduleDb>
+        schedules: List<ScheduleDb>,
+        teamMembers: List<TeamDb>
     ) = coroutineScope {
         qAndADao.deleteDiff(event.slugId, qandas.map { it.id!! })
+        teamDao.deleteDiff(event.slugId, teamMembers.map { it.id!! })
         categoryDao.deleteDiff(event.slugId, categories.map { it.id!! })
         formatDao.deleteDiff(event.slugId, formats.map { it.id!! })
         speakerDao.deleteDiff(event.slugId, speakers.map { it.id })
@@ -128,6 +136,41 @@ class OpenPlannerRepository(
         val item = faqItemOP.convertToQAndADb(order = order, language = language)
         qAndADao.createOrUpdate(eventId, item)
         return item
+    }
+
+    private suspend fun createOrMergeTeamMember(
+        eventId: String,
+        team: TeamOP
+    ): TeamDb {
+        val existing = teamDao.get(eventId, team.id)
+        return if (existing == null) {
+            val photoUrl = getAvatarUrl(eventId, team)
+            val item = team.convertToTeamDb(photoUrl)
+            teamDao.createOrUpdate(eventId, item)
+            item
+        } else {
+            val photoUrl = getAvatarUrl(eventId, team)
+            val item = existing.mergeWith(photoUrl, team)
+            teamDao.createOrUpdate(eventId, item)
+            item
+        }
+    }
+
+    private suspend fun getAvatarUrl(eventId: String, team: TeamOP) = try {
+        if (team.photoUrl != null) {
+            val avatar = commonApi.fetchByteArray(team.photoUrl)
+            val bucketItem = teamDao.saveTeamPicture(
+                eventId = eventId,
+                id = team.id,
+                content = avatar,
+                mimeType = team.photoUrl.mimeType
+            )
+            bucketItem.url
+        } else {
+            null
+        }
+    } catch (_: Throwable) {
+        team.photoUrl
     }
 
     private suspend fun createOrMergeCategory(eventId: String, category: CategoryOP): CategoryDb {

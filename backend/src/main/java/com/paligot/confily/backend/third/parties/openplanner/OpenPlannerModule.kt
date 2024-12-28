@@ -8,6 +8,7 @@ import com.paligot.confily.backend.qanda.QAndAModule.qAndADao
 import com.paligot.confily.backend.schedules.ScheduleModule.scheduleItemDao
 import com.paligot.confily.backend.sessions.SessionModule.sessionDao
 import com.paligot.confily.backend.speakers.SpeakerModule.speakerDao
+import com.paligot.confily.backend.team.TeamModule.teamDao
 
 object OpenPlannerModule {
     val openPlannerApi = lazy { OpenPlannerApi.Factory.create(enableNetworkLogs = true) }
@@ -21,7 +22,8 @@ object OpenPlannerModule {
             categoryDao.value,
             formatDao.value,
             scheduleItemDao.value,
-            qAndADao.value
+            qAndADao.value,
+            teamDao.value
         )
     }
 }

@@ -13,7 +13,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavDestination.Companion.hasRoute
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -24,6 +23,7 @@ import com.paligot.confily.models.ui.ExportNetworkingUi
 import com.paligot.confily.networking.presentation.networkingGraph
 import com.paligot.confily.partners.presentation.partnerGraph
 import com.paligot.confily.schedules.presentation.scheduleGraph
+import com.paligot.confily.schedules.routes.ScheduleList
 import com.paligot.confily.speakers.presentation.speakerGraph
 import com.paligot.confily.style.components.adaptive.isCompat
 import com.paligot.confily.style.theme.appbars.iconColor
@@ -78,7 +78,7 @@ fun MainNavigation(
                             },
                             onClick = {
                                 navController.navigate(action.route) {
-                                    popUpTo(navController.graph.findStartDestination()) {
+                                    popUpTo(ScheduleList) {
                                         saveState = true
                                     }
                                     launchSingleTop = true

@@ -17,14 +17,14 @@ interface Storage {
     }
 }
 
-enum class MimeType(val value: String) {
-    PNG("image/png"),
-    JPEG("image/jpeg"),
-    GIF("image/gif"),
-    SVG("image/svg+xml"),
-    WEBP("image/webp"),
-    JSON("application/json"),
-    OCTET_STREAM("application/octet-stream")
+enum class MimeType(val value: String, val extension: String) {
+    PNG("image/png", "png"),
+    JPEG("image/jpeg", "jpeg"),
+    GIF("image/gif", "gif"),
+    SVG("image/svg+xml", "svg"),
+    WEBP("image/webp", "webp"),
+    JSON("application/json", "json"),
+    OCTET_STREAM("application/octet-stream", "bin")
 }
 
 data class Upload(

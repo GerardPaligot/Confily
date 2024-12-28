@@ -8,7 +8,8 @@ data class OpenPlanner(
     val event: EventOP,
     val speakers: List<SpeakerOP>,
     val sessions: List<SessionOP>,
-    val faq: List<FaqSectionOP>
+    val faq: List<FaqSectionOP>,
+    val team: List<TeamOP>
 )
 
 @Serializable
@@ -99,4 +100,14 @@ data class FaqItemOP(
     val order: Int,
     val question: String,
     val answer: String
+)
+
+@Serializable
+data class TeamOP(
+    val id: String,
+    val name: String,
+    val bio: String? = null,
+    val photoUrl: String? = null,
+    val role: String? = null,
+    val socials: List<SocialOP>
 )
