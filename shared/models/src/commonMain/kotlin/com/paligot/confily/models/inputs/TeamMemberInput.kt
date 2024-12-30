@@ -5,6 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class TeamMemberInput(
+    val order: Int? = null,
     @SerialName("display_name")
     val displayName: String,
     val bio: String,

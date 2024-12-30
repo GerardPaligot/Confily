@@ -271,7 +271,7 @@ fun FaqItemOP.convertToQAndADb(order: Int, language: String): QAndADb {
     )
 }
 
-fun TeamOP.convertToTeamDb(photoUrl: String?): TeamDb {
+fun TeamOP.convertToTeamDb(order: Int, photoUrl: String?): TeamDb {
     val linkedin = socials.find { it.name.lowercase() == SocialType.LinkedIn.name.lowercase() }
         ?.link
     val x = socials.find { it.name.lowercase() == SocialType.X.name.lowercase() }?.link
@@ -289,6 +289,7 @@ fun TeamOP.convertToTeamDb(photoUrl: String?): TeamDb {
     val website = socials.find { it.name.lowercase() == SocialType.Website.name.lowercase() }?.link
     return TeamDb(
         id = id,
+        order = order,
         name = name,
         bio = bio ?: "",
         photoUrl = photoUrl,
@@ -355,6 +356,7 @@ fun TeamDb.mergeWith(photoUrl: String?, teamOP: TeamOP): TeamDb {
     val website = teamOP.socials.find { it.name.lowercase() == "website" }?.link
     return TeamDb(
         id = teamOP.id,
+        order = order,
         name = if (this.name == teamOP.name) this.name else teamOP.name,
         bio = if (this.bio == teamOP.bio) this.bio else teamOP.bio ?: "",
         role = if (this.role == teamOP.role) this.role else teamOP.role,

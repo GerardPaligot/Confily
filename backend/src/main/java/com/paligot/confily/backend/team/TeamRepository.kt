@@ -19,7 +19,11 @@ class TeamRepository(
     suspend fun create(eventId: String, apiKey: String, teamInput: TeamMemberInput) =
         coroutineScope {
             val event = eventDao.getVerified(eventId, apiKey)
-            val teamDb = teamInput.convertToDb(photoUrl = teamInput.photoUrl)
+            val order = teamDao.last(eventId)?.order
+            val teamDb = teamInput.convertToDb(
+                lastOrder = order,
+                photoUrl = teamInput.photoUrl
+            )
             val id = teamDao.createOrUpdate(eventId, teamDb)
             if (teamInput.photoUrl != null) {
                 val avatar = commonApi.fetchByteArray(teamInput.photoUrl!!)
@@ -60,8 +64,13 @@ class TeamRepository(
         } else {
             null
         }
-        val speakerDb = teamMemberInput.convertToDb(photoUrl = photoUrl, teamMemberId)
+        val lastOrder = teamDao.last(eventId)?.order
+        val teamDb = teamMemberInput.convertToDb(
+            lastOrder = lastOrder,
+            photoUrl = photoUrl,
+            id = teamMemberId
+        )
         eventDao.updateAgendaUpdatedAt(event)
-        return@coroutineScope teamDao.createOrUpdate(eventId, speakerDb)
+        return@coroutineScope teamDao.createOrUpdate(eventId, teamDb)
     }
 }

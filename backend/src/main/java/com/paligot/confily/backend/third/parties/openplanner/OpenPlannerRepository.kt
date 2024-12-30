@@ -57,7 +57,9 @@ class OpenPlannerRepository(
             }
             .awaitAll()
         val teamMembers = openPlanner.team
-            .map { async(dispatcher) { createOrMergeTeamMember(eventId, it) } }
+            .mapIndexed { index, it ->
+                async(dispatcher) { createOrMergeTeamMember(eventId, it, index) }
+            }
             .awaitAll()
         val categories = openPlanner.event.categories
             .map { async(dispatcher) { createOrMergeCategory(eventId, it) } }
@@ -140,12 +142,13 @@ class OpenPlannerRepository(
 
     private suspend fun createOrMergeTeamMember(
         eventId: String,
-        team: TeamOP
+        team: TeamOP,
+        index: Int
     ): TeamDb {
         val existing = teamDao.get(eventId, team.id)
         return if (existing == null) {
             val photoUrl = getAvatarUrl(eventId, team)
-            val item = team.convertToTeamDb(photoUrl)
+            val item = team.convertToTeamDb(index, photoUrl)
             teamDao.createOrUpdate(eventId, item)
             item
         } else {

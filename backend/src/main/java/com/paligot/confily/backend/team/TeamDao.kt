@@ -29,6 +29,15 @@ class TeamDao(
         .collection(CollectionName)
         .getDocuments()
 
+    fun last(eventId: String): TeamDb? = firestore
+        .collection(projectName)
+        .document(eventId)
+        .collection(CollectionName)
+        .orderBy("order")
+        .limitToLast(1)
+        .getDocuments<TeamDb>()
+        .firstOrNull()
+
     fun createOrUpdate(eventId: String, item: TeamDb): String {
         return if (item.id == "") {
             firestore

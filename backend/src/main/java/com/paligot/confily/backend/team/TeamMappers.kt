@@ -7,6 +7,7 @@ import com.paligot.confily.models.inputs.TeamMemberInput
 
 fun TeamDb.convertToModel() = TeamMember(
     id = id,
+    order = order,
     displayName = name,
     bio = bio,
     role = role,
@@ -14,8 +15,13 @@ fun TeamDb.convertToModel() = TeamMember(
     socials = socials.map { it.convertToModel() }
 )
 
-fun TeamMemberInput.convertToDb(photoUrl: String?, id: String? = null) = TeamDb(
+fun TeamMemberInput.convertToDb(
+    lastOrder: Int?,
+    photoUrl: String?,
+    id: String? = null
+) = TeamDb(
     id = id ?: "",
+    order = lastOrder?.plus(1) ?: this.order ?: 0,
     name = displayName,
     bio = bio,
     role = role,
