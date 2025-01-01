@@ -56,6 +56,9 @@ class InfoViewModel(
                             add(TabActions.qanda)
                         }
                         add(TabActions.coc)
+                        if (features.hasTeamMembers) {
+                            add(TabActions.teamMembers)
+                        }
                     }.toImmutableList()
                 ),
                 fabAction = when (route) {

@@ -46,7 +46,7 @@ class FilteringScheduleTest : KoinTest {
     @Before
     fun setup() {
         settings.insertEventId(BuildConfig.DEFAULT_EVENT)
-        eventDao.insertEvent(event = event, qAndA = emptyList())
+        eventDao.insertEvent(event = event, qAndA = emptyList(), teamMembers = emptyList())
         sessionDao.insertAgenda(BuildConfig.DEFAULT_EVENT, agenda)
     }
 

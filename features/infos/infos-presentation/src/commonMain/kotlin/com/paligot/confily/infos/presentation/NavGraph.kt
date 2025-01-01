@@ -8,6 +8,7 @@ import com.paligot.confily.events.routes.EventList
 import com.paligot.confily.infos.panes.TicketQrCodeScanner
 import com.paligot.confily.infos.routes.Info
 import com.paligot.confily.infos.routes.ScannerTicket
+import com.paligot.confily.infos.routes.TeamMember
 import com.paligot.confily.schedules.routes.ScheduleList
 
 fun NavGraphBuilder.infoGraph(
@@ -33,7 +34,8 @@ fun NavGraphBuilder.infoGraph(
                 }
             },
             onReportByPhoneClicked = onReportByPhoneClicked,
-            onReportByEmailClicked = onReportByEmailClicked
+            onReportByEmailClicked = onReportByEmailClicked,
+            onTeamMemberClicked = { navController.navigate(TeamMember(it)) }
         )
     }
     composable<ScannerTicket> {
@@ -42,5 +44,8 @@ fun NavGraphBuilder.infoGraph(
             onQrCodeDetected = onQrCodeDetected,
             onBackClicked = { navController.popBackStack() }
         )
+    }
+    composable<TeamMember> {
+        TeamMemberVM(onLinkClicked = launchUrl)
     }
 }

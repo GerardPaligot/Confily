@@ -79,7 +79,7 @@ class EventDaoSQLDelight(
 
     override fun fetchTeamMember(eventId: String, memberId: String): Flow<TeamMemberInfo?> = db
         .teamMemberQueries
-        .selectTeamMember(eventId, memberId, teamMemberMapper)
+        .selectTeamMember(memberId, eventId, teamMemberMapper)
         .asFlow()
         .mapToOneOrNull(dispatcher)
 

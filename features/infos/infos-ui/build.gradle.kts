@@ -15,6 +15,8 @@ kotlin {
                 implementation(projects.features.navigation)
                 implementation(projects.style.components.markdown)
                 implementation(projects.style.components.placeholder)
+                implementation(projects.style.events)
+                implementation(projects.style.speakers)
                 implementation(projects.style.theme)
 
                 implementation(compose.components.resources)

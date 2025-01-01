@@ -26,6 +26,7 @@ fun InfoCompactVM(
     onDisconnectedClicked: () -> Unit,
     onReportByPhoneClicked: (String) -> Unit,
     onReportByEmailClicked: (String) -> Unit,
+    onTeamMemberClicked: (String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: InfoViewModel = koinViewModel()
 ) {
@@ -94,6 +95,11 @@ fun InfoCompactVM(
                         TabActions.coc.route -> CoCVM(
                             onReportByPhoneClicked = onReportByPhoneClicked,
                             onReportByEmailClicked = onReportByEmailClicked,
+                            modifier = Modifier.fillMaxSize()
+                        )
+
+                        TabActions.teamMembers.route -> TeamMemberListVM(
+                            onTeamMemberClicked = onTeamMemberClicked,
                             modifier = Modifier.fillMaxSize()
                         )
 

@@ -45,7 +45,7 @@ class ScheduleDetailsTest : KoinTest {
     @Before
     fun setup() {
         settings.insertEventId(BuildConfig.DEFAULT_EVENT)
-        eventDao.insertEvent(event, emptyList())
+        eventDao.insertEvent(event, emptyList(), emptyList())
         sessionDao.insertAgenda(BuildConfig.DEFAULT_EVENT, agenda)
     }
 

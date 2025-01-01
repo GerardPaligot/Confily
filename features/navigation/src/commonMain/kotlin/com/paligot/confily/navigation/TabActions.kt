@@ -6,6 +6,7 @@ import com.paligot.confily.infos.routes.CoC
 import com.paligot.confily.infos.routes.Info
 import com.paligot.confily.infos.routes.Menus
 import com.paligot.confily.infos.routes.QAndA
+import com.paligot.confily.infos.routes.TeamMembers
 import com.paligot.confily.networking.routes.Contacts
 import com.paligot.confily.networking.routes.MyProfile
 import com.paligot.confily.partners.routes.Partner
@@ -21,6 +22,7 @@ import com.paligot.confily.resources.screen_my_profile
 import com.paligot.confily.resources.screen_partners
 import com.paligot.confily.resources.screen_partners_activities
 import com.paligot.confily.resources.screen_qanda
+import com.paligot.confily.resources.screen_team
 import com.paligot.confily.style.theme.actions.TabAction
 
 object TabActions {
@@ -63,5 +65,9 @@ object TabActions {
     val coc = TabAction(
         route = CoC.navDeeplink(),
         labelId = Resource.string.screen_coc
+    )
+    val teamMembers = TabAction(
+        route = TeamMembers.navDeeplink(),
+        labelId = Resource.string.screen_team
     )
 }
