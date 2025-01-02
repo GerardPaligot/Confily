@@ -81,6 +81,7 @@
 "actionProfile" = "Create my profile";
 "actionTicketScanner" = "Scan your ticket";
 "actionMenus" = "Menus";
+"actionsTeam" = "Organizers";
 "actionChangeEvent" = "Change event";
 "actionGenerateQrcode" = "Generate your QR code";
 "actionFilteringFavorites" = "Only favorites schedules";

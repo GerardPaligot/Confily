@@ -10,15 +10,19 @@ import SwiftUI
 import SharedDi
 
 struct SpeakerItemView: View {
-    var speakerUi: SpeakerItemUi
+    var url: String?
+    var title: String
+    var description: String
     
     var body: some View {
         HStack(alignment: .center, spacing: 16) {
-            SpeakerAvatarView(url: speakerUi.url, size: .medium)
+            if (url != nil) {
+                SpeakerAvatarView(url: url!, size: .medium)
+            }
             VStack(alignment: .leading) {
-                Text(speakerUi.name)
+                Text(title)
                     .font(Font.callout.bold())
-                Text(speakerUi.activity)
+                Text(description)
                     .foregroundColor(.secondary)
                     .font(Font.caption)
             }
@@ -30,7 +34,9 @@ struct SpeakerItemView: View {
 struct SpeakerItemView_Previews: PreviewProvider {
     static var previews: some View {
         SpeakerItemView(
-            speakerUi: SpeakerItemUi.companion.fake
+            url: SpeakerItemUi.companion.fake.url,
+            title: SpeakerItemUi.companion.fake.name,
+            description: SpeakerItemUi.companion.fake.activity
         )
     }
 }

@@ -62,4 +62,12 @@ class ViewModelFactory: ObservableObject {
     func makeMenusViewModel() -> MenusViewModel {
         return MenusViewModel()
     }
+    
+    func makeTeamMembersViewModel() -> TeamMembersViewModel {
+        return TeamMembersViewModel()
+    }
+    
+    func makeTeamMemberViewModel(memberId: String) -> TeamMemberViewModel {
+        return TeamMemberViewModel(memberId: memberId)
+    }
 }

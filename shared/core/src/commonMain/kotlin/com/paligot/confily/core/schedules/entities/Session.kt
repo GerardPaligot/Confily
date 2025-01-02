@@ -50,7 +50,7 @@ fun Session.mapToTalkUi(strings: Strings): TalkUi {
         room = room,
         speakers = speakers.map { it.mapToSpeakerItemUi(strings) }.toImmutableList(),
         speakersSharing = speakers.joinToString(", ") { it.displayName },
-        canGiveFeedback = now > startTime,
+        canGiveFeedback = now > startTime && feedback != null,
         openFeedbackProjectId = feedback?.projectId,
         openFeedbackSessionId = feedback?.sessionId,
         openFeedbackUrl = feedback?.url

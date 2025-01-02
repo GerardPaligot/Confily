@@ -75,6 +75,7 @@ struct Event: View {
                     Text("actionTicketScanner")
                 }
                 MenusNavigation()
+                TeamMembersNavigation()
                 AddressCardView(formattedAddress: event.eventInfo.formattedAddress)
                 Link("actionItinerary", destination: URL(string: "maps://?saddr=&daddr=\(event.eventInfo.latitude),\(event.eventInfo.longitude)")!)
             }

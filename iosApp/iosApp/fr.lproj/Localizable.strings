@@ -80,6 +80,7 @@
 "actionProfile" = "Crée ton profil";
 "actionTicketScanner" = "Scan ton ticket";
 "actionMenus" = "Menus";
+"actionsTeam" = "Equipe organisatrice";
 "actionChangeEvent" = "Changer d'évènement";
 "actionGenerateQrcode" = "Générer ton Qrcode";
 "actionFilteringFavorites" = "Seulement les conférences en favoris";
