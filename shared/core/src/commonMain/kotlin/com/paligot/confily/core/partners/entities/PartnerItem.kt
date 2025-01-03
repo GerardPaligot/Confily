@@ -1,6 +1,6 @@
 package com.paligot.confily.core.partners.entities
 
-import com.paligot.confily.models.ui.PartnerItemUi
+import com.paligot.confily.partners.ui.models.PartnerItemUi
 import kotlin.native.ObjCName
 
 @ObjCName("PartnerItemEntity")

@@ -10,20 +10,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.paligot.confily.models.ui.PartnerUi
-import com.paligot.confily.models.ui.findBluesky
-import com.paligot.confily.models.ui.findEmail
-import com.paligot.confily.models.ui.findFacebook
-import com.paligot.confily.models.ui.findGitHub
-import com.paligot.confily.models.ui.findInstagram
-import com.paligot.confily.models.ui.findLinkedIn
-import com.paligot.confily.models.ui.findMastodon
-import com.paligot.confily.models.ui.findWebsite
-import com.paligot.confily.models.ui.findX
-import com.paligot.confily.models.ui.findYouTube
+import com.paligot.confily.partners.ui.models.PartnerUi
+import com.paligot.confily.socials.ui.SocialsSection
 import com.paligot.confily.style.components.markdown.MarkdownText
 import com.paligot.confily.style.components.placeholder.placeholder
-import com.paligot.confily.style.events.socials.SocialsSection
 import com.paligot.confily.style.partners.items.PartnerItem
 
 @Composable
@@ -54,17 +44,7 @@ fun PartnerDetailSectionVertical(
             subtitle = null,
             onLinkClicked = onLinkClicked,
             isLoading = isLoading,
-            hasSocials = partnerUi.socials.isNotEmpty(),
-            xUrl = partnerUi.socials.findX()?.url,
-            mastodonUrl = partnerUi.socials.findMastodon()?.url,
-            blueskyUrl = partnerUi.socials.findBluesky()?.url,
-            facebookUrl = partnerUi.socials.findFacebook()?.url,
-            instagramUrl = partnerUi.socials.findInstagram()?.url,
-            youtubeUrl = partnerUi.socials.findYouTube()?.url,
-            githubUrl = partnerUi.socials.findGitHub()?.url,
-            linkedinUrl = partnerUi.socials.findLinkedIn()?.url,
-            websiteUrl = partnerUi.socials.findWebsite()?.url,
-            emailUrl = partnerUi.socials.findEmail()?.url
+            socials = partnerUi.socials
         )
         Spacer(modifier = Modifier.height(8.dp))
         MarkdownText(

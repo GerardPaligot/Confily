@@ -7,7 +7,7 @@ import androidx.navigation.toRoute
 import com.paligot.confily.core.events.EventRepository
 import com.paligot.confily.core.events.entities.mapToTeamMemberUi
 import com.paligot.confily.infos.routes.TeamMember
-import com.paligot.confily.models.ui.TeamMemberUi
+import com.paligot.confily.infos.ui.models.TeamMemberUi
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch

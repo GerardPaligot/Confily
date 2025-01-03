@@ -9,8 +9,8 @@ import com.paligot.confily.core.navigation.NavigationActionsUi
 import com.paligot.confily.core.navigation.NavigationBar
 import com.paligot.confily.core.networking.UserRepository
 import com.paligot.confily.core.networking.entities.UserItem
-import com.paligot.confily.models.ui.VCardModel
 import com.paligot.confily.navigation.BottomActions
+import com.paligot.confily.networking.ui.models.VCardModel
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow

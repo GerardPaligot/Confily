@@ -35,7 +35,6 @@ kotlin {
         implementation(projects.style.components.adaptive)
         implementation(projects.shared.core)
         implementation(projects.shared.coreNavigation)
-        implementation(projects.shared.uiModels)
         implementation(projects.shared.resources)
 
         implementation(compose.material3)

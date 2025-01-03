@@ -1,7 +1,7 @@
 package com.paligot.confily.core.schedules.entities
 
-import com.paligot.confily.models.ui.EventSessionItemUi
 import com.paligot.confily.resources.Strings
+import com.paligot.confily.schedules.ui.models.EventSessionItemUi
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.format

@@ -221,7 +221,7 @@ struct SocialHeaderView_Previews: PreviewProvider {
     static var previews: some View {
         SocialHeaderView(
             title: PartnerUi.companion.fake.name,
-            pronouns: SpeakerUi.companion.fake.pronouns,
+            pronouns: SpeakerUi.companion.fake.info.pronouns,
             logoUrl: PartnerUi.companion.fake.logoUrl,
             xUrl: PartnerUi.companion.fake.socials.first(where: { $0.type == SocialTypeUi.x })?.url,
             mastodonUrl: PartnerUi.companion.fake.socials.first(where: { $0.type == SocialTypeUi.mastodon })?.url,

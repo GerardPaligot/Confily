@@ -10,7 +10,7 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.paligot.confily.models.ui.PartnersActivitiesUi
+import com.paligot.confily.partners.ui.models.PartnersActivitiesUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.screen_partners
 import com.paligot.confily.style.theme.Scaffold

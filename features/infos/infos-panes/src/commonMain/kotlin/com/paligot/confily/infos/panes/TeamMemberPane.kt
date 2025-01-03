@@ -5,8 +5,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.paligot.confily.infos.ui.models.TeamMemberUi
 import com.paligot.confily.infos.ui.team.TeamDetailSection
-import com.paligot.confily.models.ui.TeamMemberUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.screen_team
 import com.paligot.confily.style.theme.Scaffold

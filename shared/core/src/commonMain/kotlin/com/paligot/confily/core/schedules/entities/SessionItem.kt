@@ -1,8 +1,8 @@
 package com.paligot.confily.core.schedules.entities
 
 import com.paligot.confily.core.speakers.entities.SpeakerItem
-import com.paligot.confily.models.ui.TalkItemUi
 import com.paligot.confily.resources.Strings
+import com.paligot.confily.schedules.ui.models.TalkItemUi
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone

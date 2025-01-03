@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paligot.confily.core.events.EventRepository
 import com.paligot.confily.core.events.entities.mapToTeamMemberItemUi
-import com.paligot.confily.models.ui.TeamMemberItemUi
+import com.paligot.confily.infos.ui.models.TeamMemberItemUi
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList

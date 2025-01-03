@@ -10,7 +10,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.paligot.confily.models.ui.TeamMemberItemUi
+import com.paligot.confily.infos.ui.models.TeamMemberItemUi
 import com.paligot.confily.style.components.placeholder.placeholder
 import com.paligot.confily.style.speakers.items.LargeSpeakerItem
 import com.paligot.confily.style.theme.SpacingTokens

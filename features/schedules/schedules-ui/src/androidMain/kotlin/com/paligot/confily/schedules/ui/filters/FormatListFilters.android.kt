@@ -4,7 +4,7 @@ import android.content.res.Configuration
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.paligot.confily.models.ui.FormatUi
+import com.paligot.confily.schedules.ui.models.FormatUi
 import com.paligot.confily.style.theme.ConfilyTheme
 import kotlinx.collections.immutable.persistentMapOf
 

@@ -27,42 +27,42 @@ struct SpeakerDetail: View {
                 HStack {
                     Spacer()
                     SocialHeaderView(
-                        title: speaker.name,
-                        pronouns: speaker.pronouns,
-                        logoUrl: speaker.url,
-                        xUrl: speaker.socials.first(where: { $0.type == SocialTypeUi.x })?.url,
-                        mastodonUrl: speaker.socials.first(where: { $0.type == SocialTypeUi.mastodon })?.url,
-                        blueskyUrl: speaker.socials.first(where: { $0.type == SocialTypeUi.bluesky })?.url,
-                        facebookUrl: speaker.socials.first(where: { $0.type == SocialTypeUi.facebook })?.url,
-                        instagramUrl: speaker.socials.first(where: { $0.type == SocialTypeUi.instagram })?.url,
-                        youtubeUrl: speaker.socials.first(where: { $0.type == SocialTypeUi.youtube })?.url,
-                        linkedInUrl: speaker.socials.first(where: { $0.type == SocialTypeUi.linkedin })?.url,
-                        websiteUrl: speaker.socials.first(where: { $0.type == SocialTypeUi.website })?.url,
-                        emailUrl: speaker.socials.first(where: { $0.type == SocialTypeUi.email })?.url
+                        title: speaker.info.name,
+                        pronouns: speaker.info.pronouns,
+                        logoUrl: speaker.info.url,
+                        xUrl: speaker.info.socials.first(where: { $0.type == SocialTypeUi.x })?.url,
+                        mastodonUrl: speaker.info.socials.first(where: { $0.type == SocialTypeUi.mastodon })?.url,
+                        blueskyUrl: speaker.info.socials.first(where: { $0.type == SocialTypeUi.bluesky })?.url,
+                        facebookUrl: speaker.info.socials.first(where: { $0.type == SocialTypeUi.facebook })?.url,
+                        instagramUrl: speaker.info.socials.first(where: { $0.type == SocialTypeUi.instagram })?.url,
+                        youtubeUrl: speaker.info.socials.first(where: { $0.type == SocialTypeUi.youtube })?.url,
+                        linkedInUrl: speaker.info.socials.first(where: { $0.type == SocialTypeUi.linkedin })?.url,
+                        websiteUrl: speaker.info.socials.first(where: { $0.type == SocialTypeUi.website })?.url,
+                        emailUrl: speaker.info.socials.first(where: { $0.type == SocialTypeUi.email })?.url
                     )
                     Spacer()
                 }
             }
             Section {
-                if (speaker.jobTitle != nil) {
+                if (speaker.info.jobTitle != nil) {
                     HStack(alignment: .center) {
                         Text("titleJob")
                         Spacer()
-                        Text(speaker.jobTitle!)
+                        Text(speaker.info.jobTitle!)
                             .foregroundColor(.secondary)
                     }
                     .accessibilityElement(children: .combine)
                 }
-                if (speaker.company != nil) {
+                if (speaker.info.company != nil) {
                     HStack(alignment: .center) {
                         Text("titleCompany")
                         Spacer()
-                        Text(speaker.company!)
+                        Text(speaker.info.company!)
                             .foregroundColor(.secondary)
                     }
                     .accessibilityElement(children: .combine)
                 }
-                Text(speaker.bio)
+                Text(speaker.info.bio)
                     .font(Font.callout)
             }
             Section {

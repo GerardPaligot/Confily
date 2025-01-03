@@ -5,8 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.paligot.confily.core.schedules.SessionRepository
 import com.paligot.confily.core.schedules.entities.Session
 import com.paligot.confily.core.speakers.entities.SpeakerItem
-import com.paligot.confily.models.ui.SpeakerItemUi
 import com.paligot.confily.resources.Strings
+import com.paligot.confily.schedules.ui.models.SpeakerItemUi
 import com.paligot.confily.wear.schedules.panes.SessionDetailModelUi
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.SharingStarted
@@ -51,9 +51,9 @@ private fun Session.mapToSessionDetailModelUi(strings: Strings) = SessionDetailM
 
 private fun SpeakerItem.mapToSpeakerItemUi(strings: Strings) = SpeakerItemUi(
     id = id,
-    name = displayName,
+    displayName = displayName,
     activity = displayActivity(strings) ?: "",
-    url = photoUrl
+    photoUrl = photoUrl
 )
 
 private fun SpeakerItem.displayActivity(strings: Strings) = when {

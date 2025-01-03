@@ -14,10 +14,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
-import com.paligot.confily.models.ui.SpeakerItemUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.screen_speakers
 import com.paligot.confily.speakers.semantics.SpeakersSemantics
+import com.paligot.confily.speakers.ui.models.SpeakerItemUi
 import com.paligot.confily.style.components.placeholder.placeholder
 import com.paligot.confily.style.speakers.items.LargeSpeakerItem
 import com.paligot.confily.style.theme.Scaffold

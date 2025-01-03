@@ -4,12 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paligot.confily.core.networking.UserRepository
 import com.paligot.confily.core.networking.entities.mapToExportNetworkingUi
-import com.paligot.confily.models.ui.ExportNetworkingUi
 import com.paligot.confily.navigation.FabActions
 import com.paligot.confily.navigation.TabActions
 import com.paligot.confily.navigation.TopActions
 import com.paligot.confily.networking.routes.Contacts
 import com.paligot.confily.networking.routes.MyProfile
+import com.paligot.confily.networking.ui.models.ExportNetworkingUi
 import com.paligot.confily.style.theme.actions.FabAction
 import com.paligot.confily.style.theme.actions.TabActionsUi
 import com.paligot.confily.style.theme.actions.TopActionsUi

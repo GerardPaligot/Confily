@@ -2,8 +2,8 @@ package com.paligot.confily.wear.schedules.panes
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
-import com.paligot.confily.models.ui.CategoryUi
-import com.paligot.confily.models.ui.SpeakerItemUi
+import com.paligot.confily.schedules.ui.models.CategoryUi
+import com.paligot.confily.schedules.ui.models.SpeakerItemUi
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.ImmutableMap
 

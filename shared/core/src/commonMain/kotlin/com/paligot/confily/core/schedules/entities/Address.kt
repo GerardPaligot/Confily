@@ -1,6 +1,6 @@
 package com.paligot.confily.core.schedules.entities
 
-import com.paligot.confily.models.ui.AddressUi
+import com.paligot.confily.schedules.ui.models.AddressUi
 import kotlinx.collections.immutable.toImmutableList
 import kotlin.native.ObjCName
 

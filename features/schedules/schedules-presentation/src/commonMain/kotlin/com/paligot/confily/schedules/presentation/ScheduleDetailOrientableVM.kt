@@ -33,7 +33,7 @@ fun ScheduleDetailOrientableVM(
                 is ScheduleUiState.Loading -> Text(text = stringResource(Resource.string.text_loading))
                 is ScheduleUiState.Failure -> Text(text = stringResource(Resource.string.text_error))
                 is ScheduleUiState.Success -> ScheduleDetailOrientableScreen(
-                    talk = uiState.talk,
+                    session = uiState.talk,
                     onBackClicked = onBackClicked,
                     onSpeakerClicked = onSpeakerClicked,
                     onShareClicked = onShareClicked,

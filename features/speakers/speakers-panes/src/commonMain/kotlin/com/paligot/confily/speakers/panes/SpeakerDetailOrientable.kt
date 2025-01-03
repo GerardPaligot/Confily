@@ -1,21 +1,19 @@
 package com.paligot.confily.speakers.panes
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.paligot.confily.models.ui.SpeakerUi
-import com.paligot.confily.models.ui.TalkItemUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.screen_speaker_detail
+import com.paligot.confily.schedules.ui.models.TalkItemUi
+import com.paligot.confily.speakers.panes.models.SpeakerUi
 import com.paligot.confily.style.theme.Scaffold
 import com.paligot.confily.style.theme.appbars.AppBarIcons
 import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun SpeakerDetailOrientable(
     speaker: SpeakerUi,
@@ -39,7 +37,7 @@ fun SpeakerDetailOrientable(
                 modifier = Modifier.padding(it)
             ) {
                 SpeakerAvatarScreen(
-                    url = speaker.url,
+                    url = speaker.info.url,
                     isLoading = isLoading,
                     modifier = Modifier.weight(1f)
                 )

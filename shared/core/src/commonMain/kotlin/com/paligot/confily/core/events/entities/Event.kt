@@ -3,7 +3,7 @@ package com.paligot.confily.core.events.entities
 import com.paligot.confily.core.extensions.formatLocalizedFull
 import com.paligot.confily.core.socials.entities.Social
 import com.paligot.confily.core.socials.entities.mapToSocialUi
-import com.paligot.confily.models.ui.EventInfoUi
+import com.paligot.confily.infos.ui.models.EventInfoUi
 import kotlinx.collections.immutable.toImmutableList
 import kotlin.native.ObjCName
 

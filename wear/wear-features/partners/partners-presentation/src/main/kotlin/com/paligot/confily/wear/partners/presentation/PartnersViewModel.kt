@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paligot.confily.core.partners.PartnerRepository
 import com.paligot.confily.core.partners.entities.mapToPartnersActivitiesUi
-import com.paligot.confily.models.ui.PartnerGroupsUi
+import com.paligot.confily.partners.ui.models.PartnerGroupsUi
 import com.paligot.confily.wear.partners.panes.PartnerModelUi
 import com.paligot.confily.wear.partners.panes.PartnersModelUi
 import kotlinx.collections.immutable.toImmutableList

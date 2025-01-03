@@ -1,7 +1,7 @@
 package com.paligot.confily.core.networking.entities
 
 import com.paligot.confily.core.fs.User
-import com.paligot.confily.models.ui.UserNetworkingUi
+import com.paligot.confily.networking.ui.models.UserNetworkingUi
 import kotlin.native.ObjCName
 
 @ObjCName("UserItemEntity")

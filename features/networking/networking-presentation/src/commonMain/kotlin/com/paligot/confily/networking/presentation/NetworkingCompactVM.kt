@@ -9,10 +9,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import com.paligot.confily.models.ui.ExportNetworkingUi
 import com.paligot.confily.navigation.ActionIds
 import com.paligot.confily.navigation.TabActions
 import com.paligot.confily.networking.panes.EmptyNetworkingScreen
+import com.paligot.confily.networking.ui.models.ExportNetworkingUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.screen_networking
 import com.paligot.confily.resources.text_error

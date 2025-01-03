@@ -1,7 +1,7 @@
 package com.paligot.confily.core.networking.entities
 
-import com.paligot.confily.models.ui.TicketInfoUi
-import com.paligot.confily.models.ui.TicketUi
+import com.paligot.confily.infos.ui.models.TicketInfoUi
+import com.paligot.confily.infos.ui.models.TicketUi
 import kotlin.native.ObjCName
 
 @ObjCName("UserTicketEntity")

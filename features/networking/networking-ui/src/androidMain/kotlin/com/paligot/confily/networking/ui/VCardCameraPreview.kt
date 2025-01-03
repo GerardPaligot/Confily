@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import com.paligot.confily.models.ui.VCardModel
+import com.paligot.confily.networking.ui.models.VCardModel
 import com.paligot.confily.ui.camera.CameraPreview
 
 @Composable

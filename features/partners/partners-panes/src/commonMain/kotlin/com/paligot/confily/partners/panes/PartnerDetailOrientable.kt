@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import com.paligot.confily.models.ui.PartnerUi
+import com.paligot.confily.partners.ui.models.PartnerUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.screen_partners_detail
 import com.paligot.confily.style.theme.appbars.AppBarIcons

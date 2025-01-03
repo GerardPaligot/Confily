@@ -2,7 +2,7 @@ package com.paligot.confily.events.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.paligot.confily.models.ui.EventItemUi
+import com.paligot.confily.events.ui.models.EventItemUi
 import com.paligot.confily.style.theme.ConfilyTheme
 
 @Preview

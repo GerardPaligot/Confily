@@ -1,6 +1,6 @@
 package com.paligot.confily.core.events.entities
 
-import com.paligot.confily.models.ui.MenuItemUi
+import com.paligot.confily.infos.ui.models.MenuItemUi
 import kotlin.native.ObjCName
 
 @ObjCName("MenuItemEntity")

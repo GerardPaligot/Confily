@@ -14,9 +14,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.paligot.confily.models.ui.Field
-import com.paligot.confily.models.ui.UserProfileUi
 import com.paligot.confily.networking.ui.ProfileInputField
+import com.paligot.confily.networking.ui.models.Field
+import com.paligot.confily.networking.ui.models.UserProfileUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.action_generate_qrcode
 import com.paligot.confily.resources.input_company

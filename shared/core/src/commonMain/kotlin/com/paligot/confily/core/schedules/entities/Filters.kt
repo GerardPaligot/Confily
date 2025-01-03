@@ -1,6 +1,6 @@
 package com.paligot.confily.core.schedules.entities
 
-import com.paligot.confily.models.ui.FiltersUi
+import com.paligot.confily.schedules.ui.models.FiltersUi
 import kotlinx.collections.immutable.toImmutableMap
 import kotlin.native.ObjCName
 

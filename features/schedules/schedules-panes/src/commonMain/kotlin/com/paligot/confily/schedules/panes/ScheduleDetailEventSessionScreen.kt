@@ -15,11 +15,11 @@ import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import com.paligot.confily.models.ui.EventSessionUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.screen_schedule_detail_event_session
+import com.paligot.confily.schedules.ui.models.EventSessionUi
 import com.paligot.confily.schedules.ui.schedule.EventSessionSection
-import com.paligot.confily.schedules.ui.schedule.TalkAbstract
+import com.paligot.confily.schedules.ui.schedule.SessionAbstract
 import com.paligot.confily.style.events.cards.AddressCard
 import com.paligot.confily.style.theme.SpacingTokens
 import com.paligot.confily.style.theme.appbars.TopAppBar
@@ -59,7 +59,7 @@ fun ScheduleDetailEventSessionScreen(
                     EventSessionSection(session = session)
                 }
                 item {
-                    TalkAbstract(abstract = session.description)
+                    SessionAbstract(abstract = session.description)
                 }
                 session.addressUi?.let {
                     item {

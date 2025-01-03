@@ -9,9 +9,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import com.paligot.confily.models.ui.SpeakerItemUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.text_speaker_title
+import com.paligot.confily.schedules.ui.models.SpeakerItemUi
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import org.jetbrains.compose.resources.stringResource

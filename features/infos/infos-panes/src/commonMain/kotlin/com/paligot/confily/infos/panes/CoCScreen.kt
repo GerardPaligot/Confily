@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.unit.dp
-import com.paligot.confily.models.ui.CoCUi
+import com.paligot.confily.infos.ui.models.CoCUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.action_contact_organizers_mail
 import com.paligot.confily.resources.action_contact_organizers_phone

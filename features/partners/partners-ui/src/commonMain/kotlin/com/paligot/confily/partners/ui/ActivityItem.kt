@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.paligot.confily.models.ui.ActivityUi
+import com.paligot.confily.partners.ui.models.ActivityUi
 import com.paligot.confily.style.partners.activities.MediumActivityItem
 import com.paligot.confily.style.schedules.time.Time
 import com.paligot.confily.style.theme.ConfilyTheme

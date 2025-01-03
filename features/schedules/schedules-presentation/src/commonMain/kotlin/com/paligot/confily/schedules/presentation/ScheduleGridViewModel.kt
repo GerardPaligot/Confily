@@ -8,10 +8,10 @@ import com.paligot.confily.core.events.EventRepository
 import com.paligot.confily.core.events.entities.mapToDays
 import com.paligot.confily.core.schedules.SessionRepository
 import com.paligot.confily.core.schedules.entities.mapToListUi
-import com.paligot.confily.models.ui.AgendaUi
-import com.paligot.confily.models.ui.TalkItemUi
 import com.paligot.confily.navigation.TopActions
 import com.paligot.confily.resources.Strings
+import com.paligot.confily.schedules.panes.models.AgendaUi
+import com.paligot.confily.schedules.ui.models.TalkItemUi
 import com.paligot.confily.style.theme.actions.TabAction
 import com.paligot.confily.style.theme.actions.TabActionsUi
 import com.paligot.confily.style.theme.actions.TopActionsUi

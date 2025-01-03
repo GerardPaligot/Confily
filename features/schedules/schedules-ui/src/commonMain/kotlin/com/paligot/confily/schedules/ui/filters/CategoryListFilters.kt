@@ -6,9 +6,9 @@ import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.paligot.confily.models.ui.CategoryUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.title_filters_categories
+import com.paligot.confily.schedules.ui.models.CategoryUi
 import com.paligot.confily.style.schedules.filters.FilterSection
 import com.paligot.confily.style.schedules.findCategoryImageVector
 import com.paligot.confily.style.theme.chips.FilterChip

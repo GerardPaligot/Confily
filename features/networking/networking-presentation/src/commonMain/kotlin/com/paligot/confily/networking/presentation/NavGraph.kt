@@ -5,11 +5,11 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navDeepLink
-import com.paligot.confily.models.ui.ExportNetworkingUi
-import com.paligot.confily.models.ui.VCardModel
 import com.paligot.confily.networking.routes.MyProfile
 import com.paligot.confily.networking.routes.NewProfile
 import com.paligot.confily.networking.routes.ScannerVCard
+import com.paligot.confily.networking.ui.models.ExportNetworkingUi
+import com.paligot.confily.networking.ui.models.VCardModel
 
 fun NavGraphBuilder.networkingGraph(
     navController: NavController,

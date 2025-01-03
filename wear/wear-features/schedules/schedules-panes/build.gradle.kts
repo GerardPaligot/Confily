@@ -9,7 +9,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.shared.uiModels)
+    implementation(projects.features.schedules.schedulesUiModels)
     implementation(projects.wear.wearFeatures.schedules.schedulesUi)
     implementation(projects.wear.wearResources)
     implementation(projects.wear.wearTheme)

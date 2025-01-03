@@ -9,8 +9,8 @@ android {
 }
 
 dependencies {
-    implementation(projects.shared.uiModels)
     implementation(projects.wear.wearResources)
+    implementation(projects.features.infos.infosUiModels)
 
     implementation(compose.ui)
     implementation(libs.bundles.androidx.wear)

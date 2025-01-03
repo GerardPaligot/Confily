@@ -13,10 +13,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
-import com.paligot.confily.models.ui.AgendaUi
-import com.paligot.confily.models.ui.EventSessionItemUi
-import com.paligot.confily.models.ui.TalkItemUi
+import com.paligot.confily.schedules.panes.models.AgendaUi
 import com.paligot.confily.schedules.semantics.SchedulesSemantics
+import com.paligot.confily.schedules.ui.models.EventSessionItemUi
+import com.paligot.confily.schedules.ui.models.TalkItemUi
 import com.paligot.confily.schedules.ui.talks.MediumScheduleItem
 import com.paligot.confily.schedules.ui.talks.NoFavoriteTalks
 import com.paligot.confily.schedules.ui.talks.SmallScheduleItem

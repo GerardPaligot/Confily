@@ -5,8 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.paligot.confily.core.networking.UserRepository
 import com.paligot.confily.core.networking.entities.UserInfo
 import com.paligot.confily.core.networking.entities.mapToUserProfileUi
-import com.paligot.confily.models.ui.Field
-import com.paligot.confily.models.ui.UserProfileUi
+import com.paligot.confily.networking.ui.models.Field
+import com.paligot.confily.networking.ui.models.UserProfileUi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

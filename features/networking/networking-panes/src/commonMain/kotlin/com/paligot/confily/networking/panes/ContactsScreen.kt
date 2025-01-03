@@ -14,7 +14,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.paligot.confily.models.ui.UserNetworkingUi
+import com.paligot.confily.networking.ui.models.UserNetworkingUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.action_submit_accept
 import com.paligot.confily.resources.action_submit_deny

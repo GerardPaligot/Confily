@@ -1,7 +1,7 @@
 package com.paligot.confily.core.socials.entities
 
-import com.paligot.confily.models.ui.SocialTypeUi
-import com.paligot.confily.models.ui.SocialUi
+import com.paligot.confily.socials.ui.models.SocialTypeUi
+import com.paligot.confily.socials.ui.models.SocialUi
 import kotlin.native.ObjCName
 
 @ObjCName("SocialEntity")

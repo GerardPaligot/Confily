@@ -10,44 +10,45 @@ import SwiftUI
 import SharedDi
 
 struct TalkSectionView: View {
-    var talkUi: TalkUi
+    var infoUi: SessionInfoUi
+    var abstract: String
     var color: Color = Color.c4hOnBackground
     var titleFont: Font = Font.title
     var bodyFont: Font = Font.callout
 
     var body: some View {
         VStack(alignment: .leading) {
-            if (talkUi.category.color != nil || talkUi.level != nil) {
+            if (infoUi.category.color != nil || infoUi.level != nil) {
                 HStack(spacing: 8) {
-                    if (talkUi.category.color != nil) {
-                        DecorativeTagView(category: talkUi.category)
+                    if (infoUi.category.color != nil) {
+                        DecorativeTagView(category: infoUi.category)
                     }
-                    if (talkUi.level != nil) {
-                        LevelTagView(level: talkUi.level!)
+                    if (infoUi.level != nil) {
+                        LevelTagView(level: infoUi.level!)
                     }
                 }
             }
             VStack(alignment: .leading, spacing: 24) {
-                Text(talkUi.title)
+                Text(infoUi.title)
                     .font(titleFont)
                     .padding(.top, 8)
                 HStack {
                     TagUnStyledView(
-                        text: talkUi.slotTime,
+                        text: infoUi.slotTime,
                         icon: "deskclock"
                     )
                     TagUnStyledView(
-                        text: talkUi.room,
+                        text: infoUi.room,
                         icon: "video"
                     )
                     TagUnStyledView(
-                        text: "\(talkUi.timeInMinutes) minutes",
-                        icon: talkUi.timeInMinutes <= 30 ? "bolt.badge.clock" : "clock"
+                        text: "\(infoUi.timeInMinutes) minutes",
+                        icon: infoUi.timeInMinutes <= 30 ? "bolt.badge.clock" : "clock"
                     )
                 }
             }
             .accessibilityElement(children: .combine)
-            Text(.init(talkUi.abstract))
+            Text(.init(abstract))
                 .foregroundColor(color.opacity(0.74))
                 .padding(.top, 8)
         }
@@ -70,7 +71,8 @@ func toSpelloutAccessibleTime(startTime: String, endTime: String) -> LocalizedSt
 struct TalkSectionView_Previews: PreviewProvider {
     static var previews: some View {
         TalkSectionView(
-            talkUi: TalkUi.companion.fake
+            infoUi: SessionInfoUi.companion.fake,
+            abstract: SessionUi.companion.fake.abstract
         )
     }
 }

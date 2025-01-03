@@ -14,24 +14,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
+import com.paligot.confily.infos.ui.models.EventUi
 import com.paligot.confily.infos.ui.tickets.TicketDetailed
 import com.paligot.confily.infos.ui.tickets.TicketQrCode
-import com.paligot.confily.models.ui.EventUi
-import com.paligot.confily.models.ui.findBluesky
-import com.paligot.confily.models.ui.findEmail
-import com.paligot.confily.models.ui.findFacebook
-import com.paligot.confily.models.ui.findGitHub
-import com.paligot.confily.models.ui.findInstagram
-import com.paligot.confily.models.ui.findLinkedIn
-import com.paligot.confily.models.ui.findMastodon
-import com.paligot.confily.models.ui.findWebsite
-import com.paligot.confily.models.ui.findX
-import com.paligot.confily.models.ui.findYouTube
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.title_plan
 import com.paligot.confily.resources.title_ticket
+import com.paligot.confily.socials.ui.SocialsSection
 import com.paligot.confily.style.events.cards.AddressCard
-import com.paligot.confily.style.events.socials.SocialsSection
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -55,16 +45,7 @@ fun Event(
                 onLinkClicked = onLinkClicked,
                 modifier = Modifier.padding(horizontal = 16.dp),
                 isLoading = isLoading,
-                xUrl = event.eventInfo.socials.findX()?.url,
-                mastodonUrl = event.eventInfo.socials.findMastodon()?.url,
-                blueskyUrl = event.eventInfo.socials.findBluesky()?.url,
-                facebookUrl = event.eventInfo.socials.findFacebook()?.url,
-                instagramUrl = event.eventInfo.socials.findInstagram()?.url,
-                youtubeUrl = event.eventInfo.socials.findYouTube()?.url,
-                githubUrl = event.eventInfo.socials.findGitHub()?.url,
-                linkedinUrl = event.eventInfo.socials.findLinkedIn()?.url,
-                websiteUrl = event.eventInfo.socials.findWebsite()?.url,
-                emailUrl = event.eventInfo.socials.findEmail()?.url
+                socials = event.eventInfo.socials
             )
         }
         event.ticket?.let {

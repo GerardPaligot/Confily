@@ -30,7 +30,7 @@ struct SpeakerAvatarView: View {
 struct SpeakerAvatarView_Previews: PreviewProvider {
     static var previews: some View {
         SpeakerAvatarView(
-            url: SpeakerUi.companion.fake.url
+            url: SpeakerUi.companion.fake.info.url
         )
     }
 }

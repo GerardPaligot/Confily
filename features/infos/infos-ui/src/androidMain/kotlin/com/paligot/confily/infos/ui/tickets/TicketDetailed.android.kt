@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.paligot.confily.models.ui.TicketUi
+import com.paligot.confily.infos.ui.models.TicketUi
 import com.paligot.confily.style.theme.ConfilyTheme
 
 @Preview

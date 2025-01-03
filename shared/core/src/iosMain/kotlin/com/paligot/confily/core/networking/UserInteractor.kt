@@ -2,8 +2,8 @@ package com.paligot.confily.core.networking
 
 import com.paligot.confily.core.networking.entities.mapToUserNetworkingUi
 import com.paligot.confily.core.networking.entities.mapToUserProfileUi
-import com.paligot.confily.models.ui.UserNetworkingUi
-import com.paligot.confily.models.ui.UserProfileUi
+import com.paligot.confily.networking.ui.models.UserNetworkingUi
+import com.paligot.confily.networking.ui.models.UserProfileUi
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList

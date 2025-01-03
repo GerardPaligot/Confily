@@ -25,7 +25,7 @@ struct SpeakerAvatarBorderedView: View {
 struct SpeakerAvatarBorderedView_Previews: PreviewProvider {
     static var previews: some View {
         SpeakerAvatarBorderedView(
-            url: SpeakerUi.companion.fake.url
+            url: SpeakerUi.companion.fake.info.url
         )
     }
 }

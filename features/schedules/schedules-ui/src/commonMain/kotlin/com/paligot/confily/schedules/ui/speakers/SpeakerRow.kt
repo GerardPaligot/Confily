@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.paligot.confily.models.ui.SpeakerItemUi
+import com.paligot.confily.schedules.ui.models.SpeakerItemUi
 import com.paligot.confily.style.components.placeholder.placeholder
 import com.paligot.confily.style.speakers.items.LargeSpeakerItem
 import com.paligot.confily.style.theme.SpacingTokens
@@ -28,9 +28,9 @@ fun SpeakerItemRow(
         Row(horizontalArrangement = Arrangement.spacedBy(horizontalSpacing)) {
             speakers.forEach {
                 LargeSpeakerItem(
-                    name = it.name,
+                    name = it.displayName,
                     description = it.activity,
-                    url = it.url,
+                    url = it.photoUrl,
                     modifier = Modifier
                         .width(width)
                         .placeholder(isLoading),

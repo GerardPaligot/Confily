@@ -1,9 +1,11 @@
 package com.paligot.confily.core.schedules.entities
 
 import com.paligot.confily.core.speakers.entities.SpeakerItem
-import com.paligot.confily.core.speakers.entities.mapToSpeakerItemUi
-import com.paligot.confily.models.ui.TalkUi
+import com.paligot.confily.core.speakers.entities.displayActivity
 import com.paligot.confily.resources.Strings
+import com.paligot.confily.schedules.panes.models.SessionUi
+import com.paligot.confily.schedules.ui.models.SessionInfoUi
+import com.paligot.confily.schedules.ui.models.SpeakerItemUi
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDateTime
@@ -30,25 +32,36 @@ class Session(
     val feedback: FeedbackConfig?
 )
 
-fun Session.mapToTalkUi(strings: Strings): TalkUi {
+fun Session.mapToSessionUi(strings: Strings): SessionUi {
     val now = Clock.System.now().toLocalDateTime(TimeZone.UTC)
     val diff = endTime.toInstant(TimeZone.UTC)
         .minus(startTime.toInstant(TimeZone.UTC))
-    return TalkUi(
-        title = title,
-        level = level.mapToLocalizedString(strings),
-        abstract = abstract,
-        category = category.mapToCategoryUi(),
-        slotTime = startTime.format(
-            LocalDateTime.Format {
-                hour()
-                char(':')
-                minute()
-            }
+    return SessionUi(
+        info = SessionInfoUi(
+            title = title,
+            level = level.mapToLocalizedString(strings),
+            category = category.mapToCategoryUi(),
+            slotTime = startTime.format(
+                LocalDateTime.Format {
+                    hour()
+                    char(':')
+                    minute()
+                }
+            ),
+            timeInMinutes = diff.inWholeMinutes.toInt(),
+            room = room
         ),
-        timeInMinutes = diff.inWholeMinutes.toInt(),
-        room = room,
-        speakers = speakers.map { it.mapToSpeakerItemUi(strings) }.toImmutableList(),
+        abstract = abstract,
+        speakers = speakers
+            .map {
+                SpeakerItemUi(
+                    id = it.id,
+                    displayName = it.displayName,
+                    activity = it.displayActivity(strings) ?: "",
+                    photoUrl = it.photoUrl
+                )
+            }
+            .toImmutableList(),
         speakersSharing = speakers.joinToString(", ") { it.displayName },
         canGiveFeedback = now > startTime && feedback != null,
         openFeedbackProjectId = feedback?.projectId,

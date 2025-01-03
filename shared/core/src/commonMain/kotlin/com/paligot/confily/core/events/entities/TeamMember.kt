@@ -2,7 +2,7 @@ package com.paligot.confily.core.events.entities
 
 import com.paligot.confily.core.socials.entities.Social
 import com.paligot.confily.core.socials.entities.mapToSocialUi
-import com.paligot.confily.models.ui.TeamMemberUi
+import com.paligot.confily.infos.ui.models.TeamMemberUi
 import kotlinx.collections.immutable.toImmutableList
 import kotlin.native.ObjCName
 

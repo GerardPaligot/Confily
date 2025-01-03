@@ -1,8 +1,8 @@
 package com.paligot.confily.core.partners.entities
 
-import com.paligot.confily.models.ui.PartnerGroupUi
-import com.paligot.confily.models.ui.PartnerGroupsUi
-import com.paligot.confily.models.ui.PartnersActivitiesUi
+import com.paligot.confily.partners.ui.models.PartnerGroupUi
+import com.paligot.confily.partners.ui.models.PartnerGroupsUi
+import com.paligot.confily.partners.ui.models.PartnersActivitiesUi
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.collections.immutable.toImmutableMap
 import kotlinx.datetime.LocalDateTime

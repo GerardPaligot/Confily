@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paligot.confily.core.events.EventRepository
 import com.paligot.confily.core.events.entities.mapToMenuItemUi
-import com.paligot.confily.models.ui.MenuItemUi
+import com.paligot.confily.infos.ui.models.MenuItemUi
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList

@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.paligot.confily.models.ui.MenuItemUi
+import com.paligot.confily.infos.ui.models.MenuItemUi
 import com.paligot.confily.style.components.placeholder.placeholder
 
 @Composable

@@ -11,11 +11,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import com.paligot.confily.models.ui.TalkUi
 import com.paligot.confily.navigation.TopActions
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.input_share_talk
 import com.paligot.confily.resources.screen_schedule_detail
+import com.paligot.confily.schedules.panes.models.SessionUi
 import com.paligot.confily.style.theme.actions.TopActionsUi
 import com.paligot.confily.style.theme.appbars.TopAppBar
 import kotlinx.collections.immutable.persistentListOf
@@ -24,15 +24,18 @@ import org.jetbrains.compose.resources.stringResource
 @ExperimentalMaterial3Api
 @Composable
 fun ScheduleDetailOrientableScreen(
-    talk: TalkUi,
+    session: SessionUi,
     onBackClicked: () -> Unit,
     onSpeakerClicked: (id: String) -> Unit,
     onShareClicked: (text: String) -> Unit,
     modifier: Modifier = Modifier,
     isLandscape: Boolean = false
 ) {
-    val textShared =
-        stringResource(Resource.string.input_share_talk, talk.title, talk.speakersSharing)
+    val textShared = stringResource(
+        Resource.string.input_share_talk,
+        session.info.title,
+        session.speakersSharing
+    )
     val state = rememberLazyListState()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
     Scaffold(
@@ -65,21 +68,21 @@ fun ScheduleDetailOrientableScreen(
                     modifier = Modifier.padding(it)
                 ) {
                     ScheduleDetailScreen(
-                        talk = talk,
+                        uiModel = session,
                         onSpeakerClicked = onSpeakerClicked,
                         modifier = Modifier.weight(1f),
                         state = state
                     )
                     FeedbackScreen(
-                        openFeedbackProjectId = talk.openFeedbackProjectId,
-                        openFeedbackSessionId = talk.openFeedbackSessionId,
-                        canGiveFeedback = talk.canGiveFeedback,
+                        openFeedbackProjectId = session.openFeedbackProjectId,
+                        openFeedbackSessionId = session.openFeedbackSessionId,
+                        canGiveFeedback = session.canGiveFeedback,
                         modifier = Modifier.weight(1f)
                     )
                 }
             } else {
                 ScheduleDetailScreen(
-                    talk = talk,
+                    uiModel = session,
                     onSpeakerClicked = onSpeakerClicked,
                     state = state,
                     contentPadding = it

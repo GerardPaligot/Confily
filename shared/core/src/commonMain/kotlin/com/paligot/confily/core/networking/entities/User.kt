@@ -1,6 +1,6 @@
 package com.paligot.confily.core.networking.entities
 
-import com.paligot.confily.models.ui.UserProfileUi
+import com.paligot.confily.networking.ui.models.UserProfileUi
 import kotlin.native.ObjCName
 
 @ObjCName("UserProfileEntity")

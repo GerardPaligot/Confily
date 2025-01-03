@@ -19,8 +19,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.paligot.confily.events.presentation.eventGraph
 import com.paligot.confily.infos.presentation.infoGraph
-import com.paligot.confily.models.ui.ExportNetworkingUi
 import com.paligot.confily.networking.presentation.networkingGraph
+import com.paligot.confily.networking.ui.models.ExportNetworkingUi
 import com.paligot.confily.partners.presentation.partnerGraph
 import com.paligot.confily.schedules.presentation.scheduleGraph
 import com.paligot.confily.schedules.routes.ScheduleList

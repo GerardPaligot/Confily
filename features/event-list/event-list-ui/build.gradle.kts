@@ -10,7 +10,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(projects.shared.uiModels)
+                implementation(projects.features.eventList.eventListUiModels)
                 implementation(projects.style.components.placeholder)
                 implementation(projects.style.theme)
             }

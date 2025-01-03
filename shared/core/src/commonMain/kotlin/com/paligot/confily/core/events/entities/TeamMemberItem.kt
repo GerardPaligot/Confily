@@ -1,6 +1,6 @@
 package com.paligot.confily.core.events.entities
 
-import com.paligot.confily.models.ui.TeamMemberItemUi
+import com.paligot.confily.infos.ui.models.TeamMemberItemUi
 import kotlin.native.ObjCName
 
 @ObjCName("TeamMemberItemEntity")

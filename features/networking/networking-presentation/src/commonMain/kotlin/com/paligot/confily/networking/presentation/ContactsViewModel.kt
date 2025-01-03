@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paligot.confily.core.networking.UserRepository
 import com.paligot.confily.core.networking.entities.mapToUserNetworkingUi
-import com.paligot.confily.models.ui.UserNetworkingUi
+import com.paligot.confily.networking.ui.models.UserNetworkingUi
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.SharingStarted

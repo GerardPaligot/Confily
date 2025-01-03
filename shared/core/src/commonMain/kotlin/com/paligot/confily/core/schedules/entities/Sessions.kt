@@ -1,7 +1,7 @@
 package com.paligot.confily.core.schedules.entities
 
-import com.paligot.confily.models.ui.AgendaUi
 import com.paligot.confily.resources.Strings
+import com.paligot.confily.schedules.panes.models.AgendaUi
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.collections.immutable.toImmutableList

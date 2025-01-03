@@ -1,6 +1,6 @@
 package com.paligot.confily.core.partners.entities
 
-import com.paligot.confily.models.ui.JobUi
+import com.paligot.confily.partners.ui.models.JobUi
 import kotlin.native.ObjCName
 
 @ObjCName("JobItemEntity")

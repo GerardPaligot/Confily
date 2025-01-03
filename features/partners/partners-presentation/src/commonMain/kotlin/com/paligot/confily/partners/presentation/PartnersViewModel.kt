@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paligot.confily.core.partners.PartnerRepository
 import com.paligot.confily.core.partners.entities.mapToPartnersActivitiesUi
-import com.paligot.confily.models.ui.PartnersActivitiesUi
 import com.paligot.confily.navigation.TabActions
+import com.paligot.confily.partners.ui.models.PartnersActivitiesUi
 import com.paligot.confily.style.theme.actions.TabAction
 import com.paligot.confily.style.theme.actions.TabActionsUi
 import kotlinx.collections.immutable.toImmutableList

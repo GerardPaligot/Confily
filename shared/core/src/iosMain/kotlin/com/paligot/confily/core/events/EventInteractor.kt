@@ -1,18 +1,16 @@
 package com.paligot.confily.core.events
 
-import com.paligot.confily.core.events.entities.TeamMember
-import com.paligot.confily.core.events.entities.TeamMemberItem
 import com.paligot.confily.core.events.entities.mapToEventInfoUi
 import com.paligot.confily.core.events.entities.mapToEventItemListUi
 import com.paligot.confily.core.events.entities.mapToMenuItemUi
 import com.paligot.confily.core.events.entities.mapToTeamMemberItemUi
 import com.paligot.confily.core.events.entities.mapToTeamMemberUi
 import com.paligot.confily.core.networking.entities.mapToTicketUi
-import com.paligot.confily.models.ui.EventItemListUi
-import com.paligot.confily.models.ui.EventUi
-import com.paligot.confily.models.ui.MenuItemUi
-import com.paligot.confily.models.ui.TeamMemberItemUi
-import com.paligot.confily.models.ui.TeamMemberUi
+import com.paligot.confily.events.ui.models.EventItemListUi
+import com.paligot.confily.infos.ui.models.EventUi
+import com.paligot.confily.infos.ui.models.MenuItemUi
+import com.paligot.confily.infos.ui.models.TeamMemberItemUi
+import com.paligot.confily.infos.ui.models.TeamMemberUi
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList

@@ -6,9 +6,9 @@ import android.app.PendingIntent
 import android.content.Context
 import android.os.SystemClock
 import com.paligot.confily.core.schedules.SessionRepository
-import com.paligot.confily.models.ui.TalkItemUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.title_notif_reminder_talk
+import com.paligot.confily.schedules.ui.models.TalkItemUi
 import kotlinx.coroutines.coroutineScope
 import kotlinx.datetime.Clock
 import kotlinx.datetime.DateTimeUnit

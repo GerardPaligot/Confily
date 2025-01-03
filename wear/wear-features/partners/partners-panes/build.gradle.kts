@@ -9,7 +9,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.shared.uiModels)
+    implementation(projects.features.partners.partnersUiModels)
     implementation(projects.wear.wearResources)
     implementation(projects.wear.wearTheme)
 

@@ -11,9 +11,9 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.paligot.confily.models.ui.SpeakerUi
-import com.paligot.confily.models.ui.TalkItemUi
+import com.paligot.confily.schedules.ui.models.TalkItemUi
 import com.paligot.confily.schedules.ui.talks.MediumScheduleItem
+import com.paligot.confily.speakers.panes.models.SpeakerUi
 import com.paligot.confily.speakers.ui.SpeakerDetailSectionVertical
 import com.paligot.confily.style.components.placeholder.placeholder
 
@@ -36,7 +36,7 @@ fun SpeakerDetailScreen(
     ) {
         item {
             SpeakerDetailSectionVertical(
-                speaker = speaker,
+                info = speaker.info,
                 isLoading = isLoading,
                 displayAvatar = displayAvatar,
                 onLinkClicked = onLinkClicked

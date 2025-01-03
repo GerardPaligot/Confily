@@ -19,7 +19,7 @@ struct SpeakerItemNavigation: View {
                 viewModel: viewModelFactory.makeSpeakerViewModel(speakerId: speaker.id)
             )
         } label: {
-            SpeakerItemView(url: speaker.url, title: speaker.name, description: speaker.activity)
+            SpeakerItemView(url: speaker.photoUrl, title: speaker.displayName, description: speaker.activity)
         }
         .buttonStyle(.plain)
     }

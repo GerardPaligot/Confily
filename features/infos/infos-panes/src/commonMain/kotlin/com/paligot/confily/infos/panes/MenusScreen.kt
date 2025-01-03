@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.paligot.confily.infos.ui.menus.MenuItem
-import com.paligot.confily.models.ui.MenuItemUi
+import com.paligot.confily.infos.ui.models.MenuItemUi
 import kotlinx.collections.immutable.ImmutableList
 
 @ExperimentalMaterial3Api

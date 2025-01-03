@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.paligot.confily.core.events.EventRepository
 import com.paligot.confily.core.events.entities.mapToEventInfoUi
 import com.paligot.confily.core.networking.entities.mapToTicketUi
-import com.paligot.confily.models.ui.EventUi
+import com.paligot.confily.infos.ui.models.EventUi
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch

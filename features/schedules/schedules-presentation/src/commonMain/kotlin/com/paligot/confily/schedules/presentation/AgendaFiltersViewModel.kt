@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paligot.confily.core.schedules.SessionRepository
 import com.paligot.confily.core.schedules.entities.mapToFiltersUi
-import com.paligot.confily.models.ui.FiltersUi
+import com.paligot.confily.schedules.ui.models.FiltersUi
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch

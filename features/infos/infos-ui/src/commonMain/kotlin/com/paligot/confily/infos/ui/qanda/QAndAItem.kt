@@ -24,7 +24,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
-import com.paligot.confily.models.ui.QuestionAndResponseUi
+import com.paligot.confily.infos.ui.models.QuestionAndResponseUi
 import com.paligot.confily.style.components.markdown.MarkdownText
 import com.paligot.confily.style.components.placeholder.placeholder
 

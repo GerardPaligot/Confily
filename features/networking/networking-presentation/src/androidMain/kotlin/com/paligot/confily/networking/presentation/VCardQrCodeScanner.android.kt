@@ -6,8 +6,8 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.paligot.confily.models.ui.VCardModel
 import com.paligot.confily.networking.ui.VCardCameraPreview
+import com.paligot.confily.networking.ui.models.VCardModel
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.screen_qrcode_scanner
 import com.paligot.confily.style.components.permissions.FeatureThatRequiresCameraPermission

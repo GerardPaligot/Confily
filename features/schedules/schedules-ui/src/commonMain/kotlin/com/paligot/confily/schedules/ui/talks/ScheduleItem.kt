@@ -5,11 +5,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Videocam
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.paligot.confily.models.ui.TalkItemUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.semantic_talk_item
 import com.paligot.confily.resources.semantic_talk_item_level
 import com.paligot.confily.resources.semantic_talk_item_speakers
+import com.paligot.confily.schedules.ui.models.TalkItemUi
 import com.paligot.confily.style.schedules.card.MediumScheduleCard
 import com.paligot.confily.style.schedules.card.SmallScheduleCard
 import com.paligot.confily.style.schedules.findCategoryImageVector

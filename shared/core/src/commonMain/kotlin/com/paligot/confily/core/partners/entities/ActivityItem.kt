@@ -1,6 +1,6 @@
 package com.paligot.confily.core.partners.entities
 
-import com.paligot.confily.models.ui.ActivityUi
+import com.paligot.confily.partners.ui.models.ActivityUi
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.format
 import kotlinx.datetime.format.byUnicodePattern

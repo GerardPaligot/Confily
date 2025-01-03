@@ -10,7 +10,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(projects.shared.uiModels)
+                implementation(projects.features.networking.networkingUiModels)
                 implementation(projects.shared.resources)
                 implementation(projects.features.navigation)
                 implementation(projects.style.theme)

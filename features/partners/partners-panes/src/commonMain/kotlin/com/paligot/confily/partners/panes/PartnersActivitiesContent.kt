@@ -9,8 +9,8 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.paligot.confily.models.ui.ActivityUi
 import com.paligot.confily.partners.ui.ActivityItem
+import com.paligot.confily.partners.ui.models.ActivityUi
 import com.paligot.confily.style.theme.ConfilyTheme
 import com.paligot.confily.style.theme.SpacingTokens
 import com.paligot.confily.style.theme.toDp

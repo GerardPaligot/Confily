@@ -1,6 +1,6 @@
 package com.paligot.confily.core.events.entities
 
-import com.paligot.confily.models.ui.EventItemListUi
+import com.paligot.confily.events.ui.models.EventItemListUi
 import kotlinx.collections.immutable.toImmutableList
 import kotlin.native.ObjCName
 

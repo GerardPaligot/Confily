@@ -11,18 +11,21 @@ import SharedDi
 
 struct ScheduleDetail: View {
     @State private var isShareSheetPresented = false
-    let talkUi: TalkUi
+    let sessionUi: SessionUi
     
     var body: some View {
         ScrollView {
             LazyVStack(spacing: 8) {
-                TalkSectionView(talkUi: talkUi)
-                    .padding(.bottom, 8)
-                ForEach(talkUi.speakers, id: \.id) { speaker in
+                TalkSectionView(
+                    infoUi: sessionUi.info,
+                    abstract: sessionUi.abstract
+                )
+                .padding(.bottom, 8)
+                ForEach(sessionUi.speakers, id: \.id) { speaker in
                     SpeakerItemNavigation(speaker: speaker)
                 }
-                if (talkUi.canGiveFeedback) {
-                    Link("actionFeedback", destination: URL(string: talkUi.openFeedbackUrl!)!)
+                if (sessionUi.canGiveFeedback) {
+                    Link("actionFeedback", destination: URL(string: sessionUi.openFeedbackUrl!)!)
                 } else {
                     Text("textFeedbackNotStarted")
                         .font(.caption)
@@ -41,14 +44,14 @@ struct ScheduleDetail: View {
         )
         .sheet(isPresented: $isShareSheetPresented) {
             let formatter = NSLocalizedString("inputShareTalk", comment: "")
-            ShareSheetView(activityItems: [String(format: formatter, talkUi.title, talkUi.speakersSharing)])
+            ShareSheetView(activityItems: [String(format: formatter, sessionUi.info.title, sessionUi.speakersSharing)])
         }
     }
 }
 
 struct ScheduleDetail_Previews: PreviewProvider {
     static var previews: some View {
-        ScheduleDetail(talkUi: TalkUi.companion.fake)
+        ScheduleDetail(sessionUi: SessionUi.companion.fake)
             .environmentObject(ViewModelFactory())
     }
 }

@@ -12,7 +12,7 @@ import KMPNativeCoroutinesAsync
 
 enum ScheduleUiState {
     case loading
-    case success(TalkUi)
+    case success(SessionUi)
     case failure
 }
 

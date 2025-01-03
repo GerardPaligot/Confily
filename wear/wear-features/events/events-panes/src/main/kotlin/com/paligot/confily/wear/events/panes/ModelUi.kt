@@ -1,7 +1,7 @@
 package com.paligot.confily.wear.events.panes
 
 import androidx.compose.runtime.Immutable
-import com.paligot.confily.models.ui.MenuItemUi
+import com.paligot.confily.infos.ui.models.MenuItemUi
 import kotlinx.collections.immutable.ImmutableList
 
 @Immutable

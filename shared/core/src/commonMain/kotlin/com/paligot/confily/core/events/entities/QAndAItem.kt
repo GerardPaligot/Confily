@@ -1,7 +1,7 @@
 package com.paligot.confily.core.events.entities
 
-import com.paligot.confily.models.ui.QuestionAndResponseActionUi
-import com.paligot.confily.models.ui.QuestionAndResponseUi
+import com.paligot.confily.infos.ui.models.QuestionAndResponseActionUi
+import com.paligot.confily.infos.ui.models.QuestionAndResponseUi
 import kotlinx.collections.immutable.toImmutableList
 import kotlin.native.ObjCName
 

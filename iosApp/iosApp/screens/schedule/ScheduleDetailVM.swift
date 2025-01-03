@@ -16,8 +16,8 @@ struct ScheduleDetailVM: View {
         let uiState = viewModel.uiState
         Group {
             switch uiState {
-                case .success(let talkUi):
-                    ScheduleDetail(talkUi: talkUi)
+                case .success(let sessionUi):
+                    ScheduleDetail(sessionUi: sessionUi)
                 case .failure:
                     Text("textError")
                 case .loading:

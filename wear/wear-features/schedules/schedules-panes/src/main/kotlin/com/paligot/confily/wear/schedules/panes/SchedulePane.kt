@@ -48,7 +48,9 @@ fun SchedulePane(
             item {
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,
-                    modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp)
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 8.dp)
                 ) {
                     CompositionLocalProvider(
                         LocalTextStyle provides MaterialTheme.typography.bodySmall,
@@ -64,8 +66,10 @@ fun SchedulePane(
             item { ListSubHeader { Text("Speakers") } }
             items(modelUi.speakers) { speaker ->
                 ExtendedActionButton(
-                    painter = rememberAsyncImagePainter(model = speaker.url),
-                    label = { Text(speaker.name, maxLines = 1, overflow = TextOverflow.Ellipsis) },
+                    painter = rememberAsyncImagePainter(model = speaker.photoUrl),
+                    label = {
+                        Text(speaker.displayName, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                    },
                     secondaryLabel = {
                         Text(
                             text = speaker.activity,

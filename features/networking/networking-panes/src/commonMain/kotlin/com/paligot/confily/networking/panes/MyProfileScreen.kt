@@ -19,7 +19,7 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.paligot.confily.models.ui.UserProfileUi
+import com.paligot.confily.networking.ui.models.UserProfileUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.action_edit_profile
 import com.paligot.confily.resources.semantic_profile_qrcode

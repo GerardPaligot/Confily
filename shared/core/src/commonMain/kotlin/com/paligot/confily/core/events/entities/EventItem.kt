@@ -1,6 +1,6 @@
 package com.paligot.confily.core.events.entities
 
-import com.paligot.confily.models.ui.EventItemUi
+import com.paligot.confily.events.ui.models.EventItemUi
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.format
 import kotlinx.datetime.format.Padding

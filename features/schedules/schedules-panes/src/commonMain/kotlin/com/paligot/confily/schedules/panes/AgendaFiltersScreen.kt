@@ -9,12 +9,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.paligot.confily.models.ui.FiltersUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.screen_agenda_filters
 import com.paligot.confily.schedules.ui.filters.CategoryListFilters
 import com.paligot.confily.schedules.ui.filters.FavoriteFilter
 import com.paligot.confily.schedules.ui.filters.FormatListFilters
+import com.paligot.confily.schedules.ui.models.FiltersUi
 import com.paligot.confily.style.theme.Scaffold
 import com.paligot.confily.style.theme.SpacingTokens
 import com.paligot.confily.style.theme.appbars.AppBarIcons

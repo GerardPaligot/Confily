@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paligot.confily.core.partners.PartnerRepository
 import com.paligot.confily.core.partners.entities.mapToPartnerUi
-import com.paligot.confily.models.ui.PartnerUi
+import com.paligot.confily.partners.ui.models.PartnerUi
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch

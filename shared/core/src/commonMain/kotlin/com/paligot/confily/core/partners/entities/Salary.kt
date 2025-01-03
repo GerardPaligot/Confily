@@ -1,6 +1,6 @@
 package com.paligot.confily.core.partners.entities
 
-import com.paligot.confily.models.ui.SalaryUi
+import com.paligot.confily.partners.ui.models.SalaryUi
 import kotlin.native.ObjCName
 
 @ObjCName("SalaryEntity")

@@ -34,8 +34,8 @@ struct SpeakerItemView: View {
 struct SpeakerItemView_Previews: PreviewProvider {
     static var previews: some View {
         SpeakerItemView(
-            url: SpeakerItemUi.companion.fake.url,
-            title: SpeakerItemUi.companion.fake.name,
+            url: SpeakerItemUi.companion.fake.photoUrl,
+            title: SpeakerItemUi.companion.fake.displayName,
             description: SpeakerItemUi.companion.fake.activity
         )
     }

@@ -1,6 +1,6 @@
 package com.paligot.confily.core.schedules.entities
 
-import com.paligot.confily.models.ui.FormatUi
+import com.paligot.confily.schedules.ui.models.FormatUi
 import kotlin.native.ObjCName
 
 @ObjCName("FormatEntity")

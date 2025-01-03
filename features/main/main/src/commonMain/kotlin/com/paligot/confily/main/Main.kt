@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
-import com.paligot.confily.models.ui.ExportNetworkingUi
+import com.paligot.confily.networking.ui.models.ExportNetworkingUi
 import com.paligot.confily.style.theme.ConfilyTheme
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview

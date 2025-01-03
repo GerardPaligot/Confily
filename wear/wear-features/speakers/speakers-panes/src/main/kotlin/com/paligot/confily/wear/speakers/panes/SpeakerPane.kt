@@ -15,8 +15,8 @@ import androidx.wear.compose.material3.ScreenScaffold
 import androidx.wear.compose.material3.ScrollIndicator
 import androidx.wear.compose.material3.Text
 import coil3.compose.rememberAsyncImagePainter
-import com.paligot.confily.models.ui.SpeakerUi
-import com.paligot.confily.models.ui.TalkItemUi
+import com.paligot.confily.schedules.ui.models.TalkItemUi
+import com.paligot.confily.speakers.panes.models.SpeakerUi
 import com.paligot.confily.wear.schedules.ui.ScheduleCardItem
 import com.paligot.confily.wear.theme.buttons.IconActionButton
 import com.paligot.confily.wear.theme.markdown.MarkdownText
@@ -45,29 +45,29 @@ fun SpeakerPane(
         ) {
             item {
                 ListHeader {
-                    IconActionButton(painter = rememberAsyncImagePainter(model = modelUi.url))
+                    IconActionButton(painter = rememberAsyncImagePainter(model = modelUi.info.url))
                 }
             }
-            item { ListHeader { Text(modelUi.name) } }
-            if (modelUi.pronouns != null) {
+            item { ListHeader { Text(modelUi.info.name) } }
+            if (modelUi.info.pronouns != null) {
                 item {
                     Text(
-                        text = modelUi.pronouns!!,
+                        text = modelUi.info.pronouns!!,
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurface.copy(ContentAlpha)
                     )
                 }
             }
-            if (modelUi.activity != null) {
+            if (modelUi.info.activity != null) {
                 item {
                     Text(
-                        text = modelUi.activity!!,
+                        text = modelUi.info.activity!!,
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
             }
-            item { MarkdownText(text = modelUi.bio) }
+            item { MarkdownText(text = modelUi.info.bio) }
             items(modelUi.talks) { sessionModelUi: TalkItemUi ->
                 ScheduleCardItem(
                     title = sessionModelUi.title,

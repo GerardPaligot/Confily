@@ -13,7 +13,7 @@ import androidx.wear.compose.material3.ListHeader
 import androidx.wear.compose.material3.ScreenScaffold
 import androidx.wear.compose.material3.ScrollIndicator
 import androidx.wear.compose.material3.Text
-import com.paligot.confily.models.ui.CoCUi
+import com.paligot.confily.infos.ui.models.CoCUi
 import com.paligot.confily.wear.resources.R
 
 @Composable

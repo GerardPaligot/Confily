@@ -13,10 +13,10 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalInspectionMode
-import com.paligot.confily.models.ui.TalkUi
+import com.paligot.confily.schedules.panes.models.SessionUi
 import com.paligot.confily.schedules.ui.schedule.OpenFeedbackSection
-import com.paligot.confily.schedules.ui.schedule.TalkAbstract
-import com.paligot.confily.schedules.ui.schedule.TalkSection
+import com.paligot.confily.schedules.ui.schedule.SessionAbstract
+import com.paligot.confily.schedules.ui.schedule.SessionInfoSection
 import com.paligot.confily.schedules.ui.speakers.SpeakerSection
 import com.paligot.confily.style.theme.SpacingTokens
 import com.paligot.confily.style.theme.toDp
@@ -24,7 +24,7 @@ import com.paligot.confily.style.theme.toDp
 @ExperimentalMaterial3Api
 @Composable
 fun ScheduleDetailScreen(
-    talk: TalkUi,
+    uiModel: SessionUi,
     onSpeakerClicked: (id: String) -> Unit,
     modifier: Modifier = Modifier,
     state: LazyListState = rememberLazyListState(),
@@ -40,25 +40,28 @@ fun ScheduleDetailScreen(
     ) {
         item {
             Spacer(modifier = Modifier.height(SpacingTokens.LargeSpacing.toDp()))
-            TalkSection(talk = talk)
+            SessionInfoSection(
+                info = uiModel.info,
+                speakers = uiModel.speakers
+            )
         }
         item {
-            TalkAbstract(abstract = talk.abstract)
+            SessionAbstract(abstract = uiModel.abstract)
         }
-        if (talk.openFeedbackProjectId != null && talk.openFeedbackSessionId != null) {
+        if (uiModel.openFeedbackProjectId != null && uiModel.openFeedbackSessionId != null) {
             item {
                 if (!LocalInspectionMode.current) {
                     OpenFeedbackSection(
-                        openFeedbackProjectId = talk.openFeedbackProjectId!!,
-                        openFeedbackSessionId = talk.openFeedbackSessionId!!,
-                        canGiveFeedback = talk.canGiveFeedback
+                        openFeedbackProjectId = uiModel.openFeedbackProjectId!!,
+                        openFeedbackSessionId = uiModel.openFeedbackSessionId!!,
+                        canGiveFeedback = uiModel.canGiveFeedback
                     )
                 }
             }
         }
         item {
             SpeakerSection(
-                speakers = talk.speakers,
+                speakers = uiModel.speakers,
                 onSpeakerItemClick = onSpeakerClicked
             )
         }

@@ -1,6 +1,6 @@
 package com.paligot.confily.core.schedules.entities
 
-import com.paligot.confily.models.ui.CategoryUi
+import com.paligot.confily.schedules.ui.models.CategoryUi
 import kotlin.native.ObjCName
 
 @ObjCName("CategoryEntity")

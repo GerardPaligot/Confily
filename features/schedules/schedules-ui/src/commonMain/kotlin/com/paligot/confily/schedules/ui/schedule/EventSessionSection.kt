@@ -13,9 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import com.paligot.confily.models.ui.EventSessionUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.text_schedule_minutes
+import com.paligot.confily.schedules.ui.models.EventSessionUi
 import com.paligot.confily.style.schedules.findTimeImageVector
 import com.paligot.confily.style.theme.tags.MediumTag
 import com.paligot.confily.style.theme.tags.TagDefaults
