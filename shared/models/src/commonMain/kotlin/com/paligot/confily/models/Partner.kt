@@ -32,6 +32,8 @@ data class PartnerV2(
     val description: String,
     @SerialName("logo_url")
     val logoUrl: String,
+    @SerialName("video_url")
+    val videoUrl: String?,
     @SerialName("media")
     val media: PartnerMedia,
     @SerialName("site_url")
@@ -54,6 +56,7 @@ data class PartnerV3(
     val name: String,
     val description: String,
     val media: PartnerMedia,
+    val videoUrl: String?,
     val address: Address?,
     val types: List<String>,
     val socials: List<SocialItem> = emptyList(),
