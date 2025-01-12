@@ -187,6 +187,7 @@ fun PartnerV3.convertToDb(
     } else {
         media.svg
     },
+    videoUrl = videoUrl,
     formattedAddress = address?.formatted,
     address = address?.address,
     latitude = address?.lat,
