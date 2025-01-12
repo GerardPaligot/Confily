@@ -9,6 +9,7 @@ import com.paligot.confily.core.partners.entities.PartnerInfo
 import com.paligot.confily.core.partners.entities.PartnerItem
 import com.paligot.confily.core.partners.entities.PartnerType
 import com.paligot.confily.db.ConfilyDatabase
+import com.paligot.confily.models.PartnerV3
 import com.paligot.confily.models.PartnersActivities
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -87,7 +88,7 @@ class PartnerDaoSQLDelight(
                 event_id = eventId
             )
         }
-        partners.partners.forEach { partner ->
+        partners.partners.forEach { partner: PartnerV3 ->
             db.partnerQueries.insertPartner(
                 id = partner.id,
                 name = partner.name,
@@ -100,6 +101,7 @@ class PartnerDaoSQLDelight(
                 } else {
                     partner.media.svg
                 },
+                video_url = partner.videoUrl,
                 formatted_address = partner.address?.formatted,
                 address = partner.address?.address,
                 latitude = partner.address?.lat,

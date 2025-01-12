@@ -18,6 +18,7 @@ fun Partner.mapToPartnerUi(): PartnerUi = PartnerUi(
     name = info.name,
     description = info.description,
     logoUrl = info.logoUrl,
+    videoUrl = info.videoUrl,
     formattedAddress = info.address?.formatted?.toImmutableList(),
     address = info.address?.formatted?.joinToString(", "),
     latitude = info.address?.latitude,

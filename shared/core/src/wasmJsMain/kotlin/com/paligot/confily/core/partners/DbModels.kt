@@ -10,6 +10,7 @@ class PartnerDb(
     val eventId: String,
     val type: String,
     val logoUrl: String,
+    val videoUrl: String?,
     val formattedAddress: List<String>?,
     val address: String?,
     val latitude: Double?,

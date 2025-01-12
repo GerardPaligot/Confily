@@ -13,6 +13,7 @@ fun PartnerDb.mapToInfoEntity(): PartnerInfo = PartnerInfo(
     id = id,
     name = name,
     logoUrl = logoUrl,
+    videoUrl = videoUrl,
     description = description,
     address = if (formattedAddress != null && longitude != null && latitude != null) {
         Address(

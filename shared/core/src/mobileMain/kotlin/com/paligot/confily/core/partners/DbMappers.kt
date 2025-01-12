@@ -20,13 +20,14 @@ internal val partnerItemMapper = { id: String, name: String, logoUrl: String ->
 }
 
 internal val partnerMapper = { id: String, name: String, description: String, logoUrl: String,
-    formattedAddress: List<String>?, _: String?, latitude: Double?,
+    videoUrl: String?, formattedAddress: List<String>?, _: String?, latitude: Double?,
     longitude: Double? ->
     PartnerInfo(
         id = id,
         name = name,
         description = description,
         logoUrl = logoUrl,
+        videoUrl = videoUrl,
         address = if (formattedAddress != null && latitude != null && longitude != null) {
             Address(
                 formatted = formattedAddress.toImmutableList(),

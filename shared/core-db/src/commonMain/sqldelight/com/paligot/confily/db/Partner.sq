@@ -6,6 +6,7 @@ id TEXT NOT NULL PRIMARY KEY,
 name TEXT NOT NULL,
 description TEXT NOT NULL,
 logo_url TEXT NOT NULL,
+video_url TEXT,
 formatted_address TEXT AS List<String>,
 address TEXT,
 latitude REAL,
@@ -67,8 +68,8 @@ order_, name, event_id
 
 insertPartner:
 INSERT OR REPLACE INTO Partner(
-id, name, description, event_id, logo_url, formatted_address, address, latitude, longitude
-) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
+id, name, description, event_id, logo_url, video_url, formatted_address, address, latitude, longitude
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
 
 insertPartnerAndType:
 INSERT OR REPLACE INTO PartnerAndType(id, partner_id, sponsor_id, event_id)
@@ -95,7 +96,7 @@ WHERE PartnerType.name == ? AND PartnerAndType.event_id == ?
 ORDER BY Partner.name ASC;
 
 selectPartner:
-SELECT id, name, description, logo_url, formatted_address, address, latitude, longitude
+SELECT id, name, description, logo_url, video_url, formatted_address, address, latitude, longitude
 FROM Partner
 WHERE event_id == ? AND id == ?
 ORDER BY name ASC;

@@ -9,5 +9,6 @@ class PartnerInfo(
     val name: String,
     val description: String,
     val logoUrl: String,
+    val videoUrl: String?,
     val address: Address?
 )
