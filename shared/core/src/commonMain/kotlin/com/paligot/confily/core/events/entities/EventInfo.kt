@@ -3,6 +3,7 @@ package com.paligot.confily.core.events.entities
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.daysUntil
 import kotlinx.datetime.format
 import kotlinx.datetime.format.byUnicodePattern
 import kotlinx.datetime.plus
@@ -27,7 +28,7 @@ class EventInfo(
         val startDate = startTime.date
         val endDate = endTime.date
         val days = mutableListOf<LocalDate>()
-        for (i in 0 until startDate.until(endDate, DateTimeUnit.DAY)) {
+        for (i in 0 until startDate.daysUntil(endDate) + 1) {
             val currentDate = startDate.plus(i, DateTimeUnit.DAY)
             days.add(currentDate)
         }
