@@ -1,5 +1,6 @@
 package com.paligot.confily.models.inputs
 
+import io.ktor.http.Url
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -9,6 +10,8 @@ data class PartnerInput(
     val description: String,
     @SerialName("logo_url")
     val logoUrl: String,
+    @SerialName("video_url")
+    val videoUrl: String?,
     @SerialName("site_url")
     val siteUrl: String,
     @SerialName("twitter_url")

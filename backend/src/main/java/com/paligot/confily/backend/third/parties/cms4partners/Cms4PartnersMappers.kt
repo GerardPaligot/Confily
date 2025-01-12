@@ -9,6 +9,7 @@ fun WebhookInput.mapToPartnerInput(): PartnerInput {
         name = data.name,
         description = data.description ?: "",
         logoUrl = data.logoUrl!!,
+        videoUrl = null,
         siteUrl = if (hasSchemaSiteUrl) data.siteUrl!! else "https://${data.siteUrl}",
         twitterUrl = data.getTwitterUrl(),
         twitterMessage = data.twitter ?: "",

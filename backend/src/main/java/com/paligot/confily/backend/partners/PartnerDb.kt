@@ -21,6 +21,7 @@ data class PartnerDb(
     val description: String = "",
     val logoUrl: String = "",
     val media: PartnerMediaDb? = null,
+    val videoUrl: String? = null,
     val siteUrl: String = "",
     val twitterUrl: String? = null,
     val twitterMessage: String? = null,

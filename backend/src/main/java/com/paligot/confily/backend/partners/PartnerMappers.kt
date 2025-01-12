@@ -58,6 +58,7 @@ fun PartnerDb.convertToModelV2(jobs: List<Job>) = PartnerV2(
     name = this.name,
     description = this.description,
     logoUrl = this.logoUrl,
+    videoUrl = this.videoUrl,
     media = convertToPartnerMediaModel(),
     siteUrl = this.siteUrl,
     twitterUrl = if (this.twitterUrl == "") null else this.twitterUrl,
@@ -73,6 +74,7 @@ fun PartnerDb.convertToModelV3(jobs: List<Job>) = PartnerV3(
     name = this.name,
     description = this.description,
     media = convertToPartnerMediaModel(),
+    videoUrl = videoUrl,
     types = this.sponsorings,
     socials = mutableListOf<SocialItem>().apply {
         add(SocialItem(type = SocialType.Website, url = this@convertToModelV3.siteUrl))
@@ -115,6 +117,7 @@ fun PartnerInput.convertToDb(
     description = description,
     logoUrl = logoUrl,
     media = uploads.convertToPartnerMediaDb(logoUrl),
+    videoUrl = videoUrl,
     siteUrl = siteUrl,
     twitterUrl = twitterUrl,
     twitterMessage = twitterMessage,
