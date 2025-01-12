@@ -8,6 +8,7 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.paligot.confily.navigation.ActionIds
@@ -24,6 +25,7 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun ScheduleGridPager(
     agendas: ImmutableList<AgendaUi>,
+    tabSelected: Int?,
     onTalkClicked: (id: String) -> Unit,
     onEventSessionClicked: (id: String) -> Unit,
     onFilterClicked: () -> Unit,
@@ -36,6 +38,11 @@ fun ScheduleGridPager(
     isSmallSize: Boolean = false,
     isLoading: Boolean = false
 ) {
+    LaunchedEffect(key1 = Unit) {
+        if (tabSelected != null) {
+            pagerState.scrollToPage(tabSelected)
+        }
+    }
     Scaffold(
         title = stringResource(Resource.string.screen_agenda),
         modifier = modifier,

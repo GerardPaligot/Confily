@@ -4,9 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cafe.adriel.lyricist.Lyricist
 import com.paligot.confily.core.AlarmScheduler
-import com.paligot.confily.core.events.EventRepository
-import com.paligot.confily.core.events.entities.mapToDays
 import com.paligot.confily.core.schedules.SessionRepository
+import com.paligot.confily.core.schedules.entities.Sessions
 import com.paligot.confily.core.schedules.entities.mapToListUi
 import com.paligot.confily.navigation.TopActions
 import com.paligot.confily.resources.Strings
@@ -24,15 +23,21 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.datetime.Clock
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.format
+import kotlinx.datetime.format.byUnicodePattern
+import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.compose.resources.InternalResourceApi
 import org.jetbrains.compose.resources.StringResource
 
 data class ScheduleUi(
     val topActionsUi: TopActionsUi,
     val tabActionsUi: TabActionsUi,
+    val tabIndexSelected: Int?,
     val schedules: ImmutableList<AgendaUi>
 )
 
@@ -42,47 +47,24 @@ sealed class ScheduleGridUiState {
     data class Failure(val throwable: Throwable) : ScheduleGridUiState()
 }
 
-@OptIn(InternalResourceApi::class)
 @FlowPreview
 @ExperimentalCoroutinesApi
 class ScheduleGridViewModel(
-    eventRepository: EventRepository,
     sessionRepository: SessionRepository,
     lyricist: Lyricist<Strings>,
     private val alarmScheduler: AlarmScheduler
 ) : ViewModel() {
-    private val _tabsStates = eventRepository.event().map { event ->
-        if (event == null) return@map TabActionsUi()
-        return@map TabActionsUi(
-            scrollable = true,
-            actions = event.info.mapToDays().map {
-                TabAction(
-                    route = it,
-                    labelId = StringResource("", "", emptySet()),
-                    label = it
-                )
-            }.toImmutableList()
-        )
-    }
-    private val _uiHasFiltersState = sessionRepository.countFilters().map {
-        TopActionsUi(
-            actions = persistentListOf(if (it > 0) TopActions.filtersFilled else TopActions.filters)
-        )
-    }
-    private val _schedules = sessionRepository.sessions()
+    private val _countFilters = sessionRepository.countFilters()
+    private val _sessions = sessionRepository.sessions()
     val uiState: StateFlow<ScheduleGridUiState> =
         combine(
-            flow = _tabsStates,
-            flow2 = _uiHasFiltersState,
-            flow3 = _schedules,
-            transform = { agendaTabs, topActions, schedules ->
-                if (schedules.sessions.isNotEmpty()) {
+            flow = _countFilters,
+            flow2 = _sessions,
+            transform = { countFilters, sessions ->
+                if (sessions.sessions.isNotEmpty()) {
+                    val scheduleUi = sessions.mapToUiModel(countFilters, lyricist.strings)
                     ScheduleGridUiState.Success(
-                        ScheduleUi(
-                            topActionsUi = topActions,
-                            tabActionsUi = agendaTabs,
-                            schedules = schedules.mapToListUi(lyricist.strings)
-                        )
+                        scheduleUi
                     )
                 } else {
                     ScheduleGridUiState.Loading(persistentListOf(AgendaUi.fake))
@@ -100,4 +82,38 @@ class ScheduleGridViewModel(
     fun markAsFavorite(talkItem: TalkItemUi) = viewModelScope.launch {
         alarmScheduler.schedule(talkItem)
     }
+}
+
+private fun Sessions.mapToUiModel(countFilters: Int, strings: Strings): ScheduleUi = ScheduleUi(
+    topActionsUi = countFilters.mapToTopActions(),
+    tabActionsUi = mapToTabActions(),
+    tabIndexSelected = tabSelected(),
+    schedules = mapToListUi(strings)
+)
+
+private fun Int.mapToTopActions(): TopActionsUi = TopActionsUi(
+    actions = persistentListOf(if (this > 0) TopActions.filtersFilled else TopActions.filters)
+)
+
+@OptIn(InternalResourceApi::class)
+private fun Sessions.mapToTabActions(): TabActionsUi = TabActionsUi(
+    scrollable = true,
+    actions = this.sessions.keys
+        .sorted()
+        .map {
+            val label = it.format(LocalDate.Format { byUnicodePattern("dd/MM") })
+            TabAction(
+                route = label,
+                labelId = StringResource("", "", emptySet()),
+                label = label
+            )
+        }
+        .toImmutableList()
+)
+
+private fun Sessions.tabSelected(): Int? {
+    val now = Clock.System.now().toLocalDateTime(TimeZone.UTC)
+    val daysSorted = this.sessions.keys.sorted()
+    val tabSelected = daysSorted.indexOf(element = now.date)
+    return if (tabSelected == -1) null else tabSelected
 }

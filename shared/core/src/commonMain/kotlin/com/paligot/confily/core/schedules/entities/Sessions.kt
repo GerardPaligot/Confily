@@ -18,57 +18,43 @@ class Sessions(
     val sessions: Map<LocalDate, List<Item>>
 )
 
-fun Sessions.mapToMapUi(strings: Strings): ImmutableMap<String, AgendaUi> {
-    return sessions
-        .map { (date, items) ->
-            date.format(
-                LocalDate.Format {
-                    byUnicodePattern("dd/MM/yyyy")
+fun Sessions.mapToMapUi(strings: Strings): ImmutableMap<String, AgendaUi> = sessions
+    .map { (date, items) ->
+        date.format(LocalDate.Format { byUnicodePattern("dd/MM/yyyy") }) to AgendaUi(
+            onlyFavorites = filtersApplied.onlyFavorites,
+            sessions = items
+                .groupBy { it.startTime }
+                .map { entry ->
+                    val slotTime = entry.key
+                        .format(LocalDateTime.Format { byUnicodePattern("HH:mm") })
+                    slotTime to entry.value
+                        .sortedBy { it.order }
+                        .map { it.mapToSessionItemUi(strings) }
+                        .toImmutableList()
                 }
-            ) to AgendaUi(
-                onlyFavorites = filtersApplied.onlyFavorites,
-                sessions = items
-                    .groupBy { it.startTime }
-                    .map { entry ->
-                        val slotTime = entry.key.format(
-                            LocalDateTime.Format {
-                                byUnicodePattern("HH:mm")
-                            }
-                        )
-                        slotTime to entry.value
-                            .sortedBy { it.order }
-                            .map { it.mapToSessionItemUi(strings) }
-                            .toImmutableList()
-                    }
-                    .associate { it }
-                    .toImmutableMap()
-            )
-        }
-        .associate { it }
-        .toImmutableMap()
-}
+                .associate { it }
+                .toImmutableMap()
+        )
+    }
+    .associate { it }
+    .toImmutableMap()
 
-fun Sessions.mapToListUi(strings: Strings): ImmutableList<AgendaUi> {
-    return sessions
-        .map { (_, items) ->
-            AgendaUi(
-                onlyFavorites = filtersApplied.onlyFavorites,
-                sessions = items
-                    .groupBy { it.startTime }
-                    .map { entry ->
-                        val slotTime = entry.key.format(
-                            LocalDateTime.Format {
-                                byUnicodePattern("HH:mm")
-                            }
-                        )
-                        slotTime to entry.value
-                            .sortedBy { it.order }
-                            .map { it.mapToSessionItemUi(strings) }
-                            .toImmutableList()
-                    }
-                    .associate { it }
-                    .toImmutableMap()
-            )
-        }
-        .toImmutableList()
-}
+fun Sessions.mapToListUi(strings: Strings): ImmutableList<AgendaUi> = sessions
+    .map { (_, items) ->
+        AgendaUi(
+            onlyFavorites = filtersApplied.onlyFavorites,
+            sessions = items
+                .groupBy { it.startTime }
+                .map { entry ->
+                    val slotTime = entry.key
+                        .format(LocalDateTime.Format { byUnicodePattern("HH:mm") })
+                    slotTime to entry.value
+                        .sortedBy { it.order }
+                        .map { it.mapToSessionItemUi(strings) }
+                        .toImmutableList()
+                }
+                .associate { it }
+                .toImmutableMap()
+        )
+    }
+    .toImmutableList()

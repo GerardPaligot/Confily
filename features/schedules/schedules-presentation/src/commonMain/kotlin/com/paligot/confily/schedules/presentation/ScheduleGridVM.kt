@@ -37,6 +37,7 @@ fun ScheduleGridVM(
     when (val uiState = viewModel.uiState.collectAsState().value) {
         is ScheduleGridUiState.Loading -> ScheduleGridPager(
             agendas = uiState.agenda,
+            tabSelected = null,
             pagerState = rememberPagerState(pageCount = { 1 }),
             onTalkClicked = {},
             onEventSessionClicked = {},
@@ -49,6 +50,7 @@ fun ScheduleGridVM(
         is ScheduleGridUiState.Failure -> Text(text = stringResource(Resource.string.text_error))
         is ScheduleGridUiState.Success -> ScheduleGridPager(
             agendas = uiState.scheduleUi.schedules,
+            tabSelected = uiState.scheduleUi.tabIndexSelected,
             topActionsUi = if (!showFilterIcon) TopActionsUi() else uiState.scheduleUi.topActionsUi,
             tabActionsUi = uiState.scheduleUi.tabActionsUi,
             onTalkClicked = onTalkClicked,
