@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.paligot.confily.ui.camera"
+    namespace = "com.paligot.confily.style.components.camera"
 }
 
 dependencies {
