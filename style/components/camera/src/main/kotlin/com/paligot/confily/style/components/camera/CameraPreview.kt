@@ -1,4 +1,4 @@
-package com.paligot.confily.ui.camera
+package com.paligot.confily.style.components.camera
 
 import android.annotation.SuppressLint
 import androidx.camera.core.CameraSelector
