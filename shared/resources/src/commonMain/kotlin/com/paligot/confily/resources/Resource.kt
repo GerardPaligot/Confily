@@ -14,6 +14,7 @@ import confily.shared.resources.generated.resources.action_filtering
 import confily.shared.resources.generated.resources.action_filtering_favorites
 import confily.shared.resources.generated.resources.action_generate_qrcode
 import confily.shared.resources.generated.resources.action_networking_delete
+import confily.shared.resources.generated.resources.action_partner_video
 import confily.shared.resources.generated.resources.action_power_off
 import confily.shared.resources.generated.resources.action_qrcode_scanner
 import confily.shared.resources.generated.resources.action_share_talk
@@ -134,6 +135,10 @@ val Resource.string.action_contacts_scanner: StringResource
 @OptIn(ExperimentalResourceApi::class)
 val Resource.string.action_edit_profile: StringResource
     get() = Res.string.action_edit_profile
+
+@OptIn(ExperimentalResourceApi::class)
+val Resource.string.action_partner_video: StringResource
+    get() = Res.string.action_partner_video
 
 @OptIn(ExperimentalResourceApi::class)
 val Resource.string.action_export: StringResource

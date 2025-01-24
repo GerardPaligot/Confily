@@ -10,9 +10,13 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
@@ -20,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.paligot.confily.partners.ui.PartnerDetailSectionVertical
 import com.paligot.confily.partners.ui.models.PartnerUi
 import com.paligot.confily.resources.Resource
+import com.paligot.confily.resources.action_partner_video
 import com.paligot.confily.resources.title_jobs
 import com.paligot.confily.resources.title_plan_partner
 import com.paligot.confily.style.components.placeholder.placeholder
@@ -27,6 +32,7 @@ import com.paligot.confily.style.events.cards.AddressCard
 import com.paligot.confily.style.partners.jobs.JobItem
 import org.jetbrains.compose.resources.stringResource
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PartnerDetailVerticalScreen(
     partnerUi: PartnerUi,
@@ -38,6 +44,7 @@ fun PartnerDetailVerticalScreen(
     isLoading: Boolean = false,
     displayAvatar: Boolean = true
 ) {
+    val showVideo = remember { mutableStateOf(false) }
     LazyColumn(
         modifier = modifier.padding(contentPadding),
         contentPadding = PaddingValues(horizontal = 16.dp),
@@ -51,6 +58,16 @@ fun PartnerDetailVerticalScreen(
                 displayAvatar = displayAvatar,
                 onLinkClicked = onLinkClicked
             )
+        }
+        if (partnerUi.videoUrl != null) {
+            item {
+                Button(
+                    onClick = { showVideo.value = true },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(text = stringResource(Resource.string.action_partner_video))
+                }
+            }
         }
         if (partnerUi.jobs.isNotEmpty()) {
             item {
@@ -98,5 +115,13 @@ fun PartnerDetailVerticalScreen(
         item {
             Spacer(modifier = Modifier.height(16.dp))
         }
+    }
+    if (showVideo.value && partnerUi.videoUrl != null) {
+        PartnerVideoSheet(
+            url = partnerUi.videoUrl!!,
+            onDismissRequest = {
+                showVideo.value = false
+            }
+        )
     }
 }

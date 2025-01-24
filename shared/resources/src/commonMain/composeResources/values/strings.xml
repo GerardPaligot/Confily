@@ -89,6 +89,7 @@
     <string name="action_contact_organizers_phone">Contact by phone</string>
     <string name="action_contact_organizers_mail">Contact by mail</string>
     <string name="action_edit_profile">Edit my information</string>
+    <string name="action_partner_video">Presentation video</string>
     <string name="action_power_off">Change event</string>
     <string name="action_export">Export networking</string>
 

@@ -16,6 +16,7 @@ kotlin {
                 implementation(projects.features.partners.partnersSemantics)
                 implementation(projects.features.navigation)
                 implementation(projects.style.components.placeholder)
+                implementation(projects.style.components.video)
                 implementation(projects.style.events)
                 implementation(projects.style.partners)
                 implementation(projects.style.theme)
