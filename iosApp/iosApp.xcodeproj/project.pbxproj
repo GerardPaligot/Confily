@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00363C122D4563CA007F302F /* VideoPlayerUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00363C112D4563CA007F302F /* VideoPlayerUIView.swift */; };
 		0056BD6E2D00E29400098D38 /* ActivityItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0056BD6D2D00E29400098D38 /* ActivityItemView.swift */; };
 		0056BD702D00E58D00098D38 /* PartnersActivitiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0056BD6F2D00E58D00098D38 /* PartnersActivitiesView.swift */; };
 		0056BD742D00F0F700098D38 /* PartnerListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0056BD732D00F0F700098D38 /* PartnerListView.swift */; };
@@ -126,6 +127,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		00363C112D4563CA007F302F /* VideoPlayerUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerUIView.swift; sourceTree = "<group>"; };
 		0056BD6D2D00E29400098D38 /* ActivityItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityItemView.swift; sourceTree = "<group>"; };
 		0056BD6F2D00E58D00098D38 /* PartnersActivitiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnersActivitiesView.swift; sourceTree = "<group>"; };
 		0056BD732D00F0F700098D38 /* PartnerListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnerListView.swift; sourceTree = "<group>"; };
@@ -245,6 +247,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		00363C102D4563A7007F302F /* video */ = {
+			isa = PBXGroup;
+			children = (
+				00363C112D4563CA007F302F /* VideoPlayerUIView.swift */,
+			);
+			path = video;
+			sourceTree = "<group>";
+		};
 		005EB8C12D26C075001A2ECA /* team-members */ = {
 			isa = PBXGroup;
 			children = (
@@ -341,6 +351,7 @@
 		D50A458C27B0818F00C9A43C /* components */ = {
 			isa = PBXGroup;
 			children = (
+				00363C102D4563A7007F302F /* video */,
 				D5289FE129B7C5CD00D1FE7B /* mailing */,
 				D55D7A70295F80CD008EA04B /* cards */,
 				D544C7E329547F290038CB80 /* structures */,
@@ -788,6 +799,7 @@
 				D581504429B22B2B0058D057 /* MenusNavigation.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				D5C92EC7283AC66D00D5CF2D /* PartnersVM.swift in Sources */,
+				00363C122D4563CA007F302F /* VideoPlayerUIView.swift in Sources */,
 				D556ADBB29C5F7D200242680 /* ComposeMailData.swift in Sources */,
 				D5289FE329B7C5E600D1FE7B /* MailView.swift in Sources */,
 				D560788E27BE86D900D4012C /* SpeakerAvatarView.swift in Sources */,

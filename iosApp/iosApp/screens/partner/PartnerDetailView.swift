@@ -10,6 +10,7 @@ import SwiftUI
 import SharedDi
 
 struct PartnerDetailView: View {
+    @State private var showPlayer = false
     let partnerUi: PartnerUi
 
     var body: some View {
@@ -34,6 +35,13 @@ struct PartnerDetailView: View {
                 }
                 Text(partnerUi.description_)
                     .font(.callout)
+                if (self.partnerUi.videoUrl != nil) {
+                    NavigationLink(isActive: $showPlayer) {
+                        VideoPlayerUIView(url: self.partnerUi.videoUrl!)
+                    } label: {
+                        Text("Video presentation")
+                    }
+                }
             }
             if (partnerUi.jobs.count > 0) {
                 Section {
@@ -57,6 +65,11 @@ struct PartnerDetailView: View {
             }
         }
         .listStyle(GroupedListStyle())
+        /*
+        .sheet(isPresented: $isPlayerSheetPresented) {
+            VideoPlayerUIView(url: self.partnerUi.videoUrl!)
+        }
+        */
     }
 }
 
