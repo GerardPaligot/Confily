@@ -12,11 +12,6 @@ android {
 kotlin {
     androidTarget()
 
-    js {
-        binaries.executable()
-        browser()
-    }
-
     listOf(
         iosArm64(),
         iosSimulatorArm64()
@@ -29,14 +24,21 @@ kotlin {
         }
     }
 
+    jvm("desktop")
+
+    js {
+        binaries.executable()
+        browser()
+    }
+
     sourceSets {
-        val commonMain by getting {
+        commonMain {
             dependencies {
                 implementation(libs.jetbrains.kotlinx.coroutines)
                 implementation(libs.cash.sqldelight.runtime)
             }
         }
-        val androidMain by getting {
+        androidMain {
             dependencies {
                 implementation(libs.cash.sqldelight.android)
             }
@@ -46,7 +48,12 @@ kotlin {
                 implementation(libs.cash.sqldelight.native)
             }
         }
-        val jsMain by getting {
+        val desktopMain by getting {
+            dependencies {
+                implementation(libs.cash.sqldelight.desktop)
+            }
+        }
+        jsMain {
             dependencies {
                 implementation(libs.cash.sqldelight.web)
                 implementation(devNpm("copy-webpack-plugin", "9.1.0"))

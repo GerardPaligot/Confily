@@ -14,6 +14,8 @@ android {
 kotlin {
     androidTarget()
 
+    jvm("desktop")
+
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         useCommonJs()
@@ -21,7 +23,7 @@ kotlin {
     }
 
     sourceSets {
-        val commonMain by getting {
+        commonMain {
             dependencies {
                 implementation(projects.shared.resources)
                 implementation(compose.material3)

@@ -109,6 +109,7 @@ apache-xmlgraphics-batik-codec = { group = "org.apache.xmlgraphics", name = "bat
 
 cash-sqldelight-android = { group = "app.cash.sqldelight", name = "android-driver", version.ref = "cash-sqldelight" }
 cash-sqldelight-native = { group = "app.cash.sqldelight", name = "native-driver", version.ref = "cash-sqldelight" }
+cash-sqldelight-desktop = { group = "app.cash.sqldelight", name = "sqlite-driver", version.ref = "cash-sqldelight" }
 cash-sqldelight-web = { group = "app.cash.sqldelight", name = "web-worker-driver", version.ref = "cash-sqldelight" }
 cash-sqldelight-coroutines = { group = "app.cash.sqldelight", name = "coroutines-extensions", version.ref = "cash-sqldelight" }
 cash-sqldelight-gradlePlugin = { group = "app.cash.sqldelight", name = "gradle-plugin", version.ref = "cash-sqldelight" }
