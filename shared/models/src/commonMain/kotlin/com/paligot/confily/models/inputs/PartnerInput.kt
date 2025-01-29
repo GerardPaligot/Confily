@@ -1,6 +1,5 @@
 package com.paligot.confily.models.inputs
 
-import io.ktor.http.Url
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
