@@ -13,12 +13,6 @@ android {
 kotlin {
     androidTarget()
 
-    @OptIn(ExperimentalWasmDsl::class)
-    wasmJs {
-        useCommonJs()
-        browser()
-    }
-
     listOf(
         iosArm64(),
         iosSimulatorArm64()
@@ -30,8 +24,16 @@ kotlin {
         }
     }
 
+    jvm("desktop")
+
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmJs {
+        useCommonJs()
+        browser()
+    }
+
     sourceSets {
-        val commonMain by getting {
+        commonMain {
             dependencies {
                 api(projects.shared.models)
 
@@ -47,7 +49,7 @@ kotlin {
                 implementation(libs.jetbrains.kotlinx.coroutines)
             }
         }
-        val androidMain by getting {
+        androidMain {
             dependencies {
                 implementation(libs.ktor.client.android)
             }
@@ -57,7 +59,12 @@ kotlin {
                 implementation(libs.ktor.client.ios)
             }
         }
-        val wasmJsMain by getting {
+        val desktopMain by getting {
+            dependencies {
+                implementation(libs.ktor.client.java)
+            }
+        }
+        wasmJsMain {
             dependencies {
                 implementation(libs.ktor.client.js)
             }

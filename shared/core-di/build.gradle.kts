@@ -15,6 +15,8 @@ android {
 kotlin {
     androidTarget()
 
+    jvm("desktop")
+
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         useCommonJs()
@@ -70,7 +72,7 @@ kotlin {
                 api(projects.shared.coreDb)
             }
         }
-        val androidMain by getting {
+        androidMain {
             dependencies {
                 implementation(libs.koin.android)
             }
@@ -82,6 +84,10 @@ kotlin {
             dependsOn(mobileMain)
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
+        }
+        val desktopMain by getting {
+            dependsOn(commonMain)
+            dependsOn(mobileMain)
         }
         wasmJsMain {
             dependencies {
