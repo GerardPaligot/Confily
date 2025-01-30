@@ -29,6 +29,7 @@ class UiLibraryPlugin: Plugin<Project> {
             }
             extensions.configure<KotlinMultiplatformExtension> {
                 androidTarget()
+                jvm("desktop")
                 wasmJs {
                     useCommonJs()
                     browser()
