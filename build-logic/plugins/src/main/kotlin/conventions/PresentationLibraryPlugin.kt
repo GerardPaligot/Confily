@@ -22,6 +22,7 @@ class PresentationLibraryPlugin: Plugin<Project> {
             val compose = extensions.getByType<ComposeExtension>()
             extensions.configure<KotlinMultiplatformExtension> {
                 androidTarget()
+                jvm("desktop")
                 wasmJs {
                     useCommonJs()
                     browser()

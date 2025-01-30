@@ -14,6 +14,8 @@ android {
 kotlin {
     androidTarget()
 
+    jvm("desktop")
+
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         useCommonJs()
