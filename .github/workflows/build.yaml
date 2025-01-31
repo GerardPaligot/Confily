@@ -31,12 +31,6 @@ jobs:
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 
-      - name: Check Kotlin lint
-        run: ./gradlew :composeApp:ktlintCheck :composeApp:detekt
-
-      - name: Check lint
-        run: ./gradlew :composeApp:lintDebug
-
       - name: Check and build android project
         run: ./gradlew :composeApp:assembleDebug :composeApp:bundleDebug
 
@@ -46,23 +40,6 @@ jobs:
         with:
           name: android-build-outputs
           path: composeApp/build/outputs
-
-      - name: Upload reports
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: android-reports
-          path: |
-            **/build/reports/*
-
-      - name: Upload test results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: android-test-results
-          path: |
-            **/build/test-results/*
-
   wear:
     runs-on: ubuntu-latest
     timeout-minutes: 60
@@ -84,12 +61,6 @@ jobs:
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 
-      - name: Check Kotlin lint
-        run: ./gradlew :wear:wear-app:ktlintCheck :wear:wear-app:detekt
-
-      - name: Check lint
-        run: ./gradlew :wear:wear-app:lintDebug
-
       - name: Check and build android project
         run: ./gradlew :wear:wear-app:assembleDebug :wear:wear-app:bundleDebug
 
@@ -99,23 +70,43 @@ jobs:
         with:
           name: wear-build-outputs
           path: wear/wear-app/build/outputs
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: wrapper
+          build-scan-publish: true
+          build-scan-terms-of-use-url: "https://gradle.com/terms-of-service"
+          build-scan-terms-of-use-agree: "yes"
+
+      - name: Copy CI gradle.properties
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - name: Check Kotlin lint
+        run: ./gradlew ktlintCheck detekt
+
+      - name: Check lint
+        run: ./gradlew lintDebug
+
+      - name: Run desktop tests
+        run: ./gradlew desktopTest
 
       - name: Upload reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: wear-reports
+          name: reports
           path: |
             **/build/reports/*
-
-      - name: Upload test results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: wear-test-results
-          path: |
-            **/build/test-results/*
-
   androidTest:
     runs-on: ubuntu-latest
     timeout-minutes: 60
@@ -171,7 +162,6 @@ jobs:
           name: android-instrumented-test-results
           path: |
             **/build/reports/androidTests
-
   ios:
     runs-on: macos-14 # M1 runner
     steps:
@@ -191,7 +181,6 @@ jobs:
 
       - name: Build iOS app
         run: xcodebuild -allowProvisioningUpdates -project iosApp/iosApp.xcodeproj -configuration Debug -scheme iosApp -sdk iphoneos build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
-
   backend:
     runs-on: ubuntu-latest
     timeout-minutes: 60
@@ -212,9 +201,6 @@ jobs:
 
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
-
-      - name: Check Kotlin lint
-        run: ./gradlew :backend:ktlintCheck :backend:detekt
 
       - name: Check and build android project
         run: ./gradlew :backend:build
