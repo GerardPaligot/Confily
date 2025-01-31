@@ -56,7 +56,7 @@ jetbrains-kotlinx-coroutines = "1.9.0"
 jetbrains-kotlinx-datetime = "0.6.0"
 jetbrains-kotlinx-serialization = "1.7.3"
 kmp-nativecoroutines-gradlePlugin = "1.0.0-ALPHA-38"
-koin = "4.0.0"
+koin = "4.0.1"
 ktlint = "12.1.1"
 ktor = "3.0.2"
 logback = "1.3.5"
@@ -137,6 +137,7 @@ jetbrains-kotlin-serialization-gradlePlugin = { group = "org.jetbrains.kotlin", 
 jetbrains-kotlinx-browser = { group = "org.jetbrains.kotlinx", name = "kotlinx-browser", version.ref = "jetbrains-kotlinx-browser" }
 jetbrains-kotlinx-collections = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version.ref = "jetbrains-kotlinx-collections" }
 jetbrains-kotlinx-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "jetbrains-kotlinx-coroutines" }
+jetbrains-kotlinx-coroutines-swing = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-swing", version.ref = "jetbrains-kotlinx-coroutines" }
 jetbrains-kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "jetbrains-kotlinx-coroutines" }
 jetbrains-kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "jetbrains-kotlinx-datetime" }
 jetbrains-kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "jetbrains-kotlinx-serialization" }
@@ -163,6 +164,8 @@ google-zxing = { group = "com.google.zxing", name = "core", version.ref = "googl
 kmp-nativecoroutines-gradlePlugin = { group = "com.rickclephas.kmp", name = "kmp-nativecoroutines-gradle-plugin", version.ref = "kmp-nativecoroutines-gradlePlugin" }
 
 koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
+koin-compose = { group = "io.insert-koin", name = "koin-compose", version.ref = "koin" }
+koin-compose-viewmodel-navigation = { group = "io.insert-koin", name = "koin-compose-viewmodel-navigation", version.ref = "koin" }
 koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
 koin-androidx-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin" }
 koin-compose-viewmodel = { group = "io.insert-koin", name = "koin-compose-viewmodel", version.ref = "koin" }
@@ -215,6 +218,7 @@ squareup-okio = { group = "com.squareup.okio", name = "okio", version.ref = "squ
 zxing-android-embedded = { group = "com.journeyapps", name = "zxing-android-embedded", version.ref = "zxing-android-embedded" }
 
 [bundles]
+koin = ["koin-compose", "koin-compose-viewmodel", "koin-compose-viewmodel-navigation"]
 jetbrains-compose-adaptive = [
     "jetbrains-compose-material3-adaptive",
     "jetbrains-compose-material3-adaptive-layout",

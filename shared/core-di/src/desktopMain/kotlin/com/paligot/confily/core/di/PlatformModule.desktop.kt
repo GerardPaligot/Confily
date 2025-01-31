@@ -1,5 +1,6 @@
 package com.paligot.confily.core.di
 
+import com.paligot.confily.core.AlarmScheduler
 import com.paligot.confily.core.Platform
 import com.paligot.confily.core.QrCodeGenerator
 import com.paligot.confily.core.QrCodeGeneratorJvm
@@ -20,4 +21,5 @@ actual val platformModule = module {
     single<ObservableSettings> { PreferencesSettings(Preferences.userRoot()) }
     single<String>(named(AcceptLanguageNamed)) { Locale.getDefault().toLanguageTag() }
     single<QrCodeGenerator> { QrCodeGeneratorJvm() }
+    single<AlarmScheduler> { AlarmScheduler() }
 }

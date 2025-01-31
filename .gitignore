@@ -28,3 +28,6 @@ build/
 firestore-debug.log
 firebase-debug.log
 ui-debug.log
+
+# sample db
+**/confily.db
