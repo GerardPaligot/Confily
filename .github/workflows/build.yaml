@@ -10,7 +10,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  android:
+  composeApp:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
@@ -32,20 +32,20 @@ jobs:
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 
       - name: Check Kotlin lint
-        run: ./gradlew :androidApp:ktlintCheck :androidApp:detekt
+        run: ./gradlew :composeApp:ktlintCheck :composeApp:detekt
 
       - name: Check lint
-        run: ./gradlew :androidApp:lintDebug
+        run: ./gradlew :composeApp:lintDebug
 
       - name: Check and build android project
-        run: ./gradlew :androidApp:assembleDebug :androidApp:bundleDebug
+        run: ./gradlew :composeApp:assembleDebug :composeApp:bundleDebug
 
       - name: Upload build outputs
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: android-build-outputs
-          path: androidApp/build/outputs
+          path: composeApp/build/outputs
 
       - name: Upload reports
         if: always()

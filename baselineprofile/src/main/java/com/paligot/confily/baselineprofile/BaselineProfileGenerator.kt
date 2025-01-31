@@ -24,7 +24,7 @@ import org.junit.runner.RunWith
  * You can run the generator with the "Generate Baseline Profile" run configuration in Android Studio or
  * the equivalent `generateBaselineProfile` gradle task:
  * ```
- * ./gradlew :androidApp:generateReleaseBaselineProfile
+ * ./gradlew :composeApp:generateReleaseBaselineProfile
  * ```
  * The run configuration runs the Gradle task and applies filtering to run only the generators.
  *

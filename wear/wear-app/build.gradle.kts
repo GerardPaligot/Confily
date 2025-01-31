@@ -3,6 +3,7 @@ import extensions.toProperties
 
 plugins {
     id("confily.android.application")
+    id("org.jetbrains.kotlin.android")
     id("confily.quality")
 }
 
@@ -21,7 +22,7 @@ android {
         }
     }
 
-    val appProps = rootProject.file("androidApp/app.properties").toProperties()
+    val appProps = rootProject.file("composeApp/app.properties").toProperties()
     buildTypes {
         release {
             isMinifyEnabled = false

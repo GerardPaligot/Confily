@@ -41,7 +41,7 @@ class SampleApplicationPlugin : Plugin<Project> {
                     getByName("debug") {
                         keyAlias = "debug"
                         keyPassword = "android"
-                        storeFile = rootProject.file("androidApp/keystore.debug")
+                        storeFile = rootProject.file("composeApp/keystore.debug")
                         storePassword = "android"
                     }
                 }

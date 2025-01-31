@@ -1,19 +1,18 @@
 package com.paligot.confily.main
 
-import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
-import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.paligot.confily.networking.ui.models.ExportNetworkingUi
+import com.paligot.confily.style.components.adaptive.adaptiveInfo
 import com.paligot.confily.style.theme.ConfilyTheme
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
 
-@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Suppress("LongMethod", "UnusedPrivateMember")
 @ExperimentalCoroutinesApi
 @FlowPreview
@@ -21,7 +20,6 @@ import org.koin.core.parameter.parametersOf
 fun Main(
     defaultEvent: String?,
     isPortrait: Boolean,
-    adaptiveInfo: WindowSizeClass,
     launchUrl: (String) -> Unit,
     onContactExportClicked: (ExportNetworkingUi) -> Unit,
     onReportByPhoneClicked: (String) -> Unit,
@@ -30,10 +28,11 @@ fun Main(
     onItineraryClicked: (lat: Double, lng: Double) -> Unit,
     onScheduleStarted: () -> Unit,
     onProfileCreated: () -> Unit,
-    navController: NavHostController,
     modifier: Modifier = Modifier,
+    navController: NavHostController = rememberNavController(),
     viewModel: MainViewModel = koinViewModel(parameters = { parametersOf(defaultEvent) })
 ) {
+    val adaptiveInfo = adaptiveInfo()
     ConfilyTheme {
         val uiState = viewModel.uiState.collectAsState()
         when (uiState.value) {
