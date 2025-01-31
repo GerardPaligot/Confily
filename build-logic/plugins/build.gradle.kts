@@ -24,9 +24,9 @@ gradlePlugin {
             id = "confily.android.application"
             implementationClass = "AndroidApplicationPlugin"
         }
-        register("androidSampleApplication") {
-            id = "confily.android.sample"
-            implementationClass = "AndroidSampleApplicationPlugin"
+        register("sampleApplication") {
+            id = "confily.sample"
+            implementationClass = "conventions.SampleApplicationPlugin"
         }
         register("androidLibrary") {
             id = "confily.android.library"

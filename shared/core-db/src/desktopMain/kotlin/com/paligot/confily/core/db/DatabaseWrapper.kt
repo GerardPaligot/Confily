@@ -8,7 +8,10 @@ import com.paligot.confily.db.Partner
 
 actual class DatabaseWrapper {
     actual fun createDb(): ConfilyDatabase = ConfilyDatabase.invoke(
-        driver = JdbcSqliteDriver("jdbc:sqlite:confily.db"),
+        driver = JdbcSqliteDriver(
+            url = "jdbc:sqlite:confily.db",
+            schema = ConfilyDatabase.Schema
+        ),
         EventAdapter = Event.Adapter(formatted_addressAdapter = listOfStringsAdapter),
         EventSessionAdapter = EventSession.Adapter(formatted_addressAdapter = listOfStringsAdapter),
         PartnerAdapter = Partner.Adapter(formatted_addressAdapter = listOfStringsAdapter)
