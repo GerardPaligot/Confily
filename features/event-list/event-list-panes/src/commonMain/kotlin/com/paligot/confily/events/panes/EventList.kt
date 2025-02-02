@@ -10,7 +10,10 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.unit.dp
+import com.paligot.confily.events.semantics.EventListSemantics
 import com.paligot.confily.events.ui.EventItem
 import com.paligot.confily.events.ui.models.EventItemListUi
 import com.paligot.confily.navigation.TabActions
@@ -40,14 +43,19 @@ fun EventList(
     Scaffold(
         title = stringResource(Resource.string.screen_events),
         tabActions = tabActions,
-        pagerState = pagerState
+        pagerState = pagerState,
+        modifier = modifier
     ) { padding ->
-        HorizontalPager(state = pagerState) { page ->
+        HorizontalPager(
+            state = pagerState,
+            modifier = Modifier.semantics { testTag = EventListSemantics.pager }
+        ) { page ->
             val items = if (page == 0) events.future else events.past
             LazyColumn(
-                modifier = modifier
+                modifier = Modifier
                     .padding(padding)
-                    .fillMaxSize(),
+                    .fillMaxSize()
+                    .semantics { testTag = EventListSemantics.list },
                 contentPadding = PaddingValues(vertical = 24.dp)
             ) {
                 items(items, key = { it.id }) { item ->

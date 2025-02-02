@@ -3,7 +3,7 @@ package com.paligot.confily.events.ui
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithText
+import com.paligot.confily.events.test.onEventItemNode
 import com.paligot.confily.events.ui.models.EventItemUi
 import org.junit.Rule
 import org.junit.Test
@@ -22,10 +22,7 @@ class EventItemTest {
         rule.setContent {
             EventItem(item = EventItemUi.fake, onClick = {})
         }
-        rule.onNodeWithText(EventItemUi.fake.name)
-            .assertHasClickAction()
-            .assertIsDisplayed()
-        rule.onNodeWithText(EventItemUi.fake.date)
+        rule.onEventItemNode(EventItemUi.fake.name, EventItemUi.fake.date)
             .assertHasClickAction()
             .assertIsDisplayed()
     }
@@ -40,7 +37,7 @@ class EventItemTest {
         rule.setContent {
             EventItem(item = EventItemUi.fake, isLoading = true, onClick = {})
         }
-        rule.onNodeWithText(EventItemUi.fake.name).assertDoesNotExist()
-        rule.onNodeWithText(EventItemUi.fake.date).assertDoesNotExist()
+        rule.onEventItemNode(EventItemUi.fake.name, EventItemUi.fake.date)
+            .assertDoesNotExist()
     }
 }

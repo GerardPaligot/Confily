@@ -6,6 +6,7 @@ import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.getByType
 import org.jetbrains.compose.ComposeExtension
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
@@ -41,6 +42,10 @@ class PanesLibraryPlugin: Plugin<Project> {
                 }
                 sourceSets.androidMain.dependencies {
                     implementation(compose.dependencies.preview)
+                }
+                sourceSets["desktopTest"].dependencies {
+                    implementation(compose.dependencies.desktop.uiTestJUnit4)
+                    implementation(compose.dependencies.desktop.currentOs)
                 }
             }
         }
