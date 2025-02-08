@@ -213,6 +213,7 @@ richtext-commonmark = { group = "com.halilibo.compose-richtext", name = "richtex
 settings = { group = "com.russhwolf", name = "multiplatform-settings", version.ref = "settings" }
 settings-coroutines = { group = "com.russhwolf", name = "multiplatform-settings-coroutines", version.ref = "settings" }
 settings-make-observable = { group = "com.russhwolf", name = "multiplatform-settings-make-observable", version.ref = "settings" }
+settings-test = { group = "com.russhwolf", name = "multiplatform-settings-test", version.ref = "settings" }
 squareup-okio = { group = "com.squareup.okio", name = "okio", version.ref = "squareup-okio" }
 
 zxing-android-embedded = { group = "com.journeyapps", name = "zxing-android-embedded", version.ref = "zxing-android-embedded" }

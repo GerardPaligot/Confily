@@ -10,7 +10,7 @@ android {
         debugImplementation(libs.androidx.compose.ui.test.manifest)
         androidTestImplementation(projects.features.schedules.schedulesTest)
         androidTestImplementation(projects.androidCore.coreTest)
-        androidTestImplementation(projects.androidCore.coreModelsFactory)
+        androidTestImplementation(projects.core.coreModelsFactory)
         androidTestImplementation(libs.jetbrains.kotlinx.datetime)
         constraints {
             implementation("androidx.tracing:tracing:1.2.0") {

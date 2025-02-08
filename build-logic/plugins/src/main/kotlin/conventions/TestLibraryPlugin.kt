@@ -24,10 +24,10 @@ class TestLibraryPlugin: Plugin<Project> {
                 androidTarget()
                 jvm("desktop")
                 sourceSets.commonMain.dependencies {
+                    api(project(":core:core-test-patterns"))
                     api(compose.dependencies.desktop.uiTestJUnit4)
                 }
                 sourceSets.androidMain.dependencies {
-                    api(project(":android-core:core-test-patterns"))
                     api(libs.findLibrary("androidx-espresso-core").get())
                     api(compose.dependencies.uiTestJUnit4)
                 }

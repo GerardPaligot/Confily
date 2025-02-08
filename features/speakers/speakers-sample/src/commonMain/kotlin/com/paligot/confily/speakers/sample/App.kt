@@ -2,6 +2,7 @@ package com.paligot.confily.speakers.sample
 
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
@@ -13,10 +14,10 @@ import com.paligot.confily.style.theme.ConfilyTheme
 @Composable
 fun App(
     isLandscape: Boolean,
-    launchUrl: (String) -> Unit
+    launchUrl: (String) -> Unit,
+    adaptiveInfo: WindowSizeClass = adaptiveInfo()
 ) {
     val navController = rememberNavController()
-    val adaptiveInfo = adaptiveInfo()
     ConfilyTheme {
         NavHost(
             navController = navController,
