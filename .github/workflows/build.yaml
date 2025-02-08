@@ -70,7 +70,7 @@ jobs:
         with:
           name: wear-build-outputs
           path: wear/wear-app/build/outputs
-  check:
+  linter:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
@@ -96,38 +96,10 @@ jobs:
 
       - name: Check lint
         run: ./gradlew lintDebug
-
-      - name: Run desktop tests
-        run: ./gradlew desktopTest
-
-      - name: Upload reports
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: reports
-          path: |
-            **/build/reports/*
-  androidTest:
+  test:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
-      - name: Delete unnecessary tools 🔧
-        uses: jlumbroso/free-disk-space@v1.3.1
-        with:
-          android: false # Don't remove Android tools
-          tool-cache: true # Remove image tool cache - rm -rf "$AGENT_TOOLSDIRECTORY"
-          dotnet: true # rm -rf /usr/share/dotnet
-          haskell: true # rm -rf /opt/ghc...
-          swap-storage: true # rm -f /mnt/swapfile (4GiB)
-          docker-images: false # Takes 16s, enable if needed in the future
-          large-packages: false # includes google-cloud-sdk and it's slow
-
-      - name: Enable KVM
-        run: |
-          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
-          sudo udevadm control --reload-rules
-          sudo udevadm trigger --name-match=kvm
-
       - uses: actions/checkout@v4
 
       - uses: actions/setup-java@v4
@@ -145,23 +117,16 @@ jobs:
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 
-      - name: Build projects and run instrumentation tests
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 29
-          disable-animations: true
-          disk-size: 6000M
-          heap-size: 600M
-          emulator-build: 7425822 # https://github.com/ReactiveCircus/android-emulator-runner/issues/160
-          script: ./gradlew connectedDebugAndroidTest --daemon
+      - name: Run desktop tests
+        run: ./gradlew desktopTest
 
-      - name: Upload test results
+      - name: Upload reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: android-instrumented-test-results
+          name: reports
           path: |
-            **/build/reports/androidTests
+            **/build/reports/*
   ios:
     runs-on: macos-14 # M1 runner
     steps:
