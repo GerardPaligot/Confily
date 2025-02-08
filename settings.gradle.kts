@@ -25,7 +25,6 @@ plugins {
 rootProject.name = "confily"
 include(":composeApp")
 include(":android-core:core-sample")
-include(":android-core:core-test")
 include(":core:core-models-factory")
 include(":core:core-test-patterns")
 include(":core:core-test")

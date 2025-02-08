@@ -4,6 +4,7 @@ import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.fadeIn
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -16,6 +17,8 @@ import com.paligot.confily.schedules.routes.ScheduleList
 import com.paligot.confily.speakers.routes.Speaker
 import com.paligot.confily.style.components.adaptive.isCompat
 import com.paligot.confily.style.components.adaptive.isMedium
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @Suppress("LongParameterList")
 fun NavGraphBuilder.scheduleGraph(
@@ -34,21 +37,23 @@ fun NavGraphBuilder.scheduleGraph(
         enterTransition = { fadeIn() },
         exitTransition = { exitTransition }
     ) {
+        val scope = rememberCoroutineScope(getContext = { Dispatchers.Main })
         val showFilterIcon = adaptiveInfo.widthSizeClass.isCompat ||
             (adaptiveInfo.widthSizeClass.isMedium && isPortrait)
         val isSmallSize = adaptiveInfo.heightSizeClass.isCompat
         ScheduleGridAdaptive(
             onScheduleStarted = onScheduleStarted,
-            onFilterClicked = { navController.navigate(ScheduleFilters) },
-            onTalkClicked = { navController.navigate(Schedule(it)) },
-            onEventSessionClicked = { navController.navigate(ScheduleEvent(it)) },
+            onFilterClicked = { scope.launch { navController.navigate(ScheduleFilters) } },
+            onTalkClicked = { scope.launch { navController.navigate(Schedule(it)) } },
+            onEventSessionClicked = { scope.launch { navController.navigate(ScheduleEvent(it)) } },
             showFilterIcon = showFilterIcon,
             isSmallSize = isSmallSize
         )
     }
     composable<ScheduleFilters> {
+        val scope = rememberCoroutineScope(getContext = { Dispatchers.Main })
         AgendaFiltersCompactVM(
-            navigationIcon = { Back { navController.popBackStack() } }
+            navigationIcon = { Back { scope.launch { navController.popBackStack() } } }
         )
     }
     composable<Schedule>(
@@ -60,10 +65,11 @@ fun NavGraphBuilder.scheduleGraph(
         exitTransition = { exitTransition },
         popExitTransition = { popExitTransition }
     ) {
+        val scope = rememberCoroutineScope(getContext = { Dispatchers.Main })
         ScheduleDetailOrientableVM(
             scheduleId = it.toRoute<Schedule>().id,
-            onBackClicked = { navController.popBackStack() },
-            onSpeakerClicked = { navController.navigate(Speaker(id = it)) },
+            onBackClicked = { scope.launch { navController.popBackStack() } },
+            onSpeakerClicked = { scope.launch { navController.navigate(Speaker(id = it)) } },
             onShareClicked = onShareClicked,
             isLandscape = isPortrait.not()
         )
@@ -74,10 +80,11 @@ fun NavGraphBuilder.scheduleGraph(
         exitTransition = { exitTransition },
         popExitTransition = { popExitTransition }
     ) {
+        val scope = rememberCoroutineScope(getContext = { Dispatchers.Main })
         ScheduleDetailEventSessionVM(
             scheduleId = it.toRoute<ScheduleEvent>().id,
             onItineraryClicked = onItineraryClicked,
-            onBackClicked = { navController.popBackStack() }
+            onBackClicked = { scope.launch { navController.popBackStack() } }
         )
     }
 }

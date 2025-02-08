@@ -21,5 +21,5 @@ actual val platformModule = module {
     single<ObservableSettings> { PreferencesSettings(Preferences.userRoot()) }
     single<String>(named(AcceptLanguageNamed)) { Locale.getDefault().toLanguageTag() }
     single<QrCodeGenerator> { QrCodeGeneratorJvm() }
-    single<AlarmScheduler> { AlarmScheduler() }
+    single<AlarmScheduler> { AlarmScheduler(repository = get()) }
 }

@@ -35,7 +35,6 @@ class SampleApplicationPlugin : Plugin<Project> {
                     versionCode = 100
                     versionName = "1.0.0"
                     targetSdk = 35
-                    testInstrumentationRunner = "com.paligot.confily.core.test.TestJUnitRunner"
                 }
                 signingConfigs {
                     getByName("debug") {

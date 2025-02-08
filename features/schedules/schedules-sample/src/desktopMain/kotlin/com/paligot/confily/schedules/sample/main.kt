@@ -5,6 +5,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import coil3.ImageLoader
 import coil3.annotation.ExperimentalCoilApi
 import coil3.compose.setSingletonImageLoaderFactory
@@ -54,6 +55,7 @@ fun main() = application {
             LaunchedEffect(Unit) {
                 eventRepository.isInitialized("droidcon-london")
             }
+            val life = LocalLifecycleOwner.current
             App(
                 isPortrait = false,
                 onScheduleStarted = {
