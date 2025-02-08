@@ -7,11 +7,12 @@ import com.paligot.confily.db.EventSession
 import com.paligot.confily.db.Partner
 
 actual class DatabaseWrapper {
-    actual fun createDb(): ConfilyDatabase = ConfilyDatabase.invoke(
-        driver = JdbcSqliteDriver(
-            url = "jdbc:sqlite:confily.db",
-            schema = ConfilyDatabase.Schema
-        ),
+    actual fun createDb(inMemory: Boolean): ConfilyDatabase = ConfilyDatabase.invoke(
+        driver = if (inMemory) {
+            JdbcSqliteDriver(url = JdbcSqliteDriver.IN_MEMORY, schema = ConfilyDatabase.Schema)
+        } else {
+            JdbcSqliteDriver(url = "jdbc:sqlite:confily.db", schema = ConfilyDatabase.Schema)
+        },
         EventAdapter = Event.Adapter(formatted_addressAdapter = listOfStringsAdapter),
         EventSessionAdapter = EventSession.Adapter(formatted_addressAdapter = listOfStringsAdapter),
         PartnerAdapter = Partner.Adapter(formatted_addressAdapter = listOfStringsAdapter)

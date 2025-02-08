@@ -12,7 +12,7 @@ actual class DatabaseWrapper(
     private val context: Context,
     private val name: String?
 ) {
-    actual fun createDb(): ConfilyDatabase {
+    actual fun createDb(inMemory: Boolean): ConfilyDatabase {
         val driver = AndroidSqliteDriver(
             schema = ConfilyDatabase.Schema,
             context = context,

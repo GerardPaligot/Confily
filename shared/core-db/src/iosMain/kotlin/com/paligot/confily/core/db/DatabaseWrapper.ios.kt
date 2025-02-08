@@ -8,7 +8,7 @@ import com.paligot.confily.db.EventSession
 import com.paligot.confily.db.Partner
 
 actual class DatabaseWrapper {
-    actual fun createDb(): ConfilyDatabase {
+    actual fun createDb(inMemory: Boolean): ConfilyDatabase {
         val driver = NativeSqliteDriver(
             schema = ConfilyDatabase.Schema,
             name = "confily.db",

@@ -8,7 +8,7 @@ import com.paligot.confily.db.Partner
 import org.w3c.dom.Worker
 
 actual class DatabaseWrapper {
-    actual fun createDb(): ConfilyDatabase {
+    actual fun createDb(inMemory: Boolean): ConfilyDatabase {
         val driver = WebWorkerDriver(
             Worker(
                 js("""new URL("@cashapp/sqldelight-sqljs-worker/sqljs.worker.js", import.meta.url)""")

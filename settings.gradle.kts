@@ -24,10 +24,11 @@ plugins {
 
 rootProject.name = "confily"
 include(":composeApp")
-include(":android-core:core-models-factory")
 include(":android-core:core-sample")
 include(":android-core:core-test")
-include(":android-core:core-test-patterns")
+include(":core:core-models-factory")
+include(":core:core-test-patterns")
+include(":core:core-test")
 include(":features:event-list:event-list-ui")
 include(":features:event-list:event-list-ui-models")
 include(":features:event-list:event-list-panes")
