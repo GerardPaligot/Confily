@@ -17,6 +17,7 @@ android {
         versionCode = versionMajor * 1000 + versionMinor * 100 + versionPatch * 10
         versionName = "$versionMajor.$versionMinor.$versionPatch"
     }
+    sourceSets.getByName("main").manifest.srcFile("src/androidMain/AndroidManifest.xml")
 
     val keystoreFile = project.file("keystore.properties")
     val keystoreProps = keystoreFile.toProperties()
