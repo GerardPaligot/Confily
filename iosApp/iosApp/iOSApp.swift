@@ -1,6 +1,7 @@
 import SwiftUI
 import SharedDi
 import Firebase
+import NSExceptionKtCrashlytics
 import SDWebImage
 import SDWebImageSVGCoder
 
@@ -19,6 +20,7 @@ struct iOSApp: App {
     init() {
         if (isInDebugMode == false) {
             FirebaseApp.configure()
+            NSExceptionKt.addReporter(.crashlytics(causedByStrategy: .append))
         }
         HelperKt.doInitKoin()
         SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)

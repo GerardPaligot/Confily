@@ -31,6 +31,7 @@ kotlin {
             baseName = "SharedDi"
             isStatic = false
             export(libs.settings)
+            export(libs.nsexception)
             export(projects.shared.coreApi)
             export(projects.shared.coreDb)
             export(projects.shared.core)
@@ -84,6 +85,9 @@ kotlin {
             dependsOn(mobileMain)
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
+            dependencies {
+                api(libs.nsexception)
+            }
         }
         val desktopMain by getting {
             dependsOn(commonMain)
