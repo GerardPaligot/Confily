@@ -1105,7 +1105,7 @@
 /* Begin XCRemoteSwiftPackageReference section */
 		00BBC83B2D5E9C1F0095AAE6 /* XCRemoteSwiftPackageReference "NSExceptionKt" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:rickclephas/NSExceptionKt.git";
+			repositoryURL = "https://github.com/rickclephas/NSExceptionKt";
 			requirement = {
 				kind = exactVersion;
 				version = "1.0.0-BETA-9";
