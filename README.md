@@ -7,9 +7,9 @@ AppEngine.
 
 ## Backend Features
 
-* Create the agenda of your conference, optionally from [Conference Hall](https://github.com/bpetetot/conference-hall)
+* Create the agenda of your conference, optionally from [Conference Hall](https://github.com/conference-hall/conference-hall)
 * Create your feedback forms from [OpenFeedback.io](https://github.com/HugoGresse/open-feedback)
-* Create your partners from [Cms4Partners](https://github.com/GDG-Lille/cms4partners)
+* Create your partners from [CMS4Conference](https://github.com/devlille/CMS4Conference)
 * Import planning from [OpenPlanner](https://openplanner.fr/)
 * Import a participant ticket from [BilletWeb](https://www.billetweb.fr/)
 * Import partner jobs from [WeLoveDevs](https://welovedevs.com/)
@@ -21,7 +21,7 @@ AppEngine.
 * Bookmarking of talks
 * Speaker page with biography, socials and talks
 * Networking space which privacy respect from mobile to mobile
-* Partners with description, socials, jobs and location
+* Partners with description, socials, jobs, location and short presentation video
 * Event page with socials, location, menus, q&a and code of conduct
 * Scan your event ticket
 * Android wearable companion app
@@ -33,9 +33,10 @@ AppEngine.
 * [Jetpack Compose](https://developer.android.com/jetpack/compose) - Modern toolkit for building native UI
 * [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) - Multiplatform approach based on Jetpack Compose
 * [Accompanist](https://github.com/google/accompanist) - Collection of extension libraries for Jetpack Compose
+* [Adaptive Layout](https://developer.android.com/develop/ui/compose/layouts/adaptive) - Create adaptive layouts for different screen sizes
+* [ViewModel](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-viewmodel.html) - Stores UI-related data that isn't destroyed on UI changes
+* [Navigation Compose](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-navigation-routing.html) - Allow users to navigate across, into, and back out from the different pieces of content within your app
 * [Coil](https://github.com/coil-kt/coil) - Media management and image loading framework for Android
-* [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) - Stores UI-related data that isn't destroyed on UI changes
-* [Navigation Compose](https://developer.android.com/jetpack/compose/navigation) - Allow users to navigate across, into, and back out from the different pieces of content within your app
 * [Swift](https://www.swift.org/) - First class and official programming language for iOS development
 * [SwiftUI](https://developer.apple.com/xcode/swiftui/) - Build apps across all Apple platforms with Swift
 * [Koin](https://insert-koin.io/) - Pragmatic Kotlin & Kotlin Multiplatform Dependency Injection framework
@@ -89,21 +90,7 @@ Now, you can start to interact with the backend.
   * Storage Object Creator
   * Storage Object Viewer
 
-#### Deploy in GCP with AppEngine
-
-Be sure to edit the `app.yaml` file in `backend/src/main/appengine` folder with your project id 
-before to deploy.
-
-```bash
-export PROJECT_ID=<your-project-id>
-# If you are not yet logged
-gcloud auth login
-gcloud config set project $PROJECT_ID
-# Deploy
-./gradlew :backend:appengineDeploy
-```
-
-#### Deploy in GCP with Cloud Run
+#### Deploy with Cloud Run
 
 ```bash
 export PROJECT_ID=<your-project-id>
@@ -122,6 +109,7 @@ gcloud run deploy confily \
 
 ## References
 
+* [Building for multi-form factor devices in Android: The optimal architecture](https://medium.com/proandroiddev/building-for-multi-form-factor-devices-in-android-the-optimal-architecture-6311221463ab)
 * [String resources API for Compose Multiplatform](https://medium.com/proandroiddev/string-resources-api-for-compose-multiplatform-9e0bf6618506)
 * [Why is adaptive layout a nightmare?](https://speakerdeck.com/gerardpaligot/why-is-adaptive-layout-a-nightmare)
 * [SwiftUI vs Jetpack Compose by an Android Engineer](https://proandroiddev.com/swiftui-vs-jetpack-compose-by-an-android-engineer-6b48415f36b3)
@@ -131,7 +119,7 @@ gcloud run deploy confily \
 
 ## License
 
-    Copyright 2022 Gérard Paligot.
+    Copyright 2022-2025 Gérard Paligot.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
