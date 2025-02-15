@@ -1,5 +1,5 @@
 {
-  "originHash" : "0d9c92b6c574ab144189dd94911517e17fea183c8d3d96416ac01af09ef47d3a",
+  "originHash" : "0782637f35a461d073161bcdb1a9e3a5fba9e671799bfc8bb92241c8e911f155",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -130,7 +130,7 @@
     {
       "identity" : "nsexceptionkt",
       "kind" : "remoteSourceControl",
-      "location" : "git@github.com:rickclephas/NSExceptionKt.git",
+      "location" : "https://github.com/rickclephas/NSExceptionKt",
       "state" : {
         "revision" : "3b667a9b9542053fc370953dbdb1535e46145afa",
         "version" : "1.0.0-BETA-9"
