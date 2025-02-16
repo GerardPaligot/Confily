@@ -1,6 +1,7 @@
 package com.paligot.confily.core.di
 
 import com.paligot.confily.core.events.EventRepository
+import com.paligot.confily.core.maps.MapRepository
 import com.paligot.confily.core.networking.UserRepository
 import com.paligot.confily.core.partners.PartnerRepository
 import com.paligot.confily.core.schedules.SessionRepository
@@ -21,6 +22,7 @@ val repositoriesModule = module {
             userDao = get(),
             partnerDao = get(),
             socialDao = get(),
+            mapDao = get(),
             qrCodeGenerator = get()
         )
     }
@@ -46,6 +48,12 @@ val repositoriesModule = module {
             settings = get(),
             conferenceFs = get(),
             qrCodeGenerator = get()
+        )
+    }
+    single {
+        MapRepository.Factory.create(
+            settings = get(),
+            mapDao = get()
         )
     }
 }

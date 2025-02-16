@@ -29,4 +29,8 @@ class LocalStorage(
             url = "$location/$directory/$filename"
         )
     }
+
+    override suspend fun delete(filename: String): Unit = withContext(dispatcher) {
+        File("$location/$directory/$filename").delete()
+    }
 }

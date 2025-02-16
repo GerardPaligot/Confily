@@ -37,6 +37,7 @@ import confily.shared.resources.generated.resources.screen_events
 import confily.shared.resources.generated.resources.screen_events_future
 import confily.shared.resources.generated.resources.screen_events_past
 import confily.shared.resources.generated.resources.screen_info
+import confily.shared.resources.generated.resources.screen_maps
 import confily.shared.resources.generated.resources.screen_menus
 import confily.shared.resources.generated.resources.screen_my_profile
 import confily.shared.resources.generated.resources.screen_networking
@@ -322,6 +323,10 @@ val Resource.string.screen_contacts: StringResource
 @OptIn(ExperimentalResourceApi::class)
 val Resource.string.screen_event: StringResource
     get() = Res.string.screen_event
+
+@OptIn(ExperimentalResourceApi::class)
+val Resource.string.screen_maps: StringResource
+    get() = Res.string.screen_maps
 
 @OptIn(ExperimentalResourceApi::class)
 val Resource.string.screen_events: StringResource

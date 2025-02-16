@@ -40,4 +40,8 @@ class BucketStorage(
                 url = "https://storage.googleapis.com/$bucketName/$filename"
             )
         }
+
+    override suspend fun delete(filename: String): Unit = withContext(dispatcher) {
+        storage.delete(bucketName, filename)
+    }
 }

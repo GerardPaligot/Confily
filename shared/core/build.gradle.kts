@@ -38,6 +38,7 @@ kotlin {
             export(projects.features.speakers.speakersPanesModels)
             export(projects.features.speakers.speakersUiModels)
             export(projects.features.socials.socialsUiModels)
+            export(projects.style.components.map.mapUiModels)
             export(projects.shared.resources)
             // Required https://github.com/cashapp/sqldelight/issues/1442
             linkerOpts.add("-lsqlite3")
@@ -68,6 +69,7 @@ kotlin {
                 api(projects.features.speakers.speakersPanesModels)
                 api(projects.features.speakers.speakersUiModels)
                 api(projects.features.socials.socialsUiModels)
+                api(projects.style.components.map.mapUiModels)
                 api(projects.shared.resources)
 
                 implementation(compose.runtime)

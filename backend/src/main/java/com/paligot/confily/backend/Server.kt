@@ -4,6 +4,7 @@ import com.paligot.confily.backend.activities.registerActivitiesRoutes
 import com.paligot.confily.backend.categories.registerCategoriesRoutes
 import com.paligot.confily.backend.events.registerEventRoutes
 import com.paligot.confily.backend.formats.registerFormatsRoutes
+import com.paligot.confily.backend.map.registerMapRoutes
 import com.paligot.confily.backend.partners.registerPartnersRoutes
 import com.paligot.confily.backend.qanda.registerQAndAsRoutes
 import com.paligot.confily.backend.schedules.registerSchedulersRoutes
@@ -88,6 +89,7 @@ fun main() {
         routing {
             registerEventRoutes()
             route("/events/{eventId}") {
+                registerMapRoutes()
                 registerQAndAsRoutes()
                 registerSpeakersRoutes()
                 registerSessionsRoutes()
