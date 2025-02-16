@@ -6,6 +6,8 @@ import com.paligot.confily.core.Platform
 import com.paligot.confily.core.events.EventDao
 import com.paligot.confily.core.events.EventDaoSQLDelight
 import com.paligot.confily.core.kvalue.ConferenceSettings
+import com.paligot.confily.core.maps.MapDao
+import com.paligot.confily.core.maps.MapDaoSQLDelight
 import com.paligot.confily.core.networking.UserDao
 import com.paligot.confily.core.networking.UserDaoSQLDelight
 import com.paligot.confily.core.partners.PartnerDao
@@ -50,4 +52,5 @@ actual val databasesModule = module {
     }
     single<SpeakerDao> { SpeakerDaoSQLDelight(db = get(), dispatcher = get()) }
     single<UserDao> { UserDaoSQLDelight(db = get(), dispatcher = get()) }
+    single<MapDao> { MapDaoSQLDelight(db = get(), dispatcher = get()) }
 }

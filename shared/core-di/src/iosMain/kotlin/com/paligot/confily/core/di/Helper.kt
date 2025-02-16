@@ -2,6 +2,7 @@ package com.paligot.confily.core.di
 
 import com.paligot.confily.core.events.EventInteractor
 import com.paligot.confily.core.events.EventRepository
+import com.paligot.confily.core.maps.MapInteractor
 import com.paligot.confily.core.networking.UserInteractor
 import com.paligot.confily.core.networking.UserRepository
 import com.paligot.confily.core.partners.PartnerInteractor
@@ -39,6 +40,7 @@ class InteractorHelper : KoinComponent {
     val speakerInteractor: SpeakerInteractor by inject()
     val partnerInteractor: PartnerInteractor by inject()
     val userInteractor: UserInteractor by inject()
+    val mapInteractor: MapInteractor by inject()
 }
 
 val interactorsModule = module {
@@ -47,6 +49,7 @@ val interactorsModule = module {
     single { SpeakerInteractor(get(), get()) }
     single { PartnerInteractor(get()) }
     single { UserInteractor(get()) }
+    single { MapInteractor(get()) }
 }
 
 fun initKoin() {

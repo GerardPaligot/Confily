@@ -11,6 +11,7 @@ import com.paligot.confily.core.events.entities.QAndAItem
 import com.paligot.confily.core.events.entities.TeamMember
 import com.paligot.confily.core.events.entities.TeamMemberItem
 import com.paligot.confily.core.kvalue.ConferenceSettings
+import com.paligot.confily.core.maps.MapDao
 import com.paligot.confily.core.networking.UserDao
 import com.paligot.confily.core.networking.entities.UserTicket
 import com.paligot.confily.core.partners.PartnerDao
@@ -45,6 +46,7 @@ interface EventRepository {
             userDao: UserDao,
             partnerDao: PartnerDao,
             socialDao: SocialDao,
+            mapDao: MapDao,
             qrCodeGenerator: QrCodeGenerator
         ): EventRepository = EventRepositoryImpl(
             api,
@@ -54,6 +56,7 @@ interface EventRepository {
             userDao,
             partnerDao,
             socialDao,
+            mapDao,
             qrCodeGenerator
         )
     }

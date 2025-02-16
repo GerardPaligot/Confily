@@ -1,0 +1,89 @@
+CREATE TABLE Map (
+id TEXT NOT NULL PRIMARY KEY,
+name TEXT NOT NULL,
+order_ INTEGER NOT NULL,
+url TEXT NOT NULL,
+filled_url TEXT,
+color TEXT NOT NULL,
+selected_color TEXT NOT NULL,
+picto_size INTEGER NOT NULL,
+event_id TEXT NOT NULL,
+FOREIGN KEY (event_id) REFERENCES Event(id)
+);
+
+CREATE TABLE Shape (
+id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+map_id TEXT NOT NULL,
+event_id TEXT NOT NULL,
+order_ INTEGER NOT NULL,
+name TEXT NOT NULL,
+description TEXT,
+start_x REAL NOT NULL,
+start_y REAL NOT NULL,
+end_x REAL NOT NULL,
+end_y REAL NOT NULL,
+type TEXT NOT NULL,
+FOREIGN KEY (map_id) REFERENCES Map(id),
+FOREIGN KEY (event_id) REFERENCES Event(id)
+);
+
+CREATE TABLE Pictogram (
+id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+map_id TEXT NOT NULL,
+event_id TEXT NOT NULL,
+order_ INTEGER NOT NULL,
+name TEXT NOT NULL,
+description TEXT,
+x REAL NOT NULL,
+y REAL NOT NULL,
+type TEXT NOT NULL,
+FOREIGN KEY (map_id) REFERENCES Map(id),
+FOREIGN KEY (event_id) REFERENCES Event(id)
+);
+
+insertMap:
+INSERT OR REPLACE INTO Map(id, name, order_, url, filled_url, color, selected_color, picto_size, event_id)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+selectMaps:
+SELECT id, name, url, color, selected_color, picto_size
+FROM Map
+WHERE event_id == ?
+ORDER BY order_;
+
+selectFilledMaps:
+SELECT name, filled_url
+FROM Map
+WHERE event_id == ? AND filled_url IS NOT NULL;
+
+diffMaps:
+SELECT id FROM Map WHERE event_id == ? AND id NOT IN ?;
+
+deleteMaps:
+DELETE FROM Map WHERE event_id == ? AND id IN ?;
+
+insertShape:
+INSERT OR REPLACE INTO Shape(map_id, event_id, order_, name, description, start_x, start_y, end_x, end_y, type)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+selectShapes:
+SELECT map_id, order_, name, description, start_x, start_y, end_x, end_y, type
+FROM Shape
+WHERE event_id == ?
+ORDER BY order_;
+
+deleteShapes:
+DELETE FROM Shape WHERE event_id == ? AND map_id IN ?;
+
+insertPictogram:
+INSERT OR REPLACE INTO Pictogram(map_id, event_id, order_, name, description, x, y, type)
+VALUES (?,?, ?, ?, ?, ?, ?, ?);
+
+selectPictograms:
+SELECT map_id, order_, name, description, x, y, type
+FROM Pictogram
+WHERE event_id == ?
+ORDER BY order_;
+
+deletePictograms:
+DELETE FROM Pictogram WHERE event_id == ? AND map_id IN ?;

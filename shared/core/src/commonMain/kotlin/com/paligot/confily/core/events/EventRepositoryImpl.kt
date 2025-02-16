@@ -13,6 +13,7 @@ import com.paligot.confily.core.events.entities.TeamMember
 import com.paligot.confily.core.events.entities.TeamMemberItem
 import com.paligot.confily.core.kvalue.ConferenceSettings
 import com.paligot.confily.core.kvalue.EventSavedException
+import com.paligot.confily.core.maps.MapDao
 import com.paligot.confily.core.networking.UserDao
 import com.paligot.confily.core.networking.entities.UserTicket
 import com.paligot.confily.core.partners.PartnerDao
@@ -34,6 +35,7 @@ internal class EventRepositoryImpl(
     private val userDao: UserDao,
     private val partnerDao: PartnerDao,
     private val socialDao: SocialDao,
+    private val mapDao: MapDao,
     private val qrCodeGenerator: QrCodeGenerator
 ) : EventRepository {
     override suspend fun fetchAndStoreEventList() = coroutineScope {
@@ -47,8 +49,10 @@ internal class EventRepositoryImpl(
         val qanda = api.fetchQAndA(eventId)
         val partners = api.fetchPartnersActivities(eventId)
         val teamMembers = api.fetchTeamMembers(eventId)
+        val maps = api.fetchMapList(eventId)
         eventDao.insertEvent(event, qanda, teamMembers)
         partnerDao.insertPartners(eventId, partners)
+        mapDao.insertMaps(eventId, maps)
         val etag = settings.lastEtag(eventId)
         try {
             val (newEtag, agenda) = api.fetchAgenda(eventId, etag)

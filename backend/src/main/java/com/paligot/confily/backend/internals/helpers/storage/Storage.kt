@@ -5,6 +5,7 @@ import com.google.cloud.storage.Storage as CloudStorage
 interface Storage {
     suspend fun download(filename: String): ByteArray?
     suspend fun upload(filename: String, content: ByteArray, mimeType: MimeType): Upload
+    suspend fun delete(filename: String)
 
     object Factory {
         fun create(storage: CloudStorage, bucketName: String, isAppEngine: Boolean): Storage {
