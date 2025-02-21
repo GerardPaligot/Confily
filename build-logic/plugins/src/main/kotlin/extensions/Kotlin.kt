@@ -9,7 +9,7 @@ import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-internal fun Project.configureKotlinCompiler(jvmVersion: Int) {
+fun Project.configureKotlinCompiler(jvmVersion: Int) {
     this.tasks.withType<KotlinCompile> {
         kotlinOptions {
             freeCompilerArgs = freeCompilerArgs + listOf(

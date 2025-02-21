@@ -26,7 +26,7 @@ gradlePlugin {
         }
         register("application") {
             id = "confily.application"
-            implementationClass = "ApplicationPlugin"
+            implementationClass = "conventions.ApplicationPlugin"
         }
         register("sampleApplication") {
             id = "confily.sample"

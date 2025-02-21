@@ -2,7 +2,8 @@ import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
 import extensions.toProperties
 
 plugins {
-    id("confily.application")
+    id("confily.android.application")
+    id("org.jetbrains.kotlin.multiplatform")
     id("confily.quality")
     alias(libs.plugins.buildkonfig)
     id("androidx.baselineprofile")
@@ -13,6 +14,7 @@ val versionMinor = 4
 val versionPatch = 1
 android {
     namespace = "com.paligot.confily.android"
+
     defaultConfig {
         applicationId = "com.paligot.confily.android"
         versionCode = versionMajor * 1000 + versionMinor * 100 + versionPatch * 10
@@ -78,7 +80,12 @@ baselineProfile {
 }
 
 kotlin {
+    androidTarget()
+    jvm("desktop")
+
     sourceSets {
+        val desktopMain by getting
+
         commonMain.dependencies {
             implementation(projects.features.main.main)
             implementation(projects.features.main.mainDi)
@@ -116,6 +123,10 @@ kotlin {
 
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.workmanager)
+        }
+        desktopMain.dependencies {
+            implementation(compose.desktop.currentOs)
+            implementation(libs.jetbrains.kotlinx.coroutines.swing)
         }
     }
 }

@@ -12,7 +12,7 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 private val CommonExtension<*, *, *, *, *, *>.hasKotlinOptionsExt: Boolean
     get() = (this is ExtensionAware) && this.extensions.findByName("kotlinOptions") != null
 
-internal fun configureKotlinAndroid(
+fun configureKotlinAndroid(
     commonExtension: CommonExtension<*, *, *, *, *, *>,
     compileSdk: Int = 35,
     minSdk: Int = 23
@@ -38,7 +38,7 @@ internal fun configureKotlinAndroid(
     }
 }
 
-internal fun Project.configureDesugaring(
+fun Project.configureDesugaring(
     commonExtension: CommonExtension<*, *, *, *, *, *>,
 ) {
     commonExtension.apply {
