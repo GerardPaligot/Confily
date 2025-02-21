@@ -33,10 +33,6 @@ buildkonfig {
     }
 }
 
-android {
-    namespace = "com.paligot.confily.map"
-}
-
 kotlin {
     jvm("desktop")
 
