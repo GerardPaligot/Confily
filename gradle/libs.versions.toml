@@ -54,6 +54,7 @@ jetbrains-kotlinx-browser = "0.3"
 jetbrains-kotlinx-collections = "0.3.8"
 jetbrains-kotlinx-coroutines = "1.9.0"
 jetbrains-kotlinx-datetime = "0.6.0"
+jetbrains-kotlinx-io = "0.6.0"
 jetbrains-kotlinx-serialization = "1.7.3"
 kmp-nativecoroutines-gradlePlugin = "1.0.0-ALPHA-38"
 koin = "4.0.1"
@@ -141,6 +142,8 @@ jetbrains-kotlinx-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlin
 jetbrains-kotlinx-coroutines-swing = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-swing", version.ref = "jetbrains-kotlinx-coroutines" }
 jetbrains-kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "jetbrains-kotlinx-coroutines" }
 jetbrains-kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "jetbrains-kotlinx-datetime" }
+jetbrains-kotlinx-io-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-io-core", version.ref = "jetbrains-kotlinx-io" }
+jetbrains-kotlinx-io-bytestring = { group = "org.jetbrains.kotlinx", name = "kotlinx-io-bytestring", version.ref = "jetbrains-kotlinx-io" }
 jetbrains-kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "jetbrains-kotlinx-serialization" }
 
 google-accompanist-placeholder = { group = "com.google.accompanist", name = "accompanist-placeholder-material", version.ref = "google-accompanist" }
@@ -227,6 +230,10 @@ jetbrains-compose-adaptive = [
     "jetbrains-compose-material3-adaptive-layout",
     "jetbrains-compose-material3-adaptive-navigation",
     "jetbrains-compose-material3-windowsizeclass"
+]
+jetbrains-kotlinx-io = [
+    "jetbrains-kotlinx-io-core",
+    "jetbrains-kotlinx-io-bytestring"
 ]
 androidx-glance = [
     "androidx-glance-appwidget",
