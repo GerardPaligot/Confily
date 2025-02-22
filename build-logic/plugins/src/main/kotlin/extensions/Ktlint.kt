@@ -16,8 +16,7 @@ internal fun Project.configureKtlint() {
         disabledRules.set(arrayListOf("experimental:argument-list-wrapping"))
         filter {
             exclude { projectDir.toURI().relativize(it.file.toURI()).path.contains("/generated/") }
-            // exclude("**/build/**")
-            // exclude("**/generated/**")
+            exclude { it.file.path.contains("/build/") }
             include("**/kotlin/**")
         }
     }

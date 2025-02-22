@@ -9,6 +9,7 @@ import coil3.disk.directory
 import coil3.memory.MemoryCache
 import coil3.network.ktor3.KtorNetworkFetcherFactory
 import coil3.svg.SvgDecoder
+import com.paligot.confily.BuildKonfig
 import com.paligot.confily.android.di.appModule
 import io.openfeedback.viewmodels.OpenFeedbackFirebaseConfig
 import io.openfeedback.viewmodels.initializeOpenFeedback
@@ -26,10 +27,10 @@ class MainApplication : Application(), SingletonImageLoader.Factory, KoinCompone
         initializeOpenFeedback(
             OpenFeedbackFirebaseConfig(
                 context = this,
-                projectId = BuildConfig.FIREBASE_PROJECT_ID,
+                projectId = BuildKonfig.FIREBASE_PROJECT_ID,
                 applicationId = BuildConfig.APPLICATION_ID,
-                apiKey = BuildConfig.FIREBASE_API_KEY,
-                databaseUrl = "https://${BuildConfig.FIREBASE_PROJECT_ID}.firebaseio.com"
+                apiKey = BuildKonfig.FIREBASE_API_KEY,
+                databaseUrl = "https://${BuildKonfig.FIREBASE_PROJECT_ID}.firebaseio.com"
             )
         )
 

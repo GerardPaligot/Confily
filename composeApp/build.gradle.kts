@@ -1,9 +1,10 @@
-import extensions.stringBuildConfigField
+import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
 import extensions.toProperties
 
 plugins {
     id("confily.application")
     id("confily.quality")
+    alias(libs.plugins.buildkonfig)
     id("androidx.baselineprofile")
 }
 
@@ -19,7 +20,7 @@ android {
     }
     sourceSets.getByName("main").manifest.srcFile("src/androidMain/AndroidManifest.xml")
 
-    val keystoreFile = project.file("keystore.properties")
+    val keystoreFile = rootProject.file("config/keystore.properties")
     val keystoreProps = keystoreFile.toProperties()
     signingConfigs {
         create("release") {
@@ -36,7 +37,6 @@ android {
         }
     }
 
-    val appProps = project.file("app.properties").toProperties()
     buildTypes {
         getByName("release") {
             isMinifyEnabled = true
@@ -45,23 +45,9 @@ android {
             if (keystoreFile.exists()) {
                 signingConfig = signingConfigs.getByName("release")
             }
-            stringBuildConfigField("BASE_URL", appProps)
-            stringBuildConfigField("EVENT_ID", appProps)
-            stringBuildConfigField("CONTACT_MAIL", appProps)
-            stringBuildConfigField("FIREBASE_PROJECT_ID", appProps)
-            stringBuildConfigField("FIREBASE_APP_ID", appProps)
-            stringBuildConfigField("FIREBASE_API_KEY", appProps)
-            stringBuildConfigField("DEFAULT_EVENT", appProps)
         }
         getByName("debug") {
             applicationIdSuffix = ".debug"
-            stringBuildConfigField("BASE_URL", appProps)
-            stringBuildConfigField("EVENT_ID", appProps)
-            stringBuildConfigField("CONTACT_MAIL", appProps)
-            stringBuildConfigField("FIREBASE_PROJECT_ID", appProps)
-            stringBuildConfigField("FIREBASE_APP_ID", appProps)
-            stringBuildConfigField("FIREBASE_API_KEY", appProps)
-            stringBuildConfigField("DEFAULT_EVENT", appProps)
         }
     }
 
@@ -71,6 +57,19 @@ android {
 
     dependencies {
         baselineProfile(projects.baselineprofile)
+    }
+}
+
+val appProps = rootProject.file("config/app.properties").toProperties()
+buildkonfig {
+    packageName = "com.paligot.confily"
+
+    defaultConfigs {
+        buildConfigField(STRING, "BASE_URL", appProps["BASE_URL"] as String)
+        buildConfigField(STRING, "DEFAULT_EVENT", appProps["DEFAULT_EVENT"] as String)
+        buildConfigField(STRING, "FIREBASE_PROJECT_ID", appProps["FIREBASE_PROJECT_ID"] as String)
+        buildConfigField(STRING, "FIREBASE_APP_ID", appProps["FIREBASE_APP_ID"] as String)
+        buildConfigField(STRING, "FIREBASE_API_KEY", appProps["FIREBASE_API_KEY"] as String)
     }
 }
 

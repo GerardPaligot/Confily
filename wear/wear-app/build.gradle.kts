@@ -22,7 +22,7 @@ android {
         }
     }
 
-    val appProps = rootProject.file("composeApp/app.properties").toProperties()
+    val appProps = rootProject.file("config/app.properties").toProperties()
     buildTypes {
         release {
             isMinifyEnabled = false

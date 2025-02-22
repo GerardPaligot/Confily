@@ -40,11 +40,12 @@ AppEngine.
 * [Swift](https://www.swift.org/) - First class and official programming language for iOS development
 * [SwiftUI](https://developer.apple.com/xcode/swiftui/) - Build apps across all Apple platforms with Swift
 * [Koin](https://insert-koin.io/) - Pragmatic Kotlin & Kotlin Multiplatform Dependency Injection framework
-* [Kotlin Coroutines](https://kotlinlang.org/docs/coroutines-guide.html) - Light-weight threads
-* [kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization) - Kotlin Multiplatform / multi format serialization
+* [Kotlinx Coroutines](https://kotlinlang.org/docs/coroutines-guide.html) - Light-weight threads
+* [Kotlinx Serialization](https://github.com/Kotlin/kotlinx.serialization) - Kotlin Multiplatform / multi format serialization
 * [SQLDelight](https://github.com/cashapp/sqldelight) - Generates typesafe Kotlin APIs from SQL
 * [Okio](https://github.com/square/okio) - A modern I/O library for Android, Java, and Kotlin Multiplatform
 * [Multiplatform Settings](https://github.com/russhwolf/multiplatform-settings) - Kotlin Multiplatform library for saving simple key-value data
+* [BuildKonfig](https://github.com/yshrsmz/BuildKonfig) - Gradle plugin to generate build config Kotlin file.
 * [ktor](https://github.com/ktorio/ktor) - Client to make HTTP request and HTTP server routing
 * [Firestore](https://github.com/googleapis/java-firestore) - JVM client to make request on Firestore
 * [Storage](https://github.com/googleapis/java-storage) - JVM client to make request on Storage

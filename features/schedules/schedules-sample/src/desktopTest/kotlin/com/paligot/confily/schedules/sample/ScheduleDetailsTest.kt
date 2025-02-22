@@ -43,9 +43,9 @@ class ScheduleDetailsTest {
                 val eventDao = koinInject<EventDao>()
                 val sessionDao = koinInject<SessionDao>()
                 LaunchedEffect(Unit) {
-                    settings.insertEventId("droidcon-london")
+                    settings.insertEventId(BuildKonfig.DEFAULT_EVENT)
                     eventDao.insertEvent(event, emptyList(), emptyList())
-                    sessionDao.insertAgenda("droidcon-london", agenda)
+                    sessionDao.insertAgenda(BuildKonfig.DEFAULT_EVENT, agenda)
                 }
                 val lifecycleOwner = remember { FakeLifecycleOwner() }
                 CompositionLocalProvider(
