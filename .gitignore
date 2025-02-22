@@ -22,6 +22,8 @@ build/
 
 *.apk
 
+# Secret properties
+**/secrets.properties
 */keystore.properties
 
 # Firebase instance

@@ -57,6 +57,7 @@ jetbrains-kotlinx-datetime = "0.6.0"
 jetbrains-kotlinx-io = "0.6.0"
 jetbrains-kotlinx-serialization = "1.7.3"
 kmp-nativecoroutines-gradlePlugin = "1.0.0-ALPHA-38"
+buildkonfig = "0.16.0"
 koin = "4.0.1"
 ktlint = "12.1.1"
 ktor = "3.0.2"
@@ -252,3 +253,4 @@ androidx-wear = [
 jetbrains-kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "jetbrains-kotlin" }
 jetbrains-compose = { id = "org.jetbrains.compose", version.ref = "jetbrains-compose" }
 jetbrains-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "jetbrains-kotlin" }
+buildkonfig = { id = "com.codingfeline.buildkonfig", version.ref = "buildkonfig" }

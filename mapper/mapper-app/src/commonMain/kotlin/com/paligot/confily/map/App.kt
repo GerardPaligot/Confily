@@ -5,6 +5,7 @@ import androidx.compose.animation.ExitTransition
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import com.paligot.confily.mapper.BuildKonfig
 import com.paligot.confily.mapper.detail.di.mapDetailModule
 import com.paligot.confily.mapper.detail.presentation.mapDetailGraph
 import com.paligot.confily.mapper.list.di.mapListModule
@@ -27,8 +28,8 @@ fun App() {
                 exitTransition = { ExitTransition.None },
                 builder = {
                     mapListGraph(
-                        eventId = "droidcon-london",
-                        apiKey = "",
+                        eventId = BuildKonfig.DEFAULT_EVENT,
+                        apiKey = BuildKonfig.API_KEY,
                         navController = navController
                     )
                     mapDetailGraph(navController = navController)

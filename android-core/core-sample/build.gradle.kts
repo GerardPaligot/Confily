@@ -9,7 +9,7 @@ plugins {
 android {
     namespace = "com.paligot.confily.core.sample"
 
-    val appProps = rootProject.file("composeApp/app.properties").toProperties()
+    val appProps = rootProject.file("config/app.properties").toProperties()
     buildTypes {
         getByName("release") {
             stringBuildConfigField("BASE_URL", appProps)

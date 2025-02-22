@@ -25,7 +25,7 @@ import org.koin.dsl.module
 val platformModule: Module = module {
     single(named(IsDebugNamed)) { true }
     single(named(ApplicationIdNamed)) { "com.paligot.confily.jvm" }
-    single(named(ConfilyBaseUrlNamed)) { "https://confily-619943890215.europe-west1.run.app" }
+    single(named(ConfilyBaseUrlNamed)) { BuildKonfig.BASE_URL }
 }
 
 @OptIn(ExperimentalCoilApi::class)
@@ -49,7 +49,7 @@ fun main() = application {
         }) {
             val eventRepository = koinInject<EventRepository>()
             LaunchedEffect(Unit) {
-                eventRepository.isInitialized("droidcon-london")
+                eventRepository.isInitialized(BuildKonfig.DEFAULT_EVENT)
                 eventRepository.fetchAndStoreAgenda()
             }
             App(

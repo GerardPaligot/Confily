@@ -24,6 +24,7 @@ import androidx.work.Constraints
 import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
+import com.paligot.confily.BuildKonfig
 import com.paligot.confily.android.widgets.NetworkingAppWidget
 import com.paligot.confily.main.Main
 import com.paligot.confily.resources.Resource
@@ -72,7 +73,7 @@ class MainActivity : ComponentActivity() {
             val reportSubject = stringResource(Resource.string.text_report_subject)
             val reportAppTarget = stringResource(Resource.string.text_report_app_target)
             Main(
-                defaultEvent = BuildConfig.DEFAULT_EVENT,
+                defaultEvent = BuildKonfig.DEFAULT_EVENT,
                 isPortrait = config.isPortrait,
                 launchUrl = { launchUrl(it) },
                 onContactExportClicked = { export ->
