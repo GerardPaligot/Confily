@@ -15,6 +15,7 @@ kotlin {
                 implementation(projects.features.infos.infosUi)
                 implementation(projects.features.socials.socialsUi)
                 implementation(projects.features.navigation)
+                implementation(projects.style.components.map.mapUi)
                 implementation(projects.style.components.markdown)
                 implementation(projects.style.components.placeholder)
                 implementation(projects.style.events)

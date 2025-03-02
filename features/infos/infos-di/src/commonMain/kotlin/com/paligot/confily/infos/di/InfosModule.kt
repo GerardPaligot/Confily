@@ -4,6 +4,7 @@ import com.paligot.confily.core.di.repositoriesModule
 import com.paligot.confily.infos.presentation.CoCViewModel
 import com.paligot.confily.infos.presentation.EventViewModel
 import com.paligot.confily.infos.presentation.InfoViewModel
+import com.paligot.confily.infos.presentation.MapItemListViewModel
 import com.paligot.confily.infos.presentation.MenusViewModel
 import com.paligot.confily.infos.presentation.QAndAListViewModel
 import com.paligot.confily.infos.presentation.TeamMemberListViewModel
@@ -21,4 +22,5 @@ val infosModule = module {
     viewModel { QAndAListViewModel(get()) }
     viewModel { TeamMemberListViewModel(get()) }
     viewModelOf(::TeamMemberViewModel)
+    viewModelOf(::MapItemListViewModel)
 }

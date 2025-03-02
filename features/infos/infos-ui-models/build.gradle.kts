@@ -9,5 +9,6 @@ android {
 kotlin {
     sourceSets.commonMain.dependencies {
         api(projects.features.socials.socialsUiModels)
+        api(projects.style.components.map.mapUiModels)
     }
 }

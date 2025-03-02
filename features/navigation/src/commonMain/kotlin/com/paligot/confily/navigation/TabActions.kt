@@ -4,6 +4,7 @@ import com.paligot.confily.events.routes.FutureEvents
 import com.paligot.confily.events.routes.PastEvents
 import com.paligot.confily.infos.routes.CoC
 import com.paligot.confily.infos.routes.Info
+import com.paligot.confily.infos.routes.MapList
 import com.paligot.confily.infos.routes.Menus
 import com.paligot.confily.infos.routes.QAndA
 import com.paligot.confily.infos.routes.TeamMembers
@@ -17,6 +18,7 @@ import com.paligot.confily.resources.screen_contacts
 import com.paligot.confily.resources.screen_event
 import com.paligot.confily.resources.screen_events_future
 import com.paligot.confily.resources.screen_events_past
+import com.paligot.confily.resources.screen_maps
 import com.paligot.confily.resources.screen_menus
 import com.paligot.confily.resources.screen_my_profile
 import com.paligot.confily.resources.screen_partners
@@ -53,6 +55,10 @@ object TabActions {
     val event = TabAction(
         route = Info.navDeeplink(),
         labelId = Resource.string.screen_event
+    )
+    val maps = TabAction(
+        route = MapList.navDeeplink(),
+        labelId = Resource.string.screen_maps
     )
     val menus = TabAction(
         route = Menus.navDeeplink(),

@@ -83,6 +83,10 @@ fun InfoCompactVM(
                             modifier = Modifier.fillMaxSize()
                         )
 
+                        TabActions.maps.route -> MapItemListVM(
+                            modifier = Modifier.fillMaxSize()
+                        )
+
                         TabActions.menus.route -> MenusVM(
                             modifier = Modifier.fillMaxSize()
                         )
