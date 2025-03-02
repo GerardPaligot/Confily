@@ -49,6 +49,7 @@ class InfoViewModel(
                     scrollable = true,
                     actions = arrayListOf<TabAction>().apply {
                         add(TabActions.event)
+                        add(TabActions.maps)
                         if (features.hasMenus) {
                             add(TabActions.menus)
                         }
