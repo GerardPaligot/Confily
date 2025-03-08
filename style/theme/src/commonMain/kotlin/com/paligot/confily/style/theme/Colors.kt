@@ -125,3 +125,23 @@ val DarkColors = darkColorScheme(
     inversePrimary = md_theme_dark_inversePrimary,
     surfaceTint = md_theme_dark_surfaceTint
 )
+
+/**
+ * Parse string formatted in hexadecimal to Color
+ * @return Color
+ */
+fun String.parseHexColor(): Color {
+    try {
+        // Use a long to avoid rollovers on #ffXXXXXX
+        var color: Long = this.substring(1).toLong(radix = 16)
+        if (this.length == 7) {
+            // Set the alpha value
+            color = color or 0x00000000ff000000L
+        } else {
+            require(this.length == 9) { "Unknown color" }
+        }
+        return Color(color.toInt())
+    } catch (e: Exception) {
+        return Color.White
+    }
+}
