@@ -74,6 +74,7 @@ struct Event: View {
                 } label: {
                     Text("actionTicketScanner")
                 }
+                MapsNavigation()
                 MenusNavigation()
                 TeamMembersNavigation()
                 AddressCardView(formattedAddress: event.eventInfo.formattedAddress)
