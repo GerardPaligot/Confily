@@ -70,4 +70,8 @@ class ViewModelFactory: ObservableObject {
     func makeTeamMemberViewModel(memberId: String) -> TeamMemberViewModel {
         return TeamMemberViewModel(memberId: memberId)
     }
+    
+    func makeMapsViewModel() -> MapViewModel {
+        return MapViewModel()
+    }
 }
