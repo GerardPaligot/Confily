@@ -22,10 +22,10 @@ interface EventDao {
     fun fetchQAndA(eventId: String): Flow<ImmutableList<QAndAItem>>
     fun fetchMenus(eventId: String): Flow<ImmutableList<MenuItem>>
     fun fetchCoC(eventId: String): Flow<CodeOfConduct>
-    fun fetchTeamMembers(eventId: String): Flow<List<TeamMemberItem>>
+    fun fetchTeamMembers(eventId: String): Flow<Map<String, List<TeamMemberItem>>>
     fun fetchTeamMember(eventId: String, memberId: String): Flow<TeamMemberInfo?>
     fun fetchFeatureFlags(eventId: String): Flow<FeatureFlags>
-    fun insertEvent(event: EventV4, qAndA: List<QuestionAndResponse>, teamMembers: List<TeamMember>)
+    fun insertEvent(event: EventV4, qAndA: List<QuestionAndResponse>, teamMembers: Map<String, List<TeamMember>>)
     fun insertEventItems(future: List<EventItemListNetworking>, past: List<EventItemListNetworking>)
     fun updateTicket(eventId: String, qrCode: ByteArray, barcode: String, attendee: Attendee?)
 }

@@ -71,11 +71,21 @@ class EventDaoSQLDelight(
     override fun fetchCoC(eventId: String): Flow<CodeOfConduct> =
         db.eventQueries.selectCoc(eventId, cocMapper).asFlow().mapToOne(dispatcher)
 
-    override fun fetchTeamMembers(eventId: String): Flow<List<TeamMemberItem>> = db
-        .teamMemberQueries
-        .selectTeamMembers(eventId, teamMemberItemMapper)
-        .asFlow()
-        .mapToList(dispatcher)
+    override fun fetchTeamMembers(eventId: String): Flow<Map<String, List<TeamMemberItem>>> =
+        db.transactionWithResult {
+            return@transactionWithResult db
+                .teamMemberQueries
+                .selectTeamGroups(eventId)
+                .asFlow()
+                .mapToList(dispatcher)
+                .map {
+                    it.associateWith { group ->
+                        db.teamMemberQueries
+                            .selectTeamMembers(eventId, group, teamMemberItemMapper)
+                            .executeAsList()
+                    }
+                }
+        }
 
     override fun fetchTeamMember(eventId: String, memberId: String): Flow<TeamMemberInfo?> = db
         .teamMemberQueries
@@ -103,7 +113,7 @@ class EventDaoSQLDelight(
     override fun insertEvent(
         event: EventV4,
         qAndA: List<QuestionAndResponse>,
-        teamMembers: List<TeamMember>
+        teamMembers: Map<String, List<TeamMember>>
     ) = db.transaction {
         val eventDb = event.convertToModelDb()
         db.eventQueries.insertEvent(
@@ -153,23 +163,32 @@ class EventDaoSQLDelight(
         event.menus.forEach {
             db.menuQueries.insertMenu(it.name, it.dish, it.accompaniment, it.dessert, event.id)
         }
-        teamMembers.forEach { teamMember ->
-            db.teamMemberQueries.insertTeamMember(
-                id = teamMember.id,
-                order_ = teamMember.order.toLong(),
-                event_id = eventDb.id,
-                name = teamMember.displayName,
-                role = teamMember.role,
-                bio = teamMember.bio,
-                photo_url = teamMember.photoUrl
+        for (index in 0 until teamMembers.size) {
+            val entry = teamMembers.entries.elementAt(index)
+            db.teamMemberQueries.insertTeamGroup(
+                name = entry.key,
+                order_ = index.toLong(),
+                event_id = eventDb.id
             )
-            teamMember.socials.forEach {
-                db.socialQueries.insertSocial(
-                    url = it.url,
-                    type = it.type.name.lowercase(),
-                    ext_id = teamMember.id,
-                    event_id = eventDb.id
+            entry.value.forEach { teamMember ->
+                db.teamMemberQueries.insertTeamMember(
+                    id = teamMember.id,
+                    order_ = teamMember.order.toLong(),
+                    event_id = eventDb.id,
+                    name = teamMember.displayName,
+                    role = teamMember.role,
+                    bio = teamMember.bio,
+                    photo_url = teamMember.photoUrl,
+                    team_group_id = entry.key
                 )
+                teamMember.socials.forEach {
+                    db.socialQueries.insertSocial(
+                        url = it.url,
+                        type = it.type.name.lowercase(),
+                        ext_id = teamMember.id,
+                        event_id = eventDb.id
+                    )
+                }
             }
         }
         db.featuresActivatedQueries.insertFeatures(

@@ -78,11 +78,20 @@ class QAndAActionDb(
     val url: String
 )
 
+@Serializable
+class TeamMemberGroupDb(
+    val name: String,
+    val order: Int,
+    val eventId: String
+)
+
+@Serializable
 class TeamMemberDb(
     val eventId: String,
     val id: String,
     val name: String,
     val bio: String,
     val role: String?,
-    val photoUrl: String?
+    val photoUrl: String?,
+    val teamGroupId: String
 )

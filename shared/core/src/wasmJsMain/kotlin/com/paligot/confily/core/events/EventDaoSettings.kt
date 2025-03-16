@@ -69,9 +69,18 @@ class EventDaoSettings(
     override fun fetchCoC(eventId: String): Flow<CodeOfConduct> =
         eventQueries.selectCoc(eventId).map { it.convertToEntity() }
 
-    override fun fetchTeamMembers(eventId: String): Flow<List<TeamMemberItem>> =
-        teamMembersQueries.selectTeamMembers(eventId)
-            .map { teamMembers -> teamMembers.map { it.convertToEntity() } }
+    override fun fetchTeamMembers(eventId: String): Flow<Map<String, List<TeamMemberItem>>> =
+        combine(
+            flow = teamMembersQueries.selectTeamGroups(eventId),
+            flow2 = teamMembersQueries.selectTeamMembers(eventId),
+            transform = { groups, members ->
+                groups.associate { group ->
+                    group.name to members
+                        .filter { it.teamGroupId == group.name }
+                        .map(TeamMemberDb::convertToEntity)
+                }
+            }
+        )
 
     override fun fetchTeamMember(eventId: String, memberId: String): Flow<TeamMemberInfo?> =
         teamMembersQueries.selectTeamMember(memberId)
@@ -94,7 +103,7 @@ class EventDaoSettings(
     override fun insertEvent(
         event: EventV4,
         qAndA: List<QuestionAndResponse>,
-        teamMembers: List<TeamMember>
+        teamMembers: Map<String, List<TeamMember>>
     ) {
         val eventDb = event.convertToModelDb()
         eventQueries.insertEvent(eventDb)
@@ -110,10 +119,16 @@ class EventDaoSettings(
         event.menus.forEach {
             menuQueries.insertMenu(it.convertToModelDb(eventDb.id))
         }
-        teamMembers.forEach { teamMember ->
-            teamMembersQueries.insertTeamMember(teamMember.convertToModelDb(eventDb.id))
-            teamMember.socials.forEach {
-                socialQueries.upsertSocial(it.convertToDb(eventDb.id, teamMember.id))
+        for (index in 0 until teamMembers.size) {
+            val entry = teamMembers.entries.elementAt(index)
+            teamMembersQueries.insertTeamGroup(TeamMemberGroupDb(entry.key, index, eventDb.id))
+            entry.value.forEach { teamMember ->
+                teamMembersQueries.insertTeamMember(
+                    teamMember.convertToModelDb(eventDb.id, entry.key)
+                )
+                teamMember.socials.forEach {
+                    socialQueries.upsertSocial(it.convertToDb(eventDb.id, teamMember.id))
+                }
             }
         }
         featuresActivatedQueries.insertFeatures(

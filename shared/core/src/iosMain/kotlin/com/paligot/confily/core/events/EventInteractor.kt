@@ -1,5 +1,6 @@
 package com.paligot.confily.core.events
 
+import com.paligot.confily.core.events.entities.TeamMemberItem
 import com.paligot.confily.core.events.entities.mapToEventInfoUi
 import com.paligot.confily.core.events.entities.mapToEventItemListUi
 import com.paligot.confily.core.events.entities.mapToMenuItemUi
@@ -52,8 +53,14 @@ class EventInteractor(
     suspend fun insertOrUpdateTicket(barcode: String) = repository.insertOrUpdateTicket(barcode)
 
     @NativeCoroutines
-    fun teamMembers(): Flow<List<TeamMemberItemUi>> = repository.teamMembers()
-        .map { it.map { it.mapToTeamMemberItemUi() } }
+    fun teamMembers(): Flow<Map<String, List<TeamMemberItemUi>>> = repository.teamMembers()
+        .map {
+            it
+                .map { entry ->
+                    entry.key to entry.value.map(TeamMemberItem::mapToTeamMemberItemUi)
+                }
+                .toMap()
+        }
 
     @NativeCoroutines
     fun teamMember(memberId: String): Flow<TeamMemberUi?> = repository.teamMember(memberId)

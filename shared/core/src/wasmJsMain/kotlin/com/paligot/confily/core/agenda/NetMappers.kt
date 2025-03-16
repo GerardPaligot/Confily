@@ -74,13 +74,14 @@ fun EventLunchMenu.convertToModelDb(eventId: String) = MenuDb(
     eventId = eventId
 )
 
-fun TeamMember.convertToModelDb(eventId: String) = TeamMemberDb(
+fun TeamMember.convertToModelDb(eventId: String, teamGroup: String) = TeamMemberDb(
     id = id,
     name = displayName,
     bio = bio,
     role = role,
     photoUrl = photoUrl,
-    eventId = eventId
+    eventId = eventId,
+    teamGroupId = teamGroup
 )
 
 fun FeaturesActivated.convertToModelDb(eventId: String, hasTeamMembers: Boolean) =
