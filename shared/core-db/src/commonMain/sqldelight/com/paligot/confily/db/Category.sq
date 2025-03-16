@@ -9,6 +9,16 @@ selected INTEGER AS Boolean NOT NULL DEFAULT 0,
 event_id TEXT NOT NULL
 );
 
+CREATE TABLE SessionCategory (
+event_id TEXT NOT NULL REFERENCES Event(id),
+session_id TEXT NOT NULL REFERENCES TalkSession(id),
+category_id TEXT NOT NULL REFERENCES Category(id),
+PRIMARY KEY (event_id, session_id, category_id)
+);
+
+upsertSessionCategory:
+INSERT OR REPLACE INTO SessionCategory VALUES ?;
+
 selectCategories:
 SELECT id, name, color, icon, selected
 FROM Category

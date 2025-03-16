@@ -8,6 +8,16 @@ selected INTEGER AS Boolean NOT NULL DEFAULT 0,
 event_id TEXT NOT NULL
 );
 
+CREATE TABLE SessionFormat (
+event_id TEXT NOT NULL REFERENCES Event(id),
+session_id TEXT NOT NULL REFERENCES TalkSession(id),
+format_id TEXT NOT NULL REFERENCES Format(id),
+PRIMARY KEY (event_id, session_id, format_id)
+);
+
+upsertSessionFormat:
+INSERT OR REPLACE INTO SessionFormat VALUES ?;
+
 selectFormats:
 SELECT id, name, time, selected
 FROM Format

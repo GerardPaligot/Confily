@@ -17,6 +17,8 @@ import com.paligot.confily.db.ConfilyDatabase
 import com.paligot.confily.db.SelectSelectedCategories
 import com.paligot.confily.db.SelectSelectedFormats
 import com.paligot.confily.db.SelectSessions
+import com.paligot.confily.db.SessionCategory
+import com.paligot.confily.db.SessionFormat
 import com.paligot.confily.models.AgendaV4
 import com.russhwolf.settings.ExperimentalSettingsApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -48,7 +50,7 @@ class SessionDaoSQLDelight(
                     .asFlow()
                     .mapToOne(dispatcher),
                 flow3 = db.sessionQueries
-                    .selectSessionByTalkId(eventId)
+                    .selectSessionByTalkId(eventId, sessionId)
                     .asFlow()
                     .mapToOne(dispatcher),
                 transform = { speakers, openfeedback, talk ->
@@ -252,6 +254,20 @@ class SessionDaoSQLDelight(
             when (session) {
                 is com.paligot.confily.models.Session.Talk -> {
                     db.sessionQueries.upsertTalkSession(session.convertToDb(eventId))
+                    db.categoryQueries.upsertSessionCategory(
+                        SessionCategory(
+                            event_id = eventId,
+                            session_id = session.id,
+                            category_id = session.categoryId
+                        )
+                    )
+                    db.formatQueries.upsertSessionFormat(
+                        SessionFormat(
+                            event_id = eventId,
+                            session_id = session.id,
+                            format_id = session.formatId
+                        )
+                    )
                 }
 
                 is com.paligot.confily.models.Session.Event -> {
