@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material3.ListItem
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -16,10 +18,11 @@ import com.paligot.confily.style.speakers.items.LargeSpeakerItem
 import com.paligot.confily.style.theme.SpacingTokens
 import com.paligot.confily.style.theme.toDp
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.ImmutableMap
 
 @Composable
 fun TeamMemberListContent(
-    members: ImmutableList<TeamMemberItemUi>,
+    members: ImmutableMap<String, ImmutableList<TeamMemberItemUi>>,
     onTeamMemberClicked: (id: String) -> Unit,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp),
@@ -37,14 +40,19 @@ fun TeamMemberListContent(
             horizontal = SpacingTokens.MediumSpacing.toDp()
         )
     ) {
-        items(members, key = { it.id }) { member ->
-            LargeSpeakerItem(
-                name = member.displayName,
-                description = member.role,
-                url = member.url ?: "",
-                onClick = { onTeamMemberClicked(member.id) },
-                modifier = Modifier.placeholder(isLoading)
-            )
+        members.forEach { entry ->
+            stickyHeader(entry.key) {
+                ListItem(headlineContent = { Text(entry.key) })
+            }
+            items(entry.value, key = { it.id }) { member ->
+                LargeSpeakerItem(
+                    name = member.displayName,
+                    description = member.role,
+                    url = member.url ?: "",
+                    onClick = { onTeamMemberClicked(member.id) },
+                    modifier = Modifier.placeholder(isLoading)
+                )
+            }
         }
     }
 }

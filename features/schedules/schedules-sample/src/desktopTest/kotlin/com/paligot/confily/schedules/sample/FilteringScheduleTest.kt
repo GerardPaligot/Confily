@@ -49,7 +49,11 @@ class FilteringScheduleTest {
                 val sessionDao = koinInject<SessionDao>()
                 LaunchedEffect(Unit) {
                     settings.insertEventId(BuildKonfig.DEFAULT_EVENT)
-                    eventDao.insertEvent(event = event, qAndA = emptyList(), teamMembers = emptyList())
+                    eventDao.insertEvent(
+                        event = event,
+                        qAndA = emptyList(),
+                        teamMembers = emptyMap()
+                    )
                     sessionDao.insertAgenda(BuildKonfig.DEFAULT_EVENT, agenda)
                 }
                 val lifecycleOwner = remember { FakeLifecycleOwner() }
