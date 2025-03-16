@@ -338,7 +338,8 @@ fun TeamOP.convertToTeamDb(order: Int, photoUrl: String?): TeamDb {
             if (website != null) {
                 this.add(SocialDb(SocialType.Website.name.lowercase(), website))
             }
-        }
+        },
+        teamName = team ?: ""
     )
 }
 
@@ -395,6 +396,7 @@ fun TeamDb.mergeWith(photoUrl: String?, teamOP: TeamOP): TeamDb {
             if (find { it.type == SocialType.Website.name.lowercase() } == null && website != null) {
                 add(SocialDb(SocialType.Website.name.lowercase(), website))
             }
-        }
+        },
+        teamName = if (this.teamName == teamOP.team) this.teamName else teamOP.team ?: ""
     )
 }

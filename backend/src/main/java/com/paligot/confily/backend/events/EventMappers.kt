@@ -24,6 +24,7 @@ import com.paligot.confily.models.inputs.EventInput
 import com.paligot.confily.models.inputs.LunchMenuInput
 import com.paligot.confily.models.inputs.OpenPlannerConfigInput
 import com.paligot.confily.models.inputs.SocialInput
+import com.paligot.confily.models.inputs.TeamGroupInput
 import com.paligot.confily.models.inputs.WldConfigInput
 import java.util.UUID
 
@@ -169,6 +170,11 @@ fun WldConfigInput.convertToDb() = WldConfigurationDb(
     apiKey = apiKey
 )
 
+fun TeamGroupInput.convertToDb() = TeamGroupDb(
+    name = name,
+    order = order
+)
+
 fun EventInput.convertToDb(event: EventDb, addressDb: AddressDb) = EventDb(
     slugId = event.name.slug(),
     year = event.year,
@@ -182,6 +188,7 @@ fun EventInput.convertToDb(event: EventDb, addressDb: AddressDb) = EventDb(
     billetWebConfig = this.billetWebConfig?.convertToDb(),
     wldConfig = this.wldConfig?.convertToDb(),
     eventSessionTracks = eventSessionTracks,
+    teamGroups = teamGroups.map(TeamGroupInput::convertToDb),
     menus = event.menus,
     coc = event.coc,
     startDate = this.startDate,

@@ -109,5 +109,7 @@ data class TeamOP(
     val bio: String? = null,
     val photoUrl: String? = null,
     val role: String? = null,
-    val socials: List<SocialOP>
+    val socials: List<SocialOP>,
+    val teamOrder: Int? = null,
+    val team: String? = null
 )

@@ -47,6 +47,11 @@ data class WldConfigurationDb(
     val apiKey: String = ""
 )
 
+data class TeamGroupDb(
+    val name: String = "",
+    val order: Int = 0
+)
+
 data class EventDb(
     val slugId: String = "",
     val year: String = "",
@@ -59,6 +64,7 @@ data class EventDb(
     val name: String = "",
     val defaultLanguage: String = "",
     val eventSessionTracks: List<String> = emptyList(),
+    val teamGroups: List<TeamGroupDb> = emptyList(),
     val address: AddressDb = AddressDb(),
     val startDate: String = "",
     val endDate: String = "",
