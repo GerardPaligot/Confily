@@ -44,7 +44,7 @@ class ScheduleDetailsTest {
                 val sessionDao = koinInject<SessionDao>()
                 LaunchedEffect(Unit) {
                     settings.insertEventId(BuildKonfig.DEFAULT_EVENT)
-                    eventDao.insertEvent(event, emptyList(), emptyList())
+                    eventDao.insertEvent(event, emptyList(), emptyMap())
                     sessionDao.insertAgenda(BuildKonfig.DEFAULT_EVENT, agenda)
                 }
                 val lifecycleOwner = remember { FakeLifecycleOwner() }
