@@ -140,10 +140,8 @@ internal fun SelectSpeakersByTalkIds.mapToEntity(): SpeakerItem = SpeakerItem(
     company = company
 )
 
-internal val eventSessionItemMapper = { id: String, order: Long, _: String, _: String,
-    start_time: String, end_time: String, room: String,
-    _: String?, title: String, description: String?,
-    _: List<String>?, _: String?, _: Double?, _: Double? ->
+internal val eventSessionItemMapper = { id: String, title: String, description: String?,
+    order: Long, start_time: String, end_time: String, room: String ->
     EventSessionItem(
         id = id,
         order = order.toInt(),
@@ -155,11 +153,9 @@ internal val eventSessionItemMapper = { id: String, order: Long, _: String, _: S
     )
 }
 
-internal val eventSessionMapper = { id: String, order_: Long, event_id: String, start_time: String,
-    end_time: String, room: String, session_event_id: String?,
-    title: String, description: String?,
-    formatted_address: List<String>?, address: String?,
-    latitude: Double?, longitude: Double? ->
+internal val eventSessionMapper = { id: String, title: String, description: String?,
+    formatted_address: List<String>?, latitude: Double?, longitude: Double?,
+    start_time: String, end_time: String, room: String ->
     val startTime = LocalDateTime.parse(start_time)
     EventSession(
         id = id,

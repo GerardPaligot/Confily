@@ -48,7 +48,7 @@ class SessionDaoSQLDelight(
                     .asFlow()
                     .mapToOne(dispatcher),
                 flow3 = db.sessionQueries
-                    .selectSessionByTalkId(eventId, sessionId)
+                    .selectSessionByTalkId(eventId)
                     .asFlow()
                     .mapToOne(dispatcher),
                 transform = { speakers, openfeedback, talk ->
@@ -58,12 +58,8 @@ class SessionDaoSQLDelight(
         }
 
     override fun fetchEventSession(eventId: String, sessionId: String): Flow<EventSession> =
-        db.sessionQueries
-            .selectEventSessionById(
-                event_id = eventId,
-                session_event_id = sessionId,
-                mapper = eventSessionMapper
-            )
+        db.eventSessionQueries
+            .selectEventSessionById(eventId, eventSessionMapper)
             .asFlow()
             .mapToOne(dispatcher)
 
@@ -89,7 +85,7 @@ class SessionDaoSQLDelight(
                 .sessionFiltered(categories, formats, hasFavFilter)
                 .map { session ->
                     val speakersByTalk = speakers
-                        .filter { it.talk_id == session.session_talk_id }
+                        .filter { it.talk_id == session.id }
                         .map { it.mapToEntity() }
                     session.mapToEntity(speakersByTalk)
                 }
@@ -137,7 +133,7 @@ class SessionDaoSQLDelight(
             .flatMapMerge { sessions ->
                 val nextSessions = sessions
                     .filter { dateTime < LocalDateTime.parse(it.start_time) }
-                val sessionIds = nextSessions.mapNotNull { it.session_talk_id }
+                val sessionIds = nextSessions.mapNotNull { it.id }
                 db.sessionQueries
                     .selectSpeakersByTalkIds(eventId, sessionIds)
                     .asFlow()
@@ -145,7 +141,7 @@ class SessionDaoSQLDelight(
                     .map { allSpeakers ->
                         nextSessions.map { session ->
                             val speakers = allSpeakers
-                                .filter { it.talk_id == session.session_talk_id }
+                                .filter { it.talk_id == session.id }
                                 .map { it.mapToEntity() }
                             session.mapToEntity(speakers)
                         }
@@ -172,8 +168,8 @@ class SessionDaoSQLDelight(
         }
 
     override fun fetchEventSessions(eventId: String): Flow<List<EventSessionItem>> =
-        db.sessionQueries
-            .selectBreakSessions(eventId, eventSessionItemMapper)
+        db.eventSessionQueries
+            .selectEventSessions(eventId, eventSessionItemMapper)
             .asFlow()
             .mapToList(dispatcher)
 
@@ -259,22 +255,29 @@ class SessionDaoSQLDelight(
                 }
 
                 is com.paligot.confily.models.Session.Event -> {
-                    db.sessionQueries.upsertEventSession(session.convertToDb(eventId))
+                    db.eventSessionQueries.upsertEventSession(session.convertToDb(eventId))
                 }
             }
         }
-        agenda.sessions.filterIsInstance<com.paligot.confily.models.Session.Talk>().forEach { session ->
-            session.speakers.forEach {
-                db.sessionQueries.upsertTalkWithSpeakersSession(session.convertToDb(eventId, it))
+        agenda.sessions.filterIsInstance<com.paligot.confily.models.Session.Talk>()
+            .forEach { session ->
+                session.speakers.forEach {
+                    db.sessionQueries.upsertTalkWithSpeakersSession(
+                        session.convertToDb(
+                            eventId,
+                            it
+                        )
+                    )
+                }
             }
-        }
         agenda.schedules.forEach { schedule ->
-            val clazz = if (agenda.sessions.find { it.id == schedule.sessionId } is com.paligot.confily.models.Session.Talk) {
-                com.paligot.confily.models.Session.Talk::class
-            } else {
-                com.paligot.confily.models.Session.Event::class
-            }
-            db.sessionQueries.upsertSession(schedule.convertToDb(eventId, clazz))
+            val clazz =
+                if (agenda.sessions.find { it.id == schedule.sessionId } is com.paligot.confily.models.Session.Talk) {
+                    com.paligot.confily.models.Session.Talk::class
+                } else {
+                    com.paligot.confily.models.Session.Event::class
+                }
+            db.scheduleQueries.upsertSchedule(schedule.convertToDb(eventId, clazz))
         }
         clean(eventId, agenda)
     }

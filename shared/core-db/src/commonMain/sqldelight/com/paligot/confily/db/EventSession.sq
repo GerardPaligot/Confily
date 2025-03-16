@@ -1,0 +1,32 @@
+import kotlin.collections.List;
+import kotlin.String;
+
+CREATE TABLE EventSession (
+id TEXT NOT NULL PRIMARY KEY,
+event_id TEXT NOT NULL,
+title TEXT NOT NULL,
+description TEXT,
+formatted_address TEXT AS List<String>,
+latitude REAL,
+longitude REAL,
+FOREIGN KEY (event_id) REFERENCES Event(id)
+);
+
+selectEventSessions:
+SELECT EventSession.id, EventSession.title, EventSession.description,
+Schedule.order_, Schedule.start_time, Schedule.end_time, Schedule.room
+FROM EventSession
+INNER JOIN Schedule ON Schedule.session_id = EventSession.id
+WHERE EventSession.event_id = ?
+ORDER BY start_time, order_;
+
+selectEventSessionById:
+SELECT EventSession.id, EventSession.title, EventSession.description,
+EventSession.formatted_address, EventSession.latitude, EventSession.longitude,
+Schedule.start_time, Schedule.end_time, Schedule.room
+FROM EventSession
+INNER JOIN Schedule ON Schedule.session_id = EventSession.id
+WHERE EventSession.event_id = ?;
+
+upsertEventSession:
+INSERT OR REPLACE INTO EventSession VALUES ?;
