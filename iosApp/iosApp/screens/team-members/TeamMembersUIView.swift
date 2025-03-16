@@ -10,12 +10,17 @@ import SwiftUI
 import SharedDi
 
 struct TeamMembersUIView: View {
-    var members: Array<TeamMemberItemUi>
+    var members: Dictionary<String, Array<TeamMemberItemUi>>
     
     var body: some View {
         List {
-            ForEach(members, id: \.id) { member in
-                TeamMemberItemNavigation(teamMember: member)
+            ForEach(Array(members.keys), id: \.self) { key in
+                Section(header: Text(key)) {
+                    let members = members[key] ?? []
+                    ForEach(members, id: \.id) { member in
+                        TeamMemberItemNavigation(teamMember: member)
+                    }
+                }
             }
         }
     }
@@ -23,6 +28,8 @@ struct TeamMembersUIView: View {
 
 #Preview {
     TeamMembersUIView(
-        members: [TeamMemberItemUi.companion.fake]
+        members: [
+            "default": [TeamMemberItemUi.companion.fake]
+        ]
     )
 }
