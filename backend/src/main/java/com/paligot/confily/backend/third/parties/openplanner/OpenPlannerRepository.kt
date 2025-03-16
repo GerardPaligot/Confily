@@ -5,6 +5,7 @@ import com.paligot.confily.backend.categories.CategoryDao
 import com.paligot.confily.backend.categories.CategoryDb
 import com.paligot.confily.backend.events.EventDao
 import com.paligot.confily.backend.events.EventDb
+import com.paligot.confily.backend.events.TeamGroupDb
 import com.paligot.confily.backend.formats.FormatDao
 import com.paligot.confily.backend.formats.FormatDb
 import com.paligot.confily.backend.internals.CommonApi
@@ -100,7 +101,13 @@ class OpenPlannerRepository(
             .awaitAll()
             .flatten()
         clean(event, qandas, categories, formats, speakers, schedules, teamMembers)
-        eventDao.updateAgendaUpdatedAt(event)
+        eventDao.updateAgendaUpdatedAt(
+            event.copy(
+                teamGroups = openPlanner.team
+                    .map { TeamGroupDb(name = it.team ?: "", order = it.teamOrder ?: 0) }
+                    .distinct()
+            )
+        )
     }
 
     @Suppress("LongParameterList")

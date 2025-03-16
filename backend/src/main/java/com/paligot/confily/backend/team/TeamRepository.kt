@@ -1,5 +1,6 @@
 package com.paligot.confily.backend.team
 
+import com.paligot.confily.backend.NotAcceptableException
 import com.paligot.confily.backend.NotFoundException
 import com.paligot.confily.backend.events.EventDao
 import com.paligot.confily.backend.internals.CommonApi
@@ -13,12 +14,23 @@ class TeamRepository(
     private val teamDao: TeamDao
 ) {
     suspend fun list(eventId: String) = coroutineScope {
-        return@coroutineScope teamDao.getAll(eventId).map { it.convertToModel() }
+        val eventDb = eventDao.get(eventId)
+            ?: throw NotFoundException("Event with $eventId is not found")
+        val orderMap = eventDb.teamGroups.associate { it.name to it.order }
+        return@coroutineScope teamDao.getAll(eventId)
+            .sortedBy { orderMap[it.teamName] ?: 0 }
+            .groupBy { it.teamName }
+            .filter { it.key != "" }
+            .map { entry -> entry.key to entry.value.map { it.convertToModel() } }
+            .associate { it }
     }
 
     suspend fun create(eventId: String, apiKey: String, teamInput: TeamMemberInput) =
         coroutineScope {
             val event = eventDao.getVerified(eventId, apiKey)
+            if (event.teamGroups.find { it.name == teamInput.teamName } == null) {
+                throw NotAcceptableException("Team group ${teamInput.teamName} is not allowed")
+            }
             val order = teamDao.last(eventId)?.order
             val teamDb = teamInput.convertToDb(
                 lastOrder = order,
@@ -52,6 +64,9 @@ class TeamRepository(
         teamMemberInput: TeamMemberInput
     ) = coroutineScope {
         val event = eventDao.getVerified(eventId, apiKey)
+        if (event.teamGroups.find { it.name == teamMemberInput.teamName } == null) {
+            throw NotAcceptableException("Team group ${teamMemberInput.teamName} is not allowed")
+        }
         val photoUrl = if (teamMemberInput.photoUrl != null) {
             val avatar = commonApi.fetchByteArray(teamMemberInput.photoUrl!!)
             val bucketItem = teamDao.saveTeamPicture(

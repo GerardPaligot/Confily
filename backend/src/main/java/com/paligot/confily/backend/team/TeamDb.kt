@@ -9,5 +9,6 @@ data class TeamDb(
     val bio: String = "",
     val photoUrl: String? = null,
     val role: String? = null,
-    val socials: List<SocialDb> = emptyList()
+    val socials: List<SocialDb> = emptyList(),
+    val teamName: String = ""
 )

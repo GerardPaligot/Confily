@@ -26,5 +26,6 @@ fun TeamMemberInput.convertToDb(
     bio = bio,
     role = role,
     photoUrl = photoUrl,
-    socials = socials.map { it.convertToDb() }
+    socials = socials.map { it.convertToDb() },
+    teamName = teamName
 )
