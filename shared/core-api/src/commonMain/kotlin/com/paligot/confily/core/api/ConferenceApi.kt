@@ -76,7 +76,7 @@ class ConferenceApi(
         return response.etag()!! to response.body()
     }
 
-    suspend fun fetchTeamMembers(eventId: String): List<TeamMember> =
+    suspend fun fetchTeamMembers(eventId: String): Map<String, List<TeamMember>> =
         client.get("$baseUrl/events/$eventId/team-members").body()
 
     suspend fun fetchMapList(eventId: String): List<EventMap> =

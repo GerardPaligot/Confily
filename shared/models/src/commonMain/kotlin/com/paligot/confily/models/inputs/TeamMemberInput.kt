@@ -9,6 +9,8 @@ data class TeamMemberInput(
     @SerialName("display_name")
     val displayName: String,
     val bio: String,
+    val teamOrder: Int,
+    val teamName: String,
     val role: String? = null,
     @SerialName("photo_url")
     val photoUrl: String? = null,

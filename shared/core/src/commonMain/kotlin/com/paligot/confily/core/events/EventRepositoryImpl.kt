@@ -88,7 +88,7 @@ internal class EventRepositoryImpl(
     override fun coc(): Flow<CodeOfConduct> = settings.fetchEventId()
         .flatMapConcat { eventDao.fetchCoC(eventId = it) }
 
-    override fun teamMembers(): Flow<List<TeamMemberItem>> = settings.fetchEventId()
+    override fun teamMembers(): Flow<Map<String, List<TeamMemberItem>>> = settings.fetchEventId()
         .flatMapConcat { eventDao.fetchTeamMembers(eventId = it) }
 
     override fun teamMember(memberId: String): Flow<TeamMember?> = settings.fetchEventId()

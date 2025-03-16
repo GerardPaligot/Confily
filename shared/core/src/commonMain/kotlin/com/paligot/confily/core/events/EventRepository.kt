@@ -29,7 +29,7 @@ interface EventRepository {
     fun qanda(): Flow<ImmutableList<QAndAItem>>
     fun menus(): Flow<ImmutableList<MenuItem>>
     fun coc(): Flow<CodeOfConduct>
-    fun teamMembers(): Flow<List<TeamMemberItem>>
+    fun teamMembers(): Flow<Map<String, List<TeamMemberItem>>>
     fun teamMember(memberId: String): Flow<TeamMember?>
     fun featureFlags(): Flow<FeatureFlags>
     fun isInitialized(defaultEvent: String? = null): Boolean

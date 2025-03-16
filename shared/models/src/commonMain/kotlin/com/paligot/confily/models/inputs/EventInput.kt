@@ -72,6 +72,23 @@ data class WldConfigInput(
 }
 
 @Serializable
+data class TeamGroupInput(
+    val name: String,
+    val order: Int
+) : Validator {
+    override fun validate(): List<String> {
+        val errors = mutableListOf<String>()
+        if (name.isBlank()) {
+            errors.add("Name cannot be blank")
+        }
+        if (order < 0) {
+            errors.add("Order cannot be negative")
+        }
+        return errors
+    }
+}
+
+@Serializable
 data class EventInput(
     val name: String,
     val address: String,
@@ -87,6 +104,8 @@ data class EventInput(
     val wldConfig: WldConfigInput?,
     @SerialName("event_session_tracks")
     val eventSessionTracks: List<String> = emptyList(),
+    @SerialName("team_groups")
+    val teamGroups: List<TeamGroupInput> = emptyList(),
     @SerialName("start_date")
     val startDate: String,
     @SerialName("end_date")
