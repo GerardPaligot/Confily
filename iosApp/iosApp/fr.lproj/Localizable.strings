@@ -81,7 +81,7 @@
 "actionTicketScanner" = "Scan ton ticket";
 "actionsMaps" = "Plans";
 "actionMenus" = "Menus";
-"actionsTeam" = "Equipe organisatrice";
+"actionsTeam" = "Equipes";
 "actionChangeEvent" = "Changer d'évènement";
 "actionGenerateQrcode" = "Générer ton Qrcode";
 "actionFilteringFavorites" = "Seulement les conférences en favoris";

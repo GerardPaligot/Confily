@@ -82,7 +82,7 @@
 "actionTicketScanner" = "Scan your ticket";
 "actionsMaps" = "Maps";
 "actionMenus" = "Menus";
-"actionsTeam" = "Organizers";
+"actionsTeam" = "Teams";
 "actionChangeEvent" = "Change event";
 "actionGenerateQrcode" = "Generate your QR code";
 "actionFilteringFavorites" = "Only favorites schedules";

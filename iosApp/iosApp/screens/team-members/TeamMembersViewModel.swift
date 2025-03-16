@@ -12,7 +12,7 @@ import KMPNativeCoroutinesAsync
 
 enum TeamMemberItemUiState {
     case loading
-    case success(Array<TeamMemberItemUi>)
+    case success(Dictionary<String, Array<TeamMemberItemUi>>)
     case failure
 }
 
