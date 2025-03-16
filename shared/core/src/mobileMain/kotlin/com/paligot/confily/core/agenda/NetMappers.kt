@@ -2,6 +2,7 @@ package com.paligot.confily.core.agenda
 
 import com.paligot.confily.db.Event
 import com.paligot.confily.db.EventSession
+import com.paligot.confily.db.Schedule
 import com.paligot.confily.db.TalkSession
 import com.paligot.confily.db.TalkSessionWithSpeakers
 import com.paligot.confily.models.Category
@@ -13,7 +14,6 @@ import com.paligot.confily.models.Speaker
 import kotlin.reflect.KClass
 import com.paligot.confily.db.Category as CategoryDb
 import com.paligot.confily.db.Format as FormatDb
-import com.paligot.confily.db.Session as SessionDb
 import com.paligot.confily.db.Speaker as SpeakerDb
 
 fun EventV4.convertToModelDb(): Event = Event(
@@ -52,18 +52,16 @@ fun Format.convertToDb(eventId: String): FormatDb = FormatDb(
     event_id = eventId
 )
 
-fun <T : Session> ScheduleItemV4.convertToDb(eventId: String, type: KClass<T>): SessionDb =
-    SessionDb(
+fun <T : Session> ScheduleItemV4.convertToDb(eventId: String, type: KClass<T>): Schedule =
+    Schedule(
         id = this.id,
         order_ = order.toLong(),
         room = this.room,
-        date = this.date,
         start_time = this.startTime,
         end_time = this.endTime,
-        session_talk_id = if (type == Session.Talk::class) sessionId else null,
-        session_event_id = if (type == Session.Event::class) sessionId else null,
-        event_id = eventId,
-        is_favorite = false
+        session_id = sessionId,
+        session_type = if (type == Session.Talk::class) "Talk" else "Event",
+        event_id = eventId
     )
 
 fun Session.Talk.convertToDb(eventId: String): TalkSession = TalkSession(
@@ -77,7 +75,8 @@ fun Session.Talk.convertToDb(eventId: String): TalkSession = TalkSession(
     category_id = this.categoryId,
     format_id = this.formatId,
     open_feedback_url = this.openFeedback,
-    event_id = eventId
+    event_id = eventId,
+    is_favorite = false
 )
 
 fun Session.Talk.convertToDb(eventId: String, speakerId: String) = TalkSessionWithSpeakers(
@@ -92,7 +91,6 @@ fun Session.Event.convertToDb(eventId: String): EventSession = EventSession(
     title = this.title,
     description = this.description,
     formatted_address = address?.formatted,
-    address = address?.address,
     latitude = address?.lat,
     longitude = address?.lng,
     event_id = eventId

@@ -1,0 +1,15 @@
+CREATE TABLE Schedule (
+id TEXT NOT NULL PRIMARY KEY,
+order_ INTEGER NOT NULL,
+session_id TEXT,
+session_type TEXT NOT NULL CHECK (session_type IN ('Talk', 'Event')),
+start_time TEXT NOT NULL,
+end_time TEXT NOT NULL,
+room TEXT NOT NULL,
+event_id TEXT NOT NULL,
+FOREIGN KEY (event_id) REFERENCES Event(id)
+);
+
+upsertSchedule:
+INSERT OR REPLACE INTO Schedule(id, order_, session_id, session_type, start_time, end_time, room, event_id)
+VALUES ?;
