@@ -30,6 +30,7 @@ class TalkBuilder {
         level = level,
         categoryId = categoryId,
         formatId = formatId,
+        tagIds = listOf(),
         language = language,
         speakers = speakers,
         linkSlides = null,
