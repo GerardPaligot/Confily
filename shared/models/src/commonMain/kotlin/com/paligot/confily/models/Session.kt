@@ -15,6 +15,8 @@ sealed class Session {
         val level: String?,
         val abstract: String,
         val categoryId: String,
+        @SerialName("tag_ids")
+        val tagIds: List<String>,
         val formatId: String,
         val language: String,
         val speakers: List<String>,

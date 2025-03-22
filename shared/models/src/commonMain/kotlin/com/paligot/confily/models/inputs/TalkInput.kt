@@ -9,6 +9,7 @@ data class TalkInput(
     val level: String? = null,
     val abstract: String = "",
     val category: String = "",
+    val tags: List<String> = emptyList(),
     val format: String = "",
     val language: String = "",
     @SerialName("link_slides")
