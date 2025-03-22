@@ -11,10 +11,12 @@ import com.paligot.confily.models.Format
 import com.paligot.confily.models.ScheduleItemV4
 import com.paligot.confily.models.Session
 import com.paligot.confily.models.Speaker
+import com.paligot.confily.models.Tag
 import kotlin.reflect.KClass
 import com.paligot.confily.db.Category as CategoryDb
 import com.paligot.confily.db.Format as FormatDb
 import com.paligot.confily.db.Speaker as SpeakerDb
+import com.paligot.confily.db.Tag as TagDb
 
 fun EventV4.convertToModelDb(): Event = Event(
     id = this.id,
@@ -48,6 +50,13 @@ fun Format.convertToDb(eventId: String): FormatDb = FormatDb(
     id = id,
     name = name,
     time = time.toLong(),
+    selected = false,
+    event_id = eventId
+)
+
+fun Tag.convertToDb(eventId: String): TagDb = TagDb(
+    id = id,
+    name = name,
     selected = false,
     event_id = eventId
 )

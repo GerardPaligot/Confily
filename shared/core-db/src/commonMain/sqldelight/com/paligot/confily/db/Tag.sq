@@ -1,0 +1,41 @@
+import kotlin.Boolean;
+
+CREATE TABLE Tag (
+id TEXT NOT NULL PRIMARY KEY,
+name TEXT NOT NULL,
+selected INTEGER AS Boolean NOT NULL DEFAULT 0,
+event_id TEXT NOT NULL
+);
+
+CREATE TABLE SessionTag (
+event_id TEXT NOT NULL REFERENCES Event(id),
+session_id TEXT NOT NULL REFERENCES TalkSession(id),
+tag_id TEXT NOT NULL REFERENCES Tag(id),
+PRIMARY KEY (event_id, session_id, tag_id)
+);
+
+upsertSessionTag:
+INSERT OR REPLACE INTO SessionTag VALUES ?;
+
+selectTagsBySessionId:
+SELECT Tag.id, Tag.name
+FROM Tag
+JOIN SessionTag ON Tag.id = SessionTag.tag_id
+WHERE SessionTag.event_id = ? AND SessionTag.session_id = ?;
+
+selectTags:
+SELECT id, name, selected
+FROM Tag
+WHERE event_id = ?
+ORDER BY name;
+
+upsertTag:
+INSERT OR REPLACE INTO Tag VALUES ?;
+
+diffTags:
+SELECT id
+FROM Tag
+WHERE event_id == ? AND id NOT IN ?;
+
+deleteTags:
+DELETE FROM Tag WHERE event_id == ? AND id IN ?;
