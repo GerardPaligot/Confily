@@ -19,6 +19,7 @@ import com.paligot.confily.db.SelectSelectedFormats
 import com.paligot.confily.db.SelectSessions
 import com.paligot.confily.db.SessionCategory
 import com.paligot.confily.db.SessionFormat
+import com.paligot.confily.db.SessionTag
 import com.paligot.confily.models.AgendaV4
 import com.russhwolf.settings.ExperimentalSettingsApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -53,8 +54,12 @@ class SessionDaoSQLDelight(
                     .selectSessionByTalkId(eventId, sessionId)
                     .asFlow()
                     .mapToOne(dispatcher),
-                transform = { speakers, openfeedback, talk ->
-                    talk.mapToEntity(speakers.map { it.mapToEntity() }, openfeedback)
+                flow4 = db.tagQueries
+                    .selectTagsBySessionId(eventId, sessionId, tagMapper)
+                    .asFlow()
+                    .mapToList(dispatcher),
+                transform = { speakers, openfeedback, talk, tags ->
+                    talk.mapToEntity(speakers.map { it.mapToEntity() }, tags, openfeedback)
                 }
             )
         }
@@ -250,6 +255,9 @@ class SessionDaoSQLDelight(
         agenda.formats.forEach { format ->
             db.formatQueries.upsertFormat(format.convertToDb(eventId))
         }
+        agenda.tags.forEach { tag ->
+            db.tagQueries.upsertTag(tag.convertToDb(eventId))
+        }
         agenda.sessions.forEach { session ->
             when (session) {
                 is com.paligot.confily.models.Session.Talk -> {
@@ -268,6 +276,15 @@ class SessionDaoSQLDelight(
                             format_id = session.formatId
                         )
                     )
+                    session.tagIds.forEach { tagId ->
+                        db.tagQueries.upsertSessionTag(
+                            SessionTag(
+                                event_id = eventId,
+                                session_id = session.id,
+                                tag_id = tagId
+                            )
+                        )
+                    }
                 }
 
                 is com.paligot.confily.models.Session.Event -> {

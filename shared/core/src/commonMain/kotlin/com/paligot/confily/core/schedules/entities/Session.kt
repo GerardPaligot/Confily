@@ -23,6 +23,7 @@ class Session(
     val abstract: String,
     val category: Category,
     val format: Format,
+    val tags: List<Tag>,
     val room: String,
     val level: Level?,
     val language: String?,
@@ -41,6 +42,7 @@ fun Session.mapToSessionUi(strings: Strings): SessionUi {
             title = title,
             level = level.mapToLocalizedString(strings),
             category = category.mapToCategoryUi(),
+            tags = tags.map { it.mapToTagUi() }.toImmutableList(),
             slotTime = startTime.format(
                 LocalDateTime.Format {
                     hour()

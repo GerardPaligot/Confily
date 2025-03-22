@@ -9,6 +9,7 @@ import com.paligot.confily.core.schedules.entities.SelectableCategory
 import com.paligot.confily.core.schedules.entities.SelectableFormat
 import com.paligot.confily.core.schedules.entities.Session
 import com.paligot.confily.core.schedules.entities.SessionItem
+import com.paligot.confily.core.schedules.entities.Tag
 import com.paligot.confily.core.speakers.entities.SpeakerItem
 import com.paligot.confily.db.SelectOpenfeedbackProjectId
 import com.paligot.confily.db.SelectSessionByTalkId
@@ -22,6 +23,7 @@ import com.paligot.confily.core.schedules.entities.Format as FormatEntity
 
 internal fun SelectSessionByTalkId.mapToEntity(
     speakers: List<SpeakerItem>,
+    tags: List<Tag>,
     openfeedbackProjectId: SelectOpenfeedbackProjectId
 ): Session = Session(
     id = id,
@@ -38,6 +40,7 @@ internal fun SelectSessionByTalkId.mapToEntity(
         name = formatName,
         time = time.toInt()
     ),
+    tags = tags,
     level = when (level?.lowercase()) {
         "advanced" -> Level.Advanced
         "intermediate" -> Level.Intermediate
@@ -194,4 +197,8 @@ internal val formatMapper = { id: String, name: String, time: Long, selected: Bo
         time = time.toInt(),
         selected = selected
     )
+}
+
+internal val tagMapper = { id: String, name: String ->
+    Tag(id = id, name = name)
 }
