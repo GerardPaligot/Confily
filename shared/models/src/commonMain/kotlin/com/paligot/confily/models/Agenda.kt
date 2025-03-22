@@ -21,6 +21,7 @@ data class AgendaV4(
     val schedules: List<ScheduleItemV4>,
     val sessions: List<Session>,
     val formats: List<Format>,
+    val tags: List<Tag>,
     val categories: List<Category>,
     val speakers: List<Speaker>
 )

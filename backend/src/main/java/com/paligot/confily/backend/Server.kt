@@ -10,6 +10,7 @@ import com.paligot.confily.backend.qanda.registerQAndAsRoutes
 import com.paligot.confily.backend.schedules.registerSchedulersRoutes
 import com.paligot.confily.backend.sessions.registerSessionsRoutes
 import com.paligot.confily.backend.speakers.registerSpeakersRoutes
+import com.paligot.confily.backend.tags.registerTagsRoutes
 import com.paligot.confily.backend.talks.registerTalksRoutes
 import com.paligot.confily.backend.team.registerTeamRoutes
 import com.paligot.confily.backend.third.parties.billetweb.registerBilletWebRoutes
@@ -96,6 +97,7 @@ fun main() {
                 registerTalksRoutes()
                 registerCategoriesRoutes()
                 registerFormatsRoutes()
+                registerTagsRoutes()
                 registerSchedulersRoutes()
                 registerActivitiesRoutes()
                 registerPartnersRoutes()

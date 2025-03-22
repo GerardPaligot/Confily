@@ -14,6 +14,8 @@ import com.paligot.confily.backend.sessions.SessionDao
 import com.paligot.confily.backend.sessions.convertToModel
 import com.paligot.confily.backend.speakers.SpeakerDao
 import com.paligot.confily.backend.speakers.convertToModel
+import com.paligot.confily.backend.tags.TagDao
+import com.paligot.confily.backend.tags.convertToModel
 import com.paligot.confily.models.AgendaV4
 import com.paligot.confily.models.EventV4
 import kotlinx.coroutines.CoroutineDispatcher
@@ -28,6 +30,7 @@ class EventRepositoryV4(
     private val sessionDao: SessionDao,
     private val categoryDao: CategoryDao,
     private val formatDao: FormatDao,
+    private val tagDao: TagDao,
     private val scheduleItemDao: ScheduleItemDao,
     private val partnerDao: PartnerDao,
     private val qAndADao: QAndADao,
@@ -70,6 +73,9 @@ class EventRepositoryV4(
         val categories = async(context = dispatcher) {
             categoryDao.getAll(eventDb.slugId).map { it.convertToModel() }
         }
+        val tags = async(context = dispatcher) {
+            tagDao.getAll(eventDb.slugId).map { it.convertToModel() }
+        }
         val speakers = async(context = dispatcher) {
             speakerDao.getAll(eventDb.slugId).map { it.convertToModel() }
         }
@@ -78,6 +84,7 @@ class EventRepositoryV4(
             sessions = sessions.await() + breaks,
             formats = formats.await(),
             categories = categories.await(),
+            tags = tags.await(),
             speakers = speakers.await()
         )
     }
