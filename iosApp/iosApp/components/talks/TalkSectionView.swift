@@ -46,6 +46,16 @@ struct TalkSectionView: View {
                         icon: infoUi.timeInMinutes <= 30 ? "bolt.badge.clock" : "clock"
                     )
                 }
+                if (!infoUi.tags.isEmpty) {
+                    HStack {
+                        ForEach(infoUi.tags, id: \.id) { tag in
+                            TagUnStyledView(
+                                text: tag.name,
+                                icon: "tag"
+                            )
+                        }
+                    }
+                }
             }
             .accessibilityElement(children: .combine)
             Text(.init(abstract))
