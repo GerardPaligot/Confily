@@ -2,10 +2,13 @@ package com.paligot.confily.schedules.ui.schedule
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.Label
 import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.material.icons.outlined.Videocam
 import androidx.compose.material3.MaterialTheme
@@ -29,11 +32,13 @@ import com.paligot.confily.style.schedules.findTimeImageVector
 import com.paligot.confily.style.speakers.avatars.MediumBorderedSpeakersAvatar
 import com.paligot.confily.style.theme.tags.MediumAutoColoredTag
 import com.paligot.confily.style.theme.tags.MediumTag
+import com.paligot.confily.style.theme.tags.SmallTag
 import com.paligot.confily.style.theme.tags.TagDefaults
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import org.jetbrains.compose.resources.stringResource
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun SessionInfoSection(
     info: SessionInfoUi,
@@ -96,6 +101,17 @@ fun SessionInfoSection(
                 icon = info.timeInMinutes.findTimeImageVector(),
                 colors = TagDefaults.unStyledColors()
             )
+        }
+        if (info.tags.isNotEmpty()) {
+            FlowRow {
+                info.tags.forEach { tag ->
+                    SmallTag(
+                        text = tag.name,
+                        icon = Icons.AutoMirrored.Outlined.Label,
+                        colors = TagDefaults.unStyledColors()
+                    )
+                }
+            }
         }
     }
 }

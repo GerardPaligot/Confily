@@ -37,6 +37,7 @@ object AgendaFake {
         schedules = listOf(schedule),
         sessions = listOf(session),
         formats = listOf(format),
+        tags = listOf(),
         categories = listOf(category),
         speakers = listOf(speaker)
     )
