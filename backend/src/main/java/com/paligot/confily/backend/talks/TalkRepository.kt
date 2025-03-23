@@ -25,7 +25,7 @@ class TalkRepository(
     private val driveDataSource: DriveDataSource
 ) {
     suspend fun list(eventId: String) = coroutineScope {
-        val eventDb = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
+        val eventDb = eventDao.get(eventId)
         val talks = sessionDao.getAllTalkSessions(eventId)
         val speakers = speakerDao.getAll(eventId)
         val categories = categoryDao.getAll(eventId)
@@ -43,8 +43,8 @@ class TalkRepository(
         return@coroutineScope asyncItems.awaitAll()
     }
 
-    suspend fun create(eventId: String, apiKey: String, talkInput: TalkInput) = coroutineScope {
-        val event = eventDao.getVerified(eventId, apiKey)
+    suspend fun create(eventId: String, talkInput: TalkInput) = coroutineScope {
+        val event = eventDao.get(eventId)
         val talkDb = talkInput.convertToDb()
         val id = sessionDao.createOrUpdate(eventId, talkDb)
         eventDao.updateAgendaUpdatedAt(event)
@@ -52,7 +52,7 @@ class TalkRepository(
     }
 
     suspend fun get(eventId: String, talkId: String) = coroutineScope {
-        val eventDb = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
+        val eventDb = eventDao.get(eventId)
         val talk = sessionDao.getTalkSession(eventId, talkId)
             ?: throw NotFoundException("Talk $talkId Not Found")
         val categoryDb = categoryDao.get(eventId, talk.category)
@@ -65,9 +65,9 @@ class TalkRepository(
         )
     }
 
-    suspend fun update(eventId: String, apiKey: String, talkId: String, talkInput: TalkInput) =
+    suspend fun update(eventId: String, talkId: String, talkInput: TalkInput) =
         coroutineScope {
-            val event = eventDao.getVerified(eventId, apiKey)
+            val event = eventDao.get(eventId)
             sessionDao.createOrUpdate(eventId, talkInput.convertToDb(id = talkId))
             eventDao.updateAgendaUpdatedAt(event)
             return@coroutineScope talkId

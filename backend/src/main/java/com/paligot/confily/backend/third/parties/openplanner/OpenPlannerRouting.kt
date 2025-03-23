@@ -1,7 +1,6 @@
 package com.paligot.confily.backend.third.parties.openplanner
 
-import com.paligot.confily.backend.NotAuthorized
-import com.paligot.confily.backend.events.EventModule.eventRepositoryV4
+import com.paligot.confily.backend.events.EventModule.eventRepositoryV5
 import com.paligot.confily.backend.third.parties.openplanner.OpenPlannerModule.openPlannerRepository
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.response.respond
@@ -10,12 +9,11 @@ import io.ktor.server.routing.post
 
 fun Route.registerAdminOpenPlannerRoutes() {
     val repository by openPlannerRepository
-    val eventRepository by eventRepositoryV4
+    val eventRepository by eventRepositoryV5
 
     post("openplanner/webhook") {
         val eventId = call.parameters["eventId"]!!
-        val apiKey = call.request.queryParameters["api_key"] ?: throw NotAuthorized
-        repository.update(eventId, apiKey)
-        call.respond(HttpStatusCode.Created, eventRepository.generateAgenda(eventId, apiKey))
+        repository.update(eventId)
+        call.respond(HttpStatusCode.Created, eventRepository.generate(eventId))
     }
 }

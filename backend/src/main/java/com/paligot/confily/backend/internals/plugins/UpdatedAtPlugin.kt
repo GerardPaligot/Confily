@@ -11,8 +11,7 @@ val UpdatedAtPlugin = createRouteScopedPlugin("UpdatedAtPlugin") {
     onCallRespond { call ->
         if (call.request.httpMethod == HttpMethod.Post || call.request.httpMethod == HttpMethod.Put) {
             val eventId = call.parameters["eventId"] ?: return@onCallRespond
-            val event = eventDao.get(eventId) ?: return@onCallRespond
-            eventDao.updateUpdatedAt(event)
+            eventDao.updateUpdatedAt(eventDao.get(eventId))
         }
     }
 }

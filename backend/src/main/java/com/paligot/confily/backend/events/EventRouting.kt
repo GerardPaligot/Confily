@@ -2,7 +2,6 @@
 
 package com.paligot.confily.backend.events
 
-import com.paligot.confily.backend.NotFoundException
 import com.paligot.confily.backend.events.EventModule.eventDao
 import com.paligot.confily.backend.events.EventModule.eventRepository
 import com.paligot.confily.backend.events.EventModule.eventRepositoryV2
@@ -66,7 +65,7 @@ fun Routing.registerEventRoutes() {
     }
     get("/events/{eventId}/planning") {
         val eventId = call.parameters["eventId"]!!
-        val event = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
+        val event = eventDao.get(eventId)
         val zoneId = ZoneId.of("Europe/Paris")
         val lastModified = ZonedDateTime.of(
             LocalDateTime.ofInstant(Instant.ofEpochMilli(event.agendaUpdatedAt), zoneId),
@@ -85,7 +84,7 @@ fun Routing.registerEventRoutes() {
     }
     get("/events/{eventId}/agenda") {
         val eventId = call.parameters["eventId"]!!
-        val event = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
+        val event = eventDao.get(eventId)
         val zoneId = ZoneId.of("Europe/Paris")
         val lastModified = ZonedDateTime.of(
             LocalDateTime.ofInstant(Instant.ofEpochMilli(event.agendaUpdatedAt), zoneId),
@@ -121,9 +120,8 @@ fun Routing.registerAdminEventRoutes() {
 
     put("/events/{eventId}") {
         val eventId = call.parameters["eventId"]!!
-        val apiKey = call.request.headers["api_key"]!!
         val input = call.receiveValidated<EventInput>()
-        call.respond(HttpStatusCode.OK, repository.update(eventId, apiKey, input))
+        call.respond(HttpStatusCode.OK, repository.update(eventId, input))
     }
     put("/events/{eventId}/generate") {
         val eventId = call.parameters["eventId"]!!
@@ -131,25 +129,21 @@ fun Routing.registerAdminEventRoutes() {
     }
     put("/events/{eventId}/menus") {
         val eventId = call.parameters["eventId"]!!
-        val apiKey = call.request.headers["api_key"]!!
         val input = call.receive<List<LunchMenuInput>>()
-        call.respond(HttpStatusCode.OK, repository.updateMenus(eventId, apiKey, input))
+        call.respond(HttpStatusCode.OK, repository.updateMenus(eventId, input))
     }
     put("/events/{eventId}/coc") {
         val eventId = call.parameters["eventId"]!!
-        val apiKey = call.request.headers["api_key"]!!
         val input = call.receiveValidated<CoCInput>()
-        call.respond(HttpStatusCode.OK, repository.updateCoC(eventId, apiKey, input))
+        call.respond(HttpStatusCode.OK, repository.updateCoC(eventId, input))
     }
     put("/events/{eventId}/features_activated") {
         val eventId = call.parameters["eventId"]!!
-        val apiKey = call.request.headers["api_key"]!!
         val input = call.receiveValidated<FeaturesActivatedInput>()
-        call.respond(HttpStatusCode.OK, repository.updateFeatures(eventId, apiKey, input))
+        call.respond(HttpStatusCode.OK, repository.updateFeatures(eventId, input))
     }
     put("/events/{eventId}/agenda") {
         val eventId = call.parameters["eventId"]!!
-        val apiKey = call.request.headers["api_key"]!!
-        call.respond(HttpStatusCode.OK, repositoryV4.generateAgenda(eventId, apiKey))
+        call.respond(HttpStatusCode.OK, repositoryV4.generateAgenda(eventId))
     }
 }

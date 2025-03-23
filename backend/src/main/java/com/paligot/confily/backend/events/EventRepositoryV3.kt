@@ -1,6 +1,5 @@
 package com.paligot.confily.backend.events
 
-import com.paligot.confily.backend.NotFoundException
 import com.paligot.confily.backend.categories.CategoryDao
 import com.paligot.confily.backend.categories.convertToModel
 import com.paligot.confily.backend.formats.FormatDao
@@ -30,7 +29,7 @@ class EventRepositoryV3(
     private val qAndADao: QAndADao
 ) {
     suspend fun getV3(eventId: String): EventV3 = coroutineScope {
-        val event = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
+        val event = eventDao.get(eventId)
         val hasPartners = async { partnerDao.hasPartners(eventId) }
         val qanda = async { qAndADao.hasQAndA(eventId) }
         return@coroutineScope event.convertToModelV3(

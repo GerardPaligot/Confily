@@ -16,7 +16,7 @@ fun Route.registerAdminCms4PartnersRoutes() {
         val input = call.receiveValidated<WebhookInput>()
         call.respond(
             HttpStatusCode.Created,
-            repository.update(eventId, apiKey, input.id, input.mapToPartnerInput())
+            repository.update(eventId, input.id, input.mapToPartnerInput())
         )
     }
 }

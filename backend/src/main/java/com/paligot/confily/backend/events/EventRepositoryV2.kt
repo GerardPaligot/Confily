@@ -1,6 +1,5 @@
 package com.paligot.confily.backend.events
 
-import com.paligot.confily.backend.NotFoundException
 import com.paligot.confily.backend.categories.CategoryDao
 import com.paligot.confily.backend.categories.CategoryDb
 import com.paligot.confily.backend.formats.FormatDao
@@ -40,7 +39,7 @@ class EventRepositoryV2(
     private val qAndADao: QAndADao
 ) {
     suspend fun getV2(eventId: String): EventV2 = coroutineScope {
-        val event = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
+        val event = eventDao.get(eventId)
         val hasPartners = async { partnerDao.hasPartners(eventId) }
         val qanda = async { qAndADao.getAll(eventId, event.defaultLanguage) }
         return@coroutineScope event.convertToModelV2(
@@ -113,7 +112,7 @@ class EventRepositoryV2(
     }
 
     suspend fun openFeedback(eventId: String) = coroutineScope {
-        val event = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
+        val event = eventDao.get(eventId)
         val agenda = agenda(event)
         val talks = agenda.values.map { it.values.flatten() }.flatten().filter { it.talk != null }
         val asyncSessions = async {

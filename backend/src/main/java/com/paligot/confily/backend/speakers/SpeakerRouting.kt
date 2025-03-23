@@ -24,15 +24,13 @@ fun Route.registerAdminSpeakersRoutes() {
 
     post("/speakers") {
         val eventId = call.parameters["eventId"]!!
-        val apiKey = call.request.headers["api_key"]!!
         val speaker = call.receiveValidated<SpeakerInput>()
-        call.respond(HttpStatusCode.Created, repository.create(eventId, apiKey, speaker))
+        call.respond(HttpStatusCode.Created, repository.create(eventId, speaker))
     }
     put("/speakers/{id}") {
         val eventId = call.parameters["eventId"]!!
-        val apiKey = call.request.headers["api_key"]!!
         val speakerId = call.parameters["id"]!!
         val speaker = call.receiveValidated<SpeakerInput>()
-        call.respond(HttpStatusCode.OK, repository.update(eventId, apiKey, speakerId, speaker))
+        call.respond(HttpStatusCode.OK, repository.update(eventId, speakerId, speaker))
     }
 }

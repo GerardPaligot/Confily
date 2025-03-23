@@ -24,22 +24,19 @@ fun Route.registerAdminTeamRoutes() {
 
     post("/team-members") {
         val eventId = call.parameters["eventId"]!!
-        val apiKey = call.request.headers["api_key"]!!
         val teamMemberInput = call.receiveValidated<TeamMemberInput>()
-        call.respond(HttpStatusCode.Created, repository.create(eventId, apiKey, teamMemberInput))
+        call.respond(HttpStatusCode.Created, repository.create(eventId, teamMemberInput))
     }
     put("/team-members/{id}") {
         val eventId = call.parameters["eventId"]!!
-        val apiKey = call.request.headers["api_key"]!!
         val teamMemberId = call.parameters["id"]!!
         val teamMemberInput = call.receiveValidated<TeamMemberInput>()
         call.respond(
             status = HttpStatusCode.OK,
             message = repository.update(
                 eventId = eventId,
-                apiKey = apiKey,
                 teamMemberId = teamMemberId,
-                teamMemberInput = teamMemberInput
+                input = teamMemberInput
             )
         )
     }

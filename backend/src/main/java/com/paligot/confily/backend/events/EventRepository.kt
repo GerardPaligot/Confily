@@ -70,7 +70,7 @@ class EventRepository(
     }
 
     suspend fun getWithPartners(eventId: String): Event = coroutineScope {
-        val event = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
+        val event = eventDao.get(eventId)
         val partners = partnerDao.getAll(eventId)
         val qanda = qAndADao.getAll(eventId, event.defaultLanguage)
         return@coroutineScope event.convertToModel(
@@ -100,28 +100,28 @@ class EventRepository(
         return@coroutineScope CreatedEvent(eventId = event.slugId, apiKey = event.apiKey)
     }
 
-    suspend fun update(eventId: String, apiKey: String, eventInput: EventInput) = coroutineScope {
+    suspend fun update(eventId: String, eventInput: EventInput) = coroutineScope {
         val addressDb = geocodeApi.geocode(eventInput.address).convertToDb()
             ?: throw NotAcceptableException("Your address information isn't found")
-        val event = eventDao.getVerified(eventId, apiKey)
+        val event = eventDao.get(eventId)
         eventDao.createOrUpdate(eventInput.convertToDb(event, addressDb))
         return@coroutineScope eventId
     }
 
-    suspend fun updateMenus(eventId: String, apiKey: String, menus: List<LunchMenuInput>) =
+    suspend fun updateMenus(eventId: String, menus: List<LunchMenuInput>) =
         coroutineScope {
-            eventDao.updateMenus(eventId, apiKey, menus.map { it.convertToDb() })
+            eventDao.updateMenus(eventId, menus.map { it.convertToDb() })
             return@coroutineScope eventId
         }
 
-    suspend fun updateCoC(eventId: String, apiKey: String, coc: CoCInput) = coroutineScope {
-        eventDao.updateCoc(eventId, apiKey, coc.coc)
+    suspend fun updateCoC(eventId: String, coc: CoCInput) = coroutineScope {
+        eventDao.updateCoc(eventId, coc.coc)
         return@coroutineScope eventId
     }
 
-    suspend fun updateFeatures(eventId: String, apiKey: String, features: FeaturesActivatedInput) =
+    suspend fun updateFeatures(eventId: String, features: FeaturesActivatedInput) =
         coroutineScope {
-            eventDao.updateFeatures(eventId, apiKey, features.hasNetworking)
+            eventDao.updateFeatures(eventId, features.hasNetworking)
             return@coroutineScope eventId
         }
 

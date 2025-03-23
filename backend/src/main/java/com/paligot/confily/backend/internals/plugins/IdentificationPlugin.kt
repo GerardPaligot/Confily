@@ -13,7 +13,10 @@ val IdentificationPlugin = createRouteScopedPlugin("IdentificationPlugin") {
             ?: throw BadRequestException("Missing eventId")
         val apiKey = call.request.headers["x-api-key"]
             ?: call.request.queryParameters["api_key"]
-            ?: throw NotAuthorized
-        eventDao.getVerified(eventId, apiKey)
+            ?: throw BadRequestException("Missing api key")
+        val eventDb = eventDao.get(eventId)
+        if (eventDb.apiKey != apiKey) {
+            throw NotAuthorized
+        }
     }
 }

@@ -1,6 +1,5 @@
 package com.paligot.confily.backend.events
 
-import com.paligot.confily.backend.NotFoundException
 import com.paligot.confily.backend.categories.CategoryDao
 import com.paligot.confily.backend.categories.convertToModel
 import com.paligot.confily.backend.formats.FormatDao
@@ -37,7 +36,7 @@ class EventRepositoryV4(
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
     suspend fun getV4(eventId: String): EventV4 = coroutineScope {
-        val event = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
+        val event = eventDao.get(eventId)
         val hasPartners = async { partnerDao.hasPartners(eventId) }
         val qanda = async { qAndADao.hasQAndA(eventId) }
         return@coroutineScope event.convertToModelV4(
@@ -49,8 +48,8 @@ class EventRepositoryV4(
     suspend fun agenda(eventDb: EventDb): AgendaV4 =
         eventDao.getAgendaFile(eventDb.slugId, eventDb.agendaUpdatedAt) ?: buildAgenda(eventDb)
 
-    suspend fun generateAgenda(eventId: String, apiKey: String) = coroutineScope {
-        val eventDb = eventDao.getVerified(eventId, apiKey)
+    suspend fun generateAgenda(eventId: String) = coroutineScope {
+        val eventDb = eventDao.get(eventId)
         val agenda = buildAgenda(eventDb)
         eventDao.uploadAgendaFile(eventId, eventDb.agendaUpdatedAt, agenda)
         return@coroutineScope agenda

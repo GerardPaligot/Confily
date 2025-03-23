@@ -25,56 +25,54 @@ class TeamRepository(
             .associate { it }
     }
 
-    suspend fun create(eventId: String, apiKey: String, teamInput: TeamMemberInput) =
-        coroutineScope {
-            val event = eventDao.getVerified(eventId, apiKey)
-            if (event.teamGroups.find { it.name == teamInput.teamName } == null) {
-                throw NotAcceptableException("Team group ${teamInput.teamName} is not allowed")
-            }
-            val order = teamDao.last(eventId)?.order
-            val teamDb = teamInput.convertToDb(
-                lastOrder = order,
-                photoUrl = teamInput.photoUrl
-            )
-            val id = teamDao.createOrUpdate(eventId, teamDb)
-            if (teamInput.photoUrl != null) {
-                val avatar = commonApi.fetchByteArray(teamInput.photoUrl!!)
-                val bucketItem = teamDao.saveTeamPicture(
-                    eventId = eventId,
-                    id = id,
-                    content = avatar,
-                    mimeType = teamInput.photoUrl!!.mimeType
-                )
-                teamDao.createOrUpdate(eventId, teamDb.copy(photoUrl = bucketItem.url))
-            }
-            eventDao.updateAgendaUpdatedAt(event)
-            return@coroutineScope id
+    suspend fun create(eventId: String, teamInput: TeamMemberInput) = coroutineScope {
+        val event = eventDao.get(eventId)
+        if (event.teamGroups.find { it.name == teamInput.teamName } == null) {
+            throw NotAcceptableException("Team group ${teamInput.teamName} is not allowed")
         }
+        val order = teamDao.last(eventId)?.order
+        val teamDb = teamInput.convertToDb(
+            lastOrder = order,
+            photoUrl = teamInput.photoUrl
+        )
+        val id = teamDao.createOrUpdate(eventId, teamDb)
+        if (teamInput.photoUrl != null) {
+            val avatar = commonApi.fetchByteArray(teamInput.photoUrl!!)
+            val bucketItem = teamDao.saveTeamPicture(
+                eventId = eventId,
+                id = id,
+                content = avatar,
+                mimeType = teamInput.photoUrl!!.mimeType
+            )
+            teamDao.createOrUpdate(eventId, teamDb.copy(photoUrl = bucketItem.url))
+        }
+        eventDao.updateAgendaUpdatedAt(event)
+        return@coroutineScope id
+    }
 
     suspend fun update(
         eventId: String,
-        apiKey: String,
         teamMemberId: String,
-        teamMemberInput: TeamMemberInput
+        input: TeamMemberInput
     ) = coroutineScope {
-        val event = eventDao.getVerified(eventId, apiKey)
-        if (event.teamGroups.find { it.name == teamMemberInput.teamName } == null) {
-            throw NotAcceptableException("Team group ${teamMemberInput.teamName} is not allowed")
+        val event = eventDao.get(eventId)
+        if (event.teamGroups.find { it.name == input.teamName } == null) {
+            throw NotAcceptableException("Team group ${input.teamName} is not allowed")
         }
-        val photoUrl = if (teamMemberInput.photoUrl != null) {
-            val avatar = commonApi.fetchByteArray(teamMemberInput.photoUrl!!)
+        val photoUrl = if (input.photoUrl != null) {
+            val avatar = commonApi.fetchByteArray(input.photoUrl!!)
             val bucketItem = teamDao.saveTeamPicture(
                 eventId = eventId,
                 id = teamMemberId,
                 content = avatar,
-                mimeType = teamMemberInput.photoUrl!!.mimeType
+                mimeType = input.photoUrl!!.mimeType
             )
             bucketItem.url
         } else {
             null
         }
         val lastOrder = teamDao.last(eventId)?.order
-        val teamDb = teamMemberInput.convertToDb(
+        val teamDb = input.convertToDb(
             lastOrder = lastOrder,
             photoUrl = photoUrl,
             id = teamMemberId

@@ -17,8 +17,8 @@ class JobRepository(
     private val partnerDao: PartnerDao,
     private val jobDao: JobDao
 ) {
-    suspend fun importWld(eventId: String, apiKey: String) = coroutineScope {
-        val event = eventDao.getVerified(eventId, apiKey)
+    suspend fun importWld(eventId: String): List<Any> = coroutineScope {
+        val event = eventDao.get(eventId)
         if (event.wldConfig == null) throw NotAcceptableException("Wld config not initialized")
         val partners = partnerDao.getAll(eventId).filter { it.wldId != null }
         val companyIds = partners.map { it.wldId!! }.filter { it.isNotEmpty() }
