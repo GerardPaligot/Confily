@@ -8,7 +8,7 @@ import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.post
 
-fun Route.registerConferenceHallRoutes() {
+fun Route.registerAdminConferenceHallRoutes() {
     val conferenceHallRepo by conferenceHallRepository
 
     post("conference-hall/{eventId}/talks/import") {

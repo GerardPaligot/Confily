@@ -17,11 +17,11 @@ fun Route.registerTeamRoutes() {
         val eventId = call.parameters["eventId"]!!
         call.respond(HttpStatusCode.OK, repository.list(eventId))
     }
-    get("/team-members/{id}") {
-        val eventId = call.parameters["eventId"]!!
-        val teamMemberId = call.parameters["id"]!!
-        call.respond(HttpStatusCode.OK, repository.get(eventId, teamMemberId))
-    }
+}
+
+fun Route.registerAdminTeamRoutes() {
+    val repository by teamRepository
+
     post("/team-members") {
         val eventId = call.parameters["eventId"]!!
         val apiKey = call.request.headers["api_key"]!!

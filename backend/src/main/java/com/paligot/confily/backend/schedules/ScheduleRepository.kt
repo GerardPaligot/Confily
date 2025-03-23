@@ -63,9 +63,7 @@ class ScheduleRepository(
         return@coroutineScope scheduleItem.convertToModel(talk)
     }
 
-    suspend fun delete(eventId: String, apiKey: String, scheduleId: String) = coroutineScope {
-        val event = eventDao.getVerified(eventId, apiKey)
+    suspend fun delete(eventId: String, scheduleId: String) = coroutineScope {
         scheduleItemDao.delete(eventId, scheduleId)
-        eventDao.updateAgendaUpdatedAt(event)
     }
 }

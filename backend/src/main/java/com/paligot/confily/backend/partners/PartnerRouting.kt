@@ -21,6 +21,11 @@ fun Route.registerPartnersRoutes() {
         val eventId = call.parameters["eventId"]!!
         call.respond(HttpStatusCode.OK, repository.activities(eventId))
     }
+}
+
+fun Route.registerAdminPartnersRoutes() {
+    val repository by partnerRepository
+
     post("/partners") {
         val eventId = call.parameters["eventId"]!!
         val apiKey = call.request.headers["api_key"]!!

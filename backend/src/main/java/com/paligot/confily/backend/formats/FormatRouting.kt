@@ -17,22 +17,20 @@ fun Route.registerFormatsRoutes() {
         val eventId = call.parameters["eventId"]!!
         call.respond(HttpStatusCode.OK, repository.list(eventId))
     }
-    get("/formats/{id}") {
-        val eventId = call.parameters["eventId"]!!
-        val formatId = call.parameters["id"]!!
-        call.respond(HttpStatusCode.OK, repository.get(eventId, formatId))
-    }
+}
+
+fun Route.registerAdminFormatsRoutes() {
+    val repository by formatRepository
+
     post("/formats") {
         val eventId = call.parameters["eventId"]!!
-        val apiKey = call.request.headers["api_key"]!!
         val formatInput = call.receiveValidated<FormatInput>()
-        call.respond(HttpStatusCode.Created, repository.create(eventId, apiKey, formatInput))
+        call.respond(HttpStatusCode.Created, repository.create(eventId, formatInput))
     }
     put("/formats/{id}") {
         val eventId = call.parameters["eventId"]!!
-        val apiKey = call.request.headers["api_key"]!!
         val formatId = call.parameters["id"]!!
         val formatInput = call.receiveValidated<FormatInput>()
-        call.respond(HttpStatusCode.OK, repository.update(eventId, apiKey, formatId, formatInput))
+        call.respond(HttpStatusCode.OK, repository.update(eventId, formatId, formatInput))
     }
 }

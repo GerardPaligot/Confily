@@ -23,31 +23,32 @@ fun Route.registerMapRoutes() {
         val eventId = call.parameters["eventId"]!!
         call.respond(repository.list(eventId))
     }
+}
+
+fun Route.registerAdminMapRoutes() {
+    val repository by mapRepository
 
     post("/maps") {
         val eventId = call.parameters["eventId"]!!
-        val apiKey = call.request.headers["api_key"]!!
         val multipartData = call.receiveMultipart()
         call.respond(
             status = HttpStatusCode.Created,
-            message = repository.create(eventId, apiKey, multipartData.readPart().asFile())
+            message = repository.create(eventId, multipartData.readPart().asFile())
         )
     }
 
     put("/maps/{mapId}") {
         val eventId = call.parameters["eventId"]!!
-        val apiKey = call.request.headers["api_key"]!!
         val id = call.parameters["mapId"]!!
         val input = call.receiveValidated<MapInput>()
         call.respond(
             status = HttpStatusCode.OK,
-            message = repository.update(eventId, apiKey, id, input)
+            message = repository.update(eventId, id, input)
         )
     }
 
     put("/maps/{mapId}/plan") {
         val eventId = call.parameters["eventId"]!!
-        val apiKey = call.request.headers["api_key"]!!
         val id = call.parameters["mapId"]!!
         val filled = call.request.queryParameters["filled"] == "true"
         val multipartData = call.receiveMultipart()
@@ -55,7 +56,6 @@ fun Route.registerMapRoutes() {
             status = HttpStatusCode.OK,
             message = repository.updatePlan(
                 eventId = eventId,
-                apiKey = apiKey,
                 mapId = id,
                 file = multipartData.readPart().asFile(),
                 filled = filled
@@ -65,9 +65,8 @@ fun Route.registerMapRoutes() {
 
     delete("/maps/{mapId}") {
         val eventId = call.parameters["eventId"]!!
-        val apiKey = call.request.headers["api_key"]!!
         val id = call.parameters["mapId"]!!
-        repository.delete(eventId, apiKey, id)
+        repository.delete(eventId, id)
         call.respond(HttpStatusCode.NoContent)
     }
 }

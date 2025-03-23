@@ -8,7 +8,7 @@ import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.post
 
-fun Route.registerOpenPlannerRoutes() {
+fun Route.registerAdminOpenPlannerRoutes() {
     val repository by openPlannerRepository
     val eventRepository by eventRepositoryV4
 

@@ -87,7 +87,7 @@ class ConferenceApi(
         apiKey: String,
         fileName: String,
         mapBytes: ByteArray
-    ): CreatedMap = client.post("$baseUrl/events/$eventId/maps") {
+    ): CreatedMap = client.post("$baseUrl/admin/events/$eventId/maps") {
         headers["api_key"] = apiKey
         setBody(
             MultiPartFormDataContent(
@@ -110,7 +110,7 @@ class ConferenceApi(
         apiKey: String,
         mapId: String,
         input: MapInput
-    ): EventMap = client.put("$baseUrl/events/$eventId/maps/$mapId") {
+    ): EventMap = client.put("$baseUrl/admin/events/$eventId/maps/$mapId") {
         headers["api_key"] = apiKey
         contentType(ContentType.Application.Json)
         setBody(input)
@@ -123,7 +123,7 @@ class ConferenceApi(
         filled: Boolean,
         fileName: String,
         mapBytes: ByteArray
-    ): EventMap = client.put("$baseUrl/events/$eventId/maps/$mapId/plan?filled=$filled") {
+    ): EventMap = client.put("$baseUrl/admin/events/$eventId/maps/$mapId/plan?filled=$filled") {
         headers["api_key"] = apiKey
         setBody(
             MultiPartFormDataContent(

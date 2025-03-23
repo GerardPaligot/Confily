@@ -102,7 +102,6 @@ class PartnerRepository(
                     media = uploads.convertToPartnerMediaDb(partnerDb.logoUrl)
                 )
             )
-            eventDao.updateUpdatedAt(event)
             return@coroutineScope id
         }
 
@@ -127,7 +126,6 @@ class PartnerRepository(
         val partnerDb =
             partnerInput.convertToDb(id = partnerId, addressDb = addressDb, uploads = uploads)
         val id = partnerDao.createOrUpdate(eventId, partnerDb)
-        eventDao.updateUpdatedAt(event)
         return@coroutineScope id
     }
 

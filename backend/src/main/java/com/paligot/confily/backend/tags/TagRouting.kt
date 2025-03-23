@@ -17,22 +17,20 @@ fun Route.registerTagsRoutes() {
         val eventId = call.parameters["eventId"]!!
         call.respond(HttpStatusCode.OK, repository.list(eventId))
     }
-    get("/tags/{id}") {
-        val eventId = call.parameters["eventId"]!!
-        val catId = call.parameters["id"]!!
-        call.respond(HttpStatusCode.OK, repository.get(eventId, catId))
-    }
+}
+
+fun Route.registerAdminTagsRoutes() {
+    val repository by tagRepository
+
     post("/tags") {
         val eventId = call.parameters["eventId"]!!
-        val apiKey = call.request.headers["api_key"]!!
         val input = call.receiveValidated<TagInput>()
-        call.respond(HttpStatusCode.Created, repository.create(eventId, apiKey, input))
+        call.respond(HttpStatusCode.Created, repository.create(eventId, input))
     }
     put("/tags/{id}") {
         val eventId = call.parameters["eventId"]!!
-        val apiKey = call.request.headers["api_key"]!!
         val catId = call.parameters["id"]!!
         val input = call.receiveValidated<TagInput>()
-        call.respond(HttpStatusCode.OK, repository.update(eventId, apiKey, catId, input))
+        call.respond(HttpStatusCode.OK, repository.update(eventId, catId, input))
     }
 }

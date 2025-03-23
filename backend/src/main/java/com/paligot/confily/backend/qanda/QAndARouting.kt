@@ -21,22 +21,20 @@ fun Route.registerQAndAsRoutes() {
             ?: throw BadRequestException("Accept Language required for this api")
         call.respond(HttpStatusCode.OK, repository.list(eventId, language.split("-").first()))
     }
-    get("/qanda/{id}") {
-        val eventId = call.parameters["eventId"]!!
-        val qandaId = call.parameters["id"]!!
-        call.respond(HttpStatusCode.OK, repository.get(eventId, qandaId))
-    }
+}
+
+fun Route.registerAdminQAndAsRoutes() {
+    val repository by qAndARepository
+
     post("/qanda") {
         val eventId = call.parameters["eventId"]!!
-        val apiKey = call.request.headers["api_key"]!!
         val qandaInput = call.receiveValidated<QAndAInput>()
-        call.respond(HttpStatusCode.Created, repository.create(eventId, apiKey, qandaInput))
+        call.respond(HttpStatusCode.Created, repository.create(eventId, qandaInput))
     }
     put("/qanda/{id}") {
         val eventId = call.parameters["eventId"]!!
-        val apiKey = call.request.headers["api_key"]!!
         val qandaId = call.parameters["id"]!!
         val qandaInput = call.receiveValidated<QAndAInput>()
-        call.respond(HttpStatusCode.OK, repository.update(eventId, apiKey, qandaId, qandaInput))
+        call.respond(HttpStatusCode.OK, repository.update(eventId, qandaId, qandaInput))
     }
 }
