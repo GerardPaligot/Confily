@@ -51,12 +51,6 @@ class TeamRepository(
             return@coroutineScope id
         }
 
-    suspend fun get(eventId: String, teamMemberId: String) = coroutineScope {
-        val teamMember = teamDao.get(eventId, teamMemberId)
-            ?: throw NotFoundException("Team member with $teamMemberId is not found")
-        return@coroutineScope teamMember.convertToModel()
-    }
-
     suspend fun update(
         eventId: String,
         apiKey: String,

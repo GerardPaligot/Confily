@@ -17,11 +17,11 @@ fun Route.registerSpeakersRoutes() {
         val eventId = call.parameters["eventId"]!!
         call.respond(HttpStatusCode.OK, repository.list(eventId))
     }
-    get("/speakers/{id}") {
-        val eventId = call.parameters["eventId"]!!
-        val speakerId = call.parameters["id"]!!
-        call.respond(HttpStatusCode.OK, repository.get(eventId, speakerId))
-    }
+}
+
+fun Route.registerAdminSpeakersRoutes() {
+    val repository by speakerRepository
+
     post("/speakers") {
         val eventId = call.parameters["eventId"]!!
         val apiKey = call.request.headers["api_key"]!!

@@ -8,7 +8,7 @@ import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.post
 
-fun Route.registerActivitiesRoutes() {
+fun Route.registerAdminActivitiesRoutes() {
     val repository by activityRepository
 
     post("/activities") {

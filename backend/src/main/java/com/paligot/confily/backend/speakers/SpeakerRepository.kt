@@ -1,6 +1,5 @@
 package com.paligot.confily.backend.speakers
 
-import com.paligot.confily.backend.NotFoundException
 import com.paligot.confily.backend.events.EventDao
 import com.paligot.confily.backend.internals.CommonApi
 import com.paligot.confily.backend.internals.mimeType
@@ -32,12 +31,6 @@ class SpeakerRepository(
             eventDao.updateAgendaUpdatedAt(event)
             return@coroutineScope id
         }
-
-    suspend fun get(eventId: String, speakerId: String) = coroutineScope {
-        val speaker = speakerDao.get(eventId, speakerId)
-            ?: throw NotFoundException("Speaker with $speakerId is not found")
-        return@coroutineScope speaker.convertToModel()
-    }
 
     suspend fun update(
         eventId: String,

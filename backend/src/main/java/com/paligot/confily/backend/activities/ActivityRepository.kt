@@ -31,7 +31,6 @@ class ActivityRepository(
             }
         }
         activityDao.createOrUpdate(eventId, activity.convertToDb())
-        eventDao.updateUpdatedAt(event)
         return@coroutineScope eventId
     }
 }

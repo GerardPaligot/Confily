@@ -6,7 +6,7 @@ import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.post
 
-fun Route.registerWLDRoutes() {
+fun Route.registerAdminWLDRoutes() {
     val repository by jobRepository
 
     post("jobs/wld/import") {

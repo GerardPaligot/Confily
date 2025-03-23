@@ -16,6 +16,11 @@ fun Route.registerSessionsRoutes() {
         val eventId = call.parameters["eventId"]!!
         call.respond(HttpStatusCode.OK, repository.list(eventId))
     }
+}
+
+fun Route.registerAdminSessionsRoutes() {
+    val repository by sessionRepository
+
     put("/sessions/{sessionId}/event") {
         val eventId = call.parameters["eventId"]!!
         val apiKey = call.request.headers["api_key"]!!

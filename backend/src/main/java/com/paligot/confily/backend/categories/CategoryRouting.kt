@@ -17,22 +17,24 @@ fun Route.registerCategoriesRoutes() {
         val eventId = call.parameters["eventId"]!!
         call.respond(HttpStatusCode.OK, repository.list(eventId))
     }
-    get("/categories/{id}") {
+}
+
+fun Route.registerAdminCategoriesRoutes() {
+    val repository by categoryRepository
+
+    get("/categories") {
         val eventId = call.parameters["eventId"]!!
-        val catId = call.parameters["id"]!!
-        call.respond(HttpStatusCode.OK, repository.get(eventId, catId))
+        call.respond(HttpStatusCode.OK, repository.list(eventId))
     }
     post("/categories") {
         val eventId = call.parameters["eventId"]!!
-        val apiKey = call.request.headers["api_key"]!!
         val catInput = call.receiveValidated<CategoryInput>()
-        call.respond(HttpStatusCode.Created, repository.create(eventId, apiKey, catInput))
+        call.respond(HttpStatusCode.Created, repository.create(eventId, catInput))
     }
     put("/categories/{id}") {
         val eventId = call.parameters["eventId"]!!
-        val apiKey = call.request.headers["api_key"]!!
         val catId = call.parameters["id"]!!
         val catInput = call.receiveValidated<CategoryInput>()
-        call.respond(HttpStatusCode.OK, repository.update(eventId, apiKey, catId, catInput))
+        call.respond(HttpStatusCode.OK, repository.update(eventId, catId, catInput))
     }
 }

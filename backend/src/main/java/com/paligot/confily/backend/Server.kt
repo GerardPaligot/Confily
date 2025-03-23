@@ -1,23 +1,36 @@
 package com.paligot.confily.backend
 
-import com.paligot.confily.backend.activities.registerActivitiesRoutes
+import com.paligot.confily.backend.activities.registerAdminActivitiesRoutes
+import com.paligot.confily.backend.categories.registerAdminCategoriesRoutes
 import com.paligot.confily.backend.categories.registerCategoriesRoutes
 import com.paligot.confily.backend.events.registerEventRoutes
+import com.paligot.confily.backend.formats.registerAdminFormatsRoutes
 import com.paligot.confily.backend.formats.registerFormatsRoutes
+import com.paligot.confily.backend.internals.plugins.IdentificationPlugin
+import com.paligot.confily.backend.internals.plugins.UpdatedAtPlugin
+import com.paligot.confily.backend.map.registerAdminMapRoutes
 import com.paligot.confily.backend.map.registerMapRoutes
+import com.paligot.confily.backend.partners.registerAdminPartnersRoutes
 import com.paligot.confily.backend.partners.registerPartnersRoutes
+import com.paligot.confily.backend.qanda.registerAdminQAndAsRoutes
 import com.paligot.confily.backend.qanda.registerQAndAsRoutes
+import com.paligot.confily.backend.schedules.registerAdminSchedulersRoutes
 import com.paligot.confily.backend.schedules.registerSchedulersRoutes
+import com.paligot.confily.backend.sessions.registerAdminSessionsRoutes
 import com.paligot.confily.backend.sessions.registerSessionsRoutes
+import com.paligot.confily.backend.speakers.registerAdminSpeakersRoutes
 import com.paligot.confily.backend.speakers.registerSpeakersRoutes
+import com.paligot.confily.backend.tags.registerAdminTagsRoutes
 import com.paligot.confily.backend.tags.registerTagsRoutes
+import com.paligot.confily.backend.talks.registerAdminTalksRoutes
 import com.paligot.confily.backend.talks.registerTalksRoutes
+import com.paligot.confily.backend.team.registerAdminTeamRoutes
 import com.paligot.confily.backend.team.registerTeamRoutes
 import com.paligot.confily.backend.third.parties.billetweb.registerBilletWebRoutes
-import com.paligot.confily.backend.third.parties.cms4partners.registerCms4PartnersRoutes
-import com.paligot.confily.backend.third.parties.conferencehall.registerConferenceHallRoutes
-import com.paligot.confily.backend.third.parties.openplanner.registerOpenPlannerRoutes
-import com.paligot.confily.backend.third.parties.welovedevs.registerWLDRoutes
+import com.paligot.confily.backend.third.parties.cms4partners.registerAdminCms4PartnersRoutes
+import com.paligot.confily.backend.third.parties.conferencehall.registerAdminConferenceHallRoutes
+import com.paligot.confily.backend.third.parties.openplanner.registerAdminOpenPlannerRoutes
+import com.paligot.confily.backend.third.parties.welovedevs.registerAdminWLDRoutes
 import com.paligot.confily.models.Session
 import com.paligot.confily.models.inputs.Validator
 import com.paligot.confily.models.inputs.ValidatorException
@@ -99,15 +112,31 @@ fun main() {
                 registerFormatsRoutes()
                 registerTagsRoutes()
                 registerSchedulersRoutes()
-                registerActivitiesRoutes()
                 registerPartnersRoutes()
                 registerTeamRoutes()
                 // Third parties
                 registerBilletWebRoutes()
-                registerCms4PartnersRoutes()
-                registerConferenceHallRoutes()
-                registerOpenPlannerRoutes()
-                registerWLDRoutes()
+            }
+            route("/admin/events/{eventId}") {
+                this.install(IdentificationPlugin)
+                this.install(UpdatedAtPlugin)
+                registerAdminActivitiesRoutes()
+                registerAdminCategoriesRoutes()
+                registerAdminFormatsRoutes()
+                registerAdminMapRoutes()
+                registerAdminPartnersRoutes()
+                registerAdminQAndAsRoutes()
+                registerAdminSchedulersRoutes()
+                registerAdminSessionsRoutes()
+                registerAdminSpeakersRoutes()
+                registerAdminTagsRoutes()
+                registerAdminTalksRoutes()
+                registerAdminTeamRoutes()
+                // Third parties
+                registerAdminCms4PartnersRoutes()
+                registerAdminConferenceHallRoutes()
+                registerAdminOpenPlannerRoutes()
+                registerAdminWLDRoutes()
             }
         }
     }.start(wait = true)

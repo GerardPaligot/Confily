@@ -10,8 +10,17 @@ import io.ktor.server.routing.delete
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 
-@Suppress("LongParameterList")
 fun Route.registerSchedulersRoutes() {
+    val repository by scheduleRepository
+
+    get("/schedulers/{id}") {
+        val eventId = call.parameters["eventId"]!!
+        val scheduleId = call.parameters["id"]!!
+        call.respond(HttpStatusCode.OK, repository.get(eventId, scheduleId))
+    }
+}
+
+fun Route.registerAdminSchedulersRoutes() {
     val repository by scheduleRepository
 
     post("/schedulers") {
@@ -20,16 +29,10 @@ fun Route.registerSchedulersRoutes() {
         val schedule = call.receiveValidated<ScheduleInput>()
         call.respond(HttpStatusCode.Created, repository.create(eventId, apiKey, schedule))
     }
-    get("/schedulers/{id}") {
-        val eventId = call.parameters["eventId"]!!
-        val scheduleId = call.parameters["id"]!!
-        call.respond(HttpStatusCode.OK, repository.get(eventId, scheduleId))
-    }
     delete("/schedulers/{id}") {
         val eventId = call.parameters["eventId"]!!
-        val apiKey = call.request.headers["api_key"]!!
         val scheduleId = call.parameters["id"]!!
-        repository.delete(eventId, apiKey, scheduleId)
+        repository.delete(eventId, scheduleId)
         call.respond(HttpStatusCode.NoContent, "No Content")
     }
 }

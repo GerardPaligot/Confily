@@ -7,7 +7,7 @@ import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.post
 
-fun Route.registerCms4PartnersRoutes() {
+fun Route.registerAdminCms4PartnersRoutes() {
     val repository by partnerRepository
 
     post("cms4partners/webhook") {

@@ -1,6 +1,5 @@
 package com.paligot.confily.backend.qanda
 
-import com.paligot.confily.backend.NotFoundException
 import com.paligot.confily.backend.events.EventDao
 import com.paligot.confily.models.inputs.QAndAInput
 import kotlinx.coroutines.coroutineScope
@@ -22,23 +21,13 @@ class QAndARepository(
         return@coroutineScope qanda
     }
 
-    suspend fun get(eventId: String, qandaId: String) = coroutineScope {
-        return@coroutineScope qAndADao.get(eventId, qandaId)?.convertToModel()
-            ?: throw NotFoundException("QAndA $qandaId Not Found")
-    }
-
-    suspend fun create(eventId: String, apiKey: String, qAndA: QAndAInput) = coroutineScope {
-        val event = eventDao.getVerified(eventId, apiKey)
+    suspend fun create(eventId: String, qAndA: QAndAInput) = coroutineScope {
         qAndADao.createOrUpdate(eventId, qAndA.convertToDb())
-        eventDao.updateUpdatedAt(event)
         return@coroutineScope eventId
     }
 
-    suspend fun update(eventId: String, apiKey: String, qandaId: String, qAndA: QAndAInput) =
-        coroutineScope {
-            val event = eventDao.getVerified(eventId, apiKey)
-            qAndADao.createOrUpdate(eventId, qAndA.convertToDb(qandaId))
-            eventDao.updateUpdatedAt(event)
-            return@coroutineScope eventId
-        }
+    suspend fun update(eventId: String, qandaId: String, input: QAndAInput) = coroutineScope {
+        qAndADao.createOrUpdate(eventId, input.convertToDb(qandaId))
+        return@coroutineScope eventId
+    }
 }

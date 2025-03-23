@@ -11,7 +11,6 @@ import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.put
 
-@Suppress("LongParameterList")
 fun Route.registerTalksRoutes() {
     val repository by talkRepository
 
@@ -24,11 +23,23 @@ fun Route.registerTalksRoutes() {
         val talkId = call.parameters["id"]!!
         call.respond(HttpStatusCode.OK, repository.get(eventId, talkId))
     }
+}
+
+fun Route.registerAdminTalksRoutes() {
+    val repository by talkRepository
+
     post("/talks") {
         val eventId = call.parameters["eventId"]!!
         val apiKey = call.request.headers["api_key"]!!
         val talkInput = call.receiveValidated<TalkInput>()
         call.respond(HttpStatusCode.Created, repository.create(eventId, apiKey, talkInput))
+    }
+    put("/talks/{id}") {
+        val eventId = call.parameters["eventId"]!!
+        val apiKey = call.request.headers["api_key"]!!
+        val talkId = call.parameters["id"]!!
+        val talkInput = call.receiveValidated<TalkInput>()
+        call.respond(HttpStatusCode.OK, repository.update(eventId, apiKey, talkId, talkInput))
     }
     post("talks/verbatim") {
         val eventId = call.parameters["eventId"]!!
@@ -38,13 +49,6 @@ fun Route.registerTalksRoutes() {
             status = if (verbatims.isEmpty()) HttpStatusCode.NoContent else HttpStatusCode.Created,
             message = verbatims
         )
-    }
-    put("/talks/{id}") {
-        val eventId = call.parameters["eventId"]!!
-        val apiKey = call.request.headers["api_key"]!!
-        val talkId = call.parameters["id"]!!
-        val talkInput = call.receiveValidated<TalkInput>()
-        call.respond(HttpStatusCode.OK, repository.update(eventId, apiKey, talkId, talkInput))
     }
     post("talks/{id}/verbatim") {
         val eventId = call.parameters["eventId"]!!
