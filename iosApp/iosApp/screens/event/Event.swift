@@ -81,8 +81,12 @@ struct Event: View {
                 Link("actionItinerary", destination: URL(string: "maps://?saddr=&daddr=\(event.eventInfo.latitude),\(event.eventInfo.longitude)")!)
             }
             Section(header: Text("titleLinks")) {
-                Link("actionFaq", destination: URL(string: event.eventInfo.faqLink)!)
-                Link("actionCoc", destination: URL(string: event.eventInfo.codeOfConductLink)!)
+                if (event.eventInfo.faqLink != nil) {
+                    Link("actionFaq", destination: URL(string: event.eventInfo.faqLink!)!)
+                }
+                if (event.eventInfo.codeOfConductLink != nil) {
+                    Link("actionCoc", destination: URL(string: event.eventInfo.codeOfConductLink!)!)
+                }
                 if (self.linkedin != nil) {
                     Link("actionLinkedin", destination: URL(string: self.linkedin!)!)
                 }
