@@ -1,5 +1,6 @@
 package com.paligot.confily.backend.qanda
 
+import com.paligot.confily.backend.internals.plugins.EventUpdatedAtPlugin
 import com.paligot.confily.backend.qanda.QAndAModule.qAndARepository
 import com.paligot.confily.backend.receiveValidated
 import com.paligot.confily.models.inputs.QAndAInput
@@ -11,6 +12,7 @@ import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.put
+import io.ktor.server.routing.route
 
 fun Route.registerQAndAsRoutes() {
     val repository by qAndARepository
@@ -26,15 +28,18 @@ fun Route.registerQAndAsRoutes() {
 fun Route.registerAdminQAndAsRoutes() {
     val repository by qAndARepository
 
-    post("/qanda") {
-        val eventId = call.parameters["eventId"]!!
-        val qandaInput = call.receiveValidated<QAndAInput>()
-        call.respond(HttpStatusCode.Created, repository.create(eventId, qandaInput))
-    }
-    put("/qanda/{id}") {
-        val eventId = call.parameters["eventId"]!!
-        val qandaId = call.parameters["id"]!!
-        val qandaInput = call.receiveValidated<QAndAInput>()
-        call.respond(HttpStatusCode.OK, repository.update(eventId, qandaId, qandaInput))
+    route("/qanda") {
+        this.install(EventUpdatedAtPlugin)
+        post("/") {
+            val eventId = call.parameters["eventId"]!!
+            val qandaInput = call.receiveValidated<QAndAInput>()
+            call.respond(HttpStatusCode.Created, repository.create(eventId, qandaInput))
+        }
+        put("/{id}") {
+            val eventId = call.parameters["eventId"]!!
+            val qandaId = call.parameters["id"]!!
+            val qandaInput = call.receiveValidated<QAndAInput>()
+            call.respond(HttpStatusCode.OK, repository.update(eventId, qandaId, qandaInput))
+        }
     }
 }
