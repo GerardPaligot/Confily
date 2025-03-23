@@ -29,7 +29,7 @@ data class ThirdParty(
 )
 
 @Serializable
-data class EventV5(
+data class ExportEvent(
     val id: String,
     val name: String,
     val address: Address,
@@ -42,8 +42,6 @@ data class EventV5(
     val qanda: QAndA,
     val menus: List<EventLunchMenu>,
     val features: FeaturesActivated,
-    val agenda: AgendaV4,
-    val partners: PartnersActivities,
     val team: Map<String, List<TeamMember>>,
     val maps: List<EventMap>,
     @SerialName("third_party")

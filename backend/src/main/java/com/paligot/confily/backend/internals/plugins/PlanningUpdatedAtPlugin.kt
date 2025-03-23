@@ -5,13 +5,13 @@ import io.ktor.http.HttpMethod
 import io.ktor.server.application.createRouteScopedPlugin
 import io.ktor.server.request.httpMethod
 
-val UpdatedAtPlugin = createRouteScopedPlugin("UpdatedAtPlugin") {
+val PlanningUpdatedAtPlugin = createRouteScopedPlugin("PlanningUpdatedAtPlugin") {
     val eventDao by eventDao
 
     onCallRespond { call ->
         if (call.request.httpMethod == HttpMethod.Post || call.request.httpMethod == HttpMethod.Put) {
             val eventId = call.parameters["eventId"] ?: return@onCallRespond
-            eventDao.updateUpdatedAt(eventId)
+            eventDao.updateAgendaUpdatedAt(eventId)
         }
     }
 }

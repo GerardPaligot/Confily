@@ -1,19 +1,26 @@
 package com.paligot.confily.backend.third.parties.openplanner
 
-import com.paligot.confily.backend.events.EventModule.eventRepositoryV5
+import com.paligot.confily.backend.export.ExportModule.exportEventRepository
+import com.paligot.confily.backend.export.ExportModule.exportPlanningRepository
 import com.paligot.confily.backend.third.parties.openplanner.OpenPlannerModule.openPlannerRepository
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.post
+import io.ktor.server.routing.route
 
 fun Route.registerAdminOpenPlannerRoutes() {
     val repository by openPlannerRepository
-    val eventRepository by eventRepositoryV5
+    val exportEventRepository by exportEventRepository
+    val exportPlanningRepository by exportPlanningRepository
 
-    post("openplanner/webhook") {
-        val eventId = call.parameters["eventId"]!!
-        repository.update(eventId)
-        call.respond(HttpStatusCode.Created, eventRepository.generate(eventId))
+    route("/openplanner") {
+        post("/webhook") {
+            val eventId = call.parameters["eventId"]!!
+            repository.update(eventId)
+            exportPlanningRepository.export(eventId)
+            exportEventRepository.export(eventId)
+            call.respond(HttpStatusCode.Created, eventId)
+        }
     }
 }

@@ -5,6 +5,8 @@ import com.paligot.confily.backend.categories.registerAdminCategoriesRoutes
 import com.paligot.confily.backend.categories.registerCategoriesRoutes
 import com.paligot.confily.backend.events.registerAdminEventRoutes
 import com.paligot.confily.backend.events.registerEventRoutes
+import com.paligot.confily.backend.export.registerAdminExportRoutes
+import com.paligot.confily.backend.export.registerExportRoutes
 import com.paligot.confily.backend.formats.registerAdminFormatsRoutes
 import com.paligot.confily.backend.formats.registerFormatsRoutes
 import com.paligot.confily.backend.internals.plugins.IdentificationPlugin
@@ -115,6 +117,7 @@ fun main() {
                 registerSchedulersRoutes()
                 registerPartnersRoutes()
                 registerTeamRoutes()
+                registerExportRoutes()
                 // Third parties
                 registerBilletWebRoutes()
             }
@@ -135,6 +138,7 @@ fun main() {
                     registerAdminTagsRoutes()
                     registerAdminTalksRoutes()
                     registerAdminTeamRoutes()
+                    registerAdminExportRoutes()
                     // Third parties
                     registerAdminCms4PartnersRoutes()
                     registerAdminConferenceHallRoutes()

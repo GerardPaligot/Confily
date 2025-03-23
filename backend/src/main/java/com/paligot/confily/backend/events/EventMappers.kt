@@ -9,7 +9,6 @@ import com.paligot.confily.backend.internals.socials.convertToModel
 import com.paligot.confily.backend.qanda.QAndADb
 import com.paligot.confily.backend.qanda.convertToModel
 import com.paligot.confily.models.Address
-import com.paligot.confily.models.AgendaV4
 import com.paligot.confily.models.CodeOfConduct
 import com.paligot.confily.models.Event
 import com.paligot.confily.models.EventContact
@@ -20,9 +19,8 @@ import com.paligot.confily.models.EventPartners
 import com.paligot.confily.models.EventV2
 import com.paligot.confily.models.EventV3
 import com.paligot.confily.models.EventV4
-import com.paligot.confily.models.EventV5
+import com.paligot.confily.models.ExportEvent
 import com.paligot.confily.models.FeaturesActivated
-import com.paligot.confily.models.PartnersActivities
 import com.paligot.confily.models.QAndA
 import com.paligot.confily.models.QuestionAndResponse
 import com.paligot.confily.models.TeamMember
@@ -155,11 +153,10 @@ fun EventDb.convertToModelV4(hasPartnerList: Boolean, hasQandA: Boolean) = Event
 
 fun EventDb.convertToModelV5(
     qanda: Map<String, List<QuestionAndResponse>>,
-    agenda: AgendaV4,
-    partners: PartnersActivities,
     team: Map<String, List<TeamMember>>,
-    maps: List<EventMap>
-) = EventV5(
+    maps: List<EventMap>,
+    hasPartners: Boolean
+) = ExportEvent(
     id = this.slugId,
     name = this.name,
     address = this.address.convertToModel(),
@@ -174,15 +171,13 @@ fun EventDb.convertToModelV5(
     qanda = QAndA(content = qanda, link = faqLink),
     menus = menus.map(LunchMenuDb::convertToModel),
     features = this.convertToFeaturesActivatedModel(
-        hasPartnerList = partners.partners.isNotEmpty(),
+        hasPartnerList = hasPartners,
         hasQandA = qanda.isNotEmpty()
     ),
-    agenda = agenda,
-    partners = partners,
     team = team,
     maps = maps,
     thirdParty = ThirdParty(openfeedbackProjectId = this.openFeedbackId),
-    updatedAt = this.updatedAt
+    updatedAt = this.eventUpdatedAt
 )
 
 fun LunchMenuInput.convertToDb() = LunchMenuDb(
@@ -243,6 +238,7 @@ fun EventInput.convertToDb(event: EventDb, addressDb: AddressDb) = EventDb(
     faqLink = this.faqLink,
     codeOfConductLink = this.codeOfConductLink,
     published = published,
+    eventUpdatedAt = System.currentTimeMillis(),
     updatedAt = this.updatedAt
 )
 

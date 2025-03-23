@@ -1,5 +1,6 @@
 package com.paligot.confily.backend.map
 
+import com.paligot.confily.backend.internals.plugins.EventUpdatedAtPlugin
 import com.paligot.confily.backend.map.MapModule.mapRepository
 import com.paligot.confily.backend.receiveValidated
 import com.paligot.confily.models.inputs.MapInput
@@ -13,6 +14,7 @@ import io.ktor.server.routing.delete
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.put
+import io.ktor.server.routing.route
 import io.ktor.utils.io.jvm.javaio.toInputStream
 import java.io.File
 
@@ -28,46 +30,50 @@ fun Route.registerMapRoutes() {
 fun Route.registerAdminMapRoutes() {
     val repository by mapRepository
 
-    post("/maps") {
-        val eventId = call.parameters["eventId"]!!
-        val multipartData = call.receiveMultipart()
-        call.respond(
-            status = HttpStatusCode.Created,
-            message = repository.create(eventId, multipartData.readPart().asFile())
-        )
-    }
+    route("/maps") {
+        this.install(EventUpdatedAtPlugin)
 
-    put("/maps/{mapId}") {
-        val eventId = call.parameters["eventId"]!!
-        val id = call.parameters["mapId"]!!
-        val input = call.receiveValidated<MapInput>()
-        call.respond(
-            status = HttpStatusCode.OK,
-            message = repository.update(eventId, id, input)
-        )
-    }
-
-    put("/maps/{mapId}/plan") {
-        val eventId = call.parameters["eventId"]!!
-        val id = call.parameters["mapId"]!!
-        val filled = call.request.queryParameters["filled"] == "true"
-        val multipartData = call.receiveMultipart()
-        call.respond(
-            status = HttpStatusCode.OK,
-            message = repository.updatePlan(
-                eventId = eventId,
-                mapId = id,
-                file = multipartData.readPart().asFile(),
-                filled = filled
+        post("/") {
+            val eventId = call.parameters["eventId"]!!
+            val multipartData = call.receiveMultipart()
+            call.respond(
+                status = HttpStatusCode.Created,
+                message = repository.create(eventId, multipartData.readPart().asFile())
             )
-        )
-    }
+        }
 
-    delete("/maps/{mapId}") {
-        val eventId = call.parameters["eventId"]!!
-        val id = call.parameters["mapId"]!!
-        repository.delete(eventId, id)
-        call.respond(HttpStatusCode.NoContent)
+        put("/{mapId}") {
+            val eventId = call.parameters["eventId"]!!
+            val id = call.parameters["mapId"]!!
+            val input = call.receiveValidated<MapInput>()
+            call.respond(
+                status = HttpStatusCode.OK,
+                message = repository.update(eventId, id, input)
+            )
+        }
+
+        delete("/{mapId}") {
+            val eventId = call.parameters["eventId"]!!
+            val id = call.parameters["mapId"]!!
+            repository.delete(eventId, id)
+            call.respond(HttpStatusCode.NoContent)
+        }
+
+        put("/{mapId}/plan") {
+            val eventId = call.parameters["eventId"]!!
+            val id = call.parameters["mapId"]!!
+            val filled = call.request.queryParameters["filled"] == "true"
+            val multipartData = call.receiveMultipart()
+            call.respond(
+                status = HttpStatusCode.OK,
+                message = repository.updatePlan(
+                    eventId = eventId,
+                    mapId = id,
+                    file = multipartData.readPart().asFile(),
+                    filled = filled
+                )
+            )
+        }
     }
 }
 

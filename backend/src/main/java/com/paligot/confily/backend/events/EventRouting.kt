@@ -7,7 +7,7 @@ import com.paligot.confily.backend.events.EventModule.eventRepository
 import com.paligot.confily.backend.events.EventModule.eventRepositoryV2
 import com.paligot.confily.backend.events.EventModule.eventRepositoryV3
 import com.paligot.confily.backend.events.EventModule.eventRepositoryV4
-import com.paligot.confily.backend.events.EventModule.eventRepositoryV5
+import com.paligot.confily.backend.internals.plugins.EventUpdatedAtPlugin
 import com.paligot.confily.backend.receiveValidated
 import com.paligot.confily.backend.version
 import com.paligot.confily.models.inputs.CoCInput
@@ -29,6 +29,7 @@ import io.ktor.server.routing.Routing
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.put
+import io.ktor.server.routing.route
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -41,7 +42,6 @@ fun Routing.registerEventRoutes() {
     val repositoryV2 by eventRepositoryV2
     val repositoryV3 by eventRepositoryV3
     val repositoryV4 by eventRepositoryV4
-    val repositoryV5 by eventRepositoryV5
 
     get("/events") {
         call.respond(HttpStatusCode.OK, repository.list())
@@ -59,7 +59,6 @@ fun Routing.registerEventRoutes() {
             2 -> call.respond(HttpStatusCode.OK, repositoryV2.getV2(eventId))
             3 -> call.respond(HttpStatusCode.OK, repositoryV3.getV3(eventId))
             4 -> call.respond(HttpStatusCode.OK, repositoryV4.getV4(eventId))
-            5 -> call.respond(HttpStatusCode.OK, repositoryV5.get(eventId))
             else -> call.respond(HttpStatusCode.NotImplemented)
         }
     }
@@ -116,34 +115,40 @@ fun Routing.registerEventRoutes() {
 fun Routing.registerAdminEventRoutes() {
     val repository by eventRepository
     val repositoryV4 by eventRepositoryV4
-    val repositoryV5 by eventRepositoryV5
 
-    put("/events/{eventId}") {
-        val eventId = call.parameters["eventId"]!!
-        val input = call.receiveValidated<EventInput>()
-        call.respond(HttpStatusCode.OK, repository.update(eventId, input))
-    }
-    put("/events/{eventId}/generate") {
-        val eventId = call.parameters["eventId"]!!
-        call.respond(HttpStatusCode.OK, repositoryV5.generate(eventId))
-    }
-    put("/events/{eventId}/menus") {
-        val eventId = call.parameters["eventId"]!!
-        val input = call.receive<List<LunchMenuInput>>()
-        call.respond(HttpStatusCode.OK, repository.updateMenus(eventId, input))
-    }
-    put("/events/{eventId}/coc") {
-        val eventId = call.parameters["eventId"]!!
-        val input = call.receiveValidated<CoCInput>()
-        call.respond(HttpStatusCode.OK, repository.updateCoC(eventId, input))
-    }
-    put("/events/{eventId}/features_activated") {
-        val eventId = call.parameters["eventId"]!!
-        val input = call.receiveValidated<FeaturesActivatedInput>()
-        call.respond(HttpStatusCode.OK, repository.updateFeatures(eventId, input))
-    }
-    put("/events/{eventId}/agenda") {
-        val eventId = call.parameters["eventId"]!!
-        call.respond(HttpStatusCode.OK, repositoryV4.generateAgenda(eventId))
+    route("/events/{eventId}") {
+        put("/") {
+            val eventId = call.parameters["eventId"]!!
+            val input = call.receiveValidated<EventInput>()
+            call.respond(HttpStatusCode.OK, repository.update(eventId, input))
+        }
+        put("/agenda") {
+            val eventId = call.parameters["eventId"]!!
+            call.respond(HttpStatusCode.OK, repositoryV4.generateAgenda(eventId))
+        }
+        route("/menus") {
+            this.install(EventUpdatedAtPlugin)
+            put("/") {
+                val eventId = call.parameters["eventId"]!!
+                val input = call.receive<List<LunchMenuInput>>()
+                call.respond(HttpStatusCode.OK, repository.updateMenus(eventId, input))
+            }
+        }
+        route("/coc") {
+            this.install(EventUpdatedAtPlugin)
+            put("/") {
+                val eventId = call.parameters["eventId"]!!
+                val input = call.receiveValidated<CoCInput>()
+                call.respond(HttpStatusCode.OK, repository.updateCoC(eventId, input))
+            }
+        }
+        route("/features_activated") {
+            this.install(EventUpdatedAtPlugin)
+            put("/") {
+                val eventId = call.parameters["eventId"]!!
+                val input = call.receiveValidated<FeaturesActivatedInput>()
+                call.respond(HttpStatusCode.OK, repository.updateFeatures(eventId, input))
+            }
+        }
     }
 }
