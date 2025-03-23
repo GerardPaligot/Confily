@@ -14,17 +14,11 @@ class SessionRepository(
     private val sessionDao: SessionDao
 ) {
     suspend fun list(eventId: String): List<Session> {
-        val eventDb = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
+        val eventDb = eventDao.get(eventId)
         return sessionDao.getAll(eventId).map { it.convertToModel(eventDb) }
     }
 
-    suspend fun update(
-        eventId: String,
-        apiKey: String,
-        sessionId: String,
-        input: EventSessionInput
-    ): String {
-        eventDao.getVerified(eventId, apiKey)
+    suspend fun update(eventId: String, sessionId: String, input: EventSessionInput): String {
         val sessionDb = sessionDao.get(eventId, sessionId)
         if (sessionDb !is EventSessionDb) {
             throw NotFoundException("Event Session $sessionId Not Found")

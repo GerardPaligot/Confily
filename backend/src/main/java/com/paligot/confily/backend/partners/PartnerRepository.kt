@@ -1,7 +1,6 @@
 package com.paligot.confily.backend.partners
 
 import com.paligot.confily.backend.NotAcceptableException
-import com.paligot.confily.backend.NotFoundException
 import com.paligot.confily.backend.activities.ActivityDao
 import com.paligot.confily.backend.activities.convertToModel
 import com.paligot.confily.backend.events.EventDao
@@ -33,7 +32,7 @@ class PartnerRepository(
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
     fun list(eventId: String): Map<String, List<PartnerV2>> {
-        val event = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
+        val event = eventDao.get(eventId)
         val partners = partnerDao.getAll(eventId)
         val jobs = jobDao.getAll(eventId)
         return event.sponsoringTypes.associateWith { sponsoring ->
@@ -50,7 +49,7 @@ class PartnerRepository(
     }
 
     suspend fun activities(eventId: String): PartnersActivities = coroutineScope {
-        val event = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
+        val event = eventDao.get(eventId)
         val partners = async(dispatcher) { partnerDao.getAll(eventId) }
         val jobs = async(dispatcher) { jobDao.getAll(eventId) }
         val activities = async(dispatcher) { activityDao.getAll(eventId) }
@@ -70,9 +69,9 @@ class PartnerRepository(
         )
     }
 
-    suspend fun create(eventId: String, apiKey: String, partnerInput: PartnerInput): String =
+    suspend fun create(eventId: String, partnerInput: PartnerInput): String =
         coroutineScope {
-            val event = eventDao.getVerified(eventId, apiKey)
+            val event = eventDao.get(eventId)
             if (event.sponsoringTypes.any { partnerInput.sponsorings.contains(it) }.not()) {
                 throw NotAcceptableException("Your sponsoring isn't valid")
             }
@@ -105,29 +104,25 @@ class PartnerRepository(
             return@coroutineScope id
         }
 
-    suspend fun update(
-        eventId: String,
-        apiKey: String,
-        partnerId: String,
-        partnerInput: PartnerInput
-    ): String = coroutineScope {
-        val event = eventDao.getVerified(eventId, apiKey)
-        if (event.sponsoringTypes.any { partnerInput.sponsorings.contains(it) }.not()) {
-            throw NotAcceptableException("Your sponsoring isn't valid")
+    suspend fun update(eventId: String, partnerId: String, input: PartnerInput): String =
+        coroutineScope {
+            val event = eventDao.get(eventId)
+            if (event.sponsoringTypes.any { input.sponsorings.contains(it) }.not()) {
+                throw NotAcceptableException("Your sponsoring isn't valid")
+            }
+            val addressDb = geocodeApi.geocode(input.address).convertToDb()
+                ?: throw NotAcceptableException("Your address information isn't found")
+            val pngs = listOf(
+                async { imageTranscoder.convertSvgToPng(input.logoUrl, SIZE_250) },
+                async { imageTranscoder.convertSvgToPng(input.logoUrl, SIZE_500) },
+                async { imageTranscoder.convertSvgToPng(input.logoUrl, SIZE_1000) }
+            ).awaitAll()
+            val uploads = partnerDao.uploadPartnerLogos(eventId, partnerId, pngs)
+            val partnerDb =
+                input.convertToDb(id = partnerId, addressDb = addressDb, uploads = uploads)
+            val id = partnerDao.createOrUpdate(eventId, partnerDb)
+            return@coroutineScope id
         }
-        val addressDb = geocodeApi.geocode(partnerInput.address).convertToDb()
-            ?: throw NotAcceptableException("Your address information isn't found")
-        val pngs = listOf(
-            async { imageTranscoder.convertSvgToPng(partnerInput.logoUrl, SIZE_250) },
-            async { imageTranscoder.convertSvgToPng(partnerInput.logoUrl, SIZE_500) },
-            async { imageTranscoder.convertSvgToPng(partnerInput.logoUrl, SIZE_1000) }
-        ).awaitAll()
-        val uploads = partnerDao.uploadPartnerLogos(eventId, partnerId, pngs)
-        val partnerDb =
-            partnerInput.convertToDb(id = partnerId, addressDb = addressDb, uploads = uploads)
-        val id = partnerDao.createOrUpdate(eventId, partnerDb)
-        return@coroutineScope id
-    }
 
     companion object {
         const val SIZE_250 = 250

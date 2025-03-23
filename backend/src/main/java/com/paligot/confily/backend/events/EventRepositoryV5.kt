@@ -55,13 +55,12 @@ class EventRepositoryV5(
 ) {
     suspend fun get(eventId: String): EventV5 {
         val eventDb = eventDao.get(eventId)
-            ?: throw NotFoundException("Event $eventId Not Found")
         return eventDao.getEventFile(eventId, eventDb.updatedAt)
             ?: throw NotFoundException("Event $eventId Not Found")
     }
 
     suspend fun generate(eventId: String) = coroutineScope {
-        val eventDb = eventDao.get(eventId) ?: throw NotFoundException("Event $eventId Not Found")
+        val eventDb = eventDao.get(eventId)
         val event = buildEvent(eventDb)
         eventDao.uploadEventFile(eventId, eventDb.updatedAt, event)
         return@coroutineScope event

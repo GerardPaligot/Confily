@@ -12,36 +12,32 @@ fun Route.registerAdminConferenceHallRoutes() {
     val conferenceHallRepo by conferenceHallRepository
 
     post("conference-hall/{eventId}/talks/import") {
-        val apiKey = call.request.headers["api_key"]!!
         val eventId = call.parameters["eventId"]!!
         val input = call.receiveValidated<ImportTalkInput>()
-        call.respond(HttpStatusCode.Created, conferenceHallRepo.importTalks(eventId, apiKey, input))
+        call.respond(HttpStatusCode.Created, conferenceHallRepo.importTalks(eventId, input))
     }
 
     post("conference-hall/{eventId}/talks/{talkId}/import") {
-        val apiKey = call.request.headers["api_key"]!!
         val eventId = call.parameters["eventId"]!!
         val talkId = call.parameters["talkId"]!!
         val input = call.receiveValidated<ImportTalkInput>()
         call.respond(
             HttpStatusCode.Created,
-            conferenceHallRepo.importTalk(eventId, apiKey, talkId, input)
+            conferenceHallRepo.importTalk(eventId, talkId, input)
         )
     }
 
     post("conference-hall/{eventId}/speakers/import") {
-        val apiKey = call.request.headers["api_key"]!!
         val eventId = call.parameters["eventId"]!!
-        call.respond(HttpStatusCode.Created, conferenceHallRepo.importSpeakers(eventId, apiKey))
+        call.respond(HttpStatusCode.Created, conferenceHallRepo.importSpeakers(eventId))
     }
 
     post("conference-hall/{eventId}/speakers/{speakerId}/import") {
-        val apiKey = call.request.headers["api_key"]!!
         val eventId = call.parameters["eventId"]!!
         val speakerId = call.parameters["speakerId"]!!
         call.respond(
             HttpStatusCode.Created,
-            conferenceHallRepo.importSpeaker(eventId, apiKey, speakerId)
+            conferenceHallRepo.importSpeaker(eventId, speakerId)
         )
     }
 }

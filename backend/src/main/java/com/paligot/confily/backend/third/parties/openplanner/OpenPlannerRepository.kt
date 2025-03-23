@@ -40,8 +40,8 @@ class OpenPlannerRepository(
     private val teamDao: TeamDao,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
-    suspend fun update(eventId: String, apiKey: String) = coroutineScope {
-        val event = eventDao.getVerified(eventId, apiKey)
+    suspend fun update(eventId: String) = coroutineScope {
+        val event = eventDao.get(eventId)
         val config = event.openPlannerConfig
             ?: throw NotAcceptableException("OpenPlanner config not initialized")
         val openPlanner = openPlannerApi.fetchPrivateJson(config.eventId, config.privateId)

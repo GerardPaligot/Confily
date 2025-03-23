@@ -30,16 +30,14 @@ fun Route.registerAdminTalksRoutes() {
 
     post("/talks") {
         val eventId = call.parameters["eventId"]!!
-        val apiKey = call.request.headers["api_key"]!!
         val talkInput = call.receiveValidated<TalkInput>()
-        call.respond(HttpStatusCode.Created, repository.create(eventId, apiKey, talkInput))
+        call.respond(HttpStatusCode.Created, repository.create(eventId, talkInput))
     }
     put("/talks/{id}") {
         val eventId = call.parameters["eventId"]!!
-        val apiKey = call.request.headers["api_key"]!!
         val talkId = call.parameters["id"]!!
         val talkInput = call.receiveValidated<TalkInput>()
-        call.respond(HttpStatusCode.OK, repository.update(eventId, apiKey, talkId, talkInput))
+        call.respond(HttpStatusCode.OK, repository.update(eventId, talkId, talkInput))
     }
     post("talks/verbatim") {
         val eventId = call.parameters["eventId"]!!

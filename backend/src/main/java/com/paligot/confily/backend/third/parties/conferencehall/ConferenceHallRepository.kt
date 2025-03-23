@@ -26,12 +26,8 @@ class ConferenceHallRepository(
     private val categoryDao: CategoryDao,
     private val formatDao: FormatDao
 ) {
-    suspend fun importTalks(
-        eventId: String,
-        apiKey: String,
-        input: ImportTalkInput
-    ) = coroutineScope {
-        val event = eventDao.getVerified(eventId, apiKey)
+    suspend fun importTalks(eventId: String, input: ImportTalkInput) = coroutineScope {
+        val event = eventDao.get(eventId)
         val chConfig = event.conferenceHallConfig
             ?: throw NotAcceptableException("ConferenceHall config not initialized")
         val eventConfirmed = api.fetchEventConfirmed(chConfig.eventId, chConfig.apiKey)
@@ -46,11 +42,10 @@ class ConferenceHallRepository(
 
     suspend fun importTalk(
         eventId: String,
-        apiKey: String,
         talkId: String,
         input: ImportTalkInput
     ) = coroutineScope {
-        val event = eventDao.getVerified(eventId, apiKey)
+        val event = eventDao.get(eventId)
         val chConfig = event.conferenceHallConfig
             ?: throw NotAcceptableException("ConferenceHall config not initialized")
         val eventConfirmed = api.fetchEventConfirmed(chConfig.eventId, chConfig.apiKey)
@@ -65,8 +60,8 @@ class ConferenceHallRepository(
         sessionDao.insert(eventId, talk.convertToDb())
     }
 
-    suspend fun importSpeakers(eventId: String, apiKey: String) = coroutineScope {
-        val event = eventDao.getVerified(eventId, apiKey)
+    suspend fun importSpeakers(eventId: String) = coroutineScope {
+        val event = eventDao.get(eventId)
         val chConfig = event.conferenceHallConfig
             ?: throw NotAcceptableException("ConferenceHall config not initialized")
         val eventConfirmed = api.fetchEventConfirmed(chConfig.eventId, chConfig.apiKey)
@@ -96,8 +91,8 @@ class ConferenceHallRepository(
         )
     }
 
-    suspend fun importSpeaker(eventId: String, apiKey: String, speakerId: String) {
-        val event = eventDao.getVerified(eventId, apiKey)
+    suspend fun importSpeaker(eventId: String, speakerId: String) {
+        val event = eventDao.get(eventId)
         val chConfig = event.conferenceHallConfig
             ?: throw NotAcceptableException("ConferenceHall config not initialized")
         val eventConfirmed = api.fetchEventConfirmed(chConfig.eventId, chConfig.apiKey)

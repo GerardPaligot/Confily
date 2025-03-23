@@ -28,15 +28,13 @@ fun Route.registerAdminPartnersRoutes() {
 
     post("/partners") {
         val eventId = call.parameters["eventId"]!!
-        val apiKey = call.request.headers["api_key"]!!
         val partner = call.receiveValidated<PartnerInput>()
-        call.respond(HttpStatusCode.Created, repository.create(eventId, apiKey, partner))
+        call.respond(HttpStatusCode.Created, repository.create(eventId, partner))
     }
     put("/partners/{id}") {
         val eventId = call.parameters["eventId"]!!
-        val apiKey = call.request.headers["api_key"]!!
         val partnerId = call.parameters["id"]!!
         val partner = call.receiveValidated<PartnerInput>()
-        call.respond(HttpStatusCode.OK, repository.update(eventId, apiKey, partnerId, partner))
+        call.respond(HttpStatusCode.OK, repository.update(eventId, partnerId, partner))
     }
 }

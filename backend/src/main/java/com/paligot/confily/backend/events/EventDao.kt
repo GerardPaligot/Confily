@@ -1,7 +1,6 @@
 package com.paligot.confily.backend.events
 
 import com.google.cloud.firestore.Firestore
-import com.paligot.confily.backend.NotAuthorized
 import com.paligot.confily.backend.NotFoundException
 import com.paligot.confily.backend.internals.helpers.database.getDocument
 import com.paligot.confily.backend.internals.helpers.database.getDocuments
@@ -25,17 +24,10 @@ class EventDao(
         .getDocuments<EventDb>()
         .filter { it.published }
 
-    fun get(id: String): EventDb? = firestore
+    fun get(id: String): EventDb = firestore
         .collection(projectName)
         .getDocument(id)
-
-    fun getVerified(id: String, apiKey: String?): EventDb {
-        val eventDb = firestore
-            .collection(projectName)
-            .getDocument<EventDb>(id)
-            ?: throw NotFoundException("Event $id Not Found")
-        return if (eventDb.apiKey == apiKey) eventDb else throw NotAuthorized
-    }
+        ?: throw NotFoundException("Event $id Not Found")
 
     fun createOrUpdate(event: EventDb) {
         firestore
@@ -43,22 +35,22 @@ class EventDao(
             .upsert(event.slugId, event.copy(updatedAt = System.currentTimeMillis()))
     }
 
-    fun updateMenus(eventId: String, apiKey: String, menus: List<LunchMenuDb>) {
-        val existing = getVerified(eventId, apiKey)
+    fun updateMenus(eventId: String, menus: List<LunchMenuDb>) {
+        val existing = get(eventId)
         firestore
             .collection(projectName)
             .update(eventId, existing.copy(menus = menus, updatedAt = System.currentTimeMillis()))
     }
 
-    fun updateCoc(eventId: String, apiKey: String, coc: String) {
-        val existing = getVerified(eventId, apiKey)
+    fun updateCoc(eventId: String, coc: String) {
+        val existing = get(eventId)
         firestore
             .collection(projectName)
             .update(eventId, existing.copy(coc = coc, updatedAt = System.currentTimeMillis()))
     }
 
-    fun updateFeatures(eventId: String, apiKey: String, hasNetworking: Boolean) {
-        val existing = getVerified(eventId, apiKey)
+    fun updateFeatures(eventId: String, hasNetworking: Boolean) {
+        val existing = get(eventId)
         firestore
             .collection(projectName)
             .update(

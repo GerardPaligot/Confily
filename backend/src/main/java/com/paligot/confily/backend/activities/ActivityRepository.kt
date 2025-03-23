@@ -12,8 +12,8 @@ class ActivityRepository(
     private val partnerDao: PartnerDao,
     private val activityDao: ActivityDao
 ) {
-    suspend fun create(eventId: String, apiKey: String, activity: ActivityInput) = coroutineScope {
-        val event = eventDao.getVerified(eventId, apiKey)
+    suspend fun create(eventId: String, activity: ActivityInput) = coroutineScope {
+        val event = eventDao.get(eventId)
         val partnerExist = partnerDao.exists(eventId, activity.partnerId)
         if (!partnerExist) {
             throw NotFoundException("Partner ${activity.partnerId} Not Found")

@@ -13,7 +13,7 @@ class QAndARepository(
             .map { it.convertToModel() }
             .sortedBy { it.order }
         if (qanda.isEmpty()) {
-            val event = eventDao.get(eventId) ?: return@coroutineScope emptyList()
+            val event = eventDao.get(eventId)
             return@coroutineScope qAndADao.getAll(eventId, event.defaultLanguage)
                 .map { it.convertToModel() }
                 .sortedBy { it.order }

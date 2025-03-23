@@ -15,9 +15,9 @@ class SpeakerRepository(
         return@coroutineScope speakerDao.getAll(eventId).map { it.convertToModel() }
     }
 
-    suspend fun create(eventId: String, apiKey: String, speakerInput: SpeakerInput) =
+    suspend fun create(eventId: String, speakerInput: SpeakerInput) =
         coroutineScope {
-            val event = eventDao.getVerified(eventId, apiKey)
+            val event = eventDao.get(eventId)
             val speakerDb = speakerInput.convertToDb(photoUrl = speakerInput.photoUrl)
             val id = speakerDao.createOrUpdate(eventId, speakerDb)
             val avatar = commonApi.fetchByteArray(speakerInput.photoUrl)
@@ -32,21 +32,16 @@ class SpeakerRepository(
             return@coroutineScope id
         }
 
-    suspend fun update(
-        eventId: String,
-        apiKey: String,
-        speakerId: String,
-        speakerInput: SpeakerInput
-    ) = coroutineScope {
-        val event = eventDao.getVerified(eventId, apiKey)
-        val avatar = commonApi.fetchByteArray(speakerInput.photoUrl)
+    suspend fun update(eventId: String, speakerId: String, input: SpeakerInput) = coroutineScope {
+        val event = eventDao.get(eventId)
+        val avatar = commonApi.fetchByteArray(input.photoUrl)
         val bucketItem = speakerDao.saveProfile(
             eventId = eventId,
             id = speakerId,
             content = avatar,
-            mimeType = speakerInput.photoUrl.mimeType
+            mimeType = input.photoUrl.mimeType
         )
-        val speakerDb = speakerInput.convertToDb(photoUrl = bucketItem.url, speakerId)
+        val speakerDb = input.convertToDb(photoUrl = bucketItem.url, speakerId)
         eventDao.updateAgendaUpdatedAt(event)
         return@coroutineScope speakerDao.createOrUpdate(eventId, speakerDb)
     }

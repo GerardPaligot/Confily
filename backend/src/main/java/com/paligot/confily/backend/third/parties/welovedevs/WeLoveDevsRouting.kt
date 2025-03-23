@@ -10,8 +10,7 @@ fun Route.registerAdminWLDRoutes() {
     val repository by jobRepository
 
     post("jobs/wld/import") {
-        val apiKey = call.request.headers["api_key"]!!
         val eventId = call.parameters["eventId"]!!
-        call.respond(HttpStatusCode.Created, repository.importWld(eventId, apiKey))
+        call.respond(HttpStatusCode.Created, repository.importWld(eventId))
     }
 }

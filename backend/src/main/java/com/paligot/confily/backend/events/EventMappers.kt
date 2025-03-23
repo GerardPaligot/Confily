@@ -77,9 +77,9 @@ fun EventDb.convertToModel(partners: EventPartners, qanda: List<QAndADb>) = Even
     coc = coc,
     features = this.convertToFeaturesActivatedModel(
         partners.golds.isNotEmpty() ||
-                partners.silvers.isNotEmpty() ||
-                partners.bronzes.isNotEmpty() ||
-                partners.others.isNotEmpty(),
+            partners.silvers.isNotEmpty() ||
+            partners.bronzes.isNotEmpty() ||
+            partners.others.isNotEmpty(),
         qanda.isNotEmpty()
     ),
     twitterUrl = this.twitterUrl,

@@ -13,8 +13,7 @@ fun Route.registerAdminActivitiesRoutes() {
 
     post("/activities") {
         val eventId = call.parameters["eventId"]!!
-        val apiKey = call.request.headers["api_key"]!!
         val activity = call.receiveValidated<ActivityInput>()
-        call.respond(HttpStatusCode.Created, repository.create(eventId, apiKey, activity))
+        call.respond(HttpStatusCode.Created, repository.create(eventId, activity))
     }
 }

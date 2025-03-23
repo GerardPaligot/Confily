@@ -7,13 +7,13 @@ import kotlinx.serialization.Serializable
 data class EventContact(
     val phone: String?,
     val email: String?,
-    val socials: List<SocialItem>,
+    val socials: List<SocialItem>
 )
 
 @Serializable
 data class CodeOfConduct(
     val content: String?,
-    val link: String?,
+    val link: String?
 )
 
 @Serializable

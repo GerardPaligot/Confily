@@ -25,9 +25,8 @@ fun Route.registerAdminSchedulersRoutes() {
 
     post("/schedulers") {
         val eventId = call.parameters["eventId"]!!
-        val apiKey = call.request.headers["api_key"]!!
         val schedule = call.receiveValidated<ScheduleInput>()
-        call.respond(HttpStatusCode.Created, repository.create(eventId, apiKey, schedule))
+        call.respond(HttpStatusCode.Created, repository.create(eventId, schedule))
     }
     delete("/schedulers/{id}") {
         val eventId = call.parameters["eventId"]!!
