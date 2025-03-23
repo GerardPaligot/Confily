@@ -4,6 +4,7 @@ import com.google.cloud.firestore.Firestore
 import com.paligot.confily.backend.internals.helpers.database.batchDelete
 import com.paligot.confily.backend.internals.helpers.database.diffRefs
 import com.paligot.confily.backend.internals.helpers.database.getDocument
+import com.paligot.confily.backend.internals.helpers.database.getDocuments
 import com.paligot.confily.backend.internals.helpers.database.insert
 import com.paligot.confily.backend.internals.helpers.database.isNotEmpty
 import com.paligot.confily.backend.internals.helpers.database.query
@@ -21,6 +22,12 @@ class QAndADao(
         .document(eventId)
         .collection(CollectionName)
         .getDocument(id)
+
+    fun getAll(eventId: String): List<QAndADb> = firestore
+        .collection(projectName)
+        .document(eventId)
+        .collection(CollectionName)
+        .getDocuments<QAndADb>()
 
     fun getAll(eventId: String, language: String): List<QAndADb> = firestore
         .collection(projectName)

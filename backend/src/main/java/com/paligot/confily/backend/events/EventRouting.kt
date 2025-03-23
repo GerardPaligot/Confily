@@ -8,9 +8,11 @@ import com.paligot.confily.backend.events.EventModule.eventRepository
 import com.paligot.confily.backend.events.EventModule.eventRepositoryV2
 import com.paligot.confily.backend.events.EventModule.eventRepositoryV3
 import com.paligot.confily.backend.events.EventModule.eventRepositoryV4
+import com.paligot.confily.backend.events.EventModule.eventRepositoryV5
 import com.paligot.confily.backend.receiveValidated
 import com.paligot.confily.backend.version
 import com.paligot.confily.models.inputs.CoCInput
+import com.paligot.confily.models.inputs.CreatingEventInput
 import com.paligot.confily.models.inputs.EventInput
 import com.paligot.confily.models.inputs.FeaturesActivatedInput
 import com.paligot.confily.models.inputs.LunchMenuInput
@@ -40,12 +42,13 @@ fun Routing.registerEventRoutes() {
     val repositoryV2 by eventRepositoryV2
     val repositoryV3 by eventRepositoryV3
     val repositoryV4 by eventRepositoryV4
+    val repositoryV5 by eventRepositoryV5
 
     get("/events") {
         call.respond(HttpStatusCode.OK, repository.list())
     }
     post("/events") {
-        val input = call.receiveValidated<com.paligot.confily.models.inputs.CreatingEventInput>()
+        val input = call.receiveValidated<CreatingEventInput>()
         val language = call.request.acceptLanguage()
             ?: throw BadRequestException("Accept Language required for this api")
         call.respond(HttpStatusCode.Created, repository.create(input, language))
@@ -57,32 +60,9 @@ fun Routing.registerEventRoutes() {
             2 -> call.respond(HttpStatusCode.OK, repositoryV2.getV2(eventId))
             3 -> call.respond(HttpStatusCode.OK, repositoryV3.getV3(eventId))
             4 -> call.respond(HttpStatusCode.OK, repositoryV4.getV4(eventId))
+            5 -> call.respond(HttpStatusCode.OK, repositoryV5.get(eventId))
             else -> call.respond(HttpStatusCode.NotImplemented)
         }
-    }
-    put("/events/{eventId}") {
-        val eventId = call.parameters["eventId"]!!
-        val apiKey = call.request.headers["api_key"]!!
-        val input = call.receiveValidated<EventInput>()
-        call.respond(HttpStatusCode.OK, repository.update(eventId, apiKey, input))
-    }
-    put("/events/{eventId}/menus") {
-        val eventId = call.parameters["eventId"]!!
-        val apiKey = call.request.headers["api_key"]!!
-        val input = call.receive<List<LunchMenuInput>>()
-        call.respond(HttpStatusCode.OK, repository.updateMenus(eventId, apiKey, input))
-    }
-    put("/events/{eventId}/coc") {
-        val eventId = call.parameters["eventId"]!!
-        val apiKey = call.request.headers["api_key"]!!
-        val input = call.receiveValidated<CoCInput>()
-        call.respond(HttpStatusCode.OK, repository.updateCoC(eventId, apiKey, input))
-    }
-    put("/events/{eventId}/features_activated") {
-        val eventId = call.parameters["eventId"]!!
-        val apiKey = call.request.headers["api_key"]!!
-        val input = call.receiveValidated<FeaturesActivatedInput>()
-        call.respond(HttpStatusCode.OK, repository.updateFeatures(eventId, apiKey, input))
     }
     get("/events/{eventId}/planning") {
         val eventId = call.parameters["eventId"]!!
@@ -128,13 +108,48 @@ fun Routing.registerEventRoutes() {
             }
         }
     }
+    get("/events/{eventId}/openfeedback") {
+        val eventId = call.parameters["eventId"]!!
+        call.respond(HttpStatusCode.OK, repositoryV2.openFeedback(eventId))
+    }
+}
+
+fun Routing.registerAdminEventRoutes() {
+    val repository by eventRepository
+    val repositoryV4 by eventRepositoryV4
+    val repositoryV5 by eventRepositoryV5
+
+    put("/events/{eventId}") {
+        val eventId = call.parameters["eventId"]!!
+        val apiKey = call.request.headers["api_key"]!!
+        val input = call.receiveValidated<EventInput>()
+        call.respond(HttpStatusCode.OK, repository.update(eventId, apiKey, input))
+    }
+    put("/events/{eventId}/generate") {
+        val eventId = call.parameters["eventId"]!!
+        call.respond(HttpStatusCode.OK, repositoryV5.generate(eventId))
+    }
+    put("/events/{eventId}/menus") {
+        val eventId = call.parameters["eventId"]!!
+        val apiKey = call.request.headers["api_key"]!!
+        val input = call.receive<List<LunchMenuInput>>()
+        call.respond(HttpStatusCode.OK, repository.updateMenus(eventId, apiKey, input))
+    }
+    put("/events/{eventId}/coc") {
+        val eventId = call.parameters["eventId"]!!
+        val apiKey = call.request.headers["api_key"]!!
+        val input = call.receiveValidated<CoCInput>()
+        call.respond(HttpStatusCode.OK, repository.updateCoC(eventId, apiKey, input))
+    }
+    put("/events/{eventId}/features_activated") {
+        val eventId = call.parameters["eventId"]!!
+        val apiKey = call.request.headers["api_key"]!!
+        val input = call.receiveValidated<FeaturesActivatedInput>()
+        call.respond(HttpStatusCode.OK, repository.updateFeatures(eventId, apiKey, input))
+    }
     put("/events/{eventId}/agenda") {
         val eventId = call.parameters["eventId"]!!
         val apiKey = call.request.headers["api_key"]!!
         call.respond(HttpStatusCode.OK, repositoryV4.generateAgenda(eventId, apiKey))
-    }
-    get("/events/{eventId}/openfeedback") {
-        val eventId = call.parameters["eventId"]!!
-        call.respond(HttpStatusCode.OK, repositoryV2.openFeedback(eventId))
     }
 }

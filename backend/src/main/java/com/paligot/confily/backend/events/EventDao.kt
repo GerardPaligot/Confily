@@ -11,6 +11,7 @@ import com.paligot.confily.backend.internals.helpers.storage.MimeType
 import com.paligot.confily.backend.internals.helpers.storage.Storage
 import com.paligot.confily.backend.internals.helpers.storage.Upload
 import com.paligot.confily.models.AgendaV4
+import com.paligot.confily.models.EventV5
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
@@ -80,6 +81,17 @@ class EventDao(
             .collection(projectName)
             .update(event.slugId, event.copy(agendaUpdatedAt = System.currentTimeMillis()))
     }
+
+    suspend fun getEventFile(eventId: String, updateAt: Long): EventV5? =
+        storage.download("$eventId/$updateAt.json")
+            ?.let { Json.decodeFromString(it.decodeToString()) }
+
+    suspend fun uploadEventFile(eventId: String, updateAt: Long, event: EventV5): Upload =
+        storage.upload(
+            filename = "$eventId/$updateAt.json",
+            content = Json.encodeToString(event).toByteArray(),
+            mimeType = MimeType.JSON
+        )
 
     suspend fun getAgendaFile(eventId: String, updateAt: Long): AgendaV4? =
         storage.download("$eventId/agenda/$updateAt.json")
