@@ -3,6 +3,7 @@ package com.paligot.confily.backend
 import com.paligot.confily.backend.activities.registerAdminActivitiesRoutes
 import com.paligot.confily.backend.categories.registerAdminCategoriesRoutes
 import com.paligot.confily.backend.categories.registerCategoriesRoutes
+import com.paligot.confily.backend.events.registerAdminEventRoutes
 import com.paligot.confily.backend.events.registerEventRoutes
 import com.paligot.confily.backend.formats.registerAdminFormatsRoutes
 import com.paligot.confily.backend.formats.registerFormatsRoutes
@@ -117,26 +118,29 @@ fun main() {
                 // Third parties
                 registerBilletWebRoutes()
             }
-            route("/admin/events/{eventId}") {
+            route("/admin") {
                 this.install(IdentificationPlugin)
                 this.install(UpdatedAtPlugin)
-                registerAdminActivitiesRoutes()
-                registerAdminCategoriesRoutes()
-                registerAdminFormatsRoutes()
-                registerAdminMapRoutes()
-                registerAdminPartnersRoutes()
-                registerAdminQAndAsRoutes()
-                registerAdminSchedulersRoutes()
-                registerAdminSessionsRoutes()
-                registerAdminSpeakersRoutes()
-                registerAdminTagsRoutes()
-                registerAdminTalksRoutes()
-                registerAdminTeamRoutes()
-                // Third parties
-                registerAdminCms4PartnersRoutes()
-                registerAdminConferenceHallRoutes()
-                registerAdminOpenPlannerRoutes()
-                registerAdminWLDRoutes()
+                registerAdminEventRoutes()
+                route("/events/{eventId}") {
+                    registerAdminActivitiesRoutes()
+                    registerAdminCategoriesRoutes()
+                    registerAdminFormatsRoutes()
+                    registerAdminMapRoutes()
+                    registerAdminPartnersRoutes()
+                    registerAdminQAndAsRoutes()
+                    registerAdminSchedulersRoutes()
+                    registerAdminSessionsRoutes()
+                    registerAdminSpeakersRoutes()
+                    registerAdminTagsRoutes()
+                    registerAdminTalksRoutes()
+                    registerAdminTeamRoutes()
+                    // Third parties
+                    registerAdminCms4PartnersRoutes()
+                    registerAdminConferenceHallRoutes()
+                    registerAdminOpenPlannerRoutes()
+                    registerAdminWLDRoutes()
+                }
             }
         }
     }.start(wait = true)

@@ -9,14 +9,24 @@ import com.paligot.confily.backend.internals.socials.convertToModel
 import com.paligot.confily.backend.qanda.QAndADb
 import com.paligot.confily.backend.qanda.convertToModel
 import com.paligot.confily.models.Address
+import com.paligot.confily.models.AgendaV4
+import com.paligot.confily.models.CodeOfConduct
 import com.paligot.confily.models.Event
+import com.paligot.confily.models.EventContact
 import com.paligot.confily.models.EventItemList
 import com.paligot.confily.models.EventLunchMenu
+import com.paligot.confily.models.EventMap
 import com.paligot.confily.models.EventPartners
 import com.paligot.confily.models.EventV2
 import com.paligot.confily.models.EventV3
 import com.paligot.confily.models.EventV4
+import com.paligot.confily.models.EventV5
 import com.paligot.confily.models.FeaturesActivated
+import com.paligot.confily.models.PartnersActivities
+import com.paligot.confily.models.QAndA
+import com.paligot.confily.models.QuestionAndResponse
+import com.paligot.confily.models.TeamMember
+import com.paligot.confily.models.ThirdParty
 import com.paligot.confily.models.inputs.BilletWebConfigInput
 import com.paligot.confily.models.inputs.ConferenceHallConfigInput
 import com.paligot.confily.models.inputs.CreatingEventInput
@@ -45,14 +55,15 @@ fun AddressDb.convertToModel() = Address(
     lng = this.lng
 )
 
-fun EventDb.convertToFeaturesActivatedModel(hasPartnerList: Boolean, hasQandA: Boolean) = FeaturesActivated(
-    hasNetworking = features.hasNetworking,
-    hasSpeakerList = !features.hasNetworking,
-    hasPartnerList = hasPartnerList,
-    hasMenus = menus.isNotEmpty(),
-    hasQAndA = hasQandA,
-    hasBilletWebTicket = billetWebConfig != null
-)
+fun EventDb.convertToFeaturesActivatedModel(hasPartnerList: Boolean, hasQandA: Boolean) =
+    FeaturesActivated(
+        hasNetworking = features.hasNetworking,
+        hasSpeakerList = !features.hasNetworking,
+        hasPartnerList = hasPartnerList,
+        hasMenus = menus.isNotEmpty(),
+        hasQAndA = hasQandA,
+        hasBilletWebTicket = billetWebConfig != null
+    )
 
 fun EventDb.convertToModel(partners: EventPartners, qanda: List<QAndADb>) = Event(
     id = this.slugId,
@@ -66,9 +77,9 @@ fun EventDb.convertToModel(partners: EventPartners, qanda: List<QAndADb>) = Even
     coc = coc,
     features = this.convertToFeaturesActivatedModel(
         partners.golds.isNotEmpty() ||
-            partners.silvers.isNotEmpty() ||
-            partners.bronzes.isNotEmpty() ||
-            partners.others.isNotEmpty(),
+                partners.silvers.isNotEmpty() ||
+                partners.bronzes.isNotEmpty() ||
+                partners.others.isNotEmpty(),
         qanda.isNotEmpty()
     ),
     twitterUrl = this.twitterUrl,
@@ -139,6 +150,38 @@ fun EventDb.convertToModelV4(hasPartnerList: Boolean, hasQandA: Boolean) = Event
     socials = this.socials.map(SocialDb::convertToModel),
     faqLink = this.faqLink,
     codeOfConductLink = this.codeOfConductLink,
+    updatedAt = this.updatedAt
+)
+
+fun EventDb.convertToModelV5(
+    qanda: Map<String, List<QuestionAndResponse>>,
+    agenda: AgendaV4,
+    partners: PartnersActivities,
+    team: Map<String, List<TeamMember>>,
+    maps: List<EventMap>
+) = EventV5(
+    id = this.slugId,
+    name = this.name,
+    address = this.address.convertToModel(),
+    startDate = this.startDate,
+    endDate = this.endDate,
+    contact = EventContact(
+        phone = this.contactPhone,
+        email = this.contactEmail,
+        socials = this.socials.map(SocialDb::convertToModel)
+    ),
+    coc = CodeOfConduct(content = coc, link = codeOfConductLink),
+    qanda = QAndA(content = qanda, link = faqLink),
+    menus = menus.map(LunchMenuDb::convertToModel),
+    features = this.convertToFeaturesActivatedModel(
+        hasPartnerList = partners.partners.isNotEmpty(),
+        hasQandA = qanda.isNotEmpty()
+    ),
+    agenda = agenda,
+    partners = partners,
+    team = team,
+    maps = maps,
+    thirdParty = ThirdParty(openfeedbackProjectId = this.openFeedbackId),
     updatedAt = this.updatedAt
 )
 
