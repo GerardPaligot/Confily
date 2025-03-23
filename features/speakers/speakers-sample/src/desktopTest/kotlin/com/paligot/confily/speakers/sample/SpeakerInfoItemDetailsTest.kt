@@ -50,7 +50,7 @@ class SpeakerInfoItemDetailsTest {
                 val sessionDao = koinInject<SessionDao>()
                 LaunchedEffect(Unit) {
                     settings.insertEventId(BuildKonfig.DEFAULT_EVENT)
-                    eventDao.insertEvent(event, emptyList(), emptyMap())
+                    eventDao.insertEvent(event)
                     sessionDao.insertAgenda(BuildKonfig.DEFAULT_EVENT, agenda)
                 }
                 val lifecycleOwner = remember { FakeLifecycleOwner() }

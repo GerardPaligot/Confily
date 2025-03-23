@@ -49,11 +49,7 @@ class FilteringScheduleTest {
                 val sessionDao = koinInject<SessionDao>()
                 LaunchedEffect(Unit) {
                     settings.insertEventId(BuildKonfig.DEFAULT_EVENT)
-                    eventDao.insertEvent(
-                        event = event,
-                        qAndA = emptyList(),
-                        teamMembers = emptyMap()
-                    )
+                    eventDao.insertEvent(event)
                     sessionDao.insertAgenda(BuildKonfig.DEFAULT_EVENT, agenda)
                 }
                 val lifecycleOwner = remember { FakeLifecycleOwner() }
@@ -75,23 +71,57 @@ class FilteringScheduleTest {
             scheduleRobotGraph(navigator, rule)
         }
         schedules(navigator) {
-            assertSessionIsShown(show = true, session.title, listOf(speaker.displayName), schedule.room, format.time, category.name)
+            assertSessionIsShown(
+                show = true,
+                session.title,
+                listOf(speaker.displayName),
+                schedule.room,
+                format.time,
+                category.name
+            )
         } goToFilterScreen {
             assertFilterScreenIsOpened()
             selectOnlyFavorites()
         } backToScheduleGrid {
-            assertSessionIsShown(show = false, session.title, listOf(speaker.displayName), schedule.room, format.time, category.name)
+            assertSessionIsShown(
+                show = false,
+                session.title,
+                listOf(speaker.displayName),
+                schedule.room,
+                format.time,
+                category.name
+            )
         } goToFilterScreen {
             assertFilterScreenIsOpened()
             selectOnlyFavorites()
         } backToScheduleGrid {
-            assertSessionIsShown(show = true, session.title, listOf(speaker.displayName), schedule.room, format.time, category.name)
-            addSessionToFavorites(session.title, listOf(speaker.displayName), schedule.room, format.time, category.name)
+            assertSessionIsShown(
+                show = true,
+                session.title,
+                listOf(speaker.displayName),
+                schedule.room,
+                format.time,
+                category.name
+            )
+            addSessionToFavorites(
+                session.title,
+                listOf(speaker.displayName),
+                schedule.room,
+                format.time,
+                category.name
+            )
         } goToFilterScreen {
             assertFilterScreenIsOpened()
             selectOnlyFavorites()
         } backToScheduleGrid {
-            assertSessionIsShown(show = true, session.title, listOf(speaker.displayName), schedule.room, format.time, category.name)
+            assertSessionIsShown(
+                show = true,
+                session.title,
+                listOf(speaker.displayName),
+                schedule.room,
+                format.time,
+                category.name
+            )
         }
     }
 }
