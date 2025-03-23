@@ -6,7 +6,7 @@ import com.paligot.confily.db.Schedule
 import com.paligot.confily.db.TalkSession
 import com.paligot.confily.db.TalkSessionWithSpeakers
 import com.paligot.confily.models.Category
-import com.paligot.confily.models.EventV4
+import com.paligot.confily.models.ExportEvent
 import com.paligot.confily.models.Format
 import com.paligot.confily.models.ScheduleItemV4
 import com.paligot.confily.models.Session
@@ -18,7 +18,7 @@ import com.paligot.confily.db.Format as FormatDb
 import com.paligot.confily.db.Speaker as SpeakerDb
 import com.paligot.confily.db.Tag as TagDb
 
-fun EventV4.convertToModelDb(): Event = Event(
+fun ExportEvent.convertToModelDb(): Event = Event(
     id = this.id,
     name = this.name,
     formatted_address = this.address.formatted,
@@ -28,12 +28,12 @@ fun EventV4.convertToModelDb(): Event = Event(
     date = this.startDate,
     start_date = this.startDate,
     end_date = this.endDate,
-    coc = this.coc,
-    openfeedback_project_id = this.openfeedbackProjectId,
-    contact_email = contactEmail,
-    contact_phone = contactPhone,
-    faq_url = this.faqLink!!,
-    coc_url = this.codeOfConductLink!!,
+    coc = this.coc.content,
+    openfeedback_project_id = this.thirdParty.openfeedbackProjectId,
+    contact_email = this.contact.email,
+    contact_phone = this.contact.phone,
+    faq_url = this.qanda.link,
+    coc_url = this.coc.link,
     updated_at = this.updatedAt
 )
 

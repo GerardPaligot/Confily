@@ -14,11 +14,11 @@ class EventDb(
     val date: String,
     val coc: String,
     val openfeedbackProjectId: String?,
-    val contactEmail: String,
+    val contactEmail: String?,
     val contactPhone: String?,
     val socials: List<SocialDb>,
-    val faqUrl: String,
-    val cocUrl: String,
+    val faqUrl: String?,
+    val cocUrl: String?,
     val updatedAt: Long
 )
 
@@ -45,7 +45,7 @@ class FeaturesActivatedDb(
 
 @Serializable
 class CocDb(
-    val url: String,
+    val url: String?,
     val coc: String?,
     val email: String?,
     val phone: String?
@@ -65,7 +65,8 @@ class QAndADb(
     val order: Long,
     val eventId: String,
     val question: String,
-    val response: String
+    val response: String,
+    val language: String
 )
 
 @Serializable

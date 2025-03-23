@@ -13,9 +13,7 @@ import com.paligot.confily.core.events.entities.TeamMemberInfo
 import com.paligot.confily.core.events.entities.TeamMemberItem
 import com.paligot.confily.core.socials.SocialQueries
 import com.paligot.confily.models.Attendee
-import com.paligot.confily.models.EventV4
-import com.paligot.confily.models.QuestionAndResponse
-import com.paligot.confily.models.TeamMember
+import com.paligot.confily.models.ExportEvent
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.Flow
@@ -100,27 +98,25 @@ class EventDaoSettings(
             )
         }
 
-    override fun insertEvent(
-        event: EventV4,
-        qAndA: List<QuestionAndResponse>,
-        teamMembers: Map<String, List<TeamMember>>
-    ) {
+    override fun insertEvent(event: ExportEvent) {
         val eventDb = event.convertToModelDb()
         eventQueries.insertEvent(eventDb)
-        event.socials.forEach {
+        event.contact.socials.forEach {
             socialQueries.upsertSocial(it.convertToDb(eventDb.id, eventDb.id))
         }
-        qAndA.forEach { qAndA ->
-            qAndAQueries.insertQAndA(qAndA.convertToModelDb(eventDb.id))
-            qAndA.actions.forEach {
-                qAndAQueries.insertQAndAAction(it.convertToModelDb(eventDb.id, qAndA.id))
+        event.qanda.content.forEach { entry ->
+            entry.value.forEach { qAndA ->
+                qAndAQueries.insertQAndA(qAndA.convertToModelDb(language = entry.key))
+                qAndA.actions.forEach {
+                    qAndAQueries.insertQAndAAction(it.convertToModelDb(eventDb.id, qAndA.id))
+                }
             }
         }
         event.menus.forEach {
             menuQueries.insertMenu(it.convertToModelDb(eventDb.id))
         }
-        for (index in 0 until teamMembers.size) {
-            val entry = teamMembers.entries.elementAt(index)
+        for (index in 0 until event.team.size) {
+            val entry = event.team.entries.elementAt(index)
             teamMembersQueries.insertTeamGroup(TeamMemberGroupDb(entry.key, index, eventDb.id))
             entry.value.forEach { teamMember ->
                 teamMembersQueries.insertTeamMember(
@@ -132,7 +128,7 @@ class EventDaoSettings(
             }
         }
         featuresActivatedQueries.insertFeatures(
-            event.features.convertToModelDb(eventDb.id, teamMembers.isNotEmpty())
+            event.features.convertToModelDb(eventDb.id, event.team.isNotEmpty())
         )
     }
 

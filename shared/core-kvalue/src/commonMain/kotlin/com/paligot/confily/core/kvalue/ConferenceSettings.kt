@@ -14,8 +14,6 @@ class ConferenceSettings(
     fun fetchEventId(): Flow<String> =
         settings.getStringOrNullFlow("EVENT_ID").map { it ?: throw EventSavedException() }
 
-    fun fetchEventIdOrNull(): Flow<String?> = settings.getStringOrNullFlow("EVENT_ID")
-
     fun getEventId(): String =
         settings.getStringOrNull("EVENT_ID") ?: throw EventSavedException()
 
@@ -27,10 +25,6 @@ class ConferenceSettings(
 
     fun getOnlyFavoritesFlag(): Boolean = settings.getBoolean("ONLY_FAVORITES", false)
 
-    fun upsertOnlyFavoritesFlag(onlyFavorites: Boolean) = settings.putBoolean("ONLY_FAVORITES", onlyFavorites)
-
-    fun lastEtag(eventId: String): String? = settings.getStringOrNull("AGENDA_ETAG_$eventId")
-
-    fun updateEtag(eventId: String, etag: String?) =
-        etag?.let { settings.putString("AGENDA_ETAG_$eventId", it) }
+    fun upsertOnlyFavoritesFlag(onlyFavorites: Boolean) =
+        settings.putBoolean("ONLY_FAVORITES", onlyFavorites)
 }

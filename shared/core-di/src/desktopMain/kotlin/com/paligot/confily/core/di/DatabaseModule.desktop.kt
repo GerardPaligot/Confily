@@ -39,7 +39,13 @@ actual val databasesModule = module {
     single { ConferenceSettings(get()) }
     single<CoroutineContext> { Dispatchers.IO }
     single<SocialDao> { SocialDaoSQLDelight(db = get(), dispatcher = get()) }
-    single<EventDao> { EventDaoSQLDelight(db = get(), dispatcher = get()) }
+    single<EventDao> {
+        EventDaoSQLDelight(
+            db = get(),
+            language = get(named(AcceptLanguageNamed)),
+            dispatcher = get()
+        )
+    }
     single<PartnerDao> {
         PartnerDaoSQLDelight(
             db = get(),

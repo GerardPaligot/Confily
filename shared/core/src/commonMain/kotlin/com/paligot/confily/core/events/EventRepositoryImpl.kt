@@ -2,7 +2,6 @@ package com.paligot.confily.core.events
 
 import com.paligot.confily.core.QrCodeGenerator
 import com.paligot.confily.core.api.ConferenceApi
-import com.paligot.confily.core.api.exceptions.AgendaNotModifiedException
 import com.paligot.confily.core.events.entities.CodeOfConduct
 import com.paligot.confily.core.events.entities.Event
 import com.paligot.confily.core.events.entities.EventItemList
@@ -45,20 +44,15 @@ internal class EventRepositoryImpl(
 
     override suspend fun fetchAndStoreAgenda() {
         val eventId = settings.getEventId()
-        val event = api.fetchEvent(eventId)
-        val qanda = api.fetchQAndA(eventId)
-        val partners = api.fetchPartnersActivities(eventId)
-        val teamMembers = api.fetchTeamMembers(eventId)
-        val maps = api.fetchMapList(eventId)
-        eventDao.insertEvent(event, qanda, teamMembers)
-        partnerDao.insertPartners(eventId, partners)
-        mapDao.insertMaps(eventId, maps)
-        val etag = settings.lastEtag(eventId)
+        val exportEvent = api.fetchExportEvent(eventId)
+        val exportPlanning = api.fetchExportPlanning(eventId)
+        val exportPartners = api.fetchExportPartners(eventId)
         try {
-            val (newEtag, agenda) = api.fetchAgenda(eventId, etag)
-            sessionDao.insertAgenda(eventId, agenda)
-            settings.updateEtag(eventId, newEtag)
-        } catch (ex: AgendaNotModifiedException) {
+            eventDao.insertEvent(exportEvent)
+            mapDao.insertMaps(eventId, exportEvent.maps)
+            partnerDao.insertPartners(eventId, exportPartners)
+            sessionDao.insertAgenda(eventId, exportPlanning)
+        } catch (ex: Throwable) {
             ex.printStackTrace()
         }
     }

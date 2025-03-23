@@ -21,8 +21,8 @@ class EventInfo(
     val endTime: LocalDateTime,
     val email: String?,
     val phone: String?,
-    val faqUrl: String,
-    val cocUrl: String
+    val faqUrl: String?,
+    val cocUrl: String?
 ) {
     fun days(): List<LocalDate> {
         val startDate = startTime.date

@@ -12,8 +12,8 @@ data class EventInfoUi(
     val longitude: Double,
     val date: String,
     val socials: ImmutableList<SocialUi>,
-    val faqLink: String,
-    val codeOfConductLink: String
+    val faqLink: String?,
+    val codeOfConductLink: String?
 ) {
     companion object {
         val fake = EventInfoUi(
