@@ -16,8 +16,8 @@ coc TEXT,
 openfeedback_project_id TEXT,
 contact_email TEXT,
 contact_phone TEXT,
-faq_url TEXT NOT NULL,
-coc_url TEXT NOT NULL,
+faq_url TEXT,
+coc_url TEXT,
 updated_at INTEGER NOT NULL
 );
 

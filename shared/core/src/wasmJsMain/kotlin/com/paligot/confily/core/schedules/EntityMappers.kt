@@ -35,6 +35,7 @@ fun SelectSessionsDb.mapToSessionEntity(speakers: List<SpeakerItem>): Session = 
     endTime = LocalDateTime.parse(session.endTime),
     room = session.room,
     speakers = speakers,
+    tags = emptyList(),
     feedback = null
 )
 

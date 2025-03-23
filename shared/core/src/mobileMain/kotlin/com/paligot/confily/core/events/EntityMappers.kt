@@ -13,7 +13,7 @@ import kotlinx.datetime.toLocalDateTime
 internal val eventInfoMapper = { id: String, name: String, formattedAddress: List<String>,
     _: String, latitude: Double, longitude: Double, _: String,
     startDate: String, endDate: String, _: String?, contactEmail: String?,
-    contactPhone: String?, faqUrl: String, cocUrl: String, _: Long ->
+    contactPhone: String?, faqUrl: String?, cocUrl: String?, _: Long ->
     EventInfo(
         id = id,
         name = name,
@@ -42,7 +42,7 @@ internal val menuMapper = { name: String, dish: String, accompaniment: String, d
     MenuItem(name = name, dish = dish, accompaniment = accompaniment, dessert = dessert)
 }
 
-internal val cocMapper = { url: String, coc: String?, email: String?, phone: String? ->
+internal val cocMapper = { url: String?, coc: String?, email: String?, phone: String? ->
     CodeOfConduct(url = url, content = coc, phone = phone, email = email)
 }
 

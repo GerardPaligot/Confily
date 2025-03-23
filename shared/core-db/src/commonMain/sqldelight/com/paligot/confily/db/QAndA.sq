@@ -2,7 +2,8 @@ CREATE TABLE QAndA (
 order_ INTEGER NOT NULL PRIMARY KEY,
 event_id TEXT NOT NULL,
 question TEXT NOT NULL,
-response TEXT NOT NULL
+response TEXT NOT NULL,
+language TEXT NOT NULL
 );
 
 CREATE TABLE QAndAAction (
@@ -16,11 +17,11 @@ url TEXT NOT NULL
 
 insertQAndA:
 INSERT OR REPLACE INTO QAndA(
-order_, event_id, question, response
-) VALUES (?, ?, ?, ?);
+order_, event_id, question, response, language
+) VALUES (?, ?, ?, ?, ?);
 
 selectQAndA:
-SELECT order_, question, response FROM QAndA WHERE event_id == ? ORDER BY order_ ASC;
+SELECT order_, question, response FROM QAndA WHERE event_id == ? AND language == ? ORDER BY order_ ASC;
 
 insertQAndAAction:
 INSERT OR REPLACE INTO QAndAAction(

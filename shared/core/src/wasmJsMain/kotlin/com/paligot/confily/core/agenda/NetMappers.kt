@@ -18,7 +18,7 @@ import com.paligot.confily.core.socials.SocialDb
 import com.paligot.confily.core.speakers.SpeakerDb
 import com.paligot.confily.models.Category
 import com.paligot.confily.models.EventLunchMenu
-import com.paligot.confily.models.EventV4
+import com.paligot.confily.models.ExportEvent
 import com.paligot.confily.models.FeaturesActivated
 import com.paligot.confily.models.Format
 import com.paligot.confily.models.Job
@@ -32,7 +32,7 @@ import com.paligot.confily.models.Speaker
 import com.paligot.confily.models.TeamMember
 import kotlin.reflect.KClass
 
-fun EventV4.convertToModelDb(): EventDb = EventDb(
+fun ExportEvent.convertToModelDb(): EventDb = EventDb(
     id = this.id,
     name = this.name,
     formattedAddress = this.address.formatted,
@@ -40,21 +40,22 @@ fun EventV4.convertToModelDb(): EventDb = EventDb(
     latitude = this.address.lat,
     longitude = this.address.lng,
     date = this.startDate,
-    coc = this.coc,
-    openfeedbackProjectId = this.openfeedbackProjectId,
-    contactEmail = contactEmail,
-    contactPhone = contactPhone,
-    socials = this.socials.map { it.convertToDb(eventId = this.id, extId = this.id) },
-    faqUrl = this.faqLink!!,
-    cocUrl = this.codeOfConductLink!!,
+    coc = this.coc.content ?: "",
+    openfeedbackProjectId = this.thirdParty.openfeedbackProjectId,
+    contactEmail = this.contact.email,
+    contactPhone = this.contact.phone,
+    socials = this.contact.socials.map { it.convertToDb(eventId = this.id, extId = this.id) },
+    faqUrl = this.qanda.link,
+    cocUrl = this.coc.link,
     updatedAt = this.updatedAt
 )
 
-fun QuestionAndResponse.convertToModelDb(eventId: String) = QAndADb(
+fun QuestionAndResponse.convertToModelDb(language: String) = QAndADb(
     order = order.toLong(),
     eventId = id,
     question = question,
-    response = response
+    response = response,
+    language = language
 )
 
 fun QuestionAndResponseAction.convertToModelDb(eventId: String, qandaId: String) = QAndAActionDb(

@@ -16,9 +16,7 @@ import com.paligot.confily.core.events.entities.TeamMemberInfo
 import com.paligot.confily.core.events.entities.TeamMemberItem
 import com.paligot.confily.db.ConfilyDatabase
 import com.paligot.confily.models.Attendee
-import com.paligot.confily.models.EventV4
-import com.paligot.confily.models.QuestionAndResponse
-import com.paligot.confily.models.TeamMember
+import com.paligot.confily.models.ExportEvent
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.Flow
@@ -29,6 +27,7 @@ import com.paligot.confily.models.EventItemList as EventItemListNetworking
 
 class EventDaoSQLDelight(
     private val db: ConfilyDatabase,
+    private val language: String,
     private val dispatcher: CoroutineContext
 ) : EventDao {
     override fun fetchEventList(): Flow<EventItemList> = combine(
@@ -45,7 +44,7 @@ class EventDaoSQLDelight(
     override fun fetchQAndA(eventId: String): Flow<ImmutableList<QAndAItem>> =
         db.transactionWithResult {
             return@transactionWithResult combine(
-                db.qAndAQueries.selectQAndA(eventId).asFlow().mapToList(dispatcher),
+                db.qAndAQueries.selectQAndA(eventId, language).asFlow().mapToList(dispatcher),
                 db.qAndAQueries.selectQAndAActions(eventId).asFlow().mapToList(dispatcher),
                 transform = { qAndADb, actionsDb ->
                     qAndADb.map { qanda ->
@@ -110,11 +109,7 @@ class EventDaoSQLDelight(
             )
         }
 
-    override fun insertEvent(
-        event: EventV4,
-        qAndA: List<QuestionAndResponse>,
-        teamMembers: Map<String, List<TeamMember>>
-    ) = db.transaction {
+    override fun insertEvent(event: ExportEvent) = db.transaction {
         val eventDb = event.convertToModelDb()
         db.eventQueries.insertEvent(
             id = eventDb.id,
@@ -134,7 +129,7 @@ class EventDaoSQLDelight(
             coc_url = eventDb.coc_url,
             updated_at = eventDb.updated_at
         )
-        event.socials.forEach {
+        event.contact.socials.forEach {
             db.socialQueries.insertSocial(
                 url = it.url,
                 type = it.type.name.lowercase(),
@@ -142,29 +137,32 @@ class EventDaoSQLDelight(
                 event_id = eventDb.id
             )
         }
-        qAndA.forEach { qAndA ->
-            db.qAndAQueries.insertQAndA(
-                qAndA.order.toLong(),
-                eventDb.id,
-                qAndA.question,
-                qAndA.response
-            )
-            qAndA.actions.forEach {
-                db.qAndAQueries.insertQAndAAction(
-                    id = "${qAndA.id}-${it.order}",
-                    order_ = it.order.toLong(),
+        event.qanda.content.forEach { entry ->
+            entry.value.forEach { qAndA ->
+                db.qAndAQueries.insertQAndA(
+                    order_ = qAndA.order.toLong(),
                     event_id = eventDb.id,
-                    qanda_id = qAndA.order.toLong(),
-                    label = it.label,
-                    url = it.url
+                    question = qAndA.question,
+                    response = qAndA.response,
+                    language = entry.key
                 )
+                qAndA.actions.forEach {
+                    db.qAndAQueries.insertQAndAAction(
+                        id = "${qAndA.id}-${it.order}",
+                        order_ = it.order.toLong(),
+                        event_id = eventDb.id,
+                        qanda_id = qAndA.order.toLong(),
+                        label = it.label,
+                        url = it.url
+                    )
+                }
             }
         }
         event.menus.forEach {
             db.menuQueries.insertMenu(it.name, it.dish, it.accompaniment, it.dessert, event.id)
         }
-        for (index in 0 until teamMembers.size) {
-            val entry = teamMembers.entries.elementAt(index)
+        for (index in 0 until event.team.size) {
+            val entry = event.team.entries.elementAt(index)
             db.teamMemberQueries.insertTeamGroup(
                 name = entry.key,
                 order_ = index.toLong(),
@@ -199,7 +197,7 @@ class EventDaoSQLDelight(
             has_menus = event.features.hasMenus,
             has_qanda = event.features.hasQAndA,
             has_billet_web_ticket = event.features.hasBilletWebTicket,
-            has_team_members = teamMembers.isNotEmpty()
+            has_team_members = event.team.isNotEmpty()
         )
     }
 
