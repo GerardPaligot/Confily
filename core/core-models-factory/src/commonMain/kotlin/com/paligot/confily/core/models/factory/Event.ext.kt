@@ -1,12 +1,16 @@
 package com.paligot.confily.core.models.factory
 
 import com.paligot.confily.models.Address
+import com.paligot.confily.models.CodeOfConduct
+import com.paligot.confily.models.EventContact
 import com.paligot.confily.models.EventLunchMenu
-import com.paligot.confily.models.EventV4
+import com.paligot.confily.models.ExportEvent
 import com.paligot.confily.models.FeaturesActivated
+import com.paligot.confily.models.QAndA
+import com.paligot.confily.models.ThirdParty
 import kotlinx.datetime.Instant
 
-fun EventV4.Companion.builder(): EventBuilder = EventBuilder()
+fun ExportEvent.Companion.builder(): EventBuilder = EventBuilder()
 
 @Suppress("TooManyFunctions")
 class EventBuilder {
@@ -59,21 +63,32 @@ class EventBuilder {
 
     fun updatedAt(updatedAt: Long) = apply { this.updatedAt = updatedAt }
 
-    fun build(): EventV4 = EventV4(
+    fun build(): ExportEvent = ExportEvent(
         id = id,
         name = name,
         address = address,
         startDate = startDate,
         endDate = endDate,
         menus = menus,
-        coc = coc,
-        openfeedbackProjectId = openfeedbackProjectId,
+        coc = CodeOfConduct(
+            content = coc,
+            link = codeOfConductLink
+        ),
+        qanda = QAndA(
+            content = emptyMap(),
+            link = faqLink
+        ),
         features = features,
-        contactPhone = contactPhone,
-        contactEmail = contactEmail,
-        faqLink = faqLink,
-        socials = emptyList(),
-        codeOfConductLink = codeOfConductLink,
+        contact = EventContact(
+            phone = contactPhone,
+            email = contactEmail,
+            socials = emptyList()
+        ),
+        team = emptyMap(),
+        maps = emptyList(),
+        thirdParty = ThirdParty(
+            openfeedbackProjectId = openfeedbackProjectId
+        ),
         updatedAt = updatedAt
     )
 }
