@@ -93,6 +93,13 @@
     <string name="action_partner_video">Presentation video</string>
     <string name="action_power_off">Change event</string>
     <string name="action_export">Export networking</string>
+    <string name="action_game_refresh">Refresh game</string>
+    <string name="action_game_play">Resume game</string>
+    <string name="action_game_pause">Pause game</string>
+    <string name="action_game_left">Move spirit to left</string>
+    <string name="action_game_right">Move spirit to right</string>
+    <string name="action_game_drop">Drop spirit to bottom</string>
+    <string name="action_game_rotate">Rotate spirit</string>
 
     <string name="input_email">Mail (Mandatory)</string>
     <string name="input_firstname">Name (Mandatory)</string>

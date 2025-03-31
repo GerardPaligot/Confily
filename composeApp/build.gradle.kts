@@ -72,6 +72,7 @@ buildkonfig {
         buildConfigField(STRING, "FIREBASE_PROJECT_ID", appProps["FIREBASE_PROJECT_ID"] as String)
         buildConfigField(STRING, "FIREBASE_APP_ID", appProps["FIREBASE_APP_ID"] as String)
         buildConfigField(STRING, "FIREBASE_API_KEY", appProps["FIREBASE_API_KEY"] as String)
+        buildConfigField(STRING, "VERSION_CODE", "$versionMajor.$versionMinor.$versionPatch")
     }
 }
 

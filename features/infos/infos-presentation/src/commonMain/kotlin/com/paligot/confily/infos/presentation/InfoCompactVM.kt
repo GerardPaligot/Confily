@@ -22,6 +22,7 @@ import org.koin.compose.viewmodel.koinViewModel
 fun InfoCompactVM(
     onItineraryClicked: (lat: Double, lng: Double) -> Unit,
     onLinkClicked: (url: String?) -> Unit,
+    onVersionClicked: () -> Unit,
     onTicketScannerClicked: () -> Unit,
     onDisconnectedClicked: () -> Unit,
     onReportByPhoneClicked: (String) -> Unit,
@@ -36,6 +37,7 @@ fun InfoCompactVM(
             EventVM(
                 onLinkClicked = onLinkClicked,
                 onItineraryClicked = onItineraryClicked,
+                onVersionClicked = onVersionClicked,
                 modifier = Modifier.fillMaxSize()
             )
         }
@@ -80,6 +82,7 @@ fun InfoCompactVM(
                         TabActions.event.route -> EventVM(
                             onLinkClicked = onLinkClicked,
                             onItineraryClicked = onItineraryClicked,
+                            onVersionClicked = onVersionClicked,
                             modifier = Modifier.fillMaxSize()
                         )
 

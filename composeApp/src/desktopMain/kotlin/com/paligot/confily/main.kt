@@ -15,6 +15,7 @@ import coil3.util.DebugLogger
 import com.paligot.confily.core.di.ApplicationIdNamed
 import com.paligot.confily.core.di.ConfilyBaseUrlNamed
 import com.paligot.confily.core.di.IsDebugNamed
+import com.paligot.confily.core.di.VersionCodeNamed
 import com.paligot.confily.core.events.EventRepository
 import com.paligot.confily.main.Main
 import com.paligot.confily.main.di.mainModule
@@ -30,6 +31,7 @@ val platformModule: Module = module {
     single(named(IsDebugNamed)) { true }
     single(named(ApplicationIdNamed)) { "com.paligot.confily.jvm" }
     single(named(ConfilyBaseUrlNamed)) { BuildKonfig.BASE_URL }
+    single(named(VersionCodeNamed)) { BuildKonfig.VERSION_CODE }
 }
 
 @OptIn(ExperimentalCoilApi::class, ExperimentalCoroutinesApi::class)

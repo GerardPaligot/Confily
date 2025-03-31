@@ -93,6 +93,13 @@
     <string name="action_partner_video">Vidéo de présentation</string>
     <string name="action_power_off">Changer d'évènement</string>
     <string name="action_export">Exporter les contacts</string>
+    <string name="action_game_refresh">Relancer la partie</string>
+    <string name="action_game_play">Reprendre la partie</string>
+    <string name="action_game_pause">Mettre le jeu en pause</string>
+    <string name="action_game_left">Déplace la pièce à gauche</string>
+    <string name="action_game_right">Déplace la pièce à droite</string>
+    <string name="action_game_drop">Déplace la pièce en bas</string>
+    <string name="action_game_rotate">Tourne la pièce</string>
 
     <string name="input_email">E-mail (Obligatoire)</string>
     <string name="input_firstname">Prénom (Obligatoire)</string>

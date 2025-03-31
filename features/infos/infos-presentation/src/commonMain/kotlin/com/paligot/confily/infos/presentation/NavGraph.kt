@@ -9,6 +9,7 @@ import com.paligot.confily.infos.panes.TicketQrCodeScanner
 import com.paligot.confily.infos.routes.Info
 import com.paligot.confily.infos.routes.ScannerTicket
 import com.paligot.confily.infos.routes.TeamMember
+import com.paligot.confily.infos.routes.TetrisGame
 import com.paligot.confily.schedules.routes.ScheduleList
 
 fun NavGraphBuilder.infoGraph(
@@ -25,6 +26,7 @@ fun NavGraphBuilder.infoGraph(
         InfoCompactVM(
             onItineraryClicked = onItineraryClicked,
             onLinkClicked = { url -> url?.let { launchUrl(it) } },
+            onVersionClicked = { navController.navigate(TetrisGame) },
             onTicketScannerClicked = { navController.navigate(ScannerTicket) },
             onDisconnectedClicked = {
                 navController.navigate(EventList) {
@@ -47,5 +49,8 @@ fun NavGraphBuilder.infoGraph(
     }
     composable<TeamMember> {
         TeamMemberVM(onLinkClicked = launchUrl)
+    }
+    composable<TetrisGame> {
+        TetrisGameVM()
     }
 }

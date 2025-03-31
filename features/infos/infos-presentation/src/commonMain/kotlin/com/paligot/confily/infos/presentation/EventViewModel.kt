@@ -18,7 +18,7 @@ sealed class EventUiState {
     data class Failure(val throwable: Throwable) : EventUiState()
 }
 
-class EventViewModel(repository: EventRepository) : ViewModel() {
+class EventViewModel(repository: EventRepository, versionCode: String) : ViewModel() {
     val uiState: StateFlow<EventUiState> = combine(
         flow = repository.event(),
         flow2 = repository.ticket(),
@@ -27,7 +27,11 @@ class EventViewModel(repository: EventRepository) : ViewModel() {
                 return@combine EventUiState.Failure(NullPointerException("Event not found"))
             }
             EventUiState.Success(
-                EventUi(eventInfo = event.mapToEventInfoUi(), ticket = ticket?.mapToTicketUi())
+                EventUi(
+                    eventInfo = event.mapToEventInfoUi(),
+                    ticket = ticket?.mapToTicketUi(),
+                    versionCode = versionCode
+                )
             )
         }
     ).catch {

@@ -14,6 +14,7 @@ import org.koin.compose.viewmodel.koinViewModel
 fun EventVM(
     onLinkClicked: (url: String?) -> Unit,
     onItineraryClicked: (lat: Double, lng: Double) -> Unit,
+    onVersionClicked: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: EventViewModel = koinViewModel()
 ) {
@@ -22,8 +23,9 @@ fun EventVM(
             event = uiState.event,
             modifier = modifier,
             isLoading = true,
-            onLinkClicked = onLinkClicked,
-            onItineraryClicked = { _, _ -> }
+            onLinkClicked = {},
+            onItineraryClicked = { _, _ -> },
+            onVersionClicked = {}
         )
 
         is EventUiState.Failure -> Text(text = stringResource(Resource.string.text_error))
@@ -31,7 +33,8 @@ fun EventVM(
             event = uiState.event,
             modifier = modifier,
             onLinkClicked = onLinkClicked,
-            onItineraryClicked = onItineraryClicked
+            onItineraryClicked = onItineraryClicked,
+            onVersionClicked = onVersionClicked
         )
     }
 }
