@@ -18,7 +18,8 @@ private fun EventPreview() {
             Event(
                 event = EventUi.fake,
                 onLinkClicked = {},
-                onItineraryClicked = { _, _ -> }
+                onItineraryClicked = { _, _ -> },
+                onVersionClicked = {}
             )
         }
     }

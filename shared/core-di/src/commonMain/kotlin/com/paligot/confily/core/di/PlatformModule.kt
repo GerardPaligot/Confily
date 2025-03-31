@@ -7,5 +7,6 @@ const val ApplicationIdNamed = "ApplicationId"
 const val AcceptLanguageNamed = "Accept-Language"
 const val ConfilyBaseUrlNamed = "ConfilyBaseUrl"
 const val TempFolderPathNamed = "TempFolderPath"
+const val VersionCodeNamed = "VersionCode"
 
 expect val platformModule: Module

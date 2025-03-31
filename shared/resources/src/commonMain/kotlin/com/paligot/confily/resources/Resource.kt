@@ -12,6 +12,13 @@ import confily.shared.resources.generated.resources.action_favorites_add
 import confily.shared.resources.generated.resources.action_favorites_remove
 import confily.shared.resources.generated.resources.action_filtering
 import confily.shared.resources.generated.resources.action_filtering_favorites
+import confily.shared.resources.generated.resources.action_game_drop
+import confily.shared.resources.generated.resources.action_game_left
+import confily.shared.resources.generated.resources.action_game_pause
+import confily.shared.resources.generated.resources.action_game_play
+import confily.shared.resources.generated.resources.action_game_refresh
+import confily.shared.resources.generated.resources.action_game_right
+import confily.shared.resources.generated.resources.action_game_rotate
 import confily.shared.resources.generated.resources.action_generate_qrcode
 import confily.shared.resources.generated.resources.action_networking_delete
 import confily.shared.resources.generated.resources.action_partner_video
@@ -204,6 +211,34 @@ val Resource.string.action_system_settings: StringResource
 @OptIn(ExperimentalResourceApi::class)
 val Resource.string.action_ticket_scanner: StringResource
     get() = Res.string.action_ticket_scanner
+
+@OptIn(ExperimentalResourceApi::class)
+val Resource.string.action_game_refresh: StringResource
+    get() = Res.string.action_game_refresh
+
+@OptIn(ExperimentalResourceApi::class)
+val Resource.string.action_game_play: StringResource
+    get() = Res.string.action_game_play
+
+@OptIn(ExperimentalResourceApi::class)
+val Resource.string.action_game_pause: StringResource
+    get() = Res.string.action_game_pause
+
+@OptIn(ExperimentalResourceApi::class)
+val Resource.string.action_game_left: StringResource
+    get() = Res.string.action_game_left
+
+@OptIn(ExperimentalResourceApi::class)
+val Resource.string.action_game_right: StringResource
+    get() = Res.string.action_game_right
+
+@OptIn(ExperimentalResourceApi::class)
+val Resource.string.action_game_drop: StringResource
+    get() = Res.string.action_game_drop
+
+@OptIn(ExperimentalResourceApi::class)
+val Resource.string.action_game_rotate: StringResource
+    get() = Res.string.action_game_rotate
 
 @OptIn(ExperimentalResourceApi::class)
 val Resource.string.input_company: StringResource

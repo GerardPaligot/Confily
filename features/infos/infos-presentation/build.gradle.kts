@@ -21,8 +21,10 @@ kotlin {
                 implementation(projects.style.components.markdown)
                 implementation(projects.style.events)
                 implementation(projects.style.theme)
+                implementation(projects.games.tetris.tetrisPresentation)
 
                 implementation(compose.components.resources)
+                implementation(compose.materialIconsExtended)
             }
         }
         androidMain {

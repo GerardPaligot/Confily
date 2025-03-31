@@ -1,5 +1,6 @@
 package com.paligot.confily.infos.panes
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -7,9 +8,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
@@ -29,9 +35,11 @@ fun Event(
     event: EventUi,
     onLinkClicked: (url: String) -> Unit,
     onItineraryClicked: (lat: Double, lng: Double) -> Unit,
+    onVersionClicked: () -> Unit,
     modifier: Modifier = Modifier,
     isLoading: Boolean = false
 ) {
+    var versionCodeClick by remember { mutableStateOf(0) }
     LazyColumn(
         modifier = modifier,
         contentPadding = PaddingValues(top = 24.dp, bottom = 72.dp),
@@ -86,6 +94,18 @@ fun Event(
                     onItineraryClicked(event.eventInfo.latitude, event.eventInfo.longitude)
                 },
                 modifier = Modifier.padding(horizontal = 16.dp)
+            )
+        }
+        item {
+            ListItem(
+                headlineContent = { Text(text = "Version: ${event.versionCode}") },
+                modifier = Modifier.clickable {
+                    versionCodeClick++
+                    if (versionCodeClick >= 5) {
+                        onVersionClicked()
+                        versionCodeClick = 0
+                    }
+                }
             )
         }
     }

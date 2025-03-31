@@ -40,7 +40,8 @@ class EventInteractor(
             if (event == null) return@combine null
             EventUi(
                 eventInfo = event.mapToEventInfoUi(),
-                ticket = ticket?.mapToTicketUi()
+                ticket = ticket?.mapToTicketUi(),
+                versionCode = ""
             )
         }
     )

@@ -11,6 +11,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(projects.features.infos.infosPresentation)
+                implementation(projects.games.tetris.tetrisPresentation)
             }
         }
     }
