@@ -49,14 +49,14 @@ data class TrackOP(
 data class SpeakerOP(
     val id: String,
     val name: String,
-    val bio: String?,
-    val photoUrl: String?,
-    val email: String?,
-    val phone: String?,
-    val company: String?,
+    val bio: String? = null,
+    val photoUrl: String? = null,
+    val email: String? = null,
+    val phone: String? = null,
+    val company: String? = null,
     val pronouns: String? = null,
-    val geolocation: String?,
-    val jobTitle: String?,
+    val geolocation: String? = null,
+    val jobTitle: String? = null,
     val socials: List<SocialOP>
 )
 
@@ -71,16 +71,16 @@ data class SocialOP(
 data class SessionOP(
     val id: String,
     val title: String,
-    val abstract: String?,
+    val abstract: String? = null,
     val dateStart: String? = null,
     val dateEnd: String? = null,
     val durationMinutes: Int,
     val speakerIds: List<String>,
     val trackId: String?,
-    val language: String?,
-    val level: String?,
-    val formatId: String?,
-    val categoryId: String?
+    val language: String? = null,
+    val level: String? = null,
+    val formatId: String? = null,
+    val categoryId: String? = null
 )
 
 @Serializable
