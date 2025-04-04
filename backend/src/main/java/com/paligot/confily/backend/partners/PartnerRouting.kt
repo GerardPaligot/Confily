@@ -30,7 +30,7 @@ fun Route.registerAdminPartnersRoutes() {
 
     route("/partners") {
         this.install(PartnersUpdatedAtPlugin)
-        post("/") {
+        post {
             val eventId = call.parameters["eventId"]!!
             val partner = call.receiveValidated<PartnerInput>()
             call.respond(HttpStatusCode.Created, repository.create(eventId, partner))

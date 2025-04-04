@@ -30,7 +30,7 @@ fun Route.registerAdminQAndAsRoutes() {
 
     route("/qanda") {
         this.install(EventUpdatedAtPlugin)
-        post("/") {
+        post {
             val eventId = call.parameters["eventId"]!!
             val qandaInput = call.receiveValidated<QAndAInput>()
             call.respond(HttpStatusCode.Created, repository.create(eventId, qandaInput))

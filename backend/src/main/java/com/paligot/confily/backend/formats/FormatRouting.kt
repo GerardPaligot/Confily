@@ -26,7 +26,7 @@ fun Route.registerAdminFormatsRoutes() {
 
     route("/formats") {
         this.install(PlanningUpdatedAtPlugin)
-        post("/") {
+        post {
             val eventId = call.parameters["eventId"]!!
             val formatInput = call.receiveValidated<FormatInput>()
             call.respond(HttpStatusCode.Created, repository.create(eventId, formatInput))

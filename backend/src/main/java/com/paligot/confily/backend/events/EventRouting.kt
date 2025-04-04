@@ -117,7 +117,7 @@ fun Routing.registerAdminEventRoutes() {
     val repositoryV4 by eventRepositoryV4
 
     route("/events/{eventId}") {
-        put("/") {
+        put {
             val eventId = call.parameters["eventId"]!!
             val input = call.receiveValidated<EventInput>()
             call.respond(HttpStatusCode.OK, repository.update(eventId, input))
@@ -128,7 +128,7 @@ fun Routing.registerAdminEventRoutes() {
         }
         route("/menus") {
             this.install(EventUpdatedAtPlugin)
-            put("/") {
+            put {
                 val eventId = call.parameters["eventId"]!!
                 val input = call.receive<List<LunchMenuInput>>()
                 call.respond(HttpStatusCode.OK, repository.updateMenus(eventId, input))
@@ -136,7 +136,7 @@ fun Routing.registerAdminEventRoutes() {
         }
         route("/coc") {
             this.install(EventUpdatedAtPlugin)
-            put("/") {
+            put {
                 val eventId = call.parameters["eventId"]!!
                 val input = call.receiveValidated<CoCInput>()
                 call.respond(HttpStatusCode.OK, repository.updateCoC(eventId, input))
@@ -144,7 +144,7 @@ fun Routing.registerAdminEventRoutes() {
         }
         route("/features_activated") {
             this.install(EventUpdatedAtPlugin)
-            put("/") {
+            put {
                 val eventId = call.parameters["eventId"]!!
                 val input = call.receiveValidated<FeaturesActivatedInput>()
                 call.respond(HttpStatusCode.OK, repository.updateFeatures(eventId, input))

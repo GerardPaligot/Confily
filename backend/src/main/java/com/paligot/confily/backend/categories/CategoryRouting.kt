@@ -26,11 +26,11 @@ fun Route.registerAdminCategoriesRoutes() {
 
     route("/categories") {
         this.install(PlanningUpdatedAtPlugin)
-        get("/") {
+        get {
             val eventId = call.parameters["eventId"]!!
             call.respond(HttpStatusCode.OK, repository.list(eventId))
         }
-        post("/") {
+        post {
             val eventId = call.parameters["eventId"]!!
             val catInput = call.receiveValidated<CategoryInput>()
             call.respond(HttpStatusCode.Created, repository.create(eventId, catInput))

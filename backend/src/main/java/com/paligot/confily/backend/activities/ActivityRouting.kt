@@ -16,7 +16,7 @@ fun Route.registerAdminActivitiesRoutes() {
     route("/activities") {
         this.install(PartnersUpdatedAtPlugin)
 
-        post("/") {
+        post {
             val eventId = call.parameters["eventId"]!!
             val activity = call.receiveValidated<ActivityInput>()
             call.respond(HttpStatusCode.Created, repository.create(eventId, activity))

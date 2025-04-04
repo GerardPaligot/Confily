@@ -32,7 +32,7 @@ fun Route.registerAdminTalksRoutes() {
 
     route("/talks") {
         this.install(PlanningUpdatedAtPlugin)
-        post("/") {
+        post {
             val eventId = call.parameters["eventId"]!!
             val talkInput = call.receiveValidated<TalkInput>()
             call.respond(HttpStatusCode.Created, repository.create(eventId, talkInput))

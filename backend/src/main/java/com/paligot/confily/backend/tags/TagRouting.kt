@@ -26,7 +26,7 @@ fun Route.registerAdminTagsRoutes() {
 
     route("/tags") {
         this.install(PlanningUpdatedAtPlugin)
-        post("/") {
+        post {
             val eventId = call.parameters["eventId"]!!
             val input = call.receiveValidated<TagInput>()
             call.respond(HttpStatusCode.Created, repository.create(eventId, input))

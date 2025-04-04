@@ -26,7 +26,7 @@ fun Route.registerAdminSpeakersRoutes() {
 
     route("/speakers") {
         this.install(PlanningUpdatedAtPlugin)
-        post("/") {
+        post {
             val eventId = call.parameters["eventId"]!!
             val speaker = call.receiveValidated<SpeakerInput>()
             call.respond(HttpStatusCode.Created, repository.create(eventId, speaker))

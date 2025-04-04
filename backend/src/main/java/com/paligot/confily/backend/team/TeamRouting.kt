@@ -26,7 +26,7 @@ fun Route.registerAdminTeamRoutes() {
 
     route("/team-members") {
         this.install(EventUpdatedAtPlugin)
-        post("/") {
+        post {
             val eventId = call.parameters["eventId"]!!
             val teamMemberInput = call.receiveValidated<TeamMemberInput>()
             call.respond(HttpStatusCode.Created, repository.create(eventId, teamMemberInput))

@@ -33,7 +33,7 @@ fun Route.registerAdminMapRoutes() {
     route("/maps") {
         this.install(EventUpdatedAtPlugin)
 
-        post("/") {
+        post {
             val eventId = call.parameters["eventId"]!!
             val multipartData = call.receiveMultipart()
             call.respond(

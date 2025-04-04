@@ -27,7 +27,7 @@ fun Route.registerAdminSchedulersRoutes() {
 
     route("/schedulers") {
         this.install(PlanningUpdatedAtPlugin)
-        post("/") {
+        post {
             val eventId = call.parameters["eventId"]!!
             val schedule = call.receiveValidated<ScheduleInput>()
             call.respond(HttpStatusCode.Created, repository.create(eventId, schedule))
