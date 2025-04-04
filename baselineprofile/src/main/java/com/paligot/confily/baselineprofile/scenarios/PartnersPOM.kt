@@ -7,22 +7,22 @@ import com.paligot.confily.baselineprofile.waitForObject
 
 class PartnersPOM(private val device: UiDevice) {
     fun open() {
-        device.runAction(DevfestScenario.Partners.tabName) { click() }
+        device.runAction(TestScenario.Partners.tabName) { click() }
     }
 
     fun openFirstItem() {
-        device.runAction(DevfestScenario.Partners.first) { click() }
-        device.waitForObject(DevfestScenario.Partners.detailTitle)
+        device.runAction(TestScenario.Partners.first) { click() }
+        device.waitForObject(TestScenario.Partners.detailTitle)
     }
 
     fun scrollUpDown() {
-        device.runAction(DevfestScenario.Partners.list) {
+        device.runAction(TestScenario.Partners.list) {
             fling(Direction.DOWN)
             fling(Direction.UP)
         }
     }
 
     fun back() {
-        device.runAction(DevfestScenario.back) { click() }
+        device.runAction(TestScenario.back) { click() }
     }
 }

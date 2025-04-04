@@ -8,29 +8,29 @@ import com.paligot.confily.baselineprofile.waitForObject
 
 class AgendaPOM(private val device: UiDevice) {
     fun waitDataFetched() {
-        device.waitForObject(DevfestScenario.Partners.tabName, 40.seconds)
+        device.waitForObject(TestScenario.Partners.tabName, 40.seconds)
     }
 
     fun open() {
-        device.runAction(DevfestScenario.Agenda.tabName) { click() }
+        device.runAction(TestScenario.Agenda.tabName) { click() }
     }
 
     fun openFilters() {
-        device.runAction(DevfestScenario.Agenda.filterAction) { click() }
+        device.runAction(TestScenario.Agenda.filterAction) { click() }
     }
 
     fun openFirstItem() {
-        device.runAction(DevfestScenario.Agenda.first) { click() }
+        device.runAction(TestScenario.Agenda.first) { click() }
     }
 
     fun scrollUpDown() {
-        device.runAction(DevfestScenario.Agenda.list) {
+        device.runAction(TestScenario.Agenda.list) {
             fling(Direction.DOWN)
             fling(Direction.UP)
         }
     }
 
     fun back() {
-        device.runAction(DevfestScenario.back) { click() }
+        device.runAction(TestScenario.back) { click() }
     }
 }

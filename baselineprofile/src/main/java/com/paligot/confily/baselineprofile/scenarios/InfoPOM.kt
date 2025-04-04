@@ -5,14 +5,14 @@ import com.paligot.confily.baselineprofile.runAction
 
 class InfoPOM(private val device: UiDevice) {
     fun open() {
-        device.runAction(DevfestScenario.Info.tabName) { click() }
+        device.runAction(TestScenario.Info.tabName) { click() }
     }
 
     fun expandOverflowMenu() {
-        device.runAction(DevfestScenario.Info.overflowAction) { click() }
+        device.runAction(TestScenario.Info.overflowAction) { click() }
     }
 
     fun changeEventAction() {
-        device.runAction(DevfestScenario.Info.changeEventAction) { click() }
+        device.runAction(TestScenario.Info.changeEventAction) { click() }
     }
 }

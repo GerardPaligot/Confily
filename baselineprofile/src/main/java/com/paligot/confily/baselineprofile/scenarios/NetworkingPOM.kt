@@ -5,6 +5,6 @@ import com.paligot.confily.baselineprofile.runAction
 
 class NetworkingPOM(private val device: UiDevice) {
     fun open() {
-        device.runAction(DevfestScenario.Networking.tabName) { click() }
+        device.runAction(TestScenario.Networking.tabName) { click() }
     }
 }

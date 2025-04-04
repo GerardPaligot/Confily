@@ -5,7 +5,7 @@ import com.paligot.confily.partners.semantics.PartnersSemantics
 import com.paligot.confily.schedules.semantics.SchedulesSemantics
 import com.paligot.confily.speakers.semantics.SpeakersSemantics
 
-object DevfestScenario {
+object TestScenario {
     val back = By.desc("Back")
     object Event {
         val pastEvents = By.text("Past events")

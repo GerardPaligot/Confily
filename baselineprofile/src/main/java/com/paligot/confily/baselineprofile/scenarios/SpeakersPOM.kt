@@ -6,21 +6,21 @@ import com.paligot.confily.baselineprofile.runAction
 
 class SpeakersPOM(private val device: UiDevice) {
     fun open() {
-        device.runAction(DevfestScenario.Speakers.tabName) { click() }
+        device.runAction(TestScenario.Speakers.tabName) { click() }
     }
 
     fun openFirstItem() {
-        device.runAction(DevfestScenario.Speakers.first) { click() }
+        device.runAction(TestScenario.Speakers.first) { click() }
     }
 
     fun scrollUpDown() {
-        device.runAction(DevfestScenario.Speakers.list) {
+        device.runAction(TestScenario.Speakers.list) {
             fling(Direction.DOWN)
             fling(Direction.UP)
         }
     }
 
     fun back() {
-        device.runAction(DevfestScenario.back) { click() }
+        device.runAction(TestScenario.back) { click() }
     }
 }
