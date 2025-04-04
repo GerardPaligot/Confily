@@ -66,7 +66,7 @@ class SessionDaoSQLDelight(
 
     override fun fetchEventSession(eventId: String, sessionId: String): Flow<EventSession> =
         db.eventSessionQueries
-            .selectEventSessionById(eventId, eventSessionMapper)
+            .selectEventSessionById(eventId, sessionId, eventSessionMapper)
             .asFlow()
             .mapToOne(dispatcher)
 
