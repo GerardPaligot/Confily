@@ -69,6 +69,7 @@ buildkonfig {
     defaultConfigs {
         buildConfigField(STRING, "BASE_URL", appProps["BASE_URL"] as String)
         buildConfigField(STRING, "DEFAULT_EVENT", appProps["DEFAULT_EVENT"] as String)
+        buildConfigField(STRING, "DEFAULT_LANGUAGE", appProps["DEFAULT_LANGUAGE"] as String)
         buildConfigField(STRING, "FIREBASE_PROJECT_ID", appProps["FIREBASE_PROJECT_ID"] as String)
         buildConfigField(STRING, "FIREBASE_APP_ID", appProps["FIREBASE_APP_ID"] as String)
         buildConfigField(STRING, "FIREBASE_API_KEY", appProps["FIREBASE_API_KEY"] as String)

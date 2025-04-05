@@ -14,6 +14,7 @@ android {
         getByName("release") {
             stringBuildConfigField("BASE_URL", appProps)
             stringBuildConfigField("EVENT_ID", appProps)
+            stringBuildConfigField("DEFAULT_LANGUAGE", appProps)
             stringBuildConfigField("CONTACT_MAIL", appProps)
             stringBuildConfigField("FIREBASE_PROJECT_ID", appProps)
             stringBuildConfigField("FIREBASE_APP_ID", appProps)
@@ -23,6 +24,7 @@ android {
         getByName("debug") {
             stringBuildConfigField("BASE_URL", appProps)
             stringBuildConfigField("EVENT_ID", appProps)
+            stringBuildConfigField("DEFAULT_LANGUAGE", appProps)
             stringBuildConfigField("CONTACT_MAIL", appProps)
             stringBuildConfigField("FIREBASE_PROJECT_ID", appProps)
             stringBuildConfigField("FIREBASE_APP_ID", appProps)

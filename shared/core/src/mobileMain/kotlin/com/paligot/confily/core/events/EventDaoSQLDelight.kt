@@ -27,7 +27,6 @@ import com.paligot.confily.models.EventItemList as EventItemListNetworking
 
 class EventDaoSQLDelight(
     private val db: ConfilyDatabase,
-    private val language: String,
     private val dispatcher: CoroutineContext
 ) : EventDao {
     override fun fetchEventList(): Flow<EventItemList> = combine(
@@ -41,7 +40,7 @@ class EventDaoSQLDelight(
             .asFlow()
             .mapToOneOrNull(dispatcher)
 
-    override fun fetchQAndA(eventId: String): Flow<ImmutableList<QAndAItem>> =
+    override fun fetchQAndA(eventId: String, language: String): Flow<ImmutableList<QAndAItem>> =
         db.transactionWithResult {
             return@transactionWithResult combine(
                 db.qAndAQueries.selectQAndA(eventId, language).asFlow().mapToList(dispatcher),

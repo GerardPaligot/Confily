@@ -8,6 +8,7 @@ import com.paligot.confily.core.AlarmScheduler
 import com.paligot.confily.core.db.DatabaseWrapper
 import com.paligot.confily.core.di.ApplicationIdNamed
 import com.paligot.confily.core.di.ConfilyBaseUrlNamed
+import com.paligot.confily.core.di.EventDefaultLanguage
 import com.paligot.confily.core.di.IsDebugNamed
 import com.paligot.confily.core.sample.ScheduleWorkManager
 import com.paligot.confily.db.ConfilyDatabase
@@ -22,6 +23,7 @@ actual val instrumentedModule = module {
     single(named(IsDebugNamed)) { true }
     single(named(ApplicationIdNamed)) { "com.paligot.confily.core.test" }
     single(named(ConfilyBaseUrlNamed)) { "" }
+    single(named(EventDefaultLanguage)) { "en" }
     single<AlarmScheduler> {
         AlarmScheduler(
             androidContext(),

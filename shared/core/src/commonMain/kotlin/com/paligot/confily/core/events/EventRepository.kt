@@ -26,7 +26,7 @@ interface EventRepository {
     fun events(): Flow<EventItemList>
     fun event(): Flow<Event?>
     fun ticket(): Flow<UserTicket?>
-    fun qanda(): Flow<ImmutableList<QAndAItem>>
+    fun qanda(language: String): Flow<ImmutableList<QAndAItem>>
     fun menus(): Flow<ImmutableList<MenuItem>>
     fun coc(): Flow<CodeOfConduct>
     fun teamMembers(): Flow<Map<String, List<TeamMemberItem>>>

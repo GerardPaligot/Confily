@@ -17,7 +17,7 @@ import com.paligot.confily.models.EventItemList as EventItemListNetworking
 interface EventDao {
     fun fetchEventList(): Flow<EventItemList>
     fun fetchEvent(eventId: String): Flow<EventInfo?>
-    fun fetchQAndA(eventId: String): Flow<ImmutableList<QAndAItem>>
+    fun fetchQAndA(eventId: String, language: String): Flow<ImmutableList<QAndAItem>>
     fun fetchMenus(eventId: String): Flow<ImmutableList<MenuItem>>
     fun fetchCoC(eventId: String): Flow<CodeOfConduct>
     fun fetchTeamMembers(eventId: String): Flow<Map<String, List<TeamMemberItem>>>

@@ -73,8 +73,8 @@ internal class EventRepositoryImpl(
     override fun ticket(): Flow<UserTicket?> = settings.fetchEventId()
         .flatMapConcat { userDao.fetchUserTicket(eventId = it) }
 
-    override fun qanda(): Flow<ImmutableList<QAndAItem>> = settings.fetchEventId()
-        .flatMapConcat { eventDao.fetchQAndA(eventId = it) }
+    override fun qanda(language: String): Flow<ImmutableList<QAndAItem>> = settings.fetchEventId()
+        .flatMapConcat { eventDao.fetchQAndA(eventId = it, language = language) }
 
     override fun menus(): Flow<ImmutableList<MenuItem>> = settings.fetchEventId()
         .flatMapConcat { eventDao.fetchMenus(eventId = it) }

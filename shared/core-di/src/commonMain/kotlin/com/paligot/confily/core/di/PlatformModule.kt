@@ -5,6 +5,7 @@ import org.koin.core.module.Module
 const val IsDebugNamed = "IsDebug"
 const val ApplicationIdNamed = "ApplicationId"
 const val AcceptLanguageNamed = "Accept-Language"
+const val EventDefaultLanguage = "EventDefaultLanguage"
 const val ConfilyBaseUrlNamed = "ConfilyBaseUrl"
 const val TempFolderPathNamed = "TempFolderPath"
 const val VersionCodeNamed = "VersionCode"

@@ -1,5 +1,7 @@
 package com.paligot.confily.infos.di
 
+import com.paligot.confily.core.di.AcceptLanguageNamed
+import com.paligot.confily.core.di.EventDefaultLanguage
 import com.paligot.confily.core.di.VersionCodeNamed
 import com.paligot.confily.core.di.repositoriesModule
 import com.paligot.confily.games.tetris.presentation.GameViewModel
@@ -22,7 +24,13 @@ val infosModule = module {
     viewModel { EventViewModel(get(), get(named(VersionCodeNamed))) }
     viewModel { InfoViewModel(get()) }
     viewModel { MenusViewModel(get()) }
-    viewModel { QAndAListViewModel(get()) }
+    viewModel {
+        QAndAListViewModel(
+            locale = get(named(AcceptLanguageNamed)),
+            defaultLanguage = get(named(EventDefaultLanguage)),
+            repository = get()
+        )
+    }
     viewModel { TeamMemberListViewModel(get()) }
     viewModelOf(::TeamMemberViewModel)
     viewModelOf(::MapItemListViewModel)

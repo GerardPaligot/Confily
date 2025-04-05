@@ -43,7 +43,7 @@ class EventDaoSettings(
     override fun fetchEvent(eventId: String): Flow<EventInfo?> =
         eventQueries.selectEvent(eventId).map(EventDb::convertToEntity)
 
-    override fun fetchQAndA(eventId: String): Flow<ImmutableList<QAndAItem>> = combine(
+    override fun fetchQAndA(eventId: String, language: String): Flow<ImmutableList<QAndAItem>> = combine(
         flow = qAndAQueries.selectQAndA(eventId),
         flow2 = qAndAQueries.selectQAndAActions(eventId),
         transform = { qAndADb, actionsDb ->

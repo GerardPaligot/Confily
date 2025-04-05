@@ -24,6 +24,9 @@ val buildConfigModule = module {
     single(named(ConfilyBaseUrlNamed)) {
         NSBundle.mainBundle.objectForInfoDictionaryKey(key = "BASE_URL_C4H") as String
     }
+    single(named(EventDefaultLanguage)) {
+        NSBundle.mainBundle.objectForInfoDictionaryKey(key = "DEFAULT_LANGUAGE") as String
+    }
 }
 
 class RepositoryHelper : KoinComponent {
