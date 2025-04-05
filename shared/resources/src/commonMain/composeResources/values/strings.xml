@@ -102,8 +102,8 @@
     <string name="action_game_rotate">Rotate spirit</string>
 
     <string name="input_email">Mail (Mandatory)</string>
-    <string name="input_firstname">Name (Mandatory)</string>
-    <string name="input_lastname">Nickname (Mandatory)</string>
+    <string name="input_firstname">First name (Mandatory)</string>
+    <string name="input_lastname">Last name (Mandatory)</string>
     <string name="input_company">Company</string>
     <string name="input_share_talk">%1$s by %2$s</string>
 

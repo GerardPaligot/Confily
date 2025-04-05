@@ -62,9 +62,9 @@ class ProfileInputViewModel(
         if (email == "") return@launch
         repository.insertUserInfo(
             UserInfo(
-                firstName = email,
-                lastName = profile.firstName,
-                email = profile.lastName,
+                firstName = profile.firstName,
+                lastName = profile.lastName,
+                email = email,
                 company = profile.company,
                 qrCode = null
             )

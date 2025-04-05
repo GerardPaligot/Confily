@@ -51,7 +51,7 @@ fun MyProfileScreen(
         verticalArrangement = Arrangement.spacedBy(32.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        if (!isInPreview && profileUi.qrCode != null) {
+        if (!isInPreview && profileUi.qrCode != null && profileUi.qrCode?.isEmpty() == false) {
             item {
                 val qrCodeBitmap = remember(profileUi.qrCode) {
                     profileUi.qrCode!!.decodeToImageBitmap()
