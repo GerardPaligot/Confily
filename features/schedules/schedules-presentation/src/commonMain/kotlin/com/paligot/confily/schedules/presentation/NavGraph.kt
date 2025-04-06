@@ -30,8 +30,7 @@ fun NavGraphBuilder.scheduleGraph(
     exitTransition: ExitTransition,
     popExitTransition: ExitTransition,
     onShareClicked: (text: String) -> Unit,
-    onItineraryClicked: (lat: Double, lng: Double) -> Unit,
-    onScheduleStarted: () -> Unit
+    onItineraryClicked: (lat: Double, lng: Double) -> Unit
 ) {
     composable<ScheduleList>(
         enterTransition = { fadeIn() },
@@ -42,7 +41,6 @@ fun NavGraphBuilder.scheduleGraph(
             (adaptiveInfo.widthSizeClass.isMedium && isPortrait)
         val isSmallSize = adaptiveInfo.heightSizeClass.isCompat
         ScheduleGridAdaptive(
-            onScheduleStarted = onScheduleStarted,
             onFilterClicked = { scope.launch { navController.navigate(ScheduleFilters) } },
             onTalkClicked = { scope.launch { navController.navigate(Schedule(it)) } },
             onEventSessionClicked = { scope.launch { navController.navigate(ScheduleEvent(it)) } },

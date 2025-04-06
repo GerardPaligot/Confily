@@ -60,8 +60,7 @@ class FilteringScheduleTest {
                         isPortrait = true,
                         adaptiveInfo = WindowSizeClass.calculateFromSize(
                             size = DpSize(width = 240.dp, height = 600.dp)
-                        ),
-                        onScheduleStarted = {}
+                        )
                     )
                 }
             }

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cafe.adriel.lyricist.Lyricist
 import com.paligot.confily.core.AlarmScheduler
+import com.paligot.confily.core.events.EventRepository
 import com.paligot.confily.core.schedules.SessionRepository
 import com.paligot.confily.core.schedules.entities.Sessions
 import com.paligot.confily.core.schedules.entities.mapToListUi
@@ -19,11 +20,13 @@ import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
@@ -38,6 +41,7 @@ data class ScheduleUi(
     val topActionsUi: TopActionsUi,
     val tabActionsUi: TabActionsUi,
     val tabIndexSelected: Int?,
+    val refreshing: Boolean,
     val schedules: ImmutableList<AgendaUi>
 )
 
@@ -51,27 +55,32 @@ sealed class ScheduleGridUiState {
 @ExperimentalCoroutinesApi
 class ScheduleGridViewModel(
     sessionRepository: SessionRepository,
+    private val eventRepository: EventRepository,
     lyricist: Lyricist<Strings>,
     private val alarmScheduler: AlarmScheduler
 ) : ViewModel() {
+    private val _refreshing = MutableStateFlow(value = false)
     private val _countFilters = sessionRepository.countFilters()
     private val _sessions = sessionRepository.sessions()
     val uiState: StateFlow<ScheduleGridUiState> =
         combine(
-            flow = _countFilters,
-            flow2 = _sessions,
-            transform = { countFilters, sessions ->
+            flow = _refreshing,
+            flow2 = _countFilters,
+            flow3 = _sessions,
+            transform = { refreshing, countFilters, sessions ->
                 if (sessions.sessions.isNotEmpty()) {
-                    val scheduleUi = sessions.mapToUiModel(countFilters, lyricist.strings)
                     ScheduleGridUiState.Success(
-                        scheduleUi
+                        sessions.mapToUiModel(
+                            refreshing = refreshing,
+                            countFilters = countFilters,
+                            strings = lyricist.strings
+                        )
                     )
                 } else {
                     ScheduleGridUiState.Loading(persistentListOf(AgendaUi.fake))
                 }
             }
         ).catch {
-            it.printStackTrace()
             emit(ScheduleGridUiState.Failure(it))
         }.stateIn(
             scope = viewModelScope,
@@ -82,12 +91,19 @@ class ScheduleGridViewModel(
     fun markAsFavorite(talkItem: TalkItemUi) = viewModelScope.launch {
         alarmScheduler.schedule(talkItem)
     }
+
+    fun refreshing() = viewModelScope.launch {
+        _refreshing.update { true }
+        eventRepository.fetchAndStoreAgenda()
+        _refreshing.update { false }
+    }
 }
 
-private fun Sessions.mapToUiModel(countFilters: Int, strings: Strings): ScheduleUi = ScheduleUi(
+private fun Sessions.mapToUiModel(refreshing: Boolean, countFilters: Int, strings: Strings): ScheduleUi = ScheduleUi(
     topActionsUi = countFilters.mapToTopActions(),
     tabActionsUi = mapToTabActions(),
     tabIndexSelected = tabSelected(),
+    refreshing = refreshing,
     schedules = mapToListUi(strings)
 )
 

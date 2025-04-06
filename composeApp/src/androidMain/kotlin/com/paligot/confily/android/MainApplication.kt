@@ -1,6 +1,10 @@
 package com.paligot.confily.android
 
 import android.app.Application
+import androidx.work.Constraints
+import androidx.work.NetworkType
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import coil3.ImageLoader
 import coil3.PlatformContext
 import coil3.SingletonImageLoader
@@ -39,6 +43,15 @@ class MainApplication : Application(), SingletonImageLoader.Factory, KoinCompone
             workManagerFactory()
             modules(appModule)
         }
+
+        val workManager = WorkManager.getInstance(this)
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+        val request = OneTimeWorkRequestBuilder<ScheduleWorkManager>()
+            .setConstraints(constraints)
+            .build()
+        workManager.enqueue(request)
     }
 
     override fun newImageLoader(context: PlatformContext): ImageLoader =

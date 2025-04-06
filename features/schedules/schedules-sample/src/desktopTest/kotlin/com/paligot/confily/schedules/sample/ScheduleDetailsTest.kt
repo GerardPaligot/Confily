@@ -52,8 +52,7 @@ class ScheduleDetailsTest {
                     LocalLifecycleOwner provides lifecycleOwner
                 ) {
                     App(
-                        isPortrait = true,
-                        onScheduleStarted = {}
+                        isPortrait = true
                     )
                 }
             }

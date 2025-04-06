@@ -43,7 +43,6 @@ fun MainNavigation(
     onReportByEmailClicked: (String) -> Unit,
     onShareClicked: (text: String) -> Unit,
     onItineraryClicked: (lat: Double, lng: Double) -> Unit,
-    onScheduleStarted: () -> Unit,
     onProfileCreated: () -> Unit,
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
@@ -109,8 +108,7 @@ fun MainNavigation(
                     exitTransition = exitSlideInHorizontal(),
                     popExitTransition = popExistSlideInHorizontal(),
                     onShareClicked = onShareClicked,
-                    onItineraryClicked = onItineraryClicked,
-                    onScheduleStarted = onScheduleStarted
+                    onItineraryClicked = onItineraryClicked
                 )
                 speakerGraph(
                     isLandscape = isPortrait.not(),

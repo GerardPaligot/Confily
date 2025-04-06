@@ -26,7 +26,6 @@ fun Main(
     onReportByEmailClicked: (String) -> Unit,
     onShareClicked: (text: String) -> Unit,
     onItineraryClicked: (lat: Double, lng: Double) -> Unit,
-    onScheduleStarted: () -> Unit,
     onProfileCreated: () -> Unit,
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
@@ -47,7 +46,6 @@ fun Main(
                     onReportByEmailClicked = onReportByEmailClicked,
                     onShareClicked = onShareClicked,
                     onItineraryClicked = onItineraryClicked,
-                    onScheduleStarted = onScheduleStarted,
                     onProfileCreated = onProfileCreated,
                     modifier = modifier,
                     navController = navController
