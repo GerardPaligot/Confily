@@ -21,7 +21,9 @@ fun Partners.mapToPartnersActivitiesUi(): PartnersActivitiesUi = PartnersActivit
         groups = groups
             .map { (type, partners) ->
                 PartnerGroupUi(
-                    type = type.name,
+                    type = type.name
+                        .split(" ")
+                        .joinToString(" ") { it.replaceFirstChar { it.uppercase() } },
                     partners = partners.map { it.mapToPartnerItemUi() }.toImmutableList()
                 )
             }
