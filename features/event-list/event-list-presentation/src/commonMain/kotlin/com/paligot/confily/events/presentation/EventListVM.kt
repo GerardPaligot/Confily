@@ -20,7 +20,7 @@ fun EventListVM(
 ) {
     val loadEvent = viewModel.loadEvent.collectAsStateWithLifecycle().value
     LaunchedEffect(loadEvent) {
-        if (loadEvent) {
+        if (loadEvent == false) {
             onEventLoaded()
         }
     }
@@ -37,7 +37,7 @@ fun EventListVM(
             events = uiState.events,
             onEventClicked = viewModel::savedEventId,
             modifier = modifier,
-            isLoading = loadEvent
+            isLoading = loadEvent ?: false
         )
     }
 }

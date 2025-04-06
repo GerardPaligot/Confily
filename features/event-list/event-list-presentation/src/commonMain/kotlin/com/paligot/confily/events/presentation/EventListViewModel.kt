@@ -21,8 +21,8 @@ sealed class EventListUiState {
 }
 
 class EventListViewModel(private val repository: EventRepository) : ViewModel() {
-    private val _loadEvent = MutableStateFlow(value = false)
-    val loadEvent: StateFlow<Boolean> = _loadEvent
+    private val _loadEvent = MutableStateFlow<Boolean?>(value = null)
+    val loadEvent: StateFlow<Boolean?> = _loadEvent
     val uiState: StateFlow<EventListUiState> = repository.events()
         .map { EventListUiState.Success(it.mapToEventItemListUi()) as EventListUiState }
         .catch { emit(EventListUiState.Failure(it)) }
