@@ -2,7 +2,6 @@
 package com.paligot.confily
 
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import coil3.ImageLoader
@@ -21,7 +20,7 @@ import com.paligot.confily.core.events.EventRepository
 import com.paligot.confily.main.Main
 import com.paligot.confily.main.di.mainModule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.FlowPreview
 import org.koin.compose.KoinApplication
 import org.koin.compose.koinInject
 import org.koin.core.module.Module
@@ -36,13 +35,12 @@ val platformModule: Module = module {
     single(named(VersionCodeNamed)) { BuildKonfig.VERSION_CODE }
 }
 
-@OptIn(ExperimentalCoilApi::class, ExperimentalCoroutinesApi::class)
+@OptIn(ExperimentalCoilApi::class, ExperimentalCoroutinesApi::class, FlowPreview::class)
 fun main() = application {
     Window(
         onCloseRequest = ::exitApplication,
         title = "Confily"
     ) {
-        val scope = rememberCoroutineScope()
         setSingletonImageLoaderFactory { context ->
             ImageLoader.Builder(context)
                 .crossfade(true)
@@ -59,6 +57,7 @@ fun main() = application {
             val eventRepository = koinInject<EventRepository>()
             LaunchedEffect(Unit) {
                 eventRepository.isInitialized(BuildKonfig.DEFAULT_EVENT)
+                eventRepository.fetchAndStoreAgenda()
             }
             Main(
                 defaultEvent = BuildKonfig.DEFAULT_EVENT,
@@ -69,9 +68,6 @@ fun main() = application {
                 onReportByEmailClicked = { email -> println("onReportByEmailClicked: $email") },
                 onShareClicked = { text -> println("onShareClicked: $text") },
                 onItineraryClicked = { lat, lng -> println("onItineraryClicked: $lat, $lng") },
-                onScheduleStarted = {
-                    scope.launch { eventRepository.fetchAndStoreAgenda() }
-                },
                 onProfileCreated = { println("onProfileCreated") }
             )
         }

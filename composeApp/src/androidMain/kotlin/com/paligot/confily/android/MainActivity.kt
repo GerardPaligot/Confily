@@ -20,10 +20,6 @@ import androidx.core.content.FileProvider
 import androidx.glance.appwidget.updateAll
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import androidx.work.Constraints
-import androidx.work.NetworkType
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkManager
 import com.paligot.confily.BuildKonfig
 import com.paligot.confily.android.widgets.NetworkingAppWidget
 import com.paligot.confily.main.Main
@@ -53,7 +49,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        val workManager = WorkManager.getInstance(this)
         setContent {
             val inDarkTheme = isSystemInDarkTheme()
             DisposableEffect(inDarkTheme) {
@@ -118,15 +113,6 @@ class MainActivity : ComponentActivity() {
                     }
                     val shareIntent = Intent.createChooser(intent, null)
                     startActivity(shareIntent)
-                },
-                onScheduleStarted = {
-                    val constraints = Constraints.Builder()
-                        .setRequiredNetworkType(NetworkType.CONNECTED)
-                        .build()
-                    val request = OneTimeWorkRequestBuilder<ScheduleWorkManager>()
-                        .setConstraints(constraints)
-                        .build()
-                    workManager.enqueue(request)
                 },
                 onProfileCreated = {
                     scope.launch { NetworkingAppWidget().updateAll(context = this@MainActivity) }

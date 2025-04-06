@@ -16,9 +16,11 @@ private fun ScheduleListScreenPreview() {
         Scaffold {
             ScheduleGridScreen(
                 agenda = AgendaUi.fake,
+                isRefreshing = true,
                 onTalkClicked = {},
                 onEventSessionClicked = {},
-                onFavoriteClicked = { }
+                onFavoriteClicked = { },
+                onRefresh = {}
             )
         }
     }
@@ -32,9 +34,11 @@ private fun ScheduleListScreenLandscapePreview() {
         Scaffold {
             ScheduleGridScreen(
                 agenda = AgendaUi.fake,
+                isRefreshing = false,
                 onTalkClicked = {},
                 onEventSessionClicked = {},
-                onFavoriteClicked = { }
+                onFavoriteClicked = { },
+                onRefresh = {}
             )
         }
     }

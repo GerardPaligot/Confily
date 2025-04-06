@@ -17,7 +17,6 @@ import com.paligot.confily.core.di.ConfilyBaseUrlNamed
 import com.paligot.confily.core.di.IsDebugNamed
 import com.paligot.confily.core.events.EventRepository
 import com.paligot.confily.schedules.di.scheduleModule
-import kotlinx.coroutines.launch
 import org.koin.compose.KoinApplication
 import org.koin.compose.koinInject
 import org.koin.core.module.Module
@@ -55,10 +54,7 @@ fun main() = application {
                 eventRepository.isInitialized(BuildKonfig.DEFAULT_EVENT)
             }
             App(
-                isPortrait = false,
-                onScheduleStarted = {
-                    scope.launch { eventRepository.fetchAndStoreAgenda() }
-                }
+                isPortrait = false
             )
         }
     }

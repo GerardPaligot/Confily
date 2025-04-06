@@ -25,11 +25,13 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun ScheduleGridPager(
     agendas: ImmutableList<AgendaUi>,
+    isRefreshing: Boolean,
     tabSelected: Int?,
     onTalkClicked: (id: String) -> Unit,
     onEventSessionClicked: (id: String) -> Unit,
     onFilterClicked: () -> Unit,
     onFavoriteClicked: (TalkItemUi) -> Unit,
+    onRefresh: () -> Unit,
     modifier: Modifier = Modifier,
     state: LazyGridState = rememberLazyGridState(),
     topActionsUi: TopActionsUi = TopActionsUi(),
@@ -67,9 +69,11 @@ fun ScheduleGridPager(
         ) { page ->
             ScheduleGridScreen(
                 agenda = agendas[page],
+                isRefreshing = isRefreshing,
                 onTalkClicked = onTalkClicked,
                 onEventSessionClicked = onEventSessionClicked,
                 onFavoriteClicked = onFavoriteClicked,
+                onRefresh = onRefresh,
                 isSmallSize = isSmallSize,
                 isLoading = isLoading,
                 state = state

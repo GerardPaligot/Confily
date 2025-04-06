@@ -20,7 +20,6 @@ import kotlinx.coroutines.FlowPreview
 )
 @Composable
 fun ScheduleGridAdaptive(
-    onScheduleStarted: () -> Unit,
     onFilterClicked: () -> Unit,
     onTalkClicked: (id: String) -> Unit,
     onEventSessionClicked: (id: String) -> Unit,
@@ -37,13 +36,12 @@ fun ScheduleGridAdaptive(
         modifier = modifier,
         mainPane = {
             ScheduleGridVM(
-                onScheduleStarted = onScheduleStarted,
                 onFilterClicked = onFilterClicked,
                 onTalkClicked = onTalkClicked,
                 onEventSessionClicked = onEventSessionClicked,
                 showFilterIcon = showFilterIcon,
-                isSmallSize = isSmallSize,
-                state = state
+                state = state,
+                isSmallSize = isSmallSize
             )
         },
         supportingPane = {

@@ -5,7 +5,6 @@ import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import com.paligot.confily.resources.Resource
@@ -21,7 +20,6 @@ import org.koin.compose.viewmodel.koinViewModel
 @FlowPreview
 @Composable
 fun ScheduleGridVM(
-    onScheduleStarted: () -> Unit,
     onFilterClicked: () -> Unit,
     onTalkClicked: (id: String) -> Unit,
     onEventSessionClicked: (id: String) -> Unit,
@@ -31,18 +29,17 @@ fun ScheduleGridVM(
     isSmallSize: Boolean = false,
     viewModel: ScheduleGridViewModel = koinViewModel()
 ) {
-    LaunchedEffect(key1 = Unit) {
-        onScheduleStarted()
-    }
     when (val uiState = viewModel.uiState.collectAsState().value) {
         is ScheduleGridUiState.Loading -> ScheduleGridPager(
             agendas = uiState.agenda,
+            isRefreshing = false,
             tabSelected = null,
             pagerState = rememberPagerState(pageCount = { 1 }),
             onTalkClicked = {},
             onEventSessionClicked = {},
             onFilterClicked = {},
             onFavoriteClicked = {},
+            onRefresh = {},
             isLoading = true,
             state = state
         )
@@ -50,6 +47,7 @@ fun ScheduleGridVM(
         is ScheduleGridUiState.Failure -> Text(text = stringResource(Resource.string.text_error))
         is ScheduleGridUiState.Success -> ScheduleGridPager(
             agendas = uiState.scheduleUi.schedules,
+            isRefreshing = uiState.scheduleUi.refreshing,
             tabSelected = uiState.scheduleUi.tabIndexSelected,
             topActionsUi = if (!showFilterIcon) TopActionsUi() else uiState.scheduleUi.topActionsUi,
             tabActionsUi = uiState.scheduleUi.tabActionsUi,
@@ -57,6 +55,7 @@ fun ScheduleGridVM(
             onEventSessionClicked = onEventSessionClicked,
             onFilterClicked = onFilterClicked,
             onFavoriteClicked = viewModel::markAsFavorite,
+            onRefresh = viewModel::refreshing,
             modifier = modifier,
             isSmallSize = isSmallSize,
             isLoading = false,

@@ -14,8 +14,7 @@ import com.paligot.confily.style.theme.ConfilyTheme
 @Composable
 fun App(
     isPortrait: Boolean,
-    adaptiveInfo: WindowSizeClass = adaptiveInfo(),
-    onScheduleStarted: () -> Unit
+    adaptiveInfo: WindowSizeClass = adaptiveInfo()
 ) {
     val navController = rememberNavController()
     ConfilyTheme {
@@ -34,8 +33,7 @@ fun App(
                     exitTransition = ExitTransition.None,
                     popExitTransition = ExitTransition.None,
                     onShareClicked = {},
-                    onItineraryClicked = { _, _ -> },
-                    onScheduleStarted = onScheduleStarted
+                    onItineraryClicked = { _, _ -> }
                 )
             }
         )
