@@ -5,11 +5,13 @@ import androidx.lifecycle.viewModelScope
 import com.paligot.confily.core.events.EventRepository
 import com.paligot.confily.core.events.entities.mapToEventItemListUi
 import com.paligot.confily.events.ui.models.EventItemListUi
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 sealed class EventListUiState {
@@ -19,6 +21,8 @@ sealed class EventListUiState {
 }
 
 class EventListViewModel(private val repository: EventRepository) : ViewModel() {
+    private val _loadEvent = MutableStateFlow(value = false)
+    val loadEvent: StateFlow<Boolean> = _loadEvent
     val uiState: StateFlow<EventListUiState> = repository.events()
         .map { EventListUiState.Success(it.mapToEventItemListUi()) as EventListUiState }
         .catch { emit(EventListUiState.Failure(it)) }
@@ -35,6 +39,9 @@ class EventListViewModel(private val repository: EventRepository) : ViewModel() 
     }
 
     fun savedEventId(eventId: String) = viewModelScope.launch {
+        _loadEvent.update { true }
         repository.saveEventId(eventId)
+        repository.fetchAndStoreAgenda()
+        _loadEvent.update { false }
     }
 }

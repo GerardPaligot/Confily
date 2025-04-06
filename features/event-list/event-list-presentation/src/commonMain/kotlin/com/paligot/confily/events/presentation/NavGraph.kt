@@ -11,7 +11,7 @@ fun NavGraphBuilder.eventGraph(
 ) {
     composable<EventList> {
         EventListVM(
-            onEventClicked = {
+            onEventLoaded = {
                 navController.navigate(ScheduleList) {
                     this.popUpTo(EventList) {
                         inclusive = true
