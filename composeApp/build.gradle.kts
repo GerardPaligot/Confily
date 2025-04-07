@@ -9,9 +9,9 @@ plugins {
     id("androidx.baselineprofile")
 }
 
-val versionMajor = 3
-val versionMinor = 4
-val versionPatch = 1
+val versionMajor = 4
+val versionMinor = 0
+val versionPatch = 0
 android {
     namespace = "com.paligot.confily.android"
 
