@@ -52,11 +52,26 @@ fun Route.registerAdminTalksRoutes() {
                 message = verbatims
             )
         }
+        post("/verbatim/permissions") {
+            val eventId = call.parameters["eventId"]!!
+            val verbatim = call.receiveValidated<TalkVerbatimInput>()
+            val verbatims = repository.verbatimPermissions(eventId, verbatim)
+            call.respond(
+                status = if (verbatims.isEmpty()) HttpStatusCode.NoContent else HttpStatusCode.Created,
+                message = verbatims
+            )
+        }
         post("/{id}/verbatim") {
             val eventId = call.parameters["eventId"]!!
             val talkId = call.parameters["id"]!!
             val verbatim = call.receiveValidated<TalkVerbatimInput>()
             call.respond(HttpStatusCode.Created, repository.verbatim(eventId, talkId, verbatim))
+        }
+        post("/{id}/verbatim/permissions") {
+            val eventId = call.parameters["eventId"]!!
+            val talkId = call.parameters["id"]!!
+            val verbatim = call.receiveValidated<TalkVerbatimInput>()
+            call.respond(HttpStatusCode.Created, repository.verbatimPermissions(eventId, talkId, verbatim))
         }
     }
 }

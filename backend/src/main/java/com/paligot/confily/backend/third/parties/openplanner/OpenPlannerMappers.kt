@@ -219,7 +219,8 @@ fun TalkDb.mergeWith(sessionOP: SessionOP) = TalkDb(
     },
     speakerIds = if (speakerIds == sessionOP.speakerIds) speakerIds else sessionOP.speakerIds,
     linkSlides = linkSlides,
-    linkReplay = linkReplay
+    linkReplay = linkReplay,
+    driveFolderId = driveFolderId
 )
 
 fun EventSessionDb.mergeWith(sessionOP: SessionOP) = EventSessionDb(

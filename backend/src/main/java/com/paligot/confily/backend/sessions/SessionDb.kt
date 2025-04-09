@@ -18,7 +18,8 @@ data class TalkDb(
     val language: String = "",
     val speakerIds: List<String> = emptyList(),
     val linkSlides: String? = null,
-    val linkReplay: String? = null
+    val linkReplay: String? = null,
+    val driveFolderId: String? = null
 ) : SessionDb(id, title)
 
 data class EventSessionDb(

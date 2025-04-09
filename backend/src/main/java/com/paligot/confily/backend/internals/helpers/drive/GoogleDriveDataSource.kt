@@ -15,6 +15,22 @@ class GoogleDriveDataSource(private val service: Drive) : DriveDataSource {
         return drives.drives.find { it.name == name }?.id
     }
 
+    override fun findFolderById(id: String, name: String, parentId: String?, driveId: String?): String? {
+        val query = "name='${name.replace("'", "\\'")}'${parentId?.let { " and parents='$parentId'" } ?: run { "" }}"
+        val files = service.files().list().apply {
+            if (driveId != null) {
+                this.driveId = driveId
+                includeItemsFromAllDrives = true
+                supportsAllDrives = true
+                corpora = "drive"
+            }
+            pageSize = PageSize
+            fields = "nextPageToken, files(id, name)"
+            this.q = query
+        }.execute().files
+        return files.find { it.id == id }?.id
+    }
+
     override fun findFolderByName(name: String, parentId: String?, driveId: String?): String? {
         return service.files().list().apply {
             if (driveId != null) {
@@ -25,7 +41,7 @@ class GoogleDriveDataSource(private val service: Drive) : DriveDataSource {
             }
             pageSize = PageSize
             fields = "nextPageToken, files(id)"
-            this.q = "name='$name'${parentId?.let { " and parents='$parentId'" } ?: run { "" }}"
+            this.q = "name='${name.replace("'", "\\'")}'${parentId?.let { " and parents='$parentId'" } ?: run { "" }}"
         }.execute().files.firstOrNull()?.id
     }
 
@@ -39,7 +55,7 @@ class GoogleDriveDataSource(private val service: Drive) : DriveDataSource {
             }
             pageSize = PageSize
             fields = "nextPageToken, files(id)"
-            this.q = "name='$name'${parentId?.let { " and parents='$parentId'" } ?: run { "" }}"
+            this.q = "name='${name.replace("'", "\\'")}'${parentId?.let { " and parents='$parentId'" } ?: run { "" }}"
         }.execute().files.firstOrNull()?.id
     }
 
@@ -64,7 +80,7 @@ class GoogleDriveDataSource(private val service: Drive) : DriveDataSource {
     override fun copyFile(name: String, fileId: String, driveId: String?): String {
         val file = File().apply {
             this.name = name
-            this.mimeType = "application/vnd.google-apps.spreadsheet"
+            this.mimeType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
             if (driveId != null) {
                 parents = listOf(driveId)
             }
@@ -89,14 +105,23 @@ class GoogleDriveDataSource(private val service: Drive) : DriveDataSource {
     }
 
     override fun grantPermission(fileId: String, email: String): String? {
+        if (email == "maximeclement93+cfp@gmail.com") return fileId
         val userPermission: Permission = Permission().apply {
             type = "user"
             role = "writer"
             emailAddress = email
         }
-        return service.permissions().create(fileId, userPermission).apply {
+        service.permissions().create(fileId, userPermission).apply {
             supportsAllDrives = true
-            fields = "id"
-        }.execute().id
+        }.execute()
+        return fileId
+    }
+
+    override fun hasPermission(fileId: String, email: String): Boolean {
+        val list = service.permissions().list(fileId).apply {
+            supportsAllDrives = true
+            fields = "permissions(emailAddress)"
+        }.execute()
+        return list.permissions.find { it.emailAddress == email } != null
     }
 }
