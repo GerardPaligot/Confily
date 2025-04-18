@@ -24,7 +24,7 @@ class EventViewModel(repository: EventRepository, versionCode: String) : ViewMod
         flow2 = repository.ticket(),
         transform = { event, ticket ->
             if (event == null) {
-                return@combine EventUiState.Failure(NullPointerException("Event not found"))
+                return@combine EventUiState.Loading(EventUi.fake)
             }
             EventUiState.Success(
                 EventUi(
