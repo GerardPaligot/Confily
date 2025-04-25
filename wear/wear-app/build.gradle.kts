@@ -7,6 +7,10 @@ plugins {
     id("confily.quality")
 }
 
+val appProps = rootProject.file("config/app.properties").toProperties()
+val versionMajor = appProps["VERSION_MAJOR"]?.toString()?.toInt() ?: 1
+val versionMinor = appProps["VERSION_MINOR"]?.toString()?.toInt() ?: 0
+val versionPatch = appProps["VERSION_PATCH"]?.toString()?.toInt() ?: 0
 android {
     namespace = "com.paligot.confily.wear"
     compileSdk = 35
@@ -15,8 +19,8 @@ android {
         applicationId = "com.paligot.confily.wear"
         minSdk = 30
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = versionMajor * 1000 + versionMinor * 100 + versionPatch * 10
+        versionName = "$versionMajor.$versionMinor.$versionPatch"
         vectorDrawables {
             useSupportLibrary = true
         }

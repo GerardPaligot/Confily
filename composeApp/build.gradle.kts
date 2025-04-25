@@ -9,9 +9,10 @@ plugins {
     id("androidx.baselineprofile")
 }
 
-val versionMajor = 4
-val versionMinor = 0
-val versionPatch = 0
+val appProps = rootProject.file("config/app.properties").toProperties()
+val versionMajor = appProps["VERSION_MAJOR"]?.toString()?.toInt() ?: 1
+val versionMinor = appProps["VERSION_MINOR"]?.toString()?.toInt() ?: 0
+val versionPatch = appProps["VERSION_PATCH"]?.toString()?.toInt() ?: 0
 android {
     namespace = "com.paligot.confily.android"
 
@@ -62,7 +63,6 @@ android {
     }
 }
 
-val appProps = rootProject.file("config/app.properties").toProperties()
 buildkonfig {
     packageName = "com.paligot.confily"
 
