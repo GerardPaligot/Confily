@@ -19,7 +19,11 @@ sealed class ListEventUiState {
 
 class ListEventViewModel(private val repository: EventRepository) : ViewModel() {
     val uiState = repository.events()
-        .map { EventsModelUi(it.past.map(EventItem::mapToEventItemModelUi).toImmutableList()) }
+        .map {
+            val past = it.past.map(EventItem::mapToEventItemModelUi)
+            val future = it.future.map(EventItem::mapToEventItemModelUi)
+            EventsModelUi((future + past).toImmutableList())
+        }
         .map { ListEventUiState.Success(it) }
         .stateIn(
             scope = viewModelScope,
