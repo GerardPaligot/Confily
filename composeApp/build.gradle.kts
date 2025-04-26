@@ -13,12 +13,13 @@ val appProps = rootProject.file("config/app.properties").toProperties()
 val versionMajor = appProps["VERSION_MAJOR"]?.toString()?.toInt() ?: 1
 val versionMinor = appProps["VERSION_MINOR"]?.toString()?.toInt() ?: 0
 val versionPatch = appProps["VERSION_PATCH"]?.toString()?.toInt() ?: 0
+val versionBuild = appProps["VERSION_BUILD"]?.toString()?.toInt() ?: 0
 android {
     namespace = "com.paligot.confily.android"
 
     defaultConfig {
         applicationId = "com.paligot.confily.android"
-        versionCode = versionMajor * 1000 + versionMinor * 100 + versionPatch * 10
+        versionCode = versionMajor * 1000 + versionMinor * 100 + versionPatch * 10 + versionBuild
         versionName = "$versionMajor.$versionMinor.$versionPatch"
     }
     sourceSets.getByName("main").manifest.srcFile("src/androidMain/AndroidManifest.xml")
@@ -29,13 +30,13 @@ android {
         create("release") {
             keyAlias = keystoreProps.getProperty("keyAlias")
             keyPassword = keystoreProps.getProperty("keyPassword")
-            storeFile = file("keystore.release")
+            storeFile = rootProject.file("./config/keystore.release")
             storePassword = keystoreProps.getProperty("keyPassword")
         }
         getByName("debug") {
             keyAlias = "debug"
             keyPassword = "android"
-            storeFile = file("./keystore.debug")
+            storeFile = rootProject.file("./config/keystore.debug")
             storePassword = "android"
         }
     }
@@ -78,7 +79,7 @@ buildkonfig {
 }
 
 baselineProfile {
-    automaticGenerationDuringBuild = true
+    automaticGenerationDuringBuild = false
 }
 
 kotlin {
