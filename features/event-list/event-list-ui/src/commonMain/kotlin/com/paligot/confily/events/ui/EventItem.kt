@@ -10,6 +10,8 @@ import androidx.compose.ui.semantics.SemanticsPropertyReceiver
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import com.paligot.confily.events.ui.models.EventItemUi
 import com.paligot.confily.style.components.placeholder.placeholder
+import com.paligot.confily.style.theme.ConfilyTheme
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun EventItem(
@@ -47,5 +49,16 @@ fun Modifier.clearSemantics(
         this.then(Modifier.clearAndSetSemantics(properties))
     } else {
         this
+    }
+}
+
+@Preview
+@Composable
+private fun EventItemPreview() {
+    ConfilyTheme {
+        EventItem(
+            item = EventItemUi.fake,
+            onClick = {}
+        )
     }
 }

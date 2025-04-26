@@ -3,6 +3,8 @@ package com.paligot.confily.style.speakers.avatar
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -10,7 +12,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.unit.dp
 import coil3.compose.rememberAsyncImagePainter
+import com.paligot.confily.style.theme.ConfilyTheme
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun MediumSpeakerAvatar(
@@ -74,4 +79,33 @@ internal fun SpeakerAvatar(
             .clip(shape),
         contentScale = contentScale
     )
+}
+
+@Preview
+@Composable
+private fun MediumSpeakerAvatarPreview() {
+    ConfilyTheme {
+        Column {
+            MediumSpeakerAvatar(
+                url = "",
+                contentDescription = null
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun LargeSpeakerAvatarPreview() {
+    ConfilyTheme {
+        Column {
+            LargeSpeakerAvatar(
+                url = "",
+                contentDescription = null,
+                modifier = Modifier
+                    .size(200.dp)
+                    .aspectRatio(1f)
+            )
+        }
+    }
 }

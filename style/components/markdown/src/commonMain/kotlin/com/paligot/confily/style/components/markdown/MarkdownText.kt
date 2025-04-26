@@ -7,6 +7,8 @@ import androidx.compose.ui.text.TextStyle
 import com.mikepenz.markdown.compose.Markdown
 import com.mikepenz.markdown.m3.markdownColor
 import com.mikepenz.markdown.m3.markdownTypography
+import com.paligot.confily.style.theme.ConfilyTheme
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun MarkdownText(
@@ -21,4 +23,14 @@ fun MarkdownText(
         typography = markdownTypography(bodyTextStyle),
         modifier = modifier
     )
+}
+
+@Preview
+@Composable
+private fun MarkdownTextPreview() {
+    ConfilyTheme {
+        MarkdownText(
+            text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+        )
+    }
 }

@@ -5,6 +5,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import com.paligot.confily.style.theme.ConfilyTheme
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun Time(
@@ -19,4 +21,12 @@ fun Time(
         style = style,
         color = color
     )
+}
+
+@Preview
+@Composable
+private fun TimePreview() {
+    ConfilyTheme {
+        Time(time = "10:00")
+    }
 }

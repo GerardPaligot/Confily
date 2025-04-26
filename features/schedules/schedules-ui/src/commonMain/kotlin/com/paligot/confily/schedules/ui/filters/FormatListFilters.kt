@@ -3,6 +3,7 @@ package com.paligot.confily.schedules.ui.filters
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -11,9 +12,12 @@ import com.paligot.confily.resources.title_filters_formats
 import com.paligot.confily.schedules.ui.models.FormatUi
 import com.paligot.confily.style.schedules.filters.FilterSection
 import com.paligot.confily.style.schedules.findTimeImageVector
+import com.paligot.confily.style.theme.ConfilyTheme
 import com.paligot.confily.style.theme.chips.FilterChip
 import kotlinx.collections.immutable.ImmutableMap
+import kotlinx.collections.immutable.persistentMapOf
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -38,6 +42,22 @@ fun FormatListFilters(
                     onClick = { onClick(entry.key.id, it) }
                 )
             }
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun FormatListPreview() {
+    ConfilyTheme {
+        Surface {
+            FormatListFilters(
+                formats = persistentMapOf(
+                    FormatUi.quickie to true,
+                    FormatUi.conference to false
+                ),
+                onClick = { _, _ -> }
+            )
         }
     }
 }

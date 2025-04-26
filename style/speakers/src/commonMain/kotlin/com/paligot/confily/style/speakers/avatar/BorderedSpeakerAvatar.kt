@@ -1,11 +1,14 @@
 package com.paligot.confily.style.speakers.avatar
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
+import com.paligot.confily.style.theme.ConfilyTheme
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun SmallBorderedSpeakerAvatar(
@@ -49,4 +52,30 @@ fun MediumBorderedSpeakerAvatar(
         border = border,
         shape = shape
     )
+}
+
+@Preview
+@Composable
+private fun SmallBorderedSpeakerAvatarPreview() {
+    ConfilyTheme {
+        Column {
+            SmallBorderedSpeakerAvatar(
+                url = "",
+                contentDescription = null
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun MediumBorderedSpeakerAvatarPreview() {
+    ConfilyTheme {
+        Column {
+            MediumBorderedSpeakerAvatar(
+                url = "",
+                contentDescription = null
+            )
+        }
+    }
 }

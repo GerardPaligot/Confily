@@ -11,7 +11,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import com.paligot.confily.navigation.ActionIds
 import com.paligot.confily.navigation.TabActions
-import com.paligot.confily.networking.panes.EmptyNetworkingScreen
+import com.paligot.confily.networking.panes.EmptyNetworkingContent
 import com.paligot.confily.networking.ui.models.ExportNetworkingUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.screen_networking
@@ -35,7 +35,7 @@ fun NetworkingCompactVM(
     val title = stringResource(Resource.string.screen_networking)
     when (val uiState = viewModel.uiState.collectAsState().value) {
         is NetworkingUiState.Loading -> Scaffold(title = title, modifier = modifier) {
-            EmptyNetworkingScreen()
+            EmptyNetworkingContent()
         }
 
         is NetworkingUiState.Success -> {

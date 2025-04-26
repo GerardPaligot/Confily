@@ -6,7 +6,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.paligot.confily.events.panes.EventList
+import com.paligot.confily.events.panes.EventListPane
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.text_error
 import org.jetbrains.compose.resources.stringResource
@@ -25,7 +25,7 @@ fun EventListVM(
         }
     }
     when (val uiState = viewModel.uiState.collectAsState().value) {
-        is EventListUiState.Loading -> EventList(
+        is EventListUiState.Loading -> EventListPane(
             events = uiState.events,
             onEventClicked = {},
             modifier = modifier,
@@ -33,7 +33,7 @@ fun EventListVM(
         )
 
         is EventListUiState.Failure -> Text(text = stringResource(Resource.string.text_error))
-        is EventListUiState.Success -> EventList(
+        is EventListUiState.Success -> EventListPane(
             events = uiState.events,
             onEventClicked = viewModel::savedEventId,
             modifier = modifier,

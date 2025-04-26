@@ -14,12 +14,14 @@ import com.paligot.confily.style.schedules.card.MediumScheduleCard
 import com.paligot.confily.style.schedules.card.SmallScheduleCard
 import com.paligot.confily.style.schedules.findCategoryImageVector
 import com.paligot.confily.style.schedules.findTimeImageVector
+import com.paligot.confily.style.theme.ConfilyTheme
 import com.paligot.confily.style.theme.tags.MediumAutoColoredTag
 import com.paligot.confily.style.theme.tags.MediumTag
 import com.paligot.confily.style.theme.tags.SmallAutoColoredTag
 import com.paligot.confily.style.theme.tags.SmallTag
 import com.paligot.confily.style.theme.tags.TagDefaults
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -138,4 +140,20 @@ fun MediumScheduleItem(
         },
         modifier = modifier
     )
+}
+
+@Preview
+@Composable
+private fun SmallTalkItemPreview() {
+    ConfilyTheme {
+        SmallScheduleItem(talk = TalkItemUi.fake) { }
+    }
+}
+
+@Preview
+@Composable
+private fun MediumTalkItemPreview() {
+    ConfilyTheme {
+        MediumScheduleItem(talk = TalkItemUi.fake) { }
+    }
 }

@@ -11,9 +11,12 @@ import com.paligot.confily.resources.title_filters_categories
 import com.paligot.confily.schedules.ui.models.CategoryUi
 import com.paligot.confily.style.schedules.filters.FilterSection
 import com.paligot.confily.style.schedules.findCategoryImageVector
+import com.paligot.confily.style.theme.ConfilyTheme
 import com.paligot.confily.style.theme.chips.FilterChip
 import kotlinx.collections.immutable.ImmutableMap
+import kotlinx.collections.immutable.persistentMapOf
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -39,5 +42,29 @@ fun CategoryListFilters(
                 )
             }
         }
+    }
+}
+
+@Preview
+@Composable
+private fun CategoryListPreview() {
+    ConfilyTheme {
+        CategoryListFilters(
+            categories = persistentMapOf(
+                CategoryUi.fake to true,
+                CategoryUi.fake to true,
+                CategoryUi.fake to false,
+                CategoryUi.fake to false,
+                CategoryUi.fake to false,
+                CategoryUi.fake to false,
+                CategoryUi.fake to false,
+                CategoryUi.fake to false,
+                CategoryUi.fake to false,
+                CategoryUi.fake to false,
+                CategoryUi.fake to false,
+                CategoryUi.fake to false
+            ),
+            onClick = { _, _ -> }
+        )
     }
 }

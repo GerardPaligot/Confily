@@ -21,8 +21,10 @@ import com.paligot.confily.partners.ui.PartnerDivider
 import com.paligot.confily.partners.ui.models.PartnerGroupsUi
 import com.paligot.confily.style.components.placeholder.placeholder
 import com.paligot.confily.style.partners.items.PartnerItem
+import com.paligot.confily.style.theme.ConfilyTheme
 import com.paligot.confily.style.theme.SpacingTokens
 import com.paligot.confily.style.theme.toDp
+import org.jetbrains.compose.ui.tooling.preview.Preview
 import kotlin.math.floor
 
 const val NbHorizontalPadding = 2
@@ -68,5 +70,16 @@ internal fun PartnersGridContent(
                 }
             }
         }
+    }
+}
+
+@Preview
+@Composable
+private fun PartnersGridContentPreview() {
+    ConfilyTheme {
+        PartnersGridContent(
+            partners = PartnerGroupsUi.fake,
+            onPartnerClick = {}
+        )
     }
 }

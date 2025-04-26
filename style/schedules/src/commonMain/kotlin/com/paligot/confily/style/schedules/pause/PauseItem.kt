@@ -22,12 +22,14 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.TextStyle
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.semantic_pause_item
+import com.paligot.confily.style.theme.ConfilyTheme
 import com.paligot.confily.style.theme.tags.MediumTag
 import com.paligot.confily.style.theme.tags.SmallTag
 import com.paligot.confily.style.theme.tags.TagDefaults
 import com.paligot.confily.style.theme.toDp
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun SmallPauseItem(
@@ -123,5 +125,29 @@ fun MediumPauseItem(
                 )
             }
         }
+    }
+}
+
+@Preview
+@Composable
+private fun SmallPauseItemPreview() {
+    ConfilyTheme {
+        SmallPauseItem(
+            title = "Break",
+            room = "Exposition room",
+            time = "60 minutes"
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun MediumPauseItemPreview() {
+    ConfilyTheme {
+        MediumPauseItem(
+            title = "Break",
+            room = "Exposition room",
+            time = "60 minutes"
+        )
     }
 }

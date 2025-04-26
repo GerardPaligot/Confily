@@ -8,7 +8,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.text_error
-import com.paligot.confily.speakers.panes.SpeakersGridScreen
+import com.paligot.confily.speakers.panes.SpeakersGridPane
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -20,7 +20,7 @@ fun SpeakersGridVM(
     viewModel: SpeakersListViewModel = koinViewModel()
 ) {
     when (val uiState = viewModel.uiState.collectAsState().value) {
-        is SpeakersUiState.Loading -> SpeakersGridScreen(
+        is SpeakersUiState.Loading -> SpeakersGridPane(
             speakers = uiState.speakers,
             onSpeakerClicked = onSpeakerClicked,
             modifier = modifier,
@@ -29,7 +29,7 @@ fun SpeakersGridVM(
         )
 
         is SpeakersUiState.Failure -> Text(text = stringResource(Resource.string.text_error))
-        is SpeakersUiState.Success -> SpeakersGridScreen(
+        is SpeakersUiState.Success -> SpeakersGridPane(
             speakers = uiState.speakers,
             onSpeakerClicked = onSpeakerClicked,
             modifier = modifier,

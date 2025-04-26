@@ -67,7 +67,7 @@ fun ScheduleGridPager(
                 .fillMaxSize(),
             verticalAlignment = Alignment.Top
         ) { page ->
-            ScheduleGridScreen(
+            ScheduleGridContent(
                 agenda = agendas[page],
                 isRefreshing = isRefreshing,
                 onTalkClicked = onTalkClicked,

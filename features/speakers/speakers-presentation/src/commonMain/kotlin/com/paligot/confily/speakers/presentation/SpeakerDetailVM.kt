@@ -6,7 +6,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.text_error
-import com.paligot.confily.speakers.panes.SpeakerDetailOrientable
+import com.paligot.confily.speakers.panes.SpeakerDetailPane
 import com.paligot.confily.style.theme.appbars.AppBarIcons
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
@@ -26,7 +26,7 @@ fun SpeakerDetailVM(
     )
 ) {
     when (val uiState = viewModel.uiState.collectAsState().value) {
-        is SpeakerUiState.Loading -> SpeakerDetailOrientable(
+        is SpeakerUiState.Loading -> SpeakerDetailPane(
             speaker = uiState.speaker,
             onTalkClicked = {},
             onFavoriteClicked = {},
@@ -37,7 +37,7 @@ fun SpeakerDetailVM(
         )
 
         is SpeakerUiState.Failure -> Text(text = stringResource(Resource.string.text_error))
-        is SpeakerUiState.Success -> SpeakerDetailOrientable(
+        is SpeakerUiState.Success -> SpeakerDetailPane(
             speaker = uiState.speaker,
             onTalkClicked = onTalkClicked,
             onFavoriteClicked = viewModel::markAsFavorite,

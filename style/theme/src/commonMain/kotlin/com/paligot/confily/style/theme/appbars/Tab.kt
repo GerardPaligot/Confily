@@ -2,7 +2,9 @@ package com.paligot.confily.style.theme.appbars
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectable
@@ -19,6 +21,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
+import com.paligot.confily.style.theme.ConfilyTheme
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun Tab(
@@ -60,3 +64,22 @@ fun Tab(
 }
 
 private val ContainerHeight = 48.0.dp
+
+@Preview
+@Composable
+private fun TabPreview() {
+    ConfilyTheme {
+        Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            Tab(
+                text = "10 June",
+                selected = true,
+                onClick = {}
+            )
+            Tab(
+                text = "11 June",
+                selected = false,
+                onClick = {}
+            )
+        }
+    }
+}

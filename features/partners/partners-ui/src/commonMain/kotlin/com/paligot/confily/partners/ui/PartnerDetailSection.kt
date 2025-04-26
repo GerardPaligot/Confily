@@ -15,6 +15,8 @@ import com.paligot.confily.socials.ui.SocialsSection
 import com.paligot.confily.style.components.markdown.MarkdownText
 import com.paligot.confily.style.components.placeholder.placeholder
 import com.paligot.confily.style.partners.items.PartnerItem
+import com.paligot.confily.style.theme.ConfilyTheme
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun PartnerDetailSectionVertical(
@@ -50,6 +52,17 @@ fun PartnerDetailSectionVertical(
         MarkdownText(
             text = partnerUi.description,
             modifier = Modifier.placeholder(visible = isLoading)
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun PartnerDetailSectionVerticalPreview() {
+    ConfilyTheme {
+        PartnerDetailSectionVertical(
+            partnerUi = PartnerUi.fake,
+            onLinkClicked = {}
         )
     }
 }

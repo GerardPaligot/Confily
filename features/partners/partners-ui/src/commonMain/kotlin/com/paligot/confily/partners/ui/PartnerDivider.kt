@@ -17,6 +17,8 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import com.paligot.confily.style.theme.ConfilyTheme
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun PartnerDivider(
@@ -53,5 +55,13 @@ fun PartnerDivider(
             )
         }
         Spacer(modifier = Modifier.height(8.dp))
+    }
+}
+
+@Preview
+@Composable
+private fun PartnerDividerPreview() {
+    ConfilyTheme {
+        PartnerDivider(title = "Gold")
     }
 }

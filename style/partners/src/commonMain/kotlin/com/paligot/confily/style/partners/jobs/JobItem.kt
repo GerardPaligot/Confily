@@ -2,6 +2,7 @@ package com.paligot.confily.style.partners.jobs
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Payments
@@ -19,10 +20,12 @@ import com.paligot.confily.resources.text_job_propulsed
 import com.paligot.confily.resources.text_job_requirements_many
 import com.paligot.confily.resources.text_job_requirements_one
 import com.paligot.confily.resources.text_job_salary
+import com.paligot.confily.style.theme.ConfilyTheme
 import com.paligot.confily.style.theme.tags.MediumTag
 import com.paligot.confily.style.theme.tags.TagDefaults
 import com.paligot.confily.style.theme.toDp
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun JobItem(
@@ -94,5 +97,23 @@ fun JobItem(
                 )
             )
         }
+    }
+}
+
+@Preview
+@Composable
+private fun JobItemPreview() {
+    ConfilyTheme {
+        JobItem(
+            title = "Mobile Staff Engineer",
+            description = "Google - Paris, France",
+            requirements = 5,
+            propulsedBy = "WeLoveDevs",
+            salaryMin = 55,
+            salaryMax = 75,
+            salaryRecurrence = "year",
+            onClick = {},
+            modifier = Modifier.fillMaxWidth()
+        )
     }
 }

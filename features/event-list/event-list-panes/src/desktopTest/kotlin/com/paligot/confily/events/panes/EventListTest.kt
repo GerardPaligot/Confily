@@ -35,7 +35,7 @@ class EventListTest {
         rule.setContent {
             tabFuture = stringResource(Resource.string.screen_events_future)
             tabPast = stringResource(Resource.string.screen_events_past)
-            EventList(
+            EventListPane(
                 events = EventItemListUi.fake,
                 onEventClicked = {}
             )
@@ -61,7 +61,7 @@ class EventListTest {
         rule.setContent {
             tabFuture = stringResource(Resource.string.screen_events_future)
             tabPast = stringResource(Resource.string.screen_events_past)
-            EventList(events = EventItemListUi.fake, onEventClicked = {})
+            EventListPane(events = EventItemListUi.fake, onEventClicked = {})
         }
         page.findTabBy(tabFuture).assertIsSelected()
         page.findTabBy(tabPast).assertIsNotSelected()
@@ -79,7 +79,7 @@ class EventListTest {
     fun shouldRemoveEventItemsDuringLoadingMode() {
         val firstEventItem = EventItemListUi.fake.future.first()
         rule.setContent {
-            EventList(events = EventItemListUi.fake, onEventClicked = {}, isLoading = true)
+            EventListPane(events = EventItemListUi.fake, onEventClicked = {}, isLoading = true)
         }
         page.findEventItemContainer().assertCountEquals(1)
         page.filterEventItem(firstEventItem.name, firstEventItem.date).assertCountEquals(0)

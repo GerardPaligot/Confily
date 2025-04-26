@@ -9,7 +9,7 @@ import androidx.compose.ui.graphics.Color
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.text_error
 import com.paligot.confily.resources.text_loading
-import com.paligot.confily.schedules.panes.AgendaFiltersScreen
+import com.paligot.confily.schedules.panes.AgendaFiltersPane
 import com.paligot.confily.style.theme.appbars.AppBarIcons
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
@@ -25,7 +25,7 @@ fun AgendaFiltersCompactVM(
         is AgendaFiltersUiState.Loading -> Text(text = stringResource(Resource.string.text_loading))
         is AgendaFiltersUiState.Failure -> Text(text = stringResource(Resource.string.text_error))
         is AgendaFiltersUiState.Success -> {
-            AgendaFiltersScreen(
+            AgendaFiltersPane(
                 filtersUi = uiState.filters,
                 onFavoriteClick = viewModel::applyFavoriteFilter,
                 onCategoryClick = viewModel::applyCategoryFilter,

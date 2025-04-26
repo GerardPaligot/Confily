@@ -11,7 +11,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.BusinessCenter
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material.icons.outlined.Email
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,9 +27,11 @@ import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.action_networking_delete
 import com.paligot.confily.resources.semantic_user_item_company
 import com.paligot.confily.resources.semantic_user_item_email
+import com.paligot.confily.style.theme.ConfilyTheme
 import com.paligot.confily.style.theme.buttons.IconButton
 import com.paligot.confily.style.theme.toDp
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun UserItem(
@@ -91,5 +96,29 @@ fun UserItem(
             contentDescription = stringResource(Resource.string.action_networking_delete),
             onClick = onClick
         )
+    }
+}
+
+@Preview
+@Composable
+private fun UserItemPreview() {
+    ConfilyTheme {
+        Surface {
+            Column {
+                UserItem(
+                    displayName = "Gerard Paligot",
+                    email = "gerard@gmail.com",
+                    company = "Decathlon",
+                    onClick = {}
+                )
+                HorizontalDivider(color = MaterialTheme.colorScheme.onBackground)
+                UserItem(
+                    displayName = "Gerard Paligot",
+                    email = "gerard@gmail.com",
+                    company = null,
+                    onClick = {}
+                )
+            }
+        }
     }
 }

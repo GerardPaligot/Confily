@@ -4,7 +4,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import com.paligot.confily.partners.panes.PartnerDetailOrientable
+import com.paligot.confily.partners.panes.PartnerDetailPane
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.text_error
 import com.paligot.confily.style.theme.appbars.AppBarIcons
@@ -26,7 +26,7 @@ fun PartnerDetailVM(
     )
 ) {
     when (val uiState = viewModel.uiState.collectAsState().value) {
-        is PartnerUiState.Loading -> PartnerDetailOrientable(
+        is PartnerUiState.Loading -> PartnerDetailPane(
             partnerUi = uiState.partner,
             onLinkClicked = {},
             onItineraryClicked = { _, _ -> },
@@ -37,7 +37,7 @@ fun PartnerDetailVM(
         )
 
         is PartnerUiState.Failure -> Text(text = stringResource(Resource.string.text_error))
-        is PartnerUiState.Success -> PartnerDetailOrientable(
+        is PartnerUiState.Success -> PartnerDetailPane(
             partnerUi = uiState.partner,
             onLinkClicked = onLinkClicked,
             onItineraryClicked = onItineraryClicked,

@@ -10,9 +10,12 @@ import androidx.compose.ui.Modifier
 import com.paligot.confily.schedules.ui.models.SpeakerItemUi
 import com.paligot.confily.style.components.placeholder.placeholder
 import com.paligot.confily.style.speakers.items.LargeSpeakerItem
+import com.paligot.confily.style.theme.ConfilyTheme
 import com.paligot.confily.style.theme.SpacingTokens
 import com.paligot.confily.style.theme.toDp
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun SpeakerItemRow(
@@ -38,5 +41,16 @@ fun SpeakerItemRow(
                 )
             }
         }
+    }
+}
+
+@Preview
+@Composable
+private fun SpeakerItemRowPreview() {
+    ConfilyTheme {
+        SpeakerItemRow(
+            speakers = persistentListOf(SpeakerItemUi.fake, SpeakerItemUi.fake),
+            onSpeakerItemClick = {}
+        )
     }
 }

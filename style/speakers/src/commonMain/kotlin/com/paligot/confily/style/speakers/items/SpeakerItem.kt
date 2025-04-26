@@ -14,7 +14,9 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import com.paligot.confily.style.speakers.avatar.LargeSpeakerAvatar
+import com.paligot.confily.style.theme.ConfilyTheme
 import com.paligot.confily.style.theme.toDp
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun LargeSpeakerItem(
@@ -59,5 +61,18 @@ fun LargeSpeakerItem(
                 )
             }
         }
+    }
+}
+
+@Preview
+@Composable
+private fun SpeakerItemPreview() {
+    ConfilyTheme {
+        LargeSpeakerItem(
+            name = "Gérard Paligot",
+            description = "Senior Staff Engineer @Decathlon DIgital",
+            url = "",
+            onClick = {}
+        )
     }
 }
