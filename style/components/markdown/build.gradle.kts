@@ -31,6 +31,7 @@ kotlin {
                 implementation(projects.style.theme)
 
                 implementation(compose.material3)
+                implementation(compose.components.uiToolingPreview)
 
                 implementation(libs.markdown.renderer.m3)
             }

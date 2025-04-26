@@ -25,12 +25,14 @@ import com.paligot.confily.resources.input_firstname
 import com.paligot.confily.resources.input_lastname
 import com.paligot.confily.resources.screen_profile
 import com.paligot.confily.resources.text_networking_consents
+import com.paligot.confily.style.theme.ConfilyTheme
 import com.paligot.confily.style.theme.appbars.TopAppBar
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @ExperimentalMaterial3Api
 @Composable
-fun ProfileInputScreen(
+fun ProfileInputPane(
     profile: UserProfileUi,
     onValueChanged: (Field, String) -> Unit,
     onValidation: () -> Unit,
@@ -114,3 +116,19 @@ fun ProfileInputScreen(
 
 fun isProfileInputFormValid(profile: UserProfileUi): Boolean =
     profile.email.isNotEmpty() && profile.firstName.isNotEmpty() && profile.lastName.isNotEmpty()
+
+@ExperimentalMaterial3Api
+@Preview
+@Composable
+private fun ProfileInputScreenPreview() {
+    ConfilyTheme {
+        Scaffold {
+            ProfileInputPane(
+                profile = UserProfileUi.fake,
+                onValueChanged = { _, _ -> },
+                onValidation = {},
+                onBackClicked = {}
+            )
+        }
+    }
+}

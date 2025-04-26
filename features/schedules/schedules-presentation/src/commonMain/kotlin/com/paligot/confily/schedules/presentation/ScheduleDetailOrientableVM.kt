@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.text_error
 import com.paligot.confily.resources.text_loading
-import com.paligot.confily.schedules.panes.ScheduleDetailOrientableScreen
+import com.paligot.confily.schedules.panes.ScheduleDetailPane
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
@@ -32,7 +32,7 @@ fun ScheduleDetailOrientableVM(
             when (val uiState = viewModel.uiState.collectAsState().value) {
                 is ScheduleUiState.Loading -> Text(text = stringResource(Resource.string.text_loading))
                 is ScheduleUiState.Failure -> Text(text = stringResource(Resource.string.text_error))
-                is ScheduleUiState.Success -> ScheduleDetailOrientableScreen(
+                is ScheduleUiState.Success -> ScheduleDetailPane(
                     session = uiState.talk,
                     onBackClicked = onBackClicked,
                     onSpeakerClicked = onSpeakerClicked,

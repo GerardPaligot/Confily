@@ -27,6 +27,8 @@ import androidx.compose.ui.unit.dp
 import com.paligot.confily.infos.ui.models.QuestionAndResponseUi
 import com.paligot.confily.style.components.markdown.MarkdownText
 import com.paligot.confily.style.components.placeholder.placeholder
+import com.paligot.confily.style.theme.ConfilyTheme
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 private const val ExpandedDegrees = 180f
 private const val ClosedDegrees = 0f
@@ -88,5 +90,29 @@ fun QAndAItem(
                 }
             )
         }
+    }
+}
+
+@Preview
+@Composable
+private fun QAndAItemPreview() {
+    ConfilyTheme {
+        QAndAItem(
+            qAndA = QuestionAndResponseUi.fake,
+            onExpandedClicked = {},
+            onLinkClicked = {}
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun QAndAItemExpandedPreview() {
+    ConfilyTheme {
+        QAndAItem(
+            qAndA = QuestionAndResponseUi.fake.copy(expanded = true),
+            onExpandedClicked = {},
+            onLinkClicked = {}
+        )
     }
 }

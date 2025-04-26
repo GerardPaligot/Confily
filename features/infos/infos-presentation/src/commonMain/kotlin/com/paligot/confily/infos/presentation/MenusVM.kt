@@ -5,7 +5,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import com.paligot.confily.infos.panes.MenusScreen
+import com.paligot.confily.infos.panes.MenusContent
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.text_error
 import org.jetbrains.compose.resources.stringResource
@@ -18,14 +18,14 @@ fun MenusVM(
     viewModel: MenusViewModel = koinViewModel()
 ) {
     when (val uiState = viewModel.uiState.collectAsState().value) {
-        is MenusUiState.Loading -> MenusScreen(
+        is MenusUiState.Loading -> MenusContent(
             menuItems = uiState.menus,
             modifier = modifier,
             isLoading = true
         )
 
         is MenusUiState.Failure -> Text(text = stringResource(Resource.string.text_error))
-        is MenusUiState.Success -> MenusScreen(
+        is MenusUiState.Success -> MenusContent(
             menuItems = uiState.menus,
             modifier = modifier,
             isLoading = false

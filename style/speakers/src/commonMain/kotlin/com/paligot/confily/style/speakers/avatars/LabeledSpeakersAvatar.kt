@@ -8,8 +8,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import com.paligot.confily.style.theme.ConfilyTheme
 import com.paligot.confily.style.theme.toDp
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun SmallLabeledSpeakersAvatar(
@@ -26,5 +29,16 @@ fun SmallLabeledSpeakersAvatar(
     ) {
         SmallBorderedSpeakersAvatar(urls = urls, descriptions = null)
         Text(text = label, style = style, color = color)
+    }
+}
+
+@Preview
+@Composable
+private fun SmallLabeledSpeakersAvatarPreview() {
+    ConfilyTheme {
+        SmallLabeledSpeakersAvatar(
+            label = "John Doe and Janne Doe",
+            urls = persistentListOf("", "")
+        )
     }
 }

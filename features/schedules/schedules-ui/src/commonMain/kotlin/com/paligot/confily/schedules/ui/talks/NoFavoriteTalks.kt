@@ -13,7 +13,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.text_agenda_no_favorites
+import com.paligot.confily.style.theme.ConfilyTheme
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun NoFavoriteTalks(
@@ -27,5 +29,13 @@ fun NoFavoriteTalks(
             color = color,
             modifier = Modifier.padding(horizontal = 50.dp).align(Alignment.Center)
         )
+    }
+}
+
+@Preview
+@Composable
+private fun NoFavoriteTalksPreview() {
+    ConfilyTheme {
+        NoFavoriteTalks()
     }
 }

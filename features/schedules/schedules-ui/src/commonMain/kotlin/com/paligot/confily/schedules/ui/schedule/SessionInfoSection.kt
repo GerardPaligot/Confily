@@ -30,13 +30,16 @@ import com.paligot.confily.schedules.ui.models.SpeakerItemUi
 import com.paligot.confily.style.schedules.findCategoryImageVector
 import com.paligot.confily.style.schedules.findTimeImageVector
 import com.paligot.confily.style.speakers.avatars.MediumBorderedSpeakersAvatar
+import com.paligot.confily.style.theme.ConfilyTheme
 import com.paligot.confily.style.theme.tags.MediumAutoColoredTag
 import com.paligot.confily.style.theme.tags.MediumTag
 import com.paligot.confily.style.theme.tags.SmallTag
 import com.paligot.confily.style.theme.tags.TagDefaults
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -113,5 +116,16 @@ fun SessionInfoSection(
                 }
             }
         }
+    }
+}
+
+@Preview
+@Composable
+private fun SessionInfoSectionPreview() {
+    ConfilyTheme {
+        SessionInfoSection(
+            info = SessionInfoUi.fake,
+            speakers = persistentListOf(SpeakerItemUi.fake)
+        )
     }
 }

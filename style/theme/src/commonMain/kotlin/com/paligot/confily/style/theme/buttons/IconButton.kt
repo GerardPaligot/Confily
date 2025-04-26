@@ -1,6 +1,8 @@
 package com.paligot.confily.style.theme.buttons
 
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
@@ -11,6 +13,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import com.paligot.confily.style.theme.ConfilyTheme
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun IconButton(
@@ -37,6 +41,18 @@ fun IconButton(
             imageVector = imageVector,
             contentDescription = contentDescription,
             modifier = Modifier.size(24.dp)
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun IconButtonPreview() {
+    ConfilyTheme {
+        IconButton(
+            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+            contentDescription = null,
+            onClick = {}
         )
     }
 }

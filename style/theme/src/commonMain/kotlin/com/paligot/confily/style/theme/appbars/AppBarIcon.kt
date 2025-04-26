@@ -12,7 +12,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.action_back
+import com.paligot.confily.style.theme.ConfilyTheme
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 object AppBarIcons {
     @Composable
@@ -48,5 +50,14 @@ internal fun AppBarIcon(
             imageVector = imageVector,
             contentDescription = contentDescription
         )
+    }
+}
+
+@Preview
+@Composable
+private fun AppBarIconPreview() {
+    ConfilyTheme {
+        AppBarIcons.Back {
+        }
     }
 }

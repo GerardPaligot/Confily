@@ -14,6 +14,8 @@ import com.paligot.confily.speakers.ui.models.SpeakerInfoUi
 import com.paligot.confily.style.components.markdown.MarkdownText
 import com.paligot.confily.style.components.placeholder.placeholder
 import com.paligot.confily.style.speakers.avatar.MediumSpeakerAvatar
+import com.paligot.confily.style.theme.ConfilyTheme
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun SpeakerDetailSectionVertical(
@@ -48,6 +50,17 @@ fun SpeakerDetailSectionVertical(
         MarkdownText(
             text = info.bio,
             modifier = Modifier.placeholder(visible = isLoading)
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun SpeakerDetailSectionVerticalPreview() {
+    ConfilyTheme {
+        SpeakerDetailSectionVertical(
+            info = SpeakerInfoUi.fake,
+            onLinkClicked = {}
         )
     }
 }

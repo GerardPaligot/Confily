@@ -23,8 +23,11 @@ import androidx.compose.ui.unit.dp
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.semantic_start_itinerary
 import com.paligot.confily.style.components.placeholder.placeholder
+import com.paligot.confily.style.theme.ConfilyTheme
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun AddressCard(
@@ -76,5 +79,20 @@ fun AddressCard(
                 }
             }
         }
+    }
+}
+
+@Preview
+@Composable
+private fun AddressCardPreview() {
+    ConfilyTheme {
+        AddressCard(
+            formattedAddress = persistentListOf(
+                "Lille Grand Palais",
+                "Bd des Cités Unies 1",
+                "Lille"
+            ),
+            onItineraryClicked = {}
+        )
     }
 }

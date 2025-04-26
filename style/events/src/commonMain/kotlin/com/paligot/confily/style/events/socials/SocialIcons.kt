@@ -1,10 +1,13 @@
 package com.paligot.confily.style.events.socials
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Language
 import androidx.compose.material.icons.outlined.Mail
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.semantic_bluesky
 import com.paligot.confily.resources.semantic_email
@@ -25,9 +28,11 @@ import com.paligot.confily.style.events.ic_linkedin
 import com.paligot.confily.style.events.ic_mastodon
 import com.paligot.confily.style.events.ic_x
 import com.paligot.confily.style.events.ic_youtube
+import com.paligot.confily.style.theme.ConfilyTheme
 import com.paligot.confily.style.theme.buttons.IconButton
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 object SocialIcons {
     @Composable
@@ -168,5 +173,19 @@ object SocialIcons {
             modifier = modifier,
             onClick = onClick
         )
+    }
+}
+
+@Preview
+@Composable
+private fun SocialItemPreview() {
+    ConfilyTheme {
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            SocialIcons.X(text = "", onClick = {})
+            SocialIcons.Mastodon(text = "", onClick = {})
+            SocialIcons.GitHub(text = "", onClick = {})
+            SocialIcons.LinkedIn(text = "", onClick = {})
+            SocialIcons.Website(text = "", onClick = {})
+        }
     }
 }

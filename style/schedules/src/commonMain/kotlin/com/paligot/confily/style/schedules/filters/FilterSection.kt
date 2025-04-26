@@ -7,7 +7,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
+import com.paligot.confily.style.theme.ConfilyTheme
 import com.paligot.confily.style.theme.toDp
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun FilterSection(
@@ -22,5 +24,15 @@ fun FilterSection(
     ) {
         Text(text = title, style = style)
         this.content()
+    }
+}
+
+@Preview
+@Composable
+private fun FilterSectionPreview() {
+    ConfilyTheme {
+        FilterSection(title = "Categories") {
+            Text(text = "Filter content")
+        }
     }
 }

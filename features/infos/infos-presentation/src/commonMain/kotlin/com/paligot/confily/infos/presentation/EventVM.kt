@@ -4,7 +4,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import com.paligot.confily.infos.panes.Event
+import com.paligot.confily.infos.panes.EventContent
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.text_error
 import org.jetbrains.compose.resources.stringResource
@@ -19,7 +19,7 @@ fun EventVM(
     viewModel: EventViewModel = koinViewModel()
 ) {
     when (val uiState = viewModel.uiState.collectAsState().value) {
-        is EventUiState.Loading -> Event(
+        is EventUiState.Loading -> EventContent(
             event = uiState.event,
             modifier = modifier,
             isLoading = true,
@@ -29,7 +29,7 @@ fun EventVM(
         )
 
         is EventUiState.Failure -> Text(text = stringResource(Resource.string.text_error))
-        is EventUiState.Success -> Event(
+        is EventUiState.Success -> EventContent(
             event = uiState.event,
             modifier = modifier,
             onLinkClicked = onLinkClicked,

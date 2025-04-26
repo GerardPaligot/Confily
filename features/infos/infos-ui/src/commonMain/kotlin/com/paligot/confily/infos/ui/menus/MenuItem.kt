@@ -13,6 +13,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.paligot.confily.infos.ui.models.MenuItemUi
 import com.paligot.confily.style.components.placeholder.placeholder
+import com.paligot.confily.style.theme.ConfilyTheme
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun MenuItem(
@@ -42,5 +44,15 @@ fun MenuItem(
                 Text(menuItem.dessert)
             }
         }
+    }
+}
+
+@Preview
+@Composable
+private fun MenuItemPreview() {
+    ConfilyTheme {
+        MenuItem(
+            menuItem = MenuItemUi.fake
+        )
     }
 }

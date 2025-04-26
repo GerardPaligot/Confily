@@ -31,9 +31,12 @@ import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.action_favorites_add
 import com.paligot.confily.resources.action_favorites_remove
 import com.paligot.confily.style.speakers.avatars.SmallLabeledSpeakersAvatar
+import com.paligot.confily.style.theme.ConfilyTheme
 import com.paligot.confily.style.theme.toDp
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -174,5 +177,52 @@ fun MediumScheduleCard(
                 }
             }
         }
+    }
+}
+
+@OptIn(ExperimentalLayoutApi::class)
+@Preview
+@Composable
+private fun SmallScheduleCardPreview() {
+    ConfilyTheme {
+        SmallScheduleCard(
+            title = "Designers x Developers : Ça match \uD83D\uDC99 ou ça match \uD83E\uDD4A ?",
+            speakersUrls = persistentListOf("", ""),
+            speakersLabel = "John Doe and Jeanne Doe",
+            contentDescription = null,
+            onClick = {},
+            onFavoriteClick = {}
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun ScheduleCardPreview() {
+    ConfilyTheme {
+        MediumScheduleCard(
+            title = "Designers x Developers : Ça match \uD83D\uDC99 ou ça match \uD83E\uDD4A ?",
+            speakersUrls = persistentListOf("", ""),
+            speakersLabel = "John Doe and Jeanne Doe",
+            contentDescription = null,
+            onClick = {},
+            onFavoriteClick = {}
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun ScheduleCardFavoritePreview() {
+    ConfilyTheme {
+        MediumScheduleCard(
+            title = "Designers x Developers : Ça match \uD83D\uDC99 ou ça match \uD83E\uDD4A ?",
+            speakersUrls = persistentListOf("", ""),
+            speakersLabel = "John Doe and Jeanne Doe",
+            isFavorite = true,
+            contentDescription = null,
+            onClick = {},
+            onFavoriteClick = {}
+        )
     }
 }

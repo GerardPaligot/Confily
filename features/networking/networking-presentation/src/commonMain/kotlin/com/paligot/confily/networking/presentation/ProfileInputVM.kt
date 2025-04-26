@@ -5,7 +5,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import com.paligot.confily.networking.panes.ProfileInputScreen
+import com.paligot.confily.networking.panes.ProfileInputPane
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.text_error
 import com.paligot.confily.resources.text_loading
@@ -23,7 +23,7 @@ fun ProfileInputVM(
     when (val uiState = viewModel.uiState.collectAsState().value) {
         is ProfileInputUiState.Loading -> Text(text = stringResource(Resource.string.text_loading))
         is ProfileInputUiState.Failure -> Text(text = stringResource(Resource.string.text_error))
-        is ProfileInputUiState.Success -> ProfileInputScreen(
+        is ProfileInputUiState.Success -> ProfileInputPane(
             profile = uiState.profile,
             modifier = modifier,
             onBackClicked = onBackClicked,

@@ -2,6 +2,8 @@ package com.paligot.confily.style.partners.items
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -12,7 +14,9 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import coil3.compose.rememberAsyncImagePainter
+import com.paligot.confily.style.theme.ConfilyTheme
 import com.paligot.confily.style.theme.toDp
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun PartnerItem(
@@ -41,6 +45,21 @@ fun PartnerItem(
             contentDescription = contentDescription,
             contentScale = contentScale,
             modifier = Modifier.padding(PartnerItemTokens.PaddingSpacing.toDp())
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun PartnerItemPreview() {
+    ConfilyTheme {
+        PartnerItem(
+            url = "",
+            contentDescription = "Gerard Inc.",
+            onClick = {},
+            modifier = Modifier
+                .fillMaxWidth()
+                .aspectRatio(1f)
         )
     }
 }

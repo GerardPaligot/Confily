@@ -14,7 +14,9 @@ import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.action_filtering_favorites
 import com.paligot.confily.resources.title_filters_favorites
 import com.paligot.confily.style.schedules.filters.FilterSection
+import com.paligot.confily.style.theme.ConfilyTheme
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun FavoriteFilter(
@@ -39,5 +41,16 @@ fun FavoriteFilter(
             )
             Text(text = stringResource(Resource.string.action_filtering_favorites))
         }
+    }
+}
+
+@Preview
+@Composable
+private fun FavoriteFilterPreview() {
+    ConfilyTheme {
+        FavoriteFilter(
+            isFavorite = true,
+            onClick = {}
+        )
     }
 }

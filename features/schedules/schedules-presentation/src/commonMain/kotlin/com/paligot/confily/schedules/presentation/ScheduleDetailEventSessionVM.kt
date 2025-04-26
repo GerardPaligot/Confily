@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.text_error
 import com.paligot.confily.resources.text_loading
-import com.paligot.confily.schedules.panes.ScheduleDetailEventSessionScreen
+import com.paligot.confily.schedules.panes.EventSessionDetailPane
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
@@ -31,7 +31,7 @@ fun ScheduleDetailEventSessionVM(
             when (val uiState = viewModel.uiState.collectAsState().value) {
                 is ScheduleEventUiState.Loading -> Text(text = stringResource(Resource.string.text_loading))
                 is ScheduleEventUiState.Failure -> Text(text = stringResource(Resource.string.text_error))
-                is ScheduleEventUiState.Success -> ScheduleDetailEventSessionScreen(
+                is ScheduleEventUiState.Success -> EventSessionDetailPane(
                     session = uiState.session,
                     modifier = modifier,
                     onItineraryClicked = onItineraryClicked,

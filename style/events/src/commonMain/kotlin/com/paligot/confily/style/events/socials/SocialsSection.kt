@@ -13,7 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import com.paligot.confily.style.components.placeholder.placeholder
+import com.paligot.confily.style.theme.ConfilyTheme
 import com.paligot.confily.style.theme.toDp
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -151,5 +153,22 @@ fun SocialsSection(
                 }
             }
         }
+    }
+}
+
+@Preview
+@Composable
+private fun SocialsSectionPreview() {
+    ConfilyTheme {
+        SocialsSection(
+            title = "Gérard Paligot",
+            pronouns = "Him/He",
+            subtitle = null,
+            onLinkClicked = {},
+            xUrl = "",
+            githubUrl = "",
+            linkedinUrl = "",
+            websiteUrl = ""
+        )
     }
 }

@@ -4,7 +4,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import com.paligot.confily.networking.panes.ContactsScreen
+import com.paligot.confily.networking.panes.ContactsContent
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.text_error
 import com.paligot.confily.resources.text_loading
@@ -20,7 +20,7 @@ fun ContactsCompactVM(
         is ContactsUiState.Loading -> Text(text = stringResource(Resource.string.text_loading))
         is ContactsUiState.Failure -> Text(text = stringResource(Resource.string.text_error))
         is ContactsUiState.Success -> {
-            ContactsScreen(
+            ContactsContent(
                 users = uiState.users,
                 modifier = modifier,
                 onNetworkDeleted = viewModel::deleteNetworking
