@@ -15,7 +15,7 @@ class MultiplatformLibraryPlugin: Plugin<Project> {
                 apply("org.jetbrains.kotlin.multiplatform")
             }
             extensions.configure<LibraryExtension> {
-                configureKotlinAndroid(this)
+                configureKotlinAndroid()
                 configureKotlinCompiler(jvmVersion = 21)
                 configureDesugaring(this)
                 sourceSets.getByName("main").manifest.srcFile("src/androidMain/AndroidManifest.xml")

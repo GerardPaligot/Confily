@@ -11,6 +11,7 @@ import coil3.network.ktor3.KtorNetworkFetcherFactory
 import coil3.request.crossfade
 import coil3.svg.SvgDecoder
 import coil3.util.DebugLogger
+import com.paligot.confily.BuildKonfig
 import com.paligot.confily.core.di.ApplicationIdNamed
 import com.paligot.confily.core.di.ConfilyBaseUrlNamed
 import com.paligot.confily.core.di.IsDebugNamed
@@ -24,7 +25,7 @@ import org.koin.dsl.module
 
 val platformModule: Module = module {
     single(named(IsDebugNamed)) { true }
-    single(named(ApplicationIdNamed)) { "com.paligot.confily.jvm" }
+    single(named(ApplicationIdNamed)) { BuildKonfig.APP_ID }
     single(named(ConfilyBaseUrlNamed)) { BuildKonfig.BASE_URL }
 }
 

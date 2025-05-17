@@ -1,18 +1,21 @@
 
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
+import com.codingfeline.buildkonfig.gradle.BuildKonfigExtension
+import extensions.appId
+import extensions.appProps
+import extensions.configBuildKonfig
 import extensions.configureDesugaring
 import extensions.configureKotlinAndroid
 import extensions.configureKotlinCompiler
+import extensions.configureSigningConfig
+import extensions.versionCode
+import extensions.versionName
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
-import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.getByType
-import org.jetbrains.compose.ComposeExtension
-import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 class AndroidApplicationPlugin: Plugin<Project> {
     override fun apply(target: Project) {
@@ -26,7 +29,13 @@ class AndroidApplicationPlugin: Plugin<Project> {
                 apply("com.google.firebase.crashlytics")
             }
             extensions.configure<BaseAppModuleExtension> {
-                configureKotlinAndroid(this)
+                defaultConfig {
+                    applicationId = appProps.appId
+                    versionCode = appProps.versionCode
+                    versionName = appProps.versionName
+                }
+                configureSigningConfig(rootProject)
+                configureKotlinAndroid()
                 configureKotlinCompiler(jvmVersion = 21)
                 configureDesugaring(this)
                 defaultConfig.targetSdk = 35

@@ -16,6 +16,8 @@ dependencies {
     implementation(libs.jetbrains.kotlin.gradlePlugin)
     implementation(libs.ktlint.gradlePlugin)
     implementation(libs.detekt.gradlePlugin)
+    implementation(libs.buildkonfig.gradlePlugin)
+    implementation(libs.buildkonfig.compiler)
 }
 
 gradlePlugin {

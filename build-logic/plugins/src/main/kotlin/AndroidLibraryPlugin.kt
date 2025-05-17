@@ -18,7 +18,7 @@ class AndroidLibraryPlugin: Plugin<Project> {
                 apply("org.jetbrains.kotlin.android")
             }
             extensions.configure<LibraryExtension> {
-                configureKotlinAndroid(this)
+                configureKotlinAndroid()
                 configureDesugaring(this)
                 defaultConfig.targetSdk = 35
             }

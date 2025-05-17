@@ -9,6 +9,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.LocalLifecycleOwner
+import com.paligot.confily.BuildKonfig
 import com.paligot.confily.core.events.EventDao
 import com.paligot.confily.core.kvalue.ConferenceSettings
 import com.paligot.confily.core.schedules.SessionDao

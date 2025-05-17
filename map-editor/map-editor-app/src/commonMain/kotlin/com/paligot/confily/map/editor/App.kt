@@ -5,6 +5,7 @@ import androidx.compose.animation.ExitTransition
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import com.paligot.confily.BuildKonfig
 import com.paligot.confily.map.editor.detail.di.mapDetailModule
 import com.paligot.confily.map.editor.detail.presentation.mapDetailGraph
 import com.paligot.confily.map.editor.list.di.mapListModule

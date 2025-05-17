@@ -32,7 +32,7 @@ class MainApplication : Application(), SingletonImageLoader.Factory, KoinCompone
             OpenFeedbackFirebaseConfig(
                 context = this,
                 projectId = BuildKonfig.FIREBASE_PROJECT_ID,
-                applicationId = BuildConfig.APPLICATION_ID,
+                applicationId = BuildKonfig.APP_ID,
                 apiKey = BuildKonfig.FIREBASE_API_KEY,
                 databaseUrl = "https://${BuildKonfig.FIREBASE_PROJECT_ID}.firebaseio.com"
             )

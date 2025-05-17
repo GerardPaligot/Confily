@@ -12,28 +12,25 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 private val CommonExtension<*, *, *, *, *, *>.hasKotlinOptionsExt: Boolean
     get() = (this is ExtensionAware) && this.extensions.findByName("kotlinOptions") != null
 
-fun configureKotlinAndroid(
-    commonExtension: CommonExtension<*, *, *, *, *, *>,
+fun CommonExtension<*, *, *, *, *, *>.configureKotlinAndroid(
     compileSdk: Int = 35,
     minSdk: Int = 23
 ) {
-    commonExtension.apply {
-        this.compileSdk = compileSdk
+    this.compileSdk = compileSdk
 
-        defaultConfig {
-            this.minSdk = minSdk
-        }
+    defaultConfig {
+        this.minSdk = minSdk
+    }
 
-        compileOptions {
-            sourceCompatibility = JavaVersion.VERSION_21
-            targetCompatibility = JavaVersion.VERSION_21
-        }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
+    }
 
-        // KMP modules don't have an access to the `kotlinOptions` extension
-        if (hasKotlinOptionsExt) {
-            kotlinOptions {
-                jvmTarget = JavaVersion.VERSION_21.toString()
-            }
+    // KMP modules don't have an access to the `kotlinOptions` extension
+    if (hasKotlinOptionsExt) {
+        kotlinOptions {
+            jvmTarget = JavaVersion.VERSION_21.toString()
         }
     }
 }

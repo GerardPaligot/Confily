@@ -1,10 +1,6 @@
-import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
-import extensions.toProperties
-
 plugins {
     id("confily.sample")
     id("confily.quality")
-    alias(libs.plugins.buildkonfig)
 }
 
 android {
@@ -17,16 +13,6 @@ android {
                 because("AndroidX Test gets force-downgraded to 1.0.0 and breaks otherwise")
             }
         }
-    }
-}
-
-val appProps = rootProject.file("config/app.properties").toProperties()
-buildkonfig {
-    packageName = "com.paligot.confily.speakers.sample"
-
-    defaultConfigs {
-        buildConfigField(STRING, "BASE_URL", appProps["BASE_URL"] as String)
-        buildConfigField(STRING, "DEFAULT_EVENT", appProps["DEFAULT_EVENT"] as String)
     }
 }
 

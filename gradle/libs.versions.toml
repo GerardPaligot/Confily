@@ -111,6 +111,9 @@ androidx-workmanager-test = { group = "androidx.work", name = "work-testing", ve
 apache-xmlgraphics-batik-transcoder = { group = "org.apache.xmlgraphics", name = "batik-transcoder", version.ref = "apache-xmlgraphics-batik" }
 apache-xmlgraphics-batik-codec = { group = "org.apache.xmlgraphics", name = "batik-codec", version.ref = "apache-xmlgraphics-batik" }
 
+buildkonfig-gradlePlugin = { group = "com.codingfeline.buildkonfig", name = "com.codingfeline.buildkonfig.gradle.plugin", version.ref = "buildkonfig" }
+buildkonfig-compiler = { group = "com.codingfeline.buildkonfig", name = "buildkonfig-compiler", version.ref = "buildkonfig" }
+
 cash-sqldelight-android = { group = "app.cash.sqldelight", name = "android-driver", version.ref = "cash-sqldelight" }
 cash-sqldelight-native = { group = "app.cash.sqldelight", name = "native-driver", version.ref = "cash-sqldelight" }
 cash-sqldelight-desktop = { group = "app.cash.sqldelight", name = "sqlite-driver", version.ref = "cash-sqldelight" }

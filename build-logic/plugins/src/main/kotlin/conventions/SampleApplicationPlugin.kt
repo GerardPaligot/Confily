@@ -1,6 +1,8 @@
 package conventions
 
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
+import com.codingfeline.buildkonfig.gradle.BuildKonfigExtension
+import extensions.configBuildKonfig
 import extensions.configureDesugaring
 import extensions.configureKotlinAndroid
 import extensions.configureKotlinCompiler
@@ -22,11 +24,12 @@ class SampleApplicationPlugin : Plugin<Project> {
                 apply("org.jetbrains.compose")
                 apply("org.jetbrains.kotlin.plugin.compose")
                 apply("kotlin-parcelize")
+                apply("com.codingfeline.buildkonfig")
             }
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
             val compose = extensions.getByType<ComposeExtension>()
             extensions.configure<BaseAppModuleExtension> {
-                configureKotlinAndroid(this)
+                configureKotlinAndroid()
                 configureKotlinCompiler(jvmVersion = 21)
                 configureDesugaring(this)
                 sourceSets.getByName("main").manifest.srcFile("src/androidMain/AndroidManifest.xml")
@@ -61,6 +64,9 @@ class SampleApplicationPlugin : Plugin<Project> {
                         )
                     )
                 }
+            }
+            extensions.configure<BuildKonfigExtension> {
+                configBuildKonfig(target)
             }
             extensions.configure<KotlinMultiplatformExtension> {
                 androidTarget()

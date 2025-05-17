@@ -5,26 +5,12 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 plugins {
     id("confily.application")
     id("confily.quality")
-    alias(libs.plugins.buildkonfig)
 }
 
 val secretsProps = rootProject.file("config/secrets.properties").toProperties()
 val secretsExampleProps = rootProject.file("config/secrets.properties.example").toProperties()
-val appProps = rootProject.file("config/app.properties").toProperties()
 buildkonfig {
-    packageName = "com.paligot.confily.map.editor"
-
     defaultConfigs {
-        buildConfigField(
-            type = FieldSpec.Type.STRING,
-            name = "BASE_URL",
-            value = appProps["BASE_URL"] as String
-        )
-        buildConfigField(
-            type = FieldSpec.Type.STRING,
-            name = "DEFAULT_EVENT",
-            value = appProps["DEFAULT_EVENT"] as String
-        )
         buildConfigField(
             type = FieldSpec.Type.STRING,
             name = "API_KEY",

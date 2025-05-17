@@ -1,5 +1,5 @@
+import extensions.appProps
 import extensions.stringBuildConfigField
-import extensions.toProperties
 
 plugins {
     id("confily.android.application")
@@ -7,55 +7,23 @@ plugins {
     id("confily.quality")
 }
 
-val appProps = rootProject.file("config/app.properties").toProperties()
-val versionMajor = appProps["VERSION_MAJOR"]?.toString()?.toInt() ?: 1
-val versionMinor = appProps["VERSION_MINOR"]?.toString()?.toInt() ?: 0
-val versionPatch = appProps["VERSION_PATCH"]?.toString()?.toInt() ?: 0
-val versionBuild = appProps["VERSION_BUILD"]?.toString()?.toInt() ?: 0
 android {
     namespace = "com.paligot.confily.wear"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.paligot.confily.android"
         minSdk = 30
         targetSdk = 35
-        versionCode = versionMajor * 1000 + versionMinor * 100 + versionPatch * 10 + versionBuild
-        versionName = "$versionMajor.$versionMinor.$versionPatch"
         vectorDrawables {
             useSupportLibrary = true
         }
     }
 
-    val keystoreFile = rootProject.file("config/keystore.properties")
-    val keystoreProps = keystoreFile.toProperties()
-    signingConfigs {
-        create("release") {
-            keyAlias = keystoreProps.getProperty("keyAlias")
-            keyPassword = keystoreProps.getProperty("keyPassword")
-            storeFile = rootProject.file("./config/keystore.release")
-            storePassword = keystoreProps.getProperty("keyPassword")
-        }
-        getByName("debug") {
-            keyAlias = "debug"
-            keyPassword = "android"
-            storeFile = rootProject.file("./config/keystore.debug")
-            storePassword = "android"
-        }
-    }
-
     buildTypes {
         release {
-            isMinifyEnabled = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
             stringBuildConfigField("BASE_URL", appProps)
-            signingConfig = signingConfigs.getByName("release")
         }
         debug {
-            applicationIdSuffix = ".debug"
             stringBuildConfigField("BASE_URL", appProps)
         }
     }

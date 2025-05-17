@@ -18,7 +18,7 @@ class AndroidWearLibraryPlugin: Plugin<Project> {
                 apply("org.jetbrains.kotlin.android")
             }
             extensions.configure<LibraryExtension> {
-                configureKotlinAndroid(this, compileSdk = 35, minSdk = 30)
+                configureKotlinAndroid(compileSdk = 35, minSdk = 30)
                 configureDesugaring(this)
                 defaultConfig.targetSdk = 35
             }

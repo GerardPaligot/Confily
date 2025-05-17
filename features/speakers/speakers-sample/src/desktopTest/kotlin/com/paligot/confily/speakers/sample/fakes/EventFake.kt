@@ -1,8 +1,8 @@
 package com.paligot.confily.speakers.sample.fakes
 
+import com.paligot.confily.BuildKonfig
 import com.paligot.confily.core.models.factory.builder
 import com.paligot.confily.models.ExportEvent
-import com.paligot.confily.speakers.sample.BuildKonfig
 import kotlinx.datetime.Clock
 import kotlin.time.Duration
 

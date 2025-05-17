@@ -12,7 +12,7 @@ import org.koin.dsl.module
 
 val buildConfigModule = module {
     single(named(IsDebugNamed)) { BuildConfig.DEBUG }
-    single(named(ApplicationIdNamed)) { BuildConfig.APPLICATION_ID }
+    single(named(ApplicationIdNamed)) { BuildKonfig.APP_ID }
     single(named(ConfilyBaseUrlNamed)) { BuildKonfig.BASE_URL }
     single(named(EventDefaultLanguage)) { BuildKonfig.DEFAULT_LANGUAGE }
     single(named(VersionCodeNamed)) { BuildKonfig.VERSION_CODE }

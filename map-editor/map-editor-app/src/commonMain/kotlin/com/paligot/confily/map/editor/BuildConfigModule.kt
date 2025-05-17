@@ -1,5 +1,6 @@
 package com.paligot.confily.map.editor
 
+import com.paligot.confily.BuildKonfig
 import com.paligot.confily.core.di.AcceptLanguageNamed
 import com.paligot.confily.core.di.ApplicationIdNamed
 import com.paligot.confily.core.di.ConfilyBaseUrlNamed
