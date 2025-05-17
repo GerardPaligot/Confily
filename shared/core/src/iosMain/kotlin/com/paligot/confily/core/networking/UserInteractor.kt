@@ -14,17 +14,9 @@ class UserInteractor(
     private val userRepository: UserRepository
 ) {
     @NativeCoroutines
-    fun fetchUserProfile(): Flow<UserProfileUi> = userRepository
+    fun fetchUserProfile(): Flow<UserProfileUi?> = userRepository
         .fetchUserProfile()
-        .map {
-            it?.mapToUserProfileUi() ?: UserProfileUi(
-                email = "",
-                firstName = "",
-                lastName = "",
-                company = "",
-                qrCode = null
-            )
-        }
+        .map { it.mapToUserProfileUi() }
 
     @NativeCoroutines
     fun fetchUsersScanned(): Flow<ImmutableList<UserNetworkingUi>> = userRepository

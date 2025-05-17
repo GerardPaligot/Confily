@@ -21,7 +21,7 @@ struct Networking: View {
 
     var body: some View {
         Group {
-            if (networkingUi.userProfileUi != nil) {
+            if (networkingUi.userProfileUi?.qrCode != nil) {
                 List {
                     if let profileUi = networkingUi.userProfileUi {
                         let qrCode = profileUi.qrCode != nil ? ImageTransformer().toUIImage(profileUi.qrCode!) : nil

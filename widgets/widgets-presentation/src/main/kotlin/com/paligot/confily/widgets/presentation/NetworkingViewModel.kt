@@ -21,7 +21,7 @@ class NetworkingViewModel(
     coroutineScope: CoroutineScope = CoroutineScope(Job())
 ) {
     val uiState: StateFlow<NetworkingUiState> = userRepository.fetchUserProfile()
-        .map { NetworkingUiState.Success(it?.mapToUserProfileUi()) }
+        .map { NetworkingUiState.Success(it.mapToUserProfileUi()) }
         .catch { emit(NetworkingUiState.Success(null)) }
         .stateIn(
             scope = coroutineScope,

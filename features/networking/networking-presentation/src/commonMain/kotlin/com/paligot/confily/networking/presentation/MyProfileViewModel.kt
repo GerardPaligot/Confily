@@ -19,17 +19,7 @@ sealed class MyProfileUiState {
 
 class MyProfileViewModel(repository: UserRepository) : ViewModel() {
     val uiState: StateFlow<MyProfileUiState> = repository.fetchUserProfile()
-        .map {
-            MyProfileUiState.Success(
-                profile = it?.mapToUserProfileUi() ?: UserProfileUi(
-                    email = "",
-                    firstName = "",
-                    lastName = "",
-                    company = "",
-                    qrCode = null
-                )
-            ) as MyProfileUiState
-        }
+        .map { MyProfileUiState.Success(profile = it.mapToUserProfileUi()) as MyProfileUiState }
         .catch { emit(MyProfileUiState.Failure(it)) }
         .stateIn(
             scope = viewModelScope,

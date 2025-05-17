@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {
     fun fetchConfiguration(): Flow<UserConfiguration>
-    fun fetchUserProfile(): Flow<User?>
+    fun fetchUserProfile(): Flow<User>
     fun insertUserInfo(user: UserInfo)
     fun fetchUsersScanned(): Flow<List<UserItem>>
     fun insertUserScanned(user: UserItem): Boolean

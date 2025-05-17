@@ -36,7 +36,7 @@ class UserRepositoryImpl(
         }
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    override fun fetchUserProfile(): Flow<User?> = settings.fetchEventId()
+    override fun fetchUserProfile(): Flow<User> = settings.fetchEventId()
         .flatMapConcat {
             combine(
                 flow = userDao.fetchUser(eventId = it),

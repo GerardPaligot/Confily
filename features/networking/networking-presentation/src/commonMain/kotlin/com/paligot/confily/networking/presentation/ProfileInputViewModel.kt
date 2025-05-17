@@ -27,15 +27,7 @@ class ProfileInputViewModel(
         viewModelScope.launch {
             try {
                 repository.fetchUserProfile().collect {
-                    _uiState.value = ProfileInputUiState.Success(
-                        profile = it?.mapToUserProfileUi() ?: UserProfileUi(
-                            email = "",
-                            firstName = "",
-                            lastName = "",
-                            company = "",
-                            qrCode = null
-                        )
-                    )
+                    _uiState.value = ProfileInputUiState.Success(profile = it.mapToUserProfileUi())
                 }
             } catch (error: Throwable) {
                 _uiState.value = ProfileInputUiState.Failure(error)
