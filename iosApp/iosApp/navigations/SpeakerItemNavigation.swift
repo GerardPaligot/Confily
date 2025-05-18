@@ -11,7 +11,7 @@ import SharedDi
 
 struct SpeakerItemNavigation: View {
     @EnvironmentObject var viewModelFactory: ViewModelFactory
-    var speaker: SpeakerItemUi
+    var speaker: SessionSpeakerItemUi
     
     var body: some View {
         NavigationLink {

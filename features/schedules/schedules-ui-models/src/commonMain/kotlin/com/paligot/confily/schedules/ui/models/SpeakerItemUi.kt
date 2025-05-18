@@ -1,5 +1,10 @@
 package com.paligot.confily.schedules.ui.models
 
+import kotlin.experimental.ExperimentalObjCName
+import kotlin.native.ObjCName
+
+@OptIn(ExperimentalObjCName::class)
+@ObjCName("SessionSpeakerItemUi")
 data class SpeakerItemUi(
     val id: String,
     val displayName: String,
