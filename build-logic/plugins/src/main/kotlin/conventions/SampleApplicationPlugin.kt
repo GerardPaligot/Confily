@@ -90,11 +90,6 @@ class SampleApplicationPlugin : Plugin<Project> {
                 sourceSets.androidMain.dependencies {
                     implementation(project(":android-core:core-sample"))
                     implementation(libs.findLibrary("androidx-appcompat").get())
-                    implementation(
-                        project.dependencies.platform(
-                            libs.findLibrary("androidx-compose-bom").get()
-                        )
-                    )
                     implementation(libs.findLibrary("androidx-activity-compose").get())
                     implementation(libs.findLibrary("androidx-workmanager-ktx").get())
                     implementation(libs.findLibrary("koin-android").get())
