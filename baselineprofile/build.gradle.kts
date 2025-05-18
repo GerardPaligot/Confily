@@ -29,7 +29,7 @@ android {
 
     targetProjectPath = ":composeApp"
 
-    testOptions.managedDevices.devices {
+    testOptions.managedDevices.allDevices {
         create<ManagedVirtualDevice>("pixel8Api34") {
             device = "Pixel 8"
             apiLevel = 34

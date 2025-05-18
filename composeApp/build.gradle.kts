@@ -57,7 +57,6 @@ kotlin {
 
             implementation(libs.androidx.appcompat)
             implementation(libs.androidx.browser)
-            implementation(project.dependencies.platform(libs.androidx.compose.bom))
             implementation(libs.androidx.activity.compose)
             implementation(libs.androidx.profile)
             implementation(libs.androidx.workmanager.ktx)

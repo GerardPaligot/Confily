@@ -47,7 +47,6 @@ dependencies {
     implementation(projects.wear.wearFeatures.speakers.speakersDi)
     implementation(projects.wear.wearTheme)
 
-    implementation(platform(libs.androidx.compose.bom))
     implementation(compose.ui)
     implementation(compose.preview)
     implementation(compose.materialIconsExtended)
@@ -56,7 +55,6 @@ dependencies {
     implementation(libs.bundles.androidx.wear)
     implementation(libs.androidx.wear.navigation)
     debugImplementation(compose.uiTooling)
-    debugImplementation(libs.androidx.compose.ui.test.manifest)
 
     implementation(libs.google.horologist.compose.tools)
     implementation(libs.google.horologist.tiles)

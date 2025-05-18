@@ -7,7 +7,6 @@ android {
     namespace = "com.paligot.confily.speakers.sample"
 
     dependencies {
-        debugImplementation(libs.androidx.compose.ui.test.manifest)
         constraints {
             implementation("androidx.tracing:tracing:1.2.0") {
                 because("AndroidX Test gets force-downgraded to 1.0.0 and breaks otherwise")
