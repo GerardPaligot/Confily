@@ -21,7 +21,6 @@ import androidx.compose.material.icons.filled.Restaurant
 import androidx.compose.material.icons.filled.Save
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
@@ -43,7 +42,7 @@ import com.paligot.confily.style.components.map.ui.MapInteraction
 import com.paligot.confily.style.components.map.ui.models.MappingType
 import com.paligot.confily.style.components.map.ui.models.PictogramType
 
-@OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3ExpressiveApi::class)
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun ControllerContent(
     uiModel: ControllerUi,
@@ -69,7 +68,7 @@ fun ControllerContent(
             Button(
                 enabled = enabled,
                 onClick = onSaveClick,
-                shape = ButtonDefaults.squareShape
+                shape = ButtonDefaults.filledTonalShape
             ) {
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),

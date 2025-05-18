@@ -1,15 +1,13 @@
 package com.paligot.confily.map.editor.detail.ui
 
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedIconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun ShortcutIcon(
     painter: Painter,
@@ -24,11 +22,10 @@ fun ShortcutIcon(
     } else {
         IconButtonDefaults.iconButtonColors()
     }
-    IconButton(
+    OutlinedIconButton(
         modifier = modifier,
         onClick = onClick,
-        colors = colors,
-        shape = IconButtonDefaults.smallSquareShape
+        colors = colors
     ) {
         Icon(
             painter = painter,
