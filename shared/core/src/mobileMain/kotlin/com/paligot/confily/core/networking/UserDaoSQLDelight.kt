@@ -53,7 +53,7 @@ class UserDaoSQLDelight(
         )
     }
 
-    override fun insertUserScanned(eventId: String, user: UserItem) =
+    override fun insertUserScanned(eventId: String, user: UserItem) {
         db.userQueries.insertNetwork(
             user.email,
             user.firstName,
@@ -62,9 +62,11 @@ class UserDaoSQLDelight(
             eventId,
             Clock.System.now().epochSeconds
         )
+    }
 
-    override fun deleteUserByEmail(eventId: String, email: String) = db.userQueries
-        .deleteNetwork(eventId, email)
+    override fun deleteUserByEmail(eventId: String, email: String) {
+        db.userQueries.deleteNetwork(eventId, email)
+    }
 
     override fun getEmailProfile(eventId: String): String? = db.userQueries
         .selectProfile(eventId)

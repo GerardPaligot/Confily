@@ -231,14 +231,16 @@ class EventDaoSQLDelight(
         qrCode: ByteArray,
         barcode: String,
         attendee: Attendee?
-    ) = db.ticketQueries.insertTicket(
-        id = attendee?.id,
-        ext_id = attendee?.idExt,
-        event_id = eventId,
-        email = attendee?.email,
-        firstname = attendee?.firstname,
-        lastname = attendee?.name,
-        barcode = barcode,
-        qrcode = qrCode
-    )
+    ) {
+        db.ticketQueries.insertTicket(
+            id = attendee?.id,
+            ext_id = attendee?.idExt,
+            event_id = eventId,
+            email = attendee?.email,
+            firstname = attendee?.firstname,
+            lastname = attendee?.name,
+            barcode = barcode,
+            qrcode = qrCode
+        )
+    }
 }

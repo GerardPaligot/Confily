@@ -23,10 +23,10 @@ class EventInteractor(
     private val repository: EventRepository
 ) {
     @NativeCoroutines
-    suspend fun fetchAndStoreEventList() = repository.fetchAndStoreEventList()
+    suspend fun fetchAndStoreEventList(): Unit = repository.fetchAndStoreEventList()
 
     @NativeCoroutines
-    suspend fun fetchAndStoreAgenda() = repository.fetchAndStoreAgenda()
+    suspend fun fetchAndStoreAgenda(): Unit = repository.fetchAndStoreAgenda()
 
     @NativeCoroutines
     fun events(): Flow<EventItemListUi> = repository.events()
@@ -51,7 +51,8 @@ class EventInteractor(
         .map { menus -> menus.map { it.mapToMenuItemUi() }.toImmutableList() }
 
     @NativeCoroutines
-    suspend fun insertOrUpdateTicket(barcode: String) = repository.insertOrUpdateTicket(barcode)
+    suspend fun insertOrUpdateTicket(barcode: String): Unit =
+        repository.insertOrUpdateTicket(barcode)
 
     @NativeCoroutines
     fun teamMembers(): Flow<Map<String, List<TeamMemberItemUi>>> = repository.teamMembers()
