@@ -1,4 +1,4 @@
-package com.paligot.confily.backend.categories
+package com.paligot.confily.backend.infrastructure.firestore
 
 import com.google.cloud.firestore.Firestore
 import com.paligot.confily.backend.internals.helpers.database.batchDelete
@@ -10,23 +10,23 @@ import com.paligot.confily.backend.internals.helpers.database.update
 
 private const val CollectionName = "categories"
 
-class CategoryDao(
+class CategoryFirestore(
     private val projectName: String,
     private val firestore: Firestore
 ) {
-    fun get(eventId: String, id: String): CategoryDb? = firestore
+    fun get(eventId: String, id: String): CategoryEntity? = firestore
         .collection(projectName)
         .document(eventId)
         .collection(CollectionName)
         .getDocument(id)
 
-    fun getAll(eventId: String): List<CategoryDb> = firestore
+    fun getAll(eventId: String): List<CategoryEntity> = firestore
         .collection(projectName)
         .document(eventId)
         .collection(CollectionName)
-        .getDocuments<CategoryDb>()
+        .getDocuments<CategoryEntity>()
 
-    fun createOrUpdate(eventId: String, item: CategoryDb) {
+    fun createOrUpdate(eventId: String, item: CategoryEntity) {
         if (item.id == null) {
             firestore
                 .collection(projectName)

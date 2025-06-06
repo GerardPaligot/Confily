@@ -1,7 +1,7 @@
 package com.paligot.confily.backend.schedules
 
 import com.paligot.confily.backend.NotFoundException
-import com.paligot.confily.backend.categories.CategoryDao
+import com.paligot.confily.backend.infrastructure.firestore.CategoryFirestore
 import com.paligot.confily.backend.events.EventDao
 import com.paligot.confily.backend.formats.FormatDao
 import com.paligot.confily.backend.internals.date.FormatterPattern
@@ -16,7 +16,7 @@ import java.time.LocalDateTime
 class ScheduleRepository(
     private val eventDao: EventDao,
     private val sessionDao: SessionDao,
-    private val categoryDao: CategoryDao,
+    private val categoryDao: CategoryFirestore,
     private val formatDao: FormatDao,
     private val speakerDao: SpeakerDao,
     private val scheduleItemDao: ScheduleItemDao

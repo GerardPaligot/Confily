@@ -2,7 +2,7 @@
 
 package com.paligot.confily.backend.third.parties.openplanner
 
-import com.paligot.confily.backend.categories.CategoryDb
+import com.paligot.confily.backend.infrastructure.firestore.CategoryEntity
 import com.paligot.confily.backend.formats.FormatDb
 import com.paligot.confily.backend.internals.socials.SocialDb
 import com.paligot.confily.backend.qanda.AcronymDb
@@ -16,14 +16,14 @@ import com.paligot.confily.backend.team.TeamDb
 import com.paligot.confily.models.SocialType
 import com.paligot.confily.models.inputs.ValidatorException
 
-fun CategoryOP.convertToDb() = CategoryDb(
+fun CategoryOP.convertToDb() = CategoryEntity(
     id = id,
     name = name,
     color = "",
     icon = ""
 )
 
-fun CategoryDb.mergeWith(category: CategoryOP) = CategoryDb(
+fun CategoryEntity.mergeWith(category: CategoryOP) = CategoryEntity(
     id = category.id,
     name = if (this.name == category.name) this.name else category.name,
     color = if (this.color != "") this.color else category.color,

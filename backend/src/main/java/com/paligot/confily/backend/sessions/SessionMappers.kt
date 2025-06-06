@@ -1,7 +1,7 @@
 package com.paligot.confily.backend.sessions
 
-import com.paligot.confily.backend.categories.CategoryDb
-import com.paligot.confily.backend.categories.convertToModel
+import com.paligot.confily.backend.infrastructure.firestore.CategoryEntity
+import com.paligot.confily.backend.categories.application.convertToModel
 import com.paligot.confily.backend.events.AddressDb
 import com.paligot.confily.backend.events.EventDb
 import com.paligot.confily.backend.events.convertToModel
@@ -67,7 +67,7 @@ fun EventSessionInput.convertToDb(
 
 fun TalkDb.convertToModel(
     speakers: List<SpeakerDb>,
-    category: CategoryDb?,
+    category: CategoryEntity?,
     format: FormatDb?,
     eventDb: EventDb
 ): Talk = Talk(

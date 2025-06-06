@@ -1,7 +1,7 @@
 package com.paligot.confily.backend.events
 
-import com.paligot.confily.backend.categories.CategoryDao
-import com.paligot.confily.backend.categories.convertToModel
+import com.paligot.confily.backend.infrastructure.firestore.CategoryFirestore
+import com.paligot.confily.backend.categories.application.convertToModel
 import com.paligot.confily.backend.formats.FormatDao
 import com.paligot.confily.backend.formats.convertToModel
 import com.paligot.confily.backend.partners.PartnerDao
@@ -27,7 +27,7 @@ class EventRepositoryV4(
     private val eventDao: EventDao,
     private val speakerDao: SpeakerDao,
     private val sessionDao: SessionDao,
-    private val categoryDao: CategoryDao,
+    private val categoryDao: CategoryFirestore,
     private val formatDao: FormatDao,
     private val tagDao: TagDao,
     private val scheduleItemDao: ScheduleItemDao,

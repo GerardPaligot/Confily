@@ -38,6 +38,9 @@ dependencies {
     implementation(libs.google.api.client)
     implementation(libs.google.auth.client)
     implementation(libs.google.drive)
+
+    testImplementation(libs.junit)
+    testImplementation(libs.mockk)
 }
 
 appengine {

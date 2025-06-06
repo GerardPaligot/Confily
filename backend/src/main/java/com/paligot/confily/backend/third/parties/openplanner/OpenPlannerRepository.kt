@@ -1,8 +1,8 @@
 package com.paligot.confily.backend.third.parties.openplanner
 
 import com.paligot.confily.backend.NotAcceptableException
-import com.paligot.confily.backend.categories.CategoryDao
-import com.paligot.confily.backend.categories.CategoryDb
+import com.paligot.confily.backend.infrastructure.firestore.CategoryFirestore
+import com.paligot.confily.backend.infrastructure.firestore.CategoryEntity
 import com.paligot.confily.backend.events.EventDao
 import com.paligot.confily.backend.events.EventDb
 import com.paligot.confily.backend.events.TeamGroupDb
@@ -33,7 +33,7 @@ class OpenPlannerRepository(
     private val eventDao: EventDao,
     private val speakerDao: SpeakerDao,
     private val sessionDao: SessionDao,
-    private val categoryDao: CategoryDao,
+    private val categoryDao: CategoryFirestore,
     private val formatDao: FormatDao,
     private val scheduleItemDao: ScheduleItemDao,
     private val qAndADao: QAndADao,
@@ -114,7 +114,7 @@ class OpenPlannerRepository(
     private suspend fun clean(
         event: EventDb,
         qandas: List<QAndADb>,
-        categories: List<CategoryDb>,
+        categories: List<CategoryEntity>,
         formats: List<FormatDb>,
         speakers: List<SpeakerDb>,
         schedules: List<ScheduleDb>,
@@ -183,7 +183,7 @@ class OpenPlannerRepository(
         team.photoUrl
     }
 
-    private suspend fun createOrMergeCategory(eventId: String, category: CategoryOP): CategoryDb {
+    private suspend fun createOrMergeCategory(eventId: String, category: CategoryOP): CategoryEntity {
         val existing = categoryDao.get(eventId, category.id)
         return if (existing == null) {
             val item = category.convertToDb()
