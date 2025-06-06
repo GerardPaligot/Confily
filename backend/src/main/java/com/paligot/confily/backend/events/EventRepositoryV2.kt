@@ -1,7 +1,7 @@
 package com.paligot.confily.backend.events
 
-import com.paligot.confily.backend.categories.CategoryDao
-import com.paligot.confily.backend.categories.CategoryDb
+import com.paligot.confily.backend.infrastructure.firestore.CategoryFirestore
+import com.paligot.confily.backend.infrastructure.firestore.CategoryEntity
 import com.paligot.confily.backend.formats.FormatDao
 import com.paligot.confily.backend.formats.FormatDb
 import com.paligot.confily.backend.internals.date.FormatterPattern
@@ -32,7 +32,7 @@ class EventRepositoryV2(
     private val eventDao: EventDao,
     private val speakerDao: SpeakerDao,
     private val sessionDao: SessionDao,
-    private val categoryDao: CategoryDao,
+    private val categoryDao: CategoryFirestore,
     private val formatDao: FormatDao,
     private val scheduleItemDao: ScheduleItemDao,
     private val partnerDao: PartnerDao,
@@ -69,7 +69,7 @@ class EventRepositoryV2(
         schedulesByDay: Map.Entry<String, List<ScheduleDb>>,
         talks: List<TalkDb>,
         speakers: List<SpeakerDb>,
-        categories: List<CategoryDb>,
+        categories: List<CategoryEntity>,
         formats: List<FormatDb>,
         eventDb: EventDb
     ) = async {
@@ -93,7 +93,7 @@ class EventRepositoryV2(
         schedule: ScheduleDb,
         talks: List<TalkDb>,
         speakers: List<SpeakerDb>,
-        categories: List<CategoryDb>,
+        categories: List<CategoryEntity>,
         formats: List<FormatDb>,
         eventDb: EventDb
     ) = async {

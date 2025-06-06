@@ -1,8 +1,8 @@
 package com.paligot.confily.backend.export
 
 import com.paligot.confily.backend.NotFoundException
-import com.paligot.confily.backend.categories.CategoryDao
-import com.paligot.confily.backend.categories.convertToModel
+import com.paligot.confily.backend.infrastructure.firestore.CategoryFirestore
+import com.paligot.confily.backend.categories.application.convertToModel
 import com.paligot.confily.backend.events.EventDao
 import com.paligot.confily.backend.events.EventDb
 import com.paligot.confily.backend.formats.FormatDao
@@ -29,7 +29,7 @@ class ExportPlanningRepository(
     private val eventDao: EventDao,
     private val speakerDao: SpeakerDao,
     private val sessionDao: SessionDao,
-    private val categoryDao: CategoryDao,
+    private val categoryDao: CategoryFirestore,
     private val formatDao: FormatDao,
     private val tagDao: TagDao,
     private val scheduleItemDao: ScheduleItemDao,

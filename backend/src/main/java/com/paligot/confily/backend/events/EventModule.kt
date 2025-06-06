@@ -1,6 +1,6 @@
 package com.paligot.confily.backend.events
 
-import com.paligot.confily.backend.categories.CategoryModule.categoryDao
+import com.paligot.confily.backend.categories.infrastructure.factory.CategoryModule.categoryDao
 import com.paligot.confily.backend.formats.FormatModule.formatDao
 import com.paligot.confily.backend.internals.GoogleServicesModule.cloudFirestore
 import com.paligot.confily.backend.internals.InternalModule

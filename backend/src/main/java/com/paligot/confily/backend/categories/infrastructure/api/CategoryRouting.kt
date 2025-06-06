@@ -1,6 +1,7 @@
-package com.paligot.confily.backend.categories
+package com.paligot.confily.backend.categories.infrastructure.api
 
-import com.paligot.confily.backend.categories.CategoryModule.categoryRepository
+import com.paligot.confily.backend.categories.infrastructure.factory.CategoryModule.categoryAdminRepository
+import com.paligot.confily.backend.categories.infrastructure.factory.CategoryModule.categoryRepository
 import com.paligot.confily.backend.internals.plugins.PlanningUpdatedAtPlugin
 import com.paligot.confily.backend.receiveValidated
 import com.paligot.confily.models.inputs.CategoryInput
@@ -22,14 +23,10 @@ fun Route.registerCategoriesRoutes() {
 }
 
 fun Route.registerAdminCategoriesRoutes() {
-    val repository by categoryRepository
+    val repository by categoryAdminRepository
 
     route("/categories") {
         this.install(PlanningUpdatedAtPlugin)
-        get {
-            val eventId = call.parameters["eventId"]!!
-            call.respond(HttpStatusCode.OK, repository.list(eventId))
-        }
         post {
             val eventId = call.parameters["eventId"]!!
             val catInput = call.receiveValidated<CategoryInput>()

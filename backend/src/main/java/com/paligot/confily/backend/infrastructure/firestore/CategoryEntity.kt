@@ -1,6 +1,6 @@
-package com.paligot.confily.backend.categories
+package com.paligot.confily.backend.infrastructure.firestore
 
-data class CategoryDb(
+data class CategoryEntity(
     val id: String? = null,
     val name: String = "",
     val color: String = "",

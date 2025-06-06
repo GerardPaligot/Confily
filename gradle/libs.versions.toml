@@ -52,6 +52,7 @@ jetbrains-kotlinx-coroutines = "1.10.2"
 jetbrains-kotlinx-datetime = "0.6.2"
 jetbrains-kotlinx-io = "0.7.0"
 jetbrains-kotlinx-serialization = "1.8.1"
+junit = "4.13.2"
 kmp-nativecoroutines-gradlePlugin = "1.0.0-ALPHA-43"
 buildkonfig = "0.17.1"
 koin = "4.0.4"
@@ -60,6 +61,7 @@ ktor = "3.1.3"
 logback = "1.5.18"
 lyricist = "1.7.0"
 markdown-renderer = "0.25.0"
+mockk = "1.14.2"
 nsexception = "1.0.0"
 openfeedback = "1.0.0-alpha.6"
 placeholder = "1.0.11"
@@ -141,6 +143,8 @@ jetbrains-kotlinx-io-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-i
 jetbrains-kotlinx-io-bytestring = { group = "org.jetbrains.kotlinx", name = "kotlinx-io-bytestring", version.ref = "jetbrains-kotlinx-io" }
 jetbrains-kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "jetbrains-kotlinx-serialization" }
 
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+
 google-accompanist-permissions = { group = "com.google.accompanist", name = "accompanist-permissions", version.ref = "google-accompanist" }
 google-cloud-firestore = { group = "com.google.cloud", name = "google-cloud-firestore", version.ref = "google-cloud-firestore" }
 google-cloud-storage = { group = "com.google.cloud", name = "google-cloud-storage", version.ref = "google-cloud-storage" }
@@ -199,6 +203,8 @@ lyricist = { group = "cafe.adriel.lyricist", name = "lyricist", version.ref = "l
 
 markdown-renderer = { group = "com.mikepenz", name = "multiplatform-markdown-renderer", version.ref = "markdown-renderer" }
 markdown-renderer-m3 = { group = "com.mikepenz", name = "multiplatform-markdown-renderer-m3", version.ref = "markdown-renderer" }
+
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 
 openfeedback-m3 = { group = "io.openfeedback", name = "openfeedback-m3", version.ref = "openfeedback" }
 openfeedback-viewmodel = { group = "io.openfeedback", name = "openfeedback-viewmodel", version.ref = "openfeedback" }
