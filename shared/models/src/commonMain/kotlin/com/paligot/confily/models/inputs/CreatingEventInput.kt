@@ -17,11 +17,6 @@ data class CreatingEventInput(
     val contactPhone: String?,
     @SerialName("contact_email")
     val contactEmail: String,
-    val socials: List<SocialInput> = emptyList(),
-    @SerialName("faq_link")
-    val faqLink: String,
-    @SerialName("code_of_conduct_link")
-    val codeOfConductLink: String,
     @SerialName("update_at")
     val updatedAt: Long = Clock.System.now().epochSeconds
 ) : Validator {

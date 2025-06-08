@@ -1,7 +1,7 @@
 package com.paligot.confily.backend.partners
 
 import com.google.cloud.Timestamp
-import com.paligot.confily.backend.events.AddressDb
+import com.paligot.confily.backend.internals.infrastructure.firestore.AddressEntity
 
 @Suppress("ConstructorParameterNaming")
 data class PartnerPngsDb(
@@ -27,7 +27,7 @@ data class PartnerDb(
     val twitterMessage: String? = null,
     val linkedinUrl: String? = null,
     val linkedinMessage: String? = null,
-    val address: AddressDb = AddressDb(),
+    val address: AddressEntity = AddressEntity(),
     val sponsoring: String = "",
     val sponsorings: List<String> = emptyList(),
     val wldId: String? = null,

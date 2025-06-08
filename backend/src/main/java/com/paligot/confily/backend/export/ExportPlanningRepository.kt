@@ -1,12 +1,13 @@
 package com.paligot.confily.backend.export
 
 import com.paligot.confily.backend.NotFoundException
-import com.paligot.confily.backend.infrastructure.firestore.CategoryFirestore
 import com.paligot.confily.backend.categories.application.convertToModel
-import com.paligot.confily.backend.events.EventDao
-import com.paligot.confily.backend.events.EventDb
 import com.paligot.confily.backend.formats.FormatDao
 import com.paligot.confily.backend.formats.convertToModel
+import com.paligot.confily.backend.internals.infrastructure.firestore.CategoryFirestore
+import com.paligot.confily.backend.internals.infrastructure.firestore.EventEntity
+import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
+import com.paligot.confily.backend.internals.infrastructure.storage.EventStorage
 import com.paligot.confily.backend.schedules.ScheduleItemDao
 import com.paligot.confily.backend.schedules.convertToEventSession
 import com.paligot.confily.backend.schedules.convertToModelV4
@@ -26,7 +27,8 @@ import java.time.format.DateTimeFormatter
 
 @Suppress("LongParameterList")
 class ExportPlanningRepository(
-    private val eventDao: EventDao,
+    private val eventFirestore: EventFirestore,
+    private val eventStorage: EventStorage,
     private val speakerDao: SpeakerDao,
     private val sessionDao: SessionDao,
     private val categoryDao: CategoryFirestore,
@@ -36,15 +38,15 @@ class ExportPlanningRepository(
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
     suspend fun get(eventId: String): AgendaV4 {
-        val eventDb = eventDao.get(eventId)
-        return eventDao.getPlanningFile(eventId, eventDb.agendaUpdatedAt)
+        val eventDb = eventFirestore.get(eventId)
+        return eventStorage.getPlanningFile(eventId, eventDb.agendaUpdatedAt)
             ?: throw NotFoundException("Planning $eventId Not Found")
     }
 
     suspend fun export(eventId: String) = coroutineScope {
-        val eventDb = eventDao.get(eventId)
+        val eventDb = eventFirestore.get(eventId)
         val planning = buildPlanning(eventDb)
-        eventDao.uploadPlanningFile(eventId, eventDb.agendaUpdatedAt, planning)
+        eventStorage.uploadPlanningFile(eventId, eventDb.agendaUpdatedAt, planning)
         return@coroutineScope planning
     }
 
@@ -106,7 +108,7 @@ class ExportPlanningRepository(
             value
         }
 
-    private suspend fun buildPlanning(eventDb: EventDb) = coroutineScope {
+    private suspend fun buildPlanning(eventDb: EventEntity) = coroutineScope {
         val schedules = async(context = dispatcher) {
             scheduleItemDao.getAll(eventDb.slugId).map { it.convertToModelV4() }
         }.await()

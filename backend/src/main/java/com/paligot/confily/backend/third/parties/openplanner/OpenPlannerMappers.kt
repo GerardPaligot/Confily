@@ -2,9 +2,9 @@
 
 package com.paligot.confily.backend.third.parties.openplanner
 
-import com.paligot.confily.backend.infrastructure.firestore.CategoryEntity
 import com.paligot.confily.backend.formats.FormatDb
-import com.paligot.confily.backend.internals.socials.SocialDb
+import com.paligot.confily.backend.internals.infrastructure.firestore.CategoryEntity
+import com.paligot.confily.backend.internals.infrastructure.firestore.SocialEntity
 import com.paligot.confily.backend.qanda.AcronymDb
 import com.paligot.confily.backend.qanda.QAndAActionDb
 import com.paligot.confily.backend.qanda.QAndADb
@@ -67,49 +67,49 @@ fun SpeakerOP.convertToDb(photoUrl: String?): SpeakerDb {
         jobTitle = jobTitle,
         company = company,
         photoUrl = photoUrl ?: "",
-        socials = arrayListOf<SocialDb>().apply {
+        socials = arrayListOf<SocialEntity>().apply {
             if (linkedin?.contains("linkedin.com") == true) {
-                this.add(SocialDb(SocialType.LinkedIn.name.lowercase(), linkedin))
+                this.add(SocialEntity(SocialType.LinkedIn.name.lowercase(), linkedin))
             } else if (linkedin != null) {
                 val linkedInUrl = "https://linkedin.com/in/$linkedin"
-                this.add(SocialDb(SocialType.LinkedIn.name.lowercase(), linkedInUrl))
+                this.add(SocialEntity(SocialType.LinkedIn.name.lowercase(), linkedInUrl))
             }
             if (x?.contains("x.com") == true) {
-                this.add(SocialDb(SocialType.X.name.lowercase(), x))
+                this.add(SocialEntity(SocialType.X.name.lowercase(), x))
             } else if (x != null) {
-                this.add(SocialDb(SocialType.X.name.lowercase(), "https://x.com/$x"))
+                this.add(SocialEntity(SocialType.X.name.lowercase(), "https://x.com/$x"))
             }
             if (twitter?.contains("twitter.com") == true) {
-                this.add(SocialDb(SocialType.X.name.lowercase(), twitter))
+                this.add(SocialEntity(SocialType.X.name.lowercase(), twitter))
             } else if (twitter != null) {
-                this.add(SocialDb(SocialType.X.name.lowercase(), "https://x.com/$twitter"))
+                this.add(SocialEntity(SocialType.X.name.lowercase(), "https://x.com/$twitter"))
             }
             if (mastodon != null) {
-                this.add(SocialDb(SocialType.Mastodon.name.lowercase(), mastodon))
+                this.add(SocialEntity(SocialType.Mastodon.name.lowercase(), mastodon))
             }
             if (bluesky != null) {
-                this.add(SocialDb(SocialType.Bluesky.name.lowercase(), bluesky))
+                this.add(SocialEntity(SocialType.Bluesky.name.lowercase(), bluesky))
             }
             if (facebook != null) {
-                this.add(SocialDb(SocialType.Facebook.name.lowercase(), facebook))
+                this.add(SocialEntity(SocialType.Facebook.name.lowercase(), facebook))
             }
             if (instagram != null) {
-                this.add(SocialDb(SocialType.Instagram.name.lowercase(), instagram))
+                this.add(SocialEntity(SocialType.Instagram.name.lowercase(), instagram))
             }
             if (youtube != null) {
-                this.add(SocialDb(SocialType.YouTube.name.lowercase(), youtube))
+                this.add(SocialEntity(SocialType.YouTube.name.lowercase(), youtube))
             }
             if (github?.contains("github.com") == true) {
-                this.add(SocialDb(SocialType.GitHub.name.lowercase(), github))
+                this.add(SocialEntity(SocialType.GitHub.name.lowercase(), github))
             } else if (github != null) {
                 val gitHubUrl = "https://github.com/$github"
-                this.add(SocialDb(SocialType.GitHub.name.lowercase(), gitHubUrl))
+                this.add(SocialEntity(SocialType.GitHub.name.lowercase(), gitHubUrl))
             }
             if (email != null) {
-                this.add(SocialDb(SocialType.Email.name.lowercase(), email))
+                this.add(SocialEntity(SocialType.Email.name.lowercase(), email))
             }
             if (website != null) {
-                this.add(SocialDb(SocialType.Website.name.lowercase(), website))
+                this.add(SocialEntity(SocialType.Website.name.lowercase(), website))
             }
         }
     )
@@ -138,37 +138,37 @@ fun SpeakerDb.mergeWith(photoUrl: String?, speakerOP: SpeakerOP): SpeakerDb {
         photoUrl = if (this.photoUrl == photoUrl) this.photoUrl else photoUrl ?: "",
         socials = socials.toMutableList().apply {
             if (find { it.type == SocialType.LinkedIn.name.lowercase() } == null && linkedin != null) {
-                add(SocialDb(SocialType.LinkedIn.name.lowercase(), linkedin))
+                add(SocialEntity(SocialType.LinkedIn.name.lowercase(), linkedin))
             }
             if (find { it.type == SocialType.X.name.lowercase() } == null && x != null) {
-                add(SocialDb(SocialType.X.name.lowercase(), x))
+                add(SocialEntity(SocialType.X.name.lowercase(), x))
             }
             if (find { it.type == SocialType.X.name.lowercase() } == null && twitter != null) {
-                add(SocialDb(SocialType.X.name.lowercase(), twitter))
+                add(SocialEntity(SocialType.X.name.lowercase(), twitter))
             }
             if (find { it.type == SocialType.Mastodon.name.lowercase() } == null && mastodon != null) {
-                add(SocialDb(SocialType.Mastodon.name.lowercase(), mastodon))
+                add(SocialEntity(SocialType.Mastodon.name.lowercase(), mastodon))
             }
             if (find { it.type == SocialType.Bluesky.name.lowercase() } == null && bluesky != null) {
-                add(SocialDb(SocialType.Bluesky.name.lowercase(), bluesky))
+                add(SocialEntity(SocialType.Bluesky.name.lowercase(), bluesky))
             }
             if (find { it.type == SocialType.Facebook.name.lowercase() } == null && facebook != null) {
-                add(SocialDb(SocialType.Facebook.name.lowercase(), facebook))
+                add(SocialEntity(SocialType.Facebook.name.lowercase(), facebook))
             }
             if (find { it.type == SocialType.Instagram.name.lowercase() } == null && instagram != null) {
-                add(SocialDb(SocialType.Instagram.name.lowercase(), instagram))
+                add(SocialEntity(SocialType.Instagram.name.lowercase(), instagram))
             }
             if (find { it.type == SocialType.YouTube.name.lowercase() } == null && youtube != null) {
-                add(SocialDb(SocialType.YouTube.name.lowercase(), youtube))
+                add(SocialEntity(SocialType.YouTube.name.lowercase(), youtube))
             }
             if (find { it.type == SocialType.GitHub.name.lowercase() } == null && github != null) {
-                add(SocialDb(SocialType.GitHub.name.lowercase(), github))
+                add(SocialEntity(SocialType.GitHub.name.lowercase(), github))
             }
             if (find { it.type == SocialType.Email.name.lowercase() } == null && email != null) {
-                add(SocialDb(SocialType.Email.name.lowercase(), email))
+                add(SocialEntity(SocialType.Email.name.lowercase(), email))
             }
             if (find { it.type == SocialType.Website.name.lowercase() } == null && website != null) {
-                add(SocialDb(SocialType.Website.name.lowercase(), website))
+                add(SocialEntity(SocialType.Website.name.lowercase(), website))
             }
         }
     )
@@ -295,49 +295,49 @@ fun TeamOP.convertToTeamDb(order: Int, photoUrl: String?): TeamDb {
         bio = bio ?: "",
         photoUrl = photoUrl,
         role = role,
-        socials = arrayListOf<SocialDb>().apply {
+        socials = arrayListOf<SocialEntity>().apply {
             if (linkedin?.contains("linkedin.com") == true) {
-                this.add(SocialDb(SocialType.LinkedIn.name.lowercase(), linkedin))
+                this.add(SocialEntity(SocialType.LinkedIn.name.lowercase(), linkedin))
             } else if (linkedin != null) {
                 val linkedInUrl = "https://linkedin.com/in/$linkedin"
-                this.add(SocialDb(SocialType.LinkedIn.name.lowercase(), linkedInUrl))
+                this.add(SocialEntity(SocialType.LinkedIn.name.lowercase(), linkedInUrl))
             }
             if (x?.contains("x.com") == true) {
-                this.add(SocialDb(SocialType.X.name.lowercase(), x))
+                this.add(SocialEntity(SocialType.X.name.lowercase(), x))
             } else if (x != null) {
-                this.add(SocialDb(SocialType.X.name.lowercase(), "https://x.com/$x"))
+                this.add(SocialEntity(SocialType.X.name.lowercase(), "https://x.com/$x"))
             }
             if (twitter?.contains("twitter.com") == true) {
-                this.add(SocialDb(SocialType.X.name.lowercase(), twitter))
+                this.add(SocialEntity(SocialType.X.name.lowercase(), twitter))
             } else if (twitter != null) {
-                this.add(SocialDb(SocialType.X.name.lowercase(), "https://x.com/$twitter"))
+                this.add(SocialEntity(SocialType.X.name.lowercase(), "https://x.com/$twitter"))
             }
             if (mastodon != null) {
-                this.add(SocialDb(SocialType.Mastodon.name.lowercase(), mastodon))
+                this.add(SocialEntity(SocialType.Mastodon.name.lowercase(), mastodon))
             }
             if (bluesky != null) {
-                this.add(SocialDb(SocialType.Bluesky.name.lowercase(), bluesky))
+                this.add(SocialEntity(SocialType.Bluesky.name.lowercase(), bluesky))
             }
             if (facebook != null) {
-                this.add(SocialDb(SocialType.Facebook.name.lowercase(), facebook))
+                this.add(SocialEntity(SocialType.Facebook.name.lowercase(), facebook))
             }
             if (instagram != null) {
-                this.add(SocialDb(SocialType.Instagram.name.lowercase(), instagram))
+                this.add(SocialEntity(SocialType.Instagram.name.lowercase(), instagram))
             }
             if (youtube != null) {
-                this.add(SocialDb(SocialType.YouTube.name.lowercase(), youtube))
+                this.add(SocialEntity(SocialType.YouTube.name.lowercase(), youtube))
             }
             if (github?.contains("github.com") == true) {
-                this.add(SocialDb(SocialType.GitHub.name.lowercase(), github))
+                this.add(SocialEntity(SocialType.GitHub.name.lowercase(), github))
             } else if (github != null) {
                 val gitHubUrl = "https://github.com/$github"
-                this.add(SocialDb(SocialType.GitHub.name.lowercase(), gitHubUrl))
+                this.add(SocialEntity(SocialType.GitHub.name.lowercase(), gitHubUrl))
             }
             if (email != null) {
-                this.add(SocialDb(SocialType.Email.name.lowercase(), email))
+                this.add(SocialEntity(SocialType.Email.name.lowercase(), email))
             }
             if (website != null) {
-                this.add(SocialDb(SocialType.Website.name.lowercase(), website))
+                this.add(SocialEntity(SocialType.Website.name.lowercase(), website))
             }
         },
         teamName = team ?: ""
@@ -365,37 +365,37 @@ fun TeamDb.mergeWith(photoUrl: String?, teamOP: TeamOP): TeamDb {
         photoUrl = if (this.photoUrl == photoUrl) this.photoUrl else photoUrl,
         socials = socials.toMutableList().apply {
             if (find { it.type == SocialType.LinkedIn.name.lowercase() } == null && linkedin != null) {
-                add(SocialDb(SocialType.LinkedIn.name.lowercase(), linkedin))
+                add(SocialEntity(SocialType.LinkedIn.name.lowercase(), linkedin))
             }
             if (find { it.type == SocialType.X.name.lowercase() } == null && x != null) {
-                add(SocialDb(SocialType.X.name.lowercase(), x))
+                add(SocialEntity(SocialType.X.name.lowercase(), x))
             }
             if (find { it.type == SocialType.X.name.lowercase() } == null && twitter != null) {
-                add(SocialDb(SocialType.X.name.lowercase(), twitter))
+                add(SocialEntity(SocialType.X.name.lowercase(), twitter))
             }
             if (find { it.type == SocialType.Mastodon.name.lowercase() } == null && mastodon != null) {
-                add(SocialDb(SocialType.Mastodon.name.lowercase(), mastodon))
+                add(SocialEntity(SocialType.Mastodon.name.lowercase(), mastodon))
             }
             if (find { it.type == SocialType.Bluesky.name.lowercase() } == null && bluesky != null) {
-                add(SocialDb(SocialType.Bluesky.name.lowercase(), bluesky))
+                add(SocialEntity(SocialType.Bluesky.name.lowercase(), bluesky))
             }
             if (find { it.type == SocialType.Facebook.name.lowercase() } == null && facebook != null) {
-                add(SocialDb(SocialType.Facebook.name.lowercase(), facebook))
+                add(SocialEntity(SocialType.Facebook.name.lowercase(), facebook))
             }
             if (find { it.type == SocialType.Instagram.name.lowercase() } == null && instagram != null) {
-                add(SocialDb(SocialType.Instagram.name.lowercase(), instagram))
+                add(SocialEntity(SocialType.Instagram.name.lowercase(), instagram))
             }
             if (find { it.type == SocialType.YouTube.name.lowercase() } == null && youtube != null) {
-                add(SocialDb(SocialType.YouTube.name.lowercase(), youtube))
+                add(SocialEntity(SocialType.YouTube.name.lowercase(), youtube))
             }
             if (find { it.type == SocialType.GitHub.name.lowercase() } == null && github != null) {
-                add(SocialDb(SocialType.GitHub.name.lowercase(), github))
+                add(SocialEntity(SocialType.GitHub.name.lowercase(), github))
             }
             if (find { it.type == SocialType.Email.name.lowercase() } == null && email != null) {
-                add(SocialDb(SocialType.Email.name.lowercase(), email))
+                add(SocialEntity(SocialType.Email.name.lowercase(), email))
             }
             if (find { it.type == SocialType.Website.name.lowercase() } == null && website != null) {
-                add(SocialDb(SocialType.Website.name.lowercase(), website))
+                add(SocialEntity(SocialType.Website.name.lowercase(), website))
             }
         },
         teamName = if (this.teamName == teamOP.team) this.teamName else teamOP.team ?: ""

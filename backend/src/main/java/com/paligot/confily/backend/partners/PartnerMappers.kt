@@ -1,9 +1,9 @@
 package com.paligot.confily.backend.partners
 
 import com.google.cloud.Timestamp
-import com.paligot.confily.backend.events.AddressDb
-import com.paligot.confily.backend.events.convertToModel
+import com.paligot.confily.backend.internals.application.convertToModel
 import com.paligot.confily.backend.internals.helpers.storage.Upload
+import com.paligot.confily.backend.internals.infrastructure.firestore.AddressEntity
 import com.paligot.confily.models.Job
 import com.paligot.confily.models.Partner
 import com.paligot.confily.models.PartnerMedia
@@ -109,7 +109,7 @@ fun List<Upload>.convertToPartnerMediaDb(logoUrl: String): PartnerMediaDb? {
 
 fun PartnerInput.convertToDb(
     id: String? = null,
-    addressDb: AddressDb,
+    addressDb: AddressEntity,
     uploads: List<Upload> = emptyList()
 ) = PartnerDb(
     id = id ?: "",

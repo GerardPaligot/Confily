@@ -1,9 +1,9 @@
 package com.paligot.confily.backend.export
 
 import com.paligot.confily.backend.NotFoundException
-import com.paligot.confily.backend.events.EventDao
-import com.paligot.confily.backend.events.EventDb
-import com.paligot.confily.backend.events.convertToModelV5
+import com.paligot.confily.backend.internals.infrastructure.firestore.EventEntity
+import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
+import com.paligot.confily.backend.internals.infrastructure.storage.EventStorage
 import com.paligot.confily.backend.map.MapDao
 import com.paligot.confily.backend.map.MapDb
 import com.paligot.confily.backend.map.convertToModel
@@ -19,8 +19,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 
+@Suppress("LongParameterList")
 class ExportEventRepository(
-    private val eventDao: EventDao,
+    private val eventDao: EventFirestore,
+    private val eventStorage: EventStorage,
     private val qAndADao: QAndADao,
     private val teamDao: TeamDao,
     private val mapDao: MapDao,
@@ -29,18 +31,18 @@ class ExportEventRepository(
 ) {
     suspend fun get(eventId: String): ExportEvent {
         val eventDb = eventDao.get(eventId)
-        return eventDao.getEventFile(eventId, eventDb.eventUpdatedAt)
+        return eventStorage.getEventFile(eventId, eventDb.eventUpdatedAt)
             ?: throw NotFoundException("Event $eventId Not Found")
     }
 
     suspend fun export(eventId: String) = coroutineScope {
         val eventDb = eventDao.get(eventId)
         val event = buildEvent(eventDb)
-        eventDao.uploadEventFile(eventId, eventDb.eventUpdatedAt, event)
+        eventStorage.uploadEventFile(eventId, eventDb.eventUpdatedAt, event)
         return@coroutineScope event
     }
 
-    private suspend fun buildEvent(event: EventDb): ExportEvent = coroutineScope {
+    private suspend fun buildEvent(event: EventEntity): ExportEvent = coroutineScope {
         val qanda = async(dispatcher) {
             qAndADao.getAll(event.slugId)
                 .groupBy { it.language }
@@ -56,7 +58,7 @@ class ExportEventRepository(
         )
     }
 
-    private suspend fun teamMembers(eventDb: EventDb) = coroutineScope {
+    private suspend fun teamMembers(eventDb: EventEntity) = coroutineScope {
         val orderMap = eventDb.teamGroups.associate { it.name to it.order }
         return@coroutineScope teamDao.getAll(eventDb.slugId)
             .asSequence()

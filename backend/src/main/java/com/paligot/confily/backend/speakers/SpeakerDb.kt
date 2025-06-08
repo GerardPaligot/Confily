@@ -1,6 +1,6 @@
 package com.paligot.confily.backend.speakers
 
-import com.paligot.confily.backend.internals.socials.SocialDb
+import com.paligot.confily.backend.internals.infrastructure.firestore.SocialEntity
 
 data class SpeakerDb(
     val id: String = "",
@@ -11,7 +11,7 @@ data class SpeakerDb(
     val jobTitle: String? = null,
     val company: String? = null,
     val photoUrl: String = "",
-    val socials: List<SocialDb> = emptyList(),
+    val socials: List<SocialEntity> = emptyList(),
     @Deprecated("use socials property instead")
     val website: String? = null,
     @Deprecated("use socials property instead")

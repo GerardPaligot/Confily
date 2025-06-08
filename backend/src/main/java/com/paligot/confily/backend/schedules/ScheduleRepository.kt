@@ -1,11 +1,11 @@
 package com.paligot.confily.backend.schedules
 
 import com.paligot.confily.backend.NotFoundException
-import com.paligot.confily.backend.infrastructure.firestore.CategoryFirestore
-import com.paligot.confily.backend.events.EventDao
 import com.paligot.confily.backend.formats.FormatDao
-import com.paligot.confily.backend.internals.date.FormatterPattern
-import com.paligot.confily.backend.internals.date.format
+import com.paligot.confily.backend.internals.helpers.date.FormatterPattern
+import com.paligot.confily.backend.internals.helpers.date.format
+import com.paligot.confily.backend.internals.infrastructure.firestore.CategoryFirestore
+import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
 import com.paligot.confily.backend.sessions.SessionDao
 import com.paligot.confily.backend.sessions.convertToModel
 import com.paligot.confily.backend.speakers.SpeakerDao
@@ -14,7 +14,7 @@ import kotlinx.coroutines.coroutineScope
 import java.time.LocalDateTime
 
 class ScheduleRepository(
-    private val eventDao: EventDao,
+    private val eventDao: EventFirestore,
     private val sessionDao: SessionDao,
     private val categoryDao: CategoryFirestore,
     private val formatDao: FormatDao,

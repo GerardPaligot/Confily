@@ -3,21 +3,21 @@ package com.paligot.confily.backend.categories
 import com.paligot.confily.backend.categories.application.CategoryAdminRepositoryDefault
 import com.paligot.confily.backend.categories.application.convertToDb
 import com.paligot.confily.backend.categories.domain.CategoryAdminRepository
-import com.paligot.confily.backend.infrastructure.firestore.CategoryFirestore
+import com.paligot.confily.backend.internals.infrastructure.firestore.CategoryFirestore
 import com.paligot.confily.models.inputs.CategoryInput
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.assertEquals
-import org.junit.Before
-import org.junit.Test
+import kotlin.test.BeforeTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class CategoryAdminRepositoryTest {
     private lateinit var categoryDao: CategoryFirestore
     private lateinit var repository: CategoryAdminRepository
 
-    @Before
+    @BeforeTest
     fun setUp() {
         categoryDao = mockk(relaxed = true)
         repository = CategoryAdminRepositoryDefault(categoryDao)

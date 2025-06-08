@@ -1,9 +1,10 @@
 package com.paligot.confily.backend.export
 
 import com.paligot.confily.backend.activities.ActivityModule.activityDao
-import com.paligot.confily.backend.categories.infrastructure.factory.CategoryModule.categoryDao
-import com.paligot.confily.backend.events.EventModule.eventDao
 import com.paligot.confily.backend.formats.FormatModule.formatDao
+import com.paligot.confily.backend.internals.infrastructure.factory.FirestoreModule.categoryFirestore
+import com.paligot.confily.backend.internals.infrastructure.factory.FirestoreModule.eventFirestore
+import com.paligot.confily.backend.internals.infrastructure.factory.StorageModule.eventStorage
 import com.paligot.confily.backend.jobs.JobModule.jobDao
 import com.paligot.confily.backend.map.MapModule.mapDao
 import com.paligot.confily.backend.partners.PartnerModule.partnerDao
@@ -17,7 +18,8 @@ import com.paligot.confily.backend.team.TeamModule.teamDao
 object ExportModule {
     val exportEventRepository = lazy {
         ExportEventRepository(
-            eventDao.value,
+            eventFirestore.value,
+            eventStorage.value,
             qAndADao.value,
             teamDao.value,
             mapDao.value,
@@ -26,10 +28,11 @@ object ExportModule {
     }
     val exportPlanningRepository = lazy {
         ExportPlanningRepository(
-            eventDao.value,
+            eventFirestore.value,
+            eventStorage.value,
             speakerDao.value,
             sessionDao.value,
-            categoryDao.value,
+            categoryFirestore.value,
             formatDao.value,
             tagDao.value,
             scheduleItemDao.value
@@ -37,7 +40,8 @@ object ExportModule {
     }
     val exportPartnersRepository = lazy {
         ExportPartnersRepository(
-            eventDao.value,
+            eventFirestore.value,
+            eventStorage.value,
             partnerDao.value,
             jobDao.value,
             activityDao.value

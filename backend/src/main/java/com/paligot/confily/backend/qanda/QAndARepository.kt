@@ -1,11 +1,11 @@
 package com.paligot.confily.backend.qanda
 
-import com.paligot.confily.backend.events.EventDao
+import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
 import com.paligot.confily.models.inputs.QAndAInput
 import kotlinx.coroutines.coroutineScope
 
 class QAndARepository(
-    private val eventDao: EventDao,
+    private val eventDao: EventFirestore,
     private val qAndADao: QAndADao
 ) {
     suspend fun list(eventId: String, language: String) = coroutineScope {

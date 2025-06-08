@@ -1,15 +1,15 @@
 package com.paligot.confily.backend.third.parties.openplanner
 
 import com.paligot.confily.backend.NotAcceptableException
-import com.paligot.confily.backend.infrastructure.firestore.CategoryFirestore
-import com.paligot.confily.backend.infrastructure.firestore.CategoryEntity
-import com.paligot.confily.backend.events.EventDao
-import com.paligot.confily.backend.events.EventDb
-import com.paligot.confily.backend.events.TeamGroupDb
 import com.paligot.confily.backend.formats.FormatDao
 import com.paligot.confily.backend.formats.FormatDb
-import com.paligot.confily.backend.internals.CommonApi
-import com.paligot.confily.backend.internals.mimeType
+import com.paligot.confily.backend.internals.helpers.mimeType
+import com.paligot.confily.backend.internals.infrastructure.firestore.CategoryEntity
+import com.paligot.confily.backend.internals.infrastructure.firestore.CategoryFirestore
+import com.paligot.confily.backend.internals.infrastructure.firestore.EventEntity
+import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
+import com.paligot.confily.backend.internals.infrastructure.firestore.TeamGroupEntity
+import com.paligot.confily.backend.internals.infrastructure.provider.CommonApi
 import com.paligot.confily.backend.qanda.QAndADao
 import com.paligot.confily.backend.qanda.QAndADb
 import com.paligot.confily.backend.schedules.ScheduleDb
@@ -30,7 +30,7 @@ import kotlinx.coroutines.coroutineScope
 class OpenPlannerRepository(
     private val openPlannerApi: OpenPlannerApi,
     private val commonApi: CommonApi,
-    private val eventDao: EventDao,
+    private val eventDao: EventFirestore,
     private val speakerDao: SpeakerDao,
     private val sessionDao: SessionDao,
     private val categoryDao: CategoryFirestore,
@@ -104,7 +104,7 @@ class OpenPlannerRepository(
         eventDao.updateAgendaUpdatedAt(
             event.copy(
                 teamGroups = openPlanner.team
-                    .map { TeamGroupDb(name = it.team ?: "", order = it.teamOrder ?: 0) }
+                    .map { TeamGroupEntity(name = it.team ?: "", order = it.teamOrder ?: 0) }
                     .distinct()
             )
         )
@@ -112,7 +112,7 @@ class OpenPlannerRepository(
 
     @Suppress("LongParameterList")
     private suspend fun clean(
-        event: EventDb,
+        event: EventEntity,
         qandas: List<QAndADb>,
         categories: List<CategoryEntity>,
         formats: List<FormatDb>,
@@ -242,7 +242,7 @@ class OpenPlannerRepository(
     }
 
     private suspend fun createOrMergeTalks(
-        event: EventDb,
+        event: EventEntity,
         tracks: List<TrackOP>,
         session: SessionOP
     ): SessionDb {
