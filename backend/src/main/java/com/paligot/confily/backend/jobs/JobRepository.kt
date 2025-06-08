@@ -2,7 +2,7 @@ package com.paligot.confily.backend.jobs
 
 import com.paligot.confily.backend.NotAcceptableException
 import com.paligot.confily.backend.NotFoundException
-import com.paligot.confily.backend.events.EventDao
+import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
 import com.paligot.confily.backend.partners.PartnerDao
 import com.paligot.confily.backend.third.parties.welovedevs.WeLoveDevsApi
 import com.paligot.confily.backend.third.parties.welovedevs.convertToDb
@@ -13,7 +13,7 @@ private const val MaxPartnerChar = 6
 
 class JobRepository(
     private val api: WeLoveDevsApi,
-    private val eventDao: EventDao,
+    private val eventDao: EventFirestore,
     private val partnerDao: PartnerDao,
     private val jobDao: JobDao
 ) {

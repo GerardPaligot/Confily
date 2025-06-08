@@ -1,14 +1,14 @@
 package com.paligot.confily.backend.speakers
 
-import com.paligot.confily.backend.events.EventDao
-import com.paligot.confily.backend.internals.CommonApi
-import com.paligot.confily.backend.internals.mimeType
+import com.paligot.confily.backend.internals.helpers.mimeType
+import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
+import com.paligot.confily.backend.internals.infrastructure.provider.CommonApi
 import com.paligot.confily.models.inputs.SpeakerInput
 import kotlinx.coroutines.coroutineScope
 
 class SpeakerRepository(
     private val commonApi: CommonApi,
-    private val eventDao: EventDao,
+    private val eventDao: EventFirestore,
     private val speakerDao: SpeakerDao
 ) {
     suspend fun list(eventId: String) = coroutineScope {

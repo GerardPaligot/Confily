@@ -39,7 +39,7 @@ dependencies {
     implementation(libs.google.auth.client)
     implementation(libs.google.drive)
 
-    testImplementation(libs.junit)
+    testImplementation(kotlin("test"))
     testImplementation(libs.mockk)
 }
 

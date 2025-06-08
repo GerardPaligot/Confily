@@ -1,10 +1,10 @@
 package com.paligot.confily.backend.talks
 
 import com.paligot.confily.backend.NotFoundException
-import com.paligot.confily.backend.infrastructure.firestore.CategoryFirestore
-import com.paligot.confily.backend.events.EventDao
 import com.paligot.confily.backend.formats.FormatDao
 import com.paligot.confily.backend.internals.helpers.drive.DriveDataSource
+import com.paligot.confily.backend.internals.infrastructure.firestore.CategoryFirestore
+import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
 import com.paligot.confily.backend.sessions.SessionDao
 import com.paligot.confily.backend.sessions.TalkDb
 import com.paligot.confily.backend.sessions.convertToDb
@@ -17,7 +17,7 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 
 class TalkRepository(
-    private val eventDao: EventDao,
+    private val eventDao: EventFirestore,
     private val speakerDao: SpeakerDao,
     private val sessionDao: SessionDao,
     private val categoryDao: CategoryFirestore,

@@ -1,9 +1,9 @@
 package com.paligot.confily.backend.third.parties.openplanner
 
-import com.paligot.confily.backend.categories.infrastructure.factory.CategoryModule.categoryDao
-import com.paligot.confily.backend.events.EventModule.eventDao
 import com.paligot.confily.backend.formats.FormatModule.formatDao
-import com.paligot.confily.backend.internals.InternalModule.commonApi
+import com.paligot.confily.backend.internals.infrastructure.factory.FirestoreModule.categoryFirestore
+import com.paligot.confily.backend.internals.infrastructure.factory.FirestoreModule.eventFirestore
+import com.paligot.confily.backend.internals.infrastructure.factory.InternalModule.commonApi
 import com.paligot.confily.backend.qanda.QAndAModule.qAndADao
 import com.paligot.confily.backend.schedules.ScheduleModule.scheduleItemDao
 import com.paligot.confily.backend.sessions.SessionModule.sessionDao
@@ -16,10 +16,10 @@ object OpenPlannerModule {
         OpenPlannerRepository(
             openPlannerApi.value,
             commonApi.value,
-            eventDao.value,
+            eventFirestore.value,
             speakerDao.value,
             sessionDao.value,
-            categoryDao.value,
+            categoryFirestore.value,
             formatDao.value,
             scheduleItemDao.value,
             qAndADao.value,

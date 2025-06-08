@@ -1,12 +1,12 @@
 package com.paligot.confily.backend.internals.plugins
 
 import com.paligot.confily.backend.NotAuthorized
-import com.paligot.confily.backend.events.EventModule.eventDao
+import com.paligot.confily.backend.internals.infrastructure.factory.FirestoreModule.eventFirestore
 import io.ktor.server.application.createRouteScopedPlugin
 import io.ktor.server.plugins.BadRequestException
 
 val IdentificationPlugin = createRouteScopedPlugin("IdentificationPlugin") {
-    val eventDao by eventDao
+    val eventDao by eventFirestore
 
     onCall { call ->
         val eventId = call.parameters["eventId"]

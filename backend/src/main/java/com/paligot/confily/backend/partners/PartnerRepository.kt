@@ -3,13 +3,13 @@ package com.paligot.confily.backend.partners
 import com.paligot.confily.backend.NotAcceptableException
 import com.paligot.confily.backend.activities.ActivityDao
 import com.paligot.confily.backend.activities.convertToModel
-import com.paligot.confily.backend.events.EventDao
-import com.paligot.confily.backend.internals.CommonApi
 import com.paligot.confily.backend.internals.helpers.image.Png
 import com.paligot.confily.backend.internals.helpers.image.TranscoderImage
+import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
+import com.paligot.confily.backend.internals.infrastructure.provider.CommonApi
 import com.paligot.confily.backend.jobs.JobDao
 import com.paligot.confily.backend.third.parties.geocode.GeocodeApi
-import com.paligot.confily.backend.third.parties.geocode.convertToDb
+import com.paligot.confily.backend.third.parties.geocode.convertToEntity
 import com.paligot.confily.backend.third.parties.welovedevs.convertToModel
 import com.paligot.confily.models.PartnerV2
 import com.paligot.confily.models.PartnersActivities
@@ -24,7 +24,7 @@ import kotlinx.coroutines.coroutineScope
 class PartnerRepository(
     private val geocodeApi: GeocodeApi,
     private val commonApi: CommonApi,
-    private val eventDao: EventDao,
+    private val eventDao: EventFirestore,
     private val partnerDao: PartnerDao,
     private val activityDao: ActivityDao,
     private val jobDao: JobDao,
@@ -75,7 +75,7 @@ class PartnerRepository(
             if (event.sponsoringTypes.any { partnerInput.sponsorings.contains(it) }.not()) {
                 throw NotAcceptableException("Your sponsoring isn't valid")
             }
-            val addressDb = geocodeApi.geocode(partnerInput.address).convertToDb()
+            val addressDb = geocodeApi.geocode(partnerInput.address).convertToEntity()
                 ?: throw NotAcceptableException("Your address information isn't found")
             val partnerDb = partnerInput.convertToDb(addressDb = addressDb)
             val id = partnerDao.createOrUpdate(eventId, partnerDb)
@@ -110,7 +110,7 @@ class PartnerRepository(
             if (event.sponsoringTypes.any { input.sponsorings.contains(it) }.not()) {
                 throw NotAcceptableException("Your sponsoring isn't valid")
             }
-            val addressDb = geocodeApi.geocode(input.address).convertToDb()
+            val addressDb = geocodeApi.geocode(input.address).convertToEntity()
                 ?: throw NotAcceptableException("Your address information isn't found")
             val pngs = listOf(
                 async { imageTranscoder.convertSvgToPng(input.logoUrl, SIZE_250) },

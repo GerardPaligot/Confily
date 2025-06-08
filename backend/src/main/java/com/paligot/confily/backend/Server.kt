@@ -3,8 +3,8 @@ package com.paligot.confily.backend
 import com.paligot.confily.backend.activities.registerAdminActivitiesRoutes
 import com.paligot.confily.backend.categories.infrastructure.api.registerAdminCategoriesRoutes
 import com.paligot.confily.backend.categories.infrastructure.api.registerCategoriesRoutes
-import com.paligot.confily.backend.events.registerAdminEventRoutes
-import com.paligot.confily.backend.events.registerEventRoutes
+import com.paligot.confily.backend.events.infrastructure.api.registerAdminEventRoutes
+import com.paligot.confily.backend.events.infrastructure.api.registerEventRoutes
 import com.paligot.confily.backend.export.registerAdminExportRoutes
 import com.paligot.confily.backend.export.registerExportRoutes
 import com.paligot.confily.backend.formats.registerAdminFormatsRoutes
@@ -13,8 +13,10 @@ import com.paligot.confily.backend.internals.plugins.IdentificationPlugin
 import com.paligot.confily.backend.internals.plugins.UpdatedAtPlugin
 import com.paligot.confily.backend.map.registerAdminMapRoutes
 import com.paligot.confily.backend.map.registerMapRoutes
+import com.paligot.confily.backend.menus.infrastructure.api.registerAdminMenuRoutes
 import com.paligot.confily.backend.partners.registerAdminPartnersRoutes
 import com.paligot.confily.backend.partners.registerPartnersRoutes
+import com.paligot.confily.backend.planning.infrastructure.api.registerPlanningRoutes
 import com.paligot.confily.backend.qanda.registerAdminQAndAsRoutes
 import com.paligot.confily.backend.qanda.registerQAndAsRoutes
 import com.paligot.confily.backend.schedules.registerAdminSchedulersRoutes
@@ -31,7 +33,7 @@ import com.paligot.confily.backend.team.registerAdminTeamRoutes
 import com.paligot.confily.backend.team.registerTeamRoutes
 import com.paligot.confily.backend.third.parties.billetweb.registerBilletWebRoutes
 import com.paligot.confily.backend.third.parties.cms4partners.registerAdminCms4PartnersRoutes
-import com.paligot.confily.backend.third.parties.conferencehall.registerAdminConferenceHallRoutes
+import com.paligot.confily.backend.third.parties.openfeedback.infrastructure.api.registerOpenfeedackRoutes
 import com.paligot.confily.backend.third.parties.openplanner.registerAdminOpenPlannerRoutes
 import com.paligot.confily.backend.third.parties.welovedevs.registerAdminWLDRoutes
 import com.paligot.confily.models.Session
@@ -106,6 +108,7 @@ fun main() {
         routing {
             registerEventRoutes()
             route("/events/{eventId}") {
+                registerPlanningRoutes()
                 registerMapRoutes()
                 registerQAndAsRoutes()
                 registerSpeakersRoutes()
@@ -119,6 +122,7 @@ fun main() {
                 registerTeamRoutes()
                 registerExportRoutes()
                 // Third parties
+                registerOpenfeedackRoutes()
                 registerBilletWebRoutes()
             }
             route("/admin") {
@@ -130,6 +134,7 @@ fun main() {
                     registerAdminCategoriesRoutes()
                     registerAdminFormatsRoutes()
                     registerAdminMapRoutes()
+                    registerAdminMenuRoutes()
                     registerAdminPartnersRoutes()
                     registerAdminQAndAsRoutes()
                     registerAdminSchedulersRoutes()
@@ -141,7 +146,6 @@ fun main() {
                     registerAdminExportRoutes()
                     // Third parties
                     registerAdminCms4PartnersRoutes()
-                    registerAdminConferenceHallRoutes()
                     registerAdminOpenPlannerRoutes()
                     registerAdminWLDRoutes()
                 }

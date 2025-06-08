@@ -1,12 +1,12 @@
 package com.paligot.confily.backend.internals.plugins
 
-import com.paligot.confily.backend.events.EventModule.eventDao
+import com.paligot.confily.backend.internals.infrastructure.factory.FirestoreModule.eventFirestore
 import io.ktor.http.HttpMethod
 import io.ktor.server.application.createRouteScopedPlugin
 import io.ktor.server.request.httpMethod
 
 val EventUpdatedAtPlugin = createRouteScopedPlugin("EventUpdatedAtPlugin") {
-    val eventDao by eventDao
+    val eventDao by eventFirestore
 
     onCallRespond { call ->
         if (call.request.httpMethod == HttpMethod.Post || call.request.httpMethod == HttpMethod.Put) {

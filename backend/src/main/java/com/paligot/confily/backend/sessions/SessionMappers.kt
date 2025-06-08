@@ -1,29 +1,28 @@
 package com.paligot.confily.backend.sessions
 
-import com.paligot.confily.backend.infrastructure.firestore.CategoryEntity
 import com.paligot.confily.backend.categories.application.convertToModel
-import com.paligot.confily.backend.events.AddressDb
-import com.paligot.confily.backend.events.EventDb
-import com.paligot.confily.backend.events.convertToModel
-import com.paligot.confily.backend.events.openFeedbackUrl
 import com.paligot.confily.backend.formats.FormatDb
+import com.paligot.confily.backend.internals.application.convertToModel
+import com.paligot.confily.backend.internals.infrastructure.firestore.AddressEntity
+import com.paligot.confily.backend.internals.infrastructure.firestore.CategoryEntity
+import com.paligot.confily.backend.internals.infrastructure.firestore.EventEntity
+import com.paligot.confily.backend.internals.infrastructure.firestore.openFeedbackUrl
 import com.paligot.confily.backend.speakers.SpeakerDb
 import com.paligot.confily.backend.speakers.convertToModel
-import com.paligot.confily.models.Info
 import com.paligot.confily.models.Session
 import com.paligot.confily.models.Talk
 import com.paligot.confily.models.TalkV3
 import com.paligot.confily.models.inputs.EventSessionInput
 import com.paligot.confily.models.inputs.TalkInput
 
-fun SessionDb.convertToModel(eventDb: EventDb): Session {
+fun SessionDb.convertToModel(eventDb: EventEntity): Session {
     return when (this) {
         is TalkDb -> convertToModelTalkSession(eventDb)
         is EventSessionDb -> convertToModelEventSession()
     }
 }
 
-fun TalkDb.convertToModelTalkSession(eventDb: EventDb): Session = Session.Talk(
+fun TalkDb.convertToModelTalkSession(eventDb: EventEntity): Session = Session.Talk(
     id = this.id,
     title = this.title,
     level = this.level,
@@ -45,15 +44,9 @@ fun EventSessionDb.convertToModelEventSession(): Session = Session.Event(
     address = address?.convertToModel()
 )
 
-fun EventSessionDb.convertToModelInfo(): Info = Info(
-    id = id,
-    title = title,
-    description = description
-)
-
 fun EventSessionInput.convertToDb(
     session: EventSessionDb? = null,
-    address: AddressDb? = null
+    address: AddressEntity? = null
 ): EventSessionDb = EventSessionDb(
     id = session?.id ?: "",
     title = if (title != null && title != session?.title) title!! else session?.title ?: "",
@@ -69,7 +62,7 @@ fun TalkDb.convertToModel(
     speakers: List<SpeakerDb>,
     category: CategoryEntity?,
     format: FormatDb?,
-    eventDb: EventDb
+    eventDb: EventEntity
 ): Talk = Talk(
     id = this.id,
     title = this.title,
@@ -85,7 +78,7 @@ fun TalkDb.convertToModel(
     openFeedback = eventDb.openFeedbackUrl()?.let { "$it/$id" } ?: run { null }
 )
 
-fun TalkDb.convertToModel(eventDb: EventDb): TalkV3 = TalkV3(
+fun TalkDb.convertToModel(eventDb: EventEntity): TalkV3 = TalkV3(
     id = this.id,
     title = this.title,
     level = this.level,

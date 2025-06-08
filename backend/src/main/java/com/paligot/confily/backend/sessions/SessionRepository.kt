@@ -2,15 +2,15 @@ package com.paligot.confily.backend.sessions
 
 import com.paligot.confily.backend.NotAcceptableException
 import com.paligot.confily.backend.NotFoundException
-import com.paligot.confily.backend.events.EventDao
+import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
 import com.paligot.confily.backend.third.parties.geocode.GeocodeApi
-import com.paligot.confily.backend.third.parties.geocode.convertToDb
+import com.paligot.confily.backend.third.parties.geocode.convertToEntity
 import com.paligot.confily.models.Session
 import com.paligot.confily.models.inputs.EventSessionInput
 
 class SessionRepository(
     private val geocodeApi: GeocodeApi,
-    private val eventDao: EventDao,
+    private val eventDao: EventFirestore,
     private val sessionDao: SessionDao
 ) {
     suspend fun list(eventId: String): List<Session> {
@@ -24,7 +24,7 @@ class SessionRepository(
             throw NotFoundException("Event Session $sessionId Not Found")
         }
         val addressDb = input.address?.let {
-            geocodeApi.geocode(it).convertToDb()
+            geocodeApi.geocode(it).convertToEntity()
                 ?: throw NotAcceptableException("Your address information isn't found")
         }
         return sessionDao.createOrUpdate(

@@ -1,37 +1,13 @@
 package com.paligot.confily.backend.speakers
 
-import com.paligot.confily.backend.internals.socials.SocialDb
-import com.paligot.confily.backend.internals.socials.convertToDb
-import com.paligot.confily.backend.internals.socials.convertToModel
+import com.paligot.confily.backend.internals.application.convertToEntity
+import com.paligot.confily.backend.internals.application.convertToModel
+import com.paligot.confily.backend.internals.infrastructure.firestore.SocialEntity
 import com.paligot.confily.models.SocialItem
 import com.paligot.confily.models.SocialType
 import com.paligot.confily.models.Speaker
 import com.paligot.confily.models.inputs.SocialInput
 import com.paligot.confily.models.inputs.SpeakerInput
-
-fun com.paligot.confily.backend.third.parties.conferencehall.Speaker.convertToDb(url: String): SpeakerDb =
-    SpeakerDb(
-        id = this.uid,
-        displayName = this.displayName,
-        bio = this.bio ?: "",
-        company = this.company,
-        photoUrl = url,
-        socials = arrayListOf<SocialDb>().apply {
-            if (twitter?.contains("twitter.com") == true) {
-                this.add(SocialDb(SocialType.X.name.lowercase(), twitter))
-            } else if (twitter?.contains("x.com") == true) {
-                this.add(SocialDb(SocialType.X.name.lowercase(), twitter))
-            } else if (twitter != null) {
-                this.add(SocialDb(SocialType.X.name.lowercase(), "https://x.com/$twitter"))
-            }
-            if (github?.contains("github.com") == true) {
-                this.add(SocialDb(SocialType.GitHub.name.lowercase(), github))
-            } else if (github != null) {
-                val gitHubUrl = "https://github.com/$github"
-                this.add(SocialDb(SocialType.GitHub.name.lowercase(), gitHubUrl))
-            }
-        }
-    )
 
 fun SpeakerDb.convertToModel(): Speaker = Speaker(
     id = this.id,
@@ -41,7 +17,7 @@ fun SpeakerDb.convertToModel(): Speaker = Speaker(
     jobTitle = this.jobTitle,
     company = this.company,
     photoUrl = this.photoUrl,
-    socials = socials.map(SocialDb::convertToModel).toMutableList().apply {
+    socials = socials.map(SocialEntity::convertToModel).toMutableList().apply {
         if (find { it.type == SocialType.LinkedIn } == null && linkedin != null) {
             this.add(SocialItem(SocialType.LinkedIn, linkedin))
         }
@@ -69,5 +45,5 @@ fun SpeakerInput.convertToDb(photoUrl: String, id: String? = null) = SpeakerDb(
     jobTitle = this.jobTitle,
     company = this.company,
     photoUrl = photoUrl,
-    socials = socials.map(SocialInput::convertToDb)
+    socials = socials.map(SocialInput::convertToEntity)
 )

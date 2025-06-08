@@ -1,7 +1,7 @@
 package com.paligot.confily.backend.schedules
 
-import com.paligot.confily.backend.internals.date.FormatterPattern
-import com.paligot.confily.backend.internals.date.format
+import com.paligot.confily.backend.internals.helpers.date.FormatterPattern
+import com.paligot.confily.backend.internals.helpers.date.format
 import com.paligot.confily.models.Info
 import com.paligot.confily.models.PlanningItem
 import com.paligot.confily.models.ScheduleItem

@@ -1,6 +1,6 @@
 package com.paligot.confily.backend.sessions
 
-import com.paligot.confily.backend.events.AddressDb
+import com.paligot.confily.backend.internals.infrastructure.firestore.AddressEntity
 
 sealed class SessionDb(
     open val id: String = "",
@@ -26,5 +26,5 @@ data class EventSessionDb(
     override val id: String = "",
     override val title: String = "",
     val description: String? = null,
-    val address: AddressDb? = null
+    val address: AddressEntity? = null
 ) : SessionDb(id, title)

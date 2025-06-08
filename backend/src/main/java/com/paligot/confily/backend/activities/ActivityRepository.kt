@@ -1,14 +1,14 @@
 package com.paligot.confily.backend.activities
 
 import com.paligot.confily.backend.NotFoundException
-import com.paligot.confily.backend.events.EventDao
+import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
 import com.paligot.confily.backend.partners.PartnerDao
 import com.paligot.confily.models.inputs.ActivityInput
 import kotlinx.coroutines.coroutineScope
 import kotlinx.datetime.LocalDateTime
 
 class ActivityRepository(
-    private val eventDao: EventDao,
+    private val eventDao: EventFirestore,
     private val partnerDao: PartnerDao,
     private val activityDao: ActivityDao
 ) {
