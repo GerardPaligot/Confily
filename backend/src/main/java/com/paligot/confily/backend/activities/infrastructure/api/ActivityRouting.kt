@@ -1,6 +1,6 @@
-package com.paligot.confily.backend.activities
+package com.paligot.confily.backend.activities.infrastructure.api
 
-import com.paligot.confily.backend.activities.ActivityModule.activityRepository
+import com.paligot.confily.backend.activities.infrastructure.factory.ActivityModule.activityRepository
 import com.paligot.confily.backend.internals.plugins.PartnersUpdatedAtPlugin
 import com.paligot.confily.backend.receiveValidated
 import com.paligot.confily.models.inputs.ActivityInput
@@ -15,7 +15,6 @@ fun Route.registerAdminActivitiesRoutes() {
 
     route("/activities") {
         this.install(PartnersUpdatedAtPlugin)
-
         post {
             val eventId = call.parameters["eventId"]!!
             val activity = call.receiveValidated<ActivityInput>()

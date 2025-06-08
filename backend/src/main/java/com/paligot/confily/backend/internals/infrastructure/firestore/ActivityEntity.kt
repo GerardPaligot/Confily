@@ -1,6 +1,6 @@
-package com.paligot.confily.backend.activities
+package com.paligot.confily.backend.internals.infrastructure.firestore
 
-data class ActivityDb(
+data class ActivityEntity(
     val id: String? = null,
     val name: String = "",
     val startTime: String = "",

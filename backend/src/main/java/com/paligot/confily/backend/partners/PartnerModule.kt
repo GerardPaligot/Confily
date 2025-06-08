@@ -1,6 +1,6 @@
 package com.paligot.confily.backend.partners
 
-import com.paligot.confily.backend.activities.ActivityModule.activityDao
+import com.paligot.confily.backend.activities.infrastructure.factory.ActivityModule.activityFirestore
 import com.paligot.confily.backend.internals.infrastructure.factory.FirestoreModule.eventFirestore
 import com.paligot.confily.backend.internals.infrastructure.factory.GoogleServicesModule.cloudFirestore
 import com.paligot.confily.backend.internals.infrastructure.factory.InternalModule.commonApi
@@ -18,7 +18,7 @@ object PartnerModule {
             commonApi.value,
             eventFirestore.value,
             partnerDao.value,
-            activityDao.value,
+            activityFirestore.value,
             jobDao.value,
             transcoder.value
         )

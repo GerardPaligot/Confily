@@ -1,10 +1,10 @@
 package com.paligot.confily.backend.partners
 
 import com.paligot.confily.backend.NotAcceptableException
-import com.paligot.confily.backend.activities.ActivityDao
-import com.paligot.confily.backend.activities.convertToModel
+import com.paligot.confily.backend.activities.application.convertToModel
 import com.paligot.confily.backend.internals.helpers.image.Png
 import com.paligot.confily.backend.internals.helpers.image.TranscoderImage
+import com.paligot.confily.backend.internals.infrastructure.firestore.ActivityFirestore
 import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
 import com.paligot.confily.backend.internals.infrastructure.provider.CommonApi
 import com.paligot.confily.backend.jobs.JobDao
@@ -26,7 +26,7 @@ class PartnerRepository(
     private val commonApi: CommonApi,
     private val eventDao: EventFirestore,
     private val partnerDao: PartnerDao,
-    private val activityDao: ActivityDao,
+    private val activityFirestore: ActivityFirestore,
     private val jobDao: JobDao,
     private val imageTranscoder: TranscoderImage,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
@@ -52,7 +52,7 @@ class PartnerRepository(
         val event = eventDao.get(eventId)
         val partners = async(dispatcher) { partnerDao.getAll(eventId) }
         val jobs = async(dispatcher) { jobDao.getAll(eventId) }
-        val activities = async(dispatcher) { activityDao.getAll(eventId) }
+        val activities = async(dispatcher) { activityFirestore.getAll(eventId) }
         val fetchedJobs = jobs.await()
         return@coroutineScope PartnersActivities(
             types = event.sponsoringTypes,
