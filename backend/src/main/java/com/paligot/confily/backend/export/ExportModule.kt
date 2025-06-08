@@ -1,6 +1,6 @@
 package com.paligot.confily.backend.export
 
-import com.paligot.confily.backend.activities.ActivityModule.activityDao
+import com.paligot.confily.backend.activities.infrastructure.factory.ActivityModule.activityFirestore
 import com.paligot.confily.backend.formats.FormatModule.formatDao
 import com.paligot.confily.backend.internals.infrastructure.factory.FirestoreModule.categoryFirestore
 import com.paligot.confily.backend.internals.infrastructure.factory.FirestoreModule.eventFirestore
@@ -44,7 +44,7 @@ object ExportModule {
             eventStorage.value,
             partnerDao.value,
             jobDao.value,
-            activityDao.value
+            activityFirestore.value
         )
     }
 }

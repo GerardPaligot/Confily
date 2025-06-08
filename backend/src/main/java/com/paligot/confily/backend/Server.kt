@@ -1,6 +1,6 @@
 package com.paligot.confily.backend
 
-import com.paligot.confily.backend.activities.registerAdminActivitiesRoutes
+import com.paligot.confily.backend.activities.infrastructure.api.registerAdminActivitiesRoutes
 import com.paligot.confily.backend.categories.infrastructure.api.registerAdminCategoriesRoutes
 import com.paligot.confily.backend.categories.infrastructure.api.registerCategoriesRoutes
 import com.paligot.confily.backend.events.infrastructure.api.registerAdminEventRoutes

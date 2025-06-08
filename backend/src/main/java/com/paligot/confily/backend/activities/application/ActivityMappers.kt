@@ -1,9 +1,10 @@
-package com.paligot.confily.backend.activities
+package com.paligot.confily.backend.activities.application
 
+import com.paligot.confily.backend.internals.infrastructure.firestore.ActivityEntity
 import com.paligot.confily.models.Activity
 import com.paligot.confily.models.inputs.ActivityInput
 
-fun ActivityDb.convertToModel() = Activity(
+fun ActivityEntity.convertToModel() = Activity(
     id = id ?: "",
     name = name,
     startTime = startTime,
@@ -11,7 +12,7 @@ fun ActivityDb.convertToModel() = Activity(
     partnerId = partnerId
 )
 
-fun ActivityInput.convertToDb(id: String? = null) = ActivityDb(
+fun ActivityInput.convertToEntity(id: String? = null) = ActivityEntity(
     id = id,
     name = name,
     startTime = startTime,

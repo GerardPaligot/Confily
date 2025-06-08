@@ -1,8 +1,8 @@
 package com.paligot.confily.backend.export
 
 import com.paligot.confily.backend.NotFoundException
-import com.paligot.confily.backend.activities.ActivityDao
-import com.paligot.confily.backend.activities.convertToModel
+import com.paligot.confily.backend.activities.application.convertToModel
+import com.paligot.confily.backend.internals.infrastructure.firestore.ActivityFirestore
 import com.paligot.confily.backend.internals.infrastructure.firestore.EventEntity
 import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
 import com.paligot.confily.backend.internals.infrastructure.storage.EventStorage
@@ -21,7 +21,7 @@ class ExportPartnersRepository(
     private val eventStorage: EventStorage,
     private val partnerDao: PartnerDao,
     private val jobDao: JobDao,
-    private val activityDao: ActivityDao,
+    private val activityFirestore: ActivityFirestore,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
     suspend fun get(eventId: String): PartnersActivities {
@@ -41,7 +41,7 @@ class ExportPartnersRepository(
         coroutineScope {
             val partners = async(dispatcher) { partnerDao.getAll(eventDb.slugId) }
             val jobs = async(dispatcher) { jobDao.getAll(eventDb.slugId) }
-            val activities = async(dispatcher) { activityDao.getAll(eventDb.slugId) }
+            val activities = async(dispatcher) { activityFirestore.getAll(eventDb.slugId) }
             val fetchedJobs = jobs.await()
             return@coroutineScope PartnersActivities(
                 types = eventDb.sponsoringTypes,
