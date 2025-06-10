@@ -8,10 +8,10 @@ import com.paligot.confily.backend.internals.infrastructure.firestore.EventEntit
 import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
 import com.paligot.confily.backend.internals.infrastructure.firestore.FormatEntity
 import com.paligot.confily.backend.internals.infrastructure.firestore.FormatFirestore
+import com.paligot.confily.backend.internals.infrastructure.firestore.QAndAEntity
+import com.paligot.confily.backend.internals.infrastructure.firestore.QAndAFirestore
 import com.paligot.confily.backend.internals.infrastructure.firestore.TeamGroupEntity
 import com.paligot.confily.backend.internals.infrastructure.provider.CommonApi
-import com.paligot.confily.backend.qanda.QAndADao
-import com.paligot.confily.backend.qanda.QAndADb
 import com.paligot.confily.backend.schedules.ScheduleDb
 import com.paligot.confily.backend.schedules.ScheduleItemDao
 import com.paligot.confily.backend.sessions.SessionDao
@@ -36,7 +36,7 @@ class OpenPlannerRepository(
     private val categoryDao: CategoryFirestore,
     private val formatFirestore: FormatFirestore,
     private val scheduleItemDao: ScheduleItemDao,
-    private val qAndADao: QAndADao,
+    private val qAndAFirestore: QAndAFirestore,
     private val teamDao: TeamDao,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
@@ -113,14 +113,14 @@ class OpenPlannerRepository(
     @Suppress("LongParameterList")
     private suspend fun clean(
         event: EventEntity,
-        qandas: List<QAndADb>,
+        qandas: List<QAndAEntity>,
         categories: List<CategoryEntity>,
         formats: List<FormatEntity>,
         speakers: List<SpeakerDb>,
         schedules: List<ScheduleDb>,
         teamMembers: List<TeamDb>
     ) = coroutineScope {
-        qAndADao.deleteDiff(event.slugId, qandas.map { it.id!! })
+        qAndAFirestore.deleteDiff(event.slugId, qandas.map { it.id!! })
         teamDao.deleteDiff(event.slugId, teamMembers.map { it.id!! })
         categoryDao.deleteDiff(event.slugId, categories.map { it.id!! })
         formatFirestore.deleteDiff(event.slugId, formats.map { it.id!! })
@@ -141,9 +141,9 @@ class OpenPlannerRepository(
         order: Int,
         language: String,
         faqItemOP: FaqItemOP
-    ): QAndADb {
+    ): QAndAEntity {
         val item = faqItemOP.convertToQAndADb(order = order, language = language)
-        qAndADao.createOrUpdate(eventId, item)
+        qAndAFirestore.createOrUpdate(eventId, item)
         return item
     }
 

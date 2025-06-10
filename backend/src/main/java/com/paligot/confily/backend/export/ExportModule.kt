@@ -7,7 +7,7 @@ import com.paligot.confily.backend.internals.infrastructure.factory.FirestoreMod
 import com.paligot.confily.backend.internals.infrastructure.factory.StorageModule.eventStorage
 import com.paligot.confily.backend.map.infrastructure.factory.MapModule.mapFirestore
 import com.paligot.confily.backend.partners.infrastructure.factory.PartnerModule.partnerFirestore
-import com.paligot.confily.backend.qanda.QAndAModule.qAndADao
+import com.paligot.confily.backend.qanda.infrastructure.factory.QAndAModule.qAndAFirestore
 import com.paligot.confily.backend.schedules.ScheduleModule.scheduleItemDao
 import com.paligot.confily.backend.sessions.SessionModule.sessionDao
 import com.paligot.confily.backend.speakers.SpeakerModule.speakerDao
@@ -20,7 +20,7 @@ object ExportModule {
         ExportEventRepository(
             eventFirestore.value,
             eventStorage.value,
-            qAndADao.value,
+            qAndAFirestore.value,
             teamDao.value,
             mapFirestore.value,
             partnerFirestore.value

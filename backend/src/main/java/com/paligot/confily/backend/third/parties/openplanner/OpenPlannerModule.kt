@@ -4,7 +4,7 @@ import com.paligot.confily.backend.formats.infrastructure.factory.FormatModule.f
 import com.paligot.confily.backend.internals.infrastructure.factory.FirestoreModule.categoryFirestore
 import com.paligot.confily.backend.internals.infrastructure.factory.FirestoreModule.eventFirestore
 import com.paligot.confily.backend.internals.infrastructure.factory.InternalModule.commonApi
-import com.paligot.confily.backend.qanda.QAndAModule.qAndADao
+import com.paligot.confily.backend.qanda.infrastructure.factory.QAndAModule.qAndAFirestore
 import com.paligot.confily.backend.schedules.ScheduleModule.scheduleItemDao
 import com.paligot.confily.backend.sessions.SessionModule.sessionDao
 import com.paligot.confily.backend.speakers.SpeakerModule.speakerDao
@@ -22,7 +22,7 @@ object OpenPlannerModule {
             categoryFirestore.value,
             formatFirestore.value,
             scheduleItemDao.value,
-            qAndADao.value,
+            qAndAFirestore.value,
             teamDao.value
         )
     }

@@ -1,22 +1,22 @@
-package com.paligot.confily.backend.qanda
+package com.paligot.confily.backend.internals.infrastructure.firestore
 
-data class AcronymDb(
+data class AcronymEntity(
     val key: String = "",
     val value: String = ""
 )
 
-data class QAndAActionDb(
+data class QAndAActionEntity(
     val order: Int = 0,
     val label: String = "",
     val url: String = ""
 )
 
-data class QAndADb(
+data class QAndAEntity(
     val id: String? = null,
     val order: Int = 0,
     val language: String = "",
     val question: String = "",
     val response: String = "",
-    val actions: List<QAndAActionDb> = emptyList(),
-    val acronyms: List<AcronymDb> = emptyList()
+    val actions: List<QAndAActionEntity> = emptyList(),
+    val acronyms: List<AcronymEntity> = emptyList()
 )

@@ -6,11 +6,11 @@ import com.paligot.confily.backend.internals.infrastructure.firestore.EventFires
 import com.paligot.confily.backend.internals.infrastructure.firestore.MapEntity
 import com.paligot.confily.backend.internals.infrastructure.firestore.MapFirestore
 import com.paligot.confily.backend.internals.infrastructure.firestore.PartnerFirestore
+import com.paligot.confily.backend.internals.infrastructure.firestore.QAndAEntity
+import com.paligot.confily.backend.internals.infrastructure.firestore.QAndAFirestore
 import com.paligot.confily.backend.internals.infrastructure.storage.EventStorage
 import com.paligot.confily.backend.map.application.convertToModel
-import com.paligot.confily.backend.qanda.QAndADao
-import com.paligot.confily.backend.qanda.QAndADb
-import com.paligot.confily.backend.qanda.convertToModel
+import com.paligot.confily.backend.qanda.application.convertToModel
 import com.paligot.confily.backend.team.TeamDao
 import com.paligot.confily.backend.team.convertToModel
 import com.paligot.confily.models.ExportEvent
@@ -23,7 +23,7 @@ import kotlinx.coroutines.coroutineScope
 class ExportEventRepository(
     private val eventDao: EventFirestore,
     private val eventStorage: EventStorage,
-    private val qAndADao: QAndADao,
+    private val qAndAFirestore: QAndAFirestore,
     private val teamDao: TeamDao,
     private val mapFirestore: MapFirestore,
     private val partnerFirestore: PartnerFirestore,
@@ -44,9 +44,9 @@ class ExportEventRepository(
 
     private suspend fun buildEvent(event: EventEntity): ExportEvent = coroutineScope {
         val qanda = async(dispatcher) {
-            qAndADao.getAll(event.slugId)
+            qAndAFirestore.getAll(event.slugId)
                 .groupBy { it.language }
-                .map { it.key to it.value.sortedBy { it.order }.map(QAndADb::convertToModel) }
+                .map { it.key to it.value.sortedBy { it.order }.map(QAndAEntity::convertToModel) }
                 .toMap()
         }
         val maps = async(dispatcher) { mapFirestore.getAll(event.slugId).map(MapEntity::convertToModel) }
