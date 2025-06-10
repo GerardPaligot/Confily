@@ -8,7 +8,7 @@ import com.paligot.confily.backend.internals.infrastructure.factory.StorageModul
 import com.paligot.confily.backend.map.infrastructure.factory.MapModule.mapFirestore
 import com.paligot.confily.backend.partners.infrastructure.factory.PartnerModule.partnerFirestore
 import com.paligot.confily.backend.qanda.infrastructure.factory.QAndAModule.qAndAFirestore
-import com.paligot.confily.backend.schedules.ScheduleModule.scheduleItemDao
+import com.paligot.confily.backend.schedules.infrastructure.ScheduleModule.scheduleItemFirestore
 import com.paligot.confily.backend.sessions.SessionModule.sessionDao
 import com.paligot.confily.backend.speakers.SpeakerModule.speakerDao
 import com.paligot.confily.backend.tags.TagModule.tagDao
@@ -35,7 +35,7 @@ object ExportModule {
             categoryFirestore.value,
             formatFirestore.value,
             tagDao.value,
-            scheduleItemDao.value
+            scheduleItemFirestore.value
         )
     }
     val exportPartnersRepository = lazy {

@@ -1,8 +1,9 @@
-package com.paligot.confily.backend.schedules
+package com.paligot.confily.backend.schedules.infrastructure
 
 import com.paligot.confily.backend.internals.infrastructure.ktor.plugins.PlanningUpdatedAtPlugin
 import com.paligot.confily.backend.receiveValidated
-import com.paligot.confily.backend.schedules.ScheduleModule.scheduleRepository
+import com.paligot.confily.backend.schedules.infrastructure.ScheduleModule.scheduleAdminRepository
+import com.paligot.confily.backend.schedules.infrastructure.ScheduleModule.scheduleRepository
 import com.paligot.confily.models.inputs.ScheduleInput
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.response.respond
@@ -15,7 +16,7 @@ import io.ktor.server.routing.route
 fun Route.registerSchedulersRoutes() {
     val repository by scheduleRepository
 
-    get("/schedulers/{id}") {
+    get("/schedules/{id}") {
         val eventId = call.parameters["eventId"]!!
         val scheduleId = call.parameters["id"]!!
         call.respond(HttpStatusCode.OK, repository.get(eventId, scheduleId))
@@ -23,9 +24,9 @@ fun Route.registerSchedulersRoutes() {
 }
 
 fun Route.registerAdminSchedulersRoutes() {
-    val repository by scheduleRepository
+    val repository by scheduleAdminRepository
 
-    route("/schedulers") {
+    route("/schedules") {
         this.install(PlanningUpdatedAtPlugin)
         post {
             val eventId = call.parameters["eventId"]!!
