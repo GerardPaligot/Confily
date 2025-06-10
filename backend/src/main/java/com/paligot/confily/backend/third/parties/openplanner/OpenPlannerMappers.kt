@@ -4,13 +4,13 @@ package com.paligot.confily.backend.third.parties.openplanner
 
 import com.paligot.confily.backend.internals.infrastructure.firestore.AcronymEntity
 import com.paligot.confily.backend.internals.infrastructure.firestore.CategoryEntity
+import com.paligot.confily.backend.internals.infrastructure.firestore.EventSessionEntity
 import com.paligot.confily.backend.internals.infrastructure.firestore.FormatEntity
 import com.paligot.confily.backend.internals.infrastructure.firestore.QAndAActionEntity
 import com.paligot.confily.backend.internals.infrastructure.firestore.QAndAEntity
 import com.paligot.confily.backend.internals.infrastructure.firestore.ScheduleEntity
 import com.paligot.confily.backend.internals.infrastructure.firestore.SocialEntity
-import com.paligot.confily.backend.sessions.EventSessionDb
-import com.paligot.confily.backend.sessions.TalkDb
+import com.paligot.confily.backend.internals.infrastructure.firestore.TalkSessionEntity
 import com.paligot.confily.backend.speakers.SpeakerDb
 import com.paligot.confily.backend.team.TeamDb
 import com.paligot.confily.models.SocialType
@@ -174,7 +174,7 @@ fun SpeakerDb.mergeWith(photoUrl: String?, speakerOP: SpeakerOP): SpeakerDb {
     )
 }
 
-fun SessionOP.convertToTalkDb() = TalkDb(
+fun SessionOP.convertToTalkDb() = TalkSessionEntity(
     id = id,
     title = title,
     level = level,
@@ -187,13 +187,13 @@ fun SessionOP.convertToTalkDb() = TalkDb(
     linkReplay = null
 )
 
-fun SessionOP.convertToEventSessionDb() = EventSessionDb(
+fun SessionOP.convertToEventSessionDb() = EventSessionEntity(
     id = id,
     title = title,
     description = abstract
 )
 
-fun TalkDb.mergeWith(sessionOP: SessionOP) = TalkDb(
+fun TalkSessionEntity.mergeWith(sessionOP: SessionOP) = TalkSessionEntity(
     id = sessionOP.id,
     title = if (title == sessionOP.title) title else sessionOP.title,
     level = if (level == sessionOP.level) level else sessionOP.level,
@@ -223,7 +223,7 @@ fun TalkDb.mergeWith(sessionOP: SessionOP) = TalkDb(
     driveFolderId = driveFolderId
 )
 
-fun EventSessionDb.mergeWith(sessionOP: SessionOP) = EventSessionDb(
+fun EventSessionEntity.mergeWith(sessionOP: SessionOP) = EventSessionEntity(
     id = sessionOP.id,
     title = if (title == sessionOP.title) title else sessionOP.title,
     description = if (description == sessionOP.abstract) description else sessionOP.abstract,

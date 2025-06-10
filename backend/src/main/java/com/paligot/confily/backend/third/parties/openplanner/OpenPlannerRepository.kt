@@ -12,10 +12,10 @@ import com.paligot.confily.backend.internals.infrastructure.firestore.QAndAEntit
 import com.paligot.confily.backend.internals.infrastructure.firestore.QAndAFirestore
 import com.paligot.confily.backend.internals.infrastructure.firestore.ScheduleEntity
 import com.paligot.confily.backend.internals.infrastructure.firestore.ScheduleItemFirestore
+import com.paligot.confily.backend.internals.infrastructure.firestore.SessionEntity
+import com.paligot.confily.backend.internals.infrastructure.firestore.SessionFirestore
 import com.paligot.confily.backend.internals.infrastructure.firestore.TeamGroupEntity
 import com.paligot.confily.backend.internals.infrastructure.provider.CommonApi
-import com.paligot.confily.backend.sessions.SessionDao
-import com.paligot.confily.backend.sessions.SessionDb
 import com.paligot.confily.backend.speakers.SpeakerDao
 import com.paligot.confily.backend.speakers.SpeakerDb
 import com.paligot.confily.backend.team.TeamDao
@@ -32,7 +32,7 @@ class OpenPlannerRepository(
     private val commonApi: CommonApi,
     private val eventDao: EventFirestore,
     private val speakerDao: SpeakerDao,
-    private val sessionDao: SessionDao,
+    private val sessionFirestore: SessionFirestore,
     private val categoryDao: CategoryFirestore,
     private val formatFirestore: FormatFirestore,
     private val scheduleItemFirestore: ScheduleItemFirestore,
@@ -129,11 +129,11 @@ class OpenPlannerRepository(
         val talkIds = schedules
             .filter { it.talkId != null && event.eventSessionTracks.contains(it.room).not() }
             .map { it.talkId!! }
-        sessionDao.deleteDiffTalkSessions(event.slugId, talkIds)
+        sessionFirestore.deleteDiffTalkSessions(event.slugId, talkIds)
         val eventSessionIds = schedules
             .filter { it.talkId != null && event.eventSessionTracks.contains(it.room) }
             .map { it.talkId!! }
-        sessionDao.deleteDiffEventSessions(event.slugId, eventSessionIds)
+        sessionFirestore.deleteDiffEventSessions(event.slugId, eventSessionIds)
     }
 
     private suspend fun createOrMergeQAndA(
@@ -245,17 +245,17 @@ class OpenPlannerRepository(
         event: EventEntity,
         tracks: List<TrackOP>,
         session: SessionOP
-    ): SessionDb {
+    ): SessionEntity {
         val track = tracks.find { it.id == session.trackId }
         return if (event.eventSessionTracks.contains(track?.name)) {
-            val existing = sessionDao.getEventSession(event.slugId, session.id)
+            val existing = sessionFirestore.getEventSession(event.slugId, session.id)
             val item = existing?.mergeWith(session) ?: session.convertToEventSessionDb()
-            sessionDao.createOrUpdate(event.slugId, item)
+            sessionFirestore.createOrUpdate(event.slugId, item)
             item
         } else {
-            val existing = sessionDao.getTalkSession(event.slugId, session.id)
+            val existing = sessionFirestore.getTalkSession(event.slugId, session.id)
             val item = existing?.mergeWith(session) ?: session.convertToTalkDb()
-            sessionDao.createOrUpdate(event.slugId, item)
+            sessionFirestore.createOrUpdate(event.slugId, item)
             item
         }
     }

@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class TalkInput(
+data class TalkSessionInput(
     val title: String = "",
     val level: String? = null,
     val abstract: String = "",

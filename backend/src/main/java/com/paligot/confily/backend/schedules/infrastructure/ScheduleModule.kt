@@ -8,7 +8,7 @@ import com.paligot.confily.backend.internals.infrastructure.firestore.ScheduleIt
 import com.paligot.confily.backend.internals.infrastructure.system.SystemEnv.projectName
 import com.paligot.confily.backend.schedules.application.ScheduleAdminRepositoryDefault
 import com.paligot.confily.backend.schedules.application.ScheduleRepositoryDefault
-import com.paligot.confily.backend.sessions.SessionModule.sessionDao
+import com.paligot.confily.backend.sessions.infrastructure.factory.SessionModule.sessionFirestore
 import com.paligot.confily.backend.speakers.SpeakerModule.speakerDao
 
 object ScheduleModule {
@@ -16,7 +16,7 @@ object ScheduleModule {
     val scheduleRepository = lazy {
         ScheduleRepositoryDefault(
             eventFirestore.value,
-            sessionDao.value,
+            sessionFirestore.value,
             categoryFirestore.value,
             formatFirestore.value,
             speakerDao.value,
@@ -26,7 +26,7 @@ object ScheduleModule {
     val scheduleAdminRepository = lazy {
         ScheduleAdminRepositoryDefault(
             eventFirestore.value,
-            sessionDao.value,
+            sessionFirestore.value,
             formatFirestore.value,
             scheduleItemFirestore.value
         )

@@ -8,11 +8,11 @@ import com.paligot.confily.backend.internals.infrastructure.firestore.EventEntit
 import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
 import com.paligot.confily.backend.internals.infrastructure.firestore.FormatFirestore
 import com.paligot.confily.backend.internals.infrastructure.firestore.ScheduleItemFirestore
+import com.paligot.confily.backend.internals.infrastructure.firestore.SessionFirestore
 import com.paligot.confily.backend.internals.infrastructure.storage.EventStorage
 import com.paligot.confily.backend.schedules.application.convertToEventSession
 import com.paligot.confily.backend.schedules.application.convertToModelV4
-import com.paligot.confily.backend.sessions.SessionDao
-import com.paligot.confily.backend.sessions.convertToModel
+import com.paligot.confily.backend.sessions.application.convertToModel
 import com.paligot.confily.backend.speakers.SpeakerDao
 import com.paligot.confily.backend.speakers.convertToModel
 import com.paligot.confily.backend.tags.TagDao
@@ -30,7 +30,7 @@ class ExportPlanningRepository(
     private val eventFirestore: EventFirestore,
     private val eventStorage: EventStorage,
     private val speakerDao: SpeakerDao,
-    private val sessionDao: SessionDao,
+    private val sessionFirestore: SessionFirestore,
     private val categoryDao: CategoryFirestore,
     private val formatFirestore: FormatFirestore,
     private val tagDao: TagDao,
@@ -117,7 +117,7 @@ class ExportPlanningRepository(
             .filter { it.id.contains("-pause") }
             .map { it.convertToEventSession() }
         val sessions = async(context = dispatcher) {
-            sessionDao.getAll(eventDb.slugId).map { it.convertToModel(eventDb) }
+            sessionFirestore.getAll(eventDb.slugId).map { it.convertToModel(eventDb) }
         }
         val formats = async(context = dispatcher) {
             formatFirestore.getAll(eventDb.slugId).map { it.convertToModel() }

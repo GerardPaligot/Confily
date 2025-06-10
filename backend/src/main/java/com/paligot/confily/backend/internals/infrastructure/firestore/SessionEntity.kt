@@ -1,13 +1,11 @@
-package com.paligot.confily.backend.sessions
+package com.paligot.confily.backend.internals.infrastructure.firestore
 
-import com.paligot.confily.backend.internals.infrastructure.firestore.AddressEntity
-
-sealed class SessionDb(
+sealed class SessionEntity(
     open val id: String = "",
     open val title: String = ""
 )
 
-data class TalkDb(
+data class TalkSessionEntity(
     override val id: String = "",
     override val title: String = "",
     val level: String? = null,
@@ -20,11 +18,11 @@ data class TalkDb(
     val linkSlides: String? = null,
     val linkReplay: String? = null,
     val driveFolderId: String? = null
-) : SessionDb(id, title)
+) : SessionEntity(id, title)
 
-data class EventSessionDb(
+data class EventSessionEntity(
     override val id: String = "",
     override val title: String = "",
     val description: String? = null,
     val address: AddressEntity? = null
-) : SessionDb(id, title)
+) : SessionEntity(id, title)
