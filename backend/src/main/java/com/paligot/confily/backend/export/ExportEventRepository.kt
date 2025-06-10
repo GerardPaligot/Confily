@@ -3,10 +3,10 @@ package com.paligot.confily.backend.export
 import com.paligot.confily.backend.NotFoundException
 import com.paligot.confily.backend.internals.infrastructure.firestore.EventEntity
 import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
+import com.paligot.confily.backend.internals.infrastructure.firestore.MapEntity
+import com.paligot.confily.backend.internals.infrastructure.firestore.MapFirestore
 import com.paligot.confily.backend.internals.infrastructure.storage.EventStorage
-import com.paligot.confily.backend.map.MapDao
-import com.paligot.confily.backend.map.MapDb
-import com.paligot.confily.backend.map.convertToModel
+import com.paligot.confily.backend.map.application.convertToModel
 import com.paligot.confily.backend.partners.PartnerDao
 import com.paligot.confily.backend.qanda.QAndADao
 import com.paligot.confily.backend.qanda.QAndADb
@@ -25,7 +25,7 @@ class ExportEventRepository(
     private val eventStorage: EventStorage,
     private val qAndADao: QAndADao,
     private val teamDao: TeamDao,
-    private val mapDao: MapDao,
+    private val mapFirestore: MapFirestore,
     private val partnerDao: PartnerDao,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
@@ -49,7 +49,7 @@ class ExportEventRepository(
                 .map { it.key to it.value.sortedBy { it.order }.map(QAndADb::convertToModel) }
                 .toMap()
         }
-        val maps = async(dispatcher) { mapDao.getAll(event.slugId).map(MapDb::convertToModel) }
+        val maps = async(dispatcher) { mapFirestore.getAll(event.slugId).map(MapEntity::convertToModel) }
         return@coroutineScope event.convertToModelV5(
             qanda = qanda.await(),
             team = teamMembers(event),

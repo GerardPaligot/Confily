@@ -1,6 +1,6 @@
 package com.paligot.confily.backend.partners
 
-import com.paligot.confily.backend.internals.plugins.PartnersUpdatedAtPlugin
+import com.paligot.confily.backend.internals.infrastructure.ktor.plugins.PartnersUpdatedAtPlugin
 import com.paligot.confily.backend.partners.PartnerModule.partnerRepository
 import com.paligot.confily.backend.receiveValidated
 import com.paligot.confily.models.inputs.PartnerInput

@@ -2,7 +2,7 @@ package com.paligot.confily.backend.formats.infrastructure.api
 
 import com.paligot.confily.backend.formats.infrastructure.factory.FormatModule.formatAdminRepository
 import com.paligot.confily.backend.formats.infrastructure.factory.FormatModule.formatRepository
-import com.paligot.confily.backend.internals.plugins.PlanningUpdatedAtPlugin
+import com.paligot.confily.backend.internals.infrastructure.ktor.plugins.PlanningUpdatedAtPlugin
 import com.paligot.confily.backend.receiveValidated
 import com.paligot.confily.models.inputs.FormatInput
 import io.ktor.http.HttpStatusCode

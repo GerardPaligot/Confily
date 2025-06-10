@@ -1,6 +1,6 @@
 package com.paligot.confily.backend.menus.infrastructure.api
 
-import com.paligot.confily.backend.internals.plugins.EventUpdatedAtPlugin
+import com.paligot.confily.backend.internals.infrastructure.ktor.plugins.EventUpdatedAtPlugin
 import com.paligot.confily.backend.menus.infrastructure.factory.MenuModule.menuAdminRepository
 import com.paligot.confily.models.inputs.LunchMenuInput
 import io.ktor.http.HttpStatusCode

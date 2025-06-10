@@ -9,10 +9,10 @@ import com.paligot.confily.backend.export.registerAdminExportRoutes
 import com.paligot.confily.backend.export.registerExportRoutes
 import com.paligot.confily.backend.formats.infrastructure.api.registerAdminFormatsRoutes
 import com.paligot.confily.backend.formats.infrastructure.api.registerFormatsRoutes
-import com.paligot.confily.backend.internals.plugins.IdentificationPlugin
-import com.paligot.confily.backend.internals.plugins.UpdatedAtPlugin
-import com.paligot.confily.backend.map.registerAdminMapRoutes
-import com.paligot.confily.backend.map.registerMapRoutes
+import com.paligot.confily.backend.internals.infrastructure.ktor.plugins.IdentificationPlugin
+import com.paligot.confily.backend.internals.infrastructure.ktor.plugins.UpdatedAtPlugin
+import com.paligot.confily.backend.map.infrastructure.api.registerAdminMapRoutes
+import com.paligot.confily.backend.map.infrastructure.api.registerMapRoutes
 import com.paligot.confily.backend.menus.infrastructure.api.registerAdminMenuRoutes
 import com.paligot.confily.backend.partners.registerAdminPartnersRoutes
 import com.paligot.confily.backend.partners.registerPartnersRoutes

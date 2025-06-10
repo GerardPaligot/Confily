@@ -1,4 +1,4 @@
-package com.paligot.confily.backend.internals.plugins
+package com.paligot.confily.backend.internals.infrastructure.ktor.plugins
 
 import com.paligot.confily.backend.internals.infrastructure.factory.FirestoreModule.eventFirestore
 import io.ktor.http.HttpMethod

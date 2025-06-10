@@ -2,7 +2,7 @@ package com.paligot.confily.backend.categories.infrastructure.api
 
 import com.paligot.confily.backend.categories.infrastructure.factory.CategoryModule.categoryAdminRepository
 import com.paligot.confily.backend.categories.infrastructure.factory.CategoryModule.categoryRepository
-import com.paligot.confily.backend.internals.plugins.PlanningUpdatedAtPlugin
+import com.paligot.confily.backend.internals.infrastructure.ktor.plugins.PlanningUpdatedAtPlugin
 import com.paligot.confily.backend.receiveValidated
 import com.paligot.confily.models.inputs.CategoryInput
 import io.ktor.http.HttpStatusCode

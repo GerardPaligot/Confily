@@ -1,28 +1,28 @@
-package com.paligot.confily.backend.map
+package com.paligot.confily.backend.internals.infrastructure.firestore
 
 import com.paligot.confily.models.MappingType
 import com.paligot.confily.models.PictogramType
 
-data class OffsetDb(val x: Float = 0f, val y: Float = 0f)
+data class OffsetEntity(val x: Float = 0f, val y: Float = 0f)
 
-data class MapShapeDb(
+data class MapShapeEntity(
     val order: Int = 0,
     val name: String = "",
     val description: String? = null,
-    val start: OffsetDb = OffsetDb(),
-    val end: OffsetDb = OffsetDb(),
+    val start: OffsetEntity = OffsetEntity(),
+    val end: OffsetEntity = OffsetEntity(),
     val type: MappingType = MappingType.Event
 )
 
-data class MapPictogramDb(
+data class MapPictogramEntity(
     val order: Int = 0,
     val name: String = "",
     val description: String? = null,
-    val position: OffsetDb = OffsetDb(),
+    val position: OffsetEntity = OffsetEntity(),
     val type: PictogramType = PictogramType.Coffee
 )
 
-data class MapDb(
+data class MapEntity(
     val id: String = "",
     val name: String = "",
     val description: String? = null,
@@ -33,6 +33,6 @@ data class MapDb(
     val pictoSize: Int = 0,
     val url: String = "",
     val filledUrl: String? = null,
-    val shapes: List<MapShapeDb> = emptyList(),
-    val pictograms: List<MapPictogramDb> = emptyList()
+    val shapes: List<MapShapeEntity> = emptyList(),
+    val pictograms: List<MapPictogramEntity> = emptyList()
 )
