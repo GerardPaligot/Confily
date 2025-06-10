@@ -5,16 +5,16 @@ import com.paligot.confily.backend.internals.infrastructure.firestore.CategoryFi
 import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
 import com.paligot.confily.backend.internals.infrastructure.firestore.FormatFirestore
 import com.paligot.confily.backend.internals.infrastructure.firestore.ScheduleItemFirestore
+import com.paligot.confily.backend.internals.infrastructure.firestore.SessionFirestore
 import com.paligot.confily.backend.schedules.domain.ScheduleRepository
-import com.paligot.confily.backend.sessions.SessionDao
-import com.paligot.confily.backend.sessions.convertToModel
+import com.paligot.confily.backend.sessions.application.convertToModel
 import com.paligot.confily.backend.speakers.SpeakerDao
 import com.paligot.confily.models.ScheduleItem
 import kotlinx.coroutines.coroutineScope
 
 class ScheduleRepositoryDefault(
     private val eventDao: EventFirestore,
-    private val sessionDao: SessionDao,
+    private val sessionFirestore: SessionFirestore,
     private val categoryDao: CategoryFirestore,
     private val formatFirestore: FormatFirestore,
     private val speakerDao: SpeakerDao,
@@ -25,7 +25,7 @@ class ScheduleRepositoryDefault(
         val scheduleItem = scheduleItemFirestore.get(eventId, scheduleId)
             ?: throw NotFoundException("Schedule item $scheduleId not found")
         val talk = if (scheduleItem.talkId != null) {
-            val talkDb = sessionDao.getTalkSession(eventId, scheduleItem.talkId)
+            val talkDb = sessionFirestore.getTalkSession(eventId, scheduleItem.talkId)
                 ?: throw NotFoundException("Talk ${scheduleItem.talkId} not found")
             val speakers = speakerDao.getByIds(eventId, talkDb.speakerIds)
             val category = categoryDao.get(eventId, talkDb.category)

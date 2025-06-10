@@ -21,14 +21,12 @@ import com.paligot.confily.backend.qanda.infrastructure.api.registerAdminQAndAsR
 import com.paligot.confily.backend.qanda.infrastructure.api.registerQAndAsRoutes
 import com.paligot.confily.backend.schedules.infrastructure.registerAdminSchedulersRoutes
 import com.paligot.confily.backend.schedules.infrastructure.registerSchedulersRoutes
-import com.paligot.confily.backend.sessions.registerAdminSessionsRoutes
-import com.paligot.confily.backend.sessions.registerSessionsRoutes
+import com.paligot.confily.backend.sessions.infrastructure.api.registerAdminSessionsRoutes
+import com.paligot.confily.backend.sessions.infrastructure.api.registerSessionsRoutes
 import com.paligot.confily.backend.speakers.registerAdminSpeakersRoutes
 import com.paligot.confily.backend.speakers.registerSpeakersRoutes
 import com.paligot.confily.backend.tags.registerAdminTagsRoutes
 import com.paligot.confily.backend.tags.registerTagsRoutes
-import com.paligot.confily.backend.talks.registerAdminTalksRoutes
-import com.paligot.confily.backend.talks.registerTalksRoutes
 import com.paligot.confily.backend.team.registerAdminTeamRoutes
 import com.paligot.confily.backend.team.registerTeamRoutes
 import com.paligot.confily.backend.third.parties.billetweb.registerBilletWebRoutes
@@ -113,7 +111,6 @@ fun main() {
                 registerQAndAsRoutes()
                 registerSpeakersRoutes()
                 registerSessionsRoutes()
-                registerTalksRoutes()
                 registerCategoriesRoutes()
                 registerFormatsRoutes()
                 registerTagsRoutes()
@@ -138,10 +135,9 @@ fun main() {
                     registerAdminPartnersRoutes()
                     registerAdminQAndAsRoutes()
                     registerAdminSchedulersRoutes()
-                    registerAdminSessionsRoutes()
                     registerAdminSpeakersRoutes()
                     registerAdminTagsRoutes()
-                    registerAdminTalksRoutes()
+                    registerAdminSessionsRoutes()
                     registerAdminTeamRoutes()
                     registerAdminExportRoutes()
                     // Third parties

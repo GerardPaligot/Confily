@@ -1,4 +1,4 @@
-package com.paligot.confily.backend.sessions
+package com.paligot.confily.backend.internals.infrastructure.firestore
 
 import com.google.cloud.firestore.Firestore
 import com.paligot.confily.backend.internals.helpers.database.batchDelete
@@ -18,52 +18,51 @@ private object CollectionName {
     const val EVENT_SESSIONS = "event-sessions"
 }
 
-private fun <T : SessionDb> T.getCollectionName() = when (this) {
-    is TalkDb -> CollectionName.TALK_SESSIONS
-    is EventSessionDb -> CollectionName.EVENT_SESSIONS
-    else -> TODO("Session not implemented")
+private fun <T : SessionEntity> T.getCollectionName() = when (this) {
+    is TalkSessionEntity -> CollectionName.TALK_SESSIONS
+    is EventSessionEntity -> CollectionName.EVENT_SESSIONS
 }
 
 @Suppress("TooManyFunctions")
-class SessionDao(
+class SessionFirestore(
     private val projectName: String,
     private val firestore: Firestore,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
-    fun get(eventId: String, id: String): SessionDb? =
+    fun get(eventId: String, id: String): SessionEntity? =
         getTalkSession(eventId, id) ?: getEventSession(eventId, id)
 
-    fun getTalkSession(eventId: String, id: String): TalkDb? = firestore
+    fun getTalkSession(eventId: String, id: String): TalkSessionEntity? = firestore
         .collection(projectName)
         .document(eventId)
         .collection(CollectionName.TALK_SESSIONS)
         .getDocument(id)
 
-    fun getEventSession(eventId: String, id: String): EventSessionDb? = firestore
+    fun getEventSession(eventId: String, id: String): EventSessionEntity? = firestore
         .collection(projectName)
         .document(eventId)
         .collection(CollectionName.EVENT_SESSIONS)
         .getDocument(id)
 
-    suspend fun getAll(eventId: String): List<SessionDb> = coroutineScope {
+    suspend fun getAll(eventId: String): List<SessionEntity> = coroutineScope {
         val talkSessions = async(context = dispatcher) { getAllTalkSessions(eventId) }
         val eventSessions = async(context = dispatcher) { getAllEventSessions(eventId) }
         return@coroutineScope talkSessions.await() + eventSessions.await()
     }
 
-    private fun getAllEventSessions(eventId: String): List<EventSessionDb> = firestore
+    private fun getAllEventSessions(eventId: String): List<EventSessionEntity> = firestore
         .collection(projectName)
         .document(eventId)
         .collection(CollectionName.EVENT_SESSIONS)
         .getDocuments()
 
-    fun getAllTalkSessions(eventId: String): List<TalkDb> = firestore
+    fun getAllTalkSessions(eventId: String): List<TalkSessionEntity> = firestore
         .collection(projectName)
         .document(eventId)
         .collection(CollectionName.TALK_SESSIONS)
         .getDocuments()
 
-    fun <T : SessionDb> insert(eventId: String, session: T) {
+    fun <T : SessionEntity> insert(eventId: String, session: T) {
         firestore
             .collection(projectName)
             .document(eventId)
@@ -71,7 +70,7 @@ class SessionDao(
             .insert(session.id, session)
     }
 
-    suspend fun <T : SessionDb> insertAll(eventId: String, talks: List<T>) = coroutineScope {
+    suspend fun <T : SessionEntity> insertAll(eventId: String, talks: List<T>) = coroutineScope {
         val asyncItems = talks.map {
             async(context = dispatcher) { insert(eventId, it) }
         }
@@ -79,7 +78,7 @@ class SessionDao(
         Unit
     }
 
-    fun <T : SessionDb> update(eventId: String, session: T) {
+    fun <T : SessionEntity> update(eventId: String, session: T) {
         firestore
             .collection(projectName)
             .document(eventId)
@@ -87,7 +86,7 @@ class SessionDao(
             .update(session.id, session)
     }
 
-    fun <T : SessionDb> createOrUpdate(eventId: String, session: T): String {
+    fun <T : SessionEntity> createOrUpdate(eventId: String, session: T): String {
         if (session.id == "") {
             return firestore
                 .collection(projectName)
@@ -95,8 +94,8 @@ class SessionDao(
                 .collection(session.getCollectionName())
                 .insert {
                     when (session) {
-                        is TalkDb -> session.copy(it)
-                        is EventSessionDb -> session.copy(it)
+                        is TalkSessionEntity -> session.copy(it)
+                        is EventSessionEntity -> session.copy(it)
                         else -> TODO("Session not implemented")
                     }
                 }
