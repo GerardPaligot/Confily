@@ -2,8 +2,8 @@
 
 package com.paligot.confily.backend.third.parties.openplanner
 
-import com.paligot.confily.backend.formats.FormatDb
 import com.paligot.confily.backend.internals.infrastructure.firestore.CategoryEntity
+import com.paligot.confily.backend.internals.infrastructure.firestore.FormatEntity
 import com.paligot.confily.backend.internals.infrastructure.firestore.SocialEntity
 import com.paligot.confily.backend.qanda.AcronymDb
 import com.paligot.confily.backend.qanda.QAndAActionDb
@@ -30,13 +30,13 @@ fun CategoryEntity.mergeWith(category: CategoryOP) = CategoryEntity(
     icon = if (this.icon != "") this.icon else ""
 )
 
-fun FormatOP.convertToDb() = FormatDb(
+fun FormatOP.convertToDb() = FormatEntity(
     id = id,
     name = name,
     time = durationMinutes
 )
 
-fun FormatDb.mergeWith(formatOP: FormatOP) = FormatDb(
+fun FormatEntity.mergeWith(formatOP: FormatOP) = FormatEntity(
     id = formatOP.id,
     name = if (this.name == formatOP.name) this.name else formatOP.name,
     time = if (this.time != 0) this.time else formatOP.durationMinutes

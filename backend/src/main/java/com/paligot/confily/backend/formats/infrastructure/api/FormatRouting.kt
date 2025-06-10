@@ -1,6 +1,7 @@
-package com.paligot.confily.backend.formats
+package com.paligot.confily.backend.formats.infrastructure.api
 
-import com.paligot.confily.backend.formats.FormatModule.formatRepository
+import com.paligot.confily.backend.formats.infrastructure.factory.FormatModule.formatAdminRepository
+import com.paligot.confily.backend.formats.infrastructure.factory.FormatModule.formatRepository
 import com.paligot.confily.backend.internals.plugins.PlanningUpdatedAtPlugin
 import com.paligot.confily.backend.receiveValidated
 import com.paligot.confily.models.inputs.FormatInput
@@ -22,7 +23,7 @@ fun Route.registerFormatsRoutes() {
 }
 
 fun Route.registerAdminFormatsRoutes() {
-    val repository by formatRepository
+    val repository by formatAdminRepository
 
     route("/formats") {
         this.install(PlanningUpdatedAtPlugin)

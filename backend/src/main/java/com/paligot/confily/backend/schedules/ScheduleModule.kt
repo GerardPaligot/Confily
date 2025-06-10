@@ -1,6 +1,6 @@
 package com.paligot.confily.backend.schedules
 
-import com.paligot.confily.backend.formats.FormatModule.formatDao
+import com.paligot.confily.backend.formats.infrastructure.factory.FormatModule.formatFirestore
 import com.paligot.confily.backend.internals.infrastructure.factory.FirestoreModule.categoryFirestore
 import com.paligot.confily.backend.internals.infrastructure.factory.FirestoreModule.eventFirestore
 import com.paligot.confily.backend.internals.infrastructure.factory.GoogleServicesModule.cloudFirestore
@@ -15,7 +15,7 @@ object ScheduleModule {
             eventFirestore.value,
             sessionDao.value,
             categoryFirestore.value,
-            formatDao.value,
+            formatFirestore.value,
             speakerDao.value,
             scheduleItemDao.value
         )
