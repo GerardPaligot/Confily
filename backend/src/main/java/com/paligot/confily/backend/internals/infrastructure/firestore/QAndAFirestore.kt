@@ -1,4 +1,4 @@
-package com.paligot.confily.backend.qanda
+package com.paligot.confily.backend.internals.infrastructure.firestore
 
 import com.google.cloud.firestore.Firestore
 import com.paligot.confily.backend.internals.helpers.database.batchDelete
@@ -6,36 +6,35 @@ import com.paligot.confily.backend.internals.helpers.database.diffRefs
 import com.paligot.confily.backend.internals.helpers.database.getDocument
 import com.paligot.confily.backend.internals.helpers.database.getDocuments
 import com.paligot.confily.backend.internals.helpers.database.insert
-import com.paligot.confily.backend.internals.helpers.database.isNotEmpty
 import com.paligot.confily.backend.internals.helpers.database.query
 import com.paligot.confily.backend.internals.helpers.database.update
 import com.paligot.confily.backend.internals.helpers.database.whereEquals
 
 private const val CollectionName = "qanda"
 
-class QAndADao(
+class QAndAFirestore(
     private val projectName: String,
     private val firestore: Firestore
 ) {
-    fun get(eventId: String, id: String): QAndADb? = firestore
+    fun get(eventId: String, id: String): QAndAEntity? = firestore
         .collection(projectName)
         .document(eventId)
         .collection(CollectionName)
         .getDocument(id)
 
-    fun getAll(eventId: String): List<QAndADb> = firestore
+    fun getAll(eventId: String): List<QAndAEntity> = firestore
         .collection(projectName)
         .document(eventId)
         .collection(CollectionName)
-        .getDocuments<QAndADb>()
+        .getDocuments<QAndAEntity>()
 
-    fun getAll(eventId: String, language: String): List<QAndADb> = firestore
+    fun getAll(eventId: String, language: String): List<QAndAEntity> = firestore
         .collection(projectName)
         .document(eventId)
         .collection(CollectionName)
-        .query<QAndADb>("language".whereEquals(language))
+        .query<QAndAEntity>("language".whereEquals(language))
 
-    fun createOrUpdate(eventId: String, item: QAndADb) {
+    fun createOrUpdate(eventId: String, item: QAndAEntity) {
         if (item.id == null) {
             firestore
                 .collection(projectName)
@@ -50,12 +49,6 @@ class QAndADao(
                 .update(item.id, item)
         }
     }
-
-    fun hasQAndA(eventId: String): Boolean = firestore
-        .collection(projectName)
-        .document(eventId)
-        .collection(CollectionName)
-        .isNotEmpty()
 
     fun deleteDiff(eventId: String, ids: List<String>) {
         val diff = firestore

@@ -17,8 +17,8 @@ import com.paligot.confily.backend.menus.infrastructure.api.registerAdminMenuRou
 import com.paligot.confily.backend.partners.infrastructure.api.registerAdminPartnersRoutes
 import com.paligot.confily.backend.partners.infrastructure.api.registerPartnersRoutes
 import com.paligot.confily.backend.planning.infrastructure.api.registerPlanningRoutes
-import com.paligot.confily.backend.qanda.registerAdminQAndAsRoutes
-import com.paligot.confily.backend.qanda.registerQAndAsRoutes
+import com.paligot.confily.backend.qanda.infrastructure.api.registerAdminQAndAsRoutes
+import com.paligot.confily.backend.qanda.infrastructure.api.registerQAndAsRoutes
 import com.paligot.confily.backend.schedules.registerAdminSchedulersRoutes
 import com.paligot.confily.backend.schedules.registerSchedulersRoutes
 import com.paligot.confily.backend.sessions.registerAdminSessionsRoutes

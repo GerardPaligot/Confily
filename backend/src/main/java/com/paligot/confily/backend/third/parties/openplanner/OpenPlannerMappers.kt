@@ -2,12 +2,12 @@
 
 package com.paligot.confily.backend.third.parties.openplanner
 
+import com.paligot.confily.backend.internals.infrastructure.firestore.AcronymEntity
 import com.paligot.confily.backend.internals.infrastructure.firestore.CategoryEntity
 import com.paligot.confily.backend.internals.infrastructure.firestore.FormatEntity
+import com.paligot.confily.backend.internals.infrastructure.firestore.QAndAActionEntity
+import com.paligot.confily.backend.internals.infrastructure.firestore.QAndAEntity
 import com.paligot.confily.backend.internals.infrastructure.firestore.SocialEntity
-import com.paligot.confily.backend.qanda.AcronymDb
-import com.paligot.confily.backend.qanda.QAndAActionDb
-import com.paligot.confily.backend.qanda.QAndADb
 import com.paligot.confily.backend.schedules.ScheduleDb
 import com.paligot.confily.backend.sessions.EventSessionDb
 import com.paligot.confily.backend.sessions.TalkDb
@@ -241,7 +241,7 @@ fun SessionOP.convertToScheduleDb(order: Int, tracks: List<TrackOP>) = ScheduleD
     talkId = id
 )
 
-fun FaqItemOP.convertToQAndADb(order: Int, language: String): QAndADb {
+fun FaqItemOP.convertToQAndADb(order: Int, language: String): QAndAEntity {
     val links = Regex("\\[(.*?)\\]\\((.*?)\\)").findAll(answer)
     var response = answer
     links.forEach {
@@ -251,7 +251,7 @@ fun FaqItemOP.convertToQAndADb(order: Int, language: String): QAndADb {
     acronyms.forEach {
         response = answer.replaceRange(it.range, "")
     }
-    return QAndADb(
+    return QAndAEntity(
         id = id,
         order = order,
         language = language,
@@ -260,13 +260,13 @@ fun FaqItemOP.convertToQAndADb(order: Int, language: String): QAndADb {
         actions = links
             .mapIndexed { index, matchResult ->
                 val (text, url) = matchResult.destructured
-                QAndAActionDb(index, text, url)
+                QAndAActionEntity(index, text, url)
             }
             .toList(),
         acronyms = acronyms
             .map { matchResult ->
                 val (acronym, definition) = matchResult.destructured
-                AcronymDb(acronym, definition)
+                AcronymEntity(acronym, definition)
             }
             .toList()
     )

@@ -1,7 +1,8 @@
-package com.paligot.confily.backend.qanda
+package com.paligot.confily.backend.qanda.infrastructure.api
 
 import com.paligot.confily.backend.internals.infrastructure.ktor.plugins.EventUpdatedAtPlugin
-import com.paligot.confily.backend.qanda.QAndAModule.qAndARepository
+import com.paligot.confily.backend.qanda.infrastructure.factory.QAndAModule.qAndAAdminRepository
+import com.paligot.confily.backend.qanda.infrastructure.factory.QAndAModule.qAndARepository
 import com.paligot.confily.backend.receiveValidated
 import com.paligot.confily.models.inputs.QAndAInput
 import io.ktor.http.HttpStatusCode
@@ -26,7 +27,7 @@ fun Route.registerQAndAsRoutes() {
 }
 
 fun Route.registerAdminQAndAsRoutes() {
-    val repository by qAndARepository
+    val repository by qAndAAdminRepository
 
     route("/qanda") {
         this.install(EventUpdatedAtPlugin)

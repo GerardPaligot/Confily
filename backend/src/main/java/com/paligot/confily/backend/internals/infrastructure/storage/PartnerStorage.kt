@@ -1,9 +1,9 @@
 package com.paligot.confily.backend.internals.infrastructure.storage
 
-import com.paligot.confily.backend.internals.infrastructure.transcoder.Png
 import com.paligot.confily.backend.internals.helpers.storage.MimeType
 import com.paligot.confily.backend.internals.helpers.storage.Storage
 import com.paligot.confily.backend.internals.helpers.storage.Upload
+import com.paligot.confily.backend.internals.infrastructure.transcoder.Png
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
