@@ -1,6 +1,6 @@
-package com.paligot.confily.backend.schedules
+package com.paligot.confily.backend.internals.infrastructure.firestore
 
-data class ScheduleDb(
+data class ScheduleEntity(
     val order: Int? = 0,
     val startTime: String = "",
     val endTime: String = "",

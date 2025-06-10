@@ -1,36 +1,16 @@
-package com.paligot.confily.backend.schedules
+package com.paligot.confily.backend.schedules.application
 
 import com.paligot.confily.backend.internals.helpers.date.FormatterPattern
 import com.paligot.confily.backend.internals.helpers.date.format
-import com.paligot.confily.models.Info
-import com.paligot.confily.models.PlanningItem
+import com.paligot.confily.backend.internals.infrastructure.firestore.ScheduleEntity
 import com.paligot.confily.models.ScheduleItem
-import com.paligot.confily.models.ScheduleItemV3
 import com.paligot.confily.models.ScheduleItemV4
 import com.paligot.confily.models.Session
 import com.paligot.confily.models.Talk
 import com.paligot.confily.models.inputs.ScheduleInput
 import java.time.LocalDateTime
 
-fun ScheduleDb.convertToPlanningTalkModel(talk: Talk) = PlanningItem.TalkItem(
-    id = this.id,
-    order = order ?: 0,
-    startTime = this.startTime,
-    endTime = this.endTime,
-    room = this.room,
-    talk = talk
-)
-
-fun ScheduleDb.convertToPlanningEventModel(info: Info) = PlanningItem.EventItem(
-    id = this.id,
-    order = order ?: 0,
-    startTime = this.startTime,
-    endTime = this.endTime,
-    room = this.room,
-    info = info
-)
-
-fun ScheduleDb.convertToModel(talk: Talk?) = ScheduleItem(
+fun ScheduleEntity.convertToModel(talk: Talk?) = ScheduleItem(
     id = this.id,
     order = order ?: 0,
     time = LocalDateTime.parse(this.startTime).format(FormatterPattern.HoursMinutes),
@@ -40,17 +20,7 @@ fun ScheduleDb.convertToModel(talk: Talk?) = ScheduleItem(
     talk = talk
 )
 
-fun ScheduleDb.convertToModelV3() = ScheduleItemV3(
-    id = this.id,
-    order = order ?: 0,
-    date = LocalDateTime.parse(this.startTime).format(FormatterPattern.YearMonthDay),
-    startTime = this.startTime,
-    endTime = this.endTime,
-    room = this.room,
-    talkId = talkId
-)
-
-fun ScheduleDb.convertToModelV4() = ScheduleItemV4(
+fun ScheduleEntity.convertToModelV4() = ScheduleItemV4(
     id = this.id,
     order = order ?: 0,
     date = LocalDateTime.parse(this.startTime).format(FormatterPattern.YearMonthDay),
@@ -67,7 +37,7 @@ fun ScheduleItemV4.convertToEventSession(): Session = Session.Event(
     address = null
 )
 
-fun ScheduleInput.convertToDb(endTime: String, talkId: String? = null) = ScheduleDb(
+fun ScheduleInput.convertToEntity(endTime: String, talkId: String? = null) = ScheduleEntity(
     order = order,
     startTime = this.startTime,
     endTime = endTime,

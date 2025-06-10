@@ -7,10 +7,10 @@ import com.paligot.confily.backend.internals.infrastructure.firestore.CategoryFi
 import com.paligot.confily.backend.internals.infrastructure.firestore.EventEntity
 import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
 import com.paligot.confily.backend.internals.infrastructure.firestore.FormatFirestore
+import com.paligot.confily.backend.internals.infrastructure.firestore.ScheduleItemFirestore
 import com.paligot.confily.backend.internals.infrastructure.storage.EventStorage
-import com.paligot.confily.backend.schedules.ScheduleItemDao
-import com.paligot.confily.backend.schedules.convertToEventSession
-import com.paligot.confily.backend.schedules.convertToModelV4
+import com.paligot.confily.backend.schedules.application.convertToEventSession
+import com.paligot.confily.backend.schedules.application.convertToModelV4
 import com.paligot.confily.backend.sessions.SessionDao
 import com.paligot.confily.backend.sessions.convertToModel
 import com.paligot.confily.backend.speakers.SpeakerDao
@@ -34,7 +34,7 @@ class ExportPlanningRepository(
     private val categoryDao: CategoryFirestore,
     private val formatFirestore: FormatFirestore,
     private val tagDao: TagDao,
-    private val scheduleItemDao: ScheduleItemDao,
+    private val scheduleItemFirestore: ScheduleItemFirestore,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
     suspend fun get(eventId: String): AgendaV4 {
@@ -110,7 +110,7 @@ class ExportPlanningRepository(
 
     private suspend fun buildPlanning(eventDb: EventEntity) = coroutineScope {
         val schedules = async(context = dispatcher) {
-            scheduleItemDao.getAll(eventDb.slugId).map { it.convertToModelV4() }
+            scheduleItemFirestore.getAll(eventDb.slugId).map { it.convertToModelV4() }
         }.await()
         // For older event, get their break sessions
         val breaks = schedules

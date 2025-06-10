@@ -1,4 +1,4 @@
-package com.paligot.confily.backend.schedules
+package com.paligot.confily.backend.internals.infrastructure.firestore
 
 import com.google.cloud.firestore.Firestore
 import com.paligot.confily.backend.internals.helpers.database.batchDelete
@@ -10,23 +10,23 @@ import com.paligot.confily.backend.internals.helpers.database.upsert
 
 private const val CollectionName = "schedule-items"
 
-class ScheduleItemDao(
+class ScheduleItemFirestore(
     private val projectName: String,
     private val firestore: Firestore
 ) {
-    fun get(eventId: String, id: String): ScheduleDb? = firestore
+    fun get(eventId: String, id: String): ScheduleEntity? = firestore
         .collection(projectName)
         .document(eventId)
         .collection(CollectionName)
         .getDocument(id)
 
-    fun getAll(eventId: String): List<ScheduleDb> = firestore
+    fun getAll(eventId: String): List<ScheduleEntity> = firestore
         .collection(projectName)
         .document(eventId)
         .collection(CollectionName)
-        .getDocuments<ScheduleDb>()
+        .getDocuments<ScheduleEntity>()
 
-    fun createOrUpdate(eventId: String, item: ScheduleDb) {
+    fun createOrUpdate(eventId: String, item: ScheduleEntity) {
         firestore
             .collection(projectName)
             .document(eventId)
@@ -47,7 +47,7 @@ class ScheduleItemDao(
             .collection(projectName)
             .document(eventId)
             .collection(CollectionName)
-            .diff<ScheduleDb>(ids)
+            .diff<ScheduleEntity>(ids)
             // Don't remove break items.
             .filter { it.talkId != null }
         firestore.batchDelete(

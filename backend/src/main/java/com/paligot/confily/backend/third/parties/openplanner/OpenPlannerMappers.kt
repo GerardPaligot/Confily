@@ -7,8 +7,8 @@ import com.paligot.confily.backend.internals.infrastructure.firestore.CategoryEn
 import com.paligot.confily.backend.internals.infrastructure.firestore.FormatEntity
 import com.paligot.confily.backend.internals.infrastructure.firestore.QAndAActionEntity
 import com.paligot.confily.backend.internals.infrastructure.firestore.QAndAEntity
+import com.paligot.confily.backend.internals.infrastructure.firestore.ScheduleEntity
 import com.paligot.confily.backend.internals.infrastructure.firestore.SocialEntity
-import com.paligot.confily.backend.schedules.ScheduleDb
 import com.paligot.confily.backend.sessions.EventSessionDb
 import com.paligot.confily.backend.sessions.TalkDb
 import com.paligot.confily.backend.speakers.SpeakerDb
@@ -230,7 +230,7 @@ fun EventSessionDb.mergeWith(sessionOP: SessionOP) = EventSessionDb(
     address = address
 )
 
-fun SessionOP.convertToScheduleDb(order: Int, tracks: List<TrackOP>) = ScheduleDb(
+fun SessionOP.convertToScheduleDb(order: Int, tracks: List<TrackOP>) = ScheduleEntity(
     order = order,
     startTime = dateStart?.split("+")?.first()
         ?: error("Can't schedule a talk without a start time"),
