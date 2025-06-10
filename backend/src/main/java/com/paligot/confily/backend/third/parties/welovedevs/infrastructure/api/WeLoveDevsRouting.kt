@@ -1,6 +1,6 @@
 package com.paligot.confily.backend.third.parties.welovedevs.infrastructure.api
 
-import com.paligot.confily.backend.internals.plugins.PartnersUpdatedAtPlugin
+import com.paligot.confily.backend.internals.infrastructure.ktor.plugins.PartnersUpdatedAtPlugin
 import com.paligot.confily.backend.third.parties.welovedevs.infrastructure.factory.JobModule.jobRepository
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.response.respond

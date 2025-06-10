@@ -1,4 +1,4 @@
-package com.paligot.confily.backend.map
+package com.paligot.confily.backend.internals.infrastructure.firestore
 
 import com.google.cloud.firestore.Firestore
 import com.paligot.confily.backend.NotFoundException
@@ -6,31 +6,28 @@ import com.paligot.confily.backend.internals.helpers.database.getDocument
 import com.paligot.confily.backend.internals.helpers.database.getDocuments
 import com.paligot.confily.backend.internals.helpers.database.insert
 import com.paligot.confily.backend.internals.helpers.database.upsert
-import com.paligot.confily.backend.internals.helpers.storage.MimeType
 import com.paligot.confily.backend.internals.helpers.storage.Storage
-import com.paligot.confily.backend.internals.helpers.storage.Upload
-import kotlinx.coroutines.coroutineScope
 
 private const val CollectionName = "maps"
 
-class MapDao(
+class MapFirestore(
     private val projectName: String,
     private val firestore: Firestore,
     private val storage: Storage
 ) {
-    fun getAll(eventId: String): List<MapDb> = firestore
+    fun getAll(eventId: String): List<MapEntity> = firestore
         .collection(projectName)
         .document(eventId)
         .collection(CollectionName)
         .getDocuments()
 
-    fun get(eventId: String, id: String): MapDb? = firestore
+    fun get(eventId: String, id: String): MapEntity? = firestore
         .collection(projectName)
         .document(eventId)
         .collection(CollectionName)
         .getDocument(id)
 
-    fun createOrUpdate(eventId: String, map: MapDb): String {
+    fun createOrUpdate(eventId: String, map: MapEntity): String {
         if (map.id == "") {
             return firestore
                 .collection(projectName)
@@ -46,17 +43,7 @@ class MapDao(
         return map.id
     }
 
-    suspend fun uploadMap(
-        eventId: String,
-        mapId: String,
-        content: ByteArray
-    ): Upload = storage.upload(
-        filename = "$eventId/maps/$mapId",
-        content = content,
-        mimeType = MimeType.PNG
-    )
-
-    suspend fun delete(eventId: String, id: String) = coroutineScope {
+    suspend fun delete(eventId: String, id: String): String {
         val map = get(eventId, id) ?: throw NotFoundException("Map not found")
         firestore
             .collection(projectName)
@@ -64,6 +51,6 @@ class MapDao(
             .collection(CollectionName)
             .document(id)
             .delete()
-        storage.delete("$eventId/maps/${map.filename}")
+        return map.filename
     }
 }

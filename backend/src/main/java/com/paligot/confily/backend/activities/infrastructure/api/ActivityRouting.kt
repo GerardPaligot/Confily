@@ -1,7 +1,7 @@
 package com.paligot.confily.backend.activities.infrastructure.api
 
 import com.paligot.confily.backend.activities.infrastructure.factory.ActivityModule.activityRepository
-import com.paligot.confily.backend.internals.plugins.PartnersUpdatedAtPlugin
+import com.paligot.confily.backend.internals.infrastructure.ktor.plugins.PartnersUpdatedAtPlugin
 import com.paligot.confily.backend.receiveValidated
 import com.paligot.confily.models.inputs.ActivityInput
 import io.ktor.http.HttpStatusCode

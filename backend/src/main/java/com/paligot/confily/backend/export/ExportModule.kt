@@ -5,7 +5,7 @@ import com.paligot.confily.backend.formats.infrastructure.factory.FormatModule.f
 import com.paligot.confily.backend.internals.infrastructure.factory.FirestoreModule.categoryFirestore
 import com.paligot.confily.backend.internals.infrastructure.factory.FirestoreModule.eventFirestore
 import com.paligot.confily.backend.internals.infrastructure.factory.StorageModule.eventStorage
-import com.paligot.confily.backend.map.MapModule.mapDao
+import com.paligot.confily.backend.map.infrastructure.factory.MapModule.mapFirestore
 import com.paligot.confily.backend.partners.PartnerModule.partnerDao
 import com.paligot.confily.backend.qanda.QAndAModule.qAndADao
 import com.paligot.confily.backend.schedules.ScheduleModule.scheduleItemDao
@@ -22,7 +22,7 @@ object ExportModule {
             eventStorage.value,
             qAndADao.value,
             teamDao.value,
-            mapDao.value,
+            mapFirestore.value,
             partnerDao.value
         )
     }

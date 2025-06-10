@@ -1,6 +1,6 @@
 package com.paligot.confily.backend.talks
 
-import com.paligot.confily.backend.internals.plugins.PlanningUpdatedAtPlugin
+import com.paligot.confily.backend.internals.infrastructure.ktor.plugins.PlanningUpdatedAtPlugin
 import com.paligot.confily.backend.receiveValidated
 import com.paligot.confily.backend.talks.TalkModule.talkRepository
 import com.paligot.confily.models.inputs.TalkInput

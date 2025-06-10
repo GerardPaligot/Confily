@@ -4,7 +4,7 @@ package com.paligot.confily.backend.events.infrastructure.api
 
 import com.paligot.confily.backend.events.infrastructure.factory.EventModule.eventAdminRepository
 import com.paligot.confily.backend.events.infrastructure.factory.EventModule.eventRepository
-import com.paligot.confily.backend.internals.plugins.EventUpdatedAtPlugin
+import com.paligot.confily.backend.internals.infrastructure.ktor.plugins.EventUpdatedAtPlugin
 import com.paligot.confily.backend.receiveValidated
 import com.paligot.confily.backend.version
 import com.paligot.confily.models.inputs.CoCInput

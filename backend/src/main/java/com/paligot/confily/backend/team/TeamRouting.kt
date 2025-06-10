@@ -1,6 +1,6 @@
 package com.paligot.confily.backend.team
 
-import com.paligot.confily.backend.internals.plugins.EventUpdatedAtPlugin
+import com.paligot.confily.backend.internals.infrastructure.ktor.plugins.EventUpdatedAtPlugin
 import com.paligot.confily.backend.receiveValidated
 import com.paligot.confily.backend.team.TeamModule.teamRepository
 import com.paligot.confily.models.inputs.TeamMemberInput

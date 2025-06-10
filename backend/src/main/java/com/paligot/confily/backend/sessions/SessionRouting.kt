@@ -1,6 +1,6 @@
 package com.paligot.confily.backend.sessions
 
-import com.paligot.confily.backend.internals.plugins.PlanningUpdatedAtPlugin
+import com.paligot.confily.backend.internals.infrastructure.ktor.plugins.PlanningUpdatedAtPlugin
 import com.paligot.confily.backend.receiveValidated
 import com.paligot.confily.backend.sessions.SessionModule.sessionRepository
 import com.paligot.confily.models.inputs.EventSessionInput

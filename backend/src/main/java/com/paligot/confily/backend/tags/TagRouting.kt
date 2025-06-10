@@ -1,6 +1,6 @@
 package com.paligot.confily.backend.tags
 
-import com.paligot.confily.backend.internals.plugins.PlanningUpdatedAtPlugin
+import com.paligot.confily.backend.internals.infrastructure.ktor.plugins.PlanningUpdatedAtPlugin
 import com.paligot.confily.backend.receiveValidated
 import com.paligot.confily.backend.tags.TagModule.tagRepository
 import com.paligot.confily.models.inputs.TagInput
