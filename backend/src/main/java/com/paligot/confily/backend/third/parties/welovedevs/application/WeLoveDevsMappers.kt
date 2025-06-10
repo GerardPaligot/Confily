@@ -1,11 +1,12 @@
-package com.paligot.confily.backend.third.parties.welovedevs
+package com.paligot.confily.backend.third.parties.welovedevs.application
 
-import com.paligot.confily.backend.jobs.JobDb
-import com.paligot.confily.backend.jobs.SalaryDb
+import com.paligot.confily.backend.internals.infrastructure.firestore.JobEntity
+import com.paligot.confily.backend.internals.infrastructure.firestore.SalaryEntity
+import com.paligot.confily.backend.third.parties.welovedevs.infrastructure.provider.Hit
 import com.paligot.confily.models.Job
 import com.paligot.confily.models.Salary
 
-fun Hit.convertToDb(id: String, partnerId: String) = JobDb(
+fun Hit.convertToEntity(id: String, partnerId: String) = JobEntity(
     id = id,
     partnerId = partnerId,
     url = "https://welovedevs.com/app/job/$objectID",
@@ -13,7 +14,7 @@ fun Hit.convertToDb(id: String, partnerId: String) = JobDb(
     companyName = this.smallCompany.companyName,
     location = this.formattedPlaces.first(),
     salary = this.details.salary?.let { salary ->
-        SalaryDb(
+        SalaryEntity(
             min = salary.min,
             max = salary.max,
             recurrence = salary.recurrence
@@ -24,7 +25,7 @@ fun Hit.convertToDb(id: String, partnerId: String) = JobDb(
     publishDate = publishDate
 )
 
-fun JobDb.convertToModel() = Job(
+fun JobEntity.convertToModel() = Job(
     url = url,
     title = title,
     companyName = companyName,

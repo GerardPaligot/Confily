@@ -5,11 +5,11 @@ import com.paligot.confily.backend.activities.application.convertToModel
 import com.paligot.confily.backend.internals.infrastructure.firestore.ActivityFirestore
 import com.paligot.confily.backend.internals.infrastructure.firestore.EventEntity
 import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
+import com.paligot.confily.backend.internals.infrastructure.firestore.JobFirestore
 import com.paligot.confily.backend.internals.infrastructure.storage.EventStorage
-import com.paligot.confily.backend.jobs.JobDao
 import com.paligot.confily.backend.partners.PartnerDao
 import com.paligot.confily.backend.partners.convertToModelV3
-import com.paligot.confily.backend.third.parties.welovedevs.convertToModel
+import com.paligot.confily.backend.third.parties.welovedevs.application.convertToModel
 import com.paligot.confily.models.PartnersActivities
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -20,7 +20,7 @@ class ExportPartnersRepository(
     private val eventFirestore: EventFirestore,
     private val eventStorage: EventStorage,
     private val partnerDao: PartnerDao,
-    private val jobDao: JobDao,
+    private val jobFirestore: JobFirestore,
     private val activityFirestore: ActivityFirestore,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
@@ -40,7 +40,7 @@ class ExportPartnersRepository(
     private suspend fun buildPartnersActivities(eventDb: EventEntity): PartnersActivities =
         coroutineScope {
             val partners = async(dispatcher) { partnerDao.getAll(eventDb.slugId) }
-            val jobs = async(dispatcher) { jobDao.getAll(eventDb.slugId) }
+            val jobs = async(dispatcher) { jobFirestore.getAll(eventDb.slugId) }
             val activities = async(dispatcher) { activityFirestore.getAll(eventDb.slugId) }
             val fetchedJobs = jobs.await()
             return@coroutineScope PartnersActivities(

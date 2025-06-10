@@ -1,4 +1,4 @@
-package com.paligot.confily.backend.third.parties.welovedevs
+package com.paligot.confily.backend.third.parties.welovedevs.infrastructure.provider
 
 import kotlinx.serialization.Serializable
 

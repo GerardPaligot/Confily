@@ -1,4 +1,4 @@
-package com.paligot.confily.backend.jobs
+package com.paligot.confily.backend.internals.infrastructure.firestore
 
 import com.google.cloud.firestore.Firestore
 import com.paligot.confily.backend.internals.helpers.database.batchDelete
@@ -10,17 +10,17 @@ import kotlinx.coroutines.coroutineScope
 
 private const val CollectionName = "jobs"
 
-class JobDao(
+class JobFirestore(
     private val projectName: String,
     private val firestore: Firestore
 ) {
-    fun getAll(eventId: String): List<JobDb> = firestore
+    fun getAll(eventId: String): List<JobEntity> = firestore
         .collection(projectName)
         .document(eventId)
         .collection(CollectionName)
-        .getDocuments<JobDb>()
+        .getDocuments<JobEntity>()
 
-    suspend fun resetJobs(eventId: String, jobs: List<JobDb>) = coroutineScope {
+    suspend fun resetJobs(eventId: String, jobs: List<JobEntity>) = coroutineScope {
         val docRefs = firestore
             .collection(projectName)
             .document(eventId)

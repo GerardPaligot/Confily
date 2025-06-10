@@ -1,7 +1,7 @@
-package com.paligot.confily.backend.third.parties.welovedevs
+package com.paligot.confily.backend.third.parties.welovedevs.infrastructure.api
 
 import com.paligot.confily.backend.internals.plugins.PartnersUpdatedAtPlugin
-import com.paligot.confily.backend.jobs.JobModule.jobRepository
+import com.paligot.confily.backend.third.parties.welovedevs.infrastructure.factory.JobModule.jobRepository
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
@@ -15,7 +15,7 @@ fun Route.registerAdminWLDRoutes() {
         this.install(PartnersUpdatedAtPlugin)
         post("/wld/import") {
             val eventId = call.parameters["eventId"]!!
-            call.respond(HttpStatusCode.Created, repository.importWld(eventId))
+            call.respond(HttpStatusCode.Created, repository.import(eventId))
         }
     }
 }

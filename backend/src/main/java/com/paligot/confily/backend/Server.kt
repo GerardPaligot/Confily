@@ -35,7 +35,7 @@ import com.paligot.confily.backend.third.parties.billetweb.registerBilletWebRout
 import com.paligot.confily.backend.third.parties.cms4partners.registerAdminCms4PartnersRoutes
 import com.paligot.confily.backend.third.parties.openfeedback.infrastructure.api.registerOpenfeedackRoutes
 import com.paligot.confily.backend.third.parties.openplanner.registerAdminOpenPlannerRoutes
-import com.paligot.confily.backend.third.parties.welovedevs.registerAdminWLDRoutes
+import com.paligot.confily.backend.third.parties.welovedevs.infrastructure.api.registerAdminWLDRoutes
 import com.paligot.confily.models.Session
 import com.paligot.confily.models.inputs.Validator
 import com.paligot.confily.models.inputs.ValidatorException

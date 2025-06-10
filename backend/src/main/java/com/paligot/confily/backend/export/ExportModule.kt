@@ -5,7 +5,6 @@ import com.paligot.confily.backend.formats.infrastructure.factory.FormatModule.f
 import com.paligot.confily.backend.internals.infrastructure.factory.FirestoreModule.categoryFirestore
 import com.paligot.confily.backend.internals.infrastructure.factory.FirestoreModule.eventFirestore
 import com.paligot.confily.backend.internals.infrastructure.factory.StorageModule.eventStorage
-import com.paligot.confily.backend.jobs.JobModule.jobDao
 import com.paligot.confily.backend.map.MapModule.mapDao
 import com.paligot.confily.backend.partners.PartnerModule.partnerDao
 import com.paligot.confily.backend.qanda.QAndAModule.qAndADao
@@ -14,6 +13,7 @@ import com.paligot.confily.backend.sessions.SessionModule.sessionDao
 import com.paligot.confily.backend.speakers.SpeakerModule.speakerDao
 import com.paligot.confily.backend.tags.TagModule.tagDao
 import com.paligot.confily.backend.team.TeamModule.teamDao
+import com.paligot.confily.backend.third.parties.welovedevs.infrastructure.factory.JobModule.jobFirestore
 
 object ExportModule {
     val exportEventRepository = lazy {
@@ -43,7 +43,7 @@ object ExportModule {
             eventFirestore.value,
             eventStorage.value,
             partnerDao.value,
-            jobDao.value,
+            jobFirestore.value,
             activityFirestore.value
         )
     }
