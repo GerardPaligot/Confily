@@ -7,8 +7,8 @@ import com.paligot.confily.backend.internals.infrastructure.factory.InternalModu
 import com.paligot.confily.backend.internals.infrastructure.factory.InternalModule.storage
 import com.paligot.confily.backend.internals.infrastructure.factory.InternalModule.transcoder
 import com.paligot.confily.backend.internals.infrastructure.system.SystemEnv.projectName
-import com.paligot.confily.backend.jobs.JobModule.jobDao
 import com.paligot.confily.backend.third.parties.geocode.GeocodeModule.geocodeApi
+import com.paligot.confily.backend.third.parties.welovedevs.infrastructure.factory.JobModule.jobFirestore
 
 object PartnerModule {
     val partnerDao = lazy { PartnerDao(projectName, cloudFirestore.value, storage.value) }
@@ -19,7 +19,7 @@ object PartnerModule {
             eventFirestore.value,
             partnerDao.value,
             activityFirestore.value,
-            jobDao.value,
+            jobFirestore.value,
             transcoder.value
         )
     }

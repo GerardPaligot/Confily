@@ -6,11 +6,11 @@ import com.paligot.confily.backend.internals.helpers.image.Png
 import com.paligot.confily.backend.internals.helpers.image.TranscoderImage
 import com.paligot.confily.backend.internals.infrastructure.firestore.ActivityFirestore
 import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
+import com.paligot.confily.backend.internals.infrastructure.firestore.JobFirestore
 import com.paligot.confily.backend.internals.infrastructure.provider.CommonApi
-import com.paligot.confily.backend.jobs.JobDao
 import com.paligot.confily.backend.third.parties.geocode.GeocodeApi
 import com.paligot.confily.backend.third.parties.geocode.convertToEntity
-import com.paligot.confily.backend.third.parties.welovedevs.convertToModel
+import com.paligot.confily.backend.third.parties.welovedevs.application.convertToModel
 import com.paligot.confily.models.PartnerV2
 import com.paligot.confily.models.PartnersActivities
 import com.paligot.confily.models.inputs.PartnerInput
@@ -27,14 +27,14 @@ class PartnerRepository(
     private val eventDao: EventFirestore,
     private val partnerDao: PartnerDao,
     private val activityFirestore: ActivityFirestore,
-    private val jobDao: JobDao,
+    private val jobFirestore: JobFirestore,
     private val imageTranscoder: TranscoderImage,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
     fun list(eventId: String): Map<String, List<PartnerV2>> {
         val event = eventDao.get(eventId)
         val partners = partnerDao.getAll(eventId)
-        val jobs = jobDao.getAll(eventId)
+        val jobs = jobFirestore.getAll(eventId)
         return event.sponsoringTypes.associateWith { sponsoring ->
             partners
                 .filter { it.sponsorings.contains(sponsoring) }
@@ -51,7 +51,7 @@ class PartnerRepository(
     suspend fun activities(eventId: String): PartnersActivities = coroutineScope {
         val event = eventDao.get(eventId)
         val partners = async(dispatcher) { partnerDao.getAll(eventId) }
-        val jobs = async(dispatcher) { jobDao.getAll(eventId) }
+        val jobs = async(dispatcher) { jobFirestore.getAll(eventId) }
         val activities = async(dispatcher) { activityFirestore.getAll(eventId) }
         val fetchedJobs = jobs.await()
         return@coroutineScope PartnersActivities(
