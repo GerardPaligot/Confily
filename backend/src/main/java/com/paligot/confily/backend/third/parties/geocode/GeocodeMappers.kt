@@ -1,11 +1,11 @@
 package com.paligot.confily.backend.third.parties.geocode
 
-import com.paligot.confily.backend.events.AddressDb
+import com.paligot.confily.backend.internals.infrastructure.firestore.AddressEntity
 
-fun Geocode.convertToDb(): AddressDb? {
+fun Geocode.convertToEntity(): AddressEntity? {
     if (this.results.isEmpty()) return null
     val result = this.results.first()
-    return AddressDb(
+    return AddressEntity(
         formatted = result.formattedAddress.split(", "),
         address = result.formattedAddress,
         country = result.addressComponents.find { it.types.contains("country") }?.longName ?: "",

@@ -2,47 +2,47 @@
 
 package com.paligot.confily.backend.third.parties.openplanner
 
-import com.paligot.confily.backend.categories.CategoryDb
-import com.paligot.confily.backend.formats.FormatDb
-import com.paligot.confily.backend.internals.socials.SocialDb
-import com.paligot.confily.backend.qanda.AcronymDb
-import com.paligot.confily.backend.qanda.QAndAActionDb
-import com.paligot.confily.backend.qanda.QAndADb
-import com.paligot.confily.backend.schedules.ScheduleDb
-import com.paligot.confily.backend.sessions.EventSessionDb
-import com.paligot.confily.backend.sessions.TalkDb
-import com.paligot.confily.backend.speakers.SpeakerDb
+import com.paligot.confily.backend.internals.infrastructure.firestore.AcronymEntity
+import com.paligot.confily.backend.internals.infrastructure.firestore.CategoryEntity
+import com.paligot.confily.backend.internals.infrastructure.firestore.EventSessionEntity
+import com.paligot.confily.backend.internals.infrastructure.firestore.FormatEntity
+import com.paligot.confily.backend.internals.infrastructure.firestore.QAndAActionEntity
+import com.paligot.confily.backend.internals.infrastructure.firestore.QAndAEntity
+import com.paligot.confily.backend.internals.infrastructure.firestore.ScheduleEntity
+import com.paligot.confily.backend.internals.infrastructure.firestore.SocialEntity
+import com.paligot.confily.backend.internals.infrastructure.firestore.SpeakerEntity
+import com.paligot.confily.backend.internals.infrastructure.firestore.TalkSessionEntity
 import com.paligot.confily.backend.team.TeamDb
 import com.paligot.confily.models.SocialType
 import com.paligot.confily.models.inputs.ValidatorException
 
-fun CategoryOP.convertToDb() = CategoryDb(
+fun CategoryOP.convertToDb() = CategoryEntity(
     id = id,
     name = name,
     color = "",
     icon = ""
 )
 
-fun CategoryDb.mergeWith(category: CategoryOP) = CategoryDb(
+fun CategoryEntity.mergeWith(category: CategoryOP) = CategoryEntity(
     id = category.id,
     name = if (this.name == category.name) this.name else category.name,
     color = if (this.color != "") this.color else category.color,
     icon = if (this.icon != "") this.icon else ""
 )
 
-fun FormatOP.convertToDb() = FormatDb(
+fun FormatOP.convertToDb() = FormatEntity(
     id = id,
     name = name,
     time = durationMinutes
 )
 
-fun FormatDb.mergeWith(formatOP: FormatOP) = FormatDb(
+fun FormatEntity.mergeWith(formatOP: FormatOP) = FormatEntity(
     id = formatOP.id,
     name = if (this.name == formatOP.name) this.name else formatOP.name,
     time = if (this.time != 0) this.time else formatOP.durationMinutes
 )
 
-fun SpeakerOP.convertToDb(photoUrl: String?): SpeakerDb {
+fun SpeakerOP.convertToDb(photoUrl: String?): SpeakerEntity {
     val linkedin = socials.find { it.name.lowercase() == SocialType.LinkedIn.name.lowercase() }
         ?.link
     val x = socials.find { it.name.lowercase() == SocialType.X.name.lowercase() }?.link
@@ -58,7 +58,7 @@ fun SpeakerOP.convertToDb(photoUrl: String?): SpeakerDb {
     val github = socials.find { it.name.lowercase() == SocialType.GitHub.name.lowercase() }?.link
     val email = socials.find { it.name.lowercase() == SocialType.Email.name.lowercase() }?.link
     val website = socials.find { it.name.lowercase() == SocialType.Website.name.lowercase() }?.link
-    return SpeakerDb(
+    return SpeakerEntity(
         id = id,
         displayName = name,
         pronouns = pronouns,
@@ -67,55 +67,55 @@ fun SpeakerOP.convertToDb(photoUrl: String?): SpeakerDb {
         jobTitle = jobTitle,
         company = company,
         photoUrl = photoUrl ?: "",
-        socials = arrayListOf<SocialDb>().apply {
+        socials = arrayListOf<SocialEntity>().apply {
             if (linkedin?.contains("linkedin.com") == true) {
-                this.add(SocialDb(SocialType.LinkedIn.name.lowercase(), linkedin))
+                this.add(SocialEntity(SocialType.LinkedIn.name.lowercase(), linkedin))
             } else if (linkedin != null) {
                 val linkedInUrl = "https://linkedin.com/in/$linkedin"
-                this.add(SocialDb(SocialType.LinkedIn.name.lowercase(), linkedInUrl))
+                this.add(SocialEntity(SocialType.LinkedIn.name.lowercase(), linkedInUrl))
             }
             if (x?.contains("x.com") == true) {
-                this.add(SocialDb(SocialType.X.name.lowercase(), x))
+                this.add(SocialEntity(SocialType.X.name.lowercase(), x))
             } else if (x != null) {
-                this.add(SocialDb(SocialType.X.name.lowercase(), "https://x.com/$x"))
+                this.add(SocialEntity(SocialType.X.name.lowercase(), "https://x.com/$x"))
             }
             if (twitter?.contains("twitter.com") == true) {
-                this.add(SocialDb(SocialType.X.name.lowercase(), twitter))
+                this.add(SocialEntity(SocialType.X.name.lowercase(), twitter))
             } else if (twitter != null) {
-                this.add(SocialDb(SocialType.X.name.lowercase(), "https://x.com/$twitter"))
+                this.add(SocialEntity(SocialType.X.name.lowercase(), "https://x.com/$twitter"))
             }
             if (mastodon != null) {
-                this.add(SocialDb(SocialType.Mastodon.name.lowercase(), mastodon))
+                this.add(SocialEntity(SocialType.Mastodon.name.lowercase(), mastodon))
             }
             if (bluesky != null) {
-                this.add(SocialDb(SocialType.Bluesky.name.lowercase(), bluesky))
+                this.add(SocialEntity(SocialType.Bluesky.name.lowercase(), bluesky))
             }
             if (facebook != null) {
-                this.add(SocialDb(SocialType.Facebook.name.lowercase(), facebook))
+                this.add(SocialEntity(SocialType.Facebook.name.lowercase(), facebook))
             }
             if (instagram != null) {
-                this.add(SocialDb(SocialType.Instagram.name.lowercase(), instagram))
+                this.add(SocialEntity(SocialType.Instagram.name.lowercase(), instagram))
             }
             if (youtube != null) {
-                this.add(SocialDb(SocialType.YouTube.name.lowercase(), youtube))
+                this.add(SocialEntity(SocialType.YouTube.name.lowercase(), youtube))
             }
             if (github?.contains("github.com") == true) {
-                this.add(SocialDb(SocialType.GitHub.name.lowercase(), github))
+                this.add(SocialEntity(SocialType.GitHub.name.lowercase(), github))
             } else if (github != null) {
                 val gitHubUrl = "https://github.com/$github"
-                this.add(SocialDb(SocialType.GitHub.name.lowercase(), gitHubUrl))
+                this.add(SocialEntity(SocialType.GitHub.name.lowercase(), gitHubUrl))
             }
             if (email != null) {
-                this.add(SocialDb(SocialType.Email.name.lowercase(), email))
+                this.add(SocialEntity(SocialType.Email.name.lowercase(), email))
             }
             if (website != null) {
-                this.add(SocialDb(SocialType.Website.name.lowercase(), website))
+                this.add(SocialEntity(SocialType.Website.name.lowercase(), website))
             }
         }
     )
 }
 
-fun SpeakerDb.mergeWith(photoUrl: String?, speakerOP: SpeakerOP): SpeakerDb {
+fun SpeakerEntity.mergeWith(photoUrl: String?, speakerOP: SpeakerOP): SpeakerEntity {
     val linkedin = speakerOP.socials.find { it.name.lowercase() == "linkedin" }?.link
     val x = speakerOP.socials.find { it.name.lowercase() == "x" }?.link
     val twitter = speakerOP.socials.find { it.name.lowercase() == "twitter" }?.link
@@ -127,7 +127,7 @@ fun SpeakerDb.mergeWith(photoUrl: String?, speakerOP: SpeakerOP): SpeakerDb {
     val github = speakerOP.socials.find { it.name.lowercase() == "github" }?.link
     val email = speakerOP.socials.find { it.name.lowercase() == "email" }?.link
     val website = speakerOP.socials.find { it.name.lowercase() == "website" }?.link
-    return SpeakerDb(
+    return SpeakerEntity(
         id = speakerOP.id,
         displayName = if (this.displayName == speakerOP.name) this.displayName else speakerOP.name,
         pronouns = if (this.pronouns == speakerOP.pronouns) this.pronouns else speakerOP.pronouns,
@@ -138,43 +138,43 @@ fun SpeakerDb.mergeWith(photoUrl: String?, speakerOP: SpeakerOP): SpeakerDb {
         photoUrl = if (this.photoUrl == photoUrl) this.photoUrl else photoUrl ?: "",
         socials = socials.toMutableList().apply {
             if (find { it.type == SocialType.LinkedIn.name.lowercase() } == null && linkedin != null) {
-                add(SocialDb(SocialType.LinkedIn.name.lowercase(), linkedin))
+                add(SocialEntity(SocialType.LinkedIn.name.lowercase(), linkedin))
             }
             if (find { it.type == SocialType.X.name.lowercase() } == null && x != null) {
-                add(SocialDb(SocialType.X.name.lowercase(), x))
+                add(SocialEntity(SocialType.X.name.lowercase(), x))
             }
             if (find { it.type == SocialType.X.name.lowercase() } == null && twitter != null) {
-                add(SocialDb(SocialType.X.name.lowercase(), twitter))
+                add(SocialEntity(SocialType.X.name.lowercase(), twitter))
             }
             if (find { it.type == SocialType.Mastodon.name.lowercase() } == null && mastodon != null) {
-                add(SocialDb(SocialType.Mastodon.name.lowercase(), mastodon))
+                add(SocialEntity(SocialType.Mastodon.name.lowercase(), mastodon))
             }
             if (find { it.type == SocialType.Bluesky.name.lowercase() } == null && bluesky != null) {
-                add(SocialDb(SocialType.Bluesky.name.lowercase(), bluesky))
+                add(SocialEntity(SocialType.Bluesky.name.lowercase(), bluesky))
             }
             if (find { it.type == SocialType.Facebook.name.lowercase() } == null && facebook != null) {
-                add(SocialDb(SocialType.Facebook.name.lowercase(), facebook))
+                add(SocialEntity(SocialType.Facebook.name.lowercase(), facebook))
             }
             if (find { it.type == SocialType.Instagram.name.lowercase() } == null && instagram != null) {
-                add(SocialDb(SocialType.Instagram.name.lowercase(), instagram))
+                add(SocialEntity(SocialType.Instagram.name.lowercase(), instagram))
             }
             if (find { it.type == SocialType.YouTube.name.lowercase() } == null && youtube != null) {
-                add(SocialDb(SocialType.YouTube.name.lowercase(), youtube))
+                add(SocialEntity(SocialType.YouTube.name.lowercase(), youtube))
             }
             if (find { it.type == SocialType.GitHub.name.lowercase() } == null && github != null) {
-                add(SocialDb(SocialType.GitHub.name.lowercase(), github))
+                add(SocialEntity(SocialType.GitHub.name.lowercase(), github))
             }
             if (find { it.type == SocialType.Email.name.lowercase() } == null && email != null) {
-                add(SocialDb(SocialType.Email.name.lowercase(), email))
+                add(SocialEntity(SocialType.Email.name.lowercase(), email))
             }
             if (find { it.type == SocialType.Website.name.lowercase() } == null && website != null) {
-                add(SocialDb(SocialType.Website.name.lowercase(), website))
+                add(SocialEntity(SocialType.Website.name.lowercase(), website))
             }
         }
     )
 }
 
-fun SessionOP.convertToTalkDb() = TalkDb(
+fun SessionOP.convertToTalkDb() = TalkSessionEntity(
     id = id,
     title = title,
     level = level,
@@ -187,13 +187,13 @@ fun SessionOP.convertToTalkDb() = TalkDb(
     linkReplay = null
 )
 
-fun SessionOP.convertToEventSessionDb() = EventSessionDb(
+fun SessionOP.convertToEventSessionDb() = EventSessionEntity(
     id = id,
     title = title,
     description = abstract
 )
 
-fun TalkDb.mergeWith(sessionOP: SessionOP) = TalkDb(
+fun TalkSessionEntity.mergeWith(sessionOP: SessionOP) = TalkSessionEntity(
     id = sessionOP.id,
     title = if (title == sessionOP.title) title else sessionOP.title,
     level = if (level == sessionOP.level) level else sessionOP.level,
@@ -223,14 +223,14 @@ fun TalkDb.mergeWith(sessionOP: SessionOP) = TalkDb(
     driveFolderId = driveFolderId
 )
 
-fun EventSessionDb.mergeWith(sessionOP: SessionOP) = EventSessionDb(
+fun EventSessionEntity.mergeWith(sessionOP: SessionOP) = EventSessionEntity(
     id = sessionOP.id,
     title = if (title == sessionOP.title) title else sessionOP.title,
     description = if (description == sessionOP.abstract) description else sessionOP.abstract,
     address = address
 )
 
-fun SessionOP.convertToScheduleDb(order: Int, tracks: List<TrackOP>) = ScheduleDb(
+fun SessionOP.convertToScheduleDb(order: Int, tracks: List<TrackOP>) = ScheduleEntity(
     order = order,
     startTime = dateStart?.split("+")?.first()
         ?: error("Can't schedule a talk without a start time"),
@@ -241,7 +241,7 @@ fun SessionOP.convertToScheduleDb(order: Int, tracks: List<TrackOP>) = ScheduleD
     talkId = id
 )
 
-fun FaqItemOP.convertToQAndADb(order: Int, language: String): QAndADb {
+fun FaqItemOP.convertToQAndADb(order: Int, language: String): QAndAEntity {
     val links = Regex("\\[(.*?)\\]\\((.*?)\\)").findAll(answer)
     var response = answer
     links.forEach {
@@ -251,7 +251,7 @@ fun FaqItemOP.convertToQAndADb(order: Int, language: String): QAndADb {
     acronyms.forEach {
         response = answer.replaceRange(it.range, "")
     }
-    return QAndADb(
+    return QAndAEntity(
         id = id,
         order = order,
         language = language,
@@ -260,13 +260,13 @@ fun FaqItemOP.convertToQAndADb(order: Int, language: String): QAndADb {
         actions = links
             .mapIndexed { index, matchResult ->
                 val (text, url) = matchResult.destructured
-                QAndAActionDb(index, text, url)
+                QAndAActionEntity(index, text, url)
             }
             .toList(),
         acronyms = acronyms
             .map { matchResult ->
                 val (acronym, definition) = matchResult.destructured
-                AcronymDb(acronym, definition)
+                AcronymEntity(acronym, definition)
             }
             .toList()
     )
@@ -295,49 +295,49 @@ fun TeamOP.convertToTeamDb(order: Int, photoUrl: String?): TeamDb {
         bio = bio ?: "",
         photoUrl = photoUrl,
         role = role,
-        socials = arrayListOf<SocialDb>().apply {
+        socials = arrayListOf<SocialEntity>().apply {
             if (linkedin?.contains("linkedin.com") == true) {
-                this.add(SocialDb(SocialType.LinkedIn.name.lowercase(), linkedin))
+                this.add(SocialEntity(SocialType.LinkedIn.name.lowercase(), linkedin))
             } else if (linkedin != null) {
                 val linkedInUrl = "https://linkedin.com/in/$linkedin"
-                this.add(SocialDb(SocialType.LinkedIn.name.lowercase(), linkedInUrl))
+                this.add(SocialEntity(SocialType.LinkedIn.name.lowercase(), linkedInUrl))
             }
             if (x?.contains("x.com") == true) {
-                this.add(SocialDb(SocialType.X.name.lowercase(), x))
+                this.add(SocialEntity(SocialType.X.name.lowercase(), x))
             } else if (x != null) {
-                this.add(SocialDb(SocialType.X.name.lowercase(), "https://x.com/$x"))
+                this.add(SocialEntity(SocialType.X.name.lowercase(), "https://x.com/$x"))
             }
             if (twitter?.contains("twitter.com") == true) {
-                this.add(SocialDb(SocialType.X.name.lowercase(), twitter))
+                this.add(SocialEntity(SocialType.X.name.lowercase(), twitter))
             } else if (twitter != null) {
-                this.add(SocialDb(SocialType.X.name.lowercase(), "https://x.com/$twitter"))
+                this.add(SocialEntity(SocialType.X.name.lowercase(), "https://x.com/$twitter"))
             }
             if (mastodon != null) {
-                this.add(SocialDb(SocialType.Mastodon.name.lowercase(), mastodon))
+                this.add(SocialEntity(SocialType.Mastodon.name.lowercase(), mastodon))
             }
             if (bluesky != null) {
-                this.add(SocialDb(SocialType.Bluesky.name.lowercase(), bluesky))
+                this.add(SocialEntity(SocialType.Bluesky.name.lowercase(), bluesky))
             }
             if (facebook != null) {
-                this.add(SocialDb(SocialType.Facebook.name.lowercase(), facebook))
+                this.add(SocialEntity(SocialType.Facebook.name.lowercase(), facebook))
             }
             if (instagram != null) {
-                this.add(SocialDb(SocialType.Instagram.name.lowercase(), instagram))
+                this.add(SocialEntity(SocialType.Instagram.name.lowercase(), instagram))
             }
             if (youtube != null) {
-                this.add(SocialDb(SocialType.YouTube.name.lowercase(), youtube))
+                this.add(SocialEntity(SocialType.YouTube.name.lowercase(), youtube))
             }
             if (github?.contains("github.com") == true) {
-                this.add(SocialDb(SocialType.GitHub.name.lowercase(), github))
+                this.add(SocialEntity(SocialType.GitHub.name.lowercase(), github))
             } else if (github != null) {
                 val gitHubUrl = "https://github.com/$github"
-                this.add(SocialDb(SocialType.GitHub.name.lowercase(), gitHubUrl))
+                this.add(SocialEntity(SocialType.GitHub.name.lowercase(), gitHubUrl))
             }
             if (email != null) {
-                this.add(SocialDb(SocialType.Email.name.lowercase(), email))
+                this.add(SocialEntity(SocialType.Email.name.lowercase(), email))
             }
             if (website != null) {
-                this.add(SocialDb(SocialType.Website.name.lowercase(), website))
+                this.add(SocialEntity(SocialType.Website.name.lowercase(), website))
             }
         },
         teamName = team ?: ""
@@ -365,37 +365,37 @@ fun TeamDb.mergeWith(photoUrl: String?, teamOP: TeamOP): TeamDb {
         photoUrl = if (this.photoUrl == photoUrl) this.photoUrl else photoUrl,
         socials = socials.toMutableList().apply {
             if (find { it.type == SocialType.LinkedIn.name.lowercase() } == null && linkedin != null) {
-                add(SocialDb(SocialType.LinkedIn.name.lowercase(), linkedin))
+                add(SocialEntity(SocialType.LinkedIn.name.lowercase(), linkedin))
             }
             if (find { it.type == SocialType.X.name.lowercase() } == null && x != null) {
-                add(SocialDb(SocialType.X.name.lowercase(), x))
+                add(SocialEntity(SocialType.X.name.lowercase(), x))
             }
             if (find { it.type == SocialType.X.name.lowercase() } == null && twitter != null) {
-                add(SocialDb(SocialType.X.name.lowercase(), twitter))
+                add(SocialEntity(SocialType.X.name.lowercase(), twitter))
             }
             if (find { it.type == SocialType.Mastodon.name.lowercase() } == null && mastodon != null) {
-                add(SocialDb(SocialType.Mastodon.name.lowercase(), mastodon))
+                add(SocialEntity(SocialType.Mastodon.name.lowercase(), mastodon))
             }
             if (find { it.type == SocialType.Bluesky.name.lowercase() } == null && bluesky != null) {
-                add(SocialDb(SocialType.Bluesky.name.lowercase(), bluesky))
+                add(SocialEntity(SocialType.Bluesky.name.lowercase(), bluesky))
             }
             if (find { it.type == SocialType.Facebook.name.lowercase() } == null && facebook != null) {
-                add(SocialDb(SocialType.Facebook.name.lowercase(), facebook))
+                add(SocialEntity(SocialType.Facebook.name.lowercase(), facebook))
             }
             if (find { it.type == SocialType.Instagram.name.lowercase() } == null && instagram != null) {
-                add(SocialDb(SocialType.Instagram.name.lowercase(), instagram))
+                add(SocialEntity(SocialType.Instagram.name.lowercase(), instagram))
             }
             if (find { it.type == SocialType.YouTube.name.lowercase() } == null && youtube != null) {
-                add(SocialDb(SocialType.YouTube.name.lowercase(), youtube))
+                add(SocialEntity(SocialType.YouTube.name.lowercase(), youtube))
             }
             if (find { it.type == SocialType.GitHub.name.lowercase() } == null && github != null) {
-                add(SocialDb(SocialType.GitHub.name.lowercase(), github))
+                add(SocialEntity(SocialType.GitHub.name.lowercase(), github))
             }
             if (find { it.type == SocialType.Email.name.lowercase() } == null && email != null) {
-                add(SocialDb(SocialType.Email.name.lowercase(), email))
+                add(SocialEntity(SocialType.Email.name.lowercase(), email))
             }
             if (find { it.type == SocialType.Website.name.lowercase() } == null && website != null) {
-                add(SocialDb(SocialType.Website.name.lowercase(), website))
+                add(SocialEntity(SocialType.Website.name.lowercase(), website))
             }
         },
         teamName = if (this.teamName == teamOP.team) this.teamName else teamOP.team ?: ""

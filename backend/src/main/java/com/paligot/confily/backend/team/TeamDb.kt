@@ -1,6 +1,6 @@
 package com.paligot.confily.backend.team
 
-import com.paligot.confily.backend.internals.socials.SocialDb
+import com.paligot.confily.backend.internals.infrastructure.firestore.SocialEntity
 
 data class TeamDb(
     val id: String = "",
@@ -9,6 +9,6 @@ data class TeamDb(
     val bio: String = "",
     val photoUrl: String? = null,
     val role: String? = null,
-    val socials: List<SocialDb> = emptyList(),
+    val socials: List<SocialEntity> = emptyList(),
     val teamName: String = ""
 )

@@ -1,19 +1,20 @@
 package com.paligot.confily.backend.export
 
 import com.paligot.confily.backend.NotFoundException
-import com.paligot.confily.backend.categories.CategoryDao
-import com.paligot.confily.backend.categories.convertToModel
-import com.paligot.confily.backend.events.EventDao
-import com.paligot.confily.backend.events.EventDb
-import com.paligot.confily.backend.formats.FormatDao
-import com.paligot.confily.backend.formats.convertToModel
-import com.paligot.confily.backend.schedules.ScheduleItemDao
-import com.paligot.confily.backend.schedules.convertToEventSession
-import com.paligot.confily.backend.schedules.convertToModelV4
-import com.paligot.confily.backend.sessions.SessionDao
-import com.paligot.confily.backend.sessions.convertToModel
-import com.paligot.confily.backend.speakers.SpeakerDao
-import com.paligot.confily.backend.speakers.convertToModel
+import com.paligot.confily.backend.categories.application.convertToModel
+import com.paligot.confily.backend.formats.application.convertToModel
+import com.paligot.confily.backend.internals.infrastructure.firestore.CategoryFirestore
+import com.paligot.confily.backend.internals.infrastructure.firestore.EventEntity
+import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
+import com.paligot.confily.backend.internals.infrastructure.firestore.FormatFirestore
+import com.paligot.confily.backend.internals.infrastructure.firestore.ScheduleItemFirestore
+import com.paligot.confily.backend.internals.infrastructure.firestore.SessionFirestore
+import com.paligot.confily.backend.internals.infrastructure.firestore.SpeakerFirestore
+import com.paligot.confily.backend.internals.infrastructure.storage.EventStorage
+import com.paligot.confily.backend.schedules.application.convertToEventSession
+import com.paligot.confily.backend.schedules.application.convertToModelV4
+import com.paligot.confily.backend.sessions.application.convertToModel
+import com.paligot.confily.backend.speakers.application.convertToModel
 import com.paligot.confily.backend.tags.TagDao
 import com.paligot.confily.backend.tags.convertToModel
 import com.paligot.confily.models.AgendaV4
@@ -26,25 +27,26 @@ import java.time.format.DateTimeFormatter
 
 @Suppress("LongParameterList")
 class ExportPlanningRepository(
-    private val eventDao: EventDao,
-    private val speakerDao: SpeakerDao,
-    private val sessionDao: SessionDao,
-    private val categoryDao: CategoryDao,
-    private val formatDao: FormatDao,
+    private val eventFirestore: EventFirestore,
+    private val eventStorage: EventStorage,
+    private val speakerFirestore: SpeakerFirestore,
+    private val sessionFirestore: SessionFirestore,
+    private val categoryDao: CategoryFirestore,
+    private val formatFirestore: FormatFirestore,
     private val tagDao: TagDao,
-    private val scheduleItemDao: ScheduleItemDao,
+    private val scheduleItemFirestore: ScheduleItemFirestore,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
     suspend fun get(eventId: String): AgendaV4 {
-        val eventDb = eventDao.get(eventId)
-        return eventDao.getPlanningFile(eventId, eventDb.agendaUpdatedAt)
+        val eventDb = eventFirestore.get(eventId)
+        return eventStorage.getPlanningFile(eventId, eventDb.agendaUpdatedAt)
             ?: throw NotFoundException("Planning $eventId Not Found")
     }
 
     suspend fun export(eventId: String) = coroutineScope {
-        val eventDb = eventDao.get(eventId)
+        val eventDb = eventFirestore.get(eventId)
         val planning = buildPlanning(eventDb)
-        eventDao.uploadPlanningFile(eventId, eventDb.agendaUpdatedAt, planning)
+        eventStorage.uploadPlanningFile(eventId, eventDb.agendaUpdatedAt, planning)
         return@coroutineScope planning
     }
 
@@ -106,19 +108,19 @@ class ExportPlanningRepository(
             value
         }
 
-    private suspend fun buildPlanning(eventDb: EventDb) = coroutineScope {
+    private suspend fun buildPlanning(eventDb: EventEntity) = coroutineScope {
         val schedules = async(context = dispatcher) {
-            scheduleItemDao.getAll(eventDb.slugId).map { it.convertToModelV4() }
+            scheduleItemFirestore.getAll(eventDb.slugId).map { it.convertToModelV4() }
         }.await()
         // For older event, get their break sessions
         val breaks = schedules
             .filter { it.id.contains("-pause") }
             .map { it.convertToEventSession() }
         val sessions = async(context = dispatcher) {
-            sessionDao.getAll(eventDb.slugId).map { it.convertToModel(eventDb) }
+            sessionFirestore.getAll(eventDb.slugId).map { it.convertToModel(eventDb) }
         }
         val formats = async(context = dispatcher) {
-            formatDao.getAll(eventDb.slugId).map { it.convertToModel() }
+            formatFirestore.getAll(eventDb.slugId).map { it.convertToModel() }
         }
         val categories = async(context = dispatcher) {
             categoryDao.getAll(eventDb.slugId).map { it.convertToModel() }
@@ -127,7 +129,7 @@ class ExportPlanningRepository(
             tagDao.getAll(eventDb.slugId).map { it.convertToModel() }
         }
         val speakers = async(context = dispatcher) {
-            speakerDao.getAll(eventDb.slugId).map { it.convertToModel() }
+            speakerFirestore.getAll(eventDb.slugId).map { it.convertToModel() }
         }
         return@coroutineScope AgendaV4(
             schedules = schedules,

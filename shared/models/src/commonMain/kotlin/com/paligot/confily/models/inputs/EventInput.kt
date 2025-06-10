@@ -90,38 +90,36 @@ data class TeamGroupInput(
 
 @Serializable
 data class EventInput(
-    val name: String,
-    val address: String,
-    @SerialName("open_feedback_id")
-    val openFeedbackId: String?,
-    @SerialName("conference_hall_config")
-    val conferenceHallConfigInput: ConferenceHallConfigInput?,
-    @SerialName("open_planner_config")
-    val openPlannerConfigInput: OpenPlannerConfigInput?,
-    @SerialName("billet_web_config")
-    val billetWebConfig: BilletWebConfigInput?,
-    @SerialName("wld_config")
-    val wldConfig: WldConfigInput?,
-    @SerialName("event_session_tracks")
-    val eventSessionTracks: List<String> = emptyList(),
-    @SerialName("team_groups")
-    val teamGroups: List<TeamGroupInput> = emptyList(),
+    val name: String? = null,
+    val address: String? = null,
     @SerialName("start_date")
-    val startDate: String,
+    val startDate: String? = null,
     @SerialName("end_date")
-    val endDate: String,
-    @SerialName("sponsoring_types")
-    val sponsoringTypes: List<String> = emptyList(),
+    val endDate: String? = null,
     @SerialName("contact_phone")
-    val contactPhone: String?,
+    val contactPhone: String? = null,
     @SerialName("contact_email")
-    val contactEmail: String,
-    val socials: List<SocialInput> = emptyList(),
+    val contactEmail: String? = null,
+    @SerialName("open_feedback_id")
+    val openFeedbackId: String? = null,
+    @SerialName("open_planner_config")
+    val openPlannerConfigInput: OpenPlannerConfigInput? = null,
+    @SerialName("billet_web_config")
+    val billetWebConfig: BilletWebConfigInput? = null,
+    @SerialName("wld_config")
+    val wldConfig: WldConfigInput? = null,
+    @SerialName("event_session_tracks")
+    val eventSessionTracks: List<String>? = null,
+    @SerialName("team_groups")
+    val teamGroups: List<TeamGroupInput>? = null,
+    @SerialName("sponsoring_types")
+    val sponsoringTypes: List<String>? = null,
+    val socials: List<SocialInput>? = null,
     @SerialName("faq_link")
-    val faqLink: String,
-    val published: Boolean,
+    val faqLink: String? = null,
     @SerialName("code_of_conduct_link")
-    val codeOfConductLink: String,
+    val codeOfConductLink: String? = null,
+    val published: Boolean = false,
     @SerialName("update_at")
     val updatedAt: Long = Clock.System.now().epochSeconds
 ) : Validator {

@@ -2,15 +2,15 @@ package com.paligot.confily.backend.team
 
 import com.paligot.confily.backend.NotAcceptableException
 import com.paligot.confily.backend.NotFoundException
-import com.paligot.confily.backend.events.EventDao
-import com.paligot.confily.backend.internals.CommonApi
-import com.paligot.confily.backend.internals.mimeType
+import com.paligot.confily.backend.internals.helpers.mimeType
+import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
+import com.paligot.confily.backend.internals.infrastructure.provider.CommonApi
 import com.paligot.confily.models.inputs.TeamMemberInput
 import kotlinx.coroutines.coroutineScope
 
 class TeamRepository(
     private val commonApi: CommonApi,
-    private val eventDao: EventDao,
+    private val eventDao: EventFirestore,
     private val teamDao: TeamDao
 ) {
     suspend fun list(eventId: String) = coroutineScope {

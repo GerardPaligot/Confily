@@ -60,6 +60,7 @@ ktor = "3.1.3"
 logback = "1.5.18"
 lyricist = "1.7.0"
 markdown-renderer = "0.25.0"
+mockk = "1.14.2"
 nsexception = "1.0.0"
 openfeedback = "1.0.0-alpha.6"
 placeholder = "1.0.11"
@@ -199,6 +200,8 @@ lyricist = { group = "cafe.adriel.lyricist", name = "lyricist", version.ref = "l
 
 markdown-renderer = { group = "com.mikepenz", name = "multiplatform-markdown-renderer", version.ref = "markdown-renderer" }
 markdown-renderer-m3 = { group = "com.mikepenz", name = "multiplatform-markdown-renderer-m3", version.ref = "markdown-renderer" }
+
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 
 openfeedback-m3 = { group = "io.openfeedback", name = "openfeedback-m3", version.ref = "openfeedback" }
 openfeedback-viewmodel = { group = "io.openfeedback", name = "openfeedback-viewmodel", version.ref = "openfeedback" }

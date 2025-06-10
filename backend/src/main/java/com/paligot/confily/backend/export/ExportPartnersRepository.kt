@@ -1,14 +1,15 @@
 package com.paligot.confily.backend.export
 
 import com.paligot.confily.backend.NotFoundException
-import com.paligot.confily.backend.activities.ActivityDao
-import com.paligot.confily.backend.activities.convertToModel
-import com.paligot.confily.backend.events.EventDao
-import com.paligot.confily.backend.events.EventDb
-import com.paligot.confily.backend.jobs.JobDao
-import com.paligot.confily.backend.partners.PartnerDao
-import com.paligot.confily.backend.partners.convertToModelV3
-import com.paligot.confily.backend.third.parties.welovedevs.convertToModel
+import com.paligot.confily.backend.activities.application.convertToModel
+import com.paligot.confily.backend.internals.infrastructure.firestore.ActivityFirestore
+import com.paligot.confily.backend.internals.infrastructure.firestore.EventEntity
+import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
+import com.paligot.confily.backend.internals.infrastructure.firestore.JobFirestore
+import com.paligot.confily.backend.internals.infrastructure.firestore.PartnerFirestore
+import com.paligot.confily.backend.internals.infrastructure.storage.EventStorage
+import com.paligot.confily.backend.partners.application.convertToModelV3
+import com.paligot.confily.backend.third.parties.welovedevs.application.convertToModel
 import com.paligot.confily.models.PartnersActivities
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -16,30 +17,31 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 
 class ExportPartnersRepository(
-    private val eventDao: EventDao,
-    private val partnerDao: PartnerDao,
-    private val jobDao: JobDao,
-    private val activityDao: ActivityDao,
+    private val eventFirestore: EventFirestore,
+    private val eventStorage: EventStorage,
+    private val partnerFirestore: PartnerFirestore,
+    private val jobFirestore: JobFirestore,
+    private val activityFirestore: ActivityFirestore,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
     suspend fun get(eventId: String): PartnersActivities {
-        val eventDb = eventDao.get(eventId)
-        return eventDao.getPartnersFile(eventId, eventDb.partnersUpdatedAt)
+        val eventDb = eventFirestore.get(eventId)
+        return eventStorage.getPartnersFile(eventId, eventDb.partnersUpdatedAt)
             ?: throw NotFoundException("Partners $eventId Not Found")
     }
 
     suspend fun export(eventId: String) = coroutineScope {
-        val eventDb = eventDao.get(eventId)
+        val eventDb = eventFirestore.get(eventId)
         val partners = buildPartnersActivities(eventDb)
-        eventDao.uploadPartnersFile(eventId, eventDb.partnersUpdatedAt, partners)
+        eventStorage.uploadPartnersFile(eventId, eventDb.partnersUpdatedAt, partners)
         return@coroutineScope partners
     }
 
-    private suspend fun buildPartnersActivities(eventDb: EventDb): PartnersActivities =
+    private suspend fun buildPartnersActivities(eventDb: EventEntity): PartnersActivities =
         coroutineScope {
-            val partners = async(dispatcher) { partnerDao.getAll(eventDb.slugId) }
-            val jobs = async(dispatcher) { jobDao.getAll(eventDb.slugId) }
-            val activities = async(dispatcher) { activityDao.getAll(eventDb.slugId) }
+            val partners = async(dispatcher) { partnerFirestore.getAll(eventDb.slugId) }
+            val jobs = async(dispatcher) { jobFirestore.getAll(eventDb.slugId) }
+            val activities = async(dispatcher) { activityFirestore.getAll(eventDb.slugId) }
             val fetchedJobs = jobs.await()
             return@coroutineScope PartnersActivities(
                 types = eventDb.sponsoringTypes,

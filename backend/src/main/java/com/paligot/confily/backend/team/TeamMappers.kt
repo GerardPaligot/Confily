@@ -1,7 +1,7 @@
 package com.paligot.confily.backend.team
 
-import com.paligot.confily.backend.internals.socials.convertToDb
-import com.paligot.confily.backend.internals.socials.convertToModel
+import com.paligot.confily.backend.internals.application.convertToEntity
+import com.paligot.confily.backend.internals.application.convertToModel
 import com.paligot.confily.models.TeamMember
 import com.paligot.confily.models.inputs.TeamMemberInput
 
@@ -26,6 +26,6 @@ fun TeamMemberInput.convertToDb(
     bio = bio,
     role = role,
     photoUrl = photoUrl,
-    socials = socials.map { it.convertToDb() },
+    socials = socials.map { it.convertToEntity() },
     teamName = teamName
 )

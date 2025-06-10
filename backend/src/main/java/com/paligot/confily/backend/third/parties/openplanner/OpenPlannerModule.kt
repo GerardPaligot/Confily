@@ -1,13 +1,14 @@
 package com.paligot.confily.backend.third.parties.openplanner
 
-import com.paligot.confily.backend.categories.CategoryModule.categoryDao
-import com.paligot.confily.backend.events.EventModule.eventDao
-import com.paligot.confily.backend.formats.FormatModule.formatDao
-import com.paligot.confily.backend.internals.InternalModule.commonApi
-import com.paligot.confily.backend.qanda.QAndAModule.qAndADao
-import com.paligot.confily.backend.schedules.ScheduleModule.scheduleItemDao
-import com.paligot.confily.backend.sessions.SessionModule.sessionDao
-import com.paligot.confily.backend.speakers.SpeakerModule.speakerDao
+import com.paligot.confily.backend.formats.infrastructure.factory.FormatModule.formatFirestore
+import com.paligot.confily.backend.internals.infrastructure.factory.FirestoreModule.categoryFirestore
+import com.paligot.confily.backend.internals.infrastructure.factory.FirestoreModule.eventFirestore
+import com.paligot.confily.backend.internals.infrastructure.factory.InternalModule.commonApi
+import com.paligot.confily.backend.qanda.infrastructure.factory.QAndAModule.qAndAFirestore
+import com.paligot.confily.backend.schedules.infrastructure.ScheduleModule.scheduleItemFirestore
+import com.paligot.confily.backend.sessions.infrastructure.factory.SessionModule.sessionFirestore
+import com.paligot.confily.backend.speakers.infrastructure.factory.SpeakerModule.speakerFirestore
+import com.paligot.confily.backend.speakers.infrastructure.factory.SpeakerModule.speakerStorage
 import com.paligot.confily.backend.team.TeamModule.teamDao
 
 object OpenPlannerModule {
@@ -16,13 +17,14 @@ object OpenPlannerModule {
         OpenPlannerRepository(
             openPlannerApi.value,
             commonApi.value,
-            eventDao.value,
-            speakerDao.value,
-            sessionDao.value,
-            categoryDao.value,
-            formatDao.value,
-            scheduleItemDao.value,
-            qAndADao.value,
+            eventFirestore.value,
+            speakerFirestore.value,
+            speakerStorage.value,
+            sessionFirestore.value,
+            categoryFirestore.value,
+            formatFirestore.value,
+            scheduleItemFirestore.value,
+            qAndAFirestore.value,
             teamDao.value
         )
     }
