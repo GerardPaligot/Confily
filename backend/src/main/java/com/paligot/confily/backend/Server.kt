@@ -14,8 +14,8 @@ import com.paligot.confily.backend.internals.infrastructure.ktor.plugins.Updated
 import com.paligot.confily.backend.map.infrastructure.api.registerAdminMapRoutes
 import com.paligot.confily.backend.map.infrastructure.api.registerMapRoutes
 import com.paligot.confily.backend.menus.infrastructure.api.registerAdminMenuRoutes
-import com.paligot.confily.backend.partners.registerAdminPartnersRoutes
-import com.paligot.confily.backend.partners.registerPartnersRoutes
+import com.paligot.confily.backend.partners.infrastructure.api.registerAdminPartnersRoutes
+import com.paligot.confily.backend.partners.infrastructure.api.registerPartnersRoutes
 import com.paligot.confily.backend.planning.infrastructure.api.registerPlanningRoutes
 import com.paligot.confily.backend.qanda.registerAdminQAndAsRoutes
 import com.paligot.confily.backend.qanda.registerQAndAsRoutes

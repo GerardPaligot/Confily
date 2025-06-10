@@ -4,7 +4,7 @@ import com.paligot.confily.backend.NotAcceptableException
 import com.paligot.confily.backend.NotFoundException
 import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
 import com.paligot.confily.backend.internals.infrastructure.firestore.JobFirestore
-import com.paligot.confily.backend.partners.PartnerDao
+import com.paligot.confily.backend.internals.infrastructure.firestore.PartnerFirestore
 import com.paligot.confily.backend.third.parties.welovedevs.domain.JobRepository
 import com.paligot.confily.backend.third.parties.welovedevs.infrastructure.provider.WeLoveDevsApi
 import com.paligot.confily.models.Job
@@ -14,13 +14,13 @@ private const val MaxPartnerChar = 6
 class JobRepositoryDefault(
     private val api: WeLoveDevsApi,
     private val eventDao: EventFirestore,
-    private val partnerDao: PartnerDao,
+    private val partnerFirestore: PartnerFirestore,
     private val jobFirestore: JobFirestore
 ) : JobRepository {
     override suspend fun import(eventId: String): List<Job> {
         val event = eventDao.get(eventId)
         if (event.wldConfig == null) throw NotAcceptableException("Wld config not initialized")
-        val partners = partnerDao.getAll(eventId).filter { it.wldId != null }
+        val partners = partnerFirestore.getAll(eventId).filter { it.wldId != null }
         val companyIds = partners.map { it.wldId!! }.filter { it.isNotEmpty() }
         if (companyIds.isEmpty()) throw NotFoundException("No partner has WLD config")
         val jobs = api.fetchPublicJobs(companyIds, event.wldConfig.appId, event.wldConfig.apiKey)

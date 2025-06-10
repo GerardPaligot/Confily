@@ -4,7 +4,7 @@ import com.paligot.confily.backend.internals.infrastructure.factory.FirestoreMod
 import com.paligot.confily.backend.internals.infrastructure.factory.GoogleServicesModule
 import com.paligot.confily.backend.internals.infrastructure.firestore.JobFirestore
 import com.paligot.confily.backend.internals.infrastructure.system.SystemEnv
-import com.paligot.confily.backend.partners.PartnerModule
+import com.paligot.confily.backend.partners.infrastructure.factory.PartnerModule
 import com.paligot.confily.backend.third.parties.welovedevs.application.JobRepositoryDefault
 
 object JobModule {
@@ -14,7 +14,7 @@ object JobModule {
             JobRepositoryDefault(
                 WeLoveDevsModule.wldApi.value,
                 FirestoreModule.eventFirestore.value,
-                PartnerModule.partnerDao.value,
+                PartnerModule.partnerFirestore.value,
                 jobFirestore.value
             )
         }

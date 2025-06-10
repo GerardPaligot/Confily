@@ -1,26 +1,25 @@
-package com.paligot.confily.backend.partners
+package com.paligot.confily.backend.internals.infrastructure.firestore
 
 import com.google.cloud.Timestamp
-import com.paligot.confily.backend.internals.infrastructure.firestore.AddressEntity
 
 @Suppress("ConstructorParameterNaming")
-data class PartnerPngsDb(
+data class PartnerPngsEntity(
     val _250: String = "",
     val _500: String = "",
     val _1000: String = ""
 )
 
-data class PartnerMediaDb(
+data class PartnerMediaEntity(
     val svg: String = "",
-    val pngs: PartnerPngsDb = PartnerPngsDb()
+    val pngs: PartnerPngsEntity = PartnerPngsEntity()
 )
 
-data class PartnerDb(
+data class PartnerEntity(
     val id: String = "",
     val name: String = "",
     val description: String = "",
     val logoUrl: String = "",
-    val media: PartnerMediaDb? = null,
+    val media: PartnerMediaEntity? = null,
     val videoUrl: String? = null,
     val siteUrl: String = "",
     val twitterUrl: String? = null,

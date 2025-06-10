@@ -4,18 +4,18 @@ import com.paligot.confily.backend.NotFoundException
 import com.paligot.confily.backend.activities.domain.ActivityRepository
 import com.paligot.confily.backend.internals.infrastructure.firestore.ActivityFirestore
 import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
-import com.paligot.confily.backend.partners.PartnerDao
+import com.paligot.confily.backend.internals.infrastructure.firestore.PartnerFirestore
 import com.paligot.confily.models.inputs.ActivityInput
 import kotlinx.datetime.LocalDateTime
 
 class ActivityRepositoryDefault(
     private val eventDao: EventFirestore,
-    private val partnerDao: PartnerDao,
+    private val partnerFirestore: PartnerFirestore,
     private val activityFirestore: ActivityFirestore
 ) : ActivityRepository {
     override suspend fun create(eventId: String, activity: ActivityInput): String {
         val event = eventDao.get(eventId)
-        val partnerExist = partnerDao.exists(eventId, activity.partnerId)
+        val partnerExist = partnerFirestore.exists(eventId, activity.partnerId)
         if (!partnerExist) {
             throw NotFoundException("Partner ${activity.partnerId} Not Found")
         }

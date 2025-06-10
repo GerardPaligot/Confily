@@ -6,7 +6,7 @@ import com.paligot.confily.backend.internals.infrastructure.factory.FirestoreMod
 import com.paligot.confily.backend.internals.infrastructure.factory.FirestoreModule.eventFirestore
 import com.paligot.confily.backend.internals.infrastructure.factory.StorageModule.eventStorage
 import com.paligot.confily.backend.map.infrastructure.factory.MapModule.mapFirestore
-import com.paligot.confily.backend.partners.PartnerModule.partnerDao
+import com.paligot.confily.backend.partners.infrastructure.factory.PartnerModule.partnerFirestore
 import com.paligot.confily.backend.qanda.QAndAModule.qAndADao
 import com.paligot.confily.backend.schedules.ScheduleModule.scheduleItemDao
 import com.paligot.confily.backend.sessions.SessionModule.sessionDao
@@ -23,7 +23,7 @@ object ExportModule {
             qAndADao.value,
             teamDao.value,
             mapFirestore.value,
-            partnerDao.value
+            partnerFirestore.value
         )
     }
     val exportPlanningRepository = lazy {
@@ -42,7 +42,7 @@ object ExportModule {
         ExportPartnersRepository(
             eventFirestore.value,
             eventStorage.value,
-            partnerDao.value,
+            partnerFirestore.value,
             jobFirestore.value,
             activityFirestore.value
         )

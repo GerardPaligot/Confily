@@ -1,7 +1,7 @@
 package com.paligot.confily.backend.internals.infrastructure.factory
 
 import com.paligot.confily.backend.internals.helpers.drive.DriveDataSource
-import com.paligot.confily.backend.internals.helpers.image.TranscoderImage
+import com.paligot.confily.backend.internals.infrastructure.transcoder.TranscoderImage
 import com.paligot.confily.backend.internals.helpers.secret.Secret
 import com.paligot.confily.backend.internals.helpers.storage.Storage
 import com.paligot.confily.backend.internals.infrastructure.provider.CommonApi

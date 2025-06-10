@@ -1,9 +1,12 @@
-package com.paligot.confily.backend.partners
+package com.paligot.confily.backend.partners.application
 
 import com.google.cloud.Timestamp
 import com.paligot.confily.backend.internals.application.convertToModel
 import com.paligot.confily.backend.internals.helpers.storage.Upload
 import com.paligot.confily.backend.internals.infrastructure.firestore.AddressEntity
+import com.paligot.confily.backend.internals.infrastructure.firestore.PartnerEntity
+import com.paligot.confily.backend.internals.infrastructure.firestore.PartnerMediaEntity
+import com.paligot.confily.backend.internals.infrastructure.firestore.PartnerPngsEntity
 import com.paligot.confily.models.Job
 import com.paligot.confily.models.Partner
 import com.paligot.confily.models.PartnerMedia
@@ -15,13 +18,13 @@ import com.paligot.confily.models.SocialType
 import com.paligot.confily.models.inputs.PartnerInput
 import java.net.URI
 
-fun PartnerDb.convertToModel() = Partner(
+fun PartnerEntity.convertToModel() = Partner(
     name = this.name,
     logoUrl = this.logoUrl,
     siteUrl = this.siteUrl
 )
 
-fun PartnerDb.convertToPartnerMediaModel(): PartnerMedia {
+fun PartnerEntity.convertToPartnerMediaModel(): PartnerMedia {
     if (media != null) {
         return PartnerMedia(
             svg = media.svg,
@@ -53,7 +56,7 @@ fun PartnerDb.convertToPartnerMediaModel(): PartnerMedia {
     )
 }
 
-fun PartnerDb.convertToModelV2(jobs: List<Job>) = PartnerV2(
+fun PartnerEntity.convertToModelV2(jobs: List<Job>) = PartnerV2(
     id = this.id,
     name = this.name,
     description = this.description,
@@ -69,7 +72,7 @@ fun PartnerDb.convertToModelV2(jobs: List<Job>) = PartnerV2(
     jobs = jobs
 )
 
-fun PartnerDb.convertToModelV3(jobs: List<Job>) = PartnerV3(
+fun PartnerEntity.convertToModelV3(jobs: List<Job>) = PartnerV3(
     id = this.id,
     name = this.name,
     description = this.description,
@@ -92,14 +95,14 @@ fun PartnerDb.convertToModelV3(jobs: List<Job>) = PartnerV3(
 )
 
 @Suppress("ReturnCount")
-fun List<Upload>.convertToPartnerMediaDb(logoUrl: String): PartnerMediaDb? {
+fun List<Upload>.convertToPartnerMediaEntity(logoUrl: String): PartnerMediaEntity? {
     if (isEmpty()) return null
     val image250 = find { it.filename.contains("250.png") } ?: return null
     val image500 = find { it.filename.contains("500.png") } ?: return null
     val image1000 = find { it.filename.contains("1000.png") } ?: return null
-    return PartnerMediaDb(
+    return PartnerMediaEntity(
         svg = logoUrl,
-        pngs = PartnerPngsDb(
+        pngs = PartnerPngsEntity(
             _250 = image250.url,
             _500 = image500.url,
             _1000 = image1000.url
@@ -107,16 +110,16 @@ fun List<Upload>.convertToPartnerMediaDb(logoUrl: String): PartnerMediaDb? {
     )
 }
 
-fun PartnerInput.convertToDb(
+fun PartnerInput.convertToEntity(
     id: String? = null,
     addressDb: AddressEntity,
     uploads: List<Upload> = emptyList()
-) = PartnerDb(
+) = PartnerEntity(
     id = id ?: "",
     name = name,
     description = description,
     logoUrl = logoUrl,
-    media = uploads.convertToPartnerMediaDb(logoUrl),
+    media = uploads.convertToPartnerMediaEntity(logoUrl),
     videoUrl = videoUrl,
     siteUrl = siteUrl,
     twitterUrl = twitterUrl,

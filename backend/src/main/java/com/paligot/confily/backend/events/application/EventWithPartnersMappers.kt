@@ -1,7 +1,6 @@
 package com.paligot.confily.backend.events.application
 
 import com.paligot.confily.backend.internals.infrastructure.firestore.EventEntity
-import com.paligot.confily.backend.partners.Sponsorship
 import com.paligot.confily.models.Event
 import com.paligot.confily.models.EventPartners
 import com.paligot.confily.models.ExportEvent
@@ -46,3 +45,6 @@ private fun PartnerV3.convertToModel() = Partner(
     logoUrl = this.media.pngs?._250 ?: this.media.svg,
     siteUrl = this.socials.find { it.type == SocialType.Website }?.url
 )
+
+@Deprecated("For retro-compatibility reasons", level = DeprecationLevel.WARNING)
+enum class Sponsorship { Gold, Silver, Bronze, Other }

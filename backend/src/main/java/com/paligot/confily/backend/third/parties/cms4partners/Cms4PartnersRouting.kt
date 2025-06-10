@@ -1,7 +1,7 @@
 package com.paligot.confily.backend.third.parties.cms4partners
 
 import com.paligot.confily.backend.export.ExportModule.exportPartnersRepository
-import com.paligot.confily.backend.partners.PartnerModule.partnerRepository
+import com.paligot.confily.backend.partners.infrastructure.factory.PartnerModule.partnerAdminRepository
 import com.paligot.confily.backend.receiveValidated
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.response.respond
@@ -10,7 +10,7 @@ import io.ktor.server.routing.post
 import io.ktor.server.routing.route
 
 fun Route.registerAdminCms4PartnersRoutes() {
-    val repository by partnerRepository
+    val repository by partnerAdminRepository
     val exportPartnersRepository by exportPartnersRepository
 
     route("/cms4partners") {
