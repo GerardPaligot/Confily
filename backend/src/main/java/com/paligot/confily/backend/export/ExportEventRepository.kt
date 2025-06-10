@@ -5,9 +5,9 @@ import com.paligot.confily.backend.internals.infrastructure.firestore.EventEntit
 import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
 import com.paligot.confily.backend.internals.infrastructure.firestore.MapEntity
 import com.paligot.confily.backend.internals.infrastructure.firestore.MapFirestore
+import com.paligot.confily.backend.internals.infrastructure.firestore.PartnerFirestore
 import com.paligot.confily.backend.internals.infrastructure.storage.EventStorage
 import com.paligot.confily.backend.map.application.convertToModel
-import com.paligot.confily.backend.partners.PartnerDao
 import com.paligot.confily.backend.qanda.QAndADao
 import com.paligot.confily.backend.qanda.QAndADb
 import com.paligot.confily.backend.qanda.convertToModel
@@ -26,7 +26,7 @@ class ExportEventRepository(
     private val qAndADao: QAndADao,
     private val teamDao: TeamDao,
     private val mapFirestore: MapFirestore,
-    private val partnerDao: PartnerDao,
+    private val partnerFirestore: PartnerFirestore,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
     suspend fun get(eventId: String): ExportEvent {
@@ -54,7 +54,7 @@ class ExportEventRepository(
             qanda = qanda.await(),
             team = teamMembers(event),
             maps = maps.await(),
-            hasPartners = partnerDao.hasPartners(event.slugId)
+            hasPartners = partnerFirestore.hasPartners(event.slugId)
         )
     }
 

@@ -1,7 +1,8 @@
-package com.paligot.confily.backend.partners
+package com.paligot.confily.backend.partners.infrastructure.api
 
 import com.paligot.confily.backend.internals.infrastructure.ktor.plugins.PartnersUpdatedAtPlugin
-import com.paligot.confily.backend.partners.PartnerModule.partnerRepository
+import com.paligot.confily.backend.partners.infrastructure.factory.PartnerModule.partnerAdminRepository
+import com.paligot.confily.backend.partners.infrastructure.factory.PartnerModule.partnerRepository
 import com.paligot.confily.backend.receiveValidated
 import com.paligot.confily.models.inputs.PartnerInput
 import io.ktor.http.HttpStatusCode
@@ -26,7 +27,7 @@ fun Route.registerPartnersRoutes() {
 }
 
 fun Route.registerAdminPartnersRoutes() {
-    val repository by partnerRepository
+    val repository by partnerAdminRepository
 
     route("/partners") {
         this.install(PartnersUpdatedAtPlugin)

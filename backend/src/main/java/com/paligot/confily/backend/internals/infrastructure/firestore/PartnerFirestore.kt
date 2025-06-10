@@ -1,4 +1,4 @@
-package com.paligot.confily.backend.partners
+package com.paligot.confily.backend.internals.infrastructure.firestore
 
 import com.google.cloud.firestore.Firestore
 import com.paligot.confily.backend.internals.helpers.database.docExists
@@ -6,26 +6,18 @@ import com.paligot.confily.backend.internals.helpers.database.insert
 import com.paligot.confily.backend.internals.helpers.database.isNotEmpty
 import com.paligot.confily.backend.internals.helpers.database.map
 import com.paligot.confily.backend.internals.helpers.database.upsert
-import com.paligot.confily.backend.internals.helpers.image.Png
-import com.paligot.confily.backend.internals.helpers.storage.MimeType
-import com.paligot.confily.backend.internals.helpers.storage.Storage
-import com.paligot.confily.backend.internals.helpers.storage.Upload
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.coroutineScope
 
 private const val CollectionName = "companies"
 
-class PartnerDao(
+class PartnerFirestore(
     private val projectName: String,
-    private val firestore: Firestore,
-    private val storage: Storage
+    private val firestore: Firestore
 ) {
-    fun getAll(eventId: String): List<PartnerDb> = firestore
+    fun getAll(eventId: String): List<PartnerEntity> = firestore
         .collection(projectName)
         .document(eventId)
         .collection(CollectionName)
-        .map<PartnerDb, PartnerDb> {
+        .map<PartnerEntity, PartnerEntity> {
             if (it.siteUrl.contains(Regex("^http[s]{0,1}://"))) return@map it
             return@map it.copy(siteUrl = "https://${it.siteUrl}")
         }
@@ -36,7 +28,7 @@ class PartnerDao(
         .collection(CollectionName)
         .docExists(partnerId)
 
-    fun createOrUpdate(eventId: String, partner: PartnerDb): String {
+    fun createOrUpdate(eventId: String, partner: PartnerEntity): String {
         if (partner.id == "") {
             return firestore
                 .collection(projectName)
@@ -50,25 +42,6 @@ class PartnerDao(
             .collection(CollectionName)
             .upsert(partner.id, partner)
         return partner.id
-    }
-
-    suspend fun uploadPartnerLogos(
-        eventId: String,
-        partnerId: String,
-        pngs: List<Png>
-    ): List<Upload> = coroutineScope {
-        return@coroutineScope pngs
-            .filter { it.content != null }
-            .map { png ->
-                async {
-                    storage.upload(
-                        filename = "$eventId/partners/$partnerId/${png.size}.png",
-                        content = png.content!!,
-                        mimeType = MimeType.PNG
-                    )
-                }
-            }
-            .awaitAll()
     }
 
     fun hasPartners(eventId: String): Boolean = firestore
