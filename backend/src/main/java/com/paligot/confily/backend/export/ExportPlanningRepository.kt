@@ -2,11 +2,11 @@ package com.paligot.confily.backend.export
 
 import com.paligot.confily.backend.NotFoundException
 import com.paligot.confily.backend.categories.application.convertToModel
-import com.paligot.confily.backend.formats.FormatDao
-import com.paligot.confily.backend.formats.convertToModel
+import com.paligot.confily.backend.formats.application.convertToModel
 import com.paligot.confily.backend.internals.infrastructure.firestore.CategoryFirestore
 import com.paligot.confily.backend.internals.infrastructure.firestore.EventEntity
 import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
+import com.paligot.confily.backend.internals.infrastructure.firestore.FormatFirestore
 import com.paligot.confily.backend.internals.infrastructure.storage.EventStorage
 import com.paligot.confily.backend.schedules.ScheduleItemDao
 import com.paligot.confily.backend.schedules.convertToEventSession
@@ -32,7 +32,7 @@ class ExportPlanningRepository(
     private val speakerDao: SpeakerDao,
     private val sessionDao: SessionDao,
     private val categoryDao: CategoryFirestore,
-    private val formatDao: FormatDao,
+    private val formatFirestore: FormatFirestore,
     private val tagDao: TagDao,
     private val scheduleItemDao: ScheduleItemDao,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
@@ -120,7 +120,7 @@ class ExportPlanningRepository(
             sessionDao.getAll(eventDb.slugId).map { it.convertToModel(eventDb) }
         }
         val formats = async(context = dispatcher) {
-            formatDao.getAll(eventDb.slugId).map { it.convertToModel() }
+            formatFirestore.getAll(eventDb.slugId).map { it.convertToModel() }
         }
         val categories = async(context = dispatcher) {
             categoryDao.getAll(eventDb.slugId).map { it.convertToModel() }

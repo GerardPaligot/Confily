@@ -1,11 +1,11 @@
 package com.paligot.confily.backend.sessions
 
 import com.paligot.confily.backend.categories.application.convertToModel
-import com.paligot.confily.backend.formats.FormatDb
 import com.paligot.confily.backend.internals.application.convertToModel
 import com.paligot.confily.backend.internals.infrastructure.firestore.AddressEntity
 import com.paligot.confily.backend.internals.infrastructure.firestore.CategoryEntity
 import com.paligot.confily.backend.internals.infrastructure.firestore.EventEntity
+import com.paligot.confily.backend.internals.infrastructure.firestore.FormatEntity
 import com.paligot.confily.backend.internals.infrastructure.firestore.openFeedbackUrl
 import com.paligot.confily.backend.speakers.SpeakerDb
 import com.paligot.confily.backend.speakers.convertToModel
@@ -61,7 +61,7 @@ fun EventSessionInput.convertToDb(
 fun TalkDb.convertToModel(
     speakers: List<SpeakerDb>,
     category: CategoryEntity?,
-    format: FormatDb?,
+    format: FormatEntity?,
     eventDb: EventEntity
 ): Talk = Talk(
     id = this.id,

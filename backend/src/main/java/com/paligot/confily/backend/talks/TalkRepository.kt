@@ -1,10 +1,10 @@
 package com.paligot.confily.backend.talks
 
 import com.paligot.confily.backend.NotFoundException
-import com.paligot.confily.backend.formats.FormatDao
 import com.paligot.confily.backend.internals.helpers.drive.DriveDataSource
 import com.paligot.confily.backend.internals.infrastructure.firestore.CategoryFirestore
 import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
+import com.paligot.confily.backend.internals.infrastructure.firestore.FormatFirestore
 import com.paligot.confily.backend.sessions.SessionDao
 import com.paligot.confily.backend.sessions.TalkDb
 import com.paligot.confily.backend.sessions.convertToDb
@@ -21,7 +21,7 @@ class TalkRepository(
     private val speakerDao: SpeakerDao,
     private val sessionDao: SessionDao,
     private val categoryDao: CategoryFirestore,
-    private val formatDao: FormatDao,
+    private val formatFirestore: FormatFirestore,
     private val driveDataSource: DriveDataSource
 ) {
     suspend fun list(eventId: String) = coroutineScope {
@@ -29,7 +29,7 @@ class TalkRepository(
         val talks = sessionDao.getAllTalkSessions(eventId)
         val speakers = speakerDao.getAll(eventId)
         val categories = categoryDao.getAll(eventId)
-        val formats = formatDao.getAll(eventId)
+        val formats = formatFirestore.getAll(eventId)
         val asyncItems = talks.map { talkDb ->
             async {
                 talkDb.convertToModel(
@@ -56,7 +56,7 @@ class TalkRepository(
         val talk = sessionDao.getTalkSession(eventId, talkId)
             ?: throw NotFoundException("Talk $talkId Not Found")
         val categoryDb = categoryDao.get(eventId, talk.category)
-        val formatDb = formatDao.get(eventId, talk.format)
+        val formatDb = formatFirestore.get(eventId, talk.format)
         return@coroutineScope talk.convertToModel(
             speakerDao.getByIds(eventId, talk.speakerIds),
             categoryDb,

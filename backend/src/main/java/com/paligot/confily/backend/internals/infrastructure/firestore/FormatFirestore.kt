@@ -1,4 +1,4 @@
-package com.paligot.confily.backend.formats
+package com.paligot.confily.backend.internals.infrastructure.firestore
 
 import com.google.cloud.firestore.Firestore
 import com.paligot.confily.backend.internals.helpers.database.batchDelete
@@ -10,23 +10,23 @@ import com.paligot.confily.backend.internals.helpers.database.update
 
 private const val CollectionName = "formats"
 
-class FormatDao(
+class FormatFirestore(
     private val projectName: String,
     private val firestore: Firestore
 ) {
-    fun get(eventId: String, id: String): FormatDb? = firestore
+    fun get(eventId: String, id: String): FormatEntity? = firestore
         .collection(projectName)
         .document(eventId)
         .collection(CollectionName)
         .getDocument(id)
 
-    fun getAll(eventId: String): List<FormatDb> = firestore
+    fun getAll(eventId: String): List<FormatEntity> = firestore
         .collection(projectName)
         .document(eventId)
         .collection(CollectionName)
-        .getDocuments<FormatDb>()
+        .getDocuments<FormatEntity>()
 
-    fun createOrUpdate(eventId: String, item: FormatDb) {
+    fun createOrUpdate(eventId: String, item: FormatEntity) {
         if (item.id == null) {
             firestore
                 .collection(projectName)

@@ -1,6 +1,6 @@
 package com.paligot.confily.backend.talks
 
-import com.paligot.confily.backend.formats.FormatModule.formatDao
+import com.paligot.confily.backend.formats.infrastructure.factory.FormatModule.formatFirestore
 import com.paligot.confily.backend.internals.infrastructure.factory.FirestoreModule.categoryFirestore
 import com.paligot.confily.backend.internals.infrastructure.factory.FirestoreModule.eventFirestore
 import com.paligot.confily.backend.internals.infrastructure.factory.InternalModule.driveDataSource
@@ -14,7 +14,7 @@ object TalkModule {
             speakerDao.value,
             sessionDao.value,
             categoryFirestore.value,
-            formatDao.value,
+            formatFirestore.value,
             driveDataSource.value
         )
     }

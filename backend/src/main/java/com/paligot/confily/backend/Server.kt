@@ -7,8 +7,8 @@ import com.paligot.confily.backend.events.infrastructure.api.registerAdminEventR
 import com.paligot.confily.backend.events.infrastructure.api.registerEventRoutes
 import com.paligot.confily.backend.export.registerAdminExportRoutes
 import com.paligot.confily.backend.export.registerExportRoutes
-import com.paligot.confily.backend.formats.registerAdminFormatsRoutes
-import com.paligot.confily.backend.formats.registerFormatsRoutes
+import com.paligot.confily.backend.formats.infrastructure.api.registerAdminFormatsRoutes
+import com.paligot.confily.backend.formats.infrastructure.api.registerFormatsRoutes
 import com.paligot.confily.backend.internals.plugins.IdentificationPlugin
 import com.paligot.confily.backend.internals.plugins.UpdatedAtPlugin
 import com.paligot.confily.backend.map.registerAdminMapRoutes

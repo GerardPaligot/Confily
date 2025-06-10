@@ -1,11 +1,11 @@
 package com.paligot.confily.backend.schedules
 
 import com.paligot.confily.backend.NotFoundException
-import com.paligot.confily.backend.formats.FormatDao
 import com.paligot.confily.backend.internals.helpers.date.FormatterPattern
 import com.paligot.confily.backend.internals.helpers.date.format
 import com.paligot.confily.backend.internals.infrastructure.firestore.CategoryFirestore
 import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
+import com.paligot.confily.backend.internals.infrastructure.firestore.FormatFirestore
 import com.paligot.confily.backend.sessions.SessionDao
 import com.paligot.confily.backend.sessions.convertToModel
 import com.paligot.confily.backend.speakers.SpeakerDao
@@ -17,7 +17,7 @@ class ScheduleRepository(
     private val eventDao: EventFirestore,
     private val sessionDao: SessionDao,
     private val categoryDao: CategoryFirestore,
-    private val formatDao: FormatDao,
+    private val formatFirestore: FormatFirestore,
     private val speakerDao: SpeakerDao,
     private val scheduleItemDao: ScheduleItemDao
 ) {
@@ -32,7 +32,7 @@ class ScheduleRepository(
             } else {
                 val talk = sessionDao.getTalkSession(eventId, scheduleInput.talkId!!)
                     ?: throw NotFoundException("Talk ${scheduleInput.talkId} not found")
-                val format = formatDao.get(eventId, talk.format)
+                val format = formatFirestore.get(eventId, talk.format)
                     ?: throw NotFoundException("Format ${talk.category} not found")
                 val endTime =
                     LocalDateTime.parse(scheduleInput.startTime).plusMinutes(format.time.toLong())
@@ -55,7 +55,7 @@ class ScheduleRepository(
                 ?: throw NotFoundException("Talk ${scheduleItem.talkId} not found")
             val speakers = speakerDao.getByIds(eventId, talkDb.speakerIds)
             val category = categoryDao.get(eventId, talkDb.category)
-            val format = formatDao.get(eventId, talkDb.format)
+            val format = formatFirestore.get(eventId, talkDb.format)
             talkDb.convertToModel(speakers, category, format, eventDb)
         } else {
             null

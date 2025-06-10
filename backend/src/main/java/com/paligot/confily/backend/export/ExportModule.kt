@@ -1,7 +1,7 @@
 package com.paligot.confily.backend.export
 
 import com.paligot.confily.backend.activities.infrastructure.factory.ActivityModule.activityFirestore
-import com.paligot.confily.backend.formats.FormatModule.formatDao
+import com.paligot.confily.backend.formats.infrastructure.factory.FormatModule.formatFirestore
 import com.paligot.confily.backend.internals.infrastructure.factory.FirestoreModule.categoryFirestore
 import com.paligot.confily.backend.internals.infrastructure.factory.FirestoreModule.eventFirestore
 import com.paligot.confily.backend.internals.infrastructure.factory.StorageModule.eventStorage
@@ -33,7 +33,7 @@ object ExportModule {
             speakerDao.value,
             sessionDao.value,
             categoryFirestore.value,
-            formatDao.value,
+            formatFirestore.value,
             tagDao.value,
             scheduleItemDao.value
         )

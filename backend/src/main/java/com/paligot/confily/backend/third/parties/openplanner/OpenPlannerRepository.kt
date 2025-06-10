@@ -1,13 +1,13 @@
 package com.paligot.confily.backend.third.parties.openplanner
 
 import com.paligot.confily.backend.NotAcceptableException
-import com.paligot.confily.backend.formats.FormatDao
-import com.paligot.confily.backend.formats.FormatDb
 import com.paligot.confily.backend.internals.helpers.mimeType
 import com.paligot.confily.backend.internals.infrastructure.firestore.CategoryEntity
 import com.paligot.confily.backend.internals.infrastructure.firestore.CategoryFirestore
 import com.paligot.confily.backend.internals.infrastructure.firestore.EventEntity
 import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
+import com.paligot.confily.backend.internals.infrastructure.firestore.FormatEntity
+import com.paligot.confily.backend.internals.infrastructure.firestore.FormatFirestore
 import com.paligot.confily.backend.internals.infrastructure.firestore.TeamGroupEntity
 import com.paligot.confily.backend.internals.infrastructure.provider.CommonApi
 import com.paligot.confily.backend.qanda.QAndADao
@@ -34,7 +34,7 @@ class OpenPlannerRepository(
     private val speakerDao: SpeakerDao,
     private val sessionDao: SessionDao,
     private val categoryDao: CategoryFirestore,
-    private val formatDao: FormatDao,
+    private val formatFirestore: FormatFirestore,
     private val scheduleItemDao: ScheduleItemDao,
     private val qAndADao: QAndADao,
     private val teamDao: TeamDao,
@@ -115,7 +115,7 @@ class OpenPlannerRepository(
         event: EventEntity,
         qandas: List<QAndADb>,
         categories: List<CategoryEntity>,
-        formats: List<FormatDb>,
+        formats: List<FormatEntity>,
         speakers: List<SpeakerDb>,
         schedules: List<ScheduleDb>,
         teamMembers: List<TeamDb>
@@ -123,7 +123,7 @@ class OpenPlannerRepository(
         qAndADao.deleteDiff(event.slugId, qandas.map { it.id!! })
         teamDao.deleteDiff(event.slugId, teamMembers.map { it.id!! })
         categoryDao.deleteDiff(event.slugId, categories.map { it.id!! })
-        formatDao.deleteDiff(event.slugId, formats.map { it.id!! })
+        formatFirestore.deleteDiff(event.slugId, formats.map { it.id!! })
         speakerDao.deleteDiff(event.slugId, speakers.map { it.id })
         scheduleItemDao.deleteDiff(event.slugId, schedules.map { it.id })
         val talkIds = schedules
@@ -196,15 +196,15 @@ class OpenPlannerRepository(
         }
     }
 
-    private suspend fun createOrMergeFormat(eventId: String, format: FormatOP): FormatDb {
-        val existing = formatDao.get(eventId, format.id)
+    private suspend fun createOrMergeFormat(eventId: String, format: FormatOP): FormatEntity {
+        val existing = formatFirestore.get(eventId, format.id)
         return if (existing == null) {
             val item = format.convertToDb()
-            formatDao.createOrUpdate(eventId, item)
+            formatFirestore.createOrUpdate(eventId, item)
             item
         } else {
             val item = existing.mergeWith(format)
-            formatDao.createOrUpdate(eventId, item)
+            formatFirestore.createOrUpdate(eventId, item)
             item
         }
     }
