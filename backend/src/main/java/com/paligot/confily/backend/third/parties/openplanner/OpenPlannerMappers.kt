@@ -10,8 +10,8 @@ import com.paligot.confily.backend.internals.infrastructure.firestore.QAndAActio
 import com.paligot.confily.backend.internals.infrastructure.firestore.QAndAEntity
 import com.paligot.confily.backend.internals.infrastructure.firestore.ScheduleEntity
 import com.paligot.confily.backend.internals.infrastructure.firestore.SocialEntity
+import com.paligot.confily.backend.internals.infrastructure.firestore.SpeakerEntity
 import com.paligot.confily.backend.internals.infrastructure.firestore.TalkSessionEntity
-import com.paligot.confily.backend.speakers.SpeakerDb
 import com.paligot.confily.backend.team.TeamDb
 import com.paligot.confily.models.SocialType
 import com.paligot.confily.models.inputs.ValidatorException
@@ -42,7 +42,7 @@ fun FormatEntity.mergeWith(formatOP: FormatOP) = FormatEntity(
     time = if (this.time != 0) this.time else formatOP.durationMinutes
 )
 
-fun SpeakerOP.convertToDb(photoUrl: String?): SpeakerDb {
+fun SpeakerOP.convertToDb(photoUrl: String?): SpeakerEntity {
     val linkedin = socials.find { it.name.lowercase() == SocialType.LinkedIn.name.lowercase() }
         ?.link
     val x = socials.find { it.name.lowercase() == SocialType.X.name.lowercase() }?.link
@@ -58,7 +58,7 @@ fun SpeakerOP.convertToDb(photoUrl: String?): SpeakerDb {
     val github = socials.find { it.name.lowercase() == SocialType.GitHub.name.lowercase() }?.link
     val email = socials.find { it.name.lowercase() == SocialType.Email.name.lowercase() }?.link
     val website = socials.find { it.name.lowercase() == SocialType.Website.name.lowercase() }?.link
-    return SpeakerDb(
+    return SpeakerEntity(
         id = id,
         displayName = name,
         pronouns = pronouns,
@@ -115,7 +115,7 @@ fun SpeakerOP.convertToDb(photoUrl: String?): SpeakerDb {
     )
 }
 
-fun SpeakerDb.mergeWith(photoUrl: String?, speakerOP: SpeakerOP): SpeakerDb {
+fun SpeakerEntity.mergeWith(photoUrl: String?, speakerOP: SpeakerOP): SpeakerEntity {
     val linkedin = speakerOP.socials.find { it.name.lowercase() == "linkedin" }?.link
     val x = speakerOP.socials.find { it.name.lowercase() == "x" }?.link
     val twitter = speakerOP.socials.find { it.name.lowercase() == "twitter" }?.link
@@ -127,7 +127,7 @@ fun SpeakerDb.mergeWith(photoUrl: String?, speakerOP: SpeakerOP): SpeakerDb {
     val github = speakerOP.socials.find { it.name.lowercase() == "github" }?.link
     val email = speakerOP.socials.find { it.name.lowercase() == "email" }?.link
     val website = speakerOP.socials.find { it.name.lowercase() == "website" }?.link
-    return SpeakerDb(
+    return SpeakerEntity(
         id = speakerOP.id,
         displayName = if (this.displayName == speakerOP.name) this.displayName else speakerOP.name,
         pronouns = if (this.pronouns == speakerOP.pronouns) this.pronouns else speakerOP.pronouns,

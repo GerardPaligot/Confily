@@ -14,10 +14,11 @@ import com.paligot.confily.backend.internals.infrastructure.firestore.ScheduleEn
 import com.paligot.confily.backend.internals.infrastructure.firestore.ScheduleItemFirestore
 import com.paligot.confily.backend.internals.infrastructure.firestore.SessionEntity
 import com.paligot.confily.backend.internals.infrastructure.firestore.SessionFirestore
+import com.paligot.confily.backend.internals.infrastructure.firestore.SpeakerEntity
+import com.paligot.confily.backend.internals.infrastructure.firestore.SpeakerFirestore
 import com.paligot.confily.backend.internals.infrastructure.firestore.TeamGroupEntity
 import com.paligot.confily.backend.internals.infrastructure.provider.CommonApi
-import com.paligot.confily.backend.speakers.SpeakerDao
-import com.paligot.confily.backend.speakers.SpeakerDb
+import com.paligot.confily.backend.internals.infrastructure.storage.SpeakerStorage
 import com.paligot.confily.backend.team.TeamDao
 import com.paligot.confily.backend.team.TeamDb
 import kotlinx.coroutines.CoroutineDispatcher
@@ -31,7 +32,8 @@ class OpenPlannerRepository(
     private val openPlannerApi: OpenPlannerApi,
     private val commonApi: CommonApi,
     private val eventDao: EventFirestore,
-    private val speakerDao: SpeakerDao,
+    private val speakerFirestore: SpeakerFirestore,
+    private val speakerStorage: SpeakerStorage,
     private val sessionFirestore: SessionFirestore,
     private val categoryDao: CategoryFirestore,
     private val formatFirestore: FormatFirestore,
@@ -116,7 +118,7 @@ class OpenPlannerRepository(
         qandas: List<QAndAEntity>,
         categories: List<CategoryEntity>,
         formats: List<FormatEntity>,
-        speakers: List<SpeakerDb>,
+        speakers: List<SpeakerEntity>,
         schedules: List<ScheduleEntity>,
         teamMembers: List<TeamDb>
     ) = coroutineScope {
@@ -124,7 +126,7 @@ class OpenPlannerRepository(
         teamDao.deleteDiff(event.slugId, teamMembers.map { it.id!! })
         categoryDao.deleteDiff(event.slugId, categories.map { it.id!! })
         formatFirestore.deleteDiff(event.slugId, formats.map { it.id!! })
-        speakerDao.deleteDiff(event.slugId, speakers.map { it.id })
+        speakerFirestore.deleteDiff(event.slugId, speakers.map { it.id })
         scheduleItemFirestore.deleteDiff(event.slugId, schedules.map { it.id })
         val talkIds = schedules
             .filter { it.talkId != null && event.eventSessionTracks.contains(it.room).not() }
@@ -209,17 +211,17 @@ class OpenPlannerRepository(
         }
     }
 
-    private suspend fun createOrMergeSpeaker(eventId: String, speaker: SpeakerOP): SpeakerDb {
-        val existing = speakerDao.get(eventId, speaker.id)
+    private suspend fun createOrMergeSpeaker(eventId: String, speaker: SpeakerOP): SpeakerEntity {
+        val existing = speakerFirestore.get(eventId, speaker.id)
         return if (existing == null) {
             val photoUrl = getAvatarUrl(eventId, speaker)
             val item = speaker.convertToDb(photoUrl)
-            speakerDao.createOrUpdate(eventId, item)
+            speakerFirestore.createOrUpdate(eventId, item)
             item
         } else {
             val photoUrl = getAvatarUrl(eventId, speaker)
             val item = existing.mergeWith(photoUrl, speaker)
-            speakerDao.createOrUpdate(eventId, item)
+            speakerFirestore.createOrUpdate(eventId, item)
             item
         }
     }
@@ -227,7 +229,7 @@ class OpenPlannerRepository(
     private suspend fun getAvatarUrl(eventId: String, speaker: SpeakerOP) = try {
         if (speaker.photoUrl != null) {
             val avatar = commonApi.fetchByteArray(speaker.photoUrl)
-            val bucketItem = speakerDao.saveProfile(
+            val bucketItem = speakerStorage.saveProfile(
                 eventId = eventId,
                 id = speaker.id,
                 content = avatar,

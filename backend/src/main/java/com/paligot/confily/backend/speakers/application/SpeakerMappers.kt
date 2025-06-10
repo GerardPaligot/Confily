@@ -1,15 +1,16 @@
-package com.paligot.confily.backend.speakers
+package com.paligot.confily.backend.speakers.application
 
 import com.paligot.confily.backend.internals.application.convertToEntity
 import com.paligot.confily.backend.internals.application.convertToModel
 import com.paligot.confily.backend.internals.infrastructure.firestore.SocialEntity
+import com.paligot.confily.backend.internals.infrastructure.firestore.SpeakerEntity
 import com.paligot.confily.models.SocialItem
 import com.paligot.confily.models.SocialType
 import com.paligot.confily.models.Speaker
 import com.paligot.confily.models.inputs.SocialInput
 import com.paligot.confily.models.inputs.SpeakerInput
 
-fun SpeakerDb.convertToModel(): Speaker = Speaker(
+fun SpeakerEntity.convertToModel(): Speaker = Speaker(
     id = this.id,
     displayName = this.displayName,
     pronouns = this.pronouns,
@@ -36,7 +37,7 @@ fun SpeakerDb.convertToModel(): Speaker = Speaker(
     }.toList()
 )
 
-fun SpeakerInput.convertToDb(photoUrl: String, id: String? = null) = SpeakerDb(
+fun SpeakerInput.convertToEntity(photoUrl: String, id: String? = null) = SpeakerEntity(
     id = id ?: "",
     displayName = this.displayName,
     pronouns = this.pronouns,
