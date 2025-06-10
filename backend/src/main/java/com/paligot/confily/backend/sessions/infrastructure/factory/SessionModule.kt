@@ -8,7 +8,7 @@ import com.paligot.confily.backend.internals.infrastructure.system.SystemEnv
 import com.paligot.confily.backend.sessions.application.SessionAdminRepositoryDefault
 import com.paligot.confily.backend.sessions.application.SessionAdminVerbatimRepositoryDefault
 import com.paligot.confily.backend.sessions.application.SessionRepositoryDefault
-import com.paligot.confily.backend.speakers.SpeakerModule
+import com.paligot.confily.backend.speakers.infrastructure.factory.SpeakerModule
 import com.paligot.confily.backend.third.parties.geocode.GeocodeModule
 
 object SessionModule {
@@ -25,7 +25,7 @@ object SessionModule {
     }
     val sessionAdminVerbatimRepository = lazy {
         SessionAdminVerbatimRepositoryDefault(
-            SpeakerModule.speakerDao.value,
+            SpeakerModule.speakerFirestore.value,
             sessionFirestore.value,
             InternalModule.driveDataSource.value
         )

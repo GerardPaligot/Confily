@@ -3,16 +3,16 @@ package com.paligot.confily.backend.sessions.application
 import com.paligot.confily.backend.NotFoundException
 import com.paligot.confily.backend.internals.helpers.drive.DriveDataSource
 import com.paligot.confily.backend.internals.infrastructure.firestore.SessionFirestore
+import com.paligot.confily.backend.internals.infrastructure.firestore.SpeakerFirestore
 import com.paligot.confily.backend.internals.infrastructure.firestore.TalkSessionEntity
 import com.paligot.confily.backend.sessions.domain.SessionAdminVerbatimRepository
-import com.paligot.confily.backend.speakers.SpeakerDao
 import com.paligot.confily.models.inputs.TalkVerbatimInput
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 
 class SessionAdminVerbatimRepositoryDefault(
-    private val speakerDao: SpeakerDao,
+    private val speakerFirestore: SpeakerFirestore,
     private val sessionFirestore: SessionFirestore,
     private val driveDataSource: DriveDataSource
 ) : SessionAdminVerbatimRepository {
@@ -96,7 +96,7 @@ class SessionAdminVerbatimRepositoryDefault(
             driveDataSource.findFolderByName(verbatim.targetFolder, eventFolderId, driveId)
                 ?: throw NotFoundException("Folder ${verbatim.targetFolder} doesn't exist")
         val talks = sessionFirestore.getAllTalkSessions(eventId)
-        val speakers = speakerDao.getAll(eventId)
+        val speakers = speakerFirestore.getAll(eventId)
         talks
             .filter { it.driveFolderId != null }
             .map { talkDb ->
@@ -131,7 +131,7 @@ class SessionAdminVerbatimRepositoryDefault(
             ?: throw NotFoundException("Talk $talkId doesn't exist")
         val driveFolderId = talkDb.driveFolderId
             ?: throw NotFoundException("Talk $talkId doesn't have a verbatim folder")
-        val speakerEmails = speakerDao.getByIds(eventId, talkDb.speakerIds)
+        val speakerEmails = speakerFirestore.getByIds(eventId, talkDb.speakerIds)
             .filter { it.email != null }
             .map { it.email!! }
         val folderId = grantPermission(

@@ -8,10 +8,10 @@ import com.paligot.confily.backend.internals.infrastructure.firestore.EventEntit
 import com.paligot.confily.backend.internals.infrastructure.firestore.EventSessionEntity
 import com.paligot.confily.backend.internals.infrastructure.firestore.FormatEntity
 import com.paligot.confily.backend.internals.infrastructure.firestore.SessionEntity
+import com.paligot.confily.backend.internals.infrastructure.firestore.SpeakerEntity
 import com.paligot.confily.backend.internals.infrastructure.firestore.TalkSessionEntity
 import com.paligot.confily.backend.internals.infrastructure.firestore.openFeedbackUrl
-import com.paligot.confily.backend.speakers.SpeakerDb
-import com.paligot.confily.backend.speakers.convertToModel
+import com.paligot.confily.backend.speakers.application.convertToModel
 import com.paligot.confily.models.Session
 import com.paligot.confily.models.Talk
 import com.paligot.confily.models.TalkV3
@@ -62,7 +62,7 @@ fun EventSessionInput.convertToEntity(
 )
 
 fun TalkSessionEntity.convertToModel(
-    speakers: List<SpeakerDb>,
+    speakers: List<SpeakerEntity>,
     category: CategoryEntity?,
     format: FormatEntity?,
     eventDb: EventEntity

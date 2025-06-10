@@ -9,7 +9,7 @@ import com.paligot.confily.backend.internals.infrastructure.system.SystemEnv.pro
 import com.paligot.confily.backend.schedules.application.ScheduleAdminRepositoryDefault
 import com.paligot.confily.backend.schedules.application.ScheduleRepositoryDefault
 import com.paligot.confily.backend.sessions.infrastructure.factory.SessionModule.sessionFirestore
-import com.paligot.confily.backend.speakers.SpeakerModule.speakerDao
+import com.paligot.confily.backend.speakers.infrastructure.factory.SpeakerModule.speakerFirestore
 
 object ScheduleModule {
     val scheduleItemFirestore = lazy { ScheduleItemFirestore(projectName, cloudFirestore.value) }
@@ -19,7 +19,7 @@ object ScheduleModule {
             sessionFirestore.value,
             categoryFirestore.value,
             formatFirestore.value,
-            speakerDao.value,
+            speakerFirestore.value,
             scheduleItemFirestore.value
         )
     }

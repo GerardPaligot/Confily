@@ -1,8 +1,6 @@
-package com.paligot.confily.backend.speakers
+package com.paligot.confily.backend.internals.infrastructure.firestore
 
-import com.paligot.confily.backend.internals.infrastructure.firestore.SocialEntity
-
-data class SpeakerDb(
+data class SpeakerEntity(
     val id: String = "",
     val displayName: String = "",
     val pronouns: String? = null,

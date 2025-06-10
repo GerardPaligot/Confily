@@ -6,9 +6,9 @@ import com.paligot.confily.backend.internals.infrastructure.firestore.EventFires
 import com.paligot.confily.backend.internals.infrastructure.firestore.FormatFirestore
 import com.paligot.confily.backend.internals.infrastructure.firestore.ScheduleItemFirestore
 import com.paligot.confily.backend.internals.infrastructure.firestore.SessionFirestore
+import com.paligot.confily.backend.internals.infrastructure.firestore.SpeakerFirestore
 import com.paligot.confily.backend.schedules.domain.ScheduleRepository
 import com.paligot.confily.backend.sessions.application.convertToModel
-import com.paligot.confily.backend.speakers.SpeakerDao
 import com.paligot.confily.models.ScheduleItem
 import kotlinx.coroutines.coroutineScope
 
@@ -17,7 +17,7 @@ class ScheduleRepositoryDefault(
     private val sessionFirestore: SessionFirestore,
     private val categoryDao: CategoryFirestore,
     private val formatFirestore: FormatFirestore,
-    private val speakerDao: SpeakerDao,
+    private val speakerFirestore: SpeakerFirestore,
     private val scheduleItemFirestore: ScheduleItemFirestore
 ) : ScheduleRepository {
     override suspend fun get(eventId: String, scheduleId: String): ScheduleItem = coroutineScope {
@@ -27,7 +27,7 @@ class ScheduleRepositoryDefault(
         val talk = if (scheduleItem.talkId != null) {
             val talkDb = sessionFirestore.getTalkSession(eventId, scheduleItem.talkId)
                 ?: throw NotFoundException("Talk ${scheduleItem.talkId} not found")
-            val speakers = speakerDao.getByIds(eventId, talkDb.speakerIds)
+            val speakers = speakerFirestore.getByIds(eventId, talkDb.speakerIds)
             val category = categoryDao.get(eventId, talkDb.category)
             val format = formatFirestore.get(eventId, talkDb.format)
             talkDb.convertToModel(speakers, category, format, eventDb)
