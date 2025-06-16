@@ -29,7 +29,7 @@ import com.paligot.confily.backend.tags.infrastructure.api.registerAdminTagsRout
 import com.paligot.confily.backend.tags.infrastructure.api.registerTagsRoutes
 import com.paligot.confily.backend.team.infrastructure.api.registerAdminTeamRoutes
 import com.paligot.confily.backend.team.infrastructure.api.registerTeamRoutes
-import com.paligot.confily.backend.third.parties.billetweb.registerBilletWebRoutes
+import com.paligot.confily.backend.third.parties.billetweb.infrastructure.api.registerBilletWebRoutes
 import com.paligot.confily.backend.third.parties.cms4partners.registerAdminCms4PartnersRoutes
 import com.paligot.confily.backend.third.parties.openfeedback.infrastructure.api.registerOpenfeedackRoutes
 import com.paligot.confily.backend.third.parties.openplanner.registerAdminOpenPlannerRoutes

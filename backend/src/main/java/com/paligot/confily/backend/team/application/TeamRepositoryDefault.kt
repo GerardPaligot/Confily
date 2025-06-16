@@ -8,7 +8,7 @@ import com.paligot.confily.models.TeamMember
 class TeamRepositoryDefault(
     private val eventDao: EventFirestore,
     private val teamFirestore: TeamFirestore
-): TeamRepository {
+) : TeamRepository {
     override suspend fun list(eventId: String): Map<String, List<TeamMember>> {
         val eventDb = eventDao.get(eventId)
         val orderMap = eventDb.teamGroups.associate { it.name to it.order }

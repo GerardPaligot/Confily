@@ -3,9 +3,9 @@ package com.paligot.confily.backend.team.infrastructure.factory
 import com.paligot.confily.backend.internals.infrastructure.factory.FirestoreModule
 import com.paligot.confily.backend.internals.infrastructure.factory.GoogleServicesModule
 import com.paligot.confily.backend.internals.infrastructure.factory.InternalModule
-import com.paligot.confily.backend.internals.infrastructure.system.SystemEnv
 import com.paligot.confily.backend.internals.infrastructure.firestore.TeamFirestore
 import com.paligot.confily.backend.internals.infrastructure.storage.TeamStorage
+import com.paligot.confily.backend.internals.infrastructure.system.SystemEnv
 import com.paligot.confily.backend.team.application.TeamAdminRepositoryDefault
 import com.paligot.confily.backend.team.application.TeamRepositoryDefault
 
