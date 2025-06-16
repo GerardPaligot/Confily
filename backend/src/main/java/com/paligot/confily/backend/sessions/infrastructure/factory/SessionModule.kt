@@ -9,7 +9,7 @@ import com.paligot.confily.backend.sessions.application.SessionAdminRepositoryDe
 import com.paligot.confily.backend.sessions.application.SessionAdminVerbatimRepositoryDefault
 import com.paligot.confily.backend.sessions.application.SessionRepositoryDefault
 import com.paligot.confily.backend.speakers.infrastructure.factory.SpeakerModule
-import com.paligot.confily.backend.third.parties.geocode.GeocodeModule
+import com.paligot.confily.backend.third.parties.geocode.infrastructure.factory.GeocodeModule
 
 object SessionModule {
     val sessionFirestore = lazy { SessionFirestore(SystemEnv.projectName, GoogleServicesModule.cloudFirestore.value) }

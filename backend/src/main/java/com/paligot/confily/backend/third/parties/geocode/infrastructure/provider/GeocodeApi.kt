@@ -1,4 +1,4 @@
-package com.paligot.confily.backend.third.parties.geocode
+package com.paligot.confily.backend.third.parties.geocode.infrastructure.provider
 
 import com.paligot.confily.backend.NotAuthorized
 import com.paligot.confily.backend.internals.helpers.secret.Secret
@@ -33,7 +33,7 @@ class GeocodeApi(
         fun create(secret: Secret, enableNetworkLogs: Boolean): GeocodeApi =
             GeocodeApi(
                 client = HttpClient(Java.create()) {
-                    install(ContentNegotiation) {
+                    this.install(ContentNegotiation) {
                         json(
                             Json {
                                 isLenient = true
@@ -42,9 +42,7 @@ class GeocodeApi(
                         )
                     }
                     if (enableNetworkLogs) {
-                        install(
-                            Logging
-                        ) {
+                        this.install(Logging) {
                             logger = Logger.DEFAULT
                             level = LogLevel.INFO
                         }

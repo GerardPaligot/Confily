@@ -9,7 +9,7 @@ import com.paligot.confily.backend.internals.infrastructure.storage.PartnerStora
 import com.paligot.confily.backend.internals.infrastructure.system.SystemEnv
 import com.paligot.confily.backend.partners.application.PartnerAdminRepositoryDefault
 import com.paligot.confily.backend.partners.application.PartnerRepositoryDefault
-import com.paligot.confily.backend.third.parties.geocode.GeocodeModule
+import com.paligot.confily.backend.third.parties.geocode.infrastructure.factory.GeocodeModule
 import com.paligot.confily.backend.third.parties.welovedevs.infrastructure.factory.JobModule
 
 object PartnerModule {
