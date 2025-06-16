@@ -1,8 +1,9 @@
-package com.paligot.confily.backend.tags
+package com.paligot.confily.backend.tags.infrastructure.api
 
 import com.paligot.confily.backend.internals.infrastructure.ktor.plugins.PlanningUpdatedAtPlugin
 import com.paligot.confily.backend.receiveValidated
-import com.paligot.confily.backend.tags.TagModule.tagRepository
+import com.paligot.confily.backend.tags.infrastructure.factory.TagModule.tagAdminRepository
+import com.paligot.confily.backend.tags.infrastructure.factory.TagModule.tagRepository
 import com.paligot.confily.models.inputs.TagInput
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.response.respond
@@ -22,7 +23,7 @@ fun Route.registerTagsRoutes() {
 }
 
 fun Route.registerAdminTagsRoutes() {
-    val repository by tagRepository
+    val repository by tagAdminRepository
 
     route("/tags") {
         this.install(PlanningUpdatedAtPlugin)

@@ -11,7 +11,7 @@ import com.paligot.confily.backend.qanda.infrastructure.factory.QAndAModule.qAnd
 import com.paligot.confily.backend.schedules.infrastructure.ScheduleModule.scheduleItemFirestore
 import com.paligot.confily.backend.sessions.infrastructure.factory.SessionModule.sessionFirestore
 import com.paligot.confily.backend.speakers.infrastructure.factory.SpeakerModule.speakerFirestore
-import com.paligot.confily.backend.tags.TagModule.tagDao
+import com.paligot.confily.backend.tags.infrastructure.factory.TagModule.tagFirestore
 import com.paligot.confily.backend.team.TeamModule.teamDao
 import com.paligot.confily.backend.third.parties.welovedevs.infrastructure.factory.JobModule.jobFirestore
 
@@ -34,7 +34,7 @@ object ExportModule {
             sessionFirestore.value,
             categoryFirestore.value,
             formatFirestore.value,
-            tagDao.value,
+            tagFirestore.value,
             scheduleItemFirestore.value
         )
     }

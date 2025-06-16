@@ -10,13 +10,13 @@ import com.paligot.confily.backend.internals.infrastructure.firestore.FormatFire
 import com.paligot.confily.backend.internals.infrastructure.firestore.ScheduleItemFirestore
 import com.paligot.confily.backend.internals.infrastructure.firestore.SessionFirestore
 import com.paligot.confily.backend.internals.infrastructure.firestore.SpeakerFirestore
+import com.paligot.confily.backend.internals.infrastructure.firestore.TagFirestore
 import com.paligot.confily.backend.internals.infrastructure.storage.EventStorage
 import com.paligot.confily.backend.schedules.application.convertToEventSession
 import com.paligot.confily.backend.schedules.application.convertToModelV4
 import com.paligot.confily.backend.sessions.application.convertToModel
 import com.paligot.confily.backend.speakers.application.convertToModel
-import com.paligot.confily.backend.tags.TagDao
-import com.paligot.confily.backend.tags.convertToModel
+import com.paligot.confily.backend.tags.application.convertToModel
 import com.paligot.confily.models.AgendaV4
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -33,7 +33,7 @@ class ExportPlanningRepository(
     private val sessionFirestore: SessionFirestore,
     private val categoryDao: CategoryFirestore,
     private val formatFirestore: FormatFirestore,
-    private val tagDao: TagDao,
+    private val tagFirestore: TagFirestore,
     private val scheduleItemFirestore: ScheduleItemFirestore,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
@@ -126,7 +126,7 @@ class ExportPlanningRepository(
             categoryDao.getAll(eventDb.slugId).map { it.convertToModel() }
         }
         val tags = async(context = dispatcher) {
-            tagDao.getAll(eventDb.slugId).map { it.convertToModel() }
+            tagFirestore.getAll(eventDb.slugId).map { it.convertToModel() }
         }
         val speakers = async(context = dispatcher) {
             speakerFirestore.getAll(eventDb.slugId).map { it.convertToModel() }

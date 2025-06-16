@@ -1,4 +1,4 @@
-package com.paligot.confily.backend.tags
+package com.paligot.confily.backend.internals.infrastructure.firestore
 
 import com.google.cloud.firestore.Firestore
 import com.paligot.confily.backend.internals.helpers.database.batchDelete
@@ -10,23 +10,23 @@ import com.paligot.confily.backend.internals.helpers.database.update
 
 private const val CollectionName = "tags"
 
-class TagDao(
+class TagFirestore(
     private val projectName: String,
     private val firestore: Firestore
 ) {
-    fun get(eventId: String, id: String): TagDb? = firestore
+    fun get(eventId: String, id: String): TagEntity? = firestore
         .collection(projectName)
         .document(eventId)
         .collection(CollectionName)
         .getDocument(id)
 
-    fun getAll(eventId: String): List<TagDb> = firestore
+    fun getAll(eventId: String): List<TagEntity> = firestore
         .collection(projectName)
         .document(eventId)
         .collection(CollectionName)
-        .getDocuments<TagDb>()
+        .getDocuments<TagEntity>()
 
-    fun createOrUpdate(eventId: String, item: TagDb) {
+    fun createOrUpdate(eventId: String, item: TagEntity) {
         if (item.id == null) {
             firestore
                 .collection(projectName)

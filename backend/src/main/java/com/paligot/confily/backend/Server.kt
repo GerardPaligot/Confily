@@ -25,8 +25,8 @@ import com.paligot.confily.backend.sessions.infrastructure.api.registerAdminSess
 import com.paligot.confily.backend.sessions.infrastructure.api.registerSessionsRoutes
 import com.paligot.confily.backend.speakers.infrastructure.api.registerAdminSpeakersRoutes
 import com.paligot.confily.backend.speakers.infrastructure.api.registerSpeakersRoutes
-import com.paligot.confily.backend.tags.registerAdminTagsRoutes
-import com.paligot.confily.backend.tags.registerTagsRoutes
+import com.paligot.confily.backend.tags.infrastructure.api.registerAdminTagsRoutes
+import com.paligot.confily.backend.tags.infrastructure.api.registerTagsRoutes
 import com.paligot.confily.backend.team.registerAdminTeamRoutes
 import com.paligot.confily.backend.team.registerTeamRoutes
 import com.paligot.confily.backend.third.parties.billetweb.registerBilletWebRoutes
