@@ -9,7 +9,7 @@ import com.paligot.confily.backend.schedules.infrastructure.ScheduleModule.sched
 import com.paligot.confily.backend.sessions.infrastructure.factory.SessionModule.sessionFirestore
 import com.paligot.confily.backend.speakers.infrastructure.factory.SpeakerModule.speakerFirestore
 import com.paligot.confily.backend.speakers.infrastructure.factory.SpeakerModule.speakerStorage
-import com.paligot.confily.backend.team.TeamModule.teamDao
+import com.paligot.confily.backend.team.infrastructure.factory.TeamModule.teamFirestore
 
 object OpenPlannerModule {
     val openPlannerApi = lazy { OpenPlannerApi.Factory.create(enableNetworkLogs = true) }
@@ -25,7 +25,7 @@ object OpenPlannerModule {
             formatFirestore.value,
             scheduleItemFirestore.value,
             qAndAFirestore.value,
-            teamDao.value
+            teamFirestore.value
         )
     }
 }

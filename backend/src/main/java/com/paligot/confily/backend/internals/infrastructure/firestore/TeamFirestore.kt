@@ -1,4 +1,4 @@
-package com.paligot.confily.backend.team
+package com.paligot.confily.backend.internals.infrastructure.firestore
 
 import com.google.cloud.firestore.Firestore
 import com.paligot.confily.backend.internals.helpers.database.batchDelete
@@ -7,38 +7,35 @@ import com.paligot.confily.backend.internals.helpers.database.getDocument
 import com.paligot.confily.backend.internals.helpers.database.getDocuments
 import com.paligot.confily.backend.internals.helpers.database.insert
 import com.paligot.confily.backend.internals.helpers.database.update
-import com.paligot.confily.backend.internals.helpers.storage.MimeType
-import com.paligot.confily.backend.internals.helpers.storage.Storage
 
 private const val CollectionName = "team-members"
 
-class TeamDao(
+class TeamFirestore(
     private val projectName: String,
-    private val firestore: Firestore,
-    private val storage: Storage
+    private val firestore: Firestore
 ) {
-    fun get(eventId: String, id: String): TeamDb? = firestore
+    fun get(eventId: String, id: String): TeamEntity? = firestore
         .collection(projectName)
         .document(eventId)
         .collection(CollectionName)
         .getDocument(id)
 
-    fun getAll(eventId: String): List<TeamDb> = firestore
+    fun getAll(eventId: String): List<TeamEntity> = firestore
         .collection(projectName)
         .document(eventId)
         .collection(CollectionName)
         .getDocuments()
 
-    fun last(eventId: String): TeamDb? = firestore
+    fun last(eventId: String): TeamEntity? = firestore
         .collection(projectName)
         .document(eventId)
         .collection(CollectionName)
         .orderBy("order")
         .limitToLast(1)
-        .getDocuments<TeamDb>()
+        .getDocuments<TeamEntity>()
         .firstOrNull()
 
-    fun createOrUpdate(eventId: String, item: TeamDb): String {
+    fun createOrUpdate(eventId: String, item: TeamEntity): String {
         return if (item.id == "") {
             firestore
                 .collection(projectName)
@@ -54,13 +51,6 @@ class TeamDao(
             item.id
         }
     }
-
-    suspend fun saveTeamPicture(eventId: String, id: String, content: ByteArray, mimeType: MimeType) =
-        storage.upload(
-            filename = "$eventId/team/$id.${mimeType.extension}",
-            content = content,
-            mimeType = mimeType
-        )
 
     fun deleteDiff(eventId: String, ids: List<String>) {
         val diff = firestore

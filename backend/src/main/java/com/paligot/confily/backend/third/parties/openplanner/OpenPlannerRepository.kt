@@ -19,8 +19,9 @@ import com.paligot.confily.backend.internals.infrastructure.firestore.SpeakerFir
 import com.paligot.confily.backend.internals.infrastructure.firestore.TeamGroupEntity
 import com.paligot.confily.backend.internals.infrastructure.provider.CommonApi
 import com.paligot.confily.backend.internals.infrastructure.storage.SpeakerStorage
-import com.paligot.confily.backend.team.TeamDao
-import com.paligot.confily.backend.team.TeamDb
+import com.paligot.confily.backend.internals.infrastructure.firestore.TeamFirestore
+import com.paligot.confily.backend.internals.infrastructure.firestore.TeamEntity
+import com.paligot.confily.backend.internals.infrastructure.storage.TeamStorage
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -39,7 +40,8 @@ class OpenPlannerRepository(
     private val formatFirestore: FormatFirestore,
     private val scheduleItemFirestore: ScheduleItemFirestore,
     private val qAndAFirestore: QAndAFirestore,
-    private val teamDao: TeamDao,
+    private val teamFirestore: TeamFirestore,
+    private val teamStorage: TeamStorage,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
     suspend fun update(eventId: String) = coroutineScope {
@@ -120,10 +122,10 @@ class OpenPlannerRepository(
         formats: List<FormatEntity>,
         speakers: List<SpeakerEntity>,
         schedules: List<ScheduleEntity>,
-        teamMembers: List<TeamDb>
+        teamMembers: List<TeamEntity>
     ) = coroutineScope {
         qAndAFirestore.deleteDiff(event.slugId, qandas.map { it.id!! })
-        teamDao.deleteDiff(event.slugId, teamMembers.map { it.id!! })
+        teamFirestore.deleteDiff(event.slugId, teamMembers.map { it.id!! })
         categoryDao.deleteDiff(event.slugId, categories.map { it.id!! })
         formatFirestore.deleteDiff(event.slugId, formats.map { it.id!! })
         speakerFirestore.deleteDiff(event.slugId, speakers.map { it.id })
@@ -153,17 +155,17 @@ class OpenPlannerRepository(
         eventId: String,
         team: TeamOP,
         index: Int
-    ): TeamDb {
-        val existing = teamDao.get(eventId, team.id)
+    ): TeamEntity {
+        val existing = teamFirestore.get(eventId, team.id)
         return if (existing == null) {
             val photoUrl = getAvatarUrl(eventId, team)
             val item = team.convertToTeamDb(index, photoUrl)
-            teamDao.createOrUpdate(eventId, item)
+            teamFirestore.createOrUpdate(eventId, item)
             item
         } else {
             val photoUrl = getAvatarUrl(eventId, team)
             val item = existing.mergeWith(photoUrl, team)
-            teamDao.createOrUpdate(eventId, item)
+            teamFirestore.createOrUpdate(eventId, item)
             item
         }
     }
@@ -171,7 +173,7 @@ class OpenPlannerRepository(
     private suspend fun getAvatarUrl(eventId: String, team: TeamOP) = try {
         if (team.photoUrl != null) {
             val avatar = commonApi.fetchByteArray(team.photoUrl)
-            val bucketItem = teamDao.saveTeamPicture(
+            val bucketItem = teamStorage.saveTeamPicture(
                 eventId = eventId,
                 id = team.id,
                 content = avatar,

@@ -12,7 +12,7 @@ import com.paligot.confily.backend.schedules.infrastructure.ScheduleModule.sched
 import com.paligot.confily.backend.sessions.infrastructure.factory.SessionModule.sessionFirestore
 import com.paligot.confily.backend.speakers.infrastructure.factory.SpeakerModule.speakerFirestore
 import com.paligot.confily.backend.tags.infrastructure.factory.TagModule.tagFirestore
-import com.paligot.confily.backend.team.TeamModule.teamDao
+import com.paligot.confily.backend.team.infrastructure.factory.TeamModule.teamFirestore
 import com.paligot.confily.backend.third.parties.welovedevs.infrastructure.factory.JobModule.jobFirestore
 
 object ExportModule {
@@ -21,7 +21,7 @@ object ExportModule {
             eventFirestore.value,
             eventStorage.value,
             qAndAFirestore.value,
-            teamDao.value,
+            teamFirestore.value,
             mapFirestore.value,
             partnerFirestore.value
         )
