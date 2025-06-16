@@ -1,4 +1,4 @@
-package com.paligot.confily.backend.third.parties.cms4partners
+package com.paligot.confily.backend.third.parties.cms4conference.infrastructure.provider
 
 import com.paligot.confily.models.inputs.Validator
 import kotlinx.serialization.Serializable

@@ -1,8 +1,10 @@
-package com.paligot.confily.backend.third.parties.cms4partners
+package com.paligot.confily.backend.third.parties.cms4conference.infrastructure.api
 
 import com.paligot.confily.backend.export.ExportModule.exportPartnersRepository
 import com.paligot.confily.backend.partners.infrastructure.factory.PartnerModule.partnerAdminRepository
 import com.paligot.confily.backend.receiveValidated
+import com.paligot.confily.backend.third.parties.cms4conference.application.mapToPartnerInput
+import com.paligot.confily.backend.third.parties.cms4conference.infrastructure.provider.WebhookInput
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.response.respond
 import io.ktor.server.routing.Route

@@ -1,7 +1,8 @@
-package com.paligot.confily.backend.third.parties.cms4partners
+package com.paligot.confily.backend.third.parties.cms4conference.application
 
+import com.paligot.confily.backend.third.parties.cms4conference.infrastructure.provider.WebhookInput
 import com.paligot.confily.models.inputs.PartnerInput
-import com.paligot.confily.backend.third.parties.cms4partners.PartnerInput as CmsPartnerInput
+import com.paligot.confily.backend.third.parties.cms4conference.infrastructure.provider.PartnerInput as CmsPartnerInput
 
 fun WebhookInput.mapToPartnerInput(): PartnerInput {
     val hasSchemaSiteUrl = data.siteUrl?.startsWith("https://") ?: false
