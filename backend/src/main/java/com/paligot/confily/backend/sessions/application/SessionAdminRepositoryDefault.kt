@@ -6,8 +6,8 @@ import com.paligot.confily.backend.internals.infrastructure.firestore.EventFires
 import com.paligot.confily.backend.internals.infrastructure.firestore.EventSessionEntity
 import com.paligot.confily.backend.internals.infrastructure.firestore.SessionFirestore
 import com.paligot.confily.backend.sessions.domain.SessionAdminRepository
-import com.paligot.confily.backend.third.parties.geocode.GeocodeApi
-import com.paligot.confily.backend.third.parties.geocode.convertToEntity
+import com.paligot.confily.backend.third.parties.geocode.infrastructure.provider.GeocodeApi
+import com.paligot.confily.backend.third.parties.geocode.infrastructure.provider.convertToEntity
 import com.paligot.confily.models.inputs.EventSessionInput
 import com.paligot.confily.models.inputs.TalkSessionInput
 

@@ -1,4 +1,4 @@
-package com.paligot.confily.backend.third.parties.geocode
+package com.paligot.confily.backend.third.parties.geocode.infrastructure.provider
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

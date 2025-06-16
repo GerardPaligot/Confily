@@ -8,8 +8,8 @@ import com.paligot.confily.backend.internals.infrastructure.storage.PartnerStora
 import com.paligot.confily.backend.internals.infrastructure.transcoder.Png
 import com.paligot.confily.backend.internals.infrastructure.transcoder.TranscoderImage
 import com.paligot.confily.backend.partners.domain.PartnerAdminRepository
-import com.paligot.confily.backend.third.parties.geocode.GeocodeApi
-import com.paligot.confily.backend.third.parties.geocode.convertToEntity
+import com.paligot.confily.backend.third.parties.geocode.infrastructure.provider.GeocodeApi
+import com.paligot.confily.backend.third.parties.geocode.infrastructure.provider.convertToEntity
 import com.paligot.confily.models.inputs.PartnerInput
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll

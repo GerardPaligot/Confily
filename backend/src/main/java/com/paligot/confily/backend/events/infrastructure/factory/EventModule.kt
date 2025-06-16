@@ -4,7 +4,7 @@ import com.paligot.confily.backend.events.application.EventAdminRepositoryDefaul
 import com.paligot.confily.backend.events.application.EventRepositoryDefault
 import com.paligot.confily.backend.internals.infrastructure.factory.FirestoreModule
 import com.paligot.confily.backend.internals.infrastructure.factory.StorageModule
-import com.paligot.confily.backend.third.parties.geocode.GeocodeModule
+import com.paligot.confily.backend.third.parties.geocode.infrastructure.factory.GeocodeModule
 
 object EventModule {
     val eventRepository = lazy {
