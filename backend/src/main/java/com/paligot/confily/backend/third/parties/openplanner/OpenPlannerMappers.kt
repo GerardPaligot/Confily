@@ -12,7 +12,7 @@ import com.paligot.confily.backend.internals.infrastructure.firestore.ScheduleEn
 import com.paligot.confily.backend.internals.infrastructure.firestore.SocialEntity
 import com.paligot.confily.backend.internals.infrastructure.firestore.SpeakerEntity
 import com.paligot.confily.backend.internals.infrastructure.firestore.TalkSessionEntity
-import com.paligot.confily.backend.team.TeamDb
+import com.paligot.confily.backend.internals.infrastructure.firestore.TeamEntity
 import com.paligot.confily.models.SocialType
 import com.paligot.confily.models.inputs.ValidatorException
 
@@ -272,7 +272,7 @@ fun FaqItemOP.convertToQAndADb(order: Int, language: String): QAndAEntity {
     )
 }
 
-fun TeamOP.convertToTeamDb(order: Int, photoUrl: String?): TeamDb {
+fun TeamOP.convertToTeamDb(order: Int, photoUrl: String?): TeamEntity {
     val linkedin = socials.find { it.name.lowercase() == SocialType.LinkedIn.name.lowercase() }
         ?.link
     val x = socials.find { it.name.lowercase() == SocialType.X.name.lowercase() }?.link
@@ -288,7 +288,7 @@ fun TeamOP.convertToTeamDb(order: Int, photoUrl: String?): TeamDb {
     val github = socials.find { it.name.lowercase() == SocialType.GitHub.name.lowercase() }?.link
     val email = socials.find { it.name.lowercase() == SocialType.Email.name.lowercase() }?.link
     val website = socials.find { it.name.lowercase() == SocialType.Website.name.lowercase() }?.link
-    return TeamDb(
+    return TeamEntity(
         id = id,
         order = order,
         name = name,
@@ -344,7 +344,7 @@ fun TeamOP.convertToTeamDb(order: Int, photoUrl: String?): TeamDb {
     )
 }
 
-fun TeamDb.mergeWith(photoUrl: String?, teamOP: TeamOP): TeamDb {
+fun TeamEntity.mergeWith(photoUrl: String?, teamOP: TeamOP): TeamEntity {
     val linkedin = teamOP.socials.find { it.name.lowercase() == "linkedin" }?.link
     val x = teamOP.socials.find { it.name.lowercase() == "x" }?.link
     val twitter = teamOP.socials.find { it.name.lowercase() == "twitter" }?.link
@@ -356,7 +356,7 @@ fun TeamDb.mergeWith(photoUrl: String?, teamOP: TeamOP): TeamDb {
     val github = teamOP.socials.find { it.name.lowercase() == "github" }?.link
     val email = teamOP.socials.find { it.name.lowercase() == "email" }?.link
     val website = teamOP.socials.find { it.name.lowercase() == "website" }?.link
-    return TeamDb(
+    return TeamEntity(
         id = teamOP.id,
         order = order,
         name = if (this.name == teamOP.name) this.name else teamOP.name,

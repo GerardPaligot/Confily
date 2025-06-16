@@ -11,8 +11,8 @@ import com.paligot.confily.backend.internals.infrastructure.firestore.QAndAFires
 import com.paligot.confily.backend.internals.infrastructure.storage.EventStorage
 import com.paligot.confily.backend.map.application.convertToModel
 import com.paligot.confily.backend.qanda.application.convertToModel
-import com.paligot.confily.backend.team.TeamDao
-import com.paligot.confily.backend.team.convertToModel
+import com.paligot.confily.backend.internals.infrastructure.firestore.TeamFirestore
+import com.paligot.confily.backend.team.application.convertToModel
 import com.paligot.confily.models.ExportEvent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -24,7 +24,7 @@ class ExportEventRepository(
     private val eventDao: EventFirestore,
     private val eventStorage: EventStorage,
     private val qAndAFirestore: QAndAFirestore,
-    private val teamDao: TeamDao,
+    private val teamFirestore: TeamFirestore,
     private val mapFirestore: MapFirestore,
     private val partnerFirestore: PartnerFirestore,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
@@ -60,7 +60,7 @@ class ExportEventRepository(
 
     private suspend fun teamMembers(eventDb: EventEntity) = coroutineScope {
         val orderMap = eventDb.teamGroups.associate { it.name to it.order }
-        return@coroutineScope teamDao.getAll(eventDb.slugId)
+        return@coroutineScope teamFirestore.getAll(eventDb.slugId)
             .asSequence()
             .sortedBy { orderMap[it.teamName] ?: 0 }
             .groupBy { it.teamName }

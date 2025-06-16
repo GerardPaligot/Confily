@@ -1,8 +1,9 @@
-package com.paligot.confily.backend.team
+package com.paligot.confily.backend.team.infrastructure.api
 
 import com.paligot.confily.backend.internals.infrastructure.ktor.plugins.EventUpdatedAtPlugin
 import com.paligot.confily.backend.receiveValidated
-import com.paligot.confily.backend.team.TeamModule.teamRepository
+import com.paligot.confily.backend.team.infrastructure.factory.TeamModule.teamAdminRepository
+import com.paligot.confily.backend.team.infrastructure.factory.TeamModule.teamRepository
 import com.paligot.confily.models.inputs.TeamMemberInput
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.response.respond
@@ -22,7 +23,7 @@ fun Route.registerTeamRoutes() {
 }
 
 fun Route.registerAdminTeamRoutes() {
-    val repository by teamRepository
+    val repository by teamAdminRepository
 
     route("/team-members") {
         this.install(EventUpdatedAtPlugin)
