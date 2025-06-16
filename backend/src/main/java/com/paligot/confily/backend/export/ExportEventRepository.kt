@@ -8,10 +8,10 @@ import com.paligot.confily.backend.internals.infrastructure.firestore.MapFiresto
 import com.paligot.confily.backend.internals.infrastructure.firestore.PartnerFirestore
 import com.paligot.confily.backend.internals.infrastructure.firestore.QAndAEntity
 import com.paligot.confily.backend.internals.infrastructure.firestore.QAndAFirestore
+import com.paligot.confily.backend.internals.infrastructure.firestore.TeamFirestore
 import com.paligot.confily.backend.internals.infrastructure.storage.EventStorage
 import com.paligot.confily.backend.map.application.convertToModel
 import com.paligot.confily.backend.qanda.application.convertToModel
-import com.paligot.confily.backend.internals.infrastructure.firestore.TeamFirestore
 import com.paligot.confily.backend.team.application.convertToModel
 import com.paligot.confily.models.ExportEvent
 import kotlinx.coroutines.CoroutineDispatcher

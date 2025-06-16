@@ -1,4 +1,4 @@
-package com.paligot.confily.backend.third.parties.billetweb
+package com.paligot.confily.backend.third.parties.billetweb.infrastructure.provider
 
 import com.paligot.confily.models.Attendee
 import io.ktor.client.HttpClient
@@ -37,7 +37,7 @@ class BilletWebApi(
         fun create(enableNetworkLogs: Boolean): BilletWebApi =
             BilletWebApi(
                 client = HttpClient(Java.create()) {
-                    install(ContentNegotiation) {
+                    this.install(ContentNegotiation) {
                         json(
                             Json {
                                 isLenient = true
@@ -46,10 +46,8 @@ class BilletWebApi(
                         )
                     }
                     if (enableNetworkLogs) {
-                        install(
-                            Logging
-                        ) {
-                            logger = Logger.DEFAULT
+                        this.install(Logging) {
+                            logger = Logger.Companion.DEFAULT
                             level = LogLevel.INFO
                         }
                     }

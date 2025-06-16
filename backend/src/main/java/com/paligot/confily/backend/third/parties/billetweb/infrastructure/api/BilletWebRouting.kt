@@ -1,6 +1,6 @@
-package com.paligot.confily.backend.third.parties.billetweb
+package com.paligot.confily.backend.third.parties.billetweb.infrastructure.api
 
-import com.paligot.confily.backend.third.parties.billetweb.BilletWebModule.billetWebRepository
+import com.paligot.confily.backend.third.parties.billetweb.infrastructure.factory.BilletWebModule.billetWebRepository
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.response.respond
 import io.ktor.server.routing.Route

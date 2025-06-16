@@ -16,11 +16,11 @@ import com.paligot.confily.backend.internals.infrastructure.firestore.SessionEnt
 import com.paligot.confily.backend.internals.infrastructure.firestore.SessionFirestore
 import com.paligot.confily.backend.internals.infrastructure.firestore.SpeakerEntity
 import com.paligot.confily.backend.internals.infrastructure.firestore.SpeakerFirestore
+import com.paligot.confily.backend.internals.infrastructure.firestore.TeamEntity
+import com.paligot.confily.backend.internals.infrastructure.firestore.TeamFirestore
 import com.paligot.confily.backend.internals.infrastructure.firestore.TeamGroupEntity
 import com.paligot.confily.backend.internals.infrastructure.provider.CommonApi
 import com.paligot.confily.backend.internals.infrastructure.storage.SpeakerStorage
-import com.paligot.confily.backend.internals.infrastructure.firestore.TeamFirestore
-import com.paligot.confily.backend.internals.infrastructure.firestore.TeamEntity
 import com.paligot.confily.backend.internals.infrastructure.storage.TeamStorage
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
