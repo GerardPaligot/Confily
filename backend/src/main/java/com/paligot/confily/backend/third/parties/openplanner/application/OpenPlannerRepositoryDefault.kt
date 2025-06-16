@@ -1,4 +1,4 @@
-package com.paligot.confily.backend.third.parties.openplanner
+package com.paligot.confily.backend.third.parties.openplanner.application
 
 import com.paligot.confily.backend.NotAcceptableException
 import com.paligot.confily.backend.internals.helpers.mimeType
@@ -22,6 +22,21 @@ import com.paligot.confily.backend.internals.infrastructure.firestore.TeamGroupE
 import com.paligot.confily.backend.internals.infrastructure.provider.CommonApi
 import com.paligot.confily.backend.internals.infrastructure.storage.SpeakerStorage
 import com.paligot.confily.backend.internals.infrastructure.storage.TeamStorage
+import com.paligot.confily.backend.third.parties.openplanner.domain.OpenPlannerRepository
+import com.paligot.confily.backend.third.parties.openplanner.infrastructure.provider.CategoryOP
+import com.paligot.confily.backend.third.parties.openplanner.infrastructure.provider.FaqItemOP
+import com.paligot.confily.backend.third.parties.openplanner.infrastructure.provider.FormatOP
+import com.paligot.confily.backend.third.parties.openplanner.infrastructure.provider.OpenPlannerApi
+import com.paligot.confily.backend.third.parties.openplanner.infrastructure.provider.SessionOP
+import com.paligot.confily.backend.third.parties.openplanner.infrastructure.provider.SpeakerOP
+import com.paligot.confily.backend.third.parties.openplanner.infrastructure.provider.TeamOP
+import com.paligot.confily.backend.third.parties.openplanner.infrastructure.provider.TrackOP
+import com.paligot.confily.backend.third.parties.openplanner.infrastructure.provider.convertToEntity
+import com.paligot.confily.backend.third.parties.openplanner.infrastructure.provider.convertToEventSessionEntity
+import com.paligot.confily.backend.third.parties.openplanner.infrastructure.provider.convertToQAndAEntity
+import com.paligot.confily.backend.third.parties.openplanner.infrastructure.provider.convertToScheduleEntity
+import com.paligot.confily.backend.third.parties.openplanner.infrastructure.provider.convertToTalkEntity
+import com.paligot.confily.backend.third.parties.openplanner.infrastructure.provider.convertToTeamEntity
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -29,23 +44,23 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 
 @Suppress("LongParameterList")
-class OpenPlannerRepository(
+class OpenPlannerRepositoryDefault(
     private val openPlannerApi: OpenPlannerApi,
     private val commonApi: CommonApi,
-    private val eventDao: EventFirestore,
+    private val eventFirestore: EventFirestore,
     private val speakerFirestore: SpeakerFirestore,
     private val speakerStorage: SpeakerStorage,
     private val sessionFirestore: SessionFirestore,
-    private val categoryDao: CategoryFirestore,
+    private val categoryFirestore: CategoryFirestore,
     private val formatFirestore: FormatFirestore,
     private val scheduleItemFirestore: ScheduleItemFirestore,
     private val qAndAFirestore: QAndAFirestore,
     private val teamFirestore: TeamFirestore,
     private val teamStorage: TeamStorage,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
-) {
-    suspend fun update(eventId: String) = coroutineScope {
-        val event = eventDao.get(eventId)
+) : OpenPlannerRepository {
+    override suspend fun update(eventId: String) = coroutineScope {
+        val event = eventFirestore.get(eventId)
         val config = event.openPlannerConfig
             ?: throw NotAcceptableException("OpenPlanner config not initialized")
         val openPlanner = openPlannerApi.fetchPrivateJson(config.eventId, config.privateId)
@@ -105,7 +120,7 @@ class OpenPlannerRepository(
             .awaitAll()
             .flatten()
         clean(event, qandas, categories, formats, speakers, schedules, teamMembers)
-        eventDao.updateAgendaUpdatedAt(
+        eventFirestore.updateAgendaUpdatedAt(
             event.copy(
                 teamGroups = openPlanner.team
                     .map { TeamGroupEntity(name = it.team ?: "", order = it.teamOrder ?: 0) }
@@ -126,7 +141,7 @@ class OpenPlannerRepository(
     ) = coroutineScope {
         qAndAFirestore.deleteDiff(event.slugId, qandas.map { it.id!! })
         teamFirestore.deleteDiff(event.slugId, teamMembers.map { it.id!! })
-        categoryDao.deleteDiff(event.slugId, categories.map { it.id!! })
+        categoryFirestore.deleteDiff(event.slugId, categories.map { it.id!! })
         formatFirestore.deleteDiff(event.slugId, formats.map { it.id!! })
         speakerFirestore.deleteDiff(event.slugId, speakers.map { it.id })
         scheduleItemFirestore.deleteDiff(event.slugId, schedules.map { it.id })
@@ -146,7 +161,7 @@ class OpenPlannerRepository(
         language: String,
         faqItemOP: FaqItemOP
     ): QAndAEntity {
-        val item = faqItemOP.convertToQAndADb(order = order, language = language)
+        val item = faqItemOP.convertToQAndAEntity(order = order, language = language)
         qAndAFirestore.createOrUpdate(eventId, item)
         return item
     }
@@ -159,7 +174,7 @@ class OpenPlannerRepository(
         val existing = teamFirestore.get(eventId, team.id)
         return if (existing == null) {
             val photoUrl = getAvatarUrl(eventId, team)
-            val item = team.convertToTeamDb(index, photoUrl)
+            val item = team.convertToTeamEntity(index, photoUrl)
             teamFirestore.createOrUpdate(eventId, item)
             item
         } else {
@@ -188,14 +203,14 @@ class OpenPlannerRepository(
     }
 
     private suspend fun createOrMergeCategory(eventId: String, category: CategoryOP): CategoryEntity {
-        val existing = categoryDao.get(eventId, category.id)
+        val existing = categoryFirestore.get(eventId, category.id)
         return if (existing == null) {
-            val item = category.convertToDb()
-            categoryDao.createOrUpdate(eventId, item)
+            val item = category.convertToEntity()
+            categoryFirestore.createOrUpdate(eventId, item)
             item
         } else {
             val item = existing.mergeWith(category)
-            categoryDao.createOrUpdate(eventId, item)
+            categoryFirestore.createOrUpdate(eventId, item)
             item
         }
     }
@@ -203,7 +218,7 @@ class OpenPlannerRepository(
     private suspend fun createOrMergeFormat(eventId: String, format: FormatOP): FormatEntity {
         val existing = formatFirestore.get(eventId, format.id)
         return if (existing == null) {
-            val item = format.convertToDb()
+            val item = format.convertToEntity()
             formatFirestore.createOrUpdate(eventId, item)
             item
         } else {
@@ -217,7 +232,7 @@ class OpenPlannerRepository(
         val existing = speakerFirestore.get(eventId, speaker.id)
         return if (existing == null) {
             val photoUrl = getAvatarUrl(eventId, speaker)
-            val item = speaker.convertToDb(photoUrl)
+            val item = speaker.convertToEntity(photoUrl)
             speakerFirestore.createOrUpdate(eventId, item)
             item
         } else {
@@ -253,12 +268,12 @@ class OpenPlannerRepository(
         val track = tracks.find { it.id == session.trackId }
         return if (event.eventSessionTracks.contains(track?.name)) {
             val existing = sessionFirestore.getEventSession(event.slugId, session.id)
-            val item = existing?.mergeWith(session) ?: session.convertToEventSessionDb()
+            val item = existing?.mergeWith(session) ?: session.convertToEventSessionEntity()
             sessionFirestore.createOrUpdate(event.slugId, item)
             item
         } else {
             val existing = sessionFirestore.getTalkSession(event.slugId, session.id)
-            val item = existing?.mergeWith(session) ?: session.convertToTalkDb()
+            val item = existing?.mergeWith(session) ?: session.convertToTalkEntity()
             sessionFirestore.createOrUpdate(event.slugId, item)
             item
         }
@@ -270,7 +285,7 @@ class OpenPlannerRepository(
         session: SessionOP,
         tracks: List<TrackOP>
     ): ScheduleEntity {
-        val item = session.convertToScheduleDb(order, tracks)
+        val item = session.convertToScheduleEntity(order, tracks)
         scheduleItemFirestore.createOrUpdate(eventId, item)
         return item
     }

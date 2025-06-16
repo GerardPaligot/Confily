@@ -1,4 +1,4 @@
-package com.paligot.confily.backend.third.parties.openplanner
+package com.paligot.confily.backend.third.parties.openplanner.infrastructure.provider
 
 import com.paligot.confily.backend.internals.infrastructure.system.SystemEnv
 import io.ktor.client.HttpClient
@@ -26,7 +26,7 @@ class OpenPlannerApi(
         fun create(enableNetworkLogs: Boolean): OpenPlannerApi =
             OpenPlannerApi(
                 client = HttpClient(Java.create()) {
-                    install(ContentNegotiation) {
+                    this.install(ContentNegotiation) {
                         json(
                             Json {
                                 isLenient = true
@@ -35,9 +35,7 @@ class OpenPlannerApi(
                         )
                     }
                     if (enableNetworkLogs) {
-                        install(
-                            Logging
-                        ) {
+                        this.install(Logging) {
                             logger = Logger.DEFAULT
                             level = LogLevel.INFO
                         }
