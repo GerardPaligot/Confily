@@ -1,4 +1,4 @@
-package com.paligot.confily.backend.third.parties.openplanner
+package com.paligot.confily.backend.third.parties.openplanner.infrastructure.provider
 
 import kotlinx.serialization.Serializable
 

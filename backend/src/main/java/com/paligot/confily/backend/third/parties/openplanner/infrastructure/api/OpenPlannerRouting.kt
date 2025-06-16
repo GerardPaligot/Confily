@@ -1,8 +1,8 @@
-package com.paligot.confily.backend.third.parties.openplanner
+package com.paligot.confily.backend.third.parties.openplanner.infrastructure.api
 
 import com.paligot.confily.backend.export.ExportModule.exportEventRepository
 import com.paligot.confily.backend.export.ExportModule.exportPlanningRepository
-import com.paligot.confily.backend.third.parties.openplanner.OpenPlannerModule.openPlannerRepository
+import com.paligot.confily.backend.third.parties.openplanner.infrastructure.factory.OpenPlannerModule.openPlannerRepository
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
