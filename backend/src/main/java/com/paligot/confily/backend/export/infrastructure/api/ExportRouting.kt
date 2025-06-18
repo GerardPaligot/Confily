@@ -1,8 +1,11 @@
-package com.paligot.confily.backend.export
+package com.paligot.confily.backend.export.infrastructure.api
 
-import com.paligot.confily.backend.export.ExportModule.exportEventRepository
-import com.paligot.confily.backend.export.ExportModule.exportPartnersRepository
-import com.paligot.confily.backend.export.ExportModule.exportPlanningRepository
+import com.paligot.confily.backend.export.infrastructure.factory.ExportModule.exportEventAdminRepository
+import com.paligot.confily.backend.export.infrastructure.factory.ExportModule.exportEventRepository
+import com.paligot.confily.backend.export.infrastructure.factory.ExportModule.exportPartnersAdminRepository
+import com.paligot.confily.backend.export.infrastructure.factory.ExportModule.exportPartnersRepository
+import com.paligot.confily.backend.export.infrastructure.factory.ExportModule.exportPlanningAdminRepository
+import com.paligot.confily.backend.export.infrastructure.factory.ExportModule.exportPlanningRepository
 import io.ktor.http.ContentType.Text
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.response.respond
@@ -51,9 +54,9 @@ fun Routing.registerExportRoutes() {
 }
 
 fun Routing.registerAdminExportRoutes() {
-    val exportEventRepository by exportEventRepository
-    val exportPlanningRepository by exportPlanningRepository
-    val exportPartnersRepository by exportPartnersRepository
+    val exportEventRepository by exportEventAdminRepository
+    val exportPlanningRepository by exportPlanningAdminRepository
+    val exportPartnersRepository by exportPartnersAdminRepository
 
     put("/events/{eventId}/export/event") {
         val eventId = call.parameters["eventId"]!!

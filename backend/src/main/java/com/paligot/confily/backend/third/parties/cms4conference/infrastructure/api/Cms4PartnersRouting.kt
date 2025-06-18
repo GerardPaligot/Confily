@@ -1,6 +1,6 @@
 package com.paligot.confily.backend.third.parties.cms4conference.infrastructure.api
 
-import com.paligot.confily.backend.export.ExportModule.exportPartnersRepository
+import com.paligot.confily.backend.export.infrastructure.factory.ExportModule.exportPartnersAdminRepository
 import com.paligot.confily.backend.partners.infrastructure.factory.PartnerModule.partnerAdminRepository
 import com.paligot.confily.backend.receiveValidated
 import com.paligot.confily.backend.third.parties.cms4conference.application.mapToPartnerInput
@@ -13,7 +13,7 @@ import io.ktor.server.routing.route
 
 fun Route.registerAdminCms4PartnersRoutes() {
     val repository by partnerAdminRepository
-    val exportPartnersRepository by exportPartnersRepository
+    val exportPartnersRepository by exportPartnersAdminRepository
 
     route("/cms4partners") {
         post("/webhook") {

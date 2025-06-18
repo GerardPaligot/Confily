@@ -1,7 +1,7 @@
-package com.paligot.confily.backend.export
+package com.paligot.confily.backend.export.application
 
-import com.paligot.confily.backend.NotFoundException
 import com.paligot.confily.backend.activities.application.convertToModel
+import com.paligot.confily.backend.export.domain.ExportAdminRepository
 import com.paligot.confily.backend.internals.infrastructure.firestore.ActivityFirestore
 import com.paligot.confily.backend.internals.infrastructure.firestore.EventEntity
 import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
@@ -16,25 +16,19 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 
-class ExportPartnersRepository(
+class ExportPartnersAdminRepositoryDefault(
     private val eventFirestore: EventFirestore,
     private val eventStorage: EventStorage,
     private val partnerFirestore: PartnerFirestore,
     private val jobFirestore: JobFirestore,
     private val activityFirestore: ActivityFirestore,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
-) {
-    suspend fun get(eventId: String): PartnersActivities {
-        val eventDb = eventFirestore.get(eventId)
-        return eventStorage.getPartnersFile(eventId, eventDb.partnersUpdatedAt)
-            ?: throw NotFoundException("Partners $eventId Not Found")
-    }
-
-    suspend fun export(eventId: String) = coroutineScope {
+) : ExportAdminRepository<PartnersActivities> {
+    override suspend fun export(eventId: String): PartnersActivities {
         val eventDb = eventFirestore.get(eventId)
         val partners = buildPartnersActivities(eventDb)
         eventStorage.uploadPartnersFile(eventId, eventDb.partnersUpdatedAt, partners)
-        return@coroutineScope partners
+        return partners
     }
 
     private suspend fun buildPartnersActivities(eventDb: EventEntity): PartnersActivities =
