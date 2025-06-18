@@ -1,7 +1,7 @@
 package com.paligot.confily.backend.third.parties.openplanner.infrastructure.api
 
-import com.paligot.confily.backend.export.ExportModule.exportEventRepository
-import com.paligot.confily.backend.export.ExportModule.exportPlanningRepository
+import com.paligot.confily.backend.export.infrastructure.factory.ExportModule.exportEventAdminRepository
+import com.paligot.confily.backend.export.infrastructure.factory.ExportModule.exportPlanningAdminRepository
 import com.paligot.confily.backend.third.parties.openplanner.infrastructure.factory.OpenPlannerModule.openPlannerRepository
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.response.respond
@@ -11,8 +11,8 @@ import io.ktor.server.routing.route
 
 fun Route.registerAdminOpenPlannerRoutes() {
     val repository by openPlannerRepository
-    val exportEventRepository by exportEventRepository
-    val exportPlanningRepository by exportPlanningRepository
+    val exportEventRepository by exportEventAdminRepository
+    val exportPlanningRepository by exportPlanningAdminRepository
 
     route("/openplanner") {
         post("/webhook") {

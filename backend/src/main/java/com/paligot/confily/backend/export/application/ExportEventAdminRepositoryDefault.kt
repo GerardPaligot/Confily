@@ -1,6 +1,6 @@
-package com.paligot.confily.backend.export
+package com.paligot.confily.backend.export.application
 
-import com.paligot.confily.backend.NotFoundException
+import com.paligot.confily.backend.export.domain.ExportAdminRepository
 import com.paligot.confily.backend.internals.infrastructure.firestore.EventEntity
 import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
 import com.paligot.confily.backend.internals.infrastructure.firestore.MapEntity
@@ -14,13 +14,14 @@ import com.paligot.confily.backend.map.application.convertToModel
 import com.paligot.confily.backend.qanda.application.convertToModel
 import com.paligot.confily.backend.team.application.convertToModel
 import com.paligot.confily.models.ExportEvent
+import com.paligot.confily.models.TeamMember
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 
 @Suppress("LongParameterList")
-class ExportEventRepository(
+class ExportEventAdminRepositoryDefault(
     private val eventDao: EventFirestore,
     private val eventStorage: EventStorage,
     private val qAndAFirestore: QAndAFirestore,
@@ -28,18 +29,12 @@ class ExportEventRepository(
     private val mapFirestore: MapFirestore,
     private val partnerFirestore: PartnerFirestore,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
-) {
-    suspend fun get(eventId: String): ExportEvent {
-        val eventDb = eventDao.get(eventId)
-        return eventStorage.getEventFile(eventId, eventDb.eventUpdatedAt)
-            ?: throw NotFoundException("Event $eventId Not Found")
-    }
-
-    suspend fun export(eventId: String) = coroutineScope {
+) : ExportAdminRepository<ExportEvent> {
+    override suspend fun export(eventId: String): ExportEvent {
         val eventDb = eventDao.get(eventId)
         val event = buildEvent(eventDb)
         eventStorage.uploadEventFile(eventId, eventDb.eventUpdatedAt, event)
-        return@coroutineScope event
+        return event
     }
 
     private suspend fun buildEvent(event: EventEntity): ExportEvent = coroutineScope {
@@ -58,9 +53,9 @@ class ExportEventRepository(
         )
     }
 
-    private suspend fun teamMembers(eventDb: EventEntity) = coroutineScope {
+    private fun teamMembers(eventDb: EventEntity): Map<String, List<TeamMember>> {
         val orderMap = eventDb.teamGroups.associate { it.name to it.order }
-        return@coroutineScope teamFirestore.getAll(eventDb.slugId)
+        return teamFirestore.getAll(eventDb.slugId)
             .asSequence()
             .sortedBy { orderMap[it.teamName] ?: 0 }
             .groupBy { it.teamName }

@@ -1,6 +1,6 @@
 @file:Suppress("TooManyFunctions")
 
-package com.paligot.confily.backend.export
+package com.paligot.confily.backend.export.application
 
 import com.paligot.confily.backend.internals.application.convertToModel
 import com.paligot.confily.backend.internals.infrastructure.firestore.EventEntity
