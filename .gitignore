@@ -4,6 +4,9 @@
 build.xml
 local.properties
 
+#VSC
+.vscode/
+
 #Eclipse
 .project
 .classpath
