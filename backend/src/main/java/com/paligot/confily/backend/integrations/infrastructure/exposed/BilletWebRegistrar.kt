@@ -31,7 +31,6 @@ class BilletWebRegistrar(
             it[this.integrationId] = integrationId.value
             it[this.basic] = input.basic
             it[this.eventId] = input.eventId
-            it[this.rateId] = input.rateId
         }
         integrationId.value.toString()
     }

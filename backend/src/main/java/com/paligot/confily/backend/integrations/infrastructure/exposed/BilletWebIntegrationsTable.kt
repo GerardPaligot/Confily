@@ -16,12 +16,11 @@ object BilletWebIntegrationsTable : Table("billetweb_integrations") {
         encryptor = SystemEnv.Crypto.algorithm
     )
     val eventId = varchar("event_id", length = 50)
-    val rateId = varchar("rate_id", length = 50)
 
     override val primaryKey = PrimaryKey(integrationId)
 }
 
-data class BilletWebConfig(val basic: String, val eventId: String, val rateId: String)
+data class BilletWebConfig(val basic: String, val eventId: String)
 
 operator fun BilletWebIntegrationsTable.get(integrationId: UUID): BilletWebConfig = BilletWebIntegrationsTable
     .selectAll()
@@ -29,8 +28,7 @@ operator fun BilletWebIntegrationsTable.get(integrationId: UUID): BilletWebConfi
     .map {
         BilletWebConfig(
             basic = it[BilletWebIntegrationsTable.basic],
-            eventId = it[BilletWebIntegrationsTable.eventId],
-            rateId = it[BilletWebIntegrationsTable.rateId]
+            eventId = it[BilletWebIntegrationsTable.eventId]
         )
     }
     .singleOrNull()

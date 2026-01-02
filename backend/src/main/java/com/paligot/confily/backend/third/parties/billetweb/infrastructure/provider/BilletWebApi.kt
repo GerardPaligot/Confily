@@ -10,6 +10,8 @@ import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.request.get
+import io.ktor.http.HttpHeaders
+import io.ktor.http.isSuccess
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
@@ -31,6 +33,24 @@ class BilletWebApi(
             ignoreUnknownKeys = true
         }
         return formatter.decodeFromString(body)
+    }
+
+    suspend fun fetchAttendee(
+        eventId: String,
+        basic: String,
+        barcode: String
+    ): List<Attendee> {
+        val response = client.get("$baseUrl/event/$eventId/attendees?version=1&past=1&barcode=$barcode") {
+            headers[HttpHeaders.Authorization] = basic
+        }
+        if (!response.status.isSuccess()) {
+            return emptyList()
+        }
+        val formatter = Json {
+            isLenient = true
+            ignoreUnknownKeys = true
+        }
+        return formatter.decodeFromString(response.body())
     }
 
     object Factory {

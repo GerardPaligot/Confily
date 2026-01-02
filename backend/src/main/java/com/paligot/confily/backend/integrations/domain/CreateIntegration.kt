@@ -11,9 +11,7 @@ sealed interface CreateIntegration {
     class CreateBilletWebIntegration(
         val basic: String,
         @SerialName("event_id")
-        val eventId: String,
-        @SerialName("rate_id")
-        val rateId: String
+        val eventId: String
     ) : CreateIntegration
 
     @Serializable
