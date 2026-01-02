@@ -93,7 +93,7 @@ jobs:
           echo "postgres_password=${{ secrets.EXPOSED_DB_PASSWORD_PP }}" >> $GITHUB_OUTPUT
           echo "project_name=confily-preprod" >> $GITHUB_OUTPUT
           echo "crypto_key=${{ secrets.CRYPTO_KEY_PP }}" >> $GITHUB_OUTPUT
-          echo "crypto_salt=${{ secrets.CRYPTO_SALT_PP }}" >> $GITHUB
+          echo "crypto_salt=${{ secrets.CRYPTO_SALT_PP }}" >> $GITHUB_OUTPUT
 
       - name: downcase variables
         id: vars
