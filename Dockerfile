@@ -5,7 +5,7 @@ ENV GRADLE_USER_HOME=/home/gradle/cache_home
 COPY build.gradle.* gradle.properties /home/gradle/app/
 COPY gradle /home/gradle/app/gradle
 WORKDIR /home/gradle/app
-RUN gradle :backend:build -i --stacktrace
+RUN gradle build -i --stacktrace
 
 FROM gradle:8.13-jdk21 AS build
 COPY --from=cache /home/gradle/cache_home /home/gradle/.gradle
