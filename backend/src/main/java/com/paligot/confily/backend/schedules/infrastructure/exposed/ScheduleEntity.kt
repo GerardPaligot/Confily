@@ -17,6 +17,9 @@ class ScheduleEntity(id: EntityID<UUID>) : UUIDEntity(id) {
         fun findByEvent(eventId: UUID): SizedIterable<ScheduleEntity> = this
             .find { SchedulesTable.eventId eq eventId }
 
+        fun findWithSession(eventId: UUID): SizedIterable<ScheduleEntity> = this
+            .find { (SchedulesTable.eventId eq eventId) and (SchedulesTable.sessionId neq null) }
+
         fun findById(eventId: UUID, scheduleId: UUID): ScheduleEntity? = this
             .find { (SchedulesTable.eventId eq eventId) and (SchedulesTable.id eq scheduleId) }
             .firstOrNull()

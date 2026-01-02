@@ -1,4 +1,4 @@
-package com.paligot.confily.backend.third.parties.openfeedback.application
+package com.paligot.confily.backend.third.parties.openfeedback.infrastructure.firestore
 
 import com.paligot.confily.backend.internals.helpers.date.FormatterPattern
 import com.paligot.confily.backend.internals.helpers.date.format

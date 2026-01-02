@@ -1,6 +1,7 @@
 package com.paligot.confily.backend.speakers.infrastructure.exposed
 
 import com.paligot.confily.backend.internals.infrastructure.exposed.SocialsTable
+import com.paligot.confily.models.SocialItem
 import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.sql.ReferenceOption
 import org.jetbrains.exposed.sql.Table
@@ -22,4 +23,10 @@ object SpeakerSocialsTable : Table("speaker_socials") {
         .selectAll()
         .where { SpeakerSocialsTable.speakerId eq speakerId }
         .map { it[socialId] }
+
+    fun socials(speakerId: UUID): List<SocialItem> = this
+        .innerJoin(SocialsTable)
+        .selectAll()
+        .where { SpeakerSocialsTable.speakerId eq speakerId }
+        .mapNotNull { row -> SocialItem(type = row[SocialsTable.platform], url = row[SocialsTable.url]) }
 }
