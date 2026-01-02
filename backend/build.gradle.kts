@@ -1,8 +1,10 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import org.gradle.kotlin.dsl.withType
+
 plugins {
     id("confily.backend.application")
     id("confily.quality")
     kotlin("plugin.serialization")
-    id("com.google.cloud.tools.appengine") version "2.4.4"
     id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
@@ -10,6 +12,7 @@ dependencies {
     implementation(projects.shared.models)
     implementation(libs.jetbrains.kotlinx.coroutines)
     implementation(libs.jetbrains.kotlinx.datetime)
+    implementation(libs.bundles.jetbrains.exposed)
 
     implementation(libs.ktor.server.core)
     implementation(libs.ktor.server.netty)
@@ -43,16 +46,14 @@ dependencies {
     testImplementation(libs.mockk)
 }
 
-appengine {
-    stage {
-        setArtifact("build/libs/${project.name}-all.jar")
-    }
-    deploy {
-        projectId = "GCLOUD_CONFIG"
-        version = "GCLOUD_CONFIG"
-    }
+val mainKlass = "com.paligot.confily.backend.ServerKt"
+application {
+    this.mainClass = mainKlass
 }
 
-application {
-    mainClass.set("com.paligot.confily.backend.ServerKt")
+tasks.withType<ShadowJar> {
+    archiveClassifier.set("all")
+    manifest {
+        attributes["Main-Class"] = mainKlass
+    }
 }

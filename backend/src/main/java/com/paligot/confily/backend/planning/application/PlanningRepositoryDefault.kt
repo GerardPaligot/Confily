@@ -1,11 +1,11 @@
 package com.paligot.confily.backend.planning.application
 
 import com.paligot.confily.backend.NotFoundException
+import com.paligot.confily.backend.events.infrastructure.firestore.EventEntity
+import com.paligot.confily.backend.events.infrastructure.firestore.openFeedbackUrl
+import com.paligot.confily.backend.events.infrastructure.storage.EventStorage
 import com.paligot.confily.backend.internals.helpers.date.FormatterPattern
 import com.paligot.confily.backend.internals.helpers.date.format
-import com.paligot.confily.backend.internals.infrastructure.firestore.EventEntity
-import com.paligot.confily.backend.internals.infrastructure.firestore.openFeedbackUrl
-import com.paligot.confily.backend.internals.infrastructure.storage.EventStorage
 import com.paligot.confily.backend.planning.domain.PlanningRepository
 import com.paligot.confily.models.Agenda
 import com.paligot.confily.models.AgendaV3

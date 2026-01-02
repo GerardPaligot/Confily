@@ -1,8 +1,8 @@
 package com.paligot.confily.backend.third.parties.openfeedback.application
 
 import com.paligot.confily.backend.NotFoundException
-import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
-import com.paligot.confily.backend.internals.infrastructure.storage.EventStorage
+import com.paligot.confily.backend.events.infrastructure.firestore.EventFirestore
+import com.paligot.confily.backend.events.infrastructure.storage.EventStorage
 import com.paligot.confily.backend.third.parties.openfeedback.domain.OpenfeedbackRepository
 import com.paligot.confily.models.OpenFeedback
 

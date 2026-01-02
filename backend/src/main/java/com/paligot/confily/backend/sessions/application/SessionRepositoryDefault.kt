@@ -1,8 +1,9 @@
 package com.paligot.confily.backend.sessions.application
 
-import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
-import com.paligot.confily.backend.internals.infrastructure.firestore.SessionFirestore
+import com.paligot.confily.backend.events.infrastructure.firestore.EventFirestore
 import com.paligot.confily.backend.sessions.domain.SessionRepository
+import com.paligot.confily.backend.sessions.infrastructure.firestore.SessionFirestore
+import com.paligot.confily.backend.sessions.infrastructure.firestore.convertToModel
 import com.paligot.confily.models.Session
 
 class SessionRepositoryDefault(

@@ -1,17 +1,17 @@
 package com.paligot.confily.backend.events
 
 import com.paligot.confily.backend.NotAcceptableException
+import com.paligot.confily.backend.addresses.infrastructure.provider.AddressComponent
+import com.paligot.confily.backend.addresses.infrastructure.provider.Geocode
+import com.paligot.confily.backend.addresses.infrastructure.provider.GeocodeApi
+import com.paligot.confily.backend.addresses.infrastructure.provider.Geometry
+import com.paligot.confily.backend.addresses.infrastructure.provider.Location
+import com.paligot.confily.backend.addresses.infrastructure.provider.Result
 import com.paligot.confily.backend.events.application.EventRepositoryDefault
 import com.paligot.confily.backend.events.domain.EventRepository
-import com.paligot.confily.backend.internals.infrastructure.firestore.EventEntity
-import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
-import com.paligot.confily.backend.internals.infrastructure.storage.EventStorage
-import com.paligot.confily.backend.third.parties.geocode.infrastructure.provider.AddressComponent
-import com.paligot.confily.backend.third.parties.geocode.infrastructure.provider.Geocode
-import com.paligot.confily.backend.third.parties.geocode.infrastructure.provider.GeocodeApi
-import com.paligot.confily.backend.third.parties.geocode.infrastructure.provider.Geometry
-import com.paligot.confily.backend.third.parties.geocode.infrastructure.provider.Location
-import com.paligot.confily.backend.third.parties.geocode.infrastructure.provider.Result
+import com.paligot.confily.backend.events.infrastructure.firestore.EventEntity
+import com.paligot.confily.backend.events.infrastructure.firestore.EventFirestore
+import com.paligot.confily.backend.events.infrastructure.storage.EventStorage
 import com.paligot.confily.models.EventList
 import com.paligot.confily.models.inputs.CreatingEventInput
 import io.mockk.coEvery

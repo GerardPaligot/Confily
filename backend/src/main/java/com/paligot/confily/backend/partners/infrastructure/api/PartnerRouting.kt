@@ -1,5 +1,6 @@
 package com.paligot.confily.backend.partners.infrastructure.api
 
+import com.paligot.confily.backend.internals.infrastructure.ktor.http.Identifier
 import com.paligot.confily.backend.internals.infrastructure.ktor.plugins.PartnersUpdatedAtPlugin
 import com.paligot.confily.backend.partners.infrastructure.factory.PartnerModule.partnerAdminRepository
 import com.paligot.confily.backend.partners.infrastructure.factory.PartnerModule.partnerRepository
@@ -18,11 +19,11 @@ fun Route.registerPartnersRoutes() {
 
     get("/partners") {
         val eventId = call.parameters["eventId"]!!
-        call.respond(HttpStatusCode.OK, repository.list(eventId))
+        call.respond(status = HttpStatusCode.OK, message = repository.list(eventId))
     }
     get("/partners/activities") {
         val eventId = call.parameters["eventId"]!!
-        call.respond(HttpStatusCode.OK, repository.activities(eventId))
+        call.respond(status = HttpStatusCode.OK, message = repository.activities(eventId))
     }
 }
 
@@ -34,13 +35,15 @@ fun Route.registerAdminPartnersRoutes() {
         post {
             val eventId = call.parameters["eventId"]!!
             val partner = call.receiveValidated<PartnerInput>()
-            call.respond(HttpStatusCode.Created, repository.create(eventId, partner))
+            val id = repository.create(eventId, partner)
+            call.respond(status = HttpStatusCode.Created, message = Identifier(id))
         }
         put("/{id}") {
             val eventId = call.parameters["eventId"]!!
             val partnerId = call.parameters["id"]!!
             val partner = call.receiveValidated<PartnerInput>()
-            call.respond(HttpStatusCode.OK, repository.update(eventId, partnerId, partner))
+            val id = repository.update(eventId, partnerId, partner)
+            call.respond(status = HttpStatusCode.OK, message = Identifier(id))
         }
     }
 }

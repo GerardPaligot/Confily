@@ -1,10 +1,12 @@
 package com.paligot.confily.backend.map.application
 
 import com.paligot.confily.backend.NotFoundException
-import com.paligot.confily.backend.internals.infrastructure.firestore.MapEntity
-import com.paligot.confily.backend.internals.infrastructure.firestore.MapFirestore
-import com.paligot.confily.backend.internals.infrastructure.storage.MapStorage
 import com.paligot.confily.backend.map.domain.MapAdminRepository
+import com.paligot.confily.backend.map.infrastructure.firestore.MapEntity
+import com.paligot.confily.backend.map.infrastructure.firestore.MapFirestore
+import com.paligot.confily.backend.map.infrastructure.firestore.convertToEntity
+import com.paligot.confily.backend.map.infrastructure.firestore.convertToModel
+import com.paligot.confily.backend.map.infrastructure.storage.MapStorage
 import com.paligot.confily.models.CreatedMap
 import com.paligot.confily.models.EventMap
 import com.paligot.confily.models.MapPictogram

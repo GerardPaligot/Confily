@@ -1,7 +1,8 @@
 package com.paligot.confily.backend.qanda.application
 
-import com.paligot.confily.backend.internals.infrastructure.firestore.QAndAFirestore
 import com.paligot.confily.backend.qanda.domain.QAndAAdminRepository
+import com.paligot.confily.backend.qanda.infrastructure.firestore.QAndAFirestore
+import com.paligot.confily.backend.qanda.infrastructure.firestore.convertToEntity
 import com.paligot.confily.models.inputs.QAndAInput
 import kotlinx.coroutines.coroutineScope
 

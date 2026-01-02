@@ -1,9 +1,9 @@
 package com.paligot.confily.backend.categories
 
 import com.paligot.confily.backend.categories.application.CategoryAdminRepositoryDefault
-import com.paligot.confily.backend.categories.application.convertToDb
 import com.paligot.confily.backend.categories.domain.CategoryAdminRepository
-import com.paligot.confily.backend.internals.infrastructure.firestore.CategoryFirestore
+import com.paligot.confily.backend.categories.infrastructure.firestore.CategoryFirestore
+import com.paligot.confily.backend.categories.infrastructure.firestore.convertToDb
 import com.paligot.confily.models.inputs.CategoryInput
 import io.mockk.coEvery
 import io.mockk.coVerify

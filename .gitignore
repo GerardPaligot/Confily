@@ -36,3 +36,20 @@ ui-debug.log
 
 # sample db
 **/confily.db
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+*.log.*
+
+# OS
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.swp
+*~

@@ -1,8 +1,8 @@
 package com.paligot.confily.backend.internals.infrastructure.factory
 
+import com.paligot.confily.backend.categories.infrastructure.firestore.CategoryFirestore
+import com.paligot.confily.backend.events.infrastructure.firestore.EventFirestore
 import com.paligot.confily.backend.internals.infrastructure.factory.GoogleServicesModule.cloudFirestore
-import com.paligot.confily.backend.internals.infrastructure.firestore.CategoryFirestore
-import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
 import com.paligot.confily.backend.internals.infrastructure.system.SystemEnv.projectName
 
 object FirestoreModule {

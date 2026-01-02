@@ -12,10 +12,14 @@ object InternalModule {
         DriveDataSource.Factory.create(GoogleServicesModule.drive.value)
     }
     val secret: Lazy<Secret> = lazy {
-        Secret.Factory.create(SystemEnv.gcpProjectId, GoogleServicesModule.secretManager.value)
+        Secret.Factory.create(SystemEnv.GoogleProvider.projectId, GoogleServicesModule.secretManager.value)
     }
     val storage: Lazy<Storage> = lazy {
-        Storage.Factory.create(GoogleServicesModule.cloudStorage.value, SystemEnv.projectName, SystemEnv.isCloud)
+        Storage.Factory.create(
+            GoogleServicesModule.cloudStorage.value,
+            SystemEnv.GoogleProvider.storageBucket,
+            SystemEnv.DatabaseConfig.isCloud
+        )
     }
     val transcoder: Lazy<TranscoderImage> = lazy {
         TranscoderImage()

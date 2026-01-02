@@ -1,5 +1,6 @@
 package com.paligot.confily.backend.qanda.infrastructure.api
 
+import com.paligot.confily.backend.internals.infrastructure.ktor.http.Identifier
 import com.paligot.confily.backend.internals.infrastructure.ktor.plugins.EventUpdatedAtPlugin
 import com.paligot.confily.backend.qanda.infrastructure.factory.QAndAModule.qAndAAdminRepository
 import com.paligot.confily.backend.qanda.infrastructure.factory.QAndAModule.qAndARepository
@@ -22,7 +23,7 @@ fun Route.registerQAndAsRoutes() {
         val eventId = call.parameters["eventId"]!!
         val language = call.request.acceptLanguage()
             ?: throw BadRequestException("Accept Language required for this api")
-        call.respond(HttpStatusCode.OK, repository.list(eventId, language.split("-").first()))
+        call.respond(status = HttpStatusCode.OK, message = repository.list(eventId, language.split("-").first()))
     }
 }
 
@@ -34,13 +35,15 @@ fun Route.registerAdminQAndAsRoutes() {
         post {
             val eventId = call.parameters["eventId"]!!
             val qandaInput = call.receiveValidated<QAndAInput>()
-            call.respond(HttpStatusCode.Created, repository.create(eventId, qandaInput))
+            val id = repository.create(eventId, qandaInput)
+            call.respond(status = HttpStatusCode.Created, message = Identifier(id))
         }
         put("/{id}") {
             val eventId = call.parameters["eventId"]!!
             val qandaId = call.parameters["id"]!!
             val qandaInput = call.receiveValidated<QAndAInput>()
-            call.respond(HttpStatusCode.OK, repository.update(eventId, qandaId, qandaInput))
+            val id = repository.update(eventId, qandaId, qandaInput)
+            call.respond(status = HttpStatusCode.OK, message = Identifier(id))
         }
     }
 }

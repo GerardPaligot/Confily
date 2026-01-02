@@ -1,5 +1,6 @@
 package com.paligot.confily.backend.speakers.infrastructure.api
 
+import com.paligot.confily.backend.internals.infrastructure.ktor.http.Identifier
 import com.paligot.confily.backend.internals.infrastructure.ktor.plugins.PlanningUpdatedAtPlugin
 import com.paligot.confily.backend.receiveValidated
 import com.paligot.confily.backend.speakers.infrastructure.factory.SpeakerModule.speakerAdminRepository
@@ -18,7 +19,7 @@ fun Route.registerSpeakersRoutes() {
 
     get("/speakers") {
         val eventId = call.parameters["eventId"]!!
-        call.respond(HttpStatusCode.OK, repository.list(eventId))
+        call.respond(status = HttpStatusCode.OK, message = repository.list(eventId))
     }
 }
 
@@ -30,13 +31,15 @@ fun Route.registerAdminSpeakersRoutes() {
         post {
             val eventId = call.parameters["eventId"]!!
             val speaker = call.receiveValidated<SpeakerInput>()
-            call.respond(HttpStatusCode.Created, repository.create(eventId, speaker))
+            val id = repository.create(eventId, speaker)
+            call.respond(status = HttpStatusCode.Created, message = Identifier(id))
         }
         put("/{id}") {
             val eventId = call.parameters["eventId"]!!
             val speakerId = call.parameters["id"]!!
             val speaker = call.receiveValidated<SpeakerInput>()
-            call.respond(HttpStatusCode.OK, repository.update(eventId, speakerId, speaker))
+            val id = repository.update(eventId, speakerId, speaker)
+            call.respond(status = HttpStatusCode.OK, message = Identifier(id))
         }
     }
 }

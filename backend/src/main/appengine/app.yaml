@@ -1,7 +1,0 @@
-runtime: java17
-instance_class: F2
-entrypoint: 'java -jar backend-all.jar'
-env_variables:
-  IS_CLOUD: 'true'
-  PROJECT_ID: 'cms4partners-ce427'
-  BASE_URL_CONFERENCE_HALL: 'conference-hall.io'

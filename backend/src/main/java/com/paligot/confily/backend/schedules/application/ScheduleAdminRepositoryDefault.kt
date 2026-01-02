@@ -1,13 +1,14 @@
 package com.paligot.confily.backend.schedules.application
 
 import com.paligot.confily.backend.NotFoundException
+import com.paligot.confily.backend.events.infrastructure.firestore.EventFirestore
+import com.paligot.confily.backend.formats.infrastructure.firestore.FormatFirestore
 import com.paligot.confily.backend.internals.helpers.date.FormatterPattern
 import com.paligot.confily.backend.internals.helpers.date.format
-import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
-import com.paligot.confily.backend.internals.infrastructure.firestore.FormatFirestore
-import com.paligot.confily.backend.internals.infrastructure.firestore.ScheduleItemFirestore
-import com.paligot.confily.backend.internals.infrastructure.firestore.SessionFirestore
 import com.paligot.confily.backend.schedules.domain.ScheduleAdminRepository
+import com.paligot.confily.backend.schedules.infrastructure.firestore.ScheduleItemFirestore
+import com.paligot.confily.backend.schedules.infrastructure.firestore.convertToEntity
+import com.paligot.confily.backend.sessions.infrastructure.firestore.SessionFirestore
 import com.paligot.confily.models.inputs.ScheduleInput
 import kotlinx.coroutines.coroutineScope
 import java.time.LocalDateTime

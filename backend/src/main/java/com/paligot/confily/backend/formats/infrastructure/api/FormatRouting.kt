@@ -2,6 +2,7 @@ package com.paligot.confily.backend.formats.infrastructure.api
 
 import com.paligot.confily.backend.formats.infrastructure.factory.FormatModule.formatAdminRepository
 import com.paligot.confily.backend.formats.infrastructure.factory.FormatModule.formatRepository
+import com.paligot.confily.backend.internals.infrastructure.ktor.http.Identifier
 import com.paligot.confily.backend.internals.infrastructure.ktor.plugins.PlanningUpdatedAtPlugin
 import com.paligot.confily.backend.receiveValidated
 import com.paligot.confily.models.inputs.FormatInput
@@ -18,7 +19,7 @@ fun Route.registerFormatsRoutes() {
 
     get("/formats") {
         val eventId = call.parameters["eventId"]!!
-        call.respond(HttpStatusCode.OK, repository.list(eventId))
+        call.respond(status = HttpStatusCode.OK, message = repository.list(eventId))
     }
 }
 
@@ -30,13 +31,15 @@ fun Route.registerAdminFormatsRoutes() {
         post {
             val eventId = call.parameters["eventId"]!!
             val formatInput = call.receiveValidated<FormatInput>()
-            call.respond(HttpStatusCode.Created, repository.create(eventId, formatInput))
+            val id = repository.create(eventId, formatInput)
+            call.respond(status = HttpStatusCode.Created, message = Identifier(id))
         }
         put("/{id}") {
             val eventId = call.parameters["eventId"]!!
             val formatId = call.parameters["id"]!!
             val formatInput = call.receiveValidated<FormatInput>()
-            call.respond(HttpStatusCode.OK, repository.update(eventId, formatId, formatInput))
+            val id = repository.update(eventId, formatId, formatInput)
+            call.respond(status = HttpStatusCode.OK, message = Identifier(id))
         }
     }
 }

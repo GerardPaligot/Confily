@@ -2,12 +2,13 @@ package com.paligot.confily.backend.sessions.application
 
 import com.paligot.confily.backend.NotAcceptableException
 import com.paligot.confily.backend.NotFoundException
-import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
-import com.paligot.confily.backend.internals.infrastructure.firestore.EventSessionEntity
-import com.paligot.confily.backend.internals.infrastructure.firestore.SessionFirestore
+import com.paligot.confily.backend.addresses.infrastructure.firestore.convertToEntity
+import com.paligot.confily.backend.addresses.infrastructure.provider.GeocodeApi
+import com.paligot.confily.backend.events.infrastructure.firestore.EventFirestore
 import com.paligot.confily.backend.sessions.domain.SessionAdminRepository
-import com.paligot.confily.backend.third.parties.geocode.infrastructure.provider.GeocodeApi
-import com.paligot.confily.backend.third.parties.geocode.infrastructure.provider.convertToEntity
+import com.paligot.confily.backend.sessions.infrastructure.firestore.EventSessionEntity
+import com.paligot.confily.backend.sessions.infrastructure.firestore.SessionFirestore
+import com.paligot.confily.backend.sessions.infrastructure.firestore.convertToEntity
 import com.paligot.confily.models.inputs.EventSessionInput
 import com.paligot.confily.models.inputs.TalkSessionInput
 

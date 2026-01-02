@@ -1,7 +1,8 @@
 package com.paligot.confily.backend.formats.application
 
 import com.paligot.confily.backend.formats.domain.FormatAdminRepository
-import com.paligot.confily.backend.internals.infrastructure.firestore.FormatFirestore
+import com.paligot.confily.backend.formats.infrastructure.firestore.FormatFirestore
+import com.paligot.confily.backend.formats.infrastructure.firestore.convertToEntity
 import com.paligot.confily.models.inputs.FormatInput
 
 class FormatAdminRepositoryDefault(

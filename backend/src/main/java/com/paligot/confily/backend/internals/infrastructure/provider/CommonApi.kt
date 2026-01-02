@@ -31,7 +31,7 @@ class CommonApi(
                     }
                     if (enableNetworkLogs) {
                         this.install(Logging) {
-                            logger = Logger.Companion.DEFAULT
+                            logger = Logger.DEFAULT
                             level = LogLevel.INFO
                         }
                     }

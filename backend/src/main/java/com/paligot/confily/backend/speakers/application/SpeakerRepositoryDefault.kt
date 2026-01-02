@@ -1,8 +1,8 @@
 package com.paligot.confily.backend.speakers.application
 
-import com.paligot.confily.backend.internals.infrastructure.firestore.SpeakerEntity
-import com.paligot.confily.backend.internals.infrastructure.firestore.SpeakerFirestore
 import com.paligot.confily.backend.speakers.domain.SpeakerRepository
+import com.paligot.confily.backend.speakers.infrastructure.firestore.SpeakerEntity
+import com.paligot.confily.backend.speakers.infrastructure.firestore.SpeakerFirestore
 import com.paligot.confily.models.Speaker
 
 class SpeakerRepositoryDefault(

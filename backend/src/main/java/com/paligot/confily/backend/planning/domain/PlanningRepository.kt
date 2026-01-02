@@ -1,6 +1,6 @@
 package com.paligot.confily.backend.planning.domain
 
-import com.paligot.confily.backend.internals.infrastructure.firestore.EventEntity
+import com.paligot.confily.backend.events.infrastructure.firestore.EventEntity
 import com.paligot.confily.models.Agenda
 import com.paligot.confily.models.AgendaV3
 import com.paligot.confily.models.AgendaV4

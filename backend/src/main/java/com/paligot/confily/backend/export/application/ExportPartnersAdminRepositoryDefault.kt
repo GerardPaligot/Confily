@@ -1,15 +1,15 @@
 package com.paligot.confily.backend.export.application
 
-import com.paligot.confily.backend.activities.application.convertToModel
+import com.paligot.confily.backend.activities.infrastructure.firestore.ActivityFirestore
+import com.paligot.confily.backend.activities.infrastructure.firestore.convertToModel
+import com.paligot.confily.backend.events.infrastructure.firestore.EventEntity
+import com.paligot.confily.backend.events.infrastructure.firestore.EventFirestore
+import com.paligot.confily.backend.events.infrastructure.storage.EventStorage
 import com.paligot.confily.backend.export.domain.ExportAdminRepository
-import com.paligot.confily.backend.internals.infrastructure.firestore.ActivityFirestore
-import com.paligot.confily.backend.internals.infrastructure.firestore.EventEntity
-import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
-import com.paligot.confily.backend.internals.infrastructure.firestore.JobFirestore
-import com.paligot.confily.backend.internals.infrastructure.firestore.PartnerFirestore
-import com.paligot.confily.backend.internals.infrastructure.storage.EventStorage
-import com.paligot.confily.backend.partners.application.convertToModelV3
-import com.paligot.confily.backend.third.parties.welovedevs.application.convertToModel
+import com.paligot.confily.backend.partners.infrastructure.firestore.JobFirestore
+import com.paligot.confily.backend.partners.infrastructure.firestore.PartnerFirestore
+import com.paligot.confily.backend.partners.infrastructure.firestore.convertToModel
+import com.paligot.confily.backend.partners.infrastructure.firestore.convertToModelV3
 import com.paligot.confily.models.PartnersActivities
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers

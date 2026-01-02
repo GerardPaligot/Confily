@@ -1,5 +1,6 @@
 package com.paligot.confily.backend.team.infrastructure.api
 
+import com.paligot.confily.backend.internals.infrastructure.ktor.http.Identifier
 import com.paligot.confily.backend.internals.infrastructure.ktor.plugins.EventUpdatedAtPlugin
 import com.paligot.confily.backend.receiveValidated
 import com.paligot.confily.backend.team.infrastructure.factory.TeamModule.teamAdminRepository
@@ -18,7 +19,7 @@ fun Route.registerTeamRoutes() {
 
     get("/team-members") {
         val eventId = call.parameters["eventId"]!!
-        call.respond(HttpStatusCode.OK, repository.list(eventId))
+        call.respond(status = HttpStatusCode.OK, message = repository.list(eventId))
     }
 }
 
@@ -30,20 +31,19 @@ fun Route.registerAdminTeamRoutes() {
         post {
             val eventId = call.parameters["eventId"]!!
             val teamMemberInput = call.receiveValidated<TeamMemberInput>()
-            call.respond(HttpStatusCode.Created, repository.create(eventId, teamMemberInput))
+            val id = repository.create(eventId, teamMemberInput)
+            call.respond(status = HttpStatusCode.Created, message = Identifier(id))
         }
         put("/{id}") {
             val eventId = call.parameters["eventId"]!!
             val teamMemberId = call.parameters["id"]!!
             val teamMemberInput = call.receiveValidated<TeamMemberInput>()
-            call.respond(
-                status = HttpStatusCode.OK,
-                message = repository.update(
-                    eventId = eventId,
-                    teamMemberId = teamMemberId,
-                    input = teamMemberInput
-                )
+            val id = repository.update(
+                eventId = eventId,
+                teamMemberId = teamMemberId,
+                input = teamMemberInput
             )
+            call.respond(status = HttpStatusCode.OK, message = Identifier(id))
         }
     }
 }
