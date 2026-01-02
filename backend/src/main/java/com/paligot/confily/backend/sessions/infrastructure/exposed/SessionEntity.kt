@@ -2,6 +2,7 @@ package com.paligot.confily.backend.sessions.infrastructure.exposed
 
 import com.paligot.confily.backend.events.infrastructure.exposed.EventEntity
 import com.paligot.confily.backend.formats.infrastructure.exposed.FormatEntity
+import com.paligot.confily.backend.integrations.domain.IntegrationProvider
 import org.jetbrains.exposed.dao.UUIDEntity
 import org.jetbrains.exposed.dao.UUIDEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
@@ -21,8 +22,13 @@ class SessionEntity(id: EntityID<UUID>) : UUIDEntity(id) {
             .find { (SessionsTable.eventId eq eventId) and (SessionsTable.id eq sessionId) }
             .firstOrNull()
 
-        fun findByExternalId(eventId: UUID, externalId: String): SessionEntity? = this
-            .find { (SessionsTable.eventId eq eventId) and (SessionsTable.externalId eq externalId) }
+        fun findByExternalId(eventId: UUID, externalId: String, provider: IntegrationProvider): SessionEntity? = this
+            .find {
+                val eventOp = SessionsTable.eventId eq eventId
+                val externalIdOp = SessionsTable.externalId eq externalId
+                val providerOp = SessionsTable.externalProvider eq provider
+                eventOp and externalIdOp and providerOp
+            }
             .firstOrNull()
     }
 
@@ -38,6 +44,7 @@ class SessionEntity(id: EntityID<UUID>) : UUIDEntity(id) {
     var linkReplay by SessionsTable.linkReplay
     var driveFolderId by SessionsTable.driveFolderId
     var externalId by SessionsTable.externalId
+    var externalProvider by SessionsTable.externalProvider
     var createdAt by SessionsTable.createdAt
     var updatedAt by SessionsTable.updatedAt
 }

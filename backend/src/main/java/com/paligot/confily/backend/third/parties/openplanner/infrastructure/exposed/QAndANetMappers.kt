@@ -1,6 +1,7 @@
 package com.paligot.confily.backend.third.parties.openplanner.infrastructure.exposed
 
 import com.paligot.confily.backend.events.infrastructure.exposed.EventEntity
+import com.paligot.confily.backend.integrations.domain.IntegrationProvider
 import com.paligot.confily.backend.qanda.infrastructure.exposed.QAndAAcronymEntity
 import com.paligot.confily.backend.qanda.infrastructure.exposed.QAndAAcronymsTable
 import com.paligot.confily.backend.qanda.infrastructure.exposed.QAndAActionEntity
@@ -22,7 +23,7 @@ fun FaqItemOP.toEntity(event: EventEntity, order: Int, language: String): QAndAE
         response = answer.replaceRange(it.range, "")
     }
     val entity = QAndAEntity
-        .findByExternalId(event.id.value, this.id)
+        .findByExternalId(eventId = event.id.value, externalId = this.id, provider = IntegrationProvider.OPENPLANNER)
         ?.let { entity ->
             entity.displayOrder = order
             entity.language = language
@@ -38,6 +39,7 @@ fun FaqItemOP.toEntity(event: EventEntity, order: Int, language: String): QAndAE
             this.question = this@toEntity.question
             this.response = response.replace("\n$".toRegex(), "")
             this.externalId = this@toEntity.id
+            this.externalProvider = IntegrationProvider.OPENPLANNER
         }
 
     // Delete old actions and acronyms

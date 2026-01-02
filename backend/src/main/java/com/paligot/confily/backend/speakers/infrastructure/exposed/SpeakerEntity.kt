@@ -1,6 +1,7 @@
 package com.paligot.confily.backend.speakers.infrastructure.exposed
 
 import com.paligot.confily.backend.events.infrastructure.exposed.EventEntity
+import com.paligot.confily.backend.integrations.domain.IntegrationProvider
 import org.jetbrains.exposed.dao.UUIDEntity
 import org.jetbrains.exposed.dao.UUIDEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
@@ -27,13 +28,25 @@ class SpeakerEntity(id: EntityID<UUID>) : UUIDEntity(id) {
             .find { (SpeakersTable.eventId eq eventId) and (SpeakersTable.id eq speakerId) }
             .firstOrNull()
 
-        fun findByExternalId(eventId: UUID, externalId: String): SpeakerEntity? = this
-            .find { (SpeakersTable.eventId eq eventId) and (SpeakersTable.externalId eq externalId) }
+        fun findByExternalId(eventId: UUID, externalId: String, provider: IntegrationProvider): SpeakerEntity? = this
+            .find {
+                val eventOp = SpeakersTable.eventId eq eventId
+                val externalIdOp = SpeakersTable.externalId eq externalId
+                val providerOp = SpeakersTable.externalProvider eq provider
+                eventOp and externalIdOp and providerOp
+            }
             .firstOrNull()
 
-        fun findByExternalIds(eventId: UUID, speakerIds: List<String>): List<SpeakerEntity> = this
-            .find { (SpeakersTable.eventId eq eventId) and (SpeakersTable.externalId inList speakerIds) }
-            .toList()
+        fun findByExternalIds(
+            eventId: UUID,
+            speakerIds: List<String>,
+            provider: IntegrationProvider
+        ): SizedIterable<SpeakerEntity> = this.find {
+            val eventOp = SpeakersTable.eventId eq eventId
+            val externalIdsOp = SpeakersTable.externalId inList speakerIds
+            val providerOp = SpeakersTable.externalProvider eq provider
+            eventOp and externalIdsOp and providerOp
+        }
     }
 
     var eventId by SpeakersTable.eventId
@@ -46,6 +59,7 @@ class SpeakerEntity(id: EntityID<UUID>) : UUIDEntity(id) {
     var company by SpeakersTable.company
     var jobTitle by SpeakersTable.jobTitle
     var externalId by SpeakersTable.externalId
+    var externalProvider by SpeakersTable.externalProvider
     var createdAt by SpeakersTable.createdAt
     var updatedAt by SpeakersTable.updatedAt
 }

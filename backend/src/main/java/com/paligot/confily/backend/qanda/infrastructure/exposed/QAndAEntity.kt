@@ -1,6 +1,7 @@
 package com.paligot.confily.backend.qanda.infrastructure.exposed
 
 import com.paligot.confily.backend.events.infrastructure.exposed.EventEntity
+import com.paligot.confily.backend.integrations.domain.IntegrationProvider
 import org.jetbrains.exposed.dao.UUIDEntity
 import org.jetbrains.exposed.dao.UUIDEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
@@ -20,8 +21,13 @@ class QAndAEntity(id: EntityID<UUID>) : UUIDEntity(id) {
             .find { (QAndATable.eventId eq eventId) and (QAndATable.id eq qandaId) }
             .firstOrNull()
 
-        fun findByExternalId(eventId: UUID, externalId: String): QAndAEntity? = this
-            .find { (QAndATable.eventId eq eventId) and (QAndATable.externalId eq externalId) }
+        fun findByExternalId(eventId: UUID, externalId: String, provider: IntegrationProvider): QAndAEntity? = this
+            .find {
+                val eventOp = QAndATable.eventId eq eventId
+                val externalOp = QAndATable.externalId eq externalId
+                val providerOp = QAndATable.externalProvider eq provider
+                eventOp and externalOp and providerOp
+            }
             .firstOrNull()
     }
 
@@ -32,6 +38,7 @@ class QAndAEntity(id: EntityID<UUID>) : UUIDEntity(id) {
     var question by QAndATable.question
     var response by QAndATable.response
     var externalId by QAndATable.externalId
+    var externalProvider by QAndATable.externalProvider
     var createdAt by QAndATable.createdAt
     var updatedAt by QAndATable.updatedAt
 }

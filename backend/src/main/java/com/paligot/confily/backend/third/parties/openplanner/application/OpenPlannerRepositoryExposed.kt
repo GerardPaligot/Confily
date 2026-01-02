@@ -1,9 +1,11 @@
 package com.paligot.confily.backend.third.parties.openplanner.application
 
 import com.paligot.confily.backend.NotAcceptableException
+import com.paligot.confily.backend.categories.infrastructure.exposed.CategoriesTable
 import com.paligot.confily.backend.categories.infrastructure.exposed.CategoryEntity
 import com.paligot.confily.backend.events.infrastructure.exposed.EventEntity
 import com.paligot.confily.backend.formats.infrastructure.exposed.FormatEntity
+import com.paligot.confily.backend.formats.infrastructure.exposed.FormatsTable
 import com.paligot.confily.backend.integrations.domain.IntegrationProvider
 import com.paligot.confily.backend.integrations.domain.IntegrationUsage
 import com.paligot.confily.backend.integrations.infrastructure.exposed.IntegrationEntity
@@ -13,13 +15,20 @@ import com.paligot.confily.backend.internals.helpers.mimeType
 import com.paligot.confily.backend.internals.helpers.slug
 import com.paligot.confily.backend.internals.infrastructure.provider.CommonApi
 import com.paligot.confily.backend.qanda.infrastructure.exposed.QAndAEntity
+import com.paligot.confily.backend.qanda.infrastructure.exposed.QAndATable
 import com.paligot.confily.backend.schedules.infrastructure.exposed.ScheduleEntity
+import com.paligot.confily.backend.schedules.infrastructure.exposed.SchedulesTable
 import com.paligot.confily.backend.sessions.infrastructure.exposed.EventSessionEntity
 import com.paligot.confily.backend.sessions.infrastructure.exposed.EventSessionTrackEntity
+import com.paligot.confily.backend.sessions.infrastructure.exposed.EventSessionTracksTable
+import com.paligot.confily.backend.sessions.infrastructure.exposed.EventSessionsTable
 import com.paligot.confily.backend.sessions.infrastructure.exposed.SessionEntity
+import com.paligot.confily.backend.sessions.infrastructure.exposed.SessionsTable
 import com.paligot.confily.backend.speakers.infrastructure.exposed.SpeakerEntity
+import com.paligot.confily.backend.speakers.infrastructure.exposed.SpeakersTable
 import com.paligot.confily.backend.speakers.infrastructure.storage.SpeakerStorage
 import com.paligot.confily.backend.team.infrastructure.exposed.TeamEntity
+import com.paligot.confily.backend.team.infrastructure.exposed.TeamTable
 import com.paligot.confily.backend.team.infrastructure.storage.TeamStorage
 import com.paligot.confily.backend.third.parties.openplanner.domain.OpenPlannerRepository
 import com.paligot.confily.backend.third.parties.openplanner.infrastructure.exposed.groups
@@ -84,15 +93,23 @@ class OpenPlannerRepositoryExposed(
         }
     }
 
-    private fun upsertQAndA(faq: List<FaqSectionOP>, event: EventEntity): List<QAndAEntity> = faq
-        .sortedBy { it.order }
-        .fold(mutableListOf<FaqItemOP>()) { acc, qAndA ->
-            acc.addAll(qAndA.items.sortedBy { it.order })
-            acc
-        }
-        .mapIndexed { index, faqItemOP ->
-            faqItemOP.toEntity(event = event, order = index, language = event.defaultLanguage)
-        }
+    private fun upsertQAndA(faq: List<FaqSectionOP>, event: EventEntity): List<QAndAEntity> {
+        val qanda = faq
+            .sortedBy { it.order }
+            .fold(mutableListOf<FaqItemOP>()) { acc, qAndA ->
+                acc.addAll(qAndA.items.sortedBy { it.order })
+                acc
+            }
+            .mapIndexed { index, faqItemOP ->
+                faqItemOP.toEntity(event = event, order = index, language = event.defaultLanguage)
+            }
+        QAndATable.deleteDiff(
+            eventId = event.id.value,
+            externalIds = qanda.mapNotNull { it.externalId },
+            provider = IntegrationProvider.OPENPLANNER
+        )
+        return qanda
+    }
 
     private fun upsertTeams(
         teams: List<TeamOP>,
@@ -100,7 +117,7 @@ class OpenPlannerRepositoryExposed(
         event: EventEntity
     ): List<TeamEntity> {
         teams.groups(event)
-        return teams
+        val members = teams
             .groupBy { it.team }
             .map { (_, members) ->
                 members.mapIndexed { index, member ->
@@ -108,34 +125,92 @@ class OpenPlannerRepositoryExposed(
                 }
             }
             .flatten()
+        TeamTable.deleteDiff(
+            eventId = event.id.value,
+            externalIds = members.mapNotNull { it.externalId },
+            provider = IntegrationProvider.OPENPLANNER
+        )
+        return members
     }
 
-    private fun upsertTracks(tracks: List<TrackOP>, event: EventEntity): List<EventSessionTrackEntity> = tracks
-        .mapIndexed { index, trackOP -> trackOP.toEventSessionTrackEntity(order = index, event = event) }
+    private fun upsertTracks(tracks: List<TrackOP>, event: EventEntity): List<EventSessionTrackEntity> {
+        val entities =
+            tracks.mapIndexed { index, trackOP -> trackOP.toEventSessionTrackEntity(order = index, event = event) }
+        EventSessionTracksTable.deleteDiff(
+            eventId = event.id.value,
+            externalIds = entities.mapNotNull { it.externalId },
+            provider = IntegrationProvider.OPENPLANNER
+        )
+        return entities
+    }
 
-    private fun upsertCategories(categories: List<CategoryOP>, event: EventEntity): List<CategoryEntity> = categories
-        .mapIndexed { index, categoryOP -> categoryOP.toEntity(event = event, order = index) }
+    private fun upsertCategories(categories: List<CategoryOP>, event: EventEntity): List<CategoryEntity> {
+        val entities = categories.mapIndexed { index, categoryOP -> categoryOP.toEntity(event = event, order = index) }
+        CategoriesTable.deleteDiff(
+            eventId = event.id.value,
+            externalIds = entities.mapNotNull { it.externalId },
+            provider = IntegrationProvider.OPENPLANNER
+        )
+        return entities
+    }
 
-    private fun upsertFormats(formats: List<FormatOP>, event: EventEntity): List<FormatEntity> = formats
-        .map { formatOP -> formatOP.toEntity(event = event) }
+    private fun upsertFormats(formats: List<FormatOP>, event: EventEntity): List<FormatEntity> {
+        val entities = formats.map { formatOP -> formatOP.toEntity(event = event) }
+        FormatsTable.deleteDiff(
+            eventId = event.id.value,
+            externalIds = entities.mapNotNull { it.externalId },
+            provider = IntegrationProvider.OPENPLANNER
+        )
+        return entities
+    }
 
     private fun upsertSpeakers(
         speakers: List<SpeakerOP>,
         remoteUrls: Map<String, String>,
         event: EventEntity
-    ): List<SpeakerEntity> = speakers
-        .map { speakerOP -> speakerOP.toEntity(event, remoteUrls[speakerOP.id]) }
+    ): List<SpeakerEntity> {
+        val entities = speakers.map { speakerOP -> speakerOP.toEntity(event, remoteUrls[speakerOP.id]) }
+        SpeakersTable.deleteDiff(
+            eventId = event.id.value,
+            externalIds = entities.mapNotNull { it.externalId },
+            provider = IntegrationProvider.OPENPLANNER
+        )
+        return entities
+    }
 
-    private fun upsertEventSessions(sessions: List<SessionOP>, event: EventEntity): List<EventSessionEntity> = sessions
-        .filter { it.speakerIds.isEmpty() }
-        .map { sessionOP -> sessionOP.toEventSessionEntity(event) }
+    private fun upsertEventSessions(sessions: List<SessionOP>, event: EventEntity): List<EventSessionEntity> {
+        val entities = sessions
+            .filter { it.speakerIds.isEmpty() }
+            .map { sessionOP -> sessionOP.toEventSessionEntity(event) }
+        EventSessionsTable.deleteDiff(
+            eventId = event.id.value,
+            externalIds = entities.mapNotNull { it.externalId },
+            provider = IntegrationProvider.OPENPLANNER
+        )
+        return entities
+    }
 
-    private fun upsertSessions(sessions: List<SessionOP>, event: EventEntity): List<SessionEntity> = sessions
-        .filter { it.speakerIds.isNotEmpty() }
-        .map { sessionOP -> sessionOP.toSessionEntity(event) }
+    private fun upsertSessions(sessions: List<SessionOP>, event: EventEntity): List<SessionEntity> {
+        val entities = sessions
+            .filter { it.speakerIds.isNotEmpty() }
+            .map { sessionOP -> sessionOP.toSessionEntity(event) }
+        SessionsTable.deleteDiff(
+            eventId = event.id.value,
+            externalIds = entities.mapNotNull { it.externalId },
+            provider = IntegrationProvider.OPENPLANNER
+        )
+        return entities
+    }
 
-    private fun upsertSchedules(sessions: List<SessionOP>, event: EventEntity): List<ScheduleEntity> = sessions
-        .map { sessionOP -> sessionOP.toScheduleEntity(event) }
+    private fun upsertSchedules(sessions: List<SessionOP>, event: EventEntity): List<ScheduleEntity> {
+        val entities = sessions.map { sessionOP -> sessionOP.toScheduleEntity(event) }
+        SchedulesTable.deleteDiff(
+            eventId = event.id.value,
+            externalIds = entities.mapNotNull { it.externalId },
+            provider = IntegrationProvider.OPENPLANNER
+        )
+        return entities
+    }
 
     private suspend fun remoteUrls(openPlanner: OpenPlanner, eventSlug: String): Map<String, String> = coroutineScope {
         val teams = openPlanner.team

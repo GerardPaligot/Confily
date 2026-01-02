@@ -1,6 +1,7 @@
 package com.paligot.confily.backend.schedules.infrastructure.exposed
 
 import com.paligot.confily.backend.events.infrastructure.exposed.EventEntity
+import com.paligot.confily.backend.integrations.domain.IntegrationProvider
 import com.paligot.confily.backend.sessions.infrastructure.exposed.EventSessionEntity
 import com.paligot.confily.backend.sessions.infrastructure.exposed.EventSessionTrackEntity
 import com.paligot.confily.backend.sessions.infrastructure.exposed.SessionEntity
@@ -20,8 +21,13 @@ class ScheduleEntity(id: EntityID<UUID>) : UUIDEntity(id) {
             .find { (SchedulesTable.eventId eq eventId) and (SchedulesTable.id eq scheduleId) }
             .firstOrNull()
 
-        fun findByExternalId(eventId: UUID, externalId: String): ScheduleEntity? = this
-            .find { (SchedulesTable.eventId eq eventId) and (SchedulesTable.externalId eq externalId) }
+        fun findByExternalId(eventId: UUID, externalId: String, provider: IntegrationProvider): ScheduleEntity? = this
+            .find {
+                val eventOp = SchedulesTable.eventId eq eventId
+                val externalIdOp = SchedulesTable.externalId eq externalId
+                val providerOp = SchedulesTable.externalProvider eq provider
+                eventOp and externalIdOp and providerOp
+            }
             .firstOrNull()
     }
 
@@ -37,6 +43,7 @@ class ScheduleEntity(id: EntityID<UUID>) : UUIDEntity(id) {
     var startTime by SchedulesTable.startTime
     var endTime by SchedulesTable.endTime
     var externalId by SchedulesTable.externalId
+    var externalProvider by SchedulesTable.externalProvider
     var createdAt by SchedulesTable.createdAt
     var updatedAt by SchedulesTable.updatedAt
 }

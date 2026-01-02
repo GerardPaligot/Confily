@@ -1,6 +1,7 @@
 package com.paligot.confily.backend.third.parties.openplanner.infrastructure.exposed
 
 import com.paligot.confily.backend.events.infrastructure.exposed.EventEntity
+import com.paligot.confily.backend.integrations.domain.IntegrationProvider
 import com.paligot.confily.backend.internals.infrastructure.exposed.SocialEntity
 import com.paligot.confily.backend.internals.infrastructure.exposed.SocialsTable
 import com.paligot.confily.backend.speakers.infrastructure.exposed.SpeakerEntity
@@ -16,7 +17,7 @@ import org.jetbrains.exposed.sql.deleteWhere
 
 fun SpeakerOP.toEntity(event: EventEntity, photoUrl: String?): SpeakerEntity {
     val entity = SpeakerEntity
-        .findByExternalId(event.id.value, this.id)
+        .findByExternalId(eventId = event.id.value, externalId = this.id, provider = IntegrationProvider.OPENPLANNER)
         ?.let { entity ->
             entity.name = this@toEntity.name
             entity.bio = this@toEntity.bio
@@ -38,6 +39,7 @@ fun SpeakerOP.toEntity(event: EventEntity, photoUrl: String?): SpeakerEntity {
             this.company = this@toEntity.company
             this.jobTitle = this@toEntity.jobTitle
             this.externalId = this@toEntity.id
+            this.externalProvider = IntegrationProvider.OPENPLANNER
         }
 
     val socialIds = SpeakerSocialsTable.socialIds(entity.id.value)

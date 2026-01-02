@@ -2,11 +2,12 @@ package com.paligot.confily.backend.third.parties.openplanner.infrastructure.exp
 
 import com.paligot.confily.backend.categories.infrastructure.exposed.CategoryEntity
 import com.paligot.confily.backend.events.infrastructure.exposed.EventEntity
+import com.paligot.confily.backend.integrations.domain.IntegrationProvider
 import com.paligot.confily.backend.third.parties.openplanner.infrastructure.provider.CategoryOP
 import kotlinx.datetime.Clock
 
 fun CategoryOP.toEntity(event: EventEntity, order: Int): CategoryEntity = CategoryEntity
-    .findByExternalId(event.id.value, this.id)
+    .findByExternalId(eventId = event.id.value, externalId = this.id, provider = IntegrationProvider.OPENPLANNER)
     ?.let { entity ->
         entity.name = this@toEntity.name
         entity.color = this@toEntity.color
@@ -19,4 +20,5 @@ fun CategoryOP.toEntity(event: EventEntity, order: Int): CategoryEntity = Catego
         this.color = this@toEntity.color
         this.displayOrder = order
         this.externalId = this@toEntity.id
+        this.externalProvider = IntegrationProvider.OPENPLANNER
     }

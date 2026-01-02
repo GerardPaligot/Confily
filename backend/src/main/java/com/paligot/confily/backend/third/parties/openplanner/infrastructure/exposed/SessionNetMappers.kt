@@ -3,6 +3,7 @@ package com.paligot.confily.backend.third.parties.openplanner.infrastructure.exp
 import com.paligot.confily.backend.categories.infrastructure.exposed.CategoryEntity
 import com.paligot.confily.backend.events.infrastructure.exposed.EventEntity
 import com.paligot.confily.backend.formats.infrastructure.exposed.FormatEntity
+import com.paligot.confily.backend.integrations.domain.IntegrationProvider
 import com.paligot.confily.backend.sessions.infrastructure.exposed.EventSessionEntity
 import com.paligot.confily.backend.sessions.infrastructure.exposed.SessionCategoriesTable
 import com.paligot.confily.backend.sessions.infrastructure.exposed.SessionEntity
@@ -14,7 +15,7 @@ import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insert
 
 fun SessionOP.toEventSessionEntity(event: EventEntity): EventSessionEntity = EventSessionEntity
-    .findByExternalId(event.id.value, this@toEventSessionEntity.id)
+    .findByExternalId(eventId = event.id.value, externalId = this.id, provider = IntegrationProvider.OPENPLANNER)
     ?.let { entity ->
         entity.title = this@toEventSessionEntity.title
         entity.description = this@toEventSessionEntity.abstract
@@ -30,10 +31,14 @@ fun SessionOP.toEventSessionEntity(event: EventEntity): EventSessionEntity = Eve
 
 fun SessionOP.toSessionEntity(event: EventEntity): SessionEntity {
     val session = SessionEntity
-        .findByExternalId(event.id.value, this@toSessionEntity.id)
+        .findByExternalId(eventId = event.id.value, externalId = this.id, provider = IntegrationProvider.OPENPLANNER)
         ?.let { entity ->
             entity.format = this@toSessionEntity.formatId?.let { formatId ->
-                FormatEntity.findByExternalId(event.id.value, formatId)
+                FormatEntity.findByExternalId(
+                    eventId = event.id.value,
+                    externalId = formatId,
+                    provider = IntegrationProvider.OPENPLANNER
+                )
             }
             entity.title = this@toSessionEntity.title
             entity.description = this@toSessionEntity.abstract
@@ -45,17 +50,26 @@ fun SessionOP.toSessionEntity(event: EventEntity): SessionEntity {
         ?: SessionEntity.new {
             this.event = event
             this.format = this@toSessionEntity.formatId?.let { formatId ->
-                FormatEntity.findByExternalId(event.id.value, formatId)
+                FormatEntity.findByExternalId(
+                    eventId = event.id.value,
+                    externalId = formatId,
+                    provider = IntegrationProvider.OPENPLANNER
+                )
             }
             this.title = this@toSessionEntity.title
             this.description = this@toSessionEntity.abstract
             this.language = this@toSessionEntity.language ?: event.defaultLanguage
             this.level = this@toSessionEntity.level
             this.externalId = this@toSessionEntity.id
+            this.externalProvider = IntegrationProvider.OPENPLANNER
         }
     SessionSpeakersTable.deleteWhere { SessionSpeakersTable.sessionId eq session.id.value }
     SpeakerEntity
-        .findByExternalIds(event.id.value, this@toSessionEntity.speakerIds)
+        .findByExternalIds(
+            eventId = event.id.value,
+            speakerIds = this.speakerIds,
+            provider = IntegrationProvider.OPENPLANNER
+        )
         .forEach { speaker ->
             SessionSpeakersTable.insert {
                 it[this.sessionId] = session.id.value
@@ -65,7 +79,11 @@ fun SessionOP.toSessionEntity(event: EventEntity): SessionEntity {
     if (this.categoryId != null) {
         SessionCategoriesTable.deleteWhere { SessionCategoriesTable.sessionId eq session.id.value }
         CategoryEntity
-            .findByExternalId(event.id.value, this.categoryId)
+            .findByExternalId(
+                eventId = event.id.value,
+                externalId = this.categoryId,
+                provider = IntegrationProvider.OPENPLANNER
+            )
             ?.let { category ->
                 SessionCategoriesTable.insert {
                     it[this.sessionId] = session.id.value

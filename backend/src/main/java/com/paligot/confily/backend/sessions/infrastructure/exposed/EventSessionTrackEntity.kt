@@ -1,6 +1,7 @@
 package com.paligot.confily.backend.sessions.infrastructure.exposed
 
 import com.paligot.confily.backend.events.infrastructure.exposed.EventEntity
+import com.paligot.confily.backend.integrations.domain.IntegrationProvider
 import org.jetbrains.exposed.dao.UUIDEntity
 import org.jetbrains.exposed.dao.UUIDEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
@@ -9,11 +10,16 @@ import java.util.UUID
 
 class EventSessionTrackEntity(id: EntityID<UUID>) : UUIDEntity(id) {
     companion object : UUIDEntityClass<EventSessionTrackEntity>(EventSessionTracksTable) {
-        fun findByExternalId(eventId: UUID, externalId: String): EventSessionTrackEntity? = this
+        fun findByExternalId(
+            eventId: UUID,
+            externalId: String,
+            provider: IntegrationProvider
+        ): EventSessionTrackEntity? = this
             .find {
                 val eventOp = EventSessionTracksTable.eventId eq eventId
                 val externalIdOp = EventSessionTracksTable.externalId eq externalId
-                eventOp and externalIdOp
+                val providerOp = EventSessionTracksTable.externalProvider eq provider
+                eventOp and externalIdOp and providerOp
             }
             .firstOrNull()
 
@@ -27,5 +33,6 @@ class EventSessionTrackEntity(id: EntityID<UUID>) : UUIDEntity(id) {
     var trackName by EventSessionTracksTable.trackName
     var displayOrder by EventSessionTracksTable.displayOrder
     var externalId by EventSessionTracksTable.externalId
+    var externalProvider by EventSessionTracksTable.externalProvider
     var createdAt by EventSessionTracksTable.createdAt
 }

@@ -3,6 +3,7 @@ package com.paligot.confily.backend.third.parties.openplanner.infrastructure.exp
 import com.paligot.confily.backend.NotAcceptableException
 import com.paligot.confily.backend.NotFoundException
 import com.paligot.confily.backend.events.infrastructure.exposed.EventEntity
+import com.paligot.confily.backend.integrations.domain.IntegrationProvider
 import com.paligot.confily.backend.internals.infrastructure.exposed.SocialEntity
 import com.paligot.confily.backend.internals.infrastructure.exposed.SocialsTable
 import com.paligot.confily.backend.team.infrastructure.exposed.TeamEntity
@@ -38,11 +39,11 @@ fun TeamOP.toEntity(event: EventEntity, order: Int, photoUrl: String?): TeamEnti
         throw NotAcceptableException("Team member ${this.name} must have a team group")
     }
     val teamGroup = TeamGroupEntity
-        .findByName(event.id.value, this.team)
+        .findByName(eventId = event.id.value, name = this.team)
         ?: throw NotFoundException("Team group ${this.team} not found for event ${event.id.value}")
 
     val entity = TeamEntity
-        .findByExternalId(event.id.value, this.id)
+        .findByExternalId(eventId = event.id.value, externalId = this.id, provider = IntegrationProvider.OPENPLANNER)
         ?.let { entity ->
             entity.event = event
             entity.name = this@toEntity.name
@@ -63,6 +64,7 @@ fun TeamOP.toEntity(event: EventEntity, order: Int, photoUrl: String?): TeamEnti
             this.displayOrder = order
             this.teamGroup = teamGroup
             this.externalId = this@toEntity.id
+            this.externalProvider = IntegrationProvider.OPENPLANNER
         }
     val socialIds = TeamSocialsTable.socialIds(entity.id.value)
     TeamSocialsTable.deleteWhere { TeamSocialsTable.teamMemberId eq entity.id.value }
