@@ -1,27 +1,29 @@
 # Packing the application
-FROM openjdk:21 as builder
+FROM gradle:8.14-jdk21 AS cache
+RUN mkdir -p /home/gradle/cache_home
+ENV GRADLE_USER_HOME=/home/gradle/cache_home
+COPY build.gradle.* gradle.properties /home/gradle/app/
+COPY gradle /home/gradle/app/gradle
+WORKDIR /home/gradle/app
+RUN gradle :backend:build -i --stacktrace
 
-WORKDIR /usr/src/app
+FROM gradle:8.13-jdk21 AS build
+COPY --from=cache /home/gradle/cache_home /home/gradle/.gradle
+COPY --chown=gradle:gradle . /home/gradle/src
+WORKDIR /home/gradle/src
+RUN gradle :backend:shadowJar --no-daemon
 
-COPY . .
-
-RUN microdnf install -y findutils
-RUN ./gradlew :backend:assemble --stacktrace --info --no-daemon
-
-# Running the application in OpenJDK container
-FROM openjdk:21
-
-ARG IS_CLOUD=true
-ARG BASE_URL_CONFERENCE_HALL=conference-hall.io
-ARG PROJECT_ID
-
-WORKDIR /usr/src/app
-COPY --from=builder /usr/src/app/backend/build/libs ./
-
-ENV PROJECT_ID=$PROJECT_ID
-ENV IS_CLOUD=$IS_CLOUD
-ENV BASE_URL_CONFERENCE_HALL=$BASE_URL_CONFERENCE_HALL
-
+FROM amazoncorretto:21 AS runtime
 EXPOSE 8080
+RUN mkdir /app
 
-ENTRYPOINT ["java", "-jar", "./backend-all.jar"]
+# Create directory for Google Cloud credentials
+RUN mkdir -p /app/config
+
+COPY --from=build /home/gradle/src/backend/build/libs/*-all.jar /app/application.jar
+
+# Copy and setup entrypoint script
+COPY entrypoint.sh /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
+
+ENTRYPOINT ["/app/entrypoint.sh"]
