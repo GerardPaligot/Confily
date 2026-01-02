@@ -2,6 +2,7 @@ package com.paligot.confily.backend.categories.infrastructure.api
 
 import com.paligot.confily.backend.categories.infrastructure.factory.CategoryModule.categoryAdminRepository
 import com.paligot.confily.backend.categories.infrastructure.factory.CategoryModule.categoryRepository
+import com.paligot.confily.backend.internals.infrastructure.ktor.http.Identifier
 import com.paligot.confily.backend.internals.infrastructure.ktor.plugins.PlanningUpdatedAtPlugin
 import com.paligot.confily.backend.receiveValidated
 import com.paligot.confily.models.inputs.CategoryInput
@@ -18,7 +19,7 @@ fun Route.registerCategoriesRoutes() {
 
     get("/categories") {
         val eventId = call.parameters["eventId"]!!
-        call.respond(HttpStatusCode.OK, repository.list(eventId))
+        call.respond(status = HttpStatusCode.OK, message = repository.list(eventId))
     }
 }
 
@@ -30,13 +31,15 @@ fun Route.registerAdminCategoriesRoutes() {
         post {
             val eventId = call.parameters["eventId"]!!
             val catInput = call.receiveValidated<CategoryInput>()
-            call.respond(HttpStatusCode.Created, repository.create(eventId, catInput))
+            val id = repository.create(eventId, catInput)
+            call.respond(status = HttpStatusCode.Created, message = Identifier(id))
         }
         put("/{id}") {
             val eventId = call.parameters["eventId"]!!
             val catId = call.parameters["id"]!!
             val catInput = call.receiveValidated<CategoryInput>()
-            call.respond(HttpStatusCode.OK, repository.update(eventId, catId, catInput))
+            val id = repository.update(eventId, catId, catInput)
+            call.respond(status = HttpStatusCode.OK, message = Identifier(id))
         }
     }
 }

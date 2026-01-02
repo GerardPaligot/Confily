@@ -80,7 +80,8 @@ data class SessionOP(
     val language: String? = null,
     val level: String? = null,
     val formatId: String? = null,
-    val categoryId: String? = null
+    val categoryId: String? = null,
+    val tags: List<String>? = null
 )
 
 @Serializable

@@ -1,8 +1,9 @@
 package com.paligot.confily.backend.tags.application
 
-import com.paligot.confily.backend.internals.infrastructure.firestore.TagEntity
-import com.paligot.confily.backend.internals.infrastructure.firestore.TagFirestore
 import com.paligot.confily.backend.tags.domain.TagRepository
+import com.paligot.confily.backend.tags.infrastructure.firestore.TagEntity
+import com.paligot.confily.backend.tags.infrastructure.firestore.TagFirestore
+import com.paligot.confily.backend.tags.infrastructure.firestore.convertToModel
 import com.paligot.confily.models.Tag
 
 class TagRepositoryDefault(

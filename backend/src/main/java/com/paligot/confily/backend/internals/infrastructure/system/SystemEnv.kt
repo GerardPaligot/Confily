@@ -1,16 +1,46 @@
 package com.paligot.confily.backend.internals.infrastructure.system
 
+import org.jetbrains.exposed.crypt.Algorithms
+
 object SystemEnv {
-    val isCloud: Boolean = getEnv("IS_CLOUD") ?: true
     val projectName: String = getEnv("PROJECT_NAME") ?: "confily"
-    val gcpProjectId: String = getEnv("PROJECT_ID")
-        ?: throw IllegalStateException("PROJECT_ID is required")
-    val conferenceHallUrl: String = getEnv("BASE_URL_CONFERENCE_HALL")
-        ?: "conference-hall.io"
-    val openPlannerUrl: String = getEnv("BASE_URL_OPEN_PLANNER")
-        ?: "storage.googleapis.com/conferencecenterr.appspot.com"
-    val openFeedbackUrl: String = getEnv("BASE_URL_OPEN_FEEDBACK")
-        ?: "openfeedback.io"
+
+    object DatabaseConfig {
+        val isCloud: Boolean = getEnv("IS_CLOUD") ?: true
+        val hasPostgres: Boolean = getEnv("EXPOSED_ENABLED") ?: false
+    }
+
+    object Exposed {
+        val dbUrl: String = getEnv("EXPOSED_DB_URL") ?: "jdbc:h2:mem:regular;DB_CLOSE_DELAY=-1"
+        val dbDriver: String = getEnv("EXPOSED_DB_DRIVER") ?: "org.h2.Driver"
+        val dbUser: String = getEnv("EXPOSED_DB_USER") ?: ""
+        val dbPassword: String = getEnv("EXPOSED_DB_PASSWORD") ?: ""
+    }
+
+    object Crypto {
+        val key: String = System.getenv("CRYPTO_KEY") ?: "crypto-key"
+        val salt: String = System.getenv("CRYPTO_SALT") ?: "5531e2129e"
+        val algorithm = Algorithms.AES_256_PBE_GCM(password = key, salt = salt)
+    }
+
+    object GoogleProvider {
+        val projectId: String = getEnv("PROJECT_ID")
+            ?: throw IllegalStateException("PROJECT_ID is required")
+        val storageBucket: String = getEnv("GOOGLE_STORAGE_BUCKET")
+            ?: throw IllegalStateException("GOOGLE_STORAGE_BUCKET is required")
+        val geocodeApiKey: String = getEnv("GEOCODE_API_KEY")
+            ?: throw IllegalStateException("GEOCODE_API_KEY is required")
+    }
+
+    object OpenFeedbackProvider {
+        val baseUrl: String = getEnv("BASE_URL_OPEN_FEEDBACK")
+            ?: "openfeedback.io"
+    }
+
+    object OpenPlannerProvider {
+        val baseUrl: String = getEnv("BASE_URL_OPEN_PLANNER")
+            ?: "storage.googleapis.com/conferencecenterr.appspot.com"
+    }
 }
 
 @Suppress("ReturnCount")

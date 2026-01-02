@@ -20,15 +20,14 @@
 dependencies {
     // Existing dependencies...
     
-    // Exposed ORM
-    implementation("org.jetbrains.exposed:exposed-core:0.46.0")
-    implementation("org.jetbrains.exposed:exposed-dao:0.46.0")
-    implementation("org.jetbrains.exposed:exposed-jdbc:0.46.0")
-    implementation("org.jetbrains.exposed:exposed-kotlin-datetime:0.46.0")
-    implementation("org.jetbrains.exposed:exposed-r2dbc:0.46.0")  // For suspendTransaction()
+    // Exposed ORM (Updated to 0.54.0 for Kotlin 2.0+ compatibility - T109)
+    implementation("org.jetbrains.exposed:exposed-core:0.54.0")
+    implementation("org.jetbrains.exposed:exposed-dao:0.54.0")
+    implementation("org.jetbrains.exposed:exposed-jdbc:0.54.0")
+    implementation("org.jetbrains.exposed:exposed-kotlin-datetime:0.54.0")
     
     // Database drivers (PostgreSQL for production, H2 for development/testing)
-    implementation("org.postgresql:postgresql:42.7.1")
+    implementation("org.postgresql:postgresql:42.7.3")
     implementation("com.h2database:h2:2.2.224")
     
     // Testing
@@ -593,12 +592,135 @@ class EventApiIntegrationTest {
 
 ---
 
+## Complete Repository Implementation Examples (T109)
+
+### Example 1: Simple Repository with Basic CRUD
+
+```kotlin
+// backend/src/main/java/com/paligot/confily/backend/internals/infrastructure/exposed/repositories/TagRepositoryExposed.kt
+class TagRepositoryExposed(private val database: Database) : TagRepository {
+    
+    override suspend fun list(eventId: String): List<Tag> = suspendTransaction(database) {
+        TagEntity
+            .find { TagsTable.eventId eq UUID.fromString(eventId) }
+            .orderBy(TagsTable.name to SortOrder.ASC)
+            .map { it.toTag() }
+    }
+    
+    private fun TagEntity.toTag() = Tag(
+        id = this.id.value.toString(),
+        name = this.name,
+        color = this.color
+    )
+}
+```
+
+### Example 2: Repository with Nested Data (One-to-Many)
+
+```kotlin
+// backend/src/main/java/com/paligot/confily/backend/internals/infrastructure/exposed/repositories/MapRepositoryExposed.kt
+class MapRepositoryExposed(private val database: Database) : MapRepository {
+    
+    override suspend fun list(eventId: String): List<Map> = suspendTransaction(database) {
+        val uuid = UUID.fromString(eventId)
+        
+        // Fetch all maps for event
+        val maps = MapEntity
+            .find { MapsTable.eventId eq uuid }
+            .orderBy(MapsTable.displayOrder to SortOrder.ASC)
+        
+        maps.map { map ->
+            val mapId = map.id.value
+            
+            // Query nested shapes
+            val shapes = MapShapeEntity
+                .find { MapShapesTable.mapId eq mapId }
+                .map { it.toShape() }
+            
+            // Query nested pictograms
+            val pictograms = MapPictogramEntity
+                .find { MapPictogramsTable.mapId eq mapId }
+                .map { it.toPictogram() }
+            
+            map.toMap(shapes, pictograms)
+        }
+    }
+}
+```
+
+### Example 3: Repository with Multiple Junction Tables
+
+```kotlin
+// backend/src/main/java/com/paligot/confily/backend/internals/infrastructure/exposed/repositories/SessionRepositoryExposed.kt
+class SessionRepositoryExposed(private val database: Database) : SessionRepository {
+    
+    override suspend fun getAll(eventId: String): List<Session> = suspendTransaction(database) {
+        val uuid = UUID.fromString(eventId)
+        
+        // Find all sessions for event
+        val sessions = SessionEntity
+            .find { SessionsTable.eventId eq uuid }
+            .orderBy(SessionsTable.title to SortOrder.ASC)
+        
+        sessions.map { session ->
+            val sessionId = session.id.value
+            
+            // Query junction tables for speakers
+            val speakers = (SessionSpeakersTable innerJoin SpeakersTable)
+                .select(SpeakersTable.columns)
+                .where { SessionSpeakersTable.sessionId eq sessionId }
+                .map { SpeakerEntity.wrapRow(it).toSpeaker() }
+            
+            // Query junction tables for categories
+            val categories = (SessionCategoriesTable innerJoin CategoriesTable)
+                .select(CategoriesTable.columns)
+                .where { SessionCategoriesTable.sessionId eq sessionId }
+                .map { CategoryEntity.wrapRow(it).toCategory() }
+            
+            session.toSession(speakers, categories)
+        }
+    }
+}
+```
+
+### Example 4: Repository with Foreign Key Navigation
+
+```kotlin
+// backend/src/main/java/com/paligot/confily/backend/internals/infrastructure/exposed/repositories/ScheduleRepositoryExposed.kt
+class ScheduleRepositoryExposed(private val database: Database) : ScheduleRepository {
+    
+    override suspend fun get(eventId: String): List<Schedule> = suspendTransaction(database) {
+        val uuid = UUID.fromString(eventId)
+        
+        ScheduleEntity
+            .find { SchedulesTable.eventId eq uuid }
+            .orderBy(SchedulesTable.startTime to SortOrder.ASC)
+            .map { schedule ->
+                Schedule(
+                    id = schedule.id.value.toString(),
+                    time = timeFormatter.format(schedule.startTime.toJavaInstant()),
+                    startTime = timeFormatter.format(schedule.startTime.toJavaInstant()),
+                    endTime = timeFormatter.format(schedule.endTime.toJavaInstant()),
+                    // Navigate foreign key to get track name
+                    trackId = EventSessionTrackEntity[schedule.eventSessionTrackId].trackName,
+                    sessionId = schedule.sessionId?.value?.toString(),
+                    eventSessionId = schedule.eventSessionId?.value?.toString()
+                )
+            }
+    }
+}
+```
+
+---
+
 ## Next Steps
 
-1. ✅ Implement Categories and Formats repositories (Phase 1)
-2. ✅ Add integration tests comparing with Firestore behavior
-3. ✅ Create remaining table definitions (Speakers, Sessions, etc.)
-4. ✅ Implement Speakers and Sessions repositories (Phase 2)
-5. ✅ Add performance benchmarks
+1. ✅ Implement all 16 entity repositories (Completed: 100%)
+2. ✅ Add 32 tables to DatabaseFactory.allTables (Verified)
+3. ✅ Performance optimization with indexes (Completed)
+4. ✅ Integration tests for CASCADE delete behavior
+5. ⏳ Admin repository implementations (4/14 complete - see T111)
+6. ⏳ Performance benchmarking in staging environment
 
 **Ready to code!** Follow the phased implementation plan from [plan.md](./plan.md).
+

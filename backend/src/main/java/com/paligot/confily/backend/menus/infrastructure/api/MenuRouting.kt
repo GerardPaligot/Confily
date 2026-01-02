@@ -1,5 +1,6 @@
 package com.paligot.confily.backend.menus.infrastructure.api
 
+import com.paligot.confily.backend.internals.infrastructure.ktor.http.Identifier
 import com.paligot.confily.backend.internals.infrastructure.ktor.plugins.EventUpdatedAtPlugin
 import com.paligot.confily.backend.menus.infrastructure.factory.MenuModule.menuAdminRepository
 import com.paligot.confily.models.inputs.LunchMenuInput
@@ -19,7 +20,8 @@ fun Route.registerAdminMenuRoutes() {
         put {
             val eventId = call.parameters["eventId"]!!
             val input = call.receive<List<LunchMenuInput>>()
-            call.respond(HttpStatusCode.OK, menuAdminRepository.update(eventId, input))
+            val id = menuAdminRepository.update(eventId, input)
+            call.respond(status = HttpStatusCode.OK, message = Identifier(id))
         }
     }
 }

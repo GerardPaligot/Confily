@@ -1,11 +1,11 @@
 package com.paligot.confily.backend.speakers.application
 
+import com.paligot.confily.backend.events.infrastructure.firestore.EventFirestore
 import com.paligot.confily.backend.internals.helpers.mimeType
-import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
-import com.paligot.confily.backend.internals.infrastructure.firestore.SpeakerFirestore
 import com.paligot.confily.backend.internals.infrastructure.provider.CommonApi
-import com.paligot.confily.backend.internals.infrastructure.storage.SpeakerStorage
 import com.paligot.confily.backend.speakers.domain.SpeakerAdminRepository
+import com.paligot.confily.backend.speakers.infrastructure.firestore.SpeakerFirestore
+import com.paligot.confily.backend.speakers.infrastructure.storage.SpeakerStorage
 import com.paligot.confily.models.inputs.SpeakerInput
 
 class SpeakerAdminRepositoryDefault(

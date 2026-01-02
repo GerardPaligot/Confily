@@ -2,11 +2,17 @@ package com.paligot.confily.backend.events.application
 
 import com.paligot.confily.backend.NotAcceptableException
 import com.paligot.confily.backend.NotFoundException
+import com.paligot.confily.backend.addresses.infrastructure.firestore.convertToEntity
+import com.paligot.confily.backend.addresses.infrastructure.provider.GeocodeApi
 import com.paligot.confily.backend.events.domain.EventRepository
-import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
-import com.paligot.confily.backend.internals.infrastructure.storage.EventStorage
-import com.paligot.confily.backend.third.parties.geocode.infrastructure.provider.GeocodeApi
-import com.paligot.confily.backend.third.parties.geocode.infrastructure.provider.convertToEntity
+import com.paligot.confily.backend.events.infrastructure.firestore.EventFirestore
+import com.paligot.confily.backend.events.infrastructure.firestore.convertToEntity
+import com.paligot.confily.backend.events.infrastructure.firestore.convertToEventItemList
+import com.paligot.confily.backend.events.infrastructure.firestore.convertToModel
+import com.paligot.confily.backend.events.infrastructure.firestore.convertToModelV2
+import com.paligot.confily.backend.events.infrastructure.firestore.convertToModelV3
+import com.paligot.confily.backend.events.infrastructure.firestore.convertToModelV4
+import com.paligot.confily.backend.events.infrastructure.storage.EventStorage
 import com.paligot.confily.models.CreatedEvent
 import com.paligot.confily.models.Event
 import com.paligot.confily.models.EventList

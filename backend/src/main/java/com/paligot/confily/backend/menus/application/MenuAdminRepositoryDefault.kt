@@ -1,7 +1,8 @@
 package com.paligot.confily.backend.menus.application
 
-import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
+import com.paligot.confily.backend.events.infrastructure.firestore.EventFirestore
 import com.paligot.confily.backend.menus.domain.MenuAdminRepository
+import com.paligot.confily.backend.menus.infrastructure.firestore.convertToEntity
 import com.paligot.confily.models.inputs.LunchMenuInput
 
 class MenuAdminRepositoryDefault(

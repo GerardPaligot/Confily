@@ -1,9 +1,9 @@
 package com.paligot.confily.backend.speakers.application
 
-import com.paligot.confily.backend.internals.application.convertToEntity
-import com.paligot.confily.backend.internals.application.convertToModel
-import com.paligot.confily.backend.internals.infrastructure.firestore.SocialEntity
-import com.paligot.confily.backend.internals.infrastructure.firestore.SpeakerEntity
+import com.paligot.confily.backend.addresses.infrastructure.firestore.convertToModel
+import com.paligot.confily.backend.internals.infrastructure.firestore.convertToEntity
+import com.paligot.confily.backend.internals.infrastructure.firestore.convertToModel
+import com.paligot.confily.backend.speakers.infrastructure.firestore.SpeakerEntity
 import com.paligot.confily.models.SocialItem
 import com.paligot.confily.models.SocialType
 import com.paligot.confily.models.Speaker
@@ -18,7 +18,7 @@ fun SpeakerEntity.convertToModel(): Speaker = Speaker(
     jobTitle = this.jobTitle,
     company = this.company,
     photoUrl = this.photoUrl,
-    socials = socials.map(SocialEntity::convertToModel).toMutableList().apply {
+    socials = socials.map { it.convertToModel() }.toMutableList().apply {
         if (find { it.type == SocialType.LinkedIn } == null && linkedin != null) {
             this.add(SocialItem(SocialType.LinkedIn, linkedin))
         }

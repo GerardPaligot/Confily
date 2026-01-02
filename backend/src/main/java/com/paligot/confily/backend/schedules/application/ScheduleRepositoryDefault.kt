@@ -1,14 +1,15 @@
 package com.paligot.confily.backend.schedules.application
 
 import com.paligot.confily.backend.NotFoundException
-import com.paligot.confily.backend.internals.infrastructure.firestore.CategoryFirestore
-import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
-import com.paligot.confily.backend.internals.infrastructure.firestore.FormatFirestore
-import com.paligot.confily.backend.internals.infrastructure.firestore.ScheduleItemFirestore
-import com.paligot.confily.backend.internals.infrastructure.firestore.SessionFirestore
-import com.paligot.confily.backend.internals.infrastructure.firestore.SpeakerFirestore
+import com.paligot.confily.backend.categories.infrastructure.firestore.CategoryFirestore
+import com.paligot.confily.backend.events.infrastructure.firestore.EventFirestore
+import com.paligot.confily.backend.formats.infrastructure.firestore.FormatFirestore
 import com.paligot.confily.backend.schedules.domain.ScheduleRepository
-import com.paligot.confily.backend.sessions.application.convertToModel
+import com.paligot.confily.backend.schedules.infrastructure.firestore.ScheduleItemFirestore
+import com.paligot.confily.backend.schedules.infrastructure.firestore.convertToModel
+import com.paligot.confily.backend.sessions.infrastructure.firestore.SessionFirestore
+import com.paligot.confily.backend.sessions.infrastructure.firestore.convertToModel
+import com.paligot.confily.backend.speakers.infrastructure.firestore.SpeakerFirestore
 import com.paligot.confily.models.ScheduleItem
 import kotlinx.coroutines.coroutineScope
 

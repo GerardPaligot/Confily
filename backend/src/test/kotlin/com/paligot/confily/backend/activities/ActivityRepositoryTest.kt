@@ -2,10 +2,10 @@ package com.paligot.confily.backend.activities
 
 import com.paligot.confily.backend.NotFoundException
 import com.paligot.confily.backend.activities.application.ActivityRepositoryDefault
-import com.paligot.confily.backend.internals.infrastructure.firestore.ActivityFirestore
-import com.paligot.confily.backend.internals.infrastructure.firestore.EventEntity
-import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
-import com.paligot.confily.backend.internals.infrastructure.firestore.PartnerFirestore
+import com.paligot.confily.backend.activities.infrastructure.firestore.ActivityFirestore
+import com.paligot.confily.backend.events.infrastructure.firestore.EventEntity
+import com.paligot.confily.backend.events.infrastructure.firestore.EventFirestore
+import com.paligot.confily.backend.partners.infrastructure.firestore.PartnerFirestore
 import com.paligot.confily.models.inputs.ActivityInput
 import io.mockk.Runs
 import io.mockk.clearAllMocks

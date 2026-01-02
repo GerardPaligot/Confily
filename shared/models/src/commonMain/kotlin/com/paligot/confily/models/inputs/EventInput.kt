@@ -9,7 +9,8 @@ data class LunchMenuInput(
     val name: String,
     val dish: String,
     val accompaniment: String,
-    val dessert: String
+    val dessert: String,
+    val date: String
 ) : Validator {
     override fun validate(): List<String> = emptyList()
 }

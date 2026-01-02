@@ -2,7 +2,7 @@ package com.paligot.confily.backend.third.parties.billetweb.application
 
 import com.paligot.confily.backend.NotAcceptableException
 import com.paligot.confily.backend.NotFoundException
-import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
+import com.paligot.confily.backend.events.infrastructure.firestore.EventFirestore
 import com.paligot.confily.backend.third.parties.billetweb.domain.BilletWebRepository
 import com.paligot.confily.backend.third.parties.billetweb.infrastructure.provider.BilletWebApi
 import com.paligot.confily.models.Attendee

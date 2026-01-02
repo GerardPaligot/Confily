@@ -17,10 +17,10 @@ import com.paligot.confily.backend.internals.infrastructure.system.SystemEnv
 object GoogleServicesModule {
     val cloudFirestore: Lazy<Firestore> = lazy {
         FirestoreOptions.getDefaultInstance().toBuilder().run {
-            if (!SystemEnv.isCloud) {
+            if (!SystemEnv.DatabaseConfig.isCloud) {
                 setEmulatorHost("localhost:8081")
             }
-            setProjectId(SystemEnv.gcpProjectId)
+            setProjectId(SystemEnv.GoogleProvider.projectId)
             setCredentials(GoogleCredentials.getApplicationDefault())
             build()
         }.service
@@ -28,7 +28,7 @@ object GoogleServicesModule {
 
     val cloudStorage: Lazy<Storage> = lazy {
         StorageOptions.getDefaultInstance().toBuilder().run {
-            setProjectId(SystemEnv.gcpProjectId)
+            setProjectId(SystemEnv.GoogleProvider.projectId)
             setCredentials(GoogleCredentials.getApplicationDefault())
             build()
         }.service
@@ -51,7 +51,7 @@ object GoogleServicesModule {
                 GoogleCredentials.getApplicationDefault().createScoped(setOf(DriveScopes.DRIVE))
             )
         )
-            .setApplicationName(SystemEnv.gcpProjectId)
+            .setApplicationName(SystemEnv.GoogleProvider.projectId)
             .build()
     }
 }

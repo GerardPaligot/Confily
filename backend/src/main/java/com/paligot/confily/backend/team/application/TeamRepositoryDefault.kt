@@ -1,8 +1,9 @@
 package com.paligot.confily.backend.team.application
 
-import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
-import com.paligot.confily.backend.internals.infrastructure.firestore.TeamFirestore
+import com.paligot.confily.backend.events.infrastructure.firestore.EventFirestore
 import com.paligot.confily.backend.team.domain.TeamRepository
+import com.paligot.confily.backend.team.infrastructure.firestore.TeamFirestore
+import com.paligot.confily.backend.team.infrastructure.firestore.convertToModel
 import com.paligot.confily.models.TeamMember
 
 class TeamRepositoryDefault(

@@ -1,10 +1,11 @@
 package com.paligot.confily.backend.events.application
 
 import com.paligot.confily.backend.NotAcceptableException
+import com.paligot.confily.backend.addresses.infrastructure.firestore.convertToEntity
+import com.paligot.confily.backend.addresses.infrastructure.provider.GeocodeApi
 import com.paligot.confily.backend.events.domain.EventAdminRepository
-import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
-import com.paligot.confily.backend.third.parties.geocode.infrastructure.provider.GeocodeApi
-import com.paligot.confily.backend.third.parties.geocode.infrastructure.provider.convertToEntity
+import com.paligot.confily.backend.events.infrastructure.firestore.EventFirestore
+import com.paligot.confily.backend.events.infrastructure.firestore.convertToEntity
 import com.paligot.confily.models.inputs.CoCInput
 import com.paligot.confily.models.inputs.EventInput
 import com.paligot.confily.models.inputs.FeaturesActivatedInput

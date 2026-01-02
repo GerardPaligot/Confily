@@ -10,20 +10,20 @@ import io.ktor.http.ContentType.Text
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.response.respond
 import io.ktor.server.response.respondText
-import io.ktor.server.routing.Routing
+import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 import io.ktor.server.routing.put
 
-fun Routing.registerExportRoutes() {
+fun Route.registerExportRoutes() {
     val exportEventRepository by exportEventRepository
     val exportPlanningRepository by exportPlanningRepository
     val exportPartnersRepository by exportPartnersRepository
 
-    get("/events/{eventId}/export/event") {
+    get("/export/event") {
         val eventId = call.parameters["eventId"]!!
         call.respond(HttpStatusCode.OK, exportEventRepository.get(eventId))
     }
-    get("/events/{eventId}/export/planning") {
+    get("/export/planning") {
         val eventId = call.parameters["eventId"]!!
         val accept = call.request.headers["Accept"] ?: "application/json"
         when {
@@ -47,26 +47,26 @@ fun Routing.registerExportRoutes() {
             }
         }
     }
-    get("/events/{eventId}/export/partners") {
+    get("/export/partners") {
         val eventId = call.parameters["eventId"]!!
         call.respond(HttpStatusCode.OK, exportPartnersRepository.get(eventId))
     }
 }
 
-fun Routing.registerAdminExportRoutes() {
+fun Route.registerAdminExportRoutes() {
     val exportEventRepository by exportEventAdminRepository
     val exportPlanningRepository by exportPlanningAdminRepository
     val exportPartnersRepository by exportPartnersAdminRepository
 
-    put("/events/{eventId}/export/event") {
+    put("/export/event") {
         val eventId = call.parameters["eventId"]!!
         call.respond(HttpStatusCode.OK, exportEventRepository.export(eventId))
     }
-    put("/events/{eventId}/export/planning") {
+    put("/export/planning") {
         val eventId = call.parameters["eventId"]!!
         call.respond(HttpStatusCode.OK, exportPlanningRepository.export(eventId))
     }
-    put("/events/{eventId}/export/partners") {
+    put("/export/partners") {
         val eventId = call.parameters["eventId"]!!
         call.respond(HttpStatusCode.OK, exportPartnersRepository.export(eventId))
     }

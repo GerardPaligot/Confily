@@ -1,9 +1,9 @@
 package com.paligot.confily.backend.export.application
 
 import com.paligot.confily.backend.NotFoundException
+import com.paligot.confily.backend.events.infrastructure.firestore.EventFirestore
+import com.paligot.confily.backend.events.infrastructure.storage.EventStorage
 import com.paligot.confily.backend.export.domain.ExportRepository
-import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
-import com.paligot.confily.backend.internals.infrastructure.storage.EventStorage
 import com.paligot.confily.models.PartnersActivities
 
 class ExportPartnersRepositoryDefault(

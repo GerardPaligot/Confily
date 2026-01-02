@@ -1,8 +1,8 @@
 package com.paligot.confily.backend.formats
 
 import com.paligot.confily.backend.formats.application.FormatRepositoryDefault
-import com.paligot.confily.backend.internals.infrastructure.firestore.FormatEntity
-import com.paligot.confily.backend.internals.infrastructure.firestore.FormatFirestore
+import com.paligot.confily.backend.formats.infrastructure.firestore.FormatEntity
+import com.paligot.confily.backend.formats.infrastructure.firestore.FormatFirestore
 import com.paligot.confily.models.Format
 import io.mockk.coEvery
 import io.mockk.mockk

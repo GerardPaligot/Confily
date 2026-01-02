@@ -228,3 +228,142 @@ backend/build.gradle.kts             # Add Exposed and PostgreSQL dependencies
 | Manual DI configuration for repository switching | Simple, explicit control during migration phase | Complex DI framework configuration would add overhead for temporary dual-implementation period |
 
 **No Constitution Violations**: This implementation strictly follows backend architecture patterns, maintains modular separation, includes comprehensive testing, and meets performance requirements.
+---
+
+## Repository Switching Configuration (T110)
+
+### Overview
+
+The codebase supports dual database backends (Firestore and PostgreSQL/Exposed) through dependency injection configuration. This allows gradual migration, A/B testing, and easy rollback if issues arise.
+
+### Configuration Mechanism
+
+**Location**: `backend/src/main/java/com/paligot/confily/backend/internals/InternalModule.kt`
+
+**Settings Class**: `DatabaseSettings.Database`
+
+```kotlin
+data class Database(
+    val enableExposed: Boolean = false,
+    val enableFirestore: Boolean = true
+)
+```
+
+### Repository Selection Logic
+
+Each repository interface (e.g., `EventRepository`, `SessionRepository`) has two implementations:
+- **Firestore**: `{Entity}RepositoryFirestore` (original implementation)
+- **PostgreSQL**: `{Entity}RepositoryExposed` (new implementation)
+
+The `InternalModule.provide()` function uses configuration to select which implementation to bind:
+
+```kotlin
+fun provide(settings: DatabaseSettings.Database): Module {
+    return module {
+        // Database initialization (only if Exposed enabled)
+        if (settings.enableExposed) {
+            single { DatabaseFactory.init() }
+        }
+        
+        // Repository bindings with conditional logic
+        if (settings.enableExposed) {
+            single<EventRepository> { EventRepositoryExposed(get()) }
+            single<SessionRepository> { SessionRepositoryExposed(get()) }
+            // ... other Exposed repositories
+        } else {
+            single<EventRepository> { EventRepositoryFirestore(get()) }
+            single<SessionRepository> { SessionRepositoryFirestore(get()) }
+            // ... other Firestore repositories
+        }
+    }
+}
+```
+
+### Environment-Based Configuration
+
+**Development** (local testing):
+```bash
+export ENABLE_EXPOSED=true    # Use PostgreSQL/Exposed
+export ENABLE_FIRESTORE=false  # Disable Firestore
+```
+
+**Staging** (gradual rollout):
+```bash
+export ENABLE_EXPOSED=true    # Enable both for comparison
+export ENABLE_FIRESTORE=true
+```
+
+**Production** (after validation):
+```bash
+export ENABLE_EXPOSED=true    # PostgreSQL only
+export ENABLE_FIRESTORE=false  # Decommission Firestore
+```
+
+### Per-Entity Migration Strategy
+
+For gradual migration, repository bindings can be configured independently:
+
+```kotlin
+// Example: Migrate Events and Sessions to Exposed, keep Speakers on Firestore
+single<EventRepository> { EventRepositoryExposed(get()) }
+single<SessionRepository> { SessionRepositoryExposed(get()) }
+single<SpeakerRepository> { SpeakerRepositoryFirestore(get()) }  // Still on Firestore
+```
+
+### Testing Configuration
+
+**Integration tests** explicitly choose implementation:
+
+```kotlin
+startKoin {
+    modules(
+        InternalModule.provide(
+            settings = DatabaseSettings.Database(
+                enableExposed = true,
+                enableFirestore = false
+            )
+        )
+    )
+}
+```
+
+### Rollback Procedure
+
+If issues are detected with Exposed implementation:
+
+1. Update environment variables:
+   ```bash
+   export ENABLE_EXPOSED=false
+   export ENABLE_FIRESTORE=true
+   ```
+
+2. Restart application server
+
+3. Firestore resumes handling all requests immediately
+
+### Performance Monitoring
+
+Use database-specific metrics to compare performance:
+
+- **Firestore**: Firebase Console → Performance Monitoring
+- **PostgreSQL**: Query execution time logs, connection pool metrics
+- **Application**: Response time P95 metrics per repository
+
+### Future: Configuration File Support
+
+Planned enhancement for fine-grained control:
+
+```yaml
+# config/database.yml
+databases:
+  firestore:
+    enabled: false
+  postgresql:
+    enabled: true
+    url: ${DATABASE_URL}
+    
+repositories:
+  events: exposed      # Use PostgreSQL
+  sessions: exposed    # Use PostgreSQL  
+  speakers: firestore  # Still on Firestore
+```

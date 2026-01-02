@@ -2,10 +2,10 @@ package com.paligot.confily.backend.sessions.application
 
 import com.paligot.confily.backend.NotFoundException
 import com.paligot.confily.backend.internals.helpers.drive.DriveDataSource
-import com.paligot.confily.backend.internals.infrastructure.firestore.SessionFirestore
-import com.paligot.confily.backend.internals.infrastructure.firestore.SpeakerFirestore
-import com.paligot.confily.backend.internals.infrastructure.firestore.TalkSessionEntity
 import com.paligot.confily.backend.sessions.domain.SessionAdminVerbatimRepository
+import com.paligot.confily.backend.sessions.infrastructure.firestore.SessionFirestore
+import com.paligot.confily.backend.sessions.infrastructure.firestore.TalkSessionEntity
+import com.paligot.confily.backend.speakers.infrastructure.firestore.SpeakerFirestore
 import com.paligot.confily.models.inputs.TalkVerbatimInput
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll

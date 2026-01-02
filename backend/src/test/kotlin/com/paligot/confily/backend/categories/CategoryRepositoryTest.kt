@@ -1,8 +1,8 @@
 package com.paligot.confily.backend.categories
 
 import com.paligot.confily.backend.categories.application.CategoryRepositoryDefault
-import com.paligot.confily.backend.internals.infrastructure.firestore.CategoryEntity
-import com.paligot.confily.backend.internals.infrastructure.firestore.CategoryFirestore
+import com.paligot.confily.backend.categories.infrastructure.firestore.CategoryEntity
+import com.paligot.confily.backend.categories.infrastructure.firestore.CategoryFirestore
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk

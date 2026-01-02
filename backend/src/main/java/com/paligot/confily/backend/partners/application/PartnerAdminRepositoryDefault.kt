@@ -1,15 +1,17 @@
 package com.paligot.confily.backend.partners.application
 
 import com.paligot.confily.backend.NotAcceptableException
-import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
-import com.paligot.confily.backend.internals.infrastructure.firestore.PartnerFirestore
+import com.paligot.confily.backend.addresses.infrastructure.firestore.convertToEntity
+import com.paligot.confily.backend.addresses.infrastructure.provider.GeocodeApi
+import com.paligot.confily.backend.events.infrastructure.firestore.EventFirestore
 import com.paligot.confily.backend.internals.infrastructure.provider.CommonApi
-import com.paligot.confily.backend.internals.infrastructure.storage.PartnerStorage
 import com.paligot.confily.backend.internals.infrastructure.transcoder.Png
 import com.paligot.confily.backend.internals.infrastructure.transcoder.TranscoderImage
 import com.paligot.confily.backend.partners.domain.PartnerAdminRepository
-import com.paligot.confily.backend.third.parties.geocode.infrastructure.provider.GeocodeApi
-import com.paligot.confily.backend.third.parties.geocode.infrastructure.provider.convertToEntity
+import com.paligot.confily.backend.partners.infrastructure.firestore.PartnerFirestore
+import com.paligot.confily.backend.partners.infrastructure.firestore.convertToEntity
+import com.paligot.confily.backend.partners.infrastructure.firestore.convertToPartnerMediaEntity
+import com.paligot.confily.backend.partners.infrastructure.storage.PartnerStorage
 import com.paligot.confily.models.inputs.PartnerInput
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll

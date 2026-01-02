@@ -16,7 +16,7 @@ import kotlinx.serialization.json.Json
 
 class OpenPlannerApi(
     private val client: HttpClient,
-    private val baseUrl: String = "https://${SystemEnv.openPlannerUrl}"
+    private val baseUrl: String = "https://${SystemEnv.OpenPlannerProvider.baseUrl}"
 ) {
     suspend fun fetchPrivateJson(eventId: String, privateId: String): OpenPlanner =
         client.get("$baseUrl/events/$eventId/$privateId.json?t=${Clock.System.now().epochSeconds}")

@@ -1,7 +1,8 @@
 package com.paligot.confily.backend.categories.application
 
 import com.paligot.confily.backend.categories.domain.CategoryAdminRepository
-import com.paligot.confily.backend.internals.infrastructure.firestore.CategoryFirestore
+import com.paligot.confily.backend.categories.infrastructure.firestore.CategoryFirestore
+import com.paligot.confily.backend.categories.infrastructure.firestore.convertToDb
 import com.paligot.confily.models.inputs.CategoryInput
 import kotlinx.coroutines.coroutineScope
 

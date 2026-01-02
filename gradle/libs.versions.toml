@@ -41,8 +41,11 @@ google-mlkit-barcode-scanning = "17.3.0"
 google-services = "4.4.2"
 google-services-wearable = "19.0.0"
 google-zxing = "3.5.3"
+h2 = "2.2.224"
+postgresql = "42.7.1"
 jetbrains-compose = "1.8.0"
 jetbrains-compose-adaptive = "1.1.0"
+jetbrains-exposed = "0.54.0"
 jetbrains-navigation-compose = "2.8.0-alpha13"
 jetbrains-lifecycle = "2.8.4"
 jetbrains-kotlin = "2.1.21"
@@ -128,6 +131,12 @@ jetbrains-compose-material3-adaptive = { group = "org.jetbrains.compose.material
 jetbrains-compose-material3-adaptive-layout = { group = "org.jetbrains.compose.material3.adaptive", name = "adaptive-layout", version.ref = "jetbrains-compose-adaptive" }
 jetbrains-compose-material3-adaptive-navigation = { group = "org.jetbrains.compose.material3.adaptive", name = "adaptive-navigation", version.ref = "jetbrains-compose-adaptive" }
 jetbrains-compose-material3-windowsizeclass = { group = "org.jetbrains.compose.material3", name = "material3-window-size-class", version.ref = "jetbrains-compose" }
+jetbrains-exposed-core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "jetbrains-exposed" }
+jetbrains-exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "jetbrains-exposed" }
+jetbrains-exposed-dao = { module = "org.jetbrains.exposed:exposed-dao", version.ref = "jetbrains-exposed" }
+jetbrains-exposed-crypt = { module = "org.jetbrains.exposed:exposed-crypt", version.ref = "jetbrains-exposed" }
+jetbrains-exposed-kotlin-datetime = { module = "org.jetbrains.exposed:exposed-kotlin-datetime", version.ref = "jetbrains-exposed" }
+jetbrains-exposed-r2dbc = { module = "org.jetbrains.exposed:exposed-r2dbc", version.ref = "jetbrains-exposed" }
 jetbrains-lifecycle-viewmodel-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "jetbrains-lifecycle" }
 jetbrains-navigation-compose = { group = "org.jetbrains.androidx.navigation", name = "navigation-compose", version.ref = "jetbrains-navigation-compose" }
 jetbrains-kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "jetbrains-kotlin" }
@@ -194,6 +203,9 @@ ktor-serialization-json = { group = "io.ktor", name = "ktor-serialization-kotlin
 
 ktlint-gradlePlugin = { group = "org.jlleitschuh.gradle", name = "ktlint-gradle", version.ref = "ktlint" }
 
+h2 = { module = "com.h2database:h2", version.ref = "h2" }
+postgresql = { module = "org.postgresql:postgresql", version.ref = "postgresql" }
+
 logback = { group = "ch.qos.logback", name = "logback-classic", version.ref = "logback" }
 
 lyricist = { group = "cafe.adriel.lyricist", name = "lyricist", version.ref = "lyricist" }
@@ -227,6 +239,15 @@ jetbrains-compose-adaptive = [
     "jetbrains-compose-material3-adaptive-layout",
     "jetbrains-compose-material3-adaptive-navigation",
     "jetbrains-compose-material3-windowsizeclass"
+]
+jetbrains-exposed = [
+    "jetbrains-exposed-core",
+    "jetbrains-exposed-jdbc",
+    "jetbrains-exposed-dao",
+    "jetbrains-exposed-crypt",
+    "jetbrains-exposed-kotlin-datetime",
+    "postgresql",
+    "h2"
 ]
 jetbrains-kotlinx-io = [
     "jetbrains-kotlinx-io-core",

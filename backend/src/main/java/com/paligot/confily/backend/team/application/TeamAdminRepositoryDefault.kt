@@ -1,12 +1,13 @@
 package com.paligot.confily.backend.team.application
 
 import com.paligot.confily.backend.NotAcceptableException
+import com.paligot.confily.backend.events.infrastructure.firestore.EventFirestore
 import com.paligot.confily.backend.internals.helpers.mimeType
-import com.paligot.confily.backend.internals.infrastructure.firestore.EventFirestore
-import com.paligot.confily.backend.internals.infrastructure.firestore.TeamFirestore
 import com.paligot.confily.backend.internals.infrastructure.provider.CommonApi
-import com.paligot.confily.backend.internals.infrastructure.storage.TeamStorage
 import com.paligot.confily.backend.team.domain.TeamAdminRepository
+import com.paligot.confily.backend.team.infrastructure.firestore.TeamFirestore
+import com.paligot.confily.backend.team.infrastructure.firestore.convertToEntity
+import com.paligot.confily.backend.team.infrastructure.storage.TeamStorage
 import com.paligot.confily.models.inputs.TeamMemberInput
 
 class TeamAdminRepositoryDefault(
