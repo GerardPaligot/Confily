@@ -20,6 +20,10 @@ on:
         description: 'Docker image tag to deploy'
         required: true
         default: 'latest'
+      repository_owner:
+        description: 'GitHub repository owner (organization or user)'
+        required: false
+        default: 'GerardPaligot'
   workflow_run:
     workflows: ["Build and Push Backend Container"]
     types:
@@ -53,14 +57,17 @@ jobs:
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             echo "environment=${{ inputs.environment }}" >> $GITHUB_OUTPUT
             echo "image_tag=${{ inputs.image_tag }}" >> $GITHUB_OUTPUT
+            echo "REPO_OWNER=${{ inputs.repository_owner }}"
+            echo "repository_owner=${REPO_OWNER,,}" >> $GITHUB_OUTPUT
           elif [ "${{ github.event_name }}" = "push" ]; then
             echo "environment=production" >> $GITHUB_OUTPUT
             echo "image_tag=${{ github.ref_name }}" >> $GITHUB_OUTPUT
+            echo "repository_owner=${GITHUB_REPO_OWNER,,}" >> $GITHUB_OUTPUT
           elif [ "${{ github.event_name }}" = "workflow_run" ]; then
             echo "environment=preprod" >> $GITHUB_OUTPUT
             echo "image_tag=latest" >> $GITHUB_OUTPUT
+            echo "repository_owner=${GITHUB_REPO_OWNER,,}" >> $GITHUB_OUTPUT
           fi
-          echo "repository_owner=${GITHUB_REPO_OWNER,,}" >> $GITHUB_OUTPUT
 
       - name: Set Clever Cloud App ID
         id: app
