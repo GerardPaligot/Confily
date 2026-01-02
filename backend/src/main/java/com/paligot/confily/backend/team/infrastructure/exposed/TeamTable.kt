@@ -14,7 +14,7 @@ object TeamTable : UUIDTable("team") {
     val photoUrl = text("photo_url").nullable()
     val teamGroupId = reference("team_group_id", TeamGroupsTable, onDelete = ReferenceOption.CASCADE)
     val displayOrder = integer("display_order").default(0)
-    val externalId = varchar("external_id", 255).nullable().uniqueIndex()
+    val externalId = varchar("external_id", 255).nullable()
     val createdAt = timestamp("created_at").clientDefault { Clock.System.now() }
     val updatedAt = timestamp("updated_at").clientDefault { Clock.System.now() }
 
@@ -22,5 +22,6 @@ object TeamTable : UUIDTable("team") {
         index(isUnique = false, eventId)
         index(isUnique = false, teamGroupId)
         index(isUnique = false, eventId, displayOrder)
+        uniqueIndex(eventId, externalId)
     }
 }

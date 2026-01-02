@@ -17,6 +17,7 @@ object CategoriesTable : UUIDTable("categories") {
 
     init {
         uniqueIndex(eventId, name)
+        uniqueIndex(eventId, externalId)
         index(isUnique = false, eventId, displayOrder)
     }
 }

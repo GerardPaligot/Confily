@@ -17,12 +17,13 @@ object SessionsTable : UUIDTable("sessions") {
     val linkSlides = text("link_slides").nullable()
     val linkReplay = text("link_replay").nullable()
     val driveFolderId = text("drive_folder_id").nullable()
-    val externalId = varchar("external_id", 255).nullable().uniqueIndex()
+    val externalId = varchar("external_id", 255).nullable()
     val createdAt = timestamp("created_at").clientDefault { Clock.System.now() }
     val updatedAt = timestamp("updated_at").clientDefault { Clock.System.now() }
 
     init {
         index(isUnique = false, language)
         index(isUnique = false, level)
+        uniqueIndex(eventId, externalId)
     }
 }

@@ -12,7 +12,7 @@ object QAndATable : UUIDTable("qanda") {
     val language = varchar("language", 10)
     val question = text("question")
     val response = text("response")
-    val externalId = varchar("external_id", 255).nullable().uniqueIndex()
+    val externalId = varchar("external_id", 255).nullable()
     val createdAt = timestamp("created_at").clientDefault { Clock.System.now() }
     val updatedAt = timestamp("updated_at").clientDefault { Clock.System.now() }
 
@@ -20,5 +20,6 @@ object QAndATable : UUIDTable("qanda") {
         index(isUnique = false, eventId)
         index(isUnique = false, language)
         index(isUnique = false, eventId, displayOrder)
+        uniqueIndex(eventId, externalId)
     }
 }

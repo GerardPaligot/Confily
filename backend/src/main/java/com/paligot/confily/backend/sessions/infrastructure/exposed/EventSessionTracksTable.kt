@@ -9,10 +9,11 @@ object EventSessionTracksTable : UUIDTable("event_session_tracks") {
     val eventId = reference("event_id", EventsTable).index()
     val trackName = varchar("track_name", 255)
     val displayOrder = integer("display_order").default(0)
-    val externalId = varchar("external_id", 255).nullable().uniqueIndex()
+    val externalId = varchar("external_id", 255).nullable()
     val createdAt = timestamp("created_at").clientDefault { Clock.System.now() }
 
     init {
         uniqueIndex(eventId, trackName)
+        uniqueIndex(eventId, externalId)
     }
 }

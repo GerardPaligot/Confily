@@ -29,7 +29,7 @@ object SchedulesTable : UUIDTable("schedules") {
     val displayOrder = integer("display_order").nullable()
     val startTime = timestamp("start_time")
     val endTime = timestamp("end_time")
-    val externalId = varchar("external_id", 255).nullable().uniqueIndex()
+    val externalId = varchar("external_id", 255).nullable()
     val createdAt = timestamp("created_at").clientDefault { Clock.System.now() }
     val updatedAt = timestamp("updated_at").clientDefault { Clock.System.now() }
 
@@ -39,6 +39,7 @@ object SchedulesTable : UUIDTable("schedules") {
         index(isUnique = false, eventSessionId)
         index(isUnique = false, eventSessionTrackId)
         index(isUnique = false, eventId, startTime, endTime)
+        uniqueIndex(eventId, externalId)
         check("check_time_order") { endTime greater startTime }
     }
 }

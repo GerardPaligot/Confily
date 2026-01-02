@@ -15,7 +15,7 @@ object SpeakersTable : UUIDTable("speakers") {
     val email = varchar("email", 255).nullable()
     val company = varchar("company", 255).nullable()
     val jobTitle = varchar("job_title", 255).nullable()
-    val externalId = varchar("external_id", 255).nullable().uniqueIndex()
+    val externalId = varchar("external_id", 255).nullable()
     val createdAt = timestamp("created_at").clientDefault { Clock.System.now() }
     val updatedAt = timestamp("updated_at").clientDefault { Clock.System.now() }
 
@@ -24,5 +24,6 @@ object SpeakersTable : UUIDTable("speakers") {
         index(isUnique = false, eventId, name)
         index(isUnique = false, email)
         index(isUnique = false, company)
+        uniqueIndex(eventId, externalId)
     }
 }
