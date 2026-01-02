@@ -26,9 +26,18 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: downcase variables
+        id: vars
+        env:
+          GITHUB_REPO_OWNER: ${{ github.repository_owner }}
+          GITHUB_REPO: ${{ github.repository }}
+        run: |
+          echo "repository_owner=${GITHUB_REPO_OWNER,,}" >> $GITHUB_OUTPUT
+          echo "repository=${GITHUB_REPO,,}" >> $GITHUB_OUTPUT
+
       - name: Build and push container image
         run: |
-          IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/${{ github.repository }}-backend
+          IMAGE_NAME=ghcr.io/${{ steps.vars.outputs.repository_owner }}/${{ steps.vars.outputs.repository }}-backend
           
           # Build the image
           docker build -t ${IMAGE_NAME}:${{ github.sha }} .

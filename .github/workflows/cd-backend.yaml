@@ -47,6 +47,8 @@ jobs:
 
       - name: Set deployment variables
         id: vars
+        env:
+          GITHUB_REPO_OWNER: ${{ github.repository_owner }}
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             echo "environment=${{ inputs.environment }}" >> $GITHUB_OUTPUT
@@ -58,6 +60,7 @@ jobs:
             echo "environment=preprod" >> $GITHUB_OUTPUT
             echo "image_tag=latest" >> $GITHUB_OUTPUT
           fi
+          echo "repository_owner=${GITHUB_REPO_OWNER,,}" >> $GITHUB_OUTPUT
 
       - name: Set Clever Cloud App ID
         id: app
@@ -133,7 +136,7 @@ jobs:
           CLEVER_APP_ID: ${{ steps.app.outputs.id }}
         run: |
           clever env set TAG_VERSION "${{ steps.vars.outputs.image_tag }}" --app $CLEVER_APP_ID
-          clever env set ORG "${{ github.repository_owner }}" --app $CLEVER_APP_ID
+          clever env set ORG "${{ steps.vars.outputs.repository_owner }}" --app $CLEVER_APP_ID
 
       - name: Link and Deploy to Clever Cloud
         env:
