@@ -10,21 +10,21 @@ import org.jetbrains.exposed.sql.ReferenceOption
 import org.jetbrains.exposed.sql.kotlin.datetime.timestamp
 
 object SchedulesTable : UUIDTable("schedules") {
-    val eventId = reference("event_id", EventsTable, onDelete = ReferenceOption.RESTRICT)
+    val eventId = reference("event_id", EventsTable, onDelete = ReferenceOption.CASCADE)
     val sessionId = reference(
         "session_id",
         SessionsTable,
-        onDelete = ReferenceOption.SET_NULL
+        onDelete = ReferenceOption.CASCADE
     ).nullable()
     val eventSessionId = reference(
         "event_session_id",
         EventSessionsTable,
-        onDelete = ReferenceOption.SET_NULL
+        onDelete = ReferenceOption.CASCADE
     ).nullable()
     val eventSessionTrackId = reference(
         "event_session_track_id",
         EventSessionTracksTable,
-        onDelete = ReferenceOption.RESTRICT
+        onDelete = ReferenceOption.CASCADE
     )
     val displayOrder = integer("display_order").nullable()
     val startTime = timestamp("start_time")

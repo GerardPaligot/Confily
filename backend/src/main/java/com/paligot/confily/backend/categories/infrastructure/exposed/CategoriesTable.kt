@@ -3,10 +3,11 @@ package com.paligot.confily.backend.categories.infrastructure.exposed
 import com.paligot.confily.backend.events.infrastructure.exposed.EventsTable
 import kotlinx.datetime.Clock
 import org.jetbrains.exposed.dao.id.UUIDTable
+import org.jetbrains.exposed.sql.ReferenceOption
 import org.jetbrains.exposed.sql.kotlin.datetime.timestamp
 
 object CategoriesTable : UUIDTable("categories") {
-    val eventId = reference("event_id", EventsTable).index()
+    val eventId = reference("event_id", EventsTable, onDelete = ReferenceOption.CASCADE).index()
     val name = varchar("name", 255)
     val icon = varchar("icon", 50).nullable()
     val color = varchar("color", 20).nullable()

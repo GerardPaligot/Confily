@@ -7,7 +7,7 @@ import org.jetbrains.exposed.sql.ReferenceOption
 import org.jetbrains.exposed.sql.kotlin.datetime.timestamp
 
 object TeamTable : UUIDTable("team") {
-    val eventId = reference("event_id", EventsTable, onDelete = ReferenceOption.RESTRICT)
+    val eventId = reference("event_id", EventsTable, onDelete = ReferenceOption.CASCADE)
     val name = varchar("name", 255)
     val role = varchar("role", 255).nullable()
     val bio = text("bio").nullable()

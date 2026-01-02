@@ -8,7 +8,6 @@ import org.jetbrains.exposed.sql.kotlin.datetime.timestamp
 import org.jetbrains.exposed.sql.selectAll
 import java.util.UUID
 
-// Junction table for Session-Category many-to-many relationship
 object SessionCategoriesTable : Table("session_categories") {
     val sessionId = reference("session_id", SessionsTable, onDelete = ReferenceOption.CASCADE)
     val categoryId = reference("category_id", CategoriesTable, onDelete = ReferenceOption.CASCADE)

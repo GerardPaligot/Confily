@@ -8,8 +8,8 @@ import org.jetbrains.exposed.sql.ReferenceOption
 import org.jetbrains.exposed.sql.kotlin.datetime.timestamp
 
 object SessionsTable : UUIDTable("sessions") {
-    val eventId = reference("event_id", EventsTable, onDelete = ReferenceOption.RESTRICT).index()
-    val formatId = reference("format_id", FormatsTable, onDelete = ReferenceOption.RESTRICT).nullable().index()
+    val eventId = reference("event_id", EventsTable, onDelete = ReferenceOption.CASCADE).index()
+    val formatId = reference("format_id", FormatsTable, onDelete = ReferenceOption.SET_NULL).nullable().index()
     val title = varchar("title", 500)
     val description = text("description").nullable()
     val language = varchar("language", 10).default("en")

@@ -3,12 +3,13 @@ package com.paligot.confily.backend.integrations.infrastructure.exposed
 import com.paligot.confily.backend.internals.infrastructure.system.SystemEnv
 import io.ktor.server.plugins.NotFoundException
 import org.jetbrains.exposed.crypt.encryptedVarchar
+import org.jetbrains.exposed.sql.ReferenceOption
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.selectAll
 import java.util.UUID
 
 object SlackIntegrationsTable : Table("slack_integrations") {
-    val integrationId = reference("integration_id", IntegrationsTable)
+    val integrationId = reference("integration_id", IntegrationsTable, onDelete = ReferenceOption.CASCADE)
     val token = encryptedVarchar(
         name = "token",
         cipherTextLength = 255,

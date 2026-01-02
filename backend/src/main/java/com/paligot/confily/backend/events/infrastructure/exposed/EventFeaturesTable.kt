@@ -2,10 +2,11 @@ package com.paligot.confily.backend.events.infrastructure.exposed
 
 import kotlinx.datetime.Clock
 import org.jetbrains.exposed.dao.id.UUIDTable
+import org.jetbrains.exposed.sql.ReferenceOption
 import org.jetbrains.exposed.sql.kotlin.datetime.timestamp
 
 object EventFeaturesTable : UUIDTable("event_features") {
-    val eventId = reference("event_id", EventsTable).index()
+    val eventId = reference("event_id", EventsTable, onDelete = ReferenceOption.CASCADE).index()
     val featureKey = enumeration<FeatureKey>("feature_key")
     val enabled = bool("enabled").default(false)
     val createdAt = timestamp("created_at").clientDefault { Clock.System.now() }

@@ -8,8 +8,8 @@ import org.jetbrains.exposed.sql.ReferenceOption
 import org.jetbrains.exposed.sql.kotlin.datetime.timestamp
 
 object ActivitiesTable : UUIDTable("activities") {
-    val eventId = reference("event_id", EventsTable, onDelete = ReferenceOption.RESTRICT)
-    val partnerId = reference("partner_id", PartnersTable, onDelete = ReferenceOption.RESTRICT)
+    val eventId = reference("event_id", EventsTable, onDelete = ReferenceOption.CASCADE)
+    val partnerId = reference("partner_id", PartnersTable, onDelete = ReferenceOption.CASCADE)
     val name = varchar("name", 255)
     val startTime = timestamp("start_time")
     val endTime = timestamp("end_time").nullable()

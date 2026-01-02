@@ -8,7 +8,7 @@ import org.jetbrains.exposed.sql.selectAll
 import java.util.UUID
 
 object PartnerSocialsTable : Table("partner_socials") {
-    val partnerId = reference("partner_id", PartnersTable)
+    val partnerId = reference("partner_id", PartnersTable, onDelete = ReferenceOption.CASCADE)
     val socialId = reference("social_id", SocialsTable, onDelete = ReferenceOption.CASCADE)
 
     override val primaryKey = PrimaryKey(partnerId, socialId)

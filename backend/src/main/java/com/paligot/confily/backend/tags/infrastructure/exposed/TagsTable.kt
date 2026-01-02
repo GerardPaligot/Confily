@@ -7,7 +7,7 @@ import org.jetbrains.exposed.sql.ReferenceOption
 import org.jetbrains.exposed.sql.kotlin.datetime.timestamp
 
 object TagsTable : UUIDTable("tags") {
-    val eventId = reference("event_id", EventsTable, onDelete = ReferenceOption.RESTRICT).index()
+    val eventId = reference("event_id", EventsTable, onDelete = ReferenceOption.CASCADE).index()
     val name = varchar("name", 100)
     val createdAt = timestamp("created_at").clientDefault { Clock.System.now() }
     val updatedAt = timestamp("updated_at").clientDefault { Clock.System.now() }

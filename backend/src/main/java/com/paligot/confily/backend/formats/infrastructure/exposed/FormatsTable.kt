@@ -3,10 +3,11 @@ package com.paligot.confily.backend.formats.infrastructure.exposed
 import com.paligot.confily.backend.events.infrastructure.exposed.EventsTable
 import kotlinx.datetime.Clock
 import org.jetbrains.exposed.dao.id.UUIDTable
+import org.jetbrains.exposed.sql.ReferenceOption
 import org.jetbrains.exposed.sql.kotlin.datetime.timestamp
 
 object FormatsTable : UUIDTable("formats") {
-    val eventId = reference("event_id", EventsTable).index()
+    val eventId = reference("event_id", EventsTable, onDelete = ReferenceOption.CASCADE).index()
     val name = varchar("name", 255)
     val externalId = varchar("external_id", 255).nullable()
     val createdAt = timestamp("created_at").clientDefault { Clock.System.now() }

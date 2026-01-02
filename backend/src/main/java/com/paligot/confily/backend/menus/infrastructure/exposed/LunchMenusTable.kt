@@ -8,7 +8,7 @@ import org.jetbrains.exposed.sql.kotlin.datetime.date
 import org.jetbrains.exposed.sql.kotlin.datetime.timestamp
 
 object LunchMenusTable : UUIDTable("lunch_menus") {
-    val eventId = reference("event_id", EventsTable, onDelete = ReferenceOption.RESTRICT)
+    val eventId = reference("event_id", EventsTable, onDelete = ReferenceOption.CASCADE)
     val date = date("date")
     val name = varchar("name", 255)
     val dish = varchar("dish", 500)

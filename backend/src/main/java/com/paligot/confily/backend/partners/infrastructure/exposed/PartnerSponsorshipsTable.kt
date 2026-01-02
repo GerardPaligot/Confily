@@ -13,7 +13,7 @@ object PartnerSponsorshipsTable : Table("partner_sponsorships") {
     val sponsoringTypeId = reference(
         "sponsoring_type_id",
         SponsoringTypesTable,
-        onDelete = ReferenceOption.RESTRICT
+        onDelete = ReferenceOption.CASCADE
     )
     val displayOrder = integer("display_order").default(0)
     val createdAt = timestamp("created_at").clientDefault { Clock.System.now() }

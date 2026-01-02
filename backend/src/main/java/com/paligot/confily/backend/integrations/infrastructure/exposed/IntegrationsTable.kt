@@ -4,16 +4,13 @@ import com.paligot.confily.backend.events.infrastructure.exposed.EventsTable
 import com.paligot.confily.backend.integrations.domain.IntegrationProvider
 import com.paligot.confily.backend.integrations.domain.IntegrationUsage
 import kotlinx.datetime.Clock
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.exposed.dao.id.UUIDTable
-import org.jetbrains.exposed.sql.kotlin.datetime.datetime
+import org.jetbrains.exposed.sql.ReferenceOption
+import org.jetbrains.exposed.sql.kotlin.datetime.timestamp
 
 object IntegrationsTable : UUIDTable("integrations") {
-    val eventId = uuid("event_id").references(EventsTable.id)
+    val eventId = reference("event_id", EventsTable, onDelete = ReferenceOption.CASCADE)
     val provider = enumeration<IntegrationProvider>(name = "provider")
     val usage = enumeration<IntegrationUsage>(name = "usage")
-    val createdAt = datetime("created_at").clientDefault {
-        Clock.System.now().toLocalDateTime(TimeZone.UTC)
-    }
+    val createdAt = timestamp("created_at").clientDefault { Clock.System.now() }
 }

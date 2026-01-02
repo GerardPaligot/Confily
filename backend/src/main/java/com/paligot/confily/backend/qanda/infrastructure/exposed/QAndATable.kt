@@ -7,7 +7,7 @@ import org.jetbrains.exposed.sql.ReferenceOption
 import org.jetbrains.exposed.sql.kotlin.datetime.timestamp
 
 object QAndATable : UUIDTable("qanda") {
-    val eventId = reference("event_id", EventsTable, onDelete = ReferenceOption.RESTRICT)
+    val eventId = reference("event_id", EventsTable, onDelete = ReferenceOption.CASCADE)
     val displayOrder = integer("display_order").default(0)
     val language = varchar("language", 10)
     val question = text("question")
