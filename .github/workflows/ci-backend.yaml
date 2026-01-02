@@ -1,0 +1,41 @@
+name: Build and Push Backend Container
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push-backend:
+    name: Build and Push Backend to Artifact Registry
+    runs-on: ubuntu-latest
+
+    permissions:
+      packages: 'write'
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push container image
+        run: |
+          IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/${{ github.repository }}-backend
+          
+          # Build the image
+          docker build -t ${IMAGE_NAME}:${{ github.sha }} .
+          
+          # Tag as latest
+          docker tag ${IMAGE_NAME}:${{ github.sha }} ${IMAGE_NAME}:latest
+          
+          # Push both tags
+          docker push ${IMAGE_NAME}:${{ github.sha }}
+          docker push ${IMAGE_NAME}:latest

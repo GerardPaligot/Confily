@@ -1,0 +1,7 @@
+# Pull the pre-built image from GitHub Container Registry
+ARG TAG_VERSION=latest
+ARG ORG=GerardPaligot
+FROM ghcr.io/${ORG}/${ORG}/confily-backend:${TAG_VERSION}
+
+# The base image already has the entrypoint script, so we use it
+ENTRYPOINT ["/app/entrypoint.sh"]
