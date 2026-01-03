@@ -34,7 +34,6 @@ import com.paligot.confily.backend.tags.infrastructure.api.registerTagsRoutes
 import com.paligot.confily.backend.team.infrastructure.api.registerAdminTeamRoutes
 import com.paligot.confily.backend.team.infrastructure.api.registerTeamRoutes
 import com.paligot.confily.backend.third.parties.billetweb.infrastructure.api.registerBilletWebRoutes
-import com.paligot.confily.backend.third.parties.cms4conference.infrastructure.api.registerAdminCms4PartnersRoutes
 import com.paligot.confily.backend.third.parties.openfeedback.infrastructure.api.registerOpenfeedackRoutes
 import com.paligot.confily.backend.third.parties.openplanner.infrastructure.api.registerAdminOpenPlannerRoutes
 import com.paligot.confily.backend.third.parties.partnersconnect.infrastructure.api.registerAdminPartnersConnectRoutes
@@ -183,7 +182,6 @@ private fun Application.routing() {
                 registerAdminExportRoutes()
                 // Third parties
                 integrationRoutes()
-                registerAdminCms4PartnersRoutes()
                 registerAdminPartnersConnectRoutes()
                 registerAdminOpenPlannerRoutes()
                 registerAdminWLDRoutes()
