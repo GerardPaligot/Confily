@@ -12,6 +12,9 @@ enum class IntegrationProvider {
     @SerialName("openplanner")
     OPENPLANNER,
 
+    @SerialName("partnersconnect")
+    PARTNERSCONNECT,
+
     @SerialName("webhook")
     WEBHOOK
 }

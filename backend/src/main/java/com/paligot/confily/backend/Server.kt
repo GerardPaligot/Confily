@@ -37,6 +37,7 @@ import com.paligot.confily.backend.third.parties.billetweb.infrastructure.api.re
 import com.paligot.confily.backend.third.parties.cms4conference.infrastructure.api.registerAdminCms4PartnersRoutes
 import com.paligot.confily.backend.third.parties.openfeedback.infrastructure.api.registerOpenfeedackRoutes
 import com.paligot.confily.backend.third.parties.openplanner.infrastructure.api.registerAdminOpenPlannerRoutes
+import com.paligot.confily.backend.third.parties.partnersconnect.infrastructure.api.registerAdminPartnersConnectRoutes
 import com.paligot.confily.models.Session
 import com.paligot.confily.models.inputs.Validator
 import com.paligot.confily.models.inputs.ValidatorException
@@ -183,6 +184,7 @@ private fun Application.routing() {
                 // Third parties
                 integrationRoutes()
                 registerAdminCms4PartnersRoutes()
+                registerAdminPartnersConnectRoutes()
                 registerAdminOpenPlannerRoutes()
                 registerAdminWLDRoutes()
             }

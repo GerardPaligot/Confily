@@ -2,6 +2,7 @@ package com.paligot.confily.backend.partners.infrastructure.exposed
 
 import com.paligot.confily.backend.addresses.infrastructure.exposed.AddressEntity
 import com.paligot.confily.backend.events.infrastructure.exposed.EventEntity
+import com.paligot.confily.backend.integrations.domain.IntegrationProvider
 import org.jetbrains.exposed.dao.UUIDEntity
 import org.jetbrains.exposed.dao.UUIDEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
@@ -17,6 +18,17 @@ class PartnerEntity(id: EntityID<UUID>) : UUIDEntity(id) {
         fun findById(eventId: UUID, partnerId: UUID): PartnerEntity? = this
             .find { (PartnersTable.eventId eq eventId) and (PartnersTable.id eq partnerId) }
             .firstOrNull()
+
+        fun findByExternalId(
+            eventId: UUID,
+            externalId: String,
+            provider: IntegrationProvider
+        ): PartnerEntity? = this.find {
+            val eventOp = PartnersTable.eventId eq eventId
+            val externalIdOp = PartnersTable.externalId eq externalId
+            val providerOp = PartnersTable.externalProvider eq provider
+            eventOp and externalIdOp and providerOp
+        }.firstOrNull()
     }
 
     var eventId by PartnersTable.eventId
@@ -31,6 +43,8 @@ class PartnerEntity(id: EntityID<UUID>) : UUIDEntity(id) {
     var videoUrl by PartnersTable.videoUrl
     var addressId by PartnersTable.addressId
     var address by AddressEntity.Companion optionalReferencedOn PartnersTable.addressId
+    var externalId by PartnersTable.externalId
+    var externalProvider by PartnersTable.externalProvider
     var createdAt by PartnersTable.createdAt
     var updatedAt by PartnersTable.updatedAt
 }

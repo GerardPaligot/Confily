@@ -4,6 +4,7 @@ import kotlinx.datetime.Clock
 import org.jetbrains.exposed.sql.ReferenceOption
 import org.jetbrains.exposed.sql.SortOrder
 import org.jetbrains.exposed.sql.Table
+import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.kotlin.datetime.timestamp
 import org.jetbrains.exposed.sql.selectAll
 import java.util.UUID
@@ -31,4 +32,13 @@ object PartnerSponsorshipsTable : Table("partner_sponsorships") {
         .where { PartnerSponsorshipsTable.sponsoringTypeId eq sponsoringTypeId }
         .orderBy(displayOrder to SortOrder.ASC)
         .map { it[partnerId].value }
+
+    fun partnerExist(partnerId: UUID, sponsoringTypeId: UUID): Boolean = this
+        .selectAll()
+        .where {
+            val partnerOp = PartnerSponsorshipsTable.partnerId eq partnerId
+            val sponsoringTypeOp = PartnerSponsorshipsTable.sponsoringTypeId eq sponsoringTypeId
+            partnerOp and sponsoringTypeOp
+        }
+        .count() > 0
 }

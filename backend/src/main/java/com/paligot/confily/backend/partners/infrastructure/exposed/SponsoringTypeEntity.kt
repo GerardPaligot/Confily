@@ -15,6 +15,10 @@ class SponsoringTypeEntity(id: EntityID<UUID>) : UUIDEntity(id) {
 
         fun findByTypeNames(eventId: UUID, typeNames: List<String>): SizedIterable<SponsoringTypeEntity> = this
             .find { (SponsoringTypesTable.eventId eq eventId) and (SponsoringTypesTable.typeName inList typeNames) }
+
+        fun findByTypeName(eventId: UUID, typeName: String): SponsoringTypeEntity? = this
+            .find { (SponsoringTypesTable.eventId eq eventId) and (SponsoringTypesTable.typeName eq typeName) }
+            .firstOrNull()
     }
 
     var eventId by SponsoringTypesTable.eventId
