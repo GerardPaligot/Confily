@@ -13,7 +13,16 @@ import com.paligot.confily.backend.integrations.infrastructure.exposed.OpenPlann
 import com.paligot.confily.backend.integrations.infrastructure.exposed.get
 import com.paligot.confily.backend.internals.helpers.mimeType
 import com.paligot.confily.backend.internals.helpers.slug
+import com.paligot.confily.backend.internals.helpers.storage.Upload
 import com.paligot.confily.backend.internals.infrastructure.provider.CommonApi
+import com.paligot.confily.backend.internals.infrastructure.transcoder.Png
+import com.paligot.confily.backend.internals.infrastructure.transcoder.TranscoderImage
+import com.paligot.confily.backend.partners.application.PartnerAdminRepositoryDefault.Companion.SIZE_1000
+import com.paligot.confily.backend.partners.application.PartnerAdminRepositoryDefault.Companion.SIZE_250
+import com.paligot.confily.backend.partners.application.PartnerAdminRepositoryDefault.Companion.SIZE_500
+import com.paligot.confily.backend.partners.infrastructure.exposed.PartnerEntity
+import com.paligot.confily.backend.partners.infrastructure.exposed.PartnersTable
+import com.paligot.confily.backend.partners.infrastructure.storage.PartnerStorage
 import com.paligot.confily.backend.qanda.infrastructure.exposed.QAndAEntity
 import com.paligot.confily.backend.qanda.infrastructure.exposed.QAndATable
 import com.paligot.confily.backend.schedules.infrastructure.exposed.ScheduleEntity
@@ -45,6 +54,7 @@ import com.paligot.confily.backend.third.parties.openplanner.infrastructure.prov
 import com.paligot.confily.backend.third.parties.openplanner.infrastructure.provider.OpenPlannerApi
 import com.paligot.confily.backend.third.parties.openplanner.infrastructure.provider.SessionOP
 import com.paligot.confily.backend.third.parties.openplanner.infrastructure.provider.SpeakerOP
+import com.paligot.confily.backend.third.parties.openplanner.infrastructure.provider.SponsorGroupOP
 import com.paligot.confily.backend.third.parties.openplanner.infrastructure.provider.TeamOP
 import com.paligot.confily.backend.third.parties.openplanner.infrastructure.provider.TrackOP
 import kotlinx.coroutines.CoroutineDispatcher
@@ -56,12 +66,15 @@ import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.transactions.transaction
 import java.util.UUID
 
+@Suppress("LongParameterList", "TooManyFunctions")
 class OpenPlannerRepositoryExposed(
     private val database: Database,
     private val openPlannerApi: OpenPlannerApi,
     private val commonApi: CommonApi,
     private val speakerStorage: SpeakerStorage,
     private val teamStorage: TeamStorage,
+    private val partnerStorage: PartnerStorage,
+    private val imageTranscoder: TranscoderImage,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : OpenPlannerRepository {
     override suspend fun update(eventId: String) {
@@ -80,6 +93,7 @@ class OpenPlannerRepositoryExposed(
             privateId = openPlannerIntegration.apiKey
         )
         val remoteUrls = remoteUrls(openPlanner, event.slug)
+        val uploadsRemoteUrls = partnerRemoteUrls(openPlanner.sponsors, event.slug).associate { it }
         transaction(db = database) {
             upsertQAndA(openPlanner.faq, event)
             upsertTeams(openPlanner.team, remoteUrls, event)
@@ -90,6 +104,7 @@ class OpenPlannerRepositoryExposed(
             upsertEventSessions(openPlanner.sessions, event)
             upsertSessions(openPlanner.sessions, event)
             upsertSchedules(openPlanner.sessions, event)
+            upsertSponsors(openPlanner.sponsors, uploadsRemoteUrls, event)
         }
     }
 
@@ -212,8 +227,28 @@ class OpenPlannerRepositoryExposed(
         return entities
     }
 
+    private fun upsertSponsors(
+        sponsors: List<SponsorGroupOP>,
+        remoteUrls: Map<String, List<Upload>>,
+        event: EventEntity
+    ): List<PartnerEntity> {
+        val entities = sponsors.flatMap { sponsorOP -> sponsorOP.toEntity(event, remoteUrls) }
+        PartnersTable.deleteDiff(
+            eventId = event.id.value,
+            externalIds = entities.mapNotNull { it.externalId },
+            provider = IntegrationProvider.OPENPLANNER
+        )
+        return entities
+    }
+
     private suspend fun remoteUrls(openPlanner: OpenPlanner, eventSlug: String): Map<String, String> = coroutineScope {
-        val teams = openPlanner.team
+        val teams = teamRemoteUrls(eventSlug, openPlanner.team)
+        val speakers = speakerRemoteUrls(eventSlug, openPlanner.speakers)
+        (teams + speakers).associate { it }
+    }
+
+    private suspend fun teamRemoteUrls(eventSlug: String, teams: List<TeamOP>) = coroutineScope {
+        teams
             .filter { it.photoUrl != null }
             .map { member ->
                 async(dispatcher) {
@@ -233,7 +268,10 @@ class OpenPlannerRepositoryExposed(
                 }
             }
             .awaitAll()
-        val speakers = openPlanner.speakers
+    }
+
+    private suspend fun speakerRemoteUrls(eventSlug: String, speakers: List<SpeakerOP>) = coroutineScope {
+        speakers
             .filter { it.photoUrl != null }
             .map { speaker ->
                 async(dispatcher) {
@@ -253,6 +291,35 @@ class OpenPlannerRepositoryExposed(
                 }
             }
             .awaitAll()
-        (teams + speakers).associate { it }
+    }
+
+    private suspend fun partnerRemoteUrls(partners: List<SponsorGroupOP>, eventSlug: String) = coroutineScope {
+        partners
+            .flatMap { it.sponsors }
+            .map { partner ->
+                async(dispatcher) {
+                    val url = try {
+                        val pngs = if (partner.logoUrl.endsWith(".svg")) {
+                            listOf(
+                                async { imageTranscoder.convertSvgToPng(partner.logoUrl, SIZE_250) },
+                                async { imageTranscoder.convertSvgToPng(partner.logoUrl, SIZE_500) },
+                                async { imageTranscoder.convertSvgToPng(partner.logoUrl, SIZE_1000) }
+                            ).awaitAll()
+                        } else {
+                            val content = commonApi.fetchByteArray(partner.logoUrl)
+                            listOf(
+                                Png(content = content, size = 250),
+                                Png(content = content, size = 500),
+                                Png(content = content, size = 1000)
+                            )
+                        }
+                        partnerStorage.uploadPartnerLogos(eventSlug, partner.id, pngs)
+                    } catch (_: Throwable) {
+                        emptyList()
+                    }
+                    Pair(partner.id, url)
+                }
+            }
+            .awaitAll()
     }
 }

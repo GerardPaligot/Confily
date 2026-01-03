@@ -8,6 +8,7 @@ data class OpenPlanner(
     val event: EventOP,
     val speakers: List<SpeakerOP>,
     val sessions: List<SessionOP>,
+    val sponsors: List<SponsorGroupOP>,
     val faq: List<FaqSectionOP>,
     val team: List<TeamOP>
 )
@@ -82,6 +83,22 @@ data class SessionOP(
     val formatId: String? = null,
     val categoryId: String? = null,
     val tags: List<String>? = null
+)
+
+@Serializable
+data class SponsorGroupOP(
+    val id: String,
+    val order: Int = 0,
+    val name: String,
+    val sponsors: List<SponsorOP>
+)
+
+@Serializable
+data class SponsorOP(
+    val id: String,
+    val name: String,
+    val logoUrl: String,
+    val website: String
 )
 
 @Serializable

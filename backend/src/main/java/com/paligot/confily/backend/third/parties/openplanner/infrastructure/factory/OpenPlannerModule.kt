@@ -5,6 +5,7 @@ import com.paligot.confily.backend.internals.infrastructure.exposed.PostgresModu
 import com.paligot.confily.backend.internals.infrastructure.factory.FirestoreModule
 import com.paligot.confily.backend.internals.infrastructure.factory.InternalModule
 import com.paligot.confily.backend.internals.infrastructure.system.SystemEnv
+import com.paligot.confily.backend.partners.infrastructure.factory.PartnerModule.partnerStorage
 import com.paligot.confily.backend.qanda.infrastructure.factory.QAndAModule
 import com.paligot.confily.backend.schedules.infrastructure.factory.ScheduleModule
 import com.paligot.confily.backend.sessions.infrastructure.factory.SessionModule
@@ -23,7 +24,9 @@ object OpenPlannerModule {
                 openPlannerApi.value,
                 InternalModule.commonApi.value,
                 SpeakerModule.speakerStorage.value,
-                TeamModule.teamStorage.value
+                TeamModule.teamStorage.value,
+                partnerStorage.value,
+                InternalModule.transcoder.value
             )
         } else {
             OpenPlannerRepositoryDefault(

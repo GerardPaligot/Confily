@@ -6,7 +6,12 @@ import com.paligot.confily.backend.integrations.domain.IntegrationProvider
 import kotlinx.datetime.Clock
 import org.jetbrains.exposed.dao.id.UUIDTable
 import org.jetbrains.exposed.sql.ReferenceOption
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.notInList
+import org.jetbrains.exposed.sql.and
+import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.kotlin.datetime.timestamp
+import java.util.UUID
 
 object PartnersTable : UUIDTable("partners") {
     val eventId = reference("event_id", EventsTable, onDelete = ReferenceOption.CASCADE)
@@ -28,5 +33,18 @@ object PartnersTable : UUIDTable("partners") {
         index(isUnique = false, eventId)
         index(isUnique = false, eventId, name)
         uniqueIndex(eventId, externalId, externalProvider)
+    }
+
+    fun deleteDiff(
+        eventId: UUID,
+        externalIds: List<String>,
+        provider: IntegrationProvider
+    ) {
+        deleteWhere {
+            val eventOp = PartnersTable.eventId eq eventId
+            val externalIdsOp = PartnersTable.externalId notInList externalIds
+            val providerOp = PartnersTable.externalProvider eq provider
+            eventOp and externalIdsOp and providerOp
+        }
     }
 }
