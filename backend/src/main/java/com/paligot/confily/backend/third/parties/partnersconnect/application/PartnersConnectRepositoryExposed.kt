@@ -8,6 +8,7 @@ import com.paligot.confily.backend.events.infrastructure.exposed.EventEntity
 import com.paligot.confily.backend.integrations.domain.IntegrationProvider
 import com.paligot.confily.backend.internals.infrastructure.exposed.SocialEntity
 import com.paligot.confily.backend.internals.infrastructure.exposed.SocialsTable
+import com.paligot.confily.backend.partners.infrastructure.exposed.JobsTable
 import com.paligot.confily.backend.partners.infrastructure.exposed.PartnerEntity
 import com.paligot.confily.backend.partners.infrastructure.exposed.PartnerSocialsTable
 import com.paligot.confily.backend.partners.infrastructure.exposed.PartnerSponsorshipsTable
@@ -18,6 +19,7 @@ import com.paligot.confily.backend.third.parties.partnersconnect.infrastructure.
 import com.paligot.confily.models.SocialType
 import kotlinx.coroutines.coroutineScope
 import org.jetbrains.exposed.sql.Database
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.inList
 import org.jetbrains.exposed.sql.batchInsert
 import org.jetbrains.exposed.sql.deleteWhere
@@ -54,6 +56,7 @@ class PartnersConnectRepositoryExposed(
                 ?: create(event, payload, geocode)
             upsertSponsoringType(event, partner, pack.name)
             upsertSocials(partner, event, payload)
+            upsertJobs(partner, payload)
             partner.id.value.toString()
         }
     }
@@ -139,6 +142,17 @@ class PartnersConnectRepositoryExposed(
         PartnerSocialsTable.batchInsert(socialIds) { socialId ->
             this[PartnerSocialsTable.partnerId] = partner.id.value
             this[PartnerSocialsTable.socialId] = socialId
+        }
+    }
+
+    private fun upsertJobs(partner: PartnerEntity, payload: PartnersConnectWebhookPayload) {
+        JobsTable.deleteWhere { JobsTable.partnerId eq partner.id.value }
+        JobsTable.batchInsert(payload.jobs) { job ->
+            this[JobsTable.partnerId] = partner.id.value
+            this[JobsTable.url] = job.url
+            this[JobsTable.title] = job.title
+            this[JobsTable.externalId] = job.id
+            this[JobsTable.externalProvider] = IntegrationProvider.PARTNERSCONNECT
         }
     }
 }

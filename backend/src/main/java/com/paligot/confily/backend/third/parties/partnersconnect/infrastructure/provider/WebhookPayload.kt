@@ -9,6 +9,7 @@ data class PartnersConnectWebhookPayload(
     val partnership: PartnershipDetail,
     val company: Company,
     val event: EventSummary,
+    val jobs: List<JobOffer>,
     val timestamp: String
 )
 
@@ -127,4 +128,11 @@ enum class SocialType { LINKEDIN, X, BLUESKY, MASTODON, INSTAGRAM, FACEBOOK, YOU
 class EventSummary(
     val slug: String,
     val name: String
+)
+
+@Serializable
+data class JobOffer(
+    val id: String,
+    val title: String,
+    val url: String
 )

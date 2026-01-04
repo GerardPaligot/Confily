@@ -1,5 +1,6 @@
 package com.paligot.confily.backend.partners.infrastructure.exposed
 
+import com.paligot.confily.backend.integrations.domain.IntegrationProvider
 import kotlinx.datetime.Clock
 import org.jetbrains.exposed.dao.id.UUIDTable
 import org.jetbrains.exposed.sql.ReferenceOption
@@ -15,7 +16,8 @@ object JobsTable : UUIDTable("jobs") {
     val salaryMax = integer("salary_max").nullable()
     val salaryRecurrence = varchar("salary_recurrence", 50).nullable()
     val requirements = decimal("requirements", 3, 2).nullable()
-    val propulsed = varchar("propulsed", 255).nullable()
+    val externalId = varchar("external_id", 255).nullable()
+    val externalProvider = enumeration<IntegrationProvider>("external_provider").nullable()
     val publishDate = date("publish_date").nullable()
     val createdAt = timestamp("created_at").clientDefault { Clock.System.now() }
     val updatedAt = timestamp("updated_at").clientDefault { Clock.System.now() }

@@ -17,7 +17,8 @@ class JobEntity(id: EntityID<UUID>) : UUIDEntity(id) {
     var salaryMax by JobsTable.salaryMax
     var salaryRecurrence by JobsTable.salaryRecurrence
     var requirements by JobsTable.requirements
-    var propulsed by JobsTable.propulsed
+    var externalId by JobsTable.externalId
+    var externalProvider by JobsTable.externalProvider
     var publishDate by JobsTable.publishDate
     var createdAt by JobsTable.createdAt
     var updatedAt by JobsTable.updatedAt
