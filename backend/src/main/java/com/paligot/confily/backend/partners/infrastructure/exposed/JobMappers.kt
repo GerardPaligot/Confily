@@ -1,5 +1,6 @@
 package com.paligot.confily.backend.partners.infrastructure.exposed
 
+import com.paligot.confily.backend.internals.infrastructure.system.SystemEnv
 import com.paligot.confily.models.Job
 import com.paligot.confily.models.Salary
 
@@ -18,6 +19,6 @@ fun JobEntity.toModel(companyName: String): Job = Job(
         null
     },
     requirements = this.requirements?.toDouble() ?: 0.0,
-    propulsed = this.propulsed ?: "",
+    propulsed = this.externalProvider?.name?.lowercase()?.replaceFirstChar { it.uppercase() } ?: SystemEnv.projectName,
     publishDate = this.publishDate?.toEpochDays()?.toLong() ?: 0L
 )
