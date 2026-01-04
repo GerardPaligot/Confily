@@ -33,6 +33,12 @@ object PartnerSponsorshipsTable : Table("partner_sponsorships") {
         .orderBy(displayOrder to SortOrder.ASC)
         .map { it[partnerId].value }
 
+    fun sponsoringTypeNamesByPartner(partnerId: UUID): List<String> = this
+        .innerJoin(SponsoringTypesTable)
+        .selectAll()
+        .where { PartnerSponsorshipsTable.partnerId eq partnerId }
+        .map { it[SponsoringTypesTable.typeName] }
+
     fun partnerExist(partnerId: UUID, sponsoringTypeId: UUID): Boolean = this
         .selectAll()
         .where {
