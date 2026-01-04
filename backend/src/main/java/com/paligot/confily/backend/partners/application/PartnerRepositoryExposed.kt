@@ -8,7 +8,7 @@ import com.paligot.confily.backend.partners.infrastructure.exposed.PartnerEntity
 import com.paligot.confily.backend.partners.infrastructure.exposed.PartnerSponsorshipsTable
 import com.paligot.confily.backend.partners.infrastructure.exposed.SponsoringTypeEntity
 import com.paligot.confily.backend.partners.infrastructure.exposed.SponsoringTypesTable
-import com.paligot.confily.backend.partners.infrastructure.exposed.toModel
+import com.paligot.confily.backend.partners.infrastructure.exposed.toModelV2
 import com.paligot.confily.backend.partners.infrastructure.exposed.toModelV3
 import com.paligot.confily.models.PartnerV2
 import com.paligot.confily.models.PartnersActivities
@@ -26,7 +26,7 @@ class PartnerRepositoryExposed(private val database: Database) : PartnerReposito
             .associate { sponsoringType ->
                 val partners = PartnerSponsorshipsTable
                     .partnerIds(sponsoringType.id.value)
-                    .map { PartnerEntity[it].toModel() }
+                    .map { PartnerEntity[it].toModelV2() }
                 sponsoringType.typeName to partners
             }
     }

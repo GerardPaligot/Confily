@@ -1,27 +1,24 @@
 package com.paligot.confily.backend.partners.infrastructure.exposed
 
 import com.paligot.confily.backend.addresses.infrastructure.exposed.toModel
-import com.paligot.confily.backend.internals.infrastructure.exposed.SocialsTable
+import com.paligot.confily.models.Partner
 import com.paligot.confily.models.PartnerMedia
 import com.paligot.confily.models.PartnerMediaPngs
 import com.paligot.confily.models.PartnerV2
 import com.paligot.confily.models.PartnerV3
-import com.paligot.confily.models.SocialItem
 import com.paligot.confily.models.SocialType
-import org.jetbrains.exposed.sql.selectAll
 
-fun PartnerEntity.toModel(): PartnerV2 {
-    // Fetch socials for this partner from the junction table
+fun PartnerEntity.toModelV1(): Partner {
+    return Partner(
+        name = this.name,
+        logoUrl = this.mediaSvg ?: "",
+        siteUrl = this.websiteUrl
+    )
+}
+
+fun PartnerEntity.toModelV2(): PartnerV2 {
     val partnerId = this.id.value
-    val socials = PartnerSocialsTable
-        .innerJoin(SocialsTable)
-        .selectAll()
-        .where { PartnerSocialsTable.partnerId eq partnerId }
-        .map { row ->
-            val platform = row[SocialsTable.platform]
-            val url = row[SocialsTable.url]
-            Pair(platform, url)
-        }
+    val socials = PartnerSocialsTable.socials(partnerId)
     val jobs = JobEntity
         .find { JobsTable.partnerId eq partnerId }
         .toList()
@@ -45,9 +42,9 @@ fun PartnerEntity.toModel(): PartnerV2 {
             }
         ),
         siteUrl = this.websiteUrl,
-        twitterUrl = socials.find { it.first == SocialType.X }?.second,
+        twitterUrl = socials.find { it.type == SocialType.X }?.url,
         twitterMessage = null,
-        linkedinUrl = socials.find { it.first == SocialType.LinkedIn }?.second,
+        linkedinUrl = socials.find { it.type == SocialType.LinkedIn }?.url,
         linkedinMessage = null,
         address = this.address?.toModel(),
         jobs = jobs.map { job -> job.toModel(this.name) }
@@ -56,20 +53,6 @@ fun PartnerEntity.toModel(): PartnerV2 {
 
 fun PartnerEntity.toModelV3(): PartnerV3 {
     val partnerUuid = this.id.value
-    val sponsoringTypes = PartnerSponsorshipsTable
-        .innerJoin(SponsoringTypesTable)
-        .selectAll()
-        .where { PartnerSponsorshipsTable.partnerId eq partnerUuid }
-        .map { it[SponsoringTypesTable.typeName] }
-    val socials = PartnerSocialsTable
-        .innerJoin(SocialsTable)
-        .selectAll()
-        .where { PartnerSocialsTable.partnerId eq partnerUuid }
-        .map { row ->
-            val platform = row[SocialsTable.platform]
-            val url = row[SocialsTable.url]
-            Pair(platform, url)
-        }
     val jobs = JobEntity
         .find { JobsTable.partnerId eq partnerUuid }
         .toList()
@@ -90,9 +73,9 @@ fun PartnerEntity.toModelV3(): PartnerV3 {
                 null
             }
         ),
-        types = sponsoringTypes,
+        types = PartnerSponsorshipsTable.sponsoringTypeNamesByPartner(partnerUuid),
         address = this.address?.toModel(),
-        socials = socials.map { SocialItem(type = it.first, url = it.second) },
+        socials = PartnerSocialsTable.socials(partnerUuid),
         jobs = jobs.map { job -> job.toModel(this.name) }
     )
 }
