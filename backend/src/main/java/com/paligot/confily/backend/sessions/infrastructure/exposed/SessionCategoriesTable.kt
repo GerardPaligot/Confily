@@ -20,8 +20,15 @@ object SessionCategoriesTable : Table("session_categories") {
         index(isUnique = false, categoryId)
     }
 
-    fun categoryIds(sessionId: UUID): List<UUID> = SessionCategoriesTable
+    fun categoryIds(sessionId: UUID): List<UUID> = this
         .selectAll()
         .where { SessionCategoriesTable.sessionId eq sessionId }
         .map { it[categoryId].value }
+
+    fun firstCategoryId(sessionId: UUID) = this
+        .innerJoin(CategoriesTable)
+        .selectAll()
+        .where { SessionCategoriesTable.sessionId eq sessionId }
+        .firstOrNull()
+        ?.let { row -> row[CategoriesTable.id] }
 }

@@ -9,7 +9,7 @@ import com.paligot.confily.backend.formats.infrastructure.exposed.FormatsTable
 import com.paligot.confily.backend.formats.infrastructure.exposed.toModel
 import com.paligot.confily.backend.schedules.infrastructure.exposed.ScheduleEntity
 import com.paligot.confily.backend.schedules.infrastructure.exposed.SchedulesTable
-import com.paligot.confily.backend.schedules.infrastructure.exposed.toModel
+import com.paligot.confily.backend.schedules.infrastructure.exposed.toModelV4
 import com.paligot.confily.backend.sessions.infrastructure.exposed.EventSessionEntity
 import com.paligot.confily.backend.sessions.infrastructure.exposed.SessionEntity
 import com.paligot.confily.backend.sessions.infrastructure.exposed.toModel
@@ -91,7 +91,7 @@ class ExportPlanningRepositoryExposed(
             schedules = ScheduleEntity
                 .findByEvent(eventUuid)
                 .orderBy(SchedulesTable.displayOrder to SortOrder.ASC)
-                .map { it.toModel() },
+                .map { it.toModelV4() },
             sessions = sessions + eventSessions,
             formats = FormatEntity.findByEvent(eventUuid)
                 .orderBy(FormatsTable.createdAt to SortOrder.ASC)
