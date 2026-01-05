@@ -12,10 +12,6 @@ import io.ktor.server.routing.get
 fun Route.registerPlanningRoutes() {
     val planningRepository = planningRepository
 
-    get("/planning") {
-        val eventId = call.parameters["eventId"]!!
-        call.respond(status = HttpStatusCode.OK, message = planningRepository.agendaMultiDaysAndEventSessions(eventId))
-    }
     get("/agenda") {
         val eventId = call.parameters["eventId"]!!
         val acceptItems = call.request.acceptItems()

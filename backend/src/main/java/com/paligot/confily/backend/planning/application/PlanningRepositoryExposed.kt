@@ -12,7 +12,6 @@ import com.paligot.confily.backend.schedules.infrastructure.exposed.SchedulesTab
 import com.paligot.confily.backend.schedules.infrastructure.exposed.toModel
 import com.paligot.confily.backend.schedules.infrastructure.exposed.toModelV3
 import com.paligot.confily.backend.schedules.infrastructure.exposed.toModelV4
-import com.paligot.confily.backend.schedules.infrastructure.exposed.toPlanningItemModel
 import com.paligot.confily.backend.sessions.infrastructure.exposed.EventSessionEntity
 import com.paligot.confily.backend.sessions.infrastructure.exposed.SessionEntity
 import com.paligot.confily.backend.sessions.infrastructure.exposed.toModel
@@ -23,7 +22,6 @@ import com.paligot.confily.backend.speakers.infrastructure.exposed.toModel
 import com.paligot.confily.models.Agenda
 import com.paligot.confily.models.AgendaV3
 import com.paligot.confily.models.AgendaV4
-import com.paligot.confily.models.PlanningItem
 import com.paligot.confily.models.ScheduleItem
 import com.paligot.confily.models.Session
 import kotlinx.datetime.LocalDateTime
@@ -138,30 +136,6 @@ class PlanningRepositoryExposed(
                 .associate { it }
                 .toMap()
         }
-
-    override suspend fun agendaMultiDaysAndEventSessions(
-        eventId: String
-    ): Map<String, Map<String, List<PlanningItem>>> = transaction(db = database) {
-        val eventUuid = UUID.fromString(eventId)
-        ScheduleEntity
-            .findByEvent(eventUuid)
-            .groupBy { it.startTime.toLocalDateTime(TimeZone.UTC).date.toString() }
-            .entries.map { schedulesByDay ->
-                schedulesByDay.key to schedulesByDay.value
-                    .groupBy { it.startTime.toLocalDateTime(TimeZone.UTC).format(format) }
-                    .entries.map { scheduleBySlot ->
-                        scheduleBySlot.key to scheduleBySlot.value
-                            .map { schedule -> schedule.toPlanningItemModel() }
-                            .sortedBy { it.order }
-                    }
-                    .sortedBy { it.first }
-                    .associate { it }
-                    .toMap()
-            }
-            .sortedBy { it.first }
-            .associate { it }
-            .toMap()
-    }
 
     override suspend fun planning(eventId: String): AgendaV3 = transaction(db = database) {
         val eventUuid = UUID.fromString(eventId)
