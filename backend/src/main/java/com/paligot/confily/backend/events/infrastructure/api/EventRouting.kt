@@ -5,7 +5,6 @@ package com.paligot.confily.backend.events.infrastructure.api
 import com.paligot.confily.backend.events.infrastructure.factory.EventModule.eventAdminRepository
 import com.paligot.confily.backend.events.infrastructure.factory.EventModule.eventRepository
 import com.paligot.confily.backend.internals.infrastructure.ktor.http.Identifier
-import com.paligot.confily.backend.internals.infrastructure.ktor.plugins.EventUpdatedAtPlugin
 import com.paligot.confily.backend.receiveValidated
 import com.paligot.confily.backend.version
 import com.paligot.confily.models.inputs.CoCInput
@@ -25,7 +24,7 @@ import io.ktor.server.routing.route
 
 @Suppress("MagicNumber")
 fun Route.registerEventRoutes() {
-    val eventRepository by eventRepository
+    val eventRepository = eventRepository
 
     get("/events") {
         call.respond(status = HttpStatusCode.OK, message = eventRepository.list())
@@ -49,7 +48,7 @@ fun Route.registerEventRoutes() {
 }
 
 fun Route.registerAdminEventRoutes() {
-    val eventAdminRepository by eventAdminRepository
+    val eventAdminRepository = eventAdminRepository
 
     route("/events/{eventId}") {
         put {
@@ -59,7 +58,6 @@ fun Route.registerAdminEventRoutes() {
             call.respond(status = HttpStatusCode.OK, message = Identifier(id))
         }
         route("/coc") {
-            this.install(EventUpdatedAtPlugin)
             put {
                 val eventId = call.parameters["eventId"]!!
                 val input = call.receiveValidated<CoCInput>()
@@ -68,7 +66,6 @@ fun Route.registerAdminEventRoutes() {
             }
         }
         route("/features_activated") {
-            this.install(EventUpdatedAtPlugin)
             put {
                 val eventId = call.parameters["eventId"]!!
                 val input = call.receiveValidated<FeaturesActivatedInput>()

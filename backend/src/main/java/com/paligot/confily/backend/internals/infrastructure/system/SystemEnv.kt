@@ -3,13 +3,6 @@ package com.paligot.confily.backend.internals.infrastructure.system
 import org.jetbrains.exposed.crypt.Algorithms
 
 object SystemEnv {
-    val projectName: String = getEnv("PROJECT_NAME") ?: "confily"
-
-    object DatabaseConfig {
-        val isCloud: Boolean = getEnv("IS_CLOUD") ?: true
-        val hasPostgres: Boolean = getEnv("EXPOSED_ENABLED") ?: false
-    }
-
     object Exposed {
         val dbUrl: String = getEnv("EXPOSED_DB_URL") ?: "jdbc:h2:mem:regular;DB_CLOSE_DELAY=-1"
         val dbDriver: String = getEnv("EXPOSED_DB_DRIVER") ?: "org.h2.Driver"
@@ -30,11 +23,6 @@ object SystemEnv {
             ?: throw IllegalStateException("GOOGLE_STORAGE_BUCKET is required")
         val geocodeApiKey: String = getEnv("GEOCODE_API_KEY")
             ?: throw IllegalStateException("GEOCODE_API_KEY is required")
-    }
-
-    object OpenFeedbackProvider {
-        val baseUrl: String = getEnv("BASE_URL_OPEN_FEEDBACK")
-            ?: "openfeedback.io"
     }
 
     object OpenPlannerProvider {

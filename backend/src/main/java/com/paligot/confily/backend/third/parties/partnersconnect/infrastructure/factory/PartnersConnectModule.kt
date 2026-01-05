@@ -6,9 +6,6 @@ import com.paligot.confily.backend.third.parties.partnersconnect.application.Par
 
 object PartnersConnectModule {
     val partnersConnectRepository by lazy {
-        PartnersConnectRepositoryExposed(
-            PostgresModule.database,
-            GeocodeModule.geocodeApi.value
-        )
+        PartnersConnectRepositoryExposed(PostgresModule.database, GeocodeModule.geocodeApi)
     }
 }

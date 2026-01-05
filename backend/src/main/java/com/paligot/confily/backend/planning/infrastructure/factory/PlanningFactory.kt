@@ -1,13 +1,10 @@
 package com.paligot.confily.backend.planning.infrastructure.factory
 
-import com.paligot.confily.backend.internals.infrastructure.storage.StorageModule
-import com.paligot.confily.backend.planning.application.PlanningRepositoryDefault
-import com.paligot.confily.backend.planning.domain.PlanningRepository
+import com.paligot.confily.backend.internals.infrastructure.exposed.PostgresModule
+import com.paligot.confily.backend.planning.application.PlanningRepositoryExposed
 
 object PlanningFactory {
-    val planningRepository: Lazy<PlanningRepository> = lazy {
-        PlanningRepositoryDefault(
-            eventStorage = StorageModule.eventStorage.value
-        )
+    val planningRepository by lazy {
+        PlanningRepositoryExposed(PostgresModule.database)
     }
 }

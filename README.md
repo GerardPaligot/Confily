@@ -9,9 +9,8 @@ AppEngine.
 
 * Create your event planning with [OpenPlanner](https://openplanner.fr/)
 * Create your feedback forms with [OpenFeedback.io](https://github.com/HugoGresse/open-feedback)
-* Create your partners with [CMS4Conference](https://github.com/devlille/CMS4Conference)
+* Create your partners with [partners-connect](https://github.com/devlille/partners-connect)
 * Import a participant ticket from [BilletWeb](https://www.billetweb.fr/)
-* Import partner jobs from [WeLoveDevs](https://welovedevs.com/)
 
 ## Mobile Features
 
@@ -46,66 +45,9 @@ AppEngine.
 * [Multiplatform Settings](https://github.com/russhwolf/multiplatform-settings) - Kotlin Multiplatform library for saving simple key-value data
 * [BuildKonfig](https://github.com/yshrsmz/BuildKonfig) - Gradle plugin to generate build config Kotlin file.
 * [ktor](https://github.com/ktorio/ktor) - Client to make HTTP request and HTTP server routing
-* [Firestore](https://github.com/googleapis/java-firestore) - JVM client to make request on Firestore
+* [Exposed](https://www.jetbrains.com/exposed/) - ORM framework for SQL databases
 * [Storage](https://github.com/googleapis/java-storage) - JVM client to make request on Storage
 * [Drive](https://developers.google.com/drive/api/guides/about-sdk) - JVM client to handle documents in a Google Drive
-
-## Testing
-
-### Running in local
-
-Start firebase emulators inside a terminal with Firestore service.
-
-```bash
-firebase login # If you are not yet logged
-firebase emulators:start --project $RANDOM_FIREBASE_PROJECT_ID
-```
-
-Start appengine server inside another terminal to interact with the
-local instance of your Firebase.
-
-```bash
-export GOOGLE_APPLICATION_CREDENTIALS=/path/to/key.json
-export PROJECT_ID=$RANDOM_FIREBASE_PROJECT_ID
-export BASE_URL_CONFERENCE_HALL=conference-hall.io
-./gradlew :backend:installDist && ./backend/build/install/backend/bin/backend
-```
-
-Now, you can start to interact with the backend.
-
-### Deploy in GCP
-
-#### Prerequisites
-
-* Gcloud app created: `gcloud app create`
-* Billing account enabled on your GCP project
-* Cloud Build service enabled
-* Cloud Firestore service enabled
-* Secret Manager enabled
-* Geocoding enabled
-* Add secret `GEOCODE_API_KEY` in Secret Manager with geocoding api key
-* Grant your GCP service account with these permissions:
-  * Cloud Run Invoker
-  * Secret Manager Secret Accessor
-  * Storage Object Creator
-  * Storage Object Viewer
-
-#### Deploy with Cloud Run
-
-```bash
-export PROJECT_ID=<your-project-id>
-# If you are not yet logged
-gcloud auth login
-gcloud config set project $PROJECT_ID
-# Deploy
-gcloud run deploy confily \
-  --source . \
-  --platform managed \
-  --port 8080 \
-  --region europe-west1 \
-  --set-env-vars=PROJECT_ID=$PROJECT_ID \
-  --allow-unauthenticated
-```
 
 ## References
 
@@ -119,7 +61,7 @@ gcloud run deploy confily \
 
 ## License
 
-    Copyright 2022-2025 Gérard Paligot.
+    Copyright 2022-2026 Gérard Paligot.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

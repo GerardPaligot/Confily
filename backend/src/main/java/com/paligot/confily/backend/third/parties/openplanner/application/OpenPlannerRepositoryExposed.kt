@@ -17,9 +17,6 @@ import com.paligot.confily.backend.internals.helpers.storage.Upload
 import com.paligot.confily.backend.internals.infrastructure.provider.CommonApi
 import com.paligot.confily.backend.internals.infrastructure.transcoder.Png
 import com.paligot.confily.backend.internals.infrastructure.transcoder.TranscoderImage
-import com.paligot.confily.backend.partners.application.PartnerAdminRepositoryDefault.Companion.SIZE_1000
-import com.paligot.confily.backend.partners.application.PartnerAdminRepositoryDefault.Companion.SIZE_250
-import com.paligot.confily.backend.partners.application.PartnerAdminRepositoryDefault.Companion.SIZE_500
 import com.paligot.confily.backend.partners.infrastructure.exposed.PartnerEntity
 import com.paligot.confily.backend.partners.infrastructure.exposed.PartnersTable
 import com.paligot.confily.backend.partners.infrastructure.storage.PartnerStorage
@@ -301,9 +298,9 @@ class OpenPlannerRepositoryExposed(
                     val url = try {
                         val pngs = if (partner.logoUrl.endsWith(".svg")) {
                             listOf(
-                                async { imageTranscoder.convertSvgToPng(partner.logoUrl, SIZE_250) },
-                                async { imageTranscoder.convertSvgToPng(partner.logoUrl, SIZE_500) },
-                                async { imageTranscoder.convertSvgToPng(partner.logoUrl, SIZE_1000) }
+                                async { imageTranscoder.convertSvgToPng(partner.logoUrl, TranscoderImage.SIZE_250) },
+                                async { imageTranscoder.convertSvgToPng(partner.logoUrl, TranscoderImage.SIZE_500) },
+                                async { imageTranscoder.convertSvgToPng(partner.logoUrl, TranscoderImage.SIZE_1000) }
                             ).awaitAll()
                         } else {
                             val content = commonApi.fetchByteArray(partner.logoUrl)

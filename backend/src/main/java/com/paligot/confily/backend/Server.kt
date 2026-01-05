@@ -5,7 +5,6 @@ import com.paligot.confily.backend.categories.infrastructure.api.registerAdminCa
 import com.paligot.confily.backend.categories.infrastructure.api.registerCategoriesRoutes
 import com.paligot.confily.backend.events.infrastructure.api.registerAdminEventRoutes
 import com.paligot.confily.backend.events.infrastructure.api.registerEventRoutes
-import com.paligot.confily.backend.export.infrastructure.api.registerAdminExportRoutes
 import com.paligot.confily.backend.export.infrastructure.api.registerExportRoutes
 import com.paligot.confily.backend.formats.infrastructure.api.registerAdminFormatsRoutes
 import com.paligot.confily.backend.formats.infrastructure.api.registerFormatsRoutes
@@ -13,12 +12,10 @@ import com.paligot.confily.backend.integrations.infrastructure.api.integrationRo
 import com.paligot.confily.backend.internals.infrastructure.exposed.DatabaseFactory
 import com.paligot.confily.backend.internals.infrastructure.exposed.PostgresModule
 import com.paligot.confily.backend.internals.infrastructure.ktor.http.ExceptionMessage
-import com.paligot.confily.backend.internals.infrastructure.system.SystemEnv
 import com.paligot.confily.backend.map.infrastructure.api.registerAdminMapRoutes
 import com.paligot.confily.backend.map.infrastructure.api.registerMapRoutes
 import com.paligot.confily.backend.menus.infrastructure.api.registerAdminMenuRoutes
 import com.paligot.confily.backend.partners.infrastructure.api.registerAdminPartnersRoutes
-import com.paligot.confily.backend.partners.infrastructure.api.registerAdminWLDRoutes
 import com.paligot.confily.backend.partners.infrastructure.api.registerPartnersRoutes
 import com.paligot.confily.backend.planning.infrastructure.api.registerPlanningRoutes
 import com.paligot.confily.backend.qanda.infrastructure.api.registerAdminQAndAsRoutes
@@ -76,9 +73,7 @@ fun main() {
 }
 
 fun Application.module(config: ApplicationConfig = ApplicationConfig()) {
-    if (SystemEnv.DatabaseConfig.hasPostgres) {
-        PostgresModule.init(DatabaseFactory.init(applicationConfig = config))
-    }
+    PostgresModule.init(DatabaseFactory.init(applicationConfig = config))
     cors()
     serialization()
     install(ConditionalHeaders)
@@ -179,12 +174,10 @@ private fun Application.routing() {
                 registerAdminTagsRoutes()
                 registerAdminSessionsRoutes()
                 registerAdminTeamRoutes()
-                registerAdminExportRoutes()
                 // Third parties
                 integrationRoutes()
                 registerAdminPartnersConnectRoutes()
                 registerAdminOpenPlannerRoutes()
-                registerAdminWLDRoutes()
             }
         }
     }

@@ -1,7 +1,6 @@
 package com.paligot.confily.backend.speakers.infrastructure.api
 
 import com.paligot.confily.backend.internals.infrastructure.ktor.http.Identifier
-import com.paligot.confily.backend.internals.infrastructure.ktor.plugins.PlanningUpdatedAtPlugin
 import com.paligot.confily.backend.receiveValidated
 import com.paligot.confily.backend.speakers.infrastructure.factory.SpeakerModule.speakerAdminRepository
 import com.paligot.confily.backend.speakers.infrastructure.factory.SpeakerModule.speakerRepository
@@ -15,7 +14,7 @@ import io.ktor.server.routing.put
 import io.ktor.server.routing.route
 
 fun Route.registerSpeakersRoutes() {
-    val repository by speakerRepository
+    val repository = speakerRepository
 
     get("/speakers") {
         val eventId = call.parameters["eventId"]!!
@@ -24,10 +23,9 @@ fun Route.registerSpeakersRoutes() {
 }
 
 fun Route.registerAdminSpeakersRoutes() {
-    val repository by speakerAdminRepository
+    val repository = speakerAdminRepository
 
     route("/speakers") {
-        this.install(PlanningUpdatedAtPlugin)
         post {
             val eventId = call.parameters["eventId"]!!
             val speaker = call.receiveValidated<SpeakerInput>()

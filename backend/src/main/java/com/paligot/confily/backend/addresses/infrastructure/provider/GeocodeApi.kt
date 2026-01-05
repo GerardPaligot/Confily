@@ -1,7 +1,5 @@
 package com.paligot.confily.backend.addresses.infrastructure.provider
 
-import com.paligot.confily.backend.NotAuthorized
-import com.paligot.confily.backend.internals.helpers.secret.Secret
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.engine.java.Java
@@ -15,7 +13,6 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.coroutineScope
 import kotlinx.serialization.json.Json
 import java.net.URLEncoder
-import kotlin.text.get
 
 class GeocodeApi(
     private val client: HttpClient,
@@ -30,11 +27,6 @@ class GeocodeApi(
     }
 
     object Factory {
-        fun create(secret: Secret, enableNetworkLogs: Boolean): GeocodeApi = create(
-            apiKey = secret["GEOCODE_API_KEY"] ?: throw NotAuthorized,
-            enableNetworkLogs = enableNetworkLogs
-        )
-
         fun create(apiKey: String, enableNetworkLogs: Boolean): GeocodeApi = GeocodeApi(
             client = HttpClient(Java.create()) {
                 this.install(ContentNegotiation) {

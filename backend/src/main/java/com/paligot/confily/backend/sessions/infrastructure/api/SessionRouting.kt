@@ -1,6 +1,5 @@
 package com.paligot.confily.backend.sessions.infrastructure.api
 
-import com.paligot.confily.backend.internals.infrastructure.ktor.plugins.PlanningUpdatedAtPlugin
 import com.paligot.confily.backend.receiveValidated
 import com.paligot.confily.backend.sessions.infrastructure.factory.SessionModule.sessionAdminRepository
 import com.paligot.confily.backend.sessions.infrastructure.factory.SessionModule.sessionAdminVerbatimRepository
@@ -17,7 +16,7 @@ import io.ktor.server.routing.put
 import io.ktor.server.routing.route
 
 fun Route.registerSessionsRoutes() {
-    val repository by sessionRepository
+    val repository = sessionRepository
 
     get("/sessions") {
         val eventId = call.parameters["eventId"]!!
@@ -26,11 +25,10 @@ fun Route.registerSessionsRoutes() {
 }
 
 fun Route.registerAdminSessionsRoutes() {
-    val adminRepository by sessionAdminRepository
-    val adminVerbatimRepository by sessionAdminVerbatimRepository
+    val adminRepository = sessionAdminRepository
+    val adminVerbatimRepository = sessionAdminVerbatimRepository
 
     route("/sessions") {
-        this.install(PlanningUpdatedAtPlugin)
         post {
             val eventId = call.parameters["eventId"]!!
             val input = call.receiveValidated<TalkSessionInput>()

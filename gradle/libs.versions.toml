@@ -27,8 +27,6 @@ detekt = "1.23.8"
 google-accompanist = "0.37.3"
 google-api-client = "2.7.2"
 google-api-services-drive = "v3-rev20220815-2.0.0"
-google-cloud-firestore = "3.31.4"
-google-cloud-secretmanager = "2.63.0"
 google-cloud-storage = "2.52.2"
 google-oauth-client = "1.39.0"
 google-firebase = "33.13.0"
@@ -152,9 +150,7 @@ jetbrains-kotlinx-io-bytestring = { group = "org.jetbrains.kotlinx", name = "kot
 jetbrains-kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "jetbrains-kotlinx-serialization" }
 
 google-accompanist-permissions = { group = "com.google.accompanist", name = "accompanist-permissions", version.ref = "google-accompanist" }
-google-cloud-firestore = { group = "com.google.cloud", name = "google-cloud-firestore", version.ref = "google-cloud-firestore" }
 google-cloud-storage = { group = "com.google.cloud", name = "google-cloud-storage", version.ref = "google-cloud-storage" }
-google-cloud-secret = { group = "com.google.cloud", name = "google-cloud-secretmanager", version.ref = "google-cloud-secretmanager" }
 google-api-client = { group = "com.google.api-client", name = "google-api-client", version.ref = "google-api-client" }
 google-auth-client = { group = "com.google.oauth-client", name = "google-oauth-client-jetty", version.ref = "google-oauth-client" }
 google-drive = { group = "com.google.apis", name = "google-api-services-drive", version.ref = "google-api-services-drive" }

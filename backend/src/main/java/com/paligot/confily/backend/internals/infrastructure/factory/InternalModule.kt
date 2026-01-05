@@ -1,30 +1,25 @@
 package com.paligot.confily.backend.internals.infrastructure.factory
 
 import com.paligot.confily.backend.internals.helpers.drive.DriveDataSource
-import com.paligot.confily.backend.internals.helpers.secret.Secret
-import com.paligot.confily.backend.internals.helpers.storage.Storage
+import com.paligot.confily.backend.internals.helpers.storage.BucketStorage
 import com.paligot.confily.backend.internals.infrastructure.provider.CommonApi
 import com.paligot.confily.backend.internals.infrastructure.system.SystemEnv
 import com.paligot.confily.backend.internals.infrastructure.transcoder.TranscoderImage
 
 object InternalModule {
-    val driveDataSource: Lazy<DriveDataSource> = lazy {
-        DriveDataSource.Factory.create(GoogleServicesModule.drive.value)
+    val driveDataSource by lazy {
+        DriveDataSource.Factory.create(GoogleServicesModule.drive)
     }
-    val secret: Lazy<Secret> = lazy {
-        Secret.Factory.create(SystemEnv.GoogleProvider.projectId, GoogleServicesModule.secretManager.value)
-    }
-    val storage: Lazy<Storage> = lazy {
-        Storage.Factory.create(
-            GoogleServicesModule.cloudStorage.value,
-            SystemEnv.GoogleProvider.storageBucket,
-            SystemEnv.DatabaseConfig.isCloud
+    val storage by lazy {
+        BucketStorage(
+            GoogleServicesModule.cloudStorage,
+            SystemEnv.GoogleProvider.storageBucket
         )
     }
-    val transcoder: Lazy<TranscoderImage> = lazy {
+    val transcoder by lazy {
         TranscoderImage()
     }
-    val commonApi: Lazy<CommonApi> = lazy {
+    val commonApi by lazy {
         CommonApi.Factory.create(enableNetworkLogs = true)
     }
 }

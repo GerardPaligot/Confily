@@ -8,7 +8,7 @@ import io.ktor.server.routing.get
 import kotlin.getValue
 
 fun Route.registerOpenfeedackRoutes() {
-    val openfeedbackRepository by openfeedbackRepository
+    val openfeedbackRepository = openfeedbackRepository
 
     get("/openfeedback") {
         val eventId = call.parameters["eventId"]!!
