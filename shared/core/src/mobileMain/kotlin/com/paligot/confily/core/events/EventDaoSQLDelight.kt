@@ -16,7 +16,7 @@ import com.paligot.confily.core.events.entities.TeamMemberInfo
 import com.paligot.confily.core.events.entities.TeamMemberItem
 import com.paligot.confily.db.ConfilyDatabase
 import com.paligot.confily.models.Attendee
-import com.paligot.confily.models.ExportEvent
+import com.paligot.confily.models.EventV5
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.Flow
@@ -108,7 +108,7 @@ class EventDaoSQLDelight(
             )
         }
 
-    override fun insertEvent(event: ExportEvent) = db.transaction {
+    override fun insertEvent(event: EventV5) = db.transaction {
         val eventDb = event.convertToModelDb()
         db.eventQueries.insertEvent(
             id = eventDb.id,

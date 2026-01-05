@@ -18,7 +18,15 @@ fun Route.registerPlanningRoutes() {
     }
     get("/agenda") {
         val eventId = call.parameters["eventId"]!!
-        when (call.request.acceptItems().version()) {
+        val acceptItems = call.request.acceptItems()
+        if (acceptItems.map { it.value }.contains("text/csv")) {
+            call.respond(
+                status = HttpStatusCode.OK,
+                message = planningRepository.getCsv(eventId)
+            )
+            return@get
+        }
+        when (acceptItems.version()) {
             1 -> call.respond(status = HttpStatusCode.OK, message = planningRepository.agenda(eventId))
             2 -> call.respond(status = HttpStatusCode.OK, message = planningRepository.agendaMultiDays(eventId))
             3 -> call.respond(status = HttpStatusCode.OK, message = planningRepository.planning(eventId))

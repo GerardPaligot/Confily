@@ -18,7 +18,7 @@ import com.paligot.confily.core.socials.SocialDb
 import com.paligot.confily.core.speakers.SpeakerDb
 import com.paligot.confily.models.Category
 import com.paligot.confily.models.EventLunchMenu
-import com.paligot.confily.models.ExportEvent
+import com.paligot.confily.models.EventV5
 import com.paligot.confily.models.FeaturesActivated
 import com.paligot.confily.models.Format
 import com.paligot.confily.models.Job
@@ -32,7 +32,7 @@ import com.paligot.confily.models.Speaker
 import com.paligot.confily.models.TeamMember
 import kotlin.reflect.KClass
 
-fun ExportEvent.convertToModelDb(): EventDb = EventDb(
+fun EventV5.convertToModelDb(): EventDb = EventDb(
     id = this.id,
     name = this.name,
     formattedAddress = this.address.formatted,

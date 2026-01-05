@@ -6,7 +6,7 @@ import com.paligot.confily.db.Schedule
 import com.paligot.confily.db.TalkSession
 import com.paligot.confily.db.TalkSessionWithSpeakers
 import com.paligot.confily.models.Category
-import com.paligot.confily.models.ExportEvent
+import com.paligot.confily.models.EventV5
 import com.paligot.confily.models.Format
 import com.paligot.confily.models.ScheduleItemV4
 import com.paligot.confily.models.Session
@@ -18,7 +18,7 @@ import com.paligot.confily.db.Format as FormatDb
 import com.paligot.confily.db.Speaker as SpeakerDb
 import com.paligot.confily.db.Tag as TagDb
 
-fun ExportEvent.convertToModelDb(): Event = Event(
+fun EventV5.convertToModelDb(): Event = Event(
     id = this.id,
     name = this.name,
     formatted_address = this.address.formatted,

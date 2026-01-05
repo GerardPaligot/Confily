@@ -5,7 +5,7 @@ import com.paligot.confily.models.Attendee
 import com.paligot.confily.models.CreatedMap
 import com.paligot.confily.models.EventList
 import com.paligot.confily.models.EventMap
-import com.paligot.confily.models.ExportEvent
+import com.paligot.confily.models.EventV5
 import com.paligot.confily.models.PartnersActivities
 import com.paligot.confily.models.inputs.MapInput
 import io.ktor.client.HttpClient
@@ -37,14 +37,18 @@ class ConferenceApi(
 ) {
     suspend fun fetchEventList(): EventList = client.get("$baseUrl/events").body()
 
-    suspend fun fetchExportEvent(eventId: String): ExportEvent =
-        client.get("$baseUrl/events/$eventId/export/event").body()
+    suspend fun fetchEvent(eventId: String): EventV5 =
+        client.get("$baseUrl/events/$eventId") {
+            headers[HttpHeaders.Accept] = "application/json; version=5"
+        }.body()
 
-    suspend fun fetchExportPlanning(eventId: String): AgendaV4 =
-        client.get("$baseUrl/events/$eventId/export/planning").body()
+    suspend fun fetchPlanning(eventId: String): AgendaV4 =
+        client.get("$baseUrl/events/$eventId/agenda") {
+            headers[HttpHeaders.Accept] = "application/json; version=4"
+        }.body()
 
-    suspend fun fetchExportPartners(eventId: String): PartnersActivities =
-        client.get("$baseUrl/events/$eventId/export/partners").body()
+    suspend fun fetchPartners(eventId: String): PartnersActivities =
+        client.get("$baseUrl/events/$eventId/partners/activities").body()
 
     suspend fun fetchAttendee(eventId: String, barcode: String): Attendee =
         client.get("$baseUrl/events/$eventId/billet-web/$barcode").body()

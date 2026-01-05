@@ -25,6 +25,7 @@ import com.paligot.confily.models.AgendaV3
 import com.paligot.confily.models.AgendaV4
 import com.paligot.confily.models.PlanningItem
 import com.paligot.confily.models.ScheduleItem
+import com.paligot.confily.models.Session
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.format
@@ -33,6 +34,7 @@ import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SortOrder
 import org.jetbrains.exposed.sql.transactions.transaction
+import java.time.format.DateTimeFormatter
 import java.util.UUID
 
 class PlanningRepositoryExposed(
@@ -40,6 +42,64 @@ class PlanningRepositoryExposed(
 ) : PlanningRepository {
     private val format = LocalDateTime.Format {
         hour(); char(':'); minute()
+    }
+
+    private fun protect(value: String): String =
+        if (value.contains(",") || value.contains('"')) {
+            "\"${value.replace("\"", "\"\"")}\""
+        } else {
+            value
+        }
+
+    override suspend fun getCsv(eventId: String): String {
+        val agenda = planningBySchedules(eventId)
+        val dateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME
+        val schedules = agenda.schedules
+            .sortedWith(
+                compareBy(
+                    { java.time.LocalDateTime.parse(it.startTime, dateTimeFormatter) },
+                    { it.order }
+                )
+            )
+        val sessionsById = agenda.sessions.associateBy { it.id }
+        val formatsById = agenda.formats.associateBy { it.id }
+        val categoriesById = agenda.categories.associateBy { it.id }
+        val speakersById = agenda.speakers.associateBy { it.id }
+        val headers = listOf(
+            "start_time",
+            "end_time",
+            "room",
+            "session_title",
+            "session_description",
+            "session_format",
+            "session_category",
+            "session_level",
+            "speakers"
+        )
+        val csvRows = mutableListOf(headers.joinToString(","))
+        for (schedule in schedules) {
+            val session = sessionsById[schedule.sessionId]
+            if (session is Session.Talk) {
+                val format = formatsById[session.formatId]?.name ?: ""
+                val category = categoriesById[session.categoryId]?.name ?: ""
+                val speakers = session.speakers
+                    .mapNotNull { speakersById[it]?.displayName }
+                    .joinToString(", ")
+                val row = listOf(
+                    schedule.startTime,
+                    schedule.endTime,
+                    schedule.room,
+                    session.title,
+                    session.abstract.replace("\n", " "),
+                    format,
+                    category,
+                    session.level ?: "",
+                    speakers
+                ).map { protect(it) }
+                csvRows.add(row.joinToString(","))
+            }
+        }
+        return csvRows.joinToString("\n")
     }
 
     override suspend fun agenda(eventId: String): Agenda = transaction(db = database) {
