@@ -3,7 +3,6 @@ package com.paligot.confily.backend.categories.infrastructure.api
 import com.paligot.confily.backend.categories.infrastructure.factory.CategoryModule.categoryAdminRepository
 import com.paligot.confily.backend.categories.infrastructure.factory.CategoryModule.categoryRepository
 import com.paligot.confily.backend.internals.infrastructure.ktor.http.Identifier
-import com.paligot.confily.backend.internals.infrastructure.ktor.plugins.PlanningUpdatedAtPlugin
 import com.paligot.confily.backend.receiveValidated
 import com.paligot.confily.models.inputs.CategoryInput
 import io.ktor.http.HttpStatusCode
@@ -15,7 +14,7 @@ import io.ktor.server.routing.put
 import io.ktor.server.routing.route
 
 fun Route.registerCategoriesRoutes() {
-    val repository by categoryRepository
+    val repository = categoryRepository
 
     get("/categories") {
         val eventId = call.parameters["eventId"]!!
@@ -24,10 +23,9 @@ fun Route.registerCategoriesRoutes() {
 }
 
 fun Route.registerAdminCategoriesRoutes() {
-    val repository by categoryAdminRepository
+    val repository = categoryAdminRepository
 
     route("/categories") {
-        this.install(PlanningUpdatedAtPlugin)
         post {
             val eventId = call.parameters["eventId"]!!
             val catInput = call.receiveValidated<CategoryInput>()

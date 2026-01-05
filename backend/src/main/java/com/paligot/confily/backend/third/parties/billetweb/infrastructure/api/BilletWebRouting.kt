@@ -7,7 +7,7 @@ import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 
 fun Route.registerBilletWebRoutes() {
-    val repository by billetWebRepository
+    val repository = billetWebRepository
 
     get("billet-web/{barcode}") {
         val eventId = call.parameters["eventId"]!!

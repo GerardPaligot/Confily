@@ -10,7 +10,6 @@ import com.paligot.confily.backend.events.infrastructure.exposed.EventSocialsTab
 import com.paligot.confily.backend.events.infrastructure.exposed.EventsTable
 import com.paligot.confily.backend.events.infrastructure.exposed.FeatureKey
 import com.paligot.confily.backend.events.infrastructure.exposed.toEventItemList
-import com.paligot.confily.backend.events.infrastructure.firestore.Sponsorship
 import com.paligot.confily.backend.integrations.domain.IntegrationProvider
 import com.paligot.confily.backend.integrations.domain.IntegrationUsage
 import com.paligot.confily.backend.integrations.infrastructure.exposed.IntegrationEntity
@@ -92,7 +91,7 @@ class EventRepositoryExposed(
             }
         val partners = EventPartners(
             golds = SponsoringTypeEntity
-                .findByTypeName(eventUuid, Sponsorship.Gold.name)
+                .findByTypeName(eventUuid, "Gold")
                 ?.let { sponsoringType ->
                     PartnerSponsorshipsTable
                         .partnerIds(sponsoringType.id.value)
@@ -100,7 +99,7 @@ class EventRepositoryExposed(
                         .sortedBy { it.name }
                 } ?: emptyList(),
             silvers = SponsoringTypeEntity
-                .findByTypeName(eventUuid, Sponsorship.Silver.name)
+                .findByTypeName(eventUuid, "Silver")
                 ?.let { sponsoringType ->
                     PartnerSponsorshipsTable
                         .partnerIds(sponsoringType.id.value)
@@ -108,7 +107,7 @@ class EventRepositoryExposed(
                         .sortedBy { it.name }
                 } ?: emptyList(),
             bronzes = SponsoringTypeEntity
-                .findByTypeName(eventUuid, Sponsorship.Bronze.name)
+                .findByTypeName(eventUuid, "Bronze")
                 ?.let { sponsoringType ->
                     PartnerSponsorshipsTable
                         .partnerIds(sponsoringType.id.value)
@@ -116,7 +115,7 @@ class EventRepositoryExposed(
                         .sortedBy { it.name }
                 } ?: emptyList(),
             others = SponsoringTypeEntity
-                .findByTypeName(eventUuid, Sponsorship.Other.name)
+                .findByTypeName(eventUuid, "Other")
                 ?.let { sponsoringType ->
                     PartnerSponsorshipsTable
                         .partnerIds(sponsoringType.id.value)

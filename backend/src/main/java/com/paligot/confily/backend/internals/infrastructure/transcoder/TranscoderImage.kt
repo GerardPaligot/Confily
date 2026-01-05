@@ -25,6 +25,12 @@ class TranscoderImage {
             return@coroutineScope Png(size = size, content = null)
         }
     }
+
+    companion object {
+        const val SIZE_250 = 250
+        const val SIZE_500 = 500
+        const val SIZE_1000 = 1000
+    }
 }
 
 class Png(

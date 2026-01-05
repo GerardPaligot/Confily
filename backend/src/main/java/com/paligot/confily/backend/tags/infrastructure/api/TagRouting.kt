@@ -1,6 +1,5 @@
 package com.paligot.confily.backend.tags.infrastructure.api
 
-import com.paligot.confily.backend.internals.infrastructure.ktor.plugins.PlanningUpdatedAtPlugin
 import com.paligot.confily.backend.receiveValidated
 import com.paligot.confily.backend.tags.infrastructure.factory.TagModule.tagAdminRepository
 import com.paligot.confily.backend.tags.infrastructure.factory.TagModule.tagRepository
@@ -14,7 +13,7 @@ import io.ktor.server.routing.put
 import io.ktor.server.routing.route
 
 fun Route.registerTagsRoutes() {
-    val repository by tagRepository
+    val repository = tagRepository
 
     get("/tags") {
         val eventId = call.parameters["eventId"]!!
@@ -23,10 +22,9 @@ fun Route.registerTagsRoutes() {
 }
 
 fun Route.registerAdminTagsRoutes() {
-    val repository by tagAdminRepository
+    val repository = tagAdminRepository
 
     route("/tags") {
-        this.install(PlanningUpdatedAtPlugin)
         post {
             val eventId = call.parameters["eventId"]!!
             val input = call.receiveValidated<TagInput>()

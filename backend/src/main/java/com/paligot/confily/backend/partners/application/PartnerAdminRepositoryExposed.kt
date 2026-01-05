@@ -11,9 +11,6 @@ import com.paligot.confily.backend.internals.infrastructure.exposed.SocialsTable
 import com.paligot.confily.backend.internals.infrastructure.provider.CommonApi
 import com.paligot.confily.backend.internals.infrastructure.transcoder.Png
 import com.paligot.confily.backend.internals.infrastructure.transcoder.TranscoderImage
-import com.paligot.confily.backend.partners.application.PartnerAdminRepositoryDefault.Companion.SIZE_1000
-import com.paligot.confily.backend.partners.application.PartnerAdminRepositoryDefault.Companion.SIZE_250
-import com.paligot.confily.backend.partners.application.PartnerAdminRepositoryDefault.Companion.SIZE_500
 import com.paligot.confily.backend.partners.domain.PartnerAdminRepository
 import com.paligot.confily.backend.partners.infrastructure.exposed.PartnerEntity
 import com.paligot.confily.backend.partners.infrastructure.exposed.PartnerSocialsTable
@@ -55,9 +52,9 @@ class PartnerAdminRepositoryExposed(
             )
         } else {
             listOf(
-                async { imageTranscoder.convertSvgToPng(partnerInput.logoUrl, SIZE_250) },
-                async { imageTranscoder.convertSvgToPng(partnerInput.logoUrl, SIZE_500) },
-                async { imageTranscoder.convertSvgToPng(partnerInput.logoUrl, SIZE_1000) }
+                async { imageTranscoder.convertSvgToPng(partnerInput.logoUrl, TranscoderImage.SIZE_250) },
+                async { imageTranscoder.convertSvgToPng(partnerInput.logoUrl, TranscoderImage.SIZE_500) },
+                async { imageTranscoder.convertSvgToPng(partnerInput.logoUrl, TranscoderImage.SIZE_1000) }
             ).awaitAll()
         }
         val uploads = partnerStorage.uploadPartnerLogos(event.slug, partnerInput.name.slug(), pngs)
@@ -129,9 +126,9 @@ class PartnerAdminRepositoryExposed(
             )
         } else {
             listOf(
-                async { imageTranscoder.convertSvgToPng(input.logoUrl, SIZE_250) },
-                async { imageTranscoder.convertSvgToPng(input.logoUrl, SIZE_500) },
-                async { imageTranscoder.convertSvgToPng(input.logoUrl, SIZE_1000) }
+                async { imageTranscoder.convertSvgToPng(input.logoUrl, TranscoderImage.SIZE_250) },
+                async { imageTranscoder.convertSvgToPng(input.logoUrl, TranscoderImage.SIZE_500) },
+                async { imageTranscoder.convertSvgToPng(input.logoUrl, TranscoderImage.SIZE_1000) }
             ).awaitAll()
         }
         val uploads = partnerStorage.uploadPartnerLogos(event.slug, input.name.slug(), pngs)

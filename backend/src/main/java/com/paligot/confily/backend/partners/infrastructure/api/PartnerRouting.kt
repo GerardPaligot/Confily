@@ -1,7 +1,6 @@
 package com.paligot.confily.backend.partners.infrastructure.api
 
 import com.paligot.confily.backend.internals.infrastructure.ktor.http.Identifier
-import com.paligot.confily.backend.internals.infrastructure.ktor.plugins.PartnersUpdatedAtPlugin
 import com.paligot.confily.backend.partners.infrastructure.factory.PartnerModule.partnerAdminRepository
 import com.paligot.confily.backend.partners.infrastructure.factory.PartnerModule.partnerRepository
 import com.paligot.confily.backend.receiveValidated
@@ -15,7 +14,7 @@ import io.ktor.server.routing.put
 import io.ktor.server.routing.route
 
 fun Route.registerPartnersRoutes() {
-    val repository by partnerRepository
+    val repository = partnerRepository
 
     get("/partners") {
         val eventId = call.parameters["eventId"]!!
@@ -28,10 +27,9 @@ fun Route.registerPartnersRoutes() {
 }
 
 fun Route.registerAdminPartnersRoutes() {
-    val repository by partnerAdminRepository
+    val repository = partnerAdminRepository
 
     route("/partners") {
-        this.install(PartnersUpdatedAtPlugin)
         post {
             val eventId = call.parameters["eventId"]!!
             val partner = call.receiveValidated<PartnerInput>()

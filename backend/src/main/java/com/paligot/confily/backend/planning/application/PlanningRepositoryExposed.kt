@@ -34,7 +34,6 @@ import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SortOrder
 import org.jetbrains.exposed.sql.transactions.transaction
 import java.util.UUID
-import com.paligot.confily.backend.events.infrastructure.firestore.EventEntity as FEventEntity
 
 class PlanningRepositoryExposed(
     private val database: Database
@@ -43,8 +42,8 @@ class PlanningRepositoryExposed(
         hour(); char(':'); minute()
     }
 
-    override suspend fun agenda(eventDb: FEventEntity): Agenda = transaction(db = database) {
-        val eventUuid = UUID.fromString(eventDb.slugId)
+    override suspend fun agenda(eventId: String): Agenda = transaction(db = database) {
+        val eventUuid = UUID.fromString(eventId)
         Agenda(
             talks = ScheduleEntity
                 .findByEvent(eventUuid)
@@ -57,9 +56,9 @@ class PlanningRepositoryExposed(
         )
     }
 
-    override suspend fun agendaMultiDays(eventDb: FEventEntity): Map<String, Map<String, List<ScheduleItem>>> =
+    override suspend fun agendaMultiDays(eventId: String): Map<String, Map<String, List<ScheduleItem>>> =
         transaction(db = database) {
-            val eventUuid = UUID.fromString(eventDb.slugId)
+            val eventUuid = UUID.fromString(eventId)
             ScheduleEntity
                 .findByEvent(eventUuid)
                 .groupBy { it.startTime.toLocalDateTime(TimeZone.UTC).date.toString() }
@@ -81,9 +80,9 @@ class PlanningRepositoryExposed(
         }
 
     override suspend fun agendaMultiDaysAndEventSessions(
-        eventDb: FEventEntity
+        eventId: String
     ): Map<String, Map<String, List<PlanningItem>>> = transaction(db = database) {
-        val eventUuid = UUID.fromString(eventDb.slugId)
+        val eventUuid = UUID.fromString(eventId)
         ScheduleEntity
             .findByEvent(eventUuid)
             .groupBy { it.startTime.toLocalDateTime(TimeZone.UTC).date.toString() }
@@ -104,8 +103,8 @@ class PlanningRepositoryExposed(
             .toMap()
     }
 
-    override suspend fun planning(eventDb: FEventEntity): AgendaV3 = transaction(db = database) {
-        val eventUuid = UUID.fromString(eventDb.slugId)
+    override suspend fun planning(eventId: String): AgendaV3 = transaction(db = database) {
+        val eventUuid = UUID.fromString(eventId)
         val sessions = SessionEntity
             .findByEvent(eventUuid)
             .map { it.toModelV3() }
@@ -128,8 +127,8 @@ class PlanningRepositoryExposed(
         )
     }
 
-    override suspend fun planningBySchedules(eventDb: FEventEntity): AgendaV4 = transaction(db = database) {
-        val eventUuid = UUID.fromString(eventDb.slugId)
+    override suspend fun planningBySchedules(eventId: String): AgendaV4 = transaction(db = database) {
+        val eventUuid = UUID.fromString(eventId)
         val sessions = SessionEntity
             .findByEvent(eventUuid)
             .map { it.toSessionModel() }

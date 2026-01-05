@@ -3,7 +3,6 @@ package com.paligot.confily.backend.formats.infrastructure.api
 import com.paligot.confily.backend.formats.infrastructure.factory.FormatModule.formatAdminRepository
 import com.paligot.confily.backend.formats.infrastructure.factory.FormatModule.formatRepository
 import com.paligot.confily.backend.internals.infrastructure.ktor.http.Identifier
-import com.paligot.confily.backend.internals.infrastructure.ktor.plugins.PlanningUpdatedAtPlugin
 import com.paligot.confily.backend.receiveValidated
 import com.paligot.confily.models.inputs.FormatInput
 import io.ktor.http.HttpStatusCode
@@ -15,7 +14,7 @@ import io.ktor.server.routing.put
 import io.ktor.server.routing.route
 
 fun Route.registerFormatsRoutes() {
-    val repository by formatRepository
+    val repository = formatRepository
 
     get("/formats") {
         val eventId = call.parameters["eventId"]!!
@@ -24,10 +23,9 @@ fun Route.registerFormatsRoutes() {
 }
 
 fun Route.registerAdminFormatsRoutes() {
-    val repository by formatAdminRepository
+    val repository = formatAdminRepository
 
     route("/formats") {
-        this.install(PlanningUpdatedAtPlugin)
         post {
             val eventId = call.parameters["eventId"]!!
             val formatInput = call.receiveValidated<FormatInput>()

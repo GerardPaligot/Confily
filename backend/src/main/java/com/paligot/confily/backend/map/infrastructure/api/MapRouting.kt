@@ -1,7 +1,6 @@
 package com.paligot.confily.backend.map.infrastructure.api
 
 import com.paligot.confily.backend.internals.infrastructure.ktor.http.asFile
-import com.paligot.confily.backend.internals.infrastructure.ktor.plugins.EventUpdatedAtPlugin
 import com.paligot.confily.backend.map.infrastructure.factory.MapModule.mapAdminRepository
 import com.paligot.confily.backend.map.infrastructure.factory.MapModule.mapRepository
 import com.paligot.confily.backend.receiveValidated
@@ -17,7 +16,7 @@ import io.ktor.server.routing.put
 import io.ktor.server.routing.route
 
 fun Route.registerMapRoutes() {
-    val repository by mapRepository
+    val repository = mapRepository
 
     get("/maps") {
         val eventId = call.parameters["eventId"]!!
@@ -26,11 +25,9 @@ fun Route.registerMapRoutes() {
 }
 
 fun Route.registerAdminMapRoutes() {
-    val repository by mapAdminRepository
+    val repository = mapAdminRepository
 
     route("/maps") {
-        this.install(EventUpdatedAtPlugin)
-
         post {
             val eventId = call.parameters["eventId"]!!
             val multipartData = call.receiveMultipart()
