@@ -23,4 +23,8 @@ object SessionSpeakersTable : Table("session_speakers") {
     fun speakerIds(sessionId: UUID): List<UUID> = this.selectAll()
         .where { SessionSpeakersTable.sessionId eq sessionId }
         .map { it[speakerId].value }
+
+    fun speakers(sessionId: UUID): List<UUID> = this.selectAll()
+        .where { SessionSpeakersTable.sessionId eq sessionId }
+        .map { it[speakerId].value }
 }
