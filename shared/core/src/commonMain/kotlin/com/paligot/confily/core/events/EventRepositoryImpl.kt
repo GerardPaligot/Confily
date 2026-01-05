@@ -44,9 +44,9 @@ internal class EventRepositoryImpl(
 
     override suspend fun fetchAndStoreAgenda() {
         val eventId = settings.getEventId()
-        val exportEvent = api.fetchExportEvent(eventId)
-        val exportPlanning = api.fetchExportPlanning(eventId)
-        val exportPartners = api.fetchExportPartners(eventId)
+        val exportEvent = api.fetchEvent(eventId)
+        val exportPlanning = api.fetchPlanning(eventId)
+        val exportPartners = api.fetchPartners(eventId)
         try {
             eventDao.insertEvent(exportEvent)
             mapDao.insertMaps(eventId, exportEvent.maps)

@@ -5,7 +5,6 @@ import com.paligot.confily.backend.categories.infrastructure.api.registerAdminCa
 import com.paligot.confily.backend.categories.infrastructure.api.registerCategoriesRoutes
 import com.paligot.confily.backend.events.infrastructure.api.registerAdminEventRoutes
 import com.paligot.confily.backend.events.infrastructure.api.registerEventRoutes
-import com.paligot.confily.backend.export.infrastructure.api.registerExportRoutes
 import com.paligot.confily.backend.formats.infrastructure.api.registerAdminFormatsRoutes
 import com.paligot.confily.backend.formats.infrastructure.api.registerFormatsRoutes
 import com.paligot.confily.backend.integrations.infrastructure.api.integrationRoutes
@@ -152,7 +151,6 @@ private fun Application.routing() {
             registerSchedulersRoutes()
             registerPartnersRoutes()
             registerTeamRoutes()
-            registerExportRoutes()
             // Third parties
             registerOpenfeedackRoutes()
             registerBilletWebRoutes()

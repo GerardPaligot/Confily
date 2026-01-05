@@ -13,7 +13,7 @@ import com.paligot.confily.core.events.entities.TeamMemberInfo
 import com.paligot.confily.core.events.entities.TeamMemberItem
 import com.paligot.confily.core.socials.SocialQueries
 import com.paligot.confily.models.Attendee
-import com.paligot.confily.models.ExportEvent
+import com.paligot.confily.models.EventV5
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.Flow
@@ -98,7 +98,7 @@ class EventDaoSettings(
             )
         }
 
-    override fun insertEvent(event: ExportEvent) {
+    override fun insertEvent(event: EventV5) {
         val eventDb = event.convertToModelDb()
         eventQueries.insertEvent(eventDb)
         event.contact.socials.forEach {

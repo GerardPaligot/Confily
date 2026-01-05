@@ -42,6 +42,7 @@ fun Route.registerEventRoutes() {
             2 -> call.respond(status = HttpStatusCode.OK, message = eventRepository.getV2(eventId))
             3 -> call.respond(status = HttpStatusCode.OK, message = eventRepository.getV3(eventId))
             4 -> call.respond(status = HttpStatusCode.OK, message = eventRepository.getV4(eventId))
+            5 -> call.respond(status = HttpStatusCode.OK, message = eventRepository.getV5(eventId))
             else -> call.respond(HttpStatusCode.NotImplemented)
         }
     }

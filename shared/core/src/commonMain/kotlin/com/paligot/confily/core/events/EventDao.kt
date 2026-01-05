@@ -9,7 +9,7 @@ import com.paligot.confily.core.events.entities.QAndAItem
 import com.paligot.confily.core.events.entities.TeamMemberInfo
 import com.paligot.confily.core.events.entities.TeamMemberItem
 import com.paligot.confily.models.Attendee
-import com.paligot.confily.models.ExportEvent
+import com.paligot.confily.models.EventV5
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.flow.Flow
 import com.paligot.confily.models.EventItemList as EventItemListNetworking
@@ -23,7 +23,7 @@ interface EventDao {
     fun fetchTeamMembers(eventId: String): Flow<Map<String, List<TeamMemberItem>>>
     fun fetchTeamMember(eventId: String, memberId: String): Flow<TeamMemberInfo?>
     fun fetchFeatureFlags(eventId: String): Flow<FeatureFlags>
-    fun insertEvent(event: ExportEvent)
+    fun insertEvent(event: EventV5)
     fun insertEventItems(future: List<EventItemListNetworking>, past: List<EventItemListNetworking>)
     fun updateTicket(eventId: String, qrCode: ByteArray, barcode: String, attendee: Attendee?)
 }

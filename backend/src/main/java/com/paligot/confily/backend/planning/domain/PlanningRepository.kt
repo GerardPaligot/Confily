@@ -7,6 +7,7 @@ import com.paligot.confily.models.PlanningItem
 import com.paligot.confily.models.ScheduleItem
 
 interface PlanningRepository {
+    suspend fun getCsv(eventId: String): String
     suspend fun agenda(eventId: String): Agenda
     suspend fun agendaMultiDays(eventId: String): Map<String, Map<String, List<ScheduleItem>>>
     suspend fun agendaMultiDaysAndEventSessions(eventId: String): Map<String, Map<String, List<PlanningItem>>>

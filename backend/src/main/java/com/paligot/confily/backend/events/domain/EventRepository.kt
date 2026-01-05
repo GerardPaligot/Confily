@@ -6,6 +6,7 @@ import com.paligot.confily.models.EventList
 import com.paligot.confily.models.EventV2
 import com.paligot.confily.models.EventV3
 import com.paligot.confily.models.EventV4
+import com.paligot.confily.models.EventV5
 import com.paligot.confily.models.inputs.CreatingEventInput
 
 interface EventRepository {
@@ -14,5 +15,6 @@ interface EventRepository {
     suspend fun getV2(eventId: String): EventV2
     suspend fun getV3(eventId: String): EventV3
     suspend fun getV4(eventId: String): EventV4
+    suspend fun getV5(eventId: String): EventV5
     suspend fun create(eventInput: CreatingEventInput, language: String): CreatedEvent
 }

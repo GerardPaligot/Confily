@@ -4,13 +4,13 @@ import com.paligot.confily.models.Address
 import com.paligot.confily.models.CodeOfConduct
 import com.paligot.confily.models.EventContact
 import com.paligot.confily.models.EventLunchMenu
-import com.paligot.confily.models.ExportEvent
+import com.paligot.confily.models.EventV5
 import com.paligot.confily.models.FeaturesActivated
 import com.paligot.confily.models.QAndA
 import com.paligot.confily.models.ThirdParty
 import kotlinx.datetime.Instant
 
-fun ExportEvent.Companion.builder(): EventBuilder = EventBuilder()
+fun EventV5.Companion.builder(): EventBuilder = EventBuilder()
 
 @Suppress("TooManyFunctions")
 class EventBuilder {
@@ -63,7 +63,7 @@ class EventBuilder {
 
     fun updatedAt(updatedAt: Long) = apply { this.updatedAt = updatedAt }
 
-    fun build(): ExportEvent = ExportEvent(
+    fun build(): EventV5 = EventV5(
         id = id,
         name = name,
         address = address,
