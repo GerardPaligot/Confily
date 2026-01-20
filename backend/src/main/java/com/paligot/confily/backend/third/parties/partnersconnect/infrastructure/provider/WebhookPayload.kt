@@ -46,7 +46,7 @@ data class PartnershipProcessStatus(
     @SerialName("declined_at")
     val declinedAt: String? = null,
     @SerialName("billing_status")
-    val billingStatus: InvoiceStatus? = null
+    val billingStatus: String? = null
 )
 
 @Serializable

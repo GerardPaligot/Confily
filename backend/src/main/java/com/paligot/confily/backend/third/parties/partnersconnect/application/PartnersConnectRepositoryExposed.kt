@@ -43,7 +43,7 @@ class PartnersConnectRepositoryExposed(
             val event = EventEntity[eventUuid]
             val pack = payload.partnership.validatedPack
                 ?: throw NotAcceptableException("Insert only validated partnership")
-            if (payload.partnership.processStatus.billingStatus != InvoiceStatus.PAID) {
+            if (payload.partnership.processStatus.billingStatus?.lowercase() != InvoiceStatus.PAID.name.lowercase()) {
                 throw NotAcceptableException("Insert only paid partnership")
             }
             val partner = PartnerEntity
