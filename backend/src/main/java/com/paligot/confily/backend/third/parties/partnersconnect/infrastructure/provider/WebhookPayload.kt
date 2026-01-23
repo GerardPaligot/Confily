@@ -117,12 +117,9 @@ class Address(
 
 @Serializable
 class Social(
-    val type: SocialType,
+    val type: String,
     val url: String
 )
-
-@Serializable
-enum class SocialType { LINKEDIN, X, BLUESKY, MASTODON, INSTAGRAM, FACEBOOK, YOUTUBE }
 
 @Serializable
 class EventSummary(

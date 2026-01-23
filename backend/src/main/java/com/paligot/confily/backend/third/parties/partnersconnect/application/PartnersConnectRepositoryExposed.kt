@@ -17,6 +17,7 @@ import com.paligot.confily.backend.third.parties.partnersconnect.domain.Partners
 import com.paligot.confily.backend.third.parties.partnersconnect.infrastructure.provider.InvoiceStatus
 import com.paligot.confily.backend.third.parties.partnersconnect.infrastructure.provider.PartnersConnectWebhookPayload
 import com.paligot.confily.models.SocialType
+import com.paligot.confily.models.mapToSocialType
 import kotlinx.coroutines.coroutineScope
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
@@ -130,12 +131,11 @@ class PartnersConnectRepositoryExposed(
         SocialsTable.deleteWhere { SocialsTable.id inList PartnerSocialsTable.socialIds(partner.id.value) }
         val socialTypes = SocialType.entries.map { it.name.lowercase() }
         val socialIds = payload.company.socials
-            .filter { socialTypes.contains(it.type.name.lowercase()) }
+            .filter { socialTypes.contains(it.type.lowercase()) }
             .map { social ->
-                val socialType = social.type.name.lowercase().replaceFirstChar { it.uppercase() }
                 SocialEntity.new {
                     this.event = event
-                    this.platform = SocialType.valueOf(socialType)
+                    this.platform = social.type.lowercase().mapToSocialType()
                     this.url = social.url
                 }.id.value
             }
