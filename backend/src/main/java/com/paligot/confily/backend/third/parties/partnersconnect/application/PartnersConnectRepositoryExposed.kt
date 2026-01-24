@@ -47,6 +47,9 @@ class PartnersConnectRepositoryExposed(
             if (payload.partnership.processStatus.billingStatus?.lowercase() != InvoiceStatus.PAID.name.lowercase()) {
                 throw NotAcceptableException("Insert only paid partnership")
             }
+            if (payload.company.medias == null || payload.company.medias.original.isBlank()) {
+                throw NotAcceptableException("Company should have a media to be inserted as partner")
+            }
             val partner = PartnerEntity
                 .findByExternalId(
                     eventId = eventUuid,
