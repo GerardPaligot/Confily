@@ -56,6 +56,7 @@ data class PartnerV3(
     val name: String,
     val description: String,
     val media: PartnerMedia,
+    val siteUrl: String?,
     val videoUrl: String?,
     val address: Address?,
     val types: List<String>,

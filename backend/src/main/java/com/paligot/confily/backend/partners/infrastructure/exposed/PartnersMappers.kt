@@ -60,6 +60,7 @@ fun PartnerEntity.toModelV3(): PartnerV3 {
         id = this.id.value.toString(),
         name = this.name,
         description = this.description ?: "",
+        siteUrl = this.websiteUrl,
         videoUrl = this.videoUrl,
         media = PartnerMedia(
             svg = this.mediaSvg ?: "",
