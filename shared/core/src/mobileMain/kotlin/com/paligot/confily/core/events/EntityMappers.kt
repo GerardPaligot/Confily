@@ -7,7 +7,9 @@ import com.paligot.confily.core.events.entities.MenuItem
 import com.paligot.confily.core.events.entities.TeamMemberInfo
 import com.paligot.confily.core.events.entities.TeamMemberItem
 import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
+import kotlinx.datetime.atTime
 import kotlinx.datetime.toLocalDateTime
 
 internal val eventInfoMapper = { id: String, name: String, formattedAddress: List<String>,
@@ -20,8 +22,8 @@ internal val eventInfoMapper = { id: String, name: String, formattedAddress: Lis
         formattedAddress = formattedAddress,
         latitude = latitude,
         longitude = longitude,
-        startTime = Instant.parse(startDate).toLocalDateTime(TimeZone.UTC),
-        endTime = Instant.parse(endDate).toLocalDateTime(TimeZone.UTC),
+        startTime = LocalDate.parse(startDate).atTime(hour = 0, minute = 0),
+        endTime = LocalDate.parse(endDate).atTime(hour = 0, minute = 0),
         email = contactEmail,
         phone = contactPhone,
         faqUrl = faqUrl,
