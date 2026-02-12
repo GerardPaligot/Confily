@@ -15,6 +15,6 @@ fun BuildKonfigExtension.configBuildKonfig(project: Project) {
         buildConfigField(STRING, "FIREBASE_PROJECT_ID", project.appProps["FIREBASE_PROJECT_ID"] as String)
         buildConfigField(STRING, "FIREBASE_APP_ID", project.appProps["FIREBASE_APP_ID"] as String)
         buildConfigField(STRING, "FIREBASE_API_KEY", project.appProps["FIREBASE_API_KEY"] as String)
-        buildConfigField(STRING, "VERSION_CODE", project.appProps.versionName)
+        buildConfigField(STRING, "VERSION_CODE", project.versionProps.versionName)
     }
 }

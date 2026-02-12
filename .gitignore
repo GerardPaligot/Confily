@@ -28,6 +28,7 @@ build/
 # Secret properties
 **/secrets.properties
 */keystore.properties
+*/app.properties.prod
 iosApp/Generated.xcconfig
 
 # Firebase instance

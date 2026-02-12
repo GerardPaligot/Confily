@@ -1,18 +1,21 @@
 #!/bin/bash
 
 # Define paths
-INPUT_FILE="${PROJECT_DIR}/../config/app.properties"
+DEFAULT_FILE="${PROJECT_DIR}/../config/app.properties"
+PROD_FILE="${PROJECT_DIR}/../config/app.properties.prod"
 OUTPUT_FILE="${PROJECT_DIR}/Generated.xcconfig"
 
-echo "Generating xcconfig from $INPUT_FILE..."
+INPUT_FILE=""
+if [ -f "$PROD_FILE" ]; then
+    INPUT_FILE="$PROD_FILE"
+    echo "✅ Found Production config. Using: $INPUT_FILE"
+else
+    INPUT_FILE="$DEFAULT_FILE"
+    echo "ℹ️ Production config not found. Using default: $INPUT_FILE"
+fi
 
-# 1. Add a header to the xcconfig file
-echo "// This file is auto-generated. Do not modify." > "$OUTPUT_FILE"
+echo "// This file is auto-generated from $(basename "$INPUT_FILE"). Do not modify." > "$OUTPUT_FILE"
 
-# 2. Parse the properties file
-# - grep -v '^#': Ignore comments
-# - sed 's/[[:space:]]*=[[:space:]]*/=/g': Remove spaces around =
-# - sed 's/\./_/g': Replace dots with underscores (optional, but safer for Xcode vars)
 if [ -f "$INPUT_FILE" ]; then
     grep -v '^#' "$INPUT_FILE" | \
     sed 's/[[:space:]]*=[[:space:]]*/=/g' | \

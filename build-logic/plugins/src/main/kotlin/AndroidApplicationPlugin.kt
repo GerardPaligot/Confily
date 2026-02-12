@@ -10,6 +10,7 @@ import extensions.configureKotlinCompiler
 import extensions.configureSigningConfig
 import extensions.versionCode
 import extensions.versionName
+import extensions.versionProps
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
@@ -31,8 +32,8 @@ class AndroidApplicationPlugin: Plugin<Project> {
             extensions.configure<BaseAppModuleExtension> {
                 defaultConfig {
                     applicationId = appProps.appId
-                    versionCode = appProps.versionCode
-                    versionName = appProps.versionName
+                    versionCode = versionProps.versionCode
+                    versionName = versionProps.versionName
                 }
                 configureSigningConfig(rootProject)
                 configureKotlinAndroid()
