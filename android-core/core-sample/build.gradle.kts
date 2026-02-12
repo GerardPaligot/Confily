@@ -1,6 +1,5 @@
 import extensions.appProps
 import extensions.stringBuildConfigField
-import extensions.toProperties
 
 plugins {
     id("confily.android.library")
