@@ -17,6 +17,9 @@ fun File.toProperties(): Properties {
 val Project.appProps: Properties
     get() = rootProject.file("config/app.properties").toProperties()
 
+val Project.versionProps: Properties
+    get() = rootProject.file("config/version.properties").toProperties()
+
 val Properties.versionMajor: Int
     get() = get("VERSION_MAJOR")?.toString()?.toInt() ?: 1
 
