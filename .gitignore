@@ -28,6 +28,7 @@ build/
 # Secret properties
 **/secrets.properties
 */keystore.properties
+iosApp/Generated.xcconfig
 
 # Firebase instance
 firestore-debug.log

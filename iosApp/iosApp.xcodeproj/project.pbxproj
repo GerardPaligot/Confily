@@ -3,12 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		00363C122D4563CA007F302F /* VideoPlayerUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00363C112D4563CA007F302F /* VideoPlayerUIView.swift */; };
-		004723BD2CA2184F008F8F0C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 004723BC2CA2184F008F8F0C /* GoogleService-Info.plist */; };
 		0056BD6E2D00E29400098D38 /* ActivityItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0056BD6D2D00E29400098D38 /* ActivityItemView.swift */; };
 		0056BD702D00E58D00098D38 /* PartnersActivitiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0056BD6F2D00E58D00098D38 /* PartnersActivitiesView.swift */; };
 		0056BD742D00F0F700098D38 /* PartnerListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0056BD732D00F0F700098D38 /* PartnerListView.swift */; };
@@ -118,6 +117,7 @@
 		D5D7E10B2BEE4D9F0027071D /* ScheduleEventSessionDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D7E10A2BEE4D9F0027071D /* ScheduleEventSessionDetail.swift */; };
 		D5D7E10D2BEE4F1D0027071D /* ScheduleEventSessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D7E10C2BEE4F1D0027071D /* ScheduleEventSessionViewModel.swift */; };
 		D5D7E10F2BEE4FB40027071D /* ScheduleEventSessionVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D7E10E2BEE4FB40027071D /* ScheduleEventSessionVM.swift */; };
+		F535A2C22F3A9D2100148F86 /* Generated.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F535A2C12F3A9D2100148F86 /* Generated.xcconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -135,7 +135,6 @@
 
 /* Begin PBXFileReference section */
 		00363C112D4563CA007F302F /* VideoPlayerUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerUIView.swift; sourceTree = "<group>"; };
-		004723BC2CA2184F008F8F0C /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0056BD6D2D00E29400098D38 /* ActivityItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityItemView.swift; sourceTree = "<group>"; };
 		0056BD6F2D00E58D00098D38 /* PartnersActivitiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnersActivitiesView.swift; sourceTree = "<group>"; };
 		0056BD732D00F0F700098D38 /* PartnerListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnerListView.swift; sourceTree = "<group>"; };
@@ -148,7 +147,6 @@
 		005EB8D12D2714F4001A2ECA /* TeamMembersVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamMembersVM.swift; sourceTree = "<group>"; };
 		005EB8D32D27164C001A2ECA /* TeamMembersNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamMembersNavigation.swift; sourceTree = "<group>"; };
 		0060F46A2C8BC231000BCD06 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		00FCD1062D7E1CA50072D73F /* LineShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineShape.swift; sourceTree = "<group>"; };
 		00FCD1062D7E1CA50072D73F /* LineShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineShape.swift; sourceTree = "<group>"; };
 		00FCD1092D7E21F30072D73F /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		00FCD10B2D7E22C60072D73F /* MapItemUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapItemUIView.swift; sourceTree = "<group>"; };
@@ -239,7 +237,20 @@
 		D5D7E10A2BEE4D9F0027071D /* ScheduleEventSessionDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleEventSessionDetail.swift; sourceTree = "<group>"; };
 		D5D7E10C2BEE4F1D0027071D /* ScheduleEventSessionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleEventSessionViewModel.swift; sourceTree = "<group>"; };
 		D5D7E10E2BEE4FB40027071D /* ScheduleEventSessionVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleEventSessionVM.swift; sourceTree = "<group>"; };
+		F535A2C12F3A9D2100148F86 /* Generated.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Generated.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		F535A2BE2F3A986F00148F86 /* Scripts */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			explicitFileTypes = {
+			};
+			explicitFolders = (
+			);
+			path = Scripts;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		7555FF78242A565900829871 /* Frameworks */ = {
@@ -319,6 +330,8 @@
 		7555FF72242A565900829871 = {
 			isa = PBXGroup;
 			children = (
+				F535A2C12F3A9D2100148F86 /* Generated.xcconfig */,
+				F535A2BE2F3A986F00148F86 /* Scripts */,
 				7555FF7D242A565900829871 /* iosApp */,
 				7555FF7C242A565900829871 /* Products */,
 				7555FFB0242A642200829871 /* Frameworks */,
@@ -681,6 +694,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7555FFA5242A565B00829871 /* Build configuration list for PBXNativeTarget "iosApp" */;
 			buildPhases = (
+				F535A2C02F3A994300148F86 /* Run Script */,
 				7555FFB5242A651A00829871 /* Run Script */,
 				7555FF77242A565900829871 /* Sources */,
 				7555FF78242A565900829871 /* Frameworks */,
@@ -760,6 +774,7 @@
 			files = (
 				D58F1D5127B001CE00FB59C7 /* Colors.xcassets in Resources */,
 				D553D579281F2FE600D39A5B /* Localizable.strings in Resources */,
+				F535A2C22F3A9D2100148F86 /* Generated.xcconfig in Resources */,
 				0060F46B2C8BC231000BCD06 /* GoogleService-Info.plist in Resources */,
 				058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */,
 				058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */,
@@ -809,6 +824,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
+		};
+		F535A2C02F3A994300148F86 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PROJECT_DIR}/Scripts/generate_config.sh\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1050,6 +1083,7 @@
 		};
 		7555FFA6242A565B00829871 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F535A2C12F3A9D2100148F86 /* Generated.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -1085,6 +1119,7 @@
 		};
 		7555FFA7242A565B00829871 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F535A2C12F3A9D2100148F86 /* Generated.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";

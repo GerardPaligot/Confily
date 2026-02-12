@@ -2,14 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>BASE_URL</key>
-	<string>${BASE_URL}</string>
 	<key>BASE_URL_C4H</key>
-	<string>https://confily-619943890215.europe-west1.run.app</string>
+	<string>${BASE_URL}</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Confily</string>
+	<string>${APPLICATION_NAME}</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -38,9 +36,9 @@
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>DEFAULT_EVENT</key>
-	<string>droidcon-london</string>
+	<string>${DEFAULT_EVENT}</string>
 	<key>DEFAULT_LANGUAGE</key>
-	<string>en</string>
+	<string>${DEFAULT_LANGUAGE}</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
