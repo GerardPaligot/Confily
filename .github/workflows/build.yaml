@@ -151,7 +151,7 @@ jobs:
           path: |
             **/build/reports/*
   ios:
-    runs-on: macos-14 # M1 runner
+    runs-on: macos-15
     steps:
       - uses: actions/checkout@v4
 
