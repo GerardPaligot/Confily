@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Define paths
+PROJECT_DIR="${PROJECT_DIR:-.}"
 DEFAULT_FILE="${PROJECT_DIR}/../config/app.properties"
 PROD_FILE="${PROJECT_DIR}/../config/app.properties.prod"
 OUTPUT_FILE="${PROJECT_DIR}/Generated.xcconfig"

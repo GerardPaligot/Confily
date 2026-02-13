@@ -167,6 +167,13 @@ jobs:
           build-scan-terms-of-use-url: "https://gradle.com/terms-of-service"
           build-scan-terms-of-use-agree: "yes"
 
+      - name: Generate iOS Config
+        run: |
+          cd iosApp
+          chmod +x Scripts/generate_config.sh
+          ./Scripts/generate_config.sh
+          cd ..
+
       - name: Build iOS app
         run: xcodebuild -allowProvisioningUpdates -project iosApp/iosApp.xcodeproj -configuration Debug -scheme iosApp -sdk iphoneos build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
   backend:
