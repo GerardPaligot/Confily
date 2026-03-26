@@ -13,6 +13,8 @@ import com.paligot.confily.backend.integrations.infrastructure.exposed.Integrati
 import com.paligot.confily.backend.integrations.infrastructure.exposed.OpenPlannerIntegrationsTable
 import com.paligot.confily.backend.integrations.infrastructure.exposed.SlackIntegrationsTable
 import com.paligot.confily.backend.integrations.infrastructure.exposed.WebhookIntegrationsTable
+import com.paligot.confily.backend.internals.infrastructure.exposed.migrations.MigrationManager
+import com.paligot.confily.backend.internals.infrastructure.exposed.migrations.MigrationRegistry
 import com.paligot.confily.backend.map.infrastructure.exposed.MapPictogramsTable
 import com.paligot.confily.backend.map.infrastructure.exposed.MapShapesTable
 import com.paligot.confily.backend.map.infrastructure.exposed.MapsTable
@@ -97,6 +99,7 @@ object DatabaseFactory {
         transaction(database) {
             SchemaUtils.create(tables = allTables.toTypedArray())
         }
+        MigrationManager(MigrationRegistry.allMigrations).migrate(database)
 
         return database
     }
