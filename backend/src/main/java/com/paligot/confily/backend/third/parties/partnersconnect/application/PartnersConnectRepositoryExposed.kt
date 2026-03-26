@@ -1,6 +1,8 @@
 package com.paligot.confily.backend.third.parties.partnersconnect.application
 
 import com.paligot.confily.backend.NotAcceptableException
+import com.paligot.confily.backend.activities.infrastructure.exposed.ActivitiesTable
+import com.paligot.confily.backend.activities.infrastructure.exposed.ActivityEntity
 import com.paligot.confily.backend.addresses.infrastructure.exposed.toEntity
 import com.paligot.confily.backend.addresses.infrastructure.provider.Geocode
 import com.paligot.confily.backend.addresses.infrastructure.provider.GeocodeApi
@@ -19,9 +21,13 @@ import com.paligot.confily.backend.third.parties.partnersconnect.infrastructure.
 import com.paligot.confily.models.SocialType
 import com.paligot.confily.models.mapToSocialType
 import kotlinx.coroutines.coroutineScope
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toInstant
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.inList
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.notInList
+import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.batchInsert
 import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insert
@@ -61,6 +67,7 @@ class PartnersConnectRepositoryExposed(
             upsertSponsoringType(event, partner, pack.name)
             upsertSocials(partner, event, payload)
             upsertJobs(partner, payload)
+            upsertActivities(partner, event, payload)
             partner.id.value.toString()
         }
     }
@@ -156,6 +163,38 @@ class PartnersConnectRepositoryExposed(
             this[JobsTable.title] = job.title
             this[JobsTable.externalId] = job.id
             this[JobsTable.externalProvider] = IntegrationProvider.PARTNERSCONNECT
+        }
+    }
+
+    private fun upsertActivities(
+        partner: PartnerEntity,
+        event: EventEntity,
+        payload: PartnersConnectWebhookPayload
+    ) {
+        val incomingActivities = payload.activities.filter { it.startTime != null }
+        val incomingIds = incomingActivities.map { it.id }
+        ActivitiesTable.deleteWhere {
+            (ActivitiesTable.partnerId eq partner.id.value) and
+                (ActivitiesTable.externalProvider eq IntegrationProvider.PARTNERSCONNECT) and
+                (ActivitiesTable.externalId notInList incomingIds)
+        }
+        incomingActivities.forEach { activity ->
+            ActivityEntity
+                .findByExternalId(partner.id.value, activity.id, IntegrationProvider.PARTNERSCONNECT)
+                ?.apply {
+                    name = activity.title
+                    startTime = activity.startTime!!.toInstant(TimeZone.UTC)
+                    endTime = activity.endTime?.toInstant(TimeZone.UTC)
+                }
+                ?: ActivityEntity.new {
+                    this.event = event
+                    this.partner = partner
+                    this.name = activity.title
+                    this.startTime = activity.startTime!!.toInstant(TimeZone.UTC)
+                    this.endTime = activity.endTime?.toInstant(TimeZone.UTC)
+                    this.externalId = activity.id
+                    this.externalProvider = IntegrationProvider.PARTNERSCONNECT
+                }
         }
     }
 }

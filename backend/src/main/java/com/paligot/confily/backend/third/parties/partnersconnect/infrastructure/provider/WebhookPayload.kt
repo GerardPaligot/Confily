@@ -1,5 +1,6 @@
 package com.paligot.confily.backend.third.parties.partnersconnect.infrastructure.provider
 
+import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -10,6 +11,7 @@ data class PartnersConnectWebhookPayload(
     val company: Company,
     val event: EventSummary,
     val jobs: List<JobOffer>,
+    val activities: List<BoothActivity>,
     val timestamp: String
 )
 
@@ -132,4 +134,19 @@ data class JobOffer(
     val id: String,
     val title: String,
     val url: String
+)
+
+@Serializable
+data class BoothActivity(
+    val id: String,
+    @SerialName("partnership_id")
+    val partnershipId: String,
+    val title: String,
+    val description: String,
+    @SerialName("start_time")
+    val startTime: LocalDateTime?,
+    @SerialName("end_time")
+    val endTime: LocalDateTime?,
+    @SerialName("created_at")
+    val createdAt: LocalDateTime
 )
