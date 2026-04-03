@@ -5,6 +5,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class OpenPlanner(
     val generatedAt: String,
+    val timezone: String = "UTC",
     val event: EventOP,
     val speakers: List<SpeakerOP>,
     val sessions: List<SessionOP>,

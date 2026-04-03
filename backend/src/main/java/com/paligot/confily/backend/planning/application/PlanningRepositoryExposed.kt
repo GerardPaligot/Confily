@@ -3,6 +3,7 @@ package com.paligot.confily.backend.planning.application
 import com.paligot.confily.backend.categories.infrastructure.exposed.CategoriesTable
 import com.paligot.confily.backend.categories.infrastructure.exposed.CategoryEntity
 import com.paligot.confily.backend.categories.infrastructure.exposed.toModel
+import com.paligot.confily.backend.events.infrastructure.exposed.EventEntity
 import com.paligot.confily.backend.formats.infrastructure.exposed.FormatEntity
 import com.paligot.confily.backend.formats.infrastructure.exposed.FormatsTable
 import com.paligot.confily.backend.formats.infrastructure.exposed.toModel
@@ -102,10 +103,11 @@ class PlanningRepositoryExposed(
 
     override suspend fun agenda(eventId: String): Agenda = transaction(db = database) {
         val eventUuid = UUID.fromString(eventId)
+        val timezone = TimeZone.of(EventEntity[eventUuid].timezone)
         Agenda(
             talks = ScheduleEntity
                 .findByEvent(eventUuid)
-                .groupBy { it.startTime.toLocalDateTime(TimeZone.UTC).format(format) }
+                .groupBy { it.startTime.toLocalDateTime(timezone).format(format) }
                 .entries.map {
                     it.key to it.value
                         .map { schedule -> schedule.toModel() }
@@ -117,12 +119,13 @@ class PlanningRepositoryExposed(
     override suspend fun agendaMultiDays(eventId: String): Map<String, Map<String, List<ScheduleItem>>> =
         transaction(db = database) {
             val eventUuid = UUID.fromString(eventId)
+            val timezone = TimeZone.of(EventEntity[eventUuid].timezone)
             ScheduleEntity
                 .findByEvent(eventUuid)
-                .groupBy { it.startTime.toLocalDateTime(TimeZone.UTC).date.toString() }
+                .groupBy { it.startTime.toLocalDateTime(timezone).date.toString() }
                 .entries.map { schedulesByDay ->
                     schedulesByDay.key to schedulesByDay.value
-                        .groupBy { it.startTime.toLocalDateTime(TimeZone.UTC).format(format) }
+                        .groupBy { it.startTime.toLocalDateTime(timezone).format(format) }
                         .entries.map { scheduleBySlot ->
                             scheduleBySlot.key to scheduleBySlot.value
                                 .map { schedule -> schedule.toModel() }

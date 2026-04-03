@@ -92,6 +92,7 @@ class OpenPlannerRepositoryExposed(
         val remoteUrls = remoteUrls(openPlanner, event.slug)
         val uploadsRemoteUrls = partnerRemoteUrls(openPlanner.sponsors, event.slug).associate { it }
         transaction(db = database) {
+            event.timezone = openPlanner.timezone
             upsertQAndA(openPlanner.faq, event)
             upsertTeams(openPlanner.team, remoteUrls, event)
             upsertTracks(openPlanner.event.tracks, event)

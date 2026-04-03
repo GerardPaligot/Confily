@@ -17,6 +17,7 @@ class EventEntity(id: EntityID<UUID>) : UUIDEntity(id) {
     var addressId by EventsTable.addressId
     var address by AddressEntity.Companion optionalReferencedOn EventsTable.addressId
     var defaultLanguage by EventsTable.defaultLanguage
+    var timezone by EventsTable.timezone
     var contactEmail by EventsTable.contactEmail
     var contactPhone by EventsTable.contactPhone
     var coc by EventsTable.coc

@@ -15,6 +15,7 @@ object EventsTable : UUIDTable("events") {
     val endDate = date("end_date")
     val addressId = reference("address_id", AddressesTable, onDelete = ReferenceOption.SET_NULL).nullable()
     val defaultLanguage = varchar("default_language", 10).default("en")
+    val timezone = varchar("timezone", 100).default("UTC")
     val contactEmail = varchar("contact_email", 255).nullable()
     val contactPhone = varchar("contact_phone", 50).nullable()
     val coc = text("coc").nullable()
