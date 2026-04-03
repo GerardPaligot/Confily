@@ -32,8 +32,12 @@ jobs:
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 
       - name: Create prod app properties
-        if: ${{ secrets.APP_PROPERTIES != '' }}
-        run: echo "${{ secrets.APP_PROPERTIES }}" > config/app.properties.prod
+        run: |
+          if [ -n "$APP_PROPERTIES" ]; then
+            echo "$APP_PROPERTIES" > config/app.properties.prod
+          fi
+        env:
+          APP_PROPERTIES: ${{ secrets.APP_PROPERTIES }}
 
       - name: Check and build android project
         run: ./gradlew :composeApp:assembleDebug :composeApp:bundleDebug
@@ -66,8 +70,12 @@ jobs:
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 
       - name: Create prod app properties
-        if: ${{ secrets.APP_PROPERTIES != '' }}
-        run: echo "${{ secrets.APP_PROPERTIES }}" > config/app.properties.prod
+        run: |
+          if [ -n "$APP_PROPERTIES" ]; then
+            echo "$APP_PROPERTIES" > config/app.properties.prod
+          fi
+        env:
+          APP_PROPERTIES: ${{ secrets.APP_PROPERTIES }}
 
       - name: Check and build android project
         run: ./gradlew :wear:wear-app:assembleDebug :wear:wear-app:bundleDebug
@@ -123,8 +131,12 @@ jobs:
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 
       - name: Create prod app properties
-        if: ${{ secrets.APP_PROPERTIES != '' }}
-        run: echo "${{ secrets.APP_PROPERTIES }}" > config/app.properties.prod
+        run: |
+          if [ -n "$APP_PROPERTIES" ]; then
+            echo "$APP_PROPERTIES" > config/app.properties.prod
+          fi
+        env:
+          APP_PROPERTIES: ${{ secrets.APP_PROPERTIES }}
 
       - name: Check Kotlin lint
         run: ./gradlew ktlintCheck detekt
@@ -153,8 +165,12 @@ jobs:
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 
       - name: Create prod app properties
-        if: ${{ secrets.APP_PROPERTIES != '' }}
-        run: echo "${{ secrets.APP_PROPERTIES }}" > config/app.properties.prod
+        run: |
+          if [ -n "$APP_PROPERTIES" ]; then
+            echo "$APP_PROPERTIES" > config/app.properties.prod
+          fi
+        env:
+          APP_PROPERTIES: ${{ secrets.APP_PROPERTIES }}
 
       - name: Run desktop tests
         run: ./gradlew desktopTest
@@ -184,8 +200,12 @@ jobs:
           build-scan-terms-of-use-agree: "yes"
 
       - name: Create prod app properties
-        if: ${{ secrets.APP_PROPERTIES != '' }}
-        run: echo "${{ secrets.APP_PROPERTIES }}" > config/app.properties.prod
+        run: |
+          if [ -n "$APP_PROPERTIES" ]; then
+            echo "$APP_PROPERTIES" > config/app.properties.prod
+          fi
+        env:
+          APP_PROPERTIES: ${{ secrets.APP_PROPERTIES }}
 
       - name: Generate iOS Config
         run: |
