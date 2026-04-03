@@ -31,6 +31,10 @@ jobs:
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 
+      - name: Create prod app properties
+        if: ${{ secrets.APP_PROPERTIES != '' }}
+        run: echo "${{ secrets.APP_PROPERTIES }}" > config/app.properties.prod
+
       - name: Check and build android project
         run: ./gradlew :composeApp:assembleDebug :composeApp:bundleDebug
 
@@ -60,6 +64,10 @@ jobs:
 
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - name: Create prod app properties
+        if: ${{ secrets.APP_PROPERTIES != '' }}
+        run: echo "${{ secrets.APP_PROPERTIES }}" > config/app.properties.prod
 
       - name: Check and build android project
         run: ./gradlew :wear:wear-app:assembleDebug :wear:wear-app:bundleDebug
@@ -114,6 +122,10 @@ jobs:
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 
+      - name: Create prod app properties
+        if: ${{ secrets.APP_PROPERTIES != '' }}
+        run: echo "${{ secrets.APP_PROPERTIES }}" > config/app.properties.prod
+
       - name: Check Kotlin lint
         run: ./gradlew ktlintCheck detekt
 
@@ -139,6 +151,10 @@ jobs:
 
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - name: Create prod app properties
+        if: ${{ secrets.APP_PROPERTIES != '' }}
+        run: echo "${{ secrets.APP_PROPERTIES }}" > config/app.properties.prod
 
       - name: Run desktop tests
         run: ./gradlew desktopTest
@@ -166,6 +182,10 @@ jobs:
           build-scan-publish: true
           build-scan-terms-of-use-url: "https://gradle.com/terms-of-service"
           build-scan-terms-of-use-agree: "yes"
+
+      - name: Create prod app properties
+        if: ${{ secrets.APP_PROPERTIES != '' }}
+        run: echo "${{ secrets.APP_PROPERTIES }}" > config/app.properties.prod
 
       - name: Generate iOS Config
         run: |
