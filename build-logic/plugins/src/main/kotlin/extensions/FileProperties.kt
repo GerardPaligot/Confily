@@ -15,7 +15,11 @@ fun File.toProperties(): Properties {
 }
 
 val Project.appProps: Properties
-    get() = rootProject.file("config/app.properties").toProperties()
+    get() {
+        val prod = rootProject.file("config/app.properties.prod")
+        val default = rootProject.file("config/app.properties")
+        return if (prod.exists()) prod.toProperties() else default.toProperties()
+    }
 
 val Project.versionProps: Properties
     get() = rootProject.file("config/version.properties").toProperties()
