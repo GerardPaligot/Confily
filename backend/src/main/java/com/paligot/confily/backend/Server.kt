@@ -1,12 +1,7 @@
 package com.paligot.confily.backend
 
-import com.paligot.confily.backend.activities.infrastructure.api.registerAdminActivitiesRoutes
-import com.paligot.confily.backend.categories.infrastructure.api.registerAdminCategoriesRoutes
-import com.paligot.confily.backend.categories.infrastructure.api.registerCategoriesRoutes
 import com.paligot.confily.backend.events.infrastructure.api.registerAdminEventRoutes
 import com.paligot.confily.backend.events.infrastructure.api.registerEventRoutes
-import com.paligot.confily.backend.formats.infrastructure.api.registerAdminFormatsRoutes
-import com.paligot.confily.backend.formats.infrastructure.api.registerFormatsRoutes
 import com.paligot.confily.backend.integrations.infrastructure.api.integrationRoutes
 import com.paligot.confily.backend.internals.infrastructure.exposed.DatabaseFactory
 import com.paligot.confily.backend.internals.infrastructure.exposed.PostgresModule
@@ -14,21 +9,9 @@ import com.paligot.confily.backend.internals.infrastructure.ktor.http.ExceptionM
 import com.paligot.confily.backend.map.infrastructure.api.registerAdminMapRoutes
 import com.paligot.confily.backend.map.infrastructure.api.registerMapRoutes
 import com.paligot.confily.backend.menus.infrastructure.api.registerAdminMenuRoutes
-import com.paligot.confily.backend.partners.infrastructure.api.registerAdminPartnersRoutes
 import com.paligot.confily.backend.partners.infrastructure.api.registerPartnersRoutes
 import com.paligot.confily.backend.planning.infrastructure.api.registerPlanningRoutes
-import com.paligot.confily.backend.qanda.infrastructure.api.registerAdminQAndAsRoutes
-import com.paligot.confily.backend.qanda.infrastructure.api.registerQAndAsRoutes
-import com.paligot.confily.backend.schedules.infrastructure.api.registerAdminSchedulersRoutes
-import com.paligot.confily.backend.schedules.infrastructure.api.registerSchedulersRoutes
 import com.paligot.confily.backend.sessions.infrastructure.api.registerAdminSessionsRoutes
-import com.paligot.confily.backend.sessions.infrastructure.api.registerSessionsRoutes
-import com.paligot.confily.backend.speakers.infrastructure.api.registerAdminSpeakersRoutes
-import com.paligot.confily.backend.speakers.infrastructure.api.registerSpeakersRoutes
-import com.paligot.confily.backend.tags.infrastructure.api.registerAdminTagsRoutes
-import com.paligot.confily.backend.tags.infrastructure.api.registerTagsRoutes
-import com.paligot.confily.backend.team.infrastructure.api.registerAdminTeamRoutes
-import com.paligot.confily.backend.team.infrastructure.api.registerTeamRoutes
 import com.paligot.confily.backend.third.parties.billetweb.infrastructure.api.registerBilletWebRoutes
 import com.paligot.confily.backend.third.parties.openfeedback.infrastructure.api.registerOpenfeedackRoutes
 import com.paligot.confily.backend.third.parties.openplanner.infrastructure.api.registerAdminOpenPlannerRoutes
@@ -141,16 +124,8 @@ private fun Application.routing() {
         registerEventRoutes()
         route("/events/{eventId}") {
             registerPlanningRoutes()
-            registerMapRoutes()
-            registerQAndAsRoutes()
-            registerSpeakersRoutes()
-            registerSessionsRoutes()
-            registerCategoriesRoutes()
-            registerFormatsRoutes()
-            registerTagsRoutes()
-            registerSchedulersRoutes()
             registerPartnersRoutes()
-            registerTeamRoutes()
+            registerMapRoutes()
             // Third parties
             registerOpenfeedackRoutes()
             registerBilletWebRoutes()
@@ -160,18 +135,9 @@ private fun Application.routing() {
             // this.install(UpdatedAtPlugin)
             registerAdminEventRoutes()
             route("/events/{eventId}") {
-                registerAdminActivitiesRoutes()
-                registerAdminCategoriesRoutes()
-                registerAdminFormatsRoutes()
                 registerAdminMapRoutes()
                 registerAdminMenuRoutes()
-                registerAdminPartnersRoutes()
-                registerAdminQAndAsRoutes()
-                registerAdminSchedulersRoutes()
-                registerAdminSpeakersRoutes()
-                registerAdminTagsRoutes()
                 registerAdminSessionsRoutes()
-                registerAdminTeamRoutes()
                 // Third parties
                 integrationRoutes()
                 registerAdminPartnersConnectRoutes()
