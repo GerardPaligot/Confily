@@ -11,7 +11,9 @@ import com.paligot.confily.backend.map.infrastructure.api.registerMapRoutes
 import com.paligot.confily.backend.menus.infrastructure.api.registerAdminMenuRoutes
 import com.paligot.confily.backend.partners.infrastructure.api.registerPartnersRoutes
 import com.paligot.confily.backend.planning.infrastructure.api.registerPlanningRoutes
+import com.paligot.confily.backend.sessions.infrastructure.api.registerAdminSessionVoteRoutes
 import com.paligot.confily.backend.sessions.infrastructure.api.registerAdminSessionsRoutes
+import com.paligot.confily.backend.sessions.infrastructure.api.registerSessionVoteRoutes
 import com.paligot.confily.backend.third.parties.billetweb.infrastructure.api.registerBilletWebRoutes
 import com.paligot.confily.backend.third.parties.openfeedback.infrastructure.api.registerOpenfeedackRoutes
 import com.paligot.confily.backend.third.parties.openplanner.infrastructure.api.registerAdminOpenPlannerRoutes
@@ -126,6 +128,7 @@ private fun Application.routing() {
             registerPlanningRoutes()
             registerPartnersRoutes()
             registerMapRoutes()
+            registerSessionVoteRoutes()
             // Third parties
             registerOpenfeedackRoutes()
             registerBilletWebRoutes()
@@ -138,6 +141,7 @@ private fun Application.routing() {
                 registerAdminMapRoutes()
                 registerAdminMenuRoutes()
                 registerAdminSessionsRoutes()
+                registerAdminSessionVoteRoutes()
                 // Third parties
                 integrationRoutes()
                 registerAdminPartnersConnectRoutes()
