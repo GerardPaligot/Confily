@@ -33,6 +33,7 @@ import com.paligot.confily.backend.sessions.infrastructure.exposed.EventSessions
 import com.paligot.confily.backend.sessions.infrastructure.exposed.SessionCategoriesTable
 import com.paligot.confily.backend.sessions.infrastructure.exposed.SessionSpeakersTable
 import com.paligot.confily.backend.sessions.infrastructure.exposed.SessionTagsTable
+import com.paligot.confily.backend.sessions.infrastructure.exposed.SessionVotesTable
 import com.paligot.confily.backend.sessions.infrastructure.exposed.SessionsTable
 import com.paligot.confily.backend.speakers.infrastructure.exposed.SpeakerSocialsTable
 import com.paligot.confily.backend.speakers.infrastructure.exposed.SpeakersTable
@@ -60,6 +61,7 @@ object DatabaseFactory {
         SessionCategoriesTable,
         SessionSpeakersTable,
         SessionTagsTable,
+        SessionVotesTable,
         EventSessionsTable,
         PartnersTable,
         PartnerSponsorshipsTable,
