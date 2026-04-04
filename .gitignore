@@ -31,6 +31,9 @@ build/
 */app.properties.prod
 iosApp/Generated.xcconfig
 
+# Specs
+specs/
+
 # Firebase instance
 firestore-debug.log
 firebase-debug.log
