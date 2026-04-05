@@ -7,6 +7,7 @@ import com.paligot.confily.models.PartnerMediaPngs
 import com.paligot.confily.models.PartnerV2
 import com.paligot.confily.models.PartnerV3
 import com.paligot.confily.models.SocialType
+import com.paligot.confily.backend.speakers.infrastructure.exposed.toModel as toSpeakerModel
 
 fun PartnerEntity.toModelV1(): Partner {
     return Partner(
@@ -47,7 +48,8 @@ fun PartnerEntity.toModelV2(): PartnerV2 {
         linkedinUrl = socials.find { it.type == SocialType.LinkedIn }?.url,
         linkedinMessage = null,
         address = this.address?.toModel(),
-        jobs = jobs.map { job -> job.toModel(this.name) }
+        jobs = jobs.map { job -> job.toModel(this.name) },
+        speakers = PartnerSpeakerEntity.findByPartner(partnerId).map { it.speaker.toSpeakerModel() }
     )
 }
 
@@ -77,6 +79,7 @@ fun PartnerEntity.toModelV3(): PartnerV3 {
         types = PartnerSponsorshipsTable.sponsoringTypeNamesByPartner(partnerUuid),
         address = this.address?.toModel(),
         socials = PartnerSocialsTable.socials(partnerUuid),
-        jobs = jobs.map { job -> job.toModel(this.name) }
+        jobs = jobs.map { job -> job.toModel(this.name) },
+        speakers = PartnerSpeakerEntity.findByPartner(partnerUuid).map { it.speaker.toSpeakerModel() }
     )
 }

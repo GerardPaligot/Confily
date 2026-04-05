@@ -13,6 +13,14 @@ data class Partner(
 )
 
 @Serializable
+data class PartnerItem(
+    val id: String,
+    val name: String,
+    @SerialName("logo_url")
+    val logoUrl: String
+)
+
+@Serializable
 data class PartnerMediaPngs(
     val _250: String,
     val _500: String,
@@ -47,7 +55,8 @@ data class PartnerV2(
     @SerialName("linkedin_message")
     val linkedinMessage: String?,
     val address: Address?,
-    val jobs: List<Job> = emptyList()
+    val jobs: List<Job> = emptyList(),
+    val speakers: List<Speaker> = emptyList()
 )
 
 @Serializable
@@ -61,5 +70,6 @@ data class PartnerV3(
     val address: Address?,
     val types: List<String>,
     val socials: List<SocialItem> = emptyList(),
-    val jobs: List<Job> = emptyList()
+    val jobs: List<Job> = emptyList(),
+    val speakers: List<Speaker> = emptyList()
 )

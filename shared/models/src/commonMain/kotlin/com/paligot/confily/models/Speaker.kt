@@ -16,6 +16,7 @@ data class Speaker(
     @SerialName("photo_url")
     val photoUrl: String,
     val socials: List<SocialItem>,
+    val partners: List<PartnerItem> = emptyList(),
     @Deprecated("use socials property instead")
     val website: String? = null,
     @Deprecated("use socials property instead")

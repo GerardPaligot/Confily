@@ -21,6 +21,7 @@ import com.paligot.confily.backend.map.infrastructure.exposed.MapsTable
 import com.paligot.confily.backend.menus.infrastructure.exposed.LunchMenusTable
 import com.paligot.confily.backend.partners.infrastructure.exposed.JobsTable
 import com.paligot.confily.backend.partners.infrastructure.exposed.PartnerSocialsTable
+import com.paligot.confily.backend.partners.infrastructure.exposed.PartnerSpeakersTable
 import com.paligot.confily.backend.partners.infrastructure.exposed.PartnerSponsorshipsTable
 import com.paligot.confily.backend.partners.infrastructure.exposed.PartnersTable
 import com.paligot.confily.backend.partners.infrastructure.exposed.SponsoringTypesTable
@@ -71,6 +72,7 @@ object DatabaseFactory {
         TeamSocialsTable,
         SpeakerSocialsTable,
         PartnerSocialsTable,
+        PartnerSpeakersTable,
         JobsTable,
         ActivitiesTable,
         SchedulesTable,

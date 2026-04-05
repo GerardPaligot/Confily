@@ -13,8 +13,11 @@ import com.paligot.confily.backend.internals.infrastructure.exposed.SocialsTable
 import com.paligot.confily.backend.partners.infrastructure.exposed.JobsTable
 import com.paligot.confily.backend.partners.infrastructure.exposed.PartnerEntity
 import com.paligot.confily.backend.partners.infrastructure.exposed.PartnerSocialsTable
+import com.paligot.confily.backend.partners.infrastructure.exposed.PartnerSpeakerEntity
+import com.paligot.confily.backend.partners.infrastructure.exposed.PartnerSpeakersTable
 import com.paligot.confily.backend.partners.infrastructure.exposed.PartnerSponsorshipsTable
 import com.paligot.confily.backend.partners.infrastructure.exposed.SponsoringTypeEntity
+import com.paligot.confily.backend.speakers.infrastructure.exposed.SpeakerEntity
 import com.paligot.confily.backend.third.parties.partnersconnect.domain.PartnersConnectRepository
 import com.paligot.confily.backend.third.parties.partnersconnect.infrastructure.provider.InvoiceStatus
 import com.paligot.confily.backend.third.parties.partnersconnect.infrastructure.provider.PartnersConnectWebhookPayload
@@ -68,6 +71,7 @@ class PartnersConnectRepositoryExposed(
             upsertSocials(partner, event, payload)
             upsertJobs(partner, payload)
             upsertActivities(partner, event, payload)
+            upsertSpeakers(partner, eventUuid, payload)
             partner.id.value.toString()
         }
     }
@@ -195,6 +199,27 @@ class PartnersConnectRepositoryExposed(
                     this.externalId = activity.id
                     this.externalProvider = IntegrationProvider.PARTNERSCONNECT
                 }
+        }
+    }
+
+    private fun upsertSpeakers(
+        partner: PartnerEntity,
+        eventId: UUID,
+        payload: PartnersConnectWebhookPayload
+    ) {
+        PartnerSpeakersTable.deleteWhere { PartnerSpeakersTable.partnerId eq partner.id.value }
+        val openPlannerSpeakers = payload.speakers
+            .filter { it.source.equals(IntegrationProvider.OPENPLANNER.name, ignoreCase = true) }
+        if (openPlannerSpeakers.isEmpty()) return
+        SpeakerEntity.findByExternalIds(
+            eventId = eventId,
+            speakerIds = openPlannerSpeakers.map { it.externalId },
+            provider = IntegrationProvider.OPENPLANNER
+        ).forEach { speaker ->
+            PartnerSpeakerEntity.new {
+                this.partner = partner
+                this.speaker = speaker
+            }
         }
     }
 }
