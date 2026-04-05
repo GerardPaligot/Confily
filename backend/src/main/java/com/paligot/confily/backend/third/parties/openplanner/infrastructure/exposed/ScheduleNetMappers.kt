@@ -10,40 +10,45 @@ import com.paligot.confily.backend.sessions.infrastructure.exposed.SessionEntity
 import com.paligot.confily.backend.third.parties.openplanner.infrastructure.provider.SessionOP
 import kotlinx.datetime.Instant
 
-fun SessionOP.toScheduleEntity(event: EventEntity): ScheduleEntity = ScheduleEntity
-    .findByExternalId(eventId = event.id.value, externalId = this.id, provider = IntegrationProvider.OPENPLANNER)
-    ?.let { entity ->
-        entity.startTime = Instant.parse(this@toScheduleEntity.dateStart!!)
-        entity.endTime = Instant.parse(this@toScheduleEntity.dateEnd!!)
-        entity
-    }
-    ?: ScheduleEntity.new {
-        this.event = event
-        if (this@toScheduleEntity.speakerIds.isEmpty()) {
-            this.eventSession = EventSessionEntity.findByExternalId(
-                eventId = event.id.value,
-                externalId = this@toScheduleEntity.id,
-                provider = IntegrationProvider.OPENPLANNER
-            )
-        } else {
-            this.session = SessionEntity.findByExternalId(
-                eventId = event.id.value,
-                externalId = this@toScheduleEntity.id,
-                provider = IntegrationProvider.OPENPLANNER
-            )
+fun SessionOP.toScheduleEntity(event: EventEntity): ScheduleEntity {
+    val trackId = this.trackId
+        ?: throw NotFoundException("Track ID is required for schedule item ${this.id}")
+    val track = EventSessionTrackEntity
+        .findByExternalId(
+            eventId = event.id.value,
+            externalId = trackId,
+            provider = IntegrationProvider.OPENPLANNER
+        )
+        ?: throw NotFoundException("Track with external ID $trackId not found for event ${event.id.value}")
+    return ScheduleEntity
+        .findByExternalId(eventId = event.id.value, externalId = this.id, provider = IntegrationProvider.OPENPLANNER)
+        ?.let { entity ->
+            entity.eventSessionTrack = track
+            entity.displayOrder = track.displayOrder
+            entity.startTime = Instant.parse(this@toScheduleEntity.dateStart!!)
+            entity.endTime = Instant.parse(this@toScheduleEntity.dateEnd!!)
+            entity
         }
-        val trackId = this@toScheduleEntity.trackId
-            ?: throw NotFoundException("Track ID is required for schedule item ${this@toScheduleEntity.id}")
-        this.eventSessionTrack = EventSessionTrackEntity
-            .findByExternalId(
-                eventId = event.id.value,
-                externalId = trackId,
-                provider = IntegrationProvider.OPENPLANNER
-            )
-            ?: throw NotFoundException("Track with external ID $trackId not found for event ${event.id.value}")
-        // this.displayOrder = this@toScheduleEntity
-        this.startTime = Instant.parse(this@toScheduleEntity.dateStart!!)
-        this.endTime = Instant.parse(this@toScheduleEntity.dateEnd!!)
-        this.externalId = this@toScheduleEntity.id
-        this.externalProvider = IntegrationProvider.OPENPLANNER
-    }
+        ?: ScheduleEntity.new {
+            this.event = event
+            if (this@toScheduleEntity.speakerIds.isEmpty()) {
+                this.eventSession = EventSessionEntity.findByExternalId(
+                    eventId = event.id.value,
+                    externalId = this@toScheduleEntity.id,
+                    provider = IntegrationProvider.OPENPLANNER
+                )
+            } else {
+                this.session = SessionEntity.findByExternalId(
+                    eventId = event.id.value,
+                    externalId = this@toScheduleEntity.id,
+                    provider = IntegrationProvider.OPENPLANNER
+                )
+            }
+            this.eventSessionTrack = track
+            this.displayOrder = track.displayOrder
+            this.startTime = Instant.parse(this@toScheduleEntity.dateStart!!)
+            this.endTime = Instant.parse(this@toScheduleEntity.dateEnd!!)
+            this.externalId = this@toScheduleEntity.id
+            this.externalProvider = IntegrationProvider.OPENPLANNER
+        }
+}

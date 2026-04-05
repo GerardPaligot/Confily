@@ -175,7 +175,10 @@ class PlanningRepositoryExposed(
         AgendaV4(
             schedules = ScheduleEntity
                 .findByEvent(eventUuid)
-                .orderBy(SchedulesTable.displayOrder to SortOrder.ASC)
+                .orderBy(
+                    SchedulesTable.startTime to SortOrder.ASC,
+                    SchedulesTable.displayOrder to SortOrder.ASC
+                )
                 .map { it.toModelV4() },
             sessions = sessions + eventSessions,
             formats = FormatEntity.findByEvent(eventUuid)
