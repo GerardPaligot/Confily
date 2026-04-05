@@ -12,6 +12,7 @@ data class PartnersConnectWebhookPayload(
     val event: EventSummary,
     val jobs: List<JobOffer>,
     val activities: List<BoothActivity>,
+    val speakers: List<WebhookSpeaker> = emptyList(),
     val timestamp: String
 )
 
@@ -149,4 +150,20 @@ data class BoothActivity(
     val endTime: LocalDateTime?,
     @SerialName("created_at")
     val createdAt: LocalDateTime
+)
+
+@Serializable
+data class WebhookSpeaker(
+    val id: String,
+    val name: String,
+    val biography: String? = null,
+    @SerialName("job_title")
+    val jobTitle: String? = null,
+    @SerialName("photo_url")
+    val photoUrl: String? = null,
+    val pronouns: String? = null,
+    val company: String? = null,
+    @SerialName("external_id")
+    val externalId: String,
+    val source: String
 )
