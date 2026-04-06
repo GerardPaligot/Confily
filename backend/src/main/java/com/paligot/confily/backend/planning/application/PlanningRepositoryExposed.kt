@@ -7,6 +7,11 @@ import com.paligot.confily.backend.events.infrastructure.exposed.EventEntity
 import com.paligot.confily.backend.formats.infrastructure.exposed.FormatEntity
 import com.paligot.confily.backend.formats.infrastructure.exposed.FormatsTable
 import com.paligot.confily.backend.formats.infrastructure.exposed.toModel
+import com.paligot.confily.backend.integrations.domain.IntegrationProvider
+import com.paligot.confily.backend.integrations.domain.IntegrationUsage
+import com.paligot.confily.backend.integrations.infrastructure.exposed.IntegrationEntity
+import com.paligot.confily.backend.integrations.infrastructure.exposed.OpenFeedbackIntegrationsTable
+import com.paligot.confily.backend.integrations.infrastructure.exposed.get
 import com.paligot.confily.backend.planning.domain.PlanningRepository
 import com.paligot.confily.backend.schedules.infrastructure.exposed.ScheduleEntity
 import com.paligot.confily.backend.schedules.infrastructure.exposed.SchedulesTable
@@ -42,6 +47,31 @@ class PlanningRepositoryExposed(
     private val format = LocalDateTime.Format {
         hour(); char(':'); minute()
     }
+
+    private fun findOpenFeedbackEventId(eventUuid: UUID): String? {
+        val integration = IntegrationEntity.findIntegration(
+            eventId = eventUuid,
+            provider = IntegrationProvider.OPENFEEDBACK,
+            usage = IntegrationUsage.FEEDBACK
+        ) ?: return null
+        return OpenFeedbackIntegrationsTable[integration.id.value]?.eventId
+    }
+
+    private fun buildSessionDateMap(
+        eventUuid: UUID,
+        timezone: TimeZone
+    ): Map<UUID, String> = ScheduleEntity
+        .findWithSession(eventUuid)
+        .associate {
+            it.session!!.id.value to
+                it.startTime.toLocalDateTime(timezone).date.toString()
+        }
+
+    private fun buildOpenFeedbackUrl(
+        openFeedbackEventId: String,
+        date: String,
+        sessionId: String
+    ): String = "https://openfeedback.io/$openFeedbackEventId/$date/$sessionId"
 
     private fun protect(value: String): String =
         if (value.contains(",") || value.contains('"')) {
@@ -142,9 +172,26 @@ class PlanningRepositoryExposed(
 
     override suspend fun planning(eventId: String): AgendaV3 = transaction(db = database) {
         val eventUuid = UUID.fromString(eventId)
+        val event = EventEntity[eventUuid]
+        val timezone = TimeZone.of(event.timezone)
+        val openFeedbackEventId = findOpenFeedbackEventId(eventUuid)
+        val sessionDateMap = if (openFeedbackEventId != null) {
+            buildSessionDateMap(eventUuid, timezone)
+        } else {
+            emptyMap()
+        }
         val sessions = SessionEntity
             .findByEvent(eventUuid)
-            .map { it.toModelV3() }
+            .map { session ->
+                val sessionUuid = session.id.value
+                val date = sessionDateMap[sessionUuid]
+                val url = if (openFeedbackEventId != null && date != null) {
+                    buildOpenFeedbackUrl(openFeedbackEventId, date, sessionUuid.toString())
+                } else {
+                    null
+                }
+                session.toModelV3(openFeedbackUrl = url)
+            }
         AgendaV3(
             sessions = ScheduleEntity
                 .findByEvent(eventUuid)
@@ -166,9 +213,26 @@ class PlanningRepositoryExposed(
 
     override suspend fun planningBySchedules(eventId: String): AgendaV4 = transaction(db = database) {
         val eventUuid = UUID.fromString(eventId)
+        val event = EventEntity[eventUuid]
+        val timezone = TimeZone.of(event.timezone)
+        val openFeedbackEventId = findOpenFeedbackEventId(eventUuid)
+        val sessionDateMap = if (openFeedbackEventId != null) {
+            buildSessionDateMap(eventUuid, timezone)
+        } else {
+            emptyMap()
+        }
         val sessions = SessionEntity
             .findByEvent(eventUuid)
-            .map { it.toSessionModel() }
+            .map { session ->
+                val sessionUuid = session.id.value
+                val date = sessionDateMap[sessionUuid]
+                val url = if (openFeedbackEventId != null && date != null) {
+                    buildOpenFeedbackUrl(openFeedbackEventId, date, sessionUuid.toString())
+                } else {
+                    null
+                }
+                session.toSessionModel(openFeedbackUrl = url)
+            }
         val eventSessions = EventSessionEntity
             .findByEvent(eventUuid)
             .map { it.toModel() }

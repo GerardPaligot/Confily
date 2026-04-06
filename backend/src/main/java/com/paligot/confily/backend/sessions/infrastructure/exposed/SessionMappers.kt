@@ -8,7 +8,7 @@ import com.paligot.confily.models.Session
 import com.paligot.confily.models.Talk
 import com.paligot.confily.models.TalkV3
 
-fun SessionEntity.toModel(): Talk {
+fun SessionEntity.toModel(openFeedbackUrl: String? = null): Talk {
     val sessionUuid = this.id.value
     val categoryEntity = SessionCategoriesTable.firstCategoryId(sessionUuid)
         ?.let { CategoryEntity[it] }
@@ -33,11 +33,11 @@ fun SessionEntity.toModel(): Talk {
         speakers = speakers.map { it.toModel() },
         linkSlides = this.linkSlides,
         linkReplay = this.linkReplay,
-        openFeedback = null
+        openFeedback = openFeedbackUrl
     )
 }
 
-fun SessionEntity.toModelV3(): TalkV3 {
+fun SessionEntity.toModelV3(openFeedbackUrl: String? = null): TalkV3 {
     val sessionUuid = this.id.value
     val categoryEntity = SessionCategoriesTable.firstCategoryId(sessionUuid)
         ?.let { CategoryEntity[it] }
@@ -54,11 +54,11 @@ fun SessionEntity.toModelV3(): TalkV3 {
         speakers = speakers.map { it.id.value.toString() },
         linkSlides = this.linkSlides,
         linkReplay = this.linkReplay,
-        openFeedback = null
+        openFeedback = openFeedbackUrl
     )
 }
 
-fun SessionEntity.toSessionModel(): Session.Talk {
+fun SessionEntity.toSessionModel(openFeedbackUrl: String? = null): Session.Talk {
     val sessionUuid = this.id.value
     val categoryEntity = SessionCategoriesTable.firstCategoryId(sessionUuid)
         ?.let { CategoryEntity[it] }
@@ -75,7 +75,7 @@ fun SessionEntity.toSessionModel(): Session.Talk {
         speakers = speakers.map { it.id.value.toString() },
         linkSlides = this.linkSlides,
         linkReplay = this.linkReplay,
-        openFeedback = null,
+        openFeedback = openFeedbackUrl,
         tagIds = emptyList()
     )
 }
