@@ -30,7 +30,7 @@ class SessionAdminVerbatimRepositoryExposed(
         val templateId = driveDataSource.findFileByName(verbatim.templateName, null, driveId)
             ?: throw NotFoundException("File ${verbatim.templateName} doesn't exist")
         val sessions = transaction(db = database) {
-            SessionEntity.findByEvent(eventUuid)
+            SessionEntity.findByEvent(eventUuid).toList()
         }
         val asyncVerbatims = sessions.map { session ->
             async {
