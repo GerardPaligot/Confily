@@ -3,6 +3,7 @@ package com.paligot.confily.backend.integrations.infrastructure.factory
 import com.paligot.confily.backend.integrations.application.IntegrationRepositoryExposed
 import com.paligot.confily.backend.integrations.infrastructure.api.DefaultIntegrationDeserializerRegistry
 import com.paligot.confily.backend.integrations.infrastructure.exposed.BilletWebRegistrar
+import com.paligot.confily.backend.integrations.infrastructure.exposed.OpenFeedbackRegistrar
 import com.paligot.confily.backend.integrations.infrastructure.exposed.OpenPlannerRegistrar
 import com.paligot.confily.backend.integrations.infrastructure.exposed.SlackRegistrar
 import com.paligot.confily.backend.integrations.infrastructure.exposed.WebhookRegistrar
@@ -17,6 +18,7 @@ object IntegrationModule {
             registrars = listOf(
                 BilletWebRegistrar(PostgresModule.database),
                 OpenPlannerRegistrar(PostgresModule.database),
+                OpenFeedbackRegistrar(PostgresModule.database),
                 SlackRegistrar(PostgresModule.database),
                 WebhookRegistrar(PostgresModule.database)
             )

@@ -30,4 +30,10 @@ sealed interface CreateIntegration {
         @SerialName("header_auth")
         val headerAuth: String? = null
     ) : CreateIntegration
+
+    @Serializable
+    class CreateOpenFeedbackIntegration(
+        @SerialName("event_id")
+        val eventId: String
+    ) : CreateIntegration
 }

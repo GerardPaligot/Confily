@@ -13,5 +13,8 @@ enum class IntegrationUsage {
     AGENDA,
 
     @SerialName("webhook")
-    WEBHOOK
+    WEBHOOK,
+
+    @SerialName("feedback")
+    FEEDBACK
 }

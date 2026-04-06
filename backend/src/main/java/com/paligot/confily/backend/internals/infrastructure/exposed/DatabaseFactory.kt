@@ -10,6 +10,7 @@ import com.paligot.confily.backend.events.infrastructure.exposed.EventsTable
 import com.paligot.confily.backend.formats.infrastructure.exposed.FormatsTable
 import com.paligot.confily.backend.integrations.infrastructure.exposed.BilletWebIntegrationsTable
 import com.paligot.confily.backend.integrations.infrastructure.exposed.IntegrationsTable
+import com.paligot.confily.backend.integrations.infrastructure.exposed.OpenFeedbackIntegrationsTable
 import com.paligot.confily.backend.integrations.infrastructure.exposed.OpenPlannerIntegrationsTable
 import com.paligot.confily.backend.integrations.infrastructure.exposed.SlackIntegrationsTable
 import com.paligot.confily.backend.integrations.infrastructure.exposed.WebhookIntegrationsTable
@@ -87,6 +88,7 @@ object DatabaseFactory {
         IntegrationsTable,
         BilletWebIntegrationsTable,
         OpenPlannerIntegrationsTable,
+        OpenFeedbackIntegrationsTable,
         SlackIntegrationsTable,
         WebhookIntegrationsTable
     )

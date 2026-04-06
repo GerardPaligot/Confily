@@ -14,6 +14,7 @@ class DefaultIntegrationDeserializerRegistry : IntegrationDeserializerRegistry {
         IntegrationProvider.SLACK to CreateIntegration.CreateSlackIntegration.serializer(),
         IntegrationProvider.BILLETWEB to CreateIntegration.CreateBilletWebIntegration.serializer(),
         IntegrationProvider.OPENPLANNER to CreateIntegration.CreateOpenPlannerIntegration.serializer(),
+        IntegrationProvider.OPENFEEDBACK to CreateIntegration.CreateOpenFeedbackIntegration.serializer(),
         IntegrationProvider.WEBHOOK to CreateIntegration.CreateWebhookIntegration.serializer()
     )
 

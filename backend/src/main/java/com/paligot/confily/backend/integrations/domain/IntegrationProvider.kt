@@ -16,5 +16,8 @@ enum class IntegrationProvider {
     PARTNERSCONNECT,
 
     @SerialName("webhook")
-    WEBHOOK
+    WEBHOOK,
+
+    @SerialName("openfeedback")
+    OPENFEEDBACK
 }

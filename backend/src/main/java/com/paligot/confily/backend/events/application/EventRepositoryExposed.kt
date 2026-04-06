@@ -13,6 +13,8 @@ import com.paligot.confily.backend.events.infrastructure.exposed.toEventItemList
 import com.paligot.confily.backend.integrations.domain.IntegrationProvider
 import com.paligot.confily.backend.integrations.domain.IntegrationUsage
 import com.paligot.confily.backend.integrations.infrastructure.exposed.IntegrationEntity
+import com.paligot.confily.backend.integrations.infrastructure.exposed.OpenFeedbackIntegrationsTable
+import com.paligot.confily.backend.integrations.infrastructure.exposed.get
 import com.paligot.confily.backend.internals.helpers.slug
 import com.paligot.confily.backend.map.infrastructure.exposed.MapEntity
 import com.paligot.confily.backend.map.infrastructure.exposed.MapPictogramEntity
@@ -69,6 +71,15 @@ class EventRepositoryExposed(
     private val database: Database,
     private val geocodeApi: GeocodeApi
 ) : EventRepository {
+
+    private fun findOpenFeedbackEventId(eventUuid: UUID): String? {
+        val integration = IntegrationEntity.findIntegration(
+            eventId = eventUuid,
+            provider = IntegrationProvider.OPENFEEDBACK,
+            usage = IntegrationUsage.FEEDBACK
+        ) ?: return null
+        return OpenFeedbackIntegrationsTable[integration.id.value]?.eventId
+    }
 
     override suspend fun list(): EventList = transaction(db = database) {
         val events = EventEntity.all()
@@ -243,7 +254,7 @@ class EventRepositoryExposed(
             menus = menus,
             qanda = qanda,
             coc = event.coc ?: "",
-            openfeedbackProjectId = null,
+            openfeedbackProjectId = findOpenFeedbackEventId(eventUuid),
             features = features,
             contactPhone = event.contactPhone,
             contactEmail = event.contactEmail ?: "",
@@ -298,7 +309,7 @@ class EventRepositoryExposed(
             endDate = event.endDate.toString(),
             menus = menus,
             coc = event.coc ?: "",
-            openfeedbackProjectId = null,
+            openfeedbackProjectId = findOpenFeedbackEventId(eventUuid),
             features = features,
             contactPhone = event.contactPhone,
             contactEmail = event.contactEmail ?: "",
@@ -356,7 +367,7 @@ class EventRepositoryExposed(
             endDate = event.endDate.toString(),
             menus = menus,
             coc = event.coc ?: "",
-            openfeedbackProjectId = null,
+            openfeedbackProjectId = findOpenFeedbackEventId(eventUuid),
             features = features,
             contactPhone = event.contactPhone,
             contactEmail = event.contactEmail ?: "",
@@ -437,7 +448,7 @@ class EventRepositoryExposed(
             },
             maps = maps,
             thirdParty = ThirdParty(
-                openfeedbackProjectId = null
+                openfeedbackProjectId = findOpenFeedbackEventId(eventUuid)
             ),
             updatedAt = event.updatedAt.toEpochMilliseconds()
         )
