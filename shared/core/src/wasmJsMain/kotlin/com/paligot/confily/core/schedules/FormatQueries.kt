@@ -35,7 +35,9 @@ class FormatQueries(private val settings: ObservableSettings) {
         settings.getScopes(FORMATS).filter { eventId == eventId && it !in ids }
 
     fun upsertFormat(format: FormatDb) {
-        settings.putSerializableScoped(FORMATS, format.id, format)
+        val existing: FormatDb? = getFormat(format.id)
+        val merged = if (existing != null) format.copy(selected = existing.selected) else format
+        settings.putSerializableScoped(FORMATS, merged.id, merged)
     }
 
     fun updateSelectedFormat(selected: Boolean, formatId: String) {

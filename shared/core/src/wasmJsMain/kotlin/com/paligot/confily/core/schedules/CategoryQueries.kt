@@ -37,7 +37,9 @@ class CategoryQueries(private val settings: ObservableSettings) {
         settings.getScopes(CATEGORIES).filter { eventId == eventId && it !in ids }
 
     fun upsertCategory(category: CategoryDb) {
-        settings.putSerializableScoped(CATEGORIES, category.id, category)
+        val existing: CategoryDb? = getCategory(category.id)
+        val merged = if (existing != null) category.copy(selected = existing.selected) else category
+        settings.putSerializableScoped(CATEGORIES, merged.id, merged)
     }
 
     fun updateSelectedCategory(selected: Boolean, categoryId: String) {

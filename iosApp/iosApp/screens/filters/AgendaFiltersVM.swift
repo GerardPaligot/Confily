@@ -11,6 +11,7 @@ import SharedDi
 
 struct AgendaFiltersVM: View {
     @ObservedObject var viewModel: AgendaFiltersViewModel
+    @Environment(\.dismiss) private var dismiss
     
     init(viewModel: AgendaFiltersViewModel) {
         self.viewModel = viewModel
@@ -46,7 +47,15 @@ struct AgendaFiltersVM: View {
                         Text("textLoading")
                 }
             }
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("actionClose") {
+                        dismiss()
+                    }
+                }
+            }
         }
+        .modifier(PresentationDetentsModifier())
         .onAppear {
             viewModel.fetchFilters()
         }
@@ -56,3 +65,12 @@ struct AgendaFiltersVM: View {
     }
 }
 
+private struct PresentationDetentsModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        if #available(iOS 16.0, *) {
+            content.presentationDetents([.medium, .large])
+        } else {
+            content
+        }
+    }
+}

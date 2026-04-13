@@ -18,33 +18,33 @@ struct AgendaFilters: View {
     var body: some View {
         List {
             Section(header: Text("titleFiltersFavorites")) {
-                Toggle(isOn: Binding.constant(filtersUi.onlyFavorites), label: {
+                Toggle(isOn: Binding(
+                    get: { filtersUi.onlyFavorites },
+                    set: { onFavoriteSelected($0) }
+                ), label: {
                     Text("actionFilteringFavorites")
                 })
-                .onTapGesture {
-                    onFavoriteSelected(!filtersUi.onlyFavorites)
-                }
             }
             Section(header: Text("titleFiltersCategories")) {
                 ForEach(Array(filtersUi.categories.keys), id: \.self) { key in
-                    let isOn = filtersUi.categories[key] ?? false
-                    Toggle(isOn: Binding.constant(isOn as! Bool), label: {
+                    let isOn = filtersUi.categories[key] as? Bool ?? false
+                    Toggle(isOn: Binding(
+                        get: { isOn },
+                        set: { onCategorySelected(key, $0) }
+                    ), label: {
                         Text(key.name)
                     })
-                    .onTapGesture {
-                        onCategorySelected(key, !(isOn as! Bool))
-                    }
                 }
             }
             Section(header: Text("titleFiltersFormats")) {
                 ForEach(Array(filtersUi.formats.keys), id: \.self) { key in
-                    let isOn = filtersUi.formats[key] ?? false
-                    Toggle(isOn: Binding.constant(isOn as! Bool), label: {
+                    let isOn = filtersUi.formats[key] as? Bool ?? false
+                    Toggle(isOn: Binding(
+                        get: { isOn },
+                        set: { onFormatSelected(key, $0) }
+                    ), label: {
                         Text(key.name)
                     })
-                    .onTapGesture {
-                        onFormatSelected(key, !(isOn as! Bool))
-                    }
                 }
             }
         }

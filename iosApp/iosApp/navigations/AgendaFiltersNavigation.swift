@@ -10,16 +10,20 @@ import SwiftUI
 
 struct AgendaFiltersNavigation: View {
     @EnvironmentObject var viewModelFactory: ViewModelFactory
+    @State private var showFilters = false
     
     var body: some View {
-        NavigationLink {
-            AgendaFiltersVM(
-                viewModel: viewModelFactory.makeAgendaFiltersViewModel()
-            )
+        Button {
+            showFilters = true
         } label: {
             Image(systemName: "line.3.horizontal.decrease.circle")
                 .accessibilityLabel("actionFilteringFavorites")
         }
         .buttonStyle(.plain)
+        .sheet(isPresented: $showFilters) {
+            AgendaFiltersVM(
+                viewModel: viewModelFactory.makeAgendaFiltersViewModel()
+            )
+        }
     }
 }

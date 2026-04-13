@@ -35,8 +35,12 @@ SELECT COUNT(*)
 FROM Category
 WHERE event_id = ? AND selected = 1;
 
-upsertCategory:
-INSERT OR REPLACE INTO Category VALUES ?;
+upsertCategory {
+INSERT OR IGNORE INTO Category(id, name, color, icon, selected, event_id)
+VALUES (:id, :name, :color, :icon, 0, :event_id);
+UPDATE Category SET name = :name, color = :color, icon = :icon, event_id = :event_id
+WHERE id = :id;
+}
 
 updateSelectedCategory:
 UPDATE Category SET selected = ? WHERE id = ? AND event_id = ?;

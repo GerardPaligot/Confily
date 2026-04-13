@@ -250,13 +250,28 @@ class SessionDaoSQLDelight(
             }
         }
         agenda.categories.forEach { category ->
-            db.categoryQueries.upsertCategory(category.convertToDb(eventId))
+            db.categoryQueries.upsertCategory(
+                id = category.id,
+                name = category.name,
+                color = category.color,
+                icon = category.icon,
+                event_id = eventId
+            )
         }
         agenda.formats.forEach { format ->
-            db.formatQueries.upsertFormat(format.convertToDb(eventId))
+            db.formatQueries.upsertFormat(
+                id = format.id,
+                name = format.name,
+                time = format.time.toLong(),
+                event_id = eventId
+            )
         }
         agenda.tags.forEach { tag ->
-            db.tagQueries.upsertTag(tag.convertToDb(eventId))
+            db.tagQueries.upsertTag(
+                id = tag.id,
+                name = tag.name,
+                event_id = eventId
+            )
         }
         agenda.sessions.forEach { session ->
             when (session) {
