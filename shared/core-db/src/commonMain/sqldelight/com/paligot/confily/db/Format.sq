@@ -34,8 +34,12 @@ SELECT COUNT(*)
 FROM Format
 WHERE event_id = ? AND selected = 1;
 
-upsertFormat:
-INSERT OR REPLACE INTO Format VALUES ?;
+upsertFormat {
+INSERT OR IGNORE INTO Format(id, name, time, selected, event_id)
+VALUES (:id, :name, :time, 0, :event_id);
+UPDATE Format SET name = :name, time = :time, event_id = :event_id
+WHERE id = :id;
+}
 
 updateSelectedFormat:
 UPDATE Format SET selected = ? WHERE id = ? AND event_id = ?;

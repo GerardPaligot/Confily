@@ -29,8 +29,12 @@ FROM Tag
 WHERE event_id = ?
 ORDER BY name;
 
-upsertTag:
-INSERT OR REPLACE INTO Tag VALUES ?;
+upsertTag {
+INSERT OR IGNORE INTO Tag(id, name, selected, event_id)
+VALUES (:id, :name, 0, :event_id);
+UPDATE Tag SET name = :name, event_id = :event_id
+WHERE id = :id;
+}
 
 diffTags:
 SELECT id
