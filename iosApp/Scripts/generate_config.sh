@@ -20,7 +20,8 @@ echo "// This file is auto-generated from $(basename "$INPUT_FILE"). Do not modi
 if [ -f "$INPUT_FILE" ]; then
     grep -v '^#' "$INPUT_FILE" | \
     sed 's/[[:space:]]*=[[:space:]]*/=/g' | \
-    sed -e ':a' -e 's/^\([^=]*\)\./\1_/' -e 'ta' >> "$OUTPUT_FILE"
+    sed -e ':a' -e 's/^\([^=]*\)\./\1_/' -e 'ta' | \
+    sed 's|://|:/$()/|g' >> "$OUTPUT_FILE"
 else
     echo "Warning: $INPUT_FILE not found. Skipping config generation."
 fi
