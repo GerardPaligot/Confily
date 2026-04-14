@@ -26,11 +26,13 @@ import com.paligot.confily.partners.ui.PartnerDetailSectionVertical
 import com.paligot.confily.partners.ui.models.PartnerUi
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.action_partner_video
+import com.paligot.confily.resources.screen_speakers
 import com.paligot.confily.resources.title_jobs
 import com.paligot.confily.resources.title_plan_partner
 import com.paligot.confily.style.components.placeholder.placeholder
 import com.paligot.confily.style.events.cards.AddressCard
 import com.paligot.confily.style.partners.jobs.JobItem
+import com.paligot.confily.style.speakers.items.LargeSpeakerItem
 import com.paligot.confily.style.theme.ConfilyTheme
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -41,6 +43,7 @@ fun PartnerDetailContent(
     partnerUi: PartnerUi,
     onLinkClicked: (url: String) -> Unit,
     onItineraryClicked: (lat: Double, lng: Double) -> Unit,
+    onSpeakerClicked: (id: String) -> Unit,
     modifier: Modifier = Modifier,
     state: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(0.dp),
@@ -94,6 +97,24 @@ fun PartnerDetailContent(
                 )
             }
         }
+        if (partnerUi.speakers.isNotEmpty()) {
+            item {
+                Text(
+                    text = stringResource(Resource.string.screen_speakers),
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.semantics { heading() }
+                )
+            }
+            items(partnerUi.speakers) { speaker ->
+                LargeSpeakerItem(
+                    name = speaker.name,
+                    description = speaker.activity,
+                    url = speaker.url,
+                    onClick = { onSpeakerClicked(speaker.id) },
+                    modifier = Modifier.fillMaxWidth().placeholder(visible = isLoading)
+                )
+            }
+        }
         partnerUi.formattedAddress?.let {
             val hasGpsLocation = partnerUi.latitude != null && partnerUi.longitude != null
             item {
@@ -138,6 +159,7 @@ private fun PartnerDetailContentPreview() {
                 partnerUi = PartnerUi.fake,
                 onLinkClicked = {},
                 onItineraryClicked = { _, _ -> },
+                onSpeakerClicked = {},
                 contentPadding = it
             )
         }

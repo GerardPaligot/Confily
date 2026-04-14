@@ -54,12 +54,12 @@ class PartnerRepositoryImpl(
     override fun partner(partnerId: String): Flow<Partner> = settings.fetchEventId()
         .flatMapConcat {
             combine(
-                flow = partnerDao.fetchPartner(eventId = it, id = partnerId),
-                flow2 = partnerDao.fetchJobsByPartner(eventId = it, partnerId = partnerId),
-                flow3 = socialDao.fetchSocials(eventId = it, extId = partnerId),
-                transform = { info, jobs, socials ->
-                    Partner(info = info, jobs = jobs, socials = socials)
-                }
-            )
+                partnerDao.fetchPartner(eventId = it, id = partnerId),
+                partnerDao.fetchJobsByPartner(eventId = it, partnerId = partnerId),
+                socialDao.fetchSocials(eventId = it, extId = partnerId),
+                partnerDao.fetchSpeakersByPartner(eventId = it, partnerId = partnerId)
+            ) { info, jobs, socials, speakers ->
+                Partner(info = info, jobs = jobs, socials = socials, speakers = speakers)
+            }
         }
 }

@@ -5,6 +5,7 @@ import com.paligot.confily.core.getAllSerializableScopedFlow
 import com.paligot.confily.core.getSerializableScopedFlow
 import com.paligot.confily.core.partners.PartnerQueries.Scopes.JOBS
 import com.paligot.confily.core.partners.PartnerQueries.Scopes.PARTNERS
+import com.paligot.confily.core.partners.PartnerQueries.Scopes.PARTNER_SPEAKERS
 import com.paligot.confily.core.partners.PartnerQueries.Scopes.PARTNER_TYPES
 import com.paligot.confily.core.putSerializableScoped
 import com.russhwolf.settings.ObservableSettings
@@ -15,6 +16,7 @@ class PartnerQueries(private val settings: ObservableSettings) {
     private object Scopes {
         const val PARTNERS = "partners"
         const val PARTNER_TYPES = "partnerTypes"
+        const val PARTNER_SPEAKERS = "partnerSpeakers"
         const val JOBS = "jobs"
     }
 
@@ -53,4 +55,17 @@ class PartnerQueries(private val settings: ObservableSettings) {
                 .sortedBy { it.publishDate }
         }
     )
+
+    fun insertPartnerSpeaker(partnerSpeaker: PartnerSpeakerDb) {
+        val key = "${partnerSpeaker.partnerId}-${partnerSpeaker.speakerId}"
+        settings.putSerializableScoped(PARTNER_SPEAKERS, key, partnerSpeaker)
+    }
+
+    fun selectPartnerSpeakers(
+        eventId: String,
+        partnerId: String
+    ): Flow<List<PartnerSpeakerDb>> =
+        settings.combineAllSerializableScopedFlow(PARTNER_SPEAKERS) {
+            it.eventId == eventId && it.partnerId == partnerId
+        }
 }

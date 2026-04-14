@@ -11,6 +11,7 @@ import androidx.navigation.navDeepLink
 import androidx.navigation.toRoute
 import com.paligot.confily.partners.routes.Partner
 import com.paligot.confily.partners.routes.PartnerList
+import com.paligot.confily.speakers.routes.Speaker
 import com.paligot.confily.style.components.adaptive.isCompat
 
 @Suppress("LongParameterList")
@@ -31,7 +32,8 @@ fun NavGraphBuilder.partnerGraph(
         PartnersAdaptive(
             showBackInDetail = adaptiveInfo.widthSizeClass.isCompat,
             onItineraryClicked = onItineraryClicked,
-            onLinkClicked = launchUrl
+            onLinkClicked = launchUrl,
+            onSpeakerClicked = { navController.navigate(Speaker(id = it)) }
         )
     }
     composable<Partner>(
@@ -47,6 +49,7 @@ fun NavGraphBuilder.partnerGraph(
             partnerId = it.toRoute<Partner>().id,
             onLinkClicked = launchUrl,
             onItineraryClicked = onItineraryClicked,
+            onSpeakerClicked = { navController.navigate(Speaker(id = it)) },
             navigationIcon = { Back { navController.popBackStack() } },
             isLandscape = isLandscape
         )

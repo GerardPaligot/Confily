@@ -21,6 +21,7 @@ fun PartnersAdaptive(
     showBackInDetail: Boolean,
     onItineraryClicked: (lat: Double, lng: Double) -> Unit,
     onLinkClicked: (url: String) -> Unit,
+    onSpeakerClicked: (id: String) -> Unit,
     modifier: Modifier = Modifier,
     state: LazyGridState = rememberLazyGridState()
 ) {
@@ -53,6 +54,7 @@ fun PartnersAdaptive(
                         partnerId = it,
                         onLinkClicked = onLinkClicked,
                         onItineraryClicked = onItineraryClicked,
+                        onSpeakerClicked = onSpeakerClicked,
                         navigationIcon = if (showBackInDetail) {
                             @Composable {
                                 Back {

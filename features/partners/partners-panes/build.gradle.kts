@@ -19,6 +19,7 @@ kotlin {
                 implementation(projects.style.components.video)
                 implementation(projects.style.events)
                 implementation(projects.style.partners)
+                implementation(projects.style.speakers)
                 implementation(projects.style.theme)
 
                 implementation(compose.components.resources)

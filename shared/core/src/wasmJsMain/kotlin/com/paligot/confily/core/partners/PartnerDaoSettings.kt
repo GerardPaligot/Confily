@@ -7,6 +7,8 @@ import com.paligot.confily.core.partners.entities.PartnerInfo
 import com.paligot.confily.core.partners.entities.PartnerItem
 import com.paligot.confily.core.partners.entities.PartnerType
 import com.paligot.confily.core.socials.SocialQueries
+import com.paligot.confily.core.speakers.SpeakerQueries
+import com.paligot.confily.core.speakers.entities.SpeakerItem
 import com.paligot.confily.models.PartnersActivities
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -17,6 +19,7 @@ import kotlinx.coroutines.flow.map
 class PartnerDaoSettings(
     private val partnerQueries: PartnerQueries,
     private val socialQueries: SocialQueries,
+    private val speakerQueries: SpeakerQueries,
     private val hasSvgSupport: Boolean
 ) : PartnerDao {
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -43,6 +46,16 @@ class PartnerDaoSettings(
         partnerQueries.selectJobs(eventId, partnerId)
             .map { it.map { it.mapToEntity() } }
 
+    override fun fetchSpeakersByPartner(
+        eventId: String,
+        partnerId: String
+    ): Flow<List<SpeakerItem>> =
+        partnerQueries.selectPartnerSpeakers(eventId, partnerId)
+            .combine(speakerQueries.selectSpeakersByEvent(eventId)) { links, speakers ->
+                val speakerIds = links.map { it.speakerId }.toSet()
+                speakers.filter { it.id in speakerIds }.map { it.mapToSpeakerItem() }
+            }
+
     override fun fetchActivitiesByDay(eventId: String, day: String): Flow<List<ActivityItem>> {
         TODO("Not yet implemented")
     }
@@ -64,6 +77,15 @@ class PartnerDaoSettings(
             }
             partner.jobs.forEach { job ->
                 partnerQueries.insertJob(job.convertToDb(eventId, partner.id))
+            }
+            partner.speakers.forEach { speaker ->
+                partnerQueries.insertPartnerSpeaker(
+                    PartnerSpeakerDb(
+                        partnerId = partner.id,
+                        speakerId = speaker.id,
+                        eventId = eventId
+                    )
+                )
             }
         }
     }

@@ -24,6 +24,7 @@ fun PartnerDetailPane(
     partnerUi: PartnerUi,
     onLinkClicked: (url: String) -> Unit,
     onItineraryClicked: (lat: Double, lng: Double) -> Unit,
+    onSpeakerClicked: (id: String) -> Unit,
     modifier: Modifier = Modifier,
     navigationIcon: @Composable (AppBarIcons.() -> Unit)? = null,
     isLandscape: Boolean = false,
@@ -55,6 +56,7 @@ fun PartnerDetailPane(
                         partnerUi = partnerUi,
                         onLinkClicked = onLinkClicked,
                         onItineraryClicked = onItineraryClicked,
+                        onSpeakerClicked = onSpeakerClicked,
                         modifier = Modifier.weight(1f),
                         state = state,
                         isLoading = isLoading,
@@ -66,6 +68,7 @@ fun PartnerDetailPane(
                     partnerUi = partnerUi,
                     onLinkClicked = onLinkClicked,
                     onItineraryClicked = onItineraryClicked,
+                    onSpeakerClicked = onSpeakerClicked,
                     contentPadding = it,
                     state = state,
                     isLoading = isLoading

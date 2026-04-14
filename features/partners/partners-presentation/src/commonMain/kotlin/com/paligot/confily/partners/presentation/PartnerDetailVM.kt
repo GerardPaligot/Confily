@@ -17,6 +17,7 @@ fun PartnerDetailVM(
     partnerId: String,
     onLinkClicked: (url: String) -> Unit,
     onItineraryClicked: (lat: Double, lng: Double) -> Unit,
+    onSpeakerClicked: (id: String) -> Unit,
     modifier: Modifier = Modifier,
     navigationIcon: @Composable (AppBarIcons.() -> Unit)? = null,
     isLandscape: Boolean = false,
@@ -30,6 +31,7 @@ fun PartnerDetailVM(
             partnerUi = uiState.partner,
             onLinkClicked = {},
             onItineraryClicked = { _, _ -> },
+            onSpeakerClicked = {},
             modifier = modifier,
             navigationIcon = navigationIcon,
             isLandscape = isLandscape,
@@ -41,6 +43,7 @@ fun PartnerDetailVM(
             partnerUi = uiState.partner,
             onLinkClicked = onLinkClicked,
             onItineraryClicked = onItineraryClicked,
+            onSpeakerClicked = onSpeakerClicked,
             modifier = modifier,
             navigationIcon = navigationIcon,
             isLandscape = isLandscape

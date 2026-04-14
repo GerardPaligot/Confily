@@ -8,6 +8,7 @@ import com.paligot.confily.core.partners.entities.JobItem
 import com.paligot.confily.core.partners.entities.PartnerInfo
 import com.paligot.confily.core.partners.entities.PartnerItem
 import com.paligot.confily.core.partners.entities.PartnerType
+import com.paligot.confily.core.speakers.entities.SpeakerItem
 import com.paligot.confily.db.ConfilyDatabase
 import com.paligot.confily.models.PartnerV3
 import com.paligot.confily.models.PartnersActivities
@@ -60,6 +61,14 @@ class PartnerDaoSQLDelight(
 
     override fun fetchJobsByPartner(eventId: String, partnerId: String): Flow<List<JobItem>> =
         db.partnerQueries.selectJobs(eventId, partnerId, jobsMapper)
+            .asFlow()
+            .mapToList(dispatcher)
+
+    override fun fetchSpeakersByPartner(
+        eventId: String,
+        partnerId: String
+    ): Flow<List<SpeakerItem>> =
+        db.partnerQueries.selectPartnerSpeakers(partnerId, eventId, speakerItemMapper)
             .asFlow()
             .mapToList(dispatcher)
 
@@ -137,6 +146,13 @@ class PartnerDaoSQLDelight(
                     requirements = job.requirements,
                     publish_date = job.publishDate,
                     propulsed = job.propulsed
+                )
+            }
+            partner.speakers.forEach { speaker ->
+                db.partnerQueries.insertPartnerSpeaker(
+                    partner_id = partner.id,
+                    speaker_id = speaker.id,
+                    event_id = eventId
                 )
             }
         }

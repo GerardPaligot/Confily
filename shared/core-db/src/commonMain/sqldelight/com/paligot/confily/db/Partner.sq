@@ -44,6 +44,16 @@ FOREIGN KEY (partner_id) REFERENCES Partner(id),
 FOREIGN KEY (event_id) REFERENCES Event(id)
 );
 
+CREATE TABLE PartnerSpeaker (
+partner_id TEXT NOT NULL,
+speaker_id TEXT NOT NULL,
+event_id TEXT NOT NULL,
+PRIMARY KEY (partner_id, speaker_id),
+FOREIGN KEY (partner_id) REFERENCES Partner(id),
+FOREIGN KEY (speaker_id) REFERENCES Speaker(id),
+FOREIGN KEY (event_id) REFERENCES Event(id)
+);
+
 CREATE TABLE Job (
 url TEXT NOT NULL PRIMARY KEY,
 title TEXT NOT NULL,
@@ -84,6 +94,10 @@ INSERT OR REPLACE INTO Job(
 url, partner_id, event_id, title, company_name, location, salary_min, salary_max, salary_recurrence, requirements, publish_date, propulsed
 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
 
+insertPartnerSpeaker:
+INSERT OR REPLACE INTO PartnerSpeaker(partner_id, speaker_id, event_id)
+VALUES (?, ?, ?);
+
 selectPartnerTypes:
 SELECT order_, name FROM PartnerType WHERE event_id == ? ORDER BY order_ ASC;
 
@@ -120,3 +134,9 @@ SELECT url, partner_id, event_id, title, company_name, location, salary_min, sal
 FROM Job
 WHERE event_id == ? AND partner_id == ?
 ORDER BY publish_date ASC;
+
+selectPartnerSpeakers:
+SELECT Speaker.id, Speaker.display_name, Speaker.photo_url, Speaker.job_title, Speaker.company
+FROM PartnerSpeaker
+INNER JOIN Speaker ON PartnerSpeaker.speaker_id = Speaker.id
+WHERE PartnerSpeaker.partner_id == ? AND PartnerSpeaker.event_id == ?;

@@ -8,6 +8,7 @@ import com.paligot.confily.core.partners.entities.PartnerType
 import com.paligot.confily.core.partners.entities.Salary
 import com.paligot.confily.core.schedules.entities.Address
 import com.paligot.confily.core.socials.entities.Social
+import com.paligot.confily.core.speakers.entities.SpeakerItem
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.datetime.LocalDateTime
 
@@ -74,3 +75,14 @@ internal val jobsMapper = { url: String, _: String, _: String, title: String, co
 internal val socialMapper = { url: String, type: String ->
     Social(url = url, type = type)
 }
+
+internal val speakerItemMapper =
+    { id: String, displayName: String, photoUrl: String, jobTitle: String?, company: String? ->
+        SpeakerItem(
+            id = id,
+            displayName = displayName,
+            photoUrl = photoUrl,
+            jobTitle = jobTitle,
+            company = company
+        )
+    }
