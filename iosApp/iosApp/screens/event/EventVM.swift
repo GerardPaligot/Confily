@@ -25,6 +25,8 @@ struct EventVM: View {
                     case .success(let eventUi):
                         Event(
                             event: eventUi,
+                            hasMaps: viewModel.hasMaps,
+                            hasMenus: viewModel.hasMenus,
                             barcodeScanned: { barcode in
                                 await viewModel.saveTicket(barcode: barcode)
                             },

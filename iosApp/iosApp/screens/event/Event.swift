@@ -14,6 +14,8 @@ struct Event: View {
     @State var showScanner = false
     @Environment(\.openURL) var openURL
     let event: EventUi
+    let hasMaps: Bool
+    let hasMenus: Bool
     let linkedin: String?
     let x: String?
     let mastodon: String?
@@ -28,10 +30,14 @@ struct Event: View {
     
     init(
         event: EventUi,
+        hasMaps: Bool,
+        hasMenus: Bool,
         barcodeScanned: @escaping (String) async -> (),
         onDisconnectedClicked: @escaping () -> ()
     ) {
         self.event = event
+        self.hasMaps = hasMaps
+        self.hasMenus = hasMenus
         self.linkedin = event.eventInfo.socials.first(where: { $0.type == SocialTypeUi.linkedin })?.url
         self.x = event.eventInfo.socials.first(where: { $0.type == SocialTypeUi.x })?.url
         self.mastodon = event.eventInfo.socials.first(where: { $0.type == SocialTypeUi.mastodon })?.url
@@ -74,13 +80,29 @@ struct Event: View {
                 } label: {
                     Text("actionTicketScanner")
                 }
-                MapsNavigation()
-                MenusNavigation()
+                if (hasMaps) {
+                    MapsNavigation()
+                }
+                if (hasMenus) {
+                    MenusNavigation()
+                }
                 TeamMembersNavigation()
                 AddressCardView(formattedAddress: event.eventInfo.formattedAddress)
                 Link("actionItinerary", destination: URL(string: "maps://?saddr=&daddr=\(event.eventInfo.latitude),\(event.eventInfo.longitude)")!)
             }
-            Section(header: Text("titleLinks")) {
+            let hasLinks = event.eventInfo.faqLink != nil
+                || event.eventInfo.codeOfConductLink != nil
+                || self.linkedin != nil
+                || self.x != nil
+                || self.mastodon != nil
+                || self.bluesky != nil
+                || self.facebook != nil
+                || self.instagram != nil
+                || self.youtube != nil
+                || self.github != nil
+                || self.website != nil
+            if (hasLinks) {
+                Section(header: Text("titleLinks")) {
                 if (event.eventInfo.faqLink != nil) {
                     Link("actionFaq", destination: URL(string: event.eventInfo.faqLink!)!)
                 }
@@ -114,6 +136,7 @@ struct Event: View {
                 if (self.website != nil) {
                     Link("actionWebsite", destination: URL(string: self.website!)!)
                 }
+                }
             }
             Section {
                 Button {
@@ -134,6 +157,8 @@ struct Event_Previews: PreviewProvider {
         NavigationView {
             Event(
                 event: EventUi.companion.fake,
+                hasMaps: true,
+                hasMenus: true,
                 barcodeScanned: { barcode in },
                 onDisconnectedClicked: {}
             ).environmentObject(ViewModelFactory())

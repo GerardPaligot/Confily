@@ -19,10 +19,15 @@ enum EventUiState {
 @MainActor
 class EventViewModel: ObservableObject {
     private let interactor: EventInteractor = InteractorHelper().eventInteractor
+    private let mapInteractor: MapInteractor = InteractorHelper().mapInteractor
 
     @Published var uiState: EventUiState = EventUiState.loading
+    @Published var hasMaps: Bool = false
+    @Published var hasMenus: Bool = false
 
     private var eventTask: Task<(), Never>?
+    private var mapsTask: Task<(), Never>?
+    private var menusTask: Task<(), Never>?
 
     func fetchEvent() {
         eventTask = Task {
@@ -40,10 +45,32 @@ class EventViewModel: ObservableObject {
                 self.uiState = .failure
             }
         }
+        mapsTask = Task {
+            do {
+                let stream = asyncSequence(for: mapInteractor.mapsFilled())
+                for try await maps in stream {
+                    self.hasMaps = !maps.isEmpty
+                }
+            } catch {
+                self.hasMaps = false
+            }
+        }
+        menusTask = Task {
+            do {
+                let stream = asyncSequence(for: interactor.menus())
+                for try await menus in stream {
+                    self.hasMenus = !menus.isEmpty
+                }
+            } catch {
+                self.hasMenus = false
+            }
+        }
     }
 
     func stop() {
         eventTask?.cancel()
+        mapsTask?.cancel()
+        menusTask?.cancel()
     }
 
     func saveTicket(barcode: String) async {
