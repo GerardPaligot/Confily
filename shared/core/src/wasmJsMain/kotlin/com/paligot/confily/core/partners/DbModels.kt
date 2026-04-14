@@ -47,3 +47,10 @@ class JobDb(
     val publishDate: Long,
     val propulsed: String
 )
+
+@Serializable
+class PartnerSpeakerDb(
+    val partnerId: String,
+    val speakerId: String,
+    val eventId: String
+)

@@ -15,6 +15,7 @@ kotlin {
                 implementation(projects.features.partners.partnersPanes)
                 implementation(projects.features.partners.partnersRoutes)
                 implementation(projects.features.partners.partnersUi)
+                implementation(projects.features.speakers.speakersRoutes)
                 implementation(projects.features.navigation)
                 implementation(projects.style.partners)
                 implementation(projects.style.theme)

@@ -6,6 +6,8 @@ import com.paligot.confily.core.partners.entities.PartnerItem
 import com.paligot.confily.core.partners.entities.PartnerType
 import com.paligot.confily.core.partners.entities.Salary
 import com.paligot.confily.core.schedules.entities.Address
+import com.paligot.confily.core.speakers.SpeakerDb
+import com.paligot.confily.core.speakers.entities.SpeakerItem
 
 fun PartnerTypeDb.mapToEntity(): PartnerType = PartnerType(order = order, name = name)
 
@@ -48,4 +50,12 @@ fun JobDb.mapToEntity(): JobItem = JobItem(
     },
     requirements = requirements.toInt(),
     propulsed = propulsed
+)
+
+fun SpeakerDb.mapToSpeakerItem(): SpeakerItem = SpeakerItem(
+    id = id,
+    displayName = displayName,
+    photoUrl = photoUrl,
+    jobTitle = jobTitle,
+    company = company
 )

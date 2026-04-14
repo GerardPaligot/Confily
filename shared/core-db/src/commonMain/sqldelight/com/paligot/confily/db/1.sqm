@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS PartnerSpeaker (
+partner_id TEXT NOT NULL,
+speaker_id TEXT NOT NULL,
+event_id TEXT NOT NULL,
+PRIMARY KEY (partner_id, speaker_id),
+FOREIGN KEY (partner_id) REFERENCES Partner(id),
+FOREIGN KEY (speaker_id) REFERENCES Speaker(id),
+FOREIGN KEY (event_id) REFERENCES Event(id)
+);

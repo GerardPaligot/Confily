@@ -1,6 +1,7 @@
 package com.paligot.confily.partners.ui.models
 
 import com.paligot.confily.socials.ui.models.SocialUi
+import com.paligot.confily.speakers.ui.models.SpeakerItemUi
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
@@ -15,7 +16,8 @@ data class PartnerUi(
     val latitude: Double?,
     val longitude: Double?,
     val socials: ImmutableList<SocialUi>,
-    val jobs: ImmutableList<JobUi>
+    val jobs: ImmutableList<JobUi>,
+    val speakers: ImmutableList<SpeakerItemUi> = persistentListOf()
 ) {
     companion object {
         val fake = PartnerUi(

@@ -79,6 +79,7 @@ actual val databasesModule: Module = module {
         PartnerDaoSettings(
             partnerQueries = get(),
             socialQueries = get(),
+            speakerQueries = get(),
             hasSvgSupport = true
         )
     }
