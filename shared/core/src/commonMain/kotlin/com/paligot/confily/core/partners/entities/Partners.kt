@@ -19,6 +19,8 @@ class Partners(
 fun Partners.mapToPartnersActivitiesUi(): PartnersActivitiesUi = PartnersActivitiesUi(
     partners = PartnerGroupsUi(
         groups = groups
+            .entries
+            .sortedBy { it.key.order }
             .map { (type, partners) ->
                 PartnerGroupUi(
                     type = type.name

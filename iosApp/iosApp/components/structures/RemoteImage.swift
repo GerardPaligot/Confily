@@ -29,7 +29,7 @@ struct RemoteImage: View {
                     view.accessibilityLabel(description!)
                 }
         } placeholder: {
-            Text("...")
+            Color.clear
         }
     }
 }

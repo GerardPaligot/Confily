@@ -241,15 +241,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		F535A2BE2F3A986F00148F86 /* Scripts */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			explicitFileTypes = {
-			};
-			explicitFolders = (
-			);
-			path = Scripts;
-			sourceTree = "<group>";
-		};
+		F535A2BE2F3A986F00148F86 /* Scripts */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Scripts; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -331,8 +323,8 @@
 			isa = PBXGroup;
 			children = (
 				F535A2C12F3A9D2100148F86 /* Generated.xcconfig */,
-				F535A2BE2F3A986F00148F86 /* Scripts */,
 				7555FF7D242A565900829871 /* iosApp */,
+				F535A2BE2F3A986F00148F86 /* Scripts */,
 				7555FF7C242A565900829871 /* Products */,
 				7555FFB0242A642200829871 /* Frameworks */,
 			);

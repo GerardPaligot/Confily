@@ -25,6 +25,8 @@ struct PartnerItemNavigation: View {
                 id: partner.id
             )
             .padding()
+            .frame(maxWidth: .infinity)
+            .aspectRatio(1, contentMode: .fill)
             .background(Color.white)
             .clipShape(RoundedRectangle(cornerRadius: 8))
         }
