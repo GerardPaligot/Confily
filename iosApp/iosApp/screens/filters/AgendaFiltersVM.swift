@@ -49,8 +49,11 @@ struct AgendaFiltersVM: View {
             }
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("actionClose") {
+                    Button {
                         dismiss()
+                    } label: {
+                        Image(systemName: "xmark.circle.fill")
+                            .foregroundStyle(.gray)
                     }
                 }
             }
