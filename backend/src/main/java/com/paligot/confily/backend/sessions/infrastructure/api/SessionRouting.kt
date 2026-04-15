@@ -25,8 +25,11 @@ fun Route.registerAdminSessionsRoutes() {
         post("/verbatim/permissions") {
             val eventId = call.parameters["eventId"]!!
             val verbatim = call.receiveValidated<TalkVerbatimInput>()
-            adminVerbatimRepository.grantPermissions(eventId, verbatim)
-            call.respond(HttpStatusCode.Created)
+            val failures = adminVerbatimRepository.grantPermissions(eventId, verbatim)
+            call.respond(
+                status = HttpStatusCode.Created,
+                message = failures
+            )
         }
         post("/{id}/verbatim") {
             val eventId = call.parameters["eventId"]!!

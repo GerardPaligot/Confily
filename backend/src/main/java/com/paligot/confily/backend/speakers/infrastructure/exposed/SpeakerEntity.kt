@@ -20,7 +20,7 @@ class SpeakerEntity(id: EntityID<UUID>) : UUIDEntity(id) {
             .find {
                 val eventOp = SpeakersTable.eventId eq eventId
                 val speakerIdsOp = SpeakersTable.id inList speakerIds
-                val emailOp = SpeakersTable.email neq null
+                val emailOp = SpeakersTable.email.isNotNull() and (SpeakersTable.email neq "")
                 eventOp and speakerIdsOp and emailOp
             }
 

@@ -74,7 +74,10 @@ class SessionAdminVerbatimRepositoryExposed(
         return folderId
     }
 
-    override suspend fun grantPermissions(eventId: String, verbatim: TalkVerbatimInput): Unit = coroutineScope {
+    override suspend fun grantPermissions(
+        eventId: String,
+        verbatim: TalkVerbatimInput
+    ): Map<String, List<String>> = coroutineScope {
         val eventUuid = UUID.fromString(eventId)
         val driveId = driveDataSource.findDriveByName(verbatim.driveName)
             ?: throw NotFoundException("Drive ${verbatim.driveName} doesn't exist")
@@ -85,7 +88,7 @@ class SessionAdminVerbatimRepositoryExposed(
                 ?: throw NotFoundException("Folder ${verbatim.targetFolder} doesn't exist")
         val sessions = transaction(db = database) {
             SessionEntity
-                .findByDriveFolderId(eventId = eventUuid, driveFolderId = null)
+                .findByEvent(eventId = eventUuid)
                 .toList()
         }
         val speakers = transaction(db = database) {
@@ -93,16 +96,18 @@ class SessionAdminVerbatimRepositoryExposed(
                 .findByEvent(eventUuid)
                 .toList()
         }
-        sessions.map { session ->
+        val results = sessions
+            .filter { it.id.value.toString() !in listOf("69392013-68d1-469e-bd16-8a77455f41bf", "d43e8c01-e674-4935-8c7d-fe1c4a29ed3a") }
+            .map { session ->
             val speakerIds = transaction(db = database) {
                 SessionSpeakersTable.speakerIds(session.id.value)
             }
             async {
                 val speakerEmails = speakers
                     .filter { speakerIds.contains(it.id.value) }
-                    .filter { it.email != null }
+                    .filter { !it.email.isNullOrBlank() }
                     .map { it.email!! }
-                val folderId = grantPermission(
+                val (folderId, failedEmails) = grantPermission(
                     driveFolderId = session.driveFolderId!!,
                     folderName = session.title,
                     emails = speakerEmails,
@@ -114,8 +119,12 @@ class SessionAdminVerbatimRepositoryExposed(
                         session.driveFolderId = null
                     }
                 }
+                session.title to failedEmails
             }
         }.awaitAll()
+        return@coroutineScope results
+            .filter { it.second.isNotEmpty() }
+            .toMap()
     }
 
     override suspend fun grantPermissionByTalk(
@@ -146,7 +155,7 @@ class SessionAdminVerbatimRepositoryExposed(
                 .toList()
                 .map { it.email!! }
         }
-        val folderId = grantPermission(
+        val (folderId, _) = grantPermission(
             driveFolderId = driveFolderId,
             folderName = sessionEntity.title,
             emails = speakerEmails,
@@ -192,21 +201,23 @@ class SessionAdminVerbatimRepositoryExposed(
         emails: List<String>,
         targetFolderId: String,
         driveId: String
-    ): String? {
+    ): Pair<String?, List<String>> {
         val folderId = driveDataSource.findFolderById(
             id = driveFolderId,
             name = folderName,
             parentId = targetFolderId,
             driveId = driveId
         )
-        if (folderId != null) {
-            emails.forEach {
-                val hasPermission = driveDataSource.hasPermission(fileId = folderId, email = it)
-                if (hasPermission.not()) {
-                    driveDataSource.grantPermission(fileId = folderId, email = it)
-                }
+        if (folderId == null) return null to emptyList()
+        val failedEmails = emails.mapNotNull {
+            val hasPermission = driveDataSource.hasPermission(fileId = folderId, email = it)
+            if (hasPermission.not()) {
+                val result = driveDataSource.grantPermission(fileId = folderId, email = it)
+                if (result == null) it else null
+            } else {
+                null
             }
         }
-        return folderId
+        return folderId to failedEmails
     }
 }

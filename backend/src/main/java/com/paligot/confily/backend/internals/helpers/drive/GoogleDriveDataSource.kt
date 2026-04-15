@@ -1,5 +1,6 @@
 package com.paligot.confily.backend.internals.helpers.drive
 
+import com.google.api.client.googleapis.json.GoogleJsonResponseException
 import com.google.api.services.drive.Drive
 import com.google.api.services.drive.model.File
 import com.google.api.services.drive.model.Permission
@@ -111,10 +112,16 @@ class GoogleDriveDataSource(private val service: Drive) : DriveDataSource {
             role = "writer"
             emailAddress = email
         }
-        service.permissions().create(fileId, userPermission).apply {
-            supportsAllDrives = true
-        }.execute()
-        return fileId
+        return try {
+            service.permissions().create(fileId, userPermission).apply {
+                this.sendNotificationEmail = true
+                supportsAllDrives = true
+            }.execute()
+            fileId
+        } catch (ex: GoogleJsonResponseException) {
+            System.err.println("Failed to grant permission to $email on $fileId: ${ex.message}")
+            null
+        }
     }
 
     override fun hasPermission(fileId: String, email: String): Boolean {
