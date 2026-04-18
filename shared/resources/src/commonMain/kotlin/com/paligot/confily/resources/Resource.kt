@@ -24,6 +24,7 @@ import confily.shared.resources.generated.resources.action_networking_delete
 import confily.shared.resources.generated.resources.action_partner_video
 import confily.shared.resources.generated.resources.action_power_off
 import confily.shared.resources.generated.resources.action_qrcode_scanner
+import confily.shared.resources.generated.resources.action_scroll_to_now
 import confily.shared.resources.generated.resources.action_share_talk
 import confily.shared.resources.generated.resources.action_submit_accept
 import confily.shared.resources.generated.resources.action_submit_deny
@@ -97,6 +98,7 @@ import confily.shared.resources.generated.resources.text_job_salary
 import confily.shared.resources.generated.resources.text_loading
 import confily.shared.resources.generated.resources.text_networking_ask_to_delete
 import confily.shared.resources.generated.resources.text_networking_consents
+import confily.shared.resources.generated.resources.text_now_not_today
 import confily.shared.resources.generated.resources.text_openfeedback_not_started
 import confily.shared.resources.generated.resources.text_openfeedback_title
 import confily.shared.resources.generated.resources.text_permission
@@ -151,6 +153,14 @@ val Resource.string.action_partner_video: StringResource
 @OptIn(ExperimentalResourceApi::class)
 val Resource.string.action_export: StringResource
     get() = Res.string.action_export
+
+@OptIn(ExperimentalResourceApi::class)
+val Resource.string.action_scroll_to_now: StringResource
+    get() = Res.string.action_scroll_to_now
+
+@OptIn(ExperimentalResourceApi::class)
+val Resource.string.text_now_not_today: StringResource
+    get() = Res.string.text_now_not_today
 
 @OptIn(ExperimentalResourceApi::class)
 val Resource.string.action_favorites_add: StringResource

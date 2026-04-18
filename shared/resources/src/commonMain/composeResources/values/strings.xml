@@ -93,6 +93,8 @@
     <string name="action_partner_video">Presentation video</string>
     <string name="action_power_off">Change event</string>
     <string name="action_export">Export networking</string>
+    <string name="action_scroll_to_now">Scroll to current session</string>
+    <string name="text_now_not_today">The event is not happening today.</string>
     <string name="action_game_refresh">Refresh game</string>
     <string name="action_game_play">Resume game</string>
     <string name="action_game_pause">Pause game</string>

@@ -92,6 +92,7 @@
 "actionPowerOff" = "Changer d'évènement";
 "actionToggleFavorite" = "Mettre en favoris";
 "actionRemoveFavorite" = "Retirer des favoris";
+"textNowNotToday" = "L'évènement n'a pas lieu aujourd'hui.";
 
 "inputEmail" = "Ton adresse email*";
 "inputFirstname" = "Ton prénom*";

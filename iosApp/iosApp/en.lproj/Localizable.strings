@@ -93,6 +93,7 @@
 "actionPowerOff" = "Change event";
 "actionToggleFavorite" = "Put in favorite";
 "actionRemoveFavorite" = "Remove favorite";
+"textNowNotToday" = "The event is not happening today.";
 
 "inputEmail" = "Your email address*";
 "inputFirstname" = "Your first name*";
