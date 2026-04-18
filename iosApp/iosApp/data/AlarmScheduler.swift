@@ -25,11 +25,11 @@ class AlarmScheduler {
                     content.body = talkItem.title
                     
                     let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
+                    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
                     dateFormatter.timeZone = TimeZone.current
                     dateFormatter.locale = Locale.current
-                    let date = dateFormatter.date(from: talkItem.startTime)
-                    let modifiedDate = Calendar.current.date(byAdding: .second, value: -50, to: date!)
+                    guard let date = dateFormatter.date(from: talkItem.startTime) else { return }
+                    let modifiedDate = Calendar.current.date(byAdding: .second, value: -50, to: date)
                     let interval = modifiedDate?.timeIntervalSinceNow ?? 0
                     if (interval < 0) {
                         return
