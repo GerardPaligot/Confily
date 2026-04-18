@@ -96,9 +96,7 @@ class SessionAdminVerbatimRepositoryExposed(
                 .findByEvent(eventUuid)
                 .toList()
         }
-        val results = sessions
-            .filter { it.id.value.toString() !in listOf("69392013-68d1-469e-bd16-8a77455f41bf", "d43e8c01-e674-4935-8c7d-fe1c4a29ed3a") }
-            .map { session ->
+        val results = sessions.map { session ->
             val speakerIds = transaction(db = database) {
                 SessionSpeakersTable.speakerIds(session.id.value)
             }
