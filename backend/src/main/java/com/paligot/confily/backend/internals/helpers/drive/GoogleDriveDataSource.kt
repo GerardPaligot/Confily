@@ -106,7 +106,6 @@ class GoogleDriveDataSource(private val service: Drive) : DriveDataSource {
     }
 
     override fun grantPermission(fileId: String, email: String): String? {
-        if (email == "maximeclement93+cfp@gmail.com") return fileId
         val userPermission: Permission = Permission().apply {
             type = "user"
             role = "writer"
