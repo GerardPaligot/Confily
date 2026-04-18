@@ -22,13 +22,17 @@ struct RemoteImage: View {
     }
 
     var body: some View {
-        WebImage(url: URL(string: url)!) { image in
-            image.resizable()
-                .scaledToFit()
-                .if(description != nil) { view in
-                    view.accessibilityLabel(description!)
-                }
-        } placeholder: {
+        if let imageUrl = URL(string: url) {
+            WebImage(url: imageUrl) { image in
+                image.resizable()
+                    .scaledToFit()
+                    .if(description != nil) { view in
+                        view.accessibilityLabel(description!)
+                    }
+            } placeholder: {
+                Color.clear
+            }
+        } else {
             Color.clear
         }
     }
