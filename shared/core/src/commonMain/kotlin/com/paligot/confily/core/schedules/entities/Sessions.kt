@@ -66,14 +66,14 @@ fun Sessions.tabSelected(): Int? {
     val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
     val daysSorted = sessions.keys.sorted()
     val index = daysSorted.indexOf(now.date)
-    return if (index == -1) 0 else index
+    return if (index == -1) null else index
 }
 
 fun Sessions.isCurrentDay(): Boolean = tabSelected() != null
 
 fun Sessions.closestTimeSlotKey(): String? {
     val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-    val todayItems = sessions[now.date] ?: sessions.values.first()
+    val todayItems = sessions[now.date] ?: return null
     val times = todayItems
         .map { it.startTime }
         .distinct()
@@ -88,6 +88,6 @@ fun Sessions.closestTimeSlotKey(): String? {
             break
         }
     }
-    val target = best ?: times.last()
+    val target = best ?: times.lastOrNull() ?: return null
     return target.format(LocalDateTime.Format { byUnicodePattern("HH:mm") })
 }

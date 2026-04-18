@@ -1,7 +1,5 @@
 package com.paligot.confily.schedules.presentation
 
-import androidx.compose.foundation.lazy.grid.LazyGridState
-import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
@@ -25,7 +23,6 @@ fun ScheduleGridAdaptive(
     onEventSessionClicked: (id: String) -> Unit,
     showFilterIcon: Boolean,
     modifier: Modifier = Modifier,
-    state: LazyGridState = rememberLazyGridState(),
     isSmallSize: Boolean = false
 ) {
     val scaffoldDirective = calculatePaneScaffoldDirective(currentWindowAdaptiveInfo())
@@ -40,7 +37,6 @@ fun ScheduleGridAdaptive(
                 onTalkClicked = onTalkClicked,
                 onEventSessionClicked = onEventSessionClicked,
                 showFilterIcon = showFilterIcon,
-                state = state,
                 isSmallSize = isSmallSize
             )
         },
