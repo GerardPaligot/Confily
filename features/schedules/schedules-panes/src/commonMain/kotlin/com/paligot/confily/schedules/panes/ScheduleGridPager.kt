@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.LazyGridState
-import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
@@ -42,7 +41,6 @@ fun ScheduleGridPager(
     modifier: Modifier = Modifier,
     isCurrentDay: Boolean = false,
     currentTimeSlotKey: String? = null,
-    state: LazyGridState = rememberLazyGridState(),
     topActionsUi: TopActionsUi = TopActionsUi(),
     tabActionsUi: TabActionsUi = TabActionsUi(),
     pagerState: PagerState = rememberPagerState(pageCount = { tabActionsUi.actions.count() }),
@@ -52,6 +50,9 @@ fun ScheduleGridPager(
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
     val notTodayMessage = stringResource(Resource.string.text_now_not_today)
+    val gridStates = remember(agendas.size) {
+        List(agendas.size) { LazyGridState() }
+    }
     LaunchedEffect(key1 = Unit) {
         if (tabSelected != null) {
             pagerState.scrollToPage(tabSelected)
@@ -80,7 +81,7 @@ fun ScheduleGridPager(
                                     currentTimeSlotKey
                                 )
                                 if (index != null) {
-                                    state.animateScrollToItem(index)
+                                    gridStates[tabSelected].animateScrollToItem(index)
                                 }
                             }
                         } else {
@@ -108,7 +109,7 @@ fun ScheduleGridPager(
                     onRefresh = onRefresh,
                     isSmallSize = isSmallSize,
                     isLoading = isLoading,
-                    state = state
+                    state = gridStates[page]
                 )
             }
         }

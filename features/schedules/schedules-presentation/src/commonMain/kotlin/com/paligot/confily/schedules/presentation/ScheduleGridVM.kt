@@ -1,7 +1,5 @@
 package com.paligot.confily.schedules.presentation
 
-import androidx.compose.foundation.lazy.grid.LazyGridState
-import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,7 +23,6 @@ fun ScheduleGridVM(
     onEventSessionClicked: (id: String) -> Unit,
     showFilterIcon: Boolean,
     modifier: Modifier = Modifier,
-    state: LazyGridState = rememberLazyGridState(),
     isSmallSize: Boolean = false,
     viewModel: ScheduleGridViewModel = koinViewModel()
 ) {
@@ -40,8 +37,7 @@ fun ScheduleGridVM(
             onFilterClicked = {},
             onFavoriteClicked = {},
             onRefresh = {},
-            isLoading = true,
-            state = state
+            isLoading = true
         )
 
         is ScheduleGridUiState.Failure -> Text(text = stringResource(Resource.string.text_error))
@@ -60,8 +56,7 @@ fun ScheduleGridVM(
             onRefresh = viewModel::refreshing,
             modifier = modifier,
             isSmallSize = isSmallSize,
-            isLoading = false,
-            state = state
+            isLoading = false
         )
     }
 }
