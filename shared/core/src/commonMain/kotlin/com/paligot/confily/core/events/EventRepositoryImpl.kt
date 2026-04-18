@@ -50,8 +50,8 @@ internal class EventRepositoryImpl(
         try {
             eventDao.insertEvent(exportEvent)
             mapDao.insertMaps(eventId, exportEvent.maps)
-            partnerDao.insertPartners(eventId, exportPartners)
             sessionDao.insertAgenda(eventId, exportPlanning)
+            partnerDao.insertPartners(eventId, exportPartners)
         } catch (ex: Throwable) {
             ex.printStackTrace()
         }
