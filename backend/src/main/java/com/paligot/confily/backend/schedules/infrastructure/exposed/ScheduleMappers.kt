@@ -30,7 +30,7 @@ fun ScheduleEntity.toModelV3(): ScheduleItemV3 {
         startTime = this.startTime.toLocalDateTime(timezone).toString(),
         endTime = this.endTime.toLocalDateTime(timezone).toString(),
         room = this.eventSessionTrack.trackName,
-        talkId = this.session?.id?.value.toString()
+        talkId = this.session?.id?.value?.toString()
     )
 }
 
@@ -43,6 +43,6 @@ fun ScheduleEntity.toModelV4(): ScheduleItemV4 {
         startTime = this.startTime.toLocalDateTime(timezone).toString(),
         endTime = this.endTime.toLocalDateTime(timezone).toString(),
         room = this.eventSessionTrack.trackName,
-        sessionId = this.session?.id?.value.toString()
+        sessionId = (this.session?.id?.value ?: this.eventSession?.id?.value).toString()
     )
 }
