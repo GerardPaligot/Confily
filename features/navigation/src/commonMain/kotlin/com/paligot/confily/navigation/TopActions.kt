@@ -4,12 +4,14 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FilterList
 import androidx.compose.material.icons.outlined.FilterList
 import androidx.compose.material.icons.outlined.PowerOff
+import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material.icons.outlined.Upgrade
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.action_export
 import com.paligot.confily.resources.action_filtering
 import com.paligot.confily.resources.action_power_off
+import com.paligot.confily.resources.action_scroll_to_now
 import com.paligot.confily.resources.action_share_talk
 import com.paligot.confily.style.theme.actions.TopAction
 
@@ -38,5 +40,10 @@ object TopActions {
         id = ActionIds.EXPORT,
         icon = Icons.Outlined.Upgrade,
         contentDescription = Resource.string.action_export
+    )
+    val scrollToNow = TopAction(
+        id = ActionIds.SCROLL_TO_NOW,
+        icon = Icons.Outlined.Schedule,
+        contentDescription = Resource.string.action_scroll_to_now
     )
 }

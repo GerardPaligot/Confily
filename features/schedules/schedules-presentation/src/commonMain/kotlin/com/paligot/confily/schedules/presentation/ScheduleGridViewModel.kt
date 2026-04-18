@@ -7,7 +7,10 @@ import com.paligot.confily.core.AlarmScheduler
 import com.paligot.confily.core.events.EventRepository
 import com.paligot.confily.core.schedules.SessionRepository
 import com.paligot.confily.core.schedules.entities.Sessions
+import com.paligot.confily.core.schedules.entities.closestTimeSlotKey
+import com.paligot.confily.core.schedules.entities.isCurrentDay
 import com.paligot.confily.core.schedules.entities.mapToListUi
+import com.paligot.confily.core.schedules.entities.tabSelected
 import com.paligot.confily.navigation.TopActions
 import com.paligot.confily.resources.Strings
 import com.paligot.confily.schedules.panes.models.AgendaUi
@@ -28,12 +31,9 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
-import kotlinx.datetime.TimeZone
 import kotlinx.datetime.format
 import kotlinx.datetime.format.byUnicodePattern
-import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.compose.resources.InternalResourceApi
 import org.jetbrains.compose.resources.StringResource
 
@@ -41,6 +41,8 @@ data class ScheduleUi(
     val topActionsUi: TopActionsUi,
     val tabActionsUi: TabActionsUi,
     val tabIndexSelected: Int?,
+    val isCurrentDay: Boolean,
+    val currentTimeSlotKey: String?,
     val refreshing: Boolean,
     val schedules: ImmutableList<AgendaUi>
 )
@@ -103,12 +105,17 @@ private fun Sessions.mapToUiModel(refreshing: Boolean, countFilters: Int, string
     topActionsUi = countFilters.mapToTopActions(),
     tabActionsUi = mapToTabActions(),
     tabIndexSelected = tabSelected(),
+    isCurrentDay = isCurrentDay(),
+    currentTimeSlotKey = closestTimeSlotKey(),
     refreshing = refreshing,
     schedules = mapToListUi(strings)
 )
 
 private fun Int.mapToTopActions(): TopActionsUi = TopActionsUi(
-    actions = persistentListOf(if (this > 0) TopActions.filtersFilled else TopActions.filters)
+    actions = persistentListOf(
+        TopActions.scrollToNow,
+        if (this > 0) TopActions.filtersFilled else TopActions.filters
+    )
 )
 
 @OptIn(InternalResourceApi::class)
@@ -126,10 +133,3 @@ private fun Sessions.mapToTabActions(): TabActionsUi = TabActionsUi(
         }
         .toImmutableList()
 )
-
-private fun Sessions.tabSelected(): Int? {
-    val now = Clock.System.now().toLocalDateTime(TimeZone.UTC)
-    val daysSorted = this.sessions.keys.sorted()
-    val tabSelected = daysSorted.indexOf(element = now.date)
-    return if (tabSelected == -1) null else tabSelected
-}

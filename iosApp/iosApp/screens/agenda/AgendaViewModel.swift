@@ -23,8 +23,11 @@ class AgendaViewModel: ObservableObject {
     private let alarmScheduler: AlarmScheduler = AlarmScheduler()
 
     @Published var uiState: AgendaUiState = AgendaUiState.loading
+    @Published var isCurrentDay: Bool = false
+    @Published var currentTimeSlotKey: String?
     
     private var agendaTask: Task<(), Never>?
+    private var scrollToNowTask: Task<(), Never>?
 
     func fetchAgenda() {
         agendaTask = Task {
@@ -39,10 +42,22 @@ class AgendaViewModel: ObservableObject {
                 self.uiState = AgendaUiState.failure
             }
         }
+        scrollToNowTask = Task {
+            do {
+                let stream = asyncSequence(for: interactor.scrollToNow())
+                for try await scrollToNow in stream {
+                    self.isCurrentDay = scrollToNow.isCurrentDay
+                    self.currentTimeSlotKey = scrollToNow.currentTimeSlotKey
+                }
+            } catch {
+                // ignore
+            }
+        }
     }
     
     func stop() {
         agendaTask?.cancel()
+        scrollToNowTask?.cancel()
     }
     
     func markAsFavorite(talkItem: TalkItemUi) async {

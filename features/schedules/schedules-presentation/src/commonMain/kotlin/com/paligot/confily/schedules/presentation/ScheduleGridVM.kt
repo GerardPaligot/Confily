@@ -49,6 +49,8 @@ fun ScheduleGridVM(
             agendas = uiState.scheduleUi.schedules,
             isRefreshing = uiState.scheduleUi.refreshing,
             tabSelected = uiState.scheduleUi.tabIndexSelected,
+            isCurrentDay = uiState.scheduleUi.isCurrentDay,
+            currentTimeSlotKey = uiState.scheduleUi.currentTimeSlotKey,
             topActionsUi = if (!showFilterIcon) TopActionsUi() else uiState.scheduleUi.topActionsUi,
             tabActionsUi = uiState.scheduleUi.tabActionsUi,
             onTalkClicked = onTalkClicked,

@@ -22,6 +22,8 @@ struct AgendaVM: View {
                 case .success(let agendas):
                     Agenda(
                         agendas: agendas,
+                        isCurrentDay: viewModel.isCurrentDay,
+                        currentTimeSlotKey: viewModel.currentTimeSlotKey,
                         onFavoriteClicked: { talk in
                             Task {
                                 await viewModel.markAsFavorite(talkItem: talk)

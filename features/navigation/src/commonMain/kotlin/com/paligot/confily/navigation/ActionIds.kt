@@ -8,4 +8,5 @@ object ActionIds {
     const val FILTERS = 5
     const val DISCONNECT = 6
     const val EXPORT = 7
+    const val SCROLL_TO_NOW = 8
 }

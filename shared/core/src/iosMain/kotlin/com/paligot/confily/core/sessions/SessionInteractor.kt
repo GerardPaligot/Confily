@@ -2,12 +2,15 @@ package com.paligot.confily.core.sessions
 
 import cafe.adriel.lyricist.Lyricist
 import com.paligot.confily.core.schedules.SessionRepository
+import com.paligot.confily.core.schedules.entities.closestTimeSlotKey
+import com.paligot.confily.core.schedules.entities.isCurrentDay
 import com.paligot.confily.core.schedules.entities.mapToEventSessionUi
 import com.paligot.confily.core.schedules.entities.mapToFiltersUi
 import com.paligot.confily.core.schedules.entities.mapToMapUi
 import com.paligot.confily.core.schedules.entities.mapToSessionUi
 import com.paligot.confily.resources.Strings
 import com.paligot.confily.schedules.panes.models.AgendaUi
+import com.paligot.confily.schedules.panes.models.ScrollToNowUi
 import com.paligot.confily.schedules.panes.models.SessionUi
 import com.paligot.confily.schedules.ui.models.EventSessionUi
 import com.paligot.confily.schedules.ui.models.FiltersUi
@@ -23,6 +26,15 @@ class SessionInteractor(
     @NativeCoroutines
     fun sessions(): Flow<ImmutableMap<String, AgendaUi>> = repository.sessions()
         .map { it.mapToMapUi(lyricist.strings) }
+
+    @NativeCoroutines
+    fun scrollToNow(): Flow<ScrollToNowUi> = repository.sessions()
+        .map {
+            ScrollToNowUi(
+                isCurrentDay = it.isCurrentDay(),
+                currentTimeSlotKey = it.closestTimeSlotKey()
+            )
+        }
 
     @NativeCoroutines
     fun session(sessionId: String): Flow<SessionUi> = repository.session(sessionId)

@@ -93,6 +93,8 @@
     <string name="action_partner_video">Vidéo de présentation</string>
     <string name="action_power_off">Changer d'évènement</string>
     <string name="action_export">Exporter les contacts</string>
+    <string name="action_scroll_to_now">Aller à la session en cours</string>
+    <string name="text_now_not_today">L'évènement n'a pas lieu aujourd'hui.</string>
     <string name="action_game_refresh">Relancer la partie</string>
     <string name="action_game_play">Reprendre la partie</string>
     <string name="action_game_pause">Mettre le jeu en pause</string>

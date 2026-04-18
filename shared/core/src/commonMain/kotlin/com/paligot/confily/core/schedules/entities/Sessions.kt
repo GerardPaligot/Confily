@@ -6,10 +6,13 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.collections.immutable.toImmutableMap
+import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
 import kotlinx.datetime.format
 import kotlinx.datetime.format.byUnicodePattern
+import kotlinx.datetime.toLocalDateTime
 import kotlin.native.ObjCName
 
 @ObjCName("SessionsEntity")
@@ -58,3 +61,33 @@ fun Sessions.mapToListUi(strings: Strings): ImmutableList<AgendaUi> = sessions
         )
     }
     .toImmutableList()
+
+fun Sessions.tabSelected(): Int? {
+    val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+    val daysSorted = sessions.keys.sorted()
+    val index = daysSorted.indexOf(now.date)
+    return if (index == -1) null else index
+}
+
+fun Sessions.isCurrentDay(): Boolean = tabSelected() != null
+
+fun Sessions.closestTimeSlotKey(): String? {
+    val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+    val todayItems = sessions[now.date] ?: return null
+    val times = todayItems
+        .map { it.startTime }
+        .distinct()
+        .sorted()
+    val currentMinutes = now.hour * 60 + now.minute
+    var best: LocalDateTime? = null
+    for (time in times) {
+        val slotMinutes = time.hour * 60 + time.minute
+        if (slotMinutes <= currentMinutes) {
+            best = time
+        } else {
+            break
+        }
+    }
+    val target = best ?: times.lastOrNull() ?: return null
+    return target.format(LocalDateTime.Format { byUnicodePattern("HH:mm") })
+}
