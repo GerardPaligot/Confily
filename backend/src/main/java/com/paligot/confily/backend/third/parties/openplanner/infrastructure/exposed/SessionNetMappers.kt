@@ -27,6 +27,7 @@ fun SessionOP.toEventSessionEntity(event: EventEntity): EventSessionEntity = Eve
         this.title = this@toEventSessionEntity.title
         this.description = this@toEventSessionEntity.abstract
         this.externalId = this@toEventSessionEntity.id
+        this.externalProvider = IntegrationProvider.OPENPLANNER
     }
 
 fun SessionOP.toSessionEntity(event: EventEntity): SessionEntity {
