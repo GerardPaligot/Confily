@@ -46,6 +46,7 @@ fun SessionOP.toSessionEntity(event: EventEntity): SessionEntity {
             entity.language = this@toSessionEntity.language ?: event.defaultLanguage
             entity.level = this@toSessionEntity.level
             entity.externalId = this@toSessionEntity.id
+            entity.externalProvider = IntegrationProvider.OPENPLANNER
             entity
         }
         ?: SessionEntity.new {
