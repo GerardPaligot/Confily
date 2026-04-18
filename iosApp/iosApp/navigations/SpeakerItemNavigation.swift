@@ -20,7 +20,6 @@ struct SpeakerItemNavigation: View {
         } label: {
             SpeakerItemView(url: speaker.photoUrl, title: speaker.displayName, description: speaker.activity)
         }
-        .buttonStyle(.plain)
         .sheet(isPresented: $showDetail) {
             NavigationView {
                 SpeakerDetailVM(

@@ -20,7 +20,6 @@ struct TeamMemberItemNavigation: View {
         } label: {
             SpeakerItemView(url: teamMember.url, title: teamMember.displayName, description: teamMember.role)
         }
-        .buttonStyle(.plain)
         .sheet(isPresented: $showDetail) {
             NavigationView {
                 TeamMemberVM(

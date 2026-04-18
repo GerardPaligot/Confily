@@ -57,7 +57,6 @@ struct PartnerDetailView: View {
                                 description: speaker.activity
                             )
                         }
-                        .buttonStyle(.plain)
                     }
                 } header: {
                     Text("screenSpeakers")
@@ -69,7 +68,6 @@ struct PartnerDetailView: View {
                         Link(destination: URL(string: job.url)!) {
                             JobItemView(jobUi: job)
                         }
-                        .buttonStyle(.plain)
                     }
                 } header: {
                     Text("titleJobs")
