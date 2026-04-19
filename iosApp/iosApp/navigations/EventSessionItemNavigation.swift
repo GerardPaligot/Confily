@@ -15,8 +15,6 @@ struct EventSessionItemNavigation: View {
 
     var body: some View {
         if (session.isClickable) {
-            EventSessionView(session: session)
-        } else {
             NavigationLink {
                 ScheduleEventSessionVM(
                     viewModel: viewModelFactory.makeScheduleEventSessionViewModel(scheduleId: session.id)
@@ -25,6 +23,8 @@ struct EventSessionItemNavigation: View {
                 EventSessionView(session: session)
             }
             .buttonStyle(.plain)
+        } else {
+            EventSessionView(session: session)
         }
     }
 }

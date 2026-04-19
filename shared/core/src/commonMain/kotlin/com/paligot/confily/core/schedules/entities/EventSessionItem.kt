@@ -38,6 +38,6 @@ fun EventSessionItem.mapToEventSessionItemUi(strings: Strings): EventSessionItem
         ),
         timeInMinutes = timeInMinutes,
         time = strings.texts.scheduleMinutes(timeInMinutes),
-        isClickable = description != null
+        isClickable = false
     )
 }
