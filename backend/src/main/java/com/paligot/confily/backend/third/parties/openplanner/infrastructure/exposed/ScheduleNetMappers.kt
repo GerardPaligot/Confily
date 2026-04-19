@@ -23,6 +23,21 @@ fun SessionOP.toScheduleEntity(event: EventEntity): ScheduleEntity {
     return ScheduleEntity
         .findByExternalId(eventId = event.id.value, externalId = this.id, provider = IntegrationProvider.OPENPLANNER)
         ?.let { entity ->
+            if (this@toScheduleEntity.speakerIds.isEmpty()) {
+                entity.session = null
+                entity.eventSession = EventSessionEntity.findByExternalId(
+                    eventId = event.id.value,
+                    externalId = this@toScheduleEntity.id,
+                    provider = IntegrationProvider.OPENPLANNER
+                )
+            } else {
+                entity.eventSession = null
+                entity.session = SessionEntity.findByExternalId(
+                    eventId = event.id.value,
+                    externalId = this@toScheduleEntity.id,
+                    provider = IntegrationProvider.OPENPLANNER
+                )
+            }
             entity.eventSessionTrack = track
             entity.displayOrder = track.displayOrder
             entity.startTime = Instant.parse(this@toScheduleEntity.dateStart!!)
