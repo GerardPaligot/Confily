@@ -15,7 +15,6 @@ class TestScopesLibraryPlugin: Plugin<Project> {
                 apply("confily.quality")
             }
             extensions.configure<KotlinMultiplatformExtension> {
-                androidTarget()
                 jvm("desktop")
                 wasmJs {
                     useCommonJs()

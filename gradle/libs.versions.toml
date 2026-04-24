@@ -1,5 +1,5 @@
 [versions]
-android-gradlePlugin = "8.10.0"
+android-gradlePlugin = "9.0.1"
 androidx-activity-compose = "1.10.1"
 androidx-appcompat = "1.7.0"
 androidx-benchmark = "1.3.4"
@@ -33,7 +33,7 @@ google-firebase = "33.13.0"
 google-firebase-crashlytics-gradlePlugin = "3.0.3"
 google-horlogist-compose-tools = "0.6.23"
 google-horlogist-tiles = "0.6.23"
-google-ksp = "2.1.21-2.0.1"
+google-ksp = "2.3.6"
 google-material = "1.12.0"
 google-mlkit-barcode-scanning = "17.3.0"
 google-services = "4.4.2"
@@ -41,19 +41,19 @@ google-services-wearable = "19.0.0"
 google-zxing = "3.5.3"
 h2 = "2.2.224"
 postgresql = "42.7.1"
-jetbrains-compose = "1.8.0"
-jetbrains-compose-adaptive = "1.1.0"
+jetbrains-compose = "1.10.3"
+jetbrains-compose-adaptive = "1.2.0"
 jetbrains-exposed = "0.54.0"
 jetbrains-navigation-compose = "2.8.0-alpha13"
 jetbrains-lifecycle = "2.8.4"
-jetbrains-kotlin = "2.1.21"
+jetbrains-kotlin = "2.3.20"
 jetbrains-kotlinx-browser = "0.3"
 jetbrains-kotlinx-collections = "0.4.0"
 jetbrains-kotlinx-coroutines = "1.10.2"
 jetbrains-kotlinx-datetime = "0.6.2"
 jetbrains-kotlinx-io = "0.7.0"
 jetbrains-kotlinx-serialization = "1.8.1"
-kmp-nativecoroutines-gradlePlugin = "1.0.0-ALPHA-43"
+kmp-nativecoroutines-gradlePlugin = "1.0.2"
 buildkonfig = "0.17.1"
 koin = "4.0.4"
 ktlint = "12.2.0"
@@ -128,7 +128,7 @@ jetbrains-compose-compiler-gradlePlugin = { group = "org.jetbrains.kotlin", name
 jetbrains-compose-material3-adaptive = { group = "org.jetbrains.compose.material3.adaptive", name = "adaptive", version.ref = "jetbrains-compose-adaptive" }
 jetbrains-compose-material3-adaptive-layout = { group = "org.jetbrains.compose.material3.adaptive", name = "adaptive-layout", version.ref = "jetbrains-compose-adaptive" }
 jetbrains-compose-material3-adaptive-navigation = { group = "org.jetbrains.compose.material3.adaptive", name = "adaptive-navigation", version.ref = "jetbrains-compose-adaptive" }
-jetbrains-compose-material3-windowsizeclass = { group = "org.jetbrains.compose.material3", name = "material3-window-size-class", version.ref = "jetbrains-compose" }
+jetbrains-compose-material3-windowsizeclass = { group = "org.jetbrains.compose.material3", name = "material3-window-size-class", version = "1.9.0" }
 jetbrains-exposed-core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "jetbrains-exposed" }
 jetbrains-exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "jetbrains-exposed" }
 jetbrains-exposed-dao = { module = "org.jetbrains.exposed:exposed-dao", version.ref = "jetbrains-exposed" }
@@ -263,6 +263,7 @@ androidx-wear = [
 ]
 
 [plugins]
+android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "android-gradlePlugin" }
 jetbrains-kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "jetbrains-kotlin" }
 jetbrains-compose = { id = "org.jetbrains.compose", version.ref = "jetbrains-compose" }
 jetbrains-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "jetbrains-kotlin" }

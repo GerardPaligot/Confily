@@ -6,16 +6,8 @@ plugins {
     id("confily.quality")
 }
 
-android {
-    namespace = "com.paligot.confily.style.components.markdown"
-
-    dependencies {
-        debugImplementation(compose.uiTooling)
-    }
-}
-
 kotlin {
-    androidTarget()
+    ((this as org.gradle.api.plugins.ExtensionAware).extensions.getByName("android") as com.android.build.api.dsl.KotlinMultiplatformAndroidLibraryTarget).namespace = "com.paligot.confily.style.components.markdown"
 
     jvm("desktop")
 

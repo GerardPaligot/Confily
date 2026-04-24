@@ -4,12 +4,8 @@ plugins {
     id("confily.quality")
 }
 
-android {
-    namespace = "com.paligot.confily.core.test"
-}
-
 kotlin {
-    androidTarget()
+    ((this as org.gradle.api.plugins.ExtensionAware).extensions.getByName("android") as com.android.build.api.dsl.KotlinMultiplatformAndroidLibraryTarget).namespace = "com.paligot.confily.core.test"
     jvm("desktop")
 
     sourceSets {

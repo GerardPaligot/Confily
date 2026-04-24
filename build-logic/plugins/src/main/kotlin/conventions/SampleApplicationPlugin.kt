@@ -1,18 +1,17 @@
 package conventions
 
-import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
+import com.android.build.api.dsl.KotlinMultiplatformAndroidLibraryTarget
 import com.codingfeline.buildkonfig.gradle.BuildKonfigExtension
 import extensions.configBuildKonfig
-import extensions.configureDesugaring
-import extensions.configureKotlinAndroid
-import extensions.configureKotlinCompiler
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.kotlin.dsl.configure
+import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.getByType
 import org.jetbrains.compose.ComposeExtension
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 class SampleApplicationPlugin : Plugin<Project> {
@@ -20,56 +19,23 @@ class SampleApplicationPlugin : Plugin<Project> {
         with(target) {
             with(pluginManager) {
                 apply("org.jetbrains.kotlin.multiplatform")
-                apply("com.android.application")
+                apply("com.android.kotlin.multiplatform.library")
                 apply("org.jetbrains.compose")
                 apply("org.jetbrains.kotlin.plugin.compose")
-                apply("kotlin-parcelize")
                 apply("com.codingfeline.buildkonfig")
             }
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
             val compose = extensions.getByType<ComposeExtension>()
-            extensions.configure<BaseAppModuleExtension> {
-                configureKotlinAndroid()
-                configureKotlinCompiler(jvmVersion = 21)
-                configureDesugaring(this)
-                sourceSets.getByName("main").manifest.srcFile("src/androidMain/AndroidManifest.xml")
-                defaultConfig {
-                    applicationId = "com.paligot.confily.android"
-                    versionCode = 100
-                    versionName = "1.0.0"
-                    targetSdk = 35
-                }
-                signingConfigs {
-                    getByName("debug") {
-                        keyAlias = "debug"
-                        keyPassword = "android"
-                        storeFile = rootProject.file("config/keystore.debug")
-                        storePassword = "android"
-                    }
-                }
-                testOptions {
-                    managedDevices {
-                        localDevices.create("pixel8api34") {
-                            device = "Pixel 8"
-                            apiLevel = 34
-                            systemImageSource = "aosp"
-                        }
-                    }
-                }
-                packaging {
-                    resources.excludes.addAll(
-                        listOf(
-                            "META-INF/LICENSE.md",
-                            "META-INF/LICENSE-notice.md"
-                        )
-                    )
-                }
-            }
-            extensions.configure<BuildKonfigExtension> {
-                configBuildKonfig(target)
-            }
             extensions.configure<KotlinMultiplatformExtension> {
-                androidTarget()
+                val android = (this as org.gradle.api.plugins.ExtensionAware).extensions.getByName("android") as KotlinMultiplatformAndroidLibraryTarget
+                android.apply {
+                    compileSdk = 35
+                    minSdk = 23
+                    enableCoreLibraryDesugaring = true
+                    compilerOptions {
+                        jvmTarget.set(JvmTarget.JVM_21)
+                    }
+                }
                 jvm("desktop")
                 sourceSets.commonMain.dependencies {
                     implementation(project(":features:navigation"))
@@ -100,6 +66,13 @@ class SampleApplicationPlugin : Plugin<Project> {
                     implementation(libs.findLibrary("jetbrains-kotlinx-coroutines-swing").get())
                 }
             }
+            extensions.configure<BuildKonfigExtension> {
+                configBuildKonfig(target)
+            }
+            dependencies {
+                add("coreLibraryDesugaring", "com.android.tools:desugar_jdk_libs:1.1.5")
+            }
+            tasks.register("testClasses")
         }
     }
 }

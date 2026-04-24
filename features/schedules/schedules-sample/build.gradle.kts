@@ -3,19 +3,8 @@ plugins {
     id("confily.quality")
 }
 
-android {
-    namespace = "com.paligot.confily.schedules.sample"
-
-    dependencies {
-        constraints {
-            implementation("androidx.tracing:tracing:1.2.0") {
-                because("AndroidX Test gets force-downgraded to 1.0.0 and breaks otherwise")
-            }
-        }
-    }
-}
-
 kotlin {
+    ((this as org.gradle.api.plugins.ExtensionAware).extensions.getByName("android") as com.android.build.api.dsl.KotlinMultiplatformAndroidLibraryTarget).namespace = "com.paligot.confily.schedules.sample"
     sourceSets {
         commonMain.dependencies {
             implementation(projects.features.schedules.schedulesPresentation)

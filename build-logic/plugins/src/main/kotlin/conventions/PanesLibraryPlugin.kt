@@ -1,6 +1,5 @@
 package conventions
 
-import com.android.build.gradle.LibraryExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
@@ -23,13 +22,10 @@ class PanesLibraryPlugin: Plugin<Project> {
             }
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
             val compose = extensions.getByType<ComposeExtension>()
-            extensions.configure<LibraryExtension> {
-                dependencies {
-                    add("debugImplementation", compose.dependencies.uiTooling)
-                }
+            dependencies {
+                add("androidRuntimeClasspath", compose.dependencies.uiTooling)
             }
             extensions.configure<KotlinMultiplatformExtension> {
-                androidTarget()
                 jvm("desktop")
                 wasmJs {
                     useCommonJs()

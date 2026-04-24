@@ -16,10 +16,6 @@ android {
         isCoreLibraryDesugaringEnabled = true
     }
 
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.toString()
-    }
-
     defaultConfig {
         minSdk = 28
         targetSdk = 35
@@ -27,7 +23,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    targetProjectPath = ":composeApp"
+    targetProjectPath = ":androidApp"
 
     testOptions.managedDevices.allDevices {
         create<ManagedVirtualDevice>("pixel8Api34") {
@@ -35,6 +31,12 @@ android {
             apiLevel = 34
             systemImageSource = "google"
         }
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
     }
 }
 

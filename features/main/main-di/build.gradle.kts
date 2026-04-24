@@ -2,11 +2,8 @@ plugins {
     id("confily.di")
 }
 
-android {
-    namespace = "com.paligot.confily.main.di"
-}
-
 kotlin {
+    ((this as org.gradle.api.plugins.ExtensionAware).extensions.getByName("android") as com.android.build.api.dsl.KotlinMultiplatformAndroidLibraryTarget).namespace = "com.paligot.confily.main.di"
     sourceSets.commonMain.dependencies {
         implementation(projects.features.main.main)
         implementation(projects.features.eventList.eventListDi)

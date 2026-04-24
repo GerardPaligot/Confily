@@ -2,11 +2,8 @@ plugins {
     id("confily.presentation")
 }
 
-android {
-    namespace = "com.paligot.confily.map.editor.detail.presentation"
-}
-
 kotlin {
+    ((this as org.gradle.api.plugins.ExtensionAware).extensions.getByName("android") as com.android.build.api.dsl.KotlinMultiplatformAndroidLibraryTarget).namespace = "com.paligot.confily.map.editor.detail.presentation"
     sourceSets {
         commonMain {
             dependencies {

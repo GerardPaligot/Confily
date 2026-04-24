@@ -6,6 +6,7 @@ import org.gradle.api.Project
 
 fun BuildKonfigExtension.configBuildKonfig(project: Project) {
     packageName = "com.paligot.confily"
+    exposeObjectWithName = "BuildKonfig"
 
     defaultConfigs {
         buildConfigField(STRING, "APP_ID", project.appProps.appId)

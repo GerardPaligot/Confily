@@ -21,7 +21,6 @@ class PresentationLibraryPlugin: Plugin<Project> {
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
             val compose = extensions.getByType<ComposeExtension>()
             extensions.configure<KotlinMultiplatformExtension> {
-                androidTarget()
                 jvm("desktop")
                 wasmJs {
                     useCommonJs()

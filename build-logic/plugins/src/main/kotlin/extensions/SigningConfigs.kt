@@ -27,7 +27,7 @@ fun BaseAppModuleExtension.configureSigningConfig(
         getByName("release") {
             isMinifyEnabled = true
             isShrinkResources = true
-            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             if (keystoreFile.exists()) {
                 signingConfig = signingConfigs.getByName("release")
             }

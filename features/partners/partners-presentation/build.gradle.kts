@@ -2,11 +2,8 @@ plugins {
     id("confily.presentation")
 }
 
-android {
-    namespace = "com.paligot.confily.partners.presentation"
-}
-
 kotlin {
+    ((this as org.gradle.api.plugins.ExtensionAware).extensions.getByName("android") as com.android.build.api.dsl.KotlinMultiplatformAndroidLibraryTarget).namespace = "com.paligot.confily.partners.presentation"
     sourceSets {
         commonMain {
             dependencies {

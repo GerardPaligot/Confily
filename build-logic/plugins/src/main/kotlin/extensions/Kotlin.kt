@@ -7,19 +7,20 @@ import org.gradle.jvm.toolchain.JavaLanguageVersion
 import org.gradle.jvm.toolchain.JavaToolchainService
 import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.withType
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 fun Project.configureKotlinCompiler(jvmVersion: Int) {
     this.tasks.withType<KotlinCompile> {
-        kotlinOptions {
-            freeCompilerArgs = freeCompilerArgs + listOf(
+        compilerOptions {
+            freeCompilerArgs.addAll(
                 "-opt-in=kotlin.RequiresOptIn"
             )
-            jvmTarget = JavaVersion.toVersion(jvmVersion).toString()
+            jvmTarget.set(JvmTarget.fromTarget(JavaVersion.toVersion(jvmVersion).toString()))
         }
     }
     tasks.withType<JavaCompile> {
-        val javaToolchains  = project.extensions.getByType<JavaToolchainService>()
+        val javaToolchains = project.extensions.getByType<JavaToolchainService>()
         javaCompiler.set(
             javaToolchains.compilerFor {
                 languageVersion.set(JavaLanguageVersion.of(jvmVersion))

@@ -6,12 +6,8 @@ plugins {
     id("confily.quality")
 }
 
-android {
-    namespace = "com.paligot.confily.style.components.adaptive"
-}
-
 kotlin {
-    androidTarget()
+    ((this as org.gradle.api.plugins.ExtensionAware).extensions.getByName("android") as com.android.build.api.dsl.KotlinMultiplatformAndroidLibraryTarget).namespace = "com.paligot.confily.style.components.adaptive"
 
     jvm("desktop")
 

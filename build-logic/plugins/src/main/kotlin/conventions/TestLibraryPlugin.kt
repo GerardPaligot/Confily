@@ -21,7 +21,6 @@ class TestLibraryPlugin: Plugin<Project> {
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
             val compose = extensions.getByType<ComposeExtension>()
             extensions.configure<KotlinMultiplatformExtension> {
-                androidTarget()
                 jvm("desktop")
                 sourceSets.commonMain.dependencies {
                     api(project(":core:core-test-patterns"))
@@ -29,7 +28,7 @@ class TestLibraryPlugin: Plugin<Project> {
                 }
                 sourceSets.androidMain.dependencies {
                     api(libs.findLibrary("androidx-espresso-core").get())
-                    api(compose.dependencies.uiTestJUnit4)
+                    api(compose.dependencies.uiTest)
                 }
             }
         }

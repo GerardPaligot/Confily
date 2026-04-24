@@ -18,7 +18,6 @@ class UiModelsLibraryPlugin : Plugin<Project> {
             }
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
             extensions.configure<KotlinMultiplatformExtension> {
-                androidTarget()
                 jvm("desktop")
                 wasmJs {
                     useCommonJs()

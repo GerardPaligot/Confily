@@ -5,12 +5,8 @@ plugins {
     id("app.cash.sqldelight")
 }
 
-android {
-    namespace = "com.paligot.confily.core.db"
-}
-
 kotlin {
-    androidTarget()
+    ((this as org.gradle.api.plugins.ExtensionAware).extensions.getByName("android") as com.android.build.api.dsl.KotlinMultiplatformAndroidLibraryTarget).namespace = "com.paligot.confily.core.db"
 
     listOf(
         iosArm64(),

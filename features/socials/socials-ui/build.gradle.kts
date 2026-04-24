@@ -2,11 +2,8 @@ plugins {
     id("confily.ui")
 }
 
-android {
-    namespace = "com.paligot.confily.socials.ui"
-}
-
 kotlin {
+    ((this as org.gradle.api.plugins.ExtensionAware).extensions.getByName("android") as com.android.build.api.dsl.KotlinMultiplatformAndroidLibraryTarget).namespace = "com.paligot.confily.socials.ui"
     sourceSets.commonMain.dependencies {
         api(projects.features.socials.socialsUiModels)
         implementation(projects.style.events)
