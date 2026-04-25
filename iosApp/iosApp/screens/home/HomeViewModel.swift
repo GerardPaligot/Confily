@@ -15,6 +15,9 @@ class HomeViewModel: ObservableObject {
     private let interactor: EventInteractor = InteractorHelper().eventInteractor
 
     private var task: Task<(), Never>?
+    private var featureFlagsTask: Task<(), Never>?
+
+    @Published var hasNetworking: Bool = false
 
     func fetchAgenda() {
         task = Task {
@@ -25,7 +28,21 @@ class HomeViewModel: ObservableObject {
         }
     }
 
+    func fetchFeatureFlags() {
+        featureFlagsTask = Task {
+            do {
+                let stream = asyncSequence(for: interactor.featureFlags())
+                for try await flags in stream {
+                    self.hasNetworking = flags.hasNetworking
+                }
+            } catch {
+                print("Failed to fetch feature flags: \(error)")
+            }
+        }
+    }
+
     func stop() {
         task?.cancel()
+        featureFlagsTask?.cancel()
     }
 }

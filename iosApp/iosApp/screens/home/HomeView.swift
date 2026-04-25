@@ -17,10 +17,12 @@ struct HomeView: View {
                     Label("screenAgenda", systemImage: "calendar")
                 }
 
-            NetworkingVM(viewModel: viewModelFactory.makeNetworkingViewModel())
-                .tabItem {
-                    Label("screenNetworking", systemImage: "person.2")
-                }
+            if viewModel.hasNetworking {
+                NetworkingVM(viewModel: viewModelFactory.makeNetworkingViewModel())
+                    .tabItem {
+                        Label("screenNetworking", systemImage: "person.2")
+                    }
+            }
 
             PartnersVM(viewModel: viewModelFactory.makePartnersViewModel())
                 .tabItem {
@@ -34,6 +36,7 @@ struct HomeView: View {
         }
         .onAppear {
             viewModel.fetchAgenda()
+            viewModel.fetchFeatureFlags()
         }
         .onDisappear {
             viewModel.stop()

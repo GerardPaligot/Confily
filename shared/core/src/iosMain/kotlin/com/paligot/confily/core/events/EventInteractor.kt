@@ -1,5 +1,6 @@
 package com.paligot.confily.core.events
 
+import com.paligot.confily.core.events.entities.FeatureFlags
 import com.paligot.confily.core.events.entities.TeamMemberItem
 import com.paligot.confily.core.events.entities.mapToEventInfoUi
 import com.paligot.confily.core.events.entities.mapToEventItemListUi
@@ -67,4 +68,7 @@ class EventInteractor(
     @NativeCoroutines
     fun teamMember(memberId: String): Flow<TeamMemberUi?> = repository.teamMember(memberId)
         .map { it?.mapToTeamMemberUi() }
+
+    @NativeCoroutines
+    fun featureFlags(): Flow<FeatureFlags> = repository.featureFlags()
 }
