@@ -2,16 +2,18 @@
 FROM gradle:8.14-jdk21 AS cache
 RUN mkdir -p /home/gradle/cache_home
 ENV GRADLE_USER_HOME=/home/gradle/cache_home
-COPY build.gradle.* gradle.properties /home/gradle/app/
+COPY build.gradle.* gradle.properties settings.gradle.kts /home/gradle/app/
 COPY gradle /home/gradle/app/gradle
+COPY gradlew /home/gradle/app/gradlew
+COPY build-logic /home/gradle/app/build-logic
 WORKDIR /home/gradle/app
-RUN gradle build -i --stacktrace
+RUN ./gradlew --version
 
-FROM gradle:8.13-jdk21 AS build
+FROM gradle:8.14-jdk21 AS build
 COPY --from=cache /home/gradle/cache_home /home/gradle/.gradle
 COPY --chown=gradle:gradle . /home/gradle/src
 WORKDIR /home/gradle/src
-RUN gradle :backend:shadowJar --no-daemon
+RUN ./gradlew :backend:shadowJar --no-daemon
 
 FROM amazoncorretto:21 AS runtime
 EXPOSE 8080
