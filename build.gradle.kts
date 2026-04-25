@@ -31,4 +31,10 @@ allprojects {
         maven("https://oss.sonatype.org/content/repositories/snapshots")
         maven(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
     }
+    configurations.all {
+        resolutionStrategy {
+            force("org.jetbrains.kotlinx:kotlinx-datetime:0.6.2")
+            force("org.jetbrains.kotlinx:kotlinx-datetime-jvm:0.6.2")
+        }
+    }
 }

@@ -18,6 +18,7 @@ kotlin {
             implementation(projects.core.coreTest)
             implementation(projects.features.speakers.speakersTest)
             implementation(compose.desktop.uiTestJUnit4)
+            implementation(libs.jetbrains.lifecycle.runtime.compose)
             implementation(libs.settings.test)
         }
     }

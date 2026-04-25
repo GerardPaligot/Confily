@@ -26,6 +26,7 @@ class DiLibraryPlugin: Plugin<Project> {
                 sourceSets.commonMain.dependencies {
                     implementation(project(":shared:core-di"))
                     implementation(libs.findLibrary("koin-compose-viewmodel").get())
+                    implementation(libs.findLibrary("jetbrains-lifecycle-viewmodel-compose").get())
                 }
             }
         }

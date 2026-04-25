@@ -33,6 +33,7 @@ class PresentationLibraryPlugin: Plugin<Project> {
                     implementation(libs.findBundle("jetbrains-compose-adaptive").get())
                     implementation(libs.findLibrary("jetbrains-navigation-compose").get())
                     implementation(libs.findLibrary("jetbrains-lifecycle-viewmodel-compose").get())
+                    implementation(libs.findLibrary("jetbrains-lifecycle-runtime-compose").get())
                     implementation(libs.findLibrary("koin-compose-viewmodel").get())
                 }
                 sourceSets.androidMain.dependencies {

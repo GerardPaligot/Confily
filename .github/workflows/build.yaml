@@ -40,14 +40,14 @@ jobs:
           APP_PROPERTIES: ${{ secrets.APP_PROPERTIES }}
 
       - name: Check and build android project
-        run: ./gradlew :composeApp:assembleDebug :composeApp:bundleDebug
+        run: ./gradlew :androidApp:assembleDebug :androidApp:bundleDebug
 
       - name: Upload build outputs
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: android-build-outputs
-          path: composeApp/build/outputs
+          path: androidApp/build/outputs
   wear:
     runs-on: ubuntu-latest
     timeout-minutes: 60

@@ -17,6 +17,8 @@ kotlin {
             implementation(projects.core.coreTest)
             implementation(projects.features.schedules.schedulesTest)
             implementation(compose.desktop.uiTestJUnit4)
+            implementation(libs.jetbrains.lifecycle.runtime.compose)
+            implementation(libs.jetbrains.kotlinx.datetime)
             implementation(libs.settings.test)
         }
     }

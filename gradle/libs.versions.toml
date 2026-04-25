@@ -44,8 +44,8 @@ postgresql = "42.7.1"
 jetbrains-compose = "1.10.3"
 jetbrains-compose-adaptive = "1.2.0"
 jetbrains-exposed = "0.54.0"
-jetbrains-navigation-compose = "2.8.0-alpha13"
-jetbrains-lifecycle = "2.8.4"
+jetbrains-navigation-compose = "2.9.2"
+jetbrains-lifecycle = "2.10.0"
 jetbrains-kotlin = "2.3.20"
 jetbrains-kotlinx-browser = "0.3"
 jetbrains-kotlinx-collections = "0.4.0"
@@ -135,6 +135,7 @@ jetbrains-exposed-dao = { module = "org.jetbrains.exposed:exposed-dao", version.
 jetbrains-exposed-crypt = { module = "org.jetbrains.exposed:exposed-crypt", version.ref = "jetbrains-exposed" }
 jetbrains-exposed-kotlin-datetime = { module = "org.jetbrains.exposed:exposed-kotlin-datetime", version.ref = "jetbrains-exposed" }
 jetbrains-exposed-r2dbc = { module = "org.jetbrains.exposed:exposed-r2dbc", version.ref = "jetbrains-exposed" }
+jetbrains-lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "jetbrains-lifecycle" }
 jetbrains-lifecycle-viewmodel-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "jetbrains-lifecycle" }
 jetbrains-navigation-compose = { group = "org.jetbrains.androidx.navigation", name = "navigation-compose", version.ref = "jetbrains-navigation-compose" }
 jetbrains-kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "jetbrains-kotlin" }
