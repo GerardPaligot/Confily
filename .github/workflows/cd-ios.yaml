@@ -37,6 +37,13 @@ jobs:
           distribution: zulu
           java-version: 21
 
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: wrapper
+          build-scan-publish: true
+          build-scan-terms-of-use-url: "https://gradle.com/terms-of-service"
+          build-scan-terms-of-use-agree: "yes"
+
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: "3.3"
