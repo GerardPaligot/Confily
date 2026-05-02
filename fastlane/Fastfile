@@ -76,8 +76,11 @@ platform :ios do
     xcargs << "MARKETING_VERSION=#{options[:version_name]}" if options[:version_name]
     xcargs << "CURRENT_PROJECT_VERSION=#{options[:version_code]}" if options[:version_code]
     if (profile_name = ENV["IOS_PROVISIONING_PROFILE_NAME"])
+      team_id = read_app_property("IOS_TEAM_ID")
+      UI.user_error!("IOS_TEAM_ID must be set in #{PROJECT_ROOT}/config/app.properties[.prod] for manual signing") unless team_id
       xcargs << "PROVISIONING_PROFILE_SPECIFIER=#{profile_name}"
       xcargs << "CODE_SIGN_IDENTITY=Apple Distribution"
+      xcargs << "DEVELOPMENT_TEAM=#{team_id}"
     end
 
     run_xcodebuild_logged(
