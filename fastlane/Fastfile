@@ -28,6 +28,7 @@ platform :android do
     upload_to_play_store(
       package_name: package_name,
       track: options[:track] || "internal",
+      release_status: options[:release_status] || "draft",
       aab: options[:aab] || File.join(PROJECT_ROOT, "androidApp/build/outputs/bundle/release/androidApp-release.aab"),
       skip_upload_apk: true,
       skip_upload_metadata: true,

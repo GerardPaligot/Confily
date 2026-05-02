@@ -21,6 +21,14 @@ on:
           - alpha
           - beta
           - production
+      release_status:
+        description: "Release status — draft requires manual roll-out in Play Console; completed rolls out automatically"
+        required: true
+        default: draft
+        type: choice
+        options:
+          - draft
+          - completed
       tag_release:
         description: "Create a git tag (vX.Y.Z) on the build commit"
         required: false
@@ -93,8 +101,8 @@ jobs:
           CI_VERSION_CODE: ${{ inputs.version_code }}
         run: ./gradlew :androidApp:bundleRelease
 
-      - name: Upload to Play Store (${{ inputs.track }})
-        run: bundle exec fastlane android deploy track:${{ inputs.track }}
+      - name: Upload to Play Store (${{ inputs.track }}, ${{ inputs.release_status }})
+        run: bundle exec fastlane android deploy track:${{ inputs.track }} release_status:${{ inputs.release_status }}
 
       - name: Tag release commit
         if: ${{ inputs.tag_release }}

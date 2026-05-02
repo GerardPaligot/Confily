@@ -287,11 +287,13 @@ For each secret listed above:
    | `version_name` | `4.0.2` | Shown to users in Play Store |
    | `version_code` | `40020` | Strictly greater than any previously published versionCode |
    | `track` | `internal` | Default; promotion to other tracks happens via Play Console (or re-run with `production`) |
+   | `release_status` | `draft` | Default; uploaded build sits as a Draft awaiting manual rollout in Play Console. Switch to `completed` once your app is out of Play Console's draft state and you trust the workflow to auto-roll-out. |
    | `tag_release` | `true` | Creates a `vX.Y.Z` git tag on the build commit |
 
 3. Click **Run workflow**. The workflow takes ~5–10 minutes.
 4. The build appears in **Play Console → your app → Release → Testing →
-   Internal testing**.
+   Internal testing**. With `release_status: draft`, click **Review
+   release → Start rollout** to publish to your testers.
 
 ### iOS
 
@@ -360,6 +362,20 @@ scanning) and Google Play rejects API uploads of any track when no
 privacy policy URL is configured. Set one at **Play Console → your app
 → Policy → App content → Privacy policy → Manage** and re-run the
 workflow. The check is server-side; there is no client flag to skip it.
+
+### Android: "Only releases with status draft may be created on draft app"
+
+Your Play Console app is still in draft state — it has a listing but
+has never had a release manually published to any track. Two options:
+
+- Run the workflow with `release_status: draft` (the default), upload
+  the build, then in Play Console finish any incomplete sections under
+  **Dashboard → Set up your app** and roll out the draft release
+  manually. After the first manual rollout, the app exits draft state
+  and future runs can use `release_status: completed`.
+- Skip the API entirely for the very first release — upload an AAB
+  manually via the Play Console UI to clear the draft state, then use
+  the workflow for all subsequent releases.
 
 ### Android: "Version code X has already been used"
 
