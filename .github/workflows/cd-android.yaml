@@ -1,0 +1,84 @@
+name: CD Android (Internal Track)
+
+on:
+  push:
+    branches:
+      - "release/*.*.*"
+
+concurrency:
+  group: cd-android-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    if: github.repository == 'gpaligot/Confily'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: wrapper
+          build-scan-publish: true
+          build-scan-terms-of-use-url: "https://gradle.com/terms-of-service"
+          build-scan-terms-of-use-agree: "yes"
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+
+      - name: Copy CI gradle.properties
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - name: Verify deploy secrets
+        id: gate
+        env:
+          KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          KEYSTORE_PROPERTIES: ${{ secrets.ANDROID_KEYSTORE_PROPERTIES }}
+          PLAY_SA: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+        run: |
+          if [ -z "$KEYSTORE_BASE64" ] || [ -z "$KEYSTORE_PROPERTIES" ] || [ -z "$PLAY_SA" ]; then
+            echo "Required CD secrets missing — skipping publication."
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Materialize signing & Play credentials
+        if: steps.gate.outputs.ready == 'true'
+        env:
+          KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          KEYSTORE_PROPERTIES: ${{ secrets.ANDROID_KEYSTORE_PROPERTIES }}
+          PLAY_SA: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+          APP_PROPERTIES: ${{ secrets.APP_PROPERTIES }}
+        run: |
+          echo "$KEYSTORE_BASE64" | base64 -d > config/keystore.release
+          printf '%s' "$KEYSTORE_PROPERTIES" > config/keystore.properties
+          printf '%s' "$PLAY_SA" > config/play-service-account.json
+          if [ -n "$APP_PROPERTIES" ]; then
+            printf '%s' "$APP_PROPERTIES" > config/app.properties.prod
+          fi
+
+      - name: Build signed release bundle
+        if: steps.gate.outputs.ready == 'true'
+        run: ./gradlew :androidApp:bundleRelease
+
+      - name: Upload to Play Store (internal track)
+        if: steps.gate.outputs.ready == 'true'
+        run: bundle exec fastlane android internal
+
+      - name: Cleanup credentials
+        if: always() && steps.gate.outputs.ready == 'true'
+        run: |
+          rm -f config/keystore.release \
+                config/keystore.properties \
+                config/play-service-account.json \
+                config/app.properties.prod

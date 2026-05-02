@@ -29,6 +29,7 @@ build/
 **/secrets.properties
 */keystore.properties
 */app.properties.prod
+*/play-service-account.json
 iosApp/Generated.xcconfig
 
 # Specs
@@ -58,3 +59,9 @@ Thumbs.db
 *.tmp
 *.swp
 *~
+
+# Fastlane
+fastlane/report.xml
+fastlane/README.md
+vendor/bundle/
+.bundle/

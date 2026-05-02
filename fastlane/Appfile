@@ -1,0 +1,4 @@
+for_platform :android do
+  package_name("com.paligot.confily.android")
+  json_key_file("config/play-service-account.json")
+end

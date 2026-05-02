@@ -1,0 +1,20 @@
+default_platform(:android)
+
+platform :android do
+  desc "Upload the prebuilt release AAB to the Play Store internal track"
+  lane :internal do |options|
+    upload_to_play_store(
+      track: "internal",
+      aab: options[:aab] || "androidApp/build/outputs/bundle/release/androidApp-release.aab",
+      skip_upload_apk: true,
+      skip_upload_metadata: true,
+      skip_upload_changelogs: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true
+    )
+  end
+end
+
+platform :ios do
+  # iOS lanes (e.g. TestFlight upload) will live here.
+end
