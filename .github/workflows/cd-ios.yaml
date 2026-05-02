@@ -1,4 +1,4 @@
-Why name: CD iOS
+name: CD iOS
 
 on:
   workflow_dispatch:
