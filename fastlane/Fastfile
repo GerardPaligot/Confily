@@ -1,7 +1,13 @@
 default_platform(:android)
 
+PROJECT_ROOT = File.expand_path("..", __dir__).freeze
+
 def read_app_property(key)
-  ["config/app.properties.prod", "config/app.properties"].each do |path|
+  paths = [
+    File.join(PROJECT_ROOT, "config/app.properties.prod"),
+    File.join(PROJECT_ROOT, "config/app.properties")
+  ]
+  paths.each do |path|
     next unless File.exist?(path)
     File.foreach(path) do |line|
       stripped = line.strip
@@ -17,12 +23,12 @@ platform :android do
   desc "Upload the prebuilt release AAB to the Play Store on the given track"
   lane :deploy do |options|
     package_name = options[:package_name] || read_app_property("APPLICATION_ID")
-    UI.user_error!("APPLICATION_ID not found in config/app.properties[.prod]") unless package_name
+    UI.user_error!("APPLICATION_ID not found in #{PROJECT_ROOT}/config/app.properties[.prod]") unless package_name
 
     upload_to_play_store(
       package_name: package_name,
       track: options[:track] || "internal",
-      aab: options[:aab] || "androidApp/build/outputs/bundle/release/androidApp-release.aab",
+      aab: options[:aab] || File.join(PROJECT_ROOT, "androidApp/build/outputs/bundle/release/androidApp-release.aab"),
       skip_upload_apk: true,
       skip_upload_metadata: true,
       skip_upload_changelogs: true,
@@ -40,7 +46,7 @@ platform :ios do
     api_key = app_store_connect_api_key(
       key_id: ENV["APP_STORE_CONNECT_KEY_ID"],
       issuer_id: ENV["APP_STORE_CONNECT_ISSUER_ID"],
-      key_filepath: "config/app_store_connect_key.p8",
+      key_filepath: File.join(PROJECT_ROOT, "config/app_store_connect_key.p8"),
       duration: 1200,
       in_house: false
     )
@@ -50,11 +56,11 @@ platform :ios do
     xcargs << "CURRENT_PROJECT_VERSION=#{options[:version_code]}" if options[:version_code]
 
     build_app(
-      project: "iosApp/iosApp.xcodeproj",
+      project: File.join(PROJECT_ROOT, "iosApp/iosApp.xcodeproj"),
       scheme: "iosApp",
       configuration: "Release",
       export_method: "app-store",
-      output_directory: "iosApp/build",
+      output_directory: File.join(PROJECT_ROOT, "iosApp/build"),
       output_name: "iosApp.ipa",
       xcargs: xcargs.join(" ")
     )
