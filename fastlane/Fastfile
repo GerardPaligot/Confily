@@ -76,13 +76,16 @@ platform :ios do
     xcargs << "MARKETING_VERSION=#{options[:version_name]}" if options[:version_name]
     xcargs << "CURRENT_PROJECT_VERSION=#{options[:version_code]}" if options[:version_code]
     if ENV["IOS_PROVISIONING_PROFILE_NAME"]
-      # PROVISIONING_PROFILE_SPECIFIER is routed to the iosApp target via
-      # iosApp/Generated.xcconfig (IOS_PROVISIONING_PROFILE_SPECIFIER) so it
-      # does not leak into SPM resource-bundle targets, which auto-sign and
-      # would reject a manually specified profile.
+      # Signing identity and provisioning profile are routed to the iosApp
+      # target via iosApp/Generated.xcconfig (IOS_CODE_SIGN_IDENTITY,
+      # IOS_PROVISIONING_PROFILE_SPECIFIER). Passing them as global xcargs
+      # leaks into SPM resource-bundle targets, which auto-sign for
+      # development and reject any manually specified Distribution identity
+      # or profile. DEVELOPMENT_TEAM is the only signing setting that must
+      # stay global — the SPM bundles need it to ad-hoc sign and it is
+      # compatible with both manual and automatic signing.
       team_id = read_app_property("IOS_TEAM_ID")
       UI.user_error!("IOS_TEAM_ID must be set in #{PROJECT_ROOT}/config/app.properties[.prod] for manual signing") unless team_id
-      xcargs << "CODE_SIGN_IDENTITY=Apple Distribution"
       xcargs << "DEVELOPMENT_TEAM=#{team_id}"
     end
 

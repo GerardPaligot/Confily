@@ -123,12 +123,17 @@ jobs:
           echo "Provisioning profile name: $PROFILE_NAME"
           echo "IOS_PROVISIONING_PROFILE_NAME=$PROFILE_NAME" >> "$GITHUB_ENV"
 
-          # Route the profile name to the iosApp target only via the per-target
-          # xcconfig referenced by baseConfigurationReference. Passing it as a
-          # global xcodebuild build setting would also apply to SPM-generated
-          # resource bundles (Firebase, GoogleUtilities, Promises, nanopb, …),
-          # which auto-sign and reject a manually specified profile.
-          echo "IOS_PROVISIONING_PROFILE_SPECIFIER=$PROFILE_NAME" >> iosApp/Generated.xcconfig
+          # Route the signing identity and profile to the iosApp target only
+          # via the per-target xcconfig referenced by baseConfigurationReference.
+          # Passing them as global xcodebuild build settings also applies them
+          # to SPM-generated resource bundles (Firebase, GoogleUtilities,
+          # Promises, nanopb, GoogleDataTransport, CodeScanner, …), which
+          # auto-sign for development and reject a Distribution identity or
+          # manually-specified profile.
+          {
+            echo "IOS_CODE_SIGN_IDENTITY=Apple Distribution"
+            echo "IOS_PROVISIONING_PROFILE_SPECIFIER=$PROFILE_NAME"
+          } >> iosApp/Generated.xcconfig
 
       - name: Materialize App Store Connect API key
         env:
