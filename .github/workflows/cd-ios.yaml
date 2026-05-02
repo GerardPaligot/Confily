@@ -100,6 +100,14 @@ jobs:
           security set-key-partition-list -S apple-tool:,apple: -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
           security list-keychain -d user -s "$KEYCHAIN_PATH" $(security list-keychain -d user | xargs)
 
+          echo "Codesigning identities visible in $KEYCHAIN_PATH:"
+          identity_output=$(security find-identity -v -p codesigning "$KEYCHAIN_PATH")
+          echo "$identity_output"
+          if echo "$identity_output" | grep -q '0 valid identities found'; then
+            echo "::error::No valid codesigning identity in keychain. The .p12 either has no private key, was exported as .cer not .p12, or IOS_DISTRIBUTION_CERT_PASSWORD is wrong." >&2
+            exit 1
+          fi
+
       - name: Materialize App Store Connect API key
         env:
           ASC_KEY: ${{ secrets.APP_STORE_CONNECT_KEY_BASE64 }}
