@@ -3,7 +3,9 @@ package com.paligot.confily.schedules.presentation
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
+import androidx.compose.material3.adaptive.layout.AdaptStrategy
 import androidx.compose.material3.adaptive.layout.SupportingPaneScaffold
+import androidx.compose.material3.adaptive.layout.SupportingPaneScaffoldDefaults
 import androidx.compose.material3.adaptive.layout.calculatePaneScaffoldDirective
 import androidx.compose.material3.adaptive.navigation.rememberSupportingPaneScaffoldNavigator
 import androidx.compose.runtime.Composable
@@ -26,7 +28,12 @@ fun ScheduleGridAdaptive(
     isSmallSize: Boolean = false
 ) {
     val scaffoldDirective = calculatePaneScaffoldDirective(currentWindowAdaptiveInfo())
-    val navigator = rememberSupportingPaneScaffoldNavigator(scaffoldDirective)
+    val navigator = rememberSupportingPaneScaffoldNavigator(
+        scaffoldDirective = scaffoldDirective,
+        adaptStrategies = SupportingPaneScaffoldDefaults.adaptStrategies(
+            supportingPaneAdaptStrategy = AdaptStrategy.Hide
+        )
+    )
     SupportingPaneScaffold(
         directive = navigator.scaffoldDirective,
         value = navigator.scaffoldValue,
