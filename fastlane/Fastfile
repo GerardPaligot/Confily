@@ -77,6 +77,7 @@ platform :ios do
     xcargs << "CURRENT_PROJECT_VERSION=#{options[:version_code]}" if options[:version_code]
     if (profile_name = ENV["IOS_PROVISIONING_PROFILE_NAME"])
       xcargs << "PROVISIONING_PROFILE_SPECIFIER=#{profile_name}"
+      xcargs << "CODE_SIGN_IDENTITY=Apple Distribution"
     end
 
     run_xcodebuild_logged(
