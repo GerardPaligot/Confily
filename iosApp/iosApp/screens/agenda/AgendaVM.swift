@@ -9,10 +9,10 @@
 import SwiftUI
 
 struct AgendaVM: View {
-    @ObservedObject var viewModel: AgendaViewModel
-    
-    init(viewModel: AgendaViewModel) {
-        self.viewModel = viewModel
+    @StateObject var viewModel: AgendaViewModel
+
+    init(viewModel: @autoclosure @escaping () -> AgendaViewModel) {
+        self._viewModel = StateObject(wrappedValue: viewModel())
     }
 
     var body: some View {
