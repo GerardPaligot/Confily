@@ -9,10 +9,18 @@ import androidx.core.app.NotificationManagerCompat
 
 class AlarmReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
-        if (intent == null || context == null) return
-        val id = intent.getStringExtra(AlarmIntentFactoryImpl.ID) ?: return
-        val title = intent.getStringExtra(AlarmIntentFactoryImpl.TITLE) ?: return
-        val text = intent.getStringExtra(AlarmIntentFactoryImpl.TEXT) ?: return
+        if (context != null && intent != null) {
+            showReminder(context, intent)
+        }
+    }
+
+    private fun showReminder(context: Context, intent: Intent) {
+        val id = intent.getStringExtra(AlarmIntentFactoryImpl.ID)
+        val title = intent.getStringExtra(AlarmIntentFactoryImpl.TITLE)
+        val text = intent.getStringExtra(AlarmIntentFactoryImpl.TEXT)
+        if (id == null || title == null || text == null) return
+        val notificationManager = NotificationManagerCompat.from(context)
+        if (!notificationManager.areNotificationsEnabled()) return
         val notification = NotificationCompat.Builder(context, AlarmIntentFactoryImpl.CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_campaign)
             .setContentTitle(title)
@@ -29,8 +37,6 @@ class AlarmReceiver : BroadcastReceiver() {
             )
             .setAutoCancel(true)
             .build()
-        val notificationManager = NotificationManagerCompat.from(context)
-        if (!notificationManager.areNotificationsEnabled()) return
         notificationManager.notify(id.hashCode(), notification)
     }
 }
