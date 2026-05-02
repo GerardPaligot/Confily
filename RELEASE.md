@@ -38,6 +38,11 @@ in `fastlane/Fastfile` and `fastlane/Appfile`.
   **one build manually uploaded to the Internal testing track**. Fastlane
   cannot bootstrap a brand-new app entry; it can only update an existing
   one.
+- A **privacy policy URL** configured at **Play Console → your app →
+  Policy → App content → Privacy policy**. Required because Confily
+  declares sensitive runtime permissions (e.g. `CAMERA` for QR scanning);
+  the Publishing API rejects uploads of any track — including internal —
+  for apps with sensitive permissions when no policy URL is set.
 - A Google Cloud project with the **Google Play Android Developer API**
   enabled (used to generate the service-account JSON).
 
@@ -347,6 +352,14 @@ trigger time if you don't want a tag.
 You haven't uploaded a build to Play Console yet. Fastlane requires an
 existing app entry; it cannot bootstrap one. Build and upload an AAB
 manually via Play Console once, then re-run the workflow.
+
+### Android: "The apk has permissions that require a privacy policy set for the app"
+
+Confily declares sensitive runtime permissions (e.g. `CAMERA` for QR
+scanning) and Google Play rejects API uploads of any track when no
+privacy policy URL is configured. Set one at **Play Console → your app
+→ Policy → App content → Privacy policy → Manage** and re-run the
+workflow. The check is server-side; there is no client flag to skip it.
 
 ### Android: "Version code X has already been used"
 
