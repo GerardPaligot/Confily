@@ -75,10 +75,13 @@ platform :ios do
     xcargs = []
     xcargs << "MARKETING_VERSION=#{options[:version_name]}" if options[:version_name]
     xcargs << "CURRENT_PROJECT_VERSION=#{options[:version_code]}" if options[:version_code]
-    if (profile_name = ENV["IOS_PROVISIONING_PROFILE_NAME"])
+    if ENV["IOS_PROVISIONING_PROFILE_NAME"]
+      # PROVISIONING_PROFILE_SPECIFIER is routed to the iosApp target via
+      # iosApp/Generated.xcconfig (IOS_PROVISIONING_PROFILE_SPECIFIER) so it
+      # does not leak into SPM resource-bundle targets, which auto-sign and
+      # would reject a manually specified profile.
       team_id = read_app_property("IOS_TEAM_ID")
       UI.user_error!("IOS_TEAM_ID must be set in #{PROJECT_ROOT}/config/app.properties[.prod] for manual signing") unless team_id
-      xcargs << "PROVISIONING_PROFILE_SPECIFIER=#{profile_name}"
       xcargs << "CODE_SIGN_IDENTITY=Apple Distribution"
       xcargs << "DEVELOPMENT_TEAM=#{team_id}"
     end
