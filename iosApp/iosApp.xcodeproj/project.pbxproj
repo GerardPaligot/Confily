@@ -1082,7 +1082,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4000;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
-				DEVELOPMENT_TEAM = DU6582MPLT;
+				DEVELOPMENT_TEAM = "$(IOS_TEAM_ID)";
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../shared/core-di/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)";
 				INFOPLIST_FILE = iosApp/Info.plist;
@@ -1098,7 +1098,7 @@
 					"-framework",
 					SharedDi,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.paligot.confily.ios.debug;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(IOS_BUNDLE_ID).debug";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1118,7 +1118,7 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 4000;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = "$(IOS_TEAM_ID)";
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../shared/core-di/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)";
 				INFOPLIST_FILE = iosApp/Info.plist;
@@ -1134,7 +1134,7 @@
 					"-framework",
 					SharedDi,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.paligot.confily.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(IOS_BUNDLE_ID)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

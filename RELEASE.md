@@ -77,16 +77,31 @@ before building. So for a fork:
 
 ### iOS
 
-iOS bundle ID and team ID live in the Xcode project file. Edit
-`iosApp/iosApp.xcodeproj/project.pbxproj` once in your fork:
+iOS bundle ID and team ID are also driven from `config/app.properties`,
+via the `iosApp/Scripts/generate_config.sh` script that produces
+`iosApp/Generated.xcconfig` at build time. The Xcode project references
+that xcconfig and pulls `$(IOS_BUNDLE_ID)` and `$(IOS_TEAM_ID)`
+indirectly. So forks set:
 
-- `PRODUCT_BUNDLE_IDENTIFIER` — your app's bundle ID (must match the
-  App Store Connect entry and the provisioning profile).
-- `DEVELOPMENT_TEAM` — your 10-character Apple Developer team ID
-  (visible at https://developer.apple.com/account → Membership Details).
+```
+IOS_BUNDLE_ID=com.your.bundle.id
+IOS_TEAM_ID=ABCD123EFG
+```
 
-Fastlane reads the bundle ID from the produced IPA at upload time, so no
-changes to `fastlane/` are required.
+…in their `APP_PROPERTIES` secret. No `pbxproj` edits required.
+
+Notes:
+
+- The Debug variant uses `$(IOS_BUNDLE_ID).debug` automatically, so
+  Debug and Release builds coexist on a single device.
+- Team ID is the 10-character alphanumeric identifier from
+  https://developer.apple.com/account → **Membership Details → Team ID**.
+- Bundle ID must match what you registered at
+  https://developer.apple.com/account → **Identifiers** *and* the App
+  Store Connect app entry *and* the provisioning profile. All three
+  must agree.
+- Fastlane reads the bundle ID from the produced IPA at upload time, so
+  no changes to `fastlane/` are required.
 
 ---
 

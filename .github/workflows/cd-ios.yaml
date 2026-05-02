@@ -69,6 +69,14 @@ jobs:
           chmod +x iosApp/Scripts/generate_config.sh
           (cd iosApp && ./Scripts/generate_config.sh)
 
+          for key in IOS_BUNDLE_ID IOS_TEAM_ID; do
+            value=$(grep "^${key}=" iosApp/Generated.xcconfig | head -1 | cut -d= -f2-)
+            if [ -z "$value" ]; then
+              echo "Required key ${key} missing or empty in iosApp/Generated.xcconfig — set it in your APP_PROPERTIES secret (or config/app.properties for the committed default)." >&2
+              exit 1
+            fi
+          done
+
       - name: Set up signing keychain
         env:
           DIST_CERT: ${{ secrets.IOS_DISTRIBUTION_CERT_BASE64 }}
