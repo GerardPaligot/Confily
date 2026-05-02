@@ -1,5 +1,6 @@
 package com.paligot.confily.android
 
+import android.annotation.SuppressLint
 import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -14,6 +15,10 @@ class AlarmReceiver : BroadcastReceiver() {
         }
     }
 
+    // areNotificationsEnabled() returns false on API 33+ when POST_NOTIFICATIONS
+    // is not granted, so the notify() call below is gated by an effective
+    // runtime-permission check that lint can't detect statically.
+    @SuppressLint("MissingPermission")
     private fun showReminder(context: Context, intent: Intent) {
         val id = intent.getStringExtra(AlarmIntentFactoryImpl.ID)
         val title = intent.getStringExtra(AlarmIntentFactoryImpl.TITLE)
