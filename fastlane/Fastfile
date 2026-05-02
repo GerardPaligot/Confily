@@ -1,9 +1,26 @@
 default_platform(:android)
 
+def read_app_property(key)
+  ["config/app.properties.prod", "config/app.properties"].each do |path|
+    next unless File.exist?(path)
+    File.foreach(path) do |line|
+      stripped = line.strip
+      next if stripped.empty? || stripped.start_with?("#") || !stripped.include?("=")
+      k, v = stripped.split("=", 2)
+      return v.strip if k.strip == key
+    end
+  end
+  nil
+end
+
 platform :android do
   desc "Upload the prebuilt release AAB to the Play Store on the given track"
   lane :deploy do |options|
+    package_name = options[:package_name] || read_app_property("APPLICATION_ID")
+    UI.user_error!("APPLICATION_ID not found in config/app.properties[.prod]") unless package_name
+
     upload_to_play_store(
+      package_name: package_name,
       track: options[:track] || "internal",
       aab: options[:aab] || "androidApp/build/outputs/bundle/release/androidApp-release.aab",
       skip_upload_apk: true,
