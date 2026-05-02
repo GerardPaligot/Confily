@@ -16,5 +16,36 @@ platform :android do
 end
 
 platform :ios do
-  # iOS lanes (e.g. TestFlight upload) will live here.
+  desc "Build the iOS app and upload it to App Store Connect (available immediately on TestFlight)"
+  lane :deploy do |options|
+    setup_ci
+
+    api_key = app_store_connect_api_key(
+      key_id: ENV["APP_STORE_CONNECT_KEY_ID"],
+      issuer_id: ENV["APP_STORE_CONNECT_ISSUER_ID"],
+      key_filepath: "config/app_store_connect_key.p8",
+      duration: 1200,
+      in_house: false
+    )
+
+    xcargs = []
+    xcargs << "MARKETING_VERSION=#{options[:version_name]}" if options[:version_name]
+    xcargs << "CURRENT_PROJECT_VERSION=#{options[:version_code]}" if options[:version_code]
+
+    build_app(
+      project: "iosApp/iosApp.xcodeproj",
+      scheme: "iosApp",
+      configuration: "Release",
+      export_method: "app-store",
+      output_directory: "iosApp/build",
+      output_name: "iosApp.ipa",
+      xcargs: xcargs.join(" ")
+    )
+
+    upload_to_testflight(
+      api_key: api_key,
+      skip_waiting_for_build_processing: true,
+      skip_submission: true
+    )
+  end
 end

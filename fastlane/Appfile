@@ -2,3 +2,8 @@ for_platform :android do
   package_name("com.paligot.confily.android")
   json_key_file("config/play-service-account.json")
 end
+
+for_platform :ios do
+  app_identifier("com.paligot.confily.ios")
+  team_id("DU6582MPLT")
+end
