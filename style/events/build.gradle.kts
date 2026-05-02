@@ -1,3 +1,7 @@
+@file:Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
+
+import org.gradle.api.attributes.Attribute
+import org.jetbrains.compose.resources.CopyResourcesToAndroidAssetsTask
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
@@ -44,4 +48,27 @@ compose.resources {
     publicResClass = true
     packageOfResClass = "com.paligot.confily.style.events"
     generateResClass = always
+}
+
+// Workaround for Compose MP 1.10.3 + AGP 9 + com.android.kotlin.multiplatform.library:
+// see :shared:resources/build.gradle.kts for the full explanation. Briefly: the plugin's
+// `componentSources.assets?.addGeneratedSourceDirectory(...)` no-ops on the KMP Android
+// library variant, so the copy task's `outputDirectory` is never set and no `android-assets`
+// secondary variant is published for project-to-project consumption.
+val composeAndroidAssetsDir = layout.buildDirectory.dir("compose-resources-android-assets")
+
+tasks.matching { it.name == "copyAndroidMainComposeResourcesToAndroidAssets" }.configureEach {
+    (this as CopyResourcesToAndroidAssetsTask).outputDirectory.convention(composeAndroidAssetsDir)
+}
+
+configurations.named("androidRuntimeElements").configure {
+    outgoing.variants.maybeCreate("android-assets-compose").apply {
+        attributes {
+            attribute(Attribute.of("artifactType", String::class.java), "android-assets")
+        }
+        artifact(composeAndroidAssetsDir) {
+            type = "android-assets"
+            builtBy("copyAndroidMainComposeResourcesToAndroidAssets")
+        }
+    }
 }
