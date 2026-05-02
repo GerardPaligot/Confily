@@ -1,9 +1,34 @@
-name: CD Android (Internal Track)
+name: CD Android
 
 on:
-  push:
-    branches:
-      - "release/*.*.*"
+  workflow_dispatch:
+    inputs:
+      version_name:
+        description: "Version name shown to users (e.g. 1.2.3)"
+        required: true
+        type: string
+      version_code:
+        description: "Version code (monotonically increasing integer)"
+        required: true
+        type: number
+      track:
+        description: "Play Store track"
+        required: true
+        default: internal
+        type: choice
+        options:
+          - internal
+          - alpha
+          - beta
+          - production
+      tag_release:
+        description: "Create a git tag (vX.Y.Z) on the build commit"
+        required: false
+        default: true
+        type: boolean
+
+permissions:
+  contents: write
 
 concurrency:
   group: cd-android-${{ github.ref }}
@@ -13,7 +38,6 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     timeout-minutes: 60
-    if: github.repository == 'gpaligot/Confily'
 
     steps:
       - uses: actions/checkout@v4
@@ -39,21 +63,17 @@ jobs:
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 
       - name: Verify deploy secrets
-        id: gate
         env:
           KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
           KEYSTORE_PROPERTIES: ${{ secrets.ANDROID_KEYSTORE_PROPERTIES }}
           PLAY_SA: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
         run: |
           if [ -z "$KEYSTORE_BASE64" ] || [ -z "$KEYSTORE_PROPERTIES" ] || [ -z "$PLAY_SA" ]; then
-            echo "Required CD secrets missing — skipping publication."
-            echo "ready=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "ready=true" >> "$GITHUB_OUTPUT"
+            echo "Required CD secrets missing — aborting." >&2
+            exit 1
           fi
 
       - name: Materialize signing & Play credentials
-        if: steps.gate.outputs.ready == 'true'
         env:
           KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
           KEYSTORE_PROPERTIES: ${{ secrets.ANDROID_KEYSTORE_PROPERTIES }}
@@ -68,15 +88,28 @@ jobs:
           fi
 
       - name: Build signed release bundle
-        if: steps.gate.outputs.ready == 'true'
+        env:
+          CI_VERSION_NAME: ${{ inputs.version_name }}
+          CI_VERSION_CODE: ${{ inputs.version_code }}
         run: ./gradlew :androidApp:bundleRelease
 
-      - name: Upload to Play Store (internal track)
-        if: steps.gate.outputs.ready == 'true'
-        run: bundle exec fastlane android internal
+      - name: Upload to Play Store (${{ inputs.track }})
+        run: bundle exec fastlane android deploy track:${{ inputs.track }}
+
+      - name: Tag release commit
+        if: ${{ inputs.tag_release }}
+        env:
+          TAG: v${{ inputs.version_name }}
+          VERSION_CODE: ${{ inputs.version_code }}
+          TRACK: ${{ inputs.track }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -a "$TAG" -m "Release $TAG (versionCode $VERSION_CODE, track $TRACK)"
+          git push origin "$TAG"
 
       - name: Cleanup credentials
-        if: always() && steps.gate.outputs.ready == 'true'
+        if: always()
         run: |
           rm -f config/keystore.release \
                 config/keystore.properties \

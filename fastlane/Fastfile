@@ -1,10 +1,10 @@
 default_platform(:android)
 
 platform :android do
-  desc "Upload the prebuilt release AAB to the Play Store internal track"
-  lane :internal do |options|
+  desc "Upload the prebuilt release AAB to the Play Store on the given track"
+  lane :deploy do |options|
     upload_to_play_store(
-      track: "internal",
+      track: options[:track] || "internal",
       aab: options[:aab] || "androidApp/build/outputs/bundle/release/androidApp-release.aab",
       skip_upload_apk: true,
       skip_upload_metadata: true,

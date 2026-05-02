@@ -32,8 +32,8 @@ class AndroidApplicationPlugin: Plugin<Project> {
             extensions.configure<BaseAppModuleExtension> {
                 defaultConfig {
                     applicationId = appProps.appId
-                    versionCode = versionProps.versionCode
-                    versionName = versionProps.versionName
+                    versionCode = System.getenv("CI_VERSION_CODE")?.toIntOrNull() ?: versionProps.versionCode
+                    versionName = System.getenv("CI_VERSION_NAME") ?: versionProps.versionName
                 }
                 configureSigningConfig(rootProject)
                 configureKotlinAndroid()
