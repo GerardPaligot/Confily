@@ -49,12 +49,6 @@ jobs:
           ruby-version: "3.3"
           bundler-cache: true
 
-      - name: Cap Gradle memory for the macOS runner
-        run: |
-          mkdir -p ~/.gradle
-          cp .github/ci-gradle.properties ~/.gradle/gradle.properties
-          echo 'org.gradle.jvmargs=-Xmx4g -XX:MaxMetaspaceSize=2g -Dfile.encoding=UTF-8' >> ~/.gradle/gradle.properties
-
       - name: Verify deploy secrets
         env:
           DIST_CERT: ${{ secrets.IOS_DISTRIBUTION_CERT_BASE64 }}
