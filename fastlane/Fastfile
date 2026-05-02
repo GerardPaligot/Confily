@@ -50,22 +50,55 @@ platform :ios do
       in_house: false
     )
 
+    project_path = File.join(PROJECT_ROOT, "iosApp/iosApp.xcodeproj")
+    build_dir = File.join(PROJECT_ROOT, "iosApp/build")
+    archive_path = File.join(build_dir, "iosApp.xcarchive")
+    export_options_path = File.join(build_dir, "ExportOptions.plist")
+    require "fileutils"
+    FileUtils.mkdir_p(build_dir)
+
     xcargs = []
     xcargs << "MARKETING_VERSION=#{options[:version_name]}" if options[:version_name]
     xcargs << "CURRENT_PROJECT_VERSION=#{options[:version_code]}" if options[:version_code]
 
-    build_app(
-      project: File.join(PROJECT_ROOT, "iosApp/iosApp.xcodeproj"),
-      scheme: "iosApp",
-      configuration: "Release",
-      export_method: "app-store",
-      output_directory: File.join(PROJECT_ROOT, "iosApp/build"),
-      output_name: "iosApp.ipa",
-      xcargs: xcargs.join(" ")
+    sh(
+      "xcodebuild",
+      "-scheme", "iosApp",
+      "-project", project_path,
+      "-configuration", "Release",
+      "-destination", "generic/platform=iOS",
+      "-archivePath", archive_path,
+      *xcargs,
+      "archive"
     )
+
+    File.write(export_options_path, <<~PLIST)
+      <?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+      <plist version="1.0">
+      <dict>
+        <key>method</key>
+        <string>app-store</string>
+        <key>signingStyle</key>
+        <string>manual</string>
+      </dict>
+      </plist>
+    PLIST
+
+    sh(
+      "xcodebuild",
+      "-exportArchive",
+      "-archivePath", archive_path,
+      "-exportPath", build_dir,
+      "-exportOptionsPlist", export_options_path
+    )
+
+    ipa_path = Dir.glob(File.join(build_dir, "*.ipa")).first
+    UI.user_error!("No IPA produced in #{build_dir}") unless ipa_path
 
     upload_to_testflight(
       api_key: api_key,
+      ipa: ipa_path,
       skip_waiting_for_build_processing: true,
       skip_submission: true
     )
