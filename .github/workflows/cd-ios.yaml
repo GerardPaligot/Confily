@@ -115,6 +115,14 @@ jobs:
             exit 1
           fi
 
+          PROFILE_NAME=$(security cms -D -i "$PROFILE_PATH" | python3 -c 'import sys, plistlib; print(plistlib.loads(sys.stdin.buffer.read())["Name"])')
+          if [ -z "$PROFILE_NAME" ]; then
+            echo "::error::Could not extract profile Name from $PROFILE_PATH." >&2
+            exit 1
+          fi
+          echo "Provisioning profile name: $PROFILE_NAME"
+          echo "IOS_PROVISIONING_PROFILE_NAME=$PROFILE_NAME" >> "$GITHUB_ENV"
+
       - name: Materialize App Store Connect API key
         env:
           ASC_KEY: ${{ secrets.APP_STORE_CONNECT_KEY_BASE64 }}

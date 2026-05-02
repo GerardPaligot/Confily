@@ -39,6 +39,21 @@ platform :android do
   end
 end
 
+DIAGNOSTICS_DIR = "/tmp/cd-diagnostics".freeze
+
+def run_xcodebuild_logged(args, log_basename)
+  require "fileutils"
+  FileUtils.mkdir_p(DIAGNOSTICS_DIR)
+  log_path = File.join(DIAGNOSTICS_DIR, log_basename)
+  cmd_str = (["xcodebuild"] + args).map { |a| a.to_s.shellescape }.join(" ")
+  begin
+    sh "set -o pipefail; #{cmd_str} 2>&1 | tee #{log_path.shellescape}"
+  rescue => e
+    UI.error("xcodebuild failed; full log saved to #{log_path}")
+    raise e
+  end
+end
+
 platform :ios do
   desc "Build the iOS app and upload it to App Store Connect (available immediately on TestFlight)"
   lane :deploy do |options|
@@ -60,17 +75,27 @@ platform :ios do
     xcargs = []
     xcargs << "MARKETING_VERSION=#{options[:version_name]}" if options[:version_name]
     xcargs << "CURRENT_PROJECT_VERSION=#{options[:version_code]}" if options[:version_code]
+    if (profile_name = ENV["IOS_PROVISIONING_PROFILE_NAME"])
+      xcargs << "PROVISIONING_PROFILE_SPECIFIER=#{profile_name}"
+    end
 
-    sh(
-      "xcodebuild",
-      "-scheme", "iosApp",
-      "-project", project_path,
-      "-configuration", "Release",
-      "-destination", "generic/platform=iOS",
-      "-archivePath", archive_path,
-      *xcargs,
-      "archive"
+    run_xcodebuild_logged(
+      [
+        "-scheme", "iosApp",
+        "-project", project_path,
+        "-configuration", "Release",
+        "-destination", "generic/platform=iOS",
+        "-archivePath", archive_path,
+        *xcargs,
+        "archive"
+      ],
+      "xcodebuild-archive.log"
     )
+
+    team_id = read_app_property("IOS_TEAM_ID")
+    bundle_id = read_app_property("IOS_BUNDLE_ID")
+    profile_name = ENV["IOS_PROVISIONING_PROFILE_NAME"]
+    UI.user_error!("IOS_TEAM_ID, IOS_BUNDLE_ID, and IOS_PROVISIONING_PROFILE_NAME must all be set for manual signing export") unless team_id && bundle_id && profile_name
 
     File.write(export_options_path, <<~PLIST)
       <?xml version="1.0" encoding="UTF-8"?>
@@ -81,16 +106,25 @@ platform :ios do
         <string>app-store</string>
         <key>signingStyle</key>
         <string>manual</string>
+        <key>teamID</key>
+        <string>#{team_id}</string>
+        <key>provisioningProfiles</key>
+        <dict>
+          <key>#{bundle_id}</key>
+          <string>#{profile_name}</string>
+        </dict>
       </dict>
       </plist>
     PLIST
 
-    sh(
-      "xcodebuild",
-      "-exportArchive",
-      "-archivePath", archive_path,
-      "-exportPath", build_dir,
-      "-exportOptionsPlist", export_options_path
+    run_xcodebuild_logged(
+      [
+        "-exportArchive",
+        "-archivePath", archive_path,
+        "-exportPath", build_dir,
+        "-exportOptionsPlist", export_options_path
+      ],
+      "xcodebuild-export.log"
     )
 
     ipa_path = Dir.glob(File.join(build_dir, "*.ipa")).first
