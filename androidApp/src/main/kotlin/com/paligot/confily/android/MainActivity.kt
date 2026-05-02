@@ -9,6 +9,7 @@ import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -22,6 +23,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.paligot.confily.BuildKonfig
 import com.paligot.confily.android.widgets.NetworkingAppWidget
+import com.paligot.confily.core.LocalNotificationPermissionRequester
 import com.paligot.confily.main.Main
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.text_export_subject
@@ -67,61 +69,66 @@ class MainActivity : ComponentActivity() {
             val exportSubject = stringResource(Resource.string.text_export_subject)
             val reportSubject = stringResource(Resource.string.text_report_subject)
             val reportAppTarget = stringResource(Resource.string.text_report_app_target)
-            Main(
-                defaultEvent = BuildKonfig.DEFAULT_EVENT,
-                isPortrait = config.isPortrait,
-                launchUrl = { launchUrl(it) },
-                onContactExportClicked = { export ->
-                    val uri: Uri = FileProvider.getUriForFile(
-                        applicationContext,
-                        "${applicationContext.packageName}.provider",
-                        File(export.filePath)
-                    )
-                    val intent = ShareCompat.IntentBuilder(this)
-                        .setStream(uri)
-                        .intent
-                        .setAction(Intent.ACTION_SENDTO)
-                        .setData(Uri.parse("mailto:${export.mailto ?: ""}"))
-                        .putExtra(Intent.EXTRA_SUBJECT, exportSubject)
-                        .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                    startActivity(intent)
-                },
-                onReportByPhoneClicked = {
-                    val intent = Intent(Intent.ACTION_DIAL).apply {
-                        data = Uri.parse("tel:$it")
-                    }
-                    startActivity(intent)
-                },
-                onReportByEmailClicked = {
-                    val intent = Intent(Intent.ACTION_SENDTO).apply {
-                        data = Uri.parse("mailto:$it")
-                        putExtra(Intent.EXTRA_SUBJECT, reportSubject)
-                    }
-                    startActivity(Intent.createChooser(intent, reportAppTarget))
-                },
-                onShareClicked = { text ->
-                    val sendIntent = Intent(Intent.ACTION_SEND).apply {
-                        putExtra(Intent.EXTRA_TEXT, text)
-                        type = "text/plain"
-                    }
-                    val shareIntent = Intent.createChooser(sendIntent, null)
-                    startActivity(shareIntent)
-                },
-                onItineraryClicked = { lat, lng ->
-                    val intent = Intent(Intent.ACTION_VIEW).apply {
-                        data = Uri.parse("google.navigation:q=$lat,$lng")
-                    }
-                    val shareIntent = Intent.createChooser(intent, null)
-                    startActivity(shareIntent)
-                },
-                onProfileCreated = {
-                    scope.launch { NetworkingAppWidget().updateAll(context = this@MainActivity) }
-                },
-                modifier = Modifier.semantics {
-                    testTagsAsResourceId = true
-                },
-                navController = navController
-            )
+            val notificationPermissionRequester = rememberNotificationPermissionRequester()
+            CompositionLocalProvider(
+                LocalNotificationPermissionRequester provides notificationPermissionRequester
+            ) {
+                Main(
+                    defaultEvent = BuildKonfig.DEFAULT_EVENT,
+                    isPortrait = config.isPortrait,
+                    launchUrl = { launchUrl(it) },
+                    onContactExportClicked = { export ->
+                        val uri: Uri = FileProvider.getUriForFile(
+                            applicationContext,
+                            "${applicationContext.packageName}.provider",
+                            File(export.filePath)
+                        )
+                        val intent = ShareCompat.IntentBuilder(this)
+                            .setStream(uri)
+                            .intent
+                            .setAction(Intent.ACTION_SENDTO)
+                            .setData(Uri.parse("mailto:${export.mailto ?: ""}"))
+                            .putExtra(Intent.EXTRA_SUBJECT, exportSubject)
+                            .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                        startActivity(intent)
+                    },
+                    onReportByPhoneClicked = {
+                        val intent = Intent(Intent.ACTION_DIAL).apply {
+                            data = Uri.parse("tel:$it")
+                        }
+                        startActivity(intent)
+                    },
+                    onReportByEmailClicked = {
+                        val intent = Intent(Intent.ACTION_SENDTO).apply {
+                            data = Uri.parse("mailto:$it")
+                            putExtra(Intent.EXTRA_SUBJECT, reportSubject)
+                        }
+                        startActivity(Intent.createChooser(intent, reportAppTarget))
+                    },
+                    onShareClicked = { text ->
+                        val sendIntent = Intent(Intent.ACTION_SEND).apply {
+                            putExtra(Intent.EXTRA_TEXT, text)
+                            type = "text/plain"
+                        }
+                        val shareIntent = Intent.createChooser(sendIntent, null)
+                        startActivity(shareIntent)
+                    },
+                    onItineraryClicked = { lat, lng ->
+                        val intent = Intent(Intent.ACTION_VIEW).apply {
+                            data = Uri.parse("google.navigation:q=$lat,$lng")
+                        }
+                        val shareIntent = Intent.createChooser(intent, null)
+                        startActivity(shareIntent)
+                    },
+                    onProfileCreated = {
+                        scope.launch { NetworkingAppWidget().updateAll(context = this@MainActivity) }
+                    },
+                    modifier = Modifier.semantics {
+                        testTagsAsResourceId = true
+                    },
+                    navController = navController
+                )
+            }
         }
     }
 

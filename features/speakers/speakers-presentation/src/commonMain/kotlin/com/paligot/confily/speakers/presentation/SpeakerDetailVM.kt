@@ -4,8 +4,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import com.paligot.confily.core.LocalNotificationPermissionRequester
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.text_error
+import com.paligot.confily.schedules.ui.models.TalkItemUi
 import com.paligot.confily.speakers.panes.SpeakerDetailPane
 import com.paligot.confily.style.theme.appbars.AppBarIcons
 import org.jetbrains.compose.resources.stringResource
@@ -25,6 +27,11 @@ fun SpeakerDetailVM(
         parameters = { parametersOf(speakerId) }
     )
 ) {
+    val notificationPermissionRequester = LocalNotificationPermissionRequester.current
+    val onFavoriteClicked: (TalkItemUi) -> Unit = { talkItem ->
+        if (!talkItem.isFavorite) notificationPermissionRequester.request()
+        viewModel.markAsFavorite(talkItem)
+    }
     when (val uiState = viewModel.uiState.collectAsState().value) {
         is SpeakerUiState.Loading -> SpeakerDetailPane(
             speaker = uiState.speaker,
@@ -40,7 +47,7 @@ fun SpeakerDetailVM(
         is SpeakerUiState.Success -> SpeakerDetailPane(
             speaker = uiState.speaker,
             onTalkClicked = onTalkClicked,
-            onFavoriteClicked = viewModel::markAsFavorite,
+            onFavoriteClicked = onFavoriteClicked,
             onLinkClicked = onLinkClicked,
             modifier = modifier,
             navigationIcon = navigationIcon,

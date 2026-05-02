@@ -5,9 +5,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import com.paligot.confily.core.LocalNotificationPermissionRequester
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.text_error
 import com.paligot.confily.schedules.panes.ScheduleGridPager
+import com.paligot.confily.schedules.ui.models.TalkItemUi
 import com.paligot.confily.style.theme.actions.TopActionsUi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -26,6 +28,11 @@ fun ScheduleGridVM(
     isSmallSize: Boolean = false,
     viewModel: ScheduleGridViewModel = koinViewModel()
 ) {
+    val notificationPermissionRequester = LocalNotificationPermissionRequester.current
+    val onFavoriteClicked: (TalkItemUi) -> Unit = { talkItem ->
+        if (!talkItem.isFavorite) notificationPermissionRequester.request()
+        viewModel.markAsFavorite(talkItem)
+    }
     when (val uiState = viewModel.uiState.collectAsState().value) {
         is ScheduleGridUiState.Loading -> ScheduleGridPager(
             agendas = uiState.agenda,
@@ -52,7 +59,7 @@ fun ScheduleGridVM(
             onTalkClicked = onTalkClicked,
             onEventSessionClicked = onEventSessionClicked,
             onFilterClicked = onFilterClicked,
-            onFavoriteClicked = viewModel::markAsFavorite,
+            onFavoriteClicked = onFavoriteClicked,
             onRefresh = viewModel::refreshing,
             modifier = modifier,
             isSmallSize = isSmallSize,
