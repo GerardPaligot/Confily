@@ -1,4 +1,4 @@
-name: CD iOS
+Why name: CD iOS
 
 on:
   workflow_dispatch:
@@ -128,6 +128,22 @@ jobs:
           mkdir -p config
           printf '%s' "$ASC_KEY" | base64 -d > config/app_store_connect_key.p8
 
+      - name: Start memory monitor
+        run: |
+          mkdir -p /tmp/cd-diagnostics
+          nohup bash -c '
+            while true; do
+              printf "\n=== %s ===\n" "$(date -u +%H:%M:%SZ)"
+              vm_stat
+              sysctl -n vm.swapusage
+              echo "--- Top 8 processes by RSS ---"
+              ps -axo pid,rss,command | sort -rn -k2 | head -8
+              sleep 15
+            done
+          ' > /tmp/cd-diagnostics/memory.log 2>&1 &
+          echo "MEM_MON_PID=$!" >> $GITHUB_ENV
+          echo "Memory monitor started (pid $!)"
+
       - name: Build & upload to App Store Connect
         env:
           APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
@@ -147,6 +163,24 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git tag -a "$TAG" -m "iOS Release $TAG (CFBundleVersion $VERSION_CODE)"
           git push origin "$TAG"
+
+      - name: Stop memory monitor
+        if: always()
+        run: |
+          if [ -n "$MEM_MON_PID" ]; then
+            kill "$MEM_MON_PID" 2>/dev/null || true
+          fi
+
+      - name: Upload diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cd-ios-diagnostics
+          path: |
+            /Users/runner/Library/Logs/gym/
+            /tmp/cd-diagnostics/
+          retention-days: 7
+          if-no-files-found: warn
 
       - name: Cleanup credentials
         if: always()
