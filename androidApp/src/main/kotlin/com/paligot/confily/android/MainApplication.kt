@@ -1,6 +1,10 @@
 package com.paligot.confily.android
 
 import android.app.Application
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.os.Build
+import androidx.core.content.getSystemService
 import androidx.work.Constraints
 import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
@@ -44,6 +48,8 @@ class MainApplication : Application(), SingletonImageLoader.Factory, KoinCompone
             modules(appModule)
         }
 
+        createReminderNotificationChannel()
+
         val workManager = WorkManager.getInstance(this)
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
@@ -52,6 +58,16 @@ class MainApplication : Application(), SingletonImageLoader.Factory, KoinCompone
             .setConstraints(constraints)
             .build()
         workManager.enqueue(request)
+    }
+
+    private fun createReminderNotificationChannel() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) return
+        val channel = NotificationChannel(
+            AlarmIntentFactoryImpl.CHANNEL_ID,
+            getString(R.string.notif_channel_reminders_name),
+            NotificationManager.IMPORTANCE_DEFAULT
+        )
+        getSystemService<NotificationManager>()?.createNotificationChannel(channel)
     }
 
     override fun newImageLoader(context: PlatformContext): ImageLoader =

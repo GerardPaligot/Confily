@@ -40,6 +40,7 @@ dependencies {
     implementation(libs.androidx.profile)
     implementation(libs.androidx.workmanager.ktx)
     implementation(libs.bundles.androidx.glance)
+    implementation(libs.google.accompanist.permissions)
     implementation(libs.google.material)
 
     implementation(libs.jetbrains.navigation.compose)
