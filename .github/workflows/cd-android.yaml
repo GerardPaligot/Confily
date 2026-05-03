@@ -95,6 +95,24 @@ jobs:
             printf '%s' "$APP_PROPERTIES" > config/app.properties.prod
           fi
 
+      - name: Override Firebase config with prod
+        env:
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON_BASE64 }}
+          GOOGLE_SERVICES_WEAR_JSON: ${{ secrets.GOOGLE_SERVICES_WEAR_JSON_BASE64 }}
+        run: |
+          if [ -n "$GOOGLE_SERVICES_JSON" ]; then
+            echo "$GOOGLE_SERVICES_JSON" | base64 -d > androidApp/google-services.json
+            echo "Overrode androidApp/google-services.json from GOOGLE_SERVICES_JSON_BASE64."
+          else
+            echo "GOOGLE_SERVICES_JSON_BASE64 not set — using committed default."
+          fi
+          if [ -n "$GOOGLE_SERVICES_WEAR_JSON" ]; then
+            echo "$GOOGLE_SERVICES_WEAR_JSON" | base64 -d > wear/wear-app/google-services.json
+            echo "Overrode wear/wear-app/google-services.json from GOOGLE_SERVICES_WEAR_JSON_BASE64."
+          else
+            echo "GOOGLE_SERVICES_WEAR_JSON_BASE64 not set — using committed default."
+          fi
+
       - name: Build signed release bundle
         env:
           CI_VERSION_NAME: ${{ inputs.version_name }}
@@ -123,3 +141,5 @@ jobs:
                 config/keystore.properties \
                 config/play-service-account.json \
                 config/app.properties.prod
+          git checkout -- androidApp/google-services.json \
+                          wear/wear-app/google-services.json 2>/dev/null || true

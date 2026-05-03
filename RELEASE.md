@@ -21,12 +21,13 @@ in `fastlane/Fastfile` and `fastlane/Appfile`.
 
 1. [Prerequisites](#prerequisites)
 2. [Configuring fork-specific identifiers](#configuring-fork-specific-identifiers)
-3. [Android secrets](#android-secrets)
-4. [iOS secrets](#ios-secrets)
-5. [Adding secrets to GitHub](#adding-secrets-to-github)
-6. [Releasing](#releasing)
-7. [Versioning strategy](#versioning-strategy)
-8. [Troubleshooting](#troubleshooting)
+3. [Firebase configuration: dev defaults vs prod override](#firebase-configuration-dev-defaults-vs-prod-override)
+4. [Android secrets](#android-secrets)
+5. [iOS secrets](#ios-secrets)
+6. [Adding secrets to GitHub](#adding-secrets-to-github)
+7. [Releasing](#releasing)
+8. [Versioning strategy](#versioning-strategy)
+9. [Troubleshooting](#troubleshooting)
 
 ---
 
@@ -113,9 +114,41 @@ Notes:
 
 ---
 
+## Firebase configuration: dev defaults vs prod override
+
+The repo commits a working `google-services.json` (phone and Wear) and
+`GoogleService-Info.plist` so anyone — testers, contributors, fork
+maintainers — can clone and build immediately. These are **dev / sample**
+Firebase project files: real keys, but for a project whose telemetry the
+upstream maintainer is happy to share with the world.
+
+For production releases, the CD workflows optionally overwrite these
+files from base64-encoded GitHub secrets just before the build step, then
+restore the committed defaults during the cleanup step. This lets a fork
+maintainer keep a separate production Firebase project (with prod
+analytics, Crashlytics, FCM) without committing its config files.
+
+The override is **optional**:
+
+- If you set `GOOGLE_SERVICES_JSON_BASE64`, `GOOGLE_SERVICES_WEAR_JSON_BASE64`,
+  or `GOOGLE_SERVICE_INFO_PLIST_BASE64` (described below), the CD run uses
+  them.
+- If you don't set them, the CD run packages the committed dev files —
+  fine for forks that don't want to split dev and prod, or for an early
+  release where you haven't created a separate prod Firebase project yet.
+
+The override files must agree with the committed defaults on **package
+name** (Android: `com.paligot.confily.android` and `…debug`; Wear:
+`com.paligot.confily.wear`) and **bundle ID** (iOS: whatever you set via
+`IOS_BUNDLE_ID`). Different Firebase projects, same identifiers — Firebase
+allows it.
+
+---
+
 ## Android secrets
 
-Four GitHub secrets are required for the Android CD workflow.
+Four GitHub secrets are required for the Android CD workflow, plus two
+optional ones for the dev/prod Firebase split.
 
 ### `APP_PROPERTIES`
 
@@ -202,11 +235,39 @@ cat ~/Downloads/your-project-XXXXX.json | pbcopy
 
 Paste the entire JSON object including the curly braces.
 
+### `GOOGLE_SERVICES_JSON_BASE64` *(optional)*
+
+Base64-encoded `google-services.json` for your **production** phone-app
+Firebase project. When set, the CD workflow overwrites the committed
+`androidApp/google-services.json` for the duration of the build.
+
+The file's `package_name` entries must match the dev default
+(`com.paligot.confily.android` and `com.paligot.confily.android.debug`).
+
+```sh
+base64 -i androidApp/google-services.json | pbcopy
+```
+
+If unset, the CD run uses the committed dev file.
+
+### `GOOGLE_SERVICES_WEAR_JSON_BASE64` *(optional)*
+
+Same, for the Wear OS module's `wear/wear-app/google-services.json`. The
+Wear app uses a different `package_name` (`com.paligot.confily.wear`)
+and therefore a separate Firebase Android app entry.
+
+```sh
+base64 -i wear/wear-app/google-services.json | pbcopy
+```
+
+If unset, the CD run uses the committed dev file.
+
 ---
 
 ## iOS secrets
 
-Seven GitHub secrets are required for the iOS CD workflow.
+Seven GitHub secrets are required for the iOS CD workflow, plus one
+optional one for the dev/prod Firebase split.
 
 ### `IOS_DISTRIBUTION_CERT_BASE64`
 
@@ -282,6 +343,21 @@ base64-encoded.
 ```sh
 base64 -i ~/Downloads/AuthKey_XXXXXXXXXX.p8 | pbcopy
 ```
+
+### `GOOGLE_SERVICE_INFO_PLIST_BASE64` *(optional)*
+
+Base64-encoded `GoogleService-Info.plist` for your **production** iOS
+Firebase project. When set, the CD workflow overwrites the committed
+`iosApp/iosApp/GoogleService-Info.plist` for the duration of the build.
+
+The file's `BUNDLE_ID` must match whatever you set via `IOS_BUNDLE_ID`
+in `APP_PROPERTIES`.
+
+```sh
+base64 -i iosApp/iosApp/GoogleService-Info.plist | pbcopy
+```
+
+If unset, the CD run uses the committed dev file.
 
 ---
 
