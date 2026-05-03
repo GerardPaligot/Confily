@@ -55,6 +55,14 @@ in `fastlane/Fastfile` and `fastlane/Appfile`.
   account.
 - An **App Store** provisioning profile (not Ad Hoc / Development) created
   for that bundle ID and signed with the Distribution certificate.
+- **Xcode 26 or later** active on the build machine. App Store Connect
+  rejects every upload built with an earlier SDK (`409 SDK version
+  issue`). The CD workflow pins
+  `DEVELOPER_DIR=/Applications/Xcode_26.3.app/Contents/Developer` so the
+  `macos-15` runner picks Xcode 26.3 (preinstalled alongside the default
+  Xcode 16.4) instead of the default. When the runner image eventually
+  ships a newer 26.x and retires 26.3, bump that path in
+  `.github/workflows/cd-ios.yaml`.
 
 ---
 
@@ -418,6 +426,29 @@ The profile expired (Apple rotates them yearly) or the bundle ID in
 `pbxproj` doesn't match the profile. Regenerate at
 https://developer.apple.com/account → Profiles.
 
+### iOS: "Validation failed (409) SDK version issue"
+
+App Store Connect requires every upload to be built with the iOS 26 SDK
+or later (Xcode 26+). The archive itself succeeds — the rejection comes
+from `altool` at upload time:
+
+```
+This app was built with the iOS 18.5 SDK. All iOS and iPadOS apps must
+be built with the iOS 26 SDK or later, included in Xcode 26 or later,
+in order to be uploaded to App Store Connect or submitted for
+distribution.
+```
+
+The workflow pins
+`DEVELOPER_DIR=/Applications/Xcode_26.3.app/Contents/Developer` on the
+`macos-15` job so the runner uses Xcode 26.3 instead of the default
+16.4. If that override was removed, or the runner image stopped shipping
+Xcode 26.3 (later 26.x typically replace it in place), the archive falls
+back to an older SDK and Apple rejects the IPA. Restore or update the
+`DEVELOPER_DIR` line in the job-level `env:` block of
+`.github/workflows/cd-ios.yaml` to whatever Xcode 26+ path the runner
+image provides.
+
 ### Workflow is missing a required secret
 
 The "Verify deploy secrets" step fails fast with the missing variable
@@ -444,9 +475,13 @@ bundle install
 ./gradlew :androidApp:bundleRelease
 bundle exec fastlane android deploy track:internal
 
-# iOS (requires the distribution certificate already in your login
-# keychain, the provisioning profile installed, and
-# config/app_store_connect_key.p8 present)
+# iOS (requires Xcode 26 or later active — App Store Connect rejects
+# uploads built with earlier SDKs. Either set it as your default via
+# `sudo xcode-select -s /Applications/Xcode_26.app/Contents/Developer`
+# or prefix the lane with DEVELOPER_DIR=… ; also requires the
+# distribution certificate already in your login keychain, the
+# provisioning profile installed, and config/app_store_connect_key.p8
+# present)
 bundle exec fastlane ios deploy version_name:1.0.0 version_code:1
 ```
 
