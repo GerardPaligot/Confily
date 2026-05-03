@@ -3,7 +3,6 @@ package com.paligot.confily.core
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
-import android.os.Build
 import com.paligot.confily.core.schedules.SessionRepository
 import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.title_notif_reminder_talk
@@ -40,26 +39,15 @@ actual class AlarmScheduler(
                 .toInstant(TimeZone.UTC)
                 .minus(ReminderInMinutes, DateTimeUnit.MINUTE)
                 .toEpochMilliseconds()
-            if (canScheduleExactAlarms()) {
-                alarmManager.setExactAndAllowWhileIdle(
-                    AlarmManager.RTC_WAKEUP,
-                    triggerAtMillis,
-                    pendingIntent
-                )
-            } else {
-                alarmManager.setAndAllowWhileIdle(
-                    AlarmManager.RTC_WAKEUP,
-                    triggerAtMillis,
-                    pendingIntent
-                )
-            }
+            alarmManager.setAndAllowWhileIdle(
+                AlarmManager.RTC_WAKEUP,
+                triggerAtMillis,
+                pendingIntent
+            )
         } else {
             alarmManager.cancel(pendingIntent)
         }
     }
-
-    private fun canScheduleExactAlarms(): Boolean =
-        Build.VERSION.SDK_INT < Build.VERSION_CODES.S || alarmManager.canScheduleExactAlarms()
 
     companion object {
         private const val ReminderInMinutes = 10
