@@ -28,6 +28,13 @@ jobs:
   publish:
     runs-on: macos-15
     timeout-minutes: 60
+    # App Store Connect requires the iOS 26 SDK (Xcode 26+) for all uploads.
+    # The macos-15 runner image ships Xcode 26.3 preinstalled alongside the
+    # default Xcode 16.4; override the toolchain selection here so xcodebuild
+    # (and the KMP `embedAndSignAppleFrameworkForXcode` Gradle task) build
+    # against the iOS 26 SDK.
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_26.3.app/Contents/Developer
 
     steps:
       - uses: actions/checkout@v4
