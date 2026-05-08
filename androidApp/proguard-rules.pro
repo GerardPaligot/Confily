@@ -1,6 +1,9 @@
 -keep class com.paligot.confily.models.** { *; }
 -keep class io.openfeedback.android.model.** { *; }
 
+# Room finds *_Impl classes via reflection and calls their no-arg constructor.
+-keep class * extends androidx.room.RoomDatabase { <init>(); }
+
 -keepattributes Signature
 
 # Needed by OkHttp 4 and under.
