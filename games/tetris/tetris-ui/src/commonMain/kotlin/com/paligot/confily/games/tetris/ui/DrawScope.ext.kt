@@ -11,18 +11,15 @@ import com.paligot.confily.games.tetris.ui.models.Brick
 import com.paligot.confily.games.tetris.ui.models.Matrix
 import com.paligot.confily.games.tetris.ui.models.Spirit
 
-val BrickSpirit = Color(0xDD000000)
-val BrickMatrix = Color(0x1F000000)
-
-fun DrawScope.drawMatrix(brickSize: Float, matrix: Matrix) {
+fun DrawScope.drawMatrix(brickSize: Float, matrix: Matrix, color: Color) {
     (0 until matrix.width).forEach { x ->
         (0 until matrix.height).forEach { y ->
-            drawBrick(brickSize, IntOffset(x, y), BrickMatrix)
+            drawBrick(brickSize, IntOffset(x, y), color)
         }
     }
 }
 
-fun DrawScope.drawBricks(brick: List<Brick>, brickSize: Float, matrix: Matrix) {
+fun DrawScope.drawBricks(brick: List<Brick>, brickSize: Float, matrix: Matrix, color: Color) {
     clipRect(
         left = 0f,
         top = 0f,
@@ -30,12 +27,12 @@ fun DrawScope.drawBricks(brick: List<Brick>, brickSize: Float, matrix: Matrix) {
         bottom = matrix.height * brickSize
     ) {
         brick.forEach {
-            drawBrick(brickSize, it.location, BrickSpirit)
+            drawBrick(brickSize, it.location, color)
         }
     }
 }
 
-fun DrawScope.drawSpirit(spirit: Spirit, brickSize: Float, matrix: Matrix) {
+fun DrawScope.drawSpirit(spirit: Spirit, brickSize: Float, matrix: Matrix, color: Color) {
     clipRect(
         left = 0f,
         top = 0f,
@@ -46,7 +43,7 @@ fun DrawScope.drawSpirit(spirit: Spirit, brickSize: Float, matrix: Matrix) {
             drawBrick(
                 brickSize,
                 IntOffset(it.x, it.y),
-                BrickSpirit
+                color
             )
         }
     }

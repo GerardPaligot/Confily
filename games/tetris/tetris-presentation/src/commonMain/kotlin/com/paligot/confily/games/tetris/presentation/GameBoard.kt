@@ -4,6 +4,7 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -52,6 +53,8 @@ fun GameBoard(
         }
     }
 
+    val spiritColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.87f)
+    val matrixColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f)
     BoxWithConstraints(
         modifier = modifier,
         contentAlignment = Alignment.Center
@@ -65,9 +68,9 @@ fun GameBoard(
         Canvas(
             modifier = Modifier.height(height).width(width),
             onDraw = {
-                drawMatrix(brickSize, viewState.matrix)
-                drawBricks(viewState.bricks, brickSize, viewState.matrix)
-                drawSpirit(viewState.spirit, brickSize, viewState.matrix)
+                drawMatrix(brickSize, viewState.matrix, matrixColor)
+                drawBricks(viewState.bricks, brickSize, viewState.matrix, spiritColor)
+                drawSpirit(viewState.spirit, brickSize, viewState.matrix, spiritColor)
             }
         )
     }

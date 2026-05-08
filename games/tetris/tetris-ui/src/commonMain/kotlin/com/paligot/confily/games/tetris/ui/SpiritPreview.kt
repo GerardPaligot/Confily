@@ -4,6 +4,7 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -19,6 +20,8 @@ fun SpiritPreview(
     modifier: Modifier = Modifier
 ) {
     val matrix = remember { Matrix(width = 4, height = 2) }
+    val spiritColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.87f)
+    val matrixColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f)
     BoxWithConstraints(
         modifier = modifier,
         contentAlignment = Alignment.Center
@@ -32,8 +35,8 @@ fun SpiritPreview(
         Canvas(
             modifier = Modifier.height(height).width(width),
             onDraw = {
-                drawMatrix(brickSize, matrix)
-                drawSpirit(spirit.rotate().adjustOffset(matrix), brickSize, matrix)
+                drawMatrix(brickSize, matrix, matrixColor)
+                drawSpirit(spirit.rotate().adjustOffset(matrix), brickSize, matrix, spiritColor)
             }
         )
     }
