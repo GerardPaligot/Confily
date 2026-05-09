@@ -40,7 +40,8 @@ class FeaturesActivatedDb(
     val hasMenus: Boolean,
     val hasQanda: Boolean,
     val hasBilletWebTicket: Boolean,
-    val hasTeamMembers: Boolean
+    val hasTeamMembers: Boolean,
+    val hasMaps: Boolean = false
 )
 
 @Serializable

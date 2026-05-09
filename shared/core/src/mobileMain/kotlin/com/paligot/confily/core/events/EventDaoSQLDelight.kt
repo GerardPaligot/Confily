@@ -104,7 +104,8 @@ class EventDaoSQLDelight(
                 hasMenus = features?.has_menus ?: false,
                 hasQAndA = features?.has_qanda ?: false,
                 hasTicketIntegration = features?.has_billet_web_ticket ?: false,
-                hasTeamMembers = features?.has_team_members ?: false
+                hasTeamMembers = features?.has_team_members ?: false,
+                hasMaps = features?.has_maps ?: false
             )
         }
 
@@ -196,7 +197,8 @@ class EventDaoSQLDelight(
             has_menus = event.features.hasMenus,
             has_qanda = event.features.hasQAndA,
             has_billet_web_ticket = event.features.hasBilletWebTicket,
-            has_team_members = event.team.isNotEmpty()
+            has_team_members = event.team.isNotEmpty(),
+            has_maps = event.maps.isNotEmpty()
         )
     }
 

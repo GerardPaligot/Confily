@@ -94,7 +94,8 @@ class EventDaoSettings(
                 hasMenus = features?.hasMenus ?: false,
                 hasQAndA = features?.hasQanda ?: false,
                 hasTicketIntegration = false,
-                hasTeamMembers = features?.hasTeamMembers ?: false
+                hasTeamMembers = features?.hasTeamMembers ?: false,
+                hasMaps = features?.hasMaps ?: false
             )
         }
 
@@ -128,7 +129,11 @@ class EventDaoSettings(
             }
         }
         featuresActivatedQueries.insertFeatures(
-            event.features.convertToModelDb(eventDb.id, event.team.isNotEmpty())
+            event.features.convertToModelDb(
+                eventId = eventDb.id,
+                hasTeamMembers = event.team.isNotEmpty(),
+                hasMaps = event.maps.isNotEmpty()
+            )
         )
     }
 

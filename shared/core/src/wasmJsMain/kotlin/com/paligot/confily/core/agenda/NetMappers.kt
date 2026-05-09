@@ -85,7 +85,11 @@ fun TeamMember.convertToModelDb(eventId: String, teamGroup: String) = TeamMember
     teamGroupId = teamGroup
 )
 
-fun FeaturesActivated.convertToModelDb(eventId: String, hasTeamMembers: Boolean) =
+fun FeaturesActivated.convertToModelDb(
+    eventId: String,
+    hasTeamMembers: Boolean,
+    hasMaps: Boolean
+) =
     FeaturesActivatedDb(
         eventId = eventId,
         hasNetworking = hasNetworking,
@@ -94,7 +98,8 @@ fun FeaturesActivated.convertToModelDb(eventId: String, hasTeamMembers: Boolean)
         hasMenus = hasMenus,
         hasQanda = hasQAndA,
         hasBilletWebTicket = hasBilletWebTicket,
-        hasTeamMembers = hasTeamMembers
+        hasTeamMembers = hasTeamMembers,
+        hasMaps = hasMaps
     )
 
 fun Category.convertToDb(eventId: String): CategoryDb = CategoryDb(
