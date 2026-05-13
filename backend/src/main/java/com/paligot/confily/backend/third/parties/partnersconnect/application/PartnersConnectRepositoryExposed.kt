@@ -83,6 +83,7 @@ class PartnersConnectRepositoryExposed(
             name = payload.company.name
             description = payload.company.description
             websiteUrl = payload.company.siteUrl
+            videoUrl = payload.supportVideoUrl
             if (medias != null) {
                 mediaSvg = medias.original
                 mediaPng250 = medias.png250
@@ -104,6 +105,7 @@ class PartnersConnectRepositoryExposed(
         partner.name = payload.company.name
         partner.description = payload.company.description
         partner.websiteUrl = payload.company.siteUrl
+        partner.videoUrl = payload.supportVideoUrl
         if (medias != null) {
             partner.mediaSvg = medias.original
             partner.mediaPng250 = medias.png250

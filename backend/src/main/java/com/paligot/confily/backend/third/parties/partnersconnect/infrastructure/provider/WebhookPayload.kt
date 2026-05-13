@@ -13,6 +13,7 @@ data class PartnersConnectWebhookPayload(
     val jobs: List<JobOffer>,
     val activities: List<BoothActivity>,
     val speakers: List<WebhookSpeaker> = emptyList(),
+    val supportVideoUrl: String? = null,
     val timestamp: String
 )
 
