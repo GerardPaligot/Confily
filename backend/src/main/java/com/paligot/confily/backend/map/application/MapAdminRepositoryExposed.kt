@@ -81,10 +81,10 @@ class MapAdminRepositoryExposed(
 
         // Update shapes
         MapShapesTable.deleteWhere { MapShapesTable.mapId eq mapEntity.id }
-        input.shapes.forEachIndexed { index, shapeInput ->
+        input.shapes.forEach { shapeInput ->
             MapShapeEntity.new {
                 this.map = mapEntity
-                this.displayOrder = index
+                this.displayOrder = shapeInput.order
                 this.name = shapeInput.name
                 this.description = shapeInput.description
                 this.startX = shapeInput.start.x.toBigDecimal()
@@ -97,7 +97,7 @@ class MapAdminRepositoryExposed(
 
         // Update pictograms
         MapPictogramsTable.deleteWhere { MapPictogramsTable.mapId eq mapEntity.id }
-        input.pictograms.forEachIndexed { index, pictogramInput ->
+        input.pictograms.forEach { pictogramInput ->
             MapPictogramEntity.new {
                 this.map = mapEntity
                 this.name = pictogramInput.name
@@ -105,7 +105,7 @@ class MapAdminRepositoryExposed(
                 this.positionX = pictogramInput.position.x.toBigDecimal()
                 this.positionY = pictogramInput.position.y.toBigDecimal()
                 this.type = pictogramInput.type
-                this.displayOrder = index
+                this.displayOrder = pictogramInput.order
             }
         }
 
