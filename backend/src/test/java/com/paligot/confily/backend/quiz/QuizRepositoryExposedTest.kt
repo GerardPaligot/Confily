@@ -156,4 +156,36 @@ class QuizRepositoryExposedTest {
             }
         }
     }
+
+    @Test
+    fun `leaderboard ranks by score desc then by earliest completion`() = runBlocking {
+        val eventId = QuizTestFixtures.createEvent(database)
+        val partnerId = QuizTestFixtures.createPartner(database, eventId, quizCode = "ABCD")
+        val q1 = QuizTestFixtures.createQuestion(
+            database, eventId, partnerId, "Q1", listOf("right", "wrong"), correctIndex = 0
+        )
+        val correct = QuizTestFixtures.answerIds(database, q1)[0]
+        val wrong = QuizTestFixtures.answerIds(database, q1)[1]
+
+        repository.registerPlayer(eventId.toString(), QuizPlayerInput("Alice", "device-a"))
+        repository.registerPlayer(eventId.toString(), QuizPlayerInput("Bob", "device-b"))
+        repository.submit(
+            eventId.toString(), "ABCD",
+            QuizSubmissionInput("device-a", listOf(QuizAnswerInput(q1.toString(), correct.toString())))
+        )
+        repository.submit(
+            eventId.toString(), "ABCD",
+            QuizSubmissionInput("device-b", listOf(QuizAnswerInput(q1.toString(), wrong.toString())))
+        )
+
+        val board = repository.leaderboard(eventId.toString())
+
+        assertEquals(2, board.size)
+        assertEquals("Alice", board[0].username)
+        assertEquals(1, board[0].score)
+        assertEquals(1, board[0].rank)
+        assertEquals("Bob", board[1].username)
+        assertEquals(0, board[1].score)
+        assertEquals(2, board[1].rank)
+    }
 }

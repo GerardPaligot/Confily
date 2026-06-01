@@ -129,12 +129,35 @@ class QuizRepositoryExposed(private val database: Database) : QuizRepository {
         }
     }
 
-    override suspend fun leaderboard(eventId: String): List<LeaderboardEntry> = TODO()
+    override suspend fun leaderboard(eventId: String): List<LeaderboardEntry> {
+        val eventUuid = UUID.fromString(eventId)
+        return transaction(db = database) {
+            QuizSubmissionEntity.findByEvent(eventUuid)
+                .groupBy { it.playerId.value }
+                .map { (playerId, submissions) ->
+                    PlayerScore(
+                        username = QuizPlayerEntity[playerId].username,
+                        score = submissions.sumOf { it.correctCount },
+                        lastSubmittedAt = submissions.maxOf { it.submittedAt }
+                    )
+                }
+                .sortedWith(compareByDescending<PlayerScore> { it.score }.thenBy { it.lastSubmittedAt })
+                .mapIndexed { index, score ->
+                    LeaderboardEntry(rank = index + 1, username = score.username, score = score.score)
+                }
+        }
+    }
 
     private data class GradedAnswer(
         val questionId: UUID,
         val chosenAnswerId: UUID?,
         val correctAnswerId: UUID,
         val isCorrect: Boolean
+    )
+
+    private data class PlayerScore(
+        val username: String,
+        val score: Int,
+        val lastSubmittedAt: Instant
     )
 }
