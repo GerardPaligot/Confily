@@ -70,7 +70,71 @@ class QuizRepositoryExposed(private val database: Database) : QuizRepository {
         eventId: String,
         code: String,
         input: QuizSubmissionInput
-    ): QuizSubmissionResult = TODO()
+    ): QuizSubmissionResult {
+        val eventUuid = UUID.fromString(eventId)
+        return transaction(db = database) {
+            val partner = PartnerEntity.findByQuizCode(eventUuid, code)
+                ?: throw NotFoundException("No partner found for code $code")
+            val player = QuizPlayerEntity.findByDevice(eventUuid, input.deviceId)
+                ?: throw NotFoundException("Player not registered for device ${input.deviceId}")
+            val alreadySubmitted = QuizSubmissionEntity
+                .findByPlayerAndPartner(player.id.value, partner.id.value)
+            if (alreadySubmitted != null) {
+                throw ConflictException("Answers already submitted for this partner")
+            }
+
+            val chosenByQuestion = input.answers
+                .associate { UUID.fromString(it.questionId) to UUID.fromString(it.answerId) }
+            val questions = QuizQuestionEntity.findByPartner(partner.id.value).toList()
+
+            val graded = questions.map { question ->
+                val correct = QuizAnswerEntity.findByQuestion(question.id.value)
+                    .first { it.isCorrect }
+                val chosen = chosenByQuestion[question.id.value]
+                val isCorrect = chosen != null && chosen == correct.id.value
+                GradedAnswer(question.id.value, chosen, correct.id.value, isCorrect)
+            }
+            val correctCount = graded.count { it.isCorrect }
+
+            val submission = QuizSubmissionEntity.new {
+                this.event = partner.event
+                this.player = player
+                this.partner = partner
+                this.correctCount = correctCount
+                this.totalCount = questions.size
+            }
+            graded.forEach { answer ->
+                if (answer.chosenAnswerId != null) {
+                    QuizSubmissionAnswerEntity.new {
+                        this.submission = submission
+                        this.questionId = EntityID(answer.questionId, QuizQuestionsTable)
+                        this.chosenAnswerId = EntityID(answer.chosenAnswerId, QuizAnswersTable)
+                        this.isCorrect = answer.isCorrect
+                    }
+                }
+            }
+
+            QuizSubmissionResult(
+                correctCount = correctCount,
+                totalCount = questions.size,
+                perQuestion = graded.map { answer ->
+                    QuizAnsweredQuestion(
+                        questionId = answer.questionId.toString(),
+                        chosenAnswerId = answer.chosenAnswerId?.toString(),
+                        correctAnswerId = answer.correctAnswerId.toString(),
+                        isCorrect = answer.isCorrect
+                    )
+                }
+            )
+        }
+    }
 
     override suspend fun leaderboard(eventId: String): List<LeaderboardEntry> = TODO()
+
+    private data class GradedAnswer(
+        val questionId: UUID,
+        val chosenAnswerId: UUID?,
+        val correctAnswerId: UUID,
+        val isCorrect: Boolean
+    )
 }

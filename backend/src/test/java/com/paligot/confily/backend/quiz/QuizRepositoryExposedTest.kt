@@ -1,10 +1,13 @@
 package com.paligot.confily.backend.quiz
 
+import com.paligot.confily.backend.ConflictException
 import com.paligot.confily.backend.NotFoundException
 import com.paligot.confily.backend.internals.infrastructure.exposed.DatabaseFactory
 import com.paligot.confily.backend.quiz.application.QuizRepositoryExposed
 import com.paligot.confily.backend.quiz.infrastructure.exposed.QuizPlayersTable
+import com.paligot.confily.models.inputs.QuizAnswerInput
 import com.paligot.confily.models.inputs.QuizPlayerInput
+import com.paligot.confily.models.inputs.QuizSubmissionInput
 import kotlinx.coroutines.runBlocking
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.selectAll
@@ -81,6 +84,76 @@ class QuizRepositoryExposedTest {
         val eventId = QuizTestFixtures.createEvent(database)
         assertFailsWith<NotFoundException> {
             runBlocking { repository.questionsByCode(eventId.toString(), "ZZZZ") }
+        }
+    }
+
+    @Test
+    fun `submit grades answers server-side and returns counts`() = runBlocking {
+        val eventId = QuizTestFixtures.createEvent(database)
+        val partnerId = QuizTestFixtures.createPartner(database, eventId, quizCode = "ABCD")
+        val q1 = QuizTestFixtures.createQuestion(
+            database, eventId, partnerId, "Q1", listOf("right", "wrong"), correctIndex = 0, order = 0
+        )
+        val q2 = QuizTestFixtures.createQuestion(
+            database, eventId, partnerId, "Q2", listOf("wrong", "right"), correctIndex = 1, order = 1
+        )
+        repository.registerPlayer(eventId.toString(), QuizPlayerInput("Alice", "device-1"))
+
+        val q1Correct = QuizTestFixtures.answerIds(database, q1)[0]
+        val q2Wrong = QuizTestFixtures.answerIds(database, q2)[0]
+        val result = repository.submit(
+            eventId.toString(),
+            "ABCD",
+            QuizSubmissionInput(
+                deviceId = "device-1",
+                answers = listOf(
+                    QuizAnswerInput(q1.toString(), q1Correct.toString()),
+                    QuizAnswerInput(q2.toString(), q2Wrong.toString())
+                )
+            )
+        )
+
+        assertEquals(2, result.totalCount)
+        assertEquals(1, result.correctCount)
+        assertEquals(2, result.perQuestion.size)
+        assertEquals(true, result.perQuestion.first { it.questionId == q1.toString() }.isCorrect)
+        assertEquals(false, result.perQuestion.first { it.questionId == q2.toString() }.isCorrect)
+    }
+
+    @Test
+    fun `submit a second time for the same partner is rejected with Conflict`() {
+        val eventId = QuizTestFixtures.createEvent(database)
+        val partnerId = QuizTestFixtures.createPartner(database, eventId, quizCode = "ABCD")
+        val q1 = QuizTestFixtures.createQuestion(
+            database, eventId, partnerId, "Q1", listOf("right", "wrong"), correctIndex = 0
+        )
+        runBlocking { repository.registerPlayer(eventId.toString(), QuizPlayerInput("Alice", "device-1")) }
+        val answer = QuizTestFixtures.answerIds(database, q1)[0]
+        val input = QuizSubmissionInput("device-1", listOf(QuizAnswerInput(q1.toString(), answer.toString())))
+        runBlocking { repository.submit(eventId.toString(), "ABCD", input) }
+
+        assertFailsWith<ConflictException> {
+            runBlocking { repository.submit(eventId.toString(), "ABCD", input) }
+        }
+    }
+
+    @Test
+    fun `submit with an unregistered device is rejected with NotFound`() {
+        val eventId = QuizTestFixtures.createEvent(database)
+        val partnerId = QuizTestFixtures.createPartner(database, eventId, quizCode = "ABCD")
+        val q1 = QuizTestFixtures.createQuestion(
+            database, eventId, partnerId, "Q1", listOf("right", "wrong"), correctIndex = 0
+        )
+        val answer = QuizTestFixtures.answerIds(database, q1)[0]
+
+        assertFailsWith<NotFoundException> {
+            runBlocking {
+                repository.submit(
+                    eventId.toString(),
+                    "ABCD",
+                    QuizSubmissionInput("unknown-device", listOf(QuizAnswerInput(q1.toString(), answer.toString())))
+                )
+            }
         }
     }
 }
