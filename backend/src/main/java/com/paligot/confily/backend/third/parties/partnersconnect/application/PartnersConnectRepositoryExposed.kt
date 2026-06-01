@@ -17,6 +17,11 @@ import com.paligot.confily.backend.partners.infrastructure.exposed.PartnerSpeake
 import com.paligot.confily.backend.partners.infrastructure.exposed.PartnerSpeakersTable
 import com.paligot.confily.backend.partners.infrastructure.exposed.PartnerSponsorshipsTable
 import com.paligot.confily.backend.partners.infrastructure.exposed.SponsoringTypeEntity
+import com.paligot.confily.backend.quiz.application.QuizCodeGenerator
+import com.paligot.confily.backend.quiz.infrastructure.exposed.QuizAnswerEntity
+import com.paligot.confily.backend.quiz.infrastructure.exposed.QuizAnswersTable
+import com.paligot.confily.backend.quiz.infrastructure.exposed.QuizQuestionEntity
+import com.paligot.confily.backend.quiz.infrastructure.exposed.QuizQuestionsTable
 import com.paligot.confily.backend.speakers.infrastructure.exposed.SpeakerEntity
 import com.paligot.confily.backend.third.parties.partnersconnect.domain.PartnersConnectRepository
 import com.paligot.confily.backend.third.parties.partnersconnect.infrastructure.provider.InvoiceStatus
@@ -24,6 +29,7 @@ import com.paligot.confily.backend.third.parties.partnersconnect.infrastructure.
 import com.paligot.confily.models.SocialType
 import com.paligot.confily.models.mapToSocialType
 import kotlinx.coroutines.coroutineScope
+import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import org.jetbrains.exposed.sql.Database
@@ -72,6 +78,7 @@ class PartnersConnectRepositoryExposed(
             upsertJobs(partner, payload)
             upsertActivities(partner, event, payload)
             upsertSpeakers(partner, eventUuid, payload)
+            upsertQuestions(partner, event, payload)
             partner.id.value.toString()
         }
     }
@@ -223,5 +230,63 @@ class PartnersConnectRepositoryExposed(
                 this.speaker = speaker
             }
         }
+    }
+
+    private fun upsertQuestions(
+        partner: PartnerEntity,
+        event: EventEntity,
+        payload: PartnersConnectWebhookPayload
+    ) {
+        val incomingIds = payload.questions.map { it.id }
+        QuizQuestionsTable.deleteWhere {
+            (QuizQuestionsTable.partnerId eq partner.id.value) and
+                (QuizQuestionsTable.externalProvider eq IntegrationProvider.PARTNERSCONNECT) and
+                (QuizQuestionsTable.externalId notInList incomingIds)
+        }
+        payload.questions.forEach { question ->
+            val entity = QuizQuestionEntity
+                .findByExternalId(event.id.value, question.id, IntegrationProvider.PARTNERSCONNECT)
+                ?.apply {
+                    this.partner = partner
+                    this.question = question.question
+                    this.displayOrder = question.order
+                    this.updatedAt = Clock.System.now()
+                }
+                ?: QuizQuestionEntity.new {
+                    this.event = event
+                    this.partner = partner
+                    this.question = question.question
+                    this.displayOrder = question.order
+                    this.externalId = question.id
+                    this.externalProvider = IntegrationProvider.PARTNERSCONNECT
+                }
+            QuizAnswersTable.deleteWhere { QuizAnswersTable.questionId eq entity.id.value }
+            question.answers.forEach { answer ->
+                QuizAnswerEntity.new {
+                    this.question = entity
+                    this.answer = answer.answer
+                    this.isCorrect = answer.isCorrect
+                    this.displayOrder = answer.order
+                    this.externalId = answer.id
+                }
+            }
+        }
+        if (payload.questions.isNotEmpty() && partner.quizCode == null) {
+            partner.quizCode = generateUniqueQuizCode(event.id.value)
+        }
+    }
+
+    private fun generateUniqueQuizCode(eventId: UUID): String {
+        repeat(MAX_QUIZ_CODE_ATTEMPTS) {
+            val candidate = QuizCodeGenerator.generate()
+            if (PartnerEntity.findByQuizCode(eventId, candidate) == null) {
+                return candidate
+            }
+        }
+        throw NotAcceptableException("Could not generate a unique quiz code")
+    }
+
+    companion object {
+        private const val MAX_QUIZ_CODE_ATTEMPTS = 10
     }
 }
