@@ -29,6 +29,10 @@ class PartnerEntity(id: EntityID<UUID>) : UUIDEntity(id) {
             val providerOp = PartnersTable.externalProvider eq provider
             eventOp and externalIdOp and providerOp
         }.firstOrNull()
+
+        fun findByQuizCode(eventId: UUID, code: String): PartnerEntity? = this.find {
+            (PartnersTable.eventId eq eventId) and (PartnersTable.quizCode eq code)
+        }.firstOrNull()
     }
 
     var eventId by PartnersTable.eventId
@@ -41,6 +45,7 @@ class PartnerEntity(id: EntityID<UUID>) : UUIDEntity(id) {
     var mediaPng500 by PartnersTable.mediaPng500
     var mediaPng1000 by PartnersTable.mediaPng1000
     var videoUrl by PartnersTable.videoUrl
+    var quizCode by PartnersTable.quizCode
     var addressId by PartnersTable.addressId
     var address by AddressEntity.Companion optionalReferencedOn PartnersTable.addressId
     var externalId by PartnersTable.externalId

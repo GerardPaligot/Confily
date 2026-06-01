@@ -23,6 +23,7 @@ object PartnersTable : UUIDTable("partners") {
     val mediaPng500 = text("media_png_500").nullable()
     val mediaPng1000 = text("media_png_1000").nullable()
     val videoUrl = text("video_url").nullable()
+    val quizCode = varchar("quiz_code", 4).nullable()
     val addressId = reference("address_id", AddressesTable, onDelete = ReferenceOption.SET_NULL).nullable()
     val externalId = varchar("external_id", 255).nullable()
     val externalProvider = enumeration<IntegrationProvider>("external_provider").nullable()
@@ -33,6 +34,7 @@ object PartnersTable : UUIDTable("partners") {
         index(isUnique = false, eventId)
         index(isUnique = false, eventId, name)
         uniqueIndex(eventId, externalId, externalProvider)
+        uniqueIndex(eventId, quizCode)
     }
 
     fun deleteDiff(
