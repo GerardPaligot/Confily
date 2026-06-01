@@ -29,6 +29,7 @@ object QuizTestFixtures {
             }.id.value
         }
 
+    @Suppress("LongParameterList")
     fun createQuestion(
         database: Database,
         eventId: UUID,

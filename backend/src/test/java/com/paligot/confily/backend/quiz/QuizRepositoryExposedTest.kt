@@ -65,7 +65,9 @@ class QuizRepositoryExposedTest {
         val eventId = QuizTestFixtures.createEvent(database)
         val partnerId = QuizTestFixtures.createPartner(database, eventId, quizCode = "ABCD")
         QuizTestFixtures.createQuestion(
-            database, eventId, partnerId,
+            database,
+            eventId,
+            partnerId,
             question = "Capital of France?",
             options = listOf("Paris", "Lyon", "Nice"),
             correctIndex = 0,
@@ -92,10 +94,22 @@ class QuizRepositoryExposedTest {
         val eventId = QuizTestFixtures.createEvent(database)
         val partnerId = QuizTestFixtures.createPartner(database, eventId, quizCode = "ABCD")
         val q1 = QuizTestFixtures.createQuestion(
-            database, eventId, partnerId, "Q1", listOf("right", "wrong"), correctIndex = 0, order = 0
+            database,
+            eventId,
+            partnerId,
+            "Q1",
+            listOf("right", "wrong"),
+            correctIndex = 0,
+            order = 0
         )
         val q2 = QuizTestFixtures.createQuestion(
-            database, eventId, partnerId, "Q2", listOf("wrong", "right"), correctIndex = 1, order = 1
+            database,
+            eventId,
+            partnerId,
+            "Q2",
+            listOf("wrong", "right"),
+            correctIndex = 1,
+            order = 1
         )
         repository.registerPlayer(eventId.toString(), QuizPlayerInput("Alice", "device-1"))
 
@@ -125,7 +139,12 @@ class QuizRepositoryExposedTest {
         val eventId = QuizTestFixtures.createEvent(database)
         val partnerId = QuizTestFixtures.createPartner(database, eventId, quizCode = "ABCD")
         val q1 = QuizTestFixtures.createQuestion(
-            database, eventId, partnerId, "Q1", listOf("right", "wrong"), correctIndex = 0
+            database,
+            eventId,
+            partnerId,
+            "Q1",
+            listOf("right", "wrong"),
+            correctIndex = 0
         )
         runBlocking { repository.registerPlayer(eventId.toString(), QuizPlayerInput("Alice", "device-1")) }
         val answer = QuizTestFixtures.answerIds(database, q1)[0]
@@ -142,7 +161,12 @@ class QuizRepositoryExposedTest {
         val eventId = QuizTestFixtures.createEvent(database)
         val partnerId = QuizTestFixtures.createPartner(database, eventId, quizCode = "ABCD")
         val q1 = QuizTestFixtures.createQuestion(
-            database, eventId, partnerId, "Q1", listOf("right", "wrong"), correctIndex = 0
+            database,
+            eventId,
+            partnerId,
+            "Q1",
+            listOf("right", "wrong"),
+            correctIndex = 0
         )
         val answer = QuizTestFixtures.answerIds(database, q1)[0]
 
@@ -162,7 +186,12 @@ class QuizRepositoryExposedTest {
         val eventId = QuizTestFixtures.createEvent(database)
         val partnerId = QuizTestFixtures.createPartner(database, eventId, quizCode = "ABCD")
         val q1 = QuizTestFixtures.createQuestion(
-            database, eventId, partnerId, "Q1", listOf("right", "wrong"), correctIndex = 0
+            database,
+            eventId,
+            partnerId,
+            "Q1",
+            listOf("right", "wrong"),
+            correctIndex = 0
         )
         val correct = QuizTestFixtures.answerIds(database, q1)[0]
         val wrong = QuizTestFixtures.answerIds(database, q1)[1]
@@ -170,11 +199,13 @@ class QuizRepositoryExposedTest {
         repository.registerPlayer(eventId.toString(), QuizPlayerInput("Alice", "device-a"))
         repository.registerPlayer(eventId.toString(), QuizPlayerInput("Bob", "device-b"))
         repository.submit(
-            eventId.toString(), "ABCD",
+            eventId.toString(),
+            "ABCD",
             QuizSubmissionInput("device-a", listOf(QuizAnswerInput(q1.toString(), correct.toString())))
         )
         repository.submit(
-            eventId.toString(), "ABCD",
+            eventId.toString(),
+            "ABCD",
             QuizSubmissionInput("device-b", listOf(QuizAnswerInput(q1.toString(), wrong.toString())))
         )
 
