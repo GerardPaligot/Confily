@@ -12,6 +12,9 @@ import java.util.UUID
 
 class QuizQuestionEntity(id: EntityID<UUID>) : UUIDEntity(id) {
     companion object : UUIDEntityClass<QuizQuestionEntity>(QuizQuestionsTable) {
+        fun findByEvent(eventId: UUID): SizedIterable<QuizQuestionEntity> = this
+            .find { QuizQuestionsTable.eventId eq eventId }
+
         fun findByPartner(partnerId: UUID): SizedIterable<QuizQuestionEntity> = this
             .find { QuizQuestionsTable.partnerId eq partnerId }
 
