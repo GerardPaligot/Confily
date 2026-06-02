@@ -17,6 +17,7 @@
     <string name="screen_team">Teams</string>
     <string name="screen_partners">Partners</string>
     <string name="screen_partners_detail">Partner detail</string>
+    <string name="screen_quiz">Quiz</string>
     <string name="screen_partners_activities">Activities</string>
     <string name="screen_schedule_detail">About the talk</string>
     <string name="screen_schedule_detail_event_session">About the session</string>
@@ -130,4 +131,15 @@
     <string name="semantic_talk_item_level">for level %1$s</string>
     <string name="semantic_user_item_email">Email address %1$s</string>
     <string name="semantic_user_item_company">Work at %1$s</string>
+
+    <string name="quiz_enter_code_title">Enter the partner code</string>
+    <string name="quiz_code_label">Partner code</string>
+    <string name="quiz_name_label">Your name</string>
+    <string name="quiz_action_start">Start</string>
+    <string name="quiz_action_submit">Submit</string>
+    <string name="quiz_action_back_to_code">Enter another code</string>
+    <string name="quiz_score_label">Your score: %1$d</string>
+    <string name="quiz_result_score">%1$d / %2$d correct</string>
+    <string name="quiz_already_completed">You have already completed this quiz.</string>
+    <string name="quiz_error_code_not_found">No quiz found for this code.</string>
 </resources>
