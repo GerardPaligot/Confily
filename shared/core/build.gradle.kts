@@ -75,6 +75,15 @@ kotlin {
                 api(libs.jetbrains.kotlinx.coroutines)
 
                 implementation(libs.lyricist)
+                implementation(libs.jetbrains.kotlinx.serialization.json)
+            }
+        }
+        val commonTest by getting {
+            dependencies {
+                implementation(kotlin("test"))
+                implementation(libs.jetbrains.kotlinx.coroutines.test)
+                implementation(libs.settings.test)
+                implementation(libs.ktor.client.mock)
             }
         }
         val mobileMain by creating {
@@ -104,11 +113,6 @@ kotlin {
         val desktopMain by getting {
             dependsOn(commonMain)
             dependsOn(mobileMain)
-        }
-        wasmJsMain {
-            dependencies {
-                implementation(libs.jetbrains.kotlinx.serialization.json)
-            }
         }
     }
 
