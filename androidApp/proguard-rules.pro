@@ -20,3 +20,11 @@
 
 # See https://github.com/firebase/firebase-android-sdk/issues/2124
 -keep class com.google.android.gms.internal.** { *; }
+
+# ML Kit resolves its barcode scanner via an internal component registry
+# (CommonComponentRegistrar + MlKitContext). R8 full mode over-shrinks this
+# wiring, so BarcodeScanning.getClient() returns a component with a null field
+# and the scan-ticket screen crashes in release only. The barcode-scanning AAR's
+# consumer rules cover the gms.internal side (already kept above) but not the
+# com.google.mlkit.* package itself.
+-keep class com.google.mlkit.** { *; }
