@@ -35,6 +35,7 @@ import com.paligot.confily.backend.qanda.infrastructure.exposed.QAndAActionEntit
 import com.paligot.confily.backend.qanda.infrastructure.exposed.QAndAActionsTable
 import com.paligot.confily.backend.qanda.infrastructure.exposed.QAndAEntity
 import com.paligot.confily.backend.qanda.infrastructure.exposed.toModel
+import com.paligot.confily.backend.quiz.infrastructure.exposed.QuizQuestionEntity
 import com.paligot.confily.backend.speakers.infrastructure.exposed.SpeakerEntity
 import com.paligot.confily.backend.team.infrastructure.exposed.TeamEntity
 import com.paligot.confily.backend.team.infrastructure.exposed.TeamGroupEntity
@@ -170,6 +171,8 @@ class EventRepositoryExposed(
             hasMenus = menus.isNotEmpty(),
             hasQAndA = qanda.isNotEmpty(),
             hasBilletWebTicket = integration != null,
+            hasQuiz = features1[FeatureKey.Quiz] == true ||
+                QuizQuestionEntity.findByEvent(eventUuid).empty().not(),
             openFeedbackEnabled = features1[FeatureKey.OpenFeedback] ?: true
         )
         val socials = EventSocialsTable.findByEventId(eventUuid)
@@ -236,6 +239,8 @@ class EventRepositoryExposed(
             hasMenus = menus.isNotEmpty(),
             hasQAndA = qanda.isNotEmpty(),
             hasBilletWebTicket = integration != null,
+            hasQuiz = features1[FeatureKey.Quiz] == true ||
+                QuizQuestionEntity.findByEvent(eventUuid).empty().not(),
             openFeedbackEnabled = features1[FeatureKey.OpenFeedback] ?: true
         )
         val socials = EventSocialsTable.findByEventId(eventUuid)
@@ -293,6 +298,8 @@ class EventRepositoryExposed(
             hasMenus = menus.isNotEmpty(),
             hasQAndA = qanda.empty().not(),
             hasBilletWebTicket = integration != null,
+            hasQuiz = features1[FeatureKey.Quiz] == true ||
+                QuizQuestionEntity.findByEvent(eventUuid).empty().not(),
             openFeedbackEnabled = features1[FeatureKey.OpenFeedback] ?: true
         )
         val socials = EventSocialsTable.findByEventId(eventUuid)
@@ -352,6 +359,8 @@ class EventRepositoryExposed(
             hasMenus = menus.isNotEmpty(),
             hasQAndA = qanda.empty().not(),
             hasBilletWebTicket = integration != null,
+            hasQuiz = features1[FeatureKey.Quiz] == true ||
+                QuizQuestionEntity.findByEvent(eventUuid).empty().not(),
             openFeedbackEnabled = features1[FeatureKey.OpenFeedback] ?: true
         )
 
@@ -445,6 +454,8 @@ class EventRepositoryExposed(
                 hasMenus = menus.isNotEmpty(),
                 hasQAndA = true,
                 hasBilletWebTicket = true,
+                hasQuiz = features1[FeatureKey.Quiz] == true ||
+                    QuizQuestionEntity.findByEvent(eventUuid).empty().not(),
                 openFeedbackEnabled = features1[FeatureKey.OpenFeedback] ?: true
             ),
             team = groups.associate { group ->
