@@ -55,7 +55,9 @@ data class FeaturesActivated(
     @SerialName("has_qanda")
     val hasQAndA: Boolean,
     @SerialName("has_billet_web_ticket")
-    val hasBilletWebTicket: Boolean
+    val hasBilletWebTicket: Boolean,
+    @SerialName("open_feedback_enabled")
+    val openFeedbackEnabled: Boolean = true
 )
 
 @Serializable

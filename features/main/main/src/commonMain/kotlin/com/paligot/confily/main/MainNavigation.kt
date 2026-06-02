@@ -108,7 +108,8 @@ fun MainNavigation(
                     exitTransition = exitSlideInHorizontal(),
                     popExitTransition = popExistSlideInHorizontal(),
                     onShareClicked = onShareClicked,
-                    onItineraryClicked = onItineraryClicked
+                    onItineraryClicked = onItineraryClicked,
+                    launchUrl = launchUrl
                 )
                 speakerGraph(
                     isLandscape = isPortrait.not(),

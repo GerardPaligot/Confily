@@ -8,6 +8,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(projects.shared.resources)
+                implementation(projects.features.schedules.schedulesSemantics)
                 implementation(projects.features.schedules.schedulesUiModels)
                 implementation(projects.features.speakers.speakersUi)
                 implementation(projects.features.navigation)

@@ -28,6 +28,14 @@ class ScheduleDetailsRobot(
         }
     }
 
+    override fun assertGiveFeedbackButtonIsDisplayed() {
+        scheduleDetailsPage.assertGiveFeedbackButton()
+    }
+
+    override fun clickGiveFeedbackButton() {
+        scheduleDetailsPage.clickGiveFeedbackButton()
+    }
+
     override fun backToScheduleGrid(block: ScheduleGridRobotScope.() -> Unit): ScheduleGridRobotScope {
         scheduleDetailsPage.back()
         return navigator.navigateTo<ScheduleGridRobotScope>().apply(block)

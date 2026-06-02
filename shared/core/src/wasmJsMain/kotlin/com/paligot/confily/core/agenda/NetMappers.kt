@@ -99,7 +99,8 @@ fun FeaturesActivated.convertToModelDb(
         hasQanda = hasQAndA,
         hasBilletWebTicket = hasBilletWebTicket,
         hasTeamMembers = hasTeamMembers,
-        hasMaps = hasMaps
+        hasMaps = hasMaps,
+        openFeedbackEnabled = openFeedbackEnabled
     )
 
 fun Category.convertToDb(eventId: String): CategoryDb = CategoryDb(

@@ -41,7 +41,8 @@ class FeaturesActivatedDb(
     val hasQanda: Boolean,
     val hasBilletWebTicket: Boolean,
     val hasTeamMembers: Boolean,
-    val hasMaps: Boolean = false
+    val hasMaps: Boolean = false,
+    val openFeedbackEnabled: Boolean = true
 )
 
 @Serializable

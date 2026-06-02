@@ -18,9 +18,12 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun FeedbackContent(
+    openFeedbackEnabled: Boolean,
     openFeedbackProjectId: String?,
     openFeedbackSessionId: String?,
+    openFeedbackUrl: String?,
     canGiveFeedback: Boolean,
+    launchUrl: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
@@ -31,9 +34,12 @@ fun FeedbackContent(
         item {
             if (openFeedbackProjectId != null && openFeedbackSessionId != null) {
                 OpenFeedbackSection(
+                    openFeedbackEnabled = openFeedbackEnabled,
                     openFeedbackProjectId = openFeedbackProjectId,
                     openFeedbackSessionId = openFeedbackSessionId,
-                    canGiveFeedback = canGiveFeedback
+                    openFeedbackUrl = openFeedbackUrl.orEmpty(),
+                    canGiveFeedback = canGiveFeedback,
+                    launchUrl = launchUrl
                 )
             } else {
                 Text(

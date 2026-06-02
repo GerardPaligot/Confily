@@ -30,7 +30,8 @@ fun NavGraphBuilder.scheduleGraph(
     exitTransition: ExitTransition,
     popExitTransition: ExitTransition,
     onShareClicked: (text: String) -> Unit,
-    onItineraryClicked: (lat: Double, lng: Double) -> Unit
+    onItineraryClicked: (lat: Double, lng: Double) -> Unit,
+    launchUrl: (String) -> Unit
 ) {
     composable<ScheduleList>(
         enterTransition = { fadeIn() },
@@ -69,6 +70,7 @@ fun NavGraphBuilder.scheduleGraph(
             onBackClicked = { scope.launch { navController.popBackStack() } },
             onSpeakerClicked = { scope.launch { navController.navigate(Speaker(id = it)) } },
             onShareClicked = onShareClicked,
+            launchUrl = launchUrl,
             isLandscape = isPortrait.not()
         )
     }

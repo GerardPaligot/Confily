@@ -169,7 +169,8 @@ class EventRepositoryExposed(
                 partners.others.isNotEmpty(),
             hasMenus = menus.isNotEmpty(),
             hasQAndA = qanda.isNotEmpty(),
-            hasBilletWebTicket = integration != null
+            hasBilletWebTicket = integration != null,
+            openFeedbackEnabled = features1[FeatureKey.OpenFeedback] ?: true
         )
         val socials = EventSocialsTable.findByEventId(eventUuid)
         Event(
@@ -234,7 +235,8 @@ class EventRepositoryExposed(
             hasPartnerList = partners.empty().not(),
             hasMenus = menus.isNotEmpty(),
             hasQAndA = qanda.isNotEmpty(),
-            hasBilletWebTicket = integration != null
+            hasBilletWebTicket = integration != null,
+            openFeedbackEnabled = features1[FeatureKey.OpenFeedback] ?: true
         )
         val socials = EventSocialsTable.findByEventId(eventUuid)
         EventV2(
@@ -290,7 +292,8 @@ class EventRepositoryExposed(
             hasPartnerList = partners.empty().not(),
             hasMenus = menus.isNotEmpty(),
             hasQAndA = qanda.empty().not(),
-            hasBilletWebTicket = integration != null
+            hasBilletWebTicket = integration != null,
+            openFeedbackEnabled = features1[FeatureKey.OpenFeedback] ?: true
         )
         val socials = EventSocialsTable.findByEventId(eventUuid)
         EventV3(
@@ -348,7 +351,8 @@ class EventRepositoryExposed(
             hasPartnerList = partners.empty().not(),
             hasMenus = menus.isNotEmpty(),
             hasQAndA = qanda.empty().not(),
-            hasBilletWebTicket = integration != null
+            hasBilletWebTicket = integration != null,
+            openFeedbackEnabled = features1[FeatureKey.OpenFeedback] ?: true
         )
 
         EventV4(
@@ -381,6 +385,9 @@ class EventRepositoryExposed(
     override suspend fun getV5(eventId: String): EventV5 = transaction(db = database) {
         val eventUuid = UUID.fromString(eventId)
         val event = EventEntity[eventUuid]
+        val features1 = EventFeatureEntity
+            .findByEvent(eventUuid)
+            .associate { it.featureKey to it.enabled }
         val socials = EventSocialsTable.findByEventId(eventUuid)
         val menus = LunchMenuEntity.findByEvent(eventUuid)
             .map { it.toModel() }
@@ -437,7 +444,8 @@ class EventRepositoryExposed(
                 hasPartnerList = true,
                 hasMenus = menus.isNotEmpty(),
                 hasQAndA = true,
-                hasBilletWebTicket = true
+                hasBilletWebTicket = true,
+                openFeedbackEnabled = features1[FeatureKey.OpenFeedback] ?: true
             ),
             team = groups.associate { group ->
                 val members = TeamEntity

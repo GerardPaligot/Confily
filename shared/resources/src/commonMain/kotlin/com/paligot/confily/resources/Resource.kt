@@ -20,6 +20,7 @@ import confily.shared.resources.generated.resources.action_game_refresh
 import confily.shared.resources.generated.resources.action_game_right
 import confily.shared.resources.generated.resources.action_game_rotate
 import confily.shared.resources.generated.resources.action_generate_qrcode
+import confily.shared.resources.generated.resources.action_give_feedback
 import confily.shared.resources.generated.resources.action_networking_delete
 import confily.shared.resources.generated.resources.action_partner_video
 import confily.shared.resources.generated.resources.action_power_off
@@ -129,6 +130,10 @@ object Resource {
 @OptIn(ExperimentalResourceApi::class)
 val Resource.string.action_back: StringResource
     get() = Res.string.action_back
+
+@OptIn(ExperimentalResourceApi::class)
+val Resource.string.action_give_feedback: StringResource
+    get() = Res.string.action_give_feedback
 
 @OptIn(ExperimentalResourceApi::class)
 val Resource.string.action_contact_organizers_phone: StringResource

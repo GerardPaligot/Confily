@@ -72,6 +72,7 @@
     <string name="text_speaker_activity">%1$s at %2$s</string>
 
     <string name="action_back">Back</string>
+    <string name="action_give_feedback">Give your feedback</string>
     <string name="action_expanded_menu">Display overflow menu</string>
     <string name="action_share_talk">Share talk</string>
     <string name="action_filtering">Open filter screen</string>

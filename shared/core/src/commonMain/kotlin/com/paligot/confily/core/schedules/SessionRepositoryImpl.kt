@@ -1,6 +1,7 @@
 package com.paligot.confily.core.schedules
 
 import com.paligot.confily.core.events.EventDao
+import com.paligot.confily.core.events.entities.FeatureFlags
 import com.paligot.confily.core.kvalue.ConferenceSettings
 import com.paligot.confily.core.schedules.entities.EventSession
 import com.paligot.confily.core.schedules.entities.Filters
@@ -43,6 +44,9 @@ class SessionRepositoryImpl(
 
     override fun session(sessionId: String): Flow<Session> = settings.fetchEventId()
         .flatMapConcat { sessionDao.fetchSession(eventId = it, sessionId = sessionId) }
+
+    override fun featureFlags(): Flow<FeatureFlags> = settings.fetchEventId()
+        .flatMapConcat { eventDao.fetchFeatureFlags(it) }
 
     override fun eventSession(sessionId: String): Flow<EventSession> =
         settings.fetchEventId()

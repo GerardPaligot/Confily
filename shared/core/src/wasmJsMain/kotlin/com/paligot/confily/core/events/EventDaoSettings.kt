@@ -95,7 +95,8 @@ class EventDaoSettings(
                 hasQAndA = features?.hasQanda ?: false,
                 hasTicketIntegration = false,
                 hasTeamMembers = features?.hasTeamMembers ?: false,
-                hasMaps = features?.hasMaps ?: false
+                hasMaps = features?.hasMaps ?: false,
+                openFeedbackEnabled = features?.openFeedbackEnabled ?: true
             )
         }
 

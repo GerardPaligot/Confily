@@ -26,6 +26,7 @@ import com.paligot.confily.style.theme.toDp
 fun ScheduleDetailContent(
     uiModel: SessionUi,
     onSpeakerClicked: (id: String) -> Unit,
+    launchUrl: (String) -> Unit,
     modifier: Modifier = Modifier,
     state: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(SpacingTokens.None.toDp())
@@ -52,9 +53,12 @@ fun ScheduleDetailContent(
             item {
                 if (!LocalInspectionMode.current) {
                     OpenFeedbackSection(
+                        openFeedbackEnabled = uiModel.openFeedbackEnabled,
                         openFeedbackProjectId = uiModel.openFeedbackProjectId!!,
                         openFeedbackSessionId = uiModel.openFeedbackSessionId!!,
-                        canGiveFeedback = uiModel.canGiveFeedback
+                        openFeedbackUrl = uiModel.openFeedbackUrl.orEmpty(),
+                        canGiveFeedback = uiModel.canGiveFeedback,
+                        launchUrl = launchUrl
                     )
                 }
             }

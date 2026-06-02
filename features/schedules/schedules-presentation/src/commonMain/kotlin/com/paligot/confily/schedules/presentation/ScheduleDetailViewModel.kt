@@ -9,7 +9,7 @@ import com.paligot.confily.schedules.panes.models.SessionUi
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 
 sealed class ScheduleUiState {
@@ -23,8 +23,14 @@ class ScheduleDetailViewModel(
     repository: SessionRepository,
     strings: Strings
 ) : ViewModel() {
-    val uiState: StateFlow<ScheduleUiState> = repository.session(scheduleId)
-        .map { ScheduleUiState.Success(it.mapToSessionUi(strings)) as ScheduleUiState }
+    val uiState: StateFlow<ScheduleUiState> = combine(
+        repository.session(scheduleId),
+        repository.featureFlags()
+    ) { session, flags ->
+        ScheduleUiState.Success(
+            session.mapToSessionUi(strings, flags.openFeedbackEnabled)
+        ) as ScheduleUiState
+    }
         .catch { emit(ScheduleUiState.Failure(it)) }
         .stateIn(
             scope = viewModelScope,

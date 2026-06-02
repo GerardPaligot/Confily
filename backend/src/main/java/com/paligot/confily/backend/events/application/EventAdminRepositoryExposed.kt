@@ -141,6 +141,18 @@ class EventAdminRepositoryExposed(
                 enabled = features.hasNetworking
             }
         }
+        val existingOpenFeedback =
+            EventFeatureEntity.findByFeatureKey(event.id.value, FeatureKey.OpenFeedback)
+        if (existingOpenFeedback != null) {
+            existingOpenFeedback.enabled = features.openFeedbackEnabled
+            existingOpenFeedback.updatedAt = Clock.System.now()
+        } else {
+            EventFeatureEntity.new {
+                this.event = event
+                featureKey = FeatureKey.OpenFeedback
+                enabled = features.openFeedbackEnabled
+            }
+        }
         eventId
     }
 }

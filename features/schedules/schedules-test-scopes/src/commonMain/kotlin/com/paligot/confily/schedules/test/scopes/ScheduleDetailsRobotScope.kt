@@ -10,5 +10,9 @@ interface ScheduleDetailsRobotScope {
         category: String
     )
 
+    fun assertGiveFeedbackButtonIsDisplayed()
+
+    fun clickGiveFeedbackButton()
+
     infix fun backToScheduleGrid(block: ScheduleGridRobotScope.() -> Unit): ScheduleGridRobotScope
 }
