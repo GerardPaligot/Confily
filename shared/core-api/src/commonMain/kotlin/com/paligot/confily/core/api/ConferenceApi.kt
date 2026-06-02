@@ -6,15 +6,14 @@ import com.paligot.confily.models.CreatedMap
 import com.paligot.confily.models.EventList
 import com.paligot.confily.models.EventMap
 import com.paligot.confily.models.EventV5
-import com.paligot.confily.models.PartnersActivities
-import com.paligot.confily.models.inputs.MapInput
 import com.paligot.confily.models.LeaderboardEntry
+import com.paligot.confily.models.PartnersActivities
 import com.paligot.confily.models.QuizQuestion
 import com.paligot.confily.models.QuizSubmissionResult
+import com.paligot.confily.models.inputs.MapInput
 import com.paligot.confily.models.inputs.QuizPlayerInput
 import com.paligot.confily.models.inputs.QuizSubmissionInput
 import io.ktor.client.HttpClient
-import io.ktor.http.HttpStatusCode
 import io.ktor.client.call.body
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -31,6 +30,7 @@ import io.ktor.client.request.setBody
 import io.ktor.http.ContentType
 import io.ktor.http.Headers
 import io.ktor.http.HttpHeaders
+import io.ktor.http.HttpStatusCode
 import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json

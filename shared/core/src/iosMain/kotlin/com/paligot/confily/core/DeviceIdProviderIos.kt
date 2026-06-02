@@ -1,8 +1,8 @@
 package com.paligot.confily.core
 
+import platform.UIKit.UIDevice
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
-import platform.UIKit.UIDevice
 
 class DeviceIdProviderIos : DeviceIdProvider {
     @OptIn(ExperimentalUuidApi::class)
