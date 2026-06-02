@@ -1,6 +1,8 @@
 package com.paligot.confily.core.di
 
 import com.paligot.confily.core.AlarmScheduler
+import com.paligot.confily.core.DeviceIdProvider
+import com.paligot.confily.core.DeviceIdProviderDesktop
 import com.paligot.confily.core.Platform
 import com.paligot.confily.core.QrCodeGenerator
 import com.paligot.confily.core.QrCodeGeneratorJvm
@@ -22,4 +24,5 @@ actual val platformModule = module {
     single<String>(named(AcceptLanguageNamed)) { Locale.getDefault().toLanguageTag() }
     single<QrCodeGenerator> { QrCodeGeneratorJvm() }
     single<AlarmScheduler> { AlarmScheduler(repository = get()) }
+    single<DeviceIdProvider> { DeviceIdProviderDesktop() }
 }

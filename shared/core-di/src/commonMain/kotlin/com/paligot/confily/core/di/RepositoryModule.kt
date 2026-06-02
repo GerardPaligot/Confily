@@ -4,6 +4,7 @@ import com.paligot.confily.core.events.EventRepository
 import com.paligot.confily.core.maps.MapRepository
 import com.paligot.confily.core.networking.UserRepository
 import com.paligot.confily.core.partners.PartnerRepository
+import com.paligot.confily.core.quiz.QuizRepository
 import com.paligot.confily.core.schedules.SessionRepository
 import com.paligot.confily.core.speakers.SpeakerRepository
 import org.koin.dsl.module
@@ -54,6 +55,13 @@ val repositoriesModule = module {
         MapRepository.Factory.create(
             settings = get(),
             mapDao = get()
+        )
+    }
+    single {
+        QuizRepository.Factory.create(
+            api = get(),
+            settings = get(),
+            deviceIdProvider = get()
         )
     }
 }
