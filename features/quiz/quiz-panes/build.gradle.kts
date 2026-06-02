@@ -13,6 +13,7 @@ kotlin {
                 implementation(projects.style.theme)
 
                 implementation(compose.components.resources)
+                implementation(compose.materialIconsExtended)
             }
         }
     }
