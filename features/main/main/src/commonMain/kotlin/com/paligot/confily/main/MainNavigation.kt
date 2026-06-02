@@ -22,6 +22,7 @@ import com.paligot.confily.infos.presentation.infoGraph
 import com.paligot.confily.networking.presentation.networkingGraph
 import com.paligot.confily.networking.ui.models.ExportNetworkingUi
 import com.paligot.confily.partners.presentation.partnerGraph
+import com.paligot.confily.quiz.presentation.quizGraph
 import com.paligot.confily.schedules.presentation.scheduleGraph
 import com.paligot.confily.schedules.routes.ScheduleList
 import com.paligot.confily.speakers.presentation.speakerGraph
@@ -152,6 +153,7 @@ fun MainNavigation(
                     },
                     launchUrl = launchUrl
                 )
+                quizGraph(navController = navController)
             }
         )
     }

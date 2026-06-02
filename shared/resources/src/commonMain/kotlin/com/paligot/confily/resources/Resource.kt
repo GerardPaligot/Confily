@@ -37,6 +37,16 @@ import confily.shared.resources.generated.resources.input_email
 import confily.shared.resources.generated.resources.input_firstname
 import confily.shared.resources.generated.resources.input_lastname
 import confily.shared.resources.generated.resources.input_share_talk
+import confily.shared.resources.generated.resources.quiz_action_back_to_code
+import confily.shared.resources.generated.resources.quiz_action_start
+import confily.shared.resources.generated.resources.quiz_action_submit
+import confily.shared.resources.generated.resources.quiz_already_completed
+import confily.shared.resources.generated.resources.quiz_code_label
+import confily.shared.resources.generated.resources.quiz_enter_code_title
+import confily.shared.resources.generated.resources.quiz_error_code_not_found
+import confily.shared.resources.generated.resources.quiz_name_label
+import confily.shared.resources.generated.resources.quiz_result_score
+import confily.shared.resources.generated.resources.quiz_score_label
 import confily.shared.resources.generated.resources.screen_agenda
 import confily.shared.resources.generated.resources.screen_agenda_filters
 import confily.shared.resources.generated.resources.screen_coc
@@ -56,6 +66,7 @@ import confily.shared.resources.generated.resources.screen_partners_detail
 import confily.shared.resources.generated.resources.screen_profile
 import confily.shared.resources.generated.resources.screen_qanda
 import confily.shared.resources.generated.resources.screen_qrcode_scanner
+import confily.shared.resources.generated.resources.screen_quiz
 import confily.shared.resources.generated.resources.screen_schedule_detail
 import confily.shared.resources.generated.resources.screen_schedule_detail_event_session
 import confily.shared.resources.generated.resources.screen_speaker_detail
@@ -588,3 +599,47 @@ val Resource.string.title_ticket: StringResource
 @OptIn(ExperimentalResourceApi::class)
 val Resource.string.title_schedule_detail: StringResource
     get() = Res.string.title_schedule_detail
+
+@OptIn(ExperimentalResourceApi::class)
+val Resource.string.screen_quiz: StringResource
+    get() = Res.string.screen_quiz
+
+@OptIn(ExperimentalResourceApi::class)
+val Resource.string.quiz_enter_code_title: StringResource
+    get() = Res.string.quiz_enter_code_title
+
+@OptIn(ExperimentalResourceApi::class)
+val Resource.string.quiz_code_label: StringResource
+    get() = Res.string.quiz_code_label
+
+@OptIn(ExperimentalResourceApi::class)
+val Resource.string.quiz_name_label: StringResource
+    get() = Res.string.quiz_name_label
+
+@OptIn(ExperimentalResourceApi::class)
+val Resource.string.quiz_action_start: StringResource
+    get() = Res.string.quiz_action_start
+
+@OptIn(ExperimentalResourceApi::class)
+val Resource.string.quiz_action_submit: StringResource
+    get() = Res.string.quiz_action_submit
+
+@OptIn(ExperimentalResourceApi::class)
+val Resource.string.quiz_action_back_to_code: StringResource
+    get() = Res.string.quiz_action_back_to_code
+
+@OptIn(ExperimentalResourceApi::class)
+val Resource.string.quiz_score_label: StringResource
+    get() = Res.string.quiz_score_label
+
+@OptIn(ExperimentalResourceApi::class)
+val Resource.string.quiz_result_score: StringResource
+    get() = Res.string.quiz_result_score
+
+@OptIn(ExperimentalResourceApi::class)
+val Resource.string.quiz_already_completed: StringResource
+    get() = Res.string.quiz_already_completed
+
+@OptIn(ExperimentalResourceApi::class)
+val Resource.string.quiz_error_code_not_found: StringResource
+    get() = Res.string.quiz_error_code_not_found

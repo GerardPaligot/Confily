@@ -7,6 +7,7 @@ import com.paligot.confily.main.MainNavigationViewModel
 import com.paligot.confily.main.MainViewModel
 import com.paligot.confily.networking.di.networkingModule
 import com.paligot.confily.partners.di.partnersModule
+import com.paligot.confily.quiz.di.quizModule
 import com.paligot.confily.schedules.di.scheduleModule
 import com.paligot.confily.speakers.di.speakersModule
 import org.koin.core.module.dsl.viewModel
@@ -19,6 +20,7 @@ val mainModule = module {
         infosModule,
         networkingModule,
         partnersModule,
+        quizModule,
         scheduleModule,
         speakersModule
     )
