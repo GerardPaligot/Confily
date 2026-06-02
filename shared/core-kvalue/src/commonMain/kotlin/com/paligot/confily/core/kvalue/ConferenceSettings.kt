@@ -27,4 +27,18 @@ class ConferenceSettings(
 
     fun upsertOnlyFavoritesFlag(onlyFavorites: Boolean) =
         settings.putBoolean("ONLY_FAVORITES", onlyFavorites)
+
+    fun getQuizDeviceId(): String? = settings.getStringOrNull("QUIZ_DEVICE_ID")
+
+    fun putQuizDeviceId(deviceId: String) = settings.putString("QUIZ_DEVICE_ID", deviceId)
+
+    fun fetchQuizUsername(): Flow<String?> = settings.getStringOrNullFlow("QUIZ_USERNAME")
+
+    fun getQuizUsername(): String? = settings.getStringOrNull("QUIZ_USERNAME")
+
+    fun putQuizUsername(username: String) = settings.putString("QUIZ_USERNAME", username)
+
+    fun getQuizResults(): String? = settings.getStringOrNull("QUIZ_RESULTS")
+
+    fun putQuizResults(resultsJson: String) = settings.putString("QUIZ_RESULTS", resultsJson)
 }
