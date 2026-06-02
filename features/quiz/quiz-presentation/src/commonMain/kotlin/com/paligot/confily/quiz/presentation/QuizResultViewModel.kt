@@ -23,7 +23,10 @@ class QuizResultViewModel(
     fun load(code: String) = viewModelScope.launch {
         val saved = repository.savedResult(code)
         _uiState.value = if (saved != null) {
-            QuizResultUiState.Success(result = saved.toUi(emptyMap()))
+            val labels = runCatching {
+                repository.questions(code).associate { it.id to it.question }
+            }.getOrDefault(emptyMap())
+            QuizResultUiState.Success(result = saved.toUi(labels))
         } else {
             QuizResultUiState.AlreadyCompleted
         }

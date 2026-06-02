@@ -18,7 +18,9 @@ fun QuizHomeVM(
         username = username,
         score = score,
         onStart = { code, name ->
-            viewModel.register(name)
+            if (username == null) {
+                viewModel.register(name)
+            }
             onStart(code)
         },
         modifier = modifier

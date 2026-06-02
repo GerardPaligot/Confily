@@ -133,6 +133,28 @@ class QuizViewModelsTest {
     }
 
     @Test
+    fun result_load_populates_question_labels() = runTest {
+        val saved = QuizSubmissionResult(
+            correctCount = 1,
+            totalCount = 1,
+            perQuestion = listOf(
+                QuizAnsweredQuestion(
+                    questionId = "q1",
+                    chosenAnswerId = "a1",
+                    correctAnswerId = "a1",
+                    isCorrect = true
+                )
+            )
+        )
+        val vm = QuizResultViewModel(FakeQuizRepository(questions = listOf(sampleQuestion), saved = saved))
+        vm.load("ABCD")
+        advanceUntilIdle()
+        val state = vm.uiState.value
+        assertIs<QuizResultUiState.Success>(state)
+        assertEquals("Capital?", state.result.perQuestion[0].question)
+    }
+
+    @Test
     fun home_register_delegates_to_repository() = runTest {
         val repo = FakeQuizRepository()
         val vm = QuizHomeViewModel(repo)
