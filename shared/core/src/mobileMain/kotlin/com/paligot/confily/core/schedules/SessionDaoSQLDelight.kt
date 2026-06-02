@@ -90,6 +90,10 @@ class SessionDaoSQLDelight(
                 .executeAsList()
             sessions
                 .sessionFiltered(categories, formats, hasFavFilter)
+                // selectSessions joins the many-to-many SessionCategory/SessionFormat
+                // tables, so a talk with several categories or formats appears once
+                // per combination. Collapse back to one item per session id.
+                .distinctBy { it.id }
                 .map { session ->
                     val speakersByTalk = speakers
                         .filter { it.talk_id == session.id }
@@ -140,6 +144,7 @@ class SessionDaoSQLDelight(
             .flatMapMerge { sessions ->
                 val nextSessions = sessions
                     .filter { dateTime < LocalDateTime.parse(it.start_time) }
+                    .distinctBy { it.id }
                 val sessionIds = nextSessions.mapNotNull { it.id }
                 db.sessionQueries
                     .selectSpeakersByTalkIds(eventId, sessionIds)

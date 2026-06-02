@@ -7,7 +7,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -74,33 +74,41 @@ fun ScheduleGridContent(
                     horizontalArrangement = Arrangement.spacedBy(mediumSpacing)
                 ) {
                     agenda.sessions.entries.forEach { slot ->
-                        item(span = { GridItemSpan(count) }) {
+                        item(
+                            span = { GridItemSpan(count) },
+                            key = "header-${slot.key}"
+                        ) {
                             Time(
                                 time = slot.key,
                                 modifier = Modifier.placeholder(visible = isLoading)
                             )
                         }
-                        items(slot.value.toList(), key = { it.id }) {
-                            when (it) {
+                        // Key by slot + position so the grid can never receive a
+                        // duplicate key, even if two sessions share an id.
+                        itemsIndexed(
+                            items = slot.value,
+                            key = { index, item -> "${slot.key}-$index-${item.id}" }
+                        ) { _, item ->
+                            when (item) {
                                 is EventSessionItemUi -> {
                                     if (isSmallSize) {
                                         SmallPauseItem(
-                                            title = it.title,
-                                            room = it.room,
-                                            time = it.time,
-                                            timeImageVector = it.timeInMinutes.findTimeImageVector(),
+                                            title = item.title,
+                                            room = item.room,
+                                            time = item.time,
+                                            timeImageVector = item.timeInMinutes.findTimeImageVector(),
                                             modifier = Modifier.placeholder(visible = isLoading)
                                         )
                                     } else {
                                         MediumPauseItem(
-                                            title = it.title,
-                                            room = it.room,
-                                            time = it.time,
-                                            timeImageVector = it.timeInMinutes.findTimeImageVector(),
+                                            title = item.title,
+                                            room = item.room,
+                                            time = item.time,
+                                            timeImageVector = item.timeInMinutes.findTimeImageVector(),
                                             modifier = Modifier.placeholder(visible = isLoading),
-                                            onClick = if (it.isClickable) {
+                                            onClick = if (item.isClickable) {
                                                 {
-                                                    onEventSessionClicked(it.id)
+                                                    onEventSessionClicked(item.id)
                                                 }
                                             } else {
                                                 null
@@ -112,14 +120,14 @@ fun ScheduleGridContent(
                                 is TalkItemUi -> {
                                     if (isSmallSize) {
                                         SmallScheduleItem(
-                                            talk = it,
+                                            talk = item,
                                             modifier = Modifier.placeholder(visible = isLoading),
                                             onFavoriteClicked = onFavoriteClicked,
                                             onTalkClicked = onTalkClicked
                                         )
                                     } else {
                                         MediumScheduleItem(
-                                            talk = it,
+                                            talk = item,
                                             modifier = Modifier.placeholder(visible = isLoading),
                                             onFavoriteClicked = onFavoriteClicked,
                                             onTalkClicked = onTalkClicked
