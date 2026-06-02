@@ -85,6 +85,14 @@ class QuizRepositoryTest {
     }
 
     @Test
+    fun submit_maps_404_to_PlayerNotRegistered() = runTest {
+        val responder = RecordingResponder().apply { on("/quiz/partners/ABCD/submit", HttpStatusCode.NotFound, "") }
+        val repo = QuizRepository.Factory.create(conferenceApiWith(responder), settingsWithEvent(), FakeDeviceIdProvider())
+
+        assertFailsWith<QuizException.PlayerNotRegistered> { repo.submit("ABCD", listOf(QuizAnswerInput("q1", "a1"))) }
+    }
+
+    @Test
     fun savedResult_is_null_before_submission() = runTest {
         val repo = QuizRepository.Factory.create(conferenceApiWith(RecordingResponder()), settingsWithEvent(), FakeDeviceIdProvider())
         assertNull(repo.savedResult("ABCD"))
