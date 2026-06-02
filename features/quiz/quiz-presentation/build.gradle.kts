@@ -19,5 +19,11 @@ kotlin {
                 implementation(compose.components.resources)
             }
         }
+        val commonTest by getting {
+            dependencies {
+                implementation(kotlin("test"))
+                implementation(libs.jetbrains.kotlinx.coroutines.test)
+            }
+        }
     }
 }
