@@ -10,15 +10,16 @@ has_qanda INTEGER AS Boolean NOT NULL DEFAULT 0,
 has_billet_web_ticket INTEGER AS Boolean NOT NULL DEFAULT 0,
 has_team_members INTEGER AS Boolean NOT NULL DEFAULT 0,
 has_maps INTEGER AS Boolean NOT NULL DEFAULT 0,
+has_quiz INTEGER AS Boolean NOT NULL DEFAULT 0,
 open_feedback_enabled INTEGER AS Boolean NOT NULL DEFAULT 1
 );
 
 insertFeatures:
 INSERT OR REPLACE INTO FeaturesActivated(
-event_id, has_networking, has_speaker_list, has_partner_list, has_menus, has_qanda, has_billet_web_ticket, has_team_members, has_maps, open_feedback_enabled
-) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+event_id, has_networking, has_speaker_list, has_partner_list, has_menus, has_qanda, has_billet_web_ticket, has_team_members, has_maps, has_quiz, open_feedback_enabled
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
 
 selectFeatures:
-SELECT event_id, has_networking, has_speaker_list, has_partner_list, has_menus, has_qanda, has_billet_web_ticket, has_team_members, has_maps, open_feedback_enabled
+SELECT event_id, has_networking, has_speaker_list, has_partner_list, has_menus, has_qanda, has_billet_web_ticket, has_team_members, has_maps, has_quiz, open_feedback_enabled
 FROM FeaturesActivated
 WHERE event_id == ?;

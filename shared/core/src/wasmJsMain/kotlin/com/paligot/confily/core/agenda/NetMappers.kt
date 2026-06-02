@@ -100,6 +100,7 @@ fun FeaturesActivated.convertToModelDb(
         hasBilletWebTicket = hasBilletWebTicket,
         hasTeamMembers = hasTeamMembers,
         hasMaps = hasMaps,
+        hasQuiz = hasQuiz,
         openFeedbackEnabled = openFeedbackEnabled
     )
 

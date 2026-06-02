@@ -89,6 +89,7 @@ class EventDaoSettings(
         .map { features ->
             FeatureFlags(
                 hasNetworking = false,
+                hasQuiz = features?.hasQuiz ?: false,
                 hasSpeakerList = true,
                 hasPartnerList = features?.hasPartnerList ?: false,
                 hasMenus = features?.hasMenus ?: false,

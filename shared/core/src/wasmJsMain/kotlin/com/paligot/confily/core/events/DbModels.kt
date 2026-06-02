@@ -42,6 +42,7 @@ class FeaturesActivatedDb(
     val hasBilletWebTicket: Boolean,
     val hasTeamMembers: Boolean,
     val hasMaps: Boolean = false,
+    val hasQuiz: Boolean = false,
     val openFeedbackEnabled: Boolean = true
 )
 

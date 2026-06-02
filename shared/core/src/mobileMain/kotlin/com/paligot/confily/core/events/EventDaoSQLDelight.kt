@@ -99,6 +99,7 @@ class EventDaoSQLDelight(
         .map { features ->
             FeatureFlags(
                 hasNetworking = features?.has_networking ?: false,
+                hasQuiz = features?.has_quiz ?: false,
                 hasSpeakerList = features?.has_speaker_list ?: false,
                 hasPartnerList = features?.has_partner_list ?: false,
                 hasMenus = features?.has_menus ?: false,
@@ -200,6 +201,7 @@ class EventDaoSQLDelight(
             has_billet_web_ticket = event.features.hasBilletWebTicket,
             has_team_members = event.team.isNotEmpty(),
             has_maps = event.maps.isNotEmpty(),
+            has_quiz = event.features.hasQuiz,
             open_feedback_enabled = event.features.openFeedbackEnabled
         )
     }

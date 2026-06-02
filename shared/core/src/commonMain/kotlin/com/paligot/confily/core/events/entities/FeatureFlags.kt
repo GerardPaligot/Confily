@@ -6,6 +6,7 @@ import kotlin.native.ObjCName
 class FeatureFlags(
     val hasSpeakerList: Boolean,
     val hasNetworking: Boolean,
+    val hasQuiz: Boolean,
     val hasPartnerList: Boolean,
     val hasMenus: Boolean,
     val hasQAndA: Boolean,
