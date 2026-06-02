@@ -260,15 +260,28 @@ class PartnersConnectRepositoryExposed(
                     this.externalId = question.id
                     this.externalProvider = IntegrationProvider.PARTNERSCONNECT
                 }
-            QuizAnswersTable.deleteWhere { QuizAnswersTable.questionId eq entity.id.value }
+            val incomingAnswerIds = question.answers.map { it.id }
+            QuizAnswersTable.deleteWhere {
+                (QuizAnswersTable.questionId eq entity.id.value) and
+                    (QuizAnswersTable.externalProvider eq IntegrationProvider.PARTNERSCONNECT) and
+                    (QuizAnswersTable.externalId notInList incomingAnswerIds)
+            }
             question.answers.forEach { answer ->
-                QuizAnswerEntity.new {
-                    this.question = entity
-                    this.answer = answer.answer
-                    this.isCorrect = answer.isCorrect
-                    this.displayOrder = answer.order
-                    this.externalId = answer.id
-                }
+                QuizAnswerEntity
+                    .findByExternalId(entity.id.value, answer.id, IntegrationProvider.PARTNERSCONNECT)
+                    ?.apply {
+                        this.answer = answer.answer
+                        this.isCorrect = answer.isCorrect
+                        this.displayOrder = answer.order
+                    }
+                    ?: QuizAnswerEntity.new {
+                        this.question = entity
+                        this.answer = answer.answer
+                        this.isCorrect = answer.isCorrect
+                        this.displayOrder = answer.order
+                        this.externalId = answer.id
+                        this.externalProvider = IntegrationProvider.PARTNERSCONNECT
+                    }
             }
         }
         if (payload.questions.isNotEmpty() && partner.quizCode == null) {

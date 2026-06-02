@@ -120,6 +120,60 @@ class PartnersConnectQuizIngestionTest {
     }
 
     @Test
+    fun `webhook re-sync updates answers in place and removes answers no longer present`() = runBlocking {
+        val partnerId = UUID.fromString(
+            repository.webhook(
+                eventId.toString(),
+                payload(
+                    listOf(
+                        WebhookQuestion(
+                            id = "q1",
+                            question = "Q1",
+                            order = 0,
+                            answers = listOf(
+                                WebhookAnswer("a1", "Paris", true, 0),
+                                WebhookAnswer("a2", "Lyon", false, 1)
+                            )
+                        )
+                    )
+                )
+            )
+        )
+        val originalAnswerIds = transaction(database) {
+            val question = QuizQuestionEntity.findByPartner(partnerId).toList().single()
+            QuizAnswerEntity.findByQuestion(question.id.value).associate { it.externalId to it.id.value }
+        }
+
+        repository.webhook(
+            eventId.toString(),
+            payload(
+                listOf(
+                    WebhookQuestion(
+                        id = "q1",
+                        question = "Q1",
+                        order = 0,
+                        answers = listOf(
+                            WebhookAnswer("a1", "Paris (updated)", true, 0),
+                            WebhookAnswer("a3", "Nice", false, 1)
+                        )
+                    )
+                )
+            )
+        )
+
+        transaction(database) {
+            val question = QuizQuestionEntity.findByPartner(partnerId).toList().single()
+            val answers = QuizAnswerEntity.findByQuestion(question.id.value)
+                .orderBy(QuizAnswersTable.displayOrder to SortOrder.ASC)
+                .toList()
+            assertEquals(listOf("a1", "a3"), answers.map { it.externalId })
+            assertEquals(listOf("Paris (updated)", "Nice"), answers.map { it.answer })
+            // a1 keeps its primary key, so any submission row referencing it survives the re-sync.
+            assertEquals(originalAnswerIds["a1"], answers.first { it.externalId == "a1" }.id.value)
+        }
+    }
+
+    @Test
     fun `webhook re-sync removes questions no longer present`() = runBlocking {
         val firstPartnerId = UUID.fromString(
             repository.webhook(

@@ -32,9 +32,10 @@ class QuizRepositoryExposed(private val database: Database) : QuizRepository {
 
     override suspend fun registerPlayer(eventId: String, input: QuizPlayerInput): String {
         val eventUuid = UUID.fromString(eventId)
+        val deviceHash = DeviceIdHasher.hash(input.deviceId)
         return transaction(db = database) {
             val event = EventEntity[eventUuid]
-            val existing = QuizPlayerEntity.findByDevice(eventUuid, input.deviceId)
+            val existing = QuizPlayerEntity.findByDevice(eventUuid, deviceHash)
             val player = if (existing != null) {
                 existing.username = input.username
                 existing.updatedAt = Clock.System.now()
@@ -42,7 +43,7 @@ class QuizRepositoryExposed(private val database: Database) : QuizRepository {
             } else {
                 QuizPlayerEntity.new {
                     this.event = event
-                    this.deviceId = input.deviceId
+                    this.deviceId = deviceHash
                     this.username = input.username
                 }
             }
@@ -72,11 +73,12 @@ class QuizRepositoryExposed(private val database: Database) : QuizRepository {
         input: QuizSubmissionInput
     ): QuizSubmissionResult {
         val eventUuid = UUID.fromString(eventId)
+        val deviceHash = DeviceIdHasher.hash(input.deviceId)
         return transaction(db = database) {
             val partner = PartnerEntity.findByQuizCode(eventUuid, code)
                 ?: throw NotFoundException("No partner found for code $code")
-            val player = QuizPlayerEntity.findByDevice(eventUuid, input.deviceId)
-                ?: throw NotFoundException("Player not registered for device ${input.deviceId}")
+            val player = QuizPlayerEntity.findByDevice(eventUuid, deviceHash)
+                ?: throw NotFoundException("Player not registered for this device")
             val alreadySubmitted = QuizSubmissionEntity
                 .findByPlayerAndPartner(player.id.value, partner.id.value)
             if (alreadySubmitted != null) {

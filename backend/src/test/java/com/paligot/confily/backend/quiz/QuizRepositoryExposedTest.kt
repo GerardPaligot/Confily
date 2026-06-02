@@ -3,6 +3,7 @@ package com.paligot.confily.backend.quiz
 import com.paligot.confily.backend.ConflictException
 import com.paligot.confily.backend.NotFoundException
 import com.paligot.confily.backend.internals.infrastructure.exposed.DatabaseFactory
+import com.paligot.confily.backend.quiz.application.DeviceIdHasher
 import com.paligot.confily.backend.quiz.application.QuizRepositoryExposed
 import com.paligot.confily.backend.quiz.infrastructure.exposed.QuizPlayersTable
 import com.paligot.confily.models.inputs.QuizAnswerInput
@@ -16,6 +17,7 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
+import kotlin.test.assertNotEquals
 import kotlin.test.assertTrue
 
 class QuizRepositoryExposedTest {
@@ -40,6 +42,22 @@ class QuizRepositoryExposedTest {
         assertTrue(playerId.isNotBlank())
         val count = transaction(database) { QuizPlayersTable.selectAll().count() }
         assertEquals(1, count)
+    }
+
+    @Test
+    fun `registerPlayer stores a hashed device id, not the raw value`() = runBlocking {
+        val eventId = QuizTestFixtures.createEvent(database)
+
+        repository.registerPlayer(
+            eventId.toString(),
+            QuizPlayerInput(username = "Alice", deviceId = "device-1")
+        )
+
+        val stored = transaction(database) {
+            QuizPlayersTable.selectAll().single()[QuizPlayersTable.deviceId]
+        }
+        assertNotEquals("device-1", stored)
+        assertEquals(DeviceIdHasher.hash("device-1"), stored)
     }
 
     @Test
