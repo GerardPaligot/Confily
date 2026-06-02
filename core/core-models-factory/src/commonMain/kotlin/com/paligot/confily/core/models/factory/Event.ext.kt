@@ -30,6 +30,7 @@ class EventBuilder {
     private var menus: List<EventLunchMenu> = emptyList()
     private var coc: String = ""
     private var openfeedbackProjectId: String? = null
+    private var openFeedbackEnabled: Boolean = true
     private var features: FeaturesActivated = FeaturesActivated(
         hasNetworking = false,
         hasSpeakerList = false,
@@ -53,6 +54,8 @@ class EventBuilder {
     fun coc(coc: String) = apply { this.coc = coc }
     fun openfeedbackProjectId(openfeedbackProjectId: String?) =
         apply { this.openfeedbackProjectId = openfeedbackProjectId }
+
+    fun openFeedbackEnabled(enabled: Boolean) = apply { this.openFeedbackEnabled = enabled }
 
     fun features(features: FeaturesActivated) = apply { this.features = features }
     fun contactPhone(contactPhone: String?) = apply { this.contactPhone = contactPhone }
@@ -78,7 +81,7 @@ class EventBuilder {
             content = emptyMap(),
             link = faqLink
         ),
-        features = features,
+        features = features.copy(openFeedbackEnabled = openFeedbackEnabled),
         contact = EventContact(
             phone = contactPhone,
             email = contactEmail,

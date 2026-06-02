@@ -13,6 +13,7 @@ class TalkBuilder {
     private var formatId: String = ""
     private var language: String = ""
     private var speakers: List<String> = emptyList()
+    private var openFeedback: String? = null
 
     fun id(id: String) = apply { this.id = id }
     fun title(title: String) = apply { this.title = title }
@@ -22,6 +23,7 @@ class TalkBuilder {
     fun formatId(formatId: String) = apply { this.formatId = formatId }
     fun language(language: String) = apply { this.language = language }
     fun speakers(speakers: List<String>) = apply { this.speakers = speakers }
+    fun openFeedback(openFeedback: String?) = apply { this.openFeedback = openFeedback }
 
     fun build(): Session.Talk = Session.Talk(
         id = id,
@@ -35,6 +37,6 @@ class TalkBuilder {
         speakers = speakers,
         linkSlides = null,
         linkReplay = null,
-        openFeedback = null
+        openFeedback = openFeedback
     )
 }

@@ -1,0 +1,1 @@
+ALTER TABLE FeaturesActivated ADD COLUMN open_feedback_enabled INTEGER NOT NULL DEFAULT 1;

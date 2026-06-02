@@ -25,7 +25,9 @@ data class CoCInput(
 @Serializable
 data class FeaturesActivatedInput(
     @SerialName("has_networking")
-    val hasNetworking: Boolean
+    val hasNetworking: Boolean,
+    @SerialName("open_feedback_enabled")
+    val openFeedbackEnabled: Boolean = true
 ) : Validator {
     override fun validate(): List<String> = emptyList()
 }

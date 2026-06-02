@@ -31,6 +31,7 @@ fun ScheduleDetailPane(
     onBackClicked: () -> Unit,
     onSpeakerClicked: (id: String) -> Unit,
     onShareClicked: (text: String) -> Unit,
+    launchUrl: (String) -> Unit,
     modifier: Modifier = Modifier,
     isLandscape: Boolean = false
 ) {
@@ -73,13 +74,17 @@ fun ScheduleDetailPane(
                     ScheduleDetailContent(
                         uiModel = session,
                         onSpeakerClicked = onSpeakerClicked,
+                        launchUrl = launchUrl,
                         modifier = Modifier.weight(1f),
                         state = state
                     )
                     FeedbackContent(
+                        openFeedbackEnabled = session.openFeedbackEnabled,
                         openFeedbackProjectId = session.openFeedbackProjectId,
                         openFeedbackSessionId = session.openFeedbackSessionId,
+                        openFeedbackUrl = session.openFeedbackUrl,
                         canGiveFeedback = session.canGiveFeedback,
+                        launchUrl = launchUrl,
                         modifier = Modifier.weight(1f)
                     )
                 }
@@ -87,6 +92,7 @@ fun ScheduleDetailPane(
                 ScheduleDetailContent(
                     uiModel = session,
                     onSpeakerClicked = onSpeakerClicked,
+                    launchUrl = launchUrl,
                     state = state,
                     contentPadding = it
                 )
@@ -103,7 +109,8 @@ private fun ScheduleDetailContentPreview() {
         Surface {
             ScheduleDetailContent(
                 uiModel = SessionUi.fake,
-                onSpeakerClicked = {}
+                onSpeakerClicked = {},
+                launchUrl = {}
             )
         }
     }

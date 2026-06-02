@@ -11,7 +11,7 @@ import kotlinx.datetime.Clock
 import kotlin.time.Duration
 
 object AgendaFake {
-    private val startInstant = Clock.System.now().plus(Duration.parse("1h"))
+    private val startInstant = Clock.System.now().minus(Duration.parse("2h"))
 
     val schedule = ScheduleItemV4.builder()
         .id("session-id")
@@ -32,6 +32,7 @@ object AgendaFake {
         .formatId(format.id)
         .language("English")
         .speakers(listOf(speaker.id))
+        .openFeedback("https://openfeedback.io/project-id/session-id")
         .build()
     val agenda = AgendaV4(
         schedules = listOf(schedule),

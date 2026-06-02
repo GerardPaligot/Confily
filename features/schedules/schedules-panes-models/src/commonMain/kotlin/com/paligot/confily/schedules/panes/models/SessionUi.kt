@@ -11,6 +11,7 @@ data class SessionUi(
     val speakers: ImmutableList<SpeakerItemUi>,
     val speakersSharing: String,
     val canGiveFeedback: Boolean,
+    val openFeedbackEnabled: Boolean,
     val openFeedbackProjectId: String?,
     val openFeedbackSessionId: String?,
     val openFeedbackUrl: String?
@@ -22,6 +23,7 @@ data class SessionUi(
             speakers = persistentListOf(SpeakerItemUi.fake, SpeakerItemUi.fake),
             speakersSharing = "",
             canGiveFeedback = false,
+            openFeedbackEnabled = true,
             openFeedbackProjectId = null,
             openFeedbackSessionId = "e1Wt4hveV3UiEd5yxZ9k",
             openFeedbackUrl = "https://openfeedback.io/eimghD4rG79eQuZRu2oT/2022-06-10/e1Wt4hveV3UiEd5yxZ9k"

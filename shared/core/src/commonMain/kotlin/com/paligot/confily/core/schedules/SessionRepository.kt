@@ -1,6 +1,7 @@
 package com.paligot.confily.core.schedules
 
 import com.paligot.confily.core.events.EventDao
+import com.paligot.confily.core.events.entities.FeatureFlags
 import com.paligot.confily.core.kvalue.ConferenceSettings
 import com.paligot.confily.core.schedules.entities.EventSession
 import com.paligot.confily.core.schedules.entities.Filters
@@ -13,6 +14,7 @@ import kotlinx.coroutines.flow.Flow
 interface SessionRepository {
     fun sessions(): Flow<Sessions>
     fun session(sessionId: String): Flow<Session>
+    fun featureFlags(): Flow<FeatureFlags>
     fun eventSession(sessionId: String): Flow<EventSession>
     fun fetchNextTalks(date: String): Flow<List<SessionItem>>
     fun filters(): Flow<Filters>

@@ -19,5 +19,6 @@ object EventFeaturesTable : UUIDTable("event_features") {
 }
 
 enum class FeatureKey(val key: String) {
-    Networking("has_networking")
+    Networking("has_networking"),
+    OpenFeedback("open_feedback_enabled")
 }

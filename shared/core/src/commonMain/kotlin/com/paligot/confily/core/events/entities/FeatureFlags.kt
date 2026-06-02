@@ -11,5 +11,6 @@ class FeatureFlags(
     val hasQAndA: Boolean,
     val hasTicketIntegration: Boolean,
     val hasTeamMembers: Boolean,
-    val hasMaps: Boolean
+    val hasMaps: Boolean,
+    val openFeedbackEnabled: Boolean
 )

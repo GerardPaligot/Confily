@@ -6,8 +6,10 @@ import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.ComposeTestRule
 import androidx.compose.ui.test.onNodeWithContentDescription
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import com.paligot.confily.core.test.patterns.withRole
+import com.paligot.confily.schedules.semantics.SchedulesSemantics
 
 class ScheduleDetailsPage(private val composeTestRule: ComposeTestRule) {
     private fun findMetadata(title: String, room: String, time: Int, category: String) =
@@ -25,6 +27,9 @@ class ScheduleDetailsPage(private val composeTestRule: ComposeTestRule) {
         withRole(Role.Button) and hasContentDescription("Back")
     )
 
+    private val giveFeedbackButton =
+        composeTestRule.onNodeWithTag(SchedulesSemantics.giveFeedbackButton)
+
     fun assertMetadata(title: String, room: String, time: Int, category: String) {
         findMetadata(title, room, time, category).assertIsDisplayed()
     }
@@ -35,6 +40,14 @@ class ScheduleDetailsPage(private val composeTestRule: ComposeTestRule) {
 
     fun assertSpeakers(speakers: List<String>) {
         speakers.forEach { findSpeaker(it).assertIsDisplayed() }
+    }
+
+    fun assertGiveFeedbackButton() {
+        giveFeedbackButton.assertIsDisplayed()
+    }
+
+    fun clickGiveFeedbackButton() {
+        giveFeedbackButton.assertIsDisplayed().performClick()
     }
 
     fun back() {

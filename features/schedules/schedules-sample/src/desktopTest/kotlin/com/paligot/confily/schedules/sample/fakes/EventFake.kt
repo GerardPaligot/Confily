@@ -9,7 +9,9 @@ import kotlin.time.Duration
 object EventFake {
     val event = EventV5.builder()
         .id(BuildKonfig.DEFAULT_EVENT)
-        .startDate(Clock.System.now())
+        .startDate(Clock.System.now().minus(Duration.parse("2h")))
         .endDate(Clock.System.now().plus(Duration.parse("1d")))
+        .openfeedbackProjectId("project-id")
+        .openFeedbackEnabled(false)
         .build()
 }

@@ -33,7 +33,7 @@ class Session(
     val feedback: FeedbackConfig?
 )
 
-fun Session.mapToSessionUi(strings: Strings): SessionUi {
+fun Session.mapToSessionUi(strings: Strings, openFeedbackEnabled: Boolean = true): SessionUi {
     val now = Clock.System.now().toLocalDateTime(TimeZone.UTC)
     val diff = endTime.toInstant(TimeZone.UTC)
         .minus(startTime.toInstant(TimeZone.UTC))
@@ -66,6 +66,7 @@ fun Session.mapToSessionUi(strings: Strings): SessionUi {
             .toImmutableList(),
         speakersSharing = speakers.joinToString(", ") { it.displayName },
         canGiveFeedback = now > startTime && feedback != null,
+        openFeedbackEnabled = openFeedbackEnabled,
         openFeedbackProjectId = feedback?.projectId,
         openFeedbackSessionId = feedback?.sessionId,
         openFeedbackUrl = feedback?.url
