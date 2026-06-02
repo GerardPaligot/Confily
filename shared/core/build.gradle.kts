@@ -84,6 +84,8 @@ kotlin {
                 implementation(libs.jetbrains.kotlinx.coroutines.test)
                 implementation(libs.settings.test)
                 implementation(libs.ktor.client.mock)
+                implementation(libs.ktor.client.negotiation)
+                implementation(libs.ktor.serialization.json)
             }
         }
         val mobileMain by creating {
