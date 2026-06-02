@@ -14,6 +14,7 @@ data class PartnersConnectWebhookPayload(
     val activities: List<BoothActivity>,
     val speakers: List<WebhookSpeaker> = emptyList(),
     val supportVideoUrl: String? = null,
+    val questions: List<WebhookQuestion> = emptyList(),
     val timestamp: String
 )
 
@@ -167,4 +168,21 @@ data class WebhookSpeaker(
     @SerialName("external_id")
     val externalId: String,
     val source: String
+)
+
+@Serializable
+data class WebhookQuestion(
+    val id: String,
+    val question: String,
+    val order: Int = 0,
+    val answers: List<WebhookAnswer> = emptyList()
+)
+
+@Serializable
+data class WebhookAnswer(
+    val id: String,
+    val answer: String,
+    @SerialName("is_correct")
+    val isCorrect: Boolean = false,
+    val order: Int = 0
 )

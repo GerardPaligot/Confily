@@ -29,6 +29,11 @@ import com.paligot.confily.backend.partners.infrastructure.exposed.SponsoringTyp
 import com.paligot.confily.backend.qanda.infrastructure.exposed.QAndAAcronymsTable
 import com.paligot.confily.backend.qanda.infrastructure.exposed.QAndAActionsTable
 import com.paligot.confily.backend.qanda.infrastructure.exposed.QAndATable
+import com.paligot.confily.backend.quiz.infrastructure.exposed.QuizAnswersTable
+import com.paligot.confily.backend.quiz.infrastructure.exposed.QuizPlayersTable
+import com.paligot.confily.backend.quiz.infrastructure.exposed.QuizQuestionsTable
+import com.paligot.confily.backend.quiz.infrastructure.exposed.QuizSubmissionAnswersTable
+import com.paligot.confily.backend.quiz.infrastructure.exposed.QuizSubmissionsTable
 import com.paligot.confily.backend.schedules.infrastructure.exposed.SchedulesTable
 import com.paligot.confily.backend.sessions.infrastructure.exposed.EventSessionTracksTable
 import com.paligot.confily.backend.sessions.infrastructure.exposed.EventSessionsTable
@@ -84,6 +89,11 @@ object DatabaseFactory {
         QAndATable,
         QAndAActionsTable,
         QAndAAcronymsTable,
+        QuizQuestionsTable,
+        QuizAnswersTable,
+        QuizPlayersTable,
+        QuizSubmissionsTable,
+        QuizSubmissionAnswersTable,
         AddressesTable,
         IntegrationsTable,
         BilletWebIntegrationsTable,
