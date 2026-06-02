@@ -57,6 +57,9 @@ class MainNavigationViewModel(
                 if (features.hasPartnerList) {
                     add(BottomActions.partners)
                 }
+                if (features.hasQuiz) {
+                    add(BottomActions.quiz)
+                }
                 add(BottomActions.event)
             }.toImmutableList()
         )

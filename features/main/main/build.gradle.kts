@@ -28,6 +28,8 @@ kotlin {
         implementation(projects.features.partners.partnersPresentation)
         implementation(projects.features.networking.networkingPresentation)
         implementation(projects.features.infos.infosPresentation)
+        implementation(projects.features.quiz.quizPresentation)
+        implementation(projects.features.quiz.quizRoutes)
         implementation(projects.features.eventList.eventListPresentation)
         implementation(projects.features.navigation)
         implementation(projects.style.components.adaptive)

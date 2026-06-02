@@ -30,6 +30,7 @@ kotlin {
                 api(projects.features.networking.networkingRoutes)
                 api(projects.features.infos.infosRoutes)
                 api(projects.features.eventList.eventListRoutes)
+                implementation(projects.features.quiz.quizRoutes)
 
                 implementation(compose.components.resources)
                 implementation(compose.materialIconsExtended)

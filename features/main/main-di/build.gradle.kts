@@ -12,6 +12,7 @@ kotlin {
         implementation(projects.features.partners.partnersDi)
         implementation(projects.features.schedules.schedulesDi)
         implementation(projects.features.speakers.speakersDi)
+        implementation(projects.features.quiz.quizDi)
         implementation(projects.shared.coreDi)
     }
 }
