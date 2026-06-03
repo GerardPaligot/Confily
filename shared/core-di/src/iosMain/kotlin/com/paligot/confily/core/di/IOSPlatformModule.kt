@@ -1,5 +1,7 @@
 package com.paligot.confily.core.di
 
+import com.paligot.confily.core.DeviceIdProvider
+import com.paligot.confily.core.DeviceIdProviderIos
 import com.paligot.confily.core.Platform
 import com.paligot.confily.core.QrCodeGenerator
 import com.paligot.confily.core.QrCodeGeneratoriOS
@@ -23,4 +25,5 @@ actual val platformModule = module {
     single<ObservableSettings> { NSUserDefaultsSettings(standardUserDefaults) }
     single<String>(named(AcceptLanguageNamed)) { NSLocale.preferredLanguages.first().toString() }
     single<QrCodeGenerator> { QrCodeGeneratoriOS() }
+    single<DeviceIdProvider> { DeviceIdProviderIos() }
 }

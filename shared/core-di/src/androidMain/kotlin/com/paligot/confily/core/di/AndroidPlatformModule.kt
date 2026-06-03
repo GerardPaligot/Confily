@@ -1,6 +1,8 @@
 package com.paligot.confily.core.di
 
 import android.content.Context
+import com.paligot.confily.core.DeviceIdProvider
+import com.paligot.confily.core.DeviceIdProviderAndroid
 import com.paligot.confily.core.Platform
 import com.paligot.confily.core.QrCodeGenerator
 import com.paligot.confily.core.QrCodeGeneratorAndroid
@@ -33,4 +35,5 @@ actual val platformModule = module {
     }
     single<String>(named(AcceptLanguageNamed)) { Locale.getDefault().toLanguageTag() }
     single<QrCodeGenerator> { QrCodeGeneratorAndroid() }
+    single<DeviceIdProvider> { DeviceIdProviderAndroid(androidContext()) }
 }

@@ -1,5 +1,7 @@
 package com.paligot.confily.core.di
 
+import com.paligot.confily.core.DeviceIdProvider
+import com.paligot.confily.core.DeviceIdProviderWasmJs
 import com.paligot.confily.core.Platform
 import com.paligot.confily.core.QrCodeGenerator
 import com.paligot.confily.core.QrCodeGeneratorWasm
@@ -21,4 +23,5 @@ actual val platformModule: Module = module {
         navigatorLanguage().unsafeCast<JsString>().toString()
     }
     single<QrCodeGenerator> { QrCodeGeneratorWasm() }
+    single<DeviceIdProvider> { DeviceIdProviderWasmJs() }
 }
