@@ -51,6 +51,10 @@ class ViewModelFactory: ObservableObject {
         return PartnersViewModel()
     }
 
+    func makeQuizViewModel() -> QuizViewModel {
+        return QuizViewModel()
+    }
+
     func makePartnerDetailViewModel(partnerId: String) -> PartnerDetailViewModel {
         return PartnerDetailViewModel(partnerId: partnerId)
     }
