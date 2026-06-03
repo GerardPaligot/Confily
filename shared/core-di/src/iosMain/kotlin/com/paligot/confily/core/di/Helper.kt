@@ -7,6 +7,7 @@ import com.paligot.confily.core.networking.UserInteractor
 import com.paligot.confily.core.networking.UserRepository
 import com.paligot.confily.core.partners.PartnerInteractor
 import com.paligot.confily.core.partners.PartnerRepository
+import com.paligot.confily.core.quiz.QuizInteractor
 import com.paligot.confily.core.quiz.QuizRepository
 import com.paligot.confily.core.schedules.SessionRepository
 import com.paligot.confily.core.sessions.SessionInteractor
@@ -46,6 +47,7 @@ class InteractorHelper : KoinComponent {
     val partnerInteractor: PartnerInteractor by inject()
     val userInteractor: UserInteractor by inject()
     val mapInteractor: MapInteractor by inject()
+    val quizInteractor: QuizInteractor by inject()
 }
 
 val interactorsModule = module {
@@ -55,6 +57,7 @@ val interactorsModule = module {
     single { PartnerInteractor(get()) }
     single { UserInteractor(get()) }
     single { MapInteractor(get()) }
+    single { QuizInteractor(get()) }
 }
 
 fun initKoin() {
