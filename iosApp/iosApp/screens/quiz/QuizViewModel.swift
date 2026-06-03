@@ -115,6 +115,7 @@ class QuizViewModel: ObservableObject {
     }
 
     func reset() {
+        stop()
         step = .code(username: nil, score: nil)
         start()
     }

@@ -116,7 +116,7 @@ struct QuizCodeView: View {
             Section {
                 Button("quizActionStart") {
                     UIApplication.shared.endEditing()
-                    onStart(code, username ?? name)
+                    onStart(code, username == nil ? name : nil)
                 }
                 .disabled(!canStart)
             }
