@@ -29,6 +29,13 @@ struct HomeView: View {
                     Label("screenPartners", systemImage: "hands.clap")
                 }
 
+            if viewModel.hasQuiz {
+                QuizVM(viewModel: viewModelFactory.makeQuizViewModel())
+                    .tabItem {
+                        Label("screenQuiz", systemImage: "questionmark.circle")
+                    }
+            }
+
             EventVM(viewModel: self.viewModelFactory.makeEventViewModel(),onDisconnectedClicked: self.onDisconnectedClicked)
                 .tabItem {
                     Label("screenEvent", systemImage: "ticket")

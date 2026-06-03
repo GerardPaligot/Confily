@@ -120,3 +120,15 @@
 "semanticTalkItemTime" = "pendant %d minutes";
 "semanticTalkItemCategory" = "dans la categorie %@";
 "semanticTalkItemLevel" = "pour niveau %@";
+
+"screenQuiz" = "Quiz";
+"quizEnterCodeTitle" = "Entrez le code partenaire";
+"quizCodeLabel" = "Code partenaire";
+"quizNameLabel" = "Votre nom";
+"quizActionStart" = "Commencer";
+"quizActionSubmit" = "Valider";
+"quizActionBackToCode" = "Saisir un autre code";
+"quizScoreLabel" = "Votre score : %d";
+"quizResultScore" = "%d / %d correctes";
+"quizAlreadyCompleted" = "Vous avez déjà terminé ce quiz.";
+"quizErrorCodeNotFound" = "Aucun quiz trouvé pour ce code.";

@@ -18,6 +18,7 @@ class HomeViewModel: ObservableObject {
     private var featureFlagsTask: Task<(), Never>?
 
     @Published var hasNetworking: Bool = false
+    @Published var hasQuiz: Bool = false
 
     func fetchAgenda() {
         task = Task {
@@ -34,6 +35,7 @@ class HomeViewModel: ObservableObject {
                 let stream = asyncSequence(for: interactor.featureFlags())
                 for try await flags in stream {
                     self.hasNetworking = flags.hasNetworking
+                    self.hasQuiz = flags.hasQuiz
                 }
             } catch {
                 print("Failed to fetch feature flags: \(error)")
