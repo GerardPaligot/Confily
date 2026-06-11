@@ -8,11 +8,7 @@ import com.paligot.confily.resources.Resource
 import com.paligot.confily.resources.title_notif_reminder_talk
 import com.paligot.confily.schedules.ui.models.TalkItemUi
 import kotlinx.coroutines.coroutineScope
-import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.TimeZone
-import kotlinx.datetime.minus
-import kotlinx.datetime.toInstant
-import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.compose.resources.getString
 import java.util.Locale
 
@@ -34,11 +30,11 @@ actual class AlarmScheduler(
         val pendingIntent =
             PendingIntent.getBroadcast(context, talkItem.id.hashCode(), intent, flags)
         if (isFavorite) {
-            val triggerAtMillis = talkItem.startTime
-                .toLocalDateTime()
-                .toInstant(TimeZone.UTC)
-                .minus(ReminderInMinutes, DateTimeUnit.MINUTE)
-                .toEpochMilliseconds()
+            val triggerAtMillis = reminderTriggerAtMillis(
+                startTime = talkItem.startTime,
+                timeZone = TimeZone.currentSystemDefault(),
+                reminderInMinutes = ReminderInMinutes
+            )
             alarmManager.setAndAllowWhileIdle(
                 AlarmManager.RTC_WAKEUP,
                 triggerAtMillis,
