@@ -33,10 +33,15 @@ class Session(
     val feedback: FeedbackConfig?
 )
 
-fun Session.mapToSessionUi(strings: Strings, openFeedbackEnabled: Boolean = true): SessionUi {
-    val now = Clock.System.now().toLocalDateTime(TimeZone.UTC)
-    val diff = endTime.toInstant(TimeZone.UTC)
-        .minus(startTime.toInstant(TimeZone.UTC))
+fun Session.mapToSessionUi(
+    strings: Strings,
+    openFeedbackEnabled: Boolean = true,
+    clock: Clock = Clock.System,
+    timeZone: TimeZone = TimeZone.currentSystemDefault()
+): SessionUi {
+    val now = clock.now().toLocalDateTime(timeZone)
+    val diff = endTime.toInstant(timeZone)
+        .minus(startTime.toInstant(timeZone))
     return SessionUi(
         info = SessionInfoUi(
             title = title,
