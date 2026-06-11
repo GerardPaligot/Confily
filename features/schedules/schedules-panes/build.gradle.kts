@@ -19,6 +19,7 @@ kotlin {
                 implementation(projects.style.speakers)
                 implementation(projects.style.theme)
 
+                implementation(compose.runtimeSaveable)
                 implementation(compose.components.resources)
             }
         }

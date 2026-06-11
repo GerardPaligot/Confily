@@ -13,6 +13,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.listSaver
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.paligot.confily.navigation.ActionIds
@@ -50,7 +52,26 @@ fun ScheduleGridPager(
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
     val notTodayMessage = stringResource(Resource.string.text_now_not_today)
-    val gridStates = remember(agendas.size) {
+    // Persist each day's scroll position so it survives the screen leaving
+    // composition (e.g. navigating to a session detail and back).
+    val gridStates = rememberSaveable(
+        agendas.size,
+        saver = listSaver<List<LazyGridState>, Int>(
+            save = { states ->
+                states.flatMap {
+                    listOf(it.firstVisibleItemIndex, it.firstVisibleItemScrollOffset)
+                }
+            },
+            restore = { saved ->
+                val restored = saved.chunked(2).map { (index, offset) ->
+                    LazyGridState(index, offset)
+                }
+                // Always match the current page count so indexing by page is safe,
+                // even if the number of days changed while away from the screen.
+                List(agendas.size) { restored.getOrNull(it) ?: LazyGridState() }
+            }
+        )
+    ) {
         List(agendas.size) { LazyGridState() }
     }
     LaunchedEffect(key1 = Unit) {
