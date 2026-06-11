@@ -17,6 +17,9 @@ PRIMARY KEY (event_id, session_id, tag_id)
 upsertSessionTag:
 INSERT OR REPLACE INTO SessionTag VALUES ?;
 
+deleteSessionTagsByTalks:
+DELETE FROM SessionTag WHERE event_id == ? AND session_id IN ?;
+
 selectTagsBySessionId:
 SELECT Tag.id, Tag.name
 FROM Tag

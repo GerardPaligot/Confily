@@ -11,6 +11,9 @@ insertSocial:
 INSERT OR REPLACE INTO Social(url, type, ext_id, event_id)
 VALUES (?, ?, ?, ?);
 
+deleteSocialsByExtIds:
+DELETE FROM Social WHERE event_id == ? AND ext_id IN ?;
+
 selectSocials:
 SELECT Social.url, Social.type
 FROM Social

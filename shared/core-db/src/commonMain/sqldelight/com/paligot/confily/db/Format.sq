@@ -18,6 +18,9 @@ PRIMARY KEY (event_id, session_id, format_id)
 upsertSessionFormat:
 INSERT OR REPLACE INTO SessionFormat VALUES ?;
 
+deleteSessionFormatsByTalks:
+DELETE FROM SessionFormat WHERE event_id == ? AND session_id IN ?;
+
 selectFormats:
 SELECT id, name, time, selected
 FROM Format

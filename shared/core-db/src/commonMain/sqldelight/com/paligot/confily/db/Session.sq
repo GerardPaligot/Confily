@@ -115,11 +115,3 @@ WHERE event_id == ? AND talk_id NOT IN ?;
 
 deleteTalkWithSpeakers:
 DELETE FROM TalkSessionWithSpeakers WHERE event_id == ? AND talk_id IN ?;
-
-diffSessions:
-SELECT id
-FROM TalkSession
-WHERE event_id == ? AND id NOT IN ?;
-
-deleteSessions:
-DELETE FROM TalkSession WHERE event_id == ? AND id IN ?;

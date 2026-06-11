@@ -13,3 +13,9 @@ FOREIGN KEY (event_id) REFERENCES Event(id)
 upsertSchedule:
 INSERT OR REPLACE INTO Schedule(id, order_, session_id, session_type, start_time, end_time, room, event_id)
 VALUES ?;
+
+diffSchedules:
+SELECT id FROM Schedule WHERE event_id == ? AND id NOT IN ?;
+
+deleteSchedules:
+DELETE FROM Schedule WHERE event_id == ? AND id IN ?;
