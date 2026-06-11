@@ -72,8 +72,8 @@ FROM Shape
 WHERE event_id == ?
 ORDER BY order_;
 
-deleteShapes:
-DELETE FROM Shape WHERE event_id == ? AND map_id IN ?;
+deleteShapesByEvent:
+DELETE FROM Shape WHERE event_id == ?;
 
 insertPictogram:
 INSERT OR REPLACE INTO Pictogram(map_id, event_id, order_, name, description, x, y, type)
@@ -85,5 +85,5 @@ FROM Pictogram
 WHERE event_id == ?
 ORDER BY order_;
 
-deletePictograms:
-DELETE FROM Pictogram WHERE event_id == ? AND map_id IN ?;
+deletePictogramsByEvent:
+DELETE FROM Pictogram WHERE event_id == ?;
