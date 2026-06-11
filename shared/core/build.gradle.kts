@@ -116,6 +116,11 @@ kotlin {
             dependsOn(commonMain)
             dependsOn(mobileMain)
         }
+        val desktopTest by getting {
+            dependencies {
+                implementation(libs.cash.sqldelight.desktop)
+            }
+        }
     }
 
     sourceSets.all {
