@@ -281,7 +281,17 @@ class SessionDaoSQLDelight(
         agenda.sessions.forEach { session ->
             when (session) {
                 is com.paligot.confily.models.Session.Talk -> {
-                    db.sessionQueries.upsertTalkSession(session.convertToDb(eventId))
+                    db.sessionQueries.upsertTalkSession(
+                        id = session.id,
+                        event_id = eventId,
+                        title = session.title,
+                        abstract_ = session.abstract,
+                        level = session.level,
+                        language = session.language,
+                        slide_url = session.linkSlides,
+                        replay_url = session.linkReplay,
+                        open_feedback_url = session.openFeedback
+                    )
                     db.categoryQueries.upsertSessionCategory(
                         SessionCategory(
                             event_id = eventId,

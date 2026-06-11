@@ -3,7 +3,6 @@ package com.paligot.confily.core.agenda
 import com.paligot.confily.db.Event
 import com.paligot.confily.db.EventSession
 import com.paligot.confily.db.Schedule
-import com.paligot.confily.db.TalkSession
 import com.paligot.confily.db.TalkSessionWithSpeakers
 import com.paligot.confily.models.Category
 import com.paligot.confily.models.EventV5
@@ -72,19 +71,6 @@ fun <T : Session> ScheduleItemV4.convertToDb(eventId: String, type: KClass<T>): 
         session_type = if (type == Session.Talk::class) "Talk" else "Event",
         event_id = eventId
     )
-
-fun Session.Talk.convertToDb(eventId: String): TalkSession = TalkSession(
-    id = this.id,
-    title = this.title,
-    level = this.level,
-    abstract_ = this.abstract,
-    language = this.language,
-    slide_url = this.linkSlides,
-    replay_url = this.linkReplay,
-    open_feedback_url = this.openFeedback,
-    event_id = eventId,
-    is_favorite = false
-)
 
 fun Session.Talk.convertToDb(eventId: String, speakerId: String) = TalkSessionWithSpeakers(
     id = 0L,
