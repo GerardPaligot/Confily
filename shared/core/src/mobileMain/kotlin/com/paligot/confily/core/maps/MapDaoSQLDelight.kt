@@ -33,6 +33,10 @@ class MapDaoSQLDelight(
             .map { it.map(SelectFilledMaps::mapToEntity) }
 
     override fun insertMaps(eventId: String, maps: List<EventMap>) = db.transaction {
+        // Shapes/pictograms have autoincrement PKs (no backend id), so they can't be
+        // upserted. Clear them for the event, then rebuild from the response.
+        db.mapQueries.deleteShapesByEvent(event_id = eventId)
+        db.mapQueries.deletePictogramsByEvent(event_id = eventId)
         maps.forEach { map ->
             db.mapQueries.insertMap(
                 id = map.id,
@@ -74,8 +78,6 @@ class MapDaoSQLDelight(
         }
         val diff = db.mapQueries.diffMaps(event_id = eventId, id = maps.map { it.id })
             .executeAsList()
-        db.mapQueries.deleteShapes(event_id = eventId, map_id = diff)
-        db.mapQueries.deletePictograms(event_id = eventId, map_id = diff)
         db.mapQueries.deleteMaps(event_id = eventId, id = diff)
     }
 }

@@ -19,6 +19,9 @@ PRIMARY KEY (event_id, session_id, category_id)
 upsertSessionCategory:
 INSERT OR REPLACE INTO SessionCategory VALUES ?;
 
+deleteSessionCategoriesByTalks:
+DELETE FROM SessionCategory WHERE event_id == ? AND session_id IN ?;
+
 selectCategories:
 SELECT id, name, color, icon, selected
 FROM Category

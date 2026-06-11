@@ -30,3 +30,9 @@ WHERE EventSession.event_id = ? AND EventSession.id = ?;
 
 upsertEventSession:
 INSERT OR REPLACE INTO EventSession VALUES ?;
+
+diffEventSessions:
+SELECT id FROM EventSession WHERE event_id == ? AND id NOT IN ?;
+
+deleteEventSessions:
+DELETE FROM EventSession WHERE event_id == ? AND id IN ?;

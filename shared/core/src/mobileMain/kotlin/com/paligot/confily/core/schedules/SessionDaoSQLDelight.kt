@@ -248,8 +248,10 @@ class SessionDaoSQLDelight(
         }
 
     override fun insertAgenda(eventId: String, agenda: AgendaV4) = db.transaction {
+        val sessionIds = agenda.sessions.map { it.id }
         agenda.speakers.forEach { speaker ->
             db.speakerQueries.upsertSpeaker(speaker.convertToDb(eventId))
+            db.socialQueries.deleteSocialsByExtIds(event_id = eventId, ext_id = listOf(speaker.id))
             speaker.socials.forEach {
                 db.socialQueries.insertSocial(it.url, it.type.name.lowercase(), speaker.id, eventId)
             }
@@ -278,10 +280,27 @@ class SessionDaoSQLDelight(
                 event_id = eventId
             )
         }
+        // Rebuild junction/speaker links for the sessions in this response: clear them
+        // first, then re-insert below. A changed category/format/tag/speaker set then
+        // replaces the old one instead of leaving stale rows behind.
+        db.categoryQueries.deleteSessionCategoriesByTalks(event_id = eventId, session_id = sessionIds)
+        db.formatQueries.deleteSessionFormatsByTalks(event_id = eventId, session_id = sessionIds)
+        db.tagQueries.deleteSessionTagsByTalks(event_id = eventId, session_id = sessionIds)
+        db.sessionQueries.deleteTalkWithSpeakers(event_id = eventId, talk_id = sessionIds)
         agenda.sessions.forEach { session ->
             when (session) {
                 is com.paligot.confily.models.Session.Talk -> {
-                    db.sessionQueries.upsertTalkSession(session.convertToDb(eventId))
+                    db.sessionQueries.upsertTalkSession(
+                        id = session.id,
+                        event_id = eventId,
+                        title = session.title,
+                        abstract_ = session.abstract,
+                        level = session.level,
+                        language = session.language,
+                        slide_url = session.linkSlides,
+                        replay_url = session.linkReplay,
+                        open_feedback_url = session.openFeedback
+                    )
                     db.categoryQueries.upsertSessionCategory(
                         SessionCategory(
                             event_id = eventId,
@@ -336,30 +355,44 @@ class SessionDaoSQLDelight(
     }
 
     private fun clean(eventId: String, agenda: AgendaV4) = db.transaction {
-        val diffSpeakers = db.speakerQueries
+        val sessionIds = agenda.sessions.map { it.id }
+        val removedTalks = db.sessionQueries
+            .diffTalkSessions(event_id = eventId, id = sessionIds)
+            .executeAsList()
+        val removedEvents = db.eventSessionQueries
+            .diffEventSessions(event_id = eventId, id = sessionIds)
+            .executeAsList()
+        val removedSchedules = db.scheduleQueries
+            .diffSchedules(event_id = eventId, id = agenda.schedules.map { it.id })
+            .executeAsList()
+        val removedSpeakers = db.speakerQueries
             .diffSpeakers(event_id = eventId, id = agenda.speakers.map { it.id })
             .executeAsList()
-        db.speakerQueries.deleteSpeakers(event_id = eventId, id = diffSpeakers)
-        val diffCategories = db.categoryQueries
+        val removedCategories = db.categoryQueries
             .diffCategories(event_id = eventId, id = agenda.categories.map { it.id })
             .executeAsList()
-        db.categoryQueries.deleteCategories(event_id = eventId, id = diffCategories)
-        val diffFormats = db.formatQueries
+        val removedFormats = db.formatQueries
             .diffFormats(event_id = eventId, id = agenda.formats.map { it.id })
             .executeAsList()
-        db.formatQueries.deleteFormats(event_id = eventId, id = diffFormats)
-        val talkIds = agenda.sessions.map { it.id }
-        val diffTalkSession = db.sessionQueries
-            .diffTalkSessions(event_id = eventId, id = talkIds)
+        val removedTags = db.tagQueries
+            .diffTags(event_id = eventId, id = agenda.tags.map { it.id })
             .executeAsList()
-        db.sessionQueries.deleteTalkSessions(event_id = eventId, id = diffTalkSession)
-        val diffTalkWithSpeakers = db.sessionQueries
-            .diffTalkWithSpeakers(event_id = eventId, talk_id = talkIds)
-            .executeAsList()
-        db.sessionQueries.deleteTalkWithSpeakers(event_id = eventId, talk_id = diffTalkWithSpeakers)
-        val diffSessions = db.sessionQueries
-            .diffSessions(event_id = eventId, id = talkIds)
-            .executeAsList()
-        db.sessionQueries.deleteSessions(event_id = eventId, id = diffSessions)
+
+        // (a) Delete child/junction rows first so the parent deletes below cannot
+        // trip a foreign-key constraint (which would otherwise roll back the sync).
+        db.categoryQueries.deleteSessionCategoriesByTalks(event_id = eventId, session_id = removedTalks)
+        db.formatQueries.deleteSessionFormatsByTalks(event_id = eventId, session_id = removedTalks)
+        db.tagQueries.deleteSessionTagsByTalks(event_id = eventId, session_id = removedTalks)
+        db.sessionQueries.deleteTalkWithSpeakers(event_id = eventId, talk_id = removedTalks)
+        db.scheduleQueries.deleteSchedules(event_id = eventId, id = removedSchedules)
+        db.socialQueries.deleteSocialsByExtIds(event_id = eventId, ext_id = removedSpeakers)
+
+        // (b) Delete parents now that nothing references them.
+        db.sessionQueries.deleteTalkSessions(event_id = eventId, id = removedTalks)
+        db.eventSessionQueries.deleteEventSessions(event_id = eventId, id = removedEvents)
+        db.speakerQueries.deleteSpeakers(event_id = eventId, id = removedSpeakers)
+        db.categoryQueries.deleteCategories(event_id = eventId, id = removedCategories)
+        db.formatQueries.deleteFormats(event_id = eventId, id = removedFormats)
+        db.tagQueries.deleteTags(event_id = eventId, id = removedTags)
     }
 }

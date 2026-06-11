@@ -89,8 +89,13 @@ WHERE TalkSessionWithSpeakers.event_id = ? AND TalkSessionWithSpeakers.speaker_i
 markAsFavorite:
 UPDATE TalkSession SET is_favorite = ? WHERE id == ? AND event_id == ?;
 
-upsertTalkSession:
-INSERT OR REPLACE INTO TalkSession VALUES ?;
+upsertTalkSession {
+INSERT OR IGNORE INTO TalkSession(id, event_id, title, abstract, level, language, slide_url, replay_url, open_feedback_url, is_favorite)
+VALUES (:id, :event_id, :title, :abstract_, :level, :language, :slide_url, :replay_url, :open_feedback_url, 0);
+UPDATE TalkSession SET title = :title, abstract = :abstract_, level = :level, language = :language,
+slide_url = :slide_url, replay_url = :replay_url, open_feedback_url = :open_feedback_url, event_id = :event_id
+WHERE id = :id;
+}
 
 upsertTalkWithSpeakersSession:
 INSERT OR REPLACE INTO TalkSessionWithSpeakers(speaker_id, talk_id, event_id) VALUES ?;
@@ -110,11 +115,3 @@ WHERE event_id == ? AND talk_id NOT IN ?;
 
 deleteTalkWithSpeakers:
 DELETE FROM TalkSessionWithSpeakers WHERE event_id == ? AND talk_id IN ?;
-
-diffSessions:
-SELECT id
-FROM TalkSession
-WHERE event_id == ? AND id NOT IN ?;
-
-deleteSessions:
-DELETE FROM TalkSession WHERE event_id == ? AND id IN ?;

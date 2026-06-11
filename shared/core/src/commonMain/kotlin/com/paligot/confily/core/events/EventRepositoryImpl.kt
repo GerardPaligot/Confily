@@ -53,6 +53,7 @@ internal class EventRepositoryImpl(
             sessionDao.insertAgenda(eventId, exportPlanning)
             partnerDao.insertPartners(eventId, exportPartners)
         } catch (ex: Throwable) {
+            println("fetchAndStoreAgenda failed for event '$eventId': ${ex.message}")
             ex.printStackTrace()
         }
     }
