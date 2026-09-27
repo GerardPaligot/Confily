@@ -36,6 +36,7 @@ dependencies {
     implementation(libs.logback)
 
     implementation(libs.google.cloud.storage)
+    implementation(libs.supabase.storage.kt)
     implementation(libs.google.api.client)
     implementation(libs.google.auth.client)
     implementation(libs.google.drive)

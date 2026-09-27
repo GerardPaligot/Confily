@@ -2,7 +2,14 @@ package com.paligot.confily.backend.internals.infrastructure.system
 
 import org.jetbrains.exposed.crypt.Algorithms
 
+enum class StorageProvider { GCP, SUPABASE }
+
 object SystemEnv {
+    val storageProvider: StorageProvider = when (getEnv<String>("STORAGE_PROVIDER")?.lowercase()) {
+        "supabase" -> StorageProvider.SUPABASE
+        else -> StorageProvider.GCP
+    }
+
     object Exposed {
         val dbUrl: String = getEnv("EXPOSED_DB_URL") ?: "jdbc:h2:mem:regular;DB_CLOSE_DELAY=-1"
         val dbDriver: String = getEnv("EXPOSED_DB_DRIVER") ?: "org.h2.Driver"
@@ -19,10 +26,15 @@ object SystemEnv {
     object GoogleProvider {
         val projectId: String = getEnv("PROJECT_ID")
             ?: throw IllegalStateException("PROJECT_ID is required")
-        val storageBucket: String = getEnv("GOOGLE_STORAGE_BUCKET")
-            ?: throw IllegalStateException("GOOGLE_STORAGE_BUCKET is required")
+        val storageBucket: String? = getEnv("GOOGLE_STORAGE_BUCKET")
         val geocodeApiKey: String = getEnv("GEOCODE_API_KEY")
             ?: throw IllegalStateException("GEOCODE_API_KEY is required")
+    }
+
+    object SupabaseProvider {
+        val url: String? = getEnv("SUPABASE_URL")
+        val serviceRoleKey: String? = getEnv("SUPABASE_SERVICE_ROLE_KEY")
+        val storageBucket: String? = getEnv("SUPABASE_STORAGE_BUCKET")
     }
 
     object OpenPlannerProvider {
